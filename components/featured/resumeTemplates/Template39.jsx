@@ -491,7 +491,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.languages?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -842,8 +842,10 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             <View
               wrap={data?.project?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
-              <View style={{ flexDirection: "column", gap: 12 }}>
+              <View wrap={false}
+                style={{ flexDirection: "column", gap: 12 }}>
                 <Text
+
                   style={{
                     color: "#030203",
                     fontSize: "16px",

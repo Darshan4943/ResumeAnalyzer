@@ -65,9 +65,11 @@ const ResumePreview = ({
   render,
   clientId,
 }) => {
+
+  console.log(777, data)
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-
+  console.log(111,selectedColor)
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -100,13 +102,16 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          
+          if (!isEdit) {
+            setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +121,20 @@ const ResumePreview = ({
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_resume");
+    if (!isEdit) {
+      setName(data.firstName + "_resume");
+    } else {
+      if (Array.isArray(data.fileName) && data.fileName.length > 0) {
+        const fileName = data.fileName[0];
+        if (typeof fileName === 'string' && fileName.endsWith(".pdf")) {
+          setName(fileName.slice(0, -4));
+        } else {
+          setName(fileName);
+        }
+      } else {
+        setName('');
+      }
+    }
   }, [userDataGlobal, data.firstName, saveLimit]);
 
   const selectResumeTemplate = (index) => {
@@ -483,7 +501,7 @@ const ResumePreview = ({
     axios
       .put(
         "https://jamblix.com/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+        userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
@@ -782,6 +800,8 @@ const ResumePreview = ({
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
           clientId={clientId}
+          isResume={true}
+          isEdit={isEdit}
         />
       )}
     </div>

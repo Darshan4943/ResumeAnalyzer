@@ -19,8 +19,8 @@ import { formatLink } from "../../../utils/middleware";
 //template 13
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
   const formatLink1 = (link) => {
-    if (link?.length > 32) {
-      return link?.match(/.{1,32}/g).join("\n");
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
     }
     return link;
   };
@@ -284,7 +284,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.achievements?.length > 0 &&
             data?.showAchievements === true && (
               <View
-                wrap={data?.achievements?.length > 1 ? true : false}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   width: "100%",
@@ -429,6 +429,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 style={{ display: "flex", alignItems: "center", width: "100%" }}
               >
                 <Text
+                  wrap={data?.internship?.length > 1 ? true : false}
                   style={{
                     fontFamily: `${selectedFont} 500`,
                     // color: selectedColor,
@@ -793,7 +794,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                         height: "20px"
                       }}
                     >
-                      {detail.qualification}
+                      {formatLink1(detail.qualification)}
                     </Text>
                     {detail.duration?.start?.year && (
                       <Text
