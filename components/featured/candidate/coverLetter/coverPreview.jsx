@@ -17,6 +17,7 @@ import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
 import CoverLetter13 from "./letters/CoverLatter13";
+import LimitUsedModal from "../../../models/limitUsedModal";
 
 function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);
@@ -26,6 +27,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
   const [loading, setLoading] = useState(false);
+
   const [download, setDownload] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -33,7 +35,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [maxZoomLevel, setMaxZoomLevel] = useState(2);
   const [saveLimit, setSaveLimit] = useState(0);
   const [downloadLimit, setDownloadLimit] = useState(0);
-
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
   const getLimits = () => {
     const downloadCount = localStorage.getItem("downloadCount");
     const saveCount = localStorage.getItem("saveCount");
@@ -115,7 +117,13 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       if (!pdfBlob) {
         return;
       }
-
+      if (saveLimit <= 0) {
+        setLoading(false);
+        setLoading1(false);
+        setLimitUsedModal(true);
+      
+        return;
+      }
    
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
@@ -215,6 +223,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   };
 
   //downloadw
+ 
   const downloadPdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
@@ -223,13 +232,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       const canvas1 = await html2canvas(input1, { scale: 5 });
       const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
 
-      const canvas2 = await html2canvas(input2, { scale: 5 });
-      const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
-
       const pdf = new jsPDF("p", "pt", "a4");
       pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
-      pdf.addPage();
-      pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+      if (input2) {
+        const canvas2 = await html2canvas(input2, { scale: 5 });
+        const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+      }
 
       const pdfBlob = pdf.output("blob");
 
@@ -242,7 +253,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       return null;
     }
   };
-
   const handleDownload = async () => {
     const pdfBlob = await downloadPdfBlob();
 
@@ -405,6 +415,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
+       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div className="scr1024:flex scr1024:flex-row flex-col-reverse justify-between ml:gap-0 gap-2 sticky top-0">
         <div
           className="scr1024:flex  items-center justify-between  scr1024:w-[58%] w-full gap-4"
