@@ -66,10 +66,10 @@ const ResumePreview = ({
   clientId,
 }) => {
 
-  console.log(777, data)
+ 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-  console.log(111,selectedColor)
+ 
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -377,7 +377,7 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
-    console.log(666, blob);
+
     setdisabled(true);
 
     if (blob !== null) {
@@ -400,16 +400,34 @@ const ResumePreview = ({
             }
           });
         }
+        
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
 
+        if (userDataGlobal.role === "user") {
+          formData.append("UserId", userDataGlobal._id);
+        } else if (userDataGlobal.role === "recruiter") {
+          formData.append("UserId", userDataGlobal._id);
+          
+        }
+
         axios
           .put("https://jamblix.com/api/resume/" + id, formData)
           .then((res) => {
+            const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", saveLimit - 1);
+            if (download) {
+              const link = document.createElement("a");
+              link.href = pdfUrl;
+              link.download = res.data.data.fileName;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+
             getLimits();
             toast.success("Resume Updated successfully");
             setTimeout(() => {
@@ -497,6 +515,7 @@ const ResumePreview = ({
     }
   };
   const updateDownloadCount = async () => {
+    console.log("hii")
     setDownloadBtnLoading(true);
     axios
       .put(

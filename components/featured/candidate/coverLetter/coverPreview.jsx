@@ -31,6 +31,23 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [minZoomLevel, setMinZoomLevel] = useState(0.5);
   const [maxZoomLevel, setMaxZoomLevel] = useState(2);
+  const [saveLimit, setSaveLimit] = useState(0);
+  const [downloadLimit, setDownloadLimit] = useState(0);
+
+  const getLimits = () => {
+    const downloadCount = localStorage.getItem("downloadCount");
+    const saveCount = localStorage.getItem("saveCount");
+    if (downloadCount) {
+      setDownloadLimit(downloadCount);
+    }
+    if (saveCount) {
+      setSaveLimit(saveCount);
+    }
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   const updateZoomLimits = () => {
     const width = window.innerWidth;
@@ -112,6 +129,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           }
         });
       }
+      formData.append("UserId", userDataGlobal._id);
       formData.append("pdfBlob", pdfBlob);
       if (userDataGlobal.role === "user") {
         formData.append("userId", userDataGlobal._id);
@@ -126,6 +144,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         "https://jamblix.com/api/cover/add",
         formData
       );
+     
+      localStorage.setItem("saveCount", saveLimit - 1);
+      getLimits();
       toast.success("Cover Letter added successfully");
       setLoading(false);
       setLoading1(false);
@@ -512,7 +533,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           >
             <div
               style={{ transform: `scale(${zoomLevel})` }}
-              // Zoom Level: {zoomLevel}
+            // Zoom Level: {zoomLevel}
             >
               {" "}
             </div>
@@ -579,6 +600,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
           clientId={clientId}
+          isResume={false}
         />
       )}
     </div>

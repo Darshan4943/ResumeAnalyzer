@@ -102,7 +102,7 @@ export const Api = ({ }) => {
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-
+console.log(444,result)
           if (result?.isActive == true) {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan

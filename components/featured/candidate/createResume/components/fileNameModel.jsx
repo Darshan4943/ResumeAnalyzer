@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,isEdit}) => {
-  console.log(isResume)
-  const [name, setName] = useState(data.firstName + "_resume");
+  console.log(555,isResume)
+  const [name, setName] = useState(data.firstName + (isResume  ? "_resume" : "_cover"));
   const [existingNames, setExistingNames] = useState([]);
 
   const [error, setError] = useState("");
@@ -22,19 +22,23 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
 
   const callData = () => {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
-    const url=isResume ?`https://jamblix.com/api/resume/${id}` :"https://jamblix.com/api/cover/get/"+ id
+    const url = isResume
+    ? `https://jamblix.com/api/resume/${id}`
+    : `https://jamblix.com/api/cover/get/${id}`;
+  
     if (id) {
       axios
       .get(url )
 
       .then((res) => {
-        console.log(res.data.data);
+        console.log(333,res.data.data);
         const filenamesWithoutExtension = res.data.data.flatMap((item) =>
             item.fileName.map((filename) => filename.replace(/\.pdf$/, ""))
         );
+        
         setExistingNames(filenamesWithoutExtension);
         if (!isEdit) {
-            setName(data.firstName + "_resume " + (res.data.data.length + 1));
+            setName(data.firstName + (isResume  ? "_resume" : "_cover ") + (res.data.data.length + 1));
         }
     })
         .catch((err) => {
@@ -47,7 +51,7 @@ console.log(existingNames)
   useEffect(() => {
     callData();
     if (!isEdit) {
-      setName(data.firstName + "_resume");
+      setName(data.firstName + (isResume  ? "_resume" : "_cover"));
     } else {
       if (Array.isArray(data.fileName) && data.fileName.length > 0) {
         const fileName = data.fileName[0];
