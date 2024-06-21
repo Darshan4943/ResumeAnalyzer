@@ -199,7 +199,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   {formatEmail(data.email)}
                 </Text>
               </View>
-
+              {/* {data?.location?.length > 0 && ( */}
               <View
                 style={{
                   display: "flex",
@@ -232,6 +232,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   {formatLink(data.location)}
                 </Text>
               </View>
+              {/* )} */}
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
@@ -511,92 +512,97 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </View>
               </View>
             )}
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
-              <View
-                wrap={data?.hobbies?.length > 1 ? true : false}
-                style={{ display: "flex", flexDirection: "column", gap: 12 }}
-              >
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 4 }}
-                >
+            <View wrap={false} style={{ display: "flex", gap: 8 }}>
+              {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+                data?.hobbies?.map((detail, index) => (
                   <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: 8,
-                      alignItems: "center",
-                    }}
+                    key={index}
+                    wrap={data?.hobbies?.length > 1 ? true : false}
+                    style={{ display: "flex", flexDirection: "column", gap: 12 }}
                   >
-                    <Image
-                      style={{ width: "21px", height: "21px" }}
-                      src="/images/template48/Hobbies.png"
-                      alt=""
-                    />
-
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#383839",
-                      }}
-                    >
-                      Hobbies
-                    </Text>
-                  </View>
-
-                  <Svg
-                    width="176"
-                    height="2"
-                    viewBox="0 0 176 2"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
-                    <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
-                  </Svg>
-                </View>
-
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
-                >
-                  {data?.hobbies?.map((detail, index) => (
-                    <View
-                      key={index}
-                      wrap={false}
-                      style={{
-                        flexDirection: "row",
-                        gap: 8,
-                        alignItems: "center",
-                      }}
-                    >
-                      <Svg
-                        width="6"
-                        height="7"
-                        viewBox="0 0 6 7"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                    {index === 0 &&
+                      <View
+                        wrap={false}
+                        style={{ display: "flex", flexDirection: "column", gap: 4 }}
                       >
-                        <Path
-                          d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
-                          fill={selectedColor}
-                        />
-                      </Svg>
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: 8,
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            style={{ width: "21px", height: "21px" }}
+                            src="/images/template48/Hobbies.png"
+                            alt=""
+                          />
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              fontFamily: `${selectedFont} 400`,
+                              color: "#383839",
+                            }}
+                          >
+                            Hobbies
+                          </Text>
+                        </View>
 
-                      <Text
+                        <Svg
+                          width="176"
+                          height="2"
+                          viewBox="0 0 176 2"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
+                          <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
+                        </Svg>
+                      </View>
+                    }
+                    <View
+                      style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                    >
+
+                      <View
+                        key={index}
+                        wrap={false}
                         style={{
-                          fontSize: 10,
-                          fontFamily: `${selectedFont} 400`,
-                          color: "#58595B",
+                          flexDirection: "row",
+                          gap: 8,
+                          alignItems: "center",
                         }}
                       >
-                        {detail.title}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            )}
+                        <Svg
+                          width="6"
+                          height="7"
+                          viewBox="0 0 6 7"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path
+                            d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                            fill={selectedColor}
+                          />
+                        </Svg>
 
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 400`,
+                            color: "#58595B",
+                          }}
+                        >
+                          {detail.title}
+                        </Text>
+                      </View>
+
+                    </View>
+                  </View>
+                ))
+              )}
+            </View>
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
                 wrap={data?.socialLinks?.length > 1 ? true : false}
