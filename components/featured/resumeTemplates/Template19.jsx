@@ -1322,6 +1322,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   alignItems: "flex-start",
                   width: 268,
                 }}
+                wrap={data?.internship?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1359,6 +1360,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           gap: 4,
                           width: "100%",
                         }}
+                        wrap={false}
                       >
                         <View
                           style={{
