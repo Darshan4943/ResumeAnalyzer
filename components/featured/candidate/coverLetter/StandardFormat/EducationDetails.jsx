@@ -30,6 +30,15 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
     employerCountry: false,
   });
 
+  useEffect(() => {
+    setEducationalData({
+      jobTitle: data?.jobTitle,
+      sector: data?.sector,
+      course: data?.course,
+      specialization: data?.specialization,
+      university: data?.university,
+    });
+  }, [data]);
   const inputFields = [
     {
       label: "Desired Job Title",

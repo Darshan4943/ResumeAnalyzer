@@ -284,7 +284,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.achievements?.length > 0 &&
             data?.showAchievements === true && (
               <View
-                wrap={data?.achievements?.length > 1 ? true : false}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   width: "100%",
@@ -429,7 +429,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 style={{ display: "flex", alignItems: "center", width: "100%" }}
               >
                 <Text
-                  wrap={data?.internship?.length > 1 ? true : false} 
+                  wrap={data?.internship?.length > 1 ? true : false}
                   style={{
                     fontFamily: `${selectedFont} 500`,
                     // color: selectedColor,
