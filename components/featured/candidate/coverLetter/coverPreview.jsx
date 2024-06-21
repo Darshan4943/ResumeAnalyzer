@@ -20,7 +20,7 @@ import CoverLetter13 from "./letters/CoverLatter13";
 
 function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);
-  const [name, setName] = useState(data.firstName + "_resume");
+  const [name, setName] = useState(data.firstName + "_cover");
   const [blob, setBlob] = useState("");
   const userDataGlobal = useSelector((state) => state.userData);
   const page1Ref = useRef(null);
@@ -169,7 +169,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         .then((res) => {
           // Remove .pdf extension from filenames
 
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          setName(data.firstName + "_cover " + (res.data.data.length + 1));
         })
         .catch((err) => {
           console.log(err);
@@ -179,7 +179,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_resume");
+    setName(data.firstName + "_cover");
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
