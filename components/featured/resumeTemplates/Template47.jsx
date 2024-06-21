@@ -359,7 +359,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                             </View>
                             <View
-                                style={{ display: "flex", flexDirection: "row", gap: 24, flexWrap: "wrap", }}
+                                style={{ display: "flex", flexDirection: "row", columnGap: "24px", rowGap: "6px", flexWrap: "wrap", }}
                             >
                                 {data?.skills?.map((detail, index) => (
                                     <View
@@ -515,11 +515,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                                             {/* <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>
                                             </Text> */}
-                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.platform}</Text>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: "100%" }}>{detail.platform}</Text>
                                         </View>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                                             {/* <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}></Text> */}
-                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{formatLink(detail.link)}</Text>
+                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: "100%" }}>{detail.link}</Text>
                                         </View>
                                     </View>
                                 ))}
