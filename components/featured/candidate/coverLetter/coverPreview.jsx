@@ -116,7 +116,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         return;
       }
 
-      console.log(666);
+   
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -144,7 +144,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         "https://jamblix.com/api/cover/add",
         formData
       );
-     
+
       localStorage.setItem("saveCount", saveLimit - 1);
       getLimits();
       toast.success("Cover Letter added successfully");
@@ -183,8 +183,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
-    if (!page1Ref.current || !page2Ref.current) {
-      console.error("References to pages are not set.");
+    if (!page1Ref.current) {
+      console.error("Reference to page 1 is not set.");
       return null;
     }
 
@@ -195,13 +195,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       const canvas1 = await html2canvas(input1, { scale: 5 });
       const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
 
-      const canvas2 = await html2canvas(input2, { scale: 5 });
-      const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
-
       const pdf = new jsPDF("p", "pt", "a4");
       pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
-      pdf.addPage();
-      pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+      if (input2) {
+        const canvas2 = await html2canvas(input2, { scale: 5 });
+        const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+      }
 
       const pdfBlob = pdf.output("blob");
 
@@ -533,7 +535,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           >
             <div
               style={{ transform: `scale(${zoomLevel})` }}
-            // Zoom Level: {zoomLevel}
+              // Zoom Level: {zoomLevel}
             >
               {" "}
             </div>
