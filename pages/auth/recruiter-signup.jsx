@@ -12,7 +12,7 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({}) {
+function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -38,16 +38,19 @@ function Recruiter_signup({}) {
   const [otpEntered, setOtpEntered] = useState(null);
   const [verified, setVerified] = useState(false);
   const [otpError, setOtpError] = useState("");
+
+  const [formError, setFormError] = useState({});
+  console.log(666,formError)
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     mobileNo: "",
     email: "",
     currentLocation: "",
-    dial_code: "+260",
+    dial_code: "",
     img: null,
   });
-
+  console.log(888,data)
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
 
@@ -104,8 +107,9 @@ function Recruiter_signup({}) {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return strongPasswordRegex.test(password);
   }
+
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
-  const [formError, setFormError] = useState({});
+ 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -187,6 +191,13 @@ function Recruiter_signup({}) {
           }
         }
         break;
+      case "dial_code":
+        if (!value.trim()) {
+          errors.dial_code = "Dial code is required";
+        } else {
+          delete errors.dial_code;
+        }
+        break;
 
       default:
         break;
@@ -196,6 +207,7 @@ function Recruiter_signup({}) {
 
     return errors;
   };
+
   const handleInputChange = (fieldName, value) => {
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
@@ -216,6 +228,11 @@ function Recruiter_signup({}) {
     setSelectedItem(item);
     setData({ ...data, dial_code: item.dial_code });
     setSearchTerm("");
+    setFormError((prevErrors) => {
+      const updatedErrors = { ...prevErrors };
+      delete updatedErrors.dial_code;
+      return updatedErrors;
+    });
   };
   useEffect(() => {
     const filterLogic = (item) =>
@@ -252,12 +269,21 @@ function Recruiter_signup({}) {
       "email",
       "currentLocation",
       "mobileNo",
+      "dial_code"
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
+    if (!data.dial_code) {
+      setFormError((prevErrors) => ({
+        ...prevErrors,
+        dial_code: "Please select a dial code"
+      }));
+      return;
+    }
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
       return;
     }
+    
 
     const hasErrors = Object.keys(errors).length > 0;
     const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
@@ -307,9 +333,8 @@ function Recruiter_signup({}) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${
-                      sendToPurchase.index + 1
-                    }`;
+                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                      }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home?signIn=false`;
@@ -559,15 +584,13 @@ function Recruiter_signup({}) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div
                             onWheel={(e) => e.stopPropagation()}
@@ -624,11 +647,10 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
+                          placeholder={`${isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                          }`}
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -638,9 +660,14 @@ function Recruiter_signup({}) {
 
                       {/* Display error message if any */}
                       {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.mobileNo}
-                        </p>
+                        <>
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.mobileNo}
+                          </p>
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.dial_code}
+                          </p>
+                        </>
                       )}
                     </div>
                   </div>

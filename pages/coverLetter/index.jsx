@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
 
 function Index() {
   const router = useRouter();
+  const { EditData, isCoverEdit } = router.query;
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
   const [selectedColor, setSelectedColor] = useState();
+  const [isEdit, setIsEdit] = useState(false);
 
   const { clientId } = router.query;
+
   const defaultState = {
     firstName: "",
     lastName: "",
@@ -42,9 +45,16 @@ function Index() {
     university: "",
     letterDate: "",
     passages: "",
+    type: "",
   };
 
   const [data, setData] = useState(defaultState);
+
+  useEffect(() => {
+    if (EditData) {
+      setData(JSON.parse(EditData));
+    }
+  }, [isCoverEdit, EditData]);
 
   return (
     <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">
@@ -58,6 +68,7 @@ function Index() {
           selectedFont={selectedFont}
           data={data}
           setData={setData}
+          isCoverEdit={isCoverEdit}
         />
       </div>
       <div className=" ml:hidden w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>

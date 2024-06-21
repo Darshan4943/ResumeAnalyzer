@@ -7,7 +7,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 300; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -56,7 +56,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                     CONTACT
                   </span>
                   <div className="flex flex-col gap-[6px] flex-wrap">
-                    <div className="gap-[8px] flex flex-row w-full flex-wrap ">
+                    <div className="gap-[8px] flex flex-row w-full flex-wrap items-center">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -71,12 +71,12 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         />
                       </svg>
 
-                      <span className=" flex flex-wrap text-[10px] font-[400] text-[#58595B] leading-[12px]">
-                        {data?.mobileNumber}
+                      <span className=" flex flex-wrap text-[10px] font-Lato font-[400] text-[#58595B] leading-[12px] break-all">
+                        {data?.dial_code} {data?.mobileNumber}
                       </span>
                     </div>
 
-                    <div className="gap-[8px] flex flex-row flex-wrap ">
+                    <div className="gap-[8px] flex flex-row flex-wrap items-center ">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -91,12 +91,12 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         />
                       </svg>
 
-                      <span className="flex flex-wrap leading-[12px] text-[10px] font-[400] text-[#58595B]">
+                      <span className="flex flex-wrap leading-[12px] text-[10px] font-[400] text-[#58595B] font-Lato break-all">
                         {data?.email}
                       </span>
                     </div>
 
-                    <div className="gap-[8px] flex flex-row ">
+                    <div className="gap-[8px] flex flex-row items-center">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -111,7 +111,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         />
                       </svg>
 
-                      <span className="text-[10px] font-[400] text-[#58595B]">
+                      <span className="text-[10px] font-[400] text-[#58595B] font-Lato break-all">
                         {data?.address}
                       </span>
                     </div>
@@ -119,7 +119,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                 </div>
                 <div className="w-[67%] flex flex-col gap-[16px]">
                   <div className="flex flex-col gap-[2px]">
-                    <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px]">
+                    <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px] break-all font-Lato">
                       {data?.firstName} {data?.lastName}
                     </span>
                     <span className="text-[#58595B] text-[13px] font-[400] leading-[15.6px]">

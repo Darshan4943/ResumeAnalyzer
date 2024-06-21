@@ -16,21 +16,40 @@ import CoverLetter2 from "./letters/CoverLetter2";
 import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
+import CoverLetter13 from "./letters/CoverLatter13";
+import LimitUsedModal from "../../../models/limitUsedModal";
 
 function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);
-  const [name, setName] = useState(data.firstName + "_resume");
+  const [name, setName] = useState(data.firstName + "_cover");
   const [blob, setBlob] = useState("");
   const userDataGlobal = useSelector((state) => state.userData);
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [download, setDownload] = useState(false);
 
+  const [download, setDownload] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [minZoomLevel, setMinZoomLevel] = useState(0.5);
   const [maxZoomLevel, setMaxZoomLevel] = useState(2);
+  const [saveLimit, setSaveLimit] = useState(0);
+  const [downloadLimit, setDownloadLimit] = useState(0);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+  const getLimits = () => {
+    const downloadCount = localStorage.getItem("downloadCount");
+    const saveCount = localStorage.getItem("saveCount");
+    if (downloadCount) {
+      setDownloadLimit(downloadCount);
+    }
+    if (saveCount) {
+      setSaveLimit(saveCount);
+    }
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   const updateZoomLimits = () => {
     const width = window.innerWidth;
@@ -98,7 +117,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       if (!pdfBlob) {
         return;
       }
-
+      if (saveLimit <= 0) {
+        setLoading(false);
+        setLoading1(false);
+        setLimitUsedModal(true);
+      
+        return;
+      }
+   
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -111,6 +137,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           }
         });
       }
+      formData.append("UserId", userDataGlobal._id);
       formData.append("pdfBlob", pdfBlob);
       if (userDataGlobal.role === "user") {
         formData.append("userId", userDataGlobal._id);
@@ -125,6 +152,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         "https://jamblix.com/api/cover/add",
         formData
       );
+
+      localStorage.setItem("saveCount", saveLimit - 1);
+      getLimits();
       toast.success("Cover Letter added successfully");
       setLoading(false);
       setLoading1(false);
@@ -147,7 +177,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         .then((res) => {
           // Remove .pdf extension from filenames
 
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          setName(data.firstName + "_cover " + (res.data.data.length + 1));
         })
         .catch((err) => {
           console.log(err);
@@ -157,10 +187,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_resume");
+    setName(data.firstName + "_cover");
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
+    if (!page1Ref.current) {
+      console.error("Reference to page 1 is not set.");
+      return null;
+    }
+
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
 
@@ -168,13 +203,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       const canvas1 = await html2canvas(input1, { scale: 5 });
       const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
 
-      const canvas2 = await html2canvas(input2, { scale: 5 });
-      const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
-
       const pdf = new jsPDF("p", "pt", "a4");
       pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
-      pdf.addPage();
-      pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+      if (input2) {
+        const canvas2 = await html2canvas(input2, { scale: 5 });
+        const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+      }
 
       const pdfBlob = pdf.output("blob");
 
@@ -186,6 +223,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   };
 
   //downloadw
+ 
   const downloadPdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
@@ -194,13 +232,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       const canvas1 = await html2canvas(input1, { scale: 5 });
       const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
 
-      const canvas2 = await html2canvas(input2, { scale: 5 });
-      const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
-
       const pdf = new jsPDF("p", "pt", "a4");
       pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
-      pdf.addPage();
-      pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+      if (input2) {
+        const canvas2 = await html2canvas(input2, { scale: 5 });
+        const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+      }
 
       const pdfBlob = pdf.output("blob");
 
@@ -213,7 +253,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       return null;
     }
   };
-
   const handleDownload = async () => {
     const pdfBlob = await downloadPdfBlob();
 
@@ -229,6 +268,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   const handleSave = async () => {
     const pdfBlob = await generatePdfBlob();
+
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
     } else {
@@ -237,6 +277,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       setLoading1(false);
     }
   };
+
   const DownloadButton = () => (
     <button
       onClick={() => {
@@ -310,6 +351,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         return <CoverLetter10 data={data} />;
       case 11:
         return <CoverLetter11 data={data} />;
+      case 13:
+        return <CoverLetter13 data={data} />;
 
       default:
         return <CoverLetter data={data} />;
@@ -372,6 +415,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
+       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div className="scr1024:flex scr1024:flex-row flex-col-reverse justify-between ml:gap-0 gap-2 sticky top-0">
         <div
           className="scr1024:flex  items-center justify-between  scr1024:w-[58%] w-full gap-4"
@@ -403,8 +447,12 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         <div className="flex gap-4 justify-end ">
           <button
             onClick={() => {
-              handleSave();
-              setLoading(true);
+              if (data?.passages) {
+                handleSave();
+                setLoading(true);
+              } else {
+                toast.error("required to fill details!");
+              }
             }}
             className="flex gap-1 h-[38.33px] scr1024:text-[14px] scr1024:w-[150px]  min-w-[100px] justify-center text-[#FFF] font-montserrat font-semibold scr1024:px-3 scr1024:py-2  px-[4px] py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
           >
@@ -565,6 +613,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
           clientId={clientId}
+          isResume={false}
         />
       )}
     </div>

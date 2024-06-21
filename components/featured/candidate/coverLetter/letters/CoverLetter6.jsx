@@ -66,7 +66,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] leading-[12.1px]">
+                <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] leading-[12.1px] break-all">
                   {data?.mobileNumber}
                 </span>
               </div>
@@ -102,7 +102,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                     />
                   </svg>
 
-                  <span className=" flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042] ">
+                  <span className=" flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042] break-all">
                     {data?.email}
                   </span>
                 </div>
@@ -127,7 +127,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                     />
                   </svg>
 
-                  <span className="flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042]">
+                  <span className="flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042] break-all">
                     {data?.address}
                   </span>
                 </div>
@@ -135,12 +135,12 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
             </div>
             <div className="flex flex-col items-start">
               <div className="flex flex-wrap">
-                <span className="flex flex-wrap text-[38px] leading-[45.99px] font-[400] text-[#000000] font-Inter">
+                <span className="flex flex-wrap text-[38px] leading-[45.99px] font-[400] text-[#000000] font-Inter break-all">
                   {data.firstName} {data.lastName}
                 </span>
               </div>
               <div className="flex flex-wrap ">
-                <span className=" text-[16px] font-[400] text-[#000000] font-Inter leading-[19.36px]">
+                <span className=" text-[16px] font-[400] text-[#000000] font-Inter leading-[19.36px] break-all">
                   {data?.designation}
                 </span>
               </div>
@@ -150,19 +150,19 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
           <div className="flex flex-col w-full gap-[24px]">
             <div className="flex flex-row justify-between w-full">
               <div className="flex flex-col w-[70%]">
-                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px] break-all">
                   To,
                 </span>
-                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px] break-all">
                   {data?.employerName}
                 </span>
-                <span className="  text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                <span className="  text-[12px] font-[500] text-[#000000] font-Inter leading-[16px] break-all">
                   {data?.designation}
                 </span>
-                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px] break-all">
                   {data?.employerOrganizationName}
                 </span>
-                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px] break-all">
                   {data?.employerAddress} {data?.employerCityState}{" "}
                   {data?.employerCountry}
                 </span>
@@ -198,7 +198,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                 <span className="text-[10px] font-[400] text-[#414042] ">
                   Warm regards,
                 </span>
-                <span className="text-[10px] font-[400] text-[#414042]  ">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>
@@ -225,7 +225,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                       <span className="text-[10px] font-[400] text-[#414042] ">
                         Warm regards,
                       </span>
-                      <span className="text-[10px] font-[400] text-[#414042]  ">
+                      <span className="text-[10px] font-[400] text-[#414042] break-all  ">
                         {data?.firstName} {data?.lastName}
                       </span>
                     </div>

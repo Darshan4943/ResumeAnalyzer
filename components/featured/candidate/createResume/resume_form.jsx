@@ -222,7 +222,7 @@ const ResumeForm = ({
               </g>
             </svg>
           </button>
-          <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+          <div className="text-[18px] font-medium text-[#FFFFFF]  header1 min-w-[280px] w-[85%] flex justify-start px-4 py-[6px] ">
             Create Resume
           </div>
 

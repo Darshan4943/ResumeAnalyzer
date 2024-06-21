@@ -12,8 +12,8 @@ import {
 } from "@react-pdf/renderer";
 function Template39({ data, selectedColor, selectedFont, preview }) {
   const formatLink = (link) => {
-    if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join("\n");
+    if (link?.length > 19) {
+      return link?.match(/.{1,19}/g).join("\n");
     }
     return link;
   };
@@ -262,7 +262,16 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {formatLink(detail.qualification)} - {formatLink(detail.specialization)}
+                              {formatLink(detail.qualification)}
+                            </Text>
+                            <Text
+                              style={{
+                                color: "#000000",
+                                fontSize: "12px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {formatLink(detail.specialization)}
                             </Text>
 
                             <Text
@@ -281,6 +290,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 color: "#58595B",
                                 fontSize: "10px",
                                 fontFamily: `${selectedFont} 400`,
+                                height: "15px",
                               }}
                             >
                               {detail.duration?.start?.year !== "Year" &&
@@ -481,7 +491,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.languages?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -827,12 +837,15 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           )}
+
           {data?.project?.length > 0 && data?.showProject === true && (
             <View
               wrap={data?.project?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
-              <View style={{ flexDirection: "column", gap: 12 }}>
+              <View wrap={false}
+                style={{ flexDirection: "column", gap: 12 }}>
                 <Text
+
                   style={{
                     color: "#030203",
                     fontSize: "16px",
@@ -918,6 +931,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           )}
+
           {data?.internship?.length > 0 && data?.showInternship === true && (
             <View wrap={data?.internship?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1246,7 +1260,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
-                          {detail?.title}{" "}
+                          {detail?.title}
                         </Text>
                         {detail.duration?.start?.year && (
                           <View style={{ flexDirection: "row", gap: 4 }}>

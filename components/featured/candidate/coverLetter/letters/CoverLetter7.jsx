@@ -7,7 +7,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 450; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -50,16 +50,16 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       >
         <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
-            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins ">
+            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-all ">
               {data?.firstName} {data?.lastName}
             </span>
 
-            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] ">
+            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-all">
               {data?.designation}
             </span>
           </div>
           <div className="flex flex-col gap-[8px]">
-            <div className="gap-[8px] flex flex-row w-full ">
+            <div className="gap-[8px] flex flex-row w-full items-center">
               <svg
                 className="min-h-[15px] min-w-[15px]"
                 width="15"
@@ -74,12 +74,12 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                 />
               </svg>
 
-              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042]">
-                {data?.mobileNumber}
+              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042] break-all">
+                {data?.dial_code} {data?.mobileNumber}
               </span>
             </div>
             <div>
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row  items-center">
                 <svg
                   className="min-h-[15px] min-w-[15px]"
                   width="15"
@@ -94,13 +94,13 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.email}
                 </span>
               </div>
             </div>
             <div>
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row items-center">
                 <svg
                   className="min-h-[15px] min-w-[15px]"
                   width="15"
@@ -115,7 +115,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.address}
                 </span>
               </div>
@@ -143,7 +143,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               <span className=" text-[12px] font-[600] text-[#333333] leading-[18px]">
                 {data?.designation}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
+              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px] break-all">
                 {data?.employerOrganizationName}
               </span>
               <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
@@ -168,10 +168,10 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
             </div>
             {splitContents?.second?.length == 0 && (
               <div className="flex flex-col w-full gap-[2px]">
-                <span className="text-[10px] font-[400] text-[#414042] ">
+                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   Warm regards,
                 </span>
-                <span className="text-[10px] font-[400] text-[#414042]  ">
+                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>

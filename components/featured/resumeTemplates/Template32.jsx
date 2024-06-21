@@ -878,7 +878,6 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           >
                             {detail.instituteName}
                           </Text>
-
                           <Text
                             style={{
                               color: "#414042",
@@ -886,7 +885,6 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {" "}
                             {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${
                                 detail.duration?.end?.year === "Year"
@@ -1068,7 +1066,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
-                            {detail.organization}{" "}
+                            {detail.organization}
                           </Text>
                           <Text
                             style={{
@@ -1077,7 +1075,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.description}{" "}
+                            {detail.description}
                           </Text>
                         </View>
                       </View>
@@ -1229,7 +1227,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
-                            {detail.organization}{" "}
+                            {detail.organization}
                           </Text>
                           <Text
                             style={{
@@ -1238,7 +1236,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.description}{" "}
+                            {detail.description}
                           </Text>
                         </View>
                       </View>
@@ -1389,7 +1387,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
-                            {detail.organization}{" "}
+                            {detail.organization}
                           </Text>
                           <Text
                             style={{
@@ -1398,7 +1396,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.description}{" "}
+                            {detail.description}
                           </Text>
                         </View>
                       </View>
@@ -1549,7 +1547,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
-                            {detail.organization}{" "}
+                            {detail.organization}
                           </Text>
                           <Text
                             style={{
@@ -1558,7 +1556,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.description}{" "}
+                            {detail.description}
                           </Text>
                         </View>
                       </View>
@@ -1578,6 +1576,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   gap: 8,
                   width: "100%",
                 }}
+                wrap={data?.showExtraCariculam?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1659,6 +1658,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 16,
                           }}
+                              wrap={false}
                         >
                           <View
                             style={{
@@ -1709,7 +1709,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 700`,
                               }}
                             >
-                              {detail.organization}{" "}
+                              {detail.organization}
                             </Text>
                             <Text
                               style={{
@@ -1718,7 +1718,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail.description}{" "}
+                              {detail.description}
                             </Text>
                           </View>
                         </View>
@@ -1872,7 +1872,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 700`,
                                 }}
                               >
-                                {detail.organization}{" "}
+                                {detail.organization}
                               </Text>
                               <Text
                                 style={{
@@ -1881,7 +1881,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                                {detail.description}{" "}
+                                {detail.description}
                               </Text>
                             </View>
                           </View>

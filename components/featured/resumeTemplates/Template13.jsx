@@ -198,7 +198,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                    {data.dial_code} {data.mobileNumber}
+                      {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                   <View
@@ -226,7 +226,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       {formatLink28(data.location)}
                     </Text>
                   </View>
-                 
+
                 </View>
               </View>
             </View>
@@ -246,14 +246,14 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: selectedColor,
                       }}
                     >
-                    WORK EXPERIENCE
+                      WORK EXPERIENCE
                     </Text>
                     {data.experience.map((detail, index) => (
                       <>
                         <View
                           key={index}
                           style={{ flexDirection: "column" }}
-                          // wrap={false}
+                        // wrap={false}
                         >
                           <Text
                             style={{
@@ -269,12 +269,12 @@ function Template13({ data, selectedColor, selectedFont }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 400`,
                               color: "#797979",
-                              lineHeight:1
+                              lineHeight: 1
                             }}
                           >
                             {formatLink40(detail.organization)}{" "}
-                            {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -325,7 +325,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column" }}
-                        // wrap={false}
+                      // wrap={false}
                       >
                         <Text
                           style={{
@@ -350,15 +350,15 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
-                            lineHeight:1
+                            lineHeight: 1
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                         <Text
@@ -391,14 +391,14 @@ function Template13({ data, selectedColor, selectedFont }) {
                     width: 261,
                     paddingTop: 24,
                   }}
-                  
+
                 >
                   <Text
                     style={{
                       fontSize: 20,
                       fontFamily: `${selectedFont} 500`,
                       color: selectedColor,
-                      lineHeight:1
+                      lineHeight: 1
                     }}
                   >
                     INTERNSHIP
@@ -408,7 +408,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column" }}
-                        // wrap={false}
+                      // wrap={false}
                       >
                         <Text
                           style={{
@@ -433,15 +433,15 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
-                            lineHeight:1
+                            lineHeight: 1
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                         <Text
@@ -489,7 +489,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column" }}
-                        // wrap={false}
+                      // wrap={false}
                       >
                         <Text
                           style={{
@@ -514,15 +514,15 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
-                            lineHeight:1
+                            lineHeight: 1
                           }}
                         >
                           {detail.organization}{" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                         <Text
@@ -571,7 +571,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         <View
                           key={index}
                           style={{ flexDirection: "column" }}
-                          // wrap={false}
+                        // wrap={false}
                         >
                           <Text
                             style={{
@@ -596,12 +596,12 @@ function Template13({ data, selectedColor, selectedFont }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 400`,
                               color: "#797979",
-                              lineHeight:1
+                              lineHeight: 1
                             }}
                           >
                             {formatLink32(detail.organization)}{" "}
-                            {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -640,7 +640,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       width: 261,
                     }}
                     key={index}
-                    // wrap={false}
+                  // wrap={false}
                   >
                     <Text
                       style={{
@@ -668,7 +668,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                                 color: "#333333",
                               }}
                             >
-                                  {formatLink22(detail.title)}
+                              {formatLink22(detail.title)}
                             </Text>
                             <Text
                               style={{
@@ -677,12 +677,12 @@ function Template13({ data, selectedColor, selectedFont }) {
                                 color: "#797979",
                               }}
                             >
-                            {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "Year" ||
+                                detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
                             </Text>
                             <Text
                               style={{
@@ -785,7 +785,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       color: selectedColor,
                     }}
                   >
-                 EDUCATION
+                    EDUCATION
                   </Text>
                   {data.education.map((detail, index) => (
                     <>
@@ -830,10 +830,9 @@ function Template13({ data, selectedColor, selectedFont }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
-                                  ? "Pursuing"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -988,7 +987,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column" }}
-                        // wrap={false}
+                      // wrap={false}
                       >
                         <Text
                           style={{
@@ -996,7 +995,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 700`,
                             color: "#333333",
                             lineHeight: 1.2,
-                            marginBottom:"5px"
+                            marginBottom: "5px"
                           }}
                         >
                           {formatLink32(detail.referantName)}
@@ -1028,7 +1027,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 400`,
                             color: "#333333",
                             lineHeight: 1.4,
-                            marginVertical:'4px'
+                            marginVertical: '4px'
                           }}
                         >
                           {formatLink45(detail.email)}

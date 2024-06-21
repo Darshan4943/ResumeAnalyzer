@@ -53,6 +53,11 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     setSelectedItem(item);
     setPersonalData({ ...personalData, dial_code: item.dial_code });
     setData({ ...data, dial_code: item.dial_code });
+    const newErrors = { ...errors };
+    if (newErrors["dial_code"]) {
+      delete newErrors[dial_code];
+    }
+    setError(newErrors);
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
   };
@@ -329,10 +334,16 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
                         ? "border-red"
                         : "border-[#C4C4C4]"
                     }`}
+                    maxLength={
+                      employer.name === "firstName" ||
+                      employer.name === "lastName"
+                        ? 25
+                        : 60
+                    }
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[12px] text-red">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>
@@ -389,7 +400,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
               />
 
               <input
-                type="number"
+                type="text"
                 name="mobileNumber"
                 placeholder="Enter Mobile Number"
                 className="w-full text-[12px] leading-[14px] px-2"
@@ -399,7 +410,9 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
               />
             </div>
             {errors && errors["mobileNumber"] && (
-              <span className="text-red text-[10px]">field is required!</span>
+              <span className="text-red text-[10px]">
+                mobileNumber is required
+              </span>
             )}
           </div>
 
@@ -433,7 +446,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
 
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[12px]">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>

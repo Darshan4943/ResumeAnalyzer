@@ -119,7 +119,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: "18px",
-                maxWidth: "100%",
+                maxWidth: '100%'
               }}
             >
               {/* <View style={{ maxWidth: "100%", paddingHorizontal: '14px',  justifyContent: 'center', alignItems: 'center' }}> */}
@@ -859,7 +859,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           >
             {/* {data?.experience?.length > 0 && data?.showExperience === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -976,7 +975,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.experience?.length > 0 && data?.showExperience === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1107,7 +1105,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.education?.length > 0 && data?.showEducation === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1224,7 +1221,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.project?.length > 0 && data?.showProject === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1344,7 +1340,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.internship?.length > 0 && data?.showInternship === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1463,7 +1458,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.course?.length > 0 && data?.showCourses === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1592,7 +1586,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       gap: 16,
                       width: "90%",
                     }}
-                    // wrap={data?.experience?.length > 1 ? true : false}
+                    wrap={data?.extraCaricularData?.length > 1 ? true : false}
                   >
                     <View
                       style={{
@@ -1635,7 +1629,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     >
                       {data?.extraCaricularData?.map((detail, index) => (
                         <View
-                          // wrap={false}
+                          
                           key={index}
                           style={{
                             display: "flex",
@@ -1643,6 +1637,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             gap: 8,
                             // gap: index === data.experience.length - 1 ? 16 : 24,
                           }}
+                          wrap={false}
                         >
                           <View
                             style={{

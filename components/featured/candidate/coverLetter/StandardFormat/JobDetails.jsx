@@ -273,7 +273,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   `}
               />
               {errors && errors["jobTitle"] && (
-                <span className="text-red text-[10px]">field is required!</span>
+                <span className="text-red text-[10px]">title is required!</span>
               )}
             </div>
           )}
@@ -307,7 +307,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[10px]">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>
@@ -343,7 +343,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[10px]">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>
