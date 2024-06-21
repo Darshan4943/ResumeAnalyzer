@@ -106,13 +106,15 @@ const CandidateAiPower = ({
               },
             });
             var text = doc.getFullText();
+          
             textData.push({ text });
             resolve(textData);
           } catch (error) {
-            if (
-              error.properties.error ===
+           
+            if ( error.message.includes("Can't find end of central directory") ||
+              error?.properties?.error ===
               "The filetype for this file could not be identified, is this file corrupted" ||
-              error.message ===
+              error?.message ===
               "The filetype for this file could not be identified, is this file corrupted ?"
             ) {
               setDocFileError(true);
@@ -227,7 +229,7 @@ const CandidateAiPower = ({
     });
   };
 
-  console.log(count);
+
   useEffect(() => {
     if (count > 2) {
       setLoading(false);
