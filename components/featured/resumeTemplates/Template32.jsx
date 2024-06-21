@@ -1576,6 +1576,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   gap: 8,
                   width: "100%",
                 }}
+                wrap={data?.showExtraCariculam?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1657,6 +1658,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 16,
                           }}
+                              wrap={false}
                         >
                           <View
                             style={{

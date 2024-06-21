@@ -1226,6 +1226,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.reference?.length > 0 && data?.showReference === true &&  (
               <>
+              <View style={{display:'flex',flexDirection:'column',gap:'16px'}}  wrap={data?.reference?.length > 1 ? true : false} >
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 ></View>
@@ -1252,6 +1253,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         flexDirection: "column",
                         gap: 4,
                       }}
+                      wrap={false}
                     >
                       <View
                         style={{
@@ -1304,11 +1306,13 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     </View>
                   ))}
                 </View>
+                </View>
               </>
             )}
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <>
+              <View style={{display:'flex',flexDirection:'column',gap:'16px'}} wrap={false}>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 ></View>
@@ -1361,6 +1365,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       </View>
                     ))}
                   </View>
+                </View>
                 </View>
               </>
             )}

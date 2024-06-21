@@ -915,6 +915,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           )}
         {data?.achievements?.length > 0 && data?.showAchievements === true && (
           <>
+          <View style={{display:'flex',flexDirection:'column',gap:'16px'}} wrap={false}>
             <View
               style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
             ></View>
@@ -949,6 +950,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   </View>
                 ))}
               </View>
+            </View>
             </View>
           </>
         )}
