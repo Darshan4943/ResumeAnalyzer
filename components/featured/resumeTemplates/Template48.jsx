@@ -87,35 +87,36 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             {data.designation}
           </Text>
         </View>
-        <View
-          style={{
-            width: 106,
-            position: "absolute",
-            right: 48,
-            top: -12,
-            objectFit: "contain",
-          }}
-        >
-          {data.profilePhoto ? (
-            <Image
-              src={
-                preview
-                  ? data.profilePhoto
-                  : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
-              }
-              style={{
-                borderRadius: "50%",
-                width: "106px",
-                height: "106px",
-              }}
-            />
-          ) : (
-            <Image src="/images/services/profile.png" />
-          )}
-        </View>
-
+        {data?.showProfile === true && (
+          <View
+            style={{
+              width: 106,
+              position: "absolute",
+              right: 48,
+              top: -12,
+              objectFit: "contain",
+            }}
+          >
+            {data.profilePhoto ? (
+              <Image
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
+                }
+                style={{
+                  borderRadius: "50%",
+                  width: "106px",
+                  height: "106px",
+                }}
+              />
+            ) : (
+              <Image src="/images/services/profile.png" />
+            )}
+          </View>
+        )}
         <View
           style={{
             paddingTop: 16,

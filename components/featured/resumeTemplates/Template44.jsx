@@ -45,38 +45,40 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             alignItems: "center",
           }}
         >
-          <View style={{ marginTop: "24px" }}>
-            {data?.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  width: "112px",
-                  height: "112px",
-                }}
-              />
-            ) : (
-              <Image
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  width: "112px",
-                  height: "112px",
-                }}
-                src="/images/services/profile.png"
-              />
-            )}
-          </View>
+          {data?.showProfile === true && (
+            <View style={{ marginTop: "24px" }}>
+              {data?.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                />
+              ) : (
+                <Image
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                  src="/images/services/profile.png"
+                />
+              )}
+            </View>
+          )}
           {data?.showSummary === true && (
             <View
-              style={{ flexDirection: "column", gap: 16, alignItems: "center" }}
+              style={{ paddingTop: data?.showProfile ? "" : "34px", flexDirection: "column", gap: 16, alignItems: "center" }}
             >
               <Text
                 style={{

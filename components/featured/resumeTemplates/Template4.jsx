@@ -67,35 +67,39 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 marginLeft: -24,
               }}
             >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
-                  }
-                  alt=""
-                  style={{
-                    width: "134px",
-                    marginBottom: "16px",
-                    height: "134px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    width: "134px",
-                    marginBottom: "16px",
-                    height: "134px",
-                    borderRadius: "50%",
-                  }}
-                />
+              {data?.showProfile === true && (
+                <>
+                  {data.profilePhoto ? (
+                    <Image
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                            ? URL.createObjectURL(data.profilePhoto)
+                            : data.profilePhoto
+                      }
+                      alt=""
+                      style={{
+                        width: "134px",
+                        marginBottom: "16px",
+                        height: "134px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/services/profile.png"
+                      alt=""
+                      style={{
+                        width: "134px",
+                        marginBottom: "16px",
+                        height: "134px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                </>
               )}
               <View
                 style={{
@@ -962,6 +966,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       height: "1px",
                       marginTop: "4px",
                       width: "95%",
+
                       backgroundColor: "#282829",
                     }}
                   ></View>

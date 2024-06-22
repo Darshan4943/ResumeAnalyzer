@@ -26,53 +26,55 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                     <View style={{}}>
                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 28 }}>
-                                <View
-                                    style={{
-                                        minHeight: "87px",
-                                        minWidth: "87px",
-                                        maxHeight: "87px",
-                                        maxWidth: "87px",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        border: 3,
-                                        borderColor: selectedColor,
-                                        borderRadius: "50%",
-                                        overflow: "hidden",
-                                    }}
-                                >
-                                    {data.profilePhoto ? (
-                                        <Image
-                                            src={
-                                                preview
-                                                    ? data.profilePhoto
-                                                    : Object.keys(data?.profilePhoto).includes("filename")
-                                                        ? URL.createObjectURL(data.profilePhoto)
-                                                        : data.profilePhoto
-                                            }
-                                            alt=""
-                                            style={{
-                                                objectFit: "cover",
-                                                height: "100%",
-                                                width: "100%",
-                                                borderRadius: "50%",
-                                            }}
-                                        />
-                                    ) : (
-                                        <Image
-                                            src="/images/services/profile.png"
-                                            alt=""
-                                            style={{
-                                                objectFit: "cover",
-                                                height: "100%",
-                                                width: "100%",
-                                                borderRadius: "50%",
-                                            }}
-                                        />
-                                    )}
-                                </View>
-                                <View style={{ width: 242 }}>
+                                {data?.showProfile === true && (
+                                    <View
+                                        style={{
+                                            minHeight: "87px",
+                                            minWidth: "87px",
+                                            maxHeight: "87px",
+                                            maxWidth: "87px",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            border: 3,
+                                            borderColor: selectedColor,
+                                            borderRadius: "50%",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        {data.profilePhoto ? (
+                                            <Image
+                                                src={
+                                                    preview
+                                                        ? data.profilePhoto
+                                                        : Object.keys(data?.profilePhoto).includes("filename")
+                                                            ? URL.createObjectURL(data.profilePhoto)
+                                                            : data.profilePhoto
+                                                }
+                                                alt=""
+                                                style={{
+                                                    objectFit: "cover",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                    borderRadius: "50%",
+                                                }}
+                                            />
+                                        ) : (
+                                            <Image
+                                                src="/images/services/profile.png"
+                                                alt=""
+                                                style={{
+                                                    objectFit: "cover",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                    borderRadius: "50%",
+                                                }}
+                                            />
+                                        )}
+                                    </View>
+                                )}
+                                <View style={{ width: data?.showProfile ? 242 : "100%" }}>
                                     <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 32, color: selectedColor }}>{data.firstName}</Text>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
                                 </View>
@@ -103,7 +105,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
                         </View>
                         <View style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-                            <View style={{ width: "77.5%" }}>
+                            <View style={{ width: data?.showProfile ? "77.5%" : "100%" }}>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
                             </View>
                         </View>
