@@ -53,6 +53,11 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     setSelectedItem(item);
     setPersonalData({ ...personalData, dial_code: item.dial_code });
     setData({ ...data, dial_code: item.dial_code });
+    const newErrors = { ...errors };
+    if (newErrors["dial_code"]) {
+      delete newErrors[dial_code];
+    }
+    setError(newErrors);
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
   };
@@ -221,7 +226,6 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     );
   };
 
-  console.log(777, errors);
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">

@@ -24,6 +24,7 @@ function CoverForm({
   selectedFont,
   data,
   setData,
+  isCoverEdit,
 }) {
   const [isAll, setIsAll] = useState(false);
   const router = useRouter();
@@ -38,11 +39,36 @@ function CoverForm({
   const [contentSituation, setContentSituation] = useState("Experienced");
   const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
+  const datePickerRef = useRef(null);
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
     setSelectedColor(template.themeColor);
     setSelectedFont(template.fontFamily);
   };
+
+  console.log("isCoverEdit", isCoverEdit);
+  useEffect(() => {
+    if (isCoverEdit) {
+      if (data.type === "custom" && data.contentType === "Fresher") {
+        console.log("isCoverEdit1", isCoverEdit);
+        setIsFormat("custom");
+        setContentSituation("Fresher");
+      } else if (data.type === "custom" && data.contentType === "Experienced") {
+        console.log("isCoverEdit2", isCoverEdit);
+        setIsFormat("custom");
+        setContentSituation("Experienced");
+      } else if (
+        data.type === "standard" &&
+        data.contentType === "Experienced"
+      ) {
+        console.log("isCoverEdit3", isCoverEdit);
+        setIsFormat("standard");
+        setContentSituation("Experienced");
+      } else {
+        setContentSituation("Fresher");
+      }
+    }
+  }, [isCoverEdit, data]);
 
   const togglePreview = (isVisible, index) => {
     setSelectedCoverIndex(index);
@@ -125,11 +151,11 @@ function CoverForm({
         "employerAddress",
         "employerCityState",
         "employerCountry",
-        "jobTitle",
-        "organization",
-        "industry",
-        "designation",
-        "experience",
+        // "jobTitle",
+        // "organization",
+        // "industry",
+        // "designation",
+        // "experience",
         "course",
         "specialization",
         "university",
@@ -161,6 +187,7 @@ function CoverForm({
           const letterData = response.data;
 
           setData({ ...data, passages: letterData.passages });
+
           setLoading(false);
           setIsShow(true);
         } else {
@@ -215,6 +242,25 @@ function CoverForm({
         console.log(err);
       });
   };
+
+  const handleIconClick = () => {
+    if (datePickerRef.current) {
+      datePickerRef.current.setFocus();
+    }
+  };
+
+  useEffect(() => {
+    if (isFormat) {
+      // localStorage.setItem("typee", isFormat);
+      setData({ ...data, type: isFormat });
+    }
+  }, [isFormat]);
+
+  useEffect(() => {
+    if (contentSituation) {
+      setData({ ...data, contentType: contentSituation });
+    }
+  }, [contentSituation]);
 
   return (
     <div
@@ -361,7 +407,40 @@ function CoverForm({
           </div>
         </div>
       )}
-
+      {isShow === false && (
+        <div className="flex flex-col gap-[16px] sticky md:top-[0px] top-[14px] z-[10] bg-white pt-5 pb-4">
+          <ThemeForm
+            selectedCoverIndex={selectedCoverIndex}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+            setSelectedFont={setSelectedFont}
+            selectedFont={selectedFont}
+          />
+          <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+          <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
+            <button
+              className={`${
+                isFormat === "standard"
+                  ? "bg-[#06A9EF] md:py-[8px] md:px-[16px]  py-[8px] px-[8px] flex justify-center items-center rounded-[8px] w-[50%]  text-white"
+                  : "md:py-[8px] md:px-[16px]  py-[8px] px-[8px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
+              onClick={() => setIsFormat("standard")}
+            >
+              Standard Format
+            </button>
+            <button
+              className={`${
+                isFormat === "custom"
+                  ? "bg-[#06A9EF] md:py-[8px] md:px-[16px]  py-[8px] px-[8px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                  : "md:py-[8px] md:px-[16px]  py-[8px] px-[8px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
+              onClick={() => setIsFormat("custom")}
+            >
+              Custom Format
+            </button>
+          </div>
+        </div>
+      )}
       <div>
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
@@ -406,18 +485,20 @@ function CoverForm({
               >
                 Letter Date
               </label>
-              <div className="relative flex gap-2 justify-between w-[224px] px-[10px] py-[11px] border border-[#C4C4C4]  rounded-[8px] text-[12px]  text-[#646464] font-[400]">
+              <div className="relative flex gap-2 justify-between w-[224px] px-[10px] py-[11px] border border-[#C4C4C4] rounded-[8px] text-[12px] text-[#646464] font-[400]">
                 <DatePicker
                   id="letter-date"
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
                   placeholderText="Select Date"
                   className="flex justify-center items-center text-[12px] font-[400]"
-                  // className="w-full px-[10px] py-[16px] gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-                  // className={`w-full px-6 py-2 gap-2  pl-[16px] border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]` }
+                  ref={datePickerRef}
                 />
 
-                <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
+                <span
+                  className="absolute inset-y-0 left-[180px] flex items-center pointer-events-auto gap-3 py-2"
+                  onClick={handleIconClick}
+                >
                   <div className="h-full w-[1px] bg-[#DEDEDE]"></div>
                   <svg
                     width="16"
@@ -535,7 +616,6 @@ function CoverForm({
           </div>
         )}
       </div>
-
       <AnimatePresence>
         {isShow && (
           <motion.div

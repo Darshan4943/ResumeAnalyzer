@@ -3075,6 +3075,7 @@ export const currencyMap = [
   { countryCode: "UA", currency: "UAH" }, // Ukraine
   { countryCode: "AE", currency: "AED" }, // United Arab Emirates
   { countryCode: "GB", currency: "GBP" }, // United Kingdom
+  { countryCode: "UK", currency: "GBP" }, // United Kingdom
   { countryCode: "US", currency: "USD" }, // United States
   { countryCode: "UM", currency: "USD" }, // United States Minor Outlying Islands
   { countryCode: "UY", currency: "UYU" }, // Uruguay
@@ -3093,6 +3094,11 @@ export const currencyMap = [
 
 export const currenciesWithIcons = [
   { name: "US Dollar", symbol: "$", icon: "usd" },
+  {
+    name: "Zimbabwean Dollar",
+    symbol: "Z$",
+    icon: "zwl"
+  },
   { name: "Euro", symbol: "€", icon: "eur" },
   { name: "British Pound", symbol: "£", icon: "gbp" },
   { name: "Japanese Yen", symbol: "¥", icon: "jpy" },
@@ -3222,3 +3228,109 @@ export const currenciesWithIcons = [
   { name: "Niue Dollar", symbol: "$", icon: "nzd" },
   { name: "Tokelau Dollar", symbol: "$", icon: "nzd" },
 ];
+
+export const countryCondition1 = [
+  { country: 'Germany', coordinates: '51.1657° N, 10.4515° E' },
+  { country: 'France', coordinates: '46.6034° N, 1.8883° E' },
+  { country: 'India', coordinates: '20.5937° N, 78.9629° E' },
+  { country: 'China', coordinates: '35.8617° N, 104.1954° E' },
+  { country: 'Japan', coordinates: '36.2048° N, 138.2529° E' },
+  { country: 'Russia', coordinates: '61.5240° N, 105.3188° E' },
+  { country: 'South Korea', coordinates: '35.9078° N, 127.7669° E' },
+
+  { country: 'Philippines', coordinates: '12.8797° N, 121.7740° E' },
+  { country: 'Vietnam', coordinates: '14.0583° N, 108.2772° E' },
+  { country: 'Thailand', coordinates: '15.8700° N, 100.9925° E' },
+  { country: 'Bangladesh', coordinates: '23.6850° N, 90.3563° E' },
+  { country: 'Myanmar', coordinates: '21.9162° N, 95.9560° E' },
+  { country: 'Malaysia', coordinates: '4.2105° N, 101.9758° E' },
+  { country: 'Nepal', coordinates: '28.3949° N, 84.1240° E' },
+  { country: 'Sri Lanka', coordinates: '7.8731° N, 80.7718° E' },
+  { country: 'Kazakhstan', coordinates: '48.0196° N, 66.9237° E' },
+  { country: 'Uzbekistan', coordinates: '41.3775° N, 64.5853° E' },
+  { country: 'Turkmenistan', coordinates: '38.9697° N, 59.5563° E' },
+  { country: 'Kyrgyzstan', coordinates: '41.2044° N, 74.7661° E' },
+  { country: 'Tajikistan', coordinates: '38.8610° N, 71.2761° E' },
+  { country: 'Afghanistan', coordinates: '33.9391° N, 67.7100° E' },
+  { country: 'Pakistan', coordinates: '30.3753° N, 69.3451° E' },
+  { country: 'Iran', coordinates: '32.4279° N, 53.6880° E' },
+  { country: 'Iraq', coordinates: '33.2232° N, 43.6793° E' },
+  { country: 'Saudi Arabia', coordinates: '23.8859° N, 45.0792° E' },
+  { country: 'Yemen', coordinates: '15.5527° N, 48.5164° E' },
+  { country: 'Oman', coordinates: '21.4735° N, 55.9754° E' },
+  { country: 'United Arab Emirates', coordinates: '23.4241° N, 53.8478° E' },
+  { country: 'Qatar', coordinates: '25.3548° N, 51.1839° E' },
+  { country: 'Bahrain', coordinates: '26.0667° N, 50.5577° E' },
+  { country: 'Kuwait', coordinates: '29.3117° N, 47.4818° E' },
+  { country: 'Jordan', coordinates: '30.5852° N, 36.2384° E' },
+  { country: 'Israel', coordinates: '31.0461° N, 34.8516° E' },
+  { country: 'Lebanon', coordinates: '33.8547° N, 35.8623° E' },
+  { country: 'Syria', coordinates: '34.8021° N, 38.9968° E' },
+  { country: 'Cyprus', coordinates: '35.1264° N, 33.4299° E' },
+  { country: 'Turkey', coordinates: '38.9637° N, 35.2433° E' },
+  { country: 'Greece', coordinates: '39.0742° N, 21.8243° E' },
+  { country: 'Bulgaria', coordinates: '42.7339° N, 25.4858° E' },
+  { country: 'Romania', coordinates: '45.9432° N, 24.9668° E' },
+  { country: 'Serbia', coordinates: '44.0165° N, 21.0059° E' },
+  { country: 'Hungary', coordinates: '47.1625° N, 19.5033° E' },
+  { country: 'Austria', coordinates: '47.5162° N, 14.5501° E' },
+  { country: 'Italy', coordinates: '41.8719° N, 12.5674° E' },
+  { country: 'Switzerland', coordinates: '46.8182° N, 8.2275° E' },
+  { country: 'Poland', coordinates: '51.9194° N, 19.1451° E' },
+  { country: 'Czech Republic', coordinates: '49.8175° N, 15.4730° E' },
+  { country: 'Slovakia', coordinates: '48.6690° N, 19.6990° E' },
+  { country: 'Croatia', coordinates: '45.1000° N, 15.2000° E' },
+  { country: 'Slovenia', coordinates: '46.1512° N, 14.9955° E' },
+  { country: 'Bosnia and Herzegovina', coordinates: '43.9159° N, 17.6791° E' },
+  { country: 'Montenegro', coordinates: '42.7087° N, 19.3744° E' },
+  { country: 'Albania', coordinates: '41.1533° N, 20.1683° E' },
+  { country: 'North Macedonia', coordinates: '41.6086° N, 21.7453° E' },
+  { country: 'Malta', coordinates: '35.9375° N, 14.3754° E' },
+  { country: 'Belarus', coordinates: '53.7098° N, 27.9534° E' },
+  { country: 'Latvia', coordinates: '56.8796° N, 24.6032° E' },
+  { country: 'Lithuania', coordinates: '55.1694° N, 23.8813° E' },
+  { country: 'Estonia', coordinates: '58.5953° N, 25.0136° E' },
+  { country: 'Ukraine', coordinates: '48.3794° N, 31.1656° E' },
+  { country: 'Moldova', coordinates: '47.4116° N, 28.3699° E' },
+  { country: 'Armenia', coordinates: '40.0691° N, 45.0382° E' },
+  { country: 'Azerbaijan', coordinates: '40.1431° N, 47.5769° E' },
+  { country: 'Georgia', coordinates: '42.3154° N, 43.3569° E' },
+  { country: 'Maldives', coordinates: '3.2028° N, 73.2207° E' },
+
+  { country: 'Uganda', coordinates: '1.3733° N, 32.2903° E' },
+
+  { country: 'Ethiopia', coordinates: '9.1450° N, 40.4897° E' },
+  { country: 'Somalia', coordinates: '5.1521° N, 46.1996° E' },
+  { country: 'Djibouti', coordinates: '11.8251° N, 42.5903° E' },
+  { country: 'Eritrea', coordinates: '15.1794° N, 39.7823° E' },
+  { country: 'Sudan', coordinates: '12.8628° N, 30.2176° E' },
+  { country: 'South Sudan', coordinates: '7.8627° N, 30.2176° E' },
+
+  { country: 'Algeria', coordinates: '28.0339° N, 1.6596° E' },
+  { country: 'Libya', coordinates: '26.3351° N, 17.2283° E' },
+
+
+];
+
+export const countryCondition2 = [
+  { country: 'Indonesia', coordinates: '0.7893° S, 113.9213° E' },
+  { country: 'Angola', coordinates: '11.2027° S, 17.8739° E' },
+  { country: 'Zambia', coordinates: '13.1339° S, 27.8493° E' },
+  { country: 'Zimbabwe', coordinates: '19.0154° S, 29.1549° E' },
+  { country: 'Botswana', coordinates: '22.3285° S, 24.6849° E' },
+  { country: 'Namibia', coordinates: '22.9576° S, 18.4904° E' },
+  { country: 'Malawi', coordinates: '13.2543° S, 34.3015° E' },
+  { country: 'Mozambique', coordinates: '18.6657° S, 35.5296° E' },
+  { country: 'South Africa', coordinates: '30.5595° S, 22.9375° E' },
+  { country: 'Lesotho', coordinates: '29.6099° S, 28.2336° E' },
+  { country: 'Eswatini', coordinates: '26.5225° S, 31.4659° E' },
+  { country: 'Rwanda', coordinates: '1.9403° S, 29.8739° E' },
+  { country: 'Burundi', coordinates: '3.3731° S, 29.9189° E' },
+  { country: 'Seychelles', coordinates: '4.6796° S, 55.4920° E' },
+  { country: 'Mauritius', coordinates: '20.3484° S, 57.5522° E' },
+  { country: 'Reunion', coordinates: '21.1151° S, 55.5364° E' },
+  { country: 'Mayotte', coordinates: '12.8275° S, 45.1662° E' },
+  { country: 'Madagascar', coordinates: '18.7669° S, 46.8691° E' },
+  { country: 'Tanzania', coordinates: '6.3690° S, 34.8888° E' },
+  { country: 'Kenya', coordinates: '0.0236° S, 37.9062° E' },
+]

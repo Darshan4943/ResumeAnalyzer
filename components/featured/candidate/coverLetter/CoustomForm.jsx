@@ -19,6 +19,7 @@ const CoustomForm = ({
   setSelectedFont,
   selectedFont,
   isFormat,
+  setError,
 }) => {
   const [loading, setLoading] = useState(false);
   const rephrasePassage = () => {
@@ -33,6 +34,7 @@ const CoustomForm = ({
         setData((prevData) => ({
           ...prevData,
           passages: rephrasedPassage.passages,
+          // type: "custom",
         }));
         setLoading(false);
         // if (!isPlanActive) {
@@ -60,13 +62,19 @@ const CoustomForm = ({
             setSelectedColor={setSelectedColor}
             selectedResumeIndex={selectedResumeIndex}
             setSelectedResumeIndex={setSelectedResumeIndex}
+            setError={setError}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <JobDetails data={data} setData={setData} isFormat={isFormat} />
+          <JobDetails
+            data={data}
+            setData={setData}
+            isFormat={isFormat}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData} />
+          <EmployerDetails data={data} setData={setData} setError={setError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <CustomLetterBody data={data} setData={setData} />
+          <CustomLetterBody data={data} setData={setData} setError={setError} />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
               className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "
@@ -114,15 +122,20 @@ const CoustomForm = ({
             setSelectedColor={setSelectedColor}
             selectedResumeIndex={selectedResumeIndex}
             setSelectedResumeIndex={setSelectedResumeIndex}
+            setError={setError}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData} />
+          <EmployerDetails data={data} setData={setData} setError={setError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EducationDetails data={data} setData={setData} />
+          <EducationDetails data={data} setData={setData} setError={setError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <ProjectInternship data={data} setData={setData} />
+          <ProjectInternship
+            data={data}
+            setData={setData}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <CustomLetterBody data={data} setData={setData} />
+          <CustomLetterBody data={data} setData={setData} setError={setError} />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
               className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "

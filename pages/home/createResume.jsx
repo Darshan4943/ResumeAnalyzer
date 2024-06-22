@@ -23,13 +23,13 @@ function CreateResume() {
   const currentYear = new Date().getFullYear();
 
   const templates = [
-    {
-      title: "Template1",
-      imgUrl: "/images/templates/template1.png",
-      index: 1,
-      fontFamily: "Lato",
-      themeColor: "#414042",
-    },
+    // {
+    //   title: "Template1",
+    //   imgUrl: "/images/templates/template1.png",
+    //   index: 1,
+    //   fontFamily: "Lato",
+    //   themeColor: "#414042",
+    // },
     // {
     //   title: "Template2",
     //   imgUrl: "/images/templates/template2.png",
@@ -37,20 +37,20 @@ function CreateResume() {
     //   fontFamily: "Barlow",
     //   themeColor: "#F7902B",
     // },
-    {
-      title: "Template3",
-      imgUrl: "/images/templates/template3.png",
-      index: 3,
-      fontFamily: "Inter",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template4",
-      imgUrl: "/images/templates/template4.png",
-      index: 4,
-      fontFamily: "Montserrat",
-      themeColor: "#00AEEF",
-    },
+    // {
+    //   title: "Template3",
+    //   imgUrl: "/images/templates/template3.png",
+    //   index: 3,
+    //   fontFamily: "Inter",
+    //   themeColor: "#414042",
+    // },
+    // {
+    //   title: "Template4",
+    //   imgUrl: "/images/templates/template4.png",
+    //   index: 4,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#00AEEF",
+    // },
     // {
     //   title: "Template5",
     //   imgUrl: "/images/templates/template5.png",
@@ -93,13 +93,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#F2BE5C",
     // },
-    {
-      title: "Template11",
-      imgUrl: "/images/templates/template11.png",
-      index: 11,
-      fontFamily: "Montserrat",
-      themeColor: "#E6E7E8",
-    },
+    // {
+    //   title: "Template11",
+    //   imgUrl: "/images/templates/template11.png",
+    //   index: 11,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#E6E7E8",
+    // },
     // {
     //   title: "Template12",
     //   imgUrl: "/images/templates/template12.png",
@@ -107,20 +107,20 @@ function CreateResume() {
     //   fontFamily: "Lato",
     //   themeColor: "#0C2438",
     // },
-    {
-      title: "Template13",
-      imgUrl: "/images/templates/template13.png",
-      index: 13,
-      fontFamily: "Poppins",
-      themeColor: "#0E6CC2",
-    },
-    {
-      title: "Template14",
-      imgUrl: "/images/templates/template14.png",
-      index: 14,
-      fontFamily: "Inter",
-      themeColor: "#242424",
-    },
+    // {
+    //   title: "Template13",
+    //   imgUrl: "/images/templates/template13.png",
+    //   index: 13,
+    //   fontFamily: "Poppins",
+    //   themeColor: "#0E6CC2",
+    // },
+    // {
+    //   title: "Template14",
+    //   imgUrl: "/images/templates/template14.png",
+    //   index: 14,
+    //   fontFamily: "Inter",
+    //   themeColor: "#242424",
+    // },
     // {
     //   title: "Template15",
     //   imgUrl: "/images/templates/template15.png",
@@ -128,13 +128,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#716D6D",
     // },
-    {
-      title: "Template53",
-      imgUrl: "/images/templates/template53.png",
-      index: 53,
-      fontFamily: "Montserrat",
-      themeColor: "#AC5428",
-    },
+    // {
+    //   title: "Template53",
+    //   imgUrl: "/images/templates/template53.png",
+    //   index: 53,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#AC5428",
+    // },
     // {
     //   title: "Template17",
     //   imgUrl: "/images/templates/template17.png",
@@ -344,6 +344,7 @@ function CreateResume() {
   const defaultState = {
     showSkills: true,
     showAchievements: true,
+    showProfile:true,
     showCourses: true,
     showExtraCariculam: true,
     showHobbies: true,
@@ -385,7 +386,6 @@ function CreateResume() {
   };
 
   const [data, setData] = useState(defaultState);
-
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 
@@ -418,7 +418,7 @@ function CreateResume() {
     selectedFont: selectedFont,
     selectedResumeIndex: selectedResumeIndex,
   };
-console.log(111,data)
+  console.log(111, data)
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
@@ -434,7 +434,7 @@ console.log(111,data)
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-   
+
     if (parsedData) {
       const {
         first_name,
@@ -450,7 +450,7 @@ console.log(111,data)
       const hobbies = parsedData?.hobbies;
 
       const educations = parsedData.education;
-      console.log(222,educations)
+      console.log(222, educations)
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
@@ -460,7 +460,7 @@ console.log(111,data)
       const internship = parsedData.internship;
       const references = parsedData.references;
       const achievements = parsedData.achivements;
-    
+
       const socialLinks = parsedData["social links"];
       const extraCaricularActivity = parsedData["extra-curricular activities"];
 
@@ -515,7 +515,7 @@ console.log(111,data)
               month: null,
             },
             end: {
-              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year: "Year",
+              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year : "Year",
               month: null,
             },
           },
@@ -678,13 +678,13 @@ console.log(111,data)
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
-             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+              onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >
               <svg
                 className=" cursor-pointer"
-               
+
                 width="24"
                 height="24"
                 viewBox="0 0 40 40"

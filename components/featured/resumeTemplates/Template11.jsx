@@ -36,31 +36,36 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
 
   const formatLink42 = (link) => {
     if (link?.length > 40) {
-      return link?.match(/.{1,40}/g).join('\n');  }
+      return link?.match(/.{1,40}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink30 = (link) => {
     if (link?.length > 35) {
-      return link?.match(/.{1,35}/g).join('\n');  }
+      return link?.match(/.{1,35}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink25 = (link) => {
     if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join('\n');  }
+      return link?.match(/.{1,25}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink20 = (link) => {
     if (link?.length > 20) {
-      return link?.match(/.{1,20}/g).join('\n');  }
+      return link?.match(/.{1,20}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink58 = (link) => {
     if (link?.length > 63) {
-      return link?.match(/.{1,63}/g).join('\n');  }
+      return link?.match(/.{1,63}/g).join('\n');
+    }
     return link;
   };
 
@@ -114,29 +119,29 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               {formatLink20(data.designation)}
             </Text>
           </View>
-
-          <View style={{ width: "176px", height: "180px" }}>
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
-                }
-                style={{ objectFit: "contain" }}
-                alt=""
-              />
-            ) : (
-              <Image
-                src="/images/services/template_profile.png"
-                alt=""
-                style={{}}
-              />
-            )}
-          </View>
-
+          {data?.showProfile === true && (
+            <View style={{ width: "176px", height: "180px" }}>
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{ objectFit: "contain" }}
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/images/services/template_profile.png"
+                  alt=""
+                  style={{}}
+                />
+              )}
+            </View>
+          )}
           <View
           //  wrap={false}
           >
@@ -348,7 +353,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           </View>
 
           <View>
-            {data?.hobbies?.length > 0 &&  data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View style={{ width: 228 }}>
                 <View style={{ width: 228, objectFit: "contain" }}>
                   <Text
@@ -384,7 +389,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
-          {data?.socialLinks?.length > 0 && data?.showLinks === true &&  (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true && (
             <View style={{ width: 228 }}>
               <View style={{ width: 228, objectFit: "contain" }}>
                 <Text
@@ -589,7 +594,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                    {data.dial_code} {data.mobileNumber}
+                      {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
@@ -685,7 +690,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         fontSize: "12",
                         fontFamily: `${selectedFont} 700`,
-                        paddingVertical:'5px'
+                        paddingVertical: '5px'
                       }}
                     >
                       {formatLink42(data.location)}
@@ -737,7 +742,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
+                          `${detail.duration?.start?.year}-${
                             detail.currentlyWorking
                               ? "Present"
                               : detail.duration?.end?.year
@@ -786,10 +791,10 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )} */}
 
-{data?.experience?.length > 0 && data?.showExperience && (
+            {data?.experience?.length > 0 && data?.showExperience && (
               <View
-              // wrap={false}
-                style={{ flexDirection: "column", gap: 24, paddingTop: 24,width:'100%' }}
+                // wrap={false}
+                style={{ flexDirection: "column", gap: 24, paddingTop: 24, width: '100%' }}
               >
                 <Text
                   style={{
@@ -833,20 +838,20 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
-                            height:'15px'
+                            height: '15px'
                           }}
                         >
-                       {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
                       <View
                         style={{
-                          marginBottom:'10px',
+                          marginBottom: '10px',
                           flexDirection: "column",
                           gap: "8px",
                           width: "100%",
@@ -939,14 +944,13 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
-                            height:"15px"
+                            height: "15px"
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${
-                              detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                              ? "Pursuing"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
                       </View>
@@ -1023,7 +1027,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         flexDirection: "row",
                         width: "100%",
                         justifyContent: "space-between",
-                        gap:10
+                        gap: 10
                       }}
                     >
                       <Text
@@ -1040,15 +1044,15 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#000000",
                           fontSize: 12,
-                           height:'15px',
+                          height: '15px',
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                       {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            ? "Present"
+                            : detail.duration?.end?.year
+                          }
                          `}
                       </Text>
                     </View>
@@ -1103,7 +1107,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 {data.project?.map((detail, index) => (
                   <View
                     key={index}
-                    style={{ flexDirection: "column", width: "100%", gap:10 }}
+                    style={{ flexDirection: "column", width: "100%", gap: 10 }}
                   >
                     <View
                       style={{
@@ -1126,15 +1130,15 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#000000",
                           fontSize: 12,
-                          height:'15px',
+                          height: '15px',
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                     {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            ? "Present"
+                            : detail.duration?.end?.year
+                          }
                          `}
                       </Text>
                     </View>
@@ -1185,7 +1189,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 {data.internship?.map((detail, index) => (
                   <View
                     key={index}
-                    style={{ flexDirection: "column", width: "100%",gap:10 }}
+                    style={{ flexDirection: "column", width: "100%", gap: 10 }}
                   >
                     <View
                       style={{
@@ -1208,15 +1212,15 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#000000",
                           fontSize: 12,
-                            height:'15px',
+                          height: '15px',
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                      {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            ? "Present"
+                            : detail.duration?.end?.year
+                          }
                          `}
                       </Text>
                     </View>
@@ -1267,7 +1271,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 {data.extraCaricularData?.map((detail, index) => (
                   <View
                     key={index}
-                    style={{ flexDirection: "column", width: "100%" , gap:10}}
+                    style={{ flexDirection: "column", width: "100%", gap: 10 }}
                   >
                     <View
                       style={{
@@ -1290,15 +1294,15 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#000000",
                           fontSize: 12,
-                          height:'15px',
+                          height: '15px',
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                      {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            ? "Present"
+                            : detail.duration?.end?.year
+                          }
                          `}
                       </Text>
                     </View>
@@ -1388,16 +1392,16 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                                 style={{
                                   color: "#000000",
                                   fontSize: 12,
-                                  height:'15px',
+                                  height: '15px',
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                               {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {detail?.duration?.end?.year === "Year" ||
+                                  detail?.duration?.end?.year === undefined
+                                  ? "Present"
+                                  : detail?.duration?.end?.year}
                               </Text>
                             )}
                           </View>

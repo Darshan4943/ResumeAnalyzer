@@ -19,8 +19,8 @@ import { formatLink } from "../../../utils/middleware";
 //template 13
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
   const formatLink1 = (link) => {
-    if (link?.length > 32) {
-      return link?.match(/.{1,32}/g).join("\n");
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
     }
     return link;
   };
@@ -45,38 +45,40 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             alignItems: "center",
           }}
         >
-          <View style={{ marginTop: "24px" }}>
-            {data?.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  width: "112px",
-                  height: "112px",
-                }}
-              />
-            ) : (
-              <Image
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  width: "112px",
-                  height: "112px",
-                }}
-                src="/images/services/profile.png"
-              />
-            )}
-          </View>
+          {data?.showProfile === true && (
+            <View style={{ marginTop: "24px" }}>
+              {data?.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                />
+              ) : (
+                <Image
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                  src="/images/services/profile.png"
+                />
+              )}
+            </View>
+          )}
           {data?.showSummary === true && (
             <View
-              style={{ flexDirection: "column", gap: 16, alignItems: "center" }}
+              style={{ paddingTop: data?.showProfile ? "" : "34px", flexDirection: "column", gap: 16, alignItems: "center" }}
             >
               <Text
                 style={{
@@ -284,7 +286,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.achievements?.length > 0 &&
             data?.showAchievements === true && (
               <View
-                wrap={data?.achievements?.length > 1 ? true : false}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   width: "100%",
@@ -429,6 +431,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 style={{ display: "flex", alignItems: "center", width: "100%" }}
               >
                 <Text
+                  wrap={data?.internship?.length > 1 ? true : false}
                   style={{
                     fontFamily: `${selectedFont} 500`,
                     // color: selectedColor,
@@ -793,7 +796,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                         height: "20px"
                       }}
                     >
-                      {detail.qualification}
+                      {formatLink1(detail.qualification)}
                     </Text>
                     {detail.duration?.start?.year && (
                       <Text

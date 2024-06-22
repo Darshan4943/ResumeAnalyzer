@@ -26,6 +26,7 @@ function SubscriptionPlans({ fromMain }) {
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
+    console.log(icon)
     setexchangeRate(exchangeRate);
     seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {

@@ -16,6 +16,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 const MyCollection = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
+ 
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);
   const [view, setView] = useState(false);
@@ -26,7 +27,7 @@ const MyCollection = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [isResumes, setIsResumes] = useState("resumes");
   const [coverList, setCoverList] = useState([]);
-  console.log(444, coverList);
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -46,7 +47,9 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
+      // .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
       .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
+
       .then((res) => {
         setCoverList(res.data.data);
         setTimeout(() => {
@@ -57,7 +60,7 @@ const MyCollection = () => {
         console.log(err);
         setLoading(false);
       });
-  }, [userDataGlobal, deleted, isResumes]);
+  }, [userDataGlobal, deleted]);
 
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -69,7 +72,6 @@ const MyCollection = () => {
 
   const deleteResume = () => {
     const ids = selectedIndexes.map((item) => resumeList[item]?._id);
-
     if (ids.length === 0) {
       toast.error("Please select file to delete");
       return;
@@ -94,7 +96,6 @@ const MyCollection = () => {
 
   const deleteCoverLetter = () => {
     const ids = selectedIndexes.map((item) => coverList[item]?._id);
-
     if (ids.length === 0) {
       toast.error("Please select file to delete");
       return;
@@ -103,9 +104,7 @@ const MyCollection = () => {
     axios
       .delete(`https://jamblix.com/api/cover/delete/${ids}`)
       .then((response) => {
-        console.log(1122, response);
-        toast.success("Resume Deleted successfully");
-
+        toast.success("Cover Letter Deleted successfully");
         setView(false);
         setDeleted(!deleted);
         dispatch(reCallUserData());
@@ -119,6 +118,27 @@ const MyCollection = () => {
   const closeDeleteModal = () => {
     setView(false);
   };
+  const coverPdfViewer = ({ pdfUrl }) => {
+    function onDocumentLoadSuccess(numPages) {}
+
+    return (
+      <div
+        style={{
+          width: "750px",
+          height: "500px",
+
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "scroll",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
+
 
   const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();
@@ -291,6 +311,7 @@ const MyCollection = () => {
                               <DeleteModal
                                 deleteHandler={deleteResume}
                                 closeDeleteModal={closeDeleteModal}
+                                type={"resume"}
                               />
                             )}
                           </div>
@@ -358,13 +379,13 @@ const MyCollection = () => {
                                 Preview
                               </span>
                             </div>
-                            {/* <div
+                            <div
                               onClick={() => {
                                 router.push({
-                                  pathname: "/home/createResume",
+                                  pathname: "/coverLetter",
                                   query: {
-                                    data: JSON.stringify(item),
-                                    isEdit: true,
+                                    EditData: JSON.stringify(item),
+                                    isCoverEdit: true,
                                   },
                                 });
                               }}
@@ -382,7 +403,7 @@ const MyCollection = () => {
                               <span className="text-[12px] font-semibold text-white ">
                                 Edit
                               </span>
-                            </div> */}
+                            </div>
 
                             <a
                               href={item.resumeUrl}
@@ -439,6 +460,8 @@ const MyCollection = () => {
             selectedFont={selected.selectedFont}
             setPreview={setPreview}
             preview={true}
+            isResumes={isResumes}
+            coverPdfViewer={coverPdfViewer}
           />
         </>
       )}

@@ -7,7 +7,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 450; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -59,7 +59,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
             </span>
           </div>
           <div className="flex flex-col gap-[8px]">
-            <div className="gap-[8px] flex flex-row w-full ">
+            <div className="gap-[8px] flex flex-row w-full items-center">
               <svg
                 className="min-h-[15px] min-w-[15px]"
                 width="15"
@@ -79,7 +79,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               </span>
             </div>
             <div>
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row  items-center">
                 <svg
                   className="min-h-[15px] min-w-[15px]"
                   width="15"
@@ -100,7 +100,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               </div>
             </div>
             <div>
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row items-center">
                 <svg
                   className="min-h-[15px] min-w-[15px]"
                   width="15"
@@ -168,10 +168,10 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
             </div>
             {splitContents?.second?.length == 0 && (
               <div className="flex flex-col w-full gap-[2px]">
-                <span className="text-[10px] font-[400] text-[#414042] ">
+                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   Warm regards,
                 </span>
-                <span className="text-[10px] font-[400] text-[#414042]  ">
+                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>

@@ -62,35 +62,37 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           }}
         >
           <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>
-            <View
-              style={{
-                width: 134,
-                height: 134,
-                flexShrink: 0,
-                backgroundColor: "lightgray",
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                  }
-                  style={{
-                    objectFit: "cover",
-                    width: 134,
-                    height: 134,
-                  }}
-                />
-              ) : (
-                <Image src="/images/services/profile.png" />
-              )}
-            </View>
+            {data?.showProfile === true && (
+              <View
+                style={{
+                  width: 134,
+                  height: 134,
+                  flexShrink: 0,
+                  backgroundColor: "lightgray",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    style={{
+                      objectFit: "cover",
+                      width: 134,
+                      height: 134,
+                    }}
+                  />
+                ) : (
+                  <Image src="/images/services/profile.png" />
+                )}
+              </View>
+            )}
           </View>
 
           <View
@@ -115,7 +117,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 fontSize={15}
                 fontFamily={`${selectedFont} 400`}
               >
-                CONTACT{" "}
+                CONTACT
               </Text>
             </Svg>
           </View>
@@ -164,6 +166,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexWrap: "wrap",
                     }}
                   >
+                    {data.dial_code} {data.mobileNumber}
                     {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
@@ -238,7 +241,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    SOCIAL LINKS{" "}
+                    SOCIAL LINKS
                   </Text>
                 </Svg>
               </View>
@@ -625,7 +628,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  EDUCATION{" "}
+                  EDUCATION
                 </Text>
               </Svg>
               <View
@@ -678,10 +681,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -720,7 +722,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  EXPERIENCE{" "}
+                  EXPERIENCE
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -1107,10 +1109,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
 }

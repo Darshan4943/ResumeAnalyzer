@@ -17,19 +17,22 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
 
   const formatLink = (link) => {
     if (link?.length > 43) {
-      return link?.match(/.{1,43}/g).join('\n');  }
+      return link?.match(/.{1,43}/g).join('\n');
+    }
     return link;
   };
 
   const formatEmail = (email) => {
     if (email?.length > 20) {
-      return email?.match(/.{1,20}/g).join('\n');  }
+      return email?.match(/.{1,20}/g).join('\n');
+    }
     return email;
   };
 
   const formatLocation = (location) => {
     if (location?.length > 20) {
-      return location?.match(/.{1,20}/g).join('\n');  }
+      return location?.match(/.{1,20}/g).join('\n');
+    }
     return location;
   };
 
@@ -54,38 +57,42 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 172,
             }}
           >
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
-                }
-                alt=""
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
-            ) : (
-              <Image
-                src="/images/profile/john_doe.png"
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
+            {data?.showProfile === true && (
+              <>
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    alt=""
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src="/images/profile/john_doe.png"
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                )}
+              </>
             )}
-
             {data?.mobileNumber && (
               <View
                 style={{
+                  marginTop: data?.showProfile ? "" : 34,
                   display: "flex",
                   flexDirection: "row",
                   gap: 10,
@@ -110,7 +117,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     marginRight: "6px",
                   }}
                 >
-                {data.dial_code}   {data.mobileNumber}
+                  {data.dial_code}   {data.mobileNumber}
                 </Text>
               </View>
             )}
@@ -175,7 +182,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   }}
                 >
                   {/* {data.location} */}
-                   {formatLocation(data.location)}
+                  {formatLocation(data.location)}
                 </Text>
               </View>
             )}
@@ -187,7 +194,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               display: "flex",
               flexDirection: "column",
               gap: 50,
-              marginTop:30
+              marginTop: 30
             }}
           >
             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -262,7 +269,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
-          
+
         </View>
 
 
@@ -341,7 +348,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 250,
             }}
           >
-            {data?.education?.length > 0 &&  data?.showEducation === true &&(
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <View
                 style={{
                   display: "flex",
@@ -393,6 +400,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             justifyContent: "space-between",
                             gap: 10,
+                            alignItems:'start'
                           }}
                         >
                           <Text
@@ -414,10 +422,9 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
-                                  ? "Pursuing"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -448,66 +455,66 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
 
             {data?.achievements?.length > 0 && data?.showAchievements === true &&
               (<View
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-                alignItems: "flex-start",
-                width: 250,
-              }}
-              wrap={false}
-            >
-              <View
-                style={{
-                  borderBottom: 1,
-                  borderBottomColor: "#000000",
-                  width: 250,
-                }}
-              >
-                <Text
-                  style={{
-                    paddingBottom: 5,
-                    fontFamily: `${selectedFont} 400`,
-                    fontSize:16
-                  }}
-                >
-                 ACHIEVEMENTS & AWARDS
-                </Text>
-              </View>
-              <View
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
-                  width: "100%",
-
+                  gap: 16,
+                  alignItems: "flex-start",
+                  width: 250,
                 }}
+                wrap={false}
               >
-                {data.achievements?.map((detail, index) => (
-                  <View
-                    key={index}
+                <View
+                  style={{
+                    borderBottom: 1,
+                    borderBottomColor: "#000000",
+                    width: 250,
+                  }}
+                >
+                  <Text
                     style={{
-                      display: "flex",
-                      // flexDirection: "row",
-                      gap: 8,
-                      alignItems: "start",
-                      flexDirection: 'column'
+                      paddingBottom: 5,
+                      fontFamily: `${selectedFont} 400`,
+                      fontSize: 16
                     }}
                   >
+                    ACHIEVEMENTS & AWARDS
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    width: "100%",
 
-                    <Text
+                  }}
+                >
+                  {data.achievements?.map((detail, index) => (
+                    <View
+                      key={index}
                       style={{
-                        fontSize: 12,
-                        fontFamily: `${selectedFont} 600`,
-                        color: "#000000",
+                        display: "flex",
+                        // flexDirection: "row",
+                        gap: 8,
+                        alignItems: "start",
+                        flexDirection: 'column'
                       }}
                     >
-                      {detail.title}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>)}
+
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 600`,
+                          color: "#000000",
+                        }}
+                      >
+                        {detail.title}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>)}
 
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
@@ -580,7 +587,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true &&(
+            {data?.reference?.length > 0 && data?.showReference === true && (
               <View
                 style={{
                   display: "flex",
@@ -668,7 +675,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.languages?.length > 0 &&  data?.showLanguage === true &&(
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
                 style={{
                   display: "flex",
@@ -882,7 +889,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                               flexDirection: "row",
                               justifyContent: "space-between",
                               // gap: 10,
-                              width:"100%"
+                              width: "100%"
                             }}
                           >
                             <Text
@@ -907,11 +914,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                      {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -945,7 +952,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.project?.length > 0 &&  data?.showProject === true &&(
+            {data?.project?.length > 0 && data?.showProject === true && (
               <View
                 style={{
                   display: "flex",
@@ -1025,15 +1032,13 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "30%",
-                                //
-                                //
                               }}
                             >
-                           {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1128,7 +1133,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                               flexDirection: "row",
                               justifyContent: "space-between",
                               gap: 10,
-                              width:"100%"
+                              width: "100%"
                             }}
                           >
                             <Text
@@ -1137,7 +1142,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "70%",
-                                
+
                               }}
                             >
                               {detail.title}
@@ -1152,11 +1157,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                           {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1274,11 +1279,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                        {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1321,6 +1326,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   alignItems: "flex-start",
                   width: 268,
                 }}
+                wrap={data?.internship?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1358,6 +1364,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           gap: 4,
                           width: "100%",
                         }}
+                        wrap={false}
                       >
                         <View
                           style={{
@@ -1396,11 +1403,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                             {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1434,7 +1441,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.section?.length > 0 &&  data?.showCustomSection === true &&(
+            {data?.section?.length > 0 && data?.showCustomSection === true && (
               <>
                 {data.section.map((item, index) => (
                   <View
@@ -1521,7 +1528,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                     //
                                   }}
                                 >
-                                 {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year}
                                   {detail?.duration?.start?.year && "-"}
                                   {detail?.duration?.end?.year === "Year" ||
                                     detail?.duration?.end?.year === undefined

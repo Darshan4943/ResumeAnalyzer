@@ -7,7 +7,7 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 400; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -191,8 +191,8 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
       </div>
       {splitContents?.second?.length > 0 && (
         <div
-          ref={page2Ref}
           className="flex flex-row w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
+          ref={page2Ref}
         >
           <div className="w-[30%] py-[34px] px-[26px] bg-[#F2F2F2] flex flex-col min-h-[700px] justify-between "></div>
 

@@ -65,9 +65,11 @@ const ResumePreview = ({
   render,
   clientId,
 }) => {
+
+ 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-
+ 
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -100,13 +102,16 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          
+          if (!isEdit) {
+            setName(data.firstName + "_resume " + (res.data.data.length + 1));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +121,20 @@ const ResumePreview = ({
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_resume");
+    if (!isEdit) {
+      setName(data.firstName + "_resume");
+    } else {
+      if (Array.isArray(data.fileName) && data.fileName.length > 0) {
+        const fileName = data.fileName[0];
+        if (typeof fileName === 'string' && fileName.endsWith(".pdf")) {
+          setName(fileName.slice(0, -4));
+        } else {
+          setName(fileName);
+        }
+      } else {
+        setName('');
+      }
+    }
   }, [userDataGlobal, data.firstName, saveLimit]);
 
   const selectResumeTemplate = (index) => {
@@ -359,11 +377,11 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
-    console.log(666, blob);
+
     setdisabled(true);
 
     if (blob !== null) {
-      console.log(551, saveLimit);
+      
       if (saveLimit <= 0) {
         setLimitUsedModal(true);
         return;
@@ -382,16 +400,34 @@ const ResumePreview = ({
             }
           });
         }
+        
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
 
+        if (userDataGlobal.role === "user") {
+          formData.append("UserId", userDataGlobal._id);
+        } else if (userDataGlobal.role === "recruiter") {
+          formData.append("UserId", userDataGlobal._id);
+          
+        }
+
         axios
           .put("https://jamblix.com/api/resume/" + id, formData)
           .then((res) => {
+            const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", saveLimit - 1);
+            if (download) {
+              const link = document.createElement("a");
+              link.href = pdfUrl;
+              link.download = res.data.data.fileName;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+
             getLimits();
             toast.success("Resume Updated successfully");
             setTimeout(() => {
@@ -479,11 +515,12 @@ const ResumePreview = ({
     }
   };
   const updateDownloadCount = async () => {
+    console.log("hii")
     setDownloadBtnLoading(true);
     axios
       .put(
         "https://jamblix.com/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+        userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
@@ -782,6 +819,8 @@ const ResumePreview = ({
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
           clientId={clientId}
+          isResume={true}
+          isEdit={isEdit}
         />
       )}
     </div>
