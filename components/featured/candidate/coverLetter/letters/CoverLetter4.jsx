@@ -52,10 +52,10 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
         >
           <div className="flex flex-row gap-[24px] ">
             <div>
-              <h5 className="font-montserrat text-[40px] font-normal leading-48.76 text-[#344A50] text-left break-all">
+              <h5 className="font-montserrat text-[22px] font-normal leading-48.76 text-[#344A50] text-left break-word">
                 {data.firstName} {data.lastName}
               </h5>
-              <h6 className="font-montserrat text-[14px] font-normal leading-48.76 text-[#AC5428] text-left break-all">
+              <h6 className="font-montserrat text-[14px] font-normal leading-48.76 text-[#AC5428] text-left break-word">
                 {data.designation}
               </h6>
             </div>
@@ -75,7 +75,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                     fill="white"
                   />
                 </svg>
-                <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left break-all">
+                <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left break-word">
                   {data?.address}
                 </div>
               </div>
@@ -113,7 +113,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                     fill="white"
                   />
                 </svg>
-                <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left break-all">
+                <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left break-word">
                   {data?.dial_code} {data?.mobileNumber}
                 </div>
               </div>
