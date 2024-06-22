@@ -237,7 +237,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
-                wrap={data?.skills?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -280,7 +280,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.hobbies?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -323,7 +323,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.languages?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -368,7 +368,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
                 <View
-                  wrap={data?.achievements?.length > 1 ? true : false}
+                  wrap={false}
                   style={{ flexDirection: "column", gap: 16 }}>
                   <View
                     wrap={false}
@@ -412,7 +412,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               )}
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
-                wrap={data?.socialLinks?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -472,7 +472,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.reference?.length > 0 && data?.showReference === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   gap: 12,
