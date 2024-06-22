@@ -12,7 +12,7 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
-  console.log(66, data);
+
 
   const formatLink26 = (link) => {
     if (link?.length > 25) {

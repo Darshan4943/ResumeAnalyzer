@@ -13,7 +13,7 @@ import {
 } from "@react-pdf/renderer";
 import { formatLink } from "../../../utils/middleware";
 
-function Template1({ data, selectedColor, selectedFont, preview }) {
+function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
 
   const formatLink = (link) => {
     if (link?.length > 23) {
@@ -37,7 +37,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
 
 
   return (
-    <Page size="A4" style={{ padding: 24 }} wrap={true}>
+    <Page size="A4" style={{ padding: 24 }} wrap={true} >
+
       <View
         style={{
           flexDirection: "column",
@@ -273,7 +274,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                   <View style={{ flexDirection: "column", gap: 20 }}>
-                    {data?.education?.map((detail, index) => (
+                    {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                       <View
                         wrap={false}
                         key={index}
@@ -358,7 +359,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     </Svg>
                   </View>
                   <View style={{ flexDirection: "column", gap: 8 }}>
-                    {data?.skills.map((detail, index) => (
+                    {data?.skills?.slice(0, pageLayout && 3).map((detail, index) => (
                       <View
                         wrap={false}
                         key={index}>
@@ -409,7 +410,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       />
                     </Svg>
                   </View>
-                  {data?.achievements?.map((detail, index) => (
+                  {data?.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -434,7 +435,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   ))}
                 </View>
               )}
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -495,7 +496,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.languages?.length > 0 && data?.showLanguage === true && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
               <View style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -538,7 +539,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
               <View style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -582,7 +583,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
               <View
                 style={{
                   flexDirection: "column",
@@ -738,7 +739,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Svg>
                 </View>
                 <View style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -840,7 +841,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                 </View>
-                {data?.internship?.map((detail, index) => (
+                {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -915,7 +916,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             )}
-            {data?.project?.length > 0 && data?.showProject === true && (
+            {data?.project?.length > 0 && data?.showProject === true &&  (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }} wrap={data?.project?.length == 1 ? false : true}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -938,7 +939,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                 </View>
-                {data?.project?.map((detail, index) => (
+                {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -1013,7 +1014,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             )}
-            {data?.course?.length > 0 && data?.showCourses === true && (
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -1112,7 +1113,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
             {data?.extraCaricularData?.length > 0 &&
-              data?.showExtraCariculam === true && (
+              data?.showExtraCariculam === true && !pageLayout &&(
                 <View
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 >
@@ -1212,7 +1213,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   ))}
                 </View>
               )}
-            {data?.section?.length > 0 && data?.showCustomSection === true && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
               <>
                 {data?.section?.map((item, index) => (
                   <View

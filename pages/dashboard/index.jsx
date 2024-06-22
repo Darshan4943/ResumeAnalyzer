@@ -319,7 +319,7 @@ function Dashboard() {
     }
     return false;
   }
-  const selectResumeTemplate = (index) => {
+  const selectResumeTemplate = (index,pageLayout) => {
     switch (index) {
       case 1:
         return (
@@ -327,6 +327,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 2:
@@ -543,15 +544,16 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+           
           />
         );
     }
   };
 
-  const MyComponent = () => {
+  const MyComponent = ({ pageLayout }) => {
     return (
-      <Document dpi={72}>
-        {selectResumeTemplate(resumeData.selectedResumeIndex)}
+      <Document dpi={72} >
+        {selectResumeTemplate(resumeData.selectedResumeIndex,pageLayout)}
       </Document>
     );
   };
@@ -722,18 +724,19 @@ function Dashboard() {
                       {data.firstName}_resume.pdf
                     </span>
 
-                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
+                    <div className=" w-[230px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
 
 
                       <PDFViewer
                         width="250px"
                         height="330px"
                         showToolbar={false}
+                       
                       >
-                        <MyComponent />
+                        <MyComponent pageLayout={true} />
                       </PDFViewer>
 
-                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                         <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
 
 

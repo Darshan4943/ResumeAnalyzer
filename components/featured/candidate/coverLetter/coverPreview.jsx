@@ -117,6 +117,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       if (!pdfBlob) {
         return;
       }
+      
       if (saveLimit <= 0) {
         setLoading(false);
         setLoading1(false);
@@ -124,7 +125,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       
         return;
       }
-   
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -191,6 +191,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
+
+    if (saveLimit <= 0) {
+      setLoading(false);
+      setLoading1(false);
+      setLimitUsedModal(true);
+    
+      return;
+    }
     if (!page1Ref.current) {
       console.error("Reference to page 1 is not set.");
       return null;
@@ -225,6 +233,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   //downloadw
  
   const downloadPdfBlob = async () => {
+
+    if (saveLimit <= 0) {
+      setLoading(false);
+      setLoading1(false);
+      setLimitUsedModal(true);
+    
+      return;
+    }
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
 
@@ -243,7 +259,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       }
 
       const pdfBlob = pdf.output("blob");
-
+      if (saveLimit <= 0) {
+        setLoading(false);
+        setLoading1(false);
+        setLimitUsedModal(true);
+      
+        return;
+      }
+   
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
 
@@ -279,8 +302,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   };
 
   const DownloadButton = () => (
+    
     <button
       onClick={() => {
+        
         handleDownload();
         setLoading1(true);
       }}
