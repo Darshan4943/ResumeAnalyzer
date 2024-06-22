@@ -546,7 +546,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.hobbies?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
