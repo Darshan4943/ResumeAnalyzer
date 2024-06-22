@@ -64,35 +64,37 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           }}
         >
           <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>
-            <View
-              style={{
-                width: 134,
-                height: 134,
-                flexShrink: 0,
-                backgroundColor: "lightgray",
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
-                  }
-                  style={{
-                    objectFit: "cover",
-                    width: 134,
-                    height: 134,
-                  }}
-                />
-              ) : (
-                <Image src="/images/services/profile.png" />
-              )}
-            </View>
+            {data?.showProfile === true && (
+              <View
+                style={{
+                  width: 134,
+                  height: 134,
+                  flexShrink: 0,
+                  backgroundColor: "lightgray",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    style={{
+                      objectFit: "cover",
+                      width: 134,
+                      height: 134,
+                    }}
+                  />
+                ) : (
+                  <Image src="/images/services/profile.png" />
+                )}
+              </View>
+            )}
           </View>
 
           <View

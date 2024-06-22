@@ -119,29 +119,29 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               {formatLink20(data.designation)}
             </Text>
           </View>
-
-          <View style={{ width: "176px", height: "180px" }}>
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                style={{ objectFit: "contain" }}
-                alt=""
-              />
-            ) : (
-              <Image
-                src="/images/services/template_profile.png"
-                alt=""
-                style={{}}
-              />
-            )}
-          </View>
-
+          {data?.showProfile === true && (
+            <View style={{ width: "176px", height: "180px" }}>
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{ objectFit: "contain" }}
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/images/services/template_profile.png"
+                  alt=""
+                  style={{}}
+                />
+              )}
+            </View>
+          )}
           <View
           //  wrap={false}
           >

@@ -45,37 +45,40 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             display: "flex",
           }}
         >
+          {data?.showProfile === true && (
+            <View
+              style={{
+                width: "173",
+                height: "173",
+                borderRadius: "50%",
+                marginTop: "20px",
+                marginLeft: "18px",
+              }}
+            >
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  alt=""
+                  style={{ width: "153", height: "153", borderRadius: "50%" }}
+                />
+              ) : (
+                <Image
+                  src="/images/services/profile.png"
+                  alt=""
+                  style={{ width: "153", height: "153", borderRadius: "50%" }}
+                />
+              )}
+            </View>
+          )}
           <View
             style={{
-              width: "173",
-              height: "173",
-              borderRadius: "50%",
-              marginTop: "20px",
-              marginLeft: "18px",
-            }}
-          >
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                alt=""
-                style={{ width: "153", height: "153", borderRadius: "50%" }}
-              />
-            ) : (
-              <Image
-                src="/images/services/profile.png"
-                alt=""
-                style={{ width: "153", height: "153", borderRadius: "50%" }}
-              />
-            )}
-          </View>
-          <View
-            style={{
+              marginLeft: data?.showProfile ? "" : "46px",
               flexDirection: "column",
               gap: 4,
               maxWidth: "40%",
