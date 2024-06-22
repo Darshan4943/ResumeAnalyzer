@@ -1050,7 +1050,9 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.achievements?.length > 0 && data?.showAchievements === true && (<>  <View
+            {data?.achievements?.length > 0 && data?.showAchievements === true && (<> 
+              <View style={{display:'flex',flexDirection:'column',gap:'16px'}}  wrap={data?.achievements?.length > 1 ? true : false} >
+             <View
               style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
             ></View>
 
@@ -1102,7 +1104,9 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     </View>
                   ))}
                 </View>
-              </View></>)}
+              </View>
+              </View>
+              </>)}
 
 
             {data?.languages?.length > 0 && data?.showLanguage === true && (
