@@ -14,7 +14,7 @@ import {
   ClipPath,
 } from "@react-pdf/renderer";
 
-const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
+const Template18 = ({ data, selectedColor, selectedFont, preview,pageLayout }) => {
   const formatLink = (link) => {
     if (link?.length > 28) {
       return link?.match(/.{1,28}/g).join("\n");
@@ -66,51 +66,55 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           }}
         >
           <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <View
-              style={{
-                height: 159,
-                width: 159,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                border: 2,
-                borderColor: "#83C3C9",
-                padding: 8,
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                  }
-                  alt=""
-                  style={{
-                    objectFit: "cover",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    objectFit: "cover",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "50%",
-                  }}
-                />
-              )}
-            </View>
+            {data?.showProfile === true && (
+              <View
+                style={{
+                  height: 159,
+                  width: 159,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: 2,
+                  borderColor: "#83C3C9",
+                  padding: 8,
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                <>
+                  {data.profilePhoto ? (
+                    <Image
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                            ? URL.createObjectURL(data.profilePhoto)
+                            : data.profilePhoto
+                      }
+                      alt=""
+                      style={{
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/services/profile.png"
+                      alt=""
+                      style={{
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                </>
+              </View>
+            )}
             <View
               style={{
                 display: "flex",
@@ -346,7 +350,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
-                  {data?.skills?.map((detail, index) => (
+                  {data?.skills?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -422,7 +426,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   justifyContent: "center",
                 }}
               >
-                {data?.languages?.map((detail, index) => (
+                {data?.languages?.slice(0, pageLayout && 2)?.map((detail, index) => (
                   <View
                     key={index}
                     style={{
@@ -460,7 +464,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+          {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
             <View
               wrap={false}
               style={{
@@ -536,7 +540,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout &&(
             <View
               wrap={false}
               style={{
@@ -621,7 +625,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.achievements?.length > 0 &&
-            data?.showAchievements === true && (
+            data?.showAchievements === true && !pageLayout && (
               <View
                 wrap={false}
                 style={{
@@ -686,7 +690,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-          {data?.reference?.length > 0 && data?.showReference === true && (
+          {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
             <View
               wrap={false}
               style={{
@@ -787,7 +791,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
         </View>
 
         <View style={{ width: 388 }}>
-          {data?.summery?.length > 0 && data?.showSummary === true && (
+          {data?.summery?.length > 0 && data?.showSummary === true && !pageLayout &&(
             <View
               style={{
                 display: "flex",
@@ -982,7 +986,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 12,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1024,7 +1028,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       // gap:8
                     }}
                   >
-                    {data?.experience?.map((detail, index) => (
+                    {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                       // <View
                       //   // wrap={false}
                       //   key={index}
@@ -1067,11 +1071,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                               `}
                           </Text>
@@ -1112,7 +1115,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1153,7 +1156,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       marginLeft: 46,
                     }}
                   >
-                    {data?.education?.map((detail, index) => (
+                    {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                       <View
                         // wrap={false}
                         key={index}
@@ -1188,10 +1191,9 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                           <View
@@ -1229,7 +1231,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     width: "90%",
                   }}
                   wrap={false}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1270,7 +1272,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       marginLeft: 46,
                     }}
                   >
-                    {data?.project?.map((detail, index) => (
+                    {data?.project?.slice(0, pageLayout && 2)?.map((detail, index) => (
                       <View
                         // wrap={false}
                         key={index}
@@ -1305,11 +1307,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1338,7 +1339,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.internship?.length > 0 && data?.showInternship === true && (
+            {data?.internship?.length > 0 && data?.showInternship === true &&  (
               <>
                 <View
                   style={{
@@ -1347,7 +1348,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1388,7 +1389,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       marginLeft: 46,
                     }}
                   >
-                    {data?.internship?.map((detail, index) => (
+                    {data?.internship?.slice(0, pageLayout && 2)?.map((detail, index) => (
                       <View
                         // wrap={false}
                         key={index}
@@ -1423,11 +1424,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1456,7 +1456,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true && (
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
               <>
                 <View
                   style={{
@@ -1542,11 +1542,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1576,7 +1575,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             )}
 
             {data?.extraCaricularData?.length > 0 &&
-              data?.showExtraCariculam === true && (
+              data?.showExtraCariculam === true &&  !pageLayout &&(
                 <>
                   {" "}
                   <View
@@ -1663,11 +1662,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               }}
                             >
                               {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking ||
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                   detail.duration?.end?.year === "Year"
-                                    ? "Present"
-                                    : detail.duration?.end?.year
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                                 }
                          `}{" "}
                             </Text>
@@ -1695,7 +1693,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   </View>
                 </>
               )}
-            {data?.section?.length > 0 && data?.showCustomSection === true && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
               <>
                 {data?.section.map((item, index) => (
                   <View
@@ -1774,7 +1772,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
                             {detail?.duration?.end?.year === "Year" ||
-                            detail?.duration?.end?.year === undefined
+                              detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>

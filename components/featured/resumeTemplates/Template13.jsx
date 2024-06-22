@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-function Template13({ data, selectedColor, selectedFont }) {
+function Template13({ data, selectedColor, selectedFont ,pageLayout}) {
   const formatLink = (link) => {
     if (link?.length > 26) {
       return link?.match(/.{1,26}/g).join("\n");
@@ -248,7 +248,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     >
                       WORK EXPERIENCE
                     </Text>
-                    {data.experience.map((detail, index) => (
+                    {data.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                       <>
                         <View
                           key={index}
@@ -320,7 +320,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   >
                     PROJECTS
                   </Text>
-                  {data.project.map((detail, index) => (
+                  {data.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -383,7 +383,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.internship.length > 0 && data?.showInternship === true && (
+              {data.internship.length > 0 && data?.showInternship === true &&  !pageLayout && (
                 <View
                   style={{
                     flexDirection: "column",
@@ -466,7 +466,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.course.length > 0 && data?.showCourses === true && (
+              {data.course.length > 0 && data?.showCourses === true && !pageLayout && (
                 <View
                   style={{
                     flexDirection: "column",
@@ -548,7 +548,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               )}
 
               {data.extraCaricularData.length > 0 &&
-                data?.showExtraCariculam === true && (
+                data?.showExtraCariculam === true && !pageLayout && (
                   <View
                     style={{
                       flexDirection: "column",
@@ -630,7 +630,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 )}
 
               {data.section?.length > 0 &&
-                data?.showCustomSection === true &&
+                data?.showCustomSection === true && !pageLayout &&
                 data.section.map((item, index) => (
                   <View
                     style={{
@@ -727,7 +727,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     <View
                       style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                     >
-                      {data.achievements.map((detail, index) => (
+                      {data.achievements?.slice(0, pageLayout && 5)?.map((detail, index) => (
                         <Text
                           key={index}
                           style={{
@@ -759,7 +759,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   <View
                     style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
                   >
-                    {data.skills.map((detail, index) => (
+                    {data.skills?.slice(0, pageLayout && 8)?.map((detail, index) => (
                       <Text
                         key={index}
                         style={{
@@ -787,7 +787,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   >
                     EDUCATION
                   </Text>
-                  {data.education.map((detail, index) => (
+                  {data.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -849,7 +849,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
               {/* social links */}
-              {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+              {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -909,7 +909,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               )}
 
               {/* Languages */}
-              {data.languages.length > 0 && data?.showLanguage === true && (
+              {data.languages.length > 0 && data?.showLanguage === true && !pageLayout &&(
                 <View style={{ flexDirection: "column", gap: 12 }} wrap={false}>
                   <Text
                     style={{
@@ -940,7 +940,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.hobbies.length > 0 && data?.showHobbies === true && (
+              {data.hobbies.length > 0 && data?.showHobbies === true && !pageLayout && (
                 <View style={{ flexDirection: "column", gap: 12 }} wrap={false}>
                   <Text
                     style={{
@@ -971,7 +971,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.reference.length > 0 && data?.showReference === true && (
+              {data.reference.length > 0 && data?.showReference === true && !pageLayout &&(
                 <View style={{ flexDirection: "column", gap: 12, width: 261 }}>
                   <Text
                     style={{

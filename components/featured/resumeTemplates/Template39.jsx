@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template39({ data, selectedColor, selectedFont, preview }) {
+function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
   const formatLink = (link) => {
     if (link?.length > 19) {
       return link?.match(/.{1,19}/g).join("\n");
@@ -38,38 +38,40 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
       <View style={{ flexDirection: "row", gap: 24, marginTop: 48 }}>
         <View style={{ width: "156px" }}>
           <View style={{ flexDirection: "column", gap: "24px" }}>
-            <View style={{ flexDirection: "column" }}>
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
-                  }
-                  style={{
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                    width: "112px",
-                    height: "112px",
-                  }}
-                />
-              ) : (
-                <Image
-                  style={{
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                    width: "112px",
-                    height: "112px",
-                  }}
-                  src="/images/services/profile.png"
-                />
-              )}
-            </View>
-
+            {data?.showProfile === true && (
+              <View style={{ flexDirection: "column" }}>
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                      width: "112px",
+                      height: "112px",
+                    }}
+                  />
+                ) : (
+                  <Image
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                      width: "112px",
+                      height: "112px",
+                    }}
+                    src="/images/services/profile.png"
+                  />
+                )}
+              </View>
+            )}
             <View
               style={{
+                paddingTop: data?.showProfile ? "" : "30px",
                 display: "flex",
                 flexDirection: "column",
                 gap: "8",
@@ -544,7 +546,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.hobbies?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{

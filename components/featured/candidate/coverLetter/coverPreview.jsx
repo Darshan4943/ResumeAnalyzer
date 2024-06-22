@@ -19,7 +19,7 @@ import CoverLetter8 from "./letters/CoverLetter8";
 import CoverLetter13 from "./letters/CoverLatter13";
 import LimitUsedModal from "../../../models/limitUsedModal";
 
-function CoverPreview({ data, clientId, selectedCoverIndex }) {
+function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_cover");
   const [blob, setBlob] = useState("");
@@ -117,6 +117,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       if (!pdfBlob) {
         return;
       }
+      
       if (saveLimit <= 0) {
         setLoading(false);
         setLoading1(false);
@@ -124,41 +125,41 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       
         return;
       }
-   
       const formData = new FormData();
-      if (Object.keys(data).length > 0) {
-        Object.keys(data).map((key) => {
-          if (Array.isArray(data[key]) && data[key].length > 0) {
-            formData.append(key, JSON.stringify(data[key]));
-          } else {
-            if (data[key] != undefined) {
-              formData.append(key, data[key]);
-            }
-          }
-        });
-      }
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+        if (Array.isArray(value)) {
+          formData.append(key, JSON.stringify(value));
+        } else if (value != undefined) {
+          formData.append(key, value);
+        }
+      });
+
       formData.append("UserId", userDataGlobal._id);
       formData.append("pdfBlob", pdfBlob);
-      if (userDataGlobal.role === "user") {
-        formData.append("userId", userDataGlobal._id);
-      } else if (userDataGlobal.role === "recruiter") {
-        formData.append("userId", clientId);
-        // formData.append("recruiterId", userDataGlobal._id);
-      }
-
+      formData.append(
+        "userId",
+        userDataGlobal.role === "user" ? userDataGlobal._id : clientId
+      );
       formData.append("fileName", name);
 
-      const response = await axios.post(
-        "https://jamblix.com/api/cover/add",
-        formData
-      );
+      const url = isCoverEdit
+        ? `https://jamblix.com/api/cover/update/${data._id}`
+        : "https://jamblix.com/api/cover/add";
+      const method = isCoverEdit ? "put" : "post";
+
+      const response = await axios[method](url, formData);
 
       localStorage.setItem("saveCount", saveLimit - 1);
       getLimits();
-      toast.success("Cover Letter added successfully");
+      toast.success(
+        `Cover Letter ${isCoverEdit ? "updated" : "added"} successfully`
+      );
       setLoading(false);
       setLoading1(false);
       setDownload(false);
+
+   
       return response.data;
     } catch (error) {
       console.error("Error adding cover letter:", error);
@@ -191,6 +192,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
+
+    if (saveLimit <= 0) {
+      setLoading(false);
+      setLoading1(false);
+      setLimitUsedModal(true);
+    
+      return;
+    }
     if (!page1Ref.current) {
       console.error("Reference to page 1 is not set.");
       return null;
@@ -225,6 +234,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   //downloadw
  
   const downloadPdfBlob = async () => {
+
+    if (saveLimit <= 0) {
+      setLoading(false);
+      setLoading1(false);
+      setLimitUsedModal(true);
+    
+      return;
+    }
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
 
@@ -243,7 +260,14 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       }
 
       const pdfBlob = pdf.output("blob");
-
+      if (saveLimit <= 0) {
+        setLoading(false);
+        setLoading1(false);
+        setLimitUsedModal(true);
+      
+        return;
+      }
+   
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
 
@@ -279,8 +303,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   };
 
   const DownloadButton = () => (
+    
     <button
       onClick={() => {
+        
         handleDownload();
         setLoading1(true);
       }}

@@ -10,15 +10,32 @@ const ResumeList = ({ data, setData }) => {
   const [file, setFile] = useState(null);
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
+  const [isChecked, setIsChecked] = useState(true);
   const [loading, setLoading] = useState(false);
+
   const handleButtonClick = () => {
     fileRef.current.click();
   };
   const [croppedImage, setCroppedImage] = useState(null);
 
-  console.log(2, croppedImage)
-  // console.log(1, file)
-  // console.log(3, data.profilePhoto)
+  useEffect(() => {
+    if (data) {
+      if (data?.showProfile === true && data.selectedResumeIndex !== 14 && data.selectedResumeIndex !== 13) {
+        setIsChecked(true);
+      }
+      else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+  console.log(8797, isChecked)
+
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, showProfile: !isChecked });
+  };
+
+
   const handleFileChange = async (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -43,6 +60,7 @@ const ResumeList = ({ data, setData }) => {
       }
     }
   };
+
 
   const convertToPng = async (file) => {
     return new Promise((resolve, reject) => {
@@ -167,8 +185,24 @@ const ResumeList = ({ data, setData }) => {
       <div
         className="flex flex-col gap-4 py-4 bg-white rounded-lg"
         // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+        style={{
+          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
+          opacity: isChecked ? 1 : 0.5,
+        }}
       >
-        <p className="text-[20px] font-medium">Upload Photo</p>
+        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <p className="text-[20px] font-medium">Upload Photo</p>
+          <label className="switch">
+            <input
+
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+              disabled={data.selectedResumeIndex === 13 || data.selectedResumeIndex === 14}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
         <div className="flex sm:flex-row ml:flex-col xxlg:flex-row  flex-col gap-4 items-center justify-center">
           {croppedImage ? (
             <ImageContainer
@@ -224,11 +258,10 @@ const ResumeList = ({ data, setData }) => {
               disabled={
                 data.profilePhoto === null || data.profilePhoto === undefined
               }
-              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${
-                (data.profilePhoto === null ||
-                  data.profilePhoto === undefined) &&
+              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${(data.profilePhoto === null ||
+                data.profilePhoto === undefined) &&
                 "opacity-50"
-              }`}
+                }`}
               onClick={() => removeImgae()}
             >
               Remove
@@ -236,9 +269,8 @@ const ResumeList = ({ data, setData }) => {
 
             <button
               disabled={!croppedImage}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                !croppedImage && "opacity-50"
-              }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!croppedImage && "opacity-50"
+                }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

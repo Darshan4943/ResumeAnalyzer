@@ -20,6 +20,7 @@ const CoustomForm = ({
   selectedFont,
   isFormat,
   setError,
+  isCoverEdit
 }) => {
   const [loading, setLoading] = useState(false);
   const rephrasePassage = () => {
@@ -74,7 +75,7 @@ const CoustomForm = ({
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
           <EmployerDetails data={data} setData={setData} setError={setError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <CustomLetterBody data={data} setData={setData} setError={setError} />
+          <CustomLetterBody data={data} setData={setData} setError={setError} isCoverEdit={isCoverEdit} />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
               className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "

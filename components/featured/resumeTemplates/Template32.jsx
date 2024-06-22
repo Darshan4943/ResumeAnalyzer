@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template32({ data, selectedColor, selectedFont, preview }) {
+function Template32({ data, selectedColor, selectedFont, preview,pageLayout }) {
   const formatLink = (link) => {
     if (link?.length > 23) {
       return link?.match(/.{1,23}/g).join("\n");
@@ -25,13 +25,13 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
     return email;
   };
 
-  const  formatLocation = (location) => {
+  const formatLocation = (location) => {
     if (location?.length > 20) {
       return location?.match(/.{1,20}/g).join("\n");
     }
     return location;
   };
- 
+
 
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
@@ -54,39 +54,43 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 maxWidth: "100%",
               }}
             >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                  }
-                  alt=""
-                  style={{
-                    width: "134px",
-                    marginBottom: "16px",
-                    height: "134px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    width: "134px",
-                    height: "134px",
-                    borderRadius: "50%",
-                  }}
-                />
+              {data?.showProfile === true && (
+                <>
+                  {data.profilePhoto ? (
+                    <Image
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                            ? URL.createObjectURL(data.profilePhoto)
+                            : data.profilePhoto
+                      }
+                      alt=""
+                      style={{
+                        width: "134px",
+                        marginBottom: "16px",
+                        height: "134px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/services/profile.png"
+                      alt=""
+                      style={{
+                        width: "134px",
+                        height: "134px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                </>
               )}
               <View
                 style={{
                   flexDirection: "column",
-                  marginTop: 24,
+                  marginTop: data?.showProfile ? 24 : 8,
                   gap: 4,
                   alignItems: "center",
                   maxWidth: "100%",
@@ -292,7 +296,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                     }}
                   >
-                    {data.skills?.map((detail, index) => {
+                    {data.skills?.slice(0, pageLayout && 3)?.map((detail, index) => {
                       // const calculateWidthPercentage = (rating) => {
                       //   let ratingPercentage = 0;
                       //   if (rating && rating.length > 0) {
@@ -393,7 +397,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                     }}
                   >
-                    {data.languages?.map((detail, index) => {
+                    {data.languages?.slice(0, pageLayout && 2)?.map((detail, index) => {
                       // const calculateWidthPercentage = (rating) => {
                       //   let ratingPercentage = 0;
                       //   if (rating && rating.length > 0) {
@@ -469,7 +473,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -522,7 +526,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.achievements?.length > 0 &&
-              data?.showAchievements === true && (
+              data?.showAchievements === true && !pageLayout &&(
                 <View
                   style={{ flexDirection: "column", gap: "16px" }}
                   wrap={false}
@@ -570,7 +574,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -627,7 +631,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout &&(
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -848,7 +852,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         wrap={false}
@@ -886,10 +890,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
-                                  ? "Pursuing"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -1005,7 +1008,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         // wrap={true}
@@ -1043,7 +1046,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                           {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1166,7 +1169,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.project?.map((detail, index) => (
+                  {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         // wrap={true}
@@ -1204,7 +1207,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                     {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1247,7 +1250,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.internship?.length > 0 && data?.showInternship === true && (
+          {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout && (
             <View
               style={{
                 display: "flex",
@@ -1364,7 +1367,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                        {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1407,7 +1410,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && data?.showCourses === true && (
+          {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
             <View
               style={{
                 display: "flex",
@@ -1524,7 +1527,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1568,7 +1571,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && (
+            data?.showExtraCariculam === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -1686,11 +1689,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                            {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1729,7 +1732,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-          {data?.section?.length > 0 && data?.showCustomSection === true && (
+          {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
             <>
               {data.section.map((item, index) => (
                 <View
@@ -1849,12 +1852,12 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                              {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {detail?.duration?.end?.year === "Year" ||
+                                  detail?.duration?.end?.year === undefined
+                                  ? "Present"
+                                  : detail?.duration?.end?.year}
                               </Text>
                             </View>
                             <View

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import CustomTextEditor from "./CustomTextEditor";
 
-const CustomLetterBody = ({ data, setData }) => {
+const CustomLetterBody = ({ data, setData,isCoverEdit }) => {
   const [text, setText] = useState("");
 
   return (
@@ -17,6 +17,7 @@ const CustomLetterBody = ({ data, setData }) => {
       <CustomTextEditor
         data={data}
         // value={"Para"}
+        isCoverEdit={isCoverEdit}
         setData={setData}
         placeholder={
           "Explain why you are the ideal candidate for a particular job"

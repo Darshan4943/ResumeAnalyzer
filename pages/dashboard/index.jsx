@@ -278,6 +278,8 @@ function Dashboard() {
   }, [userDataGlobal]);
 
   const [resumeData, setResumeData] = useState([]);
+  console.log(33,resumeData)
+  console.log(44,data)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -319,7 +321,7 @@ function Dashboard() {
     }
     return false;
   }
-  const selectResumeTemplate = (index) => {
+  const selectResumeTemplate = (index,pageLayout) => {
     switch (index) {
       case 1:
         return (
@@ -327,22 +329,17 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
-      case 2:
-        return (
-          <Template2
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
+      
       case 3:
         return (
           <Template3
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 4:
@@ -351,62 +348,17 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
-      case 5:
-        return (
-          <Template5
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 6:
-        return (
-          <Template6
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 7:
-        return (
-          <Template7
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 8:
-        return (
-          <Template8
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 9:
-        return (
-          <Template9
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 10:
-        return (
-          <Template10
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
+      
       case 11:
         return (
           <Template11
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 12:
@@ -415,6 +367,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 13:
@@ -423,6 +376,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 14:
@@ -431,6 +385,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 15:
@@ -439,6 +394,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 16:
@@ -447,6 +403,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 17:
@@ -455,6 +412,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={dresumeDataata.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 18:
@@ -463,6 +421,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 19:
@@ -471,6 +430,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 20:
@@ -479,6 +439,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 44:
@@ -487,6 +448,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 32:
@@ -495,6 +457,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 39:
@@ -503,6 +466,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 48:
@@ -511,6 +475,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 47:
@@ -519,6 +484,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 30:
@@ -527,6 +493,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 53:
@@ -535,6 +502,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       default:
@@ -543,15 +511,17 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
+           
           />
         );
     }
   };
 
-  const MyComponent = () => {
+  const MyComponent = ({ pageLayout }) => {
     return (
-      <Document dpi={72}>
-        {selectResumeTemplate(resumeData.selectedResumeIndex)}
+      <Document dpi={72} >
+        {selectResumeTemplate(resumeData.selectedResumeIndex,pageLayout)}
       </Document>
     );
   };
@@ -708,7 +678,7 @@ function Dashboard() {
 
       {userDataGlobal.role === "user" &&
         data !== undefined &&
-        hasNonEmptyKey(data) && (
+         (
           <div className="flex gap-[24px] flex-wrap flex-col sm:items-start items-center ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
@@ -722,18 +692,19 @@ function Dashboard() {
                       {data.firstName}_resume.pdf
                     </span>
 
-                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
+                    <div className=" w-[230px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
 
 
                       <PDFViewer
                         width="250px"
                         height="330px"
                         showToolbar={false}
+                       
                       >
-                        <MyComponent />
+                        <MyComponent pageLayout={true} />
                       </PDFViewer>
 
-                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                         <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
 
 

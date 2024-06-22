@@ -46,7 +46,7 @@ const Reference = ({
       }
     }
   }, [data]);
-  console.log(666, data);
+  
 
   useEffect(() => {
     const filterLogic = (item) =>

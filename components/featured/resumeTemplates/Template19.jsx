@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-function Template19({ data, selectedColor, selectedFont, preview }) {
+function Template19({ data, selectedColor, selectedFont, preview,pageLayout }) {
 
 
 
@@ -57,38 +57,42 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 172,
             }}
           >
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                alt=""
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
-            ) : (
-              <Image
-                src="/images/profile/john_doe.png"
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
+            {data?.showProfile === true && (
+              <>
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    alt=""
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src="/images/profile/john_doe.png"
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                )}
+              </>
             )}
-
             {data?.mobileNumber && (
               <View
                 style={{
+                  marginTop: data?.showProfile ? "" : 34,
                   display: "flex",
                   flexDirection: "row",
                   gap: 10,
@@ -380,7 +384,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     width: "100%",
                   }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         style={{
@@ -486,7 +490,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
 
                   }}
                 >
-                  {data.achievements?.map((detail, index) => (
+                  {data.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <View
                       key={index}
                       style={{
@@ -512,7 +516,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>)}
 
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -583,7 +587,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -671,7 +675,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.languages?.length > 0 && data?.showLanguage === true && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -743,7 +747,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
               <View
                 style={{
                   display: "flex",
@@ -862,7 +866,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     //
                   }}
                 >
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         style={{
@@ -985,7 +989,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     //
                   }}
                 >
-                  {data?.project?.map((detail, index) => (
+                  {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         style={{
@@ -1068,7 +1072,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true && (
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
               <View
                 style={{
                   display: "flex",
@@ -1191,7 +1195,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && !pageLayout && (
               <View
                 style={{
                   display: "flex",
@@ -1313,7 +1317,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.internship?.length > 0 && data?.showInternship === true && (
+            {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -1437,7 +1441,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.section?.length > 0 && data?.showCustomSection === true && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
               <>
                 {data.section.map((item, index) => (
                   <View

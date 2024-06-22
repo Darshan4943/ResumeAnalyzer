@@ -12,6 +12,7 @@ function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
+  console.log(4,selectedResumeIndex)
   const [render, setRender] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
@@ -21,15 +22,15 @@ function CreateResume() {
   // const { clientId, continueEdit } = router.query;
   const { clientId, continueEdit } = router.query;
   const currentYear = new Date().getFullYear();
-
+  const allData = JSON.parse(localStorage.getItem("userData"));
   const templates = [
-    // {
-    //   title: "Template1",
-    //   imgUrl: "/images/templates/template1.png",
-    //   index: 1,
-    //   fontFamily: "Lato",
-    //   themeColor: "#414042",
-    // },
+    {
+      title: "Template1",
+      imgUrl: "/images/templates/template1.png",
+      index: 1,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
     // {
     //   title: "Template2",
     //   imgUrl: "/images/templates/template2.png",
@@ -37,20 +38,20 @@ function CreateResume() {
     //   fontFamily: "Barlow",
     //   themeColor: "#F7902B",
     // },
-    // {
-    //   title: "Template3",
-    //   imgUrl: "/images/templates/template3.png",
-    //   index: 3,
-    //   fontFamily: "Inter",
-    //   themeColor: "#414042",
-    // },
-    // {
-    //   title: "Template4",
-    //   imgUrl: "/images/templates/template4.png",
-    //   index: 4,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#00AEEF",
-    // },
+    {
+      title: "Template3",
+      imgUrl: "/images/templates/template3.png",
+      index: 3,
+      fontFamily: "Inter",
+      themeColor: "#414042",
+    },
+    {
+      title: "Template4",
+      imgUrl: "/images/templates/template4.png",
+      index: 4,
+      fontFamily: "Montserrat",
+      themeColor: "#00AEEF",
+    },
     // {
     //   title: "Template5",
     //   imgUrl: "/images/templates/template5.png",
@@ -93,13 +94,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#F2BE5C",
     // },
-    // {
-    //   title: "Template11",
-    //   imgUrl: "/images/templates/template11.png",
-    //   index: 11,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#E6E7E8",
-    // },
+    {
+      title: "Template11",
+      imgUrl: "/images/templates/template11.png",
+      index: 11,
+      fontFamily: "Montserrat",
+      themeColor: "#E6E7E8",
+    },
     // {
     //   title: "Template12",
     //   imgUrl: "/images/templates/template12.png",
@@ -107,20 +108,20 @@ function CreateResume() {
     //   fontFamily: "Lato",
     //   themeColor: "#0C2438",
     // },
-    // {
-    //   title: "Template13",
-    //   imgUrl: "/images/templates/template13.png",
-    //   index: 13,
-    //   fontFamily: "Poppins",
-    //   themeColor: "#0E6CC2",
-    // },
-    // {
-    //   title: "Template14",
-    //   imgUrl: "/images/templates/template14.png",
-    //   index: 14,
-    //   fontFamily: "Inter",
-    //   themeColor: "#242424",
-    // },
+    {
+      title: "Template13",
+      imgUrl: "/images/templates/template13.png",
+      index: 13,
+      fontFamily: "Poppins",
+      themeColor: "#0E6CC2",
+    },
+    {
+      title: "Template14",
+      imgUrl: "/images/templates/template14.png",
+      index: 14,
+      fontFamily: "Inter",
+      themeColor: "#242424",
+    },
     // {
     //   title: "Template15",
     //   imgUrl: "/images/templates/template15.png",
@@ -128,13 +129,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#716D6D",
     // },
-    // {
-    //   title: "Template53",
-    //   imgUrl: "/images/templates/template53.png",
-    //   index: 53,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#AC5428",
-    // },
+    {
+      title: "Template53",
+      imgUrl: "/images/templates/template53.png",
+      index: 53,
+      fontFamily: "Montserrat",
+      themeColor: "#AC5428",
+    },
     // {
     //   title: "Template17",
     //   imgUrl: "/images/templates/template17.png",
@@ -207,6 +208,7 @@ function CreateResume() {
       themeColor: "#0054A6",
     },
   ];
+
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -344,6 +346,7 @@ function CreateResume() {
   const defaultState = {
     showSkills: true,
     showAchievements: true,
+    showProfile:true,
     showCourses: true,
     showExtraCariculam: true,
     showHobbies: true,
@@ -385,7 +388,6 @@ function CreateResume() {
   };
 
   const [data, setData] = useState(defaultState);
-
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 
@@ -454,8 +456,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
@@ -492,16 +494,16 @@ function CreateResume() {
         skills: skills?.length > 0 ? skills?.map((item) => ({
           skill: item,
           rating: [5, 5, 5, 5, 5],
-        })):[],
-        hobbies: hobbies?.length > 0? hobbies?.map((item) => ({
+        })) : [],
+        hobbies: hobbies?.length > 0 ? hobbies?.map((item) => ({
           title: item,
         })) : [],
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
-                languages: item,
-                rating: [3, 3, 3],
-              }))
+              languages: item,
+              rating: [3, 3, 3],
+            }))
             : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
@@ -537,10 +539,10 @@ function CreateResume() {
         project:
           project?.length > 0
             ? project?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
 
               duration: {
                 start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
@@ -554,74 +556,74 @@ function CreateResume() {
         internship:
           internship?.length > 0
             ? internship?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
 
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         extraCaricularData:
           extraCaricularActivity?.length > 0
             ? extraCaricularActivity?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: true,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: true,
 
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         socialLinks:
           socialLinks?.length > 0
             ? socialLinks?.map((item) => ({
-                platform: item.platform,
-                link: item.link,
-              }))
+              platform: item.platform,
+              link: item.link,
+            }))
             : [],
         reference:
           references?.length > 0
             ? references?.map((item) => ({
-                referantName: item.referantName,
-                designation: item.designation,
-                "Organization Name": item["Organization Name"],
-                email: item.name,
-              }))
+              referantName: item.referantName,
+              designation: item.designation,
+              "Organization Name": item["Organization Name"],
+              email: item.name,
+            }))
             : [],
         achievements:
           achievements?.length > 0
             ? achievements?.map((item) => ({
-                title: item.title,
-              }))
+              title: item.title,
+            }))
             : [],
       });
     } else if (clientId) {
@@ -656,6 +658,16 @@ function CreateResume() {
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
       } else if (continueEdit) {
+       console.log(6,allData)
+   
+        const selectedTemplate = templates.find(template => template.index === allData.selectedResumeIndex);
+        console.log(3,selectedTemplate)
+        if (selectedTemplate) {
+          setSelectedColor(selectedTemplate.themeColor);
+          setSelectedFont(selectedTemplate.fontFamily);
+        } else {
+          setSelectedColor("");
+        }
       } else {
         setTimeout(() => {
           setSelectedResumeIndex(1);

@@ -45,37 +45,40 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             display: "flex",
           }}
         >
+          {data?.showProfile === true && (
+            <View
+              style={{
+                width: "173",
+                height: "173",
+                borderRadius: "50%",
+                marginTop: "20px",
+                marginLeft: "18px",
+              }}
+            >
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  alt=""
+                  style={{ width: "153", height: "153", borderRadius: "50%" }}
+                />
+              ) : (
+                <Image
+                  src="/images/services/profile.png"
+                  alt=""
+                  style={{ width: "153", height: "153", borderRadius: "50%" }}
+                />
+              )}
+            </View>
+          )}
           <View
             style={{
-              width: "173",
-              height: "173",
-              borderRadius: "50%",
-              marginTop: "20px",
-              marginLeft: "18px",
-            }}
-          >
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                alt=""
-                style={{ width: "153", height: "153", borderRadius: "50%" }}
-              />
-            ) : (
-              <Image
-                src="/images/services/profile.png"
-                alt=""
-                style={{ width: "153", height: "153", borderRadius: "50%" }}
-              />
-            )}
-          </View>
-          <View
-            style={{
+              marginLeft: data?.showProfile ? "" : "46px",
               flexDirection: "column",
               gap: 4,
               maxWidth: "40%",
@@ -234,7 +237,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
-                wrap={data?.skills?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -277,7 +280,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.hobbies?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -320,7 +323,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.languages?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -365,7 +368,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
                 <View
-                  wrap={data?.achievements?.length > 1 ? true : false}
+                  wrap={false}
                   style={{ flexDirection: "column", gap: 16 }}>
                   <View
                     wrap={false}
@@ -409,7 +412,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               )}
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
-                wrap={data?.socialLinks?.length > 1 ? true : false}
+                wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -469,7 +472,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.reference?.length > 0 && data?.showReference === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   gap: 12,

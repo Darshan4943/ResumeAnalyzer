@@ -25,10 +25,14 @@ function CoverForm({
   data,
   setData,
   isCoverEdit,
+  setIsFormat,
+  isFormat,
+  contentSituation,
+  setContentSituation,
 }) {
   const [isAll, setIsAll] = useState(false);
   const router = useRouter();
-  const [isFormat, setIsFormat] = useState("standard");
+
   const [FieldError, setFieldError] = useState("");
   const [isError, setError] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
@@ -36,7 +40,7 @@ function CoverForm({
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
   const [isShow, setIsShow] = useState(false);
-  const [contentSituation, setContentSituation] = useState("Experienced");
+
   const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
   const datePickerRef = useRef(null);
@@ -46,29 +50,22 @@ function CoverForm({
     setSelectedFont(template.fontFamily);
   };
 
-  console.log("isCoverEdit", isCoverEdit);
+  // useEffect(() => {
+  //   if (isCoverEdit) {
+  //     setIsFormat(data?.type);
+  //     setContentSituation(data?.contentType);
+  //   }
+  // }, [isCoverEdit, data]);
+
   useEffect(() => {
-    if (isCoverEdit) {
-      if (data.type === "custom" && data.contentType === "Fresher") {
-        console.log("isCoverEdit1", isCoverEdit);
-        setIsFormat("custom");
-        setContentSituation("Fresher");
-      } else if (data.type === "custom" && data.contentType === "Experienced") {
-        console.log("isCoverEdit2", isCoverEdit);
-        setIsFormat("custom");
-        setContentSituation("Experienced");
-      } else if (
-        data.type === "standard" &&
-        data.contentType === "Experienced"
-      ) {
-        console.log("isCoverEdit3", isCoverEdit);
-        setIsFormat("standard");
-        setContentSituation("Experienced");
-      } else {
-        setContentSituation("Fresher");
-      }
+    if (!isCoverEdit) {
+      setData((prevData) => ({
+        ...prevData,
+        type: isFormat,
+        contentType: contentSituation,
+      }));
     }
-  }, [isCoverEdit, data]);
+  }, [isFormat, contentSituation]);
 
   const togglePreview = (isVisible, index) => {
     setSelectedCoverIndex(index);
@@ -249,19 +246,7 @@ function CoverForm({
     }
   };
 
-  useEffect(() => {
-    if (isFormat) {
-      // localStorage.setItem("typee", isFormat);
-      setData({ ...data, type: isFormat });
-    }
-  }, [isFormat]);
-
-  useEffect(() => {
-    if (contentSituation) {
-      setData({ ...data, contentType: contentSituation });
-    }
-  }, [contentSituation]);
-
+  console.log(8881111, data);
   return (
     <div
       className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white "
@@ -531,6 +516,7 @@ function CoverForm({
                   isFormat={isFormat}
                   isError={isError}
                   setError={setError}
+                  isCoverEdit={isCoverEdit}
                 />
               </div>
             )}
@@ -549,6 +535,7 @@ function CoverForm({
                   setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                   setError={setError}
+                  isCoverEdit={isCoverEdit}
                 />
               </>
             )}
@@ -586,31 +573,32 @@ function CoverForm({
                     "Generate Letter"
                   )}
                 </button>
-
-                <div
-                  className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer "
-                  onClick={() => {
-                    // handleNavigate();
-                    setIsShow(true);
-                  }}
-                >
-                  <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                    Back
-                  </span>
-                  <svg
-                    className="min-h-[16px] min-w-[16px]"
-                    width="7"
-                    height="14"
-                    viewBox="0 0 7 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                {data?.passages && (
+                  <div
+                    className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer "
+                    onClick={() => {
+                      // handleNavigate();
+                      setIsShow(true);
+                    }}
                   >
-                    <path
-                      d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
-                      fill="#1C1B1F"
-                    />
-                  </svg>
-                </div>
+                    <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                      Next
+                    </span>
+                    <svg
+                      className="min-h-[16px] min-w-[16px]"
+                      width="7"
+                      height="14"
+                      viewBox="0 0 7 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
+                        fill="#1C1B1F"
+                      />
+                    </svg>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -692,9 +680,10 @@ function CoverForm({
                     </>
                   )}
                 </button>
+                {/***
                 <button className="font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px] bg-[#DEDEDE] w-[60px] h-[32px]">
-                  Save
-                </button>
+                   Save 
+                </button>*/}
               </div>
             </div>
           </motion.div>
