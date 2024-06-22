@@ -67,7 +67,7 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-  console.log(555, unSyncFiles)
+  
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
@@ -144,7 +144,7 @@ function Collection() {
       .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log(111, res.data.data);
+     
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -161,7 +161,7 @@ function Collection() {
         `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
-        console.log(res.data.data);
+      
         setFolderList(res.data.data);
         setTimeout(() => {
           setLoading(false);
@@ -211,7 +211,7 @@ function Collection() {
       const interval = setInterval(() => {
         getUnSyncFiles()
         dispatch(reCallUserData())
-      }, 60000);
+      }, 30000);
 
       return () => clearInterval(interval);
     }
