@@ -381,7 +381,7 @@ const ResumePreview = ({
     setdisabled(true);
 
     if (blob !== null) {
-      console.log(551, saveLimit);
+      
       if (saveLimit <= 0) {
         setLimitUsedModal(true);
         return;

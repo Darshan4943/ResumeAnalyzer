@@ -16,7 +16,7 @@ const ResumePreview = ({
   preview,
   isResumes,
 }) => {
-  console.log(19, data);
+
 
   return (
     <>
@@ -29,11 +29,11 @@ const ResumePreview = ({
             </button>
           </div>
 
-          <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
+          <div className="w-full  bg-[#525659] h-[80vh] flex items-center justify-center">
             {isResumes == "covers" ? (
               <CoverPdfViewer pdfUrl={data?.resumeUrl} />
             ) : (
-              <PDFViewer width="750" height="100%" showToolbar={false}>
+              <PDFViewer  width="750" height="95%" showToolbar={false}>
                 <Document>
                   {selectResumeTemplate(
                     selectedResumeIndex,

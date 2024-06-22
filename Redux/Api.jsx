@@ -102,7 +102,7 @@ export const Api = ({ }) => {
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-console.log(444,result)
+
           if (result?.isActive == true) {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan
@@ -253,8 +253,8 @@ console.log(444,result)
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
-    // let latitude = 19.0154;
-    // let longitude =29.1549;
+    // let latitude = 53.4808;
+    // let longitude =2.2426;
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {

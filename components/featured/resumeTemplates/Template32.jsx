@@ -25,13 +25,13 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
     return email;
   };
 
-  const  formatLocation = (location) => {
+  const formatLocation = (location) => {
     if (location?.length > 20) {
       return location?.match(/.{1,20}/g).join("\n");
     }
     return location;
   };
- 
+
 
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
@@ -54,39 +54,43 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 maxWidth: "100%",
               }}
             >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                  }
-                  alt=""
-                  style={{
-                    width: "134px",
-                    marginBottom: "16px",
-                    height: "134px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    width: "134px",
-                    height: "134px",
-                    borderRadius: "50%",
-                  }}
-                />
+              {data?.showProfile === true && (
+                <>
+                  {data.profilePhoto ? (
+                    <Image
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                            ? URL.createObjectURL(data.profilePhoto)
+                            : data.profilePhoto
+                      }
+                      alt=""
+                      style={{
+                        width: "134px",
+                        marginBottom: "16px",
+                        height: "134px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/services/profile.png"
+                      alt=""
+                      style={{
+                        width: "134px",
+                        height: "134px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                </>
               )}
               <View
                 style={{
                   flexDirection: "column",
-                  marginTop: 24,
+                  marginTop: data?.showProfile ? 24 : 8,
                   gap: 4,
                   alignItems: "center",
                   maxWidth: "100%",
@@ -886,10 +890,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
-                                  ? "Pursuing"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -1043,7 +1046,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                           {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1204,7 +1207,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                     {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1364,7 +1367,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                        {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1524,7 +1527,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1576,6 +1579,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   gap: 8,
                   width: "100%",
                 }}
+                wrap={data?.showExtraCariculam?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1657,6 +1661,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 16,
                           }}
+                              wrap={false}
                         >
                           <View
                             style={{
@@ -1684,11 +1689,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                            {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>
@@ -1847,12 +1852,12 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                              {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {detail?.duration?.end?.year === "Year" ||
+                                  detail?.duration?.end?.year === undefined
+                                  ? "Present"
+                                  : detail?.duration?.end?.year}
                               </Text>
                             </View>
                             <View

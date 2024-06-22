@@ -16,7 +16,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 const MyCollection = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log("id", userDataGlobal);
+ 
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);
   const [view, setView] = useState(false);
@@ -48,7 +48,7 @@ const MyCollection = () => {
     setLoading(true);
     axios
       // .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
-      .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
 
       .then((res) => {
         setCoverList(res.data.data);
@@ -118,6 +118,27 @@ const MyCollection = () => {
   const closeDeleteModal = () => {
     setView(false);
   };
+  const coverPdfViewer = ({ pdfUrl }) => {
+    function onDocumentLoadSuccess(numPages) {}
+
+    return (
+      <div
+        style={{
+          width: "750px",
+          height: "500px",
+
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "scroll",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
+
 
   const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();
@@ -439,6 +460,8 @@ const MyCollection = () => {
             selectedFont={selected.selectedFont}
             setPreview={setPreview}
             preview={true}
+            isResumes={isResumes}
+            coverPdfViewer={coverPdfViewer}
           />
         </>
       )}
