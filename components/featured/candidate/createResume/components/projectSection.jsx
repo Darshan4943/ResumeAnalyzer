@@ -81,7 +81,7 @@ const ProjectSection = ({
       } else {
         setData({
           ...data,
-          internship: [projectData, ...data?.internship],
+          internship: [ ...data?.internship, projectData],
         });
         {
           validateForm ? setInternshipsView(false) : setInternshipsView(true);
