@@ -255,7 +255,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 }}
               >
                 {data.socialLinks.map((detail, index) => (
-                  <View wrap={false} style={{ gap: 8 }}>
+                  <View key={index} wrap={false} style={{ gap: 8 }}>
                     <Text
                       key={index}
                       style={{
