@@ -19,8 +19,8 @@ import { formatLink } from "../../../utils/middleware";
 //template 13
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
   const formatLink1 = (link) => {
-    if (link?.length > 28) {
-      return link?.match(/.{1,28}/g).join("\n");
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
     }
     return link;
   };
