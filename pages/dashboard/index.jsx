@@ -278,6 +278,8 @@ function Dashboard() {
   }, [userDataGlobal]);
 
   const [resumeData, setResumeData] = useState([]);
+  console.log(33,resumeData)
+  console.log(44,data)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -330,20 +332,14 @@ function Dashboard() {
             pageLayout={pageLayout}
           />
         );
-      case 2:
-        return (
-          <Template2
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
+      
       case 3:
         return (
           <Template3
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 4:
@@ -352,62 +348,17 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
-      case 5:
-        return (
-          <Template5
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 6:
-        return (
-          <Template6
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 7:
-        return (
-          <Template7
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 8:
-        return (
-          <Template8
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 9:
-        return (
-          <Template9
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
-      case 10:
-        return (
-          <Template10
-            data={data}
-            selectedColor={resumeData.selectedColor}
-            selectedFont={resumeData.selectedFont}
-          />
-        );
+      
       case 11:
         return (
           <Template11
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 12:
@@ -416,6 +367,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 13:
@@ -424,6 +376,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 14:
@@ -432,6 +385,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 15:
@@ -440,6 +394,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 16:
@@ -448,6 +403,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 17:
@@ -456,6 +412,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={dresumeDataata.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 18:
@@ -464,6 +421,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 19:
@@ -472,6 +430,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 20:
@@ -480,6 +439,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 44:
@@ -488,6 +448,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 32:
@@ -496,6 +457,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 39:
@@ -504,6 +466,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 48:
@@ -512,6 +475,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 47:
@@ -520,6 +484,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 30:
@@ -528,6 +493,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       case 53:
@@ -536,6 +502,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
           />
         );
       default:
@@ -544,6 +511,7 @@ function Dashboard() {
             data={data}
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
+            pageLayout={pageLayout}
            
           />
         );
@@ -710,7 +678,7 @@ function Dashboard() {
 
       {userDataGlobal.role === "user" &&
         data !== undefined &&
-        hasNonEmptyKey(data) && (
+         (
           <div className="flex gap-[24px] flex-wrap flex-col sm:items-start items-center ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
