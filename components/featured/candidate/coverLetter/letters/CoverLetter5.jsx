@@ -54,15 +54,15 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
             src="/images/template5.png"
           />
 
-          <div className="absolute top-[26px] left-[20px] w-[92%] flex flex-row justify-between items-center">
+          <div className="absolute top-[26px] left-[20px] w-[92%] flex flex-row justify-between items-center gap-[4px]">
             <div className="flex flex-col w-[76%] justify-start items-start">
-              <span className="text-[32px] font-[600] leading-[36px] text-[#F7941D] break-all">
+              <span className="text-[28px] font-[600] leading-[36px] text-[#F7941D] break-word">
                 {data.firstName}
               </span>
-              <span className="text-[32px] font-[400] leading-[36px] text-[#414042] break-all">
+              <span className="text-[28px] font-[400] leading-[36px] text-[#414042] break-word">
                 {data.lastName}
               </span>
-              <span className="text-[14px] font-[400] leading-[36px] text-[#58595B] break-all">
+              <span className="text-[14px] font-[400] leading-[36px] text-[#58595B] break-word">
                 {data.designation}
               </span>
             </div>
@@ -82,7 +82,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#58595B] break-all">
+                <span className="text-[10px] font-[400] text-[#58595B] break-word">
                   {data?.address}
                 </span>
               </div>
@@ -122,7 +122,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#58595B]">
+                <span className="text-[10px] font-[400] text-[#58595B] break-all">
                   {data?.email}
                 </span>
               </div>
@@ -142,16 +142,16 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                   To,
                 </span>
 
-                <span className=" text-[10px] font-[600] text-[#F7941D] break-all">
+                <span className=" text-[10px] font-[600] text-[#F7941D] break-word">
                   {data?.employerName}
                 </span>
-                <span className=" text-[10px] font-[600] text-[#333333] break-all">
+                <span className=" text-[10px] font-[600] text-[#333333] break-word">
                   {data?.designation}
                 </span>
-                <span className=" text-[10px] font-[400] text-[#414042] break-all">
+                <span className=" text-[10px] font-[400] text-[#414042] break-word">
                   {data?.employerOrganizationName}
                 </span>
-                <span className=" text-[10px] font-[400] text-[#414042] break-all">
+                <span className=" text-[10px] font-[400] text-[#414042] break-word">
                   {data?.employerAddress} {data?.employerCityState}{" "}
                   {data?.employerCountry}
                 </span>

@@ -50,9 +50,9 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
           ref={page1Ref}
           className=" w-[595px] min-h-[700px] p-[46px] gap-[16px] flex flex-col bg-[#fff] "
         >
-          <div className="flex flex-row justify-between w-full">
+          <div className="flex flex-row justify-between w-full gap-[8px]">
             <div className="flex flex-col w-[70%]">
-              <span className=" text-[24px] font-[700] text-[#242424] break-all">
+              <span className=" text-[24px] font-[700] text-[#242424] break-word">
                 {data?.firstName} {data?.lastName}
               </span>
             </div>
@@ -62,11 +62,11 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
                 {data?.email}
               </span>
 
-              <span className="text-[10px] font-[400] text-[#414042] break-all">
+              <span className="text-[10px] font-[400] text-[#414042] break-word">
                 {data?.mobileNumber}
               </span>
 
-              <span className="text-[10px] font-[400] text-[#414042] break-all">
+              <span className="text-[10px] font-[400] text-[#414042] break-word">
                 {data?.address}
               </span>
             </div>
@@ -82,13 +82,13 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
               <span className=" text-[12px] font-[600] text-[#414042]">
                 {data?.employerName}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] break-all">
+              <span className=" text-[12px] font-[400] text-[#414042] break-word">
                 {data?.designation}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] break-all">
+              <span className=" text-[12px] font-[400] text-[#414042] break-word">
                 {data?.employerOrganizationName}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] break-all">
+              <span className=" text-[12px] font-[400] text-[#414042] break-word">
                 {data?.employerAddress} {data?.employerCityState}{" "}
                 {data?.employerCountry}
               </span>

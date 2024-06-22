@@ -66,51 +66,55 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           }}
         >
           <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <View
-              style={{
-                height: 159,
-                width: 159,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                border: 2,
-                borderColor: "#83C3C9",
-                padding: 8,
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              {data.profilePhoto ? (
-                <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                  }
-                  alt=""
-                  style={{
-                    objectFit: "cover",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    objectFit: "cover",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "50%",
-                  }}
-                />
-              )}
-            </View>
+            {data?.showProfile === true && (
+              <View
+                style={{
+                  height: 159,
+                  width: 159,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: 2,
+                  borderColor: "#83C3C9",
+                  padding: 8,
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                <>
+                  {data.profilePhoto ? (
+                    <Image
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                            ? URL.createObjectURL(data.profilePhoto)
+                            : data.profilePhoto
+                      }
+                      alt=""
+                      style={{
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/services/profile.png"
+                      alt=""
+                      style={{
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                </>
+              </View>
+            )}
             <View
               style={{
                 display: "flex",
@@ -982,7 +986,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 12,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1067,11 +1071,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                               `}
                           </Text>
@@ -1112,7 +1115,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1188,10 +1191,9 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                           <View
@@ -1229,7 +1231,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     width: "90%",
                   }}
                   wrap={false}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1305,11 +1307,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1347,7 +1348,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+                // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
                     style={{
@@ -1423,11 +1424,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1542,11 +1542,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking ||
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                 detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1663,11 +1662,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               }}
                             >
                               {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking ||
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ||
                                   detail.duration?.end?.year === "Year"
-                                    ? "Present"
-                                    : detail.duration?.end?.year
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                                 }
                          `}{" "}
                             </Text>
@@ -1774,7 +1772,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
                             {detail?.duration?.end?.year === "Year" ||
-                            detail?.duration?.end?.year === undefined
+                              detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>

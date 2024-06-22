@@ -87,32 +87,34 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               {data?.designation}
             </Text>
           </View>
-          <View
-            style={{
-              width: "112px",
-              height: "112px",
-            }}
-          >
-            {data?.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data?.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data?.profilePhoto)
-                      : data?.profilePhoto
-                }
-                style={{
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  width: "112px",
-                  height: "112px",
-                }}
-              />
-            ) : (
-              <Image src="/images/services/profile.png" />
-            )}
-          </View>
+          { data?.showProfile === true && (
+            <View
+              style={{
+                width: "112px",
+                height: "112px",
+              }}
+            >
+              {data?.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data?.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data?.profilePhoto)
+                        : data?.profilePhoto
+                  }
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                />
+              ) : (
+                <Image src="/images/services/profile.png" />
+              )}
+            </View>
+          )}
         </View>
         <View
           style={{ height: "1px", width: "100%", backgroundColor: "#333" }}

@@ -16,8 +16,8 @@ const CustomTextEditor = ({ data, setData, placeholder }) => {
           "flex flex-col pt-2 pr-4 pb-2 pl-4 gap-16 justify-start border-b border-r border-l border-[#F5F5F5] text-[#333333] items-start w-full font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[100px] cursor-auto",
       },
     },
-    content: data.passages
-      ? data.passages.map((p) => `<p>${p}</p>`).join("")
+    content: data?.passages
+      ? data?.passages.map((p) => `<p>${p}</p>`).join("")
       : "<p></p>",
     onUpdate: ({ editor }) => {
       const parser = new DOMParser();
@@ -32,11 +32,11 @@ const CustomTextEditor = ({ data, setData, placeholder }) => {
   // Update editor content when data changes
   useEffect(() => {
     const prevData = prevDataRef.current;
-    const newContent = data.passages
-      ? data.passages.map((p) => `<p>${p}</p>`).join("")
+    const newContent = data?.passages
+      ? data?.passages.map((p) => `<p>${p}</p>`).join("")
       : "<p></p>";
-    const prevContent = prevData.passages
-      ? prevData.passages.map((p) => `<p>${p}</p>`).join("")
+    const prevContent = prevData?.passages
+      ? prevData?.passages?.map((p) => `<p>${p}</p>`).join("")
       : "<p></p>";
 
     if (editor && newContent !== prevContent) {

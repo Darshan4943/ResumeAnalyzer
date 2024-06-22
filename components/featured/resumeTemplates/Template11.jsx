@@ -119,29 +119,29 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               {formatLink20(data.designation)}
             </Text>
           </View>
-
-          <View style={{ width: "176px", height: "180px" }}>
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                style={{ objectFit: "contain" }}
-                alt=""
-              />
-            ) : (
-              <Image
-                src="/images/services/template_profile.png"
-                alt=""
-                style={{}}
-              />
-            )}
-          </View>
-
+          {data?.showProfile === true && (
+            <View style={{ width: "176px", height: "180px" }}>
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{ objectFit: "contain" }}
+                  alt=""
+                />
+              ) : (
+                <Image
+                  src="/images/services/template_profile.png"
+                  alt=""
+                  style={{}}
+                />
+              )}
+            </View>
+          )}
           <View
           //  wrap={false}
           >
@@ -808,7 +808,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 {data?.experience?.map((detail, index) => (
                   <>
                     <View
-                      // wrap={false}
+                      wrap={false}
                       key={index}
                       style={{
                         flexDirection: "column",
@@ -892,12 +892,15 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-
             {data?.education?.length > 0 && data?.showEducation === true && (
+              <View>
+                   {data?.education?.map((detail, index) => (
               <View
-                wrap={false}
-                style={{ flexDirection: "column", gap: 24, paddingTop: 24, width: '100%' }}
+              key={index}
+              wrap={false} 
+                style={{ flexDirection: "column", gap: 24, paddingTop: 24 ,width:'100%'}}
               >
+{   index === 0 &&
                 <Text
                   style={{
                     color: "#000000",
@@ -907,7 +910,8 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 >
                   Education
                 </Text>
-                {data?.education?.map((detail, index) => (
+                }
+           
                   <>
                     <View
                       wrap={false}
@@ -988,12 +992,21 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       </View>
                     </View>
                   </>
-                ))}
+               
               </View>
+            ))}
+            </View>
             )}
 
             {data?.course?.length > 0 && data?.showCourses === true && (
-              <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+               <View>
+              {data?.course?.map((detail, index) => (
+               
+              <View
+              wrap={false}
+              key={index}
+              style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+{  index === 0 &&
                 <Text
                   style={{
                     color: "#000000",
@@ -1003,8 +1016,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 >
                   Courses
                 </Text>
-                {data.course?.map((detail, index) => (
+                }
                   <View
+                  wrap={false}
                     key={index}
                     style={{ flexDirection: "column", width: "100%" }}
                   >
@@ -1071,9 +1085,14 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       </Text>
                     </View>
                   </View>
-                ))}
+             
               </View>
+            ))}
+            </View>
             )}
+
+
+
             {data?.project?.length > 0 && data?.showProject === true && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text

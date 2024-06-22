@@ -48,13 +48,13 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
         ref={page1Ref}
         className="w-[595px] min-h-[700px] flex flex-col gap-[32px] p-[34px] bg-[#fff]"
       >
-        <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px]">
+        <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px] gap-[4px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
-            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-all ">
+            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-word ">
               {data?.firstName} {data?.lastName}
             </span>
 
-            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-all">
+            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-word">
               {data?.designation}
             </span>
           </div>
@@ -74,12 +74,12 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                 />
               </svg>
 
-              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042] break-all">
+              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042] break-word">
                 {data?.dial_code} {data?.mobileNumber}
               </span>
             </div>
             <div>
-              <div className="gap-[8px] flex flex-row  items-center">
+              <div className="gap-[8px] flex flex-row items-center flex-wrap">
                 <svg
                   className="min-h-[15px] min-w-[15px]"
                   width="15"
@@ -115,7 +115,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042] break-all">
+                <span className="text-[10px] font-[400] text-[#414042] break-word">
                   {data?.address}
                 </span>
               </div>
@@ -143,7 +143,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               <span className=" text-[12px] font-[600] text-[#333333] leading-[18px]">
                 {data?.designation}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px] break-all">
+              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px] break-word">
                 {data?.employerOrganizationName}
               </span>
               <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
@@ -168,10 +168,10 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
             </div>
             {splitContents?.second?.length == 0 && (
               <div className="flex flex-col w-full gap-[2px]">
-                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
+                <span className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   Warm regards,
                 </span>
-                <span  className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
+                <span className="text-[10px] font-[400] text-[#414042] leading-[15px] ">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>

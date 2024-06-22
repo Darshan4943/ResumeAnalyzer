@@ -61,10 +61,10 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
         >
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-[70%]">
-              <span className=" text-[42.51px] font-[400] text-[#414042] break-all">
+              <span className=" text-[42.51px] font-[400] text-[#414042] break-word">
                 {data?.firstName} {data?.lastName}
               </span>
-              <span className=" text-[14px] font-[400] text-[#414042] break-all">
+              <span className=" text-[14px] font-[400] text-[#414042] break-word">
                 {data?.designation}
               </span>
             </div>
@@ -142,7 +142,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                     />
                   </svg>
 
-                  <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] break-all">
+                  <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] break-word">
                     {data?.address}
                   </span>
                 </div>
@@ -197,7 +197,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                 <span className="text-[12px] font-[400] text-[#6D6E71]">
                   Warm regards,
                 </span>
-                <span className="text-[12px] font-[400] text-[#6D6E71] break-all">
+                <span className="text-[12px] font-[400] text-[#6D6E71] break-word">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>
@@ -223,7 +223,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                     <span className="text-[12px] font-[400] text-[#6D6E71]">
                       Warm regards,
                     </span>
-                    <span className="text-[12px] font-[400] text-[#6D6E71] break-all">
+                    <span className="text-[12px] font-[400] text-[#6D6E71] break-word">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>

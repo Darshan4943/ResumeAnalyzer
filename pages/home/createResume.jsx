@@ -346,6 +346,7 @@ function CreateResume() {
   const defaultState = {
     showSkills: true,
     showAchievements: true,
+    showProfile:true,
     showCourses: true,
     showExtraCariculam: true,
     showHobbies: true,
@@ -387,7 +388,6 @@ function CreateResume() {
   };
 
   const [data, setData] = useState(defaultState);
-
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 

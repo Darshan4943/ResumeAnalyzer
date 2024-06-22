@@ -54,10 +54,10 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
           <div className="flex flex-col w-full pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] ">
             <div className="flex flex-row justify-between gap-[4px]">
               <div>
-                <h1 className="text-[26px] text-[#333333] break-all">
+                <h1 className="text-[26px] text-[#333333] break-word">
                   {data?.firstName} {data?.lastName}
                 </h1>
-                <p className="text-[16px] text-[#0E6CC2] break-all">
+                <p className="text-[16px] text-[#0E6CC2] break-word">
                   {data?.designation}
                 </p>
               </div>
@@ -75,7 +75,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                   <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
                     Phone
                   </h6>
-                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left break-all">
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left break-word">
                     {data?.dial_code} {data?.mobileNumber}
                   </p>
                 </div>
@@ -83,7 +83,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                   <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left ">
                     Address
                   </h6>
-                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left break-all">
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left break-word">
                     {data.address}
                   </p>
                 </div>
@@ -159,7 +159,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                       Warm regards,
                     </span>
 
-                    <span className="flex pt-[16px] break-all">
+                    <span className="flex pt-[16px] break-word">
                       {data?.firstName}
                       {","} {data?.lastName}
                     </span>

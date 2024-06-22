@@ -57,38 +57,42 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 172,
             }}
           >
-            {data.profilePhoto ? (
-              <Image
-                src={
-                  preview
-                    ? data.profilePhoto
-                    : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
-                }
-                alt=""
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
-            ) : (
-              <Image
-                src="/images/profile/john_doe.png"
-                style={{
-                  width: 161,
-                  height: 161,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                }}
-              />
+            {data?.showProfile === true && (
+              <>
+                {data.profilePhoto ? (
+                  <Image
+                    src={
+                      preview
+                        ? data.profilePhoto
+                        : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                    }
+                    alt=""
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src="/images/profile/john_doe.png"
+                    style={{
+                      width: 161,
+                      height: 161,
+                      borderRadius: "50%",
+                      objectFit: "contain",
+                    }}
+                  />
+                )}
+              </>
             )}
-
             {data?.mobileNumber && (
               <View
                 style={{
+                  marginTop: data?.showProfile ? "" : 34,
                   display: "flex",
                   flexDirection: "row",
                   gap: 10,
