@@ -998,7 +998,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               </View>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true &&  !pageLayout && (
+            {data?.course?.length > 0 && data?.showCourses === true &&  !pageLayout && (  
               <View>
                 {data?.course?.map((detail, index) => (
 
@@ -1027,7 +1027,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                           flexDirection: "row",
                           width: "100%",
                           justifyContent: "space-between",
-                          gap: 10
+                          marginTop: index > 0 ? "10px" : 0
                         }}
                       >
                         <Text
@@ -1094,7 +1094,12 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
 
 
             {data?.project?.length > 0 && data?.showProject === true &&  !pageLayout && (
-              <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+              <View>
+                   {data.project?.map((detail, index) => (
+              <View 
+              key={index}
+              style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+       {  index === 0 &&    
                 <Text
                   style={{
                     color: "#000000",
@@ -1104,8 +1109,10 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                 >
                   Project
                 </Text>
-                {data.project?.map((detail, index) => (
+
+              }
                   <View
+                  wrap={false}
                     key={index}
                     style={{ flexDirection: "column", width: "100%", gap: 10 }}
                   >
@@ -1114,6 +1121,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                         flexDirection: "row",
                         width: "100%",
                         justifyContent: "space-between",
+                        marginTop: index > 0 ? "10px" : 0
                       }}
                     >
                       <Text
@@ -1171,12 +1179,19 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       </Text>
                     </View>
                   </View>
-                ))}
+               
               </View>
+            ))}
+            </View>
             )}
 
             {data?.internship?.length > 0 && data?.showInternship === true &&  !pageLayout && (
-              <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+               <View>
+                 {data.internship?.map((detail, index) => (
+              <View 
+              key={index}
+              style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+     {  index === 0 &&          
                 <Text
                   style={{
                     color: "#000000",
@@ -1186,7 +1201,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                 >
                   Internship
                 </Text>
-                {data.internship?.map((detail, index) => (
+             }
                   <View
                     key={index}
                     style={{ flexDirection: "column", width: "100%", gap: 10 }}
@@ -1196,6 +1211,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                         flexDirection: "row",
                         width: "100%",
                         justifyContent: "space-between",
+                        marginTop: index > 0 ? "10px" : 0
                       }}
                     >
                       <Text
@@ -1253,12 +1269,18 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       </Text>
                     </View>
                   </View>
-                ))}
+              
               </View>
+            ))}
+            </View>
             )}
 
             {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true &&  !pageLayout &&(
+              <View >
+               {data.extraCaricularData?.map((detail, index) => (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
+
+{   index === 0 &&
                 <Text
                   style={{
                     color: "#000000",
@@ -1268,7 +1290,8 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                 >
                   Extra-Curriculum Activities
                 </Text>
-                {data.extraCaricularData?.map((detail, index) => (
+               
+               }
                   <View
                     key={index}
                     style={{ flexDirection: "column", width: "100%", gap: 10 }}
@@ -1278,6 +1301,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                         flexDirection: "row",
                         width: "100%",
                         justifyContent: "space-between",
+                         marginTop: index > 0 ? "10px" : 0
                       }}
                     >
                       <Text
@@ -1335,8 +1359,10 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       </Text>
                     </View>
                   </View>
-                ))}
+              
               </View>
+            ))}
+            </View>
             )}
 
             {data?.section?.length > 0 && data?.showCustomSection === true &&  !pageLayout && (
@@ -1373,6 +1399,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                               gap: 5,
                               justifyContent: "space-between",
                               width: "100%",
+                            
                             }}
                           >
                             {detail.title.length > 0 && (
