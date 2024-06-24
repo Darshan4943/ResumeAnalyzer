@@ -14,21 +14,34 @@ const Result = ({ questions, answers, selectedSkill, checkAnswer }) => {
     yourAns: answers[index]?.Answer,
   }));
 
-  
+
   return (
     <Document>
 
-      <Page size="A4" style={{ padding: 16,backgroundImage: "/images/watermark.png",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          width:"500px",height:"500px" }}>
-       
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20}}>
+      <Page size="A4" style={{
+        padding: 16,
+      }}>
+        <View style={{
+          position: "absolute",
+          width: '100%',
+          height: '100%',
+        }}>
+          <Image
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+            src="/images/watermark.png"
+            resizeMode="cover"
+          />
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
 
           <Image style={{ height: 30 }} src="/images/logo_skilotech.png" />
-          <View style={{ flexDirection: 'row', alignItems: 'start',justifyContent:"center",width:"300px" }}>
+          <View style={{ flexDirection: 'row', alignItems: 'start', justifyContent: "center", width: "300px" }}>
             <Image style={{ height: 25, width: 25 }} src="/images/light.png" />
-            <Text style={{ fontSize: 16, fontFamily: 'Montserrat 600', marginLeft: 11,flexWrap:"wrap" ,flexDirection: 'row', alignItems: 'center',width:"80%",marginTop: 5 }}>
+            <Text style={{ fontSize: 16, fontFamily: 'Montserrat 600', marginLeft: 11, flexWrap: "wrap", flexDirection: 'row', alignItems: 'center', width: "80%", marginTop: 5 }}>
               {camelCase(selectedSkill)} Assessment
             </Text>
           </View>
@@ -61,7 +74,7 @@ const Result = ({ questions, answers, selectedSkill, checkAnswer }) => {
                     :
                   </Text>
                 </View>
-                <Text style={{ fontSize: 11, fontFamily: 'Montserrat 400', color: questionItem.answer === questionItem.yourAns ? '#0C8A0A' : 'red', width: 450 ,flexWrap: 'wrap'}}>
+                <Text style={{ fontSize: 11, fontFamily: 'Montserrat 400', color: questionItem.answer === questionItem.yourAns ? '#0C8A0A' : 'red', width: 450, flexWrap: 'wrap' }}>
                   {questionItem.yourAns}
                 </Text>
               </View>
@@ -74,7 +87,7 @@ const Result = ({ questions, answers, selectedSkill, checkAnswer }) => {
                     :
                   </Text>
                 </View>
-                <Text style={{ fontSize: 11, fontFamily: 'Montserrat 400', width: 450,flexWrap: 'wrap' }}>
+                <Text style={{ fontSize: 11, fontFamily: 'Montserrat 400', width: 450, flexWrap: 'wrap' }}>
                   {questionItem.answer}
                 </Text>
               </View>
