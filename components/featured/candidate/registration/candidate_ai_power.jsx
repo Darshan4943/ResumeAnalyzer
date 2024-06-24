@@ -160,7 +160,7 @@ const CandidateAiPower = ({
   };
 
   const navigate = () => {
-    console.log(2, uploadLimit);
+   
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;

@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template4({ data, selectedColor, selectedFont, preview }) {
+function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
 
   const formatLink16 = (link) => {
     if (link?.length > 16) {
@@ -382,7 +382,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     // marginLeft: "16px",
                   }}
                 >
-                  {data?.skills?.map((detail, index) => (
+                  {data?.skills?.slice(0, pageLayout && 3)?.map((detail, index) => (
                     <View
                       key={index}
                       style={{
@@ -486,7 +486,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     marginLeft: "16px",
                   }}
                 >
-                  {data?.socialLinks?.map((item, index) => (
+                  {data?.socialLinks?.slice(0, pageLayout && 2)?.map((item, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -520,7 +520,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.achievements?.length > 0 &&
-              data?.showAchievements === true && (
+              data?.showAchievements === true && !pageLayout && (
                 <View style={{ flexDirection: "column", gap: " 16px" }}>
                   <View
                     wrap={false}
@@ -583,7 +583,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
 
-            {data?.languages?.length > 0 && data?.showLanguage === true && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
               <>
                 <View
                   style={{
@@ -689,7 +689,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -752,7 +752,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -974,7 +974,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -1107,7 +1107,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 3)?.map((detail, index) => (
                     <View
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
@@ -1183,7 +1183,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.project?.length > 0 && data?.showProject === true && (
+          {data?.project?.length > 0 && data?.showProject === true && !pageLayout && (
             <View
               style={{
                 display: "flex",
@@ -1309,7 +1309,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && (
+            data?.showExtraCariculam === true &&  !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -1438,7 +1438,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-          {data?.internship?.length > 0 && data?.showInternship === true && (
+          {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout &&(
             <View
               style={{
                 display: "flex",
@@ -1563,7 +1563,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && data?.showCourses === true && (
+          {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
             <View
               style={{
                 display: "flex",
@@ -1689,7 +1689,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data.section?.length > 0 &&
-            data.showCustomSection === true &&
+            data.showCustomSection === true && !pageLayout &&
             data.section?.map((item, index) => (
               <View
                 key={index}

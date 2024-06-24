@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 import { formatLink } from "../../../utils/middleware";
-function Template53({ data, selectedColor, selectedFont, preview }) {
+function Template53({ data, selectedColor, selectedFont, preview, pageLayout }) {
 
   //   const shouldWrap = (description) => {
   //     if (description?.length > 500) {
@@ -249,7 +249,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                 </Text>
               </View>
               <View style={{ width: "100%", gap: 24 }}>
-                {data?.experience?.map((detail, index) => (
+                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <View
                     key={index}
                     style={{ display: "flex", width: "100%", flexDirection: "column" }}
@@ -359,7 +359,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     </Text>
                   </View>
                   <View style={{ width: "100%", gap: 24 }}>
-                    {data?.project?.map((detail, index) => (
+                    {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                       <View
                         key={index}
                         style={{
@@ -469,7 +469,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     </Text>
                   </View>
                   <View style={{ width: "100%", gap: 24 }}>
-                    {data?.internship?.map((detail, index) => (
+                    {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
                       <View
                         key={index}
                         style={{
@@ -550,7 +550,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true && (
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
               <>
                 <View style={{ width: '100%', gap: "18px" }} wrap={false}>
                   <View
@@ -663,7 +663,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && !pageLayout && (
               <>
                 <View
                   style={{
@@ -773,7 +773,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.section?.length > 0 && data?.showCustomSection === true && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout && (
               <>
                 {data?.section.map((item, index) => (
                   <View key={index} style={{ gap: '4px', display: 'flex', flexDirection: 'column' }}>
@@ -880,7 +880,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 24 }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <View
                       key={index}
                       style={{
@@ -979,7 +979,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       width: "100%",
                     }}
                   >
-                    {data?.skills?.map((detail, index) => (
+                    {data?.skills?.slice(0, pageLayout && 3)?.map((detail, index) => (
                       <View
                         key={index}
                         style={{
@@ -1050,62 +1050,66 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.achievements?.length > 0 && data?.showAchievements === true && (<>  <View
-              style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
-            ></View>
-
-              <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontFamily: `${selectedFont} 400`,
-                      color: selectedColor,
-                    }}
-                  >
-                    ACHIEVEMENTS & AWARDS
-                  </Text>
-                </View>
+            {data?.achievements?.length > 0 && data?.showAchievements === true && !pageLayout && (
+              <>
                 <View
-                  style={{
-                    flexDirection: "row",
-                    gap: 8,
-                    justifyContent: "space-between",
-                    flexWrap: "wrap",
-                    width: "100%",
-                  }}
+                  style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 >
-                  {data?.achievements?.map((detail, index) => (
-                    <View
-                      key={index}
+
+                </View>
+
+                <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <View>
+                    <Text
                       style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "4",
-                        width: "100%",
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 400`,
+                        color: selectedColor,
                       }}
                     >
-                      <Text
+                      ACHIEVEMENTS & AWARDS
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 8,
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      width: "100%",
+                    }}
+                  >
+                    {data?.achievements?.map((detail, index) => (
+                      <View
+                        key={index}
                         style={{
-                          fontSize: 12,
-                          color: "#47484C",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: "4",
                           width: "100%",
-                          fontFamily: `${selectedFont} 500`,
-                          flexWrap: "wrap",
-                          wordBreak: "break-word",
                         }}
                       >
-                        {detail.title}
-                      </Text>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: "#47484C",
+                            width: "100%",
+                            fontFamily: `${selectedFont} 500`,
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.title}
+                        </Text>
 
-                    </View>
-                  ))}
-                </View>
-              </View></>)}
+                      </View>
+                    ))}
+                  </View>
+                </View></>)}
 
 
-            {data?.languages?.length > 0 && data?.showLanguage === true && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout &&(
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1163,7 +1167,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1226,101 +1230,12 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
               <>
-              <View style={{display:'flex',flexDirection:'column',gap:'16px'}}  wrap={data?.reference?.length > 1 ? true : false} >
-                <View
-                  style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
-                ></View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontFamily: `${selectedFont} 400`,
-                      color: selectedColor,
-                    }}
-                  >
-                    REFERENCES
-                  </Text>
-                </View>
-
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 24 }}
-                >
-                  {data?.reference?.map((detail, index) => (
-                    <View
-                      key={index}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 4,
-                      }}
-                      wrap={false}
-                    >
-                      <View
-                        style={{
-                          width: "100%",
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontFamily: `${selectedFont} 700`,
-                            fontSize: 14,
-                            color: "#161616",
-                          }}
-                        >
-                          {detail.referantName}
-                        </Text>
-                      </View>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          width: "100%",
-                          color: "#010101",
-                        }}
-                      >
-                        {detail.designation}
-                      </Text>
-                      <Text
-                        style={{
-                          width: "100%",
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-                          color: "#161616",
-                        }}
-                      >
-                        {detail.organization}
-                      </Text>
-                      <Text
-                        style={{
-                          width: "100%",
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-                          color: "#161616",
-                        }}
-                      >
-                        {detail.email}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-                </View>
-              </>
-            )}
-
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
-              <>
-              <View style={{display:'flex',flexDirection:'column',gap:'16px'}} wrap={false}>
-                <View
-                  style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
-                ></View>
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
-                >
+                <View style={{ display: 'flex', flexDirection: 'column', gap: '16px' }} wrap={data?.reference?.length > 1 ? true : false} >
+                  <View
+                    style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
+                  ></View>
                   <View>
                     <Text
                       style={{
@@ -1329,45 +1244,134 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         color: selectedColor,
                       }}
                     >
-                      HOBBIES
+                      REFERENCES
                     </Text>
                   </View>
+
                   <View
-                    style={{
-                      flexDirection: "row",
-                      gap: 8,
-                      justifyContent: "space-between",
-                      flexWrap: "wrap",
-                      width: "100%",
-                    }}
+                    style={{ display: "flex", flexDirection: "column", gap: 24 }}
                   >
-                    {data?.hobbies?.map((detail, index) => (
+                    {data?.reference?.map((detail, index) => (
                       <View
                         key={index}
                         style={{
                           display: "flex",
                           flexDirection: "column",
-                          alignItems: "center",
-                          gap: "4",
-                          width: "100%",
+                          gap: 4,
                         }}
+                        wrap={false}
                       >
-                        <Text
+                        <View
                           style={{
-                            fontSize: 12,
-                            color: "#47484C",
                             width: "100%",
-                            fontFamily: `${selectedFont} 400`,
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
                           }}
                         >
-                          {detail.title}
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 700`,
+                              fontSize: 14,
+                              color: "#161616",
+                            }}
+                          >
+                            {detail.referantName}
+                          </Text>
+                        </View>
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 12,
+                            width: "100%",
+                            color: "#010101",
+                          }}
+                        >
+                          {detail.designation}
+                        </Text>
+                        <Text
+                          style={{
+                            width: "100%",
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 10,
+                            color: "#161616",
+                          }}
+                        >
+                          {detail.organization}
+                        </Text>
+                        <Text
+                          style={{
+                            width: "100%",
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 10,
+                            color: "#161616",
+                          }}
+                        >
+                          {detail.email}
                         </Text>
                       </View>
                     ))}
                   </View>
                 </View>
+              </>
+            )}
+
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout &&(
+              <>
+                <View style={{ display: 'flex', flexDirection: 'column', gap: '16px' }} wrap={false}>
+                  <View
+                    style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
+                  ></View>
+                  <View
+                    style={{ display: "flex", flexDirection: "column", gap: 16 }}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontFamily: `${selectedFont} 400`,
+                          color: selectedColor,
+                        }}
+                      >
+                        HOBBIES
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        gap: 8,
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                        width: "100%",
+                      }}
+                    >
+                      {data?.hobbies?.map((detail, index) => (
+                        <View
+                          key={index}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: "4",
+                            width: "100%",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              color: "#47484C",
+                              width: "100%",
+                              fontFamily: `${selectedFont} 400`,
+                              flexWrap: "wrap",
+                              wordBreak: "break-word",
+                            }}
+                          >
+                            {detail.title}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  </View>
                 </View>
               </>
             )}

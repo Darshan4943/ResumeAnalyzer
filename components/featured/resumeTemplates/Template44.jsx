@@ -17,10 +17,10 @@ import React from "react";
 import { formatLink } from "../../../utils/middleware";
 
 //template 13
-const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
+const Template44 = ({ data, selectedColor, selectedFont, preview,pageLayout }) => {
   const formatLink1 = (link) => {
-    if (link?.length > 28) {
-      return link?.match(/.{1,28}/g).join("\n");
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
     }
     return link;
   };
@@ -262,7 +262,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   gap: "8px",
                 }}
               >
-                {data?.skills?.map((detail, index) => (
+                {data?.skills?.slice(0, pageLayout && 5)?.map((detail, index) => (
                   <View
                     wrap={false}
                     key={index}
@@ -326,7 +326,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: "8px",
                   }}
                 >
-                  {data?.achievements?.map((detail, index) => (
+                  {data?.achievements?.slice(0, pageLayout && 3)?.map((detail, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -347,7 +347,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-          {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
             <View
               wrap={data?.socialLinks?.length > 1 ? true : false}
               style={{
@@ -416,7 +416,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.languages?.length > 0 && data?.showLanguage === true && (
+          {data?.languages?.length > 0 && data?.showLanguage === true &&  !pageLayout &&(
             <View
               wrap={false}
               style={{
@@ -476,7 +476,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+          {data?.hobbies?.length > 0 && data?.showHobbies === true &&  !pageLayout &&(
             <View
               wrap={data?.hobbies?.length > 1 ? true : false}
               style={{
@@ -535,7 +535,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.reference?.length > 0 && data?.showReference === true && (
+          {data?.reference?.length > 0 && data?.showReference === true &&  !pageLayout &&(
             <View
               wrap={data?.reference?.length > 1 ? true : false}
               style={{
@@ -696,7 +696,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.experience?.map((detail, index) => (
+                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
@@ -779,7 +779,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   EDUCATION
                 </Text>
               </View>
-              {data?.education?.map((detail, index) => (
+              {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                 <View
                   key={index}
                   wrap={false}
@@ -864,7 +864,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.course?.map((detail, index) => (
+                {data?.course?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
@@ -947,7 +947,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.internship?.map((detail, index) => (
+                {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
@@ -1006,7 +1006,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.project?.length > 0 && data?.showProject === true && (
+          {data?.project?.length > 0 && data?.showProject === true &&  !pageLayout &&(
             <View
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
               wrap={data?.project?.length > 1 ? true : false}
@@ -1090,7 +1090,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && (
+            data?.showExtraCariculam === true && !pageLayout &&(
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
                 wrap={data?.extraCaricularData?.length > 1 ? true : false}
@@ -1175,7 +1175,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             )}
 
           {data?.section?.length > 0 &&
-            data?.showCustomSection === true &&
+            data?.showCustomSection === true && !pageLayout &&
             data?.section?.map((item, index) => (
               <View
                 // wrap={false}

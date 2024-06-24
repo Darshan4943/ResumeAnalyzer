@@ -206,7 +206,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
     setRequiredSkills(updatedSkills);
   };
 
-  console.log("err", errors);
+ 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">

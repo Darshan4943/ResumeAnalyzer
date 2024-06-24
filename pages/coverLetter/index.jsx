@@ -7,8 +7,7 @@ import axios from "axios";
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
-  console.log("isEdit", isCoverEdit);
-  console.log("editData", EditData);
+ 
   // const userDataGlobal = useSelector((state) => state.userData);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();

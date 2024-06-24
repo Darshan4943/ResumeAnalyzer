@@ -258,7 +258,7 @@ export const Api = ({ }) => {
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
-        console.log(`Fetching data for latitude: ${lat}, longitude: ${lon}`);
+        
         try {
             const response = await axios.get(
                   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
@@ -312,7 +312,7 @@ export const Api = ({ }) => {
     for (let i = 0; i < conditions.length; i++) {
         let { lat, lon } = conditions[i];
         let results = await fetchCountryData(lat, lon);
-        console.log(`Condition ${i + 1}:`, results);
+      
         if (results) {
             results.forEach((result) => {
                 const lat = Math.abs(result.geometry.location.lat);
@@ -369,8 +369,7 @@ export const Api = ({ }) => {
     const closestData = closestPostalCodeData[0];
    
     if (closestData) {
-        console.log(`The closest data is from condition: ${closestData.condition}`);
-        console.log(`Distance: ${closestData.distance} km`);
+       
         console.log(`Address: ${closestData.formatted_address}`);
 
         // Process the closest country data

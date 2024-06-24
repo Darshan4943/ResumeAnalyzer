@@ -53,8 +53,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
       }
     }
   }, [data]);
-  console.log("data", data);
-  console.log("h",)
+ 
 
   return (
     <>
