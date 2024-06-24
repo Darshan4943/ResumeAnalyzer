@@ -278,8 +278,7 @@ function Dashboard() {
   }, [userDataGlobal]);
 
   const [resumeData, setResumeData] = useState([]);
-  console.log(33,resumeData)
-  console.log(44,data)
+ 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");

@@ -91,7 +91,7 @@ export const fileIconSeter = (data) => {
   }
 };
 export const fileIconSeter1 = (data) => {
-  console.log(11, data);
+
   if (
     data?.fileName?.includes("docx") ||
     data?.fileName?.toLowerCase()?.includes("doc")
