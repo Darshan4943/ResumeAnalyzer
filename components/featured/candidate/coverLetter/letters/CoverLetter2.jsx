@@ -75,7 +75,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                   <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
                     Phone
                   </h6>
-                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left break-word">
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
                     {data?.dial_code} {data?.mobileNumber}
                   </p>
                 </div>

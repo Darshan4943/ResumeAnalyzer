@@ -54,6 +54,7 @@ function Index() {
     type: "",
   };
 
+  console.log(11);
   const [data, setData] = useState(defaultState);
   // useEffect(() => {
   //   console.log("id", id);

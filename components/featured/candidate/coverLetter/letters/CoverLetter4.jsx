@@ -52,10 +52,10 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
         >
           <div className="flex flex-row gap-[24px] ">
             <div>
-              <h5 className="font-montserrat text-[22px] font-normal leading-48.76 text-[#344A50] text-left break-word">
+              <h5 className="font-montserrat text-[24px] font-normal leading-48.76 text-[#344A50] text-left break-word">
                 {data.firstName} {data.lastName}
               </h5>
-              <h6 className="font-montserrat text-[14px] font-normal leading-48.76 text-[#AC5428] text-left break-word">
+              <h6 className="font-montserrat text-[14px] font-normal leading-[17.07px] text-[#AC5428] text-left break-word">
                 {data.designation}
               </h6>
             </div>

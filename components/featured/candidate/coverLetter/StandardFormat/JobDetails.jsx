@@ -273,7 +273,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   `}
               />
               {errors && errors["jobTitle"] && (
-                <span className="text-red text-[10px]">title is required!</span>
+                <span className="text-red text-[10px]">Title is required!</span>
               )}
             </div>
           )}
