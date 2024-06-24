@@ -164,19 +164,38 @@ const ResumeForm = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  const renderTemplates = () => {
-    const selectedStyle = {
-      border: " 4px solid #06A9EF",
+  const containerRef = useRef(null);
 
-      height: " 210px",
+   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (containerRef.current) {
+        const selectedTemplate = containerRef.current.querySelector(
+          `.template-${selectedResumeIndex}`
+        );
+        if (selectedTemplate) {
+          selectedTemplate.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    }, 1000); 
+
+    return () => clearTimeout(timeoutId); 
+  }, [selectedResumeIndex]);
+
+
+  const renderTemplates = () => {
+   
+    const selectedStyle = {
+      border: "4px solid #06A9EF",
+      height: "210px",
       width: "auto",
     };
+  
     return template.map((template, index) => (
       <img
-        style={selectedResumeIndex == template.index ? selectedStyle : {}}
         key={index}
         src={template.imgUrl}
-        className="h-[200px] w-[140.91px] rounded-[6px]"
+        style={selectedResumeIndex === template.index ? selectedStyle : {}}
+        className={`template-${template.index} h-[200px] w-[140.91px] rounded-[6px]`}
         alt=""
         onClick={() => handleImageClick(template)}
       />
@@ -231,6 +250,7 @@ const ResumeForm = ({
           <div
             className="flex gap-4 pb-[10px]  items-center"
             style={{ overflowX: "auto" }}
+            ref={containerRef}
           >
             {renderTemplates()}
           </div>

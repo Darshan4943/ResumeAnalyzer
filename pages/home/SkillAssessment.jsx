@@ -287,7 +287,7 @@ function SkillAssessment() {
           .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
-            question: question,
+            questionCount: (question.length == 9 || question.length === 59) ? "1" : "2",
           })
           .then((res) => {
             try {
@@ -516,7 +516,7 @@ function SkillAssessment() {
     return percentageScore + `%`;
   }
   const handleDownload = async () => {
-    setLoading(true);
+    setLoadingg(true);
     const doc = (
       <Result
         questions={question}
@@ -534,7 +534,7 @@ function SkillAssessment() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    setLoading(false);
+    setLoadingg(false);
   };
 
   return (
