@@ -237,7 +237,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
-                wrap={false}
+                wrap={data?.experience?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
