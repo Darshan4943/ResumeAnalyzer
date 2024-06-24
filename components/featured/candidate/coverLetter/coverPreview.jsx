@@ -353,7 +353,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   );
 
   const selectCoverTemplate = (index) => {
-    console.log("index1", index);
+    
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;
@@ -385,7 +385,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     }
   };
   const selectCoverTemplate1 = (index) => {
-    console.log("index2", index);
+  
     switch (index) {
       case 1:
         return (

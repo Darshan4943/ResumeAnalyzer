@@ -321,7 +321,7 @@ function SkillAssessment() {
     }
   };
 
-  console.log(question);
+ 
   useEffect(() => {
     // if (assesmentType === "Normal") {
     //   if (questionIndex == 7 || questionIndex == 8) {
