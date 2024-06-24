@@ -658,10 +658,10 @@ function CreateResume() {
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
       } else if (continueEdit) {
-       console.log(6,allData)
+      
    
-        const selectedTemplate = templates.find(template => template.index === allData.selectedResumeIndex);
-        console.log(3,selectedTemplate)
+        const selectedTemplate = templates.find(template => template.index === allData?.selectedResumeIndex);
+    
         if (selectedTemplate) {
           setSelectedColor(selectedTemplate.themeColor);
           setSelectedFont(selectedTemplate.fontFamily);

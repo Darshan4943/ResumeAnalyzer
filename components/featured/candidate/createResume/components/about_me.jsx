@@ -142,7 +142,7 @@ const AboutMe = ({ data, setData }) => {
         <div className="flex justify-end items-center gap-3 ">
           {isPlanActive ? null : (
             <div className="text-[10px] font-[400]">
-              Remaining Attempts - {console.log(attempt)}
+              Remaining Attempts - {attempt}
             </div>
           )}
 
@@ -150,9 +150,9 @@ const AboutMe = ({ data, setData }) => {
             className="flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
             style={{
-              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1,
+              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1 || attempt <=0 ,
             }}
-            disabled={text === data?.summery || !isChecked || text?.length == 0}
+            disabled={text === data?.summery || !isChecked || text?.length == 0 || attempt <=0}
           >
             <SparklingStarts />
             Generate with AI

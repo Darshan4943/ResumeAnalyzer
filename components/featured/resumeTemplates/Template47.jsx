@@ -2,7 +2,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, D
 
 import React from 'react'
 
-const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
+const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) => {
 
     const formatLink = (link) => {
         if (link?.length > 60) {
@@ -19,7 +19,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
     };
 
     return (
-        <Page size="A4" style={{ paddingTop: "12px" }} pageMode={"fullScreen"} wrap={true}>
+        <Page size="A4" style={{ paddingTop: "12px" }} pageMode={"fullScreen"} wrap={true}  >
             <View style={{ marginTop: '-12px' }} >
 
                 <View style={{ display: "flex", flexDirection: "row", paddingVertical: 20, paddingHorizontal: 36, backgroundColor: "#F1F2F2" }}>
@@ -143,7 +143,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                {data?.experience?.map((detail, index) => (
+                                {data?.experience?.slice(0, pageLayout && 2)?.map((detail, index) => (
                                     <View
                                         wrap={false}
                                         key={index}
@@ -188,7 +188,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                {data?.education?.map((detail, index) => (
+                                {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                                     <View
                                         wrap={false}
                                         key={index} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -227,7 +227,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                {data?.internship?.map((detail, index) => (
+                                {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
                                     <View
                                         wrap={false}
                                         key={index}
@@ -256,7 +256,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.course?.length > 0 && data?.showCourses === true && (
+                    {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
                         <View
                             wrap={data?.course?.length > 1 ? true : false}
                             style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -298,7 +298,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.project?.length > 0 && data?.showProject === true && (
+                    {data?.project?.length > 0 && data?.showProject === true && !pageLayout &&(
                         <View
                             wrap={data?.project?.length > 1 ? true : false}
                             style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -341,7 +341,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.skills?.length > 0 && data?.showSkills === true && (
+                    {data?.skills?.length > 0 && data?.showSkills === true && !pageLayout &&(
                         <View
                             wrap={false} style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
@@ -401,7 +401,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.achievements?.length > 0 && data?.showAchievements === true && (
+                    {data?.achievements?.length > 0 && data?.showAchievements === true && !pageLayout &&(
                         <View wrap={data?.achievements?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
                                 <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -455,7 +455,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
+                    {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && !pageLayout &&(
                         <View wrap={data?.extraCaricularData?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
@@ -497,7 +497,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                         </View>
                     )}
 
-                    {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+                    {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout &&(
                         <View wrap={data?.socialLinks?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
@@ -528,7 +528,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
                         </View>
                     )}
-                    {data?.reference?.length > 0 && data?.showReference === true && (
+                    {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
                         <View wrap={data?.reference?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
                                 <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -559,7 +559,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                     )}
 
 
-                    {data?.section?.length > 0 && data?.showCustomSection === true && (
+                    {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout && (
                         <>
                             {data.section.map((item, index) => (
                                 <View
@@ -611,7 +611,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
 
 
-                        {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+                        {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout &&(
                             <View wrap={data?.hobbies?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
                                     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -669,7 +669,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
                         )}
 
-                        {data?.languages?.length > 0 && data?.showLanguage === true && (
+                        {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout &&(
                             <View wrap={data?.languages?.length > 1 ? true : false} style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
                                     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

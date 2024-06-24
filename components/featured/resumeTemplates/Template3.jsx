@@ -167,7 +167,6 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                     }}
                   >
                     {data.dial_code} {data.mobileNumber}
-                    {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               </View>
