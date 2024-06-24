@@ -228,7 +228,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         // wrap={true}
@@ -325,10 +325,10 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                         textTransform: "uppercase",
                       }}
                     >
-                      Achievements & Awards
+                      Achievements
                     </Text>
                   </View>
-                  {data?.achievements?.map((detail, index) => (
+                  {data?.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         key={index}
@@ -389,7 +389,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                   SOCIAL LINKS
                 </Text>
                 <View style={{ flexDirection: "column", gap: 12 }}>
-                  {data?.socialLinks?.map((item, index) => {
+                  {data?.socialLinks?.slice(0, pageLayout && 2)?.map((item, index) => {
                     return (
                       <View
                         wrap={false}
@@ -439,7 +439,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
             >
-              {data?.skills?.length > 0 && data?.showSkills === true && (
+              {data?.skills?.length > 0 && data?.showSkills === true &&  !pageLayout && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
                   <Text
                     wrap={data?.skills?.length > 1 ? true : false}
@@ -491,7 +491,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 </View>
               )}
             </View>
-            {data?.languages?.length > 0 && data?.showLanguage === true && (
+            {data?.languages?.length > 0 && data?.showLanguage === true &&  !pageLayout && (
               <View
                 wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
@@ -544,7 +544,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true &&  !pageLayout &&(
               <View
                 wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
@@ -597,7 +597,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true &&  !pageLayout &&(
               <View style={{ flexDirection: "column", gap: 16 }}
                 wrap={data?.reference?.length > 1 ? true : false}>
                 <Text
@@ -764,7 +764,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                {data?.experience?.map((detail, index) => (
+                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -859,7 +859,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                {data?.project?.map((detail, index) => (
+                {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -950,7 +950,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                {data?.internship?.map((detail, index) => (
+                {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -1025,7 +1025,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && data?.showCourses === true && (
+          {data?.course?.length > 0 && data?.showCourses === true &&  !pageLayout && (
             <View
               wrap={data?.course?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1118,7 +1118,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
           )}
 
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && (
+            data?.showExtraCariculam === true &&  !pageLayout && (
               <View
                 wrap={data?.extraCaricularData?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1211,7 +1211,7 @@ function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
             )}
 
           {data?.section?.length > 0 &&
-            data?.showCustomSection === true &&
+            data?.showCustomSection === true &&  !pageLayout &&
             data?.section?.map((item, index) => (
               <View
                 key={index}

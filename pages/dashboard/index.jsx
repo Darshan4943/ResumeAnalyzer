@@ -648,27 +648,27 @@ function Dashboard() {
       </div>
       <div
         // style={{ border: "2px solid red" }}
-        className="flex gap-[16px] scr460:gap-12 flex-wrap justify-center"
+        className="flex gap-[16px] scr420:gap-12 flex-wrap justify-center"
       >
         {list().map((item, index) => (
           <div
             key={index}
             className={
-              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[114px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr420:w-[162.67px] w-[104px] scr420:h-[154px] h-[114px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
             <img
               src={item.imgSrc}
               alt=""
-              className="scr460:w-[48px] w-[40px]  scr460:h-[48px] h-[40px] "
+              className="scr420:w-[48px] w-[40px]  scr420:h-[48px] h-[40px] "
             />
 
-            <div className="scr460:text-[14px] text-[12px] font-medium">
+            <div className="scr420:text-[14px] text-[12px] font-medium">
               {item.name}
             </div>
             {item.new && (
-              <div className=" absolute right-4  top-4 flex justify-center items-center px-2  py-2 h-[19px] bg-[#F72C2C] rounded-[4px] text-[#FFF] text-[12px] font-medium leading-tight">
+              <div className=" absolute scr420:right-4  scr420:top-4 right-2 top-2 flex justify-center items-center px-2  py-2 scr420:h-[19px] h-[15px] bg-[#F72C2C] rounded-[4px] text-[#FFF] scr420:text-[12px] text-[10px] font-medium leading-tight">
                 {item.new}
               </div>
             )}
@@ -679,7 +679,7 @@ function Dashboard() {
       {userDataGlobal.role === "user" &&
         data !== undefined &&
          (
-          <div className="flex gap-[24px] flex-wrap flex-col sm:items-start items-center ">
+          <div className="ms:flex gap-[24px] flex-wrap flex-col sm:items-start items-center hidden ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
               resumeData.selectedFont !== undefined && (
@@ -688,23 +688,23 @@ function Dashboard() {
                     Continue where you left
                   </div>
                   <div className="  min-w-[280px] max-w-[300px] items-center justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-col">
-                    <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                    <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all text-center">
                       {data.firstName}_resume.pdf
                     </span>
 
-                    <div className=" w-[230px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
+                    <div className=" w-[240px] flex items-center justify-center rounded-[8px] relative  group resumes ">
 
 
                       <PDFViewer
-                        width="250px"
-                        height="330px"
+                        width="240px"
+                        height="338px"
                         showToolbar={false}
                        
                       >
                         <MyComponent pageLayout={true} />
                       </PDFViewer>
 
-                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[338px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                         <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
 
 
