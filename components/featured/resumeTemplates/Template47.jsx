@@ -414,7 +414,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                             </View>
                             <View
-                                style={{ display: "flex", flexDirection: "row", gap: 24, flexWrap: "wrap", }}
+                                style={{ display: "flex", flexDirection: "row", columnGap: "24px", rowGap: "6px", flexWrap: "wrap", }}
                             >
                                 {data?.achievements?.map((detail, index) => (
                                     <View
