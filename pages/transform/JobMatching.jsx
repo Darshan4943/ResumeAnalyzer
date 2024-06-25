@@ -99,7 +99,7 @@ const JobMatching = () => {
         }, 1000);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
   const getFolderData = () => {
@@ -123,76 +123,11 @@ const JobMatching = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        console.error(err);
       });
   };
-  // const getClients = () => {
-  //   setLoading(true);
-  //   axios
-  //     .get(
-  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
-  //     )
-  //     .then((res) => {
-  //       setDetails(res.data.data);
-  //       setTimeout(() => {
-  //         setLoading(false);
-  //       }, 1000);
-  //     })
-  //     .catch((err) => {
-  //       setLoading(false);
-  //       console.log(err);
-  //     });
-  // };
-
-  {
-    /** 
-  const jobMatching = async () => {
-    setLoadingg(true);
-    setIsAnimate(false);
-    try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
-        text,
-      });
-      const jd = res.data.jsonData[0];
-      if (Object.keys(jd).length > 5) {
-        const chunks = chunkArray(selectedIndexesFileTypes, 5);
-        const outputData = [];
-        for (let i = 0; i < chunks.length; i++) {
-          await processChunk(chunks[i], jd, outputData);
-          if (i < chunks.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-          }
-        }
-        const dataArray = outputData
-          .filter((item) => item.matching_percentage)
-          ?.sort((a, b) => {
-            if (parseInt(b.matching_percentage))
-              parseInt(
-                isNaN(b.matching_percentage)
-                  ? b.matching_percentage.slice(0, 2)
-                  : b.matching_percentage
-              ) -
-                parseInt(
-                  isNaN(a.matching_percentage)
-                    ? a.matching_percentage.slice(0, 2)
-                    : a.matching_percentage
-                );
-          })
-          .slice(0, resumeCount);
-        setResumeList(dataArray);
-        setLoadingg(false);
-      } else {
-        toast.error("Something went wrong, please try again");
-        setLoadingg(false);
-      }
-    } catch (e) {
-      console.log("error", e);
-      setLoadingg(false);
-      toast.error("Something went wrong, please try again");
-    }
-  };
-*/
-  }
+ 
+  
 
   const jobMatching = async () => {
     setLoadingg(true);
@@ -228,46 +163,7 @@ const JobMatching = () => {
     }
   }, [count]);
 
-  // const jobMatching = () => {
-  //   setLoadingg(true);
-  //   setIsAnimate(false);
-  //   axios
-  //     .post("https://jamblix.com/api/jd/extraction", {
-  //       text,
-  //     })
-  //     .then(async (res) => {
-  //       const jd = res.data.jsonData[0];
-  //       try {
-  //         const outputData = [];
-  //         const promise = selectedIndexesFileTypes
-  //           .slice(0, 5)
-  //           .map(async (item, index) => {
-  //             const { data } = await axios.post(
-  //               "https://jamblix.com/api/external/jobMatching/",
-  //               {
-  //                 jd: jd,
-  //                 id: item,
-  //               }
-  //             );
-
-  //             outputData.push(data);
-  //           });
-  //         const resolvedData = await Promise.all(promise);
-  //         setResumeList(outputData);
-  //         setTimeout(() => {
-  //           setLoadingg(false);
-  //         }, 5000);
-  //       } catch (e) {
-  //         console.log("error", e);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoadingg(false);
-  //       toast.error("Something went wrong, please try again");
-  //     });
-  // };
-
+ 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -399,7 +295,6 @@ const JobMatching = () => {
   };
 
   const processChunk = async (chunk, jd, outputData, counter) => {
-    console.log("first", chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
       "https://jamblix.com/api/external/jobMatching/",
@@ -428,7 +323,7 @@ const JobMatching = () => {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       const counter = { count: 0 };
-      console.log("first", outputData);
+
       if (selectedIndexesFileTypes.length > 50) {
         for (const [index, chunk] of chunks.entries()) {
           processChunk(chunk, extratctedData, outputData, counter);
@@ -445,7 +340,7 @@ const JobMatching = () => {
         }
       }
 
-      console.log(`API was hit ${counter.count} times.`);
+      // console.log(`API was hit ${counter.count} times.`);
 
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
@@ -463,7 +358,7 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
-      console.log("outputData", dataArray);
+
       setButtonToggle(false);
       setLoadingg(false);
     } else {
@@ -554,14 +449,16 @@ const JobMatching = () => {
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 3 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-25"
-              style={{
-                // background: "rgba(255, 255, 255, 0.5)",
-                backdropFilter: "blur(10px)",
-              }}
+              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
+              style={
+                {
+                  // background: "rgba(255, 255, 255, 0.5)",
+                  // backdropFilter: "blur(10px)",
+                }
+              }
             ></motion.div>
 
             {/* Sidebar */}

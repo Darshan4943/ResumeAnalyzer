@@ -28,6 +28,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     dial_code: false,
   });
 
+  
   const [touched, setTouched] = useState({
     firstName: false,
     lastName: false,
@@ -51,12 +52,14 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
+    const newErrors = { ...errors };
+   
+    if (newErrors["dial_code"]) {
+      delete newErrors['dial_code'];
+    }
+
     setPersonalData({ ...personalData, dial_code: item.dial_code });
     setData({ ...data, dial_code: item.dial_code });
-    const newErrors = { ...errors };
-    if (newErrors["dial_code"]) {
-      delete newErrors[dial_code];
-    }
     setError(newErrors);
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
@@ -271,45 +274,6 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
 
       {isShow && (
         <div className="flex flex-col gap-[8px]">
-          {/** 
-          <div className="flex flex-row gap-[16px]">
-            {inputFields
-              .filter(
-                (employer) =>
-                  employer.label === "First Name" ||
-                  employer.label === "Last Name"
-              )
-              .map((employer, index) => (
-                <div key={index}>
-                  <div className="flex flex-col gap-[8px] w-full" key={index}>
-                    <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                      {employer.label}{" "}
-                      <span className="text-red text-[12px]">*</span>
-                    </label>
-                    <input
-                      type={employer.type}
-                      name={employer.name}
-                      placeholder={employer.placeholder}
-                      value={personalData[employer.name]}
-                      onChange={handleInputChange}
-                      // className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
-
-                      className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                        errors && errors[employer?.name]
-                          ? "border-red"
-                          : "border-[#C4C4C4]"
-                      }`}
-                    />
-                  </div>
-                  {errors && errors[employer.name] && (
-                    <span className="text-red text-[12px]">
-                      field is required!
-                    </span>
-                  )}
-                </div>
-              ))}
-          </div>*/}
-
           <div className="flex md:flex-row flex-col gap-[16px]">
             {inputFields
               .filter(
@@ -342,7 +306,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
                     }
                   />
                   {errors && errors[employer.name] && (
-                    <span className="text-[12px] text-red">
+                    <span className="text-[10px] text-red">
                       {errors[employer.name]}
                     </span>
                   )}
@@ -411,7 +375,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
             </div>
             {errors && errors["mobileNumber"] && (
               <span className="text-red text-[10px]">
-                mobileNumber is required
+                Mobile Number is required
               </span>
             )}
           </div>
@@ -445,7 +409,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
                   </div>
 
                   {errors && errors[employer.name] && (
-                    <span className="text-red text-[12px]">
+                    <span className="text-red text-[10px]">
                       {errors[employer.name]}
                     </span>
                   )}

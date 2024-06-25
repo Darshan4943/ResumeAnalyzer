@@ -38,6 +38,21 @@ const KeyResponsibility = ({
   const handleClick = () => {
     setShowForm(true);
   };
+
+  const handleDelete = (index) => {
+    
+    if (keyResponsibilities?.length > 0 && index >= 0) {
+      const filteredBenefits = keyResponsibilities.filter(
+        (_, i) => i !== index
+      );
+
+      setExtractedData({
+        ...extratctedData,
+        benefits: filteredBenefits,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-[16px] w-[416px]">
       <div className="flex flex-row justify-between items-center  ">
@@ -46,10 +61,11 @@ const KeyResponsibility = ({
         </div>
         <div>
           <div
-            className="flex gap-1 bg-[#06A9EF] rounded-[24px] p-[4px] px-[12px] pl-[6px] cursor-pointer"
+            className="flex gap-1 bg-[#06A9EF] rounded-[24px] p-[4px] px-[12px] pl-[6px] cursor-pointer items-center justify-center"
             onClick={handleClick}
           >
             <svg
+              className="min-w-[20px] min-h-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -63,7 +79,9 @@ const KeyResponsibility = ({
                 />
               </g>
             </svg>
-            <p className="text-[14px] font-semibold text-[#FFFFFF]">Add</p>
+            <p className="flex items-center text-[14px] font-semibold text-[#FFFFFF] leading-[17.07px]">
+              Add
+            </p>
           </div>
         </div>
       </div>
@@ -77,20 +95,41 @@ const KeyResponsibility = ({
             <div className="font-montserrat text-[12px] font-semibold leading-[14.63px] text-left">
               Entry {index + 1}
             </div>
-            <div onClick={() => handleId(index)}>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="cursor-pointer"
+            <div className="flex flex-row justify-end items-center gap-[8px]">
+              <div
+                onClick={() => handleId(index)}
+                className="flex  justify-center items-center shadow-custom-md p-[6px] rounded-[24px] bg-[#F4F4F4] h-[30px] w-[30px]"
               >
-                <path
-                  d="M12.05 20.9492H13.0064L20.0377 13.918L19.0814 12.9617L12.05 19.993V20.9492ZM10.7002 22.2992V19.4305L20.0377 10.093C20.1752 9.95547 20.3242 9.85547 20.4847 9.79297C20.6451 9.73047 20.8138 9.69922 20.9909 9.69922C21.1679 9.69922 21.3377 9.73047 21.5002 9.79297C21.6627 9.85547 21.8127 9.95547 21.9502 10.093L22.9064 11.0492C23.0439 11.1867 23.1439 11.3367 23.2064 11.4992C23.2689 11.6617 23.3002 11.8276 23.3002 11.9968C23.3002 12.1775 23.2688 12.3496 23.2061 12.5132C23.1433 12.6768 23.0434 12.8263 22.9064 12.9617L13.5689 22.2992H10.7002ZM19.5511 13.4483L19.0814 12.9617L20.0377 13.918L19.5511 13.4483Z"
-                  fill="#808080"
-                />
-              </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.16477 13.8317H3.21604L11.7465 5.30121L10.6953 4.24994L2.16477 12.7804V13.8317ZM0.914795 15.0817V12.2612L11.9068 1.27402C12.0328 1.15956 12.1719 1.07112 12.3242 1.00868C12.4765 0.946254 12.6362 0.915039 12.8032 0.915039C12.9703 0.915039 13.1322 0.944692 13.2888 1.004C13.4454 1.06329 13.5841 1.15757 13.7048 1.28683L14.7224 2.31727C14.8517 2.43799 14.9439 2.57691 14.9989 2.73402C15.0539 2.89112 15.0814 3.04821 15.0814 3.20531C15.0814 3.37288 15.0528 3.5328 14.9956 3.68506C14.9383 3.83734 14.8473 3.97648 14.7224 4.1025L3.73527 15.0817H0.914795ZM11.2117 4.78479L10.6953 4.24994L11.7465 5.30121L11.2117 4.78479Z"
+                    fill="#646464"
+                  />
+                </svg>
+              </div>
+              <div
+                onClick={() => handleDelete(index)}
+                className="flex  justify-center items-center shadow-custom-md p-[6px] rounded-[24px] bg-[#F4F4F4] h-[30px] w-[30px]"
+              >
+                <svg
+                  width="14"
+                  height="16"
+                  viewBox="0 0 14 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.83325 15.5C2.37492 15.5 1.98256 15.3368 1.65617 15.0104C1.32978 14.684 1.16659 14.2917 1.16659 13.8333V3H0.333252V1.33333H4.49992V0.5H9.49992V1.33333H13.6666V3H12.8333V13.8333C12.8333 14.2917 12.6701 14.684 12.3437 15.0104C12.0173 15.3368 11.6249 15.5 11.1666 15.5H2.83325ZM11.1666 3H2.83325V13.8333H11.1666V3ZM4.49992 12.1667H6.16658V4.66667H4.49992V12.1667ZM7.83325 12.1667H9.49992V4.66667H7.83325V12.1667Z"
+                    fill="#646464"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
           <div className="flex flex-col p-[12px] gap-[6px]">

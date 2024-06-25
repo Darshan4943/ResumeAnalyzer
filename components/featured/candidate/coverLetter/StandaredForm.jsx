@@ -18,7 +18,7 @@ export const StandaredForm = ({
   isError,
   setError,
 }) => {
-  console.log(88, data)
+  
  
   return (
     <>

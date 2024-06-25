@@ -40,7 +40,7 @@ function Recruiter_signup({ }) {
   const [otpError, setOtpError] = useState("");
 
   const [formError, setFormError] = useState({});
-  console.log(666,formError)
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -50,7 +50,7 @@ function Recruiter_signup({ }) {
     dial_code: "",
     img: null,
   });
-  console.log(888,data)
+
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
 

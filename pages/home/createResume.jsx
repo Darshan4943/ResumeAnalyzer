@@ -12,7 +12,7 @@ function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
-  console.log(4,selectedResumeIndex)
+  
   const [render, setRender] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
@@ -420,7 +420,7 @@ function CreateResume() {
     selectedFont: selectedFont,
     selectedResumeIndex: selectedResumeIndex,
   };
-  console.log(111, data)
+  
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
@@ -452,7 +452,7 @@ function CreateResume() {
       const hobbies = parsedData?.hobbies;
 
       const educations = parsedData.education;
-      console.log(222, educations)
+      
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
@@ -658,10 +658,10 @@ function CreateResume() {
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
       } else if (continueEdit) {
-       console.log(6,allData)
+      
    
-        const selectedTemplate = templates.find(template => template.index === allData.selectedResumeIndex);
-        console.log(3,selectedTemplate)
+        const selectedTemplate = templates.find(template => template.index === allData?.selectedResumeIndex);
+    
         if (selectedTemplate) {
           setSelectedColor(selectedTemplate.themeColor);
           setSelectedFont(selectedTemplate.fontFamily);

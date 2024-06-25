@@ -361,7 +361,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                     </Svg>
                   </View>
                   <View style={{ flexDirection: "column", gap: 8 }}>
-                    {data?.skills?.slice(0, pageLayout && 3).map((detail, index) => (
+                    {data?.skills?.slice(0, pageLayout && 3)?.map((detail, index) => (
                       <View
                         wrap={false}
                         key={index}>
@@ -386,7 +386,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               </View>
             )}
             {data?.achievements?.length > 0 &&
-              data.showAchievements === true && (
+              data.showAchievements === true &&  !pageLayout &&(
                 <View
                   wrap={false}
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
@@ -412,7 +412,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                       />
                     </Svg>
                   </View>
-                  {data?.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
+                  {data?.achievements?.map((detail, index) => (
                     <>
                       <View
                         key={index}

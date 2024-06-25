@@ -59,7 +59,7 @@ const Index = () => {
     window.open(url, "_blank");
   };
 
-  console.log(userDataGlobal);
+
   useEffect(() => {
     setLoading(true);
     if (userDataGlobal?._id) {
