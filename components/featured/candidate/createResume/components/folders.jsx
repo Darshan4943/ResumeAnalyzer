@@ -145,7 +145,7 @@ function Folders({
   const sort = ["A to Z", "Date Modified"];
 
   const sortClientData = (data, selectedIndex) => {
-    console.log("dataTosortC", data);
+  
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.firstName?.localeCompare(b.firstName));
     } else if (sortSelect == 1) {

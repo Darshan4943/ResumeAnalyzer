@@ -15,7 +15,7 @@ import {
 } from "@react-pdf/renderer";
 import React from "react";
 
-const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
+const Template48 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) => {
   const formatLink = (link) => {
     if (link?.length > 28) {
       return link?.match(/.{1,28}/g).join("\n");
@@ -285,7 +285,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 8 }}
                 >
-                  {data?.skills?.map((detail, index) => (
+                  {data?.skills?.slice(0, pageLayout && 4)?.map((detail, index) => (
                     <View
                       key={index}
                       wrap={false}
@@ -365,7 +365,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                     </Svg>
                   </View>
-                  {data?.achievements?.map((detail, index) => (
+                  {data?.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <View
                       key={index}
                       wrap={false}
@@ -479,7 +479,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 8 }}
                 >
-                  {data?.languages?.map((detail, index) => (
+                  {data?.languages?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <View
                       key={index}
                       wrap={false}
@@ -517,7 +517,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             )}
             <View wrap={false} style={{ display: "flex", gap: 8 }}>
               {data?.hobbies?.length > 0 && data?.showHobbies === true && (
-                data?.hobbies?.map((detail, index) => (
+                data?.hobbies ?.slice(0, pageLayout && 2)?.map((detail, index) => (
                   <View
                     key={index}
                     wrap={data?.hobbies?.length > 1 ? true : false}
@@ -606,7 +606,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 ))
               )}
             </View>
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true &&  !pageLayout &&(
               <View
                 wrap={data?.socialLinks?.length > 1 ? true : false}
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -720,7 +720,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true &&  !pageLayout &&(
               <View
                 wrap={data?.reference?.length > 1 ? true : false}
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -978,7 +978,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {/* <View style={{ flexDirection: "column", gap: '2px' ,display:'flex'}}> */}
 
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <View
                       key={index}
                       wrap={false}
@@ -1154,7 +1154,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                   </Svg>
                 </View>
-                {data?.education?.map((detail, index) => (
+                {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                   <View
                     key={index}
                     wrap={false}
@@ -1277,7 +1277,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                   </Svg>
                 </View>
-                {data?.project?.map((detail, index) => (
+                {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                   <View
                     key={index}
                     wrap={false}
@@ -1381,7 +1381,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-            {data?.internship?.length > 0 && data?.showInternship === true && (
+            {data?.internship?.length > 0 && data?.showInternship === true &&  !pageLayout && (
               <View
                 wrap={data?.internship?.length > 1 ? true : false}
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1524,7 +1524,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true && (
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
               <View
                 wrap={data?.course?.length > 1 ? true : false}
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1666,7 +1666,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
             {data?.extraCaricularData?.length > 0 &&
-              data?.showExtraCariculam === true && (
+              data?.showExtraCariculam === true && !pageLayout &&(
                 <View
                   wrap={data?.extraCaricularData?.length > 1 ? true : false}
                   style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1811,7 +1811,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               )}
 
             {data?.section?.length > 0 &&
-              data?.showCustomSection === true &&
+              data?.showCustomSection === true && !pageLayout &&
               data?.section?.map((item, index) => (
                 <View
                   wrap={data?.section?.length > 1 ? true : false}

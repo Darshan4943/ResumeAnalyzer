@@ -2674,43 +2674,43 @@ export const details = [
 ];
 
 export const plans = [
-  {
-    duration: "1 Day",
-    index: 1,
-    limit: "One-Time",
-    price: "$ 1",
-    amount: 1,
-    days: 1,
-    description: "create your first resume",
-    features: [
-      "AI Powered Resume Creation",
-      "2 Resume Uploads",
-      "Unlimited Access to 100+ Resume Templates",
-      "Unlimited Access to Skill Assessment",
-      "Resume transformations as per job descriptions",
-      "2 resume Cloud storage",
-    ],
-    limits: {
-      uploads: 2,
-      download: 2,
-      save: 2,
-    },
-    productName: "prod_Q4yJKFQ7PRjm3j",
-  },
+  // {
+  //   duration: "1 Day",
+  //   index: 1,
+  //   limit: "One-Time",
+  //   price: "$ 1",
+  //   amount: 1,
+  //   days: 1,
+  //   description: "create your first resume",
+  //   features: [
+  //     "AI Powered Resume Creation",
+  //     "2 Resume Uploads",
+  //     "Unlimited Access to 100+ Resume Templates",
+  //     "Unlimited Access to Skill Assessment",
+  //     "Resume transformations as per job descriptions",
+  //     "2 resume Cloud storage",
+  //   ],
+  //   limits: {
+  //     uploads: 2,
+  //     download: 2,
+  //     save: 2,
+  //   },
+  //   productName: "prod_Q4yJKFQ7PRjm3j",
+  // },
   {
     duration: "7 Days",
-    limit: "for More",
+    limit: "Basic",
     price: "$ 3",
-    index: 2,
+    index: 1,
     amount: 3,
     days: 7,
-    description: "for the active job seekers",
+    description: "create your first resume ",
     features: [
       "AI Powered Resume Creation",
       "6 Resume Uploads",
       "Unlimited Access to 100+ Resume Templates",
       "Unlimited Access to Skill Assessment",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
       "6 resume Cloud storage",
     ],
     limits: {
@@ -2722,18 +2722,18 @@ export const plans = [
   },
   {
     duration: "28 Days",
-    limit: "Ultimate",
+    limit: "for More",
     amount: 10,
     price: "$ 10",
     days: 28,
-    index: 3,
-    description: "create, save, repeat with ease",
+    index: 2,
+    description: "for the active job seekers",
     features: [
       "AI Powered Resume Creation",
       "20 Resume Uploads",
       "Unlimited Access to 100+ Resume Templates",
       "Unlimited Access to Skill Assessment",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
       "20 resume Cloud storage",
     ],
     limits: {
@@ -2742,6 +2742,30 @@ export const plans = [
       save: 20,
     },
     productName: "prod_Q4yJRU5temf1TO",
+  },
+
+  {
+    duration: "84 Day",
+    index: 3,
+    limit: "Ultimate",
+    price: "$ 20",
+    amount: 20,
+    days: 84,
+    description: "create, save, repeat with ease ",
+    features: [
+      "AI Powered Resume Creation",
+      "50 Resume Uploads",
+      "Unlimited Access to 100+ Resume Templates",
+      "Unlimited Access to Skill Assessment",
+      // "Resume transformations as per job descriptions",
+      "50 resume Cloud storage",
+    ],
+    limits: {
+      uploads: 50,
+      download: 50,
+      save: 50,
+    },
+    productName: "prod_QMAfwF7LAwcve2",
   },
 
   {
@@ -2757,7 +2781,7 @@ export const plans = [
       "40 Resume Downloads",
       "10 Clients Profile data Management",
       "Unlimited Access to 100+ Resume Templates",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
     ],
     limits: {
       uploads: 10,
@@ -2780,7 +2804,7 @@ export const plans = [
       "200 Resume Downloads",
       "50 Clients Profile data Management",
       "Unlimited Access to 100+ Resume Templates",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
     ],
     limits: {
       uploads: 50,
@@ -2803,7 +2827,7 @@ export const plans = [
       "400 Resume Downloads",
       "100 Clients Profile data Management",
       "Unlimited Access to 100+ Resume Templates",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
     ],
     limits: {
       uploads: 100,
@@ -2827,7 +2851,7 @@ export const plans = [
       "20 Resume Uploads",
       "Unlimited Access to 100+ Resume Templates",
       "Unlimited Access to Skill Assessment",
-      "Resume transformations as per job descriptions",
+      // "Resume transformations as per job descriptions",
       "20 resume Cloud storage",
     ],
     limits: {

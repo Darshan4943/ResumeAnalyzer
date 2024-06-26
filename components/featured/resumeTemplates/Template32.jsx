@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template32({ data, selectedColor, selectedFont, preview }) {
+function Template32({ data, selectedColor, selectedFont, preview,pageLayout }) {
   const formatLink = (link) => {
     if (link?.length > 23) {
       return link?.match(/.{1,23}/g).join("\n");
@@ -296,7 +296,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                     }}
                   >
-                    {data.skills?.map((detail, index) => {
+                    {data.skills?.slice(0, pageLayout && 3)?.map((detail, index) => {
                       // const calculateWidthPercentage = (rating) => {
                       //   let ratingPercentage = 0;
                       //   if (rating && rating.length > 0) {
@@ -397,7 +397,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                     }}
                   >
-                    {data.languages?.map((detail, index) => {
+                    {data.languages?.slice(0, pageLayout && 2)?.map((detail, index) => {
                       // const calculateWidthPercentage = (rating) => {
                       //   let ratingPercentage = 0;
                       //   if (rating && rating.length > 0) {
@@ -473,7 +473,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -526,7 +526,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.achievements?.length > 0 &&
-              data?.showAchievements === true && (
+              data?.showAchievements === true && !pageLayout &&(
                 <View
                   style={{ flexDirection: "column", gap: "16px" }}
                   wrap={false}
@@ -574,7 +574,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && (
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -631,7 +631,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout &&(
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -852,7 +852,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.education?.map((detail, index) => (
+                  {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
                     <>
                       <View
                         wrap={false}
@@ -1008,7 +1008,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.experience?.map((detail, index) => (
+                  {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         // wrap={true}
@@ -1169,7 +1169,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     paddingLeft: 8,
                   }}
                 >
-                  {data?.project?.map((detail, index) => (
+                  {data?.project?.slice(0, pageLayout && 1)?.map((detail, index) => (
                     <>
                       <View
                         // wrap={true}
@@ -1250,7 +1250,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.internship?.length > 0 && data?.showInternship === true && (
+          {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout && (
             <View
               style={{
                 display: "flex",
@@ -1410,7 +1410,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && data?.showCourses === true && (
+          {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
             <View
               style={{
                 display: "flex",
@@ -1571,7 +1571,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && (
+            data?.showExtraCariculam === true && !pageLayout &&(
               <View
                 style={{
                   display: "flex",
@@ -1732,7 +1732,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-          {data?.section?.length > 0 && data?.showCustomSection === true && (
+          {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
             <>
               {data.section.map((item, index) => (
                 <View
