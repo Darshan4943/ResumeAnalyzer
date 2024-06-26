@@ -125,39 +125,39 @@ const Template44 = ({ data, selectedColor, selectedFont, preview,pageLayout }) =
                 CONTACT ME
               </Text>
             </View>
-
-            <View
-              style={{
-                display: "flex",
-                paddingHorizontal: "8px",
-                flexDirection: "column",
-                gap: 2,
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 2,
-              }}
-            >
-              <Text
+            {data?.location && (
+              <View
                 style={{
-                  fontFamily: `${selectedFont} 500`,
-                  fontSize: 12,
-                  color: "#282829",
+                  display: "flex",
+                  paddingHorizontal: "8px",
+                  flexDirection: "column",
+                  gap: 2,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 2,
                 }}
               >
-                Address
-              </Text>
-              <Text
-                style={{
-                  fontFamily: `${selectedFont} 400`,
-                  fontSize: 10,
-                  color: "#282829",
-                  paddingHorizontal: "16px",
-                }}
-              >
-                {data.location ? <>{data.location}</> : <>Your Address</>}
-              </Text>
-            </View>
-
+                <Text
+                  style={{
+                    fontFamily: `${selectedFont} 500`,
+                    fontSize: 12,
+                    color: "#282829",
+                  }}
+                >
+                  Address
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: `${selectedFont} 400`,
+                    fontSize: 10,
+                    color: "#282829",
+                    paddingHorizontal: "16px",
+                  }}
+                >
+                  {data.location ? <>{data.location}</> : <>Your Address</>}
+                </Text>
+              </View>
+            )}
             <View
               style={{
                 display: "flex",

@@ -14,7 +14,7 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
-
+  const [allPlans, setAllPlans] = useState([])
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
@@ -24,17 +24,34 @@ function MyPurchase() {
     setexchangeRate(exchangeRate);
     seticon(icon);
   }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/plans/getAllPlans")
+      .then((res) => {
+     
+        setAllPlans(res.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
+
   useEffect(() => {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
-            plans.find(
+            allPlans.find(
               (item) =>
-                item.duration + " " + item.limit == res.data.findIsActive?.plan
+                item.name == res.data.findIsActive?.plan
             )
           );
           setTimeout(() => {
@@ -46,7 +63,7 @@ function MyPurchase() {
           setLoading(false);
         });
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal,allPlans]);
 
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
@@ -88,7 +105,7 @@ function MyPurchase() {
                                 {icon}
                               </p>
                               <p className="text-[24px] scr1024:text-[2.5vw] font-[700]">
-                                {Math.ceil(plan.amount * exchangeRate)}
+                                {Math.ceil(plan?.amount * exchangeRate)}
                               </p>
                             </div>
 
@@ -129,7 +146,7 @@ function MyPurchase() {
                                 <div>:</div>
                               </div>
                               <div className="text-[14px] font-[500]">
-                                {plan?.duration} plan
+                                {plan?.name} plan
                               </div>
                             </div>
                             <div className="flex  gap-4">

@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template39({ data, selectedColor, selectedFont, preview,pageLayout }) {
+function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) {
   const formatLink = (link) => {
     if (link?.length > 19) {
       return link?.match(/.{1,19}/g).join("\n");

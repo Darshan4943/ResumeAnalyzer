@@ -162,12 +162,23 @@ function CandidateHeader() {
               onClick={() => setServices(false)}
               href="/dashboard/ActivePlans"
               className={
-                selectedPage === "/dashboard/Enquiries"
+                selectedPage === "/dashboard/ActivePlans"
                   ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
                   : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
               }
             >
               <li>Active Plans</li>
+            </Link>
+            <Link
+              onClick={() => setServices(false)}
+              href="/dashboard/Plans"
+              className={
+                selectedPage === "/dashboard/Plans"
+                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+              }
+            >
+              <li>Plans</li>
             </Link>
           </>
         ) : (
@@ -402,7 +413,7 @@ function CandidateHeader() {
               </svg>
               Log Out
             </div>
-            
+
           </div>
         )}
       </div>
