@@ -25,7 +25,6 @@ const JdMatchingsideBar = ({
 }) => {
   const [openExtraSection, setAddExtraSection] = useState(false);
   const [jdData, setJdData] = useState([]);
-
   const [isExtraData, setIsExtraData] = useState(false);
 
   return (

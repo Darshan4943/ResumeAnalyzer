@@ -16,7 +16,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 const MyCollection = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
- 
+
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);
   const [view, setView] = useState(false);
@@ -138,7 +138,6 @@ const MyCollection = () => {
       </div>
     );
   };
-
 
   const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();

@@ -30,7 +30,6 @@ const JobMatching = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
-
   const [resumeCount, setResumeCount] = useState(5);
   const [files, setFiles] = useState([]);
   const { clientId, parentId } = router.query;
@@ -126,8 +125,6 @@ const JobMatching = () => {
         console.error(err);
       });
   };
- 
-  
 
   const jobMatching = async () => {
     setLoadingg(true);
@@ -163,7 +160,6 @@ const JobMatching = () => {
     }
   }, [count]);
 
- 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -298,7 +294,7 @@ const JobMatching = () => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
       "https://jamblix.com/api/external/jobMatching/",
-      // "https://jamblix.com/api/external/jobMatching/",
+
       {
         jd: jd,
         ids: ids,
@@ -357,6 +353,7 @@ const JobMatching = () => {
         })
         .slice(0, resumeCount);
 
+      console.log("resumeList", dataArray);
       setResumeList(dataArray);
 
       setButtonToggle(false);
@@ -367,7 +364,7 @@ const JobMatching = () => {
   };
 
   return (
-    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins">
+    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
       {loadingg && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -396,14 +393,12 @@ const JobMatching = () => {
       )}
       <div className="font-semibold text-[20px]">Job Description Matching</div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-
-      <div className="flex flex-col gap-4 h-full relative overflow-hidden">
-        <div className="flex flex-row gap-4 h-full">
-          <div className="relative ml:w-[35%] w-full flex flex-col gap-6">
+      <div className="flex flex-col gap-6 h-full relative overflow-hidden">
+        <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
+          <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
             <div className="text-[18px] text-[#333333] font-medium">
               Select From Collection
             </div>
-
             <JdFiles
               details={details}
               query={router.query}
@@ -431,8 +426,8 @@ const JobMatching = () => {
             />
           </div>
 
-          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-          <div className="ml:w-[60%] w-full">
+          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
+          <div className="ml:w-[56%] w-full">
             <JdMatching
               details={details}
               resumeList={resumeList}

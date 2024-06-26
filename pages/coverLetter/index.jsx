@@ -7,7 +7,7 @@ import axios from "axios";
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
- 
+  console.log(11, EditData);
   // const userDataGlobal = useSelector((state) => state.userData);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
@@ -53,7 +53,6 @@ function Index() {
     type: "",
   };
 
-  console.log(11);
   const [data, setData] = useState(defaultState);
   // useEffect(() => {
   //   console.log("id", id);
@@ -111,6 +110,7 @@ function Index() {
       }));
     }
   }, [contentSituation, isCoverEdit]);
+  console.log(88, data);
 
   return (
     <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">

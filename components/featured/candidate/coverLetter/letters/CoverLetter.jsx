@@ -69,8 +69,8 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
               </span>
             </div>
 
-            <div className="flex flex-col flex-wrap gap-[16px] w-[30%]">
-              <div className="gap-[8px] flex flex-row w-full ">
+            <div className="flex flex-col  gap-[16px] w-[30%]">
+              <div className="gap-[8px] flex flex-row w-full items-center ">
                 <svg
                   className="min-h-[22px] min-w-[22px]"
                   width="22"
@@ -96,7 +96,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row ">
+                <div className="gap-[8px] flex flex-row items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"
@@ -121,7 +121,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                 </div>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row ">
+                <div className="gap-[8px] flex flex-row items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"

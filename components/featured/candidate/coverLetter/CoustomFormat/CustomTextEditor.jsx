@@ -6,7 +6,7 @@ import CustomToolbar from "./CustomToolbar";
 const CustomTextEditor = ({ data, setData, placeholder }) => {
   const [rerender, setRerender] = useState(false);
   const prevDataRef = useRef(data);
-
+  console.log("data", data);
   // Initialize editor with content from data.passages
   const editor = useEditor({
     extensions: [StarterKit],
@@ -50,6 +50,7 @@ const CustomTextEditor = ({ data, setData, placeholder }) => {
     prevDataRef.current = data;
   }, [data, editor]);
 
+  console.log("e", editor);
   return (
     <div className="flex flex-col border-none shadow-custom rounded-[10px]">
       <CustomToolbar editor={editor} rerender={rerender} />
