@@ -13,7 +13,7 @@ function Details() {
   const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
-  const [selectedPlan, setSelectedPlan] = useState({});
+  const [selectedPlan, setSelectedPlan] = useState();
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [successModel, setSuccessModel] = useState({
@@ -22,22 +22,27 @@ function Details() {
   });
   const [cancelModel, setCancelModel] = useState(false);
   const [isRetry, setIsRetry] = useState(true);
-
+  console.log(555, selectedPlan)
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
     setexchangeRate(exchangeRate);
     seticon(icon);
   }, []);
-  useEffect(() => {
-    setSelectedPlan(plans.find((item, index) => index == id - 1));
-    console.log(34, id);
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
 
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:2000/api/plans/getByIndex/${id}`)
+      .then((res) => {
+
+        setSelectedPlan(res.data.data[0])
+        setLoading(false);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, [id]);
 
   // useEffect(() => {
@@ -90,12 +95,19 @@ function Details() {
                 className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[90%]  "
                 style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
               >
-                <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
+                <div className="flex text-center flex-col gap-3 text-[#333333] w-[90%]">
                   <p className="scr700:text-[1.7vw] text-[5vw] font-[600]">
-                    <span className="text-[#06A9EF]">
-                      {selectedPlan?.duration}
-                    </span>{" "}
-                    {selectedPlan?.limit}
+                    {selectedPlan.type === "candidate" &&
+                      <>
+                        <span className="text-[#06A9EF]">{selectedPlan?.days} Days</span>{" "}
+                      </>
+                    }
+
+                    <span className={`${selectedPlan.type === "recruiter" && "text-[#06A9EF]"}`}> {selectedPlan?.name}</span>
+
+                    {selectedPlan.type === "recruiter" &&
+                      <span > Plan</span>
+                    }
                   </p>
                   <div className="flex flex-row gap-2 w-full items-center justify-center">
                     <p className="ml:text-[2.5vw] text-[24px] font-[700]">
