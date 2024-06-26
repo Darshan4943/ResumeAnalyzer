@@ -132,12 +132,14 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </Svg>
                             <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285", display: "flex", flexWrap: "wrap", flexShrink: 1 }}>{data.email} </Text>
                         </View>
-                        <View style={{ display: "flex", flexDirection: "row", marginLeft: 18, gap: 8, justifyContent: "flex-start", alignItems: "center" }}>
-                            <Svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <Path d="M4.0008 0.5C1.79451 0.5 0 2.28059 0 4.46899C0 5.35055 0.567193 6.78776 1.73443 8.86328C2.55958 10.3307 3.37192 11.5548 3.40557 11.6057L4 12.5L4.59443 11.6057C4.62888 11.5548 5.44042 10.3307 6.26557 8.86328C7.4328 6.78856 8 5.35135 8 4.46979C8.0016 2.2806 6.20709 0.5 4.0008 0.5ZM4.0008 6.50079C2.8552 6.50079 1.9275 5.57949 1.9275 4.44277C1.9275 3.30604 2.856 2.38474 4.0008 2.38474C5.1456 2.38474 6.0749 3.30604 6.0749 4.44277C6.0749 5.5787 5.1464 6.50079 4.0008 6.50079Z" fill="#808285" />
-                            </Svg>
-                            <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{data.location}</Text>
-                        </View>
+                        {data?.location && (
+                            <View style={{ display: "flex", flexDirection: "row", marginLeft: 18, gap: 8, justifyContent: "flex-start", alignItems: "center" }}>
+                                <Svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M4.0008 0.5C1.79451 0.5 0 2.28059 0 4.46899C0 5.35055 0.567193 6.78776 1.73443 8.86328C2.55958 10.3307 3.37192 11.5548 3.40557 11.6057L4 12.5L4.59443 11.6057C4.62888 11.5548 5.44042 10.3307 6.26557 8.86328C7.4328 6.78856 8 5.35135 8 4.46979C8.0016 2.2806 6.20709 0.5 4.0008 0.5ZM4.0008 6.50079C2.8552 6.50079 1.9275 5.57949 1.9275 4.44277C1.9275 3.30604 2.856 2.38474 4.0008 2.38474C5.1456 2.38474 6.0749 3.30604 6.0749 4.44277C6.0749 5.5787 5.1464 6.50079 4.0008 6.50079Z" fill="#808285" />
+                                </Svg>
+                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{data.location}</Text>
+                            </View>
+                        )}
                     </View>
                 </View>
                 <View style={{ paddingTop: 20, paddingHorizontal: 36, gap: 20 }}>
