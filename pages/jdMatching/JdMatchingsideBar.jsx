@@ -159,7 +159,7 @@ const JdMatchingsideBar = ({
                 </svg>
               ) : (
                 <div className="flex gap-[8px] justify-center">
-                  Find Matches
+                  Find Match
                   <img
                     src="/images/icons/person_search.png"
                     className="h-[24px] w-[24px]"

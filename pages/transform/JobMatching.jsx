@@ -45,7 +45,9 @@ const JobMatching = () => {
   const [isEdit, setIsEdit] = useState();
   const [editId, setEditId] = useState(null);
   const [ShowForm, setShowForm] = useState(false);
-
+  // const [message, setMessage] = useState("Analyzing Data, Please wait");
+  const [mainMessage, setMainMessage] = useState("Analyzing Data");
+  const [findMatchLoader, setMatchLoader] = useState(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -58,6 +60,8 @@ const JobMatching = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  
 
   useEffect(() => {
     if (parentId) {
@@ -312,7 +316,8 @@ const JobMatching = () => {
   };
 
   const MatchJob = async () => {
-    setLoadingg(true);
+    // setLoadingg(true);
+    setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
     if (Object.keys(extratctedData).length > 5) {
@@ -336,8 +341,6 @@ const JobMatching = () => {
         }
       }
 
-      // console.log(`API was hit ${counter.count} times.`);
-
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
         .sort((a, b) => {
@@ -353,15 +356,37 @@ const JobMatching = () => {
         })
         .slice(0, resumeCount);
 
-      console.log("resumeList", dataArray);
       setResumeList(dataArray);
 
       setButtonToggle(false);
-      setLoadingg(false);
+      // setLoadingg(false);
+      setMatchLoader(false);
     } else {
       toast.error("Something went wrong, please try again");
     }
   };
+
+  useEffect(() => {
+    const intervals = [
+      { text: "Analyzing Data", duration: 10000 },
+      { text: "Finding Results", duration: 20000 },
+      { text: "Almost There", duration: 20000 },
+    ];
+
+    let currentInterval = 0;
+
+    const updateMessage = () => {
+      setMainMessage(intervals[currentInterval].text);
+      currentInterval = (currentInterval + 1) % intervals.length;
+      setTimeout(updateMessage, intervals[currentInterval].duration);
+    };
+
+    updateMessage();
+
+    return () => {
+      clearTimeout(updateMessage);
+    };
+  }, []);
 
   return (
     <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
@@ -381,7 +406,7 @@ const JobMatching = () => {
               </div>
               <div className="flex flex-col items-center justify-center relative z-100">
                 <span className="text-center text-[#fff] text-[16px]">
-                  Analyzing Data, It Will Take Some Time
+                  Analyzing Data,
                 </span>
                 <span className="text-left text-[#fff] text-[16px] loading_dots">
                   Please wait
@@ -391,6 +416,34 @@ const JobMatching = () => {
           </div>
         </>
       )}
+
+      {findMatchLoader && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+              <div className="w-[165px] h-[124px] flex items-center justify-center">
+                <motion.img
+                  src="/images/resumeBuilder/bot.png"
+                  alt=""
+                  className="h-[68px] w-[68px]"
+                  animate={{ y: [-30, 0, -30] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              </div>
+              <div className="flex flex-col items-center justify-center relative z-100">
+                <span className="text-center text-[#fff] text-[16px]">
+                  {mainMessage},
+                </span>
+                <span className="text-left text-[#fff] text-[16px] loading_dots">
+                  Please wait
+                </span>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       <div className="font-semibold text-[20px]">Job Description Matching</div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
       <div className="flex flex-col gap-6 h-full relative overflow-hidden">
