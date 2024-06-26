@@ -125,7 +125,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
 
-    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "Ask KRUT", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     {
       name: "My Website",
       imgSrc: "/images/resumeBuilder/website.png",
@@ -155,7 +155,7 @@ function Dashboard() {
 
       imgSrc: "/images/resumeBuilder/collection.png",
     },
-    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "Ask KRUT", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -198,7 +198,7 @@ function Dashboard() {
       case "My Website":
         handleNavigation("/myWebsite");
         break;
-      case "Chat Bot":
+      case "Ask KRUT":
         handleNavigation("/chatbot");
         break;
       case "My Collection":

@@ -436,7 +436,6 @@ function SkillAssessment() {
     axios
       .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
-        console.log(77, res.data.data);
         const dataa = res.data.data;
         const countIndex = dataa[dataa.length - 1];
         setAttemptCtn(countIndex?.count);
@@ -492,6 +491,7 @@ function SkillAssessment() {
       }
     });
 
+    console.log(88, Math.round(correctAnswer));
     return Math.round(correctAnswer);
   };
 

@@ -71,6 +71,7 @@ const ChatBox = ({
   const chatEndRef = useRef(null);
   const [img, setImg] = useState(null);
   const [errorModel, setError] = useState(false);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
@@ -85,6 +86,7 @@ const ChatBox = ({
         .post("https://jamblix.com/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
+          userType: userDataGlobal.role,
         })
         .then((res) => {
           const answer = res.data.data;
