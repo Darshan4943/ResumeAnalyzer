@@ -145,7 +145,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                     ))}
                                 </div>
                                 <button
-                                    onClick={() => router.push(`/dashboard/AddPlans?id=${plan.index}`)}
+                                     onClick={() => router.push(`/dashboard/modifyPlans?id=${plan.index}`)}
                                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                                 >
                                     Modify
@@ -223,7 +223,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                         ))}
                                     </div>
                                     <button
-                                        onClick={() => router.push(`/dashboard/AddPlans?id=${plan.index}`)}
+                                        onClick={() => router.push(`/dashboard/modifyPlans?id=${plan.index}`)}
                                         //  onClick={() => isLogin && router.push("/myPurchase/Purchase")}
                                         className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                                     >
