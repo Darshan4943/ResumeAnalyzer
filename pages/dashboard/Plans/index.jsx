@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from "framer-motion"
-import SubscriptionPlans from '../../../components/featured/home/SubscriptionPlans';
-import { useDispatch, useSelector } from "react-redux";
 
-function index() {
+import { useDispatch, useSelector } from "react-redux";
+import SubscriptionPlansAdmin from '../../../components/featured/home/SubscriptionPlansAdmin';
+
+function Index() {
     const userDataGlobal = useSelector((state) => state.userData);
     const [toggle, setToggle] = useState(true)
 
@@ -32,10 +33,10 @@ function index() {
                         {`${toggle ? "Candidate Plans" : "Recruiter Plans"}`}
                     </motion.button>
                 </div>
-                <SubscriptionPlans toggle={toggle} />
+                <SubscriptionPlansAdmin toggle={toggle} />
             </div>
         </div>
     )
 }
 
-export default index
+export default Index

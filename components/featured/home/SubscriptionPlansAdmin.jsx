@@ -31,10 +31,10 @@ function SubscriptionPlansAdmin({ toggle }) {
         seticon(icon);
 
         if (toggle === true) {
-            setPlans(plans.slice(0, 3));
+            setPlans(allPlans.slice(0, 3));
 
         } else {
-            setPlans(plans.slice(3));
+            setPlans(allPlans.slice(3));
 
         }
 
@@ -47,7 +47,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                 setIsLogin(false);
             }
         }
-    }, [userDataGlobal, showPlan, toggle]);
+    }, [userDataGlobal, showPlan, toggle,allPlans]);
     const [subscription, setSubscription] = useState(null);
 
     useEffect(() => {
@@ -68,15 +68,9 @@ function SubscriptionPlansAdmin({ toggle }) {
             .get("http://localhost:2000/api/plans/getAllPlans")
             .then((res) => {
 
-                const allPlan = res.data.data
+                setAllPlans(res.data.data)
 
-                if (userDataGlobal.role == "recruiter" || fromMain) {
-
-                    setAllPlans(allPlan.slice(3));
-                } else {
-
-                    setAllPlans(allPlan.slice(0, 3));
-                }
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -91,18 +85,14 @@ function SubscriptionPlansAdmin({ toggle }) {
 
             <div className="hidden lg:block w-full ">
                 <div className="flex gap-9 justify-center">
-                    {allPlans.map((plan, index) => (
+                    {subPlans.map((plan, index) => (
                         <div
                             key={index}
-                            className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+                            className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card max-w-[19vw] "
                                 } `}
                             style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
                         >
-                            {index === 1 && (
-                                <div className="absolute left-0 xxl:top-[-45px] xl:top-[-35px] scr1200:top-[-35px] top-[-28px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[50px] bg-[#06A9EF] text-white rounded-t-[16px]">
-                                    Recommended
-                                </div>
-                            )}
+                            
 
                             <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                                 <div className="flex text-center flex-col gap-3 text-[#333333] ">
@@ -158,7 +148,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                     onClick={() => router.push(`/dashboard/AddPlans?id=${plan.index}`)}
                                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                                 >
-                                    Purchase Plan
+                                    Modify
                                 </button>
                             </div>
 
