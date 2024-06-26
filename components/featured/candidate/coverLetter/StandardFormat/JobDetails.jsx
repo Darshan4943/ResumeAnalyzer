@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Close_svg } from "../../../../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([]);
+  const [isSkillErr, setIsSkillErr] = useState(false);
   const [skills, setSkills] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [JobData, setJobData] = useState({
@@ -102,6 +104,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
       location: data?.location,
       roleResponsibilities: data?.roleResponsibilities,
     });
+    setRequiredSkills([...data?.requiredSkills]);
   }, [data]);
 
   useEffect(() => {
@@ -187,11 +190,16 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
 
   const addSkill = () => {
     if (requiredSkills && !requiredSkills.includes(inputValue)) {
-      const updatedSkills = [...requiredSkills, inputValue];
-      setRequiredSkills(updatedSkills);
-      setData({ ...data, requiredSkills: updatedSkills });
-      setJobData({ ...JobData, requiredSkills });
-      setInputValue("");
+      if (inputValue !== "") {
+        const updatedSkills = [...requiredSkills, inputValue];
+        setRequiredSkills(updatedSkills);
+        setData({ ...data, requiredSkills: updatedSkills });
+        setJobData({ ...JobData, requiredSkills });
+        setInputValue("");
+        setIsSkillErr(false);
+      } else {
+        setIsSkillErr(true);
+      }
     }
   };
 
@@ -206,7 +214,6 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
     setRequiredSkills(updatedSkills);
   };
 
- 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
@@ -273,7 +280,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   `}
               />
               {errors && errors["jobTitle"] && (
-                <span className="text-red text-[10px]">title is required!</span>
+                <span className="text-red text-[10px]">Title is required!</span>
               )}
             </div>
           )}
@@ -403,7 +410,11 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
                   Required Skills
                 </label>
 
-                <div className=" flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] ">
+                <div
+                  className={`flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px]
+                 ${isSkillErr === true ? "border-red" : "border-[#C4C4C4]"}
+                `}
+                >
                   <input
                     type="text"
                     placeholder="e.g. Javascript"

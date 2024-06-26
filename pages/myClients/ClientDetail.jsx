@@ -707,31 +707,31 @@ function ClientDetail({ tabIndex }) {
                               Preview
                             </span>
                           </div>
-                          {/* <div
-                              onClick={() => {
-                                router.push({
-                                  pathname: "/home/createResume",
-                                  query: {
-                                    data: JSON.stringify(item),
-                                    isEdit: true,
-                                  },
-                                });
-                              }}
-                              className="flex items-center flex-col cursor-pointer"
-                              style={{
-                                borderBottom: "1px solid #646464",
-                                paddingBottom: "12px",
-                              }}
-                            >
-                              <img
-                                src="/images/icons/edit.png"
-                                className="h-[24px] w-[24px]"
-                                alt=""
-                              />
-                              <span className="text-[12px] font-semibold text-white ">
-                                Edit
-                              </span>
-                            </div> */}
+                          <div
+                            onClick={() => {
+                              router.push({
+                                pathname: "/coverLetter",
+                                query: {
+                                  EditData: JSON.stringify(item),
+                                  isCoverEdit: true,
+                                },
+                              });
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                          >
+                            <img
+                              src="/images/icons/edit.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Edit
+                            </span>
+                          </div>
 
                           <a
                             href={item.resumeUrl}

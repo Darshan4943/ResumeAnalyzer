@@ -61,7 +61,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
         >
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-[70%]">
-              <span className=" text-[42.51px] font-[400] text-[#414042] break-word">
+              <span className=" text-[32px] font-[400] text-[#414042] break-word">
                 {data?.firstName} {data?.lastName}
               </span>
               <span className=" text-[14px] font-[400] text-[#414042] break-word">
@@ -69,8 +69,8 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
               </span>
             </div>
 
-            <div className="flex flex-col flex-wrap gap-[16px] w-[30%]">
-              <div className="gap-[8px] flex flex-row w-full ">
+            <div className="flex flex-col  gap-[16px] w-[30%]">
+              <div className="gap-[8px] flex flex-row w-full items-center ">
                 <svg
                   className="min-h-[22px] min-w-[22px]"
                   width="22"
@@ -92,11 +92,11 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                 </svg>
 
                 <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042]">
-                  {data?.mobileNumber}
+                  {data?.dial_code} {data?.mobileNumber}
                 </span>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row ">
+                <div className="gap-[8px] flex flex-row items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"
@@ -121,7 +121,7 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
                 </div>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row ">
+                <div className="gap-[8px] flex flex-row items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"

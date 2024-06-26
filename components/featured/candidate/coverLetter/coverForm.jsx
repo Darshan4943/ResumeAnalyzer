@@ -105,7 +105,11 @@ function CoverForm({
     ));
   };
 
-  // Function to validate required fields
+  const formatString = (str) => {
+    const result = str.replace(/([A-Z])/g, " $1");
+    return result.replace(/^./, result[0].toUpperCase()).trim();
+  };
+
   function validateRequiredFields(data) {
     if (contentSituation === "Experienced") {
       const requiredFields = [
@@ -130,7 +134,7 @@ function CoverForm({
 
       requiredFields.forEach((field) => {
         if (!data[field]) {
-          errors[field] = `${field} is required`;
+          errors[field] = `${formatString(field)} is required`;
         }
       });
 
@@ -148,11 +152,8 @@ function CoverForm({
         "employerAddress",
         "employerCityState",
         "employerCountry",
-        // "jobTitle",
-        // "organization",
-        // "industry",
-        // "designation",
-        // "experience",
+        "jobTitle",
+        "sector",
         "course",
         "specialization",
         "university",
@@ -161,7 +162,7 @@ function CoverForm({
 
       requiredFields.forEach((field) => {
         if (!data[field]) {
-          errors[field] = `${field} is missing`;
+          errors[field] = `${formatString(field)} is required`;
         }
       });
 

@@ -122,7 +122,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);
-      
+
         return;
       }
       const formData = new FormData();
@@ -159,7 +159,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       setLoading1(false);
       setDownload(false);
 
-   
       return response.data;
     } catch (error) {
       console.error("Error adding cover letter:", error);
@@ -232,7 +231,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   };
 
   //downloadw
- 
+
   const downloadPdfBlob = async () => {
 
     if (saveLimit <= 0) {
@@ -377,7 +376,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         return <CoverLetter10 data={data} />;
       case 11:
         return <CoverLetter11 data={data} />;
-      case 13:
+      case 12:
         return <CoverLetter13 data={data} />;
 
       default:
@@ -441,7 +440,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
-       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div className="scr1024:flex scr1024:flex-row flex-col-reverse justify-between ml:gap-0 gap-2 sticky top-0">
         <div
           className="scr1024:flex  items-center justify-between  scr1024:w-[58%] w-full gap-4"

@@ -52,15 +52,15 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
         >
           <div className="flex flex-row gap-[24px] ">
             <div>
-              <h5 className="font-montserrat text-[22px] font-normal leading-48.76 text-[#344A50] text-left break-word">
+              <h5 className="font-montserrat text-[24px] font-normal leading-48.76 text-[#344A50] text-left break-word">
                 {data.firstName} {data.lastName}
               </h5>
-              <h6 className="font-montserrat text-[14px] font-normal leading-48.76 text-[#AC5428] text-left break-word">
+              <h6 className="font-montserrat text-[14px] font-normal leading-[17.07px] text-[#AC5428] text-left break-word">
                 {data.designation}
               </h6>
             </div>
             <div className="flex flex-col gap-[8px] ">
-              <div className="flex flex-row gap-[12px] justify-center items-center">
+              <div className="flex flex-row gap-[12px]  items-center">
                 <svg
                   className="min-w-[20px] min-h-[20px]"
                   width="20"
@@ -148,7 +148,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                     <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                       Warm regards,
                     </span>
-                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>
@@ -193,7 +193,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                   <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                     Warm regards,
                   </span>
-                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
                     {data?.firstName} {data?.lastName}
                   </span>
                 </div>

@@ -34,6 +34,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
       employerCountry: data?.employerCountry,
     });
   }, [data]);
+
   const inputFields = [
     {
       label: "Employer Name",
@@ -52,7 +53,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
       className: " col-span-2",
     },
     {
-      label: "Address",
+      label: "Employer Address",
       type: "text",
       name: "employerAddress",
       placeholder: " Enter Address",
@@ -60,7 +61,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
       className: " col-span-2 ",
     },
     {
-      label: "City/ State",
+      label: "City/State",
       type: "text", // Adjusted type from 'email' to 'text'
       name: "employerCityState",
       placeholder: "Enter City/ State",
@@ -182,13 +183,13 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
         <div className="flex flex-col gap-[8px]">
           {inputFields.map((employer, index) => {
             if (
-              employer.label === "City/ State" ||
+              employer.label === "City/State" ||
               employer.label === "Country"
             ) {
               return null; // Skip these labels for now
             }
             return (
-              <div className="flex flex-col gap-[8px]" key={index}>
+              <div className="flex flex-col gap-[8px] w-full" key={index}>
                 <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
                   {employer.label}{" "}
                   <span className="text-red text-[12px]">*</span>
@@ -206,18 +207,18 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
                   }`}
                 />
                 {errors && errors[employer.name] && (
-                  <span className="text-red text-[12px]">
+                  <span className="text-red text-[10px]">
                     {errors[employer.name]}
                   </span>
                 )}
               </div>
             );
           })}
-          <div className="flex md:flex-row flex-col gap-[16px]">
+          <div className="flex ml:flex-row flex-col gap-[16px]">
             {inputFields
               .filter(
                 (employer) =>
-                  employer.label === "City/ State" ||
+                  employer.label === "City/State" ||
                   employer.label === "Country"
               )
               .map((employer, index) => (
@@ -239,7 +240,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
                     }`}
                   />
                   {errors && errors[employer.name] && (
-                    <span className="text-[12px] text-red">
+                    <span className="text-[10px] text-red">
                       {errors[employer.name]}
                     </span>
                   )}

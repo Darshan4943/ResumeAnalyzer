@@ -76,7 +76,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                       </span>
                     </div>
 
-                    <div className="gap-[8px] flex flex-row flex-wrap items-center ">
+                    <div className="gap-[8px] flex flex-row  items-center ">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -122,7 +122,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                     <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px] break-word font-Lato">
                       {data?.firstName} {data?.lastName}
                     </span>
-                    <span className="text-[#58595B] text-[13px] font-[400] leading-[15.6px]">
+                    <span className="text-[#58595B] text-[14px] font-[400] leading-[15.6px]">
                       {data?.designation}
                     </span>
                   </div>

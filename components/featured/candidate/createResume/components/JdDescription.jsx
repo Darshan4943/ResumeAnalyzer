@@ -29,7 +29,7 @@ function JdDescription({
               setError("");
             }
           }}
-          rows={6}
+          rows={10}
           cols={50}
           placeholder="Enter your text here..."
           className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2 md:text-[16px] text-[14px]"
