@@ -128,7 +128,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                 justifyContent: "flex-start",
                 paddingTop: "24px",
                 gap: 12,
-                marginBottom: data?.location.length > 60 ? "15px" : "0"
+                marginBottom: data?.location?.length > 60 ? "15px" : "0"
               }}
             >
               <Text
@@ -217,7 +217,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                     {formatLink(data?.email)}
                   </Text>
                 </View>
-                {data?.location.length > 0 &&
+                {data?.location?.length > 0 &&
                   <View
                     style={{
                       height: 24,

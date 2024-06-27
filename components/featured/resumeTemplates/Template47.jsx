@@ -143,7 +143,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                 <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                {data?.experience?.slice(0, pageLayout && 2)?.map((detail, index) => (
+                                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                                     <View
                                         wrap={false}
                                         key={index}
