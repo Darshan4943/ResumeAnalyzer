@@ -117,7 +117,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       if (!pdfBlob) {
         return;
       }
-      
+
       if (saveLimit <= 0) {
         setLoading(false);
         setLoading1(false);
@@ -161,8 +161,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
       return response.data;
     } catch (error) {
-      console.error("Error adding cover letter:", error);
-      toast.error("Error adding cover letter");
+      toast.error("Error for adding cover letter");
       setLoading(false);
       setLoading1(false);
     }
@@ -191,12 +190,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
-
     if (saveLimit <= 0) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
-    
+
       return;
     }
     if (!page1Ref.current) {
@@ -233,12 +231,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   //downloadw
 
   const downloadPdfBlob = async () => {
-
     if (saveLimit <= 0) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
-    
+
       return;
     }
     const input1 = page1Ref.current;
@@ -263,10 +260,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);
-      
+
         return;
       }
-   
+
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
 
@@ -302,10 +299,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   };
 
   const DownloadButton = () => (
-    
     <button
       onClick={() => {
-        
         handleDownload();
         setLoading1(true);
       }}
@@ -352,7 +347,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   );
 
   const selectCoverTemplate = (index) => {
-    
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;
@@ -384,7 +378,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     }
   };
   const selectCoverTemplate1 = (index) => {
-  
     switch (index) {
       case 1:
         return (

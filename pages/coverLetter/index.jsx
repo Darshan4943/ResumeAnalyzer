@@ -68,6 +68,7 @@ function Index() {
   //       });
   //   }
   // }, [isCoverEdit, id]);
+
   useEffect(() => {
     if (EditData) {
       const parsedData = JSON.parse(EditData);
@@ -75,16 +76,20 @@ function Index() {
 
       if (parsedData.passages && parsedData.passages.length > 0) {
         try {
-          const passagesArray = JSON.parse(parsedData.passages[0]);
-          parsedPassages = passagesArray.map((passage) => passage.split(',"'));
+          let passagesArray = JSON.parse(parsedData.passages[0]);
+          // console.log("parsed", passagesArray);
+          // parsedPassages = passagesArray.map((passage) => passage.split(',"'));
+          // console.log("parsedPassages", parsedPassages);
+          if (passagesArray) {
+            setData({
+              ...parsedData,
+              passages: passagesArray,
+            });
+          }
         } catch (error) {
           console.error("Error parsing passages:", error);
         }
       }
-      setData({
-        ...parsedData,
-        passages: parsedPassages,
-      });
 
       if (isCoverEdit) {
         setIsFormat(parsedData?.type);
@@ -110,7 +115,6 @@ function Index() {
       }));
     }
   }, [contentSituation, isCoverEdit]);
-  console.log(88, data);
 
   return (
     <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">
