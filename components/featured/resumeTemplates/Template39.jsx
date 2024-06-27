@@ -12,8 +12,8 @@ import {
 } from "@react-pdf/renderer";
 function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) {
   const formatLink = (link) => {
-    if (link?.length > 1) {
-      return link?.match(/.{1,14}/g).join("\n");
+    if (link?.length > 19) {
+      return link?.match(/.{1,19}/g).join("\n");
     }
     return link;
   };
@@ -254,8 +254,8 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
                               display: "flex",
                               flexDirection: "column",
                               gap: 2,
-                              border: 1,
-                              width: "100%"
+                              // border: 1
+                              width: "110%"
                               // justifyContent: "space-between",
                             }}
                           >
