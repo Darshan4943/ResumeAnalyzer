@@ -30,22 +30,59 @@ const Temp = ({ data, setParentCount, parentCount }) => {
 const formatData = (data) => {
   return data?.split("\n");
 };
-const ParentTemp = ({ answer, i, chat }) => {
+// const ParentTemp = ({ answer, i, chat }) => {
+//   const [count, setCount] = useState(1);
+//   return chat.length - 1 == i
+//     ? formatData(answer)
+//         ?.slice(0, count)
+//         ?.map((item, index) => (
+//           <div className="w-full py-1 text-[14px]" key={index}>
+//             <Temp data={item} setParentCount={setCount} parentCount={count} />
+//           </div>
+//         ))
+//     : formatData(answer)?.map((item, index) => (
+//         <div className="w-full py-1 text-[14px]" key={index}>
+//           {item}
+//         </div>
+//       ));
+// };
+
+const ParentTemp = ({ answer, i, chat, chatEndRef }) => {
   const [count, setCount] = useState(1);
 
-  return chat.length - 1 == i
-    ? formatData(answer)
-        ?.slice(0, count)
-        ?.map((item, index) => (
+  // Effect to scroll to bottom whenever count or answer changes
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [count, answer, chatEndRef]);
+
+  // Function to format answer and render line by line
+  const renderAnswerLines = () => {
+    const formattedData = formatData(answer);
+    if (formattedData) {
+      if (chat.length - 1 === i) {
+        return formattedData.slice(0, count).map((item, index) => (
           <div className="w-full py-1 text-[14px]" key={index}>
             <Temp data={item} setParentCount={setCount} parentCount={count} />
           </div>
-        ))
-    : formatData(answer)?.map((item, index) => (
-        <div className="w-full py-1 text-[14px]" key={index}>
-          {item}
-        </div>
-      ));
+        ));
+      } else {
+        return formattedData.map((item, index) => (
+          <div className="w-full py-1 text-[14px]" key={index}>
+            {item}
+          </div>
+        ));
+      }
+    }
+    return null;
+  };
+
+  return <>{renderAnswerLines()}</>;
 };
 
 const ChatBox = ({
@@ -114,9 +151,14 @@ const ChatBox = ({
       toast.error("Enter valid question");
     }
   };
+
   useEffect(() => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+      chatEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
     }
   }, [chat]);
 
@@ -322,53 +364,45 @@ const ChatBox = ({
           {chat?.length > 0 ? (
             <div
               style={{ scrollbarWidth: "none" }}
-              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[80vh] overflow-y-auto  "
-              ref={divRef}
+              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[80vh] overflow-y-auto"
+              // ref={divRef}
             >
-              {chat?.map((item, index) => {
-                return (
-                  <div key={index} className="flex flex-col  gap-[12px]">
-                    <div className="flex w-full gap-[14px]  ">
-                      {/* <img
-                        className=" rounded-full object-cover h-[38px] w-[38px]"
-                        src={
-                          userDataGlobal?.profilePicture ||
-                          "/images/profile/profileNew.png"
-                        }
-                      /> */}
-                      <div
-                        style={{ width: "fit-content" }}
-                        className="text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]"
-                      >
-                        {item.quation}
-                      </div>
-                    </div>
-                    <div className="flex w-full pl-[16px] gap-[14px] items-start  ">
-                      <div className="flex items-center justify-center bg-[#fff] h-[24px] w-[24px] min-w-[24px] rounded-[50%] border border-[#bebebe] ">
-                        <img
-                          className=" rounded-full object-contain  h-[10px] w-[18px] "
-                          src={"/images/Robot.png"}
-                        />
-                      </div>
-                      <div className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
-                        <ParentTemp
-                          answer={item.answer}
-                          i={index}
-                          chat={chat}
-                        />
-                        {/* <div
-                          style={{ background: "#fff", padding: "8px" }}
-                          className="chat text-[14px] font-[400] "
-                          dangerouslySetInnerHTML={{
-                            __html: item.answer.replace("```html",'').replace("```",''),
-                          }}
-                        /> */}
-                      </div>
+              {chat?.map((item, index) => (
+                <div key={index} className="flex flex-col gap-[12px]">
+                  <div className="flex w-full gap-[14px]">
+                    {/* <img
+              className="rounded-full object-cover h-[38px] w-[38px]"
+              src={
+                userDataGlobal?.profilePicture ||
+                "/images/profile/profileNew.png"
+              }
+            /> */}
+                    <div
+                      style={{ width: "fit-content" }}
+                      className="text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]"
+                    >
+                      {item.quation}
                     </div>
                   </div>
-                );
-              })}
-              <div ref={chatEndRef} />
+                  <div className="flex w-full pl-[16px] gap-[14px] items-start">
+                    <div className="flex items-center justify-center bg-[#fff] h-[24px] w-[24px] min-w-[24px] rounded-[50%] border border-[#bebebe]">
+                      <img
+                        className="rounded-full object-contain h-[10px] w-[18px]"
+                        src={"/images/Robot.png"}
+                      />
+                    </div>
+                    <div className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
+                      <ParentTemp
+                        answer={item.answer}
+                        i={index}
+                        chat={chat}
+                        chatEndRef={chatEndRef}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div ref={chatEndRef} className="h-[2rem] mt-5" />
             </div>
           ) : (
             <>
@@ -389,10 +423,6 @@ const ChatBox = ({
                         <p className="text-[14px] font-[500] font-Montserrat text-[#333]">
                           Tell me what are you looking for?
                         </p>
-                        {/* <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
-                          Type or scan a document to get desired data on our
-                          newest Generative AI
-                        </p> */}
                       </div>
                     </div>
                     {/* <div className="w-full gap-6 flex items-center justify-center">
@@ -423,25 +453,6 @@ const ChatBox = ({
               onSubmit={submitHandler}
             >
               <div className="gap-1 flex w-full items-center pl-2">
-                {/* <div className="w-[44px] h-[32px]">
-                  <div class="file-input">
-                    <input
-                      type="file"
-                      id="file"
-                      class="file"
-                      onChange={(e) => {
-                        handleFile(e);
-                      }}
-                    />
-                    <label for="file">
-                      <img
-                        src="/images/resumeBuilder/add.png"
-                        alt=""
-                        className="w-full h-full"
-                      />
-                    </label>
-                  </div>
-                </div> */}
                 <input
                   type="text"
                   value={text}
