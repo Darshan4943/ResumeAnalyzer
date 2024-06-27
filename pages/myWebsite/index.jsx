@@ -234,9 +234,9 @@ const Index = () => {
                     </div>
                     {!loadingg && (
                       <div className="text-sm text-gray-800 font-medium">
-                        {item.fileName.map(fileName =>
-                          fileName.length > 20 ? `${fileName.slice(0, 19)}...` : fileName
-                        )}
+                        {item?.fileName?.length > 17
+                          ? `${item?.fileName?.slice(0, 16)}...`
+                          : item?.fileName}
                       </div>
                     )}
                   </div>
