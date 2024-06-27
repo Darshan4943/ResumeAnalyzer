@@ -69,7 +69,7 @@ const ResumePreview = ({
 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-
+console.log(111,name)
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -123,10 +123,10 @@ const ResumePreview = ({
   useEffect(() => {
     callData();
     if (!isEdit) {
-      setName(data.firstName + "_resume");
+      setName(data?.firstName + "_resume");
     } else {
 
-      setName(data.fileName.replace('.pdf', ''));
+      setName(data?.fileName?.replace('.pdf', ''));
     }
 
 
@@ -396,7 +396,7 @@ const ResumePreview = ({
           });
         }
 
-        formData.append("resumeIndex", selectedResumeIndex);
+        formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
@@ -460,7 +460,7 @@ const ResumePreview = ({
         }
 
         formData.append("pdfBlob", blob);
-        formData.append("resumeIndex", selectedResumeIndex);
+        formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
@@ -510,7 +510,7 @@ const ResumePreview = ({
     }
   };
   const updateDownloadCount = async () => {
-    console.log("hii")
+    
     setDownloadBtnLoading(true);
     axios
       .put(
