@@ -66,10 +66,10 @@ const ResumePreview = ({
   clientId,
 }) => {
 
- 
+
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
- 
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -108,10 +108,11 @@ const ResumePreview = ({
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-          
+
           if (!isEdit) {
             setName(data.firstName + "_resume " + (res.data.data.length + 1));
           }
+
         })
         .catch((err) => {
           console.log(err);
@@ -124,17 +125,11 @@ const ResumePreview = ({
     if (!isEdit) {
       setName(data.firstName + "_resume");
     } else {
-      if (Array.isArray(data.fileName) && data.fileName.length > 0) {
-        const fileName = data.fileName[0];
-        if (typeof fileName === 'string' && fileName.endsWith(".pdf")) {
-          setName(fileName.slice(0, -4));
-        } else {
-          setName(fileName);
-        }
-      } else {
-        setName('');
-      }
+
+      setName(data.fileName.replace('.pdf', ''));
     }
+
+
   }, [userDataGlobal, data.firstName, saveLimit]);
 
   const selectResumeTemplate = (index) => {
@@ -381,7 +376,7 @@ const ResumePreview = ({
     setdisabled(true);
 
     if (blob !== null) {
-      
+
       if (saveLimit <= 0) {
         setLimitUsedModal(true);
         return;
@@ -400,7 +395,7 @@ const ResumePreview = ({
             }
           });
         }
-        
+
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
@@ -411,7 +406,7 @@ const ResumePreview = ({
           formData.append("UserId", userDataGlobal._id);
         } else if (userDataGlobal.role === "recruiter") {
           formData.append("UserId", userDataGlobal._id);
-          
+
         }
 
         axios

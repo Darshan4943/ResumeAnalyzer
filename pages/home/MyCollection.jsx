@@ -224,7 +224,7 @@ const MyCollection = () => {
                         className="flex flex-col h-[300px] items-center justify-between group relative resumes"
                       >
                         <PdfViewer pdfUrl={item?.resumeUrl} />
-                        <div className="text-[14px] text-[#333333] font-500">
+                        <div className="text-[14px] text-[#333333] font-[500]">
                           {item.fileName.length > 17
                             ? `${item.fileName.slice(0, 16)}...`
                             : item.fileName}

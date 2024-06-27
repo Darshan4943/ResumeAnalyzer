@@ -175,9 +175,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         .get("https://jamblix.com/api/cover/get/" + id)
 
         .then((res) => {
-          // Remove .pdf extension from filenames
-
+       
+        
+          if (!isCoverEdit) {
           setName(data.firstName + "_cover " + (res.data.data.length + 1));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -187,7 +189,13 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_cover");
+    if (!isCoverEdit) {
+      setName(data.firstName + "_cover");
+    } else {
+
+      setName(data.fileName.replace('.pdf', ''));
+    }
+    
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
@@ -639,6 +647,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
           setFunction={(data) => setName(data)}
           clientId={clientId}
           isResume={false}
+          isEdit={isCoverEdit}
         />
       )}
     </div>

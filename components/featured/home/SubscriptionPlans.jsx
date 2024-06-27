@@ -26,7 +26,7 @@ function SubscriptionPlans({ fromMain }) {
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
-    console.log(icon)
+ 
     setexchangeRate(exchangeRate);
     seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {
@@ -64,7 +64,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/plans/getAllPlans")
+      .get("https://jamblix.com/api/plans/getAllPlans")
       .then((res) => {
      
        const  allPlan =res.data.data

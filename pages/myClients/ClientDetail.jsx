@@ -164,7 +164,7 @@ function ClientDetail({ tabIndex }) {
       </div>
     );
   };
-
+console.log(167,resumeList)
   return (
     <div className="flex flex-col gap-4 py-6 customMargins">
       <div className="flex justify-between ">

@@ -60,7 +60,7 @@ export const Api = ({ }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/plans/getAllPlans")
+      .get("https://jamblix.com/api/plans/getAllPlans")
       .then((res) => {
      
         setAllPlans(res.data.data)

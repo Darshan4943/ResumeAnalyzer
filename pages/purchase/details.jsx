@@ -32,7 +32,7 @@ function Details() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/plans/getByIndex/${id}`)
+      .get(`https://jamblix.com/api/plans/getByIndex/${id}`)
       .then((res) => {
 
         setSelectedPlan(res.data.data[0])
@@ -54,6 +54,13 @@ function Details() {
   // }, [success, canceled]);
   const navigate = () => {
     router.push("/purchase/MyPurchase");
+    const timer = setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+  };
+
   };
   return (
     <div className=" flex flex-col gap-9">

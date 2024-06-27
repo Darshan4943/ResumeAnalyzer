@@ -21,7 +21,7 @@ function Details() {
         .then((res) => {
           setSubscription(res.data.data);
           setuserData(res.data.userData);
-          console.log(res.data);
+        
           setSelectedPlan(
             plans.find(
               (item) => item.duration + " " + item.limit == res.data.data?.plan

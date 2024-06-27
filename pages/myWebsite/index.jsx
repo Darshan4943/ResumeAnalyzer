@@ -46,6 +46,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
 const Index = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);
@@ -55,6 +56,7 @@ const Index = () => {
   const [selectedResumeName, setSelectedResumeName] = useState();
   const [selectedLink, setSelectedLink] = useState();
   const [copy, setCopy] = useState(false);
+  const [editProfilePopUp, setEditProfilePopUp] = useState(false);
   const openInNewTab = (url) => {
     window.open(url, "_blank");
   };
@@ -88,36 +90,43 @@ const Index = () => {
   };
 
   const generateToken = async () => {
-    if (selectedIndexes) {
-      try {
-        const response = await axios.put(
-          `https://jamblix.com/api/candidate/selectResume`,
-          {
-            selectedIndexes,
-            selectedResumeUrl,
-            _id: userDataGlobal._id,
-            resumeName: selectedResumeName,
-          }
-        );
 
-        if (response.status === 200) {
-          const updatedCandidate = response.data;
-          toast.success("Link Generated successfully");
-          // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
-          setSelectedLink(
-            `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
-          );
-        } else {
-          console.error("Error Generating Link:", response.data.message);
-          toast.error("Failed to select resume.");
-        }
-      } catch (error) {
-        console.error("Error Generating Link:", error.message);
-        toast.error("Error occurred while generating link.");
-      }
-    } else {
-      toast.error("Select resume first");
+    if (!userDataGlobal.firstName) {
+      setEditProfilePopUp(true);
     }
+    else {
+      if (selectedIndexes) {
+        try {
+          const response = await axios.put(
+            `https://jamblix.com/api/candidate/selectResume`,
+            {
+              selectedIndexes,
+              selectedResumeUrl,
+              _id: userDataGlobal._id,
+              resumeName: selectedResumeName,
+            }
+          );
+
+          if (response.status === 200) {
+            const updatedCandidate = response.data;
+            toast.success("Link Generated successfully");
+            // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
+            setSelectedLink(
+              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
+            );
+          } else {
+            console.error("Error Generating Link:", response.data.message);
+            toast.error("Failed to select resume.");
+          }
+        } catch (error) {
+          console.error("Error Generating Link:", error.message);
+          toast.error("Error occurred while generating link.");
+        }
+      } else {
+        toast.error("Select resume first");
+      }
+    }
+
   };
   const copyToClipboard = (text) => {
     setCopy(true);
@@ -130,9 +139,32 @@ const Index = () => {
         console.error("Failed to copy text: ", err);
       });
   };
-
+  console.log(resumeList)
   return (
     <>
+
+      {editProfilePopUp && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+            <div className="absolute ms:w-[30%] w-[60%] flex flex-col gap-6  justify-between items-center text-center rounded-[24px] bg-white p-6  text-[24px] font-medium">
+              First edit your profile to update the name !
+              <button
+                onClick={() => {
+                  setEditProfilePopUp(false);
+                  router.push("/auth/recruiter-signup?isUpdate=true");
+                }}
+                style={{ borderColor: "#06a9ef" }}
+                className={`w-[200px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] text-white font-[500] bg-blue hover:bg-[#06a9ef] 
+             
+            } hover:text-[#fff] transition-all duration-200`}
+              >
+                Edit Profile
+              </button>
+            </div>
+          </div>
+        </>
+      )}
       {loading ? (
         <div className="h-[60vh] w-full flex items-center justify-center">
           <MiniLoader />
@@ -189,11 +221,10 @@ const Index = () => {
                     className="flex flex-col h-[300px] items-center justify-between group relative cursor-pointer resumes"
                   >
                     <div
-                      className={`${
-                        item._id === selectedIndexes
-                          ? "border-4 border-blue rounded-[12px] "
-                          : " border-4 border-white"
-                      }  `}
+                      className={`${item._id === selectedIndexes
+                        ? "border-4 border-blue rounded-[12px] "
+                        : " border-4 border-white"
+                        }  `}
                     >
                       <PdfViewer
                         pdfUrl={item.resumeUrl}
@@ -203,9 +234,9 @@ const Index = () => {
                     </div>
                     {!loadingg && (
                       <div className="text-sm text-gray-800 font-medium">
-                        {item.fileName.length > 17
-                          ? `${item.fileName.slice(0, 16)}...`
-                          : item.fileName}
+                        {item.fileName.map(fileName =>
+                          fileName.length > 20 ? `${fileName.slice(0, 19)}...` : fileName
+                        )}
                       </div>
                     )}
                   </div>

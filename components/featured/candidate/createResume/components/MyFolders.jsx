@@ -109,9 +109,7 @@ function MyFolders({
                           <div className="h-[24px] min-w-[21px]">
                             {fileIconSeter1(item)}
                           </div>
-                          {item.fileName.length > 25
-                            ? `${item.fileName.slice(0, 25)}...`
-                            : item.fileName}
+                          {item.fileName}
                         </td>
                         <td className="w-[30%] scr460:px-4 justify-start flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
