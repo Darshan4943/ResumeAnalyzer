@@ -29,7 +29,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
                     <table className="w-full">
                         <thead className="w-full sticky top-0">
                             <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
-                                <th className="w-[1%] flex items-center justify-center">
+                                {/* <th className="w-[1%] flex items-center justify-center">
                                     <input
                                         type="checkbox"
                                         className="h-[18px] w-[18px]"
@@ -42,7 +42,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
                                             }
                                         }}
                                     />
-                                </th>
+                                </th> */}
                                 <th className="text-[16px] flex font-semibold text-white w-[20%] text-left ">
                                     Name
                                 </th>
@@ -69,7 +69,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
                                     className="w-full flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
                                     key={index}
                                 >
-                                    <th className="w-[1%] flex items-center justify-center">
+                                    {/* <th className="w-[1%] flex items-center justify-center">
                                         <input
                                             type="checkbox"
                                             className="h-[14px] w-[14px]"
@@ -90,7 +90,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
                                                 }
                                             }}
                                         />
-                                    </th>
+                                    </th> */}
                                     <th className="w-[20%] flex flex-row flex-wrap items-center  gap-[8px]">
                                         <img
                                             src={

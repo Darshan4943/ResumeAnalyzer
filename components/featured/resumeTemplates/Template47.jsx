@@ -12,8 +12,8 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
     };
 
     const formatLink2 = (link) => {
-        if (link?.length > 27) {
-            return link?.match(/.{1,27}/g).join('\n');
+        if (link?.length > 22) {
+            return link?.match(/.{1,22}/g).join('\n');
         }
         return link;
     };
@@ -22,9 +22,10 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
         <Page size="A4" style={{ paddingTop: "12px" }} pageMode={"fullScreen"} wrap={true}  >
             <View style={{ marginTop: '-12px' }} >
 
-                <View style={{ display: "flex", flexDirection: "row", paddingVertical: 20, paddingHorizontal: 36, backgroundColor: "#F1F2F2" }}>
+                <View style={{ display: "flex", gap: 12, flexDirection: "column", paddingVertical: 20, paddingHorizontal: 36, backgroundColor: "#F1F2F2" }}>
                     <View style={{}}>
                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+
                             <View style={{ display: "flex", flexDirection: "row", gap: 28 }}>
                                 {data?.showProfile === true && (
                                     <View
@@ -74,12 +75,13 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                         )}
                                     </View>
                                 )}
-                                <View style={{ width: data?.showProfile ? 242 : "100%" }}>
-                                    <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 32, color: selectedColor }}>{data.firstName}</Text>
-                                    <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
+                                {/* width: data?.showProfile ? 242 : "100%" */}
+                                <View style={{ width: "100%" }}>
+                                    <Text style={{ fontFamily: `${selectedFont} 600`, width: "100%", fontSize: 28, color: selectedColor }}>{data.firstName}</Text>
+                                    <Text style={{ fontFamily: `${selectedFont} 400`, width: "100%", fontSize: 28, color: "#414042" }}>{data.lastName}</Text>
                                 </View>
                             </View>
-                            <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "end" }}>
+                            <View style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "end", }}>
                                 {/* <View style={{ display: "flex", flexDirection: "row", gap: 8, borderBottom: "1 dashed #808285", justifyContent: "flex-end" }}>
                                 <Text style={{
                                     fontSize: 10, fontWeight: 400, color: "#808285", flexWrap: "wrap",
@@ -90,6 +92,12 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                 </Svg>
 
                             </View> */}
+                                {/* <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "flex-end" }}>
+                                    <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{formatLink2(data.location)}</Text>
+                                    <Svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <Path d="M4.0008 0.5C1.79451 0.5 0 2.28059 0 4.46899C0 5.35055 0.567193 6.78776 1.73443 8.86328C2.55958 10.3307 3.37192 11.5548 3.40557 11.6057L4 12.5L4.59443 11.6057C4.62888 11.5548 5.44042 10.3307 6.26557 8.86328C7.4328 6.78856 8 5.35135 8 4.46979C8.0016 2.2806 6.20709 0.5 4.0008 0.5ZM4.0008 6.50079C2.8552 6.50079 1.9275 5.57949 1.9275 4.44277C1.9275 3.30604 2.856 2.38474 4.0008 2.38474C5.1456 2.38474 6.0749 3.30604 6.0749 4.44277C6.0749 5.5787 5.1464 6.50079 4.0008 6.50079Z" fill="#808285" />
+                                    </Svg>
+                                </View>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "flex-end" }}>
                                     <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{data.dial_code} {data.mobileNumber}</Text>
                                     <Svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +109,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                     <Svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <Path d="M11.25 7.12535C11.25 7.35552 11.1853 7.569 11.0817 7.75675L7.76646 4.04697L11.0456 1.1772C11.1728 1.37956 11.25 1.61737 11.25 1.87466V7.12535ZM5.99965 4.72078L10.5623 0.728001C10.3753 0.625087 10.1639 0.5625 9.93654 0.5625H2.06206C1.834 0.5625 1.62332 0.625087 1.43697 0.728001L5.99965 4.72078ZM7.27208 4.47949L6.2159 5.40432C6.15401 5.45786 6.07683 5.48498 5.99965 5.48498C5.92247 5.48498 5.84529 5.45787 5.78341 5.40363L4.72722 4.4788L1.37022 8.23585C1.57117 8.36171 1.80758 8.4375 2.06276 8.4375H9.93793C10.1931 8.4375 10.4288 8.36171 10.6298 8.23585L7.27208 4.47949ZM0.954423 1.17789C0.82718 1.38024 0.75 1.61806 0.75 1.87535V7.12535C0.75 7.35552 0.813969 7.569 0.918267 7.75675L4.23285 4.04697L0.954423 1.17789Z" fill="#808285" />
                                     </Svg>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                         <View style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
@@ -109,6 +117,29 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
                             </View>
                         </View>
+                    </View>
+                    <View style={{ width: "100%", height: "1px", backgroundColor: "#808285" }}></View>
+                    <View style={{ width: "100%", display: "flex", flexDirection: "row", columnGap: 8, flexWrap: "wrap" }}>
+                        <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "flex-start", alignItems: "center" }}>
+                            <Svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <Path d="M12.2456 10.5361C12.2679 10.7072 12.2159 10.8552 12.0903 10.9808L10.6122 12.4491C10.5453 12.5235 10.4585 12.5863 10.3511 12.6384C10.2437 12.6905 10.138 12.7236 10.0347 12.7384C10.0272 12.7384 10.0049 12.7401 9.96775 12.7442C9.93057 12.7484 9.88265 12.75 9.82316 12.75C9.68271 12.75 9.45467 12.726 9.13988 12.6773C8.82427 12.6293 8.43925 12.5103 7.98401 12.3209C7.52876 12.1316 7.01155 11.8481 6.4332 11.4703C5.85485 11.0925 5.24014 10.5725 4.58743 9.91357C4.06857 9.40184 3.63894 8.91242 3.29771 8.44533C2.95731 7.97824 2.683 7.5467 2.4748 7.14988C2.26742 6.75306 2.11209 6.39345 2.00799 6.07104C1.90471 5.74862 1.83365 5.47084 1.79647 5.23689C1.75929 5.00293 1.74442 4.82023 1.75186 4.6863C1.75929 4.5532 1.7626 4.4788 1.7626 4.46392C1.77747 4.35975 1.81052 4.25476 1.86257 4.14646C1.91462 4.03899 1.97742 3.95219 2.05177 3.88522L3.52988 2.40541C3.63315 2.30207 3.75213 2.25 3.88598 2.25C3.98264 2.25 4.06774 2.27727 4.14128 2.33266C4.21564 2.38805 4.27843 2.45668 4.33048 2.53852L5.52023 4.79625C5.58715 4.91447 5.60533 5.04427 5.57559 5.18563C5.54584 5.32617 5.48305 5.44521 5.38638 5.54111L4.84191 6.08592C4.82703 6.1008 4.81381 6.12477 4.80307 6.15867C4.79151 6.19174 4.78655 6.21984 4.78655 6.24217C4.81629 6.39759 4.88239 6.57533 4.98649 6.77539C5.07573 6.95314 5.21288 7.17056 5.39795 7.42684C5.58302 7.68229 5.84659 7.97742 6.18699 8.31059C6.51995 8.65202 6.81739 8.91657 7.076 9.10588C7.33543 9.29437 7.5519 9.43408 7.72623 9.52336C7.90056 9.61182 8.03358 9.66639 8.12612 9.68458L8.26492 9.71268C8.27979 9.71268 8.30375 9.70689 8.33763 9.69614C8.37067 9.6854 8.39464 9.67217 8.41033 9.65729L9.04404 9.01246C9.17789 8.89424 9.33322 8.83472 9.51085 8.83472C9.63644 8.83472 9.73724 8.85704 9.81077 8.90168H9.82234L11.968 10.1698C12.1233 10.2649 12.2159 10.3873 12.2456 10.5361Z" fill="#808285" />
+                            </Svg>
+                            <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{data.dial_code} {data.mobileNumber}</Text>
+                        </View>
+                        <View style={{ display: "flex", flexDirection: "row", marginLeft: 18, gap: 8, justifyContent: "flex-start", alignItems: "center" }}>
+                            <Svg width="14" height="10" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <Path d="M11.25 7.12535C11.25 7.35552 11.1853 7.569 11.0817 7.75675L7.76646 4.04697L11.0456 1.1772C11.1728 1.37956 11.25 1.61737 11.25 1.87466V7.12535ZM5.99965 4.72078L10.5623 0.728001C10.3753 0.625087 10.1639 0.5625 9.93654 0.5625H2.06206C1.834 0.5625 1.62332 0.625087 1.43697 0.728001L5.99965 4.72078ZM7.27208 4.47949L6.2159 5.40432C6.15401 5.45786 6.07683 5.48498 5.99965 5.48498C5.92247 5.48498 5.84529 5.45787 5.78341 5.40363L4.72722 4.4788L1.37022 8.23585C1.57117 8.36171 1.80758 8.4375 2.06276 8.4375H9.93793C10.1931 8.4375 10.4288 8.36171 10.6298 8.23585L7.27208 4.47949ZM0.954423 1.17789C0.82718 1.38024 0.75 1.61806 0.75 1.87535V7.12535C0.75 7.35552 0.813969 7.569 0.918267 7.75675L4.23285 4.04697L0.954423 1.17789Z" fill="#808285" />
+                            </Svg>
+                            <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285", display: "flex", flexWrap: "wrap", flexShrink: 1 }}>{data.email} </Text>
+                        </View>
+                        {data?.location && (
+                            <View style={{ display: "flex", flexDirection: "row", marginLeft: 18, gap: 8, justifyContent: "flex-start", alignItems: "center" }}>
+                                <Svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M4.0008 0.5C1.79451 0.5 0 2.28059 0 4.46899C0 5.35055 0.567193 6.78776 1.73443 8.86328C2.55958 10.3307 3.37192 11.5548 3.40557 11.6057L4 12.5L4.59443 11.6057C4.62888 11.5548 5.44042 10.3307 6.26557 8.86328C7.4328 6.78856 8 5.35135 8 4.46979C8.0016 2.2806 6.20709 0.5 4.0008 0.5ZM4.0008 6.50079C2.8552 6.50079 1.9275 5.57949 1.9275 4.44277C1.9275 3.30604 2.856 2.38474 4.0008 2.38474C5.1456 2.38474 6.0749 3.30604 6.0749 4.44277C6.0749 5.5787 5.1464 6.50079 4.0008 6.50079Z" fill="#808285" />
+                                </Svg>
+                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" }}>{data.location}</Text>
+                            </View>
+                        )}
                     </View>
                 </View>
                 <View style={{ paddingTop: 20, paddingHorizontal: 36, gap: 20 }}>
@@ -143,7 +174,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                                 <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                {data?.experience?.slice(0, pageLayout && 2)?.map((detail, index) => (
+                                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
                                     <View
                                         wrap={false}
                                         key={index}

@@ -95,15 +95,15 @@ const WrappedApp = ({ Component, pageProps }) => {
             </div>
           </>
         )}
- {!loading && (
-        <ParallaxProvider>
-          {/* <ReactLenis root> */}
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          {/* </ReactLenis> */}
-        </ParallaxProvider>
- )}
+        {!loading && (
+          <ParallaxProvider>
+            {/* <ReactLenis root> */}
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            {/* </ReactLenis> */}
+          </ParallaxProvider>
+        )}
       </Provider>
     </>
   );

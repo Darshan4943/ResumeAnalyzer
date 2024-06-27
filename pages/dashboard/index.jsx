@@ -79,6 +79,7 @@ function Dashboard() {
   const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [allPlans, setAllPlans] = useState([])
   const handleNavigation = (page) => {
     router.push(page);
   };
@@ -219,6 +220,22 @@ function Dashboard() {
   }
 
   useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/plans/getAllPlans")
+      .then((res) => {
+     
+        setAllPlans(res.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
+ 
+  useEffect(() => {
     const selectedPlan = localStorage.getItem("activePlan");
     const uploadCount = localStorage.getItem("uploadCount");
     const downloadCount = localStorage.getItem("downloadCount");
@@ -231,18 +248,20 @@ function Dashboard() {
     // if (plan) {
     //   setSelectedPlan(plan);
 
+    
+
     if (userDataGlobal) {
       axios
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
-          const plan = plans.find(
+          const plan = allPlans.find(
             (item) =>
-              item.duration + " " + item.limit == res.data.findIsActive?.plan
+              item.name == res.data.findIsActive?.plan
           );
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-
+         
           if (plan) {
             setSelectedPlan(plan);
 
@@ -275,7 +294,7 @@ function Dashboard() {
     // });
     // }
     // }
-  }, [userDataGlobal]);
+  }, [userDataGlobal,allPlans]);
 
   const [resumeData, setResumeData] = useState([]);
  
@@ -735,6 +754,7 @@ function Dashboard() {
                           <a
                             onClick={() => {
                               localStorage.removeItem("userData");
+                              localStorage.removeItem("resumeData");
                               window.location.href = "/";
                             }}
                             className="flex items-center flex-col cursor-pointer"

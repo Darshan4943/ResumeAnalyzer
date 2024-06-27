@@ -48,25 +48,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     }
   }, [circumference, progress]);
 
-  useEffect(() => {
-    if (userDataGlobal) {
-      axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
-        .then((res) => {
-          setSubscription(res.data.findIsActive);
-          setPlan(
-            plans.find(
-              (item) =>
-                item.duration + " " + item.limit == res.data.findIsActive?.plan
-            )
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [userDataGlobal]);
-
+  
   const calculateDaysRemaining = (startDate, endDate) => {
     const today = new Date();
     const start = new Date(startDate);
@@ -156,40 +138,22 @@ function Summary({ limits, selectedPlan, isActive }) {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {isActive || subscription?.inReview ? (
+              {isActive ? (
                 <div className="">
-                  {" "}
-                  {subscription?.inReview ? (
-                    <>
-                      <div className="flex flex-row gap-2 w-full items-center justify-center">
-                        <p className="text-[2.5vw] font-[700]">{icon}</p>
-                        <p className="text-[2.5vw] font-[700]">
-                          {Math.ceil(plan?.amount * exchangeRate)}
-                        </p>
-                      </div>
-                      <div
-                        className={`flex px-6 py-2  mt-5 text-[#bebebe]  bg-[#E9EEF6]
-                      font-medium justify-center items-center rounded-[6px]  min-w-[168.8px] cursor-pointer`}
-                      >
-                        In Review
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {" "}
+                  
+                    
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="ml:text-[2vw] font-[700] text-[24px]">
                           {icon}
                         </p>
                         <p className="ml:text-[2vw] font-[700] text-[24px]">
-                          {Math.ceil(plan?.amount * exchangeRate)}
+                          {Math.ceil(selectedPlan?.amount * exchangeRate)}
                         </p>
                       </div>
                       <p className="text-[12px] font-medium">
-                        Your Plan Validity is {plan?.days} Days
+                        Your Plan Validity is {selectedPlan?.days} Days
                       </p>
-                    </>
-                  )}
+                   
                 </div>
               ) : (
                 <div

@@ -247,7 +247,6 @@ function CoverForm({
     }
   };
 
- 
   return (
     <div
       className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white "

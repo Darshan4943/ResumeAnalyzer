@@ -33,7 +33,7 @@ export const Api = ({ }) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const showPlan = useSelector((state) => state.showPlan.show);
-
+  const [allPlans, setAllPlans] = useState([])
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -57,6 +57,22 @@ export const Api = ({ }) => {
   // console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
   dispatch(setPageClosed());
+
+  useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/plans/getAllPlans")
+      .then((res) => {
+     
+        setAllPlans(res.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
@@ -104,11 +120,12 @@ export const Api = ({ }) => {
           const result = res.data.findIsActive;
 
           if (result?.isActive == true) {
-            const selectedPlan = plans.find(
-              (item) => item.duration + " " + item.limit == result.plan
+            const selectedPlan = allPlans.find(
+              (item) => item.name == result.plan
             );
+          
 
-            localStorage.setItem("activePlan", selectedPlan.index);
+            localStorage.setItem("activePlan", selectedPlan?.index);
             localStorage.setItem("uploadCount", result.resumeUpladed);
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("downloadCount", result.resumeDownloads);
@@ -157,7 +174,7 @@ export const Api = ({ }) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal, reCallUser, showPlan]);
+  }, [userDataGlobal, reCallUser, showPlan,allPlans]);
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
