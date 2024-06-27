@@ -225,9 +225,9 @@ const MyCollection = () => {
                       >
                         <PdfViewer pdfUrl={item?.resumeUrl} />
                         <div className="text-[14px] text-[#333333] font-[500]">
-                          {item.fileName.length > 17
-                            ? `${item.fileName.slice(0, 16)}...`
-                            : item.fileName}
+                          {item?.fileName?.length > 17
+                            ? `${item?.fileName?.slice(0, 16)}...`
+                            : item?.fileName}
                         </div>
 
                         <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
@@ -353,8 +353,8 @@ const MyCollection = () => {
                         <PdfViewer pdfUrl={item?.resumeUrl} />
                         <div className="text-[14px] text-[#333333] font-500">
                           {item?.fileName?.length > 17
-                            ? `${item.fileName.slice(0, 16)}...`
-                            : item.fileName}
+                            ? `${item?.fileName?.slice(0, 16)}...`
+                            : item?.fileName}
                         </div>
 
                         <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
