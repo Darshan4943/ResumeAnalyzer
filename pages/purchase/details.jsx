@@ -52,16 +52,17 @@ function Details() {
   //     }, 2000);
   //   }
   // }, [success, canceled]);
-  const navigate = () => {
-    router.push("/purchase/MyPurchase");
-    const timer = setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
+  const navigate = async () => {
+    try {
+      await router.push("/purchase/MyPurchase"); 
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); 
+    } catch (error) {
+      console.error('Error navigating:', error);
+    }
   };
-
-  };
+  
   return (
     <div className=" flex flex-col gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">

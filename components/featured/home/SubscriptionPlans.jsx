@@ -273,7 +273,7 @@ function SubscriptionPlans({ fromMain }) {
           className="mySwiper "
           effect="fade"
         >
-          {subPlans.map((plan, index) => (
+          {allPlans.map((plan, index) => (
             <SwiperSlide
               style={{ display: "flex" }}
               className="justify-center pt-6 gap-4 "
@@ -323,8 +323,18 @@ function SubscriptionPlans({ fromMain }) {
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[420px]">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
                       <p className="text-[18px] font-[600]">
-                        <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
-                        {plan?.limit}
+                      {plan.type === "candidate" &&
+                        <>
+                          <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                        </>
+                      }
+
+                      <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+
+                      {plan.type === "recruiter" &&
+                        <span > Plan</span>
+                      }
+                       
                       </p>
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="text-[28px] font-[700]">{icon}</p>
