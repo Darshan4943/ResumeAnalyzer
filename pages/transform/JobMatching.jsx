@@ -61,8 +61,6 @@ const JobMatching = () => {
     };
   }, []);
 
-  
-
   useEffect(() => {
     if (parentId) {
       localStorage.setItem("parentId", parentId);
@@ -370,18 +368,21 @@ const JobMatching = () => {
     const intervals = [
       { text: "Analyzing Data", duration: 10000 },
       { text: "Finding Results", duration: 20000 },
-      { text: "Almost There", duration: 20000 },
+      { text: "Almost There", duration: 2 }, // This duration will be ignored
     ];
 
     let currentInterval = 0;
 
     const updateMessage = () => {
       setMainMessage(intervals[currentInterval].text);
-      currentInterval = (currentInterval + 1) % intervals.length;
-      setTimeout(updateMessage, intervals[currentInterval].duration);
+
+      if (currentInterval < intervals.length - 1) {
+        currentInterval++;
+        setTimeout(updateMessage, intervals[currentInterval].duration);
+      }
     };
 
-    updateMessage();
+    setTimeout(updateMessage, intervals[currentInterval].duration);
 
     return () => {
       clearTimeout(updateMessage);
