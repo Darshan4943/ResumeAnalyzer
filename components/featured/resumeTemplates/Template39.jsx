@@ -12,8 +12,8 @@ import {
 } from "@react-pdf/renderer";
 function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) {
   const formatLink = (link) => {
-    if (link?.length > 19) {
-      return link?.match(/.{1,19}/g).join("\n");
+    if (link?.length > 1) {
+      return link?.match(/.{1,14}/g).join("\n");
     }
     return link;
   };
@@ -254,6 +254,8 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
                               display: "flex",
                               flexDirection: "column",
                               gap: 2,
+                              border: 1,
+                              width: "100%"
                               // justifyContent: "space-between",
                             }}
                           >
@@ -340,7 +342,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
                             style={{
                               color: "#414042",
                               fontSize: 12,
-                              fontFamily: `${selectedFont} 700`,
+                              fontFamily: `${selectedFont} 400`,
                             }}
                           >
                             {detail.title}
@@ -439,7 +441,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
             >
-              {data?.skills?.length > 0 && data?.showSkills === true &&  !pageLayout && (
+              {data?.skills?.length > 0 && data?.showSkills === true && !pageLayout && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
                   <Text
                     wrap={data?.skills?.length > 1 ? true : false}
@@ -491,7 +493,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
                 </View>
               )}
             </View>
-            {data?.languages?.length > 0 && data?.showLanguage === true &&  !pageLayout && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
               <View
                 wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
@@ -544,7 +546,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && data?.showHobbies === true &&  !pageLayout &&(
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
               <View
                 wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
@@ -597,7 +599,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true &&  !pageLayout &&(
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
               <View style={{ flexDirection: "column", gap: 16 }}
                 wrap={data?.reference?.length > 1 ? true : false}>
                 <Text
@@ -1025,7 +1027,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
             </View>
           )}
 
-          {data?.course?.length > 0 && data?.showCourses === true &&  !pageLayout && (
+          {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
             <View
               wrap={data?.course?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1118,7 +1120,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
           )}
 
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true &&  !pageLayout && (
+            data?.showExtraCariculam === true && !pageLayout && (
               <View
                 wrap={data?.extraCaricularData?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1211,7 +1213,7 @@ function Template39({ data, selectedColor, selectedFont, preview, pageLayout }) 
             )}
 
           {data?.section?.length > 0 &&
-            data?.showCustomSection === true &&  !pageLayout &&
+            data?.showCustomSection === true && !pageLayout &&
             data?.section?.map((item, index) => (
               <View
                 key={index}
