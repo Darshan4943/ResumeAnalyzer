@@ -326,7 +326,7 @@ export const Api = ({ }) => {
 
   
 
-    for (let i = 0; i < conditions.length; i++) {
+    for (let i = 0; i < conditions?.length; i++) {
         let { lat, lon } = conditions[i];
         let results = await fetchCountryData(lat, lon);
       
@@ -377,7 +377,7 @@ export const Api = ({ }) => {
   const allSameCountry = countries.every((value, _, array) => value === array[0]);
 
   // If no postal_code result, filter for country entries
-  if (closestPostalCodeData.length === 0 || (closestPostalCodeData.length > 1 && !allSameCountry)) {
+  if (closestPostalCodeData?.length === 0 || (closestPostalCodeData?.length > 1 && !allSameCountry)) {
       closestPostalCodeData = countriesData.filter(countryData =>
           countryData.types.includes("country")
       );

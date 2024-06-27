@@ -69,7 +69,6 @@ const ResumePreview = ({
 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-console.log(111,name)
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -372,7 +371,6 @@ console.log(111,name)
   };
 
   const saveResume = async (blob, download) => {
-
     setdisabled(true);
 
     if (blob !== null) {
@@ -515,7 +513,7 @@ console.log(111,name)
     axios
       .put(
         "https://jamblix.com/api/subscription/updateDownloadLimit/" +
-        userDataGlobal._id
+          userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
