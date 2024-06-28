@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,isEdit}) => {
-  console.log(555,isResume)
+ 
   const [name, setName] = useState(data.firstName + (isResume  ? "_resume" : "_cover"));
   const [existingNames, setExistingNames] = useState([]);
-
+ 
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -31,14 +31,17 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
       .get(url )
 
       .then((res) => {
-        console.log(333,res.data.data);
-        const filenamesWithoutExtension = res.data.data.flatMap((item) =>
-            item.fileName.map((filename) => filename.replace(/\.pdf$/, ""))
-        );
         
-        setExistingNames(filenamesWithoutExtension);
+        const dataArray = res.data.data;
+        const filenames = dataArray.map(item => item.fileName.replace('.pdf', ''));
+        
+        setExistingNames(filenames);
         if (!isEdit) {
-            setName(data.firstName + (isResume  ? "_resume" : "_cover ") + (res.data.data.length + 1));
+            setName(data.firstName + (isResume  ? "_resume " : "_cover ") + (res.data.data.length + 1));
+        }
+        else {
+      
+          setName(data.fileName.replace('.pdf', ''));
         }
     })
         .catch((err) => {
@@ -46,23 +49,14 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
         });
     }
   };
-console.log(existingNames)
+
   
   useEffect(() => {
     callData();
     if (!isEdit) {
       setName(data.firstName + (isResume  ? "_resume" : "_cover"));
     } else {
-      if (Array.isArray(data.fileName) && data.fileName.length > 0) {
-        const fileName = data.fileName[0];
-        if (typeof fileName === 'string' && fileName.endsWith(".pdf")) {
-          setName(fileName.slice(0, -4));
-        } else {
-          setName(fileName);
-        }
-      } else {
-        setName('');
-      }
+      setName(data.fileName.replace('.pdf', ''));
     }
   }, [userDataGlobal, data.firstName, ]);
 

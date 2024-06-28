@@ -25,7 +25,6 @@ const JdMatchingsideBar = ({
 }) => {
   const [openExtraSection, setAddExtraSection] = useState(false);
   const [jdData, setJdData] = useState([]);
-
   const [isExtraData, setIsExtraData] = useState(false);
 
   return (
@@ -160,7 +159,7 @@ const JdMatchingsideBar = ({
                 </svg>
               ) : (
                 <div className="flex gap-[8px] justify-center">
-                  Find Matches
+                  Find Match
                   <img
                     src="/images/icons/person_search.png"
                     className="h-[24px] w-[24px]"

@@ -104,6 +104,18 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                 {passage}
               </p>
             ))}
+            {splitContents?.second?.length === 0 && (
+              <div className="flex flex-col w-full gap-[2px]">
+                <span className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                  Sincerely,
+                </span>
+
+                <span className="flex pt-[8px] text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                  {data?.firstName}
+                  {","} {data?.lastName}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -121,6 +133,18 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                       {passage}
                     </p>
                   ))}
+                  {splitContents?.second?.length > 0 && (
+                    <div className="flex flex-col w-full gap-[2px]">
+                      <span className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                        Sincerely,
+                      </span>
+
+                      <span className="flex pt-[16px] text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                        {data?.firstName}
+                        {","} {data?.lastName}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

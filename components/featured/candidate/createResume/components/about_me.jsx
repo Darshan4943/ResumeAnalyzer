@@ -59,13 +59,11 @@ const AboutMe = ({ data, setData }) => {
       setAttempt(parseInt(localData));
     }
   };
-
+console.log(111,isPlanActive)
   useEffect(() => {
-    const planActive = localStorage.getItem("planActive");
+    const planActive = JSON.parse(localStorage.getItem("planActive"));
     if (planActive) {
-      setIsPlanActive(true);
-    } else {
-      setIsPlanActive(false);
+      setIsPlanActive(planActive);
     }
     getAttempts();
     if (userDataGlobal?.resumeUrl) {

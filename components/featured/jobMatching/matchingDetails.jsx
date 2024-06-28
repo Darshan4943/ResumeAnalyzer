@@ -9,7 +9,7 @@ import CloseIcon, {
 import { convertBytes, fileIconSeter } from "../../../utils/middleware";
 function FileSizeDisplay({ fileUrl }) {
   const [fileSize, setFileSize] = useState(null);
-
+  // const [dataa, setDataa] = useState();
   useEffect(() => {
     const getFileSize = async () => {
       try {
@@ -29,7 +29,14 @@ function FileSizeDisplay({ fileUrl }) {
 
   return <span>{convertBytes(fileSize)}</span>;
 }
-const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
+const MatchingDetails = ({
+  data,
+  setSelectedFile,
+  files,
+  extractedData,
+  setShowDetails,
+  showDetails,
+}) => {
   const imageSeter = (data) => {
     const file = Object.values(files)?.find((item, i) => data.index == i);
     if (
@@ -55,6 +62,28 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const extractPoints = (str) => {
+      const match = str.match(/^(\d+) out of 10$/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
+
+    const updatedData = data?.matching_parameters?.map((item) => {
+      if (extractPoints(item.matching_points) === 0) {
+        return { ...item, description: "Not enough data to compare" };
+      }
+      return item;
+    });
+
+    const sortedData = updatedData?.sort(
+      (a, b) =>
+        extractPoints(b.matching_points) - extractPoints(a.matching_points)
+    );
+
+    setSelectedFile({ ...data, matching_parameters: sortedData });
+  }, [data]);
+
+  console.log(888, data);
   return (
     <>
       <div
@@ -70,7 +99,10 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                 src="/images/jobs/close.png"
                 className="sm:h-[34px] sm:w-[34px] w-[28px] h-[28px]  absolute right-0 cursor-pointer top-[-4px]"
                 alt=""
-                onClick={() => setSelectedFile(null)}
+                onClick={() => {
+                  setSelectedFile(null), setShowDetails(false);
+                }}
+                // onClick={handleClose}
               />
               <div className="flex gap-[4px] w-full">
                 <span className=" text-[16px] font-semibold ">
@@ -113,7 +145,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
             {data?.conclusion?.length > 0 && (
               <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
                 <span className="text-[#333333] text-[18px] font-semibold">
-                  Conclusion
+                  Summary Findings
                 </span>
                 <span className="text-[12px] text-[#333333] ">
                   {data.conclusion}

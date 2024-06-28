@@ -24,7 +24,7 @@ import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
 import { reCallUserData } from "../../Redux/actions/user";
 import Certificate from "../../components/featured/home/Certificate";
-
+import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 import Result from "../../components/featured/home/Result";
@@ -52,7 +52,7 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
-
+  // const [isActivePlan, setisActivePlan]=useState(false)
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
 
@@ -60,6 +60,8 @@ function SkillAssessment() {
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
+  const [attemptCount, setAttemptCtn] = useState();
+  const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [editProfilePopUp, setEditProfilePopUp] = useState(false);
@@ -114,7 +116,7 @@ function SkillAssessment() {
         setSkills(names);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, [skillList]);
 
@@ -208,10 +210,11 @@ function SkillAssessment() {
       .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
+        setAttemptCtn(res.data.data?.count);
         setMainLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setMainLoading(false);
       });
   }, [userDataGlobal]);
@@ -287,7 +290,8 @@ function SkillAssessment() {
           .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
-            questionCount: (question.length == 9 || question.length === 59) ? "1" : "2",
+            questionCount:
+              question.length == 9 || question.length === 59 ? "1" : "2",
           })
           .then((res) => {
             try {
@@ -321,7 +325,6 @@ function SkillAssessment() {
     }
   };
 
- 
   useEffect(() => {
     // if (assesmentType === "Normal") {
     //   if (questionIndex == 7 || questionIndex == 8) {
@@ -373,9 +376,7 @@ function SkillAssessment() {
 
   const sumbit = () => {
     setStartTimer(false);
-
     setTimer(30);
-
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
         .post("https://jamblix.com/api/assessment/add", {
@@ -384,21 +385,20 @@ function SkillAssessment() {
           score: checkAnswer(),
           date: new Date(),
           isCertification: assesmentType !== "Normal" ? true : false,
+          count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
-
           setQuestionIndex(0);
-
           setSkipped([]);
           setTimeout(() => {
             setScore(true);
           }, 500);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     } else {
       setTimer(30);
@@ -436,6 +436,9 @@ function SkillAssessment() {
     axios
       .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
+        const dataa = res.data.data;
+        const countIndex = dataa[dataa.length - 1];
+        setAttemptCtn(countIndex?.count);
         setAssessmentList(res.data.data);
       })
       .catch((err) => {
@@ -469,7 +472,6 @@ function SkillAssessment() {
     // console.log(214, dummyData);
   };
 
-  // console.log(244, skippedArray);
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
       (data) => data?.Answer === Answer && data?.question == question
@@ -489,6 +491,7 @@ function SkillAssessment() {
       }
     });
 
+    console.log(88, Math.round(correctAnswer));
     return Math.round(correctAnswer);
   };
 
@@ -537,6 +540,19 @@ function SkillAssessment() {
     setLoadingg(false);
   };
 
+  const handleStart = () => {
+    const isActivePlan = localStorage.getItem("planActive");
+    if (!isActivePlan && assesmentType === "Normal" && attemptCount > 0) {
+      setisLevel(false);
+      setIsplan(true);
+    } else if (!isActivePlan && assesmentType === "Certificate") {
+      setisLevel(false);
+      setIsplan(true);
+    } else {
+      setisLevel(true);
+    }
+  };
+
   return (
     <div className="">
       {editProfilePopUp && (
@@ -561,6 +577,9 @@ function SkillAssessment() {
           </div>
         </>
       )}
+
+      {isPlan && <LimitUsedModal visible={isPlan} setVisible={setIsplan} />}
+
       {mainLoading ? (
         <div className="h-[60vh] w-full flex items-center justify-center">
           <MiniLoader2 />
@@ -945,7 +964,8 @@ function SkillAssessment() {
 
                     <div
                       onClick={() => {
-                        setisLevel(true);
+                        // setisLevel(true);
+                        handleStart();
                       }}
                     >
                       <button
@@ -1295,9 +1315,9 @@ function SkillAssessment() {
                                   You are eligible for Certificate
                                 </div>
                               ) : (
-                                <di className="text-[18px] text-[#C00000] font-[600]">
-                                  You are not eligible for Certificate
-                                  <p className="text-[14px]">{`(Required above 70%)`}</p>
+                                <di className="text-[14px] text-[#C00000] font-[500]">
+                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
+                                 
                                 </di>
                               )}
                             </>

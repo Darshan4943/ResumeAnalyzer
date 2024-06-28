@@ -117,7 +117,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       if (!pdfBlob) {
         return;
       }
-      
+
       if (saveLimit <= 0) {
         setLoading(false);
         setLoading1(false);
@@ -161,8 +161,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
       return response.data;
     } catch (error) {
-      console.error("Error adding cover letter:", error);
-      toast.error("Error adding cover letter");
+      toast.error("Error for adding cover letter");
       setLoading(false);
       setLoading1(false);
     }
@@ -175,9 +174,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         .get("https://jamblix.com/api/cover/get/" + id)
 
         .then((res) => {
-          // Remove .pdf extension from filenames
-
-          setName(data.firstName + "_cover " + (res.data.data.length + 1));
+       
+        
+          if (!isCoverEdit) {
+          setName(data?.firstName + "_cover " + (res?.data?.data?.length + 1));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -187,16 +188,21 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
   useEffect(() => {
     callData();
-    setName(data.firstName + "_cover");
+    if (!isCoverEdit) {
+      setName(data?.firstName + "_cover");
+    } else {
+
+      setName(data?.fileName?.replace('.pdf', ''));
+    }
+    
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
-
     if (saveLimit <= 0) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
-    
+
       return;
     }
     if (!page1Ref.current) {
@@ -233,12 +239,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   //downloadw
 
   const downloadPdfBlob = async () => {
-
     if (saveLimit <= 0) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
-    
+
       return;
     }
     const input1 = page1Ref.current;
@@ -263,10 +268,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);
-      
+
         return;
       }
-   
+
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
 
@@ -302,10 +307,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   };
 
   const DownloadButton = () => (
-    
     <button
       onClick={() => {
-        
         handleDownload();
         setLoading1(true);
       }}
@@ -352,7 +355,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   );
 
   const selectCoverTemplate = (index) => {
-    
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;
@@ -384,7 +386,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     }
   };
   const selectCoverTemplate1 = (index) => {
-  
     switch (index) {
       case 1:
         return (
@@ -639,6 +640,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
           setFunction={(data) => setName(data)}
           clientId={clientId}
           isResume={false}
+          isEdit={isCoverEdit}
         />
       )}
     </div>

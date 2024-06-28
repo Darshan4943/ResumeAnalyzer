@@ -59,7 +59,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       role: role,
     };
     axios
-      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
+      .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;
@@ -111,7 +111,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[30px] font-[600]">Sign In</div>
+        <div className="text-[30px] font-[600]"> {role==="user" ? "Candidate Sign In ":"Recruiter Sign In"}</div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row px-[16px] py-[12px] border-[1px]  rounded-[8px] border-solid border-[#9D9D9D]">
             <input

@@ -32,7 +32,7 @@ function Details() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/plans/getByIndex/${id}`)
+      .get(`https://jamblix.com/api/plans/getByIndex/${id}`)
       .then((res) => {
 
         setSelectedPlan(res.data.data[0])
@@ -52,9 +52,17 @@ function Details() {
   //     }, 2000);
   //   }
   // }, [success, canceled]);
-  const navigate = () => {
-    router.push("/purchase/MyPurchase");
+  const navigate = async () => {
+    try {
+      await router.push("/purchase/MyPurchase"); 
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); 
+    } catch (error) {
+      console.error('Error navigating:', error);
+    }
   };
+  
   return (
     <div className=" flex flex-col gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
