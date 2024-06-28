@@ -270,12 +270,12 @@ function Dashboard() {
 
             setLimits({
               used: {
-                uploads: plan.limits.uploads - parseInt(uploadCount),
-                download: plan.limits.download - parseInt(saveCount),
-                save: plan.limits.save - parseInt(saveCount),
-                clients: plan.limits.clients - parseInt(clientCount),
+                uploads: plan?.limits?.uploads - parseInt(uploadCount),
+                download: plan?.limits?.download - parseInt(saveCount),
+                save: plan?.limits?.save - parseInt(saveCount),
+                clients: plan?.limits?.clients - parseInt(clientCount),
               },
-              total: plan.limits,
+              total: plan?.limits,
             });
           }
 

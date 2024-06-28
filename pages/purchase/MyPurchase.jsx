@@ -24,7 +24,11 @@ function MyPurchase() {
   const [daysPercentage, setDaysPercentage] = useState(0)
  
   const formatDate = (dateString) => format(new Date(dateString), 'dd-MM-yy');
-
+  
+  const [limits, setLimits] = useState({
+    used: { uploads: 0, download: 0, save: 0, clients: 0 },
+    total: { uploads: 0, download: 0, save: 0, clients: 0 },
+  });
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
@@ -33,7 +37,12 @@ function MyPurchase() {
     seticon(icon);
   }, []);
 
-
+  const selectedPlan = localStorage.getItem("activePlan");
+  const uploadCount = localStorage.getItem("uploadCount");
+  const downloadCount = localStorage.getItem("downloadCount");
+  const saveCount = localStorage.getItem("saveCount");
+  const clientCount = localStorage.getItem("clientCount");
+  const planActive = localStorage.getItem("planActive");
   const calculateDaysRemaining = (startDate, endDate) => {
     const today = new Date();
     const start = new Date(startDate);
@@ -96,6 +105,8 @@ function MyPurchase() {
           console.log(err);
           setLoading(false);
         });
+
+       
     }
   }, [userDataGlobal, allPlans]);
 
@@ -115,10 +126,20 @@ function MyPurchase() {
           console.log(err);
           setLoading(false);
         });
+
+        setLimits({
+          used: {
+            uploads: plan?.limits?.uploads - parseInt(uploadCount),
+            download: plan?.limits?.download - parseInt(saveCount),
+            save: plan?.limits?.save - parseInt(saveCount),
+            clients: plan?.limits?.clients - parseInt(clientCount),
+          },
+          total: plan?.limits,
+        });
     }
-  }, [userDataGlobal, allPlans]);
+  }, [userDataGlobal, allPlans,plan]);
 
-
+console.log(11,limits)
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {loading ? (
@@ -184,14 +205,15 @@ function MyPurchase() {
                           ) : (
                             <button
                               onClick={() => router.push("/purchase/plans")}
-                              disabled={subscription?.isActive}
-                              className={`px-9 py-3  ${subscription?.isActive
+                              disabled={subscription?.isActive && !(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients && limits.total.clients !== 0)) 
+                              }
+                              className={`px-9 py-3  ${subscription?.isActive && !(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients && limits.total.clients !== 0))
                                 ? "bg-[#DEDEDE] "
                                 : "bg-[#06a9ef] btn_hover_effect"
                                 } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[160px] `}
                             >
-                              {subscription?.isActive
-                                ? "Purchased"
+                              {subscription?.isActive 
+                                ? !(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients && limits.total.clients !== 0)) ? "Purchased" :"Upgrade Plan"
                                 : "Purchase"}
                             </button>
                           )}
