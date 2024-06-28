@@ -77,7 +77,7 @@ function Dashboard() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
- 
+
   const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -205,7 +205,7 @@ function Dashboard() {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
+        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
         break;
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
@@ -225,18 +225,18 @@ function Dashboard() {
     axios
       .get("https://jamblix.com/api/plans/getAllPlans")
       .then((res) => {
-     
+
         setAllPlans(res.data.data)
 
-       
+
       })
       .catch((err) => {
         console.log(err);
       });
 
-      
+
   }, [userDataGlobal]);
- 
+
   useEffect(() => {
     const selectedPlan = localStorage.getItem("activePlan");
     const uploadCount = localStorage.getItem("uploadCount");
@@ -250,7 +250,7 @@ function Dashboard() {
     // if (plan) {
     //   setSelectedPlan(plan);
 
-    
+
 
     if (userDataGlobal) {
       axios
@@ -260,26 +260,26 @@ function Dashboard() {
             (item) =>
               item.name == res.data.findIsActive?.plan
           );
-          
+
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-         
+
           if (plan) {
             setSelectedPlan(plan);
 
             setLimits({
               used: {
-                uploads: plan.limits.uploads - parseInt(uploadCount),
-                download: plan.limits.download - parseInt(saveCount),
-                save: plan.limits.save - parseInt(saveCount),
-                clients: plan.limits.clients - parseInt(clientCount),
+                uploads: plan?.limits?.uploads - parseInt(uploadCount),
+                download: plan?.limits?.download - parseInt(saveCount),
+                save: plan?.limits?.save - parseInt(saveCount),
+                clients: plan?.limits?.clients - parseInt(clientCount),
               },
-              total: plan.limits,
+              total: plan?.limits,
             });
           }
 
-         
+
         })
         .catch((err) => {
           console.log(err);
@@ -299,10 +299,11 @@ function Dashboard() {
     // });
     // }
     // }
-  }, [userDataGlobal,allPlans]);
-
+  }, [userDataGlobal, allPlans]);
+const [loadingg,setLoadingg] =useState(false)
+const [loading,setLoading] =useState(true)
   const [resumeData, setResumeData] = useState([]);
- 
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -316,6 +317,7 @@ function Dashboard() {
         setResumeData(JSON.parse(resume));
       }
     }
+   
   }, [userDataGlobal]);
 
   // const MyComponent = ({ selectedResumeIndex }) => {
@@ -344,7 +346,7 @@ function Dashboard() {
     }
     return false;
   }
-  const selectResumeTemplate = (index,pageLayout) => {
+  const selectResumeTemplate = (index, pageLayout) => {
     switch (index) {
       case 1:
         return (
@@ -355,7 +357,7 @@ function Dashboard() {
             pageLayout={pageLayout}
           />
         );
-      
+
       case 3:
         return (
           <Template3
@@ -374,7 +376,7 @@ function Dashboard() {
             pageLayout={pageLayout}
           />
         );
-      
+
       case 11:
         return (
           <Template11
@@ -535,7 +537,7 @@ function Dashboard() {
             selectedColor={resumeData.selectedColor}
             selectedFont={resumeData.selectedFont}
             pageLayout={pageLayout}
-           
+
           />
         );
     }
@@ -544,7 +546,7 @@ function Dashboard() {
   const MyComponent = ({ pageLayout }) => {
     return (
       <Document dpi={72} >
-        {selectResumeTemplate(resumeData.selectedResumeIndex,pageLayout)}
+        {selectResumeTemplate(resumeData.selectedResumeIndex, pageLayout)}
       </Document>
     );
   };
@@ -631,9 +633,9 @@ function Dashboard() {
                 Hello,
               </div>
               {userDataGlobal?.firstName && (
-                <div className="text-[24px] text-[#FFFFFF] font-semibold leading-tight">
+                <div className="text-[24px] text-[#FFFFFF] font-semibold leading-tight break-all">
                   <p> {camelCase(userDataGlobal?.firstName)}</p>
-                  <p> {camelCase(userDataGlobal?.lastName)}!</p>
+                  {/* <p> {camelCase(userDataGlobal?.lastName)}!</p> */}
                 </div>
               )}
             </div>
@@ -663,12 +665,15 @@ function Dashboard() {
             </div>
           </div>
         </div>
-       
+
         <Summery
           limits={limits}
           selectedPlan={selectedPlan}
           isActive={isActive}
-         
+          loading={loading} 
+          setLoading={setLoading}
+          
+
         />
 
       </div>
@@ -703,8 +708,8 @@ function Dashboard() {
       </div>
 
       {userDataGlobal.role === "user" &&
-        data !== undefined &&
-         (
+        data !== undefined && !loading &&
+        (
           <div className="ms:flex gap-[24px] flex-wrap flex-col sm:items-start items-center hidden ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
@@ -725,7 +730,7 @@ function Dashboard() {
                         width="240px"
                         height="338px"
                         showToolbar={false}
-                       
+
                       >
                         <MyComponent pageLayout={true} />
                       </PDFViewer>
@@ -850,7 +855,8 @@ function Dashboard() {
                 </>
               )}
           </div>
-        )}
+        )
+      }
     </div>
   );
 }

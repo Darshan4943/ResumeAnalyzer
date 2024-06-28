@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { plans } from "../../../../../utils/data";
 import MiniLoader from "../../../../common/miniLoader";
 
-function Summary({ limits, selectedPlan, isActive }) {
+function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
 
   const router = useRouter();
   const [progress, setProgress] = useState(0);
@@ -23,7 +23,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [plan, setPlan] = useState({});
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
-  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -83,18 +83,21 @@ function Summary({ limits, selectedPlan, isActive }) {
             );
           }
           setTimeout(() => {
-            setLoading(true);
+            setLoading(false);
           }, 2000);
 
         })
         .catch((err) => {
           console.log(err);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
         });
     }
   }, [userDataGlobal, selectedPlan]);
   return (
     <>
-      {loading ?
+      {!loading ?
         <div className="bg-[#F9F9F9] rounded-[16px] p-4 flex flex-col gap-2 w-full">
           <p className="text-[18px] font-semibold "> Usage Summary</p>
 
@@ -161,7 +164,15 @@ function Summary({ limits, selectedPlan, isActive }) {
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {selectedPlan?.days} Days
                       </p>
+                      {(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients && limits.total.clients !== 0)) &&
 
+                        <div
+                          onClick={() => router.push("/purchase/plans")}
+                          className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                        >
+                          Upgrade Plan
+                        </div>
+                      }
                     </div>
                   ) : (
                     <div
@@ -287,7 +298,7 @@ function Summary({ limits, selectedPlan, isActive }) {
 
         :
         <div className="flex justify-center items-center w-full bg-[#F9F9F9] rounded-[16px]">
-        <MiniLoader/>
+          <MiniLoader />
         </div>
       }
     </>
