@@ -72,6 +72,7 @@ export const fileIconSeter = (data) => {
   } else {
     return (
       <svg
+      className="min-w-[28px] min-h-[28px]"
         width="57"
         height="48"
         viewBox="0 0 57 48"

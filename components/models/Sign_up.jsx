@@ -185,7 +185,7 @@ function Sign_up() {
               </Link>
             </div>
           </div>
-          <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
+          {/* <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
             Already have an account?{"  "}
             <span
               onClick={() =>
@@ -198,7 +198,7 @@ function Sign_up() {
             >
               Sign In
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

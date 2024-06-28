@@ -161,39 +161,15 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                     <p className="footer_address_Para leading-6">
                       <ul className="flex flex-col gap-1">
                         <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
+
                           Harare, Zimbabwe.{" "}
                         </li>
                         <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
+                          
                           Pune, India.{" "}
                         </li>
                         <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
+                         
                           London, United Kingdom.{" "}
                         </li>
 
@@ -214,7 +190,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             <div className="flex flex-col gap-4 ">
               <div className="footer_about_section ">
                 <p className="text-[#fff] font-[600]">About</p>
-                <div className="footer_sub_about ">
+                <div className="footer_sub_about gap-1 ">
                   <p
                     onClick={() => openInNewTab("/TermsAndConditions")}
                     className="footer_sub_about_P cursor-pointer leading-6"

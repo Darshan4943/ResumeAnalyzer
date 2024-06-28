@@ -117,8 +117,8 @@ function CandidateHeader() {
                     y2="10"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#06A9EF" />
-                    <stop offset="1" stop-color="#55CCFF" />
+                    <stop stopColor="#06A9EF" />
+                    <stop offset="1" stopColor="#55CCFF" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -215,8 +215,8 @@ function CandidateHeader() {
                     y2="10"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#06A9EF" />
-                    <stop offset="1" stop-color="#55CCFF" />
+                    <stop stopColor="#06A9EF" />
+                    <stop offset="1" stopColor="#55CCFF" />
                   </linearGradient>
                 </defs>
               </svg>

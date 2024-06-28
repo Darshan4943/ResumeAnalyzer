@@ -6,6 +6,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
   const [editIndex, setEditIndex] = useState(null);
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
+  const [showFrom, setShowForm] = useState(false);
 
   const handleExpand = () => {
     setExpand(!expand);
@@ -13,6 +14,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
   };
 
   const handleEdit = (index) => {
+    setShowForm(true);
     const benefit = extratctedData?.benefits[index];
     setType(benefit.type);
     setDescription(benefit.description);
@@ -22,7 +24,6 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
   };
 
   const handleDelete = (index) => {
- 
     if (extratctedData?.benefits?.length > 0 && index >= 0) {
       const filteredBenefits = extratctedData.benefits.filter(
         (_, i) => i !== index
@@ -56,10 +57,36 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
 
   return (
     <div className="flex flex-col w-full gap-[8px]">
-      <div className="flex flex-row justify-between w-[416px]">
-        <h6 className="flex font-[400] text-[14px] text-left font-montserrat gap-2">
+      <div className="flex flex-row justify-between items-center  ">
+        <div className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
           Benefits<span className="text-[#C00000]">*</span>
-        </h6>
+        </div>
+        <div>
+          <div
+            className="flex gap-1 bg-[#06A9EF] rounded-[24px] p-[4px] px-[12px] pl-[6px] cursor-pointer items-center justify-center"
+            // onClick={handleClick}
+            onClick={() => setShowForm(!showFrom)}
+          >
+            <svg
+              className="min-w-[20px] min-h-[20px]"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <g mask="url(#mask0_5716_136351)">
+                <path
+                  d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
+                  fill="#FFFFFF"
+                />
+              </g>
+            </svg>
+            <p className="flex items-center text-[14px] font-semibold text-[#FFFFFF] leading-[17.07px]">
+              Add
+            </p>
+          </div>
+        </div>
       </div>
 
       {extratctedData &&
@@ -132,51 +159,57 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
           </div>
         ))}
 
-      <div className="flex flex-col w-[416px] gap-[4px]">
-        <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
-          Type<span className="text-[#C00000]"> *</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter benefit e.g. Remote Work"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
-        />
-      </div>
-      <div className="flex flex-col w-[416px] gap-[4px]">
-        <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
-          Description<span className="text-[#C00000]"> *</span>
-        </label>
-        <div className="border-[0.2px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[100px] flex items-center justify-center">
-          <textarea
-            type="text"
-            className="w-full text-[12px] font-montserrat font-[400] min-h-[120px] outline-none py-[11px] px-[16px] rounded-[8px] "
-            placeholder="Enter description"
-            maxLength={200}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="flex flex-row justify-end gap-[4px] w-[416px]">
-        {isEdit && (
-          <button
-            type="button"
-            onClick={() => resetForm()}
-            className="py-[8px] px-[24px] border border-solid border-[#06A9EF] rounded-[8px] bg-[#FFFFFF] text-[#33333]"
-          >
-            Cancel
-          </button>
-        )}
-        <button
-          type="button"
-          onClick={handleAddOrUpdate}
-          className="py-[8px] px-[24px] border border-solid border-[#06A9EF] rounded-[8px] bg-[#FFFFFF] text-[#33333]"
-        >
-          {isEdit ? "Update" : "Add"}
-        </button>
-      </div>
+      {showFrom && (
+        <>
+          <div className="flex flex-col w-[416px] gap-[4px]">
+            <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
+              Type<span className="text-[#C00000]"> *</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter benefit e.g. Remote Work"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
+            />
+          </div>
+          <div className="flex flex-col w-[416px] gap-[4px]">
+            <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
+              Description<span className="text-[#C00000]"> *</span>
+            </label>
+            <div className="border-[0.2px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[100px] flex items-center justify-center">
+              <textarea
+                type="text"
+                className="w-full text-[12px] font-montserrat font-[400] min-h-[120px] outline-none py-[11px] px-[16px] rounded-[8px] "
+                placeholder="Enter description"
+                maxLength={200}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex flex-row justify-end gap-[4px] w-[416px]">
+            {isEdit && (
+              <button
+                type="button"
+                onClick={() => {
+                  resetForm(), setShowForm(false);
+                }}
+                className="py-[4px] px-[8px] border border-solid border-[#06A9EF] rounded-[8px] bg-[#FFFFFF] text-[#33333] text-[14px]"
+              >
+                Cancel
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={handleAddOrUpdate}
+              className="py-[4px] px-[8px] border border-solid border-[#06A9EF] rounded-[8px] bg-[#FFFFFF] text-[#33333] text-[14px]"
+            >
+              {isEdit ? "Update" : "Add"}
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

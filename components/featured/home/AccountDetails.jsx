@@ -308,7 +308,7 @@ function AccountDetails({
         setPaymentStatus(session.payment_status);
 
         if (
-          session.payment_status === "unpaid" &&
+          session.payment_status === "paid" &&
           userDataGlobal &&
           selectedPlan &&
           exchangeRate &&
@@ -338,7 +338,7 @@ function AccountDetails({
     seticon(icon);
     setexchangeRate(exchangeRate);
     try {
-      await axios.post("http://localhost:2000/api/add/subscription", {
+      await axios.post("https://jamblix.com/api/add/subscription", {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.name}`,
         ...jsonData,
@@ -357,6 +357,7 @@ function AccountDetails({
       console.log("Subscription added successfully");
 
       localStorage.removeItem("paymentId");
+      localStorage.removeItem("attempts");
 
       setTimeout(() => {
         setSuccessModel({ visible: true, loading: false });

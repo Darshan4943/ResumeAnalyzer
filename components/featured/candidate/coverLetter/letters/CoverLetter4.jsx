@@ -60,7 +60,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
               </h6>
             </div>
             <div className="flex flex-col gap-[8px] ">
-              <div className="flex flex-row gap-[12px] justify-center items-center">
+              <div className="flex flex-row gap-[12px]  items-center">
                 <svg
                   className="min-w-[20px] min-h-[20px]"
                   width="20"
@@ -148,7 +148,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                     <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                       Warm regards,
                     </span>
-                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>
@@ -193,7 +193,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                   <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                     Warm regards,
                   </span>
-                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
                     {data?.firstName} {data?.lastName}
                   </span>
                 </div>

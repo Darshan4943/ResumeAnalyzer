@@ -92,7 +92,9 @@ function ClientFolders({
                             index,
                             item._id,
                             clientId
-                              ? item.fileName
+                              ?<>{item.fileName.length > 15
+                                ? `${item.fileName.slice(0, 14)}...`
+                                : item.fileName}</>
                               : item.firstName + " " + item.lastName,
                             item
                           );
@@ -116,7 +118,9 @@ function ClientFolders({
                       <span className="text-[12px]">
                         {" "}
                         {clientId
-                          ? item.fileName
+                          ?<>{item.fileName.length > 15
+                            ? `${item.fileName.slice(0, 14)}...`
+                            : item.fileName}</>
                           : item.firstName + " " + item.lastName}
                       </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
@@ -230,7 +234,9 @@ function ClientFolders({
                   <tr key={index} className="">
                     <td className="px-4 py-2 font-medium">
                       {clientId
-                        ? item.fileName
+                        ? <>{item.fileName.length > 15
+                          ? `${item.fileName.slice(0, 14)}...`
+                          : item.fileName}</>
                         : item.firstName + " " + item.lastName}
                     </td>
                     {/* <td className='px-4 py-2 text-[#858585]'>{item.dateModified}</td>

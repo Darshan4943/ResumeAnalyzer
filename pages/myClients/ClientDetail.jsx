@@ -222,8 +222,8 @@ function ClientDetail({ tabIndex }) {
               style={{ objectFit: "contain" }}
               // src={detail.profilePath}
               src={
-                detail.profilePicture
-                  ? detail.profilePicture
+                detail?.profilePicture
+                  ? detail?.profilePicture
                   : "/images/services/profile.png"
               }
               alt="image"
@@ -233,7 +233,7 @@ function ClientDetail({ tabIndex }) {
             <div className="flex flex-col gap-2">
               <p className="text-[18px] font-medium">
                 {" "}
-                {detail.firstName} {detail.lastName}
+                {detail?.firstName} {detail?.lastName}
               </p>
               <div className="flex  gap-2">
                 <svg
@@ -250,7 +250,7 @@ function ClientDetail({ tabIndex }) {
                     />
                   </g>
                 </svg>
-                <p className="text-[14px] font-medium">{detail.designation}</p>
+                <p className="text-[14px] font-medium">{detail?.designation}</p>
               </div>
             </div>
 
@@ -273,7 +273,7 @@ function ClientDetail({ tabIndex }) {
                   </g>
                 </svg>
 
-                <p className="text-[14px] font-normal">{detail.email}</p>
+                <p className="text-[14px] font-normal">{detail?.email}</p>
               </div>
               <div className="flex  gap-2">
                 <svg
@@ -291,7 +291,7 @@ function ClientDetail({ tabIndex }) {
                   </g>
                 </svg>
 
-                <p className="text-[14px] font-normal">{detail.mobileNo}</p>
+                <p className="text-[14px] font-normal">{detail?.mobileNo}</p>
               </div>
               <div className="flex  gap-2">
                 <svg
@@ -309,7 +309,7 @@ function ClientDetail({ tabIndex }) {
                   </g>
                 </svg>
 
-                <p className="text-[14px] font-normal">{detail.location}</p>
+                <p className="text-[14px] font-normal">{detail?.location}</p>
               </div>
             </div>
           </div>
@@ -681,8 +681,8 @@ function ClientDetail({ tabIndex }) {
                       <PdfViewer pdfUrl={item?.resumeUrl} />
                       <div className="text-[14px] text-[#333333] font-500">
                         {item?.fileName?.length > 17
-                          ? `${item.fileName.slice(0, 16)}...`
-                          : item.fileName}
+                          ? `${item?.fileName?.slice(0, 16)}...`
+                          : item?.fileName}
                       </div>
 
                       <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">

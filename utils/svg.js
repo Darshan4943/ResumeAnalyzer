@@ -429,8 +429,8 @@ export const ServiceCross = () => (
     </g>
     <defs>
       <linearGradient id="paint0_linear_1620_20360" x1="2.5" y1="10" x2="17.5" y2="10" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#06A9EF" />
-        <stop offset="1" stop-color="#55CCFF" />
+        <stop stopColor="#06A9EF" />
+        <stop offset="1" stopColor="#55CCFF" />
       </linearGradient>
     </defs>
   </svg>
@@ -459,8 +459,8 @@ export const Service = () => (
         y2="10"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#06A9EF" />
-        <stop offset="1" stop-color="#55CCFF" />
+        <stop stopColor="#06A9EF" />
+        <stop offset="1" stopColor="#55CCFF" />
       </linearGradient>
     </defs>
   </svg>
