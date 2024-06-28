@@ -56,7 +56,7 @@ function Services({ isServices, isMove, setIsMove }) {
       color: "#FE7701",
     },
     {
-      name: "Chat Bot",
+      name: "Ask Krut",
       imgSrc: "/images/resumeBuilder/bot1.png",
       desc: "Ask for anything and generate fast responses with our bot.",
       color: "#7994D8",
@@ -122,7 +122,7 @@ function Services({ isServices, isMove, setIsMove }) {
       color: "#45ABA0",
     },
     {
-      name: "Chat Bot",
+      name: "Ask Krut",
       imgSrc: "/images/resumeBuilder/bot1.png",
       desc: "Save multiple resumes with multiple clients in cloud storage.",
       color: "#7994D8",
@@ -180,7 +180,7 @@ function Services({ isServices, isMove, setIsMove }) {
         return "searchJobs";
       case "Post Jobs":
         return "postJobs";
-      case "Chat Bot":
+      case "Ask Krut":
         return "chatBot";
       case "My Website":
         return "myWebsite";
@@ -222,7 +222,7 @@ function Services({ isServices, isMove, setIsMove }) {
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
         break;
-      case "Chat Bot":
+      case "Ask Krut":
         handleNavigation("/chatbot");
         break;
       case "My Website":
