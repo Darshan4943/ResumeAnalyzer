@@ -91,7 +91,7 @@ function Summary({ limits, selectedPlan, isActive }) {
           console.log(err);
           setTimeout(() => {
             setLoading(false);
-          }, 5000);
+          }, 1000);
         });
     }
   }, [userDataGlobal, selectedPlan]);
