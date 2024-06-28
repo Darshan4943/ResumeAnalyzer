@@ -1315,9 +1315,9 @@ function SkillAssessment() {
                                   You are eligible for Certificate
                                 </div>
                               ) : (
-                                <di className="text-[18px] text-[#C00000] font-[600]">
-                                  You are not eligible for Certificate
-                                  <p className="text-[14px]">{`(Required above 70%)`}</p>
+                                <di className="text-[14px] text-[#C00000] font-[500]">
+                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
+                                 
                                 </di>
                               )}
                             </>

@@ -98,9 +98,9 @@ function SubscriptionPlans({ fromMain }) {
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
       if (isUser) {
-        router.push("/auth/user-signup");
+        router.push("/auth?signin=true&role=user");
       } else {
-        router.push("/auth/recruiter-signup");
+        router.push("/auth?signin=true&role=recruiter");
       }
     }
   };
