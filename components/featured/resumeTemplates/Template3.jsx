@@ -699,7 +699,10 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
           )}
 
           {data?.experience?.length > 0 && data?.showExperience === true && (
+            data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
             <View
+            key={index}
+            wrap={false}
               style={{
                 flexDirection: "column",
                 gap: 12,
@@ -708,34 +711,37 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                 width: "100%",
               }}
             >
-              <Svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="160"
-                viewBox="0 0 160 27"
-                fill="none"
+{   index === 0 &&
+            <Svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="160"
+              viewBox="0 0 160 27"
+              fill="none"
+            >
+              <Path
+                d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z"
+                fill={selectedColor}
+              />
+              <Text
+                x="10%"
+                y="55%"
+                dominantBaseline="middle"
+                textAnchor="start"
+                fill="white"
+                fontSize={15}
+                fontFamily={`${selectedFont} 400`}
               >
-                <Path
-                  d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z"
-                  fill={selectedColor}
-                />
-                <Text
-                  x="10%"
-                  y="55%"
-                  dominantBaseline="middle"
-                  textAnchor="start"
-                  fill="white"
-                  fontSize={15}
-                  fontFamily={`${selectedFont} 400`}
-                >
-                  EXPERIENCE
-                </Text>
-              </Svg>
+                EXPERIENCE
+              </Text>
+            </Svg>
+
+}
               <View style={{ flexDirection: "column", gap: 24 }}>
-                {data.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
+               
                   <>
                     <View
                       wrap={false}
-                      key={index}
+                   
                       style={{ flexDirection: "column", gap: 8 }}
                     >
                       <View style={{ flexDirection: "column", gap: 8 }}>
@@ -801,9 +807,10 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                       )}
                     </View>
                   </>
-                ))}
+                
               </View>
             </View>
+          ))
           )}
 
           {data?.project?.length > 0 &&
