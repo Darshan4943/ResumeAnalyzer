@@ -103,26 +103,34 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               )}
               <View
                 style={{
+                  width:"90%",
                   display: "flex",
                   marginBottom: "6px",
                   marginRight: "8px",
                   marginLeft: "8px",
+                 
                 }}
               >
                 <Text
                   style={{
+                    width:"100%",
+                      textAlign:"center",
                     color: "#fff",
                     fontFamily: `${selectedFont} 400`,
                     fontSize: "24px",
+                    flexWrap: 'nowrap',
                   }}
                 >
                   {formatLink10(data.firstName)}
                 </Text>
                 <Text
                   style={{
+                      width:"100%",
+                      textAlign:"center",
                     color: "#fff",
                     fontFamily: `${selectedFont} 400`,
                     fontSize: "24px",
+                     flexWrap: 'nowrap',
                   }}
                 >
                   {formatLink10(data.lastName)}
@@ -338,9 +346,8 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               </View>
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (
-              <>
-                <View
-                  wrap={false}
+              <View  wrap={data?.skills?.length > 2 ? true : false}>
+                <View                 
                   style={{
                     marginRight: "-12px",
                     marginTop: "4px",
@@ -384,6 +391,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                 >
                   {data?.skills?.slice(0, pageLayout && 3)?.map((detail, index) => (
                     <View
+                    wrap={false}
                       key={index}
                       style={{
                         marginLeft: "16px",
@@ -391,11 +399,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                         alignItems: "center",
                         justifyContent: "space-between",
                         gap: "8px",
+                        width:"100%",
+                       
                       }}
                     >
                       <Text
                         style={{
-                          fontSize: "12px",
+                          fontSize: "10px",
                           paddingTop: "2px",
                           flexDirection: "row",
                           fontFamily: `${selectedFont} 400`,
@@ -440,7 +450,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     </View>
                   ))}
                 </View>
-              </>
+              </View>
             )}
 
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
@@ -492,7 +502,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       key={index}
                       style={{
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "10px",
                         // width: "90%",
                         display: "flex",
                         flexDirection: "column",
@@ -569,7 +579,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                         key={index}
                         style={{
                           color: "white",
-                          fontSize: "12px",
+                          fontSize: "10px",
                           width: "90%",
                           flexWrap: "wrap",
                         }}
@@ -584,7 +594,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               )}
 
             {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
-              <>
+              <View >
                 <View
                   style={{
                     marginRight: "-12px",
@@ -641,7 +651,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     >
                       <Text
                         style={{
-                          fontSize: "12px",
+                          fontSize: "10px",
                           paddingTop: "2px",
                           flexDirection: "row",
                           fontFamily: `${selectedFont} 400`,
@@ -686,7 +696,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     </View>
                   ))}
                 </View>
-              </>
+              </View>
             )}
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
@@ -738,7 +748,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       key={index}
                       style={{
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "10px",
                         width: "90%",
                         flexWrap: "wrap",
                       }}
@@ -800,7 +810,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       key={index}
                       style={{
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "10px",
                         width: "90%",
                         display: "flex",
                         flexDirection: "column",
@@ -1110,6 +1120,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   {data?.experience?.slice(0, pageLayout && 3)?.map((detail, index) => (
                     <View
                       key={index}
+                      wrap={false}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
                       <View
@@ -1184,7 +1195,11 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
           )}
 
           {data?.project?.length > 0 && data?.showProject === true && !pageLayout && (
+                data?.project?.map((detail, index) => (
+                  <>
             <View
+              key={index}
+              wrap={false}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -1192,12 +1207,15 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                 width: "100%",
               }}
             >
+           
               <View style={{ width: "27px" }}>
+              {  index === 0 &&
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Projects.png"
                   alt=""
                 />
+              }
               </View>
 
               <View
@@ -1208,6 +1226,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   width: "95%",
                 }}
               >
+{   index === 0 &&
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 8 }}
                 >
@@ -1229,12 +1248,14 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     }}
                   ></View>
                 </View>
+}
+
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.project?.map((detail, index) => (
+              
                     <View
-                      key={index}
+                    wrap={false}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
                       <View
@@ -1302,15 +1323,21 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                         {detail.description}
                       </Text>
                     </View>
-                  ))}
+               
                 </View>
               </View>
             </View>
+            </>
+          ))
           )}
 
           {data?.extraCaricularData?.length > 0 &&
             data?.showExtraCariculam === true &&  !pageLayout &&(
+              data?.extraCaricularData?.map((detail, index) => (
+                <>
               <View
+                key={index}
+                wrap={false}
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -1319,11 +1346,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                 }}
               >
                 <View style={{ width: "27px" }}>
+{  index === 0 &&
                   <Image
                     style={{ width: "27px", height: "27px" }}
                     src="/images/services/Activities.png"
                     alt=""
                   />
+                  }
                 </View>
 
                 <View
@@ -1334,6 +1363,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     width: "95%",
                   }}
                 >
+{    index === 0 &&
                   <View
                     style={{ display: "flex", flexDirection: "column", gap: 8 }}
                   >
@@ -1355,6 +1385,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       }}
                     ></View>
                   </View>
+                  }
                   <View
                     style={{
                       display: "flex",
@@ -1362,9 +1393,9 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       gap: 16,
                     }}
                   >
-                    {data?.extraCaricularData?.map((detail, index) => (
+                 
                       <View
-                        key={index}
+                      wrap={false}
                         style={{ display: "flex", alignItems: "start", gap: 4 }}
                       >
                         <View
@@ -1432,14 +1463,19 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                           {detail.description}
                         </Text>
                       </View>
-                    ))}
+                  
                   </View>
                 </View>
               </View>
+              </>
+            ))
             )}
 
-          {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout &&(
+          {data?.internship?.length > 0 && data?.showInternship === true && !pageLayout &&( 
+              data?.internship?.map((detail, index) => (
             <View
+            key={index}
+            wrap= {false}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -1448,11 +1484,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               }}
             >
               <View style={{ width: "27px" }}>
+{    index === 0  &&
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Internship.png"
                   alt=""
                 />
+                }
               </View>
 
               <View
@@ -1463,6 +1501,8 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   width: "95%",
                 }}
               >
+
+{    index === 0 &&
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 8 }}
                 >
@@ -1484,12 +1524,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     }}
                   ></View>
                 </View>
+                }
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.internship?.map((detail, index) => (
+                 
                     <View
-                      key={index}
+                      wrap= {false}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
                       <View
@@ -1557,14 +1598,19 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                         {detail.description}
                       </Text>
                     </View>
-                  ))}
+                 
                 </View>
               </View>
             </View>
+
+             ))
           )}
 
           {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
+       data?.course?.map((detail, index) => (
             <View
+            key={index}
+            wrap={false}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -1573,11 +1619,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               }}
             >
               <View style={{ width: "27px" }}>
+{   index === 0 &&
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Courses.png"
                   alt=""
                 />
+                }
               </View>
 
               <View
@@ -1588,6 +1636,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   width: "95%",
                 }}
               >
+            {    index === 0 &&  
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 8 }}
                 >
@@ -1609,12 +1658,13 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     }}
                   ></View>
                 </View>
+}
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
-                  {data?.course?.map((detail, index) => (
+               
                     <View
-                      key={index}
+                    wrap={false}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
                       <View
@@ -1682,10 +1732,11 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                         {detail.description}
                       </Text>
                     </View>
-                  ))}
+               
                 </View>
               </View>
             </View>
+               ))
           )}
 
           {data.section?.length > 0 &&
@@ -1693,6 +1744,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             data.section?.map((item, index) => (
               <View
                 key={index}
+                wrap={false}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -1701,6 +1753,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   paddingTop: "26px",
                 }}
               >
+
                 <View
                   style={{
                     display: "flex",
@@ -1710,6 +1763,9 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     width: "100%",
                   }}
                 >
+
+{   index === 0 &&
+<>
                   <Image
                     style={{
                       width: "27px",
@@ -1720,6 +1776,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                     src="/images/services/Custom.png"
                     alt=""
                   />
+                  
                   <View
                     style={{
                       display: "flex",
@@ -1745,8 +1802,11 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       }}
                     ></View>
                   </View>
+                  </>
+}
                 </View>
                 <View
+                 wrap={false}
                   style={{
                     flexDirection: "column",
                     gap: 8,
