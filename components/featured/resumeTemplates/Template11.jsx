@@ -28,8 +28,8 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
   };
 
   const formatLink8 = (link) => {
-    if (link?.length > 8) {
-      return link?.match(/.{1,8}/g).join("\n");
+    if (link?.length > 9) {
+      return link?.match(/.{1,9}/g).join("\n");
     }
     return link;
   };
@@ -90,7 +90,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               style={{
                 fontSize: 24,
                 fontFamily: `${selectedFont} 700`,
-                // width: "80%",
+                width: 175,
                 display: "flex",
                 flexWrap: "wrap",
               }}
@@ -101,7 +101,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               style={{
                 fontSize: 24,
                 fontFamily: `${selectedFont} 700`,
-                // width: "80%",
+                width: 175,
                 display: "flex",
                 flexWrap: "wrap",
               }}
@@ -268,8 +268,10 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
 
           <View>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
-              <>
-                <View wrap={false}>
+              <View 
+              wrap={false }
+              >
+                <View>
                   <Text
                     style={{ fontSize: 16, fontFamily: `${selectedFont} 700` }}
                   >
@@ -277,6 +279,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                   </Text>
                 </View>
                 <View
+                  wrap={false}
                   style={{ flexDirection: "column", gap: 14, paddingTop: 12 }}
                 >
                   {data.languages?.slice(0, pageLayout && 3)?.map((detail, index) => {
@@ -304,7 +307,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       <View
                         style={{ flexDirection: "column" }}
                         key={index}
-                        wrap={false}
+                            
                       >
                         <View
                           style={{
@@ -348,7 +351,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                     );
                   })}
                 </View>
-              </>
+              </View>
             )}
           </View>
 
@@ -1097,6 +1100,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               <View>
                 {data.project?.map((detail, index) => (
                   <View
+                  wrap={false}
                     key={index}
                     style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                     {index === 0 &&
@@ -1189,6 +1193,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               <View>
                 {data.internship?.map((detail, index) => (
                   <View
+                  wrap={false}
                     key={index}
                     style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                     {index === 0 &&
@@ -1203,7 +1208,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       </Text>
                     }
                     <View
-                    
+                    wrap={false}
                       style={{ flexDirection: "column", width: "100%", gap: 10 }}
                     >
                       <View
@@ -1278,7 +1283,9 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
             {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && !pageLayout && (
               <View >
                 {data.extraCaricularData?.map((detail, index) => (
-                  <View style={{ flexDirection: "column", width: "100%", gap: 24 }}  key={index}>
+                  <View 
+                  wrap={false}
+                  style={{ flexDirection: "column", width: "100%", gap: 24 }}  key={index}>
 
                     {index === 0 &&
                       <Text
@@ -1293,7 +1300,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
 
                     }
                     <View
-                     
+                     wrap={false}
                       style={{ flexDirection: "column", width: "100%", gap: 10 }}
                     >
                       <View
@@ -1369,7 +1376,9 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
               <>
                 {data?.section?.map((item, index) => (
                   <View
+                 
                     key={index}
+                    wrap={index > 0 ? false : true}
                     style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}
                   >
                     <Text
@@ -1381,12 +1390,15 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
                     >
                       {item?.header}
                     </Text>
+
                     {item?.subSection?.map((detail, index) => (
                       <View
+                      wrap={false}
                         style={{ flexDirection: "row", gap: 12 }}
                         key={index}
                       >
                         <View
+                          wrap={false}
                           style={{
                             flexDirection: "column",
                             gap: 16,
