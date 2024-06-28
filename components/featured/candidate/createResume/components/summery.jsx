@@ -23,7 +23,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   const [plan, setPlan] = useState({});
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
-
+console.log(111,limits)
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -164,7 +164,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {selectedPlan?.days} Days
                       </p>
-                      {(limits.used.uploads === limits.total.uploads) || (limits.used.save === limits.total.save) || (limits.used.clients === limits.total.clients && limits.total.clients !== 0) &&
+                      {(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients &&  limits.total.clients !==0 )) &&
 
                         <div
                           onClick={() => router.push("/purchase/plans")}
