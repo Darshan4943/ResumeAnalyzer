@@ -30,7 +30,6 @@ const JobMatching = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
-
   const [resumeCount, setResumeCount] = useState(5);
   const [files, setFiles] = useState([]);
   const { clientId, parentId } = router.query;
@@ -46,7 +45,9 @@ const JobMatching = () => {
   const [isEdit, setIsEdit] = useState();
   const [editId, setEditId] = useState(null);
   const [ShowForm, setShowForm] = useState(false);
-
+  // const [message, setMessage] = useState("Analyzing Data, Please wait");
+  const [mainMessage, setMainMessage] = useState("Analyzing Data");
+  const [findMatchLoader, setMatchLoader] = useState(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -99,7 +100,7 @@ const JobMatching = () => {
         }, 1000);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
   const getFolderData = () => {
@@ -123,76 +124,9 @@ const JobMatching = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        console.error(err);
       });
   };
-  // const getClients = () => {
-  //   setLoading(true);
-  //   axios
-  //     .get(
-  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
-  //     )
-  //     .then((res) => {
-  //       setDetails(res.data.data);
-  //       setTimeout(() => {
-  //         setLoading(false);
-  //       }, 1000);
-  //     })
-  //     .catch((err) => {
-  //       setLoading(false);
-  //       console.log(err);
-  //     });
-  // };
-
-  {
-    /** 
-  const jobMatching = async () => {
-    setLoadingg(true);
-    setIsAnimate(false);
-    try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
-        text,
-      });
-      const jd = res.data.jsonData[0];
-      if (Object.keys(jd).length > 5) {
-        const chunks = chunkArray(selectedIndexesFileTypes, 5);
-        const outputData = [];
-        for (let i = 0; i < chunks.length; i++) {
-          await processChunk(chunks[i], jd, outputData);
-          if (i < chunks.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-          }
-        }
-        const dataArray = outputData
-          .filter((item) => item.matching_percentage)
-          ?.sort((a, b) => {
-            if (parseInt(b.matching_percentage))
-              parseInt(
-                isNaN(b.matching_percentage)
-                  ? b.matching_percentage.slice(0, 2)
-                  : b.matching_percentage
-              ) -
-                parseInt(
-                  isNaN(a.matching_percentage)
-                    ? a.matching_percentage.slice(0, 2)
-                    : a.matching_percentage
-                );
-          })
-          .slice(0, resumeCount);
-        setResumeList(dataArray);
-        setLoadingg(false);
-      } else {
-        toast.error("Something went wrong, please try again");
-        setLoadingg(false);
-      }
-    } catch (e) {
-      console.log("error", e);
-      setLoadingg(false);
-      toast.error("Something went wrong, please try again");
-    }
-  };
-*/
-  }
 
   const jobMatching = async () => {
     setLoadingg(true);
@@ -227,46 +161,6 @@ const JobMatching = () => {
       jobMatching();
     }
   }, [count]);
-
-  // const jobMatching = () => {
-  //   setLoadingg(true);
-  //   setIsAnimate(false);
-  //   axios
-  //     .post("https://jamblix.com/api/jd/extraction", {
-  //       text,
-  //     })
-  //     .then(async (res) => {
-  //       const jd = res.data.jsonData[0];
-  //       try {
-  //         const outputData = [];
-  //         const promise = selectedIndexesFileTypes
-  //           .slice(0, 5)
-  //           .map(async (item, index) => {
-  //             const { data } = await axios.post(
-  //               "https://jamblix.com/api/external/jobMatching/",
-  //               {
-  //                 jd: jd,
-  //                 id: item,
-  //               }
-  //             );
-
-  //             outputData.push(data);
-  //           });
-  //         const resolvedData = await Promise.all(promise);
-  //         setResumeList(outputData);
-  //         setTimeout(() => {
-  //           setLoadingg(false);
-  //         }, 5000);
-  //       } catch (e) {
-  //         console.log("error", e);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoadingg(false);
-  //       toast.error("Something went wrong, please try again");
-  //     });
-  // };
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -399,11 +293,10 @@ const JobMatching = () => {
   };
 
   const processChunk = async (chunk, jd, outputData, counter) => {
-    console.log("first", chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
       "https://jamblix.com/api/external/jobMatching/",
-      // "https://jamblix.com/api/external/jobMatching/",
+
       {
         jd: jd,
         ids: ids,
@@ -421,14 +314,15 @@ const JobMatching = () => {
   };
 
   const MatchJob = async () => {
-    setLoadingg(true);
+    // setLoadingg(true);
+    setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
     if (Object.keys(extratctedData).length > 5) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       const counter = { count: 0 };
-      console.log("first", outputData);
+
       if (selectedIndexesFileTypes.length > 50) {
         for (const [index, chunk] of chunks.entries()) {
           processChunk(chunk, extratctedData, outputData, counter);
@@ -444,8 +338,6 @@ const JobMatching = () => {
           }
         }
       }
-
-      console.log(`API was hit ${counter.count} times.`);
 
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
@@ -463,16 +355,42 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
-      console.log("outputData", dataArray);
+
       setButtonToggle(false);
-      setLoadingg(false);
+      // setLoadingg(false);
+      setMatchLoader(false);
     } else {
       toast.error("Something went wrong, please try again");
     }
   };
 
+  useEffect(() => {
+    const intervals = [
+      { text: "Analyzing Data", duration: 10000 },
+      { text: "Finding Results", duration: 20000 },
+      { text: "Almost There", duration: 2 }, // This duration will be ignored
+    ];
+
+    let currentInterval = 0;
+
+    const updateMessage = () => {
+      setMainMessage(intervals[currentInterval].text);
+
+      if (currentInterval < intervals.length - 1) {
+        currentInterval++;
+        setTimeout(updateMessage, intervals[currentInterval].duration);
+      }
+    };
+
+    setTimeout(updateMessage, intervals[currentInterval].duration);
+
+    return () => {
+      clearTimeout(updateMessage);
+    };
+  }, []);
+
   return (
-    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins">
+    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
       {loadingg && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -489,7 +407,7 @@ const JobMatching = () => {
               </div>
               <div className="flex flex-col items-center justify-center relative z-100">
                 <span className="text-center text-[#fff] text-[16px]">
-                  Analyzing Data, It Will Take Some Time
+                  Analyzing Data,
                 </span>
                 <span className="text-left text-[#fff] text-[16px] loading_dots">
                   Please wait
@@ -499,16 +417,42 @@ const JobMatching = () => {
           </div>
         </>
       )}
+
+      {findMatchLoader && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+              <div className="w-[165px] h-[124px] flex items-center justify-center">
+                <motion.img
+                  src="/images/resumeBuilder/bot.png"
+                  alt=""
+                  className="h-[68px] w-[68px]"
+                  animate={{ y: [-30, 0, -30] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              </div>
+              <div className="flex flex-col items-center justify-center relative z-100">
+                <span className="text-center text-[#fff] text-[16px]">
+                  {mainMessage},
+                </span>
+                <span className="text-left text-[#fff] text-[16px] loading_dots">
+                  Please wait
+                </span>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       <div className="font-semibold text-[20px]">Job Description Matching</div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-
-      <div className="flex flex-col gap-4 h-full relative overflow-hidden">
-        <div className="flex flex-row gap-4 h-full">
-          <div className="relative ml:w-[35%] w-full flex flex-col gap-6">
+      <div className="flex flex-col gap-6 h-full relative overflow-hidden">
+        <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
+          <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
             <div className="text-[18px] text-[#333333] font-medium">
               Select From Collection
             </div>
-
             <JdFiles
               details={details}
               query={router.query}
@@ -536,8 +480,8 @@ const JobMatching = () => {
             />
           </div>
 
-          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-          <div className="ml:w-[60%] w-full">
+          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
+          <div className="ml:w-[56%] w-full">
             <JdMatching
               details={details}
               resumeList={resumeList}
@@ -554,14 +498,16 @@ const JobMatching = () => {
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 3 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-25"
-              style={{
-                // background: "rgba(255, 255, 255, 0.5)",
-                backdropFilter: "blur(10px)",
-              }}
+              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
+              style={
+                {
+                  // background: "rgba(255, 255, 255, 0.5)",
+                  // backdropFilter: "blur(10px)",
+                }
+              }
             ></motion.div>
 
             {/* Sidebar */}

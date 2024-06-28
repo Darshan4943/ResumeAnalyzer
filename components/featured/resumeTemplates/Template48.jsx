@@ -201,38 +201,40 @@ const Template48 = ({ data, selectedColor, selectedFont, preview ,pageLayout}) =
                 </Text>
               </View>
               {/* {data?.location?.length > 0 && ( */}
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: 6,
-                  justifyContent: "start",
-                  // alignItems: "center",
-                }}
-              >
-                <Svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path
-                    d="M8.00008 1.14258C5.4786 1.14258 3.42773 3.17754 3.42773 5.67857C3.42773 6.68606 4.07596 8.32859 5.40994 10.7006C6.35297 12.3777 7.28136 13.7767 7.31981 13.8348L7.99916 14.8569L8.67851 13.8348C8.71788 13.7767 9.64535 12.3777 10.5884 10.7006C11.9224 8.3295 12.5706 6.68698 12.5706 5.67948C12.5724 3.17755 10.5215 1.14258 8.00008 1.14258ZM8.00008 8.00062C6.69082 8.00062 5.63059 6.94771 5.63059 5.6486C5.63059 4.34948 6.69173 3.29657 8.00008 3.29657C9.30842 3.29657 10.3705 4.34948 10.3705 5.6486C10.3705 6.9468 9.30934 8.00062 8.00008 8.00062Z"
-                    fill="#414042"
-                  />
-                </Svg>
-
-                <Text
+              {data?.location && (
+                <View
                   style={{
-                    fontSize: 10,
-                    fontFamily: `${selectedFont} 500`,
-                    color: "#414042",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 6,
+                    justifyContent: "start",
+                    // alignItems: "center",
                   }}
                 >
-                  {formatLink(data.location)}
-                </Text>
-              </View>
+                  <Svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path
+                      d="M8.00008 1.14258C5.4786 1.14258 3.42773 3.17754 3.42773 5.67857C3.42773 6.68606 4.07596 8.32859 5.40994 10.7006C6.35297 12.3777 7.28136 13.7767 7.31981 13.8348L7.99916 14.8569L8.67851 13.8348C8.71788 13.7767 9.64535 12.3777 10.5884 10.7006C11.9224 8.3295 12.5706 6.68698 12.5706 5.67948C12.5724 3.17755 10.5215 1.14258 8.00008 1.14258ZM8.00008 8.00062C6.69082 8.00062 5.63059 6.94771 5.63059 5.6486C5.63059 4.34948 6.69173 3.29657 8.00008 3.29657C9.30842 3.29657 10.3705 4.34948 10.3705 5.6486C10.3705 6.9468 9.30934 8.00062 8.00008 8.00062Z"
+                      fill="#414042"
+                    />
+                  </Svg>
+
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: `${selectedFont} 500`,
+                      color: "#414042",
+                    }}
+                  >
+                    {formatLink(data.location)}
+                  </Text>
+                </View>
+              )}
               {/* )} */}
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (

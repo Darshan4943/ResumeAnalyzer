@@ -22,11 +22,11 @@ function SubscriptionPlans({ fromMain }) {
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [showPlan, setShowPlans] = useState(false);
-
+  const [allPlans, setAllPlans] = useState([])
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
-    console.log(icon)
+ 
     setexchangeRate(exchangeRate);
     seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {
@@ -36,6 +36,8 @@ function SubscriptionPlans({ fromMain }) {
       setIsUser(true);
       setPlans(plans.slice(0, 3));
     }
+
+   
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -57,6 +59,31 @@ function SubscriptionPlans({ fromMain }) {
         console.log(err);
       });
   }, [userDataGlobal, showPlan]);
+
+
+
+  useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/plans/getAllPlans")
+      .then((res) => {
+     
+       const  allPlan =res.data.data
+
+        if (userDataGlobal.role == "recruiter" || fromMain) {
+          setIsUser(false);
+          setAllPlans(allPlan.slice(3));
+        } else {
+          setIsUser(true);
+          setAllPlans(allPlan.slice(0, 3));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
+
   const clickHandler = (index) => {
     if (isLogin) {
       if (
@@ -71,12 +98,14 @@ function SubscriptionPlans({ fromMain }) {
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
       if (isUser) {
-        router.push("/auth/user-signup");
+        router.push("/auth?signin=true&role=user");
       } else {
-        router.push("/auth/recruiter-signup");
+        router.push("/auth?signin=true&role=recruiter");
       }
     }
   };
+
+
 
   return (
     <>
@@ -126,14 +155,13 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-     <div className="hidden lg:block w-full ">
+      <div className="hidden lg:block w-full ">
         <div className="flex gap-9 justify-center">
-          {subPlans.map((plan, index) => (
+          {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
-                isUser ? "max-w-[19vw]" : "max-w-[19vw] "
-              } `}
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+                } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
@@ -174,8 +202,17 @@ function SubscriptionPlans({ fromMain }) {
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                   <div className="flex text-center flex-col gap-3 text-[#333333] ">
                     <p className="text-[1.4vw] font-[600]">
-                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
-                      {plan?.limit}
+                      {plan.type === "candidate" &&
+                        <>
+                          <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                        </>
+                      }
+
+                      <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+
+                      {plan.type === "recruiter" &&
+                        <span > Plan</span>
+                      }
                     </p>
                     <div className="flex flex-row gap-2 w-full items-center justify-center">
                       <p className="text-[2.5vw] font-[700]">{icon}</p>
@@ -236,7 +273,7 @@ function SubscriptionPlans({ fromMain }) {
           className="mySwiper "
           effect="fade"
         >
-          {subPlans.map((plan, index) => (
+          {allPlans.map((plan, index) => (
             <SwiperSlide
               style={{ display: "flex" }}
               className="justify-center pt-6 gap-4 "
@@ -286,8 +323,18 @@ function SubscriptionPlans({ fromMain }) {
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[420px]">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
                       <p className="text-[18px] font-[600]">
-                        <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
-                        {plan?.limit}
+                      {plan.type === "candidate" &&
+                        <>
+                          <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                        </>
+                      }
+
+                      <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+
+                      {plan.type === "recruiter" &&
+                        <span > Plan</span>
+                      }
+                       
                       </p>
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="text-[28px] font-[700]">{icon}</p>
@@ -335,7 +382,7 @@ function SubscriptionPlans({ fromMain }) {
           ))}
         </Swiper>
       </div>
-      
+
     </>
   );
 }

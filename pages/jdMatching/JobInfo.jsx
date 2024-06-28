@@ -64,7 +64,7 @@ const JobInfo = ({ setJdData, jdData, setExtractedData, extratctedData }) => {
     <div className="flex flex-col w-full gap-[8px]">
       {inputFields.map((item, index) => (
         <div className="flex flex-col w-[416px] gap-[4px]" key={index}>
-          <label className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+          <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
             {item.label} <span className="text-[#C00000]"> *</span>
           </label>
           <input

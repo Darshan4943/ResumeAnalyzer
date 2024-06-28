@@ -333,11 +333,14 @@ function AccountDetails({
     if (jsonData) {
       setData((prevData) => ({ ...prevData, ...jsonData }));
     }
-
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    seticon(icon);
+    setexchangeRate(exchangeRate);
     try {
       await axios.post("https://jamblix.com/api/add/subscription", {
         userId: userDataGlobal._id,
-        plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
+        plan: `${selectedPlan.name}`,
         ...jsonData,
         mobileNo: jsonData?.mobileNo,
         index: selectedPlan.index,
@@ -348,11 +351,13 @@ function AccountDetails({
         amount: Math.ceil(selectedPlan.amount * exchangeRate),
         icon: icon,
         paymentId: session.id,
+        planDetails:selectedPlan
       });
 
       console.log("Subscription added successfully");
 
       localStorage.removeItem("paymentId");
+      localStorage.removeItem("attempts");
 
       setTimeout(() => {
         setSuccessModel({ visible: true, loading: false });
@@ -521,18 +526,16 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${
-                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                }`}
+                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                  }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                  } items-center`}
+                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                    } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -579,11 +582,10 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${
-                    isViewportBelow850
+                  placeholder={`${isViewportBelow850
                       ? "Enter Number "
                       : "Enter Contact Number "
-                  }`}
+                    }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -592,7 +594,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                  // id="single_input"
+                // id="single_input"
                 />
               </div>
 
@@ -612,9 +614,19 @@ function AccountDetails({
             <div className="flex flex-col gap-4">
               <div className="flex justify-between">
                 <p className="text-[14px] font-semibold">
-                  {selectedPlan?.duration} {selectedPlan?.limit}
+                  {selectedPlan.type === "candidate" &&
+                    <>
+                      <span className="text-[#06A9EF]">{selectedPlan?.days} Days</span>{" "}
+                    </>
+                  }
+
+                  <span className={`${selectedPlan.type === "recruiter" && "text-[#06A9EF]"}`}> {selectedPlan?.name}</span>
+
+                  {selectedPlan.type === "recruiter" &&
+                    <span > Plan</span>
+                  }
                 </p>
-                <div className="flex flex-row gap-2 w-full items-center justify-end">
+                <div className="flex flex-row gap-2 w-[70%] items-center justify-end">
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan?.amount * exchangeRate)}

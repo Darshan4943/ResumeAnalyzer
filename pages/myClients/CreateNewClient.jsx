@@ -44,7 +44,7 @@ function CreateNewClient() {
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
   const [croppedImage, setCroppedImage] = useState(null);
-  console.log(data.img);
+
   const handleFileChange = (event) => {
     event.preventDefault();
     setIsProfileImageRemoved(false);

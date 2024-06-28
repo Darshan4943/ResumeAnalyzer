@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
 function CoverLetter10({ page2Ref, page1Ref, data }) {
+  console.log(6767, data)
   const firstPageRef = useRef(null);
   const [splitContents, setSplitContent] = useState({ first: [], second: [] });
 
@@ -47,7 +48,7 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
         ref={page1Ref}
         className=" w-[595px] min-h-[700px] flex flex-row bg-[#fff] "
       >
-        <div className="w-[30%] flex flex-col px-[42px] pt-[162px] justify-between pb-[42px] bg-[#C7EAFB]">
+        <div className="w-[207px] flex flex-col px-[42px] pt-[162px] justify-between pb-[42px] bg-[#C7EAFB]">
           <div className="flex flex-col gap-[8px]">
             <span className=" text-[14px] font-[400] text-[#2D3033] leading-[16.94px]">
               To,
@@ -89,7 +90,7 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
                 <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
                   Mobile
                 </span>
-                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-word">
+                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.dial_code} {data?.mobileNumber}
                 </span>
               </div>
@@ -105,13 +106,13 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
           </div>
         </div>
 
-        <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[70%]">
+        <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[388px]">
           <div className="gap-[6px] flex flex-col ">
             <div className="gap-[2px] flex flex-col flex-wrap">
-              <span className="text-[36px] font-[400] leading-[48.41px] text-[#0D0D0D] break-word">
+              <span className="text-[28px] font-[400] leading-[33.89px] text-[#0D0D0D] break-word">
                 {data?.firstName} {data?.lastName}
               </span>
-              <span className="text-[20px] font-[400] leading-[24.41px] text-[#0D0D0D] break-word">
+              <span className="text-[18px] font-[400] leading-[21.78px] text-[#0D0D0D] break-word">
                 {data?.designation}
               </span>
             </div>
@@ -148,9 +149,9 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
           ref={page2Ref}
           className="flex flex-row w-[595px] min-h-[700px] bg-[#fff]"
         >
-          <div className="w-[30%] flex flex-col px-[42px] pt-[162px] justify-between pb-[42px] bg-[#C7EAFB]"></div>
+          <div className="w-[207px] flex flex-col px-[42px] pt-[162px] justify-between pb-[42px] bg-[#C7EAFB]"></div>
 
-          <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[70%]">
+          <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[388px]">
             <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
               {splitContents.second.map((passage, index) => (
                 <p key={index} style={{ margin: "16px 0" }}>

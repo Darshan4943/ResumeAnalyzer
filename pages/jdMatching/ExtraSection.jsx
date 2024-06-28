@@ -45,18 +45,18 @@ const ExtraSection = ({
           placeholder="Enter Header"
           value={title}
           onChange={handleInputChange}
-          className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+          className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] font-[400]"
         />
         <div className="flex flex-col gap-[4px]">
           <div>
-            <h6 className="font-montserrat text-[14px] font-medium leading-[17.07px] text-[#333333]">
+            <h6 className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-[#333333]">
               Description <span className="text-[#C00000]">*</span>
             </h6>
           </div>
           <div>
             <textarea
               name="description"
-              className="w-full text-[12px] font-montserrat font-small outline-none border border-solid border-[#DEDEDE] rounded-[8px] py-[11px] px-[16px]"
+              className="w-full font-montserrat font-small outline-none border border-solid border-[#DEDEDE] rounded-[8px] py-[11px] px-[16px] text-[12px] font-[400] "
               placeholder="Enter text"
               maxLength={400}
               value={description}

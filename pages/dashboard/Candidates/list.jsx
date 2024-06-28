@@ -31,7 +31,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
           <thead className="w-full sticky top-0">
        
             <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
-              <th className="w-[5%] flex items-center justify-center">
+              {/* <th className="w-[5%] flex items-center justify-center">
                 <input
                   type="checkbox"
                   className="h-[18px] w-[18px]"
@@ -44,7 +44,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
                     }
                   }}
                 />
-              </th>
+              </th> */}
               <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
                 Email
               </th>
@@ -54,9 +54,9 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
               <th className="text-[16px] font-semibold text-white w-[15%]">
                 Active Plan
               </th>
-              <th className="text-[16px] font-semibold text-white w-[15%]">
+              {/* <th className="text-[16px] font-semibold text-white w-[15%]">
                 Action
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -65,7 +65,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
                 className="w-full  flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
                 key={index}
               >
-                <th className="w-[5%] flex items-center justify-center">
+                {/* <th className="w-[5%] flex items-center justify-center">
                   <input
                     type="checkbox"
                     className="h-[14px] w-[14px]"
@@ -86,7 +86,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
                       }
                     }}
                   />
-                </th>
+                </th> */}
 
                 <th className="  w-[25%] flex flex-row items-center gap-[8px]">
                   <img
@@ -108,7 +108,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
                 <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                  {item?.subscription ? item.subscription?.plan : '-'}
                 </th>
-                <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
+                {/* <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                   <button
                     className={`${
                       item.subscription
@@ -123,7 +123,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
                   >
                     Active Plan
                   </button>
-                </th>
+                </th> */}
               </tr>
             ))}
           </tbody>

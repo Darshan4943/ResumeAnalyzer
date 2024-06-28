@@ -7,8 +7,7 @@ import axios from "axios";
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
-  console.log("isEdit", isCoverEdit);
-  console.log("editData", EditData);
+  console.log(11, EditData);
   // const userDataGlobal = useSelector((state) => state.userData);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
@@ -54,6 +53,7 @@ function Index() {
     type: "",
   };
 
+ 
   const [data, setData] = useState(defaultState);
   // useEffect(() => {
   //   console.log("id", id);
@@ -69,6 +69,7 @@ function Index() {
   //       });
   //   }
   // }, [isCoverEdit, id]);
+
   useEffect(() => {
     if (EditData) {
       const parsedData = JSON.parse(EditData);
@@ -76,16 +77,20 @@ function Index() {
 
       if (parsedData.passages && parsedData.passages.length > 0) {
         try {
-          const passagesArray = JSON.parse(parsedData.passages[0]);
-          parsedPassages = passagesArray.map((passage) => passage.split(',"'));
+          let passagesArray = JSON.parse(parsedData.passages[0]);
+          // console.log("parsed", passagesArray);
+          // parsedPassages = passagesArray.map((passage) => passage.split(',"'));
+          // console.log("parsedPassages", parsedPassages);
+          if (passagesArray) {
+            setData({
+              ...parsedData,
+              passages: passagesArray,
+            });
+          }
         } catch (error) {
           console.error("Error parsing passages:", error);
         }
       }
-      setData({
-        ...parsedData,
-        passages: parsedPassages,
-      });
 
       if (isCoverEdit) {
         setIsFormat(parsedData?.type);

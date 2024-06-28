@@ -28,7 +28,7 @@ const ResumeList = ({ data, setData }) => {
       }
     }
   }, [data]);
-  console.log(8797, isChecked)
+
 
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);

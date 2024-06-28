@@ -30,7 +30,7 @@ const PdfViewer1 = ({ pdfUrl, onDownloadClick, loadingg, setLoadingg }) => {
         className={`w-[600px] h-[80vh] shadow-md rounded-lg ${
           !loadingg && "overflow-y-auto"
         } web600 overflow-hidden `}
-        onClick={onDownloadClick}
+        // onClick={onDownloadClick}
       >
         {loadingg && (
           <div className="skeleton-loader1  ">

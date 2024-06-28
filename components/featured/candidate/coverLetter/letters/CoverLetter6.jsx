@@ -135,7 +135,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
             </div>
             <div className="flex flex-col items-start">
               <div className="flex flex-wrap">
-                <span className="flex flex-wrap text-[38px] leading-[45.99px] font-[400] text-[#000000] font-Inter break-word">
+                <span className="flex flex-wrap text-[30px] leading-[45.99px] font-[400] text-[#000000] font-Inter break-word">
                   {data.firstName} {data.lastName}
                 </span>
               </div>

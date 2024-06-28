@@ -48,7 +48,7 @@ function SubscriptionPlan({ isLogin, fromMain }) {
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
-        console.log(`Fetching data for latitude: ${lat}, longitude: ${lon}`);
+        
         try {
             const response = await axios.get(
                   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
@@ -100,10 +100,10 @@ function SubscriptionPlan({ isLogin, fromMain }) {
 
   
 
-    for (let i = 0; i < conditions.length; i++) {
+    for (let i = 0; i < conditions?.length; i++) {
         let { lat, lon } = conditions[i];
         let results = await fetchCountryData(lat, lon);
-        console.log(`Condition ${i + 1}:`, results);
+       
         if (results) {
             results.forEach((result) => {
                 const lat = Math.abs(result.geometry.location.lat);
@@ -151,7 +151,7 @@ function SubscriptionPlan({ isLogin, fromMain }) {
   const allSameCountry = countries.every((value, _, array) => value === array[0]);
 
   // If no postal_code result, filter for country entries
-  if (closestPostalCodeData.length === 0 || (closestPostalCodeData.length > 1 && !allSameCountry)) {
+  if (closestPostalCodeData?.length === 0 || (closestPostalCodeData?.length > 1 && !allSameCountry)) {
       closestPostalCodeData = countriesData.filter(countryData =>
           countryData.types.includes("country")
       );
@@ -160,8 +160,7 @@ function SubscriptionPlan({ isLogin, fromMain }) {
     const closestData = closestPostalCodeData[0];
    
     if (closestData) {
-        console.log(`The closest data is from condition: ${closestData.condition}`);
-        console.log(`Distance: ${closestData.distance} km`);
+      
         console.log(`Address: ${closestData.formatted_address}`);
 
         // Process the closest country data

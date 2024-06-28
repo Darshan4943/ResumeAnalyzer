@@ -59,13 +59,13 @@ const Index = () => {
           <span className="text-[24px] text-[#333333] font-semibold">
             Recruiter List
           </span>
-          <button
+          {/* <button
             className="buttons font-[500] bg-[#06A9EF] text-white flex flex-row gap-2"
             id="border_button"
             onClick={() => router.push("/auth/recruiter-signup?byAdmin=true")}
           >
             <AddIcon color={"#fff"} /> Add Recruiter
-          </button>
+          </button> */}
         </div>
         <div
           className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "

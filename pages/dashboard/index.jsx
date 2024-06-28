@@ -15,7 +15,7 @@ import {
   BlobProvider,
   pdf,
 } from "@react-pdf/renderer";
-import MiniLoader from "../../components/common/mini-loader";
+
 import Template1 from "../../components/featured/resumeTemplates/Template1";
 import Template2 from "../../components/featured/resumeTemplates/Template2";
 import Template3 from "../../components/featured/resumeTemplates/Template3";
@@ -43,6 +43,7 @@ import Template48 from "../../components/featured/resumeTemplates/Template48";
 import Template47 from "../../components/featured/resumeTemplates/Template47";
 import Template30 from "../../components/featured/resumeTemplates/Template30";
 import Template53 from "../../components/featured/resumeTemplates/Template53";
+import MiniLoader from "../../components/common/miniLoader";
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
@@ -76,9 +77,11 @@ function Dashboard() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
+ 
   const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [allPlans, setAllPlans] = useState([])
   const handleNavigation = (page) => {
     router.push(page);
   };
@@ -219,6 +222,22 @@ function Dashboard() {
   }
 
   useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/plans/getAllPlans")
+      .then((res) => {
+     
+        setAllPlans(res.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
+ 
+  useEffect(() => {
     const selectedPlan = localStorage.getItem("activePlan");
     const uploadCount = localStorage.getItem("uploadCount");
     const downloadCount = localStorage.getItem("downloadCount");
@@ -231,18 +250,21 @@ function Dashboard() {
     // if (plan) {
     //   setSelectedPlan(plan);
 
+    
+
     if (userDataGlobal) {
       axios
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
-          const plan = plans.find(
+          const plan = allPlans.find(
             (item) =>
-              item.duration + " " + item.limit == res.data.findIsActive?.plan
+              item.name == res.data.findIsActive?.plan
           );
+          
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-
+         
           if (plan) {
             setSelectedPlan(plan);
 
@@ -256,6 +278,8 @@ function Dashboard() {
               total: plan.limits,
             });
           }
+
+         
         })
         .catch((err) => {
           console.log(err);
@@ -275,11 +299,10 @@ function Dashboard() {
     // });
     // }
     // }
-  }, [userDataGlobal]);
+  }, [userDataGlobal,allPlans]);
 
   const [resumeData, setResumeData] = useState([]);
-  console.log(33,resumeData)
-  console.log(44,data)
+ 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -640,11 +663,14 @@ function Dashboard() {
             </div>
           </div>
         </div>
+       
         <Summery
           limits={limits}
           selectedPlan={selectedPlan}
           isActive={isActive}
+         
         />
+
       </div>
       <div
         // style={{ border: "2px solid red" }}
@@ -736,6 +762,7 @@ function Dashboard() {
                           <a
                             onClick={() => {
                               localStorage.removeItem("userData");
+                              localStorage.removeItem("resumeData");
                               window.location.href = "/";
                             }}
                             className="flex items-center flex-col cursor-pointer"

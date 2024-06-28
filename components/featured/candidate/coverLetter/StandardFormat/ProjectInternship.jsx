@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Achievement from "../../createResume/components/achivement";
+import { toast } from "react-toastify";
 
 const ProjectInternship = ({ data, setData }) => {
   const [isShow, setIsShow] = useState(true);
   const [relevantSkills, setrelevantSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [isSkillErr, setIsSkillErr] = useState(false);
   const [ProjectData, setProjectData] = useState({
     projectName: "",
     description: "",
@@ -47,6 +49,7 @@ const ProjectInternship = ({ data, setData }) => {
     },
   ];
 
+  console.log(99, [...data?.relevantSkills]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProjectData({ ...ProjectData, [name]: value });
@@ -59,10 +62,15 @@ const ProjectInternship = ({ data, setData }) => {
 
   const addSkill = () => {
     if (relevantSkills && !relevantSkills.includes(inputValue)) {
-      const updatedSkills = [...relevantSkills, inputValue];
-      setrelevantSkills(updatedSkills);
-      setData({ ...data, relevantSkills: updatedSkills });
-      setInputValue("");
+      if (inputValue !== "") {
+        const updatedSkills = [...relevantSkills, inputValue];
+        setrelevantSkills(updatedSkills);
+        setData({ ...data, relevantSkills: updatedSkills });
+        setInputValue("");
+        setIsSkillErr(false);
+      } else {
+        setIsSkillErr(true);
+      }
     }
   };
 
@@ -73,6 +81,7 @@ const ProjectInternship = ({ data, setData }) => {
       achievements: data?.achievements,
       responsibilities: data?.responsibilities,
     });
+    setrelevantSkills([...data?.relevantSkills]);
   }, [data]);
 
   const removeSkill = (skillToRemove) => {
@@ -153,13 +162,17 @@ const ProjectInternship = ({ data, setData }) => {
               Relevant Skills <span>*</span>
             </label>
 
-            <div className=" flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] ">
+            <div
+              className={`flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] 
+               ${isSkillErr === true ? "border-red" : "border-[#C4C4C4]"}
+               `}
+            >
               <input
                 type="text"
                 placeholder="e.g. Javascript"
                 value={inputValue}
                 onChange={handleInputSkills}
-                className=" text-[12px]  text-[#646464] font-[400] w-full"
+                className={`text-[12px]  text-[#646464] font-[400] w-full`}
               />
               <svg
                 onClick={addSkill}

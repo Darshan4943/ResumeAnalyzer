@@ -319,8 +319,8 @@ const PersonalDetails = ({
                       : "border-[#9D9D9D]"
                   } `}
                 >
-                  <div className={`flex w-[100%] items-start`} id="single_input">
-                    <div className={`relative items-center`}>
+                  <div className={`flex w-[100%] items-start gap-2`} id="single_input">
+                    <div className={`relative items-center cursor-pointer`}>
                       <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
                         <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
                           <div className="flex items-center gap-1 cursor-pointer w-[100%]">

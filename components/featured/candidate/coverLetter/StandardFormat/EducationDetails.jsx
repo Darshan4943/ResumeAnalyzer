@@ -142,6 +142,7 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
     setError(newErrors);
   };
 
+ 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
@@ -214,7 +215,7 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>
@@ -249,7 +250,7 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      field is required!
+                      {errors[employer?.name]}
                     </span>
                   )}
                 </div>
@@ -280,7 +281,7 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      field is required!
+                      {errors[employer?.name]}
                     </span>
                   )}
                 </div>

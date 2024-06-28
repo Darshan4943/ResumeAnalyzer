@@ -33,7 +33,7 @@ export const Api = ({ }) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const showPlan = useSelector((state) => state.showPlan.show);
-
+  const [allPlans, setAllPlans] = useState([])
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -57,6 +57,22 @@ export const Api = ({ }) => {
   // console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
   dispatch(setPageClosed());
+
+  useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/plans/getAllPlans")
+      .then((res) => {
+     
+        setAllPlans(res.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+  }, [userDataGlobal]);
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
@@ -104,11 +120,12 @@ export const Api = ({ }) => {
           const result = res.data.findIsActive;
 
           if (result?.isActive == true) {
-            const selectedPlan = plans.find(
-              (item) => item.duration + " " + item.limit == result.plan
+            const selectedPlan = allPlans.find(
+              (item) => item.name == result.plan
             );
+          
 
-            localStorage.setItem("activePlan", selectedPlan.index);
+            localStorage.setItem("activePlan", selectedPlan?.index);
             localStorage.setItem("uploadCount", result.resumeUpladed);
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("downloadCount", result.resumeDownloads);
@@ -157,7 +174,7 @@ export const Api = ({ }) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal, reCallUser, showPlan]);
+  }, [userDataGlobal, reCallUser, showPlan,allPlans]);
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -258,7 +275,7 @@ export const Api = ({ }) => {
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
-        console.log(`Fetching data for latitude: ${lat}, longitude: ${lon}`);
+        
         try {
             const response = await axios.get(
                   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
@@ -309,10 +326,10 @@ export const Api = ({ }) => {
 
   
 
-    for (let i = 0; i < conditions.length; i++) {
+    for (let i = 0; i < conditions?.length; i++) {
         let { lat, lon } = conditions[i];
         let results = await fetchCountryData(lat, lon);
-        console.log(`Condition ${i + 1}:`, results);
+      
         if (results) {
             results.forEach((result) => {
                 const lat = Math.abs(result.geometry.location.lat);
@@ -360,7 +377,7 @@ export const Api = ({ }) => {
   const allSameCountry = countries.every((value, _, array) => value === array[0]);
 
   // If no postal_code result, filter for country entries
-  if (closestPostalCodeData.length === 0 || (closestPostalCodeData.length > 1 && !allSameCountry)) {
+  if (closestPostalCodeData?.length === 0 || (closestPostalCodeData?.length > 1 && !allSameCountry)) {
       closestPostalCodeData = countriesData.filter(countryData =>
           countryData.types.includes("country")
       );
@@ -369,8 +386,7 @@ export const Api = ({ }) => {
     const closestData = closestPostalCodeData[0];
    
     if (closestData) {
-        console.log(`The closest data is from condition: ${closestData.condition}`);
-        console.log(`Distance: ${closestData.distance} km`);
+       
         console.log(`Address: ${closestData.formatted_address}`);
 
         // Process the closest country data

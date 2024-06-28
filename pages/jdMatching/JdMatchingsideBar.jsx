@@ -25,7 +25,6 @@ const JdMatchingsideBar = ({
 }) => {
   const [openExtraSection, setAddExtraSection] = useState(false);
   const [jdData, setJdData] = useState([]);
-
   const [isExtraData, setIsExtraData] = useState(false);
 
   return (
@@ -129,7 +128,7 @@ const JdMatchingsideBar = ({
             </>
           )}
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
-          <div className="flex ">
+          <div className="flex justify-end">
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] "
               style={{ opacity: loadingg || text.length < 100 ? 0.5 : 1 }}
@@ -160,7 +159,7 @@ const JdMatchingsideBar = ({
                 </svg>
               ) : (
                 <div className="flex gap-[8px] justify-center">
-                  Fetch Finding{" "}
+                  Find Match
                   <img
                     src="/images/icons/person_search.png"
                     className="h-[24px] w-[24px]"
