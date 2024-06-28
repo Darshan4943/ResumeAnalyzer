@@ -505,7 +505,7 @@ function Template19({ data, selectedColor, selectedFont, preview,pageLayout }) {
                       <Text
                         style={{
                           fontSize: 12,
-                          fontFamily: `${selectedFont} 600`,
+                          fontFamily: `${selectedFont} 400`,
                           color: "#000000",
                         }}
                       >
@@ -1152,7 +1152,7 @@ function Template19({ data, selectedColor, selectedFont, preview,pageLayout }) {
                                 fontSize: 10,
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
-                                width: "40%",
+                                width: "30%",
                                 //
                                 //
                               }}
