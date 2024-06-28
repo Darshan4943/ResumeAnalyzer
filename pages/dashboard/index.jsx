@@ -15,7 +15,7 @@ import {
   BlobProvider,
   pdf,
 } from "@react-pdf/renderer";
-import MiniLoader from "../../components/common/mini-loader";
+
 import Template1 from "../../components/featured/resumeTemplates/Template1";
 import Template2 from "../../components/featured/resumeTemplates/Template2";
 import Template3 from "../../components/featured/resumeTemplates/Template3";
@@ -43,6 +43,7 @@ import Template48 from "../../components/featured/resumeTemplates/Template48";
 import Template47 from "../../components/featured/resumeTemplates/Template47";
 import Template30 from "../../components/featured/resumeTemplates/Template30";
 import Template53 from "../../components/featured/resumeTemplates/Template53";
+import MiniLoader from "../../components/common/miniLoader";
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
@@ -76,6 +77,7 @@ function Dashboard() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
+ 
   const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -258,6 +260,7 @@ function Dashboard() {
             (item) =>
               item.name == res.data.findIsActive?.plan
           );
+          
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
@@ -275,6 +278,8 @@ function Dashboard() {
               total: plan.limits,
             });
           }
+
+         
         })
         .catch((err) => {
           console.log(err);
@@ -658,11 +663,14 @@ function Dashboard() {
             </div>
           </div>
         </div>
+       
         <Summery
           limits={limits}
           selectedPlan={selectedPlan}
           isActive={isActive}
+         
         />
+
       </div>
       <div
         // style={{ border: "2px solid red" }}
