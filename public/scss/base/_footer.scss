@@ -55,13 +55,20 @@
 .footer_input_bar {
   color: var(--Text-Secondary, #646464);
   font-family: Montserrat;
-  font-size: 14px !important;
+  font-size: 4px !important;
   font-style: normal;
   font-weight: 300;
   line-height: 140%; /* 19.6px */
   outline: none;
+  padding-left:8px;
   width: 100%;
 }
+.footer_input_bar::placeholder {
+  color: #646464; 
+  font-weight: normal; 
+  font-size: 13px;
+}
+
 .footer_input_btn {
   display: flex;
   padding: 8.412px 16.823px;
