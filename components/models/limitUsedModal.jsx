@@ -55,7 +55,11 @@ const LimitUsedModal = ({ setVisible, visible }) => {
                 onClick={() => router.push("/purchase/plans")}
                 className="border-[#06A9EF] py-[12px] scr420:px-[24px] px-3 border text-[#fff] bg-[#06A9EF] text-[12px] ml:text-[16px] font-semibold rounded-[12px] "
               >
-                Purchase Plan
+                {!planAvailable ?
+                  " Purchase Plan"
+                  :
+                  " Upgrade Plan"
+                }
               </button>
             </div>
           </div>

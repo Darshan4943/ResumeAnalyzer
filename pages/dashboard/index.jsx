@@ -128,7 +128,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
 
-    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     {
       name: "My Website",
       imgSrc: "/images/resumeBuilder/website.png",
@@ -158,7 +158,7 @@ function Dashboard() {
 
       imgSrc: "/images/resumeBuilder/collection.png",
     },
-    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -201,7 +201,7 @@ function Dashboard() {
       case "My Website":
         handleNavigation("/myWebsite");
         break;
-      case "Chat Bot":
+      case "Ask Krut":
         handleNavigation("/chatbot");
         break;
       case "My Collection":
@@ -270,12 +270,12 @@ function Dashboard() {
 
             setLimits({
               used: {
-                uploads: plan.limits.uploads - parseInt(uploadCount),
-                download: plan.limits.download - parseInt(saveCount),
-                save: plan.limits.save - parseInt(saveCount),
-                clients: plan.limits.clients - parseInt(clientCount),
+                uploads: plan?.limits?.uploads - parseInt(uploadCount),
+                download: plan?.limits?.download - parseInt(saveCount),
+                save: plan?.limits?.save - parseInt(saveCount),
+                clients: plan?.limits?.clients - parseInt(clientCount),
               },
-              total: plan.limits,
+              total: plan?.limits,
             });
           }
 
@@ -300,7 +300,7 @@ function Dashboard() {
     // }
     // }
   }, [userDataGlobal, allPlans]);
-const [loadingg,setLoadingg] =useState(false)
+
 const [loading,setLoading] =useState(true)
   const [resumeData, setResumeData] = useState([]);
 
@@ -708,7 +708,7 @@ const [loading,setLoading] =useState(true)
       </div>
 
       {userDataGlobal.role === "user" &&
-        data !== undefined && !loading &&
+        data !== undefined && 
         (
           <div className="ms:flex gap-[24px] flex-wrap flex-col sm:items-start items-center hidden ">
             {resumeData.selectedResumeIndex !== undefined &&

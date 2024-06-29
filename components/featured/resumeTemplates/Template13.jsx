@@ -230,11 +230,11 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
           </View>
 
           <View style={{ flexDirection: "row", gap: 24, paddingTop: 24 }}>
-            <View>
+            <View style={{ flexDirection: "column", gap: 24, width: 261 }}>
               {data?.experience?.length > 0 &&
                 data?.showExperience === true && (
                   <View
-                    style={{ flexDirection: "column", gap: 12, width: 261 }}
+                    
                   >
                     <Text
                       style={{
@@ -248,11 +248,11 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                     {data.experience
                       ?.slice(0, pageLayout && 1)
                       ?.map((detail, index) => (
-                        <>
+                        <View style={{marginBottom:24}}>
                           <View
                             key={index}
                             wrap={false}
-                            style={{ flexDirection: "column" }}
+                            style={{ flexDirection: "column", }}
                          
                           >
                             <Text
@@ -297,9 +297,11 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                               height: "0.2px",
                               width: "100%",
                               backgroundColor: "#333333",
+                              marginTop:"10px"
                             }}
-                          />
-                        </>
+                          >
+                          </View>
+                        </View>
                       ))}
                   </View>
                 )}
@@ -330,7 +332,7 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                             PROJECTS
                           </Text>
                         )}
-                        <>
+                      
                           <View
                             style={{ flexDirection: "column" }}
                             // wrap={false}
@@ -377,6 +379,7 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                                 fontSize: 10,
                                 fontFamily: `${selectedFont} 400`,
                                 color: "#333333",
+                           
                               }}
                             >
                               {detail.description}
@@ -389,7 +392,7 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                               backgroundColor: "#333333",
                             }}
                           />
-                        </>
+                        
                       </View>
                     ))}
                 </View>
@@ -410,17 +413,19 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                       paddingTop: 24,
                     }}
                   >
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontFamily: `${selectedFont} 500`,
-                        color: selectedColor,
-                        lineHeight: 1,
-                      }}
-                    >
-                      INTERNSHIP
-                    </Text>
-                  
+
+      {  index === 0 &&          
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontFamily: `${selectedFont} 500`,
+                      color: selectedColor,
+                      lineHeight: 1,
+                    }}
+                  >
+                    INTERNSHIP
+                  </Text>
+                }
                       <>
                         <View
                     
