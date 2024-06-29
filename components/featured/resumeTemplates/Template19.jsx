@@ -1915,7 +1915,7 @@ function Template19({ data, selectedColor, selectedFont, preview,pageLayout }) {
         <View
           style={{ display: "flex", flexDirection: "row", gap: 28, width: 546 }}
         >
-          <Vieyw
+          <View
             style={{
               display: "flex",
               flexDirection: "column",
@@ -2393,7 +2393,7 @@ function Template19({ data, selectedColor, selectedFont, preview,pageLayout }) {
                 </View>
               </View>
             )}
-          </Vieyw>
+          </View>
 
           <View
             style={{
