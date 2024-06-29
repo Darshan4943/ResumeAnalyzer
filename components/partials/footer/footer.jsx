@@ -63,7 +63,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
         justifyContent: "start",
         alignItems: "center",
         background: "#212121",
-        gap: "24px",
+        gap: "12px",
       }}
     >
       <div className="footer_main_box py-[38px] customMargins">
@@ -77,8 +77,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           </div>
 
           <p className="largest">
-            Skilotech is the modern talent platform powered by Artificial
-            Intelligence for career development and recruitment.
+          Skilotech is the Modern Talent Platform for career development and recruitment
           </p>
          
         </div>
@@ -86,9 +85,9 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           <div className="flex flex-col justify-between gap-4  flex-wrap address">
             <div className="footer_sub_address">
               <div className="footer_add ">
-                <div className=" flex flex-col gap-3 ">
+                <div className=" flex flex-col gap-1 ">
                   <p className="text-[#fff] font-[600]">Offices </p>
-                  <p className="footer_address_Para leading-6">
+                  <p className="footer_address_Para">
                     <ul className="flex flex-col gap-[4px]">
                       <li className="flex flex-row gap-2 items-start  font-[400]  text-[14px]">
                         London, United Kingdom.
@@ -114,22 +113,22 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           <div className="flex flex-col gap-4 ">
             <div className="footer_about_section ">
               <p className="text-[#fff] font-[500] text-[16px]">About</p>
-              <div className="footer_sub_about gap-1 ">
+              <div className="footer_sub_about gap-[4px]">
                 <p
                   onClick={() => openInNewTab("/TermsAndConditions")}
-                  className="footer_sub_about_P cursor-pointer leading-6"
+                  className="footer_sub_about_P cursor-pointer"
                 >
                   Terms and Conditions
                 </p>
                 <p
                   onClick={() => openInNewTab("/PrivacyPolicy")}
-                  className="footer_sub_about_P cursor-pointer leading-6"
+                  className="footer_sub_about_P cursor-pointer "
                 >
                   Privacy Policy
                 </p>
                 <p
                   onClick={() => router.push("/ContactUs")}
-                  className="footer_sub_about_P cursor-pointer leading-6"
+                  className="footer_sub_about_P cursor-pointer "
                 >
                   Contact Us
                 </p>
@@ -150,7 +149,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
         </div>
         <div className="footer_input_conatainer ml:w-[60%]  flex flex-col justify-between">
           <div className="flex flex-col items-center gap-[20px] footer_input_container">
-            {" "}
+           
             <p className="footer_input_conatainer_P text-center text-[14px] font-[500]">
               Like to stay market relevant with news and updates?
             </p>
