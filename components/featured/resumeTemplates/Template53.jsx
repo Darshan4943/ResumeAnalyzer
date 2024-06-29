@@ -2283,6 +2283,7 @@ function Template53({
                   <View
                     // wrap={index === 0 &&  false}
                     style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                    wrap={false}
                   >
                     <Text
                       style={{
