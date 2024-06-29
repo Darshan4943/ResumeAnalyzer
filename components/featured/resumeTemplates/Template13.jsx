@@ -248,9 +248,11 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                     {data.experience
                       ?.slice(0, pageLayout && 1)
                       ?.map((detail, index) => (
-                        <View style={{marginBottom:24}}>
+                        <View style={{marginBottom:24}}
+                        key={index}
+                        >
                           <View
-                            key={index}
+                           
                             wrap={false}
                             style={{ flexDirection: "column", }}
                          
