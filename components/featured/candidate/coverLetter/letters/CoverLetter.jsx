@@ -11,7 +11,6 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
   const sixthContainer = useRef(null);
   const [firstPageData, setFirstPageData] = useState([]);
   const [secondPageData, setSecondPageData] = useState([]);
-
   const firstPageRef = useRef(null);
   const [splitContents, setSplitContent] = useState({ first: [], second: [] });
 
@@ -60,7 +59,6 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
     return link;
   };
 
-
   const formatName = (link) => {
     if (link?.length > 11) {
       return link?.match(/.{1,11}/g).join("\n");
@@ -85,7 +83,8 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-[327px]">
               <span className=" text-[28px] font-[400] text-[#414042] break-word font-Lato">
-                {formatName(camelCase(data?.firstName))} {formatName(camelCase(data?.lastName))}
+                {formatName(camelCase(data?.firstName))}{" "}
+                {formatName(camelCase(data?.lastName))}
               </span>
               <span className=" text-[14px] font-[400] text-[#414042] break-word font-Inter">
                 {camelCase(data?.designation)}
@@ -167,8 +166,6 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
 
                   <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] break-word font-Lato">
                     {formatContent(camelCase(data?.address))}
-                   
-
                   </span>
                 </div>
               </div>

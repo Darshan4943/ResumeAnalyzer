@@ -96,7 +96,7 @@ function Index() {
     type: "Cover Letter",
   };
 
-  const [data, setData] = useState(prefilledState);
+  const [data, setData] = useState(defaultState);
   // useEffect(() => {
   //   console.log("id", id);
   //   if (id) {
