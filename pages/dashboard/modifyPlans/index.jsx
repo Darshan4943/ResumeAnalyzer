@@ -424,7 +424,7 @@ const Index = () => {
   const fetchPlanData = async (planId) => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/plans/getByIndex/${planId}`
+        `https://jamblix.com/api/plans/getByIndex/${planId}`
       );
       console.log("API response:", response.data);
       const plan = response.data.data[0];
