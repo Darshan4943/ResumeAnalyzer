@@ -72,7 +72,7 @@ export const fileIconSeter = (data) => {
   } else {
     return (
       <svg
-      className="min-w-[28px] min-h-[28px]"
+        className="min-w-[28px] min-h-[28px]"
         width="57"
         height="48"
         viewBox="0 0 57 48"
@@ -92,7 +92,6 @@ export const fileIconSeter = (data) => {
   }
 };
 export const fileIconSeter1 = (data) => {
-
   if (
     data?.fileName?.includes("docx") ||
     data?.fileName?.toLowerCase()?.includes("doc")
@@ -564,13 +563,13 @@ export const coverLetters = [
     fontFamily: "Lato",
     themeColor: "#414042",
   },
-  // {
-  //   title: "Cover11",
-  //   imgUrl: "/images/coverLetter/Cover-letter-11.png",
-  //   index: 11,
-  //   fontFamily: "Lato",
-  //   themeColor: "#414042",
-  // },
+  {
+    title: "Cover11",
+    imgUrl: "/images/coverLetter/Cover-letter-11.png",
+    index: 11,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
   {
     title: "Cover13",
     imgUrl: "/images/coverLetter/Cover-letter-13.png",

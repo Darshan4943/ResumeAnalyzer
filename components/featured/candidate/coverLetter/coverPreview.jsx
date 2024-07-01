@@ -17,6 +17,7 @@ import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
 import CoverLetter13 from "./letters/CoverLatter13";
+
 import LimitUsedModal from "../../../models/limitUsedModal";
 
 function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
@@ -174,10 +175,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         .get("https://jamblix.com/api/cover/get/" + id)
 
         .then((res) => {
-       
-        
           if (!isCoverEdit) {
-          setName(data.firstName + "_cover " + (res.data.data.length + 1));
+            setName(data.firstName + "_cover " + (res.data.data.length + 1));
           }
         })
         .catch((err) => {
@@ -191,10 +190,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     if (!isCoverEdit) {
       setName(data.firstName + "_cover");
     } else {
-
-      setName(data.fileName.replace('.pdf', ''));
+      setName(data.fileName.replace(".pdf", ""));
     }
-    
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
@@ -355,6 +352,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   );
 
   const selectCoverTemplate = (index) => {
+  
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;

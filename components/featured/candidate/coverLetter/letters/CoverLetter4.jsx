@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
+import { camelCase } from "../../../../../utils/middleware";
 
 const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
   const firstPageRef = useRef(null);
@@ -7,7 +8,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 400; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -43,6 +44,31 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
     }
   }, [data?.passages, splitContent]);
 
+
+ 
+
+
+  const formatContent = (link) => {
+    if (link?.length > 32) {
+      return link?.match(/.{1,32}/g).join("\n");
+    }
+    return link;
+  };
+
+
+  const formatName = (link) => {
+    if (link?.length > 18) {
+      return link?.match(/.{1,18}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatEmail = (link) => {
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
+    }
+    return link;
+  };
   return (
     <>
       <div className="flex flex-col w-[595px] gap-[24px]">
@@ -52,14 +78,14 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
         >
           <div className="flex flex-row gap-[24px] ">
             <div>
-              <h5 className="font-montserrat text-[24px] font-normal leading-48.76 text-[#344A50] text-left break-word">
-                {data.firstName} {data.lastName}
+              <h5 className="font-montserrat text-[24px] font-[400] leading-48.76 text-[#344A50] text-left break-word">
+                {formatName(camelCase(data.firstName))} {formatName(camelCase(data.lastName))}
               </h5>
-              <h6 className="font-montserrat text-[14px] font-normal leading-[17.07px] text-[#AC5428] text-left break-word">
-                {data.designation}
+              <h6 className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-[#AC5428] text-left break-word">
+                {camelCase(data.designation)}
               </h6>
             </div>
-            <div className="flex flex-col gap-[8px] ">
+            <div className="flex flex-col gap-[8px] w-[413px]">
               <div className="flex flex-row gap-[12px]  items-center">
                 <svg
                   className="min-w-[20px] min-h-[20px]"
@@ -76,7 +102,7 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                   />
                 </svg>
                 <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left break-word">
-                  {data?.address}
+                  {formatContent(camelCase(data?.address))}
                 </div>
               </div>
               <div className="flex flex-row gap-[12px] items-center">
@@ -122,57 +148,59 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
           <div class="border-[0.75px] border-custom-color border-[#344A50] w-[511px]"></div>
           <div className="flex flex-col gap-[16px] w-full">
             <div className="flex flex-row justify-end items-start gap-[8.99px]">
-              <h6 className="text-[12px] text-[#AC5428] font-poppins font-bold leading-[15px] text-left">
+              <h6 className="text-[12px] text-[#AC5428] font-poppins font-[600] leading-[15px] text-left">
                 Date :
               </h6>
-              <p className="text-[12px] text-[#333333] font-Montserrat font-normal leading-[14.63px] text-left">
+              <p className="text-[12px] text-[#333333] font-Montserrat font-[400] leading-[14.63px] text-left">
                 {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
               </p>
             </div>
 
-            <div className="flex flex-row gap-[24px]">
-              <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left h-[585px]">
+            <div className="flex flex-col gap-[24px]">
+              <div className="flex flex-col w-[180px]">
+                <div className="flex flex-col ">
+                  <h6 className="text-[12px] text-[#AC5428] font-Montserrat font-[600] leading-[16px] text-left">
+                    To,
+                  </h6>
+                  <h6 className="text-[12px] text-[#AC5428] font-Montserrat font-[600] leading-[16px] text-left">
+                    {data?.employerName}
+                  </h6>
+
+                  <p className="text-[12px] text-[#797979] font-Montserrat font-[600] leading-[16px] text-left">
+                    {data?.employerOrganizationName}
+                  </p>
+                  <p className="text-[12px] text-[#797979] font-Montserrat font-[400] leading-[16px] text-left">
+                    {data?.employerAddress} {data?.employerCityState}{" "}
+                    {data?.employerCountry}
+                  </p>
+                </div>
+              </div>
+              <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-full text-left h-[585px]">
                 <div>
-                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                  <span className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616] w-[307px] text-justify">
                     {" "}
-                    Dear {data?.employerName},
+                    Dear {camelCase(data?.employerName)},
                   </span>
                 </div>
                 {splitContents.first.map((passage, index) => (
-                  <p key={index} style={{ margin: "16px 0" }}>
+                  <p
+                    key={index}
+                    style={{ margin: "16px 0" }}
+                    className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-justify"
+                  >
                     {passage}
                   </p>
                 ))}
                 {splitContents?.second?.length == 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    <span className="font-Montserrat text-[12px] font-normal leading-[14.63px] text-[#161616] w-[307px] text-left">
                       Warm regards,
                     </span>
-                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
-                      {data?.firstName} {data?.lastName}
+                    <span className="font-Montserrat text-[12px] font-normal leading-[14.63px] text-[#161616] w-[307px] text-left pt-[8px]">
+                      {camelCase(data?.firstName)} {camelCase(data?.lastName)}
                     </span>
                   </div>
                 )}
-              </div>
-              <div className="flex flex-col w-[180px]">
-                <div className="flex flex-col ">
-                  <h6 className="text-[12px] text-[#AC5428] font-Montserrat font-semibold leading-[16px] text-left">
-                    To,
-                  </h6>
-                  <h6 className="text-[12px] text-[#AC5428] font-Montserrat font-semibold leading-[16px] text-left">
-                    {data?.employerName}
-                  </h6>
-                  <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
-                    {data?.designation}
-                  </p>
-                  <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
-                    {data?.employerOrganizationName}
-                  </p>
-                  <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
-                    {data?.employerAddress} {data?.employerCityState}{" "}
-                    {data?.employerCountry}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
@@ -182,19 +210,23 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
             className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between w-[595px] min-h-[700px] bg-[#fff] "
             ref={page2Ref}
           >
-            <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left h-[585px]">
+            <div className="font-Montserrat text-[12px] font-normal leading-[14.63px] text-[#161616] w-full text-left h-[585px]">
               {splitContents.second.map((passage, index) => (
-                <p key={index} style={{ margin: "16px 0" }}>
+                <p
+                  key={index}
+                  style={{ margin: "16px 0" }}
+                  className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-justify"
+                >
                   {passage}
                 </p>
               ))}
               {splitContents?.second?.length > 0 && (
                 <div className="flex flex-col w-full gap-[2px]">
-                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                  <span className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-left">
                     Warm regards,
                   </span>
-                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left pt-[8px]">
-                    {data?.firstName} {data?.lastName}
+                  <span className="font-Montserrat text-[12px] font-normal leading-[14.63px] text-[#161616] w-[307px] text-left pt-[8px]">
+                    {camelCase(data?.firstName)} {camelCase(data?.lastName)}
                   </span>
                 </div>
               )}

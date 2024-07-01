@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
+import { camelCase } from "../../../../../utils/middleware";
 
 function CoverLetter13({ page1Ref, page2Ref, data }) {
   const firstPageRef = useRef(null);
@@ -7,7 +8,7 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 450; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -44,6 +45,27 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
   }, [data?.passages, splitContent]);
   ``;
 
+  const formatContent = (link) => {
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatName = (link) => {
+    if (link?.length > 18) {
+      return link?.match(/.{1,18}/g).join("\n");
+    }
+    return link;
+  };
+
+
+  const formatEmail = (link) => {
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
+    }
+    return link;
+  };
   return (
     <div className="flex flex-col  border-[#DEDEDE] gap-[24px]">
       <div
@@ -52,18 +74,18 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
       >
         <div className="flex flex-col gap-5">
           <div className="">
-            <span className="text-[12px] font-[400] text-[#333]">
+            <span className="text-[12px] font-[400] text-[#333] font-Arial">
               Date :-{" "}
               {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
             </span>
           </div>
           <div className="flex flex-col w-full">
             <span className="text-[12px] font-[400] text-[#333] font-Arial">
-              {data?.firstName} {data?.lastName}
+              {camelCase(data?.firstName)} {camelCase(data?.lastName)}
             </span>
 
             <span className="text-[12px] font-[400] text-[#333] font-Arial">
-              {data?.address}
+              {formatContent(data?.address)}
             </span>
             {/* <span className="text-[12px] font-[400] text-[#333] font-Arial">
                             {data?.employerCityState} {" ,"} {data?.employerCountry}
@@ -72,7 +94,7 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
               {data?.mobileNumber}
             </span>
             <span className="text-[12px] font-[400] text-[#333] font-Arial">
-              {data?.email}
+              {formatEmail(data?.email)}
             </span>
           </div>
 
@@ -98,9 +120,13 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
           <span className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
             Dear {data?.employerName},
           </span>
-          <div className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+          <div>
             {splitContents.first.map((passage, index) => (
-              <p key={index} style={{ margin: "16px 0" }}>
+              <p
+                key={index}
+                style={{ margin: "16px 0" }}
+                className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px] text-justify"
+              >
                 {passage}
               </p>
             ))}
@@ -110,9 +136,9 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                   Sincerely,
                 </span>
 
-                <span className="flex pt-[8px] text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
-                  {data?.firstName}
-                  {","} {data?.lastName}
+                <span className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                  {camelCase(data?.firstName)}
+                  {","} {camelCase(data?.lastName)}
                 </span>
               </div>
             )}
@@ -129,7 +155,11 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
                   {splitContents.second.map((passage, index) => (
-                    <p key={index} style={{ margin: "16px 0" }}>
+                    <p
+                      key={index}
+                      style={{ margin: "16px 0" }}
+                      className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px] text-justify"
+                    >
                       {passage}
                     </p>
                   ))}
@@ -139,9 +169,9 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                         Sincerely,
                       </span>
 
-                      <span className="flex pt-[16px] text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
-                        {data?.firstName}
-                        {","} {data?.lastName}
+                      <span className="flex pt-[8px] text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
+                        {camelCase(data?.firstName)}
+                        {","} {camelCase(data?.lastName)}
                       </span>
                     </div>
                   )}
