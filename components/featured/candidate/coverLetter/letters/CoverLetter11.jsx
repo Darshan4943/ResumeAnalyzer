@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
+import { camelCase } from "../../../../../utils/middleware";
 
 function CoverLetter11({ page1Ref, page2Ref, data }) {
   const firstPageRef = useRef(null);
@@ -7,7 +8,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 300;
+    const firstPageHeight = 350;
     const tempDiv = document.createElement("div");
     tempDiv.style.position = "absolute";
     tempDiv.style.visibility = "hidden";
@@ -41,6 +42,29 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
     }
   }, [data?.passages, splitContent]);
 
+
+
+  const formatContent = (link) => {
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatName = (link) => {
+    if (link?.length > 18) {
+      return link?.match(/.{1,18}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatEmail = (link) => {
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
+    }
+    return link;
+  };
+
   return (
     <div className="flex flex-col gap-[24px] border-[#DEDEDE] ">
       <div
@@ -48,23 +72,23 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
         className="bg-[#FFFFFF] w-[595px] min-h-[700px]  gap-[16px] flex flex-col "
       >
         <div className="flex flex-row justify-between w-full bg-[#F1F2F2]">
-          <div className="flex flex-col w-[70%] py-[20px] pl-[36px]">
+          <div className="flex flex-col w-[352px] py-[20px] pl-[36px]">
             <span className="text-[32px] font-Poppins font-[600] text-[#27AAE1] leading-[36px] break-all">
-              {data?.firstName}
+              {formatName(camelCase(data?.firstName))}
             </span>
             <span className="text-[32px] font-Poppins font-[600] text-[#414042] leading-[36px] break-all">
               {" "}
-              {data?.lastName}
+              {formatName(camelCase(data?.lastName))}
             </span>
             <span className="text-[14px] font-[400] text-[#414042] leading-[21px] break-all">
               {data?.designation}
             </span>
           </div>
 
-          <div className="flex flex-col w-[30%] py-[21px] pl-[12px] pr-[36px]">
-            <div className="gap-[8px] flex flex-row justify-between items-center w-full py-[4px] px-[8px]">
-              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all">
-                {data?.address}
+          <div className="flex flex-col w-[250px] py-[21px] pl-[12px] pr-[36px]">
+            <div className="gap-[8px] flex flex-row justify-between items-center w-full py-[4px] px-[8px] border-b-[0.5px] border-dotted border-[#808285]">
+              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-word flex-wrap items-center">
+                {formatContent(data?.address)}
               </span>
               <svg
                 className="min-w-[14px] min-h-[14px]"
@@ -80,8 +104,9 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
                 />
               </svg>
             </div>
-            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px]">
-              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all">
+
+            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px] border-b-[0.5px] border-dotted border-[#808285]">
+              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all flex-wrap items-center">
                 {data?.dial_code} {data?.mobileNumber}
               </span>
               <svg
@@ -99,8 +124,8 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
               </svg>
             </div>
 
-            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px]">
-              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all">
+            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px] border-b-[0.5px] border-dotted border-[#808285]">
+              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all flex-wrap items-center">
                 {data?.email}
               </span>
               <svg
@@ -118,8 +143,8 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
               </svg>
             </div>
 
-            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px]">
-              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all">
+            <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px] border-b-[0.5px] border-dotted border-[#808285]">
+              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all flex-wrap items-center">
                 {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
               </span>
               <svg
@@ -147,9 +172,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
               <span className="text-[12px] font-[500] text-[#383839] leading-[18px] break-all">
                 {data?.employerName}
               </span>
-              <span className="text-[12px] font-[500] text-[#383839] font-Poppins break-all">
-                {data?.designation}
-              </span>
+
               <span className="text-[10px] font-[400] text-[#939598] font-Poppins break-all">
                 {data?.employerOrganizationName}
               </span>
@@ -167,17 +190,21 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
                 Dear {data?.employerName},
               </span>
               {splitContents.first.map((passage, index) => (
-                <p key={index} style={{ margin: "16px 0" }}>
+                <p
+                  key={index}
+                  style={{ margin: "16px 0" }}
+                  className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify"
+                >
                   {passage}
                 </p>
               ))}
             </div>
             {splitContents?.second?.length == 0 && (
               <div className="flex flex-col w-full gap-[2px]">
-                <span className="text-[10px] font-[400] text-[#383839] ">
+                <span className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify">
                   Warm regards,
                 </span>
-                <span className="text-[10px] font-[400] text-[#383839] ">
+                <span className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify">
                   {data?.firstName} {data?.lastName}
                 </span>
               </div>
@@ -207,28 +234,32 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
         <>
           <div
             ref={page2Ref}
-            className="h-[842px] px-[36px] w-[595px] flex flex-col bg-[#fff]  "
+            className="h-[700px]  w-[595px] flex flex-col bg-[#fff]  "
           >
-            <div className="flex flex-col  pt-[20px] w-full h-[593px]">
-              <div className="text-[10px] font-[400] text-[#383839] ">
+            <div className="flex flex-col px-[36px] pt-[20px] w-full h-[684px]">
+              <div>
                 {splitContents.second.map((passage, index) => (
-                  <p key={index} style={{ margin: "16px 0" }}>
+                  <p
+                    key={index}
+                    style={{ margin: "16px 0" }}
+                    className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify"
+                  >
                     {passage}
                   </p>
                 ))}
               </div>
               {splitContents?.second?.length > 0 && (
                 <div className="flex flex-col w-full gap-[2px] ">
-                  <span className="text-[10px] font-[400] text-[#383839] ">
+                  <span className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify">
                     Warm regards,
                   </span>
-                  <span className="text-[10px] font-[400] text-[#383839] ">
+                  <span className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify">
                     {data?.firstName} {data?.lastName}
                   </span>
                 </div>
               )}
             </div>
-            <div className="flex flex-row  min-h-[16] w-[595px]">
+            <div className="flex flex-row  min-h-[16] w-full">
               <svg
                 width="800"
                 height="16"

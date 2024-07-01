@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
+import { camelCase } from "../../../../../utils/middleware";
 
 const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
   const firstPageRef = useRef(null);
@@ -7,7 +8,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 250; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -43,15 +44,37 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
     }
   }, [data?.passages, splitContent]);
 
+
+  const formatContent = (link) => {
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatName = (link) => {
+    if (link?.length > 20) {
+      return link?.match(/.{1,20}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatEmail = (link) => {
+    if (link?.length > 34) {
+      return link?.match(/.{1,34}/g).join("\n");
+    }
+    return link;
+  };
+
   return (
     <>
       <div className="flex flex-col gap-[24px]">
         <div ref={page1Ref} className="w-[595px] h-[700px] flex flex-col  ">
           <div className="w-full h-[24px] bg-[#2A2E31]"></div>
-          <div className="w-full bg-[#FFFFFF] h-[818px]">
-            <div className="flex flex-col gap-[16px] px-[42px] pt-[58px] pb-[65px] w-full">
+          <div className="w-full bg-[#FFFFFF] h-[676px]">
+            <div className="flex flex-col gap-[16px] px-[42px] pt-[36px]  w-full">
               <div className="w-full flex flex-row gap-[21px] ">
-                <div className="w-[34%] flex flex-col flex-wrap gap-[6px]">
+                <div className="w-[30%] flex flex-col flex-wrap gap-[6px]">
                   <span className="text-[14px] font-[400] leading-[16.8px] text-[#030203]">
                     CONTACT
                   </span>
@@ -112,21 +135,21 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                       </svg>
 
                       <span className="text-[10px] font-[400] text-[#58595B] font-Lato break-word">
-                        {data?.address}
+                        {formatContent(camelCase(data?.address))}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="w-[67%] flex flex-col gap-[16px]">
+                <div className="w-[70%] flex flex-col gap-[16px]">
                   <div className="flex flex-col gap-[2px]">
                     <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px] break-word font-Lato">
-                      {data?.firstName} {data?.lastName}
+                      {formatName(camelCase(data?.firstName))} {formatName(camelCase(data?.lastName))}
+
                     </span>
                     <span className="text-[#58595B] text-[14px] font-[400] leading-[15.6px]">
                       {data?.designation}
                     </span>
                   </div>
-
                   <div className="border-[1px] border-[#221F1F] w-full"></div>
                 </div>
               </div>
@@ -158,7 +181,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         <span className=" text-[10px] font-[400] text-[#58595B] leading-[12.1px]">
                           {data?.employerOrganizationName}
                         </span>
-                        <span className=" text-[10px] font-[400] text-[#58595B] leading-[12.1px]">
+                        <span className=" text-[10px] font-[400] text-[#58595B] leading-[14px]">
                           {data?.employerAddress} {data?.employerCityState}{" "}
                           {data?.employerCountry}
                         </span>
@@ -174,7 +197,11 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                       //   ref={firstPageRef}
                     >
                       {splitContents.first.map((passage, index) => (
-                        <p key={index} style={{ margin: "16px 0" }}>
+                        <p
+                          key={index}
+                          style={{ margin: "16px 0" }}
+                          className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato text-justify"
+                        >
                           {passage}
                         </p>
                       ))}
@@ -198,25 +225,29 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className="flex flex-row h-[700px] p-[24px] w-[595px] gap-[21px] bg-[#fff] overflow-hidden"
+            className="flex flex-row h-[700px]  pt-[36px] px-[42px] w-[595px] gap-[21px] bg-[#fff] overflow-hidden"
           >
-            <div className="w-[30%] flex flex-row gap-[24px]"></div>
-            <div className="flex h-full w-[70%]">
+            <div className="w-[30%] flex flex-row gap-[21px]"></div>
+            <div className="flex  h-full w-[70%] flex-col flex-wrap gap-[8px]">
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
                   {splitContents.second.map((passage, index) => (
-                    <p key={index} style={{ margin: "16px 0" }}>
+                    <p
+                      key={index}
+                      style={{ margin: "16px 0" }}
+                      className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato text-justify"
+                    >
                       {passage}
                     </p>
                   ))}
                 </div>
                 {splitContents?.second?.length > 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
+                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato  ">
                       Warm regards,
                     </span>
-                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px]  ">
-                      {data?.firstName} {data?.lastName}
+                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato  ">
+                      {camelCase(data?.firstName)} {camelCase(data?.lastName)}
                     </span>
                   </div>
                 )}

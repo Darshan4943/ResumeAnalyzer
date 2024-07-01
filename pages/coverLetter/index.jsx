@@ -7,7 +7,7 @@ import axios from "axios";
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
-  console.log(11, EditData);
+
   // const userDataGlobal = useSelector((state) => state.userData);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
@@ -53,7 +53,49 @@ function Index() {
     type: "",
   };
 
- 
+  const prefilledState = {
+    firstName: "prathmeshKumar",
+    lastName: "williamsRutherford",
+    mobileNumber: "+1234567890",
+    email: "prathamaeshkumarjadhav@gmail.com",
+    dial_code: "+1",
+    address: "123 Main St, Apt 4B, New York, NY 10001",
+    employerName: "Tech Solutions Inc.",
+    employerOrganizationName: "Tech Solutions",
+    employerAddress: "456 Elm St, San Francisco, CA 94101",
+    employerCityState: "San Francisco, CA",
+    employerCountry: "USA",
+    jobTitle: "Senior Software Engineer",
+    organization: "Development Team",
+    industry: "Technology",
+    designation: "Lead Developer",
+    experience: "5 years",
+    location: "Remote",
+    roleResponsibilities:
+      "Leading the development team, designing software solutions, and ensuring project delivery on time.",
+    requiredSkills: ["JavaScript", "React", "Node.js", "AWS"],
+    projectName: "Website Redesign",
+    description:
+      "Led a team of developers to redesign the company's main website, improving performance and user experience.",
+    achievements:
+      "Increased website speed by 40%, improved user engagement by 30%, and reduced bounce rate by 25%.",
+    responsibilities:
+      "Code review, project management, client meetings, and mentoring junior developers.",
+    relevantSkills: [
+      "Team Leadership",
+      "Project Management",
+      "Client Communication",
+    ],
+    fresherJobTitle: "Junior Developer",
+    sector: "Software Development",
+    course: "Bachelor of Science in Computer Science",
+    specialization: "Web Development",
+    university: "University of California, Berkeley",
+    letterDate: "June 27, 2024",
+    passages: "",
+    type: "Cover Letter",
+  };
+
   const [data, setData] = useState(defaultState);
   // useEffect(() => {
   //   console.log("id", id);

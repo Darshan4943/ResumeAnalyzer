@@ -393,14 +393,14 @@ function CoverForm({
         </div>
       )}
       {isShow === false && (
-        <div className="flex flex-col gap-[16px] sticky md:top-[0px] top-[14px] z-[10] bg-white pt-5 pb-4">
-          <ThemeForm
+        <div className="flex flex-col gap-[16px] sticky md:top-[0px]  z-[10] bg-white pt-5 pb-4">
+          {/** <ThemeForm
             selectedCoverIndex={selectedCoverIndex}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
             setSelectedFont={setSelectedFont}
             selectedFont={selectedFont}
-          />
+          />*/}
           <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
           <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
             <button
