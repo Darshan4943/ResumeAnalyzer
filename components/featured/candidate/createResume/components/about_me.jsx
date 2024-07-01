@@ -59,7 +59,7 @@ const AboutMe = ({ data, setData }) => {
       setAttempt(parseInt(localData));
     }
   };
-console.log(111,isPlanActive)
+
   useEffect(() => {
     const planActive = JSON.parse(localStorage.getItem("planActive"));
     if (planActive) {
@@ -87,6 +87,7 @@ console.log(111,isPlanActive)
       setText(newText);
     }
   };
+  
 
   return (
     <>
@@ -147,10 +148,27 @@ console.log(111,isPlanActive)
           <button
             className="flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
+            // style={{
+            //   opacity:
+            //     text === data?.summery || text?.length == 0
+            //       ? 0.5
+            //       : 1 || attempt <= 0,
+            // }}
+
             style={{
-              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1 || attempt <=0 ,
+              opacity:
+                text.length > 0 ||
+                attempt <= 0 ||
+                (isPlanActive === true && text.length > 0)
+                  ? 1
+                  : 0.5,
             }}
-            disabled={text === data?.summery || !isChecked || text?.length == 0 || attempt <=0}
+            disabled={
+              text === data?.summery ||
+              !isChecked ||
+              text?.length == 0 ||
+              attempt <= 0
+            }
           >
             <SparklingStarts />
             Generate with AI
