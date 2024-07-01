@@ -2,13 +2,17 @@
 .footer {
 }
 .footer_main_box {
+  
   background: #212121;
   display: flex;
   width: 100%;
   align-items: flex-start;
   gap: 36px;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 38px 0px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #646464;
 }
 
 .footer_part_one {
@@ -51,13 +55,20 @@
 .footer_input_bar {
   color: var(--Text-Secondary, #646464);
   font-family: Montserrat;
-  font-size: 14px !important;
+  font-size: 4px !important;
   font-style: normal;
   font-weight: 300;
   line-height: 140%; /* 19.6px */
   outline: none;
+  padding-left:8px;
   width: 100%;
 }
+.footer_input_bar::placeholder {
+  color: #646464; 
+  font-weight: normal; 
+  font-size: 13px;
+}
+
 .footer_input_btn {
   display: flex;
   padding: 8.412px 16.823px;
@@ -77,12 +88,12 @@
 }
 .footer_input_conatainer {
   display: flex;
-  padding-top: 16px;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
   align-self: stretch;
   gap: 24px;
+  width: max-content !important;
 }
 // p {
 //   color: var(--white, #fff);
@@ -112,7 +123,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  // line-height: normal;
 }
 .footer_sub_about {
   display: flex;
@@ -125,7 +136,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 4px;
 }
 .footer_add {
   display: flex;
@@ -154,7 +165,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  // line-height: 20px; /* 142.857% */
   flex-wrap: wrap !important;
 }
 .footer_address_Email {
@@ -178,7 +189,7 @@
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: normal;
   padding-bottom: 30px;
 }
@@ -200,6 +211,7 @@
   }
   .footer_main_box {
     gap: 0px;
+    row-gap: 24px;
   }
   .footer_input_bar {
     font-size: 12px !important;
@@ -208,6 +220,9 @@
   .playstore {
     width: 150px !important;
     height: 45px !important;
+  }
+  .footer_input_conatainer{
+    width: max-content !important;
   }
 }
 @media (min-width: 1200px) {
@@ -245,9 +260,9 @@
     align-items: center !important;
   }
   .footer_main_box {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 16px;
   }
   .footer_input_bar {
     font-size: 16px !important;
@@ -277,13 +292,23 @@
 
   .footer_input_conatainer {
     gap: 24px !important;
-    width: 100%;
+    width: max-content;
   }
   .footerLine {
     width: 600px !important;
   }
 }
 @media (max-width: 850px) {
+  .footer_main_box{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    padding-bottom: 12px !important;
+  }
+.footerThird{
+  width: 60%;
+}
   .Footer_secondContainer {
     display: flex;
     flex-direction: column;
@@ -292,8 +317,12 @@
     align-items: center !important;
   }
   .footer_input_conatainer {
-    justify-content: center;
+    justify-content: center !important;
     align-items: center;
+    width: 100% !important;
+  }
+  .footer_input_container{
+    width: 64%;
   }
   .footer_input {
     width: 95%;
@@ -324,6 +353,12 @@
 
   .footer_input_bar {
     font-size: 14px !important;
+  }
+  .footerThird{
+    width: 100%;
+  }
+  .footer_input_container{
+width: 100%;
   }
 }
 
@@ -400,6 +435,7 @@
 .largest {
   color: white;
   width: 264px;
+  font-size: 16px;
 }
 
 .footer_input_bar {

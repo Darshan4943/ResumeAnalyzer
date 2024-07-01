@@ -401,7 +401,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
               Already have an account ?{" "}
               <span
                 onClick={() => {
-                  router.push("/auth?signin=true");
+                  router.push("/auth?signin=true&role=user");
                 }}
                 className="already_sign"
                 style={{

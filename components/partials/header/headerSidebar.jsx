@@ -19,7 +19,7 @@ function HeaderSidebar({
     // "Transform CV",
     "Skill Assessments",
     // "Search Jobs",
-    "Chat Bot",
+    "Ask Krut",
     "My Website",
     "My Purchases",
   ];
@@ -32,7 +32,7 @@ function HeaderSidebar({
     "Job Description Matching",
     "My Collection",
     // "Post Jobs",
-    "Chat Bot",
+    "Ask Krut",
     "My Purchases",
   ];
   const router = useRouter();
@@ -222,7 +222,7 @@ function HeaderSidebar({
                   ...getListItemStyles("/jobs/list"),
                   transition: "transform 1.1s ease-in-out",
                 }),
-                ...(item === "Chat Bot" && {
+                ...(item === "Ask Krut" && {
                   ...getListItemStyles("/chatbot"),
                   transition: "transform 1.1s ease-in-out",
                 }),
@@ -270,7 +270,7 @@ function HeaderSidebar({
                   case "My Purchases":
                     handleNavigation("/purchase/MyPurchase");
                     break;
-                  case "Chat Bot":
+                  case "Ask Krut":
                     handleNavigation("/chatbot");
                     break;
                   case "My Website":

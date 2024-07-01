@@ -439,7 +439,7 @@ function SkillAssessment() {
         const dataa = res.data.data;
         const countIndex = dataa[dataa.length - 1];
         setAttemptCtn(countIndex?.count);
-        setAssessmentList(res.data.data);
+        setAssessmentList(res.data.data.reverse());
       })
       .catch((err) => {
         console.log(err);
@@ -514,7 +514,8 @@ function SkillAssessment() {
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
     let totalQuestions = question.length;
-    let percentageScore = Math.ceil((correctAnswers * 100) / totalQuestions);
+    let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2);
+
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore + `%`;
   }
@@ -553,6 +554,10 @@ function SkillAssessment() {
     }
   };
 
+  function formatScore(score) {
+    let percentageScore = (score * 100) / 60;
+    return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
+  }
   return (
     <div className="">
       {editProfilePopUp && (
@@ -1088,7 +1093,9 @@ function SkillAssessment() {
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {Math.round((item.score * 100) / 60)}%
+                                      {formatScore(item.score)}%
+                                        {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
+
                                       </p>
                                     </div>
                                   </div>
@@ -1315,9 +1322,9 @@ function SkillAssessment() {
                                   You are eligible for Certificate
                                 </div>
                               ) : (
-                                <di className="text-[18px] text-[#C00000] font-[600]">
-                                  You are not eligible for Certificate
-                                  <p className="text-[14px]">{`(Required above 70%)`}</p>
+                                <di className="text-[14px] text-[#C00000] font-[500]">
+                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
+                                 
                                 </di>
                               )}
                             </>

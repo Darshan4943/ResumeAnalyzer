@@ -43,8 +43,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
   };
 
   const formatLink12 = (link) => {
-    if (link?.length > 15) {
-      return link?.match(/.{1,15}/g).join("\n");
+    if (link?.length > 14) {
+      return link?.match(/.{1,14}/g).join("\n");
     }
     return link;
   };
@@ -323,8 +323,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                       </Svg>
                     </View>
                   )}
+
                   <View
-                    wrap={false}
+                    // wrap={false}
                     style={{
                       flexDirection: "column",
                       paddingLeft: 16,
@@ -334,7 +335,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                     }}
                   >
                     <Text
-                      wrap={false}
+                      // wrap={false}
                       key={index}
                       style={{
                         color: "white",
@@ -412,9 +413,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
 
           {data?.languages?.length > 0 && data?.showLanguage === true && (
             <View>
-              {data.languages?.slice(0, pageLayout && 2)?.map((detail, index) => (
-                <View key={index} wrap={false} style={{ gap: "16px" }}>
-                  {index === 0 && (
+           
+                <View 
+                 wrap={false} 
+                 style={{ gap: "8px" }}>
+             
                     <View
                       style={{
                         paddingLeft: -1,
@@ -441,18 +444,20 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                         </Text>
                       </Svg>
                     </View>
-                  )}
+               
+                     {data.languages?.slice(0, pageLayout && 2)?.map((detail, index) => (
                   <View
-                    wrap={false}
+                  key={index}
+                  wrap={false}
                     style={{
                       flexDirection: "column",
                       paddingLeft: 16,
-                      paddingVertical: 4,
+                      // paddingVertical: 4,
                       // gap: 8,
                     }}
                   >
                     <Text
-                      wrap={false}
+                      // wrap={false}
                       key={index}
                       style={{
                         color: "white",
@@ -464,8 +469,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                       {formatLink26(detail.languages)}
                     </Text>
                   </View>
+                    ))}
                 </View>
-              ))}
+            
             </View>
           )}
 
@@ -693,7 +699,10 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
           )}
 
           {data?.experience?.length > 0 && data?.showExperience === true && (
+            data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
             <View
+            key={index}
+            wrap={false}
               style={{
                 flexDirection: "column",
                 gap: 12,
@@ -702,34 +711,37 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                 width: "100%",
               }}
             >
-              <Svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="160"
-                viewBox="0 0 160 27"
-                fill="none"
+{   index === 0 &&
+            <Svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="160"
+              viewBox="0 0 160 27"
+              fill="none"
+            >
+              <Path
+                d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z"
+                fill={selectedColor}
+              />
+              <Text
+                x="10%"
+                y="55%"
+                dominantBaseline="middle"
+                textAnchor="start"
+                fill="white"
+                fontSize={15}
+                fontFamily={`${selectedFont} 400`}
               >
-                <Path
-                  d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z"
-                  fill={selectedColor}
-                />
-                <Text
-                  x="10%"
-                  y="55%"
-                  dominantBaseline="middle"
-                  textAnchor="start"
-                  fill="white"
-                  fontSize={15}
-                  fontFamily={`${selectedFont} 400`}
-                >
-                  EXPERIENCE
-                </Text>
-              </Svg>
+                EXPERIENCE
+              </Text>
+            </Svg>
+
+}
               <View style={{ flexDirection: "column", gap: 24 }}>
-                {data.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
+               
                   <>
                     <View
                       wrap={false}
-                      key={index}
+                   
                       style={{ flexDirection: "column", gap: 8 }}
                     >
                       <View style={{ flexDirection: "column", gap: 8 }}>
@@ -795,17 +807,19 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                       )}
                     </View>
                   </>
-                ))}
+                
               </View>
             </View>
+          ))
           )}
 
           {data?.project?.length > 0 &&
             data?.showProject === true && !pageLayout &&
             data.project?.map((detail, index) => (
               <View
-                wrap={false}
+                
                 key={index}
+                wrap={false}
                 style={{
                   flexDirection: "column",
                   gap: 12,

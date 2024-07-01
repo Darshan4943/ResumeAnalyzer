@@ -63,10 +63,10 @@ function Footer({ isSubscribe, setIsSubcrib }) {
         justifyContent: "start",
         alignItems: "center",
         background: "#212121",
-        gap: "24px",
+        gap: "12px",
       }}
     >
-      <div className="footer_main_box customMargins">
+      <div className="footer_main_box py-[38px] customMargins">
         <div className="Footer_firstContainer">
           <div>
             <img
@@ -77,166 +77,64 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           </div>
 
           <p className="largest">
-            Skilotech is the modern talent platform powered by Artificial
-            Intelligence for career development and recruitment.
+          Skilotech is the Modern Talent Platform for career development and recruitment
           </p>
-          <div className="web">
-            <div className=" flex gap-6 ">
-              <a
-                href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/facebook_icon.png"
-                  alt=""
-                />
-              </a>
-              {/**    <a
-                // href="https://www.instagram.com/skilotech_hrms/?hl=en"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/twitter_icon.png"
-                  alt=""
-                />
-              </a> */}
-               <a
-                href="https://x.com/Skilotech_Hrms"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/twitter.png"
-                  alt=""
-                />
-              </a>
-              <a
-                href="https://www.instagram.com/skilotech_hrms/?hl=en"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/instagram_icon.png"
-                  alt="Instagram"
-                />
-              </a>
-              <a
-                href="https://www.youtube.com/@Skilotech-ss9nl"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/youtube_icon.png"
-                  alt=""
-                />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/skilotech/"
-                target="_blank"
-              >
-                <img
-                  className="media"
-                  src="/images/home/linkedin_icon.png"
-                  alt=""
-                />
-              </a>
-              
-
-             
-            </div>
-          </div>
+         
         </div>
-        <div className="Footer_secondContainer ">
-          <div className="flex gap-4 footerThird ml:w-[45%] scr420:justify-between justify-between break-word pt-6">
-            <div className="flex flex-col justify-between gap-4  flex-wrap address">
-              <div className="footer_sub_address">
-                {/* <div>
-                  <p className="footer_address_P">Address</p>
-                </div> */}
-                <div className="footer_add ">
-                  <div className=" flex flex-col gap-3 ">
-                    <p className="text-[#fff] font-[600]">Offices </p>
-                    <p className="footer_address_Para leading-6">
-                      <ul className="flex flex-col gap-1">
-                        <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
-                          Harare, Zimbabwe.{" "}
-                        </li>
-                        <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
-                          Pune, India.{" "}
-                        </li>
-                        <li className="flex flex-row gap-2 items-start  font-[500]">
-                          <svg className="mt-2"
-                            width="4"
-                            height="4"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="5" cy="5" r="5" fill="#fff" />
-                          </svg>
-                          London, United Kingdom.{" "}
-                        </li>
-
-                      </ul>
-                    </p>
-                  </div>
+        <div className="flex gap-4 footerThird ml:w-[33%] scr420:justify-between justify-between break-word ">
+          <div className="flex flex-col justify-between gap-4  flex-wrap address">
+            <div className="footer_sub_address">
+              <div className="footer_add ">
+                <div className=" flex flex-col gap-1 ">
+                  <p className="text-[#fff] font-[600]">Offices </p>
+                  <p className="footer_address_Para">
+                    <ul className="flex flex-col gap-[4px]">
+                      <li className="flex flex-row gap-2 items-start  font-[400]  text-[14px]">
+                        London, United Kingdom.
+                      </li>
+                      <li className="flex flex-row gap-2 items-start  font-[400]  text-[14px]">
+                        Pune, India.
+                      </li>
+                      <li className="flex flex-row gap-2 items-start  font-[400] text-[14px]">
+                        Harare, Zimbabwe.
+                      </li>
+                    </ul>
+                  </p>
                 </div>
               </div>
-              <div className=" flex flex-col flex-wrap  ">
-                <p className="footer_address_Email">Email </p>
-                <p className="footer_address_Email_font flex flex-wrap ">
-                  <a href="mailto:support@skilotech.com">
-                    support@skilotech.com
-                  </a>
+            </div>
+            <div className=" flex flex-col flex-wrap  ">
+              <p className="footer_address_Email">Reach us </p>
+              <p className="footer_address_Email_font flex flex-wrap font-[400] ">
+                <a href="mailto:support@skilotech.com">support@skilotech.com</a>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 ">
+            <div className="footer_about_section ">
+              <p className="text-[#fff] font-[500] text-[16px]">About</p>
+              <div className="footer_sub_about gap-[4px]">
+                <p
+                  onClick={() => openInNewTab("/TermsAndConditions")}
+                  className="footer_sub_about_P cursor-pointer"
+                >
+                  Terms and Conditions
+                </p>
+                <p
+                  onClick={() => openInNewTab("/PrivacyPolicy")}
+                  className="footer_sub_about_P cursor-pointer "
+                >
+                  Privacy Policy
+                </p>
+                <p
+                  onClick={() => router.push("/ContactUs")}
+                  className="footer_sub_about_P cursor-pointer "
+                >
+                  Contact Us
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 ">
-              <div className="footer_about_section ">
-                <p className="text-[#fff] font-[600]">About</p>
-                <div className="footer_sub_about ">
-                  <p
-                    onClick={() => openInNewTab("/TermsAndConditions")}
-                    className="footer_sub_about_P cursor-pointer leading-6"
-                  >
-                    Terms and Conditions
-                  </p>
-                  <p
-                    onClick={() => openInNewTab("/PrivacyPolicy")}
-                    className="footer_sub_about_P cursor-pointer leading-6"
-                  >
-                    Privacy Policy
-                  </p>
-                  <p
-                    onClick={() => router.push("/ContactUs")}
-                    className="footer_sub_about_P cursor-pointer leading-6"
-                  >
-                    {" "}
-                    Contact Us
-                  </p>
-                </div>
-              </div>
-              {/* <div className="footer_about_section">
+            {/* <div className="footer_about_section">
                 <p className="footer_about_P">My Account</p>
                 <div className="footer_sub_about">
                   <p className="footer_sub_about_P">Log Out</p>
@@ -247,11 +145,13 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   </p>
                 </div>
               </div> */}
-            </div>
           </div>
-          <div className="footer_input_conatainer ml:w-[60%]  items-center">
-            <p className="footer_input_conatainer_P text-center">
-              Like to stay market relevant with news and updates?{" "}
+        </div>
+        <div className="footer_input_conatainer ml:w-[60%]  flex flex-col justify-between">
+          <div className="flex flex-col items-center gap-[20px] footer_input_container">
+           
+            <p className="footer_input_conatainer_P text-center text-[14px] font-[500]">
+              Like to stay market relevant with news and updates?
             </p>
             <div className="footer_input relative ">
               <input
@@ -267,84 +167,65 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <button
                 onClick={handleSubscribed}
                 className="footer_input_btn btn_hover_effect"
-              // disabled={error || email.trim() === ''}
+                // disabled={error || email.trim() === ''}
               >
                 Subscribe
               </button>
               {/* {isSubscribed && <p className="subscription_message">Thank you for subscribing!</p>} */}
             </div>
-            {/* <div className="flex gap-4 justify-center">
-              <img
-                className="playstore"
-                src="/images/playStore.png"
-                alt=""
-              />
-              <img
-                className="playstore"
-                src="/images/iosStore.png"
-                alt=""
-              />
-            </div> */}
           </div>
-          <div className="mobile">
-            <div className=" flex sm:gap-6 gap-4 items-center">
-              <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
-                Connect us
-              </div>
-
+          <div className="">
+            <div className=" flex gap-6 justify-center ">
               <a
                 href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
                 target="_blank"
               >
                 <img
-                  className="media"
-                  src="/images/home/facebook_icon.png"
+                  className="media h-[28px] w-[28px]"
+                  src="/images/fb.png"
                   alt=""
                 />
               </a>
-
+              <a href="https://x.com/Skilotech_Hrms" target="_blank">
+                <img className="media h-[28px] w-[28px]" src="/images/twitter.png" alt="" />
+              </a>
               <a
                 href="https://www.instagram.com/skilotech_hrms/?hl=en"
                 target="_blank"
               >
                 <img
-                  className="media"
-                  src="/images/home/instagram_icon.png"
+                  className="media h-[28px] w-[28px]"
+                  src="/images/instagram_icon.png"
                   alt="Instagram"
                 />
               </a>
-
+              <a
+                href="https://www.youtube.com/@Skilotech-ss9nl"
+                target="_blank"
+              >
+                <img
+                  className="media h-[28px] w-[28px]"
+                  src="/images/youtube_icon.png"
+                  alt=""
+                />
+              </a>
               <a
                 href="https://www.linkedin.com/company/skilotech/"
                 target="_blank"
               >
                 <img
-                  className="media"
-                  src="/images/home/linkedin_icon.png"
+                  className="media h-[28px] w-[28px]"
+                  src="/images/linkedin_icon.png"
                   alt=""
                 />
               </a>
-              {/**
-              <img
-                className="media"
-                src="/images/home/youtube_icon.png"
-                alt=""
-              /> */}
             </div>
           </div>
+          
         </div>
+     
       </div>
-      <div className="footer_down_straight_line">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="1"
-          viewBox="0 0 986 1"
-          fill="none"
-          className="footerLine"
-        >
-          <path d="M1 0.5H985" stroke="#828282" strokeLinecap="round" />
-        </svg>{" "}
-      </div>
+  
 
       <div className="footer_copyright">
         Copyright © 2024 Skilotech. All rights reserved.

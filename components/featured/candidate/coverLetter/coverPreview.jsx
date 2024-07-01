@@ -176,7 +176,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
         .then((res) => {
           if (!isCoverEdit) {
-            setName(data.firstName + "_cover " + (res.data.data.length + 1));
+          setName(data?.firstName + "_cover " + (res?.data?.data?.length + 1));
           }
         })
         .catch((err) => {
@@ -188,9 +188,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   useEffect(() => {
     callData();
     if (!isCoverEdit) {
-      setName(data.firstName + "_cover");
+      setName(data?.firstName + "_cover");
     } else {
-      setName(data.fileName.replace(".pdf", ""));
+
+      setName(data?.fileName?.replace('.pdf', ''));
     }
   }, [userDataGlobal, data.firstName]);
 
