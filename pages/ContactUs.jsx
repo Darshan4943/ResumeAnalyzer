@@ -67,7 +67,7 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-              Harare, Zimbabwe | Pune, India | London, United Kingdom
+              London, United Kingdom | Pune, India | Harare, Zimbabwe
             </p>
           </div>
           <div className="flex items-center gap-2">
