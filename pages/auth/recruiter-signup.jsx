@@ -12,7 +12,7 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({ }) {
+function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -109,7 +109,7 @@ function Recruiter_signup({ }) {
   }
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
- 
+
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -193,7 +193,7 @@ function Recruiter_signup({ }) {
         break;
       case "dial_code":
         if (!value.trim()) {
-          errors.dial_code = "Dial code is required";
+          errors.dial_code = "country code is required";
         } else {
           delete errors.dial_code;
         }
@@ -269,13 +269,13 @@ function Recruiter_signup({ }) {
       "email",
       "currentLocation",
       "mobileNo",
-      "dial_code"
+      "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
-        dial_code: "Please select a dial code"
+        dial_code: "Please select a dial code",
       }));
       return;
     }
@@ -283,7 +283,6 @@ function Recruiter_signup({ }) {
       toast.error("Please fill in all required fields");
       return;
     }
-    
 
     const hasErrors = Object.keys(errors).length > 0;
     const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
@@ -333,8 +332,9 @@ function Recruiter_signup({ }) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                      }`;
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home?signIn=false`;
@@ -584,13 +584,15 @@ function Recruiter_signup({ }) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
+                        className={`flex w-[100%] items-start ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
+                          className={`relative min-w-[150px] ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                         >
                           <div
                             onWheel={(e) => e.stopPropagation()}
@@ -647,10 +649,11 @@ function Recruiter_signup({ }) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${isViewportBelow850
+                          placeholder={`${
+                            isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                            }`}
+                          }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)

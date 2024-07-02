@@ -55,8 +55,8 @@ const DateSelector = ({
   };
 
   const handleEndYearChange = (e) => {
-    const newYear = e.target.value === '' ? 'Year' : e.target.value;
-    
+    const newYear = e.target.value === "" ? "Year" : e.target.value;
+
     dataSeter({
       ...data,
       duration: {
@@ -73,9 +73,17 @@ const DateSelector = ({
     for (let year = currentYear; year >= startYear; year--) {
       years.push(year);
     }
-
     return years;
   }
+
+  const getEndYear = () => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let year = startYear; year <= currentYear; year++) {
+      years.push(year);
+    }
+    return years;
+  };
 
   // useEffect(() => {
   //   if (fromCreate) {
@@ -241,13 +249,23 @@ const DateSelector = ({
                   className="w-outline-none focus-visible:outline-none  p-2 w-full"
                 >
                   <option value="">Year</option>
-                  {getYear()
+                  {/**{getYear()
                     .filter((item) => item > startYear)
                     .map((year) => (
                       <option key={year} value={year} className="px-4 py-2">
-                        {year}
+                        {console.log(98989, year)}
                       </option>
-                    ))}
+                    ))}*/}
+
+                  {getEndYear().map((year) => (
+                    <option
+                      key={year}
+                      value={year}
+                      className="mt-4 text-[14px] px-4 py-2"
+                    >
+                      {year}
+                    </option>
+                  ))}
                 </select>
 
                 <img
