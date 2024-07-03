@@ -33,7 +33,6 @@ const ProjectSection = ({
     }
   }, [data]);
 
-
   const [projectData, setProjectData] = useState({
     title: "",
     organization: "",
@@ -81,7 +80,7 @@ const ProjectSection = ({
       } else {
         setData({
           ...data,
-          internship: [ ...data?.internship, projectData],
+          internship: [...data?.internship, projectData],
         });
         {
           validateForm ? setInternshipsView(false) : setInternshipsView(true);
@@ -184,8 +183,7 @@ const ProjectSection = ({
         </div> */}
       </div>
 
-      {
-        data?.internship?.length > 0 &&
+      {data?.internship?.length > 0 &&
         data?.internship?.map((exp, index) => (
           <div
             key={index}
@@ -211,7 +209,11 @@ const ProjectSection = ({
               {exp?.duration?.start?.year !== "Year" &&
                 ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking  || exp.duration?.end?.year === "Year" ? "Present" : exp?.duration?.end?.year}`}
+              ${
+                exp?.currentlyWorking || exp.duration?.end?.year === "Year"
+                  ? "Present"
+                  : exp?.duration?.end?.year
+              }`}
             </p>
             <p className="text-[12px]">{exp?.description}</p>
           </div>
@@ -221,6 +223,9 @@ const ProjectSection = ({
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
+              <div className="w-full text-[14px] font-montserrat  font-medium">
+                Title
+              </div>
               <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
                 <input
                   type="text"

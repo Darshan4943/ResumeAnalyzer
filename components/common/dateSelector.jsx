@@ -17,7 +17,7 @@ const DateSelector = ({
   const [startYear, setStartYear] = useState(currentYear);
   // const handleSwitchChange = () => {
   //   setIsChecked(!isChecked);
-  // };
+  // }
 
   const handleStartMonthChange = (e) => {
     dataSeter({
@@ -56,7 +56,6 @@ const DateSelector = ({
 
   const handleEndYearChange = (e) => {
     const newYear = e.target.value === "" ? "Year" : e.target.value;
-
     dataSeter({
       ...data,
       duration: {
@@ -84,6 +83,19 @@ const DateSelector = ({
     }
     return years;
   };
+
+  useEffect(() => {
+    if (data) {
+      dataSeter({
+        ...data,
+        duration: {
+          ...data.duration,
+          start: { ...data.duration?.start },
+          end: { ...data.duration?.end },
+        },
+      });
+    }
+  }, [data]);
 
   // useEffect(() => {
   //   if (fromCreate) {
@@ -257,7 +269,7 @@ const DateSelector = ({
                       </option>
                     ))}*/}
 
-                  {getEndYear().map((year) => (
+                  {getYear().map((year) => (
                     <option
                       key={year}
                       value={year}

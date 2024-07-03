@@ -25,6 +25,7 @@ const Education = ({ setData, data }) => {
     },
   });
 
+
   useEffect(() => {
     if (data) {
       if (data?.showEducation === true) {
@@ -69,7 +70,6 @@ const Education = ({ setData, data }) => {
 
   const handleEditEducation = (index) => {
     const educationToEdit = data.education[index];
-
     if (educationToEdit) {
       setView(true);
       setEducationData({ ...educationToEdit });

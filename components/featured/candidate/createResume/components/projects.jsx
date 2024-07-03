@@ -80,7 +80,7 @@ const Project = ({
       } else {
         setData({
           ...data,
-          project: [ ...data?.project, projectData,],
+          project: [...data?.project, projectData],
         });
         {
           validateForm ? setProjectView(false) : setProjectView(true);
@@ -184,8 +184,7 @@ const Project = ({
         </div> */}
       </div>
 
-      {
-        data?.project?.length > 0 &&
+      {data?.project?.length > 0 &&
         data?.project?.map((exp, index) => (
           <div
             key={index}
@@ -211,7 +210,11 @@ const Project = ({
               {exp?.duration?.start?.year !== "Year" &&
                 ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking || exp.duration?.end?.year === "Year" ? "Present" : exp?.duration?.end?.year}`}
+              ${
+                exp?.currentlyWorking || exp.duration?.end?.year === "Year"
+                  ? "Present"
+                  : exp?.duration?.end?.year
+              }`}
             </p>
             <p className="text-[12px]">{exp?.description}</p>
           </div>
@@ -221,6 +224,9 @@ const Project = ({
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
+              <div className="w-full text-[14px] font-montserrat  font-medium">
+                Title
+              </div>
               <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
                 <input
                   type="text"
