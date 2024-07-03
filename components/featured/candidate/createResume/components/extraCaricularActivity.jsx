@@ -32,7 +32,6 @@ const ExtraCaricularActivity = ({
       }
     }
   }, [data]);
-  
 
   const [extraCaricularData, setExtraCaricularData] = useState({
     title: "",
@@ -81,7 +80,7 @@ const ExtraCaricularActivity = ({
       } else {
         setData({
           ...data,
-          extraCaricularData: [ ...data?.extraCaricularData, extraCaricularData],
+          extraCaricularData: [...data?.extraCaricularData, extraCaricularData],
         });
         {
           validateForm
@@ -189,8 +188,7 @@ const ExtraCaricularActivity = ({
         </div> */}
       </div>
 
-      {
-        data?.extraCaricularData?.length > 0 &&
+      {data?.extraCaricularData?.length > 0 &&
         data?.extraCaricularData?.map((exp, index) => (
           <div
             key={index}
@@ -217,7 +215,11 @@ const ExtraCaricularActivity = ({
               {exp?.duration?.start?.year !== "Year" &&
                 ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking  || exp.duration?.end?.year === "Year" ? "Present" : exp?.duration?.end?.year}`}
+              ${
+                exp?.currentlyWorking || exp.duration?.end?.year === "Year"
+                  ? "Present"
+                  : exp?.duration?.end?.year
+              }`}
             </p>
             <p className="text-[12px]">{exp?.description}</p>
           </div>
@@ -226,6 +228,9 @@ const ExtraCaricularActivity = ({
       {(extraCurricularView || data.extraCaricularData.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
+            <div className="w-full text-[14px] font-montserrat  font-medium">
+              Title
+            </div>
             <div className="flex flex-col gap-2 w-full">
               <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
                 <input

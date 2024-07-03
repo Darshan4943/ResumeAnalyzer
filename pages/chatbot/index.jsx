@@ -16,6 +16,7 @@ const Index = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [isNew, setIsNew] = useState(false);
+  const [once, setOnce] = useState(false);
   const handleToggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -35,6 +36,8 @@ const Index = () => {
             recall={recall}
             isNew={isNew}
             setIsNew={setIsNew}
+            once={once}
+             setOnce={setOnce}
           />
           <ChatBox
             setIsSidebarOpen={setIsSidebarOpen}
@@ -47,6 +50,9 @@ const Index = () => {
             handleToggleSidebar={handleToggleSidebar}
             isNew={isNew}
             setIsNew={setIsNew}
+            once={once}
+            setOnce={setOnce}
+
           />
         </div>
       </div>

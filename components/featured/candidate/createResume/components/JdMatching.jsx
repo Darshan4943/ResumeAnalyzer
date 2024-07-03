@@ -457,7 +457,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                 </div>
 
                 <div className="max-w-[200px] relative justify-center flex-wrap flex ">
-                  <img src="/images/resumeBuilder/Frame4.svg" alt="" />
+                  <img className="w-[117px] h-[64px]" src="/images/resumeBuilder/frame4.png" alt="" />
                   <motion.svg
                     initial={{ opacity: 0 }}
                     animate={{ opacity: two ? 1 : 0 }}

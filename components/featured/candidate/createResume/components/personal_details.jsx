@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import { camelCase } from "../../../../../utils/middleware";
 import { useSelector } from "react-redux";
@@ -43,7 +40,7 @@ const PersonalDetails = ({
     email: false,
     location: false,
     designation: false,
-    dial_code: false
+    dial_code: false,
   });
 
   const [touched, setTouched] = useState({
@@ -53,7 +50,7 @@ const PersonalDetails = ({
     email: false,
     location: false,
     designation: false,
-    dial_code: false
+    dial_code: false,
   });
 
   useEffect(() => {
@@ -144,19 +141,19 @@ const PersonalDetails = ({
       switch (name) {
         case "firstName":
           if (!value?.trim() && touched[name]) {
-            newErrors[name] = "First name is required";
+            newErrors[name] = "First Name is required";
             allFieldsValid = false;
           }
           break;
         case "lastName":
           if (!value?.trim() && touched[name]) {
-            newErrors[name] = "Last name is required";
+            newErrors[name] = "Last Name is required";
             allFieldsValid = false;
           }
           break;
         case "mobileNumber":
           if ((!value || !value?.toString().trim()) && touched[name]) {
-            newErrors[name] = "Mobile number is required";
+            newErrors[name] = "Mobile Number is required";
             allFieldsValid = false;
           }
           break;
@@ -180,7 +177,7 @@ const PersonalDetails = ({
           break;
         case "dial_code":
           if (!value?.trim() && touched[name]) {
-            newErrors[name] = "Dial code is required";
+            newErrors[name] = "Country Code is required";
             allFieldsValid = false;
           }
           break;
@@ -319,7 +316,10 @@ const PersonalDetails = ({
                       : "border-[#9D9D9D]"
                   } `}
                 >
-                  <div className={`flex w-[100%] items-start gap-2`} id="single_input">
+                  <div
+                    className={`flex w-[100%] items-start gap-2`}
+                    id="single_input"
+                  >
                     <div className={`relative items-center cursor-pointer`}>
                       <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
                         <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
@@ -426,8 +426,6 @@ const PersonalDetails = ({
 };
 
 export default PersonalDetails;
-
-
 
 // import React, { useEffect, useState } from "react";
 // import { camelCase } from "../../../../../utils/middleware";
@@ -550,11 +548,11 @@ export default PersonalDetails;
 //   const validateFields = () => {
 //     const newErrors = {};
 //     let allFieldsValid = true;
-  
+
 //     inputFields.forEach((field) => {
 //       const { name } = field;
 //       const value = profileData[name];
-  
+
 //       switch (name) {
 //         case "firstName":
 //           if (!value.trim()) {
@@ -602,12 +600,10 @@ export default PersonalDetails;
 //           break;
 //       }
 //     });
-  
+
 //     setFormErrors(newErrors);
 //     return allFieldsValid;
 //   };
-  
-
 
 //   // const validateFields = () => {
 //   //   const newErrors = {};
@@ -631,9 +627,6 @@ export default PersonalDetails;
 
 //   // console.log(1616,profileData.dial_code)
 //   // console.log(1111111,data.dial_code)
-
-
-
 
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
@@ -773,7 +766,7 @@ export default PersonalDetails;
 //                     id="single_input"
 //                   >
 //                     <div
-//                       className={`relative 
+//                       className={`relative
 //                             } items-center`}
 //                     >
 //                       <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
@@ -861,7 +854,6 @@ export default PersonalDetails;
 //                   Field is required
 //                 </span>
 //               )} */}
-
 
 //               {formErrors[item.name] && (
 //                 <span className="text-[#C00000] text-[12px]">{formErrors[item.name]}</span>

@@ -87,7 +87,6 @@ const AboutMe = ({ data, setData }) => {
       setText(newText);
     }
   };
-  
 
   return (
     <>
@@ -120,9 +119,6 @@ const AboutMe = ({ data, setData }) => {
               className="w-full text-[14px] font-montserrat font-small min-h-[170px] outline-none"
               placeholder="Enter text"
               maxLength={400} // Set maximum length
-              // onChange={(e) => {
-              //   setText(e.target.value.slice(0, 400)); // Limit input to 400 characters
-              // }}
               onChange={handleTextChange}
               value={text}
               disabled={!isChecked}
@@ -148,13 +144,6 @@ const AboutMe = ({ data, setData }) => {
           <button
             className="flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
-            // style={{
-            //   opacity:
-            //     text === data?.summery || text?.length == 0
-            //       ? 0.5
-            //       : 1 || attempt <= 0,
-            // }}
-
             style={{
               opacity:
                 text.length > 0 ||
@@ -163,11 +152,15 @@ const AboutMe = ({ data, setData }) => {
                   ? 1
                   : 0.5,
             }}
+            // disabled={
+            //   text.length > 0 ||
+            //   attempt <= 0 ||
+            //   (isPlanActive === true && text.length > 0)
+            // }
             disabled={
-              text === data?.summery ||
-              !isChecked ||
-              text?.length == 0 ||
-              attempt <= 0
+              text.length <= 0 ||
+              attempt <= 0 ||
+              (isPlanActive !== true && text.length < 0)
             }
           >
             <SparklingStarts />

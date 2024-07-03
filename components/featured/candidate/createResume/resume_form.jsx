@@ -33,7 +33,7 @@ const ResumeForm = ({
   setSelectedFont,
   selectedFont,
   template,
-  clientId
+  clientId,
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
@@ -53,7 +53,6 @@ const ResumeForm = ({
       }
     }
   }, [data]);
-
 
   useEffect(() => {
     setFormField(
@@ -166,30 +165,32 @@ const ResumeForm = ({
   }, []);
   const containerRef = useRef(null);
 
-   useEffect(() => {
+  useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (containerRef.current) {
         const selectedTemplate = containerRef.current.querySelector(
           `.template-${selectedResumeIndex}`
         );
         if (selectedTemplate) {
-          selectedTemplate.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          selectedTemplate.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "center",
+          });
         }
       }
-    }, 1000); 
+    }, 1000);
 
-    return () => clearTimeout(timeoutId); 
+    return () => clearTimeout(timeoutId);
   }, [selectedResumeIndex]);
 
-
   const renderTemplates = () => {
-   
     const selectedStyle = {
       border: "4px solid #06A9EF",
       height: "210px",
       width: "auto",
     };
-  
+
     return template.map((template, index) => (
       <img
         key={index}
@@ -222,8 +223,10 @@ const ResumeForm = ({
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
         <div className="ml:flex hidden  flex-row gap-4 ">
-          <button className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
-            style={{}}>
+          <button
+            className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+            style={{}}
+          >
             <svg
               className=" cursor-pointer"
               onClick={() => router.push("/home/BuildResume")}
@@ -244,7 +247,6 @@ const ResumeForm = ({
           <div className="text-[18px] font-medium text-[#FFFFFF]  header1 min-w-[280px] w-[85%] flex justify-start px-4 py-[6px] ">
             Create Resume
           </div>
-
         </div>
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div
@@ -256,14 +258,10 @@ const ResumeForm = ({
           </div>
         </div>
 
-        <div
-          
-          className="flex justify-end text-[16px] font-[500] text-[#06A9EF]"
-        >
-        <p 
-        onClick={() => setIsAll(true)} 
-        className=" cursor-pointer"
-        >See All Templates</p>  
+        <div className="flex justify-end text-[16px] font-[500] text-[#06A9EF]">
+          <p onClick={() => setIsAll(true)} className=" cursor-pointer">
+            See All Templates
+          </p>
         </div>
         {isAll && (
           <div>
@@ -414,19 +412,19 @@ const ResumeForm = ({
 
         {(data?.achievements?.length > 0 ||
           customOptions["Achievements & Awards"]) && (
-            <div ref={achievementsRef}>
-              <>
-                <Achievement
-                  setData={setData}
-                  data={data}
-                  achievementView={achievementView}
-                  setAchievementView={setAchievementView}
-                  setCustomOptions={setCustomOptions}
-                />
-                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-              </>
-            </div>
-          )}
+          <div ref={achievementsRef}>
+            <>
+              <Achievement
+                setData={setData}
+                data={data}
+                achievementView={achievementView}
+                setAchievementView={setAchievementView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
         {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
           <div ref={socialLinksRef}>
             <>
@@ -511,35 +509,35 @@ const ResumeForm = ({
         )}
         {(data?.ExtraCaricularActivity?.length > 0 ||
           customOptions["Extra Activities"]) && (
-            <div ref={extraCurricularRef}>
-              <>
-                <ExtraCaricularActivity
-                  setData={setData}
-                  data={data}
-                  customOptions={customOptions}
-                  setCustomOptions={setCustomOptions}
-                  extraCurricularView={extraCurricularView}
-                  setExtraCurricularView={setExtraCurricularView}
-                />
-                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-              </>
-            </div>
-          )}
+          <div ref={extraCurricularRef}>
+            <>
+              <ExtraCaricularActivity
+                setData={setData}
+                data={data}
+                customOptions={customOptions}
+                setCustomOptions={setCustomOptions}
+                extraCurricularView={extraCurricularView}
+                setExtraCurricularView={setExtraCurricularView}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
         {(data?.course?.length > 0 ||
           customOptions["Courses & Certifications"]) && (
-            <div ref={coursesRef}>
-              <>
-                <CouersesAndCertification
-                  setData={setData}
-                  data={data}
-                  coursesView={coursesView}
-                  setCoursesView={setCoursesView}
-                  setCustomOptions={setCustomOptions}
-                />
-                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-              </>
-            </div>
-          )}
+          <div ref={coursesRef}>
+            <>
+              <CouersesAndCertification
+                setData={setData}
+                data={data}
+                coursesView={coursesView}
+                setCoursesView={setCoursesView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
         {/* {customOptions["Custom Section"] && ( */}
         {data?.section.length > 0 && (
           <div
