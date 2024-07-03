@@ -13,6 +13,7 @@ const ExistingChat = ({
   setIsSidebarOpen,
   setIsNew,
   isNew,
+  once, setOnce
 }) => {
   const [existingChatDayWise, setExistingChatDayWise] = useState([]);
 
@@ -111,6 +112,7 @@ const ExistingChat = ({
   const [activeChat, setActiveChat] = useState(null);
 
   const handleChatClick = (chat) => {
+    setOnce(false)
     setSelectedChat(chat);
     setActiveChat(chat);
     // setPopUp(true);
@@ -158,6 +160,7 @@ const ExistingChat = ({
   }, [existingChat]);
 
   const deleteChatHandler = (key) => {
+    setOnce(false)
     const dummyData = { ...existingChat };
     delete dummyData[key];
     console.log(dummyData);

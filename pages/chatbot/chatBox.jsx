@@ -22,7 +22,7 @@ const Temp = ({ data, setParentCount, parentCount }) => {
       if (count == data.length) {
         setParentCount(parentCount + 1);
       }
-    }, 2);
+    }, 4);
     return clearTimeout(() => timeout());
   }, [count]);
   return <>{data.slice(0, count)}</>;
@@ -47,7 +47,7 @@ const formatData = (data) => {
 //       ));
 // };
 
-const ParentTemp = ({ answer, i, chat, chatEndRef }) => {
+const ParentTemp = ({ answer, i, chat, chatEndRef ,once}) => {
   const [count, setCount] = useState(1);
 
   // Effect to scroll to bottom whenever count or answer changes
@@ -65,7 +65,7 @@ const ParentTemp = ({ answer, i, chat, chatEndRef }) => {
   const renderAnswerLines = () => {
     const formattedData = formatData(answer);
     if (formattedData) {
-      if (chat.length - 1 === i) {
+      if (chat.length - 1 === i && once) {
         return formattedData.slice(0, count).map((item, index) => (
           <div className="w-full py-1 text-[14px]" key={index}>
             <Temp data={item} setParentCount={setCount} parentCount={count} />
@@ -96,6 +96,7 @@ const ChatBox = ({
   setIsSidebarOpen,
   setIsNew,
   isNew,
+  once, setOnce
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
@@ -126,6 +127,7 @@ const ChatBox = ({
           userType: userDataGlobal.role,
         })
         .then((res) => {
+          setOnce(true)
           const answer = res.data.data;
           const dummyData = { ...existingChat };
           const newName = text.slice(0, 20);
@@ -397,6 +399,7 @@ const ChatBox = ({
                         i={index}
                         chat={chat}
                         chatEndRef={chatEndRef}
+                        once={once}
                       />
                     </div>
                   </div>
