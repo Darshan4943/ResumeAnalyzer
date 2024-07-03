@@ -548,7 +548,7 @@ function CoverForm({
             {isFormat === "standard" && (
               <div className="flex flex-row justify-between gap-[8px]">
                 <button
-                  className="bg-[#06A9EF] w-[126px] h-[34px] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+                  className="bg-[#06A9EF]  h-[34px] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px] font-[600] text-white"
                   onClick={fetchCoverLetter}
                 >
                   {loading ? (

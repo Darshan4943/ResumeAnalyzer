@@ -94,7 +94,6 @@ const Experience = ({ data, setData }) => {
 
   const handleEditExperience = (index) => {
     const dataToEdit = data.experience[index];
-
     if (dataToEdit) {
       setView(true);
       setExperienceData({ ...dataToEdit });

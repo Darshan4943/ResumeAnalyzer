@@ -24,7 +24,7 @@ const Education = ({ setData, data }) => {
       end: { year: currentYear, month: currentMonth },
     },
   });
-
+ 
 
   useEffect(() => {
     if (data) {
@@ -42,7 +42,7 @@ const Education = ({ setData, data }) => {
   };
 
   const errorMessages = {
-    qualification: "Course name is required",
+    qualification: "Course Name is required",
     specialization: "Specialization / Board is required",
     instituteName: "University Name is required",
   };
@@ -120,6 +120,19 @@ const Education = ({ setData, data }) => {
         });
         setView(false);
       }
+      setIsModified({ status: false, index: 0 });
+      setEducationData({
+        qualification: "",
+        specialization: "",
+        instituteName: "",
+        type: "full-time",
+        location: "",
+        isEducation: true,
+        duration: {
+          start: { year: "", month: "" },
+          end: { year: "", month: "" },
+        },
+      });
       window.scrollTo(0, 0);
     }
   };
@@ -327,7 +340,21 @@ const Education = ({ setData, data }) => {
                   className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px] ${
                     data?.education?.length <= 0 && "opacity-40"
                   }`}
-                  onClick={() => setView(false)}
+                  onClick={() => {
+                    setView(false);
+                    setEducationData({
+                      qualification: "",
+                      specialization: "",
+                      instituteName: "",
+                      type: "full-time",
+                      location: "",
+                      isEducation: true,
+                      duration: {
+                        start: { year: "", month: "" },
+                        end: { year: "", month: "" },
+                      },
+                    });
+                  }}
                 >
                   Cancel
                 </button>
