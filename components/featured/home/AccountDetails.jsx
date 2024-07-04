@@ -38,7 +38,7 @@ function AccountDetails({
     seticon(icon);
     setexchangeRate(exchangeRate);
   }, []);
-
+  // const [purchaseCount, setPurchaseCount] = useState(0);
   const [error, setError] = useState();
   const [popUp, setPopUp] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -304,7 +304,7 @@ function AccountDetails({
           }
         );
         const session = response.data;
-        console.log("Retrieved session:", session);
+      
         setPaymentStatus(session.payment_status);
 
         if (
@@ -329,10 +329,21 @@ function AccountDetails({
   );
 
   const handlePaidSession = async (session) => {
+    const purchaseCount = localStorage.getItem("purchaseCount");
+ 
+    if (purchaseCount === "1") {
+      console.log("Purchase count is 1, skipping API call");
+      setTimeout(() => {
+        setSuccessModel({ visible: true, loading: false });
+      }, 1000);
+      return;
+     
+    }
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
       setData((prevData) => ({ ...prevData, ...jsonData }));
     }
+   
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
     seticon(icon);
@@ -353,7 +364,8 @@ function AccountDetails({
         paymentId: session.id,
         planDetails:selectedPlan
       });
-
+      // setPurchaseCount(1)
+      localStorage.setItem("purchaseCount", 1);
       console.log("Subscription added successfully");
 
       localStorage.removeItem("paymentId");
@@ -630,7 +642,7 @@ function AccountDetails({
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan?.amount * exchangeRate)}
-                    {console.log(586, selectedPlan?.amount, exchangeRate)}
+                  
                   </p>
                 </div>
               </div>
