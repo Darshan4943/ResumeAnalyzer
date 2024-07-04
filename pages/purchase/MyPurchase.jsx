@@ -144,10 +144,10 @@ function MyPurchase() {
     setSelectedPlansData(details)
     setShowPlanDetails(true)
   };
-  console.log(subscriptionHistory)
+
 
   return (
-    <div className="flex flex-col gap-8  min-h-[60vh]">
+    <div className="flex flex-col gap-8  min-h-[60vh] pb-12">
 
       {showPlanDetails &&
         <>

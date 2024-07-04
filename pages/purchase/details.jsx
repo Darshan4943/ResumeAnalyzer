@@ -22,7 +22,7 @@ function Details() {
   });
   const [cancelModel, setCancelModel] = useState(false);
   const [isRetry, setIsRetry] = useState(true);
-  console.log(555, selectedPlan)
+ 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -58,6 +58,7 @@ function Details() {
       setTimeout(() => {
         window.location.reload();
       }, 1000); 
+      localStorage.removeItem("purchaseCount");
     } catch (error) {
       console.error('Error navigating:', error);
     }
