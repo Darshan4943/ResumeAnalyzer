@@ -193,7 +193,7 @@ function Recruiter_signup({}) {
         break;
       case "dial_code":
         if (!value.trim()) {
-          errors.dial_code = "country code is required";
+          errors.dial_code = "Country Code is required";
         } else {
           delete errors.dial_code;
         }
@@ -275,7 +275,7 @@ function Recruiter_signup({}) {
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
-        dial_code: "Please select a dial code",
+        dial_code: "Please select a country code",
       }));
       return;
     }

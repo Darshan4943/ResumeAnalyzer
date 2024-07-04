@@ -66,6 +66,19 @@ const Education = ({ setData, data }) => {
       ...data,
       education: data.education.filter((item, i) => i !== index),
     });
+    setEducationData({
+      qualification: "",
+      specialization: "",
+      instituteName: "",
+      type: "full-time",
+      location: "",
+      isEducation: true,
+      duration: {
+        start: { year: "", month: "" },
+        end: { year: "", month: "" },
+      },
+    });
+
   };
 
   const handleEditEducation = (index) => {
