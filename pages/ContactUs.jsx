@@ -1,16 +1,24 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import ReactSelect from "react-select";
+import { telCode } from "../utils/data";
+import { fromJSON } from "postcss";
 
 function ContactUs() {
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [selectedItem, setSelectedItem] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
     mobileNo: "",
     subject: "",
     query: "",
+    dial_code: "",
   });
 
+  console.log("form", formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -40,11 +48,44 @@ function ContactUs() {
         mobileNo: "",
         subject: "",
         query: "",
+        dial_code: "",
       });
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setFormData({ ...formData, dial_code: item.dial_code });
+  };
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
+
+  useEffect(() => {
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
+  }, [telCode, searchTerm]);
 
   return (
     <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
@@ -112,6 +153,7 @@ function ContactUs() {
               value={formData.firstName}
               onChange={handleChange}
               placeholder="Enter first name"
+              className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
               required
             />
             <input
@@ -121,20 +163,65 @@ function ContactUs() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter Email"
+              className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
               required
             />
-            <input
-              id="first_name"
-              type="text"
-              name="mobileNo"
-              value={formData.mobileNo}
-              onChange={handleChange}
-              placeholder="Enter Mobile No"
-              required
-              maxLength={10}
-              minLength={10}
-              onKeyPress={handleKeyPress}
-            />
+            <div id="first_name">
+              <div
+                className={`w-full flex pr-[16px]  pl-[16px] gap-2  rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
+              >
+                <ReactSelect
+                  options={filteredTelCode}
+                  className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer "
+                  name=""
+                  placeholder="Select"
+                  value={selectedItem}
+                  onChange={handleItemClick}
+                  getOptionLabel={(option) => (
+                    <div className="flex items-center cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat">
+                      <img
+                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                        width="20px"
+                      />
+                      <span className="ml-2 text-[#333333] cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat">
+                        {option.code} {option.dial_code}
+                      </span>
+                    </div>
+                  )}
+                  filterOption={customFilterOption}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+                      minWidth: "130px",
+                    }),
+                  }}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary: "neutral0",
+                    },
+                  })}
+                />
+
+                <input
+                  // id="first_name"
+                  type="text"
+                  name="mobileNo"
+                  className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
+                  value={formData.mobileNo}
+                  onChange={handleChange}
+                  placeholder="Enter Mobile No"
+                  required
+                  maxLength={10}
+                  minLength={10}
+                  onKeyPress={handleKeyPress}
+                />
+              </div>
+            </div>
+
             <input
               required
               id="first_name"
@@ -143,19 +230,21 @@ function ContactUs() {
               value={formData.subject}
               onChange={handleChange}
               placeholder="Subject"
+              className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
             />
+
             <textarea
               name="query"
               value={formData.query}
               onChange={handleChange}
-              className="w-[100%] placeholder-xl px-[16px] py-[12px] rounded-[8px] text-[14px] text-[#333] h-[94px]"
+              className="w-[100%] placeholder-xl px-[16px] py-[12px] rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat text-[#333] h-[94px]"
               placeholder="Write your query here"
               required
             ></textarea>
             <div className="w-[100%] flex justify-center">
               <button
                 type="submit"
-                className="buttons hover:bg-[#333] btn_hover_effect bg-[#06A9EF] text-[#fff] font-[600] rounded-lg"
+                className="buttons hover:bg-[#333] btn_hover_effect bg-[#06A9EF] text-[#fff] font-[600] text-[14px]  leading-[17.07px] font-Montserrat rounded-lg"
                 id="border_button"
               >
                 Submit

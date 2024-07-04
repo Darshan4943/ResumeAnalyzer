@@ -71,6 +71,11 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   const deleteHandler = (index) => {
     setListItems(listItems.filter((_, i) => i !== index));
     setIsEdited(true);
+    setSectionData({
+      title: "",
+      duration: null,
+      description: "",
+    })
   };
 
   const headerSeter = () => {
