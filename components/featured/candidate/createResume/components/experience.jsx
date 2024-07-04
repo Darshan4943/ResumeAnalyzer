@@ -105,6 +105,18 @@ const Experience = ({ data, setData }) => {
       ...data,
       experience: data.experience.filter((item, i) => i !== index),
     });
+
+    setExperienceData({
+      designation: "",
+      organization: "",
+      description: " ",
+      currentlyWorking: true,
+      location: "",
+      duration: {
+        start: { year: "Year", month: "Month" },
+        end: { year: "Year", month: "Month" },
+      },
+    });
   };
 
   const [errors, setErrors] = useState({

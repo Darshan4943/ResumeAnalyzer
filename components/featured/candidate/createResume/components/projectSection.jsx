@@ -117,6 +117,17 @@ const ProjectSection = ({
       ...data,
       internship: data?.internship?.filter((item, i) => i !== index),
     });
+    setProjectData({
+      title: "",
+      organization: "",
+      description: "",
+      currentlyWorking: true,
+
+      duration: {
+        start: { year: "Year", month: "Month" },
+        end: { year: "Year", month: "Month" },
+      },
+    });
   };
 
   const [errors, setErrors] = useState({

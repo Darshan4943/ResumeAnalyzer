@@ -35,6 +35,12 @@ const Reference = ({
       ...data,
       reference: data?.reference?.filter((item, i) => i !== index),
     });
+    setReferenceData({
+      referantName: "",
+      designation: "",
+      organization: "",
+      email: "",
+    });
   };
 
   useEffect(() => {
@@ -46,7 +52,6 @@ const Reference = ({
       }
     }
   }, [data]);
-  
 
   useEffect(() => {
     const filterLogic = (item) =>
@@ -65,7 +70,7 @@ const Reference = ({
       placeholder: "Type here",
       value: referenceData?.referantName,
       className: " col-span-2 ",
-      require:true
+      require: true,
     },
     {
       label: "Designation",
@@ -91,7 +96,7 @@ const Reference = ({
       placeholder: "Type here",
       value: referenceData?.email,
       className: " col-span-2",
-      require:true
+      require: true,
     },
   ];
 
@@ -121,21 +126,21 @@ const Reference = ({
     const { name, value } = e.target;
 
     setReferenceData({
-        ...referenceData,
-        [name]: value,
+      ...referenceData,
+      [name]: value,
     });
 
     // Function to format the field name
     const formatFieldName = (fieldName) => {
-        return camelCase(fieldName.replace(/([a-z])([A-Z])/g, '$1 $2'));
+      return camelCase(fieldName.replace(/([a-z])([A-Z])/g, "$1 $2"));
     };
 
     // Set custom error message if the field is empty
     setFormErrors({
-        ...formErrors,
-        [name]: value.trim() === "" ? `${formatFieldName(name)} is required` : "",
+      ...formErrors,
+      [name]: value.trim() === "" ? `${formatFieldName(name)} is required` : "",
     });
-};
+  };
 
   const isDisabled = () => {
     // if (!isChecked || !isModified) return true;
@@ -158,20 +163,19 @@ const Reference = ({
     return isAnyFieldEmpty;
   };
 
-
   const saveData = () => {
     if (validateFields()) {
       if (isModified?.status === true) {
         const dummyData = data?.reference;
         const index = isModified?.index;
 
-        dummyData?.splice(index, 1, referenceData);       
+        dummyData?.splice(index, 1, referenceData);
         setData({ ...data, reference: dummyData });
         setReferenceView(false);
       } else {
         setData({
           ...data,
-          reference: [...data?.reference,referenceData ],
+          reference: [...data?.reference, referenceData],
         });
         {
           validateFields ? setReferenceView(false) : setReferenceView(true);
@@ -184,12 +188,15 @@ const Reference = ({
         organization: "",
         email: "",
       });
+    
       setReferenceView(false);
     } else {
       setReferenceView(true);
     }
   };
 
+  console.log("data11", data);
+  console.log(777);
   // useEffect(() => {
   //   const allFieldsValid = validateFields();
   //   if (allFieldsValid && isModified?.status) {
@@ -259,8 +266,7 @@ const Reference = ({
           </div> */}
         </div>
 
-        {
-          data?.reference?.length > 0 &&
+        {data?.reference?.length > 0 &&
           data?.reference?.map((exp, index) => (
             <div
               key={index}
@@ -295,15 +301,17 @@ const Reference = ({
                   key={index}
                 >
                   <div className=" text-[14px] font-montserrat  font-medium">
-                    {item?.label} {item.require && <span className="star">*</span>}
+                    {item?.label}{" "}
+                    {item.require && <span className="star">*</span>}
                   </div>
 
                   <div
                     className={`border-[1px] rounded-[8px] px-[16px] py-[12px]
-                       ${formErrors[item?.name]
-                        ? "border-[#C00000]"
-                        : "border-[#9D9D9D]"
-                    } `}
+                       ${
+                         formErrors[item?.name]
+                           ? "border-[#C00000]"
+                           : "border-[#9D9D9D]"
+                       } `}
                   >
                     <input
                       type={item?.type}
@@ -318,7 +326,7 @@ const Reference = ({
 
                   {formErrors[item?.name] && (
                     <span className="text-[#C00000] text-[12px]">
-                      {formErrors[item?.name]} 
+                      {formErrors[item?.name]}
                     </span>
                   )}
                 </div>
@@ -352,7 +360,7 @@ const Reference = ({
                 </button>
                 <button
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-                    style={{ opacity: isDisabled() ? 0.5 : 1 }}
+                  style={{ opacity: isDisabled() ? 0.5 : 1 }}
                   onClick={saveData}
                   disabled={isDisabled() || !isChecked}
                 >

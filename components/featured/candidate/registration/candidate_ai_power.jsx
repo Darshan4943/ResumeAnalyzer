@@ -66,11 +66,30 @@ const CandidateAiPower = ({
     const resumeUploadCount = localStorage.getItem("uploadCount");
     setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
   }, []);
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const selectedFile = event.dataTransfer.files[0];
+    handleFile(selectedFile);
+  };
+
   const handleFileChange = (event) => {
     event.preventDefault();
+    event.stopPropagation();
     const selectedFile = event.target.files[0];
+    handleFile(selectedFile);
+  };
+
+  const handleFile = (selectedFile) => {
     if (selectedFile) {
-      if (selectedFile?.type == "application/pdf" || "application/docs") {
+      if (selectedFile.type === "application/pdf" || selectedFile.type === "application/msword") {
+        // Adjust file type checks as per your requirement
         sendFile(selectedFile);
       } else {
         toast.error("Only PDF and DOC files are allowed");
@@ -78,16 +97,12 @@ const CandidateAiPower = ({
     }
   };
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
   const sendFile = (file) => {
     setfile(file);
   };
 
   const extracteText = async (file) => {
-  
+
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
@@ -106,12 +121,12 @@ const CandidateAiPower = ({
               },
             });
             var text = doc.getFullText();
-          
+
             textData.push({ text });
             resolve(textData);
           } catch (error) {
-           
-            if ( error.message.includes("Can't find end of central directory") ||
+
+            if (error.message.includes("Can't find end of central directory") ||
               error?.properties?.error ===
               "The filetype for this file could not be identified, is this file corrupted" ||
               error?.message ===
@@ -160,14 +175,14 @@ const CandidateAiPower = ({
   };
 
   const navigate = () => {
-   
+
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
     }
     setLoading(true);
     extracteText(file).then((result) => {
-     
+
       if (result[0]?.text?.length > 0) {
         axios
           .post("https://jamblix.com/api/resume/extraction", {
@@ -319,7 +334,7 @@ const CandidateAiPower = ({
                   <div
                     ref={fileRef}
                     onDragOver={handleDragOver}
-                    onDrop={handleFileChange}
+                    onDrop={handleDrop}
                     className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
                   >
                     <input
@@ -327,26 +342,23 @@ const CandidateAiPower = ({
                       name="myfile"
                       onChange={handleFileChange}
                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,"
+                   
                     />
                     {file ? (
                       <div className="w-full flex justify-center">
                         <div className="flex scr420:flex-row flex-col gap-[16px] items-center justify-between md:w-[80%] w-[95%]">
-                          <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center  ">
-                            {" "}
-                            <div className="">{fileIconSeter(file)}</div>
-                            <span className="text-[12px] w-[80%] break-all">
-                              {file.name}
-                            </span>
+                          <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center">
+                            <div>{fileIconSeter(file)}</div>
+                            <span className="text-[12px] w-[80%] break-all">{file.name}</span>
                           </div>
-
-                          <button className=" btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer ">
+                          <button className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
                             Browse file
                           </button>
                         </div>
                       </div>
                     ) : (
                       <>
-                        <div className="  flex  flex-col  items-center">
+                        <div className="flex flex-col items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="40"
@@ -392,24 +404,20 @@ const CandidateAiPower = ({
                             </defs>
                           </svg>
                         </div>
-                        <div className="flex flex-col gap-[4px]	font-normal	">
-                          <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                        <div className="flex flex-col gap-[4px] font-normal">
+                          <div className="flex text-center justify-center scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
                             drag and drop or{" "}
-                            <span
-                              onClick={handleButtonClick}
-                              className="text-[#06A9EF]"
-                            >
+                            <span onClick={handleButtonClick} className="text-[#06A9EF]">
                               &nbsp;Browse file{" "}
                             </span>
                             &nbsp;to upload
                           </div>
-                          <p className="text-center text-[12px] font-normal text-[#7C8493]">
-                            PDF or DOCS
-                          </p>
+                          <p className="text-center text-[12px] font-normal text-[#7C8493]">PDF or DOCS</p>
                         </div>
                       </>
                     )}
                   </div>
+
                 )}
                 <span className="text-[12px] scr360:text-[14px] text-right">
                   {uploadLimit} Remaining Attempts
@@ -432,8 +440,8 @@ const CandidateAiPower = ({
                 <button
                   disabled={file && !loading ? false : true}
                   className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${file && !loading
-                      ? "opacity-100 btn_hover_effect"
-                      : "opacity-50"
+                    ? "opacity-100 btn_hover_effect"
+                    : "opacity-50"
                     } `}
                   onClick={navigate}
                 >
@@ -502,7 +510,7 @@ const CandidateAiPower = ({
                     </div>
                     <div className="flex w-full justify-center items-center">
                       <button
-                        onClick={() => {setResumeErrorPopup(false);setLoading(false);setfile()}}
+                        onClick={() => { setResumeErrorPopup(false); setLoading(false); setfile() }}
                         className="rounded-[12px] pt-2 pr-6 pb-2 pl-6 bg-[#06A9EF] text-[#FFFFFF] font-[600] text-[16px]"
                       >
                         Close
@@ -565,7 +573,7 @@ const CandidateAiPower = ({
 
                     <div className="flex w-full justify-center items-center">
                       <button
-                        onClick={() => {setDocFileError(false);setLoading(false);setfile()}}
+                        onClick={() => { setDocFileError(false); setLoading(false); setfile() }}
                         className="rounded-[12px] pt-2 pr-6 pb-2 pl-6 bg-[#06A9EF] text-[#FFFFFF] font-[600] text-[16px]"
                       >
                         Close
