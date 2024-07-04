@@ -121,6 +121,18 @@ const ExtraCaricularActivity = ({
         (item, i) => i !== index
       ),
     });
+
+    setExtraCaricularData({
+      title: "",
+      organization: "",
+      description: "",
+      currentlyWorking: true,
+
+      duration: {
+        start: { year: "Year", month: "Month" },
+        end: { year: "Year", month: "Month" },
+      },
+    });
   };
 
   const [errors, setErrors] = useState({

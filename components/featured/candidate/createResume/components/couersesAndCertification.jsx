@@ -117,6 +117,18 @@ const CouersesAndCertification = ({
       ...data,
       course: data?.course?.filter((item, i) => i !== index),
     });
+
+    setCourseData({
+      title: "",
+      organization: "",
+      description: "",
+      currentlyWorking: true,
+
+      duration: {
+        start: { year: "Year", month: "Month" },
+        end: { year: "Year", month: "Month" },
+      },
+    });
   };
 
   const [errors, setErrors] = useState({
