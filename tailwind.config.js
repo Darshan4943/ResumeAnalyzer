@@ -22,7 +22,7 @@ module.exports = {
       sm: "480px",
       scr500: "500px",
       scr540: "540px",
-      ms: "600px",
+      ms: "601px",
       scr700: "700px",
       md: "768px",
       scr800: "800px",
