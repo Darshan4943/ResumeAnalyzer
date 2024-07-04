@@ -18,7 +18,7 @@ function ContactUs() {
     dial_code: "",
   });
 
-  console.log("form", formData)
+  console.log("form", formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -37,7 +37,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/contactUs/create",
+        "https://jamblix.com/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);
