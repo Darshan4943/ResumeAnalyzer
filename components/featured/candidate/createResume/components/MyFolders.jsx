@@ -111,8 +111,13 @@ function MyFolders({
                           </div>
                           {item.fileName}
                         </td>
-                        <td className="w-[30%] scr460:px-4 justify-start flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
+                        <td className="w-[30%] scr460:px-4 justify-between flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
+                          {item.isSync === false && item.type === "file" &&
+                          <div className=" overflow-hidden">
+                            <SyncLoader />
+                          </div>
+                        }
                         </td>
                         {/* <td className="px-4 py-2 text-[#858585] text-[14px]">
                           {convertBytes(item.size)}
