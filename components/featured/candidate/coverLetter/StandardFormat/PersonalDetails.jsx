@@ -174,7 +174,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
           break;
         case "dial_code":
           if (!value.trim() && touched[name]) {
-            newErrors[name] = "Dial code is required";
+            newErrors[name] = "Country Code is required";
             allFieldsValid = false;
           }
           break;
