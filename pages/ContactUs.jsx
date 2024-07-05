@@ -170,8 +170,7 @@ function ContactUs() {
             />
             <div id="first_name">
               <div
-                className={`w-full flex ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                  }  rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
+                className={`w-full flex gap-2 rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
               >
                 <ReactSelect
                   options={filteredTelCode}
