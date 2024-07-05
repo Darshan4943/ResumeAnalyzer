@@ -488,6 +488,7 @@ const ResumePreview = ({
             getLimits();
             toast.success("Resume Saved To Collection successfully");
             localStorage.removeItem("userData");
+            localStorage.removeItem("resumeData");
             setTimeout(() => {
               setSaveDisabled(false);
             }, 3000);
