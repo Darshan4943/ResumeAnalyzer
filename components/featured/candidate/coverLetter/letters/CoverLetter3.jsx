@@ -85,7 +85,7 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
                 {data?.email}
               </span>
 
-              <span className="text-[10px] font-[400] text-[#414042] break-word">
+              <span className="text-[10px] font-[400] text-[#414042] break-all flex-wrap">
                 {data?.dial_code} {data?.mobileNumber}
               </span>
 

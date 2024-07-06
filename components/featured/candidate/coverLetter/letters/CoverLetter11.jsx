@@ -42,8 +42,6 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
     }
   }, [data?.passages, splitContent]);
 
-
-
   const formatContent = (link) => {
     if (link?.length > 28) {
       return link?.match(/.{1,28}/g).join("\n");
