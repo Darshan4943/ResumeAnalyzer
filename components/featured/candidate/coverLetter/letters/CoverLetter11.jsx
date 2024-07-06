@@ -106,7 +106,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
             </div>
 
             <div className="gap-[8px] flex flex-row w-full justify-between items-center  py-[4px] px-[8px] border-b-[0.5px] border-dotted border-[#808285]">
-              <span className="text-[10px] font-[400] text-[#414042] font-Poppins break-all flex-wrap items-center">
+              <span className="text-[10px] font-[400] text-[#414042] font-Poppins  items-center">
                 {data?.dial_code} {data?.mobileNumber}
               </span>
               <svg

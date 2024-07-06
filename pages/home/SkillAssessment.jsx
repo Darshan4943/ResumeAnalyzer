@@ -28,6 +28,7 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 import Result from "../../components/featured/home/Result";
+import ResultPdf from "../../components/featured/home/ResultPdf";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -101,9 +102,6 @@ function SkillAssessment() {
   };
 
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
-
-  // START
-  // START
   const [skills, setSkills] = useState([]);
   const [skillList, setSkillList] = useState([]);
 
@@ -522,7 +520,13 @@ function SkillAssessment() {
   const handleDownload = async () => {
     setLoadingg(true);
     const doc = (
-      <Result
+      // <Result
+      //   questions={question}
+      //   answers={answer}
+      //   selectedSkill={selectedSkill}
+      //   checkAnswer={checkAnswer}
+      // />
+      <ResultPdf
         questions={question}
         answers={answer}
         selectedSkill={selectedSkill}
@@ -556,7 +560,9 @@ function SkillAssessment() {
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
-    return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
+    return percentageScore % 1 === 0
+      ? percentageScore
+      : percentageScore.toFixed(2);
   }
   return (
     <div className="">
@@ -1093,9 +1099,8 @@ function SkillAssessment() {
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {formatScore(item.score)}%
+                                        {formatScore(item.score)}%
                                         {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
-
                                       </p>
                                     </div>
                                   </div>
@@ -1323,8 +1328,9 @@ function SkillAssessment() {
                                 </div>
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
-                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-                                 
+                                  The resulted score did not meet the
+                                  Certification requirements. You may try again!
+                                  (Required above 70%)
                                 </di>
                               )}
                             </>
@@ -1377,18 +1383,6 @@ function SkillAssessment() {
                       </button>
                     </div>
 
-                    {/* <div
-                      className="absolute overflow-hidden left-[-5000px]"
-                      ref={resumeRef}
-                    >
-                      <Result
-                        questions={question}
-                        answers={answer}
-                        selectedSkill={selectedSkill}
-                        checkAnswer={checkAnswer}
-                      />
-                    </div> */}
-
                     <div
                       className="absolute overflow-hidden left-[-8000px]"
                       ref={resumeRef1}
@@ -1405,6 +1399,13 @@ function SkillAssessment() {
               </div>
             </>
           )}
+
+          <ResultPdf
+            questions={question}
+            answers={answer}
+            selectedSkill={selectedSkill}
+            checkAnswer={checkAnswer}
+          />
         </div>
       )}
     </div>
