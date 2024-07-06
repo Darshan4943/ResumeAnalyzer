@@ -16,7 +16,7 @@ const DeleteModal = ({ deleteHandler, closeDeleteModal, type }) => {
           <div className="w-full d-flex flex-column justify-center items-center">
             <h1 className="text-[24px] text-center">Delete</h1>
             <p className="text-[16px] text-center">
-              {type === "resumes"
+              {type === "resume"
                 ? "Are you sure you want to delete this Resume?"
                 : "Are you sure you want to delete this Cover Letter?"}
             </p>

@@ -94,7 +94,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                 </svg>
 
                 <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] leading-[12.1px] break-word">
-                  {data?.mobileNumber}
+                {data?.dial_code} {data?.mobileNumber}
                 </span>
               </div>
               <div>

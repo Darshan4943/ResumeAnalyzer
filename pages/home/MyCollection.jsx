@@ -437,6 +437,7 @@ const MyCollection = () => {
                               <DeleteModal
                                 deleteHandler={deleteCoverLetter}
                                 closeDeleteModal={closeDeleteModal}
+                                type={"cover"}
                               />
                             )}
                           </div>
