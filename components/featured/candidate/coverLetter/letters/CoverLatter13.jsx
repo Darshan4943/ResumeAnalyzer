@@ -59,7 +59,6 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
     return link;
   };
 
-
   const formatEmail = (link) => {
     if (link?.length > 34) {
       return link?.match(/.{1,34}/g).join("\n");
@@ -91,7 +90,7 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                             {data?.employerCityState} {" ,"} {data?.employerCountry}
                         </span> */}
             <span className="text-[12px] font-[400] text-[#333] font-Arial">
-              {data?.mobileNumber}
+              {data?.dial_code} {data?.mobileNumber}
             </span>
             <span className="text-[12px] font-[400] text-[#333] font-Arial">
               {formatEmail(data?.email)}

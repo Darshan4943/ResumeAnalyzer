@@ -44,14 +44,12 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
     }
   }, [data?.passages, splitContent]);
 
-  
   const formatContent = (link) => {
     if (link?.length > 32) {
       return link?.match(/.{1,32}/g).join("\n");
     }
     return link;
   };
-
 
   const formatName = (link) => {
     if (link?.length > 14) {
@@ -77,7 +75,8 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
           <div className="flex flex-row justify-between w-full gap-[8px]">
             <div className="flex flex-col w-[324px]">
               <span className=" text-[24px] font-[700] text-[#242424] break-word">
-                {formatName(camelCase(data?.firstName))} {formatName(camelCase(data?.lastName))}
+                {formatName(camelCase(data?.firstName))}{" "}
+                {formatName(camelCase(data?.lastName))}
               </span>
             </div>
 
@@ -86,8 +85,8 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
                 {data?.email}
               </span>
 
-              <span className="text-[10px] font-[400] text-[#414042] break-word">
-                {data?.mobileNumber}
+              <span className="text-[10px] font-[400] text-[#414042] break-all flex-wrap">
+                {data?.dial_code} {data?.mobileNumber}
               </span>
 
               <span className="text-[10px] font-[400] text-[#414042] break-word">

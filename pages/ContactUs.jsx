@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import ReactSelect from "react-select";
 import { telCode } from "../utils/data";
 import { fromJSON } from "postcss";
+import { useMediaQuery } from "@react-hook/media-query";
 
 function ContactUs() {
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -18,7 +19,8 @@ function ContactUs() {
     dial_code: "",
   });
 
-  console.log("form", formData);
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -168,22 +170,22 @@ function ContactUs() {
             />
             <div id="first_name">
               <div
-                className={`w-full flex pr-[16px]  pl-[16px] gap-2  rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
+                className={`w-full flex gap-2 rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
               >
                 <ReactSelect
                   options={filteredTelCode}
-                  className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer "
+                  className={`flex items-center rounded-[8px] outline-none border-none cursor-pointer w-[100%] min-w-[150px]`}
                   name=""
                   placeholder="Select"
                   value={selectedItem}
                   onChange={handleItemClick}
                   getOptionLabel={(option) => (
-                    <div className="flex items-center cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat">
+                    <div className="flex items-center cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat min-w-[90px] ">
                       <img
                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                         width="20px"
                       />
-                      <span className="ml-2 text-[#333333] cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat">
+                      <span className="ml-2 text-[#333333] cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat ">
                         {option.code} {option.dial_code}
                       </span>
                     </div>
@@ -213,7 +215,11 @@ function ContactUs() {
                   className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
                   value={formData.mobileNo}
                   onChange={handleChange}
-                  placeholder="Enter Mobile No"
+                  placeholder={`${
+                    isViewportBelow850
+                      ? "Enter Number "
+                      : "Enter Contact Number "
+                  }`}
                   required
                   maxLength={10}
                   minLength={10}
