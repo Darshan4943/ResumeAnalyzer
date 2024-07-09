@@ -88,11 +88,11 @@ const CandidateAiPower = ({
 
   const handleFile = (selectedFile) => {
     if (selectedFile) {
-      if (selectedFile.type === "application/pdf" || selectedFile.type === "application/msword") {
+      if (selectedFile.type === "application/pdf" || "application/msword" ||  "application/docs") {
         // Adjust file type checks as per your requirement
         sendFile(selectedFile);
       } else {
-        toast.error("Only PDF and DOC files are allowed");
+       setDocFileError(true);
       }
     }
   };
@@ -342,7 +342,7 @@ const CandidateAiPower = ({
                       name="myfile"
                       onChange={handleFileChange}
                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,"
-                   
+
                     />
                     {file ? (
                       <div className="w-full flex justify-center">

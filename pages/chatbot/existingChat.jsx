@@ -357,7 +357,7 @@ const ExistingChat = ({
                 animate={{ x: "0%" }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute z-[99] w-[90%] mt-[1px] h-[100vh] rounded-r-[12px] overflow-y-auto left-0  bg-[#FBFBFB]"
+                className="absolute z-[99] w-[100%] mt-[1px] h-[100vh] rounded-r-[12px] overflow-y-auto left-0  bg-[#FBFBFB]"
               >
                 <div className="w-full relative flex ">
                   <div className="flex flex-col w-[100%]   ">
@@ -408,7 +408,7 @@ const ExistingChat = ({
                         </div>
                       </div>
                     </div>
-                    <div className="w-full overflow-y-auto ">
+                    <div className="w-full ">
                       <div className="flex flex-col w-full p-6">
                         <div className="flex flex-col max-h-[75vh] gap-6 ">
                           {Object.keys(existingChatDayWise).length > 0 ? (
