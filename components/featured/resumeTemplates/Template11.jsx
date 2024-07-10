@@ -266,7 +266,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
             )}
           </View>
 
-          <View>
+          <View   wrap={false }>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View 
               wrap={false }
@@ -355,7 +355,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
             )}
           </View>
 
-          <View>
+          <View   wrap={false }>
             {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
               <View style={{ width: 228 }}>
                 <View style={{ width: 228, objectFit: "contain" }}>
@@ -393,7 +393,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
             )}
           </View>
           {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
-            <View style={{ width: 228 }}>
+            <View style={{ width: 228 }}   wrap={false }>
               <View style={{ width: 228, objectFit: "contain" }}>
                 <Text
                   style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}
@@ -447,7 +447,7 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
           )}
 
           {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
-            <View style={{ width: 228 }}>
+            <View style={{ width: 228 }}   wrap={false }>
               <View style={{ width: 228, objectFit: "contain" }}>
                 <Text
                   style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}
