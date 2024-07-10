@@ -81,7 +81,7 @@ function Template30({ data, selectedColor, selectedFont, preview, pageLayout }) 
               marginLeft: data?.showProfile ? "" : "46px",
               flexDirection: "column",
               gap: 4,
-              maxWidth: "40%",
+              maxWidth: data?.showProfile ? "40%" : "100%",
               display: "flex",
               paddingVertical: "6px",
             }}
@@ -158,7 +158,7 @@ function Template30({ data, selectedColor, selectedFont, preview, pageLayout }) 
                       }}
                     >
                       {/* {data.email} */}
-                      {formatEmail(data.email)}
+                      {data?.showProfile ? formatEmail(data.email) : data.email}
                     </Text>
                   </View>
                 </View>

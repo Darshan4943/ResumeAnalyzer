@@ -70,14 +70,12 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
             localStorage.removeItem("purchase");
             setTimeout(() => {
               setLoading(false);
-              window.location.href = `/purchase/details?id=${
-                sendToPurchase.index + 1
-              }`;
+              window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                }`;
             }, 1000);
           } else {
             setTimeout(() => {
               setLoading(false);
-
               window.location.href = "/home?signIn=true";
             }, 1000);
           }
@@ -111,7 +109,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[30px] font-[600]"> {role==="user" ? "Candidate Sign In ":"Recruiter Sign In"}</div>
+        <div className="text-[30px] font-[600]"> {role === "user" ? "Candidate Sign In " : "Recruiter Sign In"}</div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row px-[16px] py-[12px] border-[1px]  rounded-[8px] border-solid border-[#9D9D9D]">
             <input
@@ -174,11 +172,10 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
             <div className="flex justify-between text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               {error && (
                 <div
-                  className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${
-                    error
-                      ? "text-[#c00000] font-[600]"
-                      : "text-green font-[600]"
-                  }`}
+                  className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${error
+                    ? "text-[#c00000] font-[600]"
+                    : "text-green font-[600]"
+                    }`}
                 >
                   <div className="w-[18px] h-[18px] scr420:w-[24px] scr420:h-[24px]">
                     <svg
@@ -221,9 +218,8 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] ${
-              loading && "bg-[#06a9ef]"
-            } hover:text-[#fff] transition-all duration-200`}
+            className={`w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] ${loading && "bg-[#06a9ef]"
+              } hover:text-[#fff] transition-all duration-200`}
           >
             {loading ? (
               <div role="status">
