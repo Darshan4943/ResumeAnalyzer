@@ -32,6 +32,7 @@ import Result from "../../components/featured/home/Result";
 function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
+  const resumeRef2 = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -47,6 +48,7 @@ function SkillAssessment() {
   const [loading, setLoading] = useState(false);
   const [btnEnable, setBtnEnable] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
+
   const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
@@ -72,7 +74,9 @@ function SkillAssessment() {
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
-
+  const [viewCertificate, setViewCertificate] = useState()
+  const [viewCertificateData, setViewCertificateData] = useState([])
+  const [viewCertificateLoader, setViewCertificateLoader] = useState(false)
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
     // { question: 2, isSkiped: true, Answer: "" },
@@ -226,7 +230,7 @@ function SkillAssessment() {
         skillsSet.add(skillObj.skill);
       });
     });
-
+    console.log(999, data)
     setUserSkills(Array.from(skillsSet));
   }, [data]);
 
@@ -270,6 +274,38 @@ function SkillAssessment() {
         setTimeout(() => {
           // setLoadingg(false);
         }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error generating PDF:", error);
+        // setLoadingg(false);
+      });
+  };
+
+  const generatePdf3 = (item, index) => {
+    // setLoadingg(true);
+    setViewCertificateLoader(true)
+    setViewCertificate(index)
+    setViewCertificateData(item)
+    return new Promise((resolve, reject) => {
+      generatePDF(resumeRef2, {
+        filename: `${item.skill}_certificate_skilotech.pdf`,
+        resolution: Resolution.HIGH,
+        page: {
+          // // margin is in MM, default is Margin.NONE = 0
+          // margin: Margin.SMALL,
+          // default is 'A4'
+          format: "letter",
+          // default is 'portrait'
+          orientation: "landscape",
+        },
+      });
+      resolve();
+    })
+      .then(() => {
+        setTimeout(() => {
+          // setLoadingg(false);
+          setViewCertificateLoader(false)
+        }, 4000);
       })
       .catch((error) => {
         console.error("Error generating PDF:", error);
@@ -379,13 +415,14 @@ function SkillAssessment() {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("https://jamblix.com/api/assessment/add", {
+        .post("http://localhost:2000/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
           date: new Date(),
           isCertification: assesmentType !== "Normal" ? true : false,
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
+          level: level
         })
         .then((res) => {
           setDownloadCertificate(res.data.data);
@@ -406,10 +443,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
@@ -539,7 +576,7 @@ function SkillAssessment() {
     URL.revokeObjectURL(url);
     setLoadingg(false);
   };
-
+  console.log(909, level)
   const handleStart = () => {
     const isActivePlan = localStorage.getItem("planActive");
     if (!isActivePlan && assesmentType === "Normal" && attemptCount > 0) {
@@ -553,6 +590,13 @@ function SkillAssessment() {
     }
   };
 
+  const veiwCertfy = (item) => {
+    setViewCertificate(true)
+    setViewCertificateData(item)
+    generatePdf3()
+  }
+
+  console.log(121, viewCertificateData)
   return (
     <div className="">
       {editProfilePopUp && (
@@ -593,21 +637,19 @@ function SkillAssessment() {
             <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
               <div className=" w-[100%] flex flex-row gap-[8px] ">
                 <button
-                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${
-                    assesmentType === "Normal"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                   onClick={() => setAssesmentType("Normal")}
                 >
                   Quick Assesment
                 </button>
                 <button
-                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                    assesmentType === "Certificate"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
+                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
                   Certified Assesment
@@ -729,10 +771,9 @@ function SkillAssessment() {
                               onClick={() => {
                                 setSelectedSkill(item);
                               }}
-                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                                selectedSkill == item &&
+                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item &&
                                 "bg-[#06A9EF] text-white"
-                              }`}
+                                }`}
                             >
                               {item}
                             </button>
@@ -747,8 +788,8 @@ function SkillAssessment() {
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-                    <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
-                      <div className="flex justify-between">
+                    <div className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-4 gap-3 scr500:min-w-[488px] min-w-[300px]  bg-white rounded-[16px]  ">
+                      {/* <div className="flex justify-between">
                         Difficulty Level
                         <div
                           onClick={() => {
@@ -813,6 +854,26 @@ function SkillAssessment() {
                           {" "}
                           Start
                         </button>
+                      </div> */}
+                      <div className="w-full flex justify-center items-center">
+                        <svg width="119" height="80" viewBox="0 0 119 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M59.5001 0C75.6069 0 90.1958 6.49392 100.794 17.0056L96.6407 28.095L90.9404 26.8591C82.864 18.8692 71.7588 13.9349 59.5001 13.9349L50.5396 7.26812L59.5001 0Z" fill="#F93778" />
+                          <path d="M28.0596 26.8591L19.6091 23.9092L18.2061 17.0056C28.8043 6.49392 43.3932 0 59.5 0V13.9349C47.2413 13.9349 36.136 18.8692 28.0596 26.8591Z" fill="#75E0F6" />
+                          <path d="M118.103 58.2997H104.207C104.113 46.003 99.056 34.8884 90.9399 26.8594L100.793 17.0059C111.431 27.5566 118.009 42.1551 118.103 58.2997Z" fill="#FA7085" />
+                          <path d="M14.7927 58.2997H0.897186C0.991041 42.1551 7.56852 27.5566 18.2061 17.0059L28.0596 26.8594C19.9438 34.8884 14.8863 46.003 14.7927 58.2997Z" fill="#01BAFE" />
+                          <path d="M16.413 3.19531L28.0596 14.8422V26.8587L14.4587 17.0052L10.4046 9.2037L16.413 3.19531Z" fill="#555C7C" />
+                          <path d="M28.0596 26.8581H16.0433L4.39641 15.2115L10.4046 9.20312L28.0596 26.8581Z" fill="#373A5B" />
+                          <path d="M59.5011 60.7559H78.6533V74.8594L59.5011 79.9988L57.4903 71.0133L59.5011 60.7559Z" fill="#555C7C" />
+                          <path d="M40.3488 60.7559H59.501V79.9988L40.3488 74.8594V60.7559Z" fill="#373A5B" />
+                          <path d="M65.0079 50.186L72.9277 53.4035L68.4115 60.7564L67.7989 69.1881L59.5006 67.136L54.1286 56.4183L59.5006 43.6484L65.0079 50.186Z" fill="#FFE643" />
+                          <path d="M53.9936 50.186L59.501 43.6484V67.136L51.2027 69.1881L50.59 60.7564L46.0738 53.4035L53.9936 50.186Z" fill="#FFCA00" />
+                        </svg>
+                      </div>
+                      <div className="w-full py-[4px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]"> Select difficulty level</div>
+                      <div className="scr500:h-[44px] h-[34px] scr500:px-[20px] px-[12px] w-full flex justify-between">
+                        <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Easy"); setisLevel(false); toggleContent() }}>Easy</button>
+                        <button className="scr500:w-[31.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Intermediate"); setisLevel(false); toggleContent() }}>Intermediate</button>
+                        <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Advanced"); setisLevel(false); toggleContent() }}>Advanced</button>
                       </div>
                     </div>
                   </div>
@@ -824,21 +885,19 @@ function SkillAssessment() {
                     // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
                     <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
                       <button
-                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${
-                          !resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
+                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${
-                          resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
+                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
                         onClick={() => setResultType(true)}
                       >
                         Certified Assesment Result
@@ -849,9 +908,8 @@ function SkillAssessment() {
                 </div>
                 <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
                   <div
-                    className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                      showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
-                    } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
+                      } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                   >
                     <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px] text-center">
                       <Assessmentlogo />
@@ -971,11 +1029,11 @@ function SkillAssessment() {
                       <button
                         className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                         disabled={loading}
-                        // onClick={() =>
-                        //   setQuestionIndex(
-                        //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                        //   )
-                        // }
+                      // onClick={() =>
+                      //   setQuestionIndex(
+                      //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                      //   )
+                      // }
                       >
                         {loading ? <MiniLoader /> : " Get Started"}
                       </button>
@@ -1002,6 +1060,7 @@ function SkillAssessment() {
                                 Score
                               </p>
                             </div>
+
                           </div>
                           <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
                             {assessmentList
@@ -1035,6 +1094,7 @@ function SkillAssessment() {
                                         {item.score} / 10
                                       </p>
                                     </div>
+
                                   </div>
                                 </div>
                               ))}
@@ -1056,6 +1116,11 @@ function SkillAssessment() {
                             <div className="flex w-[20%] justify-center items-center self-stretch  ">
                               <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                                 Score
+                              </p>
+                            </div>
+                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
+                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                Action
                               </p>
                             </div>
                           </div>
@@ -1090,6 +1155,16 @@ function SkillAssessment() {
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
                                         {Math.round((item.score * 100) / 60)}%
                                       </p>
+                                    </div>
+                                    <div onClick={() => generatePdf3(item, index)} className="flex w-[20%] justify-center items-center self-stretch  ">
+                                      <button className="text-[#06A9EF] items-center font-[600] font-montserrat text-[14px] font-semibold leading-7">
+                                        {index === viewCertificate ?
+                                          <>
+                                            {viewCertificateLoader ? <MiniLoader /> : "View Certificate"}
+                                          </>
+                                          :
+                                          "View Certificate"}
+                                      </button>
                                     </div>
                                   </div>
                                 </div>
@@ -1209,8 +1284,8 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                        ? "Submit"
-                        : "Next"}
+                          ? "Submit"
+                          : "Next"}
                     </button>
                   </div>
                 </div>
@@ -1317,7 +1392,7 @@ function SkillAssessment() {
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
                                   The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-                                 
+
                                 </di>
                               )}
                             </>
@@ -1327,12 +1402,11 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${
-                        assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= "70%"
-                          ? "sm:w-[90%] w-[95%]"
-                          : "w-[80%]"
-                      } `}
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                        } `}
                     >
                       <button
                         onClick={() => {
@@ -1393,6 +1467,8 @@ function SkillAssessment() {
                         setDownloadCertificate={setDownloadCertificate}
                       />
                     </div>
+
+
                   </div>
                 </div>
               </div>
@@ -1400,6 +1476,20 @@ function SkillAssessment() {
           )}
         </div>
       )}
+
+
+      <div
+        className="absolute overflow-hidden left-[-8000px]"
+        ref={resumeRef2}
+      >
+        <Certificate
+          selectedSkill={viewCertificateData.skill}
+          level={viewCertificateData.level}
+          downloadCertificate={viewCertificateData}
+          setDownloadCertificate={setDownloadCertificate}
+        />
+      </div>
+
     </div>
   );
 }
