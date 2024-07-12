@@ -76,9 +76,10 @@ function Certificate({
           has succesfully completed the Skill Assessment on
         </span>
         <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
-          <span className="font-Montserrat text-[30px] font-[500] text-[ #333333]">
-            {selectedSkill} ({level})
+          <span className="font-Montserrat text-[30px] font-[500] text-[#333333]">
+            {selectedSkill} {level && `(${level})`}
           </span>
+
           <div className="w-[100%] bg-[#FFD500] h-[1.64px]"></div>
         </div>
         <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
