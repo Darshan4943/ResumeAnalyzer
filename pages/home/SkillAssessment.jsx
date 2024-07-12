@@ -18,7 +18,10 @@ import CloseIcon, {
 import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
+import ResultPdf from "../../components/featured/home/ResultPdf";
+import jsPDF from "jspdf";
 
+import html2canvas from "html2canvas";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
@@ -73,6 +76,13 @@ function SkillAssessment() {
   const [viewCertificate, setViewCertificate] = useState()
   const [viewCertificateData, setViewCertificateData] = useState([])
   const [viewCertificateLoader, setViewCertificateLoader] = useState(false)
+  const firstContainer = useRef(null);
+  const secondContainer = useRef(null);
+  const thirdContainer = useRef(null);
+  const fourthContainer = useRef(null);
+  const fifthContainer = useRef(null);
+  const sixthContainer = useRef(null);
+  const seventhContainer = useRef(null);
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
@@ -531,26 +541,74 @@ function SkillAssessment() {
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore + `%`;
   }
+  // const handleDownload = async () => {
+  //   setLoadingg(true);
+  //   const doc = (
+  //     <Result
+  //       questions={question}
+  //       answers={answer}
+  //       selectedSkill={selectedSkill}
+  //       checkAnswer={checkAnswer}
+  //     />
+  //   );
+  //   const blob = await pdf(doc).toBlob();
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement("a");
+  //   a.href = url;
+  //   a.download = `${selectedSkill}_assessment.pdf`;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  //   setLoadingg(false);
+  // };
+
+  const generatePdfBlob = async () => {
+    const containers = [
+      firstContainer.current,
+      secondContainer.current,
+      thirdContainer.current,
+      fourthContainer.current,
+      fifthContainer.current,
+      sixthContainer.current,
+      seventhContainer.current,
+    ];
+    const pdf = new jsPDF("p", "pt", "a4");
+
+    for (let i = 0; i < containers.length; i++) {
+      const ref = containers[i];
+      if (ref) {
+        const canvas = await html2canvas(ref, { scale: 2 });
+        const imgData = canvas.toDataURL("image/jpeg", 0.7);
+
+        if (i > 0) {
+          pdf.addPage();
+        }
+        pdf.addImage(imgData, "JPEG", 0, 0, 595.28, 841.89);
+      }
+    }
+
+    return pdf.output("blob");
+  };
+
   const handleDownload = async () => {
-    setLoadingg(true);
-    const doc = (
-      <Result
-        questions={question}
-        answers={answer}
-        selectedSkill={selectedSkill}
-        checkAnswer={checkAnswer}
-      />
-    );
-    const blob = await pdf(doc).toBlob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${selectedSkill}_assessment.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    setLoadingg(false);
+    setLoading(true);
+
+    const pdfBlob = await generatePdfBlob();
+    if (pdfBlob) {
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "your_filename.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      console.error("Failed to generate PDF");
+    }
+    // document.body.removeChild(container);
+    setLoading(false);
   };
 
   const handleStart = () => {
@@ -1516,6 +1574,23 @@ function SkillAssessment() {
           setDownloadCertificate={setDownloadCertificate}
         />
       </div>
+      <div className="flex absolute top-[-9999px] left-[-999999]">
+          <ResultPdf
+            questions={question}
+            answers={answer}
+            selectedSkill={selectedSkill}
+            checkAnswer={checkAnswer}
+            firstContainer={firstContainer}
+            secondContainer={secondContainer}
+            thirdContainer={thirdContainer}
+            fourthContainer={fourthContainer}
+            fifthContainer={fifthContainer}
+            sixthContainer={sixthContainer}
+            seventhContainer={seventhContainer}
+            assessmentType={assesmentType}
+            level={level}
+          />
+          </div>
     </div>
   );
 }
