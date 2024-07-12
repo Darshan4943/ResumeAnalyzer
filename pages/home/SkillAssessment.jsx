@@ -1,11 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useRef, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
-// import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
-
 import MiniLoader from "../../components/common/mini-loader";
 import MiniLoader2 from "../../components/common/miniLoader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
@@ -18,10 +14,7 @@ import CloseIcon, {
 import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
-import ResultPdf from "../../components/featured/home/ResultPdf";
-import jsPDF from "jspdf";
 
-import html2canvas from "html2canvas";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
@@ -31,6 +24,10 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 import Result from "../../components/featured/home/Result";
+import ResultPdf from "../../components/featured/home/ResultPdf";
+import jsPDF from "jspdf";
+
+import html2canvas from "html2canvas";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -86,6 +83,8 @@ function SkillAssessment() {
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
+
+
 
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
@@ -374,23 +373,6 @@ function SkillAssessment() {
     }
   }, [question, questionIndex]);
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (startTimer) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex + 1 < question.length) {
-  //         setQuestionIndex(questionIndex + 1);
-  //         setStartTimer(false);
-  //         setTimer(30);
-  //       } else {
-
-  //       }
-  //     }, 30000);
-  //   }
-
-  //   return () => clearTimeout(timer);
-  // }, [startTimer, questionIndex, question]);
-
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
@@ -578,7 +560,7 @@ function SkillAssessment() {
     for (let i = 0; i < containers.length; i++) {
       const ref = containers[i];
       if (ref) {
-        const canvas = await html2canvas(ref, { scale: 2 });
+        const canvas = await html2canvas(ref, { scale: 6 });
         const imgData = canvas.toDataURL("image/jpeg", 0.7);
 
         if (i > 0) {
@@ -626,7 +608,9 @@ function SkillAssessment() {
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
-    return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
+    return percentageScore % 1 === 0
+      ? percentageScore
+      : percentageScore.toFixed(2);
   }
   const generatePdf3 = async (item, index) => {
 
@@ -1225,7 +1209,6 @@ function SkillAssessment() {
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
                                         {formatScore(item.score)}%
                                         {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
-
                                       </p>
                                     </div>
 
@@ -1561,6 +1544,24 @@ function SkillAssessment() {
               </div>
             </>
           )}
+
+          <div className="flex overflow-hidden absolute left-[-9999px]">
+            <ResultPdf
+              questions={question}
+              answers={answer}
+              selectedSkill={selectedSkill}
+              checkAnswer={checkAnswer}
+              firstContainer={firstContainer}
+              secondContainer={secondContainer}
+              thirdContainer={thirdContainer}
+              fourthContainer={fourthContainer}
+              fifthContainer={fifthContainer}
+              sixthContainer={sixthContainer}
+              seventhContainer={seventhContainer}
+              assessmentType={assesmentType}
+              level={level}
+            />
+          </div>
         </div>
       )}
       <div
@@ -1574,23 +1575,7 @@ function SkillAssessment() {
           setDownloadCertificate={setDownloadCertificate}
         />
       </div>
-      <div className="flex absolute top-[-9999px] left-[-999999]">
-          <ResultPdf
-            questions={question}
-            answers={answer}
-            selectedSkill={selectedSkill}
-            checkAnswer={checkAnswer}
-            firstContainer={firstContainer}
-            secondContainer={secondContainer}
-            thirdContainer={thirdContainer}
-            fourthContainer={fourthContainer}
-            fifthContainer={fifthContainer}
-            sixthContainer={sixthContainer}
-            seventhContainer={seventhContainer}
-            assessmentType={assesmentType}
-            level={level}
-          />
-          </div>
+
     </div>
   );
 }
