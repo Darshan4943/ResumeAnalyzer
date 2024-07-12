@@ -28,6 +28,10 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 import Result from "../../components/featured/home/Result";
+import ResultPdf from "../../components/featured/home/ResultPdf";
+import jsPDF from "jspdf";
+import ReactDOM from "react-dom";
+import html2canvas from "html2canvas";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -55,7 +59,13 @@ function SkillAssessment() {
   // const [isActivePlan, setisActivePlan]=useState(false)
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
-
+  const firstContainer = useRef(null);
+  const secondContainer = useRef(null);
+  const thirdContainer = useRef(null);
+  const fourthContainer = useRef(null);
+  const fifthContainer = useRef(null);
+  const sixthContainer = useRef(null);
+  const seventhContainer = useRef(null);
   // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
@@ -72,6 +82,16 @@ function SkillAssessment() {
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
+
+  const pageRefs = {
+    firstContainer,
+    secondContainer,
+    thirdContainer,
+    fourthContainer,
+    fifthContainer,
+    sixthContainer,
+    seventhContainer,
+  };
 
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
@@ -353,23 +373,6 @@ function SkillAssessment() {
     }
   }, [question, questionIndex]);
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (startTimer) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex + 1 < question.length) {
-  //         setQuestionIndex(questionIndex + 1);
-  //         setStartTimer(false);
-  //         setTimer(30);
-  //       } else {
-
-  //       }
-  //     }, 30000);
-  //   }
-
-  //   return () => clearTimeout(timer);
-  // }, [startTimer, questionIndex, question]);
-
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
@@ -519,27 +522,180 @@ function SkillAssessment() {
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore + `%`;
   }
+
+  const downloadPdfBlob = async () => {
+    const input1 = firstContainer.current;
+    const input2 = secondContainer.current;
+    const input3 = thirdContainer.current;
+    const input4 = fourthContainer.current;
+    const input5 = fifthContainer.current;
+    const input6 = sixthContainer.current;
+    const input7 = seventhContainer.current;
+
+    try {
+      const canvas1 = await html2canvas(input1, { scale: 5 });
+      const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
+
+      const pdf = new jsPDF("p", "pt", "a4");
+      pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
+
+      if (input2) {
+        const canvas2 = await html2canvas(input2, { scale: 5 });
+        const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+      } else if (input3) {
+        const canvas3 = await html3canvas(input3, { scale: 5 });
+        const imgData3 = canvas3.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData3, "JPEG", 0, 0, 595.28, 841.89);
+      } else if (input4) {
+        const canvas4 = await html2canvas(input4, { scale: 5 });
+        const imgData4 = canvas4.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData4, "JPEG", 0, 0, 595.28, 841.89);
+      } else if (input5) {
+        const canvas5 = await html5canvas(input5, { scale: 5 });
+        const imgData5 = canvas5.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData5, "JPEG", 0, 0, 595.28, 841.89);
+      } else if (input6) {
+        const canvas6 = await html2canvas(input6, { scale: 5 });
+        const imgData6 = canvas6.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData6, "JPEG", 0, 0, 595.28, 841.89);
+      } else if (input7) {
+        const canvas7 = await html7canvas(input7, { scale: 5 });
+        const imgData7 = canvas7.toDataURL("image/jpeg", 0.7);
+        pdf.addPage();
+        pdf.addImage(imgData7, "JPEG", 0, 0, 595.28, 841.89);
+      }
+
+      const pdfBlob = pdf.output("blob");
+
+      pdf.save(`${data.firstName}.pdf`);
+      setDownload(false);
+      return pdfBlob;
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      return null;
+    }
+  };
+
+  const generatePdfBlob = async () => {
+    const containers = [
+      firstContainer,
+      secondContainer,
+      thirdContainer,
+      fourthContainer,
+      fifthContainer,
+      sixthContainer,
+      seventhContainer,
+    ];
+    const pdf = new jsPDF("p", "pt", "a4");
+
+    for (let i = 0; i < containers.length; i++) {
+      const ref = containers[i].current;
+      console.log(878, ref);
+      if (ref && ref.children.length > 0) {
+        // Ensure the container has content
+        const canvas = await html2canvas(ref, { scale: 2 });
+        const imgData = canvas.toDataURL("image/jpeg", 0.7);
+        console.log("canvas", canvas);
+        if (i > 0) {
+          pdf.addPage();
+        }
+        pdf.addImage(imgData, "JPEG", 0, 0, 595.28, 841.89);
+      }
+    }
+    console.log("pdf", pdf);
+    const pdfBlob = pdf.output("blob");
+    return pdfBlob;
+  };
+
   const handleDownload = async () => {
-    setLoadingg(true);
-    const doc = (
-      <Result
+    setLoading(true);
+
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+
+    ReactDOM.render(
+      <ResultPdf
         questions={question}
         answers={answer}
         selectedSkill={selectedSkill}
         checkAnswer={checkAnswer}
-      />
+        firstContainer={firstContainer}
+        secondContainer={secondContainer}
+        thirdContainer={thirdContainer}
+        fourthContainer={fourthContainer}
+        fifthContainer={fifthContainer}
+        sixthContainer={sixthContainer}
+        seventhContainer={seventhContainer}
+      />,
+      container,
+      async () => {
+        const pdfBlob = await generatePdfBlob();
+        console.log("PDF Blob:", pdfBlob);
+        if (pdfBlob) {
+          const url = URL.createObjectURL(pdfBlob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${selectedSkill}_assessment.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } else {
+          console.error("Failed to generate PDF");
+        }
+
+        document.body.removeChild(container);
+        setLoading(false);
+      }
     );
-    const blob = await pdf(doc).toBlob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${selectedSkill}_assessment.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    setLoadingg(false);
   };
+
+  // const handleDownload = async () => {
+  //   setLoadingg(true);
+  //   const doc = (
+  //     <ResultPdf
+  //       questions={question}
+  //       answers={answer}
+  //       selectedSkill={selectedSkill}
+  //       checkAnswer={checkAnswer}
+  //       firstContainer={firstContainer}
+  //       secondContainer={secondContainer}
+  //       thirdContainer={thirdContainer}
+  //       fourthContainer={fourthContainer}
+  //       fifthContainer={fifthContainer}
+  //       sixthContainer={sixthContainer}
+  //       seventhContainer={seventhContainer}
+  //     />
+  //   );
+
+  //   const pdfBlob = await downloadPdfBlob();
+
+  //   if (pdfBlob) {
+  //     await addCoverLetter(pdfBlob);
+  //     console.log("PDF downloaded successfully");
+  //   } else {
+  //     console.error("Failed to download PDF");
+  //     setLoading(false);
+  //     setLoading1(false);
+  //   }
+
+  //   const blob = await pdf(doc).toBlob();
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement("a");
+  //   a.href = url;
+  //   a.download = `${selectedSkill}_assessment.pdf`;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  //   setLoadingg(false);
+  // };
 
   const handleStart = () => {
     const isActivePlan = localStorage.getItem("planActive");
@@ -556,7 +712,9 @@ function SkillAssessment() {
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
-    return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
+    return percentageScore % 1 === 0
+      ? percentageScore
+      : percentageScore.toFixed(2);
   }
   return (
     <div className="">
@@ -1093,9 +1251,8 @@ function SkillAssessment() {
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {formatScore(item.score)}%
+                                        {formatScore(item.score)}%
                                         {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
-
                                       </p>
                                     </div>
                                   </div>
@@ -1323,8 +1480,9 @@ function SkillAssessment() {
                                 </div>
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
-                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-                                 
+                                  The resulted score did not meet the
+                                  Certification requirements. You may try again!
+                                  (Required above 70%)
                                 </di>
                               )}
                             </>
@@ -1405,6 +1563,20 @@ function SkillAssessment() {
               </div>
             </>
           )}
+
+          <ResultPdf
+            questions={question}
+            answers={answer}
+            selectedSkill={selectedSkill}
+            checkAnswer={checkAnswer}
+            firstContainer={firstContainer}
+            secondContainer={secondContainer}
+            thirdContainer={thirdContainer}
+            fourthContainer={fourthContainer}
+            fifthContainer={fifthContainer}
+            sixthContainer={sixthContainer}
+            seventhContainer={seventhContainer}
+          />
         </div>
       )}
     </div>
