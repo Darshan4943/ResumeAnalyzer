@@ -291,32 +291,39 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("https://jamblix.com/api/getQuetions", {
+          .post("https://jamblix.com/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
+            lastQuestions: question,
             questionCount:
               question.length == 9 || question.length === 59 ? "1" : "2",
           })
           .then((res) => {
-            try {
-              const newQuestions = JSON.parse(
-                res.data.data.choices[0].message.content
-              );
-              const newQuestionArray = newQuestions.filter((item) => {
-                return !question.some(
-                  (data) => data.question === item.question
-                );
-              });
-              setQuestion((prevQuestions) => [
-                ...prevQuestions,
-                ...newQuestionArray,
-              ]);
-              setToggle(1);
-              setLoading(false);
-              setStartTimer(true);
-            } catch (error) {
-              console.error("JSON parsing error: ", error);
-              toggleContent();
+
+
+            if (res.data.success) {
+              try {
+                const newQuestions = res.data.data;
+                const newQuestionArray = newQuestions.filter((item) => {
+                  return !question.some(
+                    (data) => data.question === item.question
+                  );
+                });
+                setQuestion((prevQuestions) => [
+                  ...prevQuestions,
+                  ...newQuestionArray,
+                ]);
+                setToggle(1);
+                setLoading(false);
+                setStartTimer(true);
+              } catch (error) {
+                console.error("JSON parsing error: ", error);
+                // Handle parsing error, possibly retry or show user-friendly message
+              }
+            } else {
+              console.error("Backend error: ", res.data.error);
+              setQuestion(question)
+              // Handle backend error, show error message to user
             }
           })
           .catch((err) => {
@@ -388,7 +395,7 @@ function SkillAssessment() {
           skill: selectedSkill,
           score: checkAnswer(),
           date: new Date(),
-          level:level,
+          level: level,
           isCertification: assesmentType !== "Normal" ? true : false,
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
@@ -411,10 +418,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
@@ -564,15 +571,15 @@ function SkillAssessment() {
     return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
   }
   const generatePdf3 = async (item, index) => {
-  
+
     setViewCertificateLoader(true);
     setViewCertificate(index);
     setViewCertificateData(item);
-  
-   
+
+
     await new Promise((resolve) => setTimeout(resolve, 0));
-  
- 
+
+
     try {
       await generatePDF(resumeRef2, {
         filename: `${item.skill}_certificate_skilotech.pdf`,
@@ -582,7 +589,7 @@ function SkillAssessment() {
           orientation: "landscape",
         },
       });
-  
+
       // Wait for 4 seconds before hiding the loader
       setTimeout(() => {
         setViewCertificateLoader(false);
@@ -592,7 +599,7 @@ function SkillAssessment() {
       setViewCertificateLoader(false);
     }
   };
-  
+
   return (
     <div className="">
       {editProfilePopUp && (
@@ -633,21 +640,19 @@ function SkillAssessment() {
             <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
               <div className=" w-[100%] flex flex-row gap-[8px] ">
                 <button
-                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${
-                    assesmentType === "Normal"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                   onClick={() => setAssesmentType("Normal")}
                 >
                   Quick Assesment
                 </button>
                 <button
-                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                    assesmentType === "Certificate"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
+                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
                   Certified Assesment
@@ -769,10 +774,9 @@ function SkillAssessment() {
                               onClick={() => {
                                 setSelectedSkill(item);
                               }}
-                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                                selectedSkill == item &&
+                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item &&
                                 "bg-[#06A9EF] text-white"
-                              }`}
+                                }`}
                             >
                               {item}
                             </button>
@@ -895,21 +899,19 @@ function SkillAssessment() {
                     // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
                     <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
                       <button
-                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${
-                          !resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
+                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${
-                          resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
+                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
                         onClick={() => setResultType(true)}
                       >
                         Certified Assesment Result
@@ -920,9 +922,8 @@ function SkillAssessment() {
                 </div>
                 <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
                   <div
-                    className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                      showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
-                    } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
+                      } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                   >
                     <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px] text-center">
                       <Assessmentlogo />
@@ -1042,11 +1043,11 @@ function SkillAssessment() {
                       <button
                         className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                         disabled={loading}
-                        // onClick={() =>
-                        //   setQuestionIndex(
-                        //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                        //   )
-                        // }
+                      // onClick={() =>
+                      //   setQuestionIndex(
+                      //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                      //   )
+                      // }
                       >
                         {loading ? <MiniLoader /> : " Get Started"}
                       </button>
@@ -1131,7 +1132,7 @@ function SkillAssessment() {
                             </div>
                             <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
                               <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
-                                Action
+                                Certificate
                               </p>
                             </div>
                           </div>
@@ -1164,21 +1165,38 @@ function SkillAssessment() {
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {formatScore(item.score)}%
+                                        {formatScore(item.score)}%
                                         {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
 
                                       </p>
                                     </div>
-                                    <div onClick={() => generatePdf3(item, index)} className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
-                                      <button className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4">
-                                        {index === viewCertificate ?
-                                          <>
-                                            {viewCertificateLoader ? <MiniLoader /> : "View Certificate"}
-                                          </>
-                                          :
-                                          "View Certificate"}
-                                      </button>
+
+                                    <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  text-[10px] ms:text-base font-medium leading-6 ">
+                                      {Number(formatScore(item.score)) >= 70 ?
+                                        <button onClick={() => generatePdf3(item, index)} className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4">
+                                          {index === viewCertificate ?
+                                            <>
+                                              {viewCertificateLoader ? <MiniLoader /> : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                                <g mask="url(#mask0_5292_61102)">
+                                                  <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                                                </g>
+                                              </svg>
+                                              }
+                                            </>
+                                            :
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                              <g mask="url(#mask0_5292_61102)">
+                                                <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                                              </g>
+                                            </svg>}
+                                        </button>
+                                        :
+                                        "N/A"
+                                      }
                                     </div>
+
                                   </div>
                                 </div>
                               ))}
@@ -1297,8 +1315,8 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                        ? "Submit"
-                        : "Next"}
+                          ? "Submit"
+                          : "Next"}
                     </button>
                   </div>
                 </div>
@@ -1405,7 +1423,7 @@ function SkillAssessment() {
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
                                   The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-                                 
+
                                 </di>
                               )}
                             </>
@@ -1415,12 +1433,11 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${
-                        assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= "70%"
-                          ? "sm:w-[90%] w-[95%]"
-                          : "w-[80%]"
-                      } `}
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                        } `}
                     >
                       <button
                         onClick={() => {
