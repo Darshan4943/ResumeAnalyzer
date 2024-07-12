@@ -23,7 +23,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
   return (
     <div
       style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-      className={`w-[192px] h-[272px] rounded-lg overflow-hidden `}
+      className={`w-[132px] scr460:w-[192px] h-[200px] scr460:h-[272px] rounded-lg overflow-hidden `}
     >
       {loadingg && (
         <div className="skeleton-loader">
@@ -217,12 +217,12 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-9 p-6 bg-gray-100 rounded-lg">
+              <div style={{ columnGap: "10px" }} className="flex flex-wrap gap-9 p-6 bg-gray-100 rounded-lg">
                 {resumeList.map((item, index) => (
                   <div
                     key={item._id}
                     onClick={() => toggleSelect(item)}
-                    className="flex flex-col h-[300px] items-center justify-between group relative cursor-pointer resumes"
+                    className="flex flex-col h-[230px] scr460:h-[300px] items-center justify-between group relative cursor-pointer resumes"
                   >
                     <div
                       className={`${
