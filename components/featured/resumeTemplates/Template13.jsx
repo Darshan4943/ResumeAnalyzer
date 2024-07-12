@@ -53,6 +53,12 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
     }
     return link;
   };
+  const formatLink24 = (link) => {
+    if (link?.length > 24) {
+      return link?.match(/.{1,24}/g).join("\n");
+    }
+    return link;
+  };
 
   const formatLink30 = (link) => {
     if (link?.length > 30) {
@@ -122,7 +128,7 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                       color: selectedColor,
                     }}
                   >
-                    {formatLink22(data.designation)}
+                    {formatLink24(data.designation)}
                   </Text>
                   {data?.showSummary === true && (
                     <Text
@@ -692,7 +698,7 @@ function Template13({ data, selectedColor, selectedFont, pageLayout }) {
                       width: 261,
                     }}
                     key={index}
-                    // wrap={false}
+                    wrap={false}
                   >
                     <Text
                       style={{

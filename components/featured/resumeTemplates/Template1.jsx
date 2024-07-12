@@ -437,8 +437,9 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                   ))}
                 </View>
               )}
+
             {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
-              <View style={{ flexDirection: "column", gap: 12 }}>
+              <View style={{ flexDirection: "column", gap: 12 }} wrap={false}>
                 <Text
                   style={{
                     color: "#414042",
@@ -499,7 +500,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               </View>
             )}
             {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
-              <View style={{ flexDirection: "column" }}>
+              <View style={{ flexDirection: "column" }} wrap={false}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -542,7 +543,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               </View>
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
-              <View style={{ flexDirection: "column" }}>
+              <View style={{ flexDirection: "column" }} wrap={false}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -592,6 +593,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                   gap: 12,
                   marginRight: "10px",
                 }}
+                wrap={false}
               >
                 <Text
                   style={{

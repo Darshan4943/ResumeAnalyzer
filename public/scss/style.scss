@@ -22,13 +22,16 @@
 html {
   font-family: "Montserrat", sans-serif;
 }
+
 @layer utilities {
   .bg-vector {
     background-image: url("../images/candidate/Vector.png");
   }
+
   .bg-recruiter_back {
     background-image: url("../images/recruiter/recruiter_back.png");
   }
+
   .bg-hero_backGround {
     background-image: url("../images/recruiter/hero_backGround.png");
   }
@@ -36,64 +39,83 @@ html {
   .bg-Ai_resume {
     background-image: url("../images/services/AiResumeBck.png");
   }
+
   .bg-InterviewQue {
     background-image: url("../images/services/InterviewQue.png");
     object-fit: cover;
   }
+
   .bg-SkillAssessment {
     background-image: url("../images/services/SkillAssessment.png");
   }
+
   .bg-DailyQuize {
     background-image: url("../images/services/DailyQuize.png");
   }
+
   .bg_contactUs {
     background-image: url("../images/happy_customer.png");
   }
+
   .bg_resumeBlue {
     background-image: url("../images/resumeBlue.png");
   }
+
   .bg_resumeYellow {
     background-image: url("../images/resumeYellow.png");
   }
+
   .bg_generateAi {
     background-image: url("../images/home/generateBg.png");
   }
+
   .bg_generateAi1 {
     background-image: url("../images/home/bg_generateAi1.png");
   }
+
   .bg-frm {
     background-image: url("../images/employer/frm.png");
   }
+
   .bg-sidebar {
     background-image: url("../images/employer/sidebar/sidebarBackground.png");
   }
+
   .bg-sidebarBg {
     background-image: url("../images/employer/sidebar/sidebarbg.svg");
   }
+
   .bg-carousel_bg {
     background-image: url("../images/resumeBuilder/temp.png");
     background-position-y: 26rem;
   }
+
   .temp-bg-gradient {
     background-image: url("../images/resumeBuilder/temp-bg.png");
     background-size: cover;
   }
+
   .bg-inventory {
     background-image: url("../images/resumeBuilder/inventory.png");
   }
+
   .bg-bg_inventory {
     background-image: url("../images/resumeBuilder/bg_inventory.png");
   }
+
   .bg-resume_bg {
     background-image: url("../images/resumeBuilder/resume_bg.png");
   }
+
   .bg-gradient {
     background-image: url("../images/resumeBuilder/gradient.png");
   }
+
   .bg-subscriptionPlan {
     background-image: url("../images/resumeBuilder/subscriptionPlan.png");
     background-position: center;
   }
+
   .bg-watermark {
     background-image: url("../images/resumeBuilder/watermark.png");
     background-position: center;
@@ -111,7 +133,7 @@ html {
 }
 
 
-.resumes{
+.resumes {
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
@@ -119,7 +141,17 @@ html {
     height: 272px !important;
   }
 }
-.resumes1{
+
+@media (max-width: 460px) {
+  .resumes {
+    .react-pdf__Page__canvas {
+      width: 132px !important;
+      height: 200px !important;
+    }
+  }
+}
+
+.resumes1 {
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
@@ -127,6 +159,7 @@ html {
     height: 372px !important;
   }
 }
+
 // .website{
 //   .react-pdf__Page__canvas {
 //     display: block !important;
@@ -151,8 +184,10 @@ html {
     height: 330px !important;
   }
 }
+
 .preview {
   overflow: auto;
+
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
@@ -183,7 +218,7 @@ html {
   left: 50%;
   bottom: 0px;
   /* z-index: 100; */
- 
+
   transform: translate(-50%, -50%);
 }
 
@@ -199,7 +234,8 @@ html {
     vertical-align: bottom;
     -webkit-animation: ellipsis steps(4, end) 900ms infinite;
     animation: ellipsis steps(4, end) 900ms infinite;
-    content: "\2026"; /* ascii code for the ellipsis character */
+    content: "\2026";
+    /* ascii code for the ellipsis character */
     width: 0px;
   }
 
@@ -214,20 +250,27 @@ html {
       width: 1.25em;
     }
   }
+
   .glass {
     position: absolute;
     top: 4px;
     left: 15px;
-    -webkit-animation: myOrbit 2s linear infinite; /* Chrome, Safari 5 */
-    -moz-animation: myOrbit 2s linear infinite; /* Firefox 5-15 */
-    -o-animation: myOrbit 2s linear infinite; /* Opera 12+ */
-    animation: myOrbit 2s linear infinite; /* Chrome, Firefox 16+, 
+    -webkit-animation: myOrbit 2s linear infinite;
+    /* Chrome, Safari 5 */
+    -moz-animation: myOrbit 2s linear infinite;
+    /* Firefox 5-15 */
+    -o-animation: myOrbit 2s linear infinite;
+    /* Opera 12+ */
+    animation: myOrbit 2s linear infinite;
+    /* Chrome, Firefox 16+, 
                                                    IE 10+, Safari 5 */
   }
+
   @-webkit-keyframes myOrbit {
     from {
       -webkit-transform: rotate(0deg) translateX(40px) rotate(0deg);
     }
+
     to {
       -webkit-transform: rotate(360deg) translateX(40px) rotate(-360deg);
     }
@@ -237,6 +280,7 @@ html {
     from {
       -moz-transform: rotate(0deg) translateX(40px) rotate(0deg);
     }
+
     to {
       -moz-transform: rotate(360deg) translateX(40px) rotate(-360deg);
     }
@@ -246,6 +290,7 @@ html {
     from {
       -o-transform: rotate(0deg) translateX(40px) rotate(0deg);
     }
+
     to {
       -o-transform: rotate(360deg) translateX(40px) rotate(-360deg);
     }
@@ -255,6 +300,7 @@ html {
     from {
       transform: rotate(0deg) translateX(40px) rotate(0deg);
     }
+
     to {
       transform: rotate(360deg) translateX(40px) rotate(-360deg);
     }
@@ -275,6 +321,7 @@ html {
     width: 105px;
     display: flex;
     position: relative;
+
     .circle {
       width: 15px;
       height: 15px;
@@ -305,6 +352,7 @@ html {
       transform: scale(0, 0);
       opacity: 0;
     }
+
     to {
       transform: scale(1, 1);
       opacity: 1;
@@ -315,6 +363,7 @@ html {
     from {
       transform: translateX(0px);
     }
+
     to {
       transform: translateX(45px);
     }
@@ -329,22 +378,27 @@ ol {
 .move {
   transition: all .3s linear;
 }
+
 @keyframes move {
   from {
     transform: translateX(0px);
   }
+
   to {
     transform: translateX(45px);
   }
 }
-.css-1hb7zxy-IndicatorsContainer{
+
+.css-1hb7zxy-IndicatorsContainer {
   display: flex;
   flex-direction: row-reverse;
- 
+
 }
-.css-1xc3v61-indicatorContainer{
+
+.css-1xc3v61-indicatorContainer {
   padding: 8px 0 8px 0;
 }
-.css-occ1gz-control{
+
+.css-occ1gz-control {
   cursor: pointer;
 }

@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 //template 15
-function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
+function Template30({ data, selectedColor, selectedFont, preview, pageLayout }) {
   const formatLink = (link) => {
     if (link?.length > 25) {
       return link?.match(/.{1,25}/g).join("\n");
@@ -25,8 +25,8 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
     return link;
   };
   const formatEmail = (email) => {
-    if (email?.length > 25) {
-      return email?.match(/.{1,25}/g).join("\n");
+    if (email?.length > 31) {
+      return email?.match(/.{1,31}/g).join("\n");
     }
     return email;
   };
@@ -81,7 +81,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               marginLeft: data?.showProfile ? "" : "46px",
               flexDirection: "column",
               gap: 4,
-              maxWidth: "40%",
+              maxWidth: data?.showProfile ? "40%" : "100%",
               display: "flex",
               paddingVertical: "6px",
             }}
@@ -158,7 +158,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                       }}
                     >
                       {/* {data.email} */}
-                      {formatEmail(data.email)}
+                      {data?.showProfile ? formatEmail(data.email) : data.email}
                     </Text>
                   </View>
                 </View>
@@ -239,7 +239,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
-                wrap={data?.experience?.length > 1 ? true : false}
+                wrap={data?.skills?.length > 4 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -282,7 +282,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={false}
+                wrap={data?.hobbies?.length > 4 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -368,7 +368,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               </View>
             )}
             {data?.achievements?.length > 0 &&
-              data?.showAchievements === true && !pageLayout &&(
+              data?.showAchievements === true && !pageLayout && (
                 <View
                   wrap={false}
                   style={{ flexDirection: "column", gap: 16 }}>
@@ -412,7 +412,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   </View>
                 </View>
               )}
-            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout &&(
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
               <View
                 wrap={false}
                 style={{ flexDirection: "column", gap: 16 }}>
@@ -472,7 +472,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout &&(
+            {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
               <View
                 wrap={false}
                 style={{
@@ -557,6 +557,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               </View>
             )}
           </View>
+
           <View
             style={{ flexDirection: "column", gap: 26, width: 350 }}
           //   wrap={data?.experience?.length > 1 ? true : false}
@@ -623,7 +624,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                           <Text
                             style={{
                               color: "#414042",
-                              fontSize: "14px",
+                              fontSize: "12px",
                               height: "20px",
                               fontFamily: `${selectedFont} 500`,
                             }}
@@ -716,6 +717,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "start",
+                            // maxWidth: detail?.duration?.start?.year ? "70%" : "100%",
                             maxWidth: "70%",
                           }}
                         >
@@ -871,7 +873,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                 </View>
               </View>
             )}
-            {data?.project?.length > 0 && data?.showProject === true && !pageLayout &&(
+            {data?.project?.length > 0 && data?.showProject === true && !pageLayout && (
               <View
                 wrap={data?.project?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
@@ -981,7 +983,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               </View>
             )}
 
-            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout &&(
+            {data?.course?.length > 0 && data?.showCourses === true && !pageLayout && (
               <View
                 wrap={data?.course?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
@@ -1204,7 +1206,7 @@ function Template30({ data, selectedColor, selectedFont, preview ,pageLayout}) {
                   </View>
                 </View>
               )}
-            {data?.section?.length > 0 && data?.showCustomSection === true  && !pageLayout && data?.section?.map((item, index) => (
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout && data?.section?.map((item, index) => (
               <View
                 wrap={data?.section?.length > 1 ? true : false}
                 style={{
