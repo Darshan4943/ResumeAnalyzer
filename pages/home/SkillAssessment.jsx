@@ -1103,23 +1103,23 @@ function SkillAssessment() {
                       ) : (
                         <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
                           <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                            <div className="flex w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[36.04%] ms:w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Assessment Name
                               </p>
                             </div>
-                            <div className="flex w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[19.76%] ms:w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Date
                               </p>
                             </div>
-                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Score
                               </p>
                             </div>
-                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Action
                               </p>
                             </div>
@@ -1132,32 +1132,32 @@ function SkillAssessment() {
                                   key={index}
                                   className="border-b border-solid border-[#DEDEDE] w-full"
                                 >
-                                  <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch ">
-                                    <div className="  w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch justify-between">
+                                    <div className=" w-[36.04%] ms:w-[50%]  flex justify-between gap-[12px]">
                                       <div className="flex  gap-3 items-center self-stretch ">
                                         <div className="w-[40px] h-[40px]">
                                           <Assessmentlogo />
                                         </div>
                                         <div className="w-full">
-                                          <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          <p className="text-text-primary text-start break-all font-montserrat text-[10px] ms:text-base font-medium leading-6">
                                             {item.skill}
                                           </p>
                                         </div>
                                       </div>
                                     </div>
 
-                                    <div className="flex  justify-center items-center self-stretch w-[30%]">
-                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                    <div className="flex  justify-center items-center self-stretch w-[19.76%] ms:w-[30%]">
+                                      <p className="text-[14px] font-montserrat text-[10px] ms:text-base font-medium leading-6">
                                         {item?.date && formatDate(item?.date)}
                                       </p>
                                     </div>
-                                    <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
-                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                    <div className="flex  justify-center w-[19.76%] ms:w-[20%]  items-center self-stretch  ">
+                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-[10px] ms:text-sm font-semibold leading-7">
                                         {Math.round((item.score * 100) / 60)}%
                                       </p>
                                     </div>
-                                    <div onClick={() => generatePdf3(item, index)} className="flex w-[20%] justify-center items-center self-stretch  ">
-                                      <button className="text-[#06A9EF] items-center font-[600] font-montserrat text-[14px] font-semibold leading-7">
+                                    <div onClick={() => generatePdf3(item, index)} className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
+                                      <button className="text-[#06A9EF] items-center font-[600] font-montserrat text-[10px] ms:text-base font-semibold leading-4">
                                         {index === viewCertificate ?
                                           <>
                                             {viewCertificateLoader ? <MiniLoader /> : "View Certificate"}
