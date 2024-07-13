@@ -48,6 +48,7 @@ function SkillAssessment() {
   const [loading, setLoading] = useState(false);
   const [btnEnable, setBtnEnable] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
+  const [loading3, setLoading3] = useState(false);
   const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
@@ -80,6 +81,9 @@ function SkillAssessment() {
   const fifthContainer = useRef(null);
   const sixthContainer = useRef(null);
   const seventhContainer = useRef(null);
+  const eighthContainer = useRef(null);
+  const ninthContainer = useRef(null);
+  const tenthContainer = useRef(null);
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
@@ -263,7 +267,7 @@ function SkillAssessment() {
   };
 
   const generatePdf2 = () => {
-    // setLoadingg(true);
+    setLoading3(true);
     return new Promise((resolve, reject) => {
       generatePDF(resumeRef1, {
         filename: `${selectedSkill}_certificate_skilotech.pdf`,
@@ -281,12 +285,12 @@ function SkillAssessment() {
     })
       .then(() => {
         setTimeout(() => {
-          // setLoadingg(false);
+          setLoading3(false);
         }, 2000);
       })
       .catch((error) => {
         console.error("Error generating PDF:", error);
-        // setLoadingg(false);
+        setLoading3(false);
       });
   };
 
@@ -495,7 +499,7 @@ function SkillAssessment() {
       }
     });
 
-    console.log(88, Math.round(correctAnswer));
+
     return Math.round(correctAnswer);
   };
 
@@ -554,6 +558,9 @@ function SkillAssessment() {
       fifthContainer.current,
       sixthContainer.current,
       seventhContainer.current,
+      eighthContainer.current,
+      ninthContainer.current,
+      tenthContainer.current,
     ];
     const pdf = new jsPDF("p", "pt", "a4");
 
@@ -574,14 +581,14 @@ function SkillAssessment() {
   };
 
   const handleDownload = async () => {
-    setLoading(true);
+    setLoadingg(true);
 
     const pdfBlob = await generatePdfBlob();
     if (pdfBlob) {
       const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "your_filename.pdf";
+      a.download = `${selectedSkill}_assessment.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -590,7 +597,7 @@ function SkillAssessment() {
       console.error("Failed to generate PDF");
     }
     // document.body.removeChild(container);
-    setLoading(false);
+    setLoadingg(false);
   };
 
   const handleStart = () => {
@@ -676,7 +683,7 @@ function SkillAssessment() {
       ) : (
         <div
           onWheel={(e) => e.stopPropagation()}
-          className="bg-[#F9F9F9] w-full min-h-screen "
+          className="bg-[#F9F9F9] w-full  " style={{ minHeight: 'calc(100vh - 56px)' }}
         >
           {toggle === 0 && (
             <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
@@ -1489,6 +1496,7 @@ function SkillAssessment() {
                           setSkipped([]);
                           setUniqueQuestions([]);
                           setIsSubmit(false);
+                          setSkippedArray([])
                           // window.location.reload();
                           dispatch(reCallUserData());
                         }}
@@ -1498,12 +1506,14 @@ function SkillAssessment() {
                       </button>
 
                       {assesmentType !== "Normal" &&
-                        calculateMarkOutOf60() >= "70%" && (
+                        calculateMarkOutOf60() >= "0%" && (
                           <button
                             className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
                           >
-                            Download Certificate
+                          {loading3 && <MiniLoader />}
+                          {!loading3 && "Download Certificate"}
+                           
                           </button>
                         )}
                       <button
@@ -1545,7 +1555,9 @@ function SkillAssessment() {
             </>
           )}
 
-          <div className="flex overflow-hidden absolute left-[-9999px]">
+          <div
+            className="flex overflow-hidden absolute left-[-9999px]"
+          >
             <ResultPdf
               questions={question}
               answers={answer}
@@ -1558,8 +1570,12 @@ function SkillAssessment() {
               fifthContainer={fifthContainer}
               sixthContainer={sixthContainer}
               seventhContainer={seventhContainer}
-              assessmentType={assesmentType}
+              eighthContainer={eighthContainer}
+              ninthContainer={ninthContainer}
+              tenthContainer={tenthContainer}
+              assesmentType={assesmentType}
               level={level}
+              isSubmit={isSubmit}
             />
           </div>
         </div>
