@@ -380,6 +380,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     setStartTimer(true);
+    setBtnEnable1(false)
   }, [questionIndex]);
 
   
@@ -397,6 +398,7 @@ function SkillAssessment() {
               ? 9
               : 59
       );
+      
     }
   }
 
@@ -438,6 +440,7 @@ function SkillAssessment() {
               ? 9
               : 59
       );
+      
     }
   };
 
@@ -458,7 +461,7 @@ function SkillAssessment() {
 
     return () => clearTimeout(timer);
   }, [questionIndex, isSubmit]);
-  console.log(333,answer)
+
 
   useEffect(() => {
     axios
@@ -1399,6 +1402,7 @@ function SkillAssessment() {
                         setBtnEnable(false);
                         setBtnEnable1(false)
                         sumbit();
+                        
                         let result = assesmentType === "Normal" ? 9 : 59;
                         if (questionIndex === result) {
                           setIsSubmit(true);
