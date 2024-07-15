@@ -47,6 +47,7 @@ function SkillAssessment() {
   const [mainLoading, setMainLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [btnEnable, setBtnEnable] = useState(false);
+  const [btnEnable1, setBtnEnable1] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
   const [loading3, setLoading3] = useState(false);
   const dispatch = useDispatch();
@@ -381,6 +382,24 @@ function SkillAssessment() {
     setStartTimer(true);
   }, [questionIndex]);
 
+  
+  const skippedQuestion = () => {
+    setTimer(30);
+    if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
+      sumbit();
+    }else{
+      setQuestionIndex(
+        questionIndex + 1 < assesmentType === "Normal"
+          ? 10
+          : 60
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
+      );
+    }
+  }
+
   const sumbit = () => {
     setStartTimer(false);
     setTimer(30);
@@ -439,6 +458,7 @@ function SkillAssessment() {
 
     return () => clearTimeout(timer);
   }, [questionIndex, isSubmit]);
+  console.log(333,answer)
 
   useEffect(() => {
     axios
@@ -454,13 +474,20 @@ function SkillAssessment() {
       });
   }, [selectedSkill, reCall, userDataGlobal]);
 
+  const resetSelection = () => {
+    answerSetter(questionIndex + 1, "");
+    setBtnEnable1(false);
+  };
+
   const answerSetter = (question, Answer) => {
+    setBtnEnable1(true);
     const skip = skippedArray.find((item) => {
       if (item.question == question && Answer != "") {
         return true;
       }
       return false;
     });
+
     if (skip) {
       skip.isSkiped = false;
       skip.Answer = Answer;
@@ -476,10 +503,19 @@ function SkillAssessment() {
       setAnswer(updatedSkippedArray);
     }
 
-    // dummyData[question - 1] = { Answer, question: question };
-    // console.log(214, dummyData);
-  };
+    if (Answer === "") {
+      // Remove the answer if Answer is empty (reset case)
+      const updatedSkippedArray = skippedArray.map((item) => {
+        if (item.question == question) {
+          return { ...item, isSkiped: true, Answer: "" };
+        }
+        return item;
+      });
 
+      setSkippedArray(updatedSkippedArray);
+      setAnswer(updatedSkippedArray);
+    }
+  }
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
       (data) => data?.Answer === Answer && data?.question == question
@@ -695,7 +731,7 @@ function SkillAssessment() {
                     } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                   onClick={() => setAssesmentType("Normal")}
                 >
-                  Quick Assesment
+                  Quick Assessment
                 </button>
                 <button
                   className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
@@ -704,7 +740,7 @@ function SkillAssessment() {
                     }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
-                  Certified Assesment
+                  Certified Assessment
                 </button>
               </div>
               <div
@@ -1315,12 +1351,16 @@ function SkillAssessment() {
                               questionIndex + 1,
                               question[questionIndex]?.question
                             )}
-                            onChange={() =>
+                            onChange={() =>{
+                            
                               answerSetter(
                                 questionIndex + 1,
                                 option,
-                                question[questionIndex]?.question
+                                question[questionIndex]?.question,
+                               
                               )
+                             
+                            }
                             }
                           />
                           <label
@@ -1339,7 +1379,13 @@ function SkillAssessment() {
                       disabled={!btnEnable}
                       className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
                       onClick={() => {
-                        sumbit();
+                        resetSelection();
+                        setBtnEnable(false);
+                        skippedQuestion()
+                        let result = assesmentType === "Normal" ? 9 : 59;
+                        if (questionIndex === result) {
+                          setIsSubmit(true);
+                        }
                       }}
                     >
                       Skip
@@ -1347,10 +1393,11 @@ function SkillAssessment() {
 
                     <button
                       className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
-                      style={{ opacity: !btnEnable ? "0.5" : 1 }}
-                      disabled={!btnEnable}
+                      style={{ opacity: !btnEnable || !btnEnable1 ? "0.5" : 1 }}
+                      disabled={!btnEnable || !btnEnable1}
                       onClick={() => {
                         setBtnEnable(false);
+                        setBtnEnable1(false)
                         sumbit();
                         let result = assesmentType === "Normal" ? 9 : 59;
                         if (questionIndex === result) {
@@ -1463,7 +1510,7 @@ function SkillAssessment() {
 
                           {assesmentType !== "Normal" && (
                             <>
-                              {console.log(555, calculateMarkOutOf60())}
+                             
                               {calculateMarkOutOf60() >= "70%" ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
@@ -1496,8 +1543,9 @@ function SkillAssessment() {
                           setSkipped([]);
                           setUniqueQuestions([]);
                           setIsSubmit(false);
-                          setSkippedArray([])
+                          // setSkippedArray([])
                           // window.location.reload();
+                          setBtnEnable1(false)
                           dispatch(reCallUserData());
                         }}
                         className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
