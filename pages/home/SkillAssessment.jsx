@@ -647,7 +647,10 @@ function SkillAssessment() {
     } else if (!isActivePlan && assesmentType === "Certificate") {
       setisLevel(false);
       setIsplan(true);
-    } else {
+    }else if (!selectedSkill) {
+      toast.error("Please select a skill to start assessment");
+    } 
+    else {
       setisLevel(true);
     }
   };
