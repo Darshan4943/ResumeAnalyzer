@@ -41,19 +41,13 @@ function Certificate({
   return (
 
     <div
-      style={{
-        backgroundImage: `url(${"/images/resumeBuilder/skilltest.png"})`,
-        // height: "100%",
-        // width: "100%",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className="gap-6 flex flex-col  items-center mt-8  pt-[60px] relative w-[1056px] h-[746px]  "
+
+      className="gap-6 flex flex-col  items-center mt-8  pt-[60px] relative w-[1056px] h-[746px] bg-certificate  bg-cover bg-no-repeat bg-center  "
     >
-      <div className=" w-[100%] h-[10%] flex flex-col justify-center items-center ">
+      <div className=" w-[100%] h-[10%] flex flex-col justify-center items-center p-4 ">
         <img
           src="/images/logo_skilotech.png"
-          className="w-[322px] h-[100px]"
+          className="w-[352px] h-[109px]"
         />
       </div>
       <div className=" w-[100%] h-[10%] flex flex-col justify-center items-center ">
@@ -73,9 +67,9 @@ function Certificate({
           <div className="w-[90%] bg-[#FFD500] h-[1.64px]"></div>
         </div>
         <span className="font-Montserrat text-[20px] font-[500] text-[ #333333]">
-          has succesfully completed the Skill Assessment on
+          has successfully completed the Skill Assessment on
         </span>
-        <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
+        <div className="w-[100%]  gap-3 flex flex-col justify-center items-center">
           <span className="font-Montserrat text-[30px] font-[500] text-[#333333]">
             {selectedSkill} {level && `(${level})`}
           </span>
@@ -93,19 +87,23 @@ function Certificate({
         </div>
       </div>
 
-      <div className="w-[171px] h-[200px]  flex flex-col justify-center  absolute top-[475px] left-[75px]">
+      <div className="w-[171px] h-[200px]  flex flex-col justify-center  absolute top-[490px] left-[65px]">
         <img src="/images/Group.png" className="w-[100%] h-[100%]" />
       </div>
-      <div className="w-[189px] h-[75px]  flex flex-col justify-end items-end  absolute top-[640px] right-[100px]">
+      <div className="w-[189px] h-[75px]  flex flex-col justify-end items-end  absolute top-[630px] right-[50px]">
         {/* <span className="font-Montserrat text-[14px] font-[600] text-[ #333333]">
           REACH US AT
         </span> */}
         <span className="font-Montserrat text-[14px] font-[500] text-[#06A9EF]">
           www.skilotech.com
         </span>
-        {/* <span className="font-Montserrat text-[14px] font-[500] text-[ #333333]">
-          operations@skilotech.com
-        </span> */}
+
+
+      </div>
+      <div className="h-[75px]  flex flex-col justify-end items-end  absolute top-[630px] right-[39%] " >
+        <span className="font-Montserrat text-[10px] font-[400] text-[#646464]">
+        Copyright © 2024 Skilotech. All rights reserved.
+        </span>
       </div>
 
     </div>

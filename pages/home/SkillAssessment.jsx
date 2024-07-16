@@ -383,12 +383,12 @@ function SkillAssessment() {
     setBtnEnable1(false)
   }, [questionIndex]);
 
-  
+
   const skippedQuestion = () => {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       sumbit();
-    }else{
+    } else {
       setQuestionIndex(
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
@@ -398,7 +398,7 @@ function SkillAssessment() {
               ? 9
               : 59
       );
-      
+
     }
   }
 
@@ -440,7 +440,7 @@ function SkillAssessment() {
               ? 9
               : 59
       );
-      
+
     }
   };
 
@@ -1178,7 +1178,7 @@ function SkillAssessment() {
                                           <Assessmentlogo />
                                         </div>
                                         <div className="w-full">
-                                          <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          <p className="text-text-primary text-start break-word font-montserrat text-base font-medium leading-6">
                                             {item.skill}
                                           </p>
                                         </div>
@@ -1239,7 +1239,7 @@ function SkillAssessment() {
                                           <Assessmentlogo />
                                         </div>
                                         <div className="w-full">
-                                          <p className="text-text-primary text-start break-all font-montserrat text-[10px] ms:text-base font-medium leading-6">
+                                          <p className="text-text-primary text-start break-word font-montserrat text-[10px] ms:text-base font-medium leading-6">
                                             {item.skill}
                                           </p>
                                         </div>
@@ -1354,15 +1354,15 @@ function SkillAssessment() {
                               questionIndex + 1,
                               question[questionIndex]?.question
                             )}
-                            onChange={() =>{
-                            
+                            onChange={() => {
+
                               answerSetter(
                                 questionIndex + 1,
                                 option,
                                 question[questionIndex]?.question,
-                               
+
                               )
-                             
+
                             }
                             }
                           />
@@ -1402,7 +1402,7 @@ function SkillAssessment() {
                         setBtnEnable(false);
                         setBtnEnable1(false)
                         sumbit();
-                        
+
                         let result = assesmentType === "Normal" ? 9 : 59;
                         if (questionIndex === result) {
                           setIsSubmit(true);
@@ -1514,7 +1514,7 @@ function SkillAssessment() {
 
                           {assesmentType !== "Normal" && (
                             <>
-                             
+
                               {calculateMarkOutOf60() >= "70%" ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
@@ -1552,24 +1552,24 @@ function SkillAssessment() {
                           setBtnEnable1(false)
                           dispatch(reCallUserData());
                         }}
-                        className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
+                        className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >
                         Close
                       </button>
 
                       {assesmentType !== "Normal" &&
-                        calculateMarkOutOf60() >= "0%" && (
+                        calculateMarkOutOf60() >= "70%" && (
                           <button
                             className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
                           >
-                          {loading3 && <MiniLoader />}
-                          {!loading3 && "Download Certificate"}
-                           
+                            {loading3 && <MiniLoader />}
+                            {!loading3 && "Download Certificate"}
+
                           </button>
                         )}
                       <button
-                        className="border-[1px] min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
+                        className="btn_hover_effect  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
                         onClick={() => handleDownload()}
                       >
                         {" "}

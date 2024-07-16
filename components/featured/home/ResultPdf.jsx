@@ -71,8 +71,8 @@ const ResultPdf = ({
         sixth: [],
         seventh: [],
         eighth: [],
-        ninth:[],
-        tenth:[],
+        ninth: [],
+        tenth: [],
       };
       const pageKeys = Object.keys(pages);
       let currentPageIndex = 0;
@@ -144,17 +144,20 @@ const ResultPdf = ({
         >
           <>
             <div className="flex flex-col h-[700px] w-full gap-[20px]">
-              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                <div className="flex flex-row items-center gap-[16px]">
-                  <SkillHeader />
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
+                    <SkillHeader />
+                  </div>
+
                   <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
                     Skill Assessment - {camelCase(selectedSkill)} (
                     {camelCase(level)})
                   </div>
                 </div>
 
-                <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                  <p className="mt-[-12px] py-[6px] px-[12px]">
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
                     {assesmentType === "Normal" ?
                       <>  Score : {checkAnswer()} / {questions.length}</>
                       :
@@ -224,17 +227,20 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
-                    <SkillHeader />
+                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                  <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                    <div className="min-w-[25px]">
+                      <SkillHeader />
+                    </div>
+
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
                       Skill Assessment - {camelCase(selectedSkill)} (
                       {camelCase(level)})
                     </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                    <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
                         :
@@ -245,7 +251,6 @@ const ResultPdf = ({
                     </p>
                   </div>
                 </div>
-
                 {pages?.second?.length > 0 && (
                   <div className="flex flex-col w-full">
                     <div className="flex flex-col w-full gap-[16px]">
@@ -305,17 +310,20 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
-                    <SkillHeader />
+                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                  <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                    <div className="min-w-[25px]">
+                      <SkillHeader />
+                    </div>
+
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
                       Skill Assessment - {camelCase(selectedSkill)} (
                       {camelCase(level)})
                     </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                    <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
                         :
@@ -386,17 +394,20 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
-                    <SkillHeader />
+                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                  <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                    <div className="min-w-[25px]">
+                      <SkillHeader />
+                    </div>
+
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
                       Skill Assessment - {camelCase(selectedSkill)} (
                       {camelCase(level)})
                     </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                    <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
                         :
@@ -467,17 +478,20 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
-                    <SkillHeader />
+                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                  <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                    <div className="min-w-[25px]">
+                      <SkillHeader />
+                    </div>
+
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
                       Skill Assessment - {camelCase(selectedSkill)} (
                       {camelCase(level)})
                     </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                    <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
                         :
@@ -548,28 +562,30 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
                     <SkillHeader />
-                    <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
-                      Skill Assessment - {camelCase(selectedSkill)} (
-                      {camelCase(level)})
-                    </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
-                      {assesmentType === "Normal" ?
-                        <>  Score : {checkAnswer()} / {questions.length}</>
-                        :
-                        <>
-                          Score : {formatScore(checkAnswer())}%</>
-
-                      }
-                    </p>
+                  <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
+                    Skill Assessment - {camelCase(selectedSkill)} (
+                    {camelCase(level)})
                   </div>
                 </div>
 
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
+                    {assesmentType === "Normal" ?
+                      <>  Score : {checkAnswer()} / {questions.length}</>
+                      :
+                      <>
+                        Score : {formatScore(checkAnswer())}%</>
+
+                    }
+                  </p>
+                </div>
+              </div>
                 {pages?.sixth?.length > 0 && (
                   <div className="flex flex-col w-full">
                     <div className="flex flex-col w-full gap-[16px]">
@@ -629,27 +645,30 @@ const ResultPdf = ({
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
                     <SkillHeader />
-                    <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
-                      Skill Assessment - {camelCase(selectedSkill)} (
-                      {camelCase(level)})
-                    </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
-                      {assesmentType === "Normal" ?
-                        <>  Score : {checkAnswer()} / {questions.length}</>
-                        :
-                        <>
-                          Score : {formatScore(checkAnswer())}%</>
-
-                      }
-                    </p>
+                  <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
+                    Skill Assessment - {camelCase(selectedSkill)} (
+                    {camelCase(level)})
                   </div>
                 </div>
+
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
+                    {assesmentType === "Normal" ?
+                      <>  Score : {checkAnswer()} / {questions.length}</>
+                      :
+                      <>
+                        Score : {formatScore(checkAnswer())}%</>
+
+                    }
+                  </p>
+                </div>
+              </div>
 
                 {pages?.seventh?.length > 0 && (
                   <div className="flex flex-col w-full">
@@ -702,34 +721,37 @@ const ResultPdf = ({
             </>
           </div>
         )}
-         {pages?.eighth?.length > 0 && (
+        {pages?.eighth?.length > 0 && (
           <div
             className="flex flex-col p-[34px] gap-[20px] w-full   bg-watermark  bg-cover bg-no-repeat  "
             ref={eighthContainer}
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
                     <SkillHeader />
-                    <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
-                      Skill Assessment - {camelCase(selectedSkill)} (
-                      {camelCase(level)})
-                    </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
-                      {assesmentType === "Normal" ?
-                        <>  Score : {checkAnswer()} / {questions.length}</>
-                        :
-                        <>
-                          Score : {formatScore(checkAnswer())}%</>
-
-                      }
-                    </p>
+                  <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
+                    Skill Assessment - {camelCase(selectedSkill)} (
+                    {camelCase(level)})
                   </div>
                 </div>
+
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
+                    {assesmentType === "Normal" ?
+                      <>  Score : {checkAnswer()} / {questions.length}</>
+                      :
+                      <>
+                        Score : {formatScore(checkAnswer())}%</>
+
+                    }
+                  </p>
+                </div>
+              </div>
 
                 {pages?.eighth?.length > 0 && (
                   <div className="flex flex-col w-full">
@@ -782,34 +804,37 @@ const ResultPdf = ({
             </>
           </div>
         )}
-         {pages?.ninth?.length > 0 && (
+        {pages?.ninth?.length > 0 && (
           <div
             className="flex flex-col p-[34px] gap-[20px] w-full   bg-watermark  bg-cover bg-no-repeat  "
             ref={ninthContainer}
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
                     <SkillHeader />
-                    <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
-                      Skill Assessment - {camelCase(selectedSkill)} (
-                      {camelCase(level)})
-                    </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
-                      {assesmentType === "Normal" ?
-                        <>  Score : {checkAnswer()} / {questions.length}</>
-                        :
-                        <>
-                          Score : {formatScore(checkAnswer())}%</>
-
-                      }
-                    </p>
+                  <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
+                    Skill Assessment - {camelCase(selectedSkill)} (
+                    {camelCase(level)})
                   </div>
                 </div>
+
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
+                    {assesmentType === "Normal" ?
+                      <>  Score : {checkAnswer()} / {questions.length}</>
+                      :
+                      <>
+                        Score : {formatScore(checkAnswer())}%</>
+
+                    }
+                  </p>
+                </div>
+              </div>
 
                 {pages?.ninth?.length > 0 && (
                   <div className="flex flex-col w-full">
@@ -862,34 +887,37 @@ const ResultPdf = ({
             </>
           </div>
         )}
-         {pages?.tenth?.length > 0 && (
+        {pages?.tenth?.length > 0 && (
           <div
             className="flex flex-col p-[34px] gap-[20px] w-full   bg-watermark  bg-cover bg-no-repeat  "
             ref={tenthContainer}
           >
             <>
               <div className="flex flex-col h-[700px] w-full gap-[20px]">
-                <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full">
-                  <div className="flex flex-row items-center gap-[16px]">
+              <div className="flex flex-row items-center justify-between py-[6px] px-[16px] bg-[#06A9EF] rounded-[32px] w-full gap-4">
+                <div className="flex flex-row items-center gap-[16px] w-[90%]">
+                  <div className="min-w-[25px]">
                     <SkillHeader />
-                    <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
-                      Skill Assessment - {camelCase(selectedSkill)} (
-                      {camelCase(level)})
-                    </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat  text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px]">
-                    <p className="mt-[-12px] py-[6px] px-[12px]">
-                      {assesmentType === "Normal" ?
-                        <>  Score : {checkAnswer()} / {questions.length}</>
-                        :
-                        <>
-                          Score : {formatScore(checkAnswer())}%</>
-
-                      }
-                    </p>
+                  <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-12px]">
+                    Skill Assessment - {camelCase(selectedSkill)} (
+                    {camelCase(level)})
                   </div>
                 </div>
+
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <p className="mt-[-12px] py-[6px] ">
+                    {assesmentType === "Normal" ?
+                      <>  Score : {checkAnswer()} / {questions.length}</>
+                      :
+                      <>
+                        Score : {formatScore(checkAnswer())}%</>
+
+                    }
+                  </p>
+                </div>
+              </div>
 
                 {pages?.tenth?.length > 0 && (
                   <div className="flex flex-col w-full">
