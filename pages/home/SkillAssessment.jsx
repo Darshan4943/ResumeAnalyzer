@@ -420,6 +420,7 @@ function SkillAssessment() {
 
   const sumbit = () => {
     setStartTimer(false);
+    setIsSubmit(true);
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
@@ -447,6 +448,7 @@ function SkillAssessment() {
         });
     } else {
       setTimer(30);
+      
       setQuestionIndex(
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
