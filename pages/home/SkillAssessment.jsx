@@ -6,10 +6,11 @@ import MiniLoader from "../../components/common/mini-loader";
 import MiniLoader2 from "../../components/common/miniLoader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import CloseIcon, {
-  AssessmentSvg,
+import {
+
   Assessmentlogo,
-  Close_svg,
+
+  ClosedIcon30,
 } from "../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
@@ -103,6 +104,21 @@ function SkillAssessment() {
     // { question: 9, isSkiped: true, Answer: "" },
     // { question: 10, isSkiped: true, Answer: "" },
   ]);
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setisLevel(false)
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   useEffect(() => {
     setSkippedArray(fillArray());
@@ -647,9 +663,9 @@ function SkillAssessment() {
     } else if (!isActivePlan && assesmentType === "Certificate") {
       setisLevel(false);
       setIsplan(true);
-    }else if (!selectedSkill) {
+    } else if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
-    } 
+    }
     else {
       setisLevel(true);
     }
@@ -681,10 +697,10 @@ function SkillAssessment() {
         },
       });
 
-      // Wait for 4 seconds before hiding the loader
+
       setTimeout(() => {
         setViewCertificateLoader(false);
-      }, 4000);
+      }, 2000);
     } catch (error) {
       console.error("Error generating PDF:", error);
       setViewCertificateLoader(false);
@@ -692,7 +708,7 @@ function SkillAssessment() {
   };
 
   return (
-    <div className="">
+    <div className="overflow-hidden">
       {editProfilePopUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -956,10 +972,13 @@ function SkillAssessment() {
               {isLevel && (
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-                    <div className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-4 gap-3 scr500:min-w-[488px] min-w-[300px]  bg-white rounded-[16px]  ">
+
+                    <div ref={taskRef} className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-5 gap-3 scr500:min-w-[489px] min-w-[300px]  bg-white rounded-[16px] relative  ">
 
                       <div className="w-full flex justify-center items-center">
+                        <div onClick={() => setisLevel(false)} className=" cursor-pointer z-[3000] absolute right-2 top-2"><ClosedIcon30 /></div>
                         <svg width="119" height="80" viewBox="0 0 119 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M59.5001 0C75.6069 0 90.1958 6.49392 100.794 17.0056L96.6407 28.095L90.9404 26.8591C82.864 18.8692 71.7588 13.9349 59.5001 13.9349L50.5396 7.26812L59.5001 0Z" fill="#F93778" />
                           <path d="M28.0596 26.8591L19.6091 23.9092L18.2061 17.0056C28.8043 6.49392 43.3932 0 59.5 0V13.9349C47.2413 13.9349 36.136 18.8692 28.0596 26.8591Z" fill="#75E0F6" />
@@ -973,11 +992,11 @@ function SkillAssessment() {
                           <path d="M53.9936 50.186L59.501 43.6484V67.136L51.2027 69.1881L50.59 60.7564L46.0738 53.4035L53.9936 50.186Z" fill="#FFCA00" />
                         </svg>
                       </div>
-                      <div className="w-full py-[4px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]"> Select difficulty level</div>
+                      <div className="w-full py-[6px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]"> Select difficulty level</div>
                       <div className="scr500:h-[44px] h-[34px] scr500:px-[20px] px-[12px] w-full flex justify-between">
                         <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Easy"); setisLevel(false); toggleContent() }}>Easy</button>
-                        <button className="scr500:w-[31.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Intermediate"); setisLevel(false); toggleContent() }}>Intermediate</button>
-                        <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Advanced"); setisLevel(false); toggleContent() }}>Advanced</button>
+                        <button className="scr500:w-[33.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Intermediate"); setisLevel(false); toggleContent() }}>Intermediate</button>
+                        <button className="scr500:w-[28.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Advanced"); setisLevel(false); toggleContent() }}>Advanced</button>
                       </div>
                     </div>
                   </div>
@@ -1266,7 +1285,24 @@ function SkillAssessment() {
                                         <button onClick={() => generatePdf3(item, index)} className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4">
                                           {index === viewCertificate ?
                                             <>
-                                              {viewCertificateLoader ? <MiniLoader /> : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              {viewCertificateLoader ? 
+                                                <svg
+                                                  aria-hidden="true"
+                                                  className="w-6 h-6 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
+                                                  viewBox="0 0 100 101"
+                                                  fill="none"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                    fill="currentColor"
+                                                  />
+                                                  <path
+                                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                    fill="currentFill"
+                                                  />
+                                                </svg>
+                                             : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                                                 <g mask="url(#mask0_5292_61102)">
                                                   <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
@@ -1283,8 +1319,13 @@ function SkillAssessment() {
                                             </svg>}
                                         </button>
                                         :
-                                        "N/A"
-                                      }
+                                        <svg className=" cursor-not-allowed" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                          <g mask="url(#mask0_5292_61102)">
+                                            <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#DEDEDE" />
+                                          </g>
+                                        </svg>}
+
                                     </div>
 
                                   </div>
@@ -1563,7 +1604,7 @@ function SkillAssessment() {
                       {assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= "70%" && (
                           <button
-                            className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
+                            className="btn_hover_effect min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
                           >
                             {loading3 && <MiniLoader />}
