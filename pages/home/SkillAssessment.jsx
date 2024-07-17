@@ -1491,14 +1491,14 @@ function SkillAssessment() {
                           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                         }}
                       >
-                        <div className="flex items-center gap-[4px] text-[#333] text-[16px] font-[600]">
+                        <div className="flex items-center gap-[4px] text-[#333] text-[16px] justify-center font-[600]">
                           <Assessmentlogo />
                           {camelCase(selectedSkill)} Assessment
                         </div>
                         <div className="flex flex-col gap-[16px] w-full">
-                          <div className="text-[#0C8A0A] text-[16px] font-[600] ">
+                          {/* <div className="text-[#0C8A0A] text-[16px] font-[600] ">
                             Completed
-                          </div>
+                          </div> */}
                           <div className="">
                             <div className="flex justify-between items-center">
                               <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">

@@ -159,7 +159,7 @@ const ResultPdf = ({
 
                 </div>
 
-                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                   <p className="mt-[-12px] py-[6px] ">
                     {assesmentType === "Normal" ?
                       <>  Score : {checkAnswer()} / {questions.length}</>
