@@ -1478,11 +1478,11 @@ function SkillAssessment() {
                       boxShadow: " 0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
                     }}
                   >
-                    <div className="text-[#333] px-[12px] pt-[12px] text-[20px] font-[600]">
+                    <div className="text-[#333] px-[12px] pt-[12px] text-[20px] font-[600] flex justify-start w-full">
                       Assessment Score
                     </div>
-                    <div className="w-full bg-[#005A81] py-[12px] px-[30px] text-[#fff] text-[18px] font-[600] text-center">
-                      Assessment Completed!
+                    <div className="w-full bg-[#0C8A0A] py-[12px] px-[30px] text-[#fff] text-[18px] font-[600] text-center">
+                      Assessment Completed
                     </div>
                     <div className="px-[12px] w-full">
                       <div
@@ -1491,7 +1491,7 @@ function SkillAssessment() {
                           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                         }}
                       >
-                        <div className="flex items-center gap-[4px] text-[#333] text-[16px] justify-center font-[600]">
+                        <div className="flex items-center gap-[4px] text-[#333] text-[16px]  font-[600]">
                           <Assessmentlogo />
                           {camelCase(selectedSkill)} Assessment
                         </div>
