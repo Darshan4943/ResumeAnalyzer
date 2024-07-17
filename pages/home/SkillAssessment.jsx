@@ -418,6 +418,7 @@ function SkillAssessment() {
     }
   }
 
+  
   const sumbit = () => {
     setStartTimer(false);
     setIsSubmit(true);
