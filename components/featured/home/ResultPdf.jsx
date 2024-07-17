@@ -151,7 +151,7 @@ const ResultPdf = ({
                   </div>
 
                   <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
