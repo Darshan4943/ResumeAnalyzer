@@ -20,6 +20,7 @@ const ResultPdf = ({
   checkAnswer,
   assesmentType,
   level,
+  questionIndex,
   // setPages,
   // pages,
   isSubmit
@@ -126,7 +127,7 @@ const ResultPdf = ({
     };
 
     splitContent();
-  }, [isSubmit,data]);
+  }, [isSubmit,questionIndex]);
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;

@@ -1675,6 +1675,7 @@ function SkillAssessment() {
               assesmentType={assesmentType}
               level={level}
               isSubmit={isSubmit}
+              questionIndex={questionIndex}
             />
           </div>
         </div>
