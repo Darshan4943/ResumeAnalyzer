@@ -126,7 +126,7 @@ const ResultPdf = ({
     };
 
     splitContent();
-  }, [isSubmit]);
+  }, [isSubmit,data]);
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
