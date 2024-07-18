@@ -454,7 +454,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             )}
 
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
-              <View style={{ flexDirection: "column", gap: " 16px" }}>
+              <View style={{ flexDirection: "column", gap: " 16px" }} >
                 <View
                   wrap={false}
                   style={{
@@ -531,7 +531,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
 
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && !pageLayout && (
-                <View style={{ flexDirection: "column", gap: " 16px" }}>
+                <View style={{ flexDirection: "column", gap: " 16px" }}  wrap={false}>
                   <View
                     wrap={false}
                     style={{
@@ -594,7 +594,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
               )}
 
             {data?.languages?.length > 0 && data?.showLanguage === true && !pageLayout && (
-              <View >
+              <View  wrap={false} >
                 <View
                   style={{
                     marginRight: "-12px",
@@ -700,7 +700,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             )}
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
-              <View style={{ flexDirection: "column", gap: " 16px" }}>
+              <View style={{ flexDirection: "column", gap: " 16px" }}  wrap={false}>
                 <View
                   wrap={false}
                   style={{
@@ -763,7 +763,7 @@ function Template4({ data, selectedColor, selectedFont, preview ,pageLayout}) {
             )}
 
             {data?.reference?.length > 0 && data?.showReference === true && !pageLayout && (
-              <View style={{ flexDirection: "column", gap: " 16px" }}>
+              <View style={{ flexDirection: "column", gap: " 16px" }}  wrap={false}>
                 <View
                   wrap={false}
                   style={{

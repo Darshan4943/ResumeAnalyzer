@@ -23,7 +23,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
   return (
     <div
       style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-      className={`w-[192px] h-[272px] rounded-lg overflow-hidden `}
+      className={`w-[132px] scr460:w-[192px] h-[200px] scr460:h-[272px] rounded-lg overflow-hidden `}
     >
       {loadingg && (
         <div className="skeleton-loader">
@@ -61,7 +61,6 @@ const Index = () => {
     window.open(url, "_blank");
   };
 
-
   useEffect(() => {
     setLoading(true);
     if (userDataGlobal?._id) {
@@ -90,11 +89,9 @@ const Index = () => {
   };
 
   const generateToken = async () => {
-
     if (!userDataGlobal.firstName) {
       setEditProfilePopUp(true);
-    }
-    else {
+    } else {
       if (selectedIndexes) {
         try {
           const response = await axios.put(
@@ -126,10 +123,10 @@ const Index = () => {
         toast.error("Select resume first");
       }
     }
-
   };
   const copyToClipboard = (text) => {
     setCopy(true);
+    toast.success("Link Copied successfully");
     navigator.clipboard
       .writeText(text)
       .then(() => {
@@ -139,10 +136,9 @@ const Index = () => {
         console.error("Failed to copy text: ", err);
       });
   };
-  console.log(resumeList)
+  console.log(resumeList);
   return (
     <>
-
       {editProfilePopUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -178,25 +174,31 @@ const Index = () => {
                   My Resumes
                 </div>
                 <div className="flex gap-4 text-[16px] font-medium ms:items-center items-end justify-end ms:flex-row flex-col-reverse">
-                  <div className="flex gap-2 justify-end">
-                    {selectedLink && (
+                  {selectedLink && (
+                    <button
+                      onClick={() => copyToClipboard(selectedLink)}
+                      className="bg-blue text-[14px] px-4 py-2 gap-[6px] justify-center items-center flex text-white rounded-lg font-medium"
+                    >
+                      Copy Link{" "}
                       <svg
-                        onClick={() => copyToClipboard(selectedLink)}
-                        className="min-w-[24px] cursor-pointer"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 20 20"
+                        width="17"
+                        height="17"
+                        viewBox="0 0 17 17"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <g mask="url(#mask0_3016_35449)">
+                    
+                        <g mask="url(#mask0_4820_45573)">
                           <path
-                            d="M7.5 15C7.0875 15 6.73438 14.8531 6.44062 14.5594C6.14687 14.2656 6 13.9125 6 13.5V3.5C6 3.0875 6.14687 2.73438 6.44062 2.44063C6.73438 2.14688 7.0875 2 7.5 2H15.5C15.9125 2 16.2656 2.14688 16.5594 2.44063C16.8531 2.73438 17 3.0875 17 3.5V13.5C17 13.9125 16.8531 14.2656 16.5594 14.5594C16.2656 14.8531 15.9125 15 15.5 15H7.5ZM7.5 13.5H15.5V3.5H7.5V13.5ZM4.5 18C4.0875 18 3.73437 17.8531 3.44062 17.5594C3.14687 17.2656 3 16.9125 3 16.5V5.75C3 5.5375 3.07146 5.35937 3.21437 5.21562C3.35729 5.07187 3.53437 5 3.74562 5C3.95687 5 4.13542 5.07187 4.28125 5.21562C4.42708 5.35937 4.5 5.5375 4.5 5.75V16.5H13.25C13.4625 16.5 13.6406 16.5715 13.7844 16.7144C13.9281 16.8573 14 17.0344 14 17.2456C14 17.4569 13.9281 17.6354 13.7844 17.7812C13.6406 17.9271 13.4625 18 13.25 18H4.5Z"
-                            fill={copy ? "#333333" : "#808080"}
+                            d="M6.37383 12.7512C6.0232 12.7512 5.72305 12.6263 5.47336 12.3766C5.22367 12.127 5.09883 11.8268 5.09883 11.4762V2.97617C5.09883 2.62555 5.22367 2.32539 5.47336 2.0757C5.72305 1.82602 6.0232 1.70117 6.37383 1.70117H13.1738C13.5245 1.70117 13.8246 1.82602 14.0743 2.0757C14.324 2.32539 14.4488 2.62555 14.4488 2.97617V11.4762C14.4488 11.8268 14.324 12.127 14.0743 12.3766C13.8246 12.6263 13.5245 12.7512 13.1738 12.7512H6.37383ZM6.37383 11.4762H13.1738V2.97617H6.37383V11.4762ZM3.82383 15.3012C3.4732 15.3012 3.17305 15.1763 2.92336 14.9266C2.67367 14.677 2.54883 14.3768 2.54883 14.0262V4.88867C2.54883 4.70805 2.60957 4.55664 2.73105 4.43445C2.85253 4.31227 3.00305 4.25117 3.18261 4.25117C3.36217 4.25117 3.51393 4.31227 3.63789 4.43445C3.76185 4.55664 3.82383 4.70805 3.82383 4.88867V14.0262H11.2613C11.442 14.0262 11.5934 14.0869 11.7155 14.2084C11.8377 14.3299 11.8988 14.4804 11.8988 14.66C11.8988 14.8395 11.8377 14.9913 11.7155 15.1152C11.5934 15.2392 11.442 15.3012 11.2613 15.3012H3.82383Z"
+                            fill= "#fff"
                           />
                         </g>
                       </svg>
-                    )}
+                    </button>
+                  )}
+
+                  <div className="flex gap-2 justify-end">
                     <div
                       className=" cursor-pointer break-all"
                       onClick={() => openInNewTab(`${selectedLink}`)}
@@ -205,26 +207,29 @@ const Index = () => {
                     </div>
                   </div>
                   <button
+                  style={{backgroundColor: selectedLink ? "#DEDEDE" : '#06A9EF'}}
                     onClick={generateToken}
-                    className="bg-blue  px-4 py-2 text-white rounded-lg font-medium"
+                    disabled={selectedLink ? true : false}
+                    className=" text-[14px] px-4 py-2 text-white rounded-lg cursor-pointer font-medium"
                   >
                     Generate Link
                   </button>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-9 p-6 bg-gray-100 rounded-lg">
+              <div style={{ columnGap: "10px" }} className="flex flex-wrap gap-9 p-6 bg-gray-100 rounded-lg">
                 {resumeList.map((item, index) => (
                   <div
                     key={item._id}
                     onClick={() => toggleSelect(item)}
-                    className="flex flex-col h-[300px] items-center justify-between group relative cursor-pointer resumes"
+                    className="flex flex-col h-[230px] scr460:h-[300px] items-center justify-between group relative cursor-pointer resumes"
                   >
                     <div
-                      className={`${item._id === selectedIndexes
-                        ? "border-4 border-blue rounded-[12px] "
-                        : " border-4 border-white"
-                        }  `}
+                      className={`${
+                        item._id === selectedIndexes
+                          ? "border-4 border-blue rounded-[12px] "
+                          : " border-4 border-white"
+                      }  `}
                     >
                       <PdfViewer
                         pdfUrl={item.resumeUrl}

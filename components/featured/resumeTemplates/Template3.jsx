@@ -354,7 +354,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
           )}
 
           {data?.achievements?.length > 0 && (
-            <View>
+            <View  wrap={false}>
               {data.achievements?.slice(0, pageLayout && 2)?.map((detail, index) => (
                 <View key={index} wrap={false} style={{ gap: "16px" }}>
                   {index === 0 && (
@@ -386,7 +386,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
                     </View>
                   )}
                   <View
-                    wrap={false}
+                    // wrap={false}
                     style={{
                       flexDirection: "column",
                       paddingLeft: 16,
@@ -412,7 +412,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
           )}
 
           {data?.languages?.length > 0 && data?.showLanguage === true && (
-            <View>
+            <View  wrap={false}>
            
                 <View 
                  wrap={false} 
@@ -476,7 +476,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview, pageLayout }) =
           )}
 
           {data?.hobbies?.length > 0 && data?.showHobbies === true && !pageLayout && (
-            <View>
+            <View  wrap={false}>
               {data.hobbies.map((detail, index) => (
                 <View key={index} wrap={false} style={{ gap: "16px" }}>
                   {index === 0 && (

@@ -1,19 +1,16 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useRef, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
-// import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
-
 import MiniLoader from "../../components/common/mini-loader";
 import MiniLoader2 from "../../components/common/miniLoader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import CloseIcon, {
-  AssessmentSvg,
+import {
+
   Assessmentlogo,
-  Close_svg,
+
+  ClosedIcon30,
 } from "../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
@@ -28,10 +25,15 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 import Result from "../../components/featured/home/Result";
+import ResultPdf from "../../components/featured/home/ResultPdf";
+import jsPDF from "jspdf";
+
+import html2canvas from "html2canvas";
 
 function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
+  const resumeRef2 = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -46,7 +48,9 @@ function SkillAssessment() {
   const [mainLoading, setMainLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [btnEnable, setBtnEnable] = useState(false);
+  const [btnEnable1, setBtnEnable1] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
+  const [loading3, setLoading3] = useState(false);
   const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
@@ -69,9 +73,24 @@ function SkillAssessment() {
   const [resultType, setResultType] = useState(false);
   const [assesmentType, setAssesmentType] = useState("Normal");
   const [downloadCertificate, setDownloadCertificate] = useState([]);
+  const [viewCertificate, setViewCertificate] = useState()
+  const [viewCertificateData, setViewCertificateData] = useState([])
+  const [viewCertificateLoader, setViewCertificateLoader] = useState(false)
+  const firstContainer = useRef(null);
+  const secondContainer = useRef(null);
+  const thirdContainer = useRef(null);
+  const fourthContainer = useRef(null);
+  const fifthContainer = useRef(null);
+  const sixthContainer = useRef(null);
+  const seventhContainer = useRef(null);
+  const eighthContainer = useRef(null);
+  const ninthContainer = useRef(null);
+  const tenthContainer = useRef(null);
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
+
+
 
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
@@ -85,6 +104,21 @@ function SkillAssessment() {
     // { question: 9, isSkiped: true, Answer: "" },
     // { question: 10, isSkiped: true, Answer: "" },
   ]);
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setisLevel(false)
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   useEffect(() => {
     setSkippedArray(fillArray());
@@ -250,7 +284,7 @@ function SkillAssessment() {
   };
 
   const generatePdf2 = () => {
-    // setLoadingg(true);
+    setLoading3(true);
     return new Promise((resolve, reject) => {
       generatePDF(resumeRef1, {
         filename: `${selectedSkill}_certificate_skilotech.pdf`,
@@ -268,12 +302,12 @@ function SkillAssessment() {
     })
       .then(() => {
         setTimeout(() => {
-          // setLoadingg(false);
+          setLoading3(false);
         }, 2000);
       })
       .catch((error) => {
         console.error("Error generating PDF:", error);
-        // setLoadingg(false);
+        setLoading3(false);
       });
   };
 
@@ -287,32 +321,39 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("https://jamblix.com/api/getQuetions", {
+          .post("https://jamblix.com/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
+            lastQuestions: question,
             questionCount:
               question.length == 9 || question.length === 59 ? "1" : "2",
           })
           .then((res) => {
-            try {
-              const newQuestions = JSON.parse(
-                res.data.data.choices[0].message.content
-              );
-              const newQuestionArray = newQuestions.filter((item) => {
-                return !question.some(
-                  (data) => data.question === item.question
-                );
-              });
-              setQuestion((prevQuestions) => [
-                ...prevQuestions,
-                ...newQuestionArray,
-              ]);
-              setToggle(1);
-              setLoading(false);
-              setStartTimer(true);
-            } catch (error) {
-              console.error("JSON parsing error: ", error);
-              toggleContent();
+
+
+            if (res.data.success) {
+              try {
+                const newQuestions = res.data.data;
+                const newQuestionArray = newQuestions.filter((item) => {
+                  return !question.some(
+                    (data) => data.question === item.question
+                  );
+                });
+                setQuestion((prevQuestions) => [
+                  ...prevQuestions,
+                  ...newQuestionArray,
+                ]);
+                setToggle(1);
+                setLoading(false);
+                setStartTimer(true);
+              } catch (error) {
+                console.error("JSON parsing error: ", error);
+                // Handle parsing error, possibly retry or show user-friendly message
+              }
+            } else {
+              console.error("Backend error: ", res.data.error);
+              setQuestion(question)
+              // Handle backend error, show error message to user
             }
           })
           .catch((err) => {
@@ -353,29 +394,34 @@ function SkillAssessment() {
     }
   }, [question, questionIndex]);
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (startTimer) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex + 1 < question.length) {
-  //         setQuestionIndex(questionIndex + 1);
-  //         setStartTimer(false);
-  //         setTimer(30);
-  //       } else {
-
-  //       }
-  //     }, 30000);
-  //   }
-
-  //   return () => clearTimeout(timer);
-  // }, [startTimer, questionIndex, question]);
-
   useEffect(() => {
     setStartTimer(true);
+    setBtnEnable1(false)
   }, [questionIndex]);
 
+
+  const skippedQuestion = () => {
+    setTimer(30);
+    if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
+      sumbit();
+    } else {
+      setQuestionIndex(
+        questionIndex + 1 < assesmentType === "Normal"
+          ? 10
+          : 60
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
+      );
+
+    }
+  }
+
+  
   const sumbit = () => {
     setStartTimer(false);
+    setIsSubmit(true);
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
@@ -384,6 +430,7 @@ function SkillAssessment() {
           skill: selectedSkill,
           score: checkAnswer(),
           date: new Date(),
+          level: level,
           isCertification: assesmentType !== "Normal" ? true : false,
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
@@ -402,15 +449,17 @@ function SkillAssessment() {
         });
     } else {
       setTimer(30);
+      
       setQuestionIndex(
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
+
     }
   };
 
@@ -432,6 +481,7 @@ function SkillAssessment() {
     return () => clearTimeout(timer);
   }, [questionIndex, isSubmit]);
 
+
   useEffect(() => {
     axios
       .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
@@ -446,13 +496,20 @@ function SkillAssessment() {
       });
   }, [selectedSkill, reCall, userDataGlobal]);
 
+  const resetSelection = () => {
+    answerSetter(questionIndex + 1, "");
+    setBtnEnable1(false);
+  };
+
   const answerSetter = (question, Answer) => {
+    setBtnEnable1(true);
     const skip = skippedArray.find((item) => {
       if (item.question == question && Answer != "") {
         return true;
       }
       return false;
     });
+
     if (skip) {
       skip.isSkiped = false;
       skip.Answer = Answer;
@@ -468,10 +525,19 @@ function SkillAssessment() {
       setAnswer(updatedSkippedArray);
     }
 
-    // dummyData[question - 1] = { Answer, question: question };
-    // console.log(214, dummyData);
-  };
+    if (Answer === "") {
+      // Remove the answer if Answer is empty (reset case)
+      const updatedSkippedArray = skippedArray.map((item) => {
+        if (item.question == question) {
+          return { ...item, isSkiped: true, Answer: "" };
+        }
+        return item;
+      });
 
+      setSkippedArray(updatedSkippedArray);
+      setAnswer(updatedSkippedArray);
+    }
+  }
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
       (data) => data?.Answer === Answer && data?.question == question
@@ -491,7 +557,7 @@ function SkillAssessment() {
       }
     });
 
-    console.log(88, Math.round(correctAnswer));
+
     return Math.round(correctAnswer);
   };
 
@@ -519,25 +585,76 @@ function SkillAssessment() {
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore + `%`;
   }
+  // const handleDownload = async () => {
+  //   setLoadingg(true);
+  //   const doc = (
+  //     <Result
+  //       questions={question}
+  //       answers={answer}
+  //       selectedSkill={selectedSkill}
+  //       checkAnswer={checkAnswer}
+  //     />
+  //   );
+  //   const blob = await pdf(doc).toBlob();
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement("a");
+  //   a.href = url;
+  //   a.download = `${selectedSkill}_assessment.pdf`;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+  //   URL.revokeObjectURL(url);
+  //   setLoadingg(false);
+  // };
+
+  const generatePdfBlob = async () => {
+    const containers = [
+      firstContainer.current,
+      secondContainer.current,
+      thirdContainer.current,
+      fourthContainer.current,
+      fifthContainer.current,
+      sixthContainer.current,
+      seventhContainer.current,
+      eighthContainer.current,
+      ninthContainer.current,
+      tenthContainer.current,
+    ];
+    const pdf = new jsPDF("p", "pt", "a4");
+
+    for (let i = 0; i < containers.length; i++) {
+      const ref = containers[i];
+      if (ref) {
+        const canvas = await html2canvas(ref, { scale: 6 });
+        const imgData = canvas.toDataURL("image/jpeg", 0.7);
+
+        if (i > 0) {
+          pdf.addPage();
+        }
+        pdf.addImage(imgData, "JPEG", 0, 0, 595.28, 841.89);
+      }
+    }
+
+    return pdf.output("blob");
+  };
+
   const handleDownload = async () => {
     setLoadingg(true);
-    const doc = (
-      <Result
-        questions={question}
-        answers={answer}
-        selectedSkill={selectedSkill}
-        checkAnswer={checkAnswer}
-      />
-    );
-    const blob = await pdf(doc).toBlob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${selectedSkill}_assessment.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+
+    const pdfBlob = await generatePdfBlob();
+    if (pdfBlob) {
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${selectedSkill}_assessment.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      console.error("Failed to generate PDF");
+    }
+    // document.body.removeChild(container);
     setLoadingg(false);
   };
 
@@ -549,17 +666,52 @@ function SkillAssessment() {
     } else if (!isActivePlan && assesmentType === "Certificate") {
       setisLevel(false);
       setIsplan(true);
-    } else {
+    } else if (!selectedSkill) {
+      toast.error("Please select a skill to start assessment");
+    }
+    else {
       setisLevel(true);
     }
   };
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
-    return percentageScore % 1 === 0 ? percentageScore : percentageScore.toFixed(2);
+    return percentageScore % 1 === 0
+      ? percentageScore
+      : percentageScore.toFixed(2);
   }
+  const generatePdf3 = async (item, index) => {
+
+    setViewCertificateLoader(true);
+    setViewCertificate(index);
+    setViewCertificateData(item);
+
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+
+    try {
+      await generatePDF(resumeRef2, {
+        filename: `${item.skill}_certificate_skilotech.pdf`,
+        resolution: Resolution.HIGH,
+        page: {
+          format: "letter",
+          orientation: "landscape",
+        },
+      });
+
+
+      setTimeout(() => {
+        setViewCertificateLoader(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      setViewCertificateLoader(false);
+    }
+  };
+
   return (
-    <div className="">
+    <div className="overflow-hidden">
       {editProfilePopUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -592,30 +744,28 @@ function SkillAssessment() {
       ) : (
         <div
           onWheel={(e) => e.stopPropagation()}
-          className="bg-[#F9F9F9] w-full min-h-screen "
+          className="bg-[#F9F9F9] w-full  " style={{ minHeight: 'calc(100vh - 56px)' }}
         >
           {toggle === 0 && (
             <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
               <div className=" w-[100%] flex flex-row gap-[8px] ">
                 <button
-                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${
-                    assesmentType === "Normal"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                   onClick={() => setAssesmentType("Normal")}
                 >
-                  Quick Assesment
+                  Quick Assessment
                 </button>
                 <button
-                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                    assesmentType === "Certificate"
-                      ? "bg-blue text-white btn_hover_effect"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
+                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
-                  Certified Assesment
+                  Certified Assessment
                 </button>
               </div>
               <div
@@ -734,10 +884,9 @@ function SkillAssessment() {
                               onClick={() => {
                                 setSelectedSkill(item);
                               }}
-                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                                selectedSkill == item &&
+                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item &&
                                 "bg-[#06A9EF] text-white"
-                              }`}
+                                }`}
                             >
                               {item}
                             </button>
@@ -748,7 +897,7 @@ function SkillAssessment() {
                   </div>
                 )}
               </div>
-              {isLevel && (
+              {/* {isLevel && (
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
@@ -822,28 +971,60 @@ function SkillAssessment() {
                     </div>
                   </div>
                 </>
+              )} */}
+              {isLevel && (
+                <>
+                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+
+                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+
+                    <div ref={taskRef} className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-5 gap-3 scr500:min-w-[489px] min-w-[300px]  bg-white rounded-[16px] relative  ">
+
+                      <div className="w-full flex justify-center items-center">
+                        <div onClick={() => setisLevel(false)} className=" cursor-pointer z-[3000] absolute right-2 top-2"><ClosedIcon30 /></div>
+                        <svg width="119" height="80" viewBox="0 0 119 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M59.5001 0C75.6069 0 90.1958 6.49392 100.794 17.0056L96.6407 28.095L90.9404 26.8591C82.864 18.8692 71.7588 13.9349 59.5001 13.9349L50.5396 7.26812L59.5001 0Z" fill="#F93778" />
+                          <path d="M28.0596 26.8591L19.6091 23.9092L18.2061 17.0056C28.8043 6.49392 43.3932 0 59.5 0V13.9349C47.2413 13.9349 36.136 18.8692 28.0596 26.8591Z" fill="#75E0F6" />
+                          <path d="M118.103 58.2997H104.207C104.113 46.003 99.056 34.8884 90.9399 26.8594L100.793 17.0059C111.431 27.5566 118.009 42.1551 118.103 58.2997Z" fill="#FA7085" />
+                          <path d="M14.7927 58.2997H0.897186C0.991041 42.1551 7.56852 27.5566 18.2061 17.0059L28.0596 26.8594C19.9438 34.8884 14.8863 46.003 14.7927 58.2997Z" fill="#01BAFE" />
+                          <path d="M16.413 3.19531L28.0596 14.8422V26.8587L14.4587 17.0052L10.4046 9.2037L16.413 3.19531Z" fill="#555C7C" />
+                          <path d="M28.0596 26.8581H16.0433L4.39641 15.2115L10.4046 9.20312L28.0596 26.8581Z" fill="#373A5B" />
+                          <path d="M59.5011 60.7559H78.6533V74.8594L59.5011 79.9988L57.4903 71.0133L59.5011 60.7559Z" fill="#555C7C" />
+                          <path d="M40.3488 60.7559H59.501V79.9988L40.3488 74.8594V60.7559Z" fill="#373A5B" />
+                          <path d="M65.0079 50.186L72.9277 53.4035L68.4115 60.7564L67.7989 69.1881L59.5006 67.136L54.1286 56.4183L59.5006 43.6484L65.0079 50.186Z" fill="#FFE643" />
+                          <path d="M53.9936 50.186L59.501 43.6484V67.136L51.2027 69.1881L50.59 60.7564L46.0738 53.4035L53.9936 50.186Z" fill="#FFCA00" />
+                        </svg>
+                      </div>
+                      <div className="w-full py-[6px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]"> Select difficulty level</div>
+                      <div className="scr500:h-[44px] h-[34px] scr500:px-[20px] px-[12px] w-full flex justify-between">
+                        <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Easy"); setisLevel(false); toggleContent() }}>Easy</button>
+                        <button className="scr500:w-[33.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Intermediate"); setisLevel(false); toggleContent() }}>Intermediate</button>
+                        <button className="scr500:w-[28.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Advanced"); setisLevel(false); toggleContent() }}>Advanced</button>
+                      </div>
+                    </div>
+                  </div>
+                </>
               )}
+
               <div className="flex flex-col gap-4 w-[100%]">
                 <div className="flex flex-row justify-end">
                   {showSecondDiv && (
                     // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
                     <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
                       <button
-                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${
-                          !resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
+                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${
-                          resultType
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
+                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
                         onClick={() => setResultType(true)}
                       >
                         Certified Assesment Result
@@ -854,9 +1035,8 @@ function SkillAssessment() {
                 </div>
                 <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
                   <div
-                    className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                      showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
-                    } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
+                      } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                   >
                     <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px] text-center">
                       <Assessmentlogo />
@@ -976,11 +1156,11 @@ function SkillAssessment() {
                       <button
                         className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                         disabled={loading}
-                        // onClick={() =>
-                        //   setQuestionIndex(
-                        //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                        //   )
-                        // }
+                      // onClick={() =>
+                      //   setQuestionIndex(
+                      //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                      //   )
+                      // }
                       >
                         {loading ? <MiniLoader /> : " Get Started"}
                       </button>
@@ -1023,7 +1203,7 @@ function SkillAssessment() {
                                           <Assessmentlogo />
                                         </div>
                                         <div className="w-full">
-                                          <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          <p className="text-text-primary text-start break-word font-montserrat text-base font-medium leading-6">
                                             {item.skill}
                                           </p>
                                         </div>
@@ -1048,19 +1228,24 @@ function SkillAssessment() {
                       ) : (
                         <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
                           <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                            <div className="flex w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[36.04%] ms:w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Assessment Name
                               </p>
                             </div>
-                            <div className="flex w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[19.76%] ms:w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Date
                               </p>
                             </div>
-                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
                                 Score
+                              </p>
+                            </div>
+                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
+                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
+                                Certificate
                               </p>
                             </div>
                           </div>
@@ -1072,32 +1257,80 @@ function SkillAssessment() {
                                   key={index}
                                   className="border-b border-solid border-[#DEDEDE] w-full"
                                 >
-                                  <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch ">
-                                    <div className="  w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch justify-between">
+                                    <div className=" w-[36.04%] ms:w-[50%]  flex justify-between gap-[12px]">
                                       <div className="flex  gap-3 items-center self-stretch ">
                                         <div className="w-[40px] h-[40px]">
                                           <Assessmentlogo />
                                         </div>
                                         <div className="w-full">
-                                          <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          <p className="text-text-primary text-start break-word font-montserrat text-[10px] ms:text-base font-medium leading-6">
                                             {item.skill}
                                           </p>
                                         </div>
                                       </div>
                                     </div>
 
-                                    <div className="flex  justify-center items-center self-stretch w-[30%]">
-                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                    <div className="flex  justify-center items-center self-stretch w-[19.76%] ms:w-[30%]">
+                                      <p className=" font-montserrat text-[10px] ms:text-base font-medium leading-6">
                                         {item?.date && formatDate(item?.date)}
                                       </p>
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {formatScore(item.score)}%
+                                        {formatScore(item.score)}%
                                         {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
-
                                       </p>
                                     </div>
+
+                                    <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  text-[10px] ms:text-base font-medium leading-6 ">
+                                      {Number(formatScore(item.score)) >= 70 ?
+                                        <button onClick={() => generatePdf3(item, index)} className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4">
+                                          {index === viewCertificate ?
+                                            <>
+                                              {viewCertificateLoader ? 
+                                                <svg
+                                                  aria-hidden="true"
+                                                  className="w-6 h-6 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
+                                                  viewBox="0 0 100 101"
+                                                  fill="none"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                    fill="currentColor"
+                                                  />
+                                                  <path
+                                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                    fill="currentFill"
+                                                  />
+                                                </svg>
+                                             : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                                <g mask="url(#mask0_5292_61102)">
+                                                  <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                                                </g>
+                                              </svg>
+                                              }
+                                            </>
+                                            :
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                              <g mask="url(#mask0_5292_61102)">
+                                                <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                                              </g>
+                                            </svg>}
+                                        </button>
+                                        :
+                                        <svg className=" cursor-not-allowed" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                          <g mask="url(#mask0_5292_61102)">
+                                            <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#DEDEDE" />
+                                          </g>
+                                        </svg>}
+
+                                    </div>
+
                                   </div>
                                 </div>
                               ))}
@@ -1168,12 +1401,16 @@ function SkillAssessment() {
                               questionIndex + 1,
                               question[questionIndex]?.question
                             )}
-                            onChange={() =>
+                            onChange={() => {
+
                               answerSetter(
                                 questionIndex + 1,
                                 option,
-                                question[questionIndex]?.question
+                                question[questionIndex]?.question,
+
                               )
+
+                            }
                             }
                           />
                           <label
@@ -1192,7 +1429,13 @@ function SkillAssessment() {
                       disabled={!btnEnable}
                       className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
                       onClick={() => {
-                        sumbit();
+                        resetSelection();
+                        setBtnEnable(false);
+                        skippedQuestion()
+                        let result = assesmentType === "Normal" ? 9 : 59;
+                        if (questionIndex === result) {
+                          setIsSubmit(true);
+                        }
                       }}
                     >
                       Skip
@@ -1200,11 +1443,13 @@ function SkillAssessment() {
 
                     <button
                       className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
-                      style={{ opacity: !btnEnable ? "0.5" : 1 }}
-                      disabled={!btnEnable}
+                      style={{ opacity: !btnEnable || !btnEnable1 ? "0.5" : 1 }}
+                      disabled={!btnEnable || !btnEnable1}
                       onClick={() => {
                         setBtnEnable(false);
+                        setBtnEnable1(false)
                         sumbit();
+
                         let result = assesmentType === "Normal" ? 9 : 59;
                         if (questionIndex === result) {
                           setIsSubmit(true);
@@ -1216,8 +1461,8 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                        ? "Submit"
-                        : "Next"}
+                          ? "Submit"
+                          : "Next"}
                     </button>
                   </div>
                 </div>
@@ -1236,11 +1481,11 @@ function SkillAssessment() {
                       boxShadow: " 0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
                     }}
                   >
-                    <div className="text-[#333] px-[12px] pt-[12px] text-[20px] font-[600]">
+                    <div className="text-[#333] px-[12px] pt-[12px] text-[20px] font-[600] flex justify-start w-full">
                       Assessment Score
                     </div>
-                    <div className="w-full bg-[#005A81] py-[12px] px-[30px] text-[#fff] text-[18px] font-[600] text-center">
-                      Assessment Completed!
+                    <div className="w-full bg-[#0C8A0A] py-[12px] px-[30px] text-[#fff] text-[18px] font-[600] text-center">
+                      Assessment Completed
                     </div>
                     <div className="px-[12px] w-full">
                       <div
@@ -1249,14 +1494,14 @@ function SkillAssessment() {
                           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                         }}
                       >
-                        <div className="flex items-center gap-[4px] text-[#333] text-[16px] font-[600]">
+                        <div className="flex items-center gap-[4px] text-[#333] text-[16px]  font-[600]">
                           <Assessmentlogo />
                           {camelCase(selectedSkill)} Assessment
                         </div>
                         <div className="flex flex-col gap-[16px] w-full">
-                          <div className="text-[#0C8A0A] text-[16px] font-[600] ">
+                          {/* <div className="text-[#0C8A0A] text-[16px] font-[600] ">
                             Completed
-                          </div>
+                          </div> */}
                           <div className="">
                             <div className="flex justify-between items-center">
                               <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
@@ -1316,7 +1561,7 @@ function SkillAssessment() {
 
                           {assesmentType !== "Normal" && (
                             <>
-                              {console.log(555, calculateMarkOutOf60())}
+
                               {calculateMarkOutOf60() >= "70%" ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
@@ -1324,7 +1569,7 @@ function SkillAssessment() {
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
                                   The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-                                 
+
                                 </di>
                               )}
                             </>
@@ -1334,12 +1579,11 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${
-                        assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= "70%"
-                          ? "sm:w-[90%] w-[95%]"
-                          : "w-[80%]"
-                      } `}
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                        } `}
                     >
                       <button
                         onClick={() => {
@@ -1350,10 +1594,12 @@ function SkillAssessment() {
                           setSkipped([]);
                           setUniqueQuestions([]);
                           setIsSubmit(false);
+                          // setSkippedArray([])
                           // window.location.reload();
+                          setBtnEnable1(false)
                           dispatch(reCallUserData());
                         }}
-                        className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
+                        className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >
                         Close
                       </button>
@@ -1361,14 +1607,16 @@ function SkillAssessment() {
                       {assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= "70%" && (
                           <button
-                            className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
+                            className="btn_hover_effect min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
                           >
-                            Download Certificate
+                            {loading3 && <MiniLoader />}
+                            {!loading3 && "Download Certificate"}
+
                           </button>
                         )}
                       <button
-                        className="border-[1px] min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
+                        className="btn_hover_effect  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
                         onClick={() => handleDownload()}
                       >
                         {" "}
@@ -1405,8 +1653,44 @@ function SkillAssessment() {
               </div>
             </>
           )}
+
+          <div
+            className="flex overflow-hidden absolute left-[-9999px]"
+          >
+            <ResultPdf
+              questions={question}
+              answers={answer}
+              selectedSkill={selectedSkill}
+              checkAnswer={checkAnswer}
+              firstContainer={firstContainer}
+              secondContainer={secondContainer}
+              thirdContainer={thirdContainer}
+              fourthContainer={fourthContainer}
+              fifthContainer={fifthContainer}
+              sixthContainer={sixthContainer}
+              seventhContainer={seventhContainer}
+              eighthContainer={eighthContainer}
+              ninthContainer={ninthContainer}
+              tenthContainer={tenthContainer}
+              assesmentType={assesmentType}
+              level={level}
+              isSubmit={isSubmit}
+            />
+          </div>
         </div>
       )}
+      <div
+        className="absolute overflow-hidden left-[-8000px]"
+        ref={resumeRef2}
+      >
+        <Certificate
+          selectedSkill={viewCertificateData.skill}
+          level={viewCertificateData.level}
+          downloadCertificate={viewCertificateData}
+          setDownloadCertificate={setDownloadCertificate}
+        />
+      </div>
+
     </div>
   );
 }
