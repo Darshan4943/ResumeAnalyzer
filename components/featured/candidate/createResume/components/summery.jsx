@@ -285,8 +285,12 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         ></div>
                       </div>
                       <div className="scr420:min-w-[55px] min-w-[45px]">
+                      {isActive ?
+                      <>
                         {limits.total.clients - clientsRemaining}/
-                        {limits.total.clients}
+                        {limits.total.clients} </>
+                        :
+                         "0/0"}
                       </div>
                     </div>
                   </div>
