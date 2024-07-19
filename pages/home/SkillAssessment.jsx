@@ -67,6 +67,7 @@ function SkillAssessment() {
   const [attemptCount, setAttemptCtn] = useState();
   const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isNext, setIsNext] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [editProfilePopUp, setEditProfilePopUp] = useState(false);
   const [level, setLevel] = useState("Intermediate");
@@ -421,7 +422,7 @@ function SkillAssessment() {
   
   const sumbit = () => {
     setStartTimer(false);
-    setIsSubmit(true);
+   
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
@@ -465,7 +466,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     let timer;
-
+    setIsNext(!isNext)
     if (questionIndex && isSubmit === false) {
       timer = setTimeout(() => {
         if (
@@ -473,6 +474,7 @@ function SkillAssessment() {
             ? questionIndex === 9
             : questionIndex === 59 && isSubmit === false
         ) {
+          setIsNext(!isNext)
           sumbit();
         }
       }, 30000);
@@ -1429,6 +1431,7 @@ function SkillAssessment() {
                       disabled={!btnEnable}
                       className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
                       onClick={() => {
+                        setIsNext(!isNext)
                         resetSelection();
                         setBtnEnable(false);
                         skippedQuestion()
@@ -1446,6 +1449,7 @@ function SkillAssessment() {
                       style={{ opacity: !btnEnable || !btnEnable1 ? "0.5" : 1 }}
                       disabled={!btnEnable || !btnEnable1}
                       onClick={() => {
+                        setIsNext(!isNext)
                         setBtnEnable(false);
                         setBtnEnable1(false)
                         sumbit();
@@ -1594,6 +1598,7 @@ function SkillAssessment() {
                           setSkipped([]);
                           setUniqueQuestions([]);
                           setIsSubmit(false);
+                          setIsNext(!isNext)
                           // setSkippedArray([])
                           // window.location.reload();
                           setBtnEnable1(false)
@@ -1676,6 +1681,7 @@ function SkillAssessment() {
               level={level}
               isSubmit={isSubmit}
               questionIndex={questionIndex}
+              isNext={isNext}
             />
           </div>
         </div>

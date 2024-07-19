@@ -21,6 +21,7 @@ const ResultPdf = ({
   assesmentType,
   level,
   questionIndex,
+  isNext,
   // setPages,
   // pages,
   isSubmit
@@ -127,7 +128,7 @@ const ResultPdf = ({
     };
 
     splitContent();
-  }, [isSubmit,questionIndex]);
+  }, [isNext]);
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
@@ -238,14 +239,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -323,14 +324,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -409,14 +410,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -495,14 +496,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -581,14 +582,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -666,14 +667,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -751,14 +752,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -836,14 +837,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
@@ -921,14 +922,14 @@ const ResultPdf = ({
                     </div>
 
                     <div className="text-[10px] text-[#FFFFFF] font-Montserrat font-[500] mt-[-12px]">
-                    Skill Assessment -({camelCase(level)})
+                    Skill Assessment - ({camelCase(level)})
                     <div className="text-[12px] text-[#FFFFFF] font-Montserrat font-[600] mt-[-2px]">
                       {camelCase(selectedSkill)}
                     </div>
                   </div>
                   </div>
 
-                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[110px]">
+                  <div className="font-[600] text-[12px] font-Montserrat flex justify-center text-[#333333]  bg-white rounded-[32px] py-[6px] px-[12px] min-w-[120px]">
                     <p className="mt-[-12px] py-[6px] ">
                       {assesmentType === "Normal" ?
                         <>  Score : {checkAnswer()} / {questions.length}</>
