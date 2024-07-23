@@ -93,7 +93,7 @@ function Folders({
   const restoreFile = () => {
     const ids = selectedIndexes.map((item) => data[item]._id);
     if (ids.length == 0) {
-      toast.error("Please select file to delete");
+      toast.error("Please select file to restore");
       return;
     }
     axios
@@ -136,7 +136,7 @@ function Folders({
       setSelectedIndexes([]);
     } else {
       setSelectedIndexes(
-        Array.from({ length: clientData.length }, (_, index) => index)
+        Array.from({ length: clientData?.length }, (_, index) => index)
       );
     }
     setSelectAll(!selectAll);
@@ -145,7 +145,7 @@ function Folders({
   const sort = ["A to Z", "Date Modified"];
 
   const sortClientData = (data, selectedIndex) => {
-  
+
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.firstName?.localeCompare(b.firstName));
     } else if (sortSelect == 1) {
@@ -466,11 +466,32 @@ function Folders({
                       </>
                     )} */}
                   </div>
-
+                  {!clients && !trash && (
+                  <div>
+                    <svg
+                      onClick={() =>
+                        selectedIndexes.length > 0 && setShowDelete(true)
+                      }
+                      className=" cursor-pointer scr540:hidden"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_1381_18138)">
+                        <path
+                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                          fill="#333333"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  )}
                   <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
                     {selectedIndexes.length} selected
                   </div>
-                  {!clients && (
+                  {!clients && trash && (
                     <svg
                       onClick={() => setIsOption(!isOption)}
                       className="scr540:hidden"
@@ -489,17 +510,25 @@ function Folders({
                     </svg>
                   )}
                   {isOption && (
+
                     <div
-                      onClick={() =>
-                        selectedIndexes.length > 0 && setShowDelete(true)
-                      }
+
                       className="absolute z-10 right-3 top-10 bg-white px-2 py-2 flex flex-col gap-1 rounded-[8px]"
                       style={{
                         boxShadow: "0px 1px 2px 0px #00000040",
                       }}
                     >
-                      <p className="text-[14px] text-red font-medium">Delete</p>
+
+                      {trash &&
+                        <p onClick={restoreFile} className="text-[14px] font-medium">Restore</p>
+                      }
+                      <p onClick={() =>
+                        selectedIndexes.length > 0 && setShowDelete(true)
+                      } className="text-[14px] text-red font-medium">Delete</p>
                     </div>
+
+
+
                   )}
                 </div>
               </div>
@@ -721,8 +750,8 @@ function Folders({
           <>
             <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
 
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-              <div className="delete_modal_container pt-[16px]">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none ">
+              <div className="delete_modal_container pt-[16px] scr420:w-[360px] w-[300px] px-[16px] scr420:px-[36px]">
                 <div className="flex items-center gap-3">
                   <img
                     src="/images/icons/delete_icon.png"
@@ -730,7 +759,7 @@ function Folders({
                     alt=""
                   />
                   {trash ? (
-                    <p className="text-[20px] font-[500] text-[#C00000] text-center">
+                    <p className="scr420:text-[20px] text-[18px] font-[500] text-[#C00000] text-center">
                       Delete Permanantly?
                     </p>
                   ) : (
