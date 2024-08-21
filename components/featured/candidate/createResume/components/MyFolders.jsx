@@ -11,6 +11,7 @@ import SyncLoader from "../../../../common/SyncLoader";
 function MyFolders({
   toggleSelect,
   isList,
+  
   tabIndex,
   data,
   files,
