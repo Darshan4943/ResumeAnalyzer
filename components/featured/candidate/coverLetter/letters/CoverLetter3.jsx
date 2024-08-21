@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter3({ page2Ref, page1Ref, data }) {
   const firstPageRef = useRef(null);
@@ -134,13 +135,28 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
 
             <div>
               {splitContents.first.map((passage, index) => (
-                <p
-                  key={index}
-                  style={{ margin: "16px 0" }}
-                  className="text-[10px] font-[400] text-[#6D6E71] font-Inter text-justify"
-                >
-                  {passage}
-                </p>
+                <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "10px",
+                      fontWeight: "400",
+                      color: "#6D6E71",
+                      textAlign: "justify",
+                      fontFamily: "Inter",
+                    }}
+                    key={index}
+                    passage={passage}
+                  />
+                </>
+
+                // <p
+                //   key={index}
+                //   style={{ margin: "16px 0" }}
+                //   className="text-[10px] font-[400] text-[#6D6E71] font-Inter text-justify"
+                // >
+                //   {passage}
+                // </p>
               ))}
             </div>
             {splitContents?.second?.length == 0 && (
@@ -164,13 +180,20 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div>
                   {splitContents.second.map((passage, index) => (
-                    <p
-                      key={index}
-                      style={{ margin: "16px 0" }}
-                      className="text-[10px] font-[400] text-[#6D6E71] font-Inter text-justify"
-                    >
-                      {passage}
-                    </p>
+                    <>
+                      <CustomParastyle
+                        style={{
+                          margin: "16px 0",
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          color: "#6D6E71",
+                          textAlign: "justify",
+                          fontFamily: "Inter",
+                        }}
+                        key={index}
+                        passage={passage}
+                      />
+                    </>
                   ))}
                 </div>
                 {splitContents?.second?.length > 0 && (

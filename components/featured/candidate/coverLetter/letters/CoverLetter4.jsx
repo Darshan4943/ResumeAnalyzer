@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
-
+import CustomParastyle from "./CustomParastyle";
 const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
   const firstPageRef = useRef(null);
   const [splitContents, setSplitContent] = useState({ first: [], second: [] });
@@ -44,17 +44,12 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
     }
   }, [data?.passages, splitContent]);
 
-
- 
-
-
   const formatContent = (link) => {
     if (link?.length > 32) {
       return link?.match(/.{1,32}/g).join("\n");
     }
     return link;
   };
-
 
   const formatName = (link) => {
     if (link?.length > 18) {
@@ -79,7 +74,8 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
           <div className="flex flex-row gap-[24px] ">
             <div>
               <h5 className="font-montserrat text-[24px] font-[400] leading-48.76 text-[#344A50] text-left break-word">
-                {formatName(camelCase(data.firstName))} {formatName(camelCase(data.lastName))}
+                {formatName(camelCase(data.firstName))}{" "}
+                {formatName(camelCase(data.lastName))}
               </h5>
               <h6 className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-[#AC5428] text-left break-word">
                 {camelCase(data.designation)}
@@ -183,13 +179,27 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                   </span>
                 </div>
                 {splitContents.first.map((passage, index) => (
-                  <p
-                    key={index}
-                    style={{ margin: "16px 0" }}
-                    className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-justify"
-                  >
-                    {passage}
-                  </p>
+                  <>
+                    <CustomParastyle
+                      style={{
+                        margin: "16px 0",
+                        fontSize: "12px",
+                        fontWeight: "400",
+                        color: "#161616",
+                        textAlign: "justify",
+                        fontFamily: "Montserrat",
+                      }}
+                      key={index}
+                      passage={passage}
+                    />
+                  </>
+                  // <p
+                  //   key={index}
+                  //   style={{ margin: "16px 0" }}
+                  //   className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-justify"
+                  // >
+                  //   {passage}
+                  // </p>
                 ))}
                 {splitContents?.second?.length == 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
@@ -212,13 +222,20 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
           >
             <div className="font-Montserrat text-[12px] font-normal leading-[14.63px] text-[#161616] w-full text-left h-[585px]">
               {splitContents.second.map((passage, index) => (
-                <p
-                  key={index}
-                  style={{ margin: "16px 0" }}
-                  className="font-Montserrat text-[12px] font-[400] leading-[14.63px] text-[#161616]  text-justify"
-                >
-                  {passage}
-                </p>
+                <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      color: "#161616",
+                      textAlign: "justify",
+                      fontFamily: "Montserrat",
+                    }}
+                    key={index}
+                    passage={passage}
+                  />
+                </>
               ))}
               {splitContents?.second?.length > 0 && (
                 <div className="flex flex-col w-full gap-[2px]">

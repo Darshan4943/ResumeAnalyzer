@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import ReactHtmlParser from "react-html-parser";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter({ page2Ref, page1Ref, data }) {
   const firstContainer = useRef(null);
@@ -208,13 +210,18 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
             </span>
             <div>
               {splitContents?.first.map((passage, index) => (
-                <p
+                <CustomParastyle
+                  style={{
+                    margin: "16px 0",
+                    fontSize: "12px",
+                    fontWeight: "400",
+                    color: "#6D6E71",
+                    textAlign: "justify",
+                    fontFamily: "Lato",
+                  }}
                   key={index}
-                  style={{ margin: "16px 0" }}
-                  className="text-[12px] font-[400] text-[#6D6E71] text-justify font-Lato"
-                >
-                  {passage}
-                </p>
+                  passage={passage}
+                />
               ))}
             </div>
             {splitContents?.second?.length == 0 && (
@@ -238,13 +245,18 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div>
                   {splitContents.second.map((passage, index) => (
-                    <p
+                    <CustomParastyle
+                      style={{
+                        margin: "16px 0",
+                        fontSize: "12px",
+                        fontWeight: "400",
+                        color: "#6D6E71",
+                        textAlign: "justify",
+                        fontFamily: "Lato",
+                      }}
                       key={index}
-                      style={{ margin: "16px 0" }}
-                      className="text-[12px] font-[400] text-[#6D6E71] text-justify font-Lato "
-                    >
-                      {passage}
-                    </p>
+                      passage={passage}
+                    />
                   ))}
                 </div>
                 {splitContents?.second?.length > 0 && (

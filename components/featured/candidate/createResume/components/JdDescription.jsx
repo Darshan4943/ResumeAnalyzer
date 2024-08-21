@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function JdDescription({
   text,
@@ -15,6 +15,19 @@ function JdDescription({
   btnToggle,
   setButtonToggle,
 }) {
+  useEffect(() => {
+    const jd = localStorage.getItem("JdDescription");
+    if (jd) {
+      setText(jd);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("JdDescription", text);
+  // }, [text]);
+
+ 
+console.log(8787, text)
   return (
     <div className="flex flex-col gap-6 ml:w-[100%] w-[100%]">
       <div className="flex flex-col gap-4 ">
@@ -26,6 +39,7 @@ function JdDescription({
             if (e.target.value.length < 100) {
               setError("Minimum 100 characters required.");
             } else {
+              localStorage.setItem("JdDescription", text);
               setError("");
             }
           }}
