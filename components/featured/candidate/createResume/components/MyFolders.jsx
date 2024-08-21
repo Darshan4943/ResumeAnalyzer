@@ -4,6 +4,7 @@ import {
   dateSeter,
   fileIconSeter,
   fileIconSeter1,
+  
   formatDate,
 } from "../../../../../utils/middleware";
 import SyncLoader from "../../../../common/SyncLoader";
@@ -11,7 +12,7 @@ import SyncLoader from "../../../../common/SyncLoader";
 function MyFolders({
   toggleSelect,
   isList,
-  
+
   tabIndex,
   data,
   files,
