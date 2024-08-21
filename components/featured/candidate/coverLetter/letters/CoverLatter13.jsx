@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter13({ page1Ref, page2Ref, data }) {
   const firstPageRef = useRef(null);
@@ -121,13 +122,27 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
           </span>
           <div>
             {splitContents.first.map((passage, index) => (
-              <p
-                key={index}
-                style={{ margin: "16px 0" }}
-                className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px] text-justify"
-              >
-                {passage}
-              </p>
+              <>
+                <CustomParastyle
+                  style={{
+                    margin: "16px 0",
+                    fontSize: "12px",
+                    fontWeight: "400",
+                    color: "#333",
+                    textAlign: "justify",
+                    fontFamily: "Arial",
+                  }}
+                  key={index}
+                  passage={passage}
+                />
+              </>
+              // <p
+              //   key={index}
+              //   style={{ margin: "16px 0" }}
+              //   className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px] text-justify"
+              // >
+              //   {passage}
+              // </p>
             ))}
             {splitContents?.second?.length === 0 && (
               <div className="flex flex-col w-full gap-[2px]">
@@ -154,13 +169,20 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px]">
                   {splitContents.second.map((passage, index) => (
-                    <p
-                      key={index}
-                      style={{ margin: "16px 0" }}
-                      className="text-[12px] font-[400] text-[#333] font-Arial leading-[13.8px] text-justify"
-                    >
-                      {passage}
-                    </p>
+                    <>
+                      <CustomParastyle
+                        style={{
+                          margin: "16px 0",
+                          fontSize: "12px",
+                          fontWeight: "400",
+                          color: "#333",
+                          textAlign: "justify",
+                          fontFamily: "Arial",
+                        }}
+                        key={index}
+                        passage={passage}
+                      />
+                    </>
                   ))}
                   {splitContents?.second?.length > 0 && (
                     <div className="flex flex-col w-full gap-[2px]">

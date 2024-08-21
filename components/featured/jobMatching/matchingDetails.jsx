@@ -83,7 +83,7 @@ const MatchingDetails = ({
     setSelectedFile({ ...data, matching_parameters: sortedData });
   }, [data]);
 
-  console.log(888, data);
+ 
   return (
     <>
       <div

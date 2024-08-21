@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter6({ page2Ref, page1Ref, data }) {
   const firstPageRef = useRef(null);
@@ -51,7 +52,6 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
     return link;
   };
 
-
   const formatName = (link) => {
     if (link?.length > 18) {
       return link?.match(/.{1,18}/g).join("\n");
@@ -65,9 +65,6 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
     }
     return link;
   };
-
-
-
 
   return (
     <>
@@ -94,7 +91,7 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                 </svg>
 
                 <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] leading-[12.1px] break-word">
-                {data?.dial_code} {data?.mobileNumber}
+                  {data?.dial_code} {data?.mobileNumber}
                 </span>
               </div>
               <div>
@@ -163,7 +160,8 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
             <div className="flex flex-col items-start ">
               <div className="flex flex-wrap">
                 <span className="flex flex-wrap text-[28px] leading-[33.89px] font-[400] text-[#000000] font-Inter break-word">
-                  {formatName(camelCase(data.firstName))} {formatName(camelCase(data.lastName))}
+                  {formatName(camelCase(data.firstName))}{" "}
+                  {formatName(camelCase(data.lastName))}
                 </span>
               </div>
               <div className="flex flex-wrap ">
@@ -213,13 +211,27 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
               {splitContents.first.map((passage, index) => (
-                <p
-                  key={index}
-                  style={{ margin: "16px 0" }}
-                  className=" text-[10px] font-[400] text-[#333333] font-Inter  text-justify"
-                >
-                  {passage}
-                </p>
+                <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "10px",
+                      fontWeight: "400",
+                      color: "#333333",
+                      textAlign: "justify",
+                      fontFamily: "Inter",
+                    }}
+                    key={index}
+                    passage={passage}
+                  />
+                </>
+                // <p
+                //   key={index}
+                //   style={{ margin: "16px 0" }}
+                //   className=" text-[10px] font-[400] text-[#333333] font-Inter  text-justify"
+                // >
+                //   {passage}
+                // </p>
               ))}
             </div>
             {splitContents?.second?.length == 0 && (
@@ -244,13 +256,20 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                 <div className="flex flex-col justify-start w-full gap-[8px]">
                   <div className="text-[10px] font-[400] text-[#333333] font-Inter">
                     {splitContents.second.map((passage, index) => (
-                      <p
-                        key={index}
-                        style={{ margin: "16px 0" }}
-                        className=" text-[10px] font-[400] text-[#333333] font-Inter  text-justify"
-                      >
-                        {passage}
-                      </p>
+                      <>
+                        <CustomParastyle
+                          style={{
+                            margin: "16px 0",
+                            fontSize: "10px",
+                            fontWeight: "400",
+                            color: "#333333",
+                            textAlign: "justify",
+                            fontFamily: "Inter",
+                          }}
+                          key={index}
+                          passage={passage}
+                        />
+                      </>
                     ))}
                   </div>
                   {splitContents?.second?.length > 0 && (

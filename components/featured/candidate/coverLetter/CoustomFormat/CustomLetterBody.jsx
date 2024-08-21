@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import CustomTextEditor from "./CustomTextEditor";
 
-const CustomLetterBody = ({ data, setData,isCoverEdit }) => {
+const CustomLetterBody = ({ data, setData, isCoverEdit }) => {
   const [text, setText] = useState("");
 
   return (
@@ -24,6 +24,10 @@ const CustomLetterBody = ({ data, setData,isCoverEdit }) => {
         }
         text={text}
         setText={setText}
+        // style={{ whiteSpace: "pre-line" }}
+        // editor={editor}
+        // rerender={rerender}
+        //  placeholder={placeholder}
       />
     </div>
   );

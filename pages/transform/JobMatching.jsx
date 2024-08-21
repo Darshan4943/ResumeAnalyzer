@@ -136,7 +136,7 @@ const JobMatching = () => {
         text,
       });
       const jd = res.data.jsonData[0];
-
+      localStorage.removeItem("JdDescription");
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
         setLoadingg(false);
