@@ -26,8 +26,7 @@ function JdDescription({
   //   localStorage.setItem("JdDescription", text);
   // }, [text]);
 
- 
-console.log(8787, text)
+  console.log(8787, text);
   return (
     <div className="flex flex-col gap-6 ml:w-[100%] w-[100%]">
       <div className="flex flex-col gap-4 ">
@@ -35,11 +34,12 @@ console.log(8787, text)
         <textarea
           value={text}
           onChange={(e) => {
-            setText(e.target.value);
-            if (e.target.value.length < 100) {
+            const newValue = e.target.value;
+            setText(newValue);
+            if (newValue.length < 100) {
               setError("Minimum 100 characters required.");
             } else {
-              localStorage.setItem("JdDescription", text);
+              localStorage.setItem("JdDescription", newValue);
               setError("");
             }
           }}
