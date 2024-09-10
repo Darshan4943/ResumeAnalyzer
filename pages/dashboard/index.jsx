@@ -135,7 +135,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/website.png",
       new: "New",
     },
-    // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
@@ -160,7 +160,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/collection.png",
     },
     { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 

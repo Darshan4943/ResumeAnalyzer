@@ -385,7 +385,10 @@ const Index = () => {
                               {item?.jobTitle}
                             </span>
                             <span className="text-[12px] text-[#646464] font-medium">
-                              {item?.location?.join(",")}
+                              {item?.country?.join(", ")}
+                            </span>
+                            <span className="text-[12px] text-[#646464] font-medium">
+                              {item?.location?.join(", ")}
                             </span>
                             <span className="text-[10px] text-[#2706EF] font-medium">
                               {item?.experiance}

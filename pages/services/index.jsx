@@ -75,13 +75,13 @@ function Services({ isServices, isMove, setIsMove }) {
     //   desc: "Details of subscription plan and paid services.",
     //   color: "#8901FF",
     // },
-    // {
-    //   name: "Search Jobs",
-    //   imgSrc: "/images/resumeBuilder/job.png",
-    //   desc: "Find jobs matching to a particular resume and apply easily.",
-    //   color: "#6441A5",
-    //   new: "New",
-    // },
+    {
+      name: "Search Jobs",
+      imgSrc: "/images/resumeBuilder/job.png",
+      desc: "Find jobs matching to a particular resume and apply easily.",
+      color: "#6441A5",
+      new: "New",
+    },
   ];
 
   const loginListRecruiter = [
@@ -134,13 +134,13 @@ function Services({ isServices, isMove, setIsMove }) {
     //   desc: "Details of subscription plan and paid services.",
     //   color: "#8901FF",
     // },
-    // {
-    //   name: "Post Jobs",
-    //   imgSrc: "/images/resumeBuilder/job.png",
-    //   desc: "Post new job openings to connect with more candidates.",
-    //   color: "#6441A5",
-    //   new: "New",
-    // },
+    {
+      name: "Post Jobs",
+      imgSrc: "/images/resumeBuilder/job.png",
+      desc: "Post new job openings to connect with more candidates.",
+      color: "#6441A5",
+      new: "New",
+    },
   ];
   const [visible, setVisible] = useState(false);
 

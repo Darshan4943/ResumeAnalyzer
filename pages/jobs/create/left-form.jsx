@@ -9,6 +9,9 @@ import { PlusAddLogo, SparklingStarts } from "../../../utils/svg";
 import Tiptap from "../../../components/editor/Tiptap";
 import axios from "axios";
 import MiniLoader from "../../../components/common/mini-loader";
+import { countries } from "../../../utils/data";
+import Select from 'react-select';
+
 const Leftform = ({
   file,
   setFile,
@@ -20,7 +23,14 @@ const Leftform = ({
   formError,
   setFormError,
 }) => {
+
+  const countryOptions = countries.map((country) => ({
+    value: country,
+    label: country,
+}));
+
   const fileRef = useRef();
+  console.log(data)
   const [loactionText, setLoactionText] = useState("");
   const [modelView, setModelView] = useState(false);
   const handleFileChange = (event) => {
@@ -35,6 +45,18 @@ const Leftform = ({
       }
     }
   };
+
+  const handleCountryChange = (selectedCountries) => {
+    setFormError((prevErrors) => ({
+      ...prevErrors,
+      country: '',
+  }));
+    setData({
+        ...data,
+        country: selectedCountries ? selectedCountries.map((country) => country.value) : [],
+    });
+};
+
   const handleButtonClick = () => {
     fileRef.current.click();
   };
@@ -61,6 +83,17 @@ const Leftform = ({
       setError("Minimum 100 characters required");
     }
   };
+  const customStyles = {
+    control: (provided, state) => ({
+        ...provided,
+        border: '1px solid #DEDEDE',
+        padding:2, 
+        boxShadow: 'none', 
+        '&:hover': {
+            border: '1px solid #DEDEDE', 
+        },
+    }),
+};
 
   return (
     <div className="flex flex-col md:w-[40%] w-full gap-[24px]">
@@ -274,6 +307,27 @@ const Leftform = ({
             </p>
           )}
         </div>
+
+        <div className="form-group">
+            <label className="text-[#333333] text-[14px] font-medium">
+                Country <span className="text-red">*</span>
+            </label>
+            <Select
+                isMulti
+                options={countryOptions}
+                onChange={handleCountryChange}
+                value={countryOptions.filter((country) => data.country.includes(country.value))}
+                // className="input"
+                classNamePrefix="select"
+                placeholder="Select countries..."
+                styles={customStyles} 
+            />
+             {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.country}
+            </p>
+          )}
+        </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
             Location <span className="text-red">*</span>
@@ -302,7 +356,10 @@ const Leftform = ({
                 //   delete formError.location;
                 //   return formError;
                 // });
-                setFormError({});
+                setFormError((prevErrors) => ({
+                  ...prevErrors,
+                  location: '',
+              }));
               }}
             >
               <PlusAddLogo
@@ -337,19 +394,31 @@ const Leftform = ({
             ))}
           </div>
         </div>
+
+
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
             Job Description
           </label>
-
-          {data && (
+          <textarea
+          style={{minHeight:150}}
+            type="text"
+            placeholder="Enter Job Description"
+            className="input"
+            value={data?.description}
+            onChange={(e) => {
+              setData({ ...data, description: e.target.value });
+              validateInput("description", e.target.value);
+            }}
+          />
+          {/* {data && (
             <Tiptap
               data={data}
               value={"description"}
               setData={setData}
               placeholder={"Enter Job Description here"}
             />
-          )}
+          )} */}
           <div className="w-full flex  justify-end mt-3 ">
             {" "}
             {/* <button

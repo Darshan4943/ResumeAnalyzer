@@ -7,7 +7,7 @@ import { SparklingStarts } from "../../utils/svg";
 import MiniLoader from "../common/mini-loader";
 
 const Tiptap = ({ data, setData, value, placeholder }) => {
-  console.log("data1", data);
+ 
   const [text, setText] = useState("");
   const [rerender, setRerender] = useState(false);
   useEffect(() => {

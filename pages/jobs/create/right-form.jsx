@@ -44,10 +44,24 @@ const Rightform = ({
       hasError = true;
     }
 
+    if (!data.deadLine) {
+      setFormError((formError) => ({
+        ...formError,
+        deadLine: " Deadline required",
+      }));
+      hasError = true;
+    }
     if (!data.location || data.location.length === 0) {
       setFormError((formError) => ({
         ...formError,
         location: "Location is required",
+      }));
+      hasError = true;
+    }
+    if (!data.country || data.country.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        country: "Country is required",
       }));
       hasError = true;
     }
@@ -60,9 +74,8 @@ const Rightform = ({
       emptyFields.forEach((field) => {
         setFormError((formError) => ({
           ...formError,
-          [field]: `${
-            field.charAt(0).toUpperCase() + field.slice(1)
-          } is required`,
+          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)
+            } is required`,
         }));
       });
       hasError = true;
@@ -88,8 +101,9 @@ const Rightform = ({
       formData.append("fileName", file.name);
     }
     formData.append("createdBy", userDataGlobal._id);
+   
     axios
-      .post("https://jamblix.com/api/job/add/" + id, formData)
+      .post("http://localhost:2000/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");
@@ -129,6 +143,86 @@ const Rightform = ({
           )}
         </div>
       </div>
+      <div className="flex justify-between gap-4">
+        <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
+          <label className="text-[#333333] text-[14px] font-medium">
+            Job Type
+          </label>
+          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+            <select
+              style={{
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                appearance: "none",
+                position: "relative",
+                zIndex: 1,
+                background: " transparent",
+              }}
+              value={data?.jobType}
+              onChange={(e) => {
+                setData({ ...data, jobType: e.target.value });
+              }}
+              className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+            >
+              <option value="Select">Select</option>
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internships">Internships</option>
+
+            </select>
+
+            <img
+              src="/images/down_arrow.png"
+              className="h-[20px] w-[20px] absolute right-[4px]"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
+          <label className="text-[#333333] text-[14px] font-medium">
+            Work From
+          </label>
+          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+            <select
+              style={{
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                appearance: "none",
+                position: "relative",
+                zIndex: 1,
+                background: " transparent",
+              }}
+              value={data?.workFrom}
+              onChange={(e) => {
+                setData({ ...data, workFrom: e.target.value });
+              }}
+              className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+            >
+              <option value="Select">Select</option>
+              <option value="On-Site">On-Site</option>
+              <option value="Remote">Remote</option>
+
+              <option value="Hybrid">Hybrid</option>
+              <option value="International">International</option>
+              <option value="Work From Home">Work From Home</option>
+              <option value="Jobs for Women">Jobs for Women</option>
+
+
+
+            </select>
+
+            <img
+              src="/images/down_arrow.png"
+              className="h-[20px] w-[20px] absolute right-[4px]"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+
+
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
@@ -312,7 +406,7 @@ const Rightform = ({
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
           <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
-              Application Deadline
+              Application Deadline <span className="text-red">*</span>
             </label>
             <input
               type="date"
@@ -321,8 +415,17 @@ const Rightform = ({
               value={data?.deadLine}
               onChange={(e) => {
                 setData({ ...data, deadLine: e.target.value });
+                setFormError((prevErrors) => ({
+                  ...prevErrors,
+                  deadLine: '',
+                }));
               }}
             />
+            {formError && (
+              <p className="text-[12px] text-[red] font-[500]">
+                {formError.deadLine}
+              </p>
+            )}
           </div>
           <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
