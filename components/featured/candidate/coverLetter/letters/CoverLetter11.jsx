@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter11({ page1Ref, page2Ref, data }) {
   const firstPageRef = useRef(null);
@@ -188,13 +189,27 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
                 Dear {data?.employerName},
               </span>
               {splitContents.first.map((passage, index) => (
-                <p
-                  key={index}
-                  style={{ margin: "16px 0" }}
-                  className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify"
-                >
-                  {passage}
-                </p>
+                <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "10px",
+                      fontWeight: "400",
+                      color: "#383839",
+                      textAlign: "justify",
+                      fontFamily: "Poppins",
+                    }}
+                    key={index}
+                    passage={passage}
+                  />
+                </>
+                // <p
+                //   key={index}
+                //   style={{ margin: "16px 0" }}
+                //   className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify"
+                // >
+                //   {passage}
+                // </p>
               ))}
             </div>
             {splitContents?.second?.length == 0 && (
@@ -237,13 +252,20 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
             <div className="flex flex-col px-[36px] pt-[20px] w-full h-[684px]">
               <div>
                 {splitContents.second.map((passage, index) => (
-                  <p
-                    key={index}
-                    style={{ margin: "16px 0" }}
-                    className="text-[10px] font-[400] text-[#383839] font-Poppins text-justify"
-                  >
-                    {passage}
-                  </p>
+                  <>
+                    <CustomParastyle
+                      style={{
+                        margin: "16px 0",
+                        fontSize: "10px",
+                        fontWeight: "400",
+                        color: "#383839",
+                        textAlign: "justify",
+                        fontFamily: "Poppins",
+                      }}
+                      key={index}
+                      passage={passage}
+                    />
+                  </>
                 ))}
               </div>
               {splitContents?.second?.length > 0 && (

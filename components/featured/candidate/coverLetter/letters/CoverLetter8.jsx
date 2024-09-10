@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
   const firstPageRef = useRef(null);
@@ -43,7 +44,6 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
       splitContent();
     }
   }, [data?.passages, splitContent]);
-
 
   const formatContent = (link) => {
     if (link?.length > 28) {
@@ -143,8 +143,8 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                 <div className="w-[70%] flex flex-col gap-[16px]">
                   <div className="flex flex-col gap-[2px]">
                     <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px] break-word font-Lato">
-                      {formatName(camelCase(data?.firstName))} {formatName(camelCase(data?.lastName))}
-
+                      {formatName(camelCase(data?.firstName))}{" "}
+                      {formatName(camelCase(data?.lastName))}
                     </span>
                     <span className="text-[#58595B] text-[14px] font-[400] leading-[15.6px]">
                       {data?.designation}
@@ -197,13 +197,27 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                       //   ref={firstPageRef}
                     >
                       {splitContents.first.map((passage, index) => (
-                        <p
-                          key={index}
-                          style={{ margin: "16px 0" }}
-                          className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato text-justify"
-                        >
-                          {passage}
-                        </p>
+                        <>
+                          <CustomParastyle
+                            style={{
+                              margin: "16px 0",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                              color: "#58595B",
+                              textAlign: "justify",
+                              fontFamily: "Lato",
+                            }}
+                            key={index}
+                            passage={passage}
+                          />
+                        </>
+                        // <p
+                        //   key={index}
+                        //   style={{ margin: "16px 0" }}
+                        //   className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato text-justify"
+                        // >
+                        //   {passage}
+                        // </p>
                       ))}
                     </div>
                     {splitContents?.second?.length == 0 && (
@@ -232,13 +246,20 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
                   {splitContents.second.map((passage, index) => (
-                    <p
-                      key={index}
-                      style={{ margin: "16px 0" }}
-                      className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato text-justify"
-                    >
-                      {passage}
-                    </p>
+                    <>
+                      <CustomParastyle
+                        style={{
+                          margin: "16px 0",
+                          fontSize: "12px",
+                          fontWeight: "400",
+                          color: "#58595B",
+                          textAlign: "justify",
+                          fontFamily: "Lato",
+                        }}
+                        key={index}
+                        passage={passage}
+                      />
+                    </>
                   ))}
                 </div>
                 {splitContents?.second?.length > 0 && (

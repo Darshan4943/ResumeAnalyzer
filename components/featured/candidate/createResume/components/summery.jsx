@@ -6,7 +6,6 @@ import { plans } from "../../../../../utils/data";
 import MiniLoader from "../../../../common/miniLoader";
 
 function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
-
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -50,7 +49,6 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     }
   }, [circumference, progress]);
 
-
   const calculateDaysRemaining = (startDate, endDate) => {
     const today = new Date();
     const start = new Date(startDate);
@@ -79,13 +77,12 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-              100
+                100
             );
           }
           setTimeout(() => {
             setLoading(false);
           }, 2000);
-
         })
         .catch((err) => {
           console.log(err);
@@ -97,7 +94,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   }, [userDataGlobal, selectedPlan]);
   return (
     <>
-      {!loading ?
+      {!loading ? (
         <div className="bg-[#F9F9F9] rounded-[16px] p-4 flex flex-col gap-2 w-full">
           <p className="text-[18px] font-semibold "> Usage Summary</p>
 
@@ -125,7 +122,9 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         strokeDasharray={
                           isActive ? circumference : 2 * Math.PI * 70
                         }
-                        strokeDashoffset={isActive ? dashOffset : 2 * Math.PI * 70}
+                        strokeDashoffset={
+                          isActive ? dashOffset : 2 * Math.PI * 70
+                        }
                       />
                     </svg>
 
@@ -151,8 +150,6 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                 <div className="flex flex-col gap-4">
                   {isActive ? (
                     <div className="">
-
-
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="ml:text-[2vw] font-[700] text-[24px]">
                           {icon}
@@ -164,15 +161,17 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {selectedPlan?.days} Days
                       </p>
-                      {(limits.used.uploads === limits.total.uploads || limits.used.save === limits.total.save || (limits.used.clients === limits.total.clients && limits.total.clients !== 0)) &&
-
+                      {(limits.used.uploads === limits.total.uploads ||
+                        limits.used.save === limits.total.save ||
+                        (limits.used.clients === limits.total.clients &&
+                          limits.total.clients !== 0)) && (
                         <div
                           onClick={() => router.push("/purchase/plans")}
                           className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                         >
                           Upgrade Plan
                         </div>
-                      }
+                      )}
                     </div>
                   ) : (
                     <div
@@ -201,7 +200,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                           width: `${Math.round(
                             ((limits.total.uploads - uploadsRemaining) /
                               limits.total.uploads) *
-                            100
+                              100
                           )}%`,
                         }}
                         className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -209,8 +208,9 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                     <div className="scr420:min-w-[55px] min-w-[45px]">
                       {isActive
-                        ? `${limits.total.uploads - uploadsRemaining}/${limits.total.uploads
-                        }`
+                        ? `${limits.total.uploads - uploadsRemaining}/${
+                            limits.total.uploads
+                          }`
                         : "0/0"}
                     </div>
                   </div>
@@ -227,7 +227,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                           width: `${Math.round(
                             ((limits.total.download - downloadsRemaining) /
                               limits.total.download) *
-                            100
+                              100
                           )}%`,
                         }}
                         className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -235,8 +235,9 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                     <div className="scr420:min-w-[55px] min-w-[45px]">
                       {isActive
-                        ? `${limits.total.download - downloadsRemaining}/${limits.total.download
-                        }`
+                        ? `${limits.total.download - downloadsRemaining}/${
+                            limits.total.download
+                          }`
                         : "0/0"}
                     </div>
                   </div>
@@ -278,19 +279,21 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             width: `${Math.round(
                               ((limits.total.clients - clientsRemaining) /
                                 limits.total.clients) *
-                              100
+                                100
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                         ></div>
                       </div>
                       <div className="scr420:min-w-[55px] min-w-[45px]">
-                      {isActive ?
-                      <>
-                        {limits.total.clients - clientsRemaining}/
-                        {limits.total.clients} </>
-                        :
-                         "0/0"}
+                        {isActive ? (
+                          <>
+                            {limits.total.clients - clientsRemaining}/
+                            {limits.total.clients}{" "}
+                          </>
+                        ) : (
+                          "0/0"
+                        )}
                       </div>
                     </div>
                   </div>
@@ -299,12 +302,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             </div>
           </div>
         </div>
-
-        :
+      ) : (
         <div className="flex justify-center items-center w-full bg-[#F9F9F9] rounded-[16px]">
           <MiniLoader />
         </div>
-      }
+      )}
     </>
   );
 }

@@ -37,7 +37,7 @@
 //   const fetchPlanData = async (planId) => {
 //     try {
 //       const response = await axios.get(
-//         `http://localhost:2000/api/plans/getByIndex/${planId}`
+//         `https://jamblix.comapi/plans/getByIndex/${planId}`
 //       );
 //       console.log("API response:", response.data);
 //       const plan = response.data.data[0];
@@ -84,7 +84,7 @@
 //   const handleSubmitData = async (e) => {
 //     e.preventDefault();
 //     try {
-//       await axios.put(`http://localhost:2000/api/plans/update/${id}`, planData);
+//       await axios.put(`https://jamblix.comapi/plans/update/${id}`, planData);
 //       console.log("Data updated successfully");
 //       setHasChanges(false);
 //       router.back();

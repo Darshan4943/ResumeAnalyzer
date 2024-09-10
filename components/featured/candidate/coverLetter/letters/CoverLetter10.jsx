@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { camelCase } from "../../../../../utils/middleware";
+import CustomParastyle from "./CustomParastyle";
 
 function CoverLetter10({ page2Ref, page1Ref, data }) {
   const firstPageRef = useRef(null);
@@ -294,13 +295,27 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
               </span>
               <div className="text-[10px] font-[400] text-[#2D3033] leading-[14.52px] ">
                 {splitContents.first.map((passage, index) => (
-                  <p
+                   <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "10px",
+                      fontWeight: "400",
+                      color: "#2D3033",
+                      textAlign: "justify",
+                      fontFamily: "Inter",
+                    }}
                     key={index}
-                    style={{ margin: "16px 0" }}
-                    className="text-[10px] font-[400] text-[#2D3033] leading-[14px] text-justify "
-                  >
-                    {passage}
-                  </p>
+                    passage={passage}
+                  />
+                </>
+                  // <p
+                  //   key={index}
+                  //   style={{ margin: "16px 0" }}
+                  //   className="text-[10px] font-[400] text-[#2D3033] leading-[14px] text-justify "
+                  // >
+                  //   {passage}
+                  // </p>
                 ))}
               </div>
 
@@ -327,13 +342,20 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
               <div className="flex flex-col w-[70%] gap-[4px] px-[16px]">
                 <div>
                   {splitContents?.second?.map((passage, index) => (
-                    <p
-                      key={index}
-                      style={{ margin: "16px 0" }}
-                      className="text-[10px] font-[400] text-[#2D3033] leading-[14px] text-justify "
-                    >
-                      {passage}
-                    </p>
+                     <>
+                  <CustomParastyle
+                    style={{
+                      margin: "16px 0",
+                      fontSize: "10px",
+                      fontWeight: "400",
+                      color: "#2D3033",
+                      textAlign: "justify",
+                      fontFamily: "Inter",
+                    }}
+                    key={index}
+                    passage={passage}
+                  />
+                </>
                   ))}
                 </div>
 
