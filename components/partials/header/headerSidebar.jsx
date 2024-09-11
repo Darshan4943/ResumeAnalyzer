@@ -18,7 +18,7 @@ function HeaderSidebar({
     "My Collection",
     // "Transform CV",
     "Skill Assessments",
-    // "Search Jobs",
+    "Search Jobs",
     "Ask Krut",
     "My Website",
     "My Purchases",
@@ -31,7 +31,7 @@ function HeaderSidebar({
     // "Transform CV",
     "Job Description Matching",
     "My Collection",
-    // "Post Jobs",
+    "Post Jobs",
     "Ask Krut",
     "My Purchases",
   ];

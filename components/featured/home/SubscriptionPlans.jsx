@@ -23,8 +23,9 @@ function SubscriptionPlans({ fromMain }) {
   const [icon, seticon] = useState("$");
   const [showPlan, setShowPlans] = useState(false);
   const [allPlans, setAllPlans] = useState([])
+  const [subscription, setSubscription] = useState(null);
+  const [isFree, setIsFree] = useState(false);
 
- 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -49,7 +50,21 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   }, [userDataGlobal, showPlan]);
-  const [subscription, setSubscription] = useState(null);
+
+  console.log(11, isFree)
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)
+      .then((res) => {
+
+        setIsFree(res.data.success);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
+
 
   useEffect(() => {
     axios
@@ -170,7 +185,7 @@ function SubscriptionPlans({ fromMain }) {
                   Recommended
                 </div>
               )}
-             
+
               <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                 <div className="flex text-center flex-col gap-3 text-[#333333] ">
                   <p className="text-[1.4vw] font-[600]">
@@ -221,16 +236,28 @@ function SubscriptionPlans({ fromMain }) {
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={() => clickHandler(plan.index)}
-                  className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-                >
-                  Purchase Plan
-                </button>
+                {(isFree && plan.index === 1) ?
+                  <button
+                  disabled={true}
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
+                  >
+                    Purchased
+                  </button>
+                  :
+                  <button
+              
+                    onClick={() => clickHandler(plan.index)}
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                  >
+                    Purchase Plan
+                  </button>
+
+                }
+
               </div>
 
 
-             
+
             </div>
           ))}
 
@@ -245,7 +272,7 @@ function SubscriptionPlans({ fromMain }) {
                 <span className="text-[#06A9EF]">Enterprise </span>{" "}
                 Plan
               </p>
-              <p className="text-[1vw] font-[500]">Tailored Solutions for Organizations</p>
+              <p className="text-[1vw] font-[500] px-2">Tailored Solutions for { isUser ?"Candidates": "Organizations"}</p>
               <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
             </div>
             <div className="flex gap-3 flex-col text-center items-center w-[168px]">
@@ -261,8 +288,8 @@ function SubscriptionPlans({ fromMain }) {
             <button
               // disabled={true}
               onClick={() => router.push('/purchase/enterprise')}
-            className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-              // style={{ opacity: 0.6 }}
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+            // style={{ opacity: 0.6 }}
             >
               Contact Us
             </button>

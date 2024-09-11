@@ -35,12 +35,12 @@ function Index() {
         const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
         setFilteredTelCode(combinedCodes);
 
-        // Find the initial dial code object that matches the user data
+        
         const initialDialCode = combinedCodes.find(
             (code) => code.dial_code === userDataGlobal.dial_code
         );
 
-        // Set the selected item to the matched object
+  
         if (initialDialCode) {
             setSelectedItem(initialDialCode);
         }

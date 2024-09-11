@@ -21,9 +21,10 @@ const Index = () => {
     setLoading(true);
     if (id) {
       axios
-        .get("https://jamblix.com/api/job/getById/" + id)
+        .get("http://localhost:2000/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
+          console.log(555,res.data)
           setJobPost(res.data.data);
           setApplications(res.data.applications);
         })
