@@ -115,7 +115,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("https://jamblix.comapi/AllSubscription/" + userDataGlobal._id)
+        .get("https://jamblix.com/api/AllSubscription/" + userDataGlobal._id)
         .then((res) => {
 
           setSubscriptionHistory(res.data.data.reverse());

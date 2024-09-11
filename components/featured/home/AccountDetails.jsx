@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { loadStripe } from "@stripe/stripe-js";
 import stripe from "stripe";
+import PurchasedSuccessful from "../../models/purchasedSuccessfull";
+import PurchasedFailed from "../../models/purchasedFailed";
 
 const stripeInstance = stripe(
   "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"
@@ -27,7 +29,9 @@ function AccountDetails({
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
-
+  const [freePlanSuccess, setFreePlanSuccess] = useState(false)
+  const [freePlanFailed, setFreePlanFailed] = useState(false)
+  const [alreadyUsedFree, setAlreadyUsedFree] = useState(false)
   const storedId = localStorage.getItem("paymentId");
   const [sessionId, setSessionId] = useState("");
   const [payment_status, setPaymentStatus] = useState(null);
@@ -304,7 +308,7 @@ function AccountDetails({
           }
         );
         const session = response.data;
-      
+
         setPaymentStatus(session.payment_status);
 
         if (
@@ -330,20 +334,20 @@ function AccountDetails({
 
   const handlePaidSession = async (session) => {
     const purchaseCount = localStorage.getItem("purchaseCount");
- 
+
     if (purchaseCount === "1") {
       console.log("Purchase count is 1, skipping API call");
       setTimeout(() => {
         setSuccessModel({ visible: true, loading: false });
       }, 1000);
       return;
-     
+
     }
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
       setData((prevData) => ({ ...prevData, ...jsonData }));
     }
-   
+
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
     seticon(icon);
@@ -362,7 +366,7 @@ function AccountDetails({
         amount: Math.ceil(selectedPlan.amount * exchangeRate),
         icon: icon,
         paymentId: session.id,
-        planDetails:selectedPlan
+        planDetails: selectedPlan
       });
       // setPurchaseCount(1)
       localStorage.setItem("purchaseCount", 1);
@@ -381,6 +385,65 @@ function AccountDetails({
       setTimeout(() => {
         setSuccessModel({ visible: true, loading: false });
       }, 1000);
+    }
+  };
+  const handleFreeSession = async () => {
+
+
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    seticon(icon);
+    setexchangeRate(exchangeRate);
+    const found = findEmptyKey(data);
+
+    if (!data.checked) {
+      setError("Please agree to the terms and conditions.");
+    } else {
+      if (found.length > 0) {
+        setError(`Please fill all require fields .`);
+      } else {
+        setLoading(true);
+        try {
+          await axios.post("http://localhost:2000/api/add/subscription", {
+            userId: userDataGlobal._id,
+            plan: `${selectedPlan.name}`,
+            ...jsonData,
+            mobileNo: jsonData?.mobileNo,
+            index: selectedPlan.index,
+            isAdmin: true,
+            role: userDataGlobal?.role,
+            isPaid: true,
+            paidAt: new Date(),
+            amount: Math.ceil(selectedPlan.amount * exchangeRate),
+            icon: icon,
+            paymentId: "freee",
+            planDetails: selectedPlan
+          });
+
+
+          setTimeout(() => {
+            setFreePlanSuccess(true);
+            setLoading(false);
+          }, 1000);
+
+          setLoading(false);
+        } catch (error) {
+          console.error("Error adding subscription:", error.response.data.message);
+          if (error.response.data.message === "Payment ID already exists") {
+            setFreePlanFailed(true);
+            setAlreadyUsedFree(true)
+            setLoading(false);
+          } else {
+
+            setTimeout(() => {
+              setFreePlanFailed(true);
+              setLoading(false);
+            }, 1000);
+          }
+
+
+        }
+      }
     }
   };
 
@@ -404,6 +467,16 @@ function AccountDetails({
 
   return (
     <div className={" w-[60%] plan-container  "}>
+
+      {freePlanSuccess &&
+        <PurchasedSuccessful setFreePlanSuccess={setFreePlanSuccess} />
+
+        
+      }
+       {freePlanFailed &&
+        <PurchasedFailed setFreePlanFailed={setFreePlanFailed} alreadyUsedFree={alreadyUsedFree}/>
+      }
+
       {popUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -595,8 +668,8 @@ function AccountDetails({
 
                 <input
                   placeholder={`${isViewportBelow850
-                      ? "Enter Number "
-                      : "Enter Contact Number "
+                    ? "Enter Number "
+                    : "Enter Contact Number "
                     }`}
                   value={data.mobileNo}
                   maxLength={10}
@@ -642,7 +715,7 @@ function AccountDetails({
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan?.amount * exchangeRate)}
-                  
+
                   </p>
                 </div>
               </div>
@@ -705,7 +778,7 @@ function AccountDetails({
           <button
             className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
-            onClick={purchaseHandler}
+            onClick={selectedPlan.index === 1 ? handleFreeSession : purchaseHandler}
           >
             {loading ? (
               <svg

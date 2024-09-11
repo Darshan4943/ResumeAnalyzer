@@ -38,13 +38,22 @@ const Index = () => {
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
     var date2 = new Date();
-
+  
+   
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
+  
+    console.log(111, date1);
+    console.log(222, date2);
+  
+  
     if (date2 <= date1) {
-      return true;
+      return true;  
     } else {
       return false;
     }
   };
+  
 
   const [select, setSelect] = useState(false);
   const [selectAll, setSelectAll] = useState(false);

@@ -77,7 +77,9 @@ const Applications = ({ jobPost, applications }) => {
                 </thead>
                 <tbody>
                   {applications?.map((item, index) => (
+                    
                     <>
+                    {console.log(applications)}
                       <tr
                         className="scr1024:w-full w-[95%]  flex flex-row justify-between items-center px-[24px] py-[16px]"
                         key={index}

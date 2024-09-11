@@ -71,6 +71,16 @@ function Header({ userData }) {
                 >
                   Recruiter
                 </Link>
+                <Link
+                  href="/jobs/search"
+                  className={
+                    selectedPage === "/jobs/search" || selectedPage === "/jobs/search"
+                      ? "active scr1250:text-[16px] text-[16px]"
+                      : "li scr1250:text-[16px] text-[16px]"
+                  }
+                >
+                  Jobs
+                </Link>
               </div>
               <div className="w-[30%] gap-4  flex justify-end  items-center ">
                 <div
