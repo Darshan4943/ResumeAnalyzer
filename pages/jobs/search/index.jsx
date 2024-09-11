@@ -112,10 +112,26 @@ function Index() {
   const dispatch = useDispatch();
   const [isDescription, setIsDescription] = useState(false);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortedBy]=useState("relevant")
-  
-
+  const [filters, setFilters] = useState({
+    sortBy: [],
+    location: [],
+    jobType: [],
+    jobTitle: [],
+    salaries: [],
+    education: [],
+    industryType: [],
+    datePosted: [],
+  });
   const country = localStorage.getItem("country");
+  const [jobtypeData, setJobTypeData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .then((res) => {
+        setJobTypeData(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   useEffect(() => {
     if (toggleHeadings >= 3) {
@@ -169,8 +185,42 @@ function Index() {
     }
   }, [userDataGlobal, recall]);
 
+  const getFilterData = async () => {
+    if (country) {
+      console.log({
+        requiredSkills: userSkills?.map((item) => item),
+        country,
+        typeIndex: toggleHeadings,
+        ...filters,
+      });
+      await axios
+        .post(
+          "http://localhost:2000/api/job/getAll",
+          {
+            requiredSkills: userSkills?.map((item) => item),
+            country,
+            typeIndex: toggleHeadings,
+            ...filters,
+          },
+          {
+            params: { page },
+          }
+        )
+        .then((res) => {
+          dispatch(setJob(res.data));
+        })
+        .catch((err) => {
+          console.log(11, err);
+        });
+    }
+  };
+
   useEffect(() => {
-    if (userSkills && country) {
+    getFilterData();
+  }, [filters]);
+
+  useEffect(() => {
+    if (country) {
       axios
         .post(
           "http://localhost:2000/api/job/getAll",
@@ -178,7 +228,7 @@ function Index() {
             requiredSkills: userSkills?.map((item) => item),
             country,
             typeIndex: toggleHeadings,
-
+            ...filters,
           },
           {
             params: { page },
@@ -212,7 +262,6 @@ function Index() {
     }
   };
 
-  
   const headings = [
     {
       img: (
@@ -423,42 +472,42 @@ function Index() {
               <div class="w-[42.06px] h-0 gap-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div>
 
               <div className="flex justify-between items-center gap-[100.56px]">
-              <div className="flex flex-row gap-[16.82px]">
-                <svg
-                  width="31"
-                  height="30"
-                  viewBox="0 0 31 30"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                    stroke="#333333"
-                    stroke-width="3.1544"
-                  />
-                  <path
-                    d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                    fill="white"
-                    stroke="#333333"
-                    stroke-width="3.1544"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <div className="flex flex-row gap-[16.82px]">
+                  <svg
+                    width="31"
+                    height="30"
+                    viewBox="0 0 31 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
+                      stroke="#333333"
+                      stroke-width="3.1544"
+                    />
+                    <path
+                      d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
+                      fill="white"
+                      stroke="#333333"
+                      stroke-width="3.1544"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
 
-                <input
-                  type="text"
-                  placeholder="Colney, United Kingdom"
-                  className="text-[16px] font-[400px] font-Montserrat"
-                />
+                  <input
+                    type="text"
+                    placeholder="Colney, United Kingdom"
+                    className="text-[16px] font-[400px] font-Montserrat"
+                  />
+                </div>
+
+                <button className="border border-blue bg-blue text-black py-[12px] px-[36px] gap-0 rounded-[12px]  border-opacity-0">
+                  <p className="text-[16px] font-[600px] text-white  font-Montserrat">
+                    Search
+                  </p>
+                </button>
               </div>
-
-              <button className="border border-blue bg-blue text-black py-[12px] px-[36px] gap-0 rounded-[12px]  border-opacity-0">
-                <p className="text-[16px] font-[600px] text-white  font-Montserrat">
-                  Search
-                </p>
-              </button>
-            </div>
             </div>
             {/**
             <div class=" flex flex-row justify-between items-center py-[8px] px-[24px] rounded-[8px] bg-[#ffff] gap-[246px]">
@@ -598,7 +647,7 @@ function Index() {
                     isViewportBelow1024 ? "col-span-4" : "col-span-3"
                   } mt-4`}
                 >
-                  <Filter />
+                  <Filter setFilters={setFilters} jobtypeData={jobtypeData} />
                 </motion.div>
               </AnimatePresence>
             ) : (
