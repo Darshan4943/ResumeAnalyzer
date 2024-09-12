@@ -125,6 +125,7 @@ export const Api = ({}) => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
+            localStorage.setItem("collectionCount", result.collectionStored);
             localStorage.setItem("planAvailable", true);
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
