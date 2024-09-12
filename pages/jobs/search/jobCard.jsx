@@ -36,7 +36,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   useEffect(() => {
     getData();
   }, [data, jd, isApply]);
-  console.log(isApply);
+
   const applyForJob = (data) => {
     setLoading(true);
     axios
@@ -47,7 +47,6 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       })
       .then((res) => {
         setLoading(false);
-
         getData();
         toast.success("Application Sent Successfully");
       })

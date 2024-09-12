@@ -2,6 +2,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import Description from "./Description";
+import axios from "axios";
 
 function SavedJobs() {
   const numberOfDivs = 5;
@@ -10,22 +11,54 @@ function SavedJobs() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [savedJobListLocal, setSavedJobListLocal] = useState([]);
   const [selectedJob, setSelectedJob] = useState();
-
+  const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
   const [isDescription, setIsDescription] = useState(false);
-  useEffect(() => {
-    const jobsFromLocal = JSON.parse(localStorage.getItem("savedJobs"));
-    if (jobsFromLocal && jobsFromLocal.length > 0) {
-      const data = jobsFromLocal.map((item) => {
-        const findJob = jobData.find((data) => data._id == item);
-        if (findJob) {
-          return findJob;
-        }
+//   useEffect(() => {
+//     const savedJobId=userDataGlobal?.savedJobs
+//     if(savedJobId){
+//      const getJobData=axios.get(`http://localhost:2000/api/`).then((res)=> console.log(res.data))
+// console.log("i", savedJobId)
+//       // setSavedJobList(savedJobid);
+//       // setSavedJobListLocal(jobsFromLocal);
+//     }
+      
+   
+//   }, [jobData, recall]);
+
+console.log(77,savedJobList )
+  const getData = () => {
+    // setLoading(true);
+    axios
+      .post("https://jamblix.com/api/job/byIds", {
+        ids: userDataGlobal?.savedJobs
+          ?.map((item) => item.id)
+          .filter((item) => item != "undefined"),
+      })
+      .then((res) => {
+        // setLoading(false);
+        // setSavedJobList()
+        console.log("g", res.data)
+        setSavedJobList(res.data.data);
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log(err);
       });
-      setSavedJobList(data);
-      setSavedJobListLocal(jobsFromLocal);
+  };
+
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
     }
-  }, [jobData, recall]);
+  }, [userDataGlobal]);
+
+  const isSaved = (id) => {
+    return userDataGlobal?.savedJobs?.find((item) => item.id == id);
+  };
+
+
+
 
 
 
@@ -34,6 +67,7 @@ function SavedJobs() {
       setSelectedJob(jobData[0]);
     }
   }, [jobData]);
+
   const removeJobToLocal = (e, id) => {
     e.stopPropagation();
     const filter = savedJobListLocal.filter((item) => item !== id);
@@ -41,15 +75,16 @@ function SavedJobs() {
     forceUpdate();
   };
 
-
-
   return (
     <>
-      {savedJobList.length > 0 ?
+      {savedJobList.length > 0 ? (
         <div className="  bg-[#F9F9F9]  ">
           <div className=" grid grid-cols-12 gap-[24px] py-[16px]  ">
-
-            <div className={`${isDescription ? " web1024" : ""} ${isViewportBelow1024 ? "col-span-12" : "col-span-5"}  p-[8px] rounded-[8px]   bg-[#fff] leading-tight min-h-[70vh]  `}>
+            <div
+              className={`${isDescription ? " web1024" : ""} ${
+                isViewportBelow1024 ? "col-span-12" : "col-span-5"
+              }  p-[8px] rounded-[8px]   bg-[#fff] leading-tight min-h-[70vh]  `}
+            >
               <div
                 className={``}
                 style={{
@@ -66,18 +101,23 @@ function SavedJobs() {
                       setIsDescription(true);
                       window.scroll(0, 0);
                     }}
-                    className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
-                      } `}
+                    className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${
+                      selectedJob?._id == item._id && "selected_job_card"
+                    } `}
                     style={{
                       borderBottom:
-                        selectedJob?._id == item._id ? "unset" : "1px solid #646464",
+                        selectedJob?._id == item._id
+                          ? "unset"
+                          : "1px solid #646464",
                     }}
                     key={index}
                   >
                     <div className=" flex flex-col gap-[16px]">
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col gap-[4px]">
-                          <div className="text-[20px] font-medium">{item.title}</div>
+                          <div className="text-[20px] font-medium">
+                            {item.title}
+                          </div>
                           <div className="flex items-center justify-center gap-[4px]">
                             <div className="text-[12px] font-medium">
                               {item.company}
@@ -175,7 +215,7 @@ function SavedJobs() {
                             </g>
                           </svg>
                           <div className="text-[#262626] text-[12px] font-[400]">
-                            {item.location.slice(0, 6)}...
+                            {item?.location?.slice(0, 6)}...
                           </div>
                         </div>
                       </div>
@@ -233,44 +273,47 @@ function SavedJobs() {
               </div>
             </div>
 
-
             <div className={`web1024 col-span-7`}>
-
               <Description selectedJob={selectedJob} />
-
             </div>
 
-
-            {isDescription &&
+            {isDescription && (
               <div className={`mobile1024 col-span-12`}>
-                <div onClick={() => setIsDescription(false)} className="flex gap-3 mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
+                <div
+                  onClick={() => setIsDescription(false)}
+                  className="flex gap-3 mb-4"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
                     <g mask="url(#mask0_5925_96419)">
-                      <path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" fill="#333333" />
+                      <path
+                        d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                        fill="#333333"
+                      />
                     </g>
                   </svg>
                   Back
-                </div >
+                </div>
 
                 <Description selectedJob={selectedJob} />
               </div>
-
-            }
-
+            )}
           </div>
         </div>
-        :
+      ) : (
         <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full">
-        <img
-          className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
-          src="/images/jobs/noSaved.png"
-          alt=""
-        />
+          <img
+            className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
+            src="/images/jobs/noSaved.png"
+            alt=""
+          />
         </div>
-      }
-
-
+      )}
     </>
   );
 }

@@ -1,23 +1,50 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { setJob } from "../../../Redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 
-function Filter({ jobtypeData, setFilters }) {
+function Filter({
+  jobtypeData,
+  setFilters,
+  handleCheckboxChange,
+  filters,
+  page,
+  userSkills,
+  country,
+  setLoading,
+}) {
   console.log("j", jobtypeData);
   let posted = ["Anytime", "Past month", "Past week", " Past 24 hrs"];
-  const handleCheckboxChange = (filterType, value) => {
-    setFilters((prevFilters) => {
-      const isSelected = prevFilters[filterType].includes(value);
-
-      return {
-        ...prevFilters,
-        [filterType]: isSelected
-          ? prevFilters[filterType].filter((item) => item !== value)
-          : [...prevFilters[filterType], value],
-      };
-    });
-    
+  const dispatch = useDispatch();
+  const getFilterRespData = async () => {
+    if (country) {
+      setLoading(true);
+      await axios
+        .post(
+          "http://localhost:2000/api/job/getFilterData",
+          {
+            requiredSkills: userSkills?.map((item) => item),
+            country,
+            ...filters,
+          },
+          {
+            params: { page },
+          }
+        )
+        .then((res) => {
+          console.log("data1111", res.data);
+          setLoading(false);
+          dispatch(setJob(res.data));
+        })
+        .catch((err) => {
+          console.log(11, err);
+        });
+    }
   };
 
+  useEffect(() => {
+    getFilterRespData();
+  }, [filters]);
   return (
     <div className="flex flex-col col-span-3 rounded-[8px] h-[70vh] bg-white shadow-md ">
       <div className="flex justify-between  p-4 bg-white shadow-md  items-start rounded-t-[8px] ">

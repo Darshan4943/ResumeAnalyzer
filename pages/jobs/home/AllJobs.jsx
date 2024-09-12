@@ -1,6 +1,9 @@
 import { useMediaQuery } from "@react-hook/media-query";
+import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 
 function AllJobs({
   selectedJob,
@@ -13,6 +16,7 @@ function AllJobs({
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
+  const userDataGlobal = useSelector((state) => state.userData);
   // console.log(22, jobData);
   useEffect(() => {
     if (jobData.length > 0) {
@@ -27,11 +31,28 @@ function AllJobs({
     }
   }, [recall]);
 
-  const saveJobToLocal = (e, id) => {
-    e.stopPropagation();
-    localStorage.setItem("savedJobs", JSON.stringify([...savedJobList, id]));
-    forceUpdate();
+  // const saveJobToLocal = (e, id) => {
+  //   e.stopPropagation();
+  //   localStorage.setItem("savedJobs", JSON.stringify([...savedJobList, id]));
+  //   forceUpdate();
+  // };
+
+
+
+  const SaveJob = (id) => {
+    axios
+      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .then((res) => {
+        dispatch(reCallUserData());
+        getData();
+        toast.success("Job Saved  Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoading(false);
+      });
   };
+
   const removeJobToLocal = (e, id) => {
     e.stopPropagation();
     const filter = savedJobList.filter((item) => item !== id);
@@ -246,7 +267,7 @@ function AllJobs({
                     </svg>
                   ) : (
                     <svg
-                      onClick={(e) => saveJobToLocal(e, item._id)}
+                      onClick={() => SaveJob(item._id)}
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"

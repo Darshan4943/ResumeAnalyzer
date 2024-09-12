@@ -1,17 +1,32 @@
-import React, { useState } from 'react'
-import AppliedDescription from './AppliedDescription';
-import { useMediaQuery } from '@react-hook/media-query';
+import React, { useState, useEffect } from "react";
+import AppliedDescription from "./AppliedDescription";
+import { useMediaQuery } from "@react-hook/media-query";
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios'
 
 function AppliedJobs() {
   const numberOfDivs = 5;
   const [isDescription, setIsDescription] = useState(false);
   const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
+  const userDataGlobal = useSelector((state) => state.userData);
+  console.log("user", userDataGlobal);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:2000/api/job/getApplied/${userDataGlobal._id}`)
+      .then((res) => console.log(999, res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className="bg-[#F9F9F9]">
       <div className=" customMargins ">
         <div className="grid grid-cols-12 ml:py-[16px] gap-[24px] ">
-          <div className={`${isDescription ? " web1024" : ""} ${isViewportBelow1024 ? "col-span-12":"col-span-5"}  `}>
+          <div
+            className={`${isDescription ? " web1024" : ""} ${
+              isViewportBelow1024 ? "col-span-12" : "col-span-5"
+            }  `}
+          >
             <div
               className={` flex flex-col  rounded-md border-primary bg-white shadow-md`}
               style={{
@@ -22,7 +37,6 @@ function AppliedJobs() {
                 {Array.from({ length: numberOfDivs }, (_, index) => (
                   <div
                     onClick={() => {
-
                       setIsDescription(true);
                       window.scroll(0, 0);
                     }}
@@ -63,13 +77,14 @@ function AppliedJobs() {
                         </div>
                         <div className="flex flex-row  items-end">
                           <div className="flex flex-row gap-[4px]">
-                            <div className="flex justify-center items-center">
-
-                            </div>
-
+                            <div className="flex justify-center items-center"></div>
                           </div>
                         </div>
-                        <img className="w-[56px] h-[56px]" src="/images/afterLoginHome/ux_black.png" alt="" />
+                        <img
+                          className="w-[56px] h-[56px]"
+                          src="/images/afterLoginHome/ux_black.png"
+                          alt=""
+                        />
                       </div>
                       <div className="flex flex-row gap-[11px] items-center leading-tight ">
                         <div className="flex flex-row gap-[4px]">
@@ -156,10 +171,14 @@ function AppliedJobs() {
                       </div>
                     </div>
                     <div className="flex flex-row justify-between items-center p-1 bg-[#E0F6FF]">
-
                       <div className="flex gap-[8px]">
-                        <img className="w-[20px] h-[20px]" src="/images/afterLoginHome/new_releases.png" alt="" />
-                        Posted 3 Days Ago</div>
+                        <img
+                          className="w-[20px] h-[20px]"
+                          src="/images/afterLoginHome/new_releases.png"
+                          alt=""
+                        />
+                        Posted 3 Days Ago
+                      </div>
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -183,33 +202,39 @@ function AppliedJobs() {
             </div>
           </div>
           <div className={`web1024 col-span-7`}>
-
             <AppliedDescription />
-
           </div>
 
-
-          {isDescription &&
+          {isDescription && (
             <div className={`mobile1024 col-span-12`}>
-              <div onClick={() => setIsDescription(false)} className="flex gap-3 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
+              <div
+                onClick={() => setIsDescription(false)}
+                className="flex gap-3 mb-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
                   <g mask="url(#mask0_5925_96419)">
-                    <path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" fill="#333333" />
+                    <path
+                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                      fill="#333333"
+                    />
                   </g>
                 </svg>
                 Back
-              </div >
+              </div>
 
               <AppliedDescription />
             </div>
-
-          }
-
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AppliedJobs
+export default AppliedJobs;

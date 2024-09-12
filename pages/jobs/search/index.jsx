@@ -3,7 +3,7 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import AppliedJobs from "../home/AppliedJobs";
 import SavedJobs from "../home/SavedJobs";
-import { inputData } from "../../../utils/data";
+// import { inputData } from "../../../utils/data";
 // import { inputData } from "@/utils/data";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -20,6 +20,8 @@ import ApplicationStatus from "../home/ApplicationStatus";
 import { reCallUser } from "../../../Redux/reducers/reducer";
 import axios from "axios";
 import { setJob } from "../../../Redux/actions";
+import InputBox from "../home/InputBox";
+import { Page } from "@react-pdf/renderer";
 
 // import { btns } from "~/utils/data";
 
@@ -32,6 +34,8 @@ const btns = [
 
   "Glassdoor (82)",
 ];
+{
+  /**
 const InputBox = ({ item }) => {
   const { title, child, img } = item;
 
@@ -57,6 +61,9 @@ const InputBox = ({ item }) => {
                     type="text"
                     placeholder="search"
                     className="font-montserrat font-normal text-[14px] text-black "
+                    onChange={(e) =>
+                      handleCheckboxChange(item.title, e.target.value)
+                    }
                   />
                 </div>
 
@@ -95,7 +102,8 @@ const InputBox = ({ item }) => {
     </>
   );
 };
-
+ */
+}
 function Index() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [filter, setFilter] = useState(false);
@@ -112,6 +120,7 @@ function Index() {
   const dispatch = useDispatch();
   const [isDescription, setIsDescription] = useState(false);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     sortBy: [],
     location: [],
@@ -122,6 +131,7 @@ function Index() {
     industryType: [],
     datePosted: [],
   });
+
   const country = localStorage.getItem("country");
   const [jobtypeData, setJobTypeData] = useState([]);
   useEffect(() => {
@@ -138,6 +148,60 @@ function Index() {
       setFilter(false);
     }
   }, [toggleHeadings]);
+
+  //inputData
+
+  const inputData = [
+    {
+      title: "Sort by",
+      img: "/images/jobs/arw.png",
+      child: ["Recommended", "Relevant", "Recently Posted"],
+    },
+    {
+      title: "Job type",
+      img: "/images/jobs/arw.png",
+      child: jobtypeData?.jobTypes || [],
+    },
+    {
+      title: "Date posted",
+      img: "/images/jobs/arw.png",
+      child: ["Anytime", "Past Month", "Past Week"],
+    },
+    {
+      title: "Industry",
+      img: "/images/jobs/arw.png",
+      child: jobtypeData?.industryTypes || [],
+    },
+    {
+      title: "Salary",
+      img: "/images/jobs/arw.png",
+      child: Array.isArray(jobtypeData?.salaries)
+        ? jobtypeData.salaries.map((salary) => {
+            if (salary.minSalary && salary.maxSalary) {
+              return `${salary.minSalary} - ${salary.maxSalary}`;
+            } else {
+              return "Not Specified";
+            }
+          })
+        : [],
+    },
+    {
+      title: "Experience",
+      img: "/images/jobs/arw.png",
+      child: jobtypeData?.experiences || [],
+    },
+    {
+      title: "Education",
+      img: "/images/jobs/arw.png",
+      child: jobtypeData?.educations || [],
+    },
+
+    {
+      title: "Job mode",
+      img: "/images/jobs/arw.png",
+      child: ["On-site", "Remote", "Hybrid"],
+    },
+  ];
 
   // useEffect(() => {
 
@@ -185,62 +249,30 @@ function Index() {
     }
   }, [userDataGlobal, recall]);
 
-  const getFilterData = async () => {
-    if (country) {
-      console.log({
-        requiredSkills: userSkills?.map((item) => item),
-        country,
-        typeIndex: toggleHeadings,
-        ...filters,
-      });
-      await axios
-        .post(
-          "http://localhost:2000/api/job/getAll",
-          {
-            requiredSkills: userSkills?.map((item) => item),
-            country,
-            typeIndex: toggleHeadings,
-            ...filters,
-          },
-          {
-            params: { page },
-          }
-        )
-        .then((res) => {
-          dispatch(setJob(res.data));
-        })
-        .catch((err) => {
-          console.log(11, err);
-        });
-    }
+  const getAllData = async () => {
+    setLoading(true);
+    await axios
+      .post(
+        "http://localhost:2000/api/job/getAll",
+        {
+          requiredSkills: userSkills?.map((item) => item),
+          country,
+          typeIndex: toggleHeadings,
+        },
+        {
+          params: { page },
+        }
+      )
+      .then((res) => {
+        setLoading(false);
+        dispatch(setJob(res.data));
+      })
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
-    getFilterData();
-  }, [filters]);
-
-  useEffect(() => {
-    if (country) {
-      axios
-        .post(
-          "http://localhost:2000/api/job/getAll",
-          {
-            requiredSkills: userSkills?.map((item) => item),
-            country,
-            typeIndex: toggleHeadings,
-            ...filters,
-          },
-          {
-            params: { page },
-          }
-        )
-        .then((res) => {
-          dispatch(setJob(res.data));
-        })
-        .catch((err) => {
-          console.log(11, err);
-        });
-    }
+    getAllData();
+    // getFilterRespData();
   }, [userSkills, country, toggleHeadings]);
 
   const getJobData = () => {
@@ -436,6 +468,24 @@ function Index() {
     forceUpdate();
   };
 
+  const handleCheckboxChange = (e, filterType, value) => {
+    const isChecked = e.target.checked;
+    setFilters((prevFilters) => {
+      const currentFilter = Array.isArray(prevFilters[filterType])
+        ? prevFilters[filterType]
+        : [];
+
+      return {
+        ...prevFilters,
+        [filterType]: isChecked
+          ? [...currentFilter, value]
+          : currentFilter.filter((item) => item !== value),
+      };
+    });
+  };
+
+  console.log("toggleHeadings",toggleHeadings)
+
   return (
     <div className="relative">
       <div
@@ -578,10 +628,20 @@ function Index() {
               <div className="flex items-center py-5  gap-3 flex-wrap ">
                 {inputData.map((item, index) => (
                   <InputBox
+                    key={index}
                     item={item}
-                    className="text-[14px] font-medium flex items-center w-auto "
+                    filterType={item.title.toLowerCase().replace(/ /g, "")}
+                    // onChange={handleCheckboxChange}
+                    onChange={handleCheckboxChange}
+                    country={country}
+                    page={page}
+                    filters={filters}
+                    userSkills={userSkills}
+                    setLoading={setLoading}
+                    className="text-[14px] font-medium flex items-center w-auto"
                   />
                 ))}
+
                 <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
@@ -617,7 +677,6 @@ function Index() {
                 {btns.map((item) => (
                   <button className="rounded-full border border-blue bg-white">
                     <p className="font-medium text-[14px] text-black py-2 px-4">
-
                       {item}
                     </p>
                   </button>
@@ -647,7 +706,16 @@ function Index() {
                     isViewportBelow1024 ? "col-span-4" : "col-span-3"
                   } mt-4`}
                 >
-                  <Filter setFilters={setFilters} jobtypeData={jobtypeData} />
+                  <Filter
+                    setFilters={setFilters}
+                    jobtypeData={jobtypeData}
+                    handleCheckboxChange={handleCheckboxChange}
+                    country={country}
+                    page={page}
+                    filters={filters}
+                    userSkills={userSkills}
+                    setLoading={setLoading}
+                  />
                 </motion.div>
               </AnimatePresence>
             ) : (
@@ -677,15 +745,17 @@ function Index() {
                       backdropFilter: "blur(10px)",
                     }}
                   >
-                    <Filter />
+                    <Filter
+                      setFilters={setFilters}
+                      jobtypeData={jobtypeData}
+                      handleCheckboxChange={handleCheckboxChange}
+                    />
                   </motion.div>
                 </>
               )}
             </AnimatePresence>
 
-            {(toggleHeadings === 0 ||
-              toggleHeadings === 1 ||
-              toggleHeadings === 2) && (
+            {(toggleHeadings === 0 && (
               <>
                 {!isDescription && (
                   <div
@@ -760,9 +830,9 @@ function Index() {
                   </div>
                 )}
               </>
-            )}
+              ))}
 
-            {toggleHeadings === 3 && (
+            {toggleHeadings === 1 && (
               <div
                 className={` ${
                   isViewportBelow1024
@@ -776,7 +846,7 @@ function Index() {
               </div>
             )}
 
-            {toggleHeadings === 4 && (
+            {toggleHeadings === 2 && (
               <div
                 className={` ${
                   isViewportBelow1024
