@@ -407,8 +407,10 @@ function AccountDetails({
           await axios.post("http://localhost:2000/api/add/subscription", {
             userId: userDataGlobal._id,
             plan: `${selectedPlan.name}`,
-            ...jsonData,
-            mobileNo: jsonData?.mobileNo,
+            firstName: data?.firstName,
+            email:data?.email,
+            lastName: data?.lastName,
+            mobileNo: data?.mobileNo,
             index: selectedPlan.index,
             isAdmin: true,
             role: userDataGlobal?.role,
@@ -416,7 +418,7 @@ function AccountDetails({
             paidAt: new Date(),
             amount: Math.ceil(selectedPlan.amount * exchangeRate),
             icon: icon,
-            paymentId: "freee",
+
             planDetails: selectedPlan
           });
 
@@ -471,10 +473,10 @@ function AccountDetails({
       {freePlanSuccess &&
         <PurchasedSuccessful setFreePlanSuccess={setFreePlanSuccess} />
 
-        
+
       }
-       {freePlanFailed &&
-        <PurchasedFailed setFreePlanFailed={setFreePlanFailed} alreadyUsedFree={alreadyUsedFree}/>
+      {freePlanFailed &&
+        <PurchasedFailed setFreePlanFailed={setFreePlanFailed} alreadyUsedFree={alreadyUsedFree} />
       }
 
       {popUp && (
