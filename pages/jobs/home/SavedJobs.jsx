@@ -1,9 +1,10 @@
 import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useReducer, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Description from "./Description";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import { reCallUserData } from "../../../Redux/actions/user";
 function SavedJobs() {
   const numberOfDivs = 5;
   const [savedJobList, setSavedJobList] = useState([]);
@@ -14,21 +15,10 @@ function SavedJobs() {
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
   const [isDescription, setIsDescription] = useState(false);
-//   useEffect(() => {
-//     const savedJobId=userDataGlobal?.savedJobs
-//     if(savedJobId){
-//      const getJobData=axios.get(`http://localhost:2000/api/`).then((res)=> console.log(res.data))
-// console.log("i", savedJobId)
-//       // setSavedJobList(savedJobid);
-//       // setSavedJobListLocal(jobsFromLocal);
-//     }
-      
-   
-//   }, [jobData, recall]);
 
-console.log(77,savedJobList )
-  const getData = () => {
-    // setLoading(true);
+  const dispatch = useDispatch();
+
+  const getData = () => { 
     axios
       .post("https://jamblix.com/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
@@ -36,13 +26,10 @@ console.log(77,savedJobList )
           .filter((item) => item != "undefined"),
       })
       .then((res) => {
-        // setLoading(false);
-        // setSavedJobList()
-        console.log("g", res.data)
         setSavedJobList(res.data.data);
       })
       .catch((err) => {
-        // setLoading(false);
+       
         console.log(err);
       });
   };
@@ -58,7 +45,20 @@ console.log(77,savedJobList )
   };
 
 
-
+  const removeSavedJob = (id) => {
+    axios
+      .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+      .then((res) => {
+        dispatch(reCallUserData());
+      
+        toast.success("Job Removed  Successfully");
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoading(false);
+      });
+  };
 
 
 
@@ -68,12 +68,7 @@ console.log(77,savedJobList )
     }
   }, [jobData]);
 
-  const removeJobToLocal = (e, id) => {
-    e.stopPropagation();
-    const filter = savedJobListLocal.filter((item) => item !== id);
-    localStorage.setItem("savedJobs", JSON.stringify(filter));
-    forceUpdate();
-  };
+ 
 
   return (
     <>
@@ -257,7 +252,7 @@ console.log(77,savedJobList )
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          onClick={(e) => removeJobToLocal(e, item._id)}
+                          onClick={() => removeSavedJob(item._id)}
                         >
                           <g mask="url(#mask0_5716_133446)">
                             <path

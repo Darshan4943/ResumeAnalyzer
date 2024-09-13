@@ -227,6 +227,8 @@ function Index() {
   const numberOfDivs = 5;
 
   const [status, setStatus] = React.useState(false);
+ 
+
 
   useEffect(() => {
     if (userDataGlobal) {
@@ -257,7 +259,7 @@ function Index() {
         {
           requiredSkills: userSkills?.map((item) => item),
           country,
-          typeIndex: toggleHeadings,
+          // typeIndex: toggleHeadings,
         },
         {
           params: { page },
@@ -272,27 +274,26 @@ function Index() {
 
   useEffect(() => {
     getAllData();
-    // getFilterRespData();
-  }, [userSkills, country, toggleHeadings]);
+  }, [userSkills]);
 
-  const getJobData = () => {
-    if (userSkills) {
-      // console.log("globalskills", userDataGlobal.skills)
-      axios
-        .post("http://localhost:2000/api/job/getAll", {
-          requiredSkills: userSkills?.map((item) => item),
-        })
-        .then((res) => {
-          console.log(11, res.data);
+  // const getJobData = () => {
+  //   if (userSkills) {
+  //     // console.log("globalskills", userDataGlobal.skills)
+  //     axios
+  //       .post("http://localhost:2000/api/job/getAll", {
+  //         requiredSkills: userSkills?.map((item) => item),
+  //       })
+  //       .then((res) => {
+  //         console.log(11, res.data);
 
-          dispatch(setJob(res.data));
-        })
-        .catch((err) => {
-          console.log(11, err);
-        });
-    } else {
-    }
-  };
+  //         dispatch(setJob(res.data));
+  //       })
+  //       .catch((err) => {
+  //         console.log(11, err);
+  //       });
+  //   } else {
+  //   }
+  // };
 
   const headings = [
     {
@@ -449,24 +450,7 @@ function Index() {
     }
   }, [jobData]);
 
-  useEffect(() => {
-    const jobsFromLocal = JSON.parse(localStorage.getItem("savedJobs"));
-    if (jobsFromLocal) {
-      setSavedJobList(jobsFromLocal);
-    }
-  }, [recall]);
-
-  const saveJobToLocal = (e, id) => {
-    e.stopPropagation();
-    localStorage.setItem("savedJobs", JSON.stringify([...savedJobList, id]));
-    forceUpdate();
-  };
-  const removeJobToLocal = (e, id) => {
-    e.stopPropagation();
-    const filter = savedJobList.filter((item) => item !== id);
-    localStorage.setItem("savedJobs", JSON.stringify(filter));
-    forceUpdate();
-  };
+  
 
   const handleCheckboxChange = (e, filterType, value) => {
     const isChecked = e.target.checked;
@@ -484,7 +468,7 @@ function Index() {
     });
   };
 
-  console.log("toggleHeadings",toggleHeadings)
+ 
 
   return (
     <div className="relative">
@@ -642,7 +626,7 @@ function Index() {
                   />
                 ))}
 
-                <button
+                {/* <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
                 >
@@ -651,7 +635,7 @@ function Index() {
                     src="/images/jobs/fil.png"
                     alt=""
                   />
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -690,10 +674,10 @@ function Index() {
       <div className="bg-[#F9F9F9]  ">
         <div className=" customMargins">
           <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
-            <div className=" mobile600 col-span-12 ">
+            {/* <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
-            </div>
-
+            </div> */}
+{/* 
             {filter ? (
               <AnimatePresence>
                 <motion.div
@@ -726,9 +710,9 @@ function Index() {
               >
                 <ApplicationStatus />
               </div>
-            )}
+            )} */}
 
-            <AnimatePresence>
+            {/* <AnimatePresence>
               {mobileFilter && (
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
@@ -753,7 +737,7 @@ function Index() {
                   </motion.div>
                 </>
               )}
-            </AnimatePresence>
+            </AnimatePresence> */}
 
             {(toggleHeadings === 0 && (
               <>
@@ -761,7 +745,7 @@ function Index() {
                   <div
                     onClick={() => setIsDescription(true)}
                     className={`mobile1024 ml:mt-4  ${
-                      isViewportBelow600 ? "col-span-12" : "col-span-8"
+                      isViewportBelow600 ? "col-span-12" : "col-span-12"
                     }`}
                   >
                     <AllJobs
@@ -777,7 +761,7 @@ function Index() {
 
                 <div
                   className={`web1024  ${
-                    filter ? "col-span-4" : "col-span-4"
+                    filter ? "col-span-4" : "col-span-6"
                   } ml:mt-4`}
                 >
                   <AllJobs
@@ -792,7 +776,7 @@ function Index() {
 
                 <div
                   className={`web1024   ${
-                    filter ? "col-span-5" : "col-span-5"
+                    filter ? "col-span-5" : "col-span-6"
                   } ml:mt-4`}
                 >
                   <Description selectedJob={selectedJob} />

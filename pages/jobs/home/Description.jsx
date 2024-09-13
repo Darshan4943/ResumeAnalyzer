@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import React from 'react'
 
-function Description({selectedJob,filter}) {
+function Description({ selectedJob, filter }) {
+    const router = useRouter();
     return (
         <div>
             {selectedJob && (
@@ -21,11 +23,13 @@ function Description({selectedJob,filter}) {
                             >
                                 <div className="flex flex-col gap-[4px]">
                                     <div className="text-[#333] text-[20px] font-[500]">
-                                        {selectedJob.title}
+                                        {selectedJob.jobTitle}
                                     </div>
-                                    <div className="text-[#333] text-[10px] font-[400]">
-                                        {selectedJob.company}
+
+                                    <div className="text-[#333] text-[14px] font-[500]">
+                                        {selectedJob.companyName}
                                     </div>
+
                                     <div className="flex flex-row gap-[4px] text-[#333] text-[12px] font-[400]">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -41,17 +45,17 @@ function Description({selectedJob,filter}) {
                                                 />
                                             </g>
                                         </svg>
-                                        {selectedJob.location}
+                                        {selectedJob?.country?.join(', ')} ||  {selectedJob?.location?.join(', ')}
                                     </div>
                                 </div>
                                 <div className="py-[16px] flex gap-2 leading-tight">
-                                    <a
-                                        href={selectedJob?.applyUrl}
-                                        target="_blank"
+                                    <button
+                                        onClick={() => {router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`)}}
+
                                         className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]"
                                     >
                                         Apply Now
-                                    </a>
+                                    </button>
                                     {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                             Save
                           </button> */}
@@ -127,13 +131,13 @@ function Description({selectedJob,filter}) {
                             )}
 
                             <div className="flex justify-end">
-                                <a
-                                    href={selectedJob.applyUrl}
-                                    target="_blank"
+                                <button
+                                  onClick={() => {router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`)}}
+
                                     className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]"
                                 >
                                     Apply Now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

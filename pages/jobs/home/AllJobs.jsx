@@ -1,9 +1,9 @@
 import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
-import React, { useEffect, useReducer } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useReducer, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
+import { reCallUserData } from "../../../Redux/actions/user";
 
 function AllJobs({
   selectedJob,
@@ -15,37 +15,54 @@ function AllJobs({
 }) {
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [jobsChanged, setJobsChanged] = useState(false)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const userDataGlobal = useSelector((state) => state.userData);
-  // console.log(22, jobData);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (jobData.length > 0) {
       setSelectedJob(jobData[0]);
     }
   }, [jobData]);
 
-  useEffect(() => {
-    const jobsFromLocal = JSON.parse(localStorage.getItem("savedJobs"));
-    if (jobsFromLocal) {
-      setSavedJobList(jobsFromLocal);
-    }
-  }, [recall]);
-
-  // const saveJobToLocal = (e, id) => {
-  //   e.stopPropagation();
-  //   localStorage.setItem("savedJobs", JSON.stringify([...savedJobList, id]));
-  //   forceUpdate();
-  // };
-
-
-
-  const SaveJob = (id) => {
+  const getData = () => { 
     axios
-      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post("https://jamblix.com/api/job/byIds", {
+        ids: userDataGlobal?.savedJobs
+          ?.map((item) => item.id)
+          .filter((item) => item != "undefined"),
+      })
       .then((res) => {
+        setSavedJobList(res.data.data);
+      })
+      .catch((err) => {
+       
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
+    }
+  }, [userDataGlobal]);
+
+
+
+  const SaveJob = (e, id) => {
+     // setLoading(false);
+    e.stopPropagation();
+    axios
+      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .then((res) => {
+        
+       
+       
         dispatch(reCallUserData());
+      
+        toast.success("Job Removed  Successfully");
         getData();
-        toast.success("Job Saved  Successfully");
       })
       .catch((err) => {
         console.log(err);
@@ -53,11 +70,21 @@ function AllJobs({
       });
   };
 
-  const removeJobToLocal = (e, id) => {
+  const removeSavedJob = (e, id) => {
     e.stopPropagation();
-    const filter = savedJobList.filter((item) => item !== id);
-    localStorage.setItem("savedJobs", JSON.stringify(filter));
-    forceUpdate();
+    axios
+      .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+      .then((res) => {
+      
+        dispatch(reCallUserData());
+      
+        toast.success("Job Removed  Successfully");
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoading(false);
+      });
   };
 
   const countPostingDays = (date) => {
@@ -77,6 +104,7 @@ function AllJobs({
       return `${diffInYears} years ago`;
     }
   };
+
 
   return (
     <div
@@ -99,9 +127,8 @@ function AllJobs({
                   ? window.scroll(400, 400)
                   : window.scroll(0, 0);
               }}
-              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${
-                selectedJob?._id == item._id && "selected_job_card"
-              } `}
+              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
+                } `}
               style={{
                 borderBottom:
                   selectedJob?._id == item._id ? "unset" : "1px solid #646464",
@@ -119,27 +146,7 @@ function AllJobs({
                     </div>
                   </div>
                   <div className="flex flex-row  items-end">
-                    {/**  <div className="flex flex-row gap-[4px]">
-                  <div className="flex justify-center items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                    >
-                      <path
-                        d="M5.73242 0.809018L6.84174 4.22315L6.89787 4.3959H7.07951H10.6693L7.7651 6.50595L7.61816 6.61271L7.67428 6.78546L8.7836 10.1996L5.87937 8.08954L5.73242 7.98278L5.58548 8.08954L2.68124 10.1996L3.79056 6.78546L3.84669 6.61271L3.69974 6.50595L0.795504 4.3959H4.38534H4.56697L4.6231 4.22315L5.73242 0.809018Z"
-                        fill="#FFDA1D"
-                        stroke="#FFCC7E"
-                        stroke-width="0.5"
-                      />
-                    </svg>
-                  </div>
-                  <div className="text-[#262626] text-[10px] font-[400]">
-                    3.7
-                  </div>
-                </div>*/}
+
                     <img
                       src="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/happy_customer.png"
                       alt="Happy Customer"
@@ -251,9 +258,10 @@ function AllJobs({
                   {countPostingDays(item?.createdAt)}
                 </div>
                 <div>
-                  {savedJobList.find((data) => data == item._id) ? (
+
+                  {savedJobList.find((data) => data._id == item._id) ? (
                     <svg
-                      onClick={(e) => removeJobToLocal(e, item._id)}
+                      onClick={(e) => removeSavedJob(e, item._id)}
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
                       height="18"
@@ -267,7 +275,7 @@ function AllJobs({
                     </svg>
                   ) : (
                     <svg
-                      onClick={() => SaveJob(item._id)}
+                      onClick={(e) => SaveJob(e, item._id)}
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -283,25 +291,7 @@ function AllJobs({
                   )}
                 </div>
               </div>
-              {/* <svg xmlns="http://www.w3.org/2000/svg" width="101" height="34" viewBox="0 0 101 34" fill="none" className="  absolute right-10 top-0">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 5H95.5405L99 8H3V5Z" fill="#C00000" />
-            <g filter="url(#filter0_d_5716_132589)">
-              <path d="M95.5405 5H3V25C3 28.3137 5.68629 31 9 31H89.5405C92.8542 31 95.5405 28.3137 95.5405 25V5Z" fill="#FF5973" />
-            </g>
-            <defs>
-              <filter id="filter0_d_5716_132589" x="0" y="0" width="100.541" height="34" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                <feOffset dx="1" dy="-1" />
-                <feGaussianBlur stdDeviation="2" />
-                <feComposite in2="hardAlpha" operator="out" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5716_132589" />
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5716_132589" result="shape" />
-              </filter>
-            </defs>
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">by Recruiter</text>
-          </svg> */}
+
             </div>
           </>
         ))}

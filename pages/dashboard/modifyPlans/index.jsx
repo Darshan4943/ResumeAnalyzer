@@ -352,7 +352,7 @@ const Index = () => {
                     />
                     {errorMessage && (
                       <div className="scr420:text-[14px] text-[10px] text-red">
-                        <span className="text-red-500 ">{errorMessage}</span>
+                        <span className="text-red font-medium mt-1 ">{errorMessage}</span>
                       </div>
                     )}
                   </div>
