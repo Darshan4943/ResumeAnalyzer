@@ -2,10 +2,14 @@ import React from 'react';
 
 const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
   return (
-    <div className="p-6  ">
-      <h2 className="text-xl font-bold mb-4">Professional Details</h2>
+    <div className="p-6 flex flex-col gap-4 ">
+      <div className='flex flex-row gap-4 items-center'>
+
+        <h2 className="text-[24px] font-medium min-w-[239px] ">Professional Details</h2>
+        <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
+      </div>
       <form className="space-y-4">
-      
+
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -38,11 +42,11 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
             )}
           </div>
 
-     
-          
+
+
         </div>
 
-      
+
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -60,7 +64,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
             )}
           </div>
 
-         
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Expected CTC
@@ -79,24 +83,24 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
         </div>
 
         <div className='w-[49%]'>
-            <label className="  block text-sm font-medium text-gray-700">
-              Notice Period
-            </label>
-            <select
-              className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
-              value={data?.noticePeriod}
-              onChange={(e) => handleInputChange('noticePeriod', e.target.value)}
-            >
-              <option value="" disabled>Select</option>
-              <option value="1 week">1 week</option>
-              <option value="2 weeks">2 weeks</option>
-              <option value="1 month">1 month</option>
-              <option value="3 months">3 months</option>
-            </select>
-            {formError?.noticePeriod && (
-              <p className="text-xs text-red font-medium mt-1">{formError.noticePeriod}</p>
-            )}
-          </div>
+          <label className="  block text-sm font-medium text-gray-700">
+            Notice Period
+          </label>
+          <select
+            className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
+            value={data?.noticePeriod}
+            onChange={(e) => handleInputChange('noticePeriod', e.target.value)}
+          >
+            <option value="" disabled>Select</option>
+            <option value="1 week">1 week</option>
+            <option value="2 weeks">2 weeks</option>
+            <option value="1 month">1 month</option>
+            <option value="3 months">3 months</option>
+          </select>
+          {formError?.noticePeriod && (
+            <p className="text-xs text-red font-medium mt-1">{formError.noticePeriod}</p>
+          )}
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Are you comfortable commuting to this job's location?
@@ -133,7 +137,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
           </div>
         </div>
 
-        
+
       </form>
     </div>
   );

@@ -3,7 +3,7 @@ import ReactSelect from 'react-select';
 import { telCode } from '../../../utils/data';
 
 const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) => {
-    console.log(formError)
+  
     const [filteredTelCode, setFilteredTelCode] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedItem, setSelectedItem] = useState();
@@ -12,13 +12,13 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
         const newErrors = { ...formError };
 
         if (newErrors["mobileNo"]) {
-            delete newErrors['mobileNo']; 
+            delete newErrors['mobileNo'];
         }
 
-        
+
         setFormData((prevData) => ({
             ...prevData,
-            dial_code: item.dial_code, 
+            dial_code: item.dial_code,
         }));
     };
 
@@ -51,8 +51,12 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
     }, [telCode, searchTerm]);
 
     return (
-        <div className="p-6  mx-auto ">
-            <h2 className="text-xl font-bold mb-4">Personal Details</h2>
+        <div className="p-6  mx-auto flex flex-col gap-4">
+            <div className='flex flex-row gap-4 items-center'>
+
+                <h2 className="text-[24px] font-medium min-w-[239px] ">Professional Details</h2>
+                <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
+            </div>
             <form className="space-y-4">
                 <div className='flex flex-row gap-4 '>
 
@@ -90,7 +94,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                         )}
                     </div>
                 </div>
-               
+
                 <div>
                     <label className="block text-sm font-medium text-gray-700">
                         Select your Gender  <span className="text-red font-medium">*</span>
@@ -204,12 +208,12 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                             <input
                                 type="text"
                                 placeholder="Enter your contact number"
-                                className=" p-2 w-[70%]"  
+                                className=" p-2 w-[70%]"
                                 value={data?.mobileNo}
                                 onChange={(e) => handleInputChange('mobileNo', e.target.value)}
                             />
                         </div>
-                       
+
                         {formError?.dial_code && (
                             <p className="text-xs text-red font-medium mt-1">{formError.dial_code}</p>
                         )}

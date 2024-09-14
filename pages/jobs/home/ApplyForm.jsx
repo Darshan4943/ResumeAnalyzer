@@ -1,14 +1,22 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import PersonalDetails from './personalDetails';
 import ProfessionalDetails from './professionalDetails';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import MiniLoader from '../../../components/common/mini-loader';
 
 function ApplyForm() {
-
+    const [formError, setFormError] = useState({});
     const userDataGlobal = useSelector((state) => state.userData);
+    const [resumes, setResumes] = useState([]);
+    const [selectedResume, setSelectedResume] = useState(null);
+    const [loading, setLoading] = useState(false)
+    const [uploadedResume, setUploadedResume] = useState(null);
+
+    const [isUploaded, setIsUploaded] = useState(false);
+
     const [formData, setFormData] = useState({
         personal: {
             firstName: '',
@@ -28,23 +36,26 @@ function ApplyForm() {
             noticePeriod: ''
         }
     });
+
     const router = useRouter();
     const { id } = router.query;
-    const [jobDetails, setJobDetails] = useState()
-    console.log(jobDetails)
+    const [jobDetails, setJobDetails] = useState();
 
     useEffect(() => {
         axios
-            .get(`http://localhost:2000/api/job/getById/${id}`)
-            .then((res) => {
-                setJobDetails(res.data.data);
-            })
+            .get(`http://localhost:2000/api/job/getByUserId/${id}`)
+            .then((res) => setJobDetails(res.data))
+
             .catch((err) => console.error(err));
-    }, []);
+    }, [id]);
 
-    const [formError, setFormError] = useState({});
+    useEffect(() => {
+        axios
+            .get(`http://localhost:2000/api/resume/${userDataGlobal._id}`)
+            .then((res) => setResumes(res.data.data))
+            .catch((err) => console.error(err));
+    }, [userDataGlobal]);
 
-    // Update state when inputs change
     const handleInputChange = (section, fieldName, value) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -53,80 +64,119 @@ function ApplyForm() {
                 [fieldName]: value,
             }
         }));
+        setFormError((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: '',
+        }));
     };
 
     const validateInput = () => {
         const errors = {};
-
-        // Validate personal details
         const personal = formData.personal;
-        if (!personal?.firstName) errors.firstName = "First name is required";
-        if (!personal?.lastName) errors.lastName = "Last name is required";
-        if (!personal?.email) errors.email = "Email is required";
-        if (!personal?.dob) errors.dob = "Date of birth is required";
-        if (!personal?.gender) errors.gender = "Gender is required";
-        if (!personal?.mobileNo) errors.mobileNo = "Mobile Number is required";
-        // Validate professional details
         const professional = formData.professional;
-        if (!professional?.totalExperience) errors.totalExperience = "Total experience is required";
-        if (!professional?.relevantExperience) errors.relevantExperience = "Relevant experience is required";
-        if (!professional?.currentCTC) errors.currentCTC = "Current CTC is required";
-        if (!professional?.expectedCTC) errors.expectedCTC = "Expected CTC is required";
-        if (!professional?.noticePeriod) errors.noticePeriod = "Notice period is required";
+
+        if (!personal?.firstName) errors.firstName = 'First name is required';
+        if (!personal?.lastName) errors.lastName = 'Last name is required';
+        if (!personal?.email) errors.email = 'Email is required';
+        if (!personal?.dob) errors.dob = 'Date of birth is required';
+        if (!personal?.gender) errors.gender = 'Gender is required';
+        if (!personal?.mobileNo) errors.mobileNo = 'Mobile Number is required';
+
+        if (!professional?.totalExperience) errors.totalExperience = 'Total experience is required';
+        if (!professional?.relevantExperience) errors.relevantExperience = 'Relevant experience is required';
+        if (!professional?.currentCTC) errors.currentCTC = 'Current CTC is required';
+        if (!professional?.expectedCTC) errors.expectedCTC = 'Expected CTC is required';
+        if (!professional?.noticePeriod) errors.noticePeriod = 'Notice period is required';
+
+        // Check if a resume is selected or uploaded
+        if (!selectedResume && !uploadedResume) {
+            errors.resume = 'Please select or upload a resume';
+        }
 
         setFormError(errors);
         return Object.keys(errors).length === 0;
     };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        if (validateInput()) {
-            toast.success("Form submitted successfully!");
-            // Submit data logic here...
-            console.log(formData);
-        } else {
-            toast.error("Please fill in all required fields");
-        }
-    };
 
     const applyForJob = () => {
-        // setLoading(true);
-        axios
-          .post("http://localhost:2000/api/job/apply/" + id, {
-            userId: userDataGlobal._id,
-            resumeUrl: "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com",
-            percentage: 30,
-            formData
-          })
-          .then((res) => {
-            // setLoading(false);
-    
-            getData();
-            toast.success("Application Sent Successfully");
-          })
-          .catch((err) => {
-            console.log(err);
-            // setLoading(false);
-          });
-      };
-    
+        if (!validateInput()) return;
+
+        setLoading(true);
+        const formDataToSend = new FormData();
+
+        formDataToSend.append('userId', userDataGlobal._id);
+        formDataToSend.append('resumeUrl', isUploaded ? null : selectedResume);
+        formDataToSend.append('resumeId', null);
+        formDataToSend.append('percentage', '');
+
+        if (isUploaded && uploadedResume) {
+            formDataToSend.append('uploadedResume', uploadedResume);
+        } else if (!selectedResume && !uploadedResume) {
+
+            setLoading(false);
+            return;
+        }
+
+        formDataToSend.append('formData', JSON.stringify({
+            personal: {
+                firstName: formData.personal?.firstName,
+                lastName: formData.personal?.lastName,
+                email: formData.personal?.email,
+                mobileNo: formData.personal?.mobileNo,
+                currentLocation: formData.personal?.currentLocation,
+                dob: formData.personal?.dob,
+                gender: formData.personal?.gender
+            },
+            professional: {
+                totalExperience: formData.professional?.totalExperience,
+                relevantExperience: formData.professional?.relevantExperience,
+                currentCTC: formData.professional?.currentCTC,
+                expectedCTC: formData.professional?.expectedCTC,
+                noticePeriod: formData.professional?.noticePeriod,
+                comfortableWithLocation: formData.professional?.comfortableWithLocation
+            }
+        }));
+
+        axios.post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then((res) => {
+                toast.success('Application Sent Successfully');
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
+            })
+            .catch((err) => {
+                console.error(err);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
+            });
+    };
+
+    const handleResumeSelection = (resumeUrl) => {
+        setSelectedResume(resumeUrl);
+        // setUploadedResume(null); 
+        setIsUploaded(false);
+    };
+
+    const handleResumeUpload = (e) => {
+        const file = e.target.files[0];
+        setUploadedResume(file);
+        setSelectedResume(null);
+        setIsUploaded(true);
+    };
+
     return (
-        <div className='customMargins rounded-[16px] mt-6 bg-[#FFFFFF] p-6 w-[60%]' style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+        <div className='customMargins rounded-[16px] mt-6 bg-[#FFFFFF] p-6 w-[60%]' style={{ boxShadow: '0px 1px 2px 0px #00000040' }}>
             <div className=' flex flex-row gap-4 items-center '>
-                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.12656 10.665L11.6599 17.1984L9.99739 18.8317L0.664062 9.49837L9.99739 0.165039L11.6599 1.79837L5.12656 8.33171H19.3307V10.665H5.12656Z" fill="#1C1B1F" />
-                </svg>
-
                 <p className='text-[#06A9EF] text-[24px] font-medium'>
-                    Apply to <span className='font-[24px] text-[#333333]'> {jobDetails?.jobTitle}</span>
+                    Apply to <span className='font-[24px] text-[#333333]'>{jobDetails?.jobTitle}</span>
                 </p>
-
-                <div className='bg-[#DEDEDE] w-[2px] h-[29px]'>
-
-                </div>
-                <p className='text-[24px] font-medium'>
-                    {jobDetails?.companyName}
-                </p>
+                <div className='bg-[#DEDEDE] w-[2px] h-[29px]'></div>
+                <p className='text-[24px] font-medium'>{jobDetails?.companyName}</p>
                 <div className='flex flex-row gap-1 items-center'>
                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -137,45 +187,120 @@ function ApplyForm() {
                     {jobDetails?.country?.join(', ')} ||  {jobDetails?.location?.join(', ')}
 
                 </div>
+            </div>
+
+            <PersonalDetails
+                data={formData.personal}
+                setFormData={setFormData}
+                handleInputChange={(fieldName, value) => handleInputChange('personal', fieldName, value)}
+                formError={formError}
+            />
+
+            <div className='p-6 mx-auto flex flex-col gap-4'>
+                <div className='flex flex-row gap-4 items-center'>
+                    <h2 className='text-[24px] font-medium min-w-[270px]'>Upload CV / Resume</h2>
+                    <div className='h-[1px] w-[70%] bg-[#DEDEDE]'></div>
+                </div>
+
+                <div className='flex flex-col gap-3 h-[200px] overflow-scroll pr-4'>
+                    {resumes?.map((item, index) => (
+                        <div key={index} className='flex flex-row border border-[#DEDEDE] rounded-[12px]'>
+                            <div className='px-[10px] text-center flex flex-row items-center bg-[#C00000] text-white rounded-l-[12px]'>
+                                PDF
+                            </div>
+                            <div className='flex flex-row justify-between p-4 w-full'>
+                                <div className='flex flex-col gap-1'>
+                                    <p className='text-[#333333] font-medium text-[14px]'>{item.fileName}</p>
+                                    <p className='text-[#646464] font-[400] text-[12px]'>
+                                        Last updated at {new Date(item.updatedAt).toLocaleString()}
+                                    </p>
+                                </div>
+
+                                <div className='flex flex-row gap-4 h-[40px] py-1 items-center'>
+                                    <div className='px-[10px] py-1 border border-[#06A9EF] rounded-[8px]'>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g mask="url(#mask0_5716_128902)">
+                                                <path d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#646464" />
+                                            </g>
+                                        </svg>
+                                    </div>
+
+                                    <input
+                                        name='resume'
+                                        type='radio'
+                                        value={item.resumeUrl}
+                                        checked={selectedResume === item.resumeUrl && !isUploaded}
+                                        onChange={() => handleResumeSelection(item.resumeUrl)}
+                                        className='custom-radio h-4 w-4 border-[#DEDEDE]'
+                                    />
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className='flex flex-row justify-between w-[100%]'>
+                    {formError.resume && (
+                        <p className='text-red font-medium  text-[14px]'>{formError.resume}</p>
+                    )}
+                    {uploadedResume ? (
+                        <div className='flex flex-row border border-[#DEDEDE] rounded-[12px] w-[70%]'>
+                            <div className='px-[10px] text-center flex flex-row items-center bg-[#C00000] text-white rounded-l-[12px]'>
+                                PDF
+                            </div>
+                            <div className='flex flex-row justify-between items-center px-4 py-1 w-full'>
+                                <div className='flex flex-col gap-1'>
+                                    <p className='text-[#333333] font-medium text-[14px]'>{uploadedResume.name}</p>
+                                </div>
+                                <div className='flex flex-row gap-4 h-[30px] py-1 items-center'>
+                                    <input
+                                        name='resume'
+                                        type='radio'
+                                        checked={isUploaded}
+                                        onChange={() => setIsUploaded(true)}
+                                        className='custom-radio h-4 w-4 border-[#DEDEDE]'
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className='text-[14px] font-medium text-[#646464]'>DOC, DOCX, PDF (2 MB)</p>
+                    )}
+                    <label className='px-6 py-[10px] border border-[#06A9EF] rounded-[8px] text-[16px] font-medium text-[#333333] cursor-pointer'>
+                        Upload Resume
+                        <input
+                            type='file'
+                            name='resume'
+                            accept='.doc,.docx,.pdf'
+                            onChange={handleResumeUpload}
+                            className='hidden'
+                        />
+                    </label>
+                </div>
 
             </div>
-            <div >
-                <PersonalDetails
-                    data={formData.personal}
-                    setFormData={setFormData}
-                    handleInputChange={(fieldName, value) =>
-                        handleInputChange("personal", fieldName, value)
-                    }
 
-                    formError={formError}
-                />
-                <ProfessionalDetails
-                    data={formData.professional}
-                    handleInputChange={(fieldName, value) =>
-                        handleInputChange("professional", fieldName, value)
-                    }
-                    formError={formError}
-                />
-            </div>
-            <div className="flex justify-end flex-row gap-4 pt-8">
-                <button
-                   
-                  className=' px-[24px] py-2  rounded-[12px] border border-[#06A9EF]'
-                    onClick={()=>router.back()}
-                >
+            <ProfessionalDetails
+                data={formData.professional}
+                setFormData={setFormData}
+                handleInputChange={(fieldName, value) => handleInputChange('professional', fieldName, value)}
+                formError={formError}
+            />
+
+
+            <div className='flex justify-end flex-row gap-4 pt-8'>
+                <button className='px-[24px] py-2 rounded-[12px] border border-[#06A9EF]' onClick={() => router.back()}>
                     Cancel
                 </button>
-                <button
-                   
-                  className='bg-[#06A9EF] px-[24px] py-2 text-[#FFFFFF] rounded-[12px]'
-                    onClick={applyForJob}
-                >
-                    Apply
+                <button className='bg-[#06A9EF] px-[24px] py-2 text-[#FFFFFF] rounded-[12px]' onClick={() => validateInput() && applyForJob()}>
+                    {loading ? <MiniLoader /> :
+                        "Apply"
+                    }
                 </button>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default ApplyForm
+export default ApplyForm;
