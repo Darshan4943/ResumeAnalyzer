@@ -177,12 +177,12 @@ function Index() {
       img: "/images/jobs/arw.png",
       child: Array.isArray(jobtypeData?.salaries)
         ? jobtypeData.salaries.map((salary) => {
-            if (salary.minSalary && salary.maxSalary) {
-              return `${salary.minSalary} - ${salary.maxSalary}`;
-            } else {
-              return "Not Specified";
-            }
-          })
+          if (salary.minSalary && salary.maxSalary) {
+            return `${salary.minSalary} - ${salary.maxSalary}`;
+          } else {
+            return "Not Specified";
+          }
+        })
         : [],
     },
     {
@@ -227,7 +227,7 @@ function Index() {
   const numberOfDivs = 5;
 
   const [status, setStatus] = React.useState(false);
- 
+
 
 
   useEffect(() => {
@@ -327,19 +327,19 @@ function Index() {
           <g clip-path="url(#clip0_5716_131110)">
             <path
               d="M19.3486 13.2906C20.3484 13.2906 21.293 13.5339 22.125 13.9651V10.3042L14.595 12.272C14.5481 12.4998 14.4764 12.7183 14.3827 12.9245C13.8909 14.0092 12.7973 14.7658 11.5312 14.7658C10.0238 14.7658 8.76188 13.6937 8.4675 12.272L0.9375 10.3042V17.7944C0.9375 19.1486 2.03906 20.2501 3.39328 20.2501H13.3575C13.3134 19.9562 13.2905 19.6548 13.2905 19.3487C13.2905 16.0084 16.0083 13.2906 19.3486 13.2906Z"
-              fill={toggleHeadings === 3 ? "#FFF" : " #333"}
+              fill={toggleHeadings === 1 ? "#FFF" : " #333"}
             />
             <path
               d="M8.40234 9.33984C8.40234 8.24813 9.29109 7.35938 10.3828 7.35938H12.6797C13.7714 7.35938 14.6602 8.24813 14.6602 9.33984V10.8014L22.537 8.74266C22.8464 8.66203 23.0625 8.38219 23.0625 8.0625V3.51562C23.0625 3.1275 22.7475 2.8125 22.3594 2.8125H16.2656V2.29781C16.2656 1.03078 15.2348 0 13.9678 0H9.09469C7.82766 0 6.79688 1.03078 6.79688 2.29781V2.8125H0.703125C0.315 2.8125 0 3.1275 0 3.51562V8.0625C0 8.38219 0.216094 8.66203 0.525469 8.74266L8.40234 10.8014V9.33984ZM8.20312 2.29781C8.20312 1.80609 8.60297 1.40625 9.09469 1.40625H13.9678C14.4595 1.40625 14.8594 1.80609 14.8594 2.29781V2.8125H8.20312V2.29781Z"
-              fill={toggleHeadings === 3 ? "#FFF" : " #333"}
+              fill={toggleHeadings === 1 ? "#FFF" : " #333"}
             />
             <path
               d="M10.3828 8.76562C10.0658 8.76562 9.80859 9.02288 9.80859 9.3398V11.6365C9.80859 12.5862 10.5814 13.359 11.5311 13.359C12.4808 13.359 13.2536 12.5862 13.2536 11.6365V9.3398C13.2536 9.02288 12.9964 8.76562 12.6795 8.76562H10.3828Z"
-              fill={toggleHeadings === 3 ? "#FFF" : " #333"}
+              fill={toggleHeadings === 1 ? "#FFF" : " #333"}
             />
             <path
               d="M19.3491 14.6968C16.7841 14.6968 14.6973 16.7837 14.6973 19.3487C14.6973 21.9137 16.7841 24.0001 19.3491 24.0001C21.9141 24.0001 24.0005 21.9137 24.0005 19.3487C24.0005 16.7837 21.9141 14.6968 19.3491 14.6968ZM21.3905 18.9324L19.5648 20.7582C19.2973 21.0298 18.8421 21.0346 18.5701 20.7582L17.3082 19.4958C17.0335 19.2216 17.0335 18.7763 17.3082 18.5016C17.5824 18.2269 18.0277 18.2269 18.3024 18.5016L19.0674 19.2666L20.3959 17.9382C20.6705 17.6635 21.1159 17.6635 21.3905 17.9382C21.6648 18.2129 21.6648 18.6582 21.3905 18.9324Z"
-              fill={toggleHeadings === 3 ? "#FFF" : " #333"}
+              fill={toggleHeadings === 1 ? "#FFF" : " #333"}
             />
           </g>
           <defs>
@@ -362,7 +362,7 @@ function Index() {
         >
           <path
             d="M13.9322 0.714355H2.70242C1.60925 0.714355 0.714844 1.60877 0.714844 2.70193V20.0435C0.714844 20.5156 0.988136 20.9628 1.4105 21.1616C1.8577 21.3603 2.3546 21.3106 2.72727 21.0125L2.75211 20.9876L8.31733 16.292L13.8825 20.9876L13.9074 21.0125C14.131 21.1864 14.4043 21.2858 14.6776 21.2858C14.8515 21.2858 15.0502 21.2361 15.2242 21.1367C15.6465 20.938 15.9198 20.4908 15.9198 20.0187V2.70193C15.9198 1.60877 15.0254 0.714355 13.9322 0.714355Z"
-            fill={toggleHeadings === 4 ? "#FFF" : " #333"}
+            fill={toggleHeadings === 2 ? "#FFF" : " #333"}
           />
         </svg>
       ),
@@ -444,13 +444,13 @@ function Index() {
     */
     },
   ];
-  useEffect(() => {
-    if (jobData.length > 0) {
-      setSelectedJob(jobData[0]);
-    }
-  }, [jobData]);
+  // useEffect(() => {
+  //   if (jobData.length > 0) {
+  //     setSelectedJob(jobData[0]);
+  //   }
+  // }, [jobData]);
 
-  
+
 
   const handleCheckboxChange = (e, filterType, value) => {
     const isChecked = e.target.checked;
@@ -468,17 +468,16 @@ function Index() {
     });
   };
 
- 
+
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <div
-        className={` ${
-          isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
-        } z-50`}
+        className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
+          } z-50`}
       >
-        <div style={{ backgroundColor: "#E0F6FF" }} className="bg-[E0F6FF]">
-          <div class="flex justify-center items-center py-[15px] px-[156px]">
+        <div style={{ backgroundColor: "#E0F6FF" }} className="bg-[E0F6FF] ">
+          <div class="flex justify-center items-center py-[15px] ">
             <div class=" flex flex-row justify-between items-center py-[8px] px-[24px] rounded-[8px] bg-[#ffff] ">
               <div className="flex flex-row gap-[16.82px]">
                 <svg
@@ -505,8 +504,8 @@ function Index() {
               </div>
               <div class="w-[42.06px] h-0 gap-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div>
 
-              <div className="flex justify-between items-center gap-[100.56px]">
-                <div className="flex flex-row gap-[16.82px]">
+              <div className="flex justify-between items-center gap-[16px]">
+                <div className="flex flex-row gap-[16.82px] w-[300px]">
                   <svg
                     width="31"
                     height="30"
@@ -532,7 +531,7 @@ function Index() {
                   <input
                     type="text"
                     placeholder="Colney, United Kingdom"
-                    className="text-[16px] font-[400px] font-Montserrat"
+                    className="text-[16px] font-[400px] w-[250px] font-Montserrat"
                   />
                 </div>
 
@@ -585,18 +584,17 @@ function Index() {
               {headings.map((item, index) => (
                 <div
                   key={index}
-                  className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px]  ${
-                    toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                  }`}
+                  className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px]  ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
+                    }`}
                 >
                   {item.img}
                   <p
-                    className={`text-[16px] text-black font-semibold cursor-pointer  ${
-                      toggleHeadings === index && " text-white"
-                    }`}
+                    className={`text-[16px] text-black font-semibold cursor-pointer  ${toggleHeadings === index && " text-white"
+                      }`}
                     onClick={() => {
                       forceUpdate();
                       setToggleHeadings(index);
+                      setSelectedJob()
                     }}
                   >
                     {item.title}
@@ -606,7 +604,7 @@ function Index() {
             </div>
           </div>
         </div>
-        {toggleHeadings <= 2 && (
+        {/* {toggleHeadings <= 2 && (
           <div style={{ backgroundColor: "#E0F6FF" }} className="">
             <div className="customMargins web">
               <div className="flex items-center py-5  gap-3 flex-wrap ">
@@ -615,7 +613,7 @@ function Index() {
                     key={index}
                     item={item}
                     filterType={item.title.toLowerCase().replace(/ /g, "")}
-                    // onChange={handleCheckboxChange}
+                    
                     onChange={handleCheckboxChange}
                     country={country}
                     page={page}
@@ -626,7 +624,7 @@ function Index() {
                   />
                 ))}
 
-                {/* <button
+                <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
                 >
@@ -635,7 +633,7 @@ function Index() {
                     src="/images/jobs/fil.png"
                     alt=""
                   />
-                </button> */}
+                </button>
               </div>
             </div>
 
@@ -653,7 +651,7 @@ function Index() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
         {/* {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
@@ -671,13 +669,13 @@ function Index() {
         } */}
       </div>
 
-      <div className="bg-[#F9F9F9]  ">
+      <div className="bg-[#F9F9F9] h-[calc(100vh-215.33px)]">
         <div className=" customMargins">
           <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
             {/* <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div> */}
-{/* 
+            {/* 
             {filter ? (
               <AnimatePresence>
                 <motion.div
@@ -744,9 +742,8 @@ function Index() {
                 {!isDescription && (
                   <div
                     onClick={() => setIsDescription(true)}
-                    className={`mobile1024 ml:mt-4  ${
-                      isViewportBelow600 ? "col-span-12" : "col-span-12"
-                    }`}
+                    className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                      }`}
                   >
                     <AllJobs
                       selectedJob={selectedJob}
@@ -760,9 +757,8 @@ function Index() {
                 )}
 
                 <div
-                  className={`web1024  ${
-                    filter ? "col-span-4" : "col-span-6"
-                  } ml:mt-4`}
+                  className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                    } ml:mt-4`}
                 >
                   <AllJobs
                     selectedJob={selectedJob}
@@ -775,9 +771,8 @@ function Index() {
                 </div>
 
                 <div
-                  className={`web1024   ${
-                    filter ? "col-span-5" : "col-span-6"
-                  } ml:mt-4`}
+                  className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                    } ml:mt-4`}
                 >
                   <Description selectedJob={selectedJob} />
                 </div>
@@ -785,9 +780,8 @@ function Index() {
 
                 {isDescription && (
                   <div
-                    className={`mobile1024 ${
-                      isViewportBelow600 ? "col-span-12" : "col-span-8"
-                    } flex flex-col gap-3 ml:mt-4 `}
+                    className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                      } flex flex-col gap-3 ml:mt-4 `}
                   >
                     <div
                       onClick={() => setIsDescription(false)}
@@ -814,34 +808,167 @@ function Index() {
                   </div>
                 )}
               </>
-              ))}
+            ))}
 
             {toggleHeadings === 1 && (
-              <div
-                className={` ${
-                  isViewportBelow1024
-                    ? isViewportBelow600
-                      ? "col-span-12"
-                      : "col-span-8"
-                    : "col-span-9"
-                }`}
-              >
-                <AppliedJobs />
-              </div>
+              <>
+                {!isDescription && (
+                  <div
+                    // onClick={() => setIsDescription(true)}
+                    className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                      }`}
+                  >
+                    <AppliedJobs
+                      selectedJob={selectedJob}
+                      setIsDescription={setIsDescription}
+                      setSelectedJob={setSelectedJob}
+                      savedJobList={savedJobList}
+                      setSavedJobList={setSavedJobList}
+                      setCurrentPage={setPage}
+                    />
+                  </div>
+                )}
+
+                <div
+                  className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                    } ml:mt-4`}
+                >
+                  <AppliedJobs
+                    selectedJob={selectedJob}
+                    setIsDescription={setIsDescription}
+                    setSelectedJob={setSelectedJob}
+                    savedJobList={savedJobList}
+                    setSavedJobList={setSavedJobList}
+                    setCurrentPage={setPage}
+                  />
+                </div>
+
+                <div
+                  className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                    } ml:mt-4`}
+                >
+                  <Description selectedJob={selectedJob} />
+                </div>
+                {/* LAST SECTION   */}
+
+                {isDescription && (
+                  <div
+                    className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                      } flex flex-col gap-3 ml:mt-4 `}
+                  >
+                    <div
+                      onClick={() => setIsDescription(false)}
+                      className="flex gap-3"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <g mask="url(#mask0_5925_96419)">
+                          <path
+                            d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                      Back
+                    </div>
+
+                    <Description selectedJob={selectedJob} />
+                  </div>
+                )}
+              </>
+
             )}
 
             {toggleHeadings === 2 && (
-              <div
-                className={` ${
-                  isViewportBelow1024
-                    ? isViewportBelow600
-                      ? "col-span-12"
-                      : "col-span-8"
-                    : "col-span-9"
-                }`}
-              >
-                <SavedJobs />
-              </div>
+              <>
+
+
+                {savedJobList.length > 0 ?
+                  <>
+                    {!isDescription && (
+                      <div
+                        onClick={() => setIsDescription(true)}
+                        className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                          }`}
+                      >
+                        <SavedJobs
+                          selectedJob={selectedJob}
+                          setIsDescription={setIsDescription}
+                          setSelectedJob={setSelectedJob}
+                          savedJobList={savedJobList}
+                          setSavedJobList={setSavedJobList}
+                          setCurrentPage={setPage}
+                        />
+                      </div>
+                    )}
+
+                    <div
+                      className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                        } ml:mt-4`}
+                    >
+                      <SavedJobs
+                        selectedJob={selectedJob}
+                        setIsDescription={setIsDescription}
+                        setSelectedJob={setSelectedJob}
+                        savedJobList={savedJobList}
+                        setSavedJobList={setSavedJobList}
+                        setCurrentPage={setPage}
+                      />
+                    </div>
+
+                    <div
+                      className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                        } ml:mt-4`}
+                    >
+                      <Description selectedJob={selectedJob} />
+                    </div>
+                    {/* LAST SECTION   */}
+
+                    {isDescription && (
+                      <div
+                        className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                          } flex flex-col gap-3 ml:mt-4 `}
+                      >
+                        <div
+                          onClick={() => setIsDescription(false)}
+                          className="flex gap-3"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g mask="url(#mask0_5925_96419)">
+                              <path
+                                d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                          Back
+                        </div>
+
+                        <Description selectedJob={selectedJob} />
+                      </div>
+                    )}
+                  </>
+                  :
+                  <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
+                    <img
+                      className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
+                      src="/images/jobs/noSaved.png"
+                      alt=""
+                    />
+                  </div>
+                }
+              </>
             )}
           </div>
         </div>

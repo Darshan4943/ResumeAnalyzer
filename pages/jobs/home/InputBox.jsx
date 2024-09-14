@@ -17,7 +17,7 @@ const InputBox = ({
   const { title, child, img } = item;
   const dispatch = useDispatch();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  console.log(filters.salary)
+  
 
   const getFilterData = async () => {
     setLoading(true);

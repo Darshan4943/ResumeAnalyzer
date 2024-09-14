@@ -43,7 +43,7 @@ function ApplyForm() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:2000/api/job/getByUserId/${id}`)
+            .get(`http://localhost:2000/api/job/getByJobId/${id}`)
             .then((res) => setJobDetails(res.data))
 
             .catch((err) => console.error(err));

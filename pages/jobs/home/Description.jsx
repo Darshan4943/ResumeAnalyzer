@@ -1,8 +1,25 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 function Description({ selectedJob, filter }) {
     const router = useRouter();
+    const userDataGlobal = useSelector((state) => state.userData);
+    const [appliedJobs, setAppliedJobs] = useState()
+    const getData = () => {
+        axios
+            .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
+            .then((res) => setAppliedJobs(res.data))
+            .catch((err) => console.error(err));
+
+    }
+    useEffect(() => {
+        if (userDataGlobal._id) {
+            getData();
+        }
+    }, [userDataGlobal]);
+
     return (
         <div>
             {selectedJob && (
@@ -49,13 +66,17 @@ function Description({ selectedJob, filter }) {
                                     </div>
                                 </div>
                                 <div className="py-[16px] flex gap-2 leading-tight">
-                                    <button
-                                        onClick={() => {router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`)}}
+                                    <div
+                                        onClick={() => {
+                                            if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
+                                                router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                            }
+                                        }}
+                                        className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
+                                    
+                                        {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
+                                    </div>
 
-                                        className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]"
-                                    >
-                                        Apply Now
-                                    </button>
                                     {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                             Save
                           </button> */}
@@ -131,13 +152,15 @@ function Description({ selectedJob, filter }) {
                             )}
 
                             <div className="flex justify-end">
-                                <button
-                                  onClick={() => {router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`)}}
-
-                                    className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]"
-                                >
-                                    Apply Now
-                                </button>
+                            <div
+                                        onClick={() => {
+                                            if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
+                                                router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                            }
+                                        }}
+                                        className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
+                                        {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
+                                    </div>
                             </div>
                         </div>
                     </div>

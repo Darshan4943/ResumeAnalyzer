@@ -14,18 +14,14 @@ function AllJobs({
   setCurrentPage,
 }) {
   const jobData = useSelector((state) => state.getAllJobs.data);
+  
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [jobsChanged, setJobsChanged] = useState(false)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (jobData.length > 0) {
-      setSelectedJob(jobData[0]);
-    }
-  }, [jobData]);
-
+ 
   const getData = () => { 
     axios
       .post("https://jamblix.com/api/job/byIds", {
@@ -61,7 +57,7 @@ function AllJobs({
        
         dispatch(reCallUserData());
       
-        toast.success("Job Removed  Successfully");
+        toast.success("Job Saved  Successfully");
         getData();
       })
       .catch((err) => {
@@ -105,6 +101,11 @@ function AllJobs({
     }
   };
 
+  useEffect(() => {
+    if (jobData?.length > 0) {
+      setSelectedJob(jobData[0]);
+    }
+  }, [jobData]);
 
   return (
     <div
@@ -145,18 +146,20 @@ function AllJobs({
                       {item?.companyName}
                     </div>
                   </div>
-                  <div className="flex flex-row  items-end">
+                  {item.logo &&
+                    <div className="flex flex-row  items-end">
 
-                    <img
-                      src="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/happy_customer.png"
-                      alt="Happy Customer"
-                      style={{
-                        height: "56px",
-                        width: "56px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
+                      <img
+                        src={item.logo}
+                        alt=''
+                        style={{
+                          height: "56px",
+                          width: "56px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  }
                 </div>
                 <div className="flex flex-row gap-[11px] items-center leading-tight ">
                   {item?.experiance && (
