@@ -638,7 +638,7 @@ function Index() {
         } */}
       </div>
 
-      <div className="bg-[#F9F9F9] h-[calc(100vh-215.33px)]">
+      <div className="bg-[#F9F9F9] h-[calc(100vh-120px)]">
         <div className=" customMargins">
           <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
             {/* <div className=" mobile600 col-span-12 ">
