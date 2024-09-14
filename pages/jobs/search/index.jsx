@@ -476,7 +476,7 @@ function Index() {
         className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
           } z-50`}
       >
-        <div style={{ backgroundColor: "#E0F6FF" }} className="bg-[E0F6FF] ">
+        {/* <div style={{ backgroundColor: "#E0F6FF" }} className="bg-[E0F6FF] ">
           <div class="flex justify-center items-center py-[15px] ">
             <div class=" flex flex-row justify-between items-center py-[8px] px-[24px] rounded-[8px] bg-[#ffff] ">
               <div className="flex flex-row gap-[16.82px]">
@@ -542,40 +542,9 @@ function Index() {
                 </button>
               </div>
             </div>
-            {/**
-            <div class=" flex flex-row justify-between items-center py-[8px] px-[24px] rounded-[8px] bg-[#ffff] gap-[246px]">
-              <div className="flex flex-row gap-[16.82px]">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                    stroke="#333333"
-                    stroke-width="3.1544"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-
-                <input
-                  type="text"
-                  placeholder="Job title or keyword"
-                  className="text-[16px] font-[400px] font-Montserrat"
-                />
-              </div>
-
-              <button className="border border-blue bg-blue text-black py-[12px] px-[36px] gap-0 rounded-[12px]  border-opacity-0">
-                <p className="text-[16px] font-[600px] text-white  font-Montserrat">
-                  Search
-                </p>
-              </button>
-            </div>*/}
+            
           </div>
-        </div>
+        </div> */}
         <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
           <div className=" customMargins overflow-x-auto  ">
             <div
