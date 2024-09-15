@@ -121,6 +121,7 @@ function Index() {
   const [isDescription, setIsDescription] = useState(false);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [filters, setFilters] = useState({
     sortBy: [],
     location: [],
@@ -134,6 +135,7 @@ function Index() {
 
   const country = localStorage.getItem("country");
   const [jobtypeData, setJobTypeData] = useState([]);
+  console.log(333, jobtypeData)
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/jobs/getJobAttributes")
@@ -176,13 +178,10 @@ function Index() {
       title: "Salary",
       img: "/images/jobs/arw.png",
       child: Array.isArray(jobtypeData?.salaries)
-        ? jobtypeData.salaries.map((salary) => {
-          if (salary.minSalary && salary.maxSalary) {
-            return `${salary.minSalary} - ${salary.maxSalary}`;
-          } else {
-            return "Not Specified";
-          }
-        })
+        ? jobtypeData.salaries.map(salary => ({
+          label: `${salary.minSalary} - ${salary.maxSalary}`,
+          value: salary,
+        }))
         : [],
     },
     {
@@ -195,14 +194,20 @@ function Index() {
       img: "/images/jobs/arw.png",
       child: jobtypeData?.educations || [],
     },
-
     {
       title: "Job mode",
       img: "/images/jobs/arw.png",
-      child: ["On-site", "Remote", "Hybrid"],
+      child:jobtypeData?.jobModes || [],
     },
   ];
 
+  const filteredInputData = inputData.filter(item => 
+    item.child && item.child.length > 0 && item.child.some(childItem => 
+      typeof childItem === 'string' ? childItem.trim() !== '' : childItem
+    )
+  );
+
+console.log(filteredInputData)
   // useEffect(() => {
 
   //   setFilter(false);
@@ -214,6 +219,7 @@ function Index() {
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setMobileFilter(false);
+      setOpenDropdown(false)
     }
   };
 
@@ -230,26 +236,26 @@ function Index() {
 
 
 
-  useEffect(() => {
-    if (userDataGlobal) {
-      axios
-        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
-        .then((res) => {
-          const data = res.data.data;
-          const skillsSet = new Set();
-          if (data) {
-            data.forEach((item) => {
-              item.skills.forEach((skillObj) => {
-                skillsSet.add(skillObj.skill);
-              });
-            });
+  // useEffect(() => {
+  //   if (userDataGlobal) {
+  //     axios
+  //       .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+  //       .then((res) => {
+  //         const data = res.data.data;
+  //         const skillsSet = new Set();
+  //         if (data) {
+  //           data.forEach((item) => {
+  //             item.skills.forEach((skillObj) => {
+  //               skillsSet.add(skillObj.skill);
+  //             });
+  //           });
 
-            setUserSkills(Array.from(skillsSet));
-          }
-        })
-        .catch((err) => console.error("err", err));
-    }
-  }, [userDataGlobal, recall]);
+  //           setUserSkills(Array.from(skillsSet));
+  //         }
+  //       })
+  //       .catch((err) => console.error("err", err));
+  //   }
+  // }, [userDataGlobal, recall]);
 
   const getAllData = async () => {
     setLoading(true);
@@ -451,6 +457,9 @@ function Index() {
   // }, [jobData]);
 
 
+  const handleDropdownClick = (id) => {
+    setOpenDropdown(openDropdown === id ? null : id);
+  };
 
   const handleCheckboxChange = (e, filterType, value) => {
     const isChecked = e.target.checked;
@@ -573,16 +582,17 @@ function Index() {
             </div>
           </div>
         </div>
-        {/* {toggleHeadings <= 2 && (
+        {toggleHeadings <= 2 && (
           <div style={{ backgroundColor: "#E0F6FF" }} className="">
             <div className="customMargins web">
-              <div className="flex items-center py-5  gap-3 flex-wrap ">
-                {inputData.map((item, index) => (
+              <div  className="flex items-center py-5  gap-3 flex-wrap ">
+                {filteredInputData.map((item, index) => (
                   <InputBox
+                 
                     key={index}
                     item={item}
                     filterType={item.title.toLowerCase().replace(/ /g, "")}
-                    
+
                     onChange={handleCheckboxChange}
                     country={country}
                     page={page}
@@ -590,10 +600,13 @@ function Index() {
                     userSkills={userSkills}
                     setLoading={setLoading}
                     className="text-[14px] font-medium flex items-center w-auto"
+                    isOpen={openDropdown === index}
+                    onDropdownClick={handleDropdownClick}
+                    id={index}
                   />
                 ))}
 
-                <button
+                {/* <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
                 >
@@ -602,7 +615,7 @@ function Index() {
                     src="/images/jobs/fil.png"
                     alt=""
                   />
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -620,7 +633,7 @@ function Index() {
               </button>
             </div>
           </div>
-        )} */}
+        )}
         {/* {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
