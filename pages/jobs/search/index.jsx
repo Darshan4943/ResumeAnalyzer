@@ -540,7 +540,7 @@ function Index() {
         <div className="bg-[#E0F6FF] px-4 ">
           <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
             <div className="flex sm:flex-row flex-col justify-between sm:items-center  gap-2 items-start sm:py-[8px] sm:px-[10px] scr540:px-[24px] rounded-[8px] sm:bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
-              <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white w-full rounded-[8px] p-2 sm-p-0">
+              <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white sm:w-[45%] w-full rounded-[8px] p-2 sm-p-0">
                 <svg
                   className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
                   viewBox="0 0 36 36"
@@ -582,8 +582,8 @@ function Index() {
 
               {/* <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div> */}
 
-              <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white w-full rounded-[8px] p-2 sm:p-0">
-                <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div>
+              <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
+                <div className=" bg-[#E0E0E0] min-w-[3px] h-[40px] sm:block hidden"></div>
                 <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
                   <svg
                     className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
