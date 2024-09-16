@@ -31,7 +31,7 @@ const Index = () => {
     requiredQualification: "",
     requiredSkills: "",
     deadLine: "",
-    experiance: "",
+    experience: "",
     mustSkills: [],
     goodSkills: [],
   });
@@ -56,7 +56,7 @@ const Index = () => {
           requiredQualification,
           requiredSkills,
           deadLine,
-          experiance,
+          experience,
           mustSkills,
           goodSkills,
         } = res.data.data;
@@ -75,7 +75,7 @@ const Index = () => {
           requiredQualification,
           requiredSkills,
           deadLine,
-          experiance,
+          experience,
           mustSkills,
           goodSkills,
         });

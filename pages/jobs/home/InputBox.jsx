@@ -15,7 +15,9 @@ const InputBox = ({
   setLoading,
   isOpen,
   onDropdownClick,
-  id
+  id,
+  setClear,
+  clear
 }) => {
   const { title, child, img } = item;
   const dispatch = useDispatch();
@@ -25,15 +27,15 @@ const InputBox = ({
   const getFilterData = async () => {
     setLoading(true);
     const mappedFilters = {
-      sortBy: filters.sortby,
-      jobType: filters.jobtype,
-      datePosted: filters.dateposted,
-      industryType: filters.industry,
-      salaries: filters.salary,
-      experience: filters.experience,
-      education: filters.education,
-      industryType: filters.industryType,
-      jobMode: filters.jobmode,
+      sortBy: filters.SortBy,
+      jobType: filters.JobType,
+      datePosted: filters.DatePosted,
+      industryType: filters.Industry,
+      salaries: filters.Salary,
+      experience: filters.Experience,
+      education: filters.Education,
+      industryType: filters.IndustryType,
+      jobMode: filters.JobMode,
     };
 
     try {
@@ -49,8 +51,8 @@ const InputBox = ({
             params: { page },
           }
         );
-        console.log("data11112", response.data);
-        dispatch(setJob(response.data));
+
+        dispatch(setJob(response.data.data));
         setLocalIsDropdownOpen(false);
       }
     } catch (error) {
@@ -59,11 +61,16 @@ const InputBox = ({
       setLoading(false);
     }
   };
-
   const handleClearFilters = () => {
-    onChange(filterType, []); 
-    setLocalIsDropdownOpen(false); 
+    onChange(null, filterType, null);
+    setLocalIsDropdownOpen(false);
+
   };
+
+
+  useEffect(() => {
+    getFilterData()
+  }, [clear]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -109,14 +116,14 @@ const InputBox = ({
                     const isObject = typeof itemValue === 'object';
                     return (
                       <div key={index} className="flex items-center gap-2">
-                        { itemValue !=='' &&
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white object-cover"
-                          onChange={(e) => onChange(e, filterType, isObject ? itemValue?.value : itemValue)}
-                          checked={(filters[filterType] || []).includes(isObject ? itemValue?.value : itemValue)}
-                        />
-                  }
+                        {itemValue && itemValue !== '' &&
+                          <input
+                            type="checkbox"
+                            className="rounded-md border h-[20px] w-[20px] border-blue bg-white object-cover"
+                            onChange={(e) => onChange(e, filterType, isObject ? itemValue?.value : itemValue)}
+                            checked={(filters[filterType] || []).includes(isObject ? itemValue?.value : itemValue)}
+                          />
+                        }
                         <div className="flex flex-col items-start">
                           <p className="font-montserrat font-medium text-[12px] text-black flex flex-col">
                             {isObject ? itemValue?.label : itemValue}

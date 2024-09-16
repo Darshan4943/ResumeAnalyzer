@@ -14,7 +14,7 @@ function AllJobs({
   setCurrentPage,
 }) {
   const jobData = useSelector((state) => state.getAllJobs.data);
-  
+  console.log(555,jobData)
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [jobsChanged, setJobsChanged] = useState(false)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
@@ -106,6 +106,7 @@ function AllJobs({
       setSelectedJob(jobData[0]);
     }
   }, [jobData]);
+
 
   return (
     <div
@@ -228,8 +229,9 @@ function AllJobs({
                           />
                         </g>
                       </svg>
-                      <div className="text-[#262626] text-[12px] font-[400]">
-                        {item.location.slice(0, 6)}...
+                      <div className="text-[#262626] text-[12px] font-[400] ">
+                      {item.country.join(", ")} || {item.location.join(", ")}
+
                       </div>
                     </div>
                   )}
@@ -252,7 +254,7 @@ function AllJobs({
                     </svg>
                   </div>
                   <div className="text-[#262626] font-[400] text-[12px]">
-                    {item?.description?.slice(0, 90)}...
+                    {item?.description?.slice(0, 90)}
                   </div>
                 </div>
               </div>

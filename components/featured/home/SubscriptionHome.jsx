@@ -45,8 +45,8 @@ function SubscriptionPlan({ isLogin, fromMain }) {
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
-    // let latitude = 53.4808;
-    // let longitude =2.2426;
+    // let latitude =17.8263;
+    // let longitude =31.0504;
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
@@ -73,7 +73,9 @@ function SubscriptionPlan({ isLogin, fromMain }) {
         const Country = currencyMap.find(
           (item) => item?.countryCode === codeJson?.code
         );
-        const currency = Country ? Country.currency : "USD";
+        console.log(Country)
+        // const currency = Country ? Country.currency : "USD";
+          const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
         );

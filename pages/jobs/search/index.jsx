@@ -120,23 +120,26 @@ function Index() {
   const dispatch = useDispatch();
   const [isDescription, setIsDescription] = useState(false);
   const [page, setPage] = useState(1);
+  const [clear, setClear] = useState(false)
   const [loading, setLoading] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [country, setCountry] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [location, setLocation] = useState("");
   const [filters, setFilters] = useState({
-    sortBy: [],
-    location: [],
-    jobType: [],
-    jobTitle: [],
-    salaries: [],
-    education: [],
-    industryType: [],
-    datePosted: [],
-  });
 
-  const country = localStorage.getItem("country");
+  });
   const [jobtypeData, setJobTypeData] = useState([]);
-  console.log(333, jobtypeData)
+
+
+
+
   useEffect(() => {
+    const storedCountry = localStorage.getItem("country");
+    if (storedCountry) {
+      setCountry(storedCountry)
+
+    }
     axios
       .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {
@@ -151,23 +154,22 @@ function Index() {
     }
   }, [toggleHeadings]);
 
-  //inputData
 
   const inputData = [
+    // {
+    //   title: "Sort by",
+    //   img: "/images/jobs/arw.png",
+    //   child: ["Recommended", "Relevant", "Recently Posted"],
+    // },
     {
-      title: "Sort by",
-      img: "/images/jobs/arw.png",
-      child: ["Recommended", "Relevant", "Recently Posted"],
-    },
-    {
-      title: "Job type",
+      title: "Job Type",
       img: "/images/jobs/arw.png",
       child: jobtypeData?.jobTypes || [],
     },
     {
-      title: "Date posted",
+      title: "Date Posted",
       img: "/images/jobs/arw.png",
-      child: ["Anytime", "Past Month", "Past Week"],
+      child: ["Anytime", "Past Month", "Past Week", "Past 24 hrs"],
     },
     {
       title: "Industry",
@@ -195,19 +197,19 @@ function Index() {
       child: jobtypeData?.educations || [],
     },
     {
-      title: "Job mode",
+      title: "Job Mode",
       img: "/images/jobs/arw.png",
-      child:jobtypeData?.jobModes || [],
+      child: jobtypeData?.jobModes || [],
     },
   ];
 
-  const filteredInputData = inputData.filter(item => 
-    item.child && item.child.length > 0 && item.child.some(childItem => 
+  const filteredInputData = inputData.filter(item =>
+    item.child && item.child.length > 0 && item.child.some(childItem =>
       typeof childItem === 'string' ? childItem.trim() !== '' : childItem
     )
   );
 
-console.log(filteredInputData)
+  console.log(filteredInputData)
   // useEffect(() => {
 
   //   setFilter(false);
@@ -236,46 +238,47 @@ console.log(filteredInputData)
 
 
 
-  // useEffect(() => {
-  //   if (userDataGlobal) {
-  //     axios
-  //       .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
-  //       .then((res) => {
-  //         const data = res.data.data;
-  //         const skillsSet = new Set();
-  //         if (data) {
-  //           data.forEach((item) => {
-  //             item.skills.forEach((skillObj) => {
-  //               skillsSet.add(skillObj.skill);
-  //             });
-  //           });
+  useEffect(() => {
+    if (userDataGlobal) {
+      axios
+        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+        .then((res) => {
+          const data = res.data.data;
+          const skillsSet = new Set();
+          if (data) {
+            data.forEach((item) => {
+              item.skills.forEach((skillObj) => {
+                skillsSet.add(skillObj.skill);
+              });
+            });
 
-  //           setUserSkills(Array.from(skillsSet));
-  //         }
-  //       })
-  //       .catch((err) => console.error("err", err));
-  //   }
-  // }, [userDataGlobal, recall]);
-
+            setUserSkills(Array.from(skillsSet));
+          }
+        })
+        .catch((err) => console.error("err", err));
+    }
+  }, [userDataGlobal, recall]);
+  console.log(111, location)
   const getAllData = async () => {
     setLoading(true);
-    await axios
-      .post(
+    try {
+      const res = await axios.post(
         "http://localhost:2000/api/job/getAll",
         {
-          requiredSkills: userSkills?.map((item) => item),
-          country,
-          // typeIndex: toggleHeadings,
+          requiredSkills: (jobTitle || location) ? [] : userSkills?.map((item) => item),
+          jobTitle: jobTitle || "",
+          country: location || country,
         },
         {
           params: { page },
         }
-      )
-      .then((res) => {
-        setLoading(false);
-        dispatch(setJob(res.data));
-      })
-      .catch((err) => console.error(err));
+      );
+      setLoading(false);
+      dispatch(setJob(res.data));
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -462,22 +465,70 @@ console.log(filteredInputData)
   };
 
   const handleCheckboxChange = (e, filterType, value) => {
-    const isChecked = e.target.checked;
-    setFilters((prevFilters) => {
-      const currentFilter = Array.isArray(prevFilters[filterType])
-        ? prevFilters[filterType]
-        : [];
+    if (e === null) {
 
-      return {
+      setFilters((prevFilters) => ({
         ...prevFilters,
-        [filterType]: isChecked
-          ? [...currentFilter, value]
-          : currentFilter.filter((item) => item !== value),
-      };
-    });
+        [filterType]: [],
+      }));
+      setClear(!clear);
+    } else {
+      const isChecked = e.target.checked;
+      setFilters((prevFilters) => {
+        const currentFilter = Array.isArray(prevFilters[filterType])
+          ? prevFilters[filterType]
+          : [];
+
+        return {
+          ...prevFilters,
+          [filterType]: isChecked
+            ? [...currentFilter, value]
+            : currentFilter.filter((item) => item !== value),
+        };
+      });
+    }
   };
+  console.log(filters)
+  const getFilterData = async () => {
+    setLoading(true);
+    const mappedFilters = {
+      sortBy: filters.SortBy,
+      jobType: filters.JobType,
+      datePosted: filters.DatePosted,
+      industryType: filters.Industry,
+      salaries: filters.Salary,
+      experience: filters.Experience,
+      education: filters.Education,
+      industryType: filters.IndustryType,
+      jobMode: filters.JobMode,
+    };
 
+    try {
+      if (country) {
+        const response = await axios.post(
+          "http://localhost:2000/api/job/getFilterData",
+          {
+            requiredSkills: userSkills?.map((item) => item),
+            country,
+            ...mappedFilters,
+          },
+          {
+            params: { page },
+          }
+        );
 
+        dispatch(setJob(response.data.data));
+        setMobileFilter(false);
+      }
+    } catch (error) {
+      console.error("Error fetching filter data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getFilterData()
+  }, [clear]);
 
   return (
     <div className="relative ">
@@ -485,13 +536,13 @@ console.log(filteredInputData)
         className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
           } z-50`}
       >
-        {/* <div style={{ backgroundColor: "#E0F6FF" }} className="bg-[E0F6FF] ">
-          <div class="flex justify-center items-center py-[15px] ">
-            <div class=" flex flex-row justify-between items-center py-[8px] px-[24px] rounded-[8px] bg-[#ffff] ">
-              <div className="flex flex-row gap-[16.82px]">
+
+        <div className="bg-[#E0F6FF] px-4 ">
+          <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
+            <div className="flex sm:flex-row flex-col justify-between sm:items-center  gap-2 items-start sm:py-[8px] sm:px-[10px] scr540:px-[24px] rounded-[8px] sm:bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
+              <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white w-full rounded-[8px] p-2 sm-p-0">
                 <svg
-                  width="36"
-                  height="36"
+                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
                   viewBox="0 0 36 36"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -499,25 +550,43 @@ console.log(filteredInputData)
                   <path
                     d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
                     stroke="#333333"
-                    stroke-width="3.1544"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="3.1544"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
 
                 <input
                   type="text"
-                  placeholder="Job title or keyword"
-                  className="text-[16px] font-[400px] font-Montserrat"
+                  placeholder="Job title"
+                  className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
+                  value={jobTitle}
+                  onChange={(e) => setJobTitle(e.target.value)}
                 />
+                <svg
+                   onClick={getAllData}
+                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
+                    stroke="#333333"
+                    strokeWidth="3.1544"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
-              <div class="w-[42.06px] h-0 gap-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div>
 
-              <div className="flex justify-between items-center gap-[16px]">
-                <div className="flex flex-row gap-[16.82px] w-[300px]">
+              {/* <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div> */}
+
+              <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white w-full rounded-[8px] p-2 sm:p-0">
+                <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div>
+                <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
                   <svg
-                    width="31"
-                    height="30"
+                    className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
                     viewBox="0 0 31 30"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -525,35 +594,55 @@ console.log(filteredInputData)
                     <path
                       d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
                       stroke="#333333"
-                      stroke-width="3.1544"
+                      strokeWidth="3.1544"
                     />
                     <path
                       d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
                       fill="white"
                       stroke="#333333"
-                      stroke-width="3.1544"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="3.1544"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
 
                   <input
                     type="text"
-                    placeholder="Colney, United Kingdom"
-                    className="text-[16px] font-[400px] w-[250px] font-Montserrat"
+                    placeholder="Location"
+                    className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                   />
                 </div>
+                <svg
+                   onClick={getAllData}
+                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
+                    stroke="#333333"
+                    strokeWidth="3.1544"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
 
-                <button className="border border-blue bg-blue text-black py-[12px] px-[36px] gap-0 rounded-[12px]  border-opacity-0">
-                  <p className="text-[16px] font-[600px] text-white  font-Montserrat">
+                <button
+                  onClick={getAllData}
+                  className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[12px] scr540:px-[36px] gap-0 rounded-[12px] border-opacity-0 sm:block hidden"
+                >
+                  <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
                     Search
                   </p>
                 </button>
               </div>
             </div>
-            
           </div>
-        </div> */}
+        </div>
+
         <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
           <div className=" customMargins overflow-x-auto  ">
             <div
@@ -585,14 +674,15 @@ console.log(filteredInputData)
         {toggleHeadings <= 2 && (
           <div style={{ backgroundColor: "#E0F6FF" }} className="">
             <div className="customMargins web">
-              <div  className="flex items-center py-5  gap-3 flex-wrap ">
+              <div className="flex items-center py-5  gap-3 flex-wrap ">
                 {filteredInputData.map((item, index) => (
                   <InputBox
-                 
+
                     key={index}
                     item={item}
-                    filterType={item.title.toLowerCase().replace(/ /g, "")}
-
+                    filterType={item.title.replace(/ /g, "")}
+                    setClear={setClear}
+                    clear={clear}
                     onChange={handleCheckboxChange}
                     country={country}
                     page={page}
@@ -651,9 +741,9 @@ console.log(filteredInputData)
         } */}
       </div>
 
-      <div className="bg-[#F9F9F9] h-[calc(100vh-120px)]">
+      <div className="bg-[#F9F9F9] min-h-[calc(100vh-301.66px)]">
         <div className=" customMargins">
-          <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
+          <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
             {/* <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div> */}
@@ -692,7 +782,7 @@ console.log(filteredInputData)
               </div>
             )} */}
 
-            {/* <AnimatePresence>
+            <AnimatePresence>
               {mobileFilter && (
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
@@ -703,21 +793,52 @@ console.log(filteredInputData)
                     exit={{ x: "-100%" }}
                     transition={{ duration: 0.5 }}
                     ref={taskRef}
-                    className="fixed z-[2000]  rounded-[8px]"
+                    className="fixed z-[2000]  rounded-[8px] h-[calc(95vh-283px)] overflow-y-auto"
                     style={{
-                      background: "rgba(255, 255, 255, 0.50)",
+                      background: "white",
                       backdropFilter: "blur(10px)",
                     }}
                   >
-                    <Filter
-                      setFilters={setFilters}
-                      jobtypeData={jobtypeData}
-                      handleCheckboxChange={handleCheckboxChange}
-                    />
+                    <div className="flex justify-between  p-4 bg-white shadow-md  items-center rounded-t-[8px] mb-4 ">
+                      <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                        All Filters
+                      </p>
+
+                      <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                        Reset all
+                      </button>
+                      <button
+                        className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
+                        onClick={getFilterData}
+                      >
+                        <p className="text-[12px] font-[700] text-white">Apply</p>
+                      </button>
+                    </div>
+
+                    {filteredInputData.map((item, index) => (
+                      <Filter
+
+                        key={index}
+                        item={item}
+                        filterType={item.title.replace(/ /g, "")}
+                        setClear={setClear}
+                        clear={clear}
+                        onChange={handleCheckboxChange}
+                        country={country}
+                        page={page}
+                        filters={filters}
+                        userSkills={userSkills}
+                        setLoading={setLoading}
+                        className="text-[14px] font-medium flex items-center w-auto bg-white"
+                        isOpen={openDropdown === index}
+                        onDropdownClick={handleDropdownClick}
+                        id={index}
+                      />
+                    ))}
                   </motion.div>
                 </>
               )}
-            </AnimatePresence> */}
+            </AnimatePresence>
 
             {(toggleHeadings === 0 && (
               <>
@@ -739,7 +860,7 @@ console.log(filteredInputData)
                 )}
 
                 <div
-                  className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                  className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
                     } ml:mt-4`}
                 >
                   <AllJobs
@@ -754,7 +875,7 @@ console.log(filteredInputData)
 
                 <div
                   className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                    } ml:mt-4`}
+                    } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
                 >
                   <Description selectedJob={selectedJob} />
                 </div>
@@ -827,7 +948,7 @@ console.log(filteredInputData)
 
                 <div
                   className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                    } ml:mt-4`}
+                    } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
                 >
                   <Description selectedJob={selectedJob} />
                 </div>
@@ -905,7 +1026,7 @@ console.log(filteredInputData)
 
                     <div
                       className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                        } ml:mt-4`}
+                        } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
                     >
                       <Description selectedJob={selectedJob} />
                     </div>

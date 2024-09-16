@@ -51,8 +51,7 @@ function SubscriptionPlans({ fromMain }) {
     }
   }, [userDataGlobal, showPlan]);
 
-  console.log(11, isFree)
-
+ 
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)

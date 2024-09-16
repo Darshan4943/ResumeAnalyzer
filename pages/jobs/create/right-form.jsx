@@ -440,9 +440,9 @@ const Rightform = ({
                   position: "relative",
                   background: " transparent",
                 }}
-                value={data?.experiance}
+                value={data?.experience}
                 onChange={(e) => {
-                  setData({ ...data, experiance: e.target.value });
+                  setData({ ...data, experience: e.target.value });
                 }}
                 className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
               >
