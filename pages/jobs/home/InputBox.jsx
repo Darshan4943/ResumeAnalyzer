@@ -25,7 +25,7 @@ const InputBox = ({
   const dropdownRef = useRef(null);
 
   const getFilterData = async () => {
-    setLoading(true);
+    setLoading(true)
     const mappedFilters = {
       sortBy: filters.SortBy,
       jobType: filters.JobType,
@@ -53,13 +53,14 @@ const InputBox = ({
         );
 
         dispatch(setJob(response.data.data));
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
         setLocalIsDropdownOpen(false);
       }
     } catch (error) {
       console.error("Error fetching filter data", error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
   const handleClearFilters = () => {
     onChange(null, filterType, null);

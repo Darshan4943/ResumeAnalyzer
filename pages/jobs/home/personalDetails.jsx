@@ -51,17 +51,17 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
     }, [telCode, searchTerm]);
 
     return (
-        <div className="p-6  mx-auto flex flex-col gap-4">
+        <div className="  flex flex-col gap-4">
             <div className='flex flex-row gap-4 items-center'>
 
-                <h2 className="text-[24px] font-medium min-w-[239px] ">Professional Details</h2>
+                <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[239px] min-w-[200px]">Professional Details</h2>
                 <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
             </div>
             <form className="space-y-4">
-                <div className='flex flex-row gap-4 '>
+                <div className='flex ml:flex-row flex-col gap-4 '>
 
 
-                    <div className='w-[50%]'>
+                    <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
                             First name <span className="text-red font-medium">*</span>
                         </label>
@@ -78,7 +78,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                     </div>
 
 
-                    <div className='w-[50%]'>
+                    <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
                             Last name <span className="text-red font-medium">*</span>
                         </label>
@@ -148,8 +148,8 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                     )}
                 </div>
 
-                <div className='flex flex-row gap-4 '>
-                    <div className='w-[50%]'>
+                <div className='flex ml:flex-row flex-col gap-4 '>
+                    <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
                             Email <span className="text-red font-medium">*</span>
                         </label>
@@ -165,24 +165,24 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                         )}
                     </div>
 
-                    <div className='w-[50%]'>
+                    <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
                             Contact number <span className="text-red font-medium">*</span>
                         </label>
-                        <div className={`mt-1 flex pr-[16px] h-[40px] p-2 border rounded-md ${formError && (formError["dial_code"] || formError["mobileNo"]) ? "border-red" : "border-[#C4C4C4]"}`}>
+                        <div className={`mt-1 flex flex-row justify-between  h-[40px] sm:px-2 px-1 py-2 border rounded-md ${formError && (formError["dial_code"] || formError["mobileNo"]) ? "border-red" : "border-[#C4C4C4]"}`}>
                             <ReactSelect
                                 options={filteredTelCode}
-                                className="w-[30%] flex items-center rounded-[8px] outline-none border-none cursor-pointer"
+                                className="sm:min-w-[180px] min-w-[140px] flex items-center rounded-[8px] outline-none border-none cursor-pointer"
                                 placeholder="Select"
                                 value={selectedItem}
                                 onChange={handleItemClick}
                                 getOptionLabel={(option) => (
-                                    <div className="flex items-center cursor-pointer">
+                                    <div className="flex items-center cursor-pointer ">
                                         <img
                                             src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                             width="20px"
                                         />
-                                        <span className="ml-2 text-[#333333] cursor-pointer">
+                                        <span className="ml-2 text-[#333333] cursor-pointer sm:text-[16px] text-[13px]">
                                             {option.code} {option.dial_code}
                                         </span>
                                     </div>
@@ -207,8 +207,8 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
 
                             <input
                                 type="text"
-                                placeholder="Enter your contact number"
-                                className=" p-2 w-[70%]"
+                                placeholder="Contact Number"
+                                className=" p-2 w-[80%] sm:text-[16px] text-[13px] text-start"
                                 value={data?.mobileNo}
                                 onChange={(e) => handleInputChange('mobileNo', e.target.value)}
                             />
@@ -224,7 +224,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
 
                 </div>
 
-                <div className='w-[49%]'>
+                <div className='ml:w-[49%] w-[100%]'>
                     <label className="block text-sm font-medium text-gray-700">
                         Date of Birth <span className="text-red font-medium">*</span>
                     </label>

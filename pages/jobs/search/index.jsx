@@ -22,6 +22,9 @@ import axios from "axios";
 import { setJob } from "../../../Redux/actions";
 import InputBox from "../home/InputBox";
 import { Page } from "@react-pdf/renderer";
+import { useRouter } from "next/router";
+import MiniLoader from "../../../components/common/miniLoader";
+import NoJobs from "../home/noJobs";
 
 // import { btns } from "~/utils/data";
 
@@ -129,11 +132,15 @@ function Index() {
   const [filters, setFilters] = useState({
 
   });
+
+  const router = useRouter();
+  const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
-
-
-
-
+  // useEffect(() => {
+  //   if(applied ==true){
+  //   setToggleHeadings(1)
+  //   }
+  // }, [applied]);
   useEffect(() => {
     const storedCountry = localStorage.getItem("country");
     if (storedCountry) {
@@ -209,7 +216,7 @@ function Index() {
     )
   );
 
-  console.log(filteredInputData)
+
   // useEffect(() => {
 
   //   setFilter(false);
@@ -258,9 +265,9 @@ function Index() {
         .catch((err) => console.error("err", err));
     }
   }, [userDataGlobal, recall]);
-  console.log(111, location)
+  console.log(loading)
   const getAllData = async () => {
-    setLoading(true);
+
     try {
       const res = await axios.post(
         "http://localhost:2000/api/job/getAll",
@@ -273,8 +280,11 @@ function Index() {
           params: { page },
         }
       );
-      setLoading(false);
+
       dispatch(setJob(res.data));
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     } catch (err) {
       setLoading(false);
       console.error(err);
@@ -488,9 +498,9 @@ function Index() {
       });
     }
   };
-  console.log(filters)
+
   const getFilterData = async () => {
-    setLoading(true);
+
     const mappedFilters = {
       sortBy: filters.SortBy,
       jobType: filters.JobType,
@@ -519,6 +529,9 @@ function Index() {
 
         dispatch(setJob(response.data.data));
         setMobileFilter(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       }
     } catch (error) {
       console.error("Error fetching filter data", error);
@@ -526,9 +539,9 @@ function Index() {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    getFilterData()
-  }, [clear]);
+  // useEffect(() => {
+  //   getFilterData()
+  // }, [clear]);
 
   return (
     <div className="relative ">
@@ -564,7 +577,7 @@ function Index() {
                   onChange={(e) => setJobTitle(e.target.value)}
                 />
                 <svg
-                   onClick={getAllData}
+                  onClick={getAllData}
                   className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
                   viewBox="0 0 36 36"
                   fill="none"
@@ -615,7 +628,7 @@ function Index() {
                   />
                 </div>
                 <svg
-                   onClick={getAllData}
+                  onClick={getAllData}
                   className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
                   viewBox="0 0 36 36"
                   fill="none"
@@ -695,7 +708,9 @@ function Index() {
                     id={index}
                   />
                 ))}
-
+                <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                  Reset all
+                </button>
                 {/* <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
@@ -840,158 +855,9 @@ function Index() {
               )}
             </AnimatePresence>
 
-            {(toggleHeadings === 0 && (
+            {!loading ?
               <>
-                {!isDescription && (
-                  <div
-                    onClick={() => setIsDescription(true)}
-                    className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                      }`}
-                  >
-                    <AllJobs
-                      selectedJob={selectedJob}
-                      setIsDescription={setIsDescription}
-                      setSelectedJob={setSelectedJob}
-                      savedJobList={savedJobList}
-                      setSavedJobList={setSavedJobList}
-                      setCurrentPage={setPage}
-                    />
-                  </div>
-                )}
-
-                <div
-                  className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
-                    } ml:mt-4`}
-                >
-                  <AllJobs
-                    selectedJob={selectedJob}
-                    setIsDescription={setIsDescription}
-                    setSelectedJob={setSelectedJob}
-                    savedJobList={savedJobList}
-                    setSavedJobList={setSavedJobList}
-                    setCurrentPage={setPage}
-                  />
-                </div>
-
-                <div
-                  className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                    } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
-                >
-                  <Description selectedJob={selectedJob} />
-                </div>
-                {/* LAST SECTION   */}
-
-                {isDescription && (
-                  <div
-                    className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                      } flex flex-col gap-3 ml:mt-4 `}
-                  >
-                    <div
-                      onClick={() => setIsDescription(false)}
-                      className="flex gap-3"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <g mask="url(#mask0_5925_96419)">
-                          <path
-                            d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-                      Back
-                    </div>
-
-                    <Description selectedJob={selectedJob} />
-                  </div>
-                )}
-              </>
-            ))}
-
-            {toggleHeadings === 1 && (
-              <>
-                {!isDescription && (
-                  <div
-                    // onClick={() => setIsDescription(true)}
-                    className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                      }`}
-                  >
-                    <AppliedJobs
-                      selectedJob={selectedJob}
-                      setIsDescription={setIsDescription}
-                      setSelectedJob={setSelectedJob}
-                      savedJobList={savedJobList}
-                      setSavedJobList={setSavedJobList}
-                      setCurrentPage={setPage}
-                    />
-                  </div>
-                )}
-
-                <div
-                  className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                    } ml:mt-4`}
-                >
-                  <AppliedJobs
-                    selectedJob={selectedJob}
-                    setIsDescription={setIsDescription}
-                    setSelectedJob={setSelectedJob}
-                    savedJobList={savedJobList}
-                    setSavedJobList={setSavedJobList}
-                    setCurrentPage={setPage}
-                  />
-                </div>
-
-                <div
-                  className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                    } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
-                >
-                  <Description selectedJob={selectedJob} />
-                </div>
-                {/* LAST SECTION   */}
-
-                {isDescription && (
-                  <div
-                    className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                      } flex flex-col gap-3 ml:mt-4 `}
-                  >
-                    <div
-                      onClick={() => setIsDescription(false)}
-                      className="flex gap-3"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <g mask="url(#mask0_5925_96419)">
-                          <path
-                            d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-                      Back
-                    </div>
-
-                    <Description selectedJob={selectedJob} />
-                  </div>
-                )}
-              </>
-
-            )}
-
-            {toggleHeadings === 2 && (
-              <>
-
-
-                {savedJobList.length > 0 ?
+                {(toggleHeadings === 0 && (
                   <>
                     {!isDescription && (
                       <div
@@ -999,7 +865,7 @@ function Index() {
                         className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
                           }`}
                       >
-                        <SavedJobs
+                        <AllJobs
                           selectedJob={selectedJob}
                           setIsDescription={setIsDescription}
                           setSelectedJob={setSelectedJob}
@@ -1011,10 +877,10 @@ function Index() {
                     )}
 
                     <div
-                      className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                      className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
                         } ml:mt-4`}
                     >
-                      <SavedJobs
+                      <AllJobs
                         selectedJob={selectedJob}
                         setIsDescription={setIsDescription}
                         setSelectedJob={setSelectedJob}
@@ -1026,7 +892,7 @@ function Index() {
 
                     <div
                       className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                        } ml:mt-4 sticky top-[333.66px] h-[calc(95vh-333.66px)] overflow-y-auto p-1`}
+                        } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                     >
                       <Description selectedJob={selectedJob} />
                     </div>
@@ -1062,17 +928,178 @@ function Index() {
                       </div>
                     )}
                   </>
-                  :
-                  <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
-                    <img
-                      className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
-                      src="/images/jobs/noSaved.png"
-                      alt=""
-                    />
-                  </div>
-                }
+                ))}
+
+                {toggleHeadings === 1 && (
+                  <>
+                    {!isDescription && (
+                      <div
+                        // onClick={() => setIsDescription(true)}
+                        className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                          }`}
+                      >
+                        <AppliedJobs
+                          selectedJob={selectedJob}
+                          setIsDescription={setIsDescription}
+                          setSelectedJob={setSelectedJob}
+                          savedJobList={savedJobList}
+                          setSavedJobList={setSavedJobList}
+                          setCurrentPage={setPage}
+                        />
+                      </div>
+                    )}
+
+                    <div
+                      className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                        } ml:mt-4`}
+                    >
+                      <AppliedJobs
+                        selectedJob={selectedJob}
+                        setIsDescription={setIsDescription}
+                        setSelectedJob={setSelectedJob}
+                        savedJobList={savedJobList}
+                        setSavedJobList={setSavedJobList}
+                        setCurrentPage={setPage}
+                      />
+                    </div>
+
+                    <div
+                      className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                        } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
+                    >
+                      <Description selectedJob={selectedJob} />
+                    </div>
+                    {/* LAST SECTION   */}
+
+                    {isDescription && (
+                      <div
+                        className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                          } flex flex-col gap-3 ml:mt-4 `}
+                      >
+                        <div
+                          onClick={() => setIsDescription(false)}
+                          className="flex gap-3"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g mask="url(#mask0_5925_96419)">
+                              <path
+                                d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                          Back
+                        </div>
+
+                        <Description selectedJob={selectedJob} />
+                      </div>
+                    )}
+                  </>
+
+                )}
+
+                {toggleHeadings === 2 && (
+                  <>
+
+
+                    {savedJobList.length > 0 ?
+                      <>
+                        {!isDescription && (
+                          <div
+                            onClick={() => setIsDescription(true)}
+                            className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                              }`}
+                          >
+                            <SavedJobs
+                              selectedJob={selectedJob}
+                              setIsDescription={setIsDescription}
+                              setSelectedJob={setSelectedJob}
+                              savedJobList={savedJobList}
+                              setSavedJobList={setSavedJobList}
+                              setCurrentPage={setPage}
+                            />
+                          </div>
+                        )}
+
+                        <div
+                          className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                            } ml:mt-4`}
+                        >
+                          <SavedJobs
+                            selectedJob={selectedJob}
+                            setIsDescription={setIsDescription}
+                            setSelectedJob={setSelectedJob}
+                            savedJobList={savedJobList}
+                            setSavedJobList={setSavedJobList}
+                            setCurrentPage={setPage}
+                          />
+                        </div>
+
+                        <div
+                          className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                            } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
+                        >
+                          <Description selectedJob={selectedJob} />
+                        </div>
+                        {/* LAST SECTION   */}
+
+                        {isDescription && (
+                          <div
+                            className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                              } flex flex-col gap-3 ml:mt-4 `}
+                          >
+                            <div
+                              onClick={() => setIsDescription(false)}
+                              className="flex gap-3"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <g mask="url(#mask0_5925_96419)">
+                                  <path
+                                    d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                    fill="#333333"
+                                  />
+                                </g>
+                              </svg>
+                              Back
+                            </div>
+
+                            <Description selectedJob={selectedJob} />
+                          </div>
+                        )}
+                      </>
+                      :
+                      // <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
+                      //   <img
+                      //     className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
+                      //     src="/images/jobs/noSaved.png"
+                      //     alt=""
+                      //   />
+                      // </div>
+                      <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
+                      <NoJobs name={"Saved"}/>
+                      </div>
+                    }
+                  </>
+                )}
               </>
-            )}
+              :
+              <div className="flex justify-center items-center w-full col-span-12">
+                <MiniLoader />
+              </div>
+            }
+
           </div>
         </div>
       </div>

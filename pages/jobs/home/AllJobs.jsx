@@ -14,7 +14,7 @@ function AllJobs({
   setCurrentPage,
 }) {
   const jobData = useSelector((state) => state.getAllJobs.data);
-  console.log(555,jobData)
+  
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [jobsChanged, setJobsChanged] = useState(false)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");

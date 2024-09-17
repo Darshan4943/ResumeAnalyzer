@@ -2,15 +2,15 @@ import React from 'react';
 
 const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
   return (
-    <div className="p-6 flex flex-col gap-4 ">
+    <div className=" flex flex-col gap-4 ">
       <div className='flex flex-row gap-4 items-center'>
 
-        <h2 className="text-[24px] font-medium min-w-[239px] ">Professional Details</h2>
+        <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[239px] min-w-[200px] ">Professional Details</h2>
         <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
       </div>
       <form className="space-y-4">
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid ml:grid-cols-2 grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               How many years of experience you have?
@@ -47,7 +47,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
         </div>
 
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid ms:grid-cols-2 grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Current CTC
@@ -82,7 +82,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
           </div>
         </div>
 
-        <div className='w-[49%]'>
+        <div className='ms:w-[49%] w-[100%]'>
           <label className="  block text-sm font-medium text-gray-700">
             Notice Period
           </label>
