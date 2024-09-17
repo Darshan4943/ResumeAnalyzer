@@ -5,26 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../Redux/actions/user";
-function AppliedJobs({ savedJobList, setIsDescription, setSelectedJob, selectedJob }) {
+function AppliedJobs({ savedJobList, setIsDescription, setSelectedJob, selectedJob,appliedJobs, setAppliedJobs }) {
 
  
   const userDataGlobal = useSelector((state) => state.userData);
-  const [appliedJobs, setAppliedJobs] = useState()
+ 
 
   const dispatch = useDispatch();
 
-  const getData = () => {
-    axios
-      .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
-      .then((res) => setAppliedJobs(res.data))
-      .catch((err) => console.error(err));
-
-  }
-  useEffect(() => {
-    if (userDataGlobal._id) {
-      getData();
-    }
-  }, [userDataGlobal]);
 
 
   const SaveJob = (e, id) => {
