@@ -105,7 +105,14 @@ function ApplyForm() {
         setFormError(errors);
         return Object.keys(errors).length === 0;
     };
-    
+    const updateApplyCount=()=>{
+        axios
+        .put(`http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal._id}`)
+        .then((res) => {
+          
+        })
+        .catch((err) => console.error(err));
+    }
 
     const applyForJob = () => {
         if (!validateInput()) return;
@@ -157,6 +164,7 @@ function ApplyForm() {
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
+                updateApplyCount()
                 router.push('/jobs/search?applied=true')
             })
             .catch((err) => {

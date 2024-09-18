@@ -126,6 +126,7 @@ export const Api = ({}) => {
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
             localStorage.setItem("collectionCount", result.collectionStored);
+            localStorage.setItem("jobsApply", result.jobsApply);
             localStorage.setItem("planAvailable", true);
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"

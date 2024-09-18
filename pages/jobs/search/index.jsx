@@ -25,6 +25,7 @@ import { Page } from "@react-pdf/renderer";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
 import NoJobs from "../home/noJobs";
+import LimitUsedModal from "../../../components/models/limitUsedModal";
 
 // import { btns } from "~/utils/data";
 
@@ -137,9 +138,11 @@ function Index() {
   const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
 
+  const [limitPopup, setLimitPopup] = useState(false)
+
   useEffect(() => {
-    if(applied =="true"){
-    setToggleHeadings(1)
+    if (applied == "true") {
+      setToggleHeadings(1)
     }
   }, [applied]);
 
@@ -268,7 +271,7 @@ function Index() {
         .catch((err) => console.error("err", err));
     }
   }, [userDataGlobal, recall]);
-  console.log(loading)
+
   const getAllData = async () => {
 
     try {
@@ -561,74 +564,32 @@ function Index() {
   // }, [clear]);
 
   return (
-    <div className="relative ">
-      <div
-        className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
-          } z-50`}
-      >
+    <>
+      {limitPopup &&
+        <div className='z-[200000]'>
 
-        <div className="bg-[#E0F6FF] px-4 ">
-          <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
-            <div className="flex sm:flex-row flex-col justify-between sm:items-center  gap-2 items-start sm:py-[8px] sm:px-[10px] scr540:px-[24px] rounded-[8px] sm:bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
-              <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white sm:w-[45%] w-full rounded-[8px] p-2 sm-p-0">
-                <svg
-                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                    stroke="#333333"
-                    strokeWidth="3.1544"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+        </div>
+      }
 
-                <input
-                  type="text"
-                  placeholder="Job title"
-                  className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                />
-                <svg
-                  onClick={getAllData}
-                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                    stroke="#333333"
-                    strokeWidth="3.1544"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+      <div className="relative ">
+        <div
+          className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
+            } z-50`}
+        >
 
-              {/* <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div> */}
-
-              <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
-                <div className=" bg-[#E0E0E0] min-w-[3px] h-[40px] sm:block hidden"></div>
-                <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
+          <div className="bg-[#E0F6FF] px-4 ">
+            <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
+              <div className="flex sm:flex-row flex-col justify-between sm:items-center  gap-2 items-start sm:py-[8px] sm:px-[10px] scr540:px-[24px] rounded-[8px] sm:bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
+                <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white sm:w-[45%] w-full rounded-[8px] p-2 sm-p-0">
                   <svg
-                    className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
-                    viewBox="0 0 31 30"
+                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
+                    viewBox="0 0 36 36"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                    />
-                    <path
-                      d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                      fill="white"
+                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
                       stroke="#333333"
                       strokeWidth="3.1544"
                       strokeLinecap="round"
@@ -638,97 +599,147 @@ function Index() {
 
                   <input
                     type="text"
-                    placeholder="Location"
-                    className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Job title"
+                    className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
+                    value={jobTitle}
+                    onChange={(e) => setJobTitle(e.target.value)}
                   />
+                  <svg
+                    onClick={getAllData}
+                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
+                      stroke="#333333"
+                      strokeWidth="3.1544"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <svg
-                  onClick={getAllData}
-                  className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                    stroke="#333333"
-                    strokeWidth="3.1544"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
 
-                <button
-                  onClick={getAllData}
-                  className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[12px] scr540:px-[36px] gap-0 rounded-[12px] border-opacity-0 sm:block hidden"
-                >
-                  <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
-                    Search
-                  </p>
-                </button>
+                {/* <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div> */}
+
+                <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
+                  <div className=" bg-[#E0E0E0] min-w-[3px] h-[40px] sm:block hidden"></div>
+                  <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
+                    <svg
+                      className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
+                      viewBox="0 0 31 30"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
+                        stroke="#333333"
+                        strokeWidth="3.1544"
+                      />
+                      <path
+                        d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
+                        fill="white"
+                        stroke="#333333"
+                        strokeWidth="3.1544"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+
+                    <input
+                      type="text"
+                      placeholder="Location"
+                      className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+                  </div>
+                  <svg
+                    onClick={getAllData}
+                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
+                      stroke="#333333"
+                      strokeWidth="3.1544"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <button
+                    onClick={getAllData}
+                    className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[12px] scr540:px-[36px] gap-0 rounded-[12px] border-opacity-0 sm:block hidden"
+                  >
+                    <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
+                      Search
+                    </p>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
-          <div className=" customMargins overflow-x-auto  ">
-            <div
-              className={`flex items-start lg:gap-4 gap-3 py-3 overflow-x-auto `}
-            >
-              {headings.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px]  ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                    }`}
-                >
-                  {item.img}
-                  <p
-                    className={`text-[16px] text-black font-semibold cursor-pointer  ${toggleHeadings === index && " text-white"
+          <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
+            <div className=" customMargins overflow-x-auto  ">
+              <div
+                className={`flex items-start lg:gap-4 gap-3 py-3 overflow-x-auto `}
+              >
+                {headings.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px]  ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
                       }`}
-                    onClick={() => {
-                      forceUpdate();
-                      setToggleHeadings(index);
-                      setSelectedJob()
-                    }}
                   >
-                    {item.title}
-                  </p>
-                </div>
-              ))}
+                    {item.img}
+                    <p
+                      className={`text-[16px] text-black font-semibold cursor-pointer  ${toggleHeadings === index && " text-white"
+                        }`}
+                      onClick={() => {
+                        forceUpdate();
+                        setToggleHeadings(index);
+                        setSelectedJob()
+                      }}
+                    >
+                      {item.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        {toggleHeadings <= 2 && (
-          <div style={{ backgroundColor: "#E0F6FF" }} className="">
-            <div className="customMargins web">
-              <div className="flex items-center py-5  gap-3 flex-wrap ">
-                {filteredInputData.map((item, index) => (
-                  <InputBox
+          {toggleHeadings <= 2 && (
+            <div style={{ backgroundColor: "#E0F6FF" }} className="">
+              <div className="customMargins web">
+                <div className="flex items-center py-5  gap-3 flex-wrap ">
+                  {filteredInputData.map((item, index) => (
+                    <InputBox
 
-                    key={index}
-                    item={item}
-                    filterType={item.title.replace(/ /g, "")}
-                    setClear={setClear}
-                    clear={clear}
-                    onChange={handleCheckboxChange}
-                    country={country}
-                    page={page}
-                    filters={filters}
-                    userSkills={userSkills}
-                    setLoading={setLoading}
-                    className="text-[14px] font-medium flex items-center w-auto"
-                    isOpen={openDropdown === index}
-                    onDropdownClick={handleDropdownClick}
-                    id={index}
-                  />
-                ))}
-                <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
-                  Reset all
-                </button>
-                {/* <button
+                      key={index}
+                      item={item}
+                      filterType={item.title.replace(/ /g, "")}
+                      setClear={setClear}
+                      clear={clear}
+                      onChange={handleCheckboxChange}
+                      country={country}
+                      page={page}
+                      filters={filters}
+                      userSkills={userSkills}
+                      setLoading={setLoading}
+                      className="text-[14px] font-medium flex items-center w-auto"
+                      isOpen={openDropdown === index}
+                      onDropdownClick={handleDropdownClick}
+                      id={index}
+                    />
+                  ))}
+                  <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                    Reset all
+                  </button>
+                  {/* <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
                 >
@@ -738,25 +749,25 @@ function Index() {
                     alt=""
                   />
                 </button> */}
+                </div>
+              </div>
+
+              <div
+                onClick={() => setMobileFilter(!mobileFilter)}
+                className="p-2 mobile "
+              >
+                <button className="px-4 py-3  rounded-[6px] bg-[#FFF]   flex gap-2">
+                  <img
+                    className="h-[24px] w-[24px]"
+                    src="/images/jobs/fil.png"
+                    alt=""
+                  />
+                  Filter
+                </button>
               </div>
             </div>
-
-            <div
-              onClick={() => setMobileFilter(!mobileFilter)}
-              className="p-2 mobile "
-            >
-              <button className="px-4 py-3  rounded-[6px] bg-[#FFF]   flex gap-2">
-                <img
-                  className="h-[24px] w-[24px]"
-                  src="/images/jobs/fil.png"
-                  alt=""
-                />
-                Filter
-              </button>
-            </div>
-          </div>
-        )}
-        {/* {toggleHeadings === 2 &&
+          )}
+          {/* {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
               <div className="inline-flex pt-6 justify-center items-center gap-2">
@@ -771,15 +782,15 @@ function Index() {
             </div>
           </div>
         } */}
-      </div>
+        </div>
 
-      <div className="bg-[#F9F9F9] min-h-[calc(100vh-303px)]">
-        <div className=" customMargins">
-          <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
-            {/* <div className=" mobile600 col-span-12 ">
+        <div className="bg-[#F9F9F9] min-h-[calc(100vh-303px)]">
+          <div className=" customMargins">
+            <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
+              {/* <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div> */}
-            {/* 
+              {/* 
             {filter ? (
               <AnimatePresence>
                 <motion.div
@@ -814,75 +825,90 @@ function Index() {
               </div>
             )} */}
 
-            <AnimatePresence>
-              {mobileFilter && (
-                <>
-                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
-
-                  <motion.div
-                    initial={{ x: "-100%" }}
-                    animate={{ x: 0 }}
-                    exit={{ x: "-100%" }}
-                    transition={{ duration: 0.5 }}
-                    ref={taskRef}
-                    className="fixed z-[2000]  rounded-[8px] h-[calc(95vh-283px)] overflow-y-auto"
-                    style={{
-                      background: "white",
-                      backdropFilter: "blur(10px)",
-                    }}
-                  >
-                    <div className="flex justify-between  p-4 bg-white shadow-md  items-center rounded-t-[8px] mb-4 ">
-                      <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                        All Filters
-                      </p>
-
-                      <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
-                        Reset all
-                      </button>
-                      <button
-                        className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
-                        onClick={getFilterData}
-                      >
-                        <p className="text-[12px] font-[700] text-white">Apply</p>
-                      </button>
-                    </div>
-
-                    {filteredInputData.map((item, index) => (
-                      <Filter
-
-                        key={index}
-                        item={item}
-                        filterType={item.title.replace(/ /g, "")}
-                        setClear={setClear}
-                        clear={clear}
-                        onChange={handleCheckboxChange}
-                        country={country}
-                        page={page}
-                        filters={filters}
-                        userSkills={userSkills}
-                        setLoading={setLoading}
-                        className="text-[14px] font-medium flex items-center w-auto bg-white"
-                        isOpen={openDropdown === index}
-                        onDropdownClick={handleDropdownClick}
-                        id={index}
-                      />
-                    ))}
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
-
-            {!loading ?
-              <>
-                {(toggleHeadings === 0 && (
+              <AnimatePresence>
+                {mobileFilter && (
                   <>
-                    {jobData.length > 0 ?
-                      <>
-                        {!isDescription && (
+                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+
+                    <motion.div
+                      initial={{ x: "-100%" }}
+                      animate={{ x: 0 }}
+                      exit={{ x: "-100%" }}
+                      transition={{ duration: 0.5 }}
+                      ref={taskRef}
+                      className="fixed z-[2000]  rounded-[8px] h-[calc(95vh-283px)] overflow-y-auto"
+                      style={{
+                        background: "white",
+                        backdropFilter: "blur(10px)",
+                      }}
+                    >
+                      <div className="flex justify-between  p-4 bg-white shadow-md  items-center rounded-t-[8px] mb-4 ">
+                        <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                          All Filters
+                        </p>
+
+                        <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                          Reset all
+                        </button>
+                        <button
+                          className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
+                          onClick={getFilterData}
+                        >
+                          <p className="text-[12px] font-[700] text-white">Apply</p>
+                        </button>
+                      </div>
+
+                      {filteredInputData.map((item, index) => (
+                        <Filter
+
+                          key={index}
+                          item={item}
+                          filterType={item.title.replace(/ /g, "")}
+                          setClear={setClear}
+                          clear={clear}
+                          onChange={handleCheckboxChange}
+                          country={country}
+                          page={page}
+                          filters={filters}
+                          userSkills={userSkills}
+                          setLoading={setLoading}
+                          className="text-[14px] font-medium flex items-center w-auto bg-white"
+                          isOpen={openDropdown === index}
+                          onDropdownClick={handleDropdownClick}
+                          id={index}
+                        />
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+
+              {!loading ?
+                <>
+                  {(toggleHeadings === 0 && (
+                    <>
+                      {jobData.length > 0 ?
+                        <>
+                          {!isDescription && (
+                            <div
+                              onClick={() => setIsDescription(true)}
+                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                }`}
+                            >
+                              <AllJobs
+                                selectedJob={selectedJob}
+                                setIsDescription={setIsDescription}
+                                setSelectedJob={setSelectedJob}
+                                savedJobList={savedJobList}
+                                setSavedJobList={setSavedJobList}
+                                setCurrentPage={setPage}
+                              />
+                            </div>
+                          )}
+
                           <div
-                            onClick={() => setIsDescription(true)}
-                            className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              }`}
+                            className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
+                              } ml:mt-4`}
                           >
                             <AllJobs
                               selectedJob={selectedJob}
@@ -893,79 +919,81 @@ function Index() {
                               setCurrentPage={setPage}
                             />
                           </div>
-                        )}
 
-                        <div
-                          className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
-                            } ml:mt-4`}
-                        >
-                          <AllJobs
-                            selectedJob={selectedJob}
-                            setIsDescription={setIsDescription}
-                            setSelectedJob={setSelectedJob}
-                            savedJobList={savedJobList}
-                            setSavedJobList={setSavedJobList}
-                            setCurrentPage={setPage}
-                          />
-                        </div>
-
-                        <div
-                          className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                            } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                        >
-                          <Description selectedJob={selectedJob} />
-                        </div>
-
-
-                        {isDescription && (
                           <div
-                            className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              } flex flex-col gap-3 ml:mt-4 `}
+                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <div
-                              onClick={() => setIsDescription(false)}
-                              className="flex gap-3"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                              >
-                                <g mask="url(#mask0_5925_96419)">
-                                  <path
-                                    d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                    fill="#333333"
-                                  />
-                                </g>
-                              </svg>
-                              Back
-                            </div>
-
-                            <Description selectedJob={selectedJob} />
+                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup}/>
                           </div>
-                        )}
-                      </>
-                      :
-                      <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                        <NoJobs name={""} />
-                      </div>
 
-                    }
-                  </>
-                ))}
 
-                {toggleHeadings === 1 && (
+                          {isDescription && (
+                            <div
+                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                } flex flex-col gap-3 ml:mt-4 `}
+                            >
+                              <div
+                                onClick={() => setIsDescription(false)}
+                                className="flex gap-3"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <g mask="url(#mask0_5925_96419)">
+                                    <path
+                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                      fill="#333333"
+                                    />
+                                  </g>
+                                </svg>
+                                Back
+                              </div>
 
-                  <>
-                    {appliedJobs?.length > 0 ?
-                      <>
-                        {!isDescription && (
+                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                            </div>
+                          )}
+                        </>
+                        :
+                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
+                          <NoJobs name={""} />
+                        </div>
+
+                      }
+                    </>
+                  ))}
+
+                  {toggleHeadings === 1 && (
+
+                    <>
+                      {appliedJobs?.length > 0 ?
+                        <>
+                          {!isDescription && (
+                            <div
+                              // onClick={() => setIsDescription(true)}
+                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                }`}
+                            >
+                              <AppliedJobs
+                                selectedJob={selectedJob}
+                                setIsDescription={setIsDescription}
+                                setSelectedJob={setSelectedJob}
+                                savedJobList={savedJobList}
+                                setSavedJobList={setSavedJobList}
+                                setCurrentPage={setPage}
+                                appliedJobs={appliedJobs}
+                                setAppliedJobs={setAppliedJobs}
+                              />
+                            </div>
+                          )}
+
                           <div
-                            // onClick={() => setIsDescription(true)}
-                            className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              }`}
+                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                              } ml:mt-4`}
                           >
                             <AppliedJobs
                               selectedJob={selectedJob}
@@ -978,84 +1006,82 @@ function Index() {
                               setAppliedJobs={setAppliedJobs}
                             />
                           </div>
-                        )}
 
-                        <div
-                          className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                            } ml:mt-4`}
-                        >
-                          <AppliedJobs
-                            selectedJob={selectedJob}
-                            setIsDescription={setIsDescription}
-                            setSelectedJob={setSelectedJob}
-                            savedJobList={savedJobList}
-                            setSavedJobList={setSavedJobList}
-                            setCurrentPage={setPage}
-                            appliedJobs={appliedJobs}
-                            setAppliedJobs={setAppliedJobs}
-                          />
-                        </div>
-
-                        <div
-                          className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                            } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                        >
-                          <Description selectedJob={selectedJob} />
-                        </div>
-
-
-                        {isDescription && (
                           <div
-                            className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              } flex flex-col gap-3 ml:mt-4 `}
+                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <div
-                              onClick={() => setIsDescription(false)}
-                              className="flex gap-3"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                              >
-                                <g mask="url(#mask0_5925_96419)">
-                                  <path
-                                    d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                    fill="#333333"
-                                  />
-                                </g>
-                              </svg>
-                              Back
-                            </div>
-
-                            <Description selectedJob={selectedJob} />
+                            <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
                           </div>
-                        )}
-                      </>
-                      :
-                      <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                        <NoJobs name={"Applied"} />
-                      </div>
 
 
-                    }
-                  </>
+                          {isDescription && (
+                            <div
+                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                } flex flex-col gap-3 ml:mt-4 `}
+                            >
+                              <div
+                                onClick={() => setIsDescription(false)}
+                                className="flex gap-3"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <g mask="url(#mask0_5925_96419)">
+                                    <path
+                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                      fill="#333333"
+                                    />
+                                  </g>
+                                </svg>
+                                Back
+                              </div>
 
-                )}
+                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                            </div>
+                          )}
+                        </>
+                        :
+                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
+                          <NoJobs name={"Applied"} />
+                        </div>
 
-                {toggleHeadings === 2 && (
-                  <>
+
+                      }
+                    </>
+
+                  )}
+
+                  {toggleHeadings === 2 && (
+                    <>
 
 
-                    {savedJobList?.length > 0 ?
-                      <>
-                        {!isDescription && (
+                      {savedJobList?.length > 0 ?
+                        <>
+                          {!isDescription && (
+                            <div
+                              onClick={() => setIsDescription(true)}
+                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                }`}
+                            >
+                              <SavedJobs
+                                selectedJob={selectedJob}
+                                setIsDescription={setIsDescription}
+                                setSelectedJob={setSelectedJob}
+                                savedJobList={savedJobList}
+                                setSavedJobList={setSavedJobList}
+                                setCurrentPage={setPage}
+                              />
+                            </div>
+                          )}
+
                           <div
-                            onClick={() => setIsDescription(true)}
-                            className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              }`}
+                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
+                              } ml:mt-4`}
                           >
                             <SavedJobs
                               selectedJob={selectedJob}
@@ -1066,85 +1092,71 @@ function Index() {
                               setCurrentPage={setPage}
                             />
                           </div>
-                        )}
 
-                        <div
-                          className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                            } ml:mt-4`}
-                        >
-                          <SavedJobs
-                            selectedJob={selectedJob}
-                            setIsDescription={setIsDescription}
-                            setSelectedJob={setSelectedJob}
-                            savedJobList={savedJobList}
-                            setSavedJobList={setSavedJobList}
-                            setCurrentPage={setPage}
-                          />
-                        </div>
-
-                        <div
-                          className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                            } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                        >
-                          <Description selectedJob={selectedJob} />
-                        </div>
-                        {/* LAST SECTION   */}
-
-                        {isDescription && (
                           <div
-                            className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                              } flex flex-col gap-3 ml:mt-4 `}
+                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
+                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <div
-                              onClick={() => setIsDescription(false)}
-                              className="flex gap-3"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                              >
-                                <g mask="url(#mask0_5925_96419)">
-                                  <path
-                                    d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                    fill="#333333"
-                                  />
-                                </g>
-                              </svg>
-                              Back
-                            </div>
-
-                            <Description selectedJob={selectedJob} />
+                            <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
                           </div>
-                        )}
-                      </>
-                      :
-                      // <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
-                      //   <img
-                      //     className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
-                      //     src="/images/jobs/noSaved.png"
-                      //     alt=""
-                      //   />
-                      // </div>
-                      <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                        <NoJobs name={"Saved"} />
-                      </div>
-                    }
-                  </>
-                )}
-              </>
-              :
-              <div className="flex justify-center items-center w-full col-span-12">
-                <MiniLoader />
-              </div>
-            }
+                          {/* LAST SECTION   */}
 
+                          {isDescription && (
+                            <div
+                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                                } flex flex-col gap-3 ml:mt-4 `}
+                            >
+                              <div
+                                onClick={() => setIsDescription(false)}
+                                className="flex gap-3"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <g mask="url(#mask0_5925_96419)">
+                                    <path
+                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
+                                      fill="#333333"
+                                    />
+                                  </g>
+                                </svg>
+                                Back
+                              </div>
+
+                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                            </div>
+                          )}
+                        </>
+                        :
+                        // <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
+                        //   <img
+                        //     className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
+                        //     src="/images/jobs/noSaved.png"
+                        //     alt=""
+                        //   />
+                        // </div>
+                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
+                          <NoJobs name={"Saved"} />
+                        </div>
+                      }
+                    </>
+                  )}
+                </>
+                :
+                <div className="flex justify-center items-center w-full col-span-12">
+                  <MiniLoader />
+                </div>
+              }
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
