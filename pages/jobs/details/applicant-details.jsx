@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { LeftArow } from "../../../utils/svg";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { Page, pdfjs, Document } from "react-pdf";
 
 import {
   daysCalculator,
   selectResumeTemplate,
 } from "../../../utils/middleware";
-import { Document, PDFViewer } from "@react-pdf/renderer";
+// import { Document, PDFViewer } from "@react-pdf/renderer";
 import Fonts from "../../../public/fonts/fonts";
 import MiniLoader from "../../../components/common/miniLoader";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+import { details } from "../../../utils/data";
 <Fonts />;
 const ApplicantDetails = () => {
   const router = useRouter();
@@ -19,20 +23,25 @@ const ApplicantDetails = () => {
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState(null);
   const [application, setApplication] = useState({});
+  console.log(query);
   const getData = () => {
     setLoading(true);
+
     axios
-      .get("https://jamblix.com/api/job/getById/" + query["job-post"])
+      .get(`http://localhost:2000/api/job/getById/${query.id}`)
       .then((res) => {
         setLoading(false);
-        setJobPost(res.data.data);
-        setApplication(
-          res.data.applications.find((item) => item.resumeId == query.applicant)
+        setJobPost(res.data);
+        // Find the application where applicantId matches query.applicantId
+        const matchedApplication = res.data.applications.find(
+          (item) => item?.applicantId === query.applicantId
         );
+
+        // Set the matched application to the application state
+        setApplication(matchedApplication);
       })
       .catch((err) => {
         setLoading(false);
-
         console.log(err);
       });
   };
@@ -40,6 +49,29 @@ const ApplicantDetails = () => {
   useEffect(() => {
     getData();
   }, [router]);
+
+  const PdfViewer = ({ pdfUrl }) => {
+    const [numPages, setNumPages] = useState();
+
+    function onDocumentLoadSuccess(numPages) {
+      setNumPages(numPages);
+    }
+    return (
+      <div
+        style={{
+          width: "192px",
+          height: "272px",
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "hidden",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
 
   const MyDocument = ({
     resumeTemplateIndex,
@@ -90,7 +122,9 @@ const ApplicantDetails = () => {
                 />
                 <div className="flex flex-col gap-[8px] justify-center">
                   <span className="text-[18px] text-[#333333] font-medium">
-                    {application?.firstName + " " + application?.lastName}
+                    {application?.details?.personal?.firstName +
+                      " " +
+                      application?.details?.personal?.lastName}
                   </span>
                   <span className="text-[16px] text-[#333333] font-normal">
                     {application?.designation}
@@ -138,7 +172,7 @@ const ApplicantDetails = () => {
                     />
                   </svg>
                   <span className="text-[14px] text-[#333333] font-normal">
-                    {application?.email}
+                    {application?.details?.personal?.email}
                   </span>
                 </div>
                 <div className="flex flex-row gap-[8px] items-center">
@@ -156,9 +190,11 @@ const ApplicantDetails = () => {
                   </svg>
 
                   <span className="text-[14px] text-[#333333] font-normal">
-                    {application?.mobileNumber}
+                    {application?.details?.personal?.mobileNo}
                   </span>
                 </div>
+                {/** 
+                
                 <div className="flex flex-row gap-[8px] items-top ">
                   <svg
                     width="20"
@@ -176,7 +212,7 @@ const ApplicantDetails = () => {
                   <span className="text-[14px] text-[#333333] font-normal">
                     {application?.location}
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="bg-[#D6DDEB] w-full h-[1px] mobile"> </div>
@@ -216,9 +252,12 @@ const ApplicantDetails = () => {
                         Full Name
                       </span>
                       <span className="text-[14px] text-[#333333] font-normal">
-                        {application?.firstName + " " + application?.lastName}
+                        {application?.details?.personal?.firstName +
+                          " " +
+                          application?.details?.personal?.lastName}
                       </span>
                     </div>
+                    {/*** 
                     <div className="flex flex-col gap-[4px]">
                       <span className="text-[16px] text-[#333333] font-medium">
                         Address
@@ -226,7 +265,7 @@ const ApplicantDetails = () => {
                       <span className="text-[14px] text-[#333333] font-normal">
                         {application?.location}
                       </span>
-                    </div>
+                    </div>*/}
                   </div>
                   <div className="flex flex-col gap-[16px] pb-[16px]">
                     <span className="text-[16px] text-[#333333] font-semibold">
@@ -282,14 +321,15 @@ const ApplicantDetails = () => {
               )}
               {tab == 1 && application && (
                 <div className="w-full mt-2  bg-[#525659] h-full flex items-center justify-center py-[16px]">
-                  <PDFViewer width="80%" height="900px" showToolbar={false}>
+                  {/*** <PDFViewer width="80%" height="900px" showToolbar={false}>
                     <MyDocument
                       resumeTemplateIndex={application.resumeTemplateIndex}
                       application={application}
                       selectedColor={application.selectedColor}
                       selectedFont={application.selectedFont}
                     />
-                  </PDFViewer>
+                  </PDFViewer>*/}
+                  <PdfViewer pdfUrl={application?.resumeUrl} />
                 </div>
               )}
             </div>

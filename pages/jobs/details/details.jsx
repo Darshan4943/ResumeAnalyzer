@@ -2,6 +2,7 @@ import React from "react";
 import { dateSeter } from "../../../utils/middleware";
 
 const Details = ({ jobPost }) => {
+  console.log(8687, jobPost)
   return (
     <div className="py-[16px] sm:px-[24px] px-2 flex flex-col gap-[24px]  ">
       <div className="w-full">
