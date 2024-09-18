@@ -1,15 +1,22 @@
 import React from 'react';
 
 const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
-  return (
-    <div className=" flex flex-col gap-4 ">
-      <div className='flex flex-row gap-4 items-center'>
 
-        <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[239px] min-w-[200px] ">Professional Details</h2>
+  const handleNumberInput = (field, value) => {
+ 
+    if (/^\d*$/.test(value)) {
+      handleInputChange(field, value);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className='flex flex-row gap-4 items-center'>
+        <h2 className="sm:text-[24px] text-[20px] font-medium sm:min-w-[239px] min-w-[200px]">Professional Details</h2>
         <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
       </div>
+      
       <form className="space-y-4">
-
         <div className="grid ml:grid-cols-2 grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -20,7 +27,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
               placeholder="Enter value"
               className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
               value={data?.totalExperience}
-              onChange={(e) => handleInputChange('totalExperience', e.target.value)}
+              onChange={(e) => handleNumberInput('totalExperience', e.target.value)}
             />
             {formError?.totalExperience && (
               <p className="text-xs text-red font-medium mt-1">{formError.totalExperience}</p>
@@ -35,17 +42,13 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
               placeholder="Enter value"
               className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
               value={data?.relevantExperience}
-              onChange={(e) => handleInputChange('relevantExperience', e.target.value)}
+              onChange={(e) => handleNumberInput('relevantExperience', e.target.value)}
             />
             {formError?.relevantExperience && (
               <p className="text-xs text-red font-medium mt-1">{formError.relevantExperience}</p>
             )}
           </div>
-
-
-
         </div>
-
 
         <div className="grid ms:grid-cols-2 grid-cols-1 gap-4">
           <div>
@@ -57,13 +60,12 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
               placeholder="Enter value"
               className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
               value={data?.currentCTC}
-              onChange={(e) => handleInputChange('currentCTC', e.target.value)}
+              onChange={(e) => handleNumberInput('currentCTC', e.target.value)}
             />
             {formError?.currentCTC && (
               <p className="text-xs text-red font-medium mt-1">{formError.currentCTC}</p>
             )}
           </div>
-
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -74,7 +76,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
               placeholder="Enter value"
               className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
               value={data?.expectedCTC}
-              onChange={(e) => handleInputChange('expectedCTC', e.target.value)}
+              onChange={(e) => handleNumberInput('expectedCTC', e.target.value)}
             />
             {formError?.expectedCTC && (
               <p className="text-xs text-red font-medium mt-1">{formError.expectedCTC}</p>
@@ -83,7 +85,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
         </div>
 
         <div className='ms:w-[49%] w-[100%]'>
-          <label className="  block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700">
             Notice Period
           </label>
           <select
@@ -101,6 +103,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
             <p className="text-xs text-red font-medium mt-1">{formError.noticePeriod}</p>
           )}
         </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Are you comfortable commuting to this job's location?
@@ -136,8 +139,6 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
             </div>
           </div>
         </div>
-
-
       </form>
     </div>
   );
