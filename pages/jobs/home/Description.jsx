@@ -71,7 +71,8 @@ function Description({ selectedJob, filter,setLimitPopup }) {
                                         </div>
                                     </div>
                                     <div className="py-[16px] flex gap-2 leading-tight">
-                                        <div
+                                        <button
+                                        disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
                                             onClick={() => {
                                                 if (jobApplyCount > 0) {
                                                     if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
@@ -81,11 +82,11 @@ function Description({ selectedJob, filter,setLimitPopup }) {
                                                     setLimitPopup(true);
                                                 }
                                             }}
-
+                                          
                                             className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
 
                                             {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
-                                        </div>
+                                        </button>
 
                                         {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                             Save
@@ -162,7 +163,8 @@ function Description({ selectedJob, filter,setLimitPopup }) {
                                 )}
 
                                 <div className="flex justify-end">
-                                    <div
+                                    <button
+                                      disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
                                         onClick={() => {
                                             if (jobApplyCount > 0) {
                                                 if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
@@ -175,7 +177,7 @@ function Description({ selectedJob, filter,setLimitPopup }) {
 
                                         className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
                                         {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
