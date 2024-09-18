@@ -26,7 +26,7 @@ function ApplyForm() {
             email: '',
             mobileNo: '',
             currentLocation: '',
-            dial_code: '',
+         
             dob: '',
             gender: ''
         },
@@ -39,6 +39,7 @@ function ApplyForm() {
         }
     });
 
+   
     const router = useRouter();
     const { id } = router.query;
     const [jobDetails, setJobDetails] = useState();
@@ -77,29 +78,41 @@ function ApplyForm() {
         const errors = {};
         const personal = formData.personal;
         const professional = formData.professional;
-
+    
+        // Required fields
         if (!personal?.firstName) errors.firstName = 'First name is required';
         if (!personal?.lastName) errors.lastName = 'Last name is required';
-        if (!personal?.email) errors.email = 'Email is required';
+        if (!personal?.email) {
+            errors.email = 'Email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(personal.email)) {
+            errors.email = 'Email is invalid';
+        }
         if (!personal?.dob) errors.dob = 'Date of birth is required';
         if (!personal?.gender) errors.gender = 'Gender is required';
         if (!personal?.mobileNo) errors.mobileNo = 'Mobile Number is required';
-
+    
         if (!professional?.totalExperience) errors.totalExperience = 'Total experience is required';
         if (!professional?.relevantExperience) errors.relevantExperience = 'Relevant experience is required';
         if (!professional?.currentCTC) errors.currentCTC = 'Current CTC is required';
         if (!professional?.expectedCTC) errors.expectedCTC = 'Expected CTC is required';
         if (!professional?.noticePeriod) errors.noticePeriod = 'Notice period is required';
-
+    
         // Check if a resume is selected or uploaded
         if (!selectedResume && !uploadedResume) {
             errors.resume = 'Please select or upload a resume';
         }
-
+    
         setFormError(errors);
         return Object.keys(errors).length === 0;
     };
-
+    const updateApplyCount=()=>{
+        axios
+        .put(`http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal._id}`)
+        .then((res) => {
+          
+        })
+        .catch((err) => console.error(err));
+    }
 
     const applyForJob = () => {
         if (!validateInput()) return;
@@ -125,6 +138,7 @@ function ApplyForm() {
                 firstName: formData.personal?.firstName,
                 lastName: formData.personal?.lastName,
                 email: formData.personal?.email,
+                dial_code:formData?.dial_code,
                 mobileNo: formData.personal?.mobileNo,
                 currentLocation: formData.personal?.currentLocation,
                 dob: formData.personal?.dob,
@@ -150,7 +164,8 @@ function ApplyForm() {
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
-                router.push('/jobs/search?applied=${true}')
+                updateApplyCount()
+                router.push('/jobs/search?applied=true')
             })
             .catch((err) => {
                 console.error(err);
@@ -159,19 +174,29 @@ function ApplyForm() {
                 }, 1000);
             });
     };
-
     const handleResumeSelection = (resumeUrl) => {
         setSelectedResume(resumeUrl);
-        // setUploadedResume(null); 
+        setUploadedResume(null);
         setIsUploaded(false);
+        // Clear the resume error
+        setFormError((prevErrors) => ({
+            ...prevErrors,
+            resume: '',
+        }));
     };
-
+    
     const handleResumeUpload = (e) => {
         const file = e.target.files[0];
         setUploadedResume(file);
         setSelectedResume(null);
         setIsUploaded(true);
+        // Clear the resume error
+        setFormError((prevErrors) => ({
+            ...prevErrors,
+            resume: '',
+        }));
     };
+    
 
     const getLastUpdatedText = (updatedAt) => {
         const now = moment();

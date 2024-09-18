@@ -21,7 +21,13 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
             dial_code: item.dial_code,
         }));
     };
-
+    const handleNumberInput = (field, value, maxLength) => {
+        
+        if (/^\d*$/.test(value) && value.length <= maxLength) {
+          handleInputChange(field, value);
+        }
+      };
+      
     const customFilterOption = ({ label, value, data }, inputValue) => {
         const lowercasedInput = inputValue.toLowerCase();
         return (
@@ -159,6 +165,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                             className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
                             value={data?.email}
                             onChange={(e) => handleInputChange('email', e.target.value)}
+                            
                         />
                         {formError?.email && (
                             <p className="text-xs text-red font-medium mt-1">{formError.email}</p>
@@ -210,7 +217,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
                                 placeholder="Contact Number"
                                 className=" p-2 w-[80%] sm:text-[16px] text-[13px] text-start"
                                 value={data?.mobileNo}
-                                onChange={(e) => handleInputChange('mobileNo', e.target.value)}
+                                onChange={(e) => handleNumberInput('mobileNo', e.target.value, 10)}
                             />
                         </div>
 

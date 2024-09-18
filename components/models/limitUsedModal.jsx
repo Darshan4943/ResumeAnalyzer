@@ -17,7 +17,7 @@ const LimitUsedModal = ({ setVisible, visible }) => {
   }, []);
   return (
     visible && (
-      <div className="expiryModel ">
+      <div className="expiryModel">
         <div className="modal">
           <div className="container sm:w-[432px] w-[90vw] scr420:p-4 p-2">
             <div className="flex flex-col gap-[12px]">

@@ -5,14 +5,34 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../Redux/actions/user";
-function AppliedJobs({ savedJobList, setIsDescription, setSelectedJob, selectedJob,appliedJobs, setAppliedJobs }) {
+function AppliedJobs({  setIsDescription, setSelectedJob, selectedJob,appliedJobs, setAppliedJobs }) {
 
  
   const userDataGlobal = useSelector((state) => state.userData);
- 
+  const [savedJobList, setSavedJobList] = useState([]);
 
   const dispatch = useDispatch();
 
+  const getData = () => {
+    axios
+      .post("https://jamblix.com/api/job/byIds", {
+        ids: userDataGlobal?.savedJobs
+          ?.map((item) => item.id)
+          .filter((item) => item != "undefined"),
+      })
+      .then((res) => {
+        setSavedJobList(res.data.data);
+      })
+      .catch((err) => {
+
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
+    }
+  }, [userDataGlobal]);
 
 
   const SaveJob = (e, id) => {
