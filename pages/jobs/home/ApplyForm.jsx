@@ -39,7 +39,7 @@ function ApplyForm() {
         }
     });
 
-    console.log(formData)
+   
     const router = useRouter();
     const { id } = router.query;
     const [jobDetails, setJobDetails] = useState();
@@ -146,7 +146,7 @@ function ApplyForm() {
                 comfortableWithLocation: formData.professional?.comfortableWithLocation
             }
         }));
-console.log(222,formDataToSend)
+
         axios.post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
             headers: {
                 'Content-Type': 'multipart/form-data'
