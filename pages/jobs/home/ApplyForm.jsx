@@ -157,7 +157,7 @@ function ApplyForm() {
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
-                // router.push('/jobs/search?applied=${true}')
+                router.push('/jobs/search?applied=true')
             })
             .catch((err) => {
                 console.error(err);

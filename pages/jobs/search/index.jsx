@@ -136,11 +136,12 @@ function Index() {
   const router = useRouter();
   const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
-  // useEffect(() => {
-  //   if(applied ==true){
-  //   setToggleHeadings(1)
-  //   }
-  // }, [applied]);
+
+  useEffect(() => {
+    if(applied =="true"){
+    setToggleHeadings(1)
+    }
+  }, [applied]);
 
 
   useEffect(() => {
