@@ -24,8 +24,8 @@ const Index = () => {
         .get("http://localhost:2000/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
-          console.log(555,res.data)
-          setJobPost(res.data.data);
+          console.log(555, res.data);
+          setJobPost(res.data);
           setApplications(res.data.applications);
         })
         .catch((err) => {

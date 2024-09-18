@@ -5,15 +5,16 @@ import Description from "./Description";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../Redux/actions/user";
-function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobList, savedJobList }) {
-
-
+function SavedJobs({
+  setIsDescription,
+  setSelectedJob,
+  selectedJob,
+  setSavedJobList,
+  savedJobList,
+}) {
   const jobData = useSelector((state) => state.getAllJobs.data);
 
-
-
   const userDataGlobal = useSelector((state) => state.userData);
-
 
   const dispatch = useDispatch();
 
@@ -28,7 +29,6 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
         setSavedJobList(res.data.data);
       })
       .catch((err) => {
-
         console.log(err);
       });
   };
@@ -43,16 +43,12 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
     return userDataGlobal?.savedJobs?.find((item) => item.id == id);
   };
 
-
   const SaveJob = (e, id) => {
     // setLoading(false);
     e.stopPropagation();
     axios
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-
-
-
         dispatch(reCallUserData());
 
         toast.success("Job Saved  Successfully");
@@ -67,9 +63,10 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
   const removeSavedJob = (e, id) => {
     e.stopPropagation();
     axios
-      .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+      .post(
+        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+      )
       .then((res) => {
-
         dispatch(reCallUserData());
 
         toast.success("Job Removed  Successfully");
@@ -81,14 +78,11 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
       });
   };
 
-
   useEffect(() => {
     if (savedJobList?.length > 0) {
       setSelectedJob(savedJobList[0]);
     }
   }, [savedJobList]);
-
-
 
   const countPostingDays = (date) => {
     const postingDate = new Date(date);
@@ -108,7 +102,6 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
     }
   };
   return (
-
     <div
       className={`flex flex-col   
    rounded-md border-primary bg-white shadow-md `}
@@ -122,11 +115,10 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
             <div
               onClick={() => {
                 setSelectedJob(item);
-
-
               }}
-              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
-                } `}
+              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${
+                selectedJob?._id == item._id && "selected_job_card"
+              } `}
               style={{
                 borderBottom:
                   selectedJob?._id == item._id ? "unset" : "1px solid #646464",
@@ -143,12 +135,11 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
                       {item?.companyName}
                     </div>
                   </div>
-                  {item.logo &&
+                  {item.logo && (
                     <div className="flex flex-row  items-end">
-
                       <img
                         src={item.logo}
-                        alt=''
+                        alt=""
                         style={{
                           height: "56px",
                           width: "56px",
@@ -156,7 +147,7 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
                         }}
                       />
                     </div>
-                  }
+                  )}
                 </div>
                 <div className="flex flex-row gap-[11px] items-center leading-tight ">
                   {item?.experiance && (
@@ -258,7 +249,6 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
                   {countPostingDays(item?.createdAt)}
                 </div>
                 <div>
-
                   {savedJobList.find((data) => data._id == item._id) ? (
                     <svg
                       onClick={(e) => removeSavedJob(e, item._id)}
@@ -291,14 +281,11 @@ function SavedJobs({ setIsDescription, setSelectedJob, selectedJob, setSavedJobL
                   )}
                 </div>
               </div>
-
             </div>
           </>
         ))}
       </div>
     </div>
-
-
   );
 }
 

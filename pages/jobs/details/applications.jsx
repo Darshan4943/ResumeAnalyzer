@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 const Applications = ({ jobPost, applications }) => {
   const router = useRouter();
   const [selectedCandidate, setSelectedCandidate] = useState([]);
+
+  console.log(64563, applications);
   return (
     <>
       <div className="sm:p-[24px] p-3 flex sm:flex-row flex-col-reverse gap-[16px] sm:items-center items-start justify-between w-full">
@@ -77,9 +79,7 @@ const Applications = ({ jobPost, applications }) => {
                 </thead>
                 <tbody>
                   {applications?.map((item, index) => (
-                    
                     <>
-                    {console.log(applications)}
                       <tr
                         className="scr1024:w-full w-[95%]  flex flex-row justify-between items-center px-[24px] py-[16px]"
                         key={index}
@@ -109,11 +109,13 @@ const Applications = ({ jobPost, applications }) => {
                             className="w-[40px] h-[40px] rounded-[50%] object-cover"
                           />
                           <span className="text-[14px] font-semibold text-[#333333] text-left">
-                            {item.firstName + " " + item.lastName}
+                            {item.details.personal.firstName +
+                              " " +
+                              item.details?.personal?.lastName}
                           </span>
                         </th>
                         <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
-                          {item?.location}
+                          {item?.details?.personal?.currentLocation}
                         </th>
                         <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                           {item.matchingPercentage}%
@@ -126,7 +128,7 @@ const Applications = ({ jobPost, applications }) => {
                             className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px] min-w-[146px]"
                             onClick={() =>
                               router.push(
-                                `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
+                                `/jobs/details/applicant-details?applicantId=${item.applicantId}&id=${jobPost._id}`
                               )
                             }
                           >
@@ -134,19 +136,21 @@ const Applications = ({ jobPost, applications }) => {
                           </button>
                         </th>
                       </tr>
-                      <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+                      <div className="w-full h-[1px] bg-[#E9EEF6]"> </div>
                     </>
                   ))}
                 </tbody>
               </table>
-
             </div>
             <div className="mobile">
-              <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+              <div className="w-full h-[1px] bg-[#E9EEF6]"> </div>
               <div className="flex flex-col ">
                 {applications?.map((item, index) => (
                   <>
-                    <div key={index} className="flex flex-col sm:p-6 p-3 gap-3  ">
+                    <div
+                      key={index}
+                      className="flex flex-col sm:p-6 p-3 gap-3  "
+                    >
                       <div className="flex gap-6 items-center">
                         <input
                           type="checkbox"
@@ -171,18 +175,21 @@ const Applications = ({ jobPost, applications }) => {
                         <span className="text-[14px] font-semibold text-[#333333] text-left">
                           {item.firstName + " " + item.lastName}
                         </span>
-
                       </div>
                       <div className="flex flex-col gap-1 w-full">
                         <div className="flex justify-between ">
-                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Profile Match</p>
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">
+                            Profile Match
+                          </p>
                           <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
                             {item.matchingPercentage}%
                           </div>
                         </div>
                         <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
                         <div className="flex justify-between ">
-                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Applied Date</p>
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">
+                            Applied Date
+                          </p>
                           <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
                             {dateSeter(item.appliedOn)}
                           </div>
@@ -205,16 +212,11 @@ const Applications = ({ jobPost, applications }) => {
                       >
                         See Application
                       </button>
-
                     </div>
                     <div className="bg-[#E9EEF6] w-full h-[2px]"></div>
-
                   </>
                 ))}
-
               </div>
-
-
             </div>
           </>
         ) : (
@@ -223,7 +225,6 @@ const Applications = ({ jobPost, applications }) => {
           </div>
         )}
       </div>
-
     </>
   );
 };
