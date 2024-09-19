@@ -117,7 +117,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         borderBottom: "1px solid #646464",
                                     }}
                                 >
-                                    <div className="text-[20px] text-[500] text-[#333]">
+                                    <div className="text-[20px] font-[500] text-[#333]">
                                         Job Details
                                     </div>
                                     <div className="flex flex-row gap-[5px] text-[12px] text-[#333] font-[500]">
@@ -137,38 +137,43 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         </svg>
                                         {selectedJob.jobType}
                                     </div>
+
+
                                     {/* <div className="flex flex-row gap-[5px] text-[12px] text-[#333] font-[500]">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="14"
-                            viewBox="0 0 16 14"
-                            fill="none"
-                          >
-                            <g mask="url(#mask0_4475_58313)">
-                              <path
-                                d="M4.96106 11.6671H9.96913V9.91705C9.96913 9.27539 9.72394 8.72608 9.23357 8.26914C8.74319 7.81219 8.1537 7.58372 7.4651 7.58372C6.77649 7.58372 6.187 7.81219 5.69662 8.26914C5.20625 8.72608 4.96106 9.27539 4.96106 9.91705V11.6671ZM7.4651 6.41705C8.1537 6.41705 8.74319 6.18858 9.23357 5.73164C9.72394 5.27469 9.96913 4.72539 9.96913 4.08372V2.33372H4.96106V4.08372C4.96106 4.72539 5.20625 5.27469 5.69662 5.73164C6.187 6.18858 6.77649 6.41705 7.4651 6.41705ZM2.45703 12.8337V11.6671H3.70905V9.91705C3.70905 9.324 3.85772 8.7674 4.15508 8.24726C4.45243 7.72712 4.86716 7.3115 5.39927 7.00039C4.86716 6.68928 4.45243 6.27365 4.15508 5.75351C3.85772 5.23337 3.70905 4.67678 3.70905 4.08372V2.33372H2.45703V1.16705H12.4732V2.33372H11.2211V4.08372C11.2211 4.67678 11.0725 5.23337 10.7751 5.75351C10.4778 6.27365 10.063 6.68928 9.53092 7.00039C10.063 7.3115 10.4778 7.72712 10.7751 8.24726C11.0725 8.7674 11.2211 9.324 11.2211 9.91705V11.6671H12.4732V12.8337H2.45703Z"
-                                fill="#333333"
-                              />
-                            </g>
-                          </svg>
-                          Permanent
-                        </div> */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="14"
+                                            viewBox="0 0 16 14"
+                                            fill="none"
+                                        >
+                                            <g mask="url(#mask0_4475_58313)">
+                                                <path
+                                                    d="M4.96106 11.6671H9.96913V9.91705C9.96913 9.27539 9.72394 8.72608 9.23357 8.26914C8.74319 7.81219 8.1537 7.58372 7.4651 7.58372C6.77649 7.58372 6.187 7.81219 5.69662 8.26914C5.20625 8.72608 4.96106 9.27539 4.96106 9.91705V11.6671ZM7.4651 6.41705C8.1537 6.41705 8.74319 6.18858 9.23357 5.73164C9.72394 5.27469 9.96913 4.72539 9.96913 4.08372V2.33372H4.96106V4.08372C4.96106 4.72539 5.20625 5.27469 5.69662 5.73164C6.187 6.18858 6.77649 6.41705 7.4651 6.41705ZM2.45703 12.8337V11.6671H3.70905V9.91705C3.70905 9.324 3.85772 8.7674 4.15508 8.24726C4.45243 7.72712 4.86716 7.3115 5.39927 7.00039C4.86716 6.68928 4.45243 6.27365 4.15508 5.75351C3.85772 5.23337 3.70905 4.67678 3.70905 4.08372V2.33372H2.45703V1.16705H12.4732V2.33372H11.2211V4.08372C11.2211 4.67678 11.0725 5.23337 10.7751 5.75351C10.4778 6.27365 10.063 6.68928 9.53092 7.00039C10.063 7.3115 10.4778 7.72712 10.7751 8.24726C11.0725 8.7674 11.2211 9.324 11.2211 9.91705V11.6671H12.4732V12.8337H2.45703Z"
+                                                    fill="#333333"
+                                                />
+                                            </g>
+                                        </svg>
+                                        Permanent
+                                    </div> */}
                                 </div>
-                                {/* <div
-                        className="flex flex-col gap-[10px] pb-[6px]"
-                        style={{
-                          borderBottom: "1px solid #646464",
-                        }}
-                      >
-                        <div className="text-[20px] font-[500]">
-                          Qualifications
-                        </div>
-                        <div className="text-[12px] font-[500]">
-                          B.e (computer science) <br /> Total Work Experience 2
-                          Years (Required)
-                        </div>
-                      </div> */}
+                                {selectedJob.requiredQualification &&
+                                    <div
+                                        className="flex flex-col gap-[10px] pb-[6px]"
+                                        style={{
+                                            borderBottom: "1px solid #646464",
+                                        }}
+                                    >
+                                        <div className="text-[20px] font-[500]">
+                                            Qualifications
+                                        </div>
+
+                                        <div className="text-[12px] font-[500]">
+                                            {selectedJob.requiredQualification} <br /> Total Work Experience {selectedJob.experience} (Required)
+                                        </div>
+
+                                    </div>
+                                }
                                 {selectedJob?.description?.length > 0 && (
                                     <div className="flex flex-col gap-[8px]">
                                         <div className="text-[20px] font-[500]">

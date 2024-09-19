@@ -1166,7 +1166,7 @@ function Index() {
                   )}
                 </>
                 :
-                <div className="flex justify-center items-center w-full col-span-12">
+                <div className="flex justify-center items-start w-full h-[70vh] col-span-12">
                   <MiniLoader />
                 </div>
               }
