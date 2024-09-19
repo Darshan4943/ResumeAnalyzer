@@ -59,10 +59,11 @@ const ApplicantDetails = () => {
     return (
       <div
         style={{
-          width: "192px",
-          height: "272px",
+          // width: "400px",
+          // height: "600px",
+          border: "1px solid #06A9EF",
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
-          borderRadius: "6px",
+          borderRadius: "10px",
           overflow: "hidden",
         }}
       >
@@ -320,7 +321,7 @@ const ApplicantDetails = () => {
                 </div>
               )}
               {tab == 1 && application && (
-                <div className="w-full mt-2  bg-[#525659] h-full flex items-center justify-center py-[16px]">
+                <div className="w-full mt-2  h-full flex items-center justify-center py-[16px]">
                   {/*** <PDFViewer width="80%" height="900px" showToolbar={false}>
                     <MyDocument
                       resumeTemplateIndex={application.resumeTemplateIndex}

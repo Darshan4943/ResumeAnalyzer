@@ -96,7 +96,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                                         setLimitPopup(true);
                                                     }
                                                 } else {
-                                                    router.push(`/auth?signin=true&role=user`);
+                                                    // router.push(`/auth?signin=true&role=user`);
+                                                    setLimitPopup(true);
                                                 }
                                             }}
 
@@ -194,7 +195,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                                     setLimitPopup(true);
                                                 }
                                             } else {
-                                                router.push(`/auth?signin=true&role=user`);
+                                                // router.push(`/auth?signin=true&role=user`);
+                                                setLimitPopup(true);
                                             }
                                         }}
 
