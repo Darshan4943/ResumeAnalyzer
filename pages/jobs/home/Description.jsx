@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import LimitUsedModal from '../../../components/models/limitUsedModal';
 
-function Description({ selectedJob, filter,setLimitPopup }) {
+function Description({ selectedJob, filter, setLimitPopup }) {
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     const [appliedJobs, setAppliedJobs] = useState()
     // const [limitPopup, setLimitPopup] = useState(false)
+    const [isLogin, setIsLogin] = useState(false);
     const jobApplyCount = JSON.parse(localStorage.getItem("jobsApply"));
     const getData = () => {
         axios
@@ -23,6 +24,16 @@ function Description({ selectedJob, filter,setLimitPopup }) {
         }
     }, [userDataGlobal]);
 
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+        if (token && token != "undefined") {
+            if (token) {
+                setIsLogin(true);
+            } else {
+                setIsLogin(false);
+            }
+        }
+    }, []);
 
     return (
         <>
@@ -72,17 +83,23 @@ function Description({ selectedJob, filter,setLimitPopup }) {
                                     </div>
                                     <div className="py-[16px] flex gap-2 leading-tight">
                                         <button
-                                        disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
+                                            disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
                                             onClick={() => {
-                                                if (jobApplyCount > 0) {
-                                                    if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
-                                                        router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                                if (isLogin) {
+
+
+                                                    if (jobApplyCount > 0) {
+                                                        if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
+                                                            router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                                        }
+                                                    } else {
+                                                        setLimitPopup(true);
                                                     }
                                                 } else {
-                                                    setLimitPopup(true);
+                                                    router.push(`/auth?signin=true&role=user`);
                                                 }
                                             }}
-                                          
+
                                             className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
 
                                             {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
@@ -164,14 +181,20 @@ function Description({ selectedJob, filter,setLimitPopup }) {
 
                                 <div className="flex justify-end">
                                     <button
-                                      disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
+                                        disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
                                         onClick={() => {
-                                            if (jobApplyCount > 0) {
-                                                if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
-                                                    router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                            if (isLogin) {
+
+
+                                                if (jobApplyCount > 0) {
+                                                    if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
+                                                        router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
+                                                    }
+                                                } else {
+                                                    setLimitPopup(true);
                                                 }
                                             } else {
-                                                setLimitPopup(true);
+                                                router.push(`/auth?signin=true&role=user`);
                                             }
                                         }}
 
@@ -188,7 +211,7 @@ function Description({ selectedJob, filter,setLimitPopup }) {
 
             </div>
 
-           
+
         </>
     )
 }

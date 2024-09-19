@@ -137,7 +137,7 @@ function Index() {
   const router = useRouter();
   const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
-
+  const [isLogin, setIsLogin] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false)
 
   useEffect(() => {
@@ -146,6 +146,7 @@ function Index() {
     }
   }, [applied]);
 
+ 
 
   useEffect(() => {
     const storedCountry = localStorage.getItem("country");
@@ -252,9 +253,20 @@ function Index() {
 
 
   useEffect(() => {
-    if (userDataGlobal) {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+        if (token) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    }
+}, []);
+
+  useEffect(() => {
+    if (isLogin) {
       axios
-        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+        .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
         .then((res) => {
           const data = res.data.data;
           const skillsSet = new Set();
