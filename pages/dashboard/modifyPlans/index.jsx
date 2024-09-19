@@ -15,6 +15,9 @@ const Index = () => {
       download: "",
       save: "",
       clients: "",
+      collection: "",
+      apply: "",
+      type: ""
     },
     features: [],
   });
@@ -48,12 +51,14 @@ const Index = () => {
         days: plan.days,
         amount: plan.amount,
         description: plan.description,
+        type: plan.type,
         limits: {
           uploads: plan.limits.uploads,
           download: plan.limits.download,
           save: plan.limits.save,
           clients: plan.limits.clients,
           collection: plan.limits.collection,
+          apply: plan.limits.apply,
         },
         features: plan.features || [],
       });
@@ -236,29 +241,45 @@ const Index = () => {
                       className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
                     />
                   </div>
-
-                  <div className="ml:w-[100%] gap-1 lg:col-span-1">
-                    <p className="scr420:text-[14px] text-[12px]">Clients</p>
-                    <input
-                      type="text"
-                      name="clients"
-                      value={planData.limits.clients}
-                      onChange={handleLimitsChange}
-                      placeholder="Clients"
-                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
-                    />
-                  </div>
-                  <div className="ml:w-[100%] gap-1 lg:col-span-1">
-                    <p className="scr420:text-[14px] text-[12px]">Collection</p>
-                    <input
-                      type="text"
-                      name="collection"
-                      value={planData.limits.collection}
-                      onChange={handleLimitsChange}
-                      placeholder="Collection"
-                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
-                    />
-                  </div>
+                  {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Clients Limit</p>
+                      <input
+                        type="text"
+                        name="clients"
+                        value={planData.limits.clients}
+                        onChange={handleLimitsChange}
+                        placeholder="Clients"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Collection Limit</p>
+                      <input
+                        type="text"
+                        name="collection"
+                        value={planData.limits.collection}
+                        onChange={handleLimitsChange}
+                        placeholder="Collection"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Apply Limit</p>
+                      <input
+                        type="text"
+                        name="apply"
+                        value={planData.limits.apply}
+                        onChange={handleLimitsChange}
+                        placeholder="Apply"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -358,9 +379,8 @@ const Index = () => {
                   </div>
                   <div className="flex w-[20%] justify-end h-full">
                     <button
-                      className={`bg-[#06A9EF] text-white sm:h-[38.6px]  ml:text-[14px] xxsm:h-[36.6px] text-[12px] w-[80%] rounded-[10px] ${
-                        isEditing ? "opacity-50" : ""
-                      }`}
+                      className={`bg-[#06A9EF] text-white sm:h-[38.6px]  ml:text-[14px] xxsm:h-[36.6px] text-[12px] w-[80%] rounded-[10px] ${isEditing ? "opacity-50" : ""
+                        }`}
                       disabled={isEditing}
                       onClick={handleSubmit}
                     >
@@ -384,9 +404,8 @@ const Index = () => {
             Cancel
           </button>
           <button
-            className={`bg-[#06A9EF] py-[8px] text-white px-[3px] ml:text-[14px] text-[12px] ml:w-[8%] w-[20%] rounded-[10px] ${
-              !hasChanges ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`bg-[#06A9EF] py-[8px] text-white px-[3px] ml:text-[14px] text-[12px] ml:w-[8%] w-[20%] rounded-[10px] ${!hasChanges ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             id="border_button"
             onClick={handleSubmitData}
             disabled={!hasChanges}

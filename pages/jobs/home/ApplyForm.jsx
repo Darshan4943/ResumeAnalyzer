@@ -221,10 +221,9 @@ function ApplyForm() {
         });
     }
   };
+  console.log(666, resumeIdd)
 
   const handleResumeSelection = (item) => {
-    console.log("resumeUrl", item);
-    setFileName(item?.fileName);
     setResumeIdd(item._id);
     setSelectedResume(item?.resumeUrl);
     setUploadedResume(null);
@@ -301,7 +300,6 @@ function ApplyForm() {
       });
   };
 
-  console.log("f", fileName);
   //   const handleResumeSelection = (resumeUrl) => {
   //     console.log("resumeUrl", resumeUrl)
   //     setSelectedResume(resumeUrl);

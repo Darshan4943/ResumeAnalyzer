@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../Redux/actions/user";
-function AppliedJobs({  setIsDescription, setSelectedJob, selectedJob,appliedJobs, setAppliedJobs }) {
+function AppliedJobs({ setIsDescription, setSelectedJob, selectedJob, appliedJobs, setAppliedJobs }) {
 
- 
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [savedJobList, setSavedJobList] = useState([]);
 
@@ -111,7 +111,7 @@ function AppliedJobs({  setIsDescription, setSelectedJob, selectedJob,appliedJob
               onClick={() => {
                 setSelectedJob(item);
 
-               
+
               }}
               className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
                 } `}
@@ -248,18 +248,14 @@ function AppliedJobs({  setIsDescription, setSelectedJob, selectedJob,appliedJob
                 <div>
 
                   {savedJobList.find((data) => data._id == item._id) ? (
-                    <svg
-                      onClick={(e) => removeSavedJob(e, item._id)}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="18"
-                      viewBox="0 0 14 18"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
-                        fill="#333333"
-                      />
+
+
+                    <svg onClick={(e) => removeSavedJob(e, item._id)}
+                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_4135_58652)">
+                        <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z" fill="#333333" />
+                      </g>
                     </svg>
                   ) : (
                     <svg
