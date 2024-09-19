@@ -35,18 +35,18 @@ const Index = () => {
     mustSkills: [],
     goodSkills: [],
   });
-
+console.log(data)
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getById/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const {
           companyName,
           jobTitle,
           jobType,
-          workFrom,
+          jobMode,
           location,
           country,
           description,
@@ -59,13 +59,13 @@ const Index = () => {
           experience,
           mustSkills,
           goodSkills,
-        } = res.data.data;
+        } = res.data;
         setData({
           ...data,
           companyName,
           jobTitle,
           jobType,
-          workFrom,
+          workFrom:jobMode,
           country,
           location,
           description,
@@ -139,7 +139,7 @@ const Index = () => {
               <LeftArow />
             </div>
             <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%] min-w-[270px]">
-              Job Listings
+             Post a Job 
             </div>
           </div>
           <div className="flex md:flex-row flex-col justify-between ">

@@ -137,7 +137,7 @@ function Index() {
   const router = useRouter();
   const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
-
+  const [isLogin, setIsLogin] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false)
 
   useEffect(() => {
@@ -145,6 +145,7 @@ function Index() {
       setToggleHeadings(1)
     }
   }, [applied]);
+
 
 
   useEffect(() => {
@@ -252,9 +253,20 @@ function Index() {
 
 
   useEffect(() => {
-    if (userDataGlobal) {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+      if (token) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
       axios
-        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+        .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
         .then((res) => {
           const data = res.data.data;
           const skillsSet = new Set();
@@ -563,6 +575,8 @@ function Index() {
   //   getFilterData()
   // }, [clear]);
 
+  console.log(444,savedJobList)
+
   return (
     <>
       {limitPopup &&
@@ -689,33 +703,36 @@ function Index() {
               <div
                 className={`flex items-start lg:gap-4 gap-3 py-3 overflow-x-auto `}
               >
-                {headings.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px]  ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                      }`}
-                  >
-                    {item.img}
-                    <p
-                      className={`text-[16px] text-black font-semibold cursor-pointer  ${toggleHeadings === index && " text-white"
-                        }`}
+                {headings
+                  .filter((_, index) => isLogin || index === 0)
+                  .map((item, index) => (
+                    <div
                       onClick={() => {
                         forceUpdate();
                         setToggleHeadings(index);
-                        setSelectedJob()
+                        setSelectedJob();
                       }}
+                      key={index}
+                      className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px] cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
+                        }`}
                     >
-                      {item.title}
-                    </p>
-                  </div>
-                ))}
+                      {item.img}
+                      <p
+                        className={`text-[16px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
+                          }`}
+                      >
+                        {item.title}
+                      </p>
+                    </div>
+                  ))}
               </div>
+
             </div>
           </div>
           {toggleHeadings <= 2 && (
             <div style={{ backgroundColor: "#E0F6FF" }} className="">
               <div className="customMargins web">
-                <div className="flex items-center py-5  gap-3 flex-wrap ">
+                <div className="flex items-center py-5  gap-3 flex-wrap  ">
                   {filteredInputData.map((item, index) => (
                     <InputBox
 
@@ -730,7 +747,7 @@ function Index() {
                       filters={filters}
                       userSkills={userSkills}
                       setLoading={setLoading}
-                      className="text-[14px] font-medium flex items-center w-auto"
+                      className="text-[14px] font-medium flex items-center w-auto cursor-pointer"
                       isOpen={openDropdown === index}
                       onDropdownClick={handleDropdownClick}
                       id={index}
@@ -902,6 +919,7 @@ function Index() {
                                 savedJobList={savedJobList}
                                 setSavedJobList={setSavedJobList}
                                 setCurrentPage={setPage}
+                                isLogin={isLogin}
                               />
                             </div>
                           )}
@@ -917,6 +935,7 @@ function Index() {
                               savedJobList={savedJobList}
                               setSavedJobList={setSavedJobList}
                               setCurrentPage={setPage}
+                              isLogin={isLogin}
                             />
                           </div>
 
@@ -924,7 +943,7 @@ function Index() {
                             className={`web1024   ${filter ? "col-span-7" : "col-span-7"
                               } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup}/>
+                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                           </div>
 
 
@@ -954,7 +973,7 @@ function Index() {
                                 Back
                               </div>
 
-                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                             </div>
                           )}
                         </>
@@ -1011,7 +1030,7 @@ function Index() {
                             className={`web1024   ${filter ? "col-span-7" : "col-span-7"
                               } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                           </div>
 
 
@@ -1041,7 +1060,7 @@ function Index() {
                                 Back
                               </div>
 
-                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                             </div>
                           )}
                         </>
@@ -1097,7 +1116,7 @@ function Index() {
                             className={`web1024   ${filter ? "col-span-7" : "col-span-7"
                               } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
                           >
-                            <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                           </div>
                           {/* LAST SECTION   */}
 
@@ -1127,7 +1146,7 @@ function Index() {
                                 Back
                               </div>
 
-                              <Description selectedJob={selectedJob}  setLimitPopup={setLimitPopup}/>
+                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                             </div>
                           )}
                         </>

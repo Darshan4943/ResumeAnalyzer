@@ -62,6 +62,7 @@ const InputBox = ({
       console.error("Error fetching filter data", error);
     } 
   };
+
   const handleClearFilters = () => {
     onChange(null, filterType, null);
     setLocalIsDropdownOpen(false);

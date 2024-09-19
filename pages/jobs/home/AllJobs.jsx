@@ -12,17 +12,18 @@ function AllJobs({
   savedJobList,
   setSavedJobList,
   setCurrentPage,
+  isLogin
 }) {
   const jobData = useSelector((state) => state.getAllJobs.data);
-  
+
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [jobsChanged, setJobsChanged] = useState(false)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
- 
-  const getData = () => { 
+
+  const getData = () => {
     axios
       .post("https://jamblix.com/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
@@ -33,7 +34,7 @@ function AllJobs({
         setSavedJobList(res.data.data);
       })
       .catch((err) => {
-       
+
         console.log(err);
       });
   };
@@ -47,16 +48,16 @@ function AllJobs({
 
 
   const SaveJob = (e, id) => {
-     // setLoading(false);
+    // setLoading(false);
     e.stopPropagation();
     axios
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-        
-       
-       
+
+
+
         dispatch(reCallUserData());
-      
+
         toast.success("Job Saved  Successfully");
         getData();
       })
@@ -71,9 +72,9 @@ function AllJobs({
     axios
       .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-      
+
         dispatch(reCallUserData());
-      
+
         toast.success("Job Removed  Successfully");
         getData();
       })
@@ -230,7 +231,7 @@ function AllJobs({
                         </g>
                       </svg>
                       <div className="text-[#262626] text-[12px] font-[400] ">
-                      {item.country.join(", ")} || {item.location.join(", ")}
+                        {item.country.join(", ")} || {item.location.join(", ")}
 
                       </div>
                     </div>
@@ -262,39 +263,41 @@ function AllJobs({
                 <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                   {countPostingDays(item?.createdAt)}
                 </div>
-                <div>
+                {isLogin &&
+                  <div className=" cursor-pointer">
 
-                  {savedJobList.find((data) => data._id == item._id) ? (
-                    <svg
-                      onClick={(e) => removeSavedJob(e, item._id)}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="18"
-                      viewBox="0 0 14 18"
-                      fill="none"
-                    >
-                      <path
-                        d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
-                        fill="#333333"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      onClick={(e) => SaveJob(e, item._id)}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <g mask="url(#mask0_4135_57938)">
+                    {savedJobList.find((data) => data._id == item._id) ? (
+                      <svg
+                        onClick={(e) => removeSavedJob(e, item._id)}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="18"
+                        viewBox="0 0 14 18"
+                        fill="none"
+                      >
                         <path
-                          d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                          fill={"#646464"}
+                          d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
+                          fill="#333333"
                         />
-                      </g>
-                    </svg>
-                  )}
-                </div>
+                      </svg>
+                    ) : (
+                      <svg
+                        onClick={(e) => SaveJob(e, item._id)}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <g mask="url(#mask0_4135_57938)">
+                          <path
+                            d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
+                            fill={"#646464"}
+                          />
+                        </g>
+                      </svg>
+                    )}
+                  </div>
+                }
               </div>
 
             </div>
