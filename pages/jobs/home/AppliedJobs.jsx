@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../Redux/actions/user";
+import { CountPostingDays } from "../../../utils/data";
 function AppliedJobs({ setIsDescription, setSelectedJob, selectedJob, appliedJobs, setAppliedJobs }) {
 
 
   const userDataGlobal = useSelector((state) => state.userData);
   const [savedJobList, setSavedJobList] = useState([]);
-
+console.log(appliedJobs)
   const dispatch = useDispatch();
 
   const getData = () => {
@@ -72,24 +73,7 @@ function AppliedJobs({ setIsDescription, setSelectedJob, selectedJob, appliedJob
       });
   };
 
-  const countPostingDays = (date) => {
-    const postingDate = new Date(date);
-    const currentDate = new Date();
-
-    const diffInMilliseconds = currentDate - postingDate;
-    const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
-
-    if (diffInDays < 30) {
-      return `${diffInDays} days ago`;
-    } else if (diffInDays < 365) {
-      const diffInMonths = Math.floor(diffInDays / 30);
-      return `${diffInMonths} months ago`;
-    } else {
-      const diffInYears = Math.floor(diffInDays / 365);
-      return `${diffInYears} years ago`;
-    }
-  };
-
+ 
   useEffect(() => {
     if (appliedJobs?.length > 0) {
       setSelectedJob(appliedJobs[0]);
@@ -241,9 +225,16 @@ function AppliedJobs({ setIsDescription, setSelectedJob, selectedJob, appliedJob
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row justify-between items-center">
-                <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                  {countPostingDays(item?.createdAt)}
+              <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1">
+                <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g mask="url(#mask0_5716_127485)">
+                      <path d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z" fill="#0C8A0A" />
+                    </g>
+                  </svg>
+
+                  Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal._id).appliedOn)}
                 </div>
                 <div>
 

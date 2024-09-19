@@ -3385,3 +3385,33 @@ export const countries = [
   "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", 
   "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ];
+
+export const CountPostingDays = (date) => {
+  const postingDate = new Date(date);
+  const currentDate = new Date();
+
+  const diffInMilliseconds = currentDate - postingDate;
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+  
+  if (diffInSeconds < 60) {
+    return `${diffInSeconds} seconds ago`;
+  } else if (diffInSeconds < 3600) {
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
+  } else if (diffInSeconds < 86400) {
+    const diffInHours = Math.floor(diffInSeconds / 3600);
+    return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
+  } else {
+    const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+    if (diffInDays < 30) {
+      return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
+    } else if (diffInDays < 365) {
+      const diffInMonths = Math.floor(diffInDays / 30);
+      return `${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
+    } else {
+      const diffInYears = Math.floor(diffInDays / 365);
+      return `${diffInYears} year${diffInYears !== 1 ? 's' : ''} ago`;
+    }
+  }
+};
+

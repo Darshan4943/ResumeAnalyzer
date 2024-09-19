@@ -12,7 +12,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
     const [isLogin, setIsLogin] = useState(false);
 
     const jobApplyCount = localStorage.getItem("jobsApply");
-    
+
     const getData = () => {
         axios
             .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
@@ -37,31 +37,31 @@ function Description({ selectedJob, filter, setLimitPopup }) {
         }
     }, []);
 
-  return (
-    <>
-      <div>
-        {selectedJob && (
-          <>
-            <div className={`flex flex-col `}>
-              <div
-                className="p-[16px]  border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  "
-                style={{
-                  boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
-                }}
-              >
-                <div
-                  style={{
-                    borderBottom: "1px solid #646464",
-                  }}
-                >
-                  <div className="flex flex-col gap-[4px]">
-                    <div className="text-[#333] text-[20px] font-[500]">
-                      {selectedJob.jobTitle}
-                    </div>
+    return (
+        <>
+            <div>
+                {selectedJob && (
+                    <>
+                        <div className={`flex flex-col `}>
+                            <div
+                                className="p-[16px]  border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  "
+                                style={{
+                                    boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        borderBottom: "1px solid #646464",
+                                    }}
+                                >
+                                    <div className="flex flex-col gap-[4px]">
+                                        <div className="text-[#333] text-[20px] font-[500]">
+                                            {selectedJob.jobTitle}
+                                        </div>
 
-                    <div className="text-[#333] text-[14px] font-[500]">
-                      {selectedJob.companyName}
-                    </div>
+                                        <div className="text-[#333] text-[14px] font-[500]">
+                                            {selectedJob.companyName}
+                                        </div>
 
                                         <div className="flex flex-row gap-[4px] text-[#333] text-[12px] font-[400]">
                                             <svg
@@ -106,7 +106,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                             {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
                                         </button>
 
-                    {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                                        {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                             Save
                           </button> */}
                                     </div>
@@ -179,9 +179,40 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         <div className="text-[20px] font-[500]">
                                             Full job Description
                                         </div>
-                                        <div className="text-[12px] text-[400] gap-[8px] flex flex-col">
+                                        <div className="text-[12px] font-[400] gap-[8px] flex flex-col">
                                             {selectedJob.description}
                                         </div>
+                                        <div className="text-[14px] font-[500] ">
+                                            Job Type : {selectedJob.jobType}
+                                        </div>
+                                        <div className="text-[14px] font-[500] ">
+                                            Job Mode : {selectedJob.jobMode}
+                                        </div>
+                                        {(selectedJob.minSalary || selectedJob.maxSalary) &&
+                                            <div className="text-[14px] font-[500] ">
+                                                Salary : {selectedJob.minSalary} {(selectedJob.minSalary && selectedJob.maxSalary) && "-"} {selectedJob.maxSalary} {selectedJob.salaryType}
+                                            </div>
+                                        }
+                                        {selectedJob.requiredQualification &&
+                                            <div className="text-[14px] font-[500] ">
+                                                Education : {selectedJob.requiredQualification}
+                                            </div>
+                                        }
+                                        {selectedJob.experience &&
+                                            <div className="text-[14px] font-[500] ">
+                                                Experience : Total Work Experience {selectedJob.experience} (Required)
+                                            </div>
+                                        }
+                                        {selectedJob.deadLine &&
+                                            <div className="text-[14px] font-[500]">
+                                                Deadline: {new Date(selectedJob.deadLine).toLocaleDateString('en-US', {
+                                                    day: '2-digit',
+                                                    month: 'short', 
+                                                    year: 'numeric'
+                                                })}
+                                            </div>
+                                        }
+
                                     </div>
                                 )}
 

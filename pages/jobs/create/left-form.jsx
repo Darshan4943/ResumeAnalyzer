@@ -30,7 +30,7 @@ const Leftform = ({
 }));
 
   const fileRef = useRef();
-  console.log(data)
+  
   const [loactionText, setLoactionText] = useState("");
   const [modelView, setModelView] = useState(false);
   const handleFileChange = (event) => {

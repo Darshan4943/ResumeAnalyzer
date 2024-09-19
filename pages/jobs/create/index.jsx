@@ -35,7 +35,7 @@ const Index = () => {
     mustSkills: [],
     goodSkills: [],
   });
-console.log(data)
+
   const getData = () => {
     setLoading(true);
     axios

@@ -8,53 +8,59 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const getCroppedImg = async (imageSrc, crop, fileName, quality = 0.4) => {
+  const getCroppedImg = async (imageSrc, croppedAreaPixels, fileName, quality = 0.4) => {
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    const { width, height } = crop;
-    canvas.width = width;
-    canvas.height = height;
+    // Set the canvas size based on the cropped area
+    canvas.width = croppedAreaPixels.width; 
+    canvas.height = croppedAreaPixels.height;
 
+    // Optional: Set a transparent or colored background
+    ctx.fillStyle = "rgba(255, 255, 255, 0)"; // Transparent background
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the image onto the canvas
     ctx.drawImage(
-      image,
-      crop.x,
-      crop.y,
-      crop.width,
-      crop.height,
-      0,
-      0,
-      crop.width,
-      crop.height
+        image,
+        croppedAreaPixels.x,  // Use croppedAreaPixels.x
+        croppedAreaPixels.y,  // Use croppedAreaPixels.y
+        croppedAreaPixels.width,
+        croppedAreaPixels.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
     return new Promise((resolve) => {
-      canvas.toBlob(
-        (blob) => {
-          if (!blob) {
-            console.error("Canvas is empty");
-            return;
-          }
-          blob.name = fileName;
-          const url = URL.createObjectURL(blob);
-          resolve({ blob, url });
-        },
-        "image/jpeg",
-        quality
-      );
+        canvas.toBlob(
+            (blob) => {
+                if (!blob) {
+                    console.error("Canvas is empty");
+                    return;
+                }
+                blob.name = fileName;
+                const url = URL.createObjectURL(blob);
+                resolve({ blob, url });
+            },
+            "image/jpeg",
+            quality
+        );
     });
-  };
+};
 
-  const createImage = (url) => {
-    return new Promise((resolve, reject) => {
+const createImage = (url) => {
+  return new Promise((resolve, reject) => {
       const image = new Image();
-      image.addEventListener("load", () => resolve(image));
-      image.addEventListener("error", (error) => reject(error));
-      image.setAttribute("crossOrigin", "anonymous"); // for crossOrigin images
+      image.crossOrigin = "anonymous"; // Ensure CORS settings are correct
       image.src = url;
-    });
-  };
+      image.onload = () => resolve(image);
+      image.onerror = (error) => reject(error);
+  });
+};
+
 
   const showCroppedImage = async () => {
     try {
@@ -74,6 +80,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
   };
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    console.log("Cropped Area Pixels:", croppedAreaPixels);
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
@@ -97,7 +104,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
                 image={URL.createObjectURL(file)}
                 crop={crop}
                 zoom={zoom}
-                aspect={1 / 1}
+                aspect={1}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}

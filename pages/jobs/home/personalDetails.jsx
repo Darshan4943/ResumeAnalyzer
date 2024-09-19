@@ -231,7 +231,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) =>
 
                 </div>
 
-                <div className='ml:w-[49%] w-[100%]'>
+                <div className='ml:w-[49.5%] w-[100%]'>
                     <label className="block text-sm font-medium text-gray-700">
                         Date of Birth <span className="text-red font-medium">*</span>
                     </label>

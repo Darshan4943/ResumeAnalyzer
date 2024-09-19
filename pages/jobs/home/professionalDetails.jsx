@@ -84,7 +84,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
           </div>
         </div>
 
-        <div className='ms:w-[49%] w-[100%]'>
+        <div className='ms:w-[49.5%] w-[100%]'>
           <label className="block text-sm font-medium text-gray-700">
             Notice Period
           </label>

@@ -194,12 +194,15 @@ function Index() {
       title: "Salary",
       img: "/images/jobs/arw.png",
       child: Array.isArray(jobtypeData?.salaries)
-        ? jobtypeData.salaries.map(salary => ({
-          label: `${salary.minSalary} - ${salary.maxSalary}`,
-          value: salary,
-        }))
+        ? jobtypeData.salaries
+            .sort((a, b) => a.minSalary - b.minSalary) 
+            .map(salary => ({
+              label: `${salary.minSalary} - ${salary.maxSalary}`,
+              value: salary,
+            }))
         : [],
-    },
+    }
+    ,
     {
       title: "Experience",
       img: "/images/jobs/arw.png",
@@ -920,6 +923,7 @@ function Index() {
                                 setSavedJobList={setSavedJobList}
                                 setCurrentPage={setPage}
                                 isLogin={isLogin}
+                                appliedJobs={appliedJobs}
                               />
                             </div>
                           )}
@@ -936,6 +940,7 @@ function Index() {
                               setSavedJobList={setSavedJobList}
                               setCurrentPage={setPage}
                               isLogin={isLogin}
+                              appliedJobs={appliedJobs}
                             />
                           </div>
 
@@ -1094,6 +1099,7 @@ function Index() {
                                 savedJobList={savedJobList}
                                 setSavedJobList={setSavedJobList}
                                 setCurrentPage={setPage}
+                                appliedJobs={appliedJobs}
                               />
                             </div>
                           )}
@@ -1109,6 +1115,7 @@ function Index() {
                               savedJobList={savedJobList}
                               setSavedJobList={setSavedJobList}
                               setCurrentPage={setPage}
+                              appliedJobs={appliedJobs}
                             />
                           </div>
 
