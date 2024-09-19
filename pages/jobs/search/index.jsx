@@ -575,7 +575,7 @@ function Index() {
   //   getFilterData()
   // }, [clear]);
 
-  console.log(444,savedJobList)
+  
 
   return (
     <>

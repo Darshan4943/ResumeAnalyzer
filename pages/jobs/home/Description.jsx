@@ -10,7 +10,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
     const [appliedJobs, setAppliedJobs] = useState()
     // const [limitPopup, setLimitPopup] = useState(false)
     const [isLogin, setIsLogin] = useState(false);
-    const jobApplyCount = JSON.parse(localStorage.getItem("jobsApply"));
+
+    const jobApplyCount = localStorage.getItem("jobsApply");
+    
     const getData = () => {
         axios
             .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
