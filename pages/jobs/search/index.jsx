@@ -998,7 +998,7 @@ function Index() {
                         <>
                           {!isDescription && (
                             <div
-                              // onClick={() => setIsDescription(true)}
+                              onClick={() => setIsDescription(true)}
                               className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
                                 }`}
                             >

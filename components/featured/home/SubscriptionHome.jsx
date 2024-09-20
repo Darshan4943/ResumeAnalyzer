@@ -83,7 +83,7 @@ function SubscriptionPlan({ isLogin, fromMain }) {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `https://jamblix.com/api/exchangeRate/${currency}`
+          `http://localhost:2000/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem("exchangeRate", exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate);

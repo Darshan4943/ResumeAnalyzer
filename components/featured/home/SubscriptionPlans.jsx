@@ -67,7 +67,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -80,7 +80,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
 
         const allPlan = res.data.data

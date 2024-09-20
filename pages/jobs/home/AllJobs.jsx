@@ -128,9 +128,7 @@ function AllJobs({
                 const itemsPerPage = 10;
                 const newPageNumber = Math.ceil((index + 1) / itemsPerPage);
                 setCurrentPage(newPageNumber);
-                isViewportBelow600
-                  ? window.scroll(400, 400)
-                  : window.scroll(0, 0);
+              
               }}
               className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
                 } `}
@@ -262,8 +260,8 @@ function AllJobs({
                 </div>
               </div>
             
-              <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1">
-                {appliedJobs.some(appliedJob => appliedJob._id === item._id) ? (
+              <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1 h-[24px]">
+                {appliedJobs?.some(appliedJob => appliedJob._id === item._id) ? (
                   <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 

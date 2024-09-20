@@ -67,7 +67,7 @@ const Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({

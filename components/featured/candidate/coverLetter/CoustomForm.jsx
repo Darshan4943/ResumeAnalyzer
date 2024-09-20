@@ -28,7 +28,7 @@ const CoustomForm = ({
     setLoading(true);
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     axios
-      .post("https://jamblix.com/api/cover/rephrase", { prompt })
+      .post("http://localhost:2000/api/cover/rephrase", { prompt })
       .then((res) => {
         const rephrasedPassage = res.data;
 

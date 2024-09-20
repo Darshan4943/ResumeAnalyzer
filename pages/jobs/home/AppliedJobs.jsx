@@ -16,7 +16,7 @@ console.log(appliedJobs)
 
   const getData = () => {
     axios
-      .post("https://jamblix.com/api/job/byIds", {
+      .post("http://localhost:2000/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),
@@ -238,7 +238,7 @@ console.log(appliedJobs)
                 </div>
                 <div>
 
-                  {savedJobList.find((data) => data._id == item._id) ? (
+                  {savedJobList?.find((data) => data._id == item._id) ? (
 
 
                     <svg onClick={(e) => removeSavedJob(e, item._id)}
