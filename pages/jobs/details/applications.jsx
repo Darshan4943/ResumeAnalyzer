@@ -13,6 +13,7 @@ const Applications = ({ jobPost, applications }) => {
         <span className="text-[16px] text-[#333333] font-semibold ">
           Total Applicants : {jobPost?.applications?.length}
         </span>
+        {/** 
         <div className="sm:w-fit  w-full">
           <div className="flex flex-row gap-[8px] py-[12px] px-[16px] bg-[#92DEFF] justify-center items-center rounded-[8px] w-full">
             <svg
@@ -37,7 +38,7 @@ const Applications = ({ jobPost, applications }) => {
               Save to Collection
             </span>
           </div>
-        </div>
+        </div>*/}
       </div>
       <div>
         {applications?.length > 0 ? (
@@ -63,9 +64,10 @@ const Applications = ({ jobPost, applications }) => {
                     <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
                       Name of Candidate
                     </th>
+                    {/**
                     <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
                       Location
-                    </th>
+                    </th>*/}
                     <th className="text-[16px] font-semibold text-white w-[15%]">
                       Profile Match
                     </th>
@@ -114,9 +116,10 @@ const Applications = ({ jobPost, applications }) => {
                               item.details?.personal?.lastName}
                           </span>
                         </th>
+                        {/***
                         <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
                           {item?.details?.personal?.currentLocation}
-                        </th>
+                        </th>*/}
                         <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                           {item.matchingPercentage}%
                         </th>

@@ -29,9 +29,9 @@ function AccountDetails({
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
-  const [freePlanSuccess, setFreePlanSuccess] = useState(false)
-  const [freePlanFailed, setFreePlanFailed] = useState(false)
-  const [alreadyUsedFree, setAlreadyUsedFree] = useState(false)
+  const [freePlanSuccess, setFreePlanSuccess] = useState(false);
+  const [freePlanFailed, setFreePlanFailed] = useState(false);
+  const [alreadyUsedFree, setAlreadyUsedFree] = useState(false);
   const storedId = localStorage.getItem("paymentId");
   const [sessionId, setSessionId] = useState("");
   const [payment_status, setPaymentStatus] = useState(null);
@@ -251,11 +251,14 @@ function AccountDetails({
     const currency = localStorage.getItem("currency");
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
-      const { data } = await axios.post("http://localhost:2000/api/getPriceId", {
-        amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
-        productName: selectedPlan.productName,
-        currency: currency,
-      });
+      const { data } = await axios.post(
+        "http://localhost:2000/api/getPriceId",
+        {
+          amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
+          productName: selectedPlan.productName,
+          currency: currency,
+        }
+      );
       if (data.success) {
         return data.id;
       }
@@ -341,7 +344,6 @@ function AccountDetails({
         setSuccessModel({ visible: true, loading: false });
       }, 1000);
       return;
-
     }
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
@@ -366,7 +368,7 @@ function AccountDetails({
         amount: Math.ceil(selectedPlan.amount * exchangeRate),
         icon: icon,
         paymentId: session.id,
-        planDetails: selectedPlan
+        planDetails: selectedPlan,
       });
       // setPurchaseCount(1)
       localStorage.setItem("purchaseCount", 1);
@@ -388,8 +390,6 @@ function AccountDetails({
     }
   };
   const handleFreeSession = async () => {
-
-
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
     seticon(icon);
@@ -408,7 +408,7 @@ function AccountDetails({
             userId: userDataGlobal._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,
-            email:data?.email,
+            email: data?.email,
             lastName: data?.lastName,
             mobileNo: data?.mobileNo,
             index: selectedPlan.index,
@@ -419,9 +419,8 @@ function AccountDetails({
             amount: Math.ceil(selectedPlan.amount * exchangeRate),
             icon: icon,
 
-            planDetails: selectedPlan
+            planDetails: selectedPlan,
           });
-
 
           setTimeout(() => {
             setFreePlanSuccess(true);
@@ -430,20 +429,20 @@ function AccountDetails({
 
           setLoading(false);
         } catch (error) {
-          console.error("Error adding subscription:", error.response.data.message);
+          console.error(
+            "Error adding subscription:",
+            error.response.data.message
+          );
           if (error.response.data.message === "Payment ID already exists") {
             setFreePlanFailed(true);
-            setAlreadyUsedFree(true)
+            setAlreadyUsedFree(true);
             setLoading(false);
           } else {
-
             setTimeout(() => {
               setFreePlanFailed(true);
               setLoading(false);
             }, 1000);
           }
-
-
         }
       }
     }
@@ -469,15 +468,15 @@ function AccountDetails({
 
   return (
     <div className={" w-[60%] plan-container  "}>
-
-      {freePlanSuccess &&
+      {freePlanSuccess && (
         <PurchasedSuccessful setFreePlanSuccess={setFreePlanSuccess} />
-
-
-      }
-      {freePlanFailed &&
-        <PurchasedFailed setFreePlanFailed={setFreePlanFailed} alreadyUsedFree={alreadyUsedFree} />
-      }
+      )}
+      {freePlanFailed && (
+        <PurchasedFailed
+          setFreePlanFailed={setFreePlanFailed}
+          alreadyUsedFree={alreadyUsedFree}
+        />
+      )}
 
       {popUp && (
         <>
@@ -613,16 +612,18 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                  }`}
+                className={`flex w-[100%]  items-start ${
+                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                    } items-center`}
+                  className={`relative  min-w-[120px] ${
+                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                  } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -669,10 +670,11 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${isViewportBelow850
-                    ? "Enter Number "
-                    : "Enter Contact Number "
-                    }`}
+                  placeholder={`${
+                    isViewportBelow850
+                      ? "Enter Number "
+                      : "Enter Contact Number "
+                  }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -681,7 +683,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                // id="single_input"
+                  // id="single_input"
                 />
               </div>
 
@@ -701,23 +703,29 @@ function AccountDetails({
             <div className="flex flex-col gap-4">
               <div className="flex justify-between">
                 <p className="text-[14px] font-semibold">
-                  {selectedPlan.type === "candidate" &&
+                  {selectedPlan.type === "candidate" && (
                     <>
-                      <span className="text-[#06A9EF]">{selectedPlan?.days} Days</span>{" "}
+                      <span className="text-[#06A9EF]">
+                        {selectedPlan?.days} Days
+                      </span>{" "}
                     </>
-                  }
+                  )}
 
-                  <span className={`${selectedPlan.type === "recruiter" && "text-[#06A9EF]"}`}> {selectedPlan?.name}</span>
+                  <span
+                    className={`${
+                      selectedPlan.type === "recruiter" && "text-[#06A9EF]"
+                    }`}
+                  >
+                    {" "}
+                    {selectedPlan?.name}
+                  </span>
 
-                  {selectedPlan.type === "recruiter" &&
-                    <span > Plan</span>
-                  }
+                  {selectedPlan.type === "recruiter" && <span> Plan</span>}
                 </p>
                 <div className="flex flex-row gap-2 w-[70%] items-center justify-end">
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan?.amount * exchangeRate)}
-
                   </p>
                 </div>
               </div>
@@ -780,7 +788,9 @@ function AccountDetails({
           <button
             className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
-            onClick={selectedPlan.index === 1 ? handleFreeSession : purchaseHandler}
+            onClick={
+              selectedPlan.index === 1 ? handleFreeSession : purchaseHandler
+            }
           >
             {loading ? (
               <svg

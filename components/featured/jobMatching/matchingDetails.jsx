@@ -83,7 +83,6 @@ const MatchingDetails = ({
     setSelectedFile({ ...data, matching_parameters: sortedData });
   }, [data]);
 
- 
   return (
     <>
       <div
@@ -110,6 +109,7 @@ const MatchingDetails = ({
                 </span>
               </div>
             </div>
+            
             <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] flex flex-row justify-between items-center">
               <div className="flex flex-row gap-[8px] w-full">
                 {fileIconSeter(data)}

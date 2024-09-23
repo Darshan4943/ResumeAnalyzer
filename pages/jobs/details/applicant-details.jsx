@@ -90,6 +90,8 @@ const ApplicantDetails = () => {
       )}
     </Document>
   );
+
+  console.log(3333, application);
   return (
     <div className="min-h-[90vh] my-[16px] rounded-[16px] customMargins  ">
       {loading ? (
@@ -277,7 +279,7 @@ const ApplicantDetails = () => {
                         About Me
                       </span>
                       <span className="text-[14px] text-[#333333] font-normal">
-                        {application?.summery}
+                        {application?.details?.professional?.aboutme ? application?.details?.professional?.aboutme : "Syncning..."}
                       </span>
                     </div>
                     <div className="flex ms:flex-row flex-col gap-[16px]">
@@ -287,8 +289,7 @@ const ApplicantDetails = () => {
                             Current Job
                           </span>
                           <span className="text-[14px] text-[#333333] font-normal">
-                            {application?.experience &&
-                              application?.experience[0]?.designation}
+                          {application?.details?.professional?.totalExperience? application?.details?.professional?.totalExperience : "Syncning..."}
                           </span>
                         </div>
                         <div className="flex flex-col">
@@ -296,8 +297,7 @@ const ApplicantDetails = () => {
                             Highest Qualification
                           </span>
                           <span className="text-[14px] text-[#333333] font-normal">
-                            {application?.education &&
-                              application?.education[0]?.qualification}
+                          {application?.details?.professional?.hightestQul? application?.details?.professional?.hightestQul : "Syncning..."}
                           </span>
                         </div>
                       </div>
@@ -306,12 +306,12 @@ const ApplicantDetails = () => {
                           Skills
                         </span>
                         <div className="flex flex-row flex-wrap gap-[12px]">
-                          {application?.skills?.map((item, index) => (
+                          {application?.details?.professional?.skills?.map((item, index) => (
                             <div
                               key={index}
                               className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
                             >
-                              {item.skill}
+                              {item}
                             </div>
                           ))}
                         </div>
