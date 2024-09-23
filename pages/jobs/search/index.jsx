@@ -112,7 +112,7 @@ function Index() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [filter, setFilter] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
-  const jobData = useSelector((state) => state.getAllJobs.data);
+  const [jobData, setJobData] = useState([])
   const [selectedJob, setSelectedJob] = useState();
   const [toggleHeadings, setToggleHeadings] = useState(0);
   const [savedJobList, setSavedJobList] = useState([]);
@@ -139,7 +139,9 @@ function Index() {
   const [jobtypeData, setJobTypeData] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false)
-
+  const [totalPages, setTotalpages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1)
@@ -195,11 +197,11 @@ function Index() {
       img: "/images/jobs/arw.png",
       child: Array.isArray(jobtypeData?.salaries)
         ? jobtypeData.salaries
-            .sort((a, b) => a.minSalary - b.minSalary) 
-            .map(salary => ({
-              label: `${salary.minSalary} - ${salary.maxSalary}`,
-              value: salary,
-            }))
+          .sort((a, b) => a.minSalary - b.minSalary)
+          .map(salary => ({
+            label: `${salary.minSalary} - ${salary.maxSalary}`,
+            value: salary,
+          }))
         : [],
     }
     ,
@@ -266,6 +268,7 @@ function Index() {
     }
   }, []);
 
+
   useEffect(() => {
     if (isLogin) {
       axios
@@ -287,6 +290,19 @@ function Index() {
     }
   }, [userDataGlobal, recall]);
 
+  const getData = () => {
+    axios
+      .get(`http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`)
+      .then((res) => setAppliedJobs(res.data))
+      .catch((err) => console.error(err));
+
+  }
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
+    }
+  }, [userDataGlobal]);
+
   const getAllData = async () => {
 
     try {
@@ -298,11 +314,13 @@ function Index() {
           country: location || country,
         },
         {
-          params: { page },
+          params: { page, limit },
         }
       );
 
-      dispatch(setJob(res.data));
+      setJobData(res.data.filteredJobs)
+      setTotalCount(res.data.totalCount);
+      setTotalpages(res.data.totalPages);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -314,20 +332,9 @@ function Index() {
 
   useEffect(() => {
     getAllData();
-  }, [userSkills]);
+  }, [userSkills, page, limit]);
 
-  const getData = () => {
-    axios
-      .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
-      .then((res) => setAppliedJobs(res.data))
-      .catch((err) => console.error(err));
 
-  }
-  useEffect(() => {
-    if (userDataGlobal._id) {
-      getData();
-    }
-  }, [userDataGlobal]);
 
 
   // const getJobData = () => {
@@ -558,7 +565,7 @@ function Index() {
             ...mappedFilters,
           },
           {
-            params: { page },
+            params: { page, limit },
           }
         );
 
@@ -578,7 +585,7 @@ function Index() {
   //   getFilterData()
   // }, [clear]);
 
-  
+
 
   return (
     <>
@@ -907,7 +914,7 @@ function Index() {
                 <>
                   {(toggleHeadings === 0 && (
                     <>
-                      {jobData.length > 0 ?
+                      {jobData?.length > 0 ?
                         <>
                           {!isDescription && (
                             <div
@@ -924,12 +931,20 @@ function Index() {
                                 setCurrentPage={setPage}
                                 isLogin={isLogin}
                                 appliedJobs={appliedJobs}
+                                setLimit={setLimit}
+                                limit={limit}
+                                setTotalpages={setTotalpages}
+                                totalPages={totalPages}
+                                page={page}
+                                setPage={setPage}
+                                jobData={jobData}
+
                               />
                             </div>
                           )}
 
                           <div
-                            className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
+                            className={`web1024   ${filter ? "col-span-5" : "col-span-5"
                               } ml:mt-4`}
                           >
                             <AllJobs
@@ -941,12 +956,19 @@ function Index() {
                               setCurrentPage={setPage}
                               isLogin={isLogin}
                               appliedJobs={appliedJobs}
+                              setLimit={setLimit}
+                              limit={limit}
+                              setTotalpages={setTotalpages}
+                              totalPages={totalPages}
+                              page={page}
+                              setPage={setPage}
+                              jobData={jobData}
                             />
                           </div>
 
                           <div
                             className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
+                              } ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
                           >
                             <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                           </div>
@@ -993,90 +1015,16 @@ function Index() {
 
                   {toggleHeadings === 1 && (
 
-                    <>
-                      {appliedJobs?.length > 0 ?
-                        <>
-                          {!isDescription && (
-                            <div
-                              onClick={() => setIsDescription(true)}
-                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                }`}
-                            >
-                              <AppliedJobs
-                                selectedJob={selectedJob}
-                                setIsDescription={setIsDescription}
-                                setSelectedJob={setSelectedJob}
-                                savedJobList={savedJobList}
-                                setSavedJobList={setSavedJobList}
-                                setCurrentPage={setPage}
-                                appliedJobs={appliedJobs}
-                                setAppliedJobs={setAppliedJobs}
-                              />
-                            </div>
-                          )}
+                    <div className="col-span-12">
 
-                          <div
-                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                              } ml:mt-4`}
-                          >
-                            <AppliedJobs
-                              selectedJob={selectedJob}
-                              setIsDescription={setIsDescription}
-                              setSelectedJob={setSelectedJob}
-                              savedJobList={savedJobList}
-                              setSavedJobList={setSavedJobList}
-                              setCurrentPage={setPage}
-                              appliedJobs={appliedJobs}
-                              setAppliedJobs={setAppliedJobs}
-                            />
-                          </div>
+                      <AppliedJobs
+                        selectedJob={selectedJob}
+                        setLimitPopup={setLimitPopup}
+                        setSelectedJob={setSelectedJob}
 
-                          <div
-                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                          >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                          </div>
+                      />
 
-
-                          {isDescription && (
-                            <div
-                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                } flex flex-col gap-3 ml:mt-4 `}
-                            >
-                              <div
-                                onClick={() => setIsDescription(false)}
-                                className="flex gap-3"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <g mask="url(#mask0_5925_96419)">
-                                    <path
-                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Back
-                              </div>
-
-                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                            </div>
-                          )}
-                        </>
-                        :
-                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                          <NoJobs name={"Applied"} />
-                        </div>
-
-
-                      }
-                    </>
+                    </div>
 
                   )}
 
@@ -1120,12 +1068,12 @@ function Index() {
                           </div>
 
                           <div
-                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
+                            className={`web1024  col-span-7
+                ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
                           >
                             <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
                           </div>
-                          {/* LAST SECTION   */}
+
 
                           {isDescription && (
                             <div
@@ -1173,7 +1121,7 @@ function Index() {
                   )}
                 </>
                 :
-                <div className="flex justify-center items-start w-full h-[70vh] col-span-12">
+                <div className="flex justify-center items-start w-full h-[70vh]  col-span-12">
                   <MiniLoader />
                 </div>
               }
