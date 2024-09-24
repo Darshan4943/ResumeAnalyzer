@@ -47,9 +47,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
     return (
         <>
-            {loading ?
-                <MiniLoader />
-                :
+            {! loading &&
+                
                 <div>
                     {selectedJob && (
                         <>

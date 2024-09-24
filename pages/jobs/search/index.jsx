@@ -140,14 +140,40 @@ function Index() {
   const [isLogin, setIsLogin] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false)
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
   const [totalCount, setTotalCount] = useState(0);
+  const [savedJobLists, setSavedJobLists] = useState([]);
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1)
     }
   }, [applied]);
 
+
+
+
+  const getSavedData = () => {
+    axios
+      .post("http://localhost:2000/api/job/byIds", {
+        ids: userDataGlobal?.savedJobs
+          ?.map((item) => item.id)
+          .filter((item) => item != "undefined"),
+
+      })
+      .then((res) => {
+        setSavedJobList(res.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+
+    getSavedData()
+
+  }, [userDataGlobal]);
 
 
   useEffect(() => {
@@ -288,7 +314,7 @@ function Index() {
         })
         .catch((err) => console.error("err", err));
     }
-  }, [userDataGlobal, recall]);
+  }, []);
 
   const getData = () => {
     axios
@@ -302,6 +328,7 @@ function Index() {
       getData();
     }
   }, [userDataGlobal]);
+console.log(111,country)
 
   const getAllData = async () => {
 
@@ -311,7 +338,8 @@ function Index() {
         {
           requiredSkills: (jobTitle || location) ? [] : userSkills?.map((item) => item),
           jobTitle: jobTitle || "",
-          country: location || country,
+          country: location ? "": country,
+          location:location
         },
         {
           params: { page, limit },
@@ -331,8 +359,10 @@ function Index() {
   };
 
   useEffect(() => {
+    if(country){
     getAllData();
-  }, [userSkills, page, limit]);
+    }
+  }, [userSkills, page, limit,country]);
 
 
 
@@ -1029,95 +1059,22 @@ function Index() {
                   )}
 
                   {toggleHeadings === 2 && (
-                    <>
+                    <div className="col-span-12">
 
 
-                      {savedJobList?.length > 0 ?
-                        <>
-                          {!isDescription && (
-                            <div
-                              onClick={() => setIsDescription(true)}
-                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                }`}
-                            >
-                              <SavedJobs
-                                selectedJob={selectedJob}
-                                setIsDescription={setIsDescription}
-                                setSelectedJob={setSelectedJob}
-                                savedJobList={savedJobList}
-                                setSavedJobList={setSavedJobList}
-                                setCurrentPage={setPage}
-                                appliedJobs={appliedJobs}
-                              />
-                            </div>
-                          )}
 
-                          <div
-                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                              } ml:mt-4`}
-                          >
-                            <SavedJobs
-                              selectedJob={selectedJob}
-                              setIsDescription={setIsDescription}
-                              setSelectedJob={setSelectedJob}
-                              savedJobList={savedJobList}
-                              setSavedJobList={setSavedJobList}
-                              setCurrentPage={setPage}
-                              appliedJobs={appliedJobs}
-                            />
-                          </div>
+                      <SavedJobs
+                        selectedJob={selectedJob}
+                        setIsDescription={setIsDescription}
+                        setSelectedJob={setSelectedJob}
 
-                          <div
-                            className={`web1024  col-span-7
-                ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
-                          >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                          </div>
+                        setLimitPopup={setLimitPopup}
+                        appliedJobs={appliedJobs}
+                      />
 
 
-                          {isDescription && (
-                            <div
-                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                } flex flex-col gap-3 ml:mt-4 `}
-                            >
-                              <div
-                                onClick={() => setIsDescription(false)}
-                                className="flex gap-3"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <g mask="url(#mask0_5925_96419)">
-                                    <path
-                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Back
-                              </div>
 
-                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                            </div>
-                          )}
-                        </>
-                        :
-                        // <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
-                        //   <img
-                        //     className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
-                        //     src="/images/jobs/noSaved.png"
-                        //     alt=""
-                        //   />
-                        // </div>
-                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                          <NoJobs name={"Saved"} />
-                        </div>
-                      }
-                    </>
+                    </div>
                   )}
                 </>
                 :

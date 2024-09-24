@@ -10,8 +10,8 @@ import NoJobs from "./noJobs";
 import AppliedJobCard from "./AppliedJobCard";
 import Description from "./Description";
 import MiniLoader from "../../../components/common/miniLoader";
-function AppliedJobs({ setSelectedJob, selectedJob, setLimitPopup }) {
-
+function AppliedJobs({  setLimitPopup }) {
+  const [selectedJob, setSelectedJob] = useState();
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [page, setPage] = useState(1);
@@ -23,7 +23,7 @@ function AppliedJobs({ setSelectedJob, selectedJob, setLimitPopup }) {
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const dispatch = useDispatch();
-console.log(111,appliedJobs)
+
   const getAppliedData = () => {
 
     axios
@@ -45,11 +45,11 @@ console.log(111,appliedJobs)
   }
 
   useEffect(() => {
-    if (userDataGlobal._id) {
+  
       getAppliedData()
 
-    }
-  }, [userDataGlobal]);
+   
+  }, [userDataGlobal,page, limit]);
 
 
   useEffect(() => {

@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CountPostingDays } from '../../../utils/data';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import { reCallUserData } from '../../../Redux/actions/user';
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { reCallUserData } from '../../../Redux/actions/user';
 
-function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
-    limit,
-  
-    totalPages,
-    page,
-    setPage, }) {
+function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage, }) {
 
     const userDataGlobal = useSelector((state) => state.userData);
     
-    const [savedJobList, setSavedJobList] = useState([]);
+ 
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -23,78 +18,37 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const [miniLoading, setMiniloading] = useState(false);
     
    
-  
+
+    
     const nextPage = () => {
-      if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-        setPage(currentPage + 1);
-      }
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            setPage(currentPage + 1);
+        }
     };
-  
+
     const prevPage = () => {
-      if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-        setPage(currentPage - 1);
-      }
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            setPage(currentPage - 1);
+        }
     };
     const handleChange = (e) => {
-      setLimit(parseInt(e.target.value));
-      setPage(1)
-      setCurrentPage(1)
+        setLimit(parseInt(e.target.value));
+        setPage(1)
+        setCurrentPage(1)
+
+    };
+
   
-    };
-  
-
-    const getData = () => {
-        axios
-
-            .post("http://localhost:2000/api/job/byIds", {
-                ids: userDataGlobal?.savedJobs
-                    ?.map((item) => item.id)
-                    .filter((item) => item != "undefined"),
-
-            })
-            .then((res) => {
-                setSavedJobList(res.data.data);
-
-            })
-            .catch((err) => {
-
-                console.log(err);
-            });
-    };
-    useEffect(() => {
-
-        getData()
-
-    }, [userDataGlobal]);
-
-
-
-    const SaveJob = (e, id) => {
-        // setLoading(false);
-        e.stopPropagation();
-        axios
-            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
-            .then((res) => {
-
-                dispatch(reCallUserData());
-
-                toast.success("Job Saved  Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
 
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
         axios
-            .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+            .post(
+                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+            )
             .then((res) => {
-
                 dispatch(reCallUserData());
 
                 toast.success("Job Removed  Successfully");
@@ -105,23 +59,21 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                 // setLoading(false);
             });
     };
-
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`flex flex-col rounded-md border-primary bg-white shadow-md `}
+                className={`flex flex-col   
+   rounded-md border-primary bg-white shadow-md `}
                 style={{
                     boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
                 }}
             >
                 <div className="p-[8px]  leading-tight ">
-                    {appliedJobs?.map((item, index) => (
+                    {savedJobList?.map((item, index) => (
                         <>
                             <div
                                 onClick={() => {
                                     setSelectedJob(item);
-
-
                                 }}
                                 className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
                                     } `}
@@ -141,12 +93,11 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                                 {item?.companyName}
                                             </div>
                                         </div>
-                                        {item.logo &&
+                                        {item.logo && (
                                             <div className="flex flex-row  items-end">
-
                                                 <img
                                                     src={item.logo}
-                                                    alt=''
+                                                    alt=""
                                                     style={{
                                                         height: "56px",
                                                         width: "56px",
@@ -154,7 +105,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                                     }}
                                                 />
                                             </div>
-                                        }
+                                        )}
                                     </div>
                                     <div className="flex flex-row gap-[11px] items-center leading-tight ">
                                         {item?.experiance && (
@@ -251,48 +202,43 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1">
-                                    <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] p-1">
+                                    {appliedJobs?.some(appliedJob => appliedJob._id === item._id) ? (
+                                        <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                                            <g mask="url(#mask0_5716_127485)">
-                                                <path d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z" fill="#0C8A0A" />
-                                            </g>
-                                        </svg>
-
-                                        Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal._id).appliedOn)}
-                                    </div>
-                                    <div className=' cursor-pointer'>
-
-                                        {savedJobList?.find((data) => data._id == item._id) ? (
-
-
-                                            <svg onClick={(e) => removeSavedJob(e, item._id)}
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                                                <g mask="url(#mask0_4135_58652)">
-                                                    <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z" fill="#333333" />
+                                                <g mask="url(#mask0_5716_127442)">
+                                                    <path d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z" fill="#0C8A0A" />
                                                 </g>
                                             </svg>
-                                        ) : (
+
+                                            Applied {CountPostingDays(item?.applications?.find(app => app.applicantId === userDataGlobal._id)?.appliedOn)}
+                                        </div>
+                                    ) : (
+                                        <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">
+                                            Posted {CountPostingDays(item.createdAt)}
+                                        </div>
+                                    )}
+
+                                    <div>
+                                      
                                             <svg
-                                                onClick={(e) => SaveJob(e, item._id)}
+                                                onClick={(e) => removeSavedJob(e, item._id)}
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
+                                                width="14"
+                                                className=' cursor-pointer'
+                                                height="18"
+                                                viewBox="0 0 14 18"
+                                                fill="none"
                                             >
-                                                <g mask="url(#mask0_4135_57938)">
-                                                    <path
-                                                        d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                                        fill={"#646464"}
-                                                    />
-                                                </g>
+                                                <path
+                                                    d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
+                                                    fill="#333333"
+                                                />
                                             </svg>
-                                        )}
+                                        
                                     </div>
                                 </div>
-
                             </div>
                         </>
                     ))}
@@ -359,11 +305,10 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                             </defs>
                         </svg>
                     </button>
-
                 </div>
             </div>
         </div>
     )
 }
 
-export default AppliedJobCard
+export default SavedJobCard
