@@ -35,11 +35,15 @@ function AppliedJobs({  setLimitPopup }) {
         setAppliedJobs(res.data.jobs)
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.error(err)
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
 
   }
@@ -153,7 +157,9 @@ function AppliedJobs({  setLimitPopup }) {
           }
         </>
         :
+        <div className=" h-[70vh] ">
         <MiniLoader />
+        </div>
       }
 
     </>

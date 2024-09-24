@@ -9,7 +9,7 @@ import { CountPostingDays } from "../../../utils/data";
 import MiniLoader from "../../../components/common/miniLoader";
 import SavedJobCard from "./SavedJobCard";
 import NoJobs from "./noJobs";
-function SavedJobs({setLimitPopup,appliedJobs
+function SavedJobs({ setLimitPopup, appliedJobs
 }) {
   const [selectedJob, setSelectedJob] = useState();
   const jobData = useSelector((state) => state.getAllJobs.data);
@@ -44,15 +44,19 @@ function SavedJobs({setLimitPopup,appliedJobs
         setSavedJobList(res.data.data);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
   };
 
- 
+
   useEffect(() => {
 
     getData();
@@ -95,7 +99,7 @@ function SavedJobs({setLimitPopup,appliedJobs
                     page={page}
                     setPage={setPage}
                     appliedJobs={appliedJobs}
-                   
+
                   />
                 </div>
               )}
@@ -116,7 +120,7 @@ function SavedJobs({setLimitPopup,appliedJobs
                   setPage={setPage}
                   savedJobList={savedJobList}
                   appliedJobs={appliedJobs}
-               
+
                 />
               </div>
 
@@ -166,7 +170,9 @@ function SavedJobs({setLimitPopup,appliedJobs
           }
         </>
         :
-        <MiniLoader />
+        <div className=" h-[70vh] ">
+          <MiniLoader />
+        </div>
       }
 
     </>

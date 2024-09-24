@@ -1,25 +1,34 @@
-import React, { useState } from 'react'
-import { CountPostingDays } from '../../../utils/data';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { reCallUserData } from '../../../Redux/actions/user';
+import { toast } from 'react-toastify';
+import { CountPostingDays } from '../../../utils/data';
 
-function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage, }) {
+function AllJobCard({
+    selectedJob,
+    setIsDescription,
+    setSelectedJob,
+    savedJobList,
+    setSavedJobList,
+    setLimit,
+    limit,
+    setTotalpages,
+    totalPages,
+    page,
+    setPage,
+    isLogin,
+    appliedJobs,
+    jobData
+}) {
 
-    const userDataGlobal = useSelector((state) => state.userData);
-    
- 
-    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    
+    const userDataGlobal = useSelector((state) => state.userData);
+    const dispatch = useDispatch();
     const router = useRouter();
     const [miniLoading, setMiniloading] = useState(false);
-    
-   
 
-    
     const nextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
@@ -40,15 +49,32 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
 
     };
 
-  
+    const SaveJob = (e, id) => {
+        // setLoading(false);
+        e.stopPropagation();
+        axios
+            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+            .then((res) => {
+
+
+
+                dispatch(reCallUserData());
+
+                toast.success("Job Saved  Successfully");
+                getData();
+            })
+            .catch((err) => {
+                console.log(err);
+                // setLoading(false);
+            });
+    };
 
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
         axios
-            .post(
-                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
-            )
+            .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
+
                 dispatch(reCallUserData());
 
                 toast.success("Job Removed  Successfully");
@@ -59,21 +85,26 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                 // setLoading(false);
             });
     };
+
     return (
         <div className="flex flex-col gap-4">
             <div
                 className={`flex flex-col   
-   rounded-md border-primary bg-white shadow-md `}
+     rounded-md border-primary bg-white shadow-md `}
                 style={{
                     boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
                 }}
             >
                 <div className="p-[8px]  leading-tight ">
-                    {savedJobList?.map((item, index) => (
+                    {jobData?.map((item, index) => (
                         <>
                             <div
                                 onClick={() => {
                                     setSelectedJob(item);
+                                    const itemsPerPage = 10;
+                                    const newPageNumber = Math.ceil((index + 1) / itemsPerPage);
+                                    setCurrentPage(newPageNumber);
+
                                 }}
                                 className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
                                     } `}
@@ -93,11 +124,12 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                                 {item?.companyName}
                                             </div>
                                         </div>
-                                        {item.logo && (
+                                        {item.logo &&
                                             <div className="flex flex-row  items-end">
+
                                                 <img
                                                     src={item.logo}
-                                                    alt=""
+                                                    alt=''
                                                     style={{
                                                         height: "56px",
                                                         width: "56px",
@@ -105,7 +137,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                                     }}
                                                 />
                                             </div>
-                                        )}
+                                        }
                                     </div>
                                     <div className="flex flex-row gap-[11px] items-center leading-tight  flex-wrap ">
                                         {item?.experience && (
@@ -174,8 +206,9 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                                         />
                                                     </g>
                                                 </svg>
-                                                <div className="text-[#262626] text-[12px] font-[400]">
-                                                {item.country.join(", ")} || {item.location.join(", ")}
+                                                <div className="text-[#262626] text-[12px] font-[400] ">
+                                                    {item.country.join(", ")} || {item.location.join(", ")}
+
                                                 </div>
                                             </div>
                                         )}
@@ -198,11 +231,15 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                             </svg>
                                         </div>
                                         <div className="text-[#262626] font-[400] text-[12px]">
-                                            {item?.description?.slice(0, 90)}...
+                                            {item?.description?.length > 80
+                                                ? `${item.description.slice(0, 80)}...`
+                                                : item.description}
                                         </div>
+
                                     </div>
                                 </div>
-                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] p-1">
+
+                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1 h-[24px]">
                                     {appliedJobs?.some(appliedJob => appliedJob._id === item._id) ? (
                                         <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,7 +249,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                                 </g>
                                             </svg>
 
-                                            Applied {CountPostingDays(item?.applications?.find(app => app.applicantId === userDataGlobal._id)?.appliedOn)}
+                                            Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal._id)?.appliedOn)}
                                         </div>
                                     ) : (
                                         <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">
@@ -220,25 +257,39 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                         </div>
                                     )}
 
-                                    <div>
-                                      
-                                            <svg
-                                                onClick={(e) => removeSavedJob(e, item._id)}
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="14"
-                                                className=' cursor-pointer'
-                                                height="18"
-                                                viewBox="0 0 14 18"
-                                                fill="none"
-                                            >
-                                                <path
-                                                    d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
-                                                    fill="#333333"
-                                                />
-                                            </svg>
-                                        
-                                    </div>
+
+                                    {isLogin &&
+                                        <div className=" cursor-pointer">
+
+                                            {savedJobList.find((data) => data._id == item._id) ? (
+
+                                                <svg onClick={(e) => removeSavedJob(e, item._id)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                                    <g mask="url(#mask0_4135_58652)">
+                                                        <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z" fill="#333333" />
+                                                    </g>
+                                                </svg>
+
+                                            ) : (
+                                                <svg
+                                                    onClick={(e) => SaveJob(e, item._id)}
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <g mask="url(#mask0_4135_57938)">
+                                                        <path
+                                                            d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
+                                                            fill={"#646464"}
+                                                        />
+                                                    </g>
+                                                </svg>
+                                            )}
+                                        </div>
+                                    }
                                 </div>
+
                             </div>
                         </>
                     ))}
@@ -312,4 +363,4 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
     )
 }
 
-export default SavedJobCard
+export default AllJobCard

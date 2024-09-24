@@ -122,7 +122,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         </div>
                                     </div>
                                     <div
-                                        className="pb-[12px]"
+                                        className="pb-[12px]  flex flex-col gap-2"
                                         style={{
                                             borderBottom: "1px solid #646464",
                                         }}
@@ -130,22 +130,38 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         <div className="text-[20px] font-[500] text-[#333]">
                                             Job Details
                                         </div>
-                                        <div className="flex flex-row gap-[5px] text-[12px] text-[#333] font-[500]">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="16"
-                                                height="14"
-                                                viewBox="0 0 16 14"
-                                                fill="none"
-                                            >
-                                                <g mask="url(#mask0_4475_58307)">
-                                                    <path
-                                                        d="M2.45709 12.2504C2.11279 12.2504 1.81804 12.1362 1.57286 11.9077C1.32767 11.6792 1.20508 11.4046 1.20508 11.0837V4.66705C1.20508 4.34622 1.32767 4.07157 1.57286 3.84309C1.81804 3.61462 2.11279 3.50039 2.45709 3.50039H4.96113V2.33372C4.96113 2.01289 5.08372 1.73823 5.32891 1.50976C5.57409 1.28129 5.86884 1.16705 6.21314 1.16705H8.71717C9.06148 1.16705 9.35622 1.28129 9.60141 1.50976C9.8466 1.73823 9.96919 2.01289 9.96919 2.33372V3.50039H12.4732C12.8175 3.50039 13.1123 3.61462 13.3575 3.84309C13.6026 4.07157 13.7252 4.34622 13.7252 4.66705V11.0837C13.7252 11.4046 13.6026 11.6792 13.3575 11.9077C13.1123 12.1362 12.8175 12.2504 12.4732 12.2504H2.45709ZM2.45709 11.0837H12.4732V4.66705H2.45709V11.0837ZM6.21314 3.50039H8.71717V2.33372H6.21314V3.50039Z"
-                                                        fill="#333333"
-                                                    />
-                                                </g>
-                                            </svg>
-                                            {selectedJob.jobType}
+                                        <div className="flex flex-col gap-[5px] text-[12px] text-[#333] font-[500]">
+                                        <div className="text-[12px] font-[500] ">
+                                                Job Type : {selectedJob.jobType}
+                                            </div>
+                                            <div className="text-[12px] font-[500] ">
+                                                Job Mode : {selectedJob.jobMode}
+                                            </div>
+                                            {(selectedJob.minSalary || selectedJob.maxSalary) &&
+                                                <div className="text-[12px] font-[500] ">
+                                                    Salary : {selectedJob.minSalary} {(selectedJob.minSalary && selectedJob.maxSalary) && "-"} {selectedJob.maxSalary} {selectedJob.salaryType}
+                                                </div>
+                                            }
+                                            {selectedJob.requiredQualification &&
+                                                <div className="text-[12px] font-[500] ">
+                                                    Education : {selectedJob.requiredQualification}
+                                                </div>
+                                            }
+                                            {selectedJob.experience &&
+                                                <div className="text-[12px] font-[500] ">
+                                                    Experience : Total Work Experience {selectedJob.experience} (Required)
+                                                </div>
+                                            }
+                                            {selectedJob.deadLine &&
+                                                <div className="text-[12px] font-[500]">
+                                                    Deadline: {new Date(selectedJob.deadLine).toLocaleDateString('en-US', {
+                                                        day: '2-digit',
+                                                        month: 'short',
+                                                        year: 'numeric'
+                                                    })}
+                                                </div>
+                                            }
+
                                         </div>
 
 
@@ -187,42 +203,12 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                     {selectedJob?.description?.length > 0 && (
                                         <div className="flex flex-col gap-[8px]">
                                             <div className="text-[20px] font-[500]">
-                                                Full job Description
+                                            Job Description
                                             </div>
                                             <div className="text-[12px] font-[400] gap-[8px] flex flex-col">
                                                 {selectedJob.description}
                                             </div>
-                                            <div className="text-[14px] font-[500] ">
-                                                Job Type : {selectedJob.jobType}
-                                            </div>
-                                            <div className="text-[14px] font-[500] ">
-                                                Job Mode : {selectedJob.jobMode}
-                                            </div>
-                                            {(selectedJob.minSalary || selectedJob.maxSalary) &&
-                                                <div className="text-[14px] font-[500] ">
-                                                    Salary : {selectedJob.minSalary} {(selectedJob.minSalary && selectedJob.maxSalary) && "-"} {selectedJob.maxSalary} {selectedJob.salaryType}
-                                                </div>
-                                            }
-                                            {selectedJob.requiredQualification &&
-                                                <div className="text-[14px] font-[500] ">
-                                                    Education : {selectedJob.requiredQualification}
-                                                </div>
-                                            }
-                                            {selectedJob.experience &&
-                                                <div className="text-[14px] font-[500] ">
-                                                    Experience : Total Work Experience {selectedJob.experience} (Required)
-                                                </div>
-                                            }
-                                            {selectedJob.deadLine &&
-                                                <div className="text-[14px] font-[500]">
-                                                    Deadline: {new Date(selectedJob.deadLine).toLocaleDateString('en-US', {
-                                                        day: '2-digit',
-                                                        month: 'short',
-                                                        year: 'numeric'
-                                                    })}
-                                                </div>
-                                            }
-
+                                            
                                         </div>
                                     )}
 

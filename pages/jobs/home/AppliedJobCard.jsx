@@ -156,8 +156,8 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                             </div>
                                         }
                                     </div>
-                                    <div className="flex flex-row gap-[11px] items-center leading-tight ">
-                                        {item?.experiance && (
+                                    <div className="flex flex-row gap-[11px] items-center flex-wrap leading-tight  flex-wrap">
+                                        {item?.experience && (
                                             <>
                                                 {" "}
                                                 <div className="flex flex-row gap-[4px]">
@@ -177,7 +177,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                                     </svg>
 
                                                     <div className="text-[#262626] text-[12px] font-[400] ">
-                                                        {item.experiance}
+                                                        {item.experience}
                                                     </div>
                                                 </div>
                                                 <div className="w-[1px] h-[12px] bg-[#AFAFAF]"></div>
@@ -298,8 +298,8 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                     ))}
                 </div>
             </div>
-            <div className="px-[16px] w-full justify-between flex ">
-                <div className="flex items-center gap-4">
+            <div className="sm:px-[16px] px-0 w-full justify-between flex ">
+                <div className="flex items-center sm:gap-4 gap-2">
                     <p className="text-[14px] text-[#646464] font-600">View</p>
                     <div className="flex gap-[8px] items-center">
                         {/* <p className="text-[14px] px-[16px] py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600">{limit}</p> */}
@@ -318,7 +318,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
 
 
                     </div>
-                    <p className="text-[14px] text-[#646464] font-[600]">Jobs per page</p>
+                    <p className="text-[14px] sm:block hidden text-[#646464] font-[600]">Jobs per page</p>
                 </div>
 
                 <div className="flex items-center" style={{ radious: '0px 0px 16px 16px' }} >
