@@ -9,7 +9,8 @@ import Details from "./details";
 import MiniLoader from "../../../components/common/miniLoader";
 import ApplicantRanking from "./applicantRanking";
 import ReactSelect from "react-select";
-
+import CreatableSelect from "react-select/creatable";
+import { currencyMap } from "../../../utils/data";
 const Index = () => {
   const router = useRouter();
   const { id, isUser } = router.query;
@@ -18,25 +19,33 @@ const Index = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [jobPost, setJobPost] = useState(null);
   const [applications, setApplications] = useState([]);
-  const [options, setOption] = useState("");
+  const [options, setOption] = useState(10);
   const [syncnResume, setSynchResume] = useState([]);
+  const [miniLoading, setMiniloading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
   const [loadingg, setLoadingg] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
   const selectOptions = [
-    { value: 0, label: "0" },
     { value: 10, label: "10" },
     { value: 20, label: "20" },
     { value: 30, label: "30" },
     { value: 50, label: "50" },
   ];
-  const getData = () => {
+  const [resumeList, setResumeList] = useState([]);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+
+  const getData = async () => {
     setLoading(true);
     if (id) {
-      axios
+      await axios
         .get("http://localhost:2000/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
           setJobPost(res.data);
-          setApplications(res.data.applications);
+
+          setOption(res.data.applications.length > 0 ? 10 : 0);
+          // setApplications(res.data.applications);
         })
         .catch((err) => {
           setLoading(false);
@@ -47,44 +56,54 @@ const Index = () => {
   };
   useEffect(() => {
     getData();
+    getAllAppliedData();
   }, [id]);
+  console.log("options", options);
 
-  // const getRankedResume = () => {
-  //   setLoadingg(true);
-  //   if (id) {
-  //     axios
-  //       .get(`http://localhost:2000/api/job/getSynchData/${id}`)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setLoadingg(false);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //         setLoadingg(false);
-  //       });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getRankedResume();
-  // }, []);
-
-  const getSyncResume = () => {
+  //sycn resume manually
+  const SyncResume = async () => {
     setLoadingg(true);
     if (id) {
-      console.log("id", id);
-      axios
-        .get(`http://localhost:2000/api/job/getSynchData/${id}`)
-        .then((res) => {
-          console.log(res.data);
-          setLoadingg(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setLoadingg(false);
-        });
+      try {
+        const res = await axios.get(
+          `http://localhost:2000/api/jobs/SyncById/${id}`
+        );
+
+        if (res.data.success) {
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoadingg(false);
+      }
+    } else {
+      setLoadingg(false);
     }
   };
+
+  //get All applicant /applications
+  const getAllAppliedData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getSynchData/${id}`,
+        {
+          params: {
+            page,
+            limit,
+          },
+        }
+      );
+
+      setApplications(response.data.data);
+      setTotalPages(response.data.totalPages);
+      setCurrentPage(response.data.currentPage);
+    } catch (err) {
+      console.error("err", err);
+    }
+  };
+  useEffect(() => {
+    getAllAppliedData();
+  }, [page, limit]);
 
   return (
     <div className="min-h-[90vh] my-[16px] customMargins flex flex-col gap-[16px] ">
@@ -164,7 +183,7 @@ const Index = () => {
                 <div>
                   <button
                     className=" font-montserrat text-[14px] font-semibold px-[16px] rounded-[8px] border border-[#06A9EF] w-[84px] h-[38px] bg-[#06A9EF] text-[#fff]"
-                    onClick={() => getSyncResume()}
+                    onClick={() => SyncResume()}
                   >
                     {loadingg ? (
                       <svg
@@ -190,25 +209,23 @@ const Index = () => {
                   </button>
                 </div>
                 <div>
-                  <ReactSelect
-                    inputValue={options}
-                    onInputChange={(value) => {
-                      setOption(value);
-                      console.log("Input change:", value);
+                  <CreatableSelect
+                    value={
+                      selectOptions.find(
+                        (option) => option.value === options
+                      ) || null
+                    }
+                    onChange={(selectedOption) => {
+                      if (selectedOption) {
+                        setOption(selectedOption.value); // Set selected option's value
+                      } else {
+                        setOption(10); // Default to 10 when cleared or no value is selected
+                      }
                     }}
                     options={selectOptions}
                     className="w-full"
-                    onChange={(selectedOption) => {
-                      console.log(
-                        "Selected value:",
-                        selectedOption ? selectedOption.value : null
-                      );
-                    }}
-                    noOptionsMessage={() =>
-                      options ? null : "No options available"
-                    }
                     isClearable
-                    placeholder="Select Number"
+                    placeholder="Resumes Per Page"
                   />
                 </div>
               </div>
@@ -218,14 +235,30 @@ const Index = () => {
             <Details applications={applications} jobPost={jobPost} />
           )}
           {tab == 1 && (
-            <Applications applications={applications} jobPost={jobPost} />
+            <Applications
+              applications={applications}
+              jobPost={jobPost}
+              setLimit={setLimit}
+              setPage={setPage}
+              page={page}
+              limit={limit}
+              miniLoading={miniLoading}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
           )}
 
           {tab == 2 && (
             <ApplicantRanking
-            applications={applications}
+              resumeList={resumeList}
               jobPost={jobPost}
               loadingg={loadingg}
+              setLoadingg={setLoadingg}
+              setOption={setOption}
+              options={options}
+              id={id}
+              setResumeList={setResumeList}
             />
           )}
         </div>

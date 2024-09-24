@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { currencyMap } from "../../../utils/data";
 
 const Rightform = ({
   data,
@@ -24,6 +25,12 @@ const Rightform = ({
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
   const [skillText, setSkillText] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
+
+  const handleItemClick = (selectedOption) => {
+    setSelectedCurrency(selectedOption);
+    console.log("Selected currency:", selectedOption.value);
+  };
 
   const postJob = () => {
     let hasError = false;
@@ -65,6 +72,13 @@ const Rightform = ({
       }));
       hasError = true;
     }
+    if (!data.currency) {
+      setFormError((formError) => ({
+        ...formError,
+        currency: "currency is required",
+      }));
+      hasError = true;
+    }
 
     const requiredFields = ["companyName", "jobTitle"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
@@ -74,8 +88,9 @@ const Rightform = ({
       emptyFields.forEach((field) => {
         setFormError((formError) => ({
           ...formError,
-          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)
-            } is required`,
+          [field]: `${
+            field.charAt(0).toUpperCase() + field.slice(1)
+          } is required`,
         }));
       });
       hasError = true;
@@ -101,7 +116,7 @@ const Rightform = ({
       formData.append("fileName", file.name);
     }
     formData.append("createdBy", userDataGlobal._id);
-   
+
     axios
       .post("http://localhost:2000/api/job/add/" + id, formData)
       .then((res) => {
@@ -118,6 +133,12 @@ const Rightform = ({
         console.log(err);
       });
   };
+  console.log(43, data);
+
+  const currencyOptions = currencyMap.map((item) => ({
+    value: item.currency,
+    label: item.currency,
+  }));
 
   return (
     <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
@@ -169,7 +190,6 @@ const Rightform = ({
               <option value="Part Time">Part Time</option>
               <option value="Contract">Contract</option>
               <option value="Internships">Internships</option>
-
             </select>
 
             <img
@@ -208,9 +228,6 @@ const Rightform = ({
               <option value="International">International</option>
               <option value="Work From Home">Work From Home</option>
               <option value="Jobs for Women">Jobs for Women</option>
-
-
-
             </select>
 
             <img
@@ -222,69 +239,109 @@ const Rightform = ({
         </div>
       </div>
 
-
-      <div className="flex flex-col w-full gap-[16px]">
+      <div className="flex flex-col gap-[16px] w-[100%]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
-        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
-          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Salary Type
-            </label>
-            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
-              <select
-                style={{
-                  WebkitAppearance: "none",
-                  MozAppearance: "none",
-                  appearance: "none",
-                  position: "relative",
-                  zIndex: 1,
-                  background: " transparent",
-                }}
-                value={data?.salaryType}
-                onChange={(e) => {
-                  setData({ ...data, salaryType: e.target.value });
-                }}
-                className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
-              >
-                <option value="Select">Select</option>
-                <option value="Annual">Annual</option>
-                <option value="Monthly">Monthly</option>
-              </select>
+        <div className="flex flex-col gap-[16px] w-[100%]">
+          <div className="flex sm:flex-row flex-col w-[100%] sm:gap-4 gap-[16px] ">
+            <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Salary Type
+              </label>
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[42px]">
+                <select
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    position: "relative",
+                    zIndex: 1,
+                    background: " transparent",
+                  }}
+                  value={data?.salaryType}
+                  onChange={(e) => {
+                    setData({ ...data, salaryType: e.target.value });
+                  }}
+                  className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+                >
+                  <option value="Select">Select</option>
+                  <option value="Annual">Annual</option>
+                  <option value="Monthly">Monthly</option>
+                </select>
 
-              <img
-                src="/images/down_arrow.png"
-                className="h-[20px] w-[20px] absolute right-[4px]"
-                alt=""
-              />
+                <img
+                  src="/images/down_arrow.png"
+                  className="h-[20px] w-[20px] absolute right-[4px]"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Currency
+              </label>
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] max-w-[308px] overflow-visible h-[42px]">
+                <ReactSelect
+                  options={currencyOptions}
+                  className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black"
+                  placeholder="Select Currency"
+                  value={
+                    currencyOptions.find(
+                      (option) => option.value === data?.currency
+                    ) || null
+                  }
+                  onChange={(value) => {
+                    setData({ ...data, currency: value.value });
+                  }}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+                      width: "100%",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      zIndex: 1,
+                      position: "absolute",
+                    }),
+                  }}
+                />
+                {formError && (
+                  <p className="text-[12px] text-[red] font-[500]">
+                    {formError.currency}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Min Salary
-            </label>
-            <input
-              type="text"
-              placeholder=""
-              className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
-              value={data?.minSalary}
-              onChange={(e) => {
-                setData({ ...data, minSalary: e.target.value });
-              }}
-            />
-          </div>
-          <div className="sm:w-[31%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Max Salary
-            </label>
-            <input
-              type="text"
-              placeholder=""
-              className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
-              value={data?.maxSalary}
-              onChange={(e) => {
-                setData({ ...data, maxSalary: e.target.value });
-              }}
-            />
+          <div className="flex sm:flex-row flex-col w-[100%] sm:gap-4 justify-between">
+            <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Min Salary
+              </label>
+              <input
+                type="text"
+                placeholder=""
+                className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
+                value={data?.minSalary}
+                onChange={(e) => {
+                  setData({ ...data, minSalary: e.target.value });
+                }}
+              />
+            </div>
+            <div className="sm:w-[48%] w-full flex flex-col gap-[8px] ">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Max Salary
+              </label>
+              <input
+                type="text"
+                placeholder=""
+                className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
+                value={data?.maxSalary}
+                onChange={(e) => {
+                  setData({ ...data, maxSalary: e.target.value });
+                }}
+              />
+            </div>
           </div>
         </div>
         <div className="form-group">
@@ -303,7 +360,12 @@ const Rightform = ({
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Must have Skills <span className="text-red">*</span>
+            Must have Skills
+            <span className="text-[#333333] text-[12px]">
+              {" "}
+              (Type or Select)
+            </span>
+            <span className="text-red"> * </span>
           </label>
           <ReactSelect
             onInputChange={(data) => {
@@ -353,16 +415,21 @@ const Rightform = ({
           </div>
 
           <label className="text-[#333333] text-[14px] font-medium mt-[12px]">
-            Good to have Skills <span className="text-red">*</span>
+            Good to have Skills{" "}
+            <span className="text-[#333333] text-[12px]">
+              {" "}
+              (Type or Select)
+            </span>
+            <span className="text-red"> * </span>
           </label>
           <ReactSelect
-            options={SkillList.map((item) => ({
-              value: item,
-              label: camelCase(item),
-            }))}
             onInputChange={(data) => {
               setSkills([data, ...skills]);
             }}
+            options={skills.map((item) => ({
+              value: item,
+              label: camelCase(item),
+            }))}
             className="w-full"
             onChange={(goodSkill) => {
               setData({
@@ -403,33 +470,10 @@ const Rightform = ({
             ))}
           </div>
         </div>
-        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
+        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 w-[100%] justify-between">
           <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
-              Application Deadline <span className="text-red">*</span>
-            </label>
-            <input
-              type="date"
-              placeholder="Required Qualtification"
-              className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px]"
-              value={data?.deadLine}
-              onChange={(e) => {
-                setData({ ...data, deadLine: e.target.value });
-                setFormError((prevErrors) => ({
-                  ...prevErrors,
-                  deadLine: '',
-                }));
-              }}
-            />
-            {formError && (
-              <p className="text-[12px] text-[red] font-[500]">
-                {formError.deadLine}
-              </p>
-            )}
-          </div>
-          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Experience
+              Total Experience
             </label>
             <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select
@@ -460,6 +504,65 @@ const Rightform = ({
                 alt=""
               />
             </div>
+          </div>
+          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
+            <label className="text-[#333333] text-[14px] font-medium">
+              Relevant Experience
+            </label>
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+              <select
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  position: "relative",
+                  background: " transparent",
+                }}
+                value={data?.revalentExp}
+                onChange={(e) => {
+                  setData({ ...data, revalentExp: e.target.value });
+                }}
+                className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+              >
+                <option value="">Select</option>
+                <option value="0-2 years">0-2 years </option>
+                <option value="2-5 years">2-5 years </option>
+                <option value="5-10 years">5-10 years</option>
+                <option value="10-20 years">10-20 years</option>
+                <option value="20 +">20 +</option>
+              </select>
+
+              <img
+                src="/images/down_arrow.png"
+                className="h-[20px] w-[20px] absolute right-[4px]"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
+          <div className=" sm:w-[100%] w-full flex flex-col gap-[8px] ">
+            <label className="text-[#333333] text-[14px] font-medium">
+              Application Deadline <span className="text-red">*</span>
+            </label>
+            <input
+              type="date"
+              placeholder="Required Qualtification"
+              className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px]"
+              value={data?.deadLine}
+              onChange={(e) => {
+                setData({ ...data, deadLine: e.target.value });
+                setFormError((prevErrors) => ({
+                  ...prevErrors,
+                  deadLine: "",
+                }));
+              }}
+            />
+            {formError && (
+              <p className="text-[12px] text-[red] font-[500]">
+                {formError.deadLine}
+              </p>
+            )}
           </div>
         </div>
       </div>

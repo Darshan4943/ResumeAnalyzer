@@ -13,7 +13,8 @@ const ExistingChat = ({
   setIsSidebarOpen,
   setIsNew,
   isNew,
-  once, setOnce
+  once,
+  setOnce,
 }) => {
   const [existingChatDayWise, setExistingChatDayWise] = useState([]);
 
@@ -112,7 +113,7 @@ const ExistingChat = ({
   const [activeChat, setActiveChat] = useState(null);
 
   const handleChatClick = (chat) => {
-    setOnce(false)
+    setOnce(false);
     setSelectedChat(chat);
     setActiveChat(chat);
     // setPopUp(true);
@@ -160,7 +161,7 @@ const ExistingChat = ({
   }, [existingChat]);
 
   const deleteChatHandler = (key) => {
-    setOnce(false)
+    setOnce(false);
     const dummyData = { ...existingChat };
     delete dummyData[key];
     console.log(dummyData);
@@ -187,15 +188,16 @@ const ExistingChat = ({
         >
           <div className="w-full relative flex h-[93vh] overflow-y-auto ">
             <div className="flex flex-col w-[100%] h-[93vh]  ">
-              <div className=" p-4 flex flex-col gap-4  ">
-                <div className="flex gap-3 items-center justify-center">
+              <div className=" p-4 flex flex-col gap-4 iitem-start ">
+                <div className="flex gap-3 items-start justify-start">
                   <img
                     src="/images/resumeBuilder/sklogo.png"
                     alt=""
                     className="h-[24px] w-[24px]"
                   />
                   <p className="text-[18px] font-[600] font-Montserrat">
-                    Skilotech GenAI
+                  
+                    Ask KrutAI
                   </p>
                 </div>
                 <div
@@ -203,9 +205,8 @@ const ExistingChat = ({
                   onClick={() => {
                     setSelectedChat(null);
                     setIsNew(true);
-                   
+
                     createNewChat();
-                    
                   }}
                 >
                   <p className="text-[14px] font-[500] font-Montserrat">
@@ -371,7 +372,8 @@ const ExistingChat = ({
                               className="h-[24px] w-[24px]"
                             />
                             <p className="text-[18px] font-[600] font-Montserrat">
-                              Skilotech GenAI
+                              {/**   Skilotech GenAI*/}
+                              Ask KrutAI
                             </p>
                           </div>
                           <svg
@@ -397,7 +399,7 @@ const ExistingChat = ({
                           setSelectedChat(null);
                           setIsNew(true);
                           createNewChat();
-                          setIsSidebarOpen(!isSidebarOpen)
+                          setIsSidebarOpen(!isSidebarOpen);
                         }}
                       >
                         <p className="text-[14px] font-[500] font-Montserrat">

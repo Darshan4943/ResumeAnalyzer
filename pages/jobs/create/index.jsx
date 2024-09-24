@@ -19,19 +19,21 @@ const Index = () => {
   const [data, setData] = useState({
     companyName: "",
     jobTitle: "",
-    jobType:"",
-    workFrom:"",
+    jobType: "",
+    workFrom: "",
     location: [],
-    country:[],
+    country: [],
     aboutOrganization: "",
     description: "",
     salaryType: "",
     minSalary: 0,
     maxSalary: 0,
+    currency:"",
     requiredQualification: "",
     requiredSkills: "",
     deadLine: "",
     experience: "",
+    revalentExp:"",
     mustSkills: [],
     goodSkills: [],
   });
@@ -65,7 +67,7 @@ const Index = () => {
           companyName,
           jobTitle,
           jobType,
-          workFrom:jobMode,
+          workFrom: jobMode,
           country,
           location,
           description,
@@ -126,6 +128,7 @@ const Index = () => {
     return errors;
   };
 
+
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
       {loading ? (
@@ -139,7 +142,7 @@ const Index = () => {
               <LeftArow />
             </div>
             <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%] min-w-[270px]">
-             Post a Job 
+              Post a Job
             </div>
           </div>
           <div className="flex md:flex-row flex-col justify-between ">

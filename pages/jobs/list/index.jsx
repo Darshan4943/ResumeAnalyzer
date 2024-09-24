@@ -38,22 +38,16 @@ const Index = () => {
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
     var date2 = new Date();
-  
-   
+
     date1.setHours(0, 0, 0, 0);
     date2.setHours(0, 0, 0, 0);
-  
-    console.log(111, date1);
-    console.log(222, date2);
-  
-  
+
     if (date2 <= date1) {
-      return true;  
+      return true;
     } else {
       return false;
     }
   };
-  
 
   const [select, setSelect] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
@@ -214,7 +208,7 @@ const Index = () => {
           {!select && (
             <div
               onClick={() => setSelect(!select)}
-              className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
+              className="scr420:py-3 scr420:px-2 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer min-w-[8rem]"
             >
               <svg
                 width="22"
@@ -230,7 +224,7 @@ const Index = () => {
                   />
                 </g>
               </svg>
-              Select
+              <span className="text-[12px]">Delete Job</span>
             </div>
           )}
           <div

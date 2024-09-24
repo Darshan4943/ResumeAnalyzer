@@ -81,7 +81,14 @@ const MatchingDetails = ({
     );
 
     setSelectedFile({ ...data, matching_parameters: sortedData });
-  }, [data]);
+  }, []);
+
+  const handleDownload = (resumeUrl, fileName) => {
+    const link = document.createElement("a");
+    link.href = resumeUrl;
+    link.download = { fileName };
+    link.click();
+  };
 
   return (
     <>
@@ -109,7 +116,6 @@ const MatchingDetails = ({
                 </span>
               </div>
             </div>
-            
             <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] flex flex-row justify-between items-center">
               <div className="flex flex-row gap-[8px] w-full">
                 {fileIconSeter(data)}
@@ -118,7 +124,8 @@ const MatchingDetails = ({
                     {data.fileName}
                   </span>
                   <svg
-                    onClick={() => (window.location.href = data?.file)}
+                    // onClick={() => (window.location.href = data?.url)}
+                    onClick={() => handleDownload(data?.url, data?.fileName)}
                     width="20"
                     height="20"
                     viewBox="0 0 14 14"
