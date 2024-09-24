@@ -47,6 +47,7 @@ function ApplyForm() {
     },
   });
 
+  console.log(formData)
   const router = useRouter();
   const { id } = router.query;
   const [jobDetails, setJobDetails] = useState();
@@ -58,6 +59,38 @@ function ApplyForm() {
 
       .catch((err) => console.error(err));
   }, [id]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`)
+      .then((res) => {
+        const { personal, professional } = res.data.data; 
+        const formattedDob = personal.dob ? new Date(personal.dob).toISOString().split("T")[0] : "";
+     
+        setFormData({
+          personal: {
+            firstName: personal.firstName || "",
+            lastName: personal.lastName || "",
+            email: personal.email || "",
+            mobileNo: personal.mobileNo || "",
+           
+            currentLocation: personal.currentLocation || "",
+            dob: formattedDob || "",
+            gender: personal.gender || "",
+          },
+          professional: {
+            totalExperience: professional.totalExperience || "",
+            relevantExperience: professional.relevantExperience || "",
+            currentCTC: professional.currentCTC || "",
+            expectedCTC: professional.expectedCTC || "",
+            noticePeriod: professional.noticePeriod || "",
+            comfortableWithLocation:professional.comfortableWithLocation || ""
+          },
+          dial_code:personal.dial_code || "",
+        });
+      })
+      .catch((err) => console.error(err));
+  }, []); 
 
   useEffect(() => {
     axios
@@ -393,6 +426,20 @@ function ApplyForm() {
         setTimeout(() => {
           setLoading(false);
         }, 1000);
+      })
+      .finally(() => {
+        
+        axios
+          .post("http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",  {
+            userId: userDataGlobal._id,
+            ...formData,  
+          })
+          .then((res) => {
+            console.log("User job details posted successfully", res.data);
+          })
+          .catch((err) => {
+            console.error("Error posting user job details", err);
+          })
       });
   };
 
@@ -408,7 +455,7 @@ function ApplyForm() {
   //     }));
   //   };
 
-  console.log("professionalSec", professionalSec);
+ 
 
   const getLastUpdatedText = (updatedAt) => {
     const now = moment();

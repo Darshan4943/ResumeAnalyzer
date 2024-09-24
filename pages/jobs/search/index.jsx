@@ -112,17 +112,15 @@ function Index() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [filter, setFilter] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
-  const jobData = useSelector((state) => state.getAllJobs.data);
-  const [selectedJob, setSelectedJob] = useState();
+  const [jobData, setJobData] = useState([])
+
   const [toggleHeadings, setToggleHeadings] = useState(0);
-  const [savedJobList, setSavedJobList] = useState([]);
-  const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
-  const isViewportBelow600 = useMediaQuery("(max-width:600px)");
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [userSkills, setUserSkills] = useState();
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const dispatch = useDispatch();
-  const [isDescription, setIsDescription] = useState(false);
+
   const [page, setPage] = useState(1);
   const [clear, setClear] = useState(false)
   const [loading, setLoading] = useState(true);
@@ -139,12 +137,17 @@ function Index() {
   const [jobtypeData, setJobTypeData] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false)
+  const [totalPages, setTotalpages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1)
     }
   }, [applied]);
+
+
 
 
 
@@ -195,11 +198,11 @@ function Index() {
       img: "/images/jobs/arw.png",
       child: Array.isArray(jobtypeData?.salaries)
         ? jobtypeData.salaries
-            .sort((a, b) => a.minSalary - b.minSalary) 
-            .map(salary => ({
-              label: `${salary.minSalary} - ${salary.maxSalary}`,
-              value: salary,
-            }))
+          .sort((a, b) => a.minSalary - b.minSalary)
+          .map(salary => ({
+            label: `${salary.minSalary} - ${salary.maxSalary}`,
+            value: salary,
+          }))
         : [],
     }
     ,
@@ -266,6 +269,7 @@ function Index() {
     }
   }, []);
 
+
   useEffect(() => {
     if (isLogin) {
       axios
@@ -285,40 +289,11 @@ function Index() {
         })
         .catch((err) => console.error("err", err));
     }
-  }, [userDataGlobal, recall]);
-
-  const getAllData = async () => {
-
-    try {
-      const res = await axios.post(
-        "http://localhost:2000/api/job/getAll",
-        {
-          requiredSkills: (jobTitle || location) ? [] : userSkills?.map((item) => item),
-          jobTitle: jobTitle || "",
-          country: location || country,
-        },
-        {
-          params: { page },
-        }
-      );
-
-      dispatch(setJob(res.data));
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    } catch (err) {
-      setLoading(false);
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getAllData();
-  }, [userSkills]);
+  }, []);
 
   const getData = () => {
     axios
-      .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`)
       .then((res) => setAppliedJobs(res.data))
       .catch((err) => console.error(err));
 
@@ -328,6 +303,45 @@ function Index() {
       getData();
     }
   }, [userDataGlobal]);
+
+
+  const getAllData = async () => {
+
+    try {
+      const res = await axios.post(
+        "http://localhost:2000/api/job/getAll",
+        {
+          requiredSkills: (jobTitle || location) ? [] : userSkills?.map((item) => item),
+          jobTitle: jobTitle || "",
+          country: location ? "" : country,
+          location: location
+        },
+        {
+          params: { page, limit },
+        }
+      );
+
+      setJobData(res.data.filteredJobs)
+      setTotalCount(res.data.totalCount);
+      setTotalpages(res.data.totalPages);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } catch (err) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (country) {
+      getAllData();
+    }
+  }, [userSkills, page, limit, country]);
+
+
 
 
   // const getJobData = () => {
@@ -354,8 +368,7 @@ function Index() {
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+         
           viewBox="0 0 24 24"
           fill="none"
         >
@@ -373,8 +386,7 @@ function Index() {
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+         
           viewBox="0 0 24 24"
           fill="none"
         >
@@ -409,8 +421,7 @@ function Index() {
       img: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+        
           viewBox="0 0 24 24"
           fill="none"
         >
@@ -422,81 +433,80 @@ function Index() {
       ),
       title: "Saved Jobs",
     },
-    {
-      /**
-    {
-      img: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <g clip-path="url(#clip0_5716_131095)">
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M1.02165 11.0703L6.64046 11.0702C6.96564 10.7395 7.32118 10.4389 7.70251 10.1726C7.18473 8.81671 5.87204 7.85362 4.33426 7.85362C2.57087 7.85362 1.10335 9.11999 0.791214 10.7929C0.764167 10.9379 0.874182 11.0703 1.02165 11.0703ZM12.0006 9.57281C15.7182 9.57281 18.7682 12.5827 18.7682 16.3404C18.7682 20.0781 15.7382 23.1081 12.0006 23.1081C8.26295 23.1081 5.23295 20.0781 5.23295 16.3404C5.2329 12.5827 8.28292 9.57281 12.0006 9.57281ZM11.3019 17.6445C10.0605 17.598 8.87729 17.426 8.11576 17.1274V19.1222C8.11576 19.4656 8.39668 19.7465 8.74004 19.7465H15.2611C15.6045 19.7465 15.8853 19.4656 15.8853 19.1222V17.127C15.1254 17.4242 13.9419 17.5969 12.6994 17.6441C12.5687 17.897 12.3048 18.0699 12.0006 18.0699C11.6964 18.0699 11.4327 17.8972 11.3019 17.6445ZM12.6839 16.895C14.0755 16.8444 15.3556 16.639 15.9225 16.2804C16.1251 16.1509 16.2655 15.8366 16.2655 15.5997V14.0779C16.2655 13.9017 16.1218 13.758 15.9457 13.758H13.8732V13.0242C13.8732 12.4868 13.4349 12.0484 12.8974 12.0484H11.1038C10.5664 12.0484 10.128 12.4868 10.128 13.0242V13.758H8.05548C7.87932 13.758 7.73565 13.9017 7.73565 14.0779V15.5997C7.73565 15.8368 7.87604 16.1507 8.07868 16.2804C8.64868 16.641 9.92776 16.8455 11.3171 16.8954C11.4521 16.6582 11.707 16.4977 12.0006 16.4977C12.294 16.4977 12.5488 16.6581 12.6839 16.895ZM13.1232 13.758V13.0242C13.1232 12.9007 13.0209 12.7984 12.8974 12.7984H11.1038C10.9804 12.7984 10.878 12.9007 10.878 13.0242V13.758H13.1232ZM4.33426 3.90173C5.34076 3.90173 6.15671 4.71768 6.15671 5.72418C6.15671 6.73068 5.34076 7.54663 4.33426 7.54663C3.32776 7.54663 2.51181 6.73068 2.51181 5.72418C2.51185 4.71763 3.32781 3.90173 4.33426 3.90173ZM12.0006 0.891602C13.0071 0.891602 13.823 1.70755 13.823 2.71405C13.823 3.72055 13.0071 4.53651 12.0006 4.53651C10.9941 4.53651 10.1781 3.72055 10.1781 2.71405C10.1781 1.70755 10.9941 0.891602 12.0006 0.891602ZM19.6669 3.90173C20.6734 3.90173 21.4893 4.71768 21.4893 5.72418C21.4893 6.73068 20.6734 7.54663 19.6669 7.54663C18.6604 7.54663 17.8444 6.73068 17.8444 5.72418C17.8445 4.71763 18.6604 3.90173 19.6669 3.90173ZM17.3607 11.0703L22.9795 11.0702C23.127 11.0702 23.237 10.9378 23.2099 10.7929C22.8978 9.11999 21.4303 7.85362 19.6669 7.85362C18.1291 7.85362 16.8164 8.81671 16.2986 10.1726C16.68 10.439 17.0355 10.7396 17.3607 11.0703ZM8.68796 8.06019L15.3132 8.06015C15.4606 8.06015 15.5707 7.92777 15.5436 7.78279C15.2315 6.10991 13.764 4.84354 12.0006 4.84354C10.2372 4.84354 8.76967 6.10991 8.45752 7.78279C8.43048 7.92777 8.54049 8.06019 8.68796 8.06019Z"
-              fill={toggleHeadings === 1 ? "#FFF" : " #333"}
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_5716_131095">
-              <rect width="24" height="24" fill="white" />
-            </clipPath>
-          </defs>
-        </svg>
-      ),
-      title: "Internal Jobs",
-    },
-    {
-      img: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <g clip-path="url(#clip0_5716_131100)">
-            <path
-              d="M1.60078 19.1999H9.60078V14.7999H9.20078C8.77643 14.7999 8.36947 14.6314 8.06941 14.3313C7.76935 14.0313 7.60078 13.6243 7.60078 13.1999V11.1999H1.60078C1.31908 11.1983 1.04292 11.1215 0.800781 10.9775V18.3999C0.800781 18.6121 0.885067 18.8156 1.0351 18.9656C1.18512 19.1157 1.38861 19.1999 1.60078 19.1999Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-            <path
-              d="M9.60039 14.0002V11.6002C9.60026 11.4659 9.61366 11.3318 9.64039 11.2002H8.40039V13.2002C8.40039 13.4124 8.48468 13.6159 8.63471 13.7659C8.78473 13.9159 8.98822 14.0002 9.20039 14.0002H9.60039Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-            <path
-              d="M11.6008 9.5999H20.8008V5.1999C20.8008 4.98773 20.7165 4.78425 20.5665 4.63422C20.4164 4.48419 20.213 4.3999 20.0008 4.3999H1.60078C1.38861 4.3999 1.18512 4.48419 1.0351 4.63422C0.885067 4.78425 0.800781 4.98773 0.800781 5.1999V9.5999C0.800781 9.81208 0.885067 10.0156 1.0351 10.1656C1.18512 10.3156 1.38861 10.3999 1.60078 10.3999H10.0112C10.1959 10.1524 10.4357 9.95125 10.7116 9.8124C10.9875 9.67355 11.2919 9.6008 11.6008 9.5999Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-            <path
-              d="M14.8008 3.5998V2.3998C14.8008 1.97546 14.6322 1.56849 14.3322 1.26843C14.0321 0.968376 13.6251 0.799805 13.2008 0.799805H8.40078C7.97643 0.799805 7.56947 0.968376 7.26941 1.26843C6.96935 1.56849 6.80078 1.97546 6.80078 2.3998V3.5998H7.60078V2.3998C7.60078 2.18763 7.68507 1.98415 7.8351 1.83412C7.98513 1.68409 8.18861 1.5998 8.40078 1.5998H13.2008C13.413 1.5998 13.6164 1.68409 13.7665 1.83412C13.9165 1.98415 14.0008 2.18763 14.0008 2.3998V3.5998H14.8008Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-            <path
-              d="M19.1938 14.5202C19.1232 14.458 19.0358 14.4179 18.9426 14.405C18.8493 14.392 18.7544 14.4068 18.6694 14.4474C18.59 14.4816 18.5222 14.538 18.4742 14.6099C18.4262 14.6819 18.4001 14.7661 18.399 14.8526V15.6002C18.399 15.7063 18.3569 15.808 18.2819 15.883C18.2069 15.958 18.1051 16.0002 17.999 16.0002H16.799C15.8156 16.0044 14.8609 16.3322 14.0822 16.9328C13.3035 17.5335 12.7441 18.3737 12.4902 19.3238C12.6973 19.1579 12.9133 19.0037 13.1374 18.8618C14.6046 17.9865 16.2914 17.5488 17.999 17.6002C18.1051 17.6002 18.2069 17.6423 18.2819 17.7173C18.3569 17.7924 18.399 17.8941 18.399 18.0002V18.7482C18.3999 18.8346 18.4258 18.9189 18.4735 18.9909C18.5213 19.0629 18.589 19.1194 18.6682 19.1538C18.7532 19.1941 18.8482 19.2087 18.9414 19.196C19.0346 19.1832 19.122 19.1435 19.193 19.0818L21.4442 17.1346C21.4927 17.0933 21.5316 17.042 21.5582 16.9842C21.5849 16.9263 21.5987 16.8634 21.5987 16.7998C21.5987 16.7361 21.5849 16.6732 21.5582 16.6154C21.5316 16.5576 21.4927 16.5063 21.4442 16.465L19.1938 14.5202Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-            <path
-              d="M23.2004 11.5999C23.2004 11.2816 23.074 10.9764 22.8489 10.7514C22.6239 10.5263 22.3187 10.3999 22.0004 10.3999H11.6004C11.2821 10.3999 10.9769 10.5263 10.7519 10.7514C10.5268 10.9764 10.4004 11.2816 10.4004 11.5999V21.9999C10.4004 22.3182 10.5268 22.6234 10.7519 22.8484C10.9769 23.0735 11.2821 23.1999 11.6004 23.1999H22.0004C22.3187 23.1999 22.6239 23.0735 22.8489 22.8484C23.074 22.6234 23.2004 22.3182 23.2004 21.9999V11.5999ZM21.9732 17.7367L21.9712 17.7387L19.7204 19.6863C19.534 19.8493 19.3042 19.9545 19.059 19.9891C18.8138 20.0237 18.5638 19.9862 18.3396 19.8811C18.1196 19.7845 17.9325 19.6258 17.8012 19.4246C17.67 19.2233 17.6002 18.9882 17.6004 18.7479V18.4071C16.1786 18.4178 14.7855 18.8082 13.5652 19.5379C13.2463 19.7384 12.947 19.9685 12.6712 20.2251C12.5555 20.3367 12.4012 20.3993 12.2404 20.3999C12.1483 20.3993 12.0574 20.379 11.9738 20.3403C11.8903 20.3016 11.816 20.2454 11.756 20.1755C11.696 20.1056 11.6517 20.0237 11.6261 19.9352C11.6005 19.8468 11.5942 19.7538 11.6076 19.6627C11.8008 18.4227 12.4298 17.2923 13.3816 16.4743C14.3333 15.6564 15.5455 15.2045 16.8004 15.1999H17.6004V14.8523C17.6003 14.6124 17.67 14.3776 17.801 14.1765C17.9319 13.9755 18.1185 13.8168 18.338 13.7199C18.5622 13.6149 18.8122 13.5774 19.0574 13.612C19.3026 13.6467 19.5324 13.752 19.7188 13.9151L21.9712 15.8623C22.1059 15.9786 22.214 16.1224 22.2881 16.2842C22.3623 16.4459 22.4008 16.6217 22.4009 16.7996C22.4011 16.9776 22.363 17.1535 22.2892 17.3153C22.2154 17.4772 22.1076 17.6214 21.9732 17.7379V17.7367Z"
-              fill={toggleHeadings === 2 ? "#FFF" : " #333"}
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_5716_131100">
-              <rect width="24" height="24" fill="white" />
-            </clipPath>
-          </defs>
-        </svg>
-      ),
-      title: "External Jobs",
-    },
 
-    */
-    },
+    // {
+    //   img: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       width="24"
+    //       height="24"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //     >
+    //       <g clip-path="url(#clip0_5716_131095)">
+    //         <path
+    //           fill-rule="evenodd"
+    //           clip-rule="evenodd"
+    //           d="M1.02165 11.0703L6.64046 11.0702C6.96564 10.7395 7.32118 10.4389 7.70251 10.1726C7.18473 8.81671 5.87204 7.85362 4.33426 7.85362C2.57087 7.85362 1.10335 9.11999 0.791214 10.7929C0.764167 10.9379 0.874182 11.0703 1.02165 11.0703ZM12.0006 9.57281C15.7182 9.57281 18.7682 12.5827 18.7682 16.3404C18.7682 20.0781 15.7382 23.1081 12.0006 23.1081C8.26295 23.1081 5.23295 20.0781 5.23295 16.3404C5.2329 12.5827 8.28292 9.57281 12.0006 9.57281ZM11.3019 17.6445C10.0605 17.598 8.87729 17.426 8.11576 17.1274V19.1222C8.11576 19.4656 8.39668 19.7465 8.74004 19.7465H15.2611C15.6045 19.7465 15.8853 19.4656 15.8853 19.1222V17.127C15.1254 17.4242 13.9419 17.5969 12.6994 17.6441C12.5687 17.897 12.3048 18.0699 12.0006 18.0699C11.6964 18.0699 11.4327 17.8972 11.3019 17.6445ZM12.6839 16.895C14.0755 16.8444 15.3556 16.639 15.9225 16.2804C16.1251 16.1509 16.2655 15.8366 16.2655 15.5997V14.0779C16.2655 13.9017 16.1218 13.758 15.9457 13.758H13.8732V13.0242C13.8732 12.4868 13.4349 12.0484 12.8974 12.0484H11.1038C10.5664 12.0484 10.128 12.4868 10.128 13.0242V13.758H8.05548C7.87932 13.758 7.73565 13.9017 7.73565 14.0779V15.5997C7.73565 15.8368 7.87604 16.1507 8.07868 16.2804C8.64868 16.641 9.92776 16.8455 11.3171 16.8954C11.4521 16.6582 11.707 16.4977 12.0006 16.4977C12.294 16.4977 12.5488 16.6581 12.6839 16.895ZM13.1232 13.758V13.0242C13.1232 12.9007 13.0209 12.7984 12.8974 12.7984H11.1038C10.9804 12.7984 10.878 12.9007 10.878 13.0242V13.758H13.1232ZM4.33426 3.90173C5.34076 3.90173 6.15671 4.71768 6.15671 5.72418C6.15671 6.73068 5.34076 7.54663 4.33426 7.54663C3.32776 7.54663 2.51181 6.73068 2.51181 5.72418C2.51185 4.71763 3.32781 3.90173 4.33426 3.90173ZM12.0006 0.891602C13.0071 0.891602 13.823 1.70755 13.823 2.71405C13.823 3.72055 13.0071 4.53651 12.0006 4.53651C10.9941 4.53651 10.1781 3.72055 10.1781 2.71405C10.1781 1.70755 10.9941 0.891602 12.0006 0.891602ZM19.6669 3.90173C20.6734 3.90173 21.4893 4.71768 21.4893 5.72418C21.4893 6.73068 20.6734 7.54663 19.6669 7.54663C18.6604 7.54663 17.8444 6.73068 17.8444 5.72418C17.8445 4.71763 18.6604 3.90173 19.6669 3.90173ZM17.3607 11.0703L22.9795 11.0702C23.127 11.0702 23.237 10.9378 23.2099 10.7929C22.8978 9.11999 21.4303 7.85362 19.6669 7.85362C18.1291 7.85362 16.8164 8.81671 16.2986 10.1726C16.68 10.439 17.0355 10.7396 17.3607 11.0703ZM8.68796 8.06019L15.3132 8.06015C15.4606 8.06015 15.5707 7.92777 15.5436 7.78279C15.2315 6.10991 13.764 4.84354 12.0006 4.84354C10.2372 4.84354 8.76967 6.10991 8.45752 7.78279C8.43048 7.92777 8.54049 8.06019 8.68796 8.06019Z"
+    //           fill={toggleHeadings === 1 ? "#FFF" : " #333"}
+    //         />
+    //       </g>
+    //       <defs>
+    //         <clipPath id="clip0_5716_131095">
+    //           <rect width="24" height="24" fill="white" />
+    //         </clipPath>
+    //       </defs>
+    //     </svg>
+    //   ),
+    //   title: "Internal Jobs",
+    // },
+    // {
+    //   img: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       width="24"
+    //       height="24"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //     >
+    //       <g clip-path="url(#clip0_5716_131100)">
+    //         <path
+    //           d="M1.60078 19.1999H9.60078V14.7999H9.20078C8.77643 14.7999 8.36947 14.6314 8.06941 14.3313C7.76935 14.0313 7.60078 13.6243 7.60078 13.1999V11.1999H1.60078C1.31908 11.1983 1.04292 11.1215 0.800781 10.9775V18.3999C0.800781 18.6121 0.885067 18.8156 1.0351 18.9656C1.18512 19.1157 1.38861 19.1999 1.60078 19.1999Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //         <path
+    //           d="M9.60039 14.0002V11.6002C9.60026 11.4659 9.61366 11.3318 9.64039 11.2002H8.40039V13.2002C8.40039 13.4124 8.48468 13.6159 8.63471 13.7659C8.78473 13.9159 8.98822 14.0002 9.20039 14.0002H9.60039Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //         <path
+    //           d="M11.6008 9.5999H20.8008V5.1999C20.8008 4.98773 20.7165 4.78425 20.5665 4.63422C20.4164 4.48419 20.213 4.3999 20.0008 4.3999H1.60078C1.38861 4.3999 1.18512 4.48419 1.0351 4.63422C0.885067 4.78425 0.800781 4.98773 0.800781 5.1999V9.5999C0.800781 9.81208 0.885067 10.0156 1.0351 10.1656C1.18512 10.3156 1.38861 10.3999 1.60078 10.3999H10.0112C10.1959 10.1524 10.4357 9.95125 10.7116 9.8124C10.9875 9.67355 11.2919 9.6008 11.6008 9.5999Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //         <path
+    //           d="M14.8008 3.5998V2.3998C14.8008 1.97546 14.6322 1.56849 14.3322 1.26843C14.0321 0.968376 13.6251 0.799805 13.2008 0.799805H8.40078C7.97643 0.799805 7.56947 0.968376 7.26941 1.26843C6.96935 1.56849 6.80078 1.97546 6.80078 2.3998V3.5998H7.60078V2.3998C7.60078 2.18763 7.68507 1.98415 7.8351 1.83412C7.98513 1.68409 8.18861 1.5998 8.40078 1.5998H13.2008C13.413 1.5998 13.6164 1.68409 13.7665 1.83412C13.9165 1.98415 14.0008 2.18763 14.0008 2.3998V3.5998H14.8008Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //         <path
+    //           d="M19.1938 14.5202C19.1232 14.458 19.0358 14.4179 18.9426 14.405C18.8493 14.392 18.7544 14.4068 18.6694 14.4474C18.59 14.4816 18.5222 14.538 18.4742 14.6099C18.4262 14.6819 18.4001 14.7661 18.399 14.8526V15.6002C18.399 15.7063 18.3569 15.808 18.2819 15.883C18.2069 15.958 18.1051 16.0002 17.999 16.0002H16.799C15.8156 16.0044 14.8609 16.3322 14.0822 16.9328C13.3035 17.5335 12.7441 18.3737 12.4902 19.3238C12.6973 19.1579 12.9133 19.0037 13.1374 18.8618C14.6046 17.9865 16.2914 17.5488 17.999 17.6002C18.1051 17.6002 18.2069 17.6423 18.2819 17.7173C18.3569 17.7924 18.399 17.8941 18.399 18.0002V18.7482C18.3999 18.8346 18.4258 18.9189 18.4735 18.9909C18.5213 19.0629 18.589 19.1194 18.6682 19.1538C18.7532 19.1941 18.8482 19.2087 18.9414 19.196C19.0346 19.1832 19.122 19.1435 19.193 19.0818L21.4442 17.1346C21.4927 17.0933 21.5316 17.042 21.5582 16.9842C21.5849 16.9263 21.5987 16.8634 21.5987 16.7998C21.5987 16.7361 21.5849 16.6732 21.5582 16.6154C21.5316 16.5576 21.4927 16.5063 21.4442 16.465L19.1938 14.5202Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //         <path
+    //           d="M23.2004 11.5999C23.2004 11.2816 23.074 10.9764 22.8489 10.7514C22.6239 10.5263 22.3187 10.3999 22.0004 10.3999H11.6004C11.2821 10.3999 10.9769 10.5263 10.7519 10.7514C10.5268 10.9764 10.4004 11.2816 10.4004 11.5999V21.9999C10.4004 22.3182 10.5268 22.6234 10.7519 22.8484C10.9769 23.0735 11.2821 23.1999 11.6004 23.1999H22.0004C22.3187 23.1999 22.6239 23.0735 22.8489 22.8484C23.074 22.6234 23.2004 22.3182 23.2004 21.9999V11.5999ZM21.9732 17.7367L21.9712 17.7387L19.7204 19.6863C19.534 19.8493 19.3042 19.9545 19.059 19.9891C18.8138 20.0237 18.5638 19.9862 18.3396 19.8811C18.1196 19.7845 17.9325 19.6258 17.8012 19.4246C17.67 19.2233 17.6002 18.9882 17.6004 18.7479V18.4071C16.1786 18.4178 14.7855 18.8082 13.5652 19.5379C13.2463 19.7384 12.947 19.9685 12.6712 20.2251C12.5555 20.3367 12.4012 20.3993 12.2404 20.3999C12.1483 20.3993 12.0574 20.379 11.9738 20.3403C11.8903 20.3016 11.816 20.2454 11.756 20.1755C11.696 20.1056 11.6517 20.0237 11.6261 19.9352C11.6005 19.8468 11.5942 19.7538 11.6076 19.6627C11.8008 18.4227 12.4298 17.2923 13.3816 16.4743C14.3333 15.6564 15.5455 15.2045 16.8004 15.1999H17.6004V14.8523C17.6003 14.6124 17.67 14.3776 17.801 14.1765C17.9319 13.9755 18.1185 13.8168 18.338 13.7199C18.5622 13.6149 18.8122 13.5774 19.0574 13.612C19.3026 13.6467 19.5324 13.752 19.7188 13.9151L21.9712 15.8623C22.1059 15.9786 22.214 16.1224 22.2881 16.2842C22.3623 16.4459 22.4008 16.6217 22.4009 16.7996C22.4011 16.9776 22.363 17.1535 22.2892 17.3153C22.2154 17.4772 22.1076 17.6214 21.9732 17.7379V17.7367Z"
+    //           fill={toggleHeadings === 2 ? "#FFF" : " #333"}
+    //         />
+    //       </g>
+    //       <defs>
+    //         <clipPath id="clip0_5716_131100">
+    //           <rect width="24" height="24" fill="white" />
+    //         </clipPath>
+    //       </defs>
+    //     </svg>
+    //   ),
+    //   title: "External Jobs",
+    // },
+
+
+
   ];
   // useEffect(() => {
   //   if (jobData.length > 0) {
@@ -558,7 +568,7 @@ function Index() {
             ...mappedFilters,
           },
           {
-            params: { page },
+            params: { page, limit },
           }
         );
 
@@ -566,19 +576,32 @@ function Index() {
         setMobileFilter(false);
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       console.error("Error fetching filter data", error);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
   // useEffect(() => {
   //   getFilterData()
   // }, [clear]);
 
-  
+
+  useEffect(() => {
+    if (toggleHeadings === 0) {
+
+      setLoading(true);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [toggleHeadings]);
 
   return (
     <>
@@ -591,14 +614,14 @@ function Index() {
 
       <div className="relative ">
         <div
-          className={` ${isViewportBelow850 ? " sticky top-[2.5rem]" : " sticky top-[56.8px]"
-            } z-50`}
+          className={` sticky top-[56px]
+             z-50`}
         >
 
           <div className="bg-[#E0F6FF] px-4 ">
             <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
-              <div className="flex sm:flex-row flex-col justify-between sm:items-center  gap-2 items-start sm:py-[8px] sm:px-[10px] scr540:px-[24px] rounded-[8px] sm:bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
-                <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center bg-white sm:w-[45%] w-full rounded-[8px] p-2 sm-p-0">
+              <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start sm:py-[8px] sm:px-[10px]  scr540:px-[16px] rounded-[8px] bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
+                <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 p-2">
                   <svg
                     className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
                     viewBox="0 0 36 36"
@@ -621,8 +644,8 @@ function Index() {
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
-                  <svg
-                    onClick={getAllData}
+                  {/* <svg
+                   onClick={()=>{setToggleHeadings(0);setLoading(true);getAllData()}}
                     className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
                     viewBox="0 0 36 36"
                     fill="none"
@@ -635,13 +658,13 @@ function Index() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
                 </div>
 
-                {/* <div className="hidden sm:block w-[42.06px] h-0 border-t-[3.15px] border-solid border-[#E0E0E0] rotate-90"></div> */}
+                <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
 
                 <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
-                  <div className=" bg-[#E0E0E0] min-w-[3px] h-[40px] sm:block hidden"></div>
+                  <div className=" bg-[#E0E0E0] min-w-[3px] h-[36px] sm:block hidden"></div>
                   <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
                     <svg
                       className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
@@ -672,8 +695,8 @@ function Index() {
                       onChange={(e) => setLocation(e.target.value)}
                     />
                   </div>
-                  <svg
-                    onClick={getAllData}
+                  {/* <svg
+                     onClick={()=>{setToggleHeadings(0);setLoading(true);getAllData()}}
                     className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
                     viewBox="0 0 36 36"
                     fill="none"
@@ -686,13 +709,24 @@ function Index() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
 
                   <button
-                    onClick={getAllData}
-                    className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[12px] scr540:px-[36px] gap-0 rounded-[12px] border-opacity-0 sm:block hidden"
+                    onClick={() => { setToggleHeadings(0); setLoading(true); getAllData() }}
+                    className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[6px] scr540:px-[18px] gap-0 rounded-[8px] border-opacity-0 sm:block hidden"
                   >
                     <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
+                      Search
+                    </p>
+                  </button>
+                </div>
+                <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
+                <div className="pt-1 px-2 pb-2 w-full block sm:hidden ">
+                  <button
+                    onClick={() => { setToggleHeadings(0); setLoading(true); getAllData() }}
+                    className="border border-blue w-full  py-[8px] px-[20px]  gap-0 rounded-[8px]  "
+                  >
+                    <p className="text-[14px] scr540:text-[14px] font-[500]  font-Montserrat">
                       Search
                     </p>
                   </button>
@@ -704,7 +738,7 @@ function Index() {
           <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
             <div className=" customMargins overflow-x-auto  ">
               <div
-                className={`flex items-start lg:gap-4 gap-3 py-3 overflow-x-auto `}
+                className={`flex items-start lg:gap-4 sm:gap-3 gap-1 py-3 overflow-x-auto `}
               >
                 {headings
                   .filter((_, index) => isLogin || index === 0)
@@ -713,15 +747,18 @@ function Index() {
                       onClick={() => {
                         forceUpdate();
                         setToggleHeadings(index);
-                        setSelectedJob();
+
                       }}
                       key={index}
-                      className={`flex gap-2 py-2 lg:px-4 px-2 items-center min-w-[165px] cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
+                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
                         }`}
                     >
-                      {item.img}
+                      <div className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px] min-w-[18px] sm:min-w-[24px]">
+
+                        {item.img}
+                      </div>
                       <p
-                        className={`text-[16px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
+                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
                           }`}
                       >
                         {item.title}
@@ -776,7 +813,7 @@ function Index() {
                 onClick={() => setMobileFilter(!mobileFilter)}
                 className="p-2 mobile "
               >
-                <button className="px-4 py-3  rounded-[6px] bg-[#FFF]   flex gap-2">
+                <button className="sm:px-4 sm:py-2 px-2 py-2  rounded-[6px] bg-[#FFF]   flex gap-2">
                   <img
                     className="h-[24px] w-[24px]"
                     src="/images/jobs/fil.png"
@@ -903,280 +940,67 @@ function Index() {
                 )}
               </AnimatePresence>
 
-              {!loading ?
-                <>
-                  {(toggleHeadings === 0 && (
-                    <>
-                      {jobData.length > 0 ?
-                        <>
-                          {!isDescription && (
-                            <div
-                              onClick={() => setIsDescription(true)}
-                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                }`}
-                            >
-                              <AllJobs
-                                selectedJob={selectedJob}
-                                setIsDescription={setIsDescription}
-                                setSelectedJob={setSelectedJob}
-                                savedJobList={savedJobList}
-                                setSavedJobList={setSavedJobList}
-                                setCurrentPage={setPage}
-                                isLogin={isLogin}
-                                appliedJobs={appliedJobs}
-                              />
-                            </div>
-                          )}
 
-                          <div
-                            className={`web1024 min-h-[calc(100vh-301.66px)]  ${filter ? "col-span-5" : "col-span-5"
-                              } ml:mt-4`}
-                          >
-                            <AllJobs
-                              selectedJob={selectedJob}
-                              setIsDescription={setIsDescription}
-                              setSelectedJob={setSelectedJob}
-                              savedJobList={savedJobList}
-                              setSavedJobList={setSavedJobList}
-                              setCurrentPage={setPage}
-                              isLogin={isLogin}
-                              appliedJobs={appliedJobs}
-                            />
-                          </div>
+              <>
+                {toggleHeadings === 0 && (
+                  <div className="col-span-12">
+                    {loading ? (
+                      <div className="h-[70vh]">
+                        <MiniLoader />
+                      </div>
+                    ) : (
+                      <AllJobs
+                        loading={loading}
+                        setLoading={setLoading}
+                        setLimitPopup={setLimitPopup}
+                        setCurrentPage={setPage}
+                        isLogin={isLogin}
+                        appliedJobs={appliedJobs}
+                        setLimit={setLimit}
+                        limit={limit}
+                        setTotalpages={setTotalpages}
+                        totalPages={totalPages}
+                        page={page}
+                        setPage={setPage}
+                        jobData={jobData}
+                      />
+                    )}
+                  </div>
+                )}
 
-                          <div
-                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                          >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                          </div>
+                {toggleHeadings === 1 && (
+
+                  <div className="col-span-12">
+
+                    <AppliedJobs
+
+                      setLimitPopup={setLimitPopup}
 
 
-                          {isDescription && (
-                            <div
-                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                } flex flex-col gap-3 ml:mt-4 `}
-                            >
-                              <div
-                                onClick={() => setIsDescription(false)}
-                                className="flex gap-3"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <g mask="url(#mask0_5925_96419)">
-                                    <path
-                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Back
-                              </div>
+                    />
 
-                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                            </div>
-                          )}
-                        </>
-                        :
-                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                          <NoJobs name={""} />
-                        </div>
+                  </div>
 
-                      }
-                    </>
-                  ))}
+                )}
 
-                  {toggleHeadings === 1 && (
-
-                    <>
-                      {appliedJobs?.length > 0 ?
-                        <>
-                          {!isDescription && (
-                            <div
-                              onClick={() => setIsDescription(true)}
-                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                }`}
-                            >
-                              <AppliedJobs
-                                selectedJob={selectedJob}
-                                setIsDescription={setIsDescription}
-                                setSelectedJob={setSelectedJob}
-                                savedJobList={savedJobList}
-                                setSavedJobList={setSavedJobList}
-                                setCurrentPage={setPage}
-                                appliedJobs={appliedJobs}
-                                setAppliedJobs={setAppliedJobs}
-                              />
-                            </div>
-                          )}
-
-                          <div
-                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                              } ml:mt-4`}
-                          >
-                            <AppliedJobs
-                              selectedJob={selectedJob}
-                              setIsDescription={setIsDescription}
-                              setSelectedJob={setSelectedJob}
-                              savedJobList={savedJobList}
-                              setSavedJobList={setSavedJobList}
-                              setCurrentPage={setPage}
-                              appliedJobs={appliedJobs}
-                              setAppliedJobs={setAppliedJobs}
-                            />
-                          </div>
-
-                          <div
-                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                          >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                          </div>
+                {toggleHeadings === 2 && (
+                  <div className="col-span-12">
 
 
-                          {isDescription && (
-                            <div
-                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                } flex flex-col gap-3 ml:mt-4 `}
-                            >
-                              <div
-                                onClick={() => setIsDescription(false)}
-                                className="flex gap-3"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <g mask="url(#mask0_5925_96419)">
-                                    <path
-                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Back
-                              </div>
 
-                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                            </div>
-                          )}
-                        </>
-                        :
-                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                          <NoJobs name={"Applied"} />
-                        </div>
+                    <SavedJobs
 
 
-                      }
-                    </>
 
-                  )}
-
-                  {toggleHeadings === 2 && (
-                    <>
+                      setLimitPopup={setLimitPopup}
+                      appliedJobs={appliedJobs}
+                    />
 
 
-                      {savedJobList?.length > 0 ?
-                        <>
-                          {!isDescription && (
-                            <div
-                              onClick={() => setIsDescription(true)}
-                              className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                }`}
-                            >
-                              <SavedJobs
-                                selectedJob={selectedJob}
-                                setIsDescription={setIsDescription}
-                                setSelectedJob={setSelectedJob}
-                                savedJobList={savedJobList}
-                                setSavedJobList={setSavedJobList}
-                                setCurrentPage={setPage}
-                                appliedJobs={appliedJobs}
-                              />
-                            </div>
-                          )}
 
-                          <div
-                            className={`web1024  ${filter ? "col-span-5" : "col-span-5"
-                              } ml:mt-4`}
-                          >
-                            <SavedJobs
-                              selectedJob={selectedJob}
-                              setIsDescription={setIsDescription}
-                              setSelectedJob={setSelectedJob}
-                              savedJobList={savedJobList}
-                              setSavedJobList={setSavedJobList}
-                              setCurrentPage={setPage}
-                              appliedJobs={appliedJobs}
-                            />
-                          </div>
-
-                          <div
-                            className={`web1024   ${filter ? "col-span-7" : "col-span-7"
-                              } ml:mt-4 sticky top-[335px] h-[calc(95vh-335px)] overflow-y-auto p-1`}
-                          >
-                            <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                          </div>
-                          {/* LAST SECTION   */}
-
-                          {isDescription && (
-                            <div
-                              className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                                } flex flex-col gap-3 ml:mt-4 `}
-                            >
-                              <div
-                                onClick={() => setIsDescription(false)}
-                                className="flex gap-3"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <g mask="url(#mask0_5925_96419)">
-                                    <path
-                                      d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Back
-                              </div>
-
-                              <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
-                            </div>
-                          )}
-                        </>
-                        :
-                        // <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full col-span-12">
-                        //   <img
-                        //     className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
-                        //     src="/images/jobs/noSaved.png"
-                        //     alt=""
-                        //   />
-                        // </div>
-                        <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
-                          <NoJobs name={"Saved"} />
-                        </div>
-                      }
-                    </>
-                  )}
-                </>
-                :
-                <div className="flex justify-center items-start w-full h-[70vh] col-span-12">
-                  <MiniLoader />
-                </div>
-              }
+                  </div>
+                )}
+              </>
 
             </div>
           </div>
