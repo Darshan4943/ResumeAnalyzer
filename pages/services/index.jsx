@@ -50,7 +50,7 @@ function Services({ isServices, isMove, setIsMove }) {
     //   color: "#428FF5",
     // },
     {
-      name: "Skill Assessments",
+      name: "Skill Assessments & Certification",
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
       desc: "Test your skills and improve knowledge to crack job interviews.",
       color: "#FE7701",
@@ -160,7 +160,7 @@ function Services({ isServices, isMove, setIsMove }) {
     switch (itemName) {
       case "Create New Resume":
         return "createResume";
-        case "Create New Cover Letter":
+      case "Create New Cover Letter":
         return "createCover";
       case "My Clients":
         return "myClinet";
@@ -172,7 +172,7 @@ function Services({ isServices, isMove, setIsMove }) {
         return "JobDes";
       case "My Collection":
         return "MyCollection";
-      case "Skill Assessments":
+      case "Skill Assessments & Certification":
         return "SkillAss";
       case "My Purchases":
         return "MyPurchase";
@@ -198,9 +198,13 @@ function Services({ isServices, isMove, setIsMove }) {
             : "/myClients/ClientResume"
         );
         break;
-        case "Create New Cover Letter":
-          handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
-          break;
+      case "Create New Cover Letter":
+        handleNavigation(
+          userDataGlobal.role === "user"
+            ? "/coverLetter"
+            : `/myClients/ClientResume?cover=true`
+        );
+        break;
       case "My Clients":
         handleNavigation("/myClients");
         break;
@@ -217,9 +221,11 @@ function Services({ isServices, isMove, setIsMove }) {
         handleNavigation("/purchase/MyPurchase");
         break;
       case "My Collection":
-        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
+        handleNavigation(
+          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+        );
         break;
-      case "Skill Assessments":
+      case "Skill Assessments & Certification":
         handleNavigation("/home/SkillAssessment");
         break;
       case "Ask Krut":
@@ -243,10 +249,11 @@ function Services({ isServices, isMove, setIsMove }) {
     <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform  ease-in-out ${isMove
-            ? "translate-y-0  opacity-100"
-            : "translate-y-[30px] opacity-0 move"
-            }`}
+          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform  ease-in-out ${
+            isMove
+              ? "translate-y-0  opacity-100"
+              : "translate-y-[30px] opacity-0 move"
+          }`}
           style={{ transition: " all .2s linear" }}
         >
           <div className="flex flex-col gap-[24px]">
@@ -292,7 +299,9 @@ function Services({ isServices, isMove, setIsMove }) {
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium group-hover:text-white">Dashboard</p>
+                  <p className="text-[14px] font-medium group-hover:text-white">
+                    Dashboard
+                  </p>
                   <p className="text-[12px] font-medium text-[#808080] group-hover:text-white">
                     Go to your personalized home page
                   </p>
@@ -353,10 +362,11 @@ function Services({ isServices, isMove, setIsMove }) {
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] p-4  ${visible !== index
-                      ? "border border-[#DEDEDE]"
-                      : "border border-[#FFF]"
-                      } rounded-[16px] cursor-pointer w-[359.33px] `}
+                    className={`flex items-start gap-[20px] p-4  ${
+                      visible !== index
+                        ? "border border-[#DEDEDE]"
+                        : "border border-[#FFF]"
+                    } rounded-[16px] cursor-pointer w-[359.33px] `}
                   >
                     <div className="flex items-center gap-3">
                       <img
