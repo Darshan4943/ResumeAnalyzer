@@ -17,7 +17,7 @@ function HeaderSidebar({
     // "My Resumes",
     "My Collection",
     // "Transform CV",
-    "Skill Assessments",
+    "Skill Assessments & Certification",
     "Search Jobs",
     "Ask Krut",
     "My Website",
@@ -279,7 +279,7 @@ function HeaderSidebar({
                   case "My Collection":
                     handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
                     break;
-                  case "Skill Assessments":
+                  case "Skill Assessments & Certification":
                     handleNavigation("/home/SkillAssessment");
                     break;
                   case "Post Jobs":

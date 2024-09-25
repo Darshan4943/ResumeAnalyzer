@@ -695,37 +695,18 @@ function SkillAssessment() {
 
   const handleStart = () => {
     const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-
-    if (!isActivePlan) {
+    console.log(isActivePlan)
+    if (!isActivePlan ) {
       setisLevel(false);
       setIsplan(true);
-      return;
+    } else if (!selectedSkill) {
+      toast.error("Please select a skill to start assessment");
     }
-
-    if (!selectedSkill) {
-      toast.error("Please select a skill to start the assessment");
-      return;
-    }
-  
-    if (isActivePlan && activePlan === 1) {
-      const isCertificateAssessment = assesmentType === "Certificate" && certifiedCount < 1;
-      const isNormalAssessment = assesmentType === "Normal" && normalCount < 3;
-
-      if (isCertificateAssessment || isNormalAssessment) {
-        setisLevel(true);
-        return;
-      }
-      setIsplan(true);
-      toast.error("Attempt limit reached for this plan");
-      setisLevel(false);
-      return;
-    }
-
-    if (isActivePlan && activePlan !== 1) {
+    else {
       setisLevel(true);
     }
   };
+
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
@@ -1080,7 +1061,7 @@ function SkillAssessment() {
                           }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
                         onClick={() => setResultType(true)}
                       >
-                        Certified Assesment Result
+                        Certification Assesment Result
                       </button>
                     </div>
                     // </div>
