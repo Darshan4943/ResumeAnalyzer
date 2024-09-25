@@ -125,7 +125,7 @@ function Dashboard() {
     // { name: "Resume", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
-      name: "Skill Assessments",
+      name: "Skill Assessments & Certification",
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
 
@@ -208,7 +208,7 @@ function Dashboard() {
       case "My Collection":
         handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
         break;
-      case "Skill Assessments":
+      case "Skill Assessments & Certification":
         handleNavigation("/home/SkillAssessment");
         break;
       case "Search Jobs":

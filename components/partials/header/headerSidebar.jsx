@@ -210,7 +210,7 @@ function HeaderSidebar({
                   ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
-                ...(item === "Skill Assessments" && {
+                ...(item === "Skill Assessments & Certification" && {
                   ...getListItemStyles("/home/SkillAssessment"),
                   transition: "transform 1.1s ease-in-out",
                 }),

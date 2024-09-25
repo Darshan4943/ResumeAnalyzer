@@ -818,7 +818,7 @@ function SkillAssessment() {
                     }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
-                  Certified Assessment
+                Certification Assessment
                 </button>
               </div>
               <div
