@@ -270,50 +270,111 @@ const ApplicantDetails = () => {
                       </span>
                     </div>*/}
                   </div>
-                  <div className="flex flex-col gap-[16px] pb-[16px]">
+                  <div className="flex flex-col gap-[16px] pb-[16px] w-full">
                     <span className="text-[16px] text-[#333333] font-semibold">
                       Professional Info
                     </span>
+                    {/** 
                     <div className="flex flex-col gap-[4px]">
                       <span className="text-[16px] text-[#333333] font-medium">
                         About Me
                       </span>
                       <span className="text-[14px] text-[#333333] font-normal">
-                        {application?.details?.professional?.aboutme ? application?.details?.professional?.aboutme : "Syncning..."}
+                        {application?.details?.professional?.aboutme
+                          ? application?.details?.professional?.aboutme
+                          : "Syncning..."}
                       </span>
-                    </div>
-                    <div className="flex ms:flex-row flex-col gap-[16px]">
-                      <div className="ms:w-[30%] w-full flex flex-col gap-[16px] ">
-                        <div className="flex flex-col">
-                          <span className="text-[16px] text-[#333333] font-medium">
-                            Current Job
-                          </span>
-                          <span className="text-[14px] text-[#333333] font-normal">
-                          {application?.details?.professional?.totalExperience? application?.details?.professional?.totalExperience : "Syncning..."}
-                          </span>
+                    </div>*/}
+                    <div className="flex ms:flex-col flex-col gap-[16px] justify-between w-full">
+                      <div className="w-[50%] ms:w-[100%] flex flex-col gap-[16px] ">
+                        {application?.details?.professional?.hightestQul && (
+                          <div className="flex flex-col">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Educational Qualifications
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional?.hightestQul
+                                ? application?.details?.professional
+                                    ?.hightestQul
+                                : "Syncning..."}
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="flex ms:flex-row flex-col w-full justify-between gap-4">
+                          <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Total Experience
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional
+                                ?.totalExperience
+                                ? application?.details?.professional
+                                    ?.totalExperience
+                                : "Syncing..."}
+                            </span>
+                          </div>
+                          {application?.details?.professional
+                            ?.relevantExperience && (
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Relevant Experience
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
+                                  ?.relevantExperience
+                                  ? application?.details?.professional
+                                      ?.relevantExperience
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex flex-col">
-                          <span className="text-[16px] text-[#333333] font-medium">
-                            Highest Qualification
-                          </span>
-                          <span className="text-[14px] text-[#333333] font-normal">
-                          {application?.details?.professional?.hightestQul? application?.details?.professional?.hightestQul : "Syncning..."}
-                          </span>
+
+                        <div className="flex ms:flex-row  flex-col w-full justify-between gap-4">
+                          <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Current CTC
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional?.currentCTC
+                                ? application?.details?.professional?.currentCTC
+                                : "Syncing..."}
+                            </span>
+                          </div>
+                          {application?.details?.professional
+                            ?.relevantExperience && (
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Notice Period
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
+                                  ?.noticePeriod
+                                  ? application?.details?.professional
+                                      ?.noticePeriod
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
+
                       <div className="ms:w-[70%] w-full flex flex-col gap-[16px] ">
                         <span className="text-[16px] text-[#333333] font-medium">
                           Skills
                         </span>
                         <div className="flex flex-row flex-wrap gap-[12px]">
-                          {application?.details?.professional?.skills?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
-                            >
-                              {item}
-                            </div>
-                          ))}
+                          {application?.details?.professional?.skills?.map(
+                            (item, index) => (
+                              <div
+                                key={index}
+                                className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
+                              >
+                                {item}
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </div>

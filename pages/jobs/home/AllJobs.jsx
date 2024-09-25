@@ -13,7 +13,6 @@ import MiniLoader from "../../../components/common/miniLoader";
 import NoJobs from "./noJobs";
 
 function AllJobs({
-
   setLimitPopup,
   setLimit,
   limit,
@@ -24,10 +23,8 @@ function AllJobs({
   isLogin,
   appliedJobs,
   jobData,
-  loading
+  loading,
 }) {
-
-
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -36,7 +33,6 @@ function AllJobs({
 
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const [savedJobList, setSavedJobList] = useState([]);
-
 
   const getData = () => {
     axios
@@ -49,7 +45,6 @@ function AllJobs({
         setSavedJobList(res.data.data);
       })
       .catch((err) => {
-
         console.log(err);
       });
   };
@@ -60,29 +55,24 @@ function AllJobs({
     }
   }, [userDataGlobal]);
 
-
-
-
-
-
   useEffect(() => {
     if (jobData?.length > 0) {
       setSelectedJob(jobData[0]);
     }
   }, [jobData]);
 
-
   return (
     <>
-      {!loading ?
+      {!loading ? (
         <>
-          {jobData?.length > 0 ?
+          {jobData?.length > 0 ? (
             <div className="grid grid-cols-12 gap-[24px]">
               {!isDescription && (
                 <div
                   onClick={() => setIsDescription(true)}
-                  className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                    }`}
+                  className={`mobile1024 ml:mt-4  ${
+                    isViewportBelow600 ? "col-span-12" : "col-span-12"
+                  }`}
                 >
                   <AllJobCard
                     selectedJob={selectedJob}
@@ -100,14 +90,11 @@ function AllJobs({
                     page={page}
                     setPage={setPage}
                     jobData={jobData}
-
                   />
                 </div>
               )}
 
-              <div
-                className={`web1024 col-span-5 ml:mt-4`}
-              >
+              <div className={`web1024 col-span-5 ml:mt-4`}>
                 <AllJobCard
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
@@ -131,14 +118,17 @@ function AllJobs({
                 className={`web1024 col-span-7
              ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
               >
-                <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
+                <Description
+                  selectedJob={selectedJob}
+                  setLimitPopup={setLimitPopup}
+                />
               </div>
-
 
               {isDescription && (
                 <div
-                  className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
-                    } flex flex-col gap-3 ml:mt-4 `}
+                  className={`mobile1024 ${
+                    isViewportBelow600 ? "col-span-12" : "col-span-12"
+                  } flex flex-col gap-3 ml:mt-4 `}
                 >
                   <div
                     onClick={() => setIsDescription(false)}
@@ -161,22 +151,24 @@ function AllJobs({
                     Back
                   </div>
 
-                  <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
+                  <Description
+                    selectedJob={selectedJob}
+                    setLimitPopup={setLimitPopup}
+                  />
                 </div>
               )}
             </div>
-            :
+          ) : (
             <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
               <NoJobs name={""} />
             </div>
-
-          }
+          )}
         </>
-        :
+      ) : (
         <div className=" h-[70vh] ">
           <MiniLoader />
         </div>
-      }
+      )}
     </>
   );
 }

@@ -9,8 +9,9 @@ import { PlusAddLogo, SparklingStarts } from "../../../utils/svg";
 import Tiptap from "../../../components/editor/Tiptap";
 import axios from "axios";
 import MiniLoader from "../../../components/common/mini-loader";
-import { countries } from "../../../utils/data";
-import Select from 'react-select';
+import { countries, telCode } from "../../../utils/data";
+import Select from "react-select";
+
 
 const Leftform = ({
   file,
@@ -23,14 +24,13 @@ const Leftform = ({
   formError,
   setFormError,
 }) => {
-
-  const countryOptions = countries.map((country) => ({
-    value: country,
-    label: country,
-}));
+  const countryOptions = telCode.map((country) => ({
+    value: country.name,
+    label: country.name,
+  }));
 
   const fileRef = useRef();
-  
+
   const [loactionText, setLoactionText] = useState("");
   const [modelView, setModelView] = useState(false);
   const handleFileChange = (event) => {
@@ -49,13 +49,15 @@ const Leftform = ({
   const handleCountryChange = (selectedCountries) => {
     setFormError((prevErrors) => ({
       ...prevErrors,
-      country: '',
-  }));
+      country: "",
+    }));
     setData({
-        ...data,
-        country: selectedCountries ? selectedCountries.map((country) => country.value) : [],
+      ...data,
+      country: selectedCountries
+        ? selectedCountries.map((country) => country.value)
+        : [],
     });
-};
+  };
 
   const handleButtonClick = () => {
     fileRef.current.click();
@@ -85,15 +87,15 @@ const Leftform = ({
   };
   const customStyles = {
     control: (provided, state) => ({
-        ...provided,
-        border: '1px solid #DEDEDE',
-        padding:2, 
-        boxShadow: 'none', 
-        '&:hover': {
-            border: '1px solid #DEDEDE', 
-        },
+      ...provided,
+      border: "1px solid #DEDEDE",
+      padding: 2,
+      boxShadow: "none",
+      "&:hover": {
+        border: "1px solid #DEDEDE",
+      },
     }),
-};
+  };
 
   return (
     <div className="flex flex-col md:w-[40%] w-full gap-[24px]">
@@ -309,20 +311,22 @@ const Leftform = ({
         </div>
 
         <div className="form-group">
-            <label className="text-[#333333] text-[14px] font-medium">
-                Country <span className="text-red">*</span>
-            </label>
-            <Select
-                isMulti
-                options={countryOptions}
-                onChange={handleCountryChange}
-                value={countryOptions.filter((country) => data.country.includes(country.value))}
-                // className="input"
-                classNamePrefix="select"
-                placeholder="Select countries..."
-                styles={customStyles} 
-            />
-             {formError && (
+          <label className="text-[#333333] text-[14px] font-medium">
+            Country <span className="text-red">*</span>
+          </label>
+          <Select
+            isMulti
+            options={countryOptions}
+            onChange={handleCountryChange}
+            value={countryOptions.filter((country) =>
+              data.country.includes(country.value)
+            )}
+            // className="input"
+            classNamePrefix="select"
+            placeholder="Select countries..."
+            styles={customStyles}
+          />
+          {formError && (
             <p className="text-[12px] text-[red] font-[500]">
               {formError.country}
             </p>
@@ -358,8 +362,8 @@ const Leftform = ({
                 // });
                 setFormError((prevErrors) => ({
                   ...prevErrors,
-                  location: '',
-              }));
+                  location: "",
+                }));
               }}
             >
               <PlusAddLogo
@@ -395,13 +399,12 @@ const Leftform = ({
           </div>
         </div>
 
-
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
             Job Description
           </label>
           <textarea
-          style={{minHeight:150}}
+            style={{ minHeight: 150 }}
             type="text"
             placeholder="Enter Job Description"
             className="input"
