@@ -266,8 +266,8 @@ export const Api = ({}) => {
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
-    // let latitude = 53.4808;
-    // let longitude =2.2426;
+    // let latitude = 13.1339;
+    // let longitude =27.8493;
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {

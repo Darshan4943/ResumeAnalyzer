@@ -49,7 +49,7 @@ function Dashboard() {
   const router = useRouter();
   const { signIn } = router.query;
   const [successful, setIsSuccessful] = useState(false);
-
+  const [editProfilePopUp, setEditProfilePopUp] = useState(false);
   useEffect(() => {
     // Check if the effect has already run by checking localStorage
     const hasEffectRun = sessionStorage.getItem("hasEffectRun");
@@ -65,7 +65,7 @@ function Dashboard() {
       return () => clearTimeout(timer);
     }
   }, [signIn]);
-  
+
 
   // useEffect(() => {
 
@@ -99,6 +99,7 @@ function Dashboard() {
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsSuccessful(false);
+      setEditProfilePopUp(false)
     }
   };
   useEffect(() => {
@@ -135,7 +136,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/website.png",
       new: "New",
     },
-    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" ,new: "New"},
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
@@ -160,7 +161,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/collection.png",
     },
     { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png",new: "New" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
@@ -302,7 +303,7 @@ function Dashboard() {
     // }
   }, [userDataGlobal, allPlans]);
 
-const [loading,setLoading] =useState(true)
+  const [loading, setLoading] = useState(true)
   const [resumeData, setResumeData] = useState([]);
 
   useEffect(() => {
@@ -318,7 +319,7 @@ const [loading,setLoading] =useState(true)
         setResumeData(JSON.parse(resume));
       }
     }
-   
+
   }, [userDataGlobal]);
 
   // const MyComponent = ({ selectedResumeIndex }) => {
@@ -554,6 +555,29 @@ const [loading,setLoading] =useState(true)
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
+
+      {editProfilePopUp && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div   className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+            <div  ref={taskRef} className="absolute ms:w-[28%] w-[60%] flex flex-col gap-6  justify-between items-center text-center rounded-[24px] bg-white py-6 px-10  text-[24px] font-medium">
+              Please edit your profile to update the details !
+              <button
+                onClick={() => {
+                  setEditProfilePopUp(false);
+                  router.push("/auth/recruiter-signup?isUpdate=true");
+                }}
+                style={{ borderColor: "#06a9ef" }}
+                className={`w-[160px] px-4 py-[8px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] text-white font-[500] bg-blue hover:bg-[#06a9ef] 
+             
+            } hover:text-[#fff] transition-all duration-200`}
+              >
+                Edit Profile
+              </button>
+            </div>
+          </div>
+        </>
+      )}
       {successful && (
         <>
           <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -598,11 +622,17 @@ const [loading,setLoading] =useState(true)
               </div>
               <div className="flex justify-center">
                 <button
-                  onClick={() => setIsSuccessful(false)}
+                  onClick={() => {
+                    setIsSuccessful(false);
+                    if (signIn !== "true") {
+                      setEditProfilePopUp(true);
+                    }
+                  }}
                   className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                 >
                   Done
                 </button>
+
               </div>
             </div>
           </div>
@@ -671,9 +701,9 @@ const [loading,setLoading] =useState(true)
           limits={limits}
           selectedPlan={selectedPlan}
           isActive={isActive}
-          loading={loading} 
+          loading={loading}
           setLoading={setLoading}
-          
+
 
         />
 
@@ -709,7 +739,7 @@ const [loading,setLoading] =useState(true)
       </div>
 
       {userDataGlobal.role === "user" &&
-        data !== undefined && 
+        data !== undefined &&
         (
           <div className="ms:flex gap-[24px] flex-wrap flex-col sm:items-start items-center hidden ">
             {resumeData.selectedResumeIndex !== undefined &&

@@ -145,11 +145,9 @@ function Index() {
     }
   }, [applied]);
 
+
   useEffect(() => {
-    const storedCountry = localStorage.getItem("country");
-    if (storedCountry) {
-      setCountry(storedCountry);
-    }
+   setCountry(userDataGlobal.country)
     axios
       .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {

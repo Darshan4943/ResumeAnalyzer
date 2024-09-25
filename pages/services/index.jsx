@@ -246,10 +246,10 @@ function Services({ isServices, isMove, setIsMove }) {
   }
 
   return (
-    <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
+    <div className="fixed z-[2000]  top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform  ease-in-out ${
+          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${
             isMove
               ? "translate-y-0  opacity-100"
               : "translate-y-[30px] opacity-0 move"
@@ -345,7 +345,7 @@ function Services({ isServices, isMove, setIsMove }) {
               </span>
             </button> */}
           </div>
-          <div className="flex flex-col gap-6 w-[750px]   ">
+          <div className="flex flex-col gap-6 w-[800px]  ">
             <div className="header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] ">
               Services
             </div>
@@ -366,7 +366,7 @@ function Services({ isServices, isMove, setIsMove }) {
                       visible !== index
                         ? "border border-[#DEDEDE]"
                         : "border border-[#FFF]"
-                    } rounded-[16px] cursor-pointer w-[359.33px] `}
+                    } rounded-[16px] cursor-pointer w-[370px] `}
                   >
                     <div className="flex items-center gap-3">
                       <img
@@ -374,7 +374,7 @@ function Services({ isServices, isMove, setIsMove }) {
                         alt=""
                         className="w-[46px] h-[46px]"
                       />
-                      <div className="w-[224px] flex flex-col gap-1  ">
+                      <div className="w-[270px] flex flex-col gap-1  ">
                         <div className="flex gap-3 items-center">
                           <span className="text-[14px] font-medium">
                             {item.name}
