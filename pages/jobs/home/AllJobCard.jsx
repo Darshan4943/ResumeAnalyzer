@@ -55,14 +55,14 @@ function AllJobCard({
       .then((res) => {
         dispatch(reCallUserData());
 
-        toast.success("Job Saved Successfully");
-        getData();
-      })
-      .catch((err) => {
-        console.log(err);
-        // setLoading(false);
-      });
-  };
+                // toast.success("Job Saved Successfully");
+                getData();
+            })
+            .catch((err) => {
+                console.log(err);
+                // setLoading(false);
+            });
+    };
 
   const removeSavedJob = (e, id) => {
     e.stopPropagation();
@@ -73,14 +73,14 @@ function AllJobCard({
       .then((res) => {
         dispatch(reCallUserData());
 
-        toast.success("Job Removed Successfully");
-        getData();
-      })
-      .catch((err) => {
-        console.log(err);
-        // setLoading(false);
-      });
-  };
+                // toast.success("Job Removed Successfully");
+                getData();
+            })
+            .catch((err) => {
+                console.log(err);
+                // setLoading(false);
+            });
+    };
 
   return (
     <div className="flex flex-col gap-4">

@@ -161,6 +161,22 @@ function Index() {
     }
   }, [toggleHeadings]);
 
+  const sortedExperiences = (jobtypeData?.experiences || [])
+  .filter(Boolean) 
+  .sort((a, b) => {
+    const getYears = (str) => {
+      const match = str?.match(/\d+/g); 
+      return match ? parseInt(match[0]) : Infinity;
+    };
+    return getYears(a) - getYears(b);
+  });
+
+
+  const sortedEducations = (jobtypeData?.educations || [])
+  .filter(Boolean) 
+  .sort((a, b) => a.localeCompare(b)); 
+
+
   const inputData = [
     // {
     //   title: "Sort by",
@@ -182,27 +198,28 @@ function Index() {
       img: "/images/jobs/arw.png",
       child: jobtypeData?.industryTypes || [],
     },
-    {
-      title: "Salary",
-      img: "/images/jobs/arw.png",
-      child: Array.isArray(jobtypeData?.salaries)
-        ? jobtypeData.salaries
-            .sort((a, b) => a.minSalary - b.minSalary)
-            .map((salary) => ({
-              label: `${salary.minSalary} - ${salary.maxSalary}`,
-              value: salary,
-            }))
-        : [],
-    },
+    // {
+    //   title: "Salary",
+    //   img: "/images/jobs/arw.png",
+    //   child: Array.isArray(jobtypeData?.salaries)
+    //     ? jobtypeData.salaries
+    //       .sort((a, b) => a.minSalary - b.minSalary)
+    //       .map(salary => ({
+    //         label: `${salary.minSalary} - ${salary.maxSalary}`,
+    //         value: salary,
+    //       }))
+    //     : [],
+    // }
+    // ,
     {
       title: "Experience",
       img: "/images/jobs/arw.png",
-      child: jobtypeData?.experiences || [],
+      child:  sortedExperiences || [],
     },
     {
       title: "Education",
       img: "/images/jobs/arw.png",
-      child: jobtypeData?.educations || [],
+      child: sortedEducations || [],
     },
     {
       title: "Job Mode",
@@ -276,7 +293,7 @@ function Index() {
         })
         .catch((err) => console.error("err", err));
     }
-  }, []);
+  }, [isLogin]);
 
   const getData = () => {
     axios
@@ -323,9 +340,9 @@ function Index() {
   };
 
   useEffect(() => {
-    if (country) {
+  
       getAllData();
-    }
+   
   }, [userSkills, page, limit, country]);
 
   // const getJobData = () => {
@@ -522,7 +539,7 @@ function Index() {
     };
 
     try {
-      if (country) {
+     
         const response = await axios.post(
           "http://localhost:2000/api/job/getFilterData",
           {
@@ -534,20 +551,24 @@ function Index() {
             params: { page, limit },
           }
         );
-
-        dispatch(setJob(response.data.data));
+       
+        setJobData(response.data.data)
+        setTotalCount(response.data.totalCount);
+        setTotalpages(response.data.totalPages);
+        // dispatch(setJob(response.data.data));
         setMobileFilter(false);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
-      }
+     
     } catch (error) {
       console.error("Error fetching filter data", error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
+    } 
+    // finally {
+    //   setTimeout(() => {
+    //     setLoading(false);
+    //   }, 1000);
+    // }
   };
   // useEffect(() => {
   //   getFilterData()
@@ -564,6 +585,7 @@ function Index() {
     }
   }, [toggleHeadings]);
 
+ console.log(jobData)
   return (
     <>
       {limitPopup && (
@@ -741,6 +763,9 @@ function Index() {
                 <div className="flex items-center py-5  gap-3 flex-wrap  ">
                   {filteredInputData.map((item, index) => (
                     <InputBox
+                    setTotalCount={setTotalCount}
+                    setTotalpages={setTotalpages}
+                    setJobData={setJobData}
                       key={index}
                       item={item}
                       filterType={item.title.replace(/ /g, "")}
@@ -749,6 +774,7 @@ function Index() {
                       onChange={handleCheckboxChange}
                       country={country}
                       page={page}
+                      limit={limit}
                       filters={filters}
                       userSkills={userSkills}
                       setLoading={setLoading}

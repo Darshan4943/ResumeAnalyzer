@@ -4,6 +4,10 @@ import { setJob } from "../../../Redux/actions";
 import { useDispatch } from "react-redux";
 
 const InputBox = ({
+  setTotalpages,
+  setTotalCount,
+  limit,
+  setJobData,
   item,
   filterType,
   onChange,
@@ -48,11 +52,14 @@ const InputBox = ({
             ...mappedFilters,
           },
           {
-            params: { page },
+            params: { page,limit },
           }
         );
-
-        dispatch(setJob(response.data.data));
+        
+        setJobData(response.data.data)
+        setTotalCount(response.data.totalCount);
+        setTotalpages(response.data.totalPages);
+        // dispatch(setJob(response.data.data));
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -108,7 +115,7 @@ const InputBox = ({
         {localIsDropdownOpen && (
           <div
             ref={dropdownRef}
-            className="dropdown mt-1 bg-[#fff] p-4 rounded-[6px] absolute bottom-100 left-[1px] w-[340px] gap-[10px] top-[46px]"
+            className="dropdown mt-1 bg-[#fff] p-4 rounded-[6px] absolute bottom-100 left-[1px] w-[340px] gap-[10px] top-[46px] max-h-[270px] overflow-y-scroll"
             style={{ boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.25)" }}
           >
             <div className="flex flex-col gap-5 items-start">

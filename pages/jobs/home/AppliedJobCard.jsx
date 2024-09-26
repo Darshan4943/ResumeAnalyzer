@@ -80,7 +80,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
 
                 dispatch(reCallUserData());
 
-                toast.success("Job Saved  Successfully");
+                // toast.success("Job Saved  Successfully");
                 getData();
             })
             .catch((err) => {
@@ -97,7 +97,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
 
                 dispatch(reCallUserData());
 
-                toast.success("Job Removed  Successfully");
+                // toast.success("Job Removed  Successfully");
                 getData();
             })
             .catch((err) => {
