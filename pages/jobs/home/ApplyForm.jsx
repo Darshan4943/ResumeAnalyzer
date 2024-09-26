@@ -683,6 +683,7 @@ function ApplyForm() {
               handleInputChange("professional", fieldName, value)
             }
             formError={formError}
+            jobDetails={jobDetails}
           />
 
           <div className="flex justify-end flex-row gap-4 pt-8">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
+const ProfessionalDetails = ({ data, handleInputChange, formError,jobDetails }) => {
 
   const handleNumberInput = (field, value) => {
  
@@ -9,6 +9,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
     }
   };
 
+console.log(11, jobDetails)
   return (
     <div className="flex flex-col gap-4">
       <div className='flex flex-row gap-4 items-center'>
@@ -20,7 +21,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
         <div className="grid ml:grid-cols-2 grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              How many years of experience you have?
+              How many years of Total experience you have?
             </label>
             <input
               type="text"
@@ -53,7 +54,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
         <div className="grid ms:grid-cols-2 grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Current CTC
+              Current CTC ({jobDetails?.currency})
             </label>
             <input
               type="text"
@@ -69,7 +70,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Expected CTC
+              Expected CTC ({jobDetails?.currency})
             </label>
             <input
               type="text"
