@@ -23,8 +23,8 @@ function Job_card({ jobData }) {
             </div>{" "}
           </div>
           <div className="flex items-start gap-[16px] pb-4 w-[100%] overflow-y-scroll ">
-            {jobData?.map((item) => (
-              <div className="flex p-[16px] flex-col items-start gap-[8px] rounded-[16px] bg-[#fff] h-[160px]">
+            {jobData?.map((item,index) => (
+              <div  className="flex p-[16px] flex-col items-start gap-[8px] rounded-[16px] bg-[#fff] h-[160px]" key={index}>
                 <div className="flex justify-end  items-start w-[16.43rem]">
                   {/* <img
                     className="w-[55px]"
