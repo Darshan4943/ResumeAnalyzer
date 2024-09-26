@@ -30,7 +30,7 @@ function AdminDashboard({ toggleContentt }) {
   };
   const getData = () => {
     axios
-      .get("http://localhost:2000/api/recruiters")
+      .get("https://jamblix.com/api/recruiters")
       .then((res) => {
         setRecruiterData(res.data);
         setUserList(res.data.users.results);
@@ -43,7 +43,7 @@ function AdminDashboard({ toggleContentt }) {
         // setMiniloading(false);
       });
     axios
-      .get("http://localhost:2000/api/activeSubscription")
+      .get("https://jamblix.com/api/activeSubscription")
       .then((res) => {
         console.log(444, res.data.data);
         setActivePlans(res.data.data);
@@ -53,7 +53,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("http://localhost:2000/api/candidates")
+      .get("https://jamblix.com/api/candidates")
       .then((res) => {
         setCandidateData(res.data);
 
@@ -65,7 +65,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("http://localhost:2000/api/enquires")
+      .get("https://jamblix.com/api/enquires")
       .then((res) => {
         setList(res.data.data.results);
         setInquiriesData(res.data);
@@ -76,7 +76,7 @@ function AdminDashboard({ toggleContentt }) {
         setLoading(false);
       });
 
-    axios.get("http://localhost:2000/api/activeRecruiters").then((res) => {
+    axios.get("https://jamblix.com/api/activeRecruiters").then((res) => {
       console.log(res);
       setResult(res.data);
     });
