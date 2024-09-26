@@ -565,6 +565,8 @@ function ApplyForm() {
               </h2>
               <div className="h-[1px] w-[70%] bg-[#DEDEDE]"></div>
             </div>
+            {resumes?.length > 0 &&
+            <>
             {!loadingg ? (
               <div className="flex flex-col gap-3 h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
                 {resumes?.map((item, index) => (
@@ -625,6 +627,8 @@ function ApplyForm() {
             ) : (
               <MiniLoader1 />
             )}
+</>
+          }
             <div className="flex sm:flex-row flex-col gap-4 justify-between w-[100%]">
               {formError.resume && (
                 <p className="text-red font-medium  text-[14px]">

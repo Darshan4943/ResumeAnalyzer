@@ -160,7 +160,7 @@ export const Api = ({}) => {
 
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
-
+            localStorage.setItem("jobsApply", 0);
             localStorage.setItem("downloadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);

@@ -51,7 +51,7 @@ function SubscriptionPlans({ fromMain }) {
     }
   }, [userDataGlobal, showPlan]);
 
- 
+
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)
@@ -200,12 +200,22 @@ function SubscriptionPlans({ fromMain }) {
                       <span > Plan</span>
                     }
                   </p>
-                  <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(plan?.amount * exchangeRate)}
-                    </p>
-                  </div>
+                  {plan.index !== 1 &&
+                    <div className="flex flex-row gap-2 w-full items-center justify-center">
+                      <p className="text-[2.5vw] font-[700]">{icon}</p>
+                      <p className="text-[2.5vw] font-[700]">
+                        {Math.ceil(plan?.amount * exchangeRate)}
+                      </p>
+                    </div>
+                  }
+                 {plan.index === 1 &&
+                    <div className="flex flex-row gap-2 w-full items-center justify-center">
+                     
+                      <p className="text-[2.5vw] font-[700]">
+                       Free
+                      </p>
+                    </div>
+                  }
 
                   <p
                     className="text-[1vw] font-[500]"
@@ -237,14 +247,14 @@ function SubscriptionPlans({ fromMain }) {
                 </div>
                 {(isFree && plan.index === 1) ?
                   <button
-                  disabled={true}
+                    disabled={true}
                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
                   >
                     Purchased
                   </button>
                   :
                   <button
-              
+
                     onClick={() => clickHandler(plan.index)}
                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                   >
@@ -271,7 +281,7 @@ function SubscriptionPlans({ fromMain }) {
                 <span className="text-[#06A9EF]">Enterprise </span>{" "}
                 Plan
               </p>
-              <p className="text-[1vw] font-[500] px-2">Tailored Solutions for { isUser ?"Candidates": "Organizations"}</p>
+              <p className="text-[1vw] font-[500] px-2">Tailored Solutions for {isUser ? "Candidates" : "Organizations"}</p>
               <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
             </div>
             <div className="flex gap-3 flex-col text-center items-center w-[168px]">

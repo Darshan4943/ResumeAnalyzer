@@ -14,6 +14,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const [isLogin, setIsLogin] = useState(false);
 
   const jobApplyCount = localStorage.getItem("jobsApply");
+  const isPlanActive = JSON.parse(localStorage.getItem("planActive"));
   const [loading, setLoading] = useState(true);
   const getData = () => {
     axios
@@ -116,11 +117,10 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                           setLimitPopup(true);
                         }
                       }}
-                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${
-                        appliedJobs?.some((job) => job._id === selectedJob._id)
+                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some((job) => job._id === selectedJob._id)
                           ? "cursor-not-allowed"
                           : " cursor-pointer"
-                      }`}
+                        }`}
                     >
                       {appliedJobs?.some((job) => job._id === selectedJob._id)
                         ? "Applied"
@@ -145,9 +145,11 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <div className="text-[12px] font-[500] ">
                       Job Type : {selectedJob.jobType}
                     </div>
-                    <div className="text-[12px] font-[500] ">
-                      Job Mode : {selectedJob.jobMode}
-                    </div>
+                    {selectedJob.jobMode &&
+                      <div className="text-[12px] font-[500] ">
+                        Job Mode : {selectedJob.jobMode}
+                      </div>
+                    }
                     {(selectedJob.minSalary || selectedJob.maxSalary) && (
                       <div className="text-[12px] font-[500] ">
                         Salary :{" "}
@@ -276,11 +278,10 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         setLimitPopup(true);
                       }
                     }}
-                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${
-                      appliedJobs?.some((job) => job._id === selectedJob._id)
+                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some((job) => job._id === selectedJob._id)
                         ? "cursor-not-allowed"
                         : " cursor-pointer"
-                    }`}
+                      }`}
                   >
                     {appliedJobs?.some((job) => job._id === selectedJob._id)
                       ? "Applied"

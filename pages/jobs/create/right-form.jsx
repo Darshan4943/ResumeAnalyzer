@@ -279,7 +279,7 @@ const Rightform = ({
               <label className="text-[#333333] text-[14px] font-medium">
                 Currency
               </label>
-              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] max-w-[308px] overflow-visible h-[42px]">
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px]  overflow-visible h-[42px]">
                 <ReactSelect
                   options={currencyOptions}
                   className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black"
@@ -314,7 +314,7 @@ const Rightform = ({
             </div>
           </div>
           <div className="flex sm:flex-row flex-col w-[100%] sm:gap-4 justify-between">
-            <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
+            <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
               <label className="text-[#333333] text-[14px] font-medium">
                 Min Salary
               </label>
@@ -328,7 +328,7 @@ const Rightform = ({
                 }}
               />
             </div>
-            <div className="sm:w-[48%] w-full flex flex-col gap-[8px] ">
+            <div className="sm:w-[50%] w-full flex flex-col gap-[8px] ">
               <label className="text-[#333333] text-[14px] font-medium">
                 Max Salary
               </label>
@@ -346,7 +346,7 @@ const Rightform = ({
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Required Qualtification
+            Required Qualification
           </label>
           <input
             type="text"
@@ -470,8 +470,8 @@ const Rightform = ({
             ))}
           </div>
         </div>
-        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 w-[100%] justify-between">
-          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
+        <div className="flex sm:flex-row flex-col  gap-4 w-[100%] justify-between">
+          <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Total Experience
             </label>
@@ -505,7 +505,7 @@ const Rightform = ({
               />
             </div>
           </div>
-          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
+          <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Relevant Experience
             </label>
@@ -541,7 +541,7 @@ const Rightform = ({
           </div>
         </div>
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
-          <div className=" sm:w-[100%] w-full flex flex-col gap-[8px] ">
+          <div className=" sm:w-[49%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Application Deadline <span className="text-red">*</span>
             </label>
