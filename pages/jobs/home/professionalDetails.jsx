@@ -106,7 +106,7 @@ console.log(11, jobDetails)
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium ">
             Are you comfortable commuting to this job's location?
           </label>
           <div className="mt-2 flex flex-row gap-6">
