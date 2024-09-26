@@ -145,9 +145,8 @@ function Index() {
     }
   }, [applied]);
 
-
   useEffect(() => {
-   setCountry(userDataGlobal.country)
+    setCountry(userDataGlobal.country);
     axios
       .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {

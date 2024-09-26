@@ -205,7 +205,9 @@ const Applications = ({
                           className="w-[40px] h-[40px] rounded-[50%] object-cover"
                         />
                         <span className="text-[14px] font-semibold text-[#333333] text-left">
-                          {item.firstName + " " + item.lastName}
+                          {item.details.personal.firstName +
+                            " " +
+                            item.details?.personal?.lastName}
                         </span>
                       </div>
                       <div className="flex flex-col gap-1 w-full">
@@ -260,19 +262,19 @@ const Applications = ({
           <div className="px-[16px] w-full justify-between flex pt-[8px]">
             <div className="flex items-center gap-4">
               <p className="text-[14px] text-[#646464] font-600">View</p>
-              <div className="flex gap-[8px] items-center">
+              <div className="flex gap-[8px] items-center md:pb-[0px] pb-[4px] ">
                 {/* <p className="text-[14px] px-[16px] py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600">{limit}</p> */}
                 <select
                   value={limit}
                   onChange={handleChange}
-                  className="text-[14px] px-[16px] py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
+                  className="text-[14px] px-[8px] py-[2px] md:px-[16px]  md:py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600 "
                 >
                   <option value="10">10</option>
                   <option value="15">15</option>
                   <option value="20">20</option>
                 </select>
               </div>
-              <p className="text-[14px] text-[#646464] font-[600]">
+              <p className="text-[14px] text-[#646464] font-[600] hidden md:block ">
                 Applicants per page
               </p>
             </div>
@@ -281,13 +283,13 @@ const Applications = ({
               style={{ radious: "0px 0px 16px 16px" }}
             >
               <div className="mr-4">{miniLoading && <MiniLoader />}</div>
-              <p className="text-[14px] text-[#646464] font-[500]">
+              <p className="md:text-[14px] text-[12px] text-[#646464] font-[500]">
                 pages
-                <span className="text-[#333] px-[10px] font-[600]">
+                <span className="text-[#333] md:px-[10px] px-[8px] font-[600]">
                   {currentPage}
                 </span>{" "}
                 of{" "}
-                <span className="text-[#333] px-[10px]  font-[600]">
+                <span className="text-[#333] md:px-[10px] px-[8px]  font-[600]">
                   {totalPages}
                 </span>
               </p>

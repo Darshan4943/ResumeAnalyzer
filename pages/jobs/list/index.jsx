@@ -78,7 +78,7 @@ const Index = () => {
         console.log(response.data);
         setSelectAll([]);
         getData();
-        toast.success("Client Deleted successfully");
+        toast.success("Post Deleted successfully");
       })
       .catch((error) => {
         console.error("Error:", error);
