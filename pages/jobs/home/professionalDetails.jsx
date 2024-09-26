@@ -1,22 +1,22 @@
 import React from 'react';
 
-const ProfessionalDetails = ({ data, handleInputChange, formError,jobDetails }) => {
+const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails }) => {
 
   const handleNumberInput = (field, value) => {
- 
+
     if (/^\d*$/.test(value)) {
       handleInputChange(field, value);
     }
   };
 
-console.log(11, jobDetails)
+  console.log(11, jobDetails)
   return (
     <div className="flex flex-col gap-4">
       <div className='flex flex-row gap-4 items-center'>
         <h2 className="sm:text-[24px] text-[20px] font-medium sm:min-w-[239px] min-w-[200px]">Professional Details</h2>
         <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
       </div>
-      
+
       <form className="space-y-4">
         <div className="grid ml:grid-cols-2 grid-cols-1 gap-4">
           <div>
@@ -106,9 +106,10 @@ console.log(11, jobDetails)
         </div>
 
         <div>
-          <label className="block text-sm font-medium ">
-            Are you comfortable commuting to this job's location?
+          <label className="block text-sm font-medium">
+            Are you comfortable commuting to this job&#39;s location?
           </label>
+
           <div className="mt-2 flex flex-row gap-6">
             <div className="flex items-center">
               <input
