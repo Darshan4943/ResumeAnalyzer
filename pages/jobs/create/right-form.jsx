@@ -358,7 +358,7 @@ const Rightform = ({
           </label>
           <input
             type="text"
-            placeholder="Required Qualtification"
+            placeholder="Required Qualification"
             className="input"
             value={data?.requiredQualification}
             onChange={(e) => {
