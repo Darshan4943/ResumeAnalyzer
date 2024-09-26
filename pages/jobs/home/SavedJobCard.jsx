@@ -51,7 +51,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
             .then((res) => {
                 dispatch(reCallUserData());
 
-                toast.success("Job Removed  Successfully");
+                // toast.success("Job Removed  Successfully");
                 getData();
             })
             .catch((err) => {
