@@ -10,7 +10,10 @@ import MiniLoader1 from "../../../components/common/miniLoader";
 import moment from "moment";
 import { pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
+import mammoth from "mammoth";
+import { pdf } from "@react-pdf/renderer";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
   const userDataGlobal = useSelector((state) => state.userData);
@@ -21,6 +24,7 @@ function ApplyForm() {
   const [uploadedResume, setUploadedResume] = useState(null);
   const [text, setText] = useState("");
   const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [resumeIdd, setResumeIdd] = useState();
   const [professionalSec, setProfessionalSec] = useState({
@@ -47,7 +51,6 @@ function ApplyForm() {
     },
   });
 
-  console.log(formData)
   const router = useRouter();
   const { id } = router.query;
   const [jobDetails, setJobDetails] = useState();
@@ -62,18 +65,22 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`)
+      .get(
+        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
+      )
       .then((res) => {
-        const { personal, professional } = res.data.data; 
-        const formattedDob = personal.dob ? new Date(personal.dob).toISOString().split("T")[0] : "";
-     
+        const { personal, professional } = res.data.data;
+        const formattedDob = personal.dob
+          ? new Date(personal.dob).toISOString().split("T")[0]
+          : "";
+
         setFormData({
           personal: {
             firstName: personal.firstName || "",
             lastName: personal.lastName || "",
             email: personal.email || "",
             mobileNo: personal.mobileNo || "",
-           
+
             currentLocation: personal.currentLocation || "",
             dob: formattedDob || "",
             gender: personal.gender || "",
@@ -84,13 +91,13 @@ function ApplyForm() {
             currentCTC: professional.currentCTC || "",
             expectedCTC: professional.expectedCTC || "",
             noticePeriod: professional.noticePeriod || "",
-            comfortableWithLocation:professional.comfortableWithLocation || ""
+            comfortableWithLocation: professional.comfortableWithLocation || "",
           },
-          dial_code:personal.dial_code || "",
+          dial_code: personal.dial_code || "",
         });
       })
       .catch((err) => console.error(err));
-  }, []); 
+  }, []);
 
   useEffect(() => {
     axios
@@ -219,6 +226,7 @@ function ApplyForm() {
     return sections;
   };
 
+  console.log("te", text)
   const parseData = (file, setText) => {
     return new Promise((resolve, reject) => {
       if (
@@ -226,6 +234,7 @@ function ApplyForm() {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       ) {
         const reader = new FileReader();
+        setFileType("doc");
         reader.onload = (e) => {
           const content = e.target.result;
           const doc = new Docxtemplater(new PizZip(content), {
@@ -239,23 +248,26 @@ function ApplyForm() {
           resolve(text);
         };
         reader.readAsBinaryString(file);
-      }
-      // PNG image extraction using OCR (Tesseract)
-      else if (file.type === "image/png" || file.type === "image/jpeg") {
-        Tesseract.recognize(file, "eng", {
-          logger: (m) => console.log(m),
-        })
-          .then(({ data: { text } }) => {
-            setText(text); // Set extracted text in state
-            // Extract specific sections
-            resolve(text);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      }
-      // PDF file extraction
-      else if (file.type === "application/pdf") {
+      } else if (file.type === "application/msword") {
+        setFileType("doc"); // Set file type as DOC
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const arrayBuffer = e.target.result;
+          // Use Mammoth to extract text from .doc files
+          mammoth
+            .extractRawText({ arrayBuffer })
+            .then((result) => {
+              const text = result.value; // Extracted text
+              setText(text); // Set extracted text
+              resolve(text);
+            })
+            .catch((error) => {
+              reject(`Error parsing DOC file: ${error.message}`);
+            });
+        };
+        reader.readAsArrayBuffer(file); // Read as ArrayBuffer for mammoth
+      } else if (file.type === "application/pdf") {
+        setFileType("pdf");
         const pdfTextPromises = [];
         for (let i = 1; i <= 1; i++) {
           pdfTextPromises.push(fileToText(file, i));
@@ -279,7 +291,7 @@ function ApplyForm() {
 
   useEffect(() => {
     const extractedSections = extractResumeSections(text);
-    console.log("extra", extractedSections);
+
     setProfessionalSec({
       education: extractedSections.highestQualification,
       skills: extractedSections.skills,
@@ -290,11 +302,11 @@ function ApplyForm() {
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      console.log("file", file);
       parseData(file, setText)
         .then((extractedText) => {
           setText(extractedText);
           const extractedSections = extractResumeSections(extractedText);
-          console.log("extra", extractedSections);
           setProfessionalSec({
             education: extractedSections.highestQualification,
             skills: extractedSections.skills,
@@ -365,6 +377,7 @@ function ApplyForm() {
 
     setLoading(true);
     const formDataToSend = new FormData();
+    console.log("text1111", text);
     formDataToSend.append("userId", userDataGlobal._id);
     formDataToSend.append("resumeUrl", isUploaded ? null : selectedResume);
     formDataToSend.append("resumeId", resumeIdd);
@@ -428,18 +441,20 @@ function ApplyForm() {
         }, 1000);
       })
       .finally(() => {
-        
         axios
-          .post("http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",  {
-            userId: userDataGlobal._id,
-            ...formData,  
-          })
+          .post(
+            "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
+            {
+              userId: userDataGlobal._id,
+              ...formData,
+            }
+          )
           .then((res) => {
             console.log("User job details posted successfully", res.data);
           })
           .catch((err) => {
             console.error("Error posting user job details", err);
-          })
+          });
       });
   };
 
@@ -454,8 +469,6 @@ function ApplyForm() {
   //       resume: "",
   //     }));
   //   };
-
- 
 
   const getLastUpdatedText = (updatedAt) => {
     const now = moment();
@@ -480,6 +493,7 @@ function ApplyForm() {
     link.download = { fileName };
     link.click();
   };
+
   return (
     <>
       <div className="customMargins wl:w-[80%] w-[100%]">
@@ -619,9 +633,15 @@ function ApplyForm() {
               )}
               {uploadedResume ? (
                 <div className="flex flex-row border border-[#DEDEDE] rounded-[12px] sm:w-[70%] w-[100%]">
-                  <div className="px-[10px] text-center flex flex-row items-center bg-[#C00000] text-white rounded-l-[12px] sm:text-[16px] text-[13px]">
-                    PDF
-                  </div>
+                  {fileType === "pdf" ? (
+                    <div className="px-[10px] text-center flex sm:text-[16px] text-[13px] flex-row items-center bg-[#C00000] text-white rounded-l-[12px]">
+                      PDF
+                    </div>
+                  ) : (
+                    <div className="px-[10px] text-center flex sm:text-[16px] text-[13px] flex-row items-center bg-[#048AC4] text-white rounded-l-[12px]">
+                      DOC
+                    </div>
+                  )}
                   <div className="flex flex-row justify-between items-center px-4 py-1 w-full">
                     <div className="flex flex-col gap-1">
                       <p className="text-[#333333] font-medium text-[14px]">

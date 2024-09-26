@@ -112,7 +112,7 @@ function Index() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [filter, setFilter] = useState(false);
   const [mobileFilter, setMobileFilter] = useState(false);
-  const [jobData, setJobData] = useState([])
+  const [jobData, setJobData] = useState([]);
 
   const [toggleHeadings, setToggleHeadings] = useState(0);
 
@@ -122,28 +122,26 @@ function Index() {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const [clear, setClear] = useState(false)
+  const [clear, setClear] = useState(false);
   const [loading, setLoading] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [country, setCountry] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
-  const [filters, setFilters] = useState({
-
-  });
-  const [appliedJobs, setAppliedJobs] = useState()
+  const [filters, setFilters] = useState({});
+  const [appliedJobs, setAppliedJobs] = useState();
   const router = useRouter();
   const { applied } = router.query;
   const [jobtypeData, setJobTypeData] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
-  const [limitPopup, setLimitPopup] = useState(false)
+  const [limitPopup, setLimitPopup] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     if (applied == "true") {
-      setToggleHeadings(1)
+      setToggleHeadings(1);
     }
   }, [applied]);
 
@@ -231,12 +229,14 @@ function Index() {
     },
   ];
 
-  const filteredInputData = inputData.filter(item =>
-    item.child && item.child.length > 0 && item.child.some(childItem =>
-      typeof childItem === 'string' ? childItem.trim() !== '' : childItem
-    )
+  const filteredInputData = inputData.filter(
+    (item) =>
+      item.child &&
+      item.child.length > 0 &&
+      item.child.some((childItem) =>
+        typeof childItem === "string" ? childItem.trim() !== "" : childItem
+      )
   );
-
 
   // useEffect(() => {
 
@@ -249,7 +249,7 @@ function Index() {
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setMobileFilter(false);
-      setOpenDropdown(false)
+      setOpenDropdown(false);
     }
   };
 
@@ -264,8 +264,6 @@ function Index() {
 
   const [status, setStatus] = React.useState(false);
 
-
-
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
@@ -276,7 +274,6 @@ function Index() {
       }
     }
   }, []);
-
 
   useEffect(() => {
     if (isLogin) {
@@ -301,35 +298,35 @@ function Index() {
 
   const getData = () => {
     axios
-      .get(`http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`)
+      .get(
+        `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+      )
       .then((res) => setAppliedJobs(res.data))
       .catch((err) => console.error(err));
-
-  }
+  };
   useEffect(() => {
     if (userDataGlobal._id) {
       getData();
     }
   }, [userDataGlobal]);
 
-
   const getAllData = async () => {
-
     try {
       const res = await axios.post(
         "http://localhost:2000/api/job/getAll",
         {
-          requiredSkills: (jobTitle || location) ? [] : userSkills?.map((item) => item),
+          requiredSkills:
+            jobTitle || location ? [] : userSkills?.map((item) => item),
           jobTitle: jobTitle || "",
           country: location ? "" : country,
-          location: location
+          location: location,
         },
         {
           params: { page, limit },
         }
       );
 
-      setJobData(res.data.filteredJobs)
+      setJobData(res.data.filteredJobs);
       setTotalCount(res.data.totalCount);
       setTotalpages(res.data.totalPages);
       setTimeout(() => {
@@ -348,9 +345,6 @@ function Index() {
       getAllData();
    
   }, [userSkills, page, limit, country]);
-
-
-
 
   // const getJobData = () => {
   //   if (userSkills) {
@@ -374,12 +368,7 @@ function Index() {
   const headings = [
     {
       img: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-         
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <g mask="url(#mask0_5716_131089)">
             <path
               d="M3 22C2.45 22 1.97917 21.8042 1.5875 21.4125C1.19583 21.0208 1 20.55 1 20V9H3V20H20V22H3ZM7 18C6.45 18 5.97917 17.8042 5.5875 17.4125C5.19583 17.0208 5 16.55 5 16V5H10V3C10 2.45 10.1958 1.97917 10.5875 1.5875C10.9792 1.19583 11.45 1 12 1H16C16.55 1 17.0208 1.19583 17.4125 1.5875C17.8042 1.97917 18 2.45 18 3V5H23V16C23 16.55 22.8042 17.0208 22.4125 17.4125C22.0208 17.8042 21.55 18 21 18H7ZM12 5H16V3H12V5Z"
@@ -392,12 +381,7 @@ function Index() {
     },
     {
       img: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-         
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <g clip-path="url(#clip0_5716_131110)">
             <path
               d="M19.3486 13.2906C20.3484 13.2906 21.293 13.5339 22.125 13.9651V10.3042L14.595 12.272C14.5481 12.4998 14.4764 12.7183 14.3827 12.9245C13.8909 14.0092 12.7973 14.7658 11.5312 14.7658C10.0238 14.7658 8.76188 13.6937 8.4675 12.272L0.9375 10.3042V17.7944C0.9375 19.1486 2.03906 20.2501 3.39328 20.2501H13.3575C13.3134 19.9562 13.2905 19.6548 13.2905 19.3487C13.2905 16.0084 16.0083 13.2906 19.3486 13.2906Z"
@@ -427,12 +411,7 @@ function Index() {
     },
     {
       img: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-        
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
             d="M13.9322 0.714355H2.70242C1.60925 0.714355 0.714844 1.60877 0.714844 2.70193V20.0435C0.714844 20.5156 0.988136 20.9628 1.4105 21.1616C1.8577 21.3603 2.3546 21.3106 2.72727 21.0125L2.75211 20.9876L8.31733 16.292L13.8825 20.9876L13.9074 21.0125C14.131 21.1864 14.4043 21.2858 14.6776 21.2858C14.8515 21.2858 15.0502 21.2361 15.2242 21.1367C15.6465 20.938 15.9198 20.4908 15.9198 20.0187V2.70193C15.9198 1.60877 15.0254 0.714355 13.9322 0.714355Z"
             fill={toggleHeadings === 2 ? "#FFF" : " #333"}
@@ -512,9 +491,6 @@ function Index() {
     //   ),
     //   title: "External Jobs",
     // },
-
-
-
   ];
   // useEffect(() => {
   //   if (jobData.length > 0) {
@@ -522,14 +498,12 @@ function Index() {
   //   }
   // }, [jobData]);
 
-
   const handleDropdownClick = (id) => {
     setOpenDropdown(openDropdown === id ? null : id);
   };
 
   const handleCheckboxChange = (e, filterType, value) => {
     if (e === null) {
-
       setFilters((prevFilters) => ({
         ...prevFilters,
         [filterType]: [],
@@ -553,7 +527,6 @@ function Index() {
   };
 
   const getFilterData = async () => {
-
     const mappedFilters = {
       sortBy: filters.SortBy,
       jobType: filters.JobType,
@@ -602,10 +575,8 @@ function Index() {
   //   getFilterData()
   // }, [clear]);
 
-
   useEffect(() => {
     if (toggleHeadings === 0) {
-
       setLoading(true);
       const timer = setTimeout(() => {
         setLoading(false);
@@ -618,19 +589,17 @@ function Index() {
  console.log(jobData)
   return (
     <>
-      {limitPopup &&
-        <div className='z-[200000]'>
-
+      {limitPopup && (
+        <div className="z-[200000]">
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
-      }
+      )}
 
       <div className="relative ">
         <div
           className={` sticky top-[56px]
              z-50`}
         >
-
           <div className="bg-[#E0F6FF] px-4 ">
             <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
               <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start sm:py-[8px] sm:px-[10px]  scr540:px-[16px] rounded-[8px] bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
@@ -725,7 +694,11 @@ function Index() {
                   </svg> */}
 
                   <button
-                    onClick={() => { setToggleHeadings(0); setLoading(true); getAllData() }}
+                    onClick={() => {
+                      setToggleHeadings(0);
+                      setLoading(true);
+                      getAllData();
+                    }}
                     className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[6px] scr540:px-[18px] gap-0 rounded-[8px] border-opacity-0 sm:block hidden"
                   >
                     <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
@@ -736,7 +709,11 @@ function Index() {
                 <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
                 <div className="pt-1 px-2 pb-2 w-full block sm:hidden ">
                   <button
-                    onClick={() => { setToggleHeadings(0); setLoading(true); getAllData() }}
+                    onClick={() => {
+                      setToggleHeadings(0);
+                      setLoading(true);
+                      getAllData();
+                    }}
                     className="border border-blue w-full  py-[8px] px-[20px]  gap-0 rounded-[8px]  "
                   >
                     <p className="text-[14px] scr540:text-[14px] font-[500]  font-Montserrat">
@@ -760,26 +737,25 @@ function Index() {
                       onClick={() => {
                         forceUpdate();
                         setToggleHeadings(index);
-
                       }}
                       key={index}
-                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                        }`}
+                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${
+                        toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
+                      }`}
                     >
                       <div className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px] min-w-[18px] sm:min-w-[24px]">
-
                         {item.img}
                       </div>
                       <p
-                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
-                          }`}
+                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${
+                          toggleHeadings === index && "text-white"
+                        }`}
                       >
                         {item.title}
                       </p>
                     </div>
                   ))}
               </div>
-
             </div>
           </div>
           {toggleHeadings <= 2 && (
@@ -809,7 +785,13 @@ function Index() {
                       id={index}
                     />
                   ))}
-                  <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                  <button
+                    onClick={() => {
+                      setFilters({});
+                      setClear(!clear);
+                    }}
+                    className="text-primary font-montserrat text-sm font-medium text-blue"
+                  >
                     Reset all
                   </button>
                   {/* <button
@@ -920,20 +902,27 @@ function Index() {
                           All Filters
                         </p>
 
-                        <button onClick={() => { setFilters({}); setClear(!clear) }} className="text-primary font-montserrat text-sm font-medium text-blue">
+                        <button
+                          onClick={() => {
+                            setFilters({});
+                            setClear(!clear);
+                          }}
+                          className="text-primary font-montserrat text-sm font-medium text-blue"
+                        >
                           Reset all
                         </button>
                         <button
                           className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
                           onClick={getFilterData}
                         >
-                          <p className="text-[12px] font-[700] text-white">Apply</p>
+                          <p className="text-[12px] font-[700] text-white">
+                            Apply
+                          </p>
                         </button>
                       </div>
 
                       {filteredInputData.map((item, index) => (
                         <Filter
-
                           key={index}
                           item={item}
                           filterType={item.title.replace(/ /g, "")}
@@ -955,7 +944,6 @@ function Index() {
                   </>
                 )}
               </AnimatePresence>
-
 
               <>
                 {toggleHeadings === 0 && (
@@ -985,39 +973,20 @@ function Index() {
                 )}
 
                 {toggleHeadings === 1 && (
-
                   <div className="col-span-12">
-
-                    <AppliedJobs
-
-                      setLimitPopup={setLimitPopup}
-
-
-                    />
-
+                    <AppliedJobs setLimitPopup={setLimitPopup} />
                   </div>
-
                 )}
 
                 {toggleHeadings === 2 && (
                   <div className="col-span-12">
-
-
-
                     <SavedJobs
-
-
-
                       setLimitPopup={setLimitPopup}
                       appliedJobs={appliedJobs}
                     />
-
-
-
                   </div>
                 )}
               </>
-
             </div>
           </div>
         </div>

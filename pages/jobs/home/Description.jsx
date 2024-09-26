@@ -4,168 +4,208 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LimitUsedModal from "../../../components/models/limitUsedModal";
 import MiniLoader from "../../../components/common/miniLoader";
+import { currenciesWithIcons } from "../../../utils/data";
 
 function Description({ selectedJob, filter, setLimitPopup }) {
-    const router = useRouter();
-    const userDataGlobal = useSelector((state) => state.userData);
-    const [appliedJobs, setAppliedJobs] = useState()
-    // const [limitPopup, setLimitPopup] = useState(false)
-    const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [appliedJobs, setAppliedJobs] = useState();
+  // const [limitPopup, setLimitPopup] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
 
-    const jobApplyCount = localStorage.getItem("jobsApply");
-    const [loading, setLoading] = useState(true);
-    const getData = () => {
-        axios
-            .get(`http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`)
-            .then((res) => {
-                setAppliedJobs(res.data)
-                setLoading(false)
-            })
-            .catch((err) => {
-                console.error(err)
-                setLoading(false)
-    });
-
-
+  const jobApplyCount = localStorage.getItem("jobsApply");
+  const [loading, setLoading] = useState(true);
+  const getData = () => {
+    axios
+      .get(
+        `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        setAppliedJobs(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
     }
-    useEffect(() => {
-        if (userDataGlobal._id) {
-            getData();
-        }
-    }, [userDataGlobal]);
+  }, [userDataGlobal]);
 
-    useEffect(() => {
-        const token = localStorage.getItem("authToken");
-        if (token && token != "undefined") {
-            if (token) {
-                setIsLogin(true);
-            } else {
-                setIsLogin(false);
-            }
-        }
-    }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+      if (token) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+  }, []);
 
-    return (
-        <>
-            {! loading &&
-                
-                <div>
-                    {selectedJob && (
-                        <>
-                          
-                                <div
-                                    className="p-[16px] border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  h-[calc(100vh-360px)] overflow-y-scroll "
-                                    style={{
-                                        boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
-                                    }}
-                                >
-                                    <div 
-                                        style={{
-                                            borderBottom: "1px solid #646464",
-                                        }}
-                                    >
-                                        <div className="flex flex-col gap-[4px]  ">
-                                            <div className="text-[#333] text-[20px] font-[500]">
-                                                {selectedJob.jobTitle}
-                                            </div>
+  return (
+    <>
+      {!loading && (
+        <div>
+          {selectedJob && (
+            <>
+              <div
+                className="p-[16px] border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  h-[calc(100vh-360px)] overflow-y-scroll "
+                style={{
+                  boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <div
+                  style={{
+                    borderBottom: "1px solid #646464",
+                  }}
+                >
+                  <div className="flex flex-col gap-[4px]  ">
+                    <div className="text-[#333] text-[20px] font-[500]">
+                      {selectedJob.jobTitle}
+                    </div>
 
-                                            <div className="text-[#333] text-[14px] font-[500]">
-                                                {selectedJob.companyName}
-                                            </div>
+                    <div className="text-[#333] text-[14px] font-[500]">
+                      {selectedJob.companyName}
+                    </div>
 
-                                            <div className="flex flex-row gap-[4px] text-[#333] text-[12px] font-[400]">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="14"
-                                                    height="15"
-                                                    viewBox="0 0 14 15"
-                                                    fill="none"
-                                                >
-                                                    <g mask="url(#mask0_4475_58296)">
-                                                        <path
-                                                            d="M6.93699 7.50042C7.25707 7.50042 7.53108 7.38618 7.75902 7.15771C7.98695 6.92924 8.10092 6.65458 8.10092 6.33375C8.10092 6.01292 7.98695 5.73826 7.75902 5.50979C7.53108 5.28132 7.25707 5.16708 6.93699 5.16708C6.61691 5.16708 6.3429 5.28132 6.11496 5.50979C5.88702 5.73826 5.77305 6.01292 5.77305 6.33375C5.77305 6.65458 5.88702 6.92924 6.11496 7.15771C6.3429 7.38618 6.61691 7.50042 6.93699 7.50042ZM6.93699 11.7879C8.12032 10.699 8.99812 9.70979 9.57039 8.82021C10.1427 7.93063 10.4288 7.1407 10.4288 6.45042C10.4288 5.3907 10.0917 4.52299 9.41762 3.84729C8.74351 3.1716 7.91663 2.83375 6.93699 2.83375C5.95734 2.83375 5.13046 3.1716 4.45635 3.84729C3.78224 4.52299 3.44518 5.3907 3.44518 6.45042C3.44518 7.1407 3.73132 7.93063 4.30359 8.82021C4.87585 9.70979 5.75365 10.699 6.93699 11.7879ZM6.93699 13.3338C5.37538 12.0018 4.20902 10.7647 3.43791 9.62229C2.6668 8.47993 2.28125 7.42264 2.28125 6.45042C2.28125 4.99208 2.74925 3.83028 3.68525 2.965C4.62124 2.09972 5.70516 1.66708 6.93699 1.66708C8.16882 1.66708 9.25273 2.09972 10.1887 2.965C11.1247 3.83028 11.5927 4.99208 11.5927 6.45042C11.5927 7.42264 11.2072 8.47993 10.4361 9.62229C9.66496 10.7647 8.4986 12.0018 6.93699 13.3338Z"
-                                                            fill="#333333"
-                                                        />
-                                                    </g>
-                                                </svg>
-                                                {selectedJob?.country?.join(', ')} ||  {selectedJob?.location?.join(', ')}
-                                            </div>
-                                        </div>
-                                        <div className="py-[16px] flex gap-2 leading-tight">
-                                            <button
-                                                disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
-                                                onClick={() => {
-                                                    if (isLogin) {
+                    <div className="flex flex-row gap-[4px] text-[#333] text-[12px] font-[400]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="15"
+                        viewBox="0 0 14 15"
+                        fill="none"
+                      >
+                        <g mask="url(#mask0_4475_58296)">
+                          <path
+                            d="M6.93699 7.50042C7.25707 7.50042 7.53108 7.38618 7.75902 7.15771C7.98695 6.92924 8.10092 6.65458 8.10092 6.33375C8.10092 6.01292 7.98695 5.73826 7.75902 5.50979C7.53108 5.28132 7.25707 5.16708 6.93699 5.16708C6.61691 5.16708 6.3429 5.28132 6.11496 5.50979C5.88702 5.73826 5.77305 6.01292 5.77305 6.33375C5.77305 6.65458 5.88702 6.92924 6.11496 7.15771C6.3429 7.38618 6.61691 7.50042 6.93699 7.50042ZM6.93699 11.7879C8.12032 10.699 8.99812 9.70979 9.57039 8.82021C10.1427 7.93063 10.4288 7.1407 10.4288 6.45042C10.4288 5.3907 10.0917 4.52299 9.41762 3.84729C8.74351 3.1716 7.91663 2.83375 6.93699 2.83375C5.95734 2.83375 5.13046 3.1716 4.45635 3.84729C3.78224 4.52299 3.44518 5.3907 3.44518 6.45042C3.44518 7.1407 3.73132 7.93063 4.30359 8.82021C4.87585 9.70979 5.75365 10.699 6.93699 11.7879ZM6.93699 13.3338C5.37538 12.0018 4.20902 10.7647 3.43791 9.62229C2.6668 8.47993 2.28125 7.42264 2.28125 6.45042C2.28125 4.99208 2.74925 3.83028 3.68525 2.965C4.62124 2.09972 5.70516 1.66708 6.93699 1.66708C8.16882 1.66708 9.25273 2.09972 10.1887 2.965C11.1247 3.83028 11.5927 4.99208 11.5927 6.45042C11.5927 7.42264 11.2072 8.47993 10.4361 9.62229C9.66496 10.7647 8.4986 12.0018 6.93699 13.3338Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                      {selectedJob?.country?.join(", ")} ||{" "}
+                      {selectedJob?.location?.join(", ")}
+                    </div>
+                  </div>
+                  <div className="py-[16px] flex gap-2 leading-tight">
+                    <button
+                      disabled={appliedJobs?.some(
+                        (job) => job._id === selectedJob._id
+                      )}
+                      onClick={() => {
+                        if (isLogin) {
+                          if (jobApplyCount > 0) {
+                            if (
+                              !appliedJobs?.some(
+                                (job) => job._id === selectedJob._id
+                              )
+                            ) {
+                              router.push(
+                                `/jobs/home/ApplyForm?id=${selectedJob._id}`
+                              );
+                            }
+                          } else {
+                            setLimitPopup(true);
+                          }
+                        } else {
+                          // router.push(`/auth?signin=true&role=user`);
+                          setLimitPopup(true);
+                        }
+                      }}
+                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${
+                        appliedJobs?.some((job) => job._id === selectedJob._id)
+                          ? "cursor-not-allowed"
+                          : " cursor-pointer"
+                      }`}
+                    >
+                      {appliedJobs?.some((job) => job._id === selectedJob._id)
+                        ? "Applied"
+                        : "Apply Now"}
+                    </button>
 
-
-                                                        if (jobApplyCount > 0) {
-                                                            if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
-                                                                router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
-                                                            }
-                                                        } else {
-                                                            setLimitPopup(true);
-                                                        }
-                                                    } else {
-                                                        // router.push(`/auth?signin=true&role=user`);
-                                                        setLimitPopup(true);
-                                                    }
-                                                }}
-
-                                                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
-
-                                                {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
-                                            </button>
-
-                                            {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                    {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                             Save
                           </button> */}
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="pb-[12px]  flex flex-col gap-2"
-                                        style={{
-                                            borderBottom: "1px solid #646464",
-                                        }}
-                                    >
-                                        <div className="text-[20px] font-[500] text-[#333]">
-                                            Job Details
-                                        </div>
-                                        <div className="flex flex-col gap-[5px] text-[12px] text-[#333] font-[500]">
-                                        <div className="text-[12px] font-[500] ">
-                                                Job Type : {selectedJob.jobType}
-                                            </div>
-                                            <div className="text-[12px] font-[500] ">
-                                                Job Mode : {selectedJob.jobMode}
-                                            </div>
-                                            {(selectedJob.minSalary || selectedJob.maxSalary) &&
-                                                <div className="text-[12px] font-[500] ">
-                                                    Salary : {selectedJob.minSalary} {(selectedJob.minSalary && selectedJob.maxSalary) && "-"} {selectedJob.maxSalary} {selectedJob.salaryType}
-                                                </div>
-                                            }
-                                            {selectedJob.requiredQualification &&
-                                                <div className="text-[12px] font-[500] ">
-                                                    Education : {selectedJob.requiredQualification}
-                                                </div>
-                                            }
-                                            {selectedJob.experience &&
-                                                <div className="text-[12px] font-[500] ">
-                                                    Experience : Total Work Experience {selectedJob.experience} (Required)
-                                                </div>
-                                            }
-                                            {selectedJob.deadLine &&
-                                                <div className="text-[12px] font-[500]">
-                                                    Deadline: {new Date(selectedJob.deadLine).toLocaleDateString('en-US', {
-                                                        day: '2-digit',
-                                                        month: 'short',
-                                                        year: 'numeric'
-                                                    })}
-                                                </div>
-                                            }
+                  </div>
+                </div>
+                <div
+                  className="pb-[12px]  flex flex-col gap-2"
+                  style={{
+                    borderBottom: "1px solid #646464",
+                  }}
+                >
+                  <div className="text-[20px] font-[500] text-[#333]">
+                    Job Details
+                  </div>
+                  <div className="flex flex-col gap-[5px] text-[12px] text-[#333] font-[500]">
+                    <div className="text-[12px] font-[500] ">
+                      Job Type : {selectedJob.jobType}
+                    </div>
+                    <div className="text-[12px] font-[500] ">
+                      Job Mode : {selectedJob.jobMode}
+                    </div>
+                    {(selectedJob.minSalary || selectedJob.maxSalary) && (
+                      <div className="text-[12px] font-[500] ">
+                        Salary :{" "}
+                        {
+                          // Find the currency icon outside of JSX
+                          (() => {
+                            const icon = currenciesWithIcons?.find(
+                              (item) =>
+                                item?.icon?.toLowerCase() ===
+                                selectedJob?.currency?.toLowerCase()
+                            );
 
-                                        </div>
+                            // Return the formatted string
+                            return (
+                              <>
+                                {icon ? icon.symbol : selectedJob?.currency}{" "}
+                                {selectedJob.minSalary}{" "}
+                                {selectedJob.minSalary &&
+                                  selectedJob.maxSalary &&
+                                  "-"}{" "}
+                                {icon ? icon.symbol : selectedJob?.currency}{" "}
+                                {selectedJob.maxSalary}{" "}
+                                {selectedJob.salaryType === "Annual"
+                                  ? "per annum"
+                                  : "per month"}
+                              </>
+                            );
+                          })()
+                        }
+                      </div>
+                    )}
+                    {selectedJob.requiredQualification && (
+                      <div className="text-[12px] font-[500] ">
+                        Education : {selectedJob.requiredQualification}
+                      </div>
+                    )}
+                    {selectedJob.experience && (
+                      <div className="text-[12px] font-[500] ">
+                        Total Experience : Total Work Experience{" "}
+                        {selectedJob.experience} (Required)
+                      </div>
+                    )}
+                    {selectedJob.deadLine && (
+                      <div className="text-[12px] font-[500]">
+                        Deadline:{" "}
+                        {new Date(selectedJob.deadLine).toLocaleDateString(
+                          "en-US",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}
+                      </div>
+                    )}
+                  </div>
 
-
-                                        {/* <div className="flex flex-row gap-[5px] text-[12px] text-[#333] font-[500]">
+                  {/* <div className="flex flex-row gap-[5px] text-[12px] text-[#333] font-[500]">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="16"
@@ -182,72 +222,78 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                                         </svg>
                                         Permanent
                                     </div> */}
-                                    </div>
-                                    {selectedJob.requiredQualification &&
-                                        <div
-                                            className="flex flex-col gap-[10px] pb-[6px]"
-                                            style={{
-                                                borderBottom: "1px solid #646464",
-                                            }}
-                                        >
-                                            <div className="text-[20px] font-[500]">
-                                                Qualifications
-                                            </div>
-
-                                            <div className="text-[12px] font-[500]">
-                                                {selectedJob.requiredQualification} <br /> Total Work Experience {selectedJob.experience} (Required)
-                                            </div>
-
-                                        </div>
-                                    }
-                                    {selectedJob?.description?.length > 0 && (
-                                        <div className="flex flex-col gap-[8px]">
-                                            <div className="text-[20px] font-[500]">
-                                            Job Description
-                                            </div>
-                                            <div className="text-[12px] font-[400] gap-[8px] flex flex-col">
-                                                {selectedJob.description}
-                                            </div>
-                                            
-                                        </div>
-                                    )}
-
-                                    <div className="flex justify-end">
-                                        <button
-                                            disabled={appliedJobs?.some(job => job._id === selectedJob._id)}
-                                            onClick={() => {
-                                                if (isLogin) {
-
-
-                                                    if (jobApplyCount > 0) {
-                                                        if (!appliedJobs?.some(job => job._id === selectedJob._id)) {
-                                                            router.push(`/jobs/home/ApplyForm?id=${selectedJob._id}`);
-                                                        }
-                                                    } else {
-                                                        setLimitPopup(true);
-                                                    }
-                                                } else {
-                                                    // router.push(`/auth?signin=true&role=user`);
-                                                    setLimitPopup(true);
-                                                }
-                                            }}
-
-                                            className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some(job => job._id === selectedJob._id) ? "cursor-not-allowed" : " cursor-pointer"}`}                                    >
-                                            {appliedJobs?.some(job => job._id === selectedJob._id) ? "Applied" : "Apply Now"}
-                                        </button>
-                                    </div>
-                                </div>
-                           
-                        </>
-                    )}
-
-
-
                 </div>
+                {selectedJob.requiredQualification && (
+                  <div
+                    className="flex flex-col gap-[10px] pb-[6px]"
+                    style={{
+                      borderBottom: "1px solid #646464",
+                    }}
+                  >
+                    <div className="text-[20px] font-[500]">
+                      Educational Qualifications
+                    </div>
 
-            }
-        </>
-    )
+                    <div className="text-[12px] font-[500]">
+                      {selectedJob.requiredQualification} <br /> Total Work
+                      Total Experience {selectedJob.experience} (Required)
+                    </div>
+                  </div>
+                )}
+                {selectedJob?.description?.length > 0 && (
+                  <div className="flex flex-col gap-[8px]">
+                    <div className="text-[20px] font-[500]">
+                      Job Description
+                    </div>
+                    <div className="text-[12px] font-[400] gap-[8px] flex flex-col">
+                      {selectedJob.description}
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex justify-end">
+                  <button
+                    disabled={appliedJobs?.some(
+                      (job) => job._id === selectedJob._id
+                    )}
+                    onClick={() => {
+                      if (isLogin) {
+                        if (jobApplyCount > 0) {
+                          if (
+                            !appliedJobs?.some(
+                              (job) => job._id === selectedJob._id
+                            )
+                          ) {
+                            router.push(
+                              `/jobs/home/ApplyForm?id=${selectedJob._id}`
+                            );
+                          }
+                        } else {
+                          setLimitPopup(true);
+                        }
+                      } else {
+                        // router.push(`/auth?signin=true&role=user`);
+                        setLimitPopup(true);
+                      }
+                    }}
+                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${
+                      appliedJobs?.some((job) => job._id === selectedJob._id)
+                        ? "cursor-not-allowed"
+                        : " cursor-pointer"
+                    }`}
+                  >
+                    {appliedJobs?.some((job) => job._id === selectedJob._id)
+                      ? "Applied"
+                      : "Apply Now"}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </>
+  );
 }
 
 export default Description;
