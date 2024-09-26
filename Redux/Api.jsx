@@ -119,7 +119,7 @@ export const Api = ({}) => {
               (item) => item.name == result.plan
             );
 
-            localStorage.setItem("activePlan", selectedPlan?.index);
+            localStorage.setItem("activePlan", selectedPlan?.index ? selectedPlan?.index : null);
             localStorage.setItem("uploadCount", result.resumeUpladed);
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("downloadCount", result.resumeDownloads);
