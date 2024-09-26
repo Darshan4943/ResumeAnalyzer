@@ -40,22 +40,25 @@ const Rightform = ({
         ...formError,
         mustSkills: "Must have Skills are required",
       }));
+      toast.error("Must have Skills are required");
       hasError = true;
     }
 
     if (!data.goodSkills || data.goodSkills.length === 0) {
       setFormError((formError) => ({
         ...formError,
-        goodSkills: " Good to have Skills are required",
+        goodSkills: "Good to have Skills are required",
       }));
+      toast.error("Good to have Skills are required");
       hasError = true;
     }
 
     if (!data.deadLine) {
       setFormError((formError) => ({
         ...formError,
-        deadLine: " Deadline required",
+        deadLine: "Deadline required",
       }));
+      toast.error("Deadline required");
       hasError = true;
     }
     if (!data.location || data.location.length === 0) {
@@ -63,6 +66,7 @@ const Rightform = ({
         ...formError,
         location: "Location is required",
       }));
+      toast.error("Location is required");
       hasError = true;
     }
     if (!data.country || data.country.length === 0) {
@@ -70,6 +74,7 @@ const Rightform = ({
         ...formError,
         country: "Country is required",
       }));
+      toast.error("Country is required");
       hasError = true;
     }
     if (!data.currency) {
@@ -77,6 +82,7 @@ const Rightform = ({
         ...formError,
         currency: "currency is required",
       }));
+      toast.error("currency is required");
       hasError = true;
     }
 
@@ -133,7 +139,6 @@ const Rightform = ({
         console.log(err);
       });
   };
-  console.log(43, data);
 
   const currencyOptions = currencyMap.map((item) => ({
     value: item.currency,
@@ -279,10 +284,10 @@ const Rightform = ({
               <label className="text-[#333333] text-[14px] font-medium">
                 Currency
               </label>
-              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px]  overflow-visible h-[42px]">
+              <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[42px]">
                 <ReactSelect
                   options={currencyOptions}
-                  className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black"
+                  className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[42px]"
                   placeholder="Select Currency"
                   value={
                     currencyOptions.find(
@@ -291,6 +296,7 @@ const Rightform = ({
                   }
                   onChange={(value) => {
                     setData({ ...data, currency: value.value });
+                    setFormError({});
                   }}
                   styles={{
                     control: (provided) => ({
@@ -305,8 +311,10 @@ const Rightform = ({
                     }),
                   }}
                 />
+              </div>
+              <div className="flex flex-row items-start justify-start">
                 {formError && (
-                  <p className="text-[12px] text-[red] font-[500]">
+                  <p className="text-[12px] text-[red] font-[500] text-left">
                     {formError.currency}
                   </p>
                 )}

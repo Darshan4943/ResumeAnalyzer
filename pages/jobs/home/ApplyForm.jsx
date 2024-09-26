@@ -226,7 +226,7 @@ function ApplyForm() {
     return sections;
   };
 
-  console.log("te", text)
+  
   const parseData = (file, setText) => {
     return new Promise((resolve, reject) => {
       if (
@@ -377,7 +377,6 @@ function ApplyForm() {
 
     setLoading(true);
     const formDataToSend = new FormData();
-    console.log("text1111", text);
     formDataToSend.append("userId", userDataGlobal._id);
     formDataToSend.append("resumeUrl", isUploaded ? null : selectedResume);
     formDataToSend.append("resumeId", resumeIdd);
@@ -688,6 +687,7 @@ function ApplyForm() {
               handleInputChange("professional", fieldName, value)
             }
             formError={formError}
+            jobDetails={jobDetails}
           />
 
           <div className="flex justify-end flex-row gap-4 pt-8">

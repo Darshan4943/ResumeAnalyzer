@@ -28,12 +28,12 @@ const Index = () => {
     salaryType: "",
     minSalary: 0,
     maxSalary: 0,
-    currency:"",
+    currency: "",
     requiredQualification: "",
     requiredSkills: "",
     deadLine: "",
     experience: "",
-    revalentExp:"",
+    revalentExp: "",
     mustSkills: [],
     goodSkills: [],
   });
@@ -61,6 +61,8 @@ const Index = () => {
           experience,
           mustSkills,
           goodSkills,
+          currency,
+          revalentExp,
         } = res.data;
         setData({
           ...data,
@@ -80,6 +82,8 @@ const Index = () => {
           experience,
           mustSkills,
           goodSkills,
+          currency,
+          revalentExp,
         });
       })
       .catch((err) => {
@@ -127,7 +131,6 @@ const Index = () => {
 
     return errors;
   };
-
 
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
