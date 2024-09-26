@@ -148,7 +148,7 @@ function Index() {
   useEffect(() => {
     setCountry(userDataGlobal.country);
     axios
-      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .get("https://jamblix.com/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
       })
@@ -277,7 +277,7 @@ function Index() {
   useEffect(() => {
     if (isLogin) {
       axios
-        .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
+        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
         .then((res) => {
           const data = res.data.data;
           const skillsSet = new Set();
@@ -298,7 +298,7 @@ function Index() {
   const getData = () => {
     axios
       .get(
-        `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+        `https://jamblix.com/api/job/getAllAppliedJobs/${userDataGlobal._id}`
       )
       .then((res) => setAppliedJobs(res.data))
       .catch((err) => console.error(err));
@@ -312,7 +312,7 @@ function Index() {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:2000/api/job/getAll",
+        "https://jamblix.com/api/job/getAll",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),
@@ -349,7 +349,7 @@ function Index() {
   //   if (userSkills) {
   //     // console.log("globalskills", userDataGlobal.skills)
   //     axios
-  //       .post("http://localhost:2000/api/job/getAll", {
+  //       .post("https://jamblix.com/api/job/getAll", {
   //         requiredSkills: userSkills?.map((item) => item),
   //       })
   //       .then((res) => {
@@ -541,7 +541,7 @@ function Index() {
     try {
      
         const response = await axios.post(
-          "http://localhost:2000/api/job/getFilterData",
+          "https://jamblix.com/api/job/getFilterData",
           {
             requiredSkills: userSkills?.map((item) => item),
             country,

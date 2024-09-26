@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { reCallUserData } from '../../../Redux/actions/user';
 import { useRouter } from 'next/router';
+import MiniLoader from '../../../components/common/mini-loader';
 
 function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     limit,
@@ -48,7 +49,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const getData = () => {
         axios
 
-            .post("http://localhost:2000/api/job/byIds", {
+            .post("https://jamblix.com/api/job/byIds", {
                 ids: userDataGlobal?.savedJobs
                     ?.map((item) => item.id)
                     .filter((item) => item != "undefined"),
@@ -75,7 +76,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
         // setLoading(false);
         e.stopPropagation();
         axios
-            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+            .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
                 dispatch(reCallUserData());
@@ -92,7 +93,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
         axios
-            .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+            .post(`https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
                 dispatch(reCallUserData());

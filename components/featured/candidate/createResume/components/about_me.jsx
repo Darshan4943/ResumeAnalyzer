@@ -34,7 +34,7 @@ const AboutMe = ({ data, setData }) => {
     if (text.length > 100) {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/text/regenrate", { prompt })
+        .post("https://jamblix.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");

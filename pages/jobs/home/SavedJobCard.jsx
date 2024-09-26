@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { reCallUserData } from '../../../Redux/actions/user';
+import MiniLoader from '../../../components/common/mini-loader';
 
 function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage, }) {
 
@@ -46,7 +47,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
         e.stopPropagation();
         axios
             .post(
-                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+                `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             )
             .then((res) => {
                 dispatch(reCallUserData());

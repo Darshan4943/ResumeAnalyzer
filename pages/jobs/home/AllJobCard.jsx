@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../../Redux/actions/user";
 import { toast } from "react-toastify";
 import { CountPostingDays } from "../../../utils/data";
+import MiniLoader from "../../../components/common/mini-loader";
 
 function AllJobCard({
   selectedJob,
@@ -51,7 +52,7 @@ function AllJobCard({
     // setLoading(false);
     e.stopPropagation();
     axios
-      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
 
@@ -68,7 +69,7 @@ function AllJobCard({
     e.stopPropagation();
     axios
       .post(
-        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
         dispatch(reCallUserData());
