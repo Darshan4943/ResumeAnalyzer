@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../../Redux/actions/user";
 import { toast } from "react-toastify";
 import { CountPostingDays } from "../../../utils/data";
+import MiniLoader from "../../../components/common/mini-loader";
 
 function AllJobCard({
   selectedJob,

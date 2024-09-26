@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { reCallUserData } from '../../../Redux/actions/user';
 import { useRouter } from 'next/router';
+import MiniLoader from '../../../components/common/mini-loader';
 
 function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     limit,
