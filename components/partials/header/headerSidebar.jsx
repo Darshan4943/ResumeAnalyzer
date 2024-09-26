@@ -17,8 +17,8 @@ function HeaderSidebar({
     // "My Resumes",
     "My Collection",
     // "Transform CV",
-    "Skill Assessments",
-    // "Search Jobs",
+    "Skill Assessments & Certification",
+    "Search Jobs",
     "Ask Krut",
     "My Website",
     "My Purchases",
@@ -31,7 +31,7 @@ function HeaderSidebar({
     // "Transform CV",
     "Job Description Matching",
     "My Collection",
-    // "Post Jobs",
+    "Post Jobs",
     "Ask Krut",
     "My Purchases",
   ];
@@ -210,7 +210,7 @@ function HeaderSidebar({
                   ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
-                ...(item === "Skill Assessments" && {
+                ...(item === "Skill Assessments & Certification" && {
                   ...getListItemStyles("/home/SkillAssessment"),
                   transition: "transform 1.1s ease-in-out",
                 }),
@@ -279,7 +279,7 @@ function HeaderSidebar({
                   case "My Collection":
                     handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
                     break;
-                  case "Skill Assessments":
+                  case "Skill Assessments & Certification":
                     handleNavigation("/home/SkillAssessment");
                     break;
                   case "Post Jobs":

@@ -46,10 +46,15 @@ function Collection() {
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
   const [uploadCount, setUploadCount] = useState(0);
+
   const [failedFiles, setFailedFiles] = useState([]);
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
+
+  const collectionCount = localStorage.getItem("collectionCount");
+
+
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -67,12 +72,15 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-  
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
     }
   }, [isCreate]);
+
+
+
   const getData = () => {
 
     if (folders == "true") {
@@ -112,7 +120,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -127,7 +135,7 @@ function Collection() {
 
   const getClientData = (clientId) => {
     axios
-      .get("https://jamblix.com/api/resume/" + clientId)
+      .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -141,10 +149,10 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
-     
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -158,10 +166,10 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
-      
+
         setFolderList(res.data.data);
         setTimeout(() => {
           setLoading(false);
@@ -175,7 +183,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -191,7 +199,7 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
         const files = res.data.data.filter(item => item.type === 'file');
         setUnSyncFiles(files.length);
@@ -228,7 +236,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("https://jamblix.com/api/folder/create", formData)
+        .post("http://localhost:2000/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -248,7 +256,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://jamblix.com/api/resume/extraction",
+      "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
       }
@@ -345,6 +353,7 @@ function Collection() {
   const [duplicateFiles, setDuplicateFiles] = useState([]);
 
   const addData = async (file, index, text) => {
+
     return new Promise((resolve) => {
       setTimeout(async () => {
         const formData = new FormData();
@@ -375,7 +384,7 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
@@ -418,15 +427,6 @@ function Collection() {
 
     await Promise.all(promises);
 
-    // setFiles([]);
-    // getData();
-    // setTimeout(() => {
-    //   setFileLoader(false);
-    //   setIsCreateFolder(false);
-    //   setUploadCount(0);
-
-    //   toast.success(`${Object.keys(files).length} Files Uploaded Successfully`);
-    // }, 1000);
   };
 
   const handleButtonClick = () => {
@@ -446,34 +446,38 @@ function Collection() {
 
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
+
     const textData = [];
-    if (Object.values(selectedFiles).length) {
-      const promise = Object.values(selectedFiles).map((file, index) => {
+
+
+    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
+
+    if (allowedFiles.length) {
+      const promise = allowedFiles.map((file, index) => {
         if (
-          file.type ==
+          file.type ===
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ) {
           const reader = new FileReader();
           reader.onload = async (e) => {
             const content = e.target.result;
-            var doc = new Docxtemplater(new PizZip(content), {
+            const doc = new Docxtemplater(new PizZip(content), {
               delimiters: {
                 start: "12op1j2po1j2poj1po",
                 end: "op21j4po21jp4oj1op24j",
               },
             });
-            var text = doc.getFullText();
-
+            const text = doc.getFullText();
             textData.push({ index, text });
           };
           reader.readAsBinaryString(file);
-        } else if (file.type == "image/png") {
+        } else if (file.type === "image/png") {
           Tesseract.recognize(file, "eng", {
             logger: (m) => console.log(m),
-          }).then(async ({ data: { text } }) => {
+          }).then(({ data: { text } }) => {
             textData.push({ index, text });
           });
-        } else if (file.type == "application/pdf") {
+        } else if (file.type === "application/pdf") {
           let fullText = "";
           const pdfTextPromises = [];
 
@@ -481,16 +485,46 @@ function Collection() {
             pdfTextPromises.push(fileToText(file, i));
           }
 
-          Promise.all(pdfTextPromises).then(async (texts) => {
+          Promise.all(pdfTextPromises).then((texts) => {
             fullText = texts.join("");
             textData.push({ index, text: fullText });
           });
         }
       });
+
       await Promise.all(promise);
     }
+
     setTextData(textData);
-    setFiles(selectedFiles);
+    setFiles(allowedFiles);
+  };
+
+  const updateCollectionLimit = async () => {
+    if (uploadCount === 0) {
+      console.log('No files to update. Skipping API call.');
+      return { success: false, message: 'Files count is zero, no update needed.' };
+    }
+    try {
+      const apiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+      const response = await axios.put(apiUrl, { uploadCount });
+
+      if (response.data.success) {
+        console.log('Plan Updated:', response.data.data);
+        setUploadCount(0);
+        dispatch(reCallUserData())
+        return response.data;
+      } else {
+        console.error('Error:', response.data.message);
+        setUploadCount(0);
+        return response.data;
+
+      }
+    } catch (error) {
+      console.error('Something went wrong:', error);
+      setUploadCount(0);
+      return { success: false, message: 'Something went wrong', error };
+
+    }
   };
 
   return (
@@ -796,71 +830,83 @@ function Collection() {
                   </div>
                 </>
               )}
-              <div className="flex justify-end gap-6 text-blue font-medium">
-                <button
-                  disabled={fileLoader}
-                  style={{ opacity: fileLoader ? 0.5 : 1 }}
-                  onClick={() => {
-                    setIsCreateFolder(false);
-                    setFolderName("Untitled folder");
-                    setCount("");
-                    setFiles([]);
-                    setUploadCount(0);
-                    setFailedFiles([]);
-                    setDuplicateFiles([]);
-                    getData();
-                    getUnSyncFiles()
-                    setTimeout(() => {
-                      getUnSyncFiles()
-                    }, 10000);
+              <div className="flex justify-between gap-6">
+                <div className="text-[16px] font-medium">
+                  {isFile &&
+                    <>
+                      Upload limit : {collectionCount ? collectionCount : 0}
+                    </>
+                  }
+                </div>
 
-                  }}
-                >
-                  Close
-                </button>
-                {count <= 0 && (
+                <div className="flex justify-end gap-6 text-blue font-medium">
                   <button
-                    //  id="border_button"
-                    disabled={
-                      fileLoader ||
-                      (isFile ? Object.values(files).length === 0 : !folderName)
-                    }
-                    style={{
-                      minWidth: "80px",
-                      opacity:
-                        fileLoader ||
-                          (isFile
-                            ? Object.values(files).length === 0
-                            : !folderName)
-                          ? 0.5
-                          : 1,
+                    disabled={fileLoader}
+                    style={{ opacity: fileLoader ? 0.5 : 1 }}
+                    onClick={() => {
+                      setIsCreateFolder(false);
+                      setFolderName("Untitled folder");
+                      setCount("");
+                      setFiles([]);
+
+                      setFailedFiles([]);
+                      setDuplicateFiles([]);
+                      getData();
+                      getUnSyncFiles()
+                      setTimeout(() => {
+                        getUnSyncFiles()
+                      }, 10000);
+                      updateCollectionLimit()
+
                     }}
-                    onClick={isFile ? addFiles : createFolder}
                   >
-                    {fileLoader ? (
-                      <svg
-                        aria-hidden="true"
-                        role="status"
-                        className="inline w-4 h-4  text-white animate-spin"
-                        viewBox="0 0 100 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="#06A9EF"
-                        />
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    ) : (
-                      <>{isFile ? "Add Files" : "Create"}</>
-                    )}
+                    Close
                   </button>
-                )}
+                  {count <= 0 && (
+                    <button
+                      //  id="border_button"
+                      disabled={
+                        fileLoader ||
+                        (isFile ? Object.values(files).length === 0 : !folderName)
+                      }
+                      style={{
+                        minWidth: "80px",
+                        opacity:
+                          fileLoader ||
+                            (isFile
+                              ? Object.values(files).length === 0
+                              : !folderName)
+                            ? 0.5
+                            : 1,
+                      }}
+                      onClick={isFile ? addFiles : createFolder}
+                    >
+                      {fileLoader ? (
+                        <svg
+                          aria-hidden="true"
+                          role="status"
+                          className="inline w-4 h-4  text-white animate-spin"
+                          viewBox="0 0 100 101"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#06A9EF"
+                          />
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      ) : (
+                        <>{isFile ? "Add Files" : "Create"}</>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
+
             </div>
           </div>
         </>

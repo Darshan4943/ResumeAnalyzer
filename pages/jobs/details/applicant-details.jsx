@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { LeftArow } from "../../../utils/svg";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { Page, pdfjs, Document } from "react-pdf";
 
 import {
   daysCalculator,
   selectResumeTemplate,
 } from "../../../utils/middleware";
-import { Document, PDFViewer } from "@react-pdf/renderer";
+// import { Document, PDFViewer } from "@react-pdf/renderer";
 import Fonts from "../../../public/fonts/fonts";
 import MiniLoader from "../../../components/common/miniLoader";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+import { details } from "../../../utils/data";
 <Fonts />;
 const ApplicantDetails = () => {
   const router = useRouter();
@@ -19,20 +23,25 @@ const ApplicantDetails = () => {
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState(null);
   const [application, setApplication] = useState({});
+  console.log(query);
   const getData = () => {
     setLoading(true);
+
     axios
-      .get("https://jamblix.com/api/job/getById/" + query["job-post"])
+      .get(`http://localhost:2000/api/job/getById/${query.id}`)
       .then((res) => {
         setLoading(false);
-        setJobPost(res.data.data);
-        setApplication(
-          res.data.applications.find((item) => item.resumeId == query.applicant)
+        setJobPost(res.data);
+        // Find the application where applicantId matches query.applicantId
+        const matchedApplication = res.data.applications.find(
+          (item) => item?.applicantId === query.applicantId
         );
+
+        // Set the matched application to the application state
+        setApplication(matchedApplication);
       })
       .catch((err) => {
         setLoading(false);
-
         console.log(err);
       });
   };
@@ -40,6 +49,31 @@ const ApplicantDetails = () => {
   useEffect(() => {
     getData();
   }, [router]);
+
+  const PdfViewer = ({ pdfUrl }) => {
+    const [numPages, setNumPages] = useState();
+
+    function onDocumentLoadSuccess(numPages) {
+      setNumPages(numPages);
+    }
+    return (
+      <div
+        style={{
+          // width: "168px",
+          // height: "192px",
+          border: "1px solid #06A9EF",
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "10px",
+          overflow: "hidden",
+        }}
+       
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}  className=" ">
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
 
   const MyDocument = ({
     resumeTemplateIndex,
@@ -57,6 +91,8 @@ const ApplicantDetails = () => {
       )}
     </Document>
   );
+
+  console.log(3333, application);
   return (
     <div className="min-h-[90vh] my-[16px] rounded-[16px] customMargins  ">
       {loading ? (
@@ -77,7 +113,7 @@ const ApplicantDetails = () => {
             </div>
           </div>
           <div className="flex ml:flex-row flex-col gap-4 justify-between ">
-            <div className="flex flex-col ml:w-[38%] w-full gap-[16px]">
+            <div className="flex flex-col  ml:w-[38%] w-full gap-[16px]">
               <div className="flex flex-row gap-[16px]">
                 <img
                   src={
@@ -90,7 +126,9 @@ const ApplicantDetails = () => {
                 />
                 <div className="flex flex-col gap-[8px] justify-center">
                   <span className="text-[18px] text-[#333333] font-medium">
-                    {application?.firstName + " " + application?.lastName}
+                    {application?.details?.personal?.firstName +
+                      " " +
+                      application?.details?.personal?.lastName}
                   </span>
                   <span className="text-[16px] text-[#333333] font-normal">
                     {application?.designation}
@@ -138,7 +176,7 @@ const ApplicantDetails = () => {
                     />
                   </svg>
                   <span className="text-[14px] text-[#333333] font-normal">
-                    {application?.email}
+                    {application?.details?.personal?.email}
                   </span>
                 </div>
                 <div className="flex flex-row gap-[8px] items-center">
@@ -156,25 +194,7 @@ const ApplicantDetails = () => {
                   </svg>
 
                   <span className="text-[14px] text-[#333333] font-normal">
-                    {application?.mobileNumber}
-                  </span>
-                </div>
-                <div className="flex flex-row gap-[8px] items-top ">
-                  <svg
-                    width="20"
-                    height="28"
-                    viewBox="0 0 16 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.00092 9.86535C8.4985 9.86535 8.9239 9.68818 9.2771 9.33385C9.6303 8.97952 9.8069 8.55356 9.8069 8.05598C9.8069 7.55839 9.62973 7.133 9.2754 6.7798C8.92106 6.4266 8.4951 6.25 7.99752 6.25C7.49994 6.25 7.07455 6.42717 6.72135 6.7815C6.36815 7.13583 6.19155 7.56179 6.19155 8.05938C6.19155 8.55696 6.36871 8.98235 6.72305 9.33555C7.07738 9.68875 7.50334 9.86535 8.00092 9.86535ZM7.99922 17.5135C9.95562 15.7622 11.4527 14.0824 12.4906 12.474C13.5284 10.8657 14.0473 9.45703 14.0473 8.24805C14.0473 6.42498 13.4681 4.92627 12.3098 3.7519C11.1515 2.57753 9.71461 1.99035 7.99922 1.99035C6.28384 1.99035 4.84698 2.57753 3.68865 3.7519C2.53031 4.92627 1.95115 6.42498 1.95115 8.24805C1.95115 9.45703 2.47006 10.8657 3.50787 12.474C4.54571 14.0824 6.04282 15.7622 7.99922 17.5135ZM7.99922 19.5096C5.48257 17.3288 3.5954 15.2993 2.3377 13.4211C1.08001 11.5429 0.451172 9.81857 0.451172 8.24805C0.451172 5.94038 1.19765 4.07213 2.6906 2.64328C4.18353 1.21443 5.95307 0.5 7.99922 0.5C10.0454 0.5 11.8149 1.21443 13.3078 2.64328C14.8008 4.07213 15.5473 5.94038 15.5473 8.24805C15.5473 9.81857 14.9184 11.5429 13.6607 13.4211C12.403 15.2993 10.5159 17.3288 7.99922 19.5096Z"
-                      fill="#06A9EF"
-                    />
-                  </svg>
-
-                  <span className="text-[14px] text-[#333333] font-normal">
-                    {application?.location}
+                    {application?.details?.personal?.mobileNo}
                   </span>
                 </div>
               </div>
@@ -216,9 +236,12 @@ const ApplicantDetails = () => {
                         Full Name
                       </span>
                       <span className="text-[14px] text-[#333333] font-normal">
-                        {application?.firstName + " " + application?.lastName}
+                        {application?.details?.personal?.firstName +
+                          " " +
+                          application?.details?.personal?.lastName}
                       </span>
                     </div>
+                    {/*** 
                     <div className="flex flex-col gap-[4px]">
                       <span className="text-[16px] text-[#333333] font-medium">
                         Address
@@ -226,54 +249,113 @@ const ApplicantDetails = () => {
                       <span className="text-[14px] text-[#333333] font-normal">
                         {application?.location}
                       </span>
-                    </div>
+                    </div>*/}
                   </div>
-                  <div className="flex flex-col gap-[16px] pb-[16px]">
+                  <div className="flex flex-col gap-[16px] pb-[16px] w-full">
                     <span className="text-[16px] text-[#333333] font-semibold">
                       Professional Info
                     </span>
+                    {/** 
                     <div className="flex flex-col gap-[4px]">
                       <span className="text-[16px] text-[#333333] font-medium">
                         About Me
                       </span>
                       <span className="text-[14px] text-[#333333] font-normal">
-                        {application?.summery}
+                        {application?.details?.professional?.aboutme
+                          ? application?.details?.professional?.aboutme
+                          : "Syncning..."}
                       </span>
-                    </div>
-                    <div className="flex ms:flex-row flex-col gap-[16px]">
-                      <div className="ms:w-[30%] w-full flex flex-col gap-[16px] ">
-                        <div className="flex flex-col">
-                          <span className="text-[16px] text-[#333333] font-medium">
-                            Current Job
-                          </span>
-                          <span className="text-[14px] text-[#333333] font-normal">
-                            {application?.experience &&
-                              application?.experience[0]?.designation}
-                          </span>
+                    </div>*/}
+                    <div className="flex ms:flex-col flex-col gap-[16px] justify-between w-full">
+                      <div className="w-[50%] ms:w-[100%] flex flex-col gap-[16px] ">
+                        {application?.details?.professional?.hightestQul && (
+                          <div className="flex flex-col">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Educational Qualifications
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional?.hightestQul
+                                ? application?.details?.professional
+                                    ?.hightestQul
+                                : "Syncning..."}
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="flex ms:flex-row flex-col w-full justify-between gap-4">
+                          <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Total Experience
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional
+                                ?.totalExperience
+                                ? application?.details?.professional
+                                    ?.totalExperience
+                                : "Syncing..."}
+                            </span>
+                          </div>
+                          {application?.details?.professional
+                            ?.relevantExperience && (
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Relevant Experience
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
+                                  ?.relevantExperience
+                                  ? application?.details?.professional
+                                      ?.relevantExperience
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex flex-col">
-                          <span className="text-[16px] text-[#333333] font-medium">
-                            Highest Qualification
-                          </span>
-                          <span className="text-[14px] text-[#333333] font-normal">
-                            {application?.education &&
-                              application?.education[0]?.qualification}
-                          </span>
+
+                        <div className="flex ms:flex-row  flex-col w-full justify-between gap-4">
+                          <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                            <span className="text-[16px] text-[#333333] font-medium">
+                              Current CTC
+                            </span>
+                            <span className="text-[14px] text-[#333333] font-normal">
+                              {application?.details?.professional?.currentCTC
+                                ? application?.details?.professional?.currentCTC
+                                : "Syncing..."}
+                            </span>
+                          </div>
+                          {application?.details?.professional
+                            ?.relevantExperience && (
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Notice Period
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
+                                  ?.noticePeriod
+                                  ? application?.details?.professional
+                                      ?.noticePeriod
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
+
                       <div className="ms:w-[70%] w-full flex flex-col gap-[16px] ">
                         <span className="text-[16px] text-[#333333] font-medium">
                           Skills
                         </span>
                         <div className="flex flex-row flex-wrap gap-[12px]">
-                          {application?.skills?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
-                            >
-                              {item.skill}
-                            </div>
-                          ))}
+                          {application?.details?.professional?.skills?.map(
+                            (item, index) => (
+                              <div
+                                key={index}
+                                className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
+                              >
+                                {item}
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
@@ -281,15 +363,9 @@ const ApplicantDetails = () => {
                 </div>
               )}
               {tab == 1 && application && (
-                <div className="w-full mt-2  bg-[#525659] h-full flex items-center justify-center py-[16px]">
-                  <PDFViewer width="80%" height="900px" showToolbar={false}>
-                    <MyDocument
-                      resumeTemplateIndex={application.resumeTemplateIndex}
-                      application={application}
-                      selectedColor={application.selectedColor}
-                      selectedFont={application.selectedFont}
-                    />
-                  </PDFViewer>
+                <div className=" flex items-center justify-center py-[16px] resumes2">
+                 
+                  <PdfViewer pdfUrl={application?.resumeUrl} />
                 </div>
               )}
             </div>

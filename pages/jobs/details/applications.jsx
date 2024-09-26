@@ -1,16 +1,48 @@
 import React, { useState } from "react";
 import { dateSeter } from "../../../utils/middleware";
 import { useRouter } from "next/router";
+import MiniLoader from "../../../components/common/mini-loader";
 
-const Applications = ({ jobPost, applications }) => {
+const Applications = ({
+  jobPost,
+  applications,
+  setLimit,
+  setPage,
+  limit,
+  page,
+  miniLoading,
+  currentPage,
+  totalPages,
+  setCurrentPage,
+}) => {
   const router = useRouter();
   const [selectedCandidate, setSelectedCandidate] = useState([]);
+
+  const handleChange = (e) => {
+    setLimit(parseInt(e.target.value));
+    setPage(1);
+  };
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      setPage(currentPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      setPage(currentPage + 1);
+    }
+  };
+
   return (
     <>
       <div className="sm:p-[24px] p-3 flex sm:flex-row flex-col-reverse gap-[16px] sm:items-center items-start justify-between w-full">
         <span className="text-[16px] text-[#333333] font-semibold ">
           Total Applicants : {jobPost?.applications?.length}
         </span>
+        {/*** 
+
         <div className="sm:w-fit  w-full">
           <div className="flex flex-row gap-[8px] py-[12px] px-[16px] bg-[#92DEFF] justify-center items-center rounded-[8px] w-full">
             <svg
@@ -35,7 +67,7 @@ const Applications = ({ jobPost, applications }) => {
               Save to Collection
             </span>
           </div>
-        </div>
+        </div>*/}
       </div>
       <div>
         {applications?.length > 0 ? (
@@ -61,9 +93,10 @@ const Applications = ({ jobPost, applications }) => {
                     <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
                       Name of Candidate
                     </th>
+                    {/**
                     <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
                       Location
-                    </th>
+                    </th>*/}
                     <th className="text-[16px] font-semibold text-white w-[15%]">
                       Profile Match
                     </th>
@@ -107,12 +140,15 @@ const Applications = ({ jobPost, applications }) => {
                             className="w-[40px] h-[40px] rounded-[50%] object-cover"
                           />
                           <span className="text-[14px] font-semibold text-[#333333] text-left">
-                            {item.firstName + " " + item.lastName}
+                            {item.details.personal.firstName +
+                              " " +
+                              item.details?.personal?.lastName}
                           </span>
                         </th>
+                        {/***
                         <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
-                          {item?.location}
-                        </th>
+                          {item?.details?.personal?.currentLocation}
+                        </th>*/}
                         <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                           {item.matchingPercentage}%
                         </th>
@@ -124,7 +160,7 @@ const Applications = ({ jobPost, applications }) => {
                             className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px] min-w-[146px]"
                             onClick={() =>
                               router.push(
-                                `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
+                                `/jobs/details/applicant-details?applicantId=${item.applicantId}&id=${jobPost._id}`
                               )
                             }
                           >
@@ -132,19 +168,21 @@ const Applications = ({ jobPost, applications }) => {
                           </button>
                         </th>
                       </tr>
-                      <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+                      <div className="w-full h-[1px] bg-[#E9EEF6]"> </div>
                     </>
                   ))}
                 </tbody>
               </table>
-
             </div>
             <div className="mobile">
-              <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+              <div className="w-full h-[1px] bg-[#E9EEF6]"> </div>
               <div className="flex flex-col ">
                 {applications?.map((item, index) => (
                   <>
-                    <div key={index} className="flex flex-col sm:p-6 p-3 gap-3  ">
+                    <div
+                      key={index}
+                      className="flex flex-col sm:p-6 p-3 gap-3  "
+                    >
                       <div className="flex gap-6 items-center">
                         <input
                           type="checkbox"
@@ -167,20 +205,25 @@ const Applications = ({ jobPost, applications }) => {
                           className="w-[40px] h-[40px] rounded-[50%] object-cover"
                         />
                         <span className="text-[14px] font-semibold text-[#333333] text-left">
-                          {item.firstName + " " + item.lastName}
+                          {item.details.personal.firstName +
+                            " " +
+                            item.details?.personal?.lastName}
                         </span>
-
                       </div>
                       <div className="flex flex-col gap-1 w-full">
                         <div className="flex justify-between ">
-                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Profile Match</p>
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">
+                            Profile Match
+                          </p>
                           <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
                             {item.matchingPercentage}%
                           </div>
                         </div>
                         <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
                         <div className="flex justify-between ">
-                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Applied Date</p>
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">
+                            Applied Date
+                          </p>
                           <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
                             {dateSeter(item.appliedOn)}
                           </div>
@@ -203,25 +246,109 @@ const Applications = ({ jobPost, applications }) => {
                       >
                         See Application
                       </button>
-
                     </div>
                     <div className="bg-[#E9EEF6] w-full h-[2px]"></div>
-
                   </>
                 ))}
-
               </div>
-
-
             </div>
           </>
         ) : (
           <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
-            No Applications Recived Yet !
+            No Applications Received Yet !
+          </div>
+        )}
+        {applications?.length > 0 && (
+          <div className="px-[16px] w-full justify-between flex pt-[8px]">
+            <div className="flex items-center gap-4">
+              <p className="text-[14px] text-[#646464] font-600">View</p>
+              <div className="flex gap-[8px] items-center md:pb-[0px] pb-[4px] ">
+                {/* <p className="text-[14px] px-[16px] py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600">{limit}</p> */}
+                <select
+                  value={limit}
+                  onChange={handleChange}
+                  className="text-[14px] px-[8px] py-[2px] md:px-[16px]  md:py-[12px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600 "
+                >
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <p className="text-[14px] text-[#646464] font-[600] hidden md:block ">
+                Applicants per page
+              </p>
+            </div>
+            <div
+              className="flex items-center"
+              style={{ radious: "0px 0px 16px 16px" }}
+            >
+              <div className="mr-4">{miniLoading && <MiniLoader />}</div>
+              <p className="md:text-[14px] text-[12px] text-[#646464] font-[500]">
+                pages
+                <span className="text-[#333] md:px-[10px] px-[8px] font-[600]">
+                  {currentPage}
+                </span>{" "}
+                of{" "}
+                <span className="text-[#333] md:px-[10px] px-[8px]  font-[600]">
+                  {totalPages}
+                </span>
+              </p>
+              <button
+                disabled={applications?.previous && !applications?.previous}
+              >
+                <svg
+                  onClick={prevPage}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_2529_10517)">
+                    <path
+                      d="M15 6L9 12L15 18"
+                      stroke={applications?.previous ? "#333333" : "#646464"}
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2529_10517">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </button>
+              <button disabled={!applications?.next}>
+                <svg
+                  width="25"
+                  height="24"
+                  onClick={nextPage}
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_2529_10530)">
+                    <path
+                      d="M9.375 6L15.625 12L9.375 18"
+                      stroke={applications?.next ? "#333333" : "#646464"}
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2529_10530">
+                      <rect width="25" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </button>
+            </div>
           </div>
         )}
       </div>
-
     </>
   );
 };

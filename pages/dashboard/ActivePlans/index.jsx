@@ -19,16 +19,18 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/activeSubscription", {
+      .get("http://localhost:2000/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {
         console.log(123, res.data);
 
         setData(res.data.data);
-        setUserList(res.data.data); // Assuming this is the correct field
+        setUserList(
+          res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        );
         setTotalCount(res.data.totalCount);
-        setTotalPages(res.data.totalPages);
+        // setTotalPages(res.data.totalPages);
         setLimit(res?.data?.users?.current?.limit || limit);
         setCurrentPage(res?.data?.users?.current?.page || currentPage);
 

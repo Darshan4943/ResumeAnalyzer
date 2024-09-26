@@ -47,6 +47,7 @@ function Recruiter_signup({}) {
     mobileNo: "",
     email: "",
     currentLocation: "",
+    country:"",
     dial_code: "",
     img: null,
   });
@@ -86,6 +87,7 @@ function Recruiter_signup({}) {
       lastName,
       role,
       location,
+      country,
       profilePicture,
     } = userDataGlobal;
     setData({
@@ -96,6 +98,7 @@ function Recruiter_signup({}) {
       lastName,
       role,
       currentLocation: location,
+      country
     });
     if (profilePicture) {
       setCroppedImage({ url: profilePicture });
@@ -162,6 +165,7 @@ function Recruiter_signup({}) {
           delete errors.currentLocation;
         }
         break;
+        
       case "password":
         if (!isUpdate) {
           if (!value.trim() || value.trim().length < 6) {
@@ -226,7 +230,7 @@ function Recruiter_signup({}) {
   };
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    setData({ ...data, dial_code: item.dial_code });
+    setData({ ...data, dial_code: item.dial_code ,country:item.name});
     setSearchTerm("");
     setFormError((prevErrors) => {
       const updatedErrors = { ...prevErrors };
@@ -295,8 +299,8 @@ function Recruiter_signup({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://jamblix.com/api/updateUser"
-        : "https://jamblix.com/api/skiloteckuser/recruiter";
+        ? "http://localhost:2000/api/updateUser"
+        : "http://localhost:2000/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -372,7 +376,7 @@ function Recruiter_signup({}) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })

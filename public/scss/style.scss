@@ -132,6 +132,10 @@ html {
     background-image: url("../images/resumeBuilder/certificate.png");
     
   }
+  .bg-noJobs{
+    background-image: url("../images/jobs/noJobsBg.png");
+    
+  }
   
   
   
@@ -162,6 +166,26 @@ html {
     user-select: none !important;
     width: 292px !important;
     height: 372px !important;
+  }
+}
+.resumes2 {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 100% !important;
+    height: 50vw !important;
+    max-width: 700px;
+    max-height: 1000px;
+  }
+}
+
+@media (max-width: 850px) {
+  .resumes2 {
+    .react-pdf__Page__canvas {
+      width: 100% !important;
+    height: 100vw !important;
+
+    }
   }
 }
 

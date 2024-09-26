@@ -19,16 +19,21 @@ const Index = () => {
   const [data, setData] = useState({
     companyName: "",
     jobTitle: "",
+    jobType: "",
+    workFrom: "",
     location: [],
+    country: [],
     aboutOrganization: "",
-    description: "Enter Job Description here",
+    description: "",
     salaryType: "",
     minSalary: 0,
     maxSalary: 0,
+    currency: "",
     requiredQualification: "",
     requiredSkills: "",
     deadLine: "",
-    experiance: "",
+    experience: "",
+    revalentExp: "",
     mustSkills: [],
     goodSkills: [],
   });
@@ -36,13 +41,16 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getById/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const {
           companyName,
           jobTitle,
+          jobType,
+          jobMode,
           location,
+          country,
           description,
           salaryType,
           minSalary,
@@ -50,14 +58,19 @@ const Index = () => {
           requiredQualification,
           requiredSkills,
           deadLine,
-          experiance,
+          experience,
           mustSkills,
           goodSkills,
-        } = res.data.data;
+          currency,
+          revalentExp,
+        } = res.data;
         setData({
           ...data,
           companyName,
           jobTitle,
+          jobType,
+          workFrom: jobMode,
+          country,
           location,
           description,
           salaryType,
@@ -66,9 +79,11 @@ const Index = () => {
           requiredQualification,
           requiredSkills,
           deadLine,
-          experiance,
+          experience,
           mustSkills,
           goodSkills,
+          currency,
+          revalentExp,
         });
       })
       .catch((err) => {
@@ -130,7 +145,7 @@ const Index = () => {
               <LeftArow />
             </div>
             <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%] min-w-[270px]">
-              Job Listings
+              Post a Job
             </div>
           </div>
           <div className="flex md:flex-row flex-col justify-between ">

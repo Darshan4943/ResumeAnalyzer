@@ -23,9 +23,9 @@ import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
 import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
+const ENDPOINT = "http://localhost:2000"; // Replace with your backend WebSocket server URL
 
-export const Api = ({ }) => {
+export const Api = ({}) => {
   const store = useStore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ export const Api = ({ }) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const showPlan = useSelector((state) => state.showPlan.show);
-  const [allPlans, setAllPlans] = useState([])
+  const [allPlans, setAllPlans] = useState([]);
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -60,18 +60,13 @@ export const Api = ({ }) => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
-     
-        setAllPlans(res.data.data)
-
-       
+        setAllPlans(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-
-      
   }, [userDataGlobal]);
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
@@ -91,7 +86,7 @@ export const Api = ({ }) => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
+          .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -115,7 +110,7 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -123,7 +118,6 @@ export const Api = ({ }) => {
             const selectedPlan = allPlans.find(
               (item) => item.name == result.plan
             );
-          
 
             localStorage.setItem("activePlan", selectedPlan?.index);
             localStorage.setItem("uploadCount", result.resumeUpladed);
@@ -131,6 +125,8 @@ export const Api = ({ }) => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
+            localStorage.setItem("collectionCount", result.collectionStored);
+            localStorage.setItem("jobsApply", result.jobsApply);
             localStorage.setItem("planAvailable", true);
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
@@ -140,7 +136,7 @@ export const Api = ({ }) => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" + result._id
+                  "http://localhost:2000/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -164,7 +160,7 @@ export const Api = ({ }) => {
 
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
-
+            localStorage.setItem("jobsApply", 0);
             localStorage.setItem("downloadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
@@ -174,7 +170,7 @@ export const Api = ({ }) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal, reCallUser, showPlan,allPlans]);
+  }, [userDataGlobal, reCallUser, showPlan, allPlans]);
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -202,7 +198,7 @@ export const Api = ({ }) => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://jamblix.com/api/exchangeRate/" + currency
+  //                 "http://localhost:2000/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -270,134 +266,142 @@ export const Api = ({ }) => {
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
-    // let latitude = 53.4808;
-    // let longitude =2.2426;
+    // let latitude = 13.1339;
+    // let longitude =27.8493;
     let countriesData = [];
 
     const fetchCountryData = async (lat, lon) => {
-        
-        try {
-            const response = await axios.get(
-                  `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
-            );
-            return response.data.results;
-        } catch (err) {
-            console.error("Error fetching country data:", err);
-            return null;
-        }
+      try {
+        const response = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+        );
+        return response.data.results;
+      } catch (err) {
+        console.error("Error fetching country data:", err);
+        return null;
+      }
     };
 
     const processCountryData = async (results) => {
-        const countryData = results.find((result) =>
-            result.types.includes("country")
+      const countryData = results.find((result) =>
+        result.types.includes("country")
+      );
+
+      if (countryData) {
+        const country = countryData.formatted_address;
+        localStorage.setItem("country",country)
+        const codeJson = telCode.find((item) => item?.name === country);
+        const Country = currencyMap.find(
+          (item) => item?.countryCode === codeJson?.code
         );
 
-        if (countryData) {
-            const country = countryData.formatted_address;
-            const codeJson = telCode.find((item) => item?.name === country);
-            const Country = currencyMap.find(
-                (item) => item?.countryCode === codeJson?.code
-            );
-            const currency = Country ? Country.currency : "USD";
-            const icon = currenciesWithIcons?.find(
-                (item) => item?.icon === currency?.toLowerCase()
-            );
-         
-            const symbol = icon ? icon.symbol : currency;
-            
-            const exchangeRate = await axios.get(
-                `https://jamblix.com/api/exchangeRate/${currency}`
-            );
-          
-            localStorage.setItem("exchangeRate", exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate);
-            localStorage.setItem("currency", exchangeRate?.data === "" ? "USD" :currency);
-            localStorage.setItem("icon", exchangeRate?.data === "" ? "$" : symbol);
-        } else {
-            console.error("Error: Country data not found");
-        }
+        // const currency = Country ? Country.currency : "USD";
+        const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
+        const icon = currenciesWithIcons?.find(
+          (item) => item?.icon === currency?.toLowerCase()
+        );
+
+        const symbol = icon ? icon.symbol : currency;
+
+        const exchangeRate = await axios.get(
+          `http://localhost:2000/api/exchangeRate/${currency}`
+        );
+
+        localStorage.setItem(
+          "exchangeRate",
+          exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate
+        );
+        localStorage.setItem(
+          "currency",
+          exchangeRate?.data === "" ? "USD" : currency
+        );
+        localStorage.setItem("icon", exchangeRate?.data === "" ? "$" : symbol);
+      } else {
+        console.error("Error: Country data not found");
+      }
     };
 
     const conditions = [
-        { lat: Math.abs(latitude), lon: Math.abs(longitude) },
-        { lat: Math.abs(latitude), lon: -Math.abs(longitude) },
-        { lat: -Math.abs(latitude), lon: Math.abs(longitude) },
-        { lat: -Math.abs(latitude), lon: -Math.abs(longitude) },
+      { lat: Math.abs(latitude), lon: Math.abs(longitude) },
+      { lat: Math.abs(latitude), lon: -Math.abs(longitude) },
+      { lat: -Math.abs(latitude), lon: Math.abs(longitude) },
+      { lat: -Math.abs(latitude), lon: -Math.abs(longitude) },
     ];
 
-  
-
     for (let i = 0; i < conditions?.length; i++) {
-        let { lat, lon } = conditions[i];
-        let results = await fetchCountryData(lat, lon);
-      
-        if (results) {
-            results.forEach((result) => {
-                const lat = Math.abs(result.geometry.location.lat);
-                const lng = Math.abs(result.geometry.location.lng);
-                const distance = haversine(latitude, longitude, lat, lng);
+      let { lat, lon } = conditions[i];
+      let results = await fetchCountryData(lat, lon);
 
-                countriesData.push({
-                    condition: i + 1,
-                    lat: lat,
-                    lon: lng,
-                    formatted_address: result.formatted_address,
-                    distance: distance,
-                    results: results,
-                    types: result.types
-                });
-            });
-        }
+      if (results) {
+        results.forEach((result) => {
+          const lat = Math.abs(result.geometry.location.lat);
+          const lng = Math.abs(result.geometry.location.lng);
+          const distance = haversine(latitude, longitude, lat, lng);
+
+          countriesData.push({
+            condition: i + 1,
+            lat: lat,
+            lon: lng,
+            formatted_address: result.formatted_address,
+            distance: distance,
+            results: results,
+            types: result.types,
+          });
+        });
+      }
     }
 
     function haversine(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Radius of the Earth in kilometers
-        const dLat = ((lat2 - lat1) * Math.PI) / 180;
-        const dLon = ((lon2 - lon1) * Math.PI) / 180;
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos((lat1 * Math.PI) / 180) *
-            Math.cos((lat2 * Math.PI) / 180) *
-            Math.sin(dLon / 2) *
-            Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const distance = R * c; // Distance in kilometers
-        return distance;
+      const R = 6371; // Radius of the Earth in kilometers
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLon = ((lon2 - lon1) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distance in kilometers
+      return distance;
     }
 
     // Sort countriesData by distance
     countriesData.sort((a, b) => a.distance - b.distance);
 
-    let closestPostalCodeData = countriesData.filter(countryData =>
+    let closestPostalCodeData = countriesData.filter((countryData) =>
       countryData.types.includes("postal_code")
-  );
+    );
 
-  const countries = closestPostalCodeData.map(item => item.formatted_address.split(',').slice(-1)[0].trim());
+    const countries = closestPostalCodeData.map((item) =>
+      item.formatted_address.split(",").slice(-1)[0].trim()
+    );
 
+    const allSameCountry = countries.every(
+      (value, _, array) => value === array[0]
+    );
 
-  const allSameCountry = countries.every((value, _, array) => value === array[0]);
-
-  // If no postal_code result, filter for country entries
-  if (closestPostalCodeData?.length === 0 || (closestPostalCodeData?.length > 1 && !allSameCountry)) {
-      closestPostalCodeData = countriesData.filter(countryData =>
-          countryData.types.includes("country")
+    // If no postal_code result, filter for country entries
+    if (
+      closestPostalCodeData?.length === 0 ||
+      (closestPostalCodeData?.length > 1 && !allSameCountry)
+    ) {
+      closestPostalCodeData = countriesData.filter((countryData) =>
+        countryData.types.includes("country")
       );
-  }
+    }
 
     const closestData = closestPostalCodeData[0];
-   
+
     if (closestData) {
-       
-        console.log(`Address: ${closestData.formatted_address}`);
+      console.log(`Address: ${closestData.formatted_address}`);
 
-        // Process the closest country data
-        await processCountryData(closestData.results);
+      // Process the closest country data
+      await processCountryData(closestData.results);
     } else {
-        console.log("No relevant data found");
+      console.log("No relevant data found");
     }
-};
-
-
-
+  };
 
   const errorCallback = (error) => {
     console.log(error);

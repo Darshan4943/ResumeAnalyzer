@@ -81,9 +81,15 @@ const MatchingDetails = ({
     );
 
     setSelectedFile({ ...data, matching_parameters: sortedData });
-  }, [data]);
+  }, []);
 
- 
+  const handleDownload = (resumeUrl, fileName) => {
+    const link = document.createElement("a");
+    link.href = resumeUrl;
+    link.download = { fileName };
+    link.click();
+  };
+
   return (
     <>
       <div
@@ -118,7 +124,8 @@ const MatchingDetails = ({
                     {data.fileName}
                   </span>
                   <svg
-                    onClick={() => (window.location.href = data?.file)}
+                    // onClick={() => (window.location.href = data?.url)}
+                    onClick={() => handleDownload(data?.url, data?.fileName)}
                     width="20"
                     height="20"
                     viewBox="0 0 14 14"

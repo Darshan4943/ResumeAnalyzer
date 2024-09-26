@@ -23,10 +23,13 @@ function SubscriptionPlans({ fromMain }) {
   const [icon, seticon] = useState("$");
   const [showPlan, setShowPlans] = useState(false);
   const [allPlans, setAllPlans] = useState([])
+  const [subscription, setSubscription] = useState(null);
+  const [isFree, setIsFree] = useState(false);
+
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
- 
+
     setexchangeRate(exchangeRate);
     seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {
@@ -37,7 +40,7 @@ function SubscriptionPlans({ fromMain }) {
       setPlans(plans.slice(0, 3));
     }
 
-   
+
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -47,11 +50,24 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   }, [userDataGlobal, showPlan]);
-  const [subscription, setSubscription] = useState(null);
+
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)
+      .then((res) => {
+
+        setIsFree(res.data.success);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -64,10 +80,10 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
-     
-       const  allPlan =res.data.data
+
+        const allPlan = res.data.data
 
         if (userDataGlobal.role == "recruiter" || fromMain) {
           setIsUser(false);
@@ -81,7 +97,7 @@ function SubscriptionPlans({ fromMain }) {
         console.log(err);
       });
 
-      
+
   }, [userDataGlobal]);
 
   const clickHandler = (index) => {
@@ -104,7 +120,6 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   };
-
 
 
   return (
@@ -169,96 +184,125 @@ function SubscriptionPlans({ fromMain }) {
                   Recommended
                 </div>
               )}
-              {plan.duration == "Enterprise" ? (
-                <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                  <div className="flex text-center flex-col gap-3 text-[#333333]  min-h-[153.4px] justify-between">
-                    <p className="text-[1.4vw] font-[600]">
-                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
-                      {plan?.limit}
-                    </p>
-                    <p className="text-[1vw] font-[500]">{plan?.description}</p>
-                    <div className="bg-[#DEDEDE] h-[2px]" />
-                  </div>
-                  <div className="flex gap-3 flex-col text-center items-center w-[168px]">
-                    <img
-                      src="/images/support_agent.png"
-                      className="h-[80px] w-[80px]"
-                      alt=""
-                    />
-                    <span className="text-[16px] font-[500] text-center">
-                      Contact Us for Custom Plan as per your needs
-                    </span>
-                  </div>
-                  <button
-                    disabled={true}
-                    onClick={() => clickHandler(index)}
-                    className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full"
-                    style={{ opacity: 0.6 }}
-                  >
-                    Contact Us
-                  </button>
-                </div>
-              ) : (
-                <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                  <div className="flex text-center flex-col gap-3 text-[#333333] ">
-                    <p className="text-[1.4vw] font-[600]">
-                      {plan.type === "candidate" &&
-                        <>
-                          <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
-                        </>
-                      }
 
-                      <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+              <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
+                <div className="flex text-center flex-col gap-3 text-[#333333] ">
+                  <p className="text-[1.4vw] font-[600]">
+                    {plan.type === "candidate" &&
+                      <>
+                        <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                      </>
+                    }
 
-                      {plan.type === "recruiter" &&
-                        <span > Plan</span>
-                      }
-                    </p>
+                    <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+
+                    {plan.type === "recruiter" &&
+                      <span > Plan</span>
+                    }
+                  </p>
+                  {plan.index !== 1 &&
                     <div className="flex flex-row gap-2 w-full items-center justify-center">
                       <p className="text-[2.5vw] font-[700]">{icon}</p>
                       <p className="text-[2.5vw] font-[700]">
                         {Math.ceil(plan?.amount * exchangeRate)}
                       </p>
                     </div>
+                  }
+                 {plan.index === 1 &&
+                    <div className="flex flex-row gap-2 w-full items-center justify-center">
+                     
+                      <p className="text-[2.5vw] font-[700]">
+                       Free
+                      </p>
+                    </div>
+                  }
 
-                    <p
-                      className="text-[1vw] font-[500]"
-                      style={{ textTransform: "capitalize" }}
-                    >
-                      {plan?.description}
-                    </p>
-                    <div className="bg-[#DEDEDE] h-[2px]" />
-                  </div>
-                  <div className="flex gap-3 flex-col text-left">
-                    {plan.features.map((feature, index) => (
-                      <div key={index} className="flex gap-3 items-start ">
-                        <svg
-                          className="min-w-[20px]"
-                          width="20"
-                          height="18"
-                          viewBox="0 0 20 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7.16683 17.75L5.5835 15.0833L2.5835 14.4167L2.87516 11.3333L0.833496 9L2.87516 6.66667L2.5835 3.58333L5.5835 2.91667L7.16683 0.25L10.0002 1.45833L12.8335 0.25L14.4168 2.91667L17.4168 3.58333L17.1252 6.66667L19.1668 9L17.1252 11.3333L17.4168 14.4167L14.4168 15.0833L12.8335 17.75L10.0002 16.5417L7.16683 17.75ZM9.12516 11.9583L13.8335 7.25L12.6668 6.04167L9.12516 9.58333L7.3335 7.83333L6.16683 9L9.12516 11.9583Z"
-                            fill="#06A9EF"
-                          />
-                        </svg>
-                        <p className="text-[0.8vw] font-[500]">{feature}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <p
+                    className="text-[1vw] font-[500]"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {plan?.description}
+                  </p>
+                  <div className="bg-[#DEDEDE] h-[2px]" />
+                </div>
+                <div className="flex gap-3 flex-col text-left">
+                  {plan.features.map((feature, index) => (
+                    <div key={index} className="flex gap-3 items-start ">
+                      <svg
+                        className="min-w-[20px]"
+                        width="20"
+                        height="18"
+                        viewBox="0 0 20 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7.16683 17.75L5.5835 15.0833L2.5835 14.4167L2.87516 11.3333L0.833496 9L2.87516 6.66667L2.5835 3.58333L5.5835 2.91667L7.16683 0.25L10.0002 1.45833L12.8335 0.25L14.4168 2.91667L17.4168 3.58333L17.1252 6.66667L19.1668 9L17.1252 11.3333L17.4168 14.4167L14.4168 15.0833L12.8335 17.75L10.0002 16.5417L7.16683 17.75ZM9.12516 11.9583L13.8335 7.25L12.6668 6.04167L9.12516 9.58333L7.3335 7.83333L6.16683 9L9.12516 11.9583Z"
+                          fill="#06A9EF"
+                        />
+                      </svg>
+                      <p className="text-[0.8vw] font-[500]">{feature}</p>
+                    </div>
+                  ))}
+                </div>
+                {(isFree && plan.index === 1) ?
                   <button
+                    disabled={true}
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
+                  >
+                    Purchased
+                  </button>
+                  :
+                  <button
+
                     onClick={() => clickHandler(plan.index)}
                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                   >
                     Purchase Plan
                   </button>
-                </div>
-              )}
+
+                }
+
+              </div>
+
+
+
             </div>
           ))}
+
+          <div
+
+            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+              } `}
+            style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
+          >
+            <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
+              <p className="text-[1.4vw] font-[600]">
+                <span className="text-[#06A9EF]">Enterprise </span>{" "}
+                Plan
+              </p>
+              <p className="text-[1vw] font-[500] px-2">Tailored Solutions for {isUser ? "Candidates" : "Organizations"}</p>
+              <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
+            </div>
+            <div className="flex gap-3 flex-col text-center items-center w-[168px]">
+              <img
+                src="/images/support_agent.png"
+                className="h-[80px] w-[80px]"
+                alt=""
+              />
+              <span className="text-[16px] font-[500] text-center">
+                Contact Us for Custom Plan as per your needs
+              </span>
+            </div>
+            <button
+              // disabled={true}
+              onClick={() => router.push('/purchase/enterprise')}
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+            // style={{ opacity: 0.6 }}
+            >
+              Contact Us
+            </button>
+          </div>
         </div>
       </div>
       <div className="block lg:hidden w-full ">
@@ -323,18 +367,18 @@ function SubscriptionPlans({ fromMain }) {
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[420px]">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
                       <p className="text-[18px] font-[600]">
-                      {plan.type === "candidate" &&
-                        <>
-                          <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
-                        </>
-                      }
+                        {plan.type === "candidate" &&
+                          <>
+                            <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                          </>
+                        }
 
-                      <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+                        <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
 
-                      {plan.type === "recruiter" &&
-                        <span > Plan</span>
-                      }
-                       
+                        {plan.type === "recruiter" &&
+                          <span > Plan</span>
+                        }
+
                       </p>
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="text-[28px] font-[700]">{icon}</p>

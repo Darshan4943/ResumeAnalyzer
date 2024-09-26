@@ -1,6 +1,6 @@
 import React from "react";
 import { dateSeter } from "../../../utils/middleware";
-
+import { currenciesWithIcons } from "../../../utils/data";
 const Details = ({ jobPost }) => {
   return (
     <div className="py-[16px] sm:px-[24px] px-2 flex flex-col gap-[24px]  ">
@@ -39,7 +39,7 @@ const Details = ({ jobPost }) => {
           </div>
           <div className="flex flex-col gap-[8px] border-b-[1px] border-[#DEDEDE] pb-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Qualifications
+              Educational Qualifications
             </span>
             <span className="text-[12px] text-[#333333] font-medium">
               {jobPost?.requiredQualification}
@@ -47,7 +47,7 @@ const Details = ({ jobPost }) => {
           </div>
           <div className="flex flex-col gap-[8px] pb-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Full job Description
+              Job Description
             </span>
             <div
               className="html-content text-[12px] "
@@ -91,7 +91,26 @@ const Details = ({ jobPost }) => {
                 Salary
               </span>
               <span className="text-[16px] text-[#333333] font-semibold">
-                {jobPost?.minSalary} - {jobPost?.maxSalary}
+                {
+                  // Find the currency icon outside of JSX
+                  (() => {
+                    const icon = currenciesWithIcons?.find(
+                      (item) =>
+                        item?.icon?.toLowerCase() ===
+                        jobPost?.currency?.toLowerCase()
+                    );
+
+                    // Return the formatted string
+                    return (
+                      <>
+                        {icon ? icon.symbol : jobPost?.currency}{" "}
+                        {jobPost?.minSalary?.toLocaleString()} -{" "}
+                        {icon ? icon.symbol : jobPost?.currency}{" "}
+                        {jobPost?.maxSalary?.toLocaleString()}
+                      </>
+                    );
+                  })()
+                }
               </span>
             </div>
           </div>

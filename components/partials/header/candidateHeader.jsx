@@ -188,7 +188,7 @@ function CandidateHeader() {
               onClick={() => setServices(false)}
               href="/home"
               className={
-                selectedPage === "/home"
+                (selectedPage === "/home" && !isServices)
                   ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
                   : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
               }
@@ -258,6 +258,44 @@ function CandidateHeader() {
                 />
               )}
             </div>
+            {userDataGlobal?.role == "user" &&
+              <Link
+                onClick={() => setServices(false)}
+                href="/jobs/search"
+                className={
+                  (selectedPage === "/jobs/search" &&  !isServices)
+                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+                }
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_5501_92674)">
+                    <path d="M20 8.40035C19.9957 8.22188 19.921 8.0543 19.7806 7.94117L17.678 6.19613V0.585938C17.678 0.262344 17.4157 0 17.0921 0H2.90793C2.58434 0 2.32199 0.262344 2.32199 0.585938V6.19617L0.211719 7.94758C0.0791016 8.05781 0 8.22594 0 8.39844V19.4141C0 19.7377 0.262344 20 0.585938 20H0.589492H0.589844H0.590313H19.4097H19.4102H19.4105H19.4141C19.7377 20 20 19.7377 20 19.4141V8.40043C20 8.40039 20 8.40035 20 8.40035ZM1.17188 9.64434L6.31977 13.9068L1.17188 18.1709V9.64434ZM7.23848 14.6675L9.62633 16.6446C9.73152 16.7325 9.86754 16.7798 10 16.7792C10.1325 16.7798 10.2685 16.7324 10.3737 16.6446L12.7615 14.6675L17.7846 18.8281H2.21547L7.23848 14.6675ZM13.6803 13.9068L18.8281 9.64434V18.1709L13.6803 13.9068ZM18.4959 8.39789L17.678 9.07512V7.71906L18.4959 8.39789ZM16.5062 1.17188V10.0455L10 15.4326L3.49387 10.0455V1.17188H16.5062ZM2.32199 7.7191V9.07516L1.5041 8.39793L2.32199 7.7191Z" fill="url(#paint0_linear_5501_92674)" />
+                    <path d="M6.23189 10.6423H13.7681C14.0917 10.6423 14.3541 10.38 14.3541 10.0564V6.01071V4.8918C14.3541 4.56821 14.0917 4.30586 13.7681 4.30586H12.1295V2.91168C12.1295 2.58809 11.8672 2.32574 11.5436 2.32574H8.4565C8.13291 2.32574 7.87057 2.58809 7.87057 2.91168V4.30586H6.23193C5.90834 4.30586 5.646 4.56821 5.646 4.8918V6.01071V10.0563C5.64596 10.38 5.9083 10.6423 6.23189 10.6423ZM6.81783 9.47043V7.58422L6.84846 7.61965C6.95979 7.74836 7.1215 7.82235 7.2917 7.82235H9.42092C9.46213 8.10563 9.70533 8.32344 10 8.32344C10.2947 8.32344 10.5379 8.10563 10.5791 7.82235H12.7028C12.8724 7.82235 13.0338 7.74883 13.145 7.62078L13.1822 7.57805V9.47043H6.81783ZM9.04244 3.49762H10.9576V4.30586H9.04244V3.49762ZM6.81783 5.47774H13.1822V5.79168L12.4358 6.65047H10.5792C10.5379 6.36719 10.2947 6.14938 10.0001 6.14938C9.70537 6.14938 9.46217 6.36719 9.42096 6.65047H7.55971L6.81791 5.79254V5.47774H6.81783Z" fill="url(#paint1_linear_5501_92674)" />
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_5501_92674" x1="0" y1="10" x2="20" y2="10" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#06A9EF" />
+                      <stop offset="1" stop-color="#55CCFF" />
+                    </linearGradient>
+                    <linearGradient id="paint1_linear_5501_92674" x1="5.646" y1="6.48403" x2="14.3541" y2="6.48403" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#06A9EF" />
+                      <stop offset="1" stop-color="#55CCFF" />
+                    </linearGradient>
+                    <clipPath id="clip0_5501_92674">
+                      <rect width="20" height="20" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
+
+
+
+
+
+                <li>Jobs</li>
+              </Link>
+            }
           </>
         )}
       </div>

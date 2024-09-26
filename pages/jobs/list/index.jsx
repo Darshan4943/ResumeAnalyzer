@@ -18,7 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByCreatedId/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal._id)
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);
@@ -38,6 +38,9 @@ const Index = () => {
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
     var date2 = new Date();
+
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
 
     if (date2 <= date1) {
       return true;
@@ -68,14 +71,14 @@ const Index = () => {
 
   const deleteJob = (id) => {
     axios
-      .post("https://jamblix.com/api/jobs/deleteJobs", {
+      .post("http://localhost:2000/api/jobs/deleteJobs", {
         ids: selectedIndexes,
       })
       .then((response) => {
         console.log(response.data);
         setSelectAll([]);
         getData();
-        toast.success("Client Deleted successfully");
+        toast.success("Post Deleted successfully");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -205,7 +208,7 @@ const Index = () => {
           {!select && (
             <div
               onClick={() => setSelect(!select)}
-              className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
+              className="scr420:py-3 scr420:px-2 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer min-w-[8rem]"
             >
               <svg
                 width="22"
@@ -221,7 +224,7 @@ const Index = () => {
                   />
                 </g>
               </svg>
-              Select
+              <span className="text-[12px]">Delete Job</span>
             </div>
           )}
           <div
@@ -385,7 +388,10 @@ const Index = () => {
                               {item?.jobTitle}
                             </span>
                             <span className="text-[12px] text-[#646464] font-medium">
-                              {item?.location?.join(",")}
+                              {item?.country?.join(", ")}
+                            </span>
+                            <span className="text-[12px] text-[#646464] font-medium">
+                              {item?.location?.join(", ")}
                             </span>
                             <span className="text-[10px] text-[#2706EF] font-medium">
                               {item?.experiance}

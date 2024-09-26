@@ -14,7 +14,7 @@ function Services({ setServices }) {
         { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
 
         // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
-        { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
+        { name: "Skill Assessments & Certification", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
 
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
     ];
@@ -70,7 +70,7 @@ function Services({ setServices }) {
     }
     return (
         <div
-            className='absolute top-[50px] bg-[#FFF] rounded-b-[16px] w-[287px]  '
+            className='absolute top-[50px] bg-[#FFF] rounded-b-[16px] w-[297px]  '
             style={{
                 boxShadow: "0px 4px 6px 0px rgba(0, 0, 0, 0.25)"
             }}
@@ -93,7 +93,7 @@ function Services({ setServices }) {
                         ...(item.name === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
                         ...(item.name === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
                         ...(item.name === 'My Collection' && { ...getListItemStyles('/collection'), transition: "transform 1.1s ease-in-out" }),
-                        ...(item.name === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
+                        ...(item.name === 'Skill Assessments & Certification' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
                         ...(item.name === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                     }}
 
@@ -134,7 +134,7 @@ function Services({ setServices }) {
                             case 'My Collection':
                                 handleNavigation('/collection');
                                 break;
-                            case 'Skill Assessments':
+                            case 'Skill Assessments & Certification':
                                 handleNavigation('/home/SkillAssessment');
                                 break;
                             default:
