@@ -312,7 +312,7 @@ function Index() {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:2000/api/job/getAll",
+        "https://jamblix.com/api/job/getAll",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),
