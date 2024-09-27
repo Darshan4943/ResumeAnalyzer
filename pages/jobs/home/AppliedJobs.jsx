@@ -25,14 +25,17 @@ function AppliedJobs({  setLimitPopup }) {
   const dispatch = useDispatch();
 
   const getAppliedData = () => {
-
     axios
-      .get(`https://jamblix.com/api/job/getAppliedJobs/${userDataGlobal._id}`,{
+      .get(`https://jamblix.com/api/job/getAppliedJobs/${userDataGlobal._id}`, {
         params: { page, limit },
       })
       .then((res) => {
-       
-        setAppliedJobs(res.data.jobs)
+        
+        const sortedJobs = res.data.jobs.sort((a, b) => 
+          new Date(b.applications[0].appliedOn) - new Date(a.applications[0].appliedOn)
+        );
+
+        setAppliedJobs(sortedJobs);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
         setTimeout(() => {
@@ -40,13 +43,13 @@ function AppliedJobs({  setLimitPopup }) {
         }, 1000);
       })
       .catch((err) => {
-        console.error(err)
+        console.error(err);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
       });
+}
 
-  }
 
   useEffect(() => {
   

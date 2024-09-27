@@ -94,9 +94,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                   </div>
                   <div className="py-[16px] flex gap-2 leading-tight">
                     <button
-                      disabled={appliedJobs?.some(
+                      disabled={(appliedJobs?.some(
                         (job) => job._id === selectedJob._id
-                      )}
+                      )) ||selectedJob.status==="Hold" }
                       onClick={() => {
                         if (isLogin) {
                           if (jobApplyCount > 0) {
@@ -117,7 +117,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                           setLimitPopup(true);
                         }
                       }}
-                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some((job) => job._id === selectedJob._id)
+                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status ==="Hold"
                           ? "cursor-not-allowed"
                           : " cursor-pointer"
                         }`}
@@ -255,9 +255,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
                 <div className="flex justify-end">
                   <button
-                    disabled={appliedJobs?.some(
-                      (job) => job._id === selectedJob._id
-                    )}
+                   disabled={(appliedJobs?.some(
+                    (job) => job._id === selectedJob._id
+                  )) ||selectedJob.status==="Hold" }
                     onClick={() => {
                       if (isLogin) {
                         if (jobApplyCount > 0) {
@@ -278,7 +278,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         setLimitPopup(true);
                       }
                     }}
-                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${appliedJobs?.some((job) => job._id === selectedJob._id)
+                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status==="Hold"
                         ? "cursor-not-allowed"
                         : " cursor-pointer"
                       }`}

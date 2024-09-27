@@ -164,7 +164,7 @@ function ApplyForm() {
       .put(
         `https://jamblix.com/api/subscription/updateApplyLimit/${userDataGlobal._id}`
       )
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => console.error(err));
   };
 
@@ -226,7 +226,7 @@ function ApplyForm() {
     return sections;
   };
 
-  
+
   const parseData = (file, setText) => {
     return new Promise((resolve, reject) => {
       if (
@@ -374,7 +374,17 @@ function ApplyForm() {
 
   const applyForJob = () => {
     if (!validateInput()) return;
-
+    const totalExperience = parseInt(formData.professional?.totalExperience) || 0;
+    const relevantExperience = parseInt(formData.professional?.relevantExperience) || 0;
+  
+    if (relevantExperience > totalExperience) {
+    
+      setFormError((prevErrors) => ({
+        ...prevErrors,
+        relevantExperience: "Relevant experience cannot be greater than Total experience.",
+      }));
+      return; 
+    }
     setLoading(true);
     const formDataToSend = new FormData();
     formDataToSend.append("userId", userDataGlobal._id);
@@ -476,13 +486,11 @@ function ApplyForm() {
     const diffInDays = now.diff(updatedDate, "days");
 
     if (diffInHours < 24) {
-      return `Last updated at ${diffInHours} ${
-        diffInHours === 1 ? "hour" : "hours"
-      } ago`;
+      return `Last updated at ${diffInHours} ${diffInHours === 1 ? "hour" : "hours"
+        } ago`;
     } else {
-      return `Last updated at ${diffInDays} ${
-        diffInDays === 1 ? "day" : "days"
-      } ago`;
+      return `Last updated at ${diffInDays} ${diffInDays === 1 ? "day" : "days"
+        } ago`;
     }
   };
 
@@ -564,70 +572,74 @@ function ApplyForm() {
               </h2>
               <div className="h-[1px] w-[70%] bg-[#DEDEDE]"></div>
             </div>
-            {resumes?.length > 0 &&
-            <>
-            {!loadingg ? (
-              <div className="flex flex-col gap-3 h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
-                {resumes?.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-row border border-[#DEDEDE] rounded-[12px]"
-                  >
-                    <div className="px-[10px] text-center flex sm:text-[16px] text-[13px] flex-row items-center bg-[#C00000] text-white rounded-l-[12px]">
-                      PDF
-                    </div>
-                    <div className="flex flex-row justify-between items-center sm:p-4 p-2 w-full">
-                      <div className="flex flex-col gap-1">
-                        <p className="text-[#333333] font-medium text-[14px]">
-                          {item.fileName}
-                        </p>
-                        <p className="text-[#646464] font-[400] text-[12px]">
-                          {getLastUpdatedText(item.updatedAt)}
-                        </p>
-                      </div>
 
-                      <div className="flex flex-row sm:gap-4 gap-2 h-[40px] py-1 items-center">
-                        <div
-                          onClick={() =>
-                            handleDownload(item.resumeUrl, item.fileName)
-                          }
-                          className="px-[10px] py-1 border border-[#06A9EF] rounded-[8px] cursor-pointer"
-                        >
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g mask="url(#mask0_5716_128902)">
-                              <path
-                                d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z"
-                                fill="#646464"
-                              />
-                            </g>
-                          </svg>
+
+            {!loadingg ? (
+              <>
+                {resumes?.length > 0 &&
+                  <div className="flex flex-col gap-3 h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
+                    {resumes?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-row border border-[#DEDEDE] rounded-[12px]"
+                      >
+                        <div className="px-[10px] text-center flex sm:text-[16px] text-[13px] flex-row items-center bg-[#C00000] text-white rounded-l-[12px]">
+                          PDF
                         </div>
-                        <input
-                          name="resume"
-                          type="radio"
-                          value={item.resumeUrl}
-                          checked={
-                            selectedResume === item.resumeUrl && !isUploaded
-                          }
-                          onChange={() => handleResumeSelection(item)}
-                          className="custom-radio h-4 w-4 border-[#DEDEDE] cursor-pointer"
-                        />
+                        <div className="flex flex-row justify-between items-center sm:p-4 p-2 w-full">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#333333] font-medium text-[14px]">
+                              {item.fileName}
+                            </p>
+                            <p className="text-[#646464] font-[400] text-[12px]">
+                              {getLastUpdatedText(item.updatedAt)}
+                            </p>
+                          </div>
+
+                          <div className="flex flex-row sm:gap-4 gap-2 h-[40px] py-1 items-center">
+                            <div
+                              onClick={() =>
+                                handleDownload(item.resumeUrl, item.fileName)
+                              }
+                              className="px-[10px] py-1 border border-[#06A9EF] rounded-[8px] cursor-pointer"
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g mask="url(#mask0_5716_128902)">
+                                  <path
+                                    d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z"
+                                    fill="#646464"
+                                  />
+                                </g>
+                              </svg>
+                            </div>
+                            <input
+                              name="resume"
+                              type="radio"
+                              value={item.resumeUrl}
+                              checked={
+                                selectedResume === item.resumeUrl && !isUploaded
+                              }
+                              onChange={() => handleResumeSelection(item)}
+                              className="custom-radio h-4 w-4 border-[#DEDEDE] cursor-pointer"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                }
+              </>
             ) : (
               <MiniLoader1 />
             )}
-</>
-          }
+
+
             <div className="flex sm:flex-row flex-col gap-4 justify-between w-[100%]">
               {formError.resume && (
                 <p className="text-red font-medium  text-[14px]">
@@ -681,6 +693,7 @@ function ApplyForm() {
           </div>
 
           <ProfessionalDetails
+          setFormError={setFormError}
             data={formData.professional}
             setFormData={setFormData}
             handleInputChange={(fieldName, value) =>

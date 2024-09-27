@@ -716,7 +716,7 @@ function Dashboard() {
           <div
             key={index}
             className={
-              "job-card relative scr420:w-[162.67px] w-[104px] scr420:h-[154px] h-[114px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr420:w-[162.67px] w-[132px] scr420:h-[154px] h-[124px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >

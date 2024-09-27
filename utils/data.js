@@ -2864,6 +2864,10 @@ export const plans = [
 ];
 
 export const currencyMap = [
+  { countryCode: "UK", currency: "GBP" }, // United Kingdom
+  { countryCode: "IN", currency: "INR" }, // India
+  { countryCode: "ZM", currency: "ZMW" }, // Zambia
+  { countryCode: "ZW", currency: "ZWL" }, // Zimbabwe
   { countryCode: "AF", currency: "AFN" }, // Afghanistan
   { countryCode: "AL", currency: "ALL" }, // Albania
   { countryCode: "DZ", currency: "DZD" }, // Algeria
@@ -2965,7 +2969,7 @@ export const currencyMap = [
   { countryCode: "HK", currency: "HKD" }, // Hong Kong
   { countryCode: "HU", currency: "HUF" }, // Hungary
   { countryCode: "IS", currency: "ISK" }, // Iceland
-  { countryCode: "IN", currency: "INR" }, // India
+
   { countryCode: "ID", currency: "IDR" }, // Indonesia
   { countryCode: "IR", currency: "IRR" }, // Iran
   { countryCode: "IQ", currency: "IQD" }, // Iraq
@@ -3099,7 +3103,7 @@ export const currencyMap = [
   { countryCode: "UA", currency: "UAH" }, // Ukraine
   { countryCode: "AE", currency: "AED" }, // United Arab Emirates
   { countryCode: "GB", currency: "GBP" }, // United Kingdom
-  { countryCode: "UK", currency: "GBP" }, // United Kingdom
+ 
   { countryCode: "US", currency: "USD" }, // United States
   { countryCode: "UM", currency: "USD" }, // United States Minor Outlying Islands
   { countryCode: "UY", currency: "UYU" }, // Uruguay
@@ -3112,8 +3116,7 @@ export const currencyMap = [
   { countryCode: "WF", currency: "XPF" }, // Wallis and Futuna Islands
   { countryCode: "EH", currency: "MAD" }, // Western Sahara
   { countryCode: "YE", currency: "YER" }, // Yemen
-  { countryCode: "ZM", currency: "ZMW" }, // Zambia
-  { countryCode: "ZW", currency: "ZWL" }, // Zimbabwe
+
 ];
 
 export const currenciesWithIcons = [
