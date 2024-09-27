@@ -208,11 +208,11 @@ function SubscriptionPlans({ fromMain }) {
                       </p>
                     </div>
                   }
-                 {plan.index === 1 &&
+                  {plan.index === 1 &&
                     <div className="flex flex-row gap-2 w-full items-center justify-center">
-                     
+
                       <p className="text-[2.5vw] font-[700]">
-                       Free
+                        Free
                       </p>
                     </div>
                   }
@@ -380,12 +380,22 @@ function SubscriptionPlans({ fromMain }) {
                         }
 
                       </p>
-                      <div className="flex flex-row gap-2 w-full items-center justify-center">
-                        <p className="text-[28px] font-[700]">{icon}</p>
-                        <p className="text-[28px] font-[700]">
-                          {Math.ceil(plan?.amount * exchangeRate)}
-                        </p>
-                      </div>
+                      {plan.index !== 1 &&
+                        <div className="flex flex-row gap-2 w-full items-center justify-center">
+                          <p className="text-[28px] font-[700]">{icon}</p>
+                          <p className="text-[28px] font-[700]">
+                            {Math.ceil(plan?.amount * exchangeRate)}
+                          </p>
+                        </div>
+                      }
+                      {plan.index === 1 &&
+                        <div className="flex flex-row gap-2 w-full items-center justify-center">
+
+                          <p className="text-[28px] font-[700]">
+                            Free
+                          </p>
+                        </div>
+                      }
 
                       <p className="text-[12px] font-[500]">
                         {plan?.description}

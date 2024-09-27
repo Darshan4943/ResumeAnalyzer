@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 const Index = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
   const getData = () => {
@@ -28,6 +28,27 @@ const Index = () => {
         console.log(err);
       });
   };
+
+  const statusPriority = {
+    Live: 1,
+    Hold: 2,
+    Closed: 3,
+  };
+
+  const sortedJobs = jobPost
+    .filter((job) => filterStatus === "All" ? true : job.status === filterStatus)
+    .sort((a, b) => {
+      // First sort by status priority
+      const statusComparison = statusPriority[a.status] - statusPriority[b.status];
+
+      // If status is the same, sort by creation date (newest first)
+      if (statusComparison === 0) {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+
+      return statusComparison;
+    });
+
 
   useEffect(() => {
     if (userDataGlobal._id) {
@@ -86,114 +107,10 @@ const Index = () => {
   };
 
   return (
-    // <div className="job-list customMargins flex flex-col gap-[16px]  ">
-    //   <div className="flex sm:flex-row flex-col gap-4 justify-between sm:items-center items-end w-full">
-    //     <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
-    //       Job Listings
-    //     </span>
-    //     <button
-    //       className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] min-w-[190px] "
-    //       onClick={() => router.push("/jobs/create")}
-    //     >
-    //       <AddIcon color={"#fff"} /> Create New Job
-    //     </button>
-    //   </div>
-    //   <div>
-    //     <div className=" flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
-    //       {loading ? (
-    //         <div className="w-full flex items-center justify-center h-[80vh]">
-    //           <MiniLoader />
-    //         </div>
-    //       ) : (
-    //         <>
-    //           {jobPost.length > 0 ? (
-    //             <>
-    //               {jobPost.map((item, index) => (
-    //                 <div
-    //                   key={index}
-    //                   className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px]"
-    //                   onClick={() =>
-    //                     router.push("/jobs/details?id=" + item?._id)
-    //                   }
-    //                 >
-    //                   <div className="px-[16px] flex flex-row justify-between ">
-    //                     <div className="flex flex-col gap-[2px]">
-    //                       <span className="text-[16px] text-[#06A9EF] font-medium">
-    //                         {item?.jobTitle}
-    //                       </span>
-    //                       <span className="text-[12px] text-[#646464] font-medium">
-    //                         {item?.location?.join(",")}
-    //                       </span>
-    //                       <span className="text-[10px] text-[#2706EF] font-medium">
-    //                         {item?.experiance}
-    //                       </span>
-    //                     </div>
-    //                     <div className="flex flex-row gap-2">
-    //                       {isLive(item) ? (
-    //                         <div className="border border-[#0C8A0A] text-[#0C8A0A] text-[12px] font-medium px-[16px] bg-[#E2FFE1] h-[24px] rounded-[6px] flex items-center justify-center">
-    //                           Live
-    //                         </div>
-    //                       ) : (
-    //                         <div className="border border-[#C00000] text-[#C00000] text-[12px] font-medium px-[16px] bg-[#FFEBEB] h-[24px] rounded-[6px] flex items-center justify-center">
-    //                           Closed
-    //                         </div>
-    //                       )}
-    //                       <div
-    //                         className="cursor-pointer"
-    //                         onClick={(e) => {
-    //                           e.stopPropagation(); // prevent
-    //                           router.push("/jobs/create?id=" + item?._id);
-    //                         }}
-    //                       >
-    //                         <PencilLineIcon color="#646464" />
-    //                       </div>
-    //                     </div>
-    //                   </div>
-    //                   <div className="px-[16px] flex flex-row justify-around bg-[#EFFAFF] items-center">
-    //                     <div className="text-[14px] font-semibold text-[#333333] w-[50%] text-left">
-    //                       Total Applications
-    //                     </div>
-    //                     <div className="text-[36px] font-semibold text-[#333333] w-[50%] text-center">
-    //                       {item?.applications?.length}
-    //                     </div>
-    //                   </div>
-    //                   <div className="px-[16px] flex flex-row justify-between items-center">
-    //                     <div className="flex flex-col">
-    //                       <span className="text-[12px] font-semibold text-[#646464]">
-    //                         Date posted
-    //                       </span>
-    //                       <span className="text-[12px] font-semibold text-[#333333]">
-    //                         {dateSeter(item.createdAt)}
-    //                       </span>
-    //                     </div>
-    //                     {item.deadLine &&
-    //                       <div className="flex flex-col">
-    //                         <span className="text-[12px] font-semibold text-[#646464]">
-    //                           Due On
-    //                         </span>
 
-    //                         <span className="text-[12px] font-semibold text-[#333333]">
-    //                           {dateSeter(item.deadLine)}
-    //                         </span>
-    //                       </div>
-    //                     }
-    //                   </div>
-    //                 </div>
-    //               ))}
-    //             </>
-    //           ) : (
-    //             <div className="w-full h-[40vh] flex justify-center items-center text-[24px] text-[#bebebe] font-medium">
-    //               No Job Posted Yet !
-    //             </div>
-    //           )}
-    //         </>
-    //       )}
-    //     </div>
-    //   </div>
-    // </div>
 
     <div className="job-list customMargins flex flex-col gap-[16px]  ">
-      <div className="flex sm:flex-row flex-col gap-4 justify-between sm:items-center items-end w-full">
+      <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
           Job Listings
         </span>
@@ -204,11 +121,22 @@ const Index = () => {
         >
           <AddIcon color={"#fff"} /> Create New Job
         </button> */}
-        <div className="flex gap-4  ms:items-center items-end justify-end relative">
+       
+        <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
+        <select
+          className="text-[14px] font-medium text-[#333333] bg-[#E9EEF6] rounded-[8px] py-[8px] px-[12px] cursor-pointer"
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Live">Live</option>
+          <option value="Closed">Closed</option>
+          <option value="Hold">Hold</option>
+        </select>
           {!select && (
             <div
               onClick={() => setSelect(!select)}
-              className="scr420:py-3 scr420:px-2 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer min-w-[8rem]"
+              className="scr420:py-3 scr420:px-2 px-2 py-2 flex gap-2 text-[16px] h-[40px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer min-w-[8rem]"
             >
               <svg
                 width="22"
@@ -228,9 +156,8 @@ const Index = () => {
             </div>
           )}
           <div
-            className={` ${
-              select ? "flex" : "hidden"
-            } gap-12  items-center w-[100%]  `}
+            className={` ${select ? "flex" : "hidden"
+              } gap-12  items-center w-[100%]  `}
           >
             {select && (
               <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[300px]  scr420:h-[48px] h-[40px]  ">
@@ -290,7 +217,7 @@ const Index = () => {
               </div>
             )}
           </div>
-          {!select && (
+          {/* {!select && (
             <button
               onClick={() => router.push("/myClients/CreateNewClient")}
               className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
@@ -312,11 +239,11 @@ const Index = () => {
               </svg>
               Create New Client
             </button>
-          )}
+          )} */}
 
           <button
             onClick={() => router.push("/jobs/create")}
-            className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+            className=" flex  text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
             type="button"
           >
             <svg
@@ -361,9 +288,9 @@ const Index = () => {
             </div>
           ) : (
             <>
-              {jobPost.length > 0 ? (
+              {sortedJobs.length > 0 ? (
                 <>
-                  {jobPost.map((item, index) => (
+                  {sortedJobs.map((item, index) => (
                     <div
                       key={index}
                       className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px] relative"
@@ -400,15 +327,21 @@ const Index = () => {
                         </div>
 
                         <div className="flex flex-row gap-2">
-                          {isLive(item) ? (
+                          {item.status === "Live" &&
                             <div className="border border-[#0C8A0A] text-[#0C8A0A] text-[12px] font-medium px-[16px] bg-[#E2FFE1] h-[24px] rounded-[6px] flex items-center justify-center">
                               Live
                             </div>
-                          ) : (
+                          }
+                          {item.status === "Closed" &&
                             <div className="border border-[#C00000] text-[#C00000] text-[12px] font-medium px-[16px] bg-[#FFEBEB] h-[24px] rounded-[6px] flex items-center justify-center">
                               Closed
                             </div>
-                          )}
+                          }
+                          {item.status === "Hold" &&
+                            <div className="border border-[#FF9900] text-[#FF9900] text-[12px] font-medium px-[16px] bg-[#FFFFFF] h-[24px] rounded-[6px] flex items-center justify-center">
+                              Hold
+                            </div>
+                          }
                           <div
                             className="cursor-pointer"
                             onClick={(e) => {

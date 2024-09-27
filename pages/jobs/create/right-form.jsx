@@ -94,9 +94,8 @@ const Rightform = ({
       emptyFields.forEach((field) => {
         setFormError((formError) => ({
           ...formError,
-          [field]: `${
-            field.charAt(0).toUpperCase() + field.slice(1)
-          } is required`,
+          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)
+            } is required`,
         }));
       });
       hasError = true;
@@ -124,7 +123,7 @@ const Rightform = ({
     formData.append("createdBy", userDataGlobal._id);
 
     axios
-      .post("https://jamblix.com/api/job/add/" + id, formData)
+      .post("http://localhost:2000/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");
@@ -145,6 +144,20 @@ const Rightform = ({
     label: item.currency,
   }));
 
+  const experienceOptions = [
+    { value: "", label: "Select" },
+    { value: "0-2 years", label: "0-2 years" },
+    { value: "2-5 years", label: "2-5 years" },
+    { value: "5-10 years", label: "5-10 years" },
+    { value: "10-20 years", label: "10-20 years" },
+    { value: "20 +", label: "20 +" },
+  ];
+
+  const experienceIndices = experienceOptions.map((option) => option.value);
+
+  const isRelevantAllowed = (totalExpIndex, relevantExpIndex) => {
+    return relevantExpIndex <= totalExpIndex;
+  };
   return (
     <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
       <div className="flex flex-col w-full gap-[16px]">
@@ -231,7 +244,7 @@ const Rightform = ({
 
               <option value="Hybrid">Hybrid</option>
               <option value="International">International</option>
-              <option value="Work From Home">Work From Home</option>
+              {/* <option value="Work From Home">Work From Home</option> */}
               <option value="Jobs for Women">Jobs for Women</option>
             </select>
 
@@ -271,6 +284,7 @@ const Rightform = ({
                   <option value="Select">Select</option>
                   <option value="Annual">Annual</option>
                   <option value="Monthly">Monthly</option>
+                  <option value="Weekly">Weekly</option>
                 </select>
 
                 <img
@@ -377,22 +391,31 @@ const Rightform = ({
           </label>
           <ReactSelect
             onInputChange={(data) => {
-              setSkills([data, ...skills]);
+              // Only add non-empty skills to the list
+              if (data.trim()) {
+                setSkills((prevSkills) => [data, ...prevSkills.filter(skill => skill.trim() !== "")]);
+              }
             }}
-            options={skills.map((item) => ({
-              value: item,
-              label: camelCase(item),
-            }))}
+            options={skills
+              .filter((item) => item.trim() !== "") // Filter out empty skills
+              .map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
             className="w-full"
             onChange={(mustSkill) => {
-              setData({
-                ...data,
-                mustSkills: [...data.mustSkills, mustSkill.value],
-              });
+              // Ensure the selected skill is not empty
+              if (mustSkill && mustSkill.value) {
+                setData({
+                  ...data,
+                  mustSkills: [...data.mustSkills, mustSkill.value],
+                });
 
-              setFormError({});
+                setFormError({});
+              }
             }}
           />
+
           {formError && (
             <p className="text-[12px] text-[red] font-[500]">
               {formError.mustSkills}
@@ -432,22 +455,30 @@ const Rightform = ({
           </label>
           <ReactSelect
             onInputChange={(data) => {
-              setSkills([data, ...skills]);
+              // Only add non-empty skills to the list
+              if (data.trim()) {
+                setSkills((prevSkills) => [data, ...prevSkills.filter(skill => skill.trim() !== "")]);
+              }
             }}
-            options={skills.map((item) => ({
-              value: item,
-              label: camelCase(item),
-            }))}
+            options={skills
+              .filter((item) => item.trim() !== "") // Filter out empty skills
+              .map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
             className="w-full"
             onChange={(goodSkill) => {
-              setData({
-                ...data,
-                goodSkills: [...data.goodSkills, goodSkill.value],
-              });
-
-              setFormError({});
+              // Ensure the selected skill is not empty
+              if (goodSkill && goodSkill.value) {
+                setData({
+                  ...data,
+                  goodSkills: [...data.goodSkills, goodSkill.value],
+                });
+                setFormError({});
+              }
             }}
           />
+
           {formError && (
             <p className="text-[12px] text-[red] font-[500]">
               {formError.goodSkills}
@@ -478,34 +509,31 @@ const Rightform = ({
             ))}
           </div>
         </div>
-        <div className="flex sm:flex-row flex-col  gap-4 w-[100%] justify-between">
-          <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Total Experience
-            </label>
-            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+        <div className="flex sm:flex-row flex-col gap-4 w-[100%] justify-between">
+          <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+            <label className="text-[#333333] text-[14px] font-medium">Total Experience</label>
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select
                 style={{
                   WebkitAppearance: "none",
                   MozAppearance: "none",
                   appearance: "none",
                   position: "relative",
-                  background: " transparent",
+                  background: "transparent",
                 }}
                 value={data?.experience}
                 onChange={(e) => {
-                  setData({ ...data, experience: e.target.value });
+                  const newExperience = e.target.value;
+                  setData({ ...data, experience: newExperience });
                 }}
-                className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+                className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
               >
-                <option value="">Select</option>
-                <option value="0-2 years">0-2 years </option>
-                <option value="2-5 years">2-5 years </option>
-                <option value="5-10 years">5-10 years</option>
-                <option value="10-20 years">10-20 years</option>
-                <option value="20 +">20 +</option>
+                {experienceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
-
               <img
                 src="/images/down_arrow.png"
                 className="h-[20px] w-[20px] absolute right-[4px]"
@@ -513,33 +541,41 @@ const Rightform = ({
               />
             </div>
           </div>
-          <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
-            <label className="text-[#333333] text-[14px] font-medium">
-              Relevant Experience
-            </label>
-            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+
+          <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+            <label className="text-[#333333] text-[14px] font-medium">Relevant Experience</label>
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select
                 style={{
                   WebkitAppearance: "none",
                   MozAppearance: "none",
                   appearance: "none",
                   position: "relative",
-                  background: " transparent",
+                  background: "transparent",
                 }}
                 value={data?.revalentExp}
                 onChange={(e) => {
-                  setData({ ...data, revalentExp: e.target.value });
-                }}
-                className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
-              >
-                <option value="">Select</option>
-                <option value="0-2 years">0-2 years </option>
-                <option value="2-5 years">2-5 years </option>
-                <option value="5-10 years">5-10 years</option>
-                <option value="10-20 years">10-20 years</option>
-                <option value="20 +">20 +</option>
-              </select>
+                  const newRelevantExp = e.target.value;
 
+                  const totalExpIndex = experienceIndices.indexOf(data?.experience);
+                  const relevantExpIndex = experienceIndices.indexOf(newRelevantExp);
+
+                  // Allow selection only if the relevant experience index is less than or equal to the total experience index
+                  if (isRelevantAllowed(totalExpIndex, relevantExpIndex)) {
+                    setData({ ...data, revalentExp: newRelevantExp });
+                  } else {
+                    toast.error(" Cannot be greater than total experience.");
+                    setData((prevData) => ({ ...prevData, revalentExp: "" })); // Reset relevant experience
+                  }
+                }}
+                className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+              >
+                {experienceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
               <img
                 src="/images/down_arrow.png"
                 className="h-[20px] w-[20px] absolute right-[4px]"
@@ -549,13 +585,13 @@ const Rightform = ({
           </div>
         </div>
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
-          <div className=" sm:w-[49%] w-full flex flex-col gap-[8px] ">
+          <div className="sm:w-[49%] w-full flex flex-col gap-[8px]">
             <label className="text-[#333333] text-[14px] font-medium">
               Application Deadline <span className="text-red">*</span>
             </label>
             <input
               type="date"
-              placeholder="Required Qualtification"
+              placeholder="Required Qualification"
               className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px]"
               value={data?.deadLine}
               onChange={(e) => {
@@ -565,12 +601,50 @@ const Rightform = ({
                   deadLine: "",
                 }));
               }}
+              min={new Date().toISOString().split("T")[0]} // Set min to today's date
             />
             {formError && (
               <p className="text-[12px] text-[red] font-[500]">
                 {formError.deadLine}
               </p>
             )}
+          </div>
+
+          <div className=" sm:w-[49%] w-full flex flex-col gap-[8px] ">
+            <label className="text-[#333333] text-[14px] font-medium">
+              Job Status
+            </label>
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[42px]">
+              <select
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  position: "relative",
+                  // zIndex: 1,
+                  // background: " transparent",
+                }}
+                value={data?.status}
+                onChange={(e) => {
+                  setData({ ...data, status: e.target.value });
+                }}
+                className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
+              >
+                <option value="Select">Select</option>
+                <option value="Live">Live</option>
+
+                <option value="Hold">Hold</option>
+                {id &&
+                  <option value="Closed">Closed</option>
+                }
+              </select>
+
+              <img
+                src="/images/down_arrow.png"
+                className="h-[20px] w-[20px] absolute right-[4px]"
+                alt=""
+              />
+            </div>
           </div>
         </div>
       </div>

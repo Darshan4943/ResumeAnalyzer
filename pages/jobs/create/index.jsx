@@ -36,14 +36,19 @@ const Index = () => {
     revalentExp: "",
     mustSkills: [],
     goodSkills: [],
+    status:"Live"
   });
 
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
+        const formattedDeadLine = res.data.deadLine
+          ? new Date(res.data.deadLine).toISOString().split("T")[0]
+          : "";
+          console.log(formattedDeadLine)
         const {
           companyName,
           jobTitle,
@@ -57,12 +62,13 @@ const Index = () => {
           maxSalary,
           requiredQualification,
           requiredSkills,
-          deadLine,
+          // deadLine,
           experience,
           mustSkills,
           goodSkills,
           currency,
           revalentExp,
+          status
         } = res.data;
         setData({
           ...data,
@@ -78,12 +84,13 @@ const Index = () => {
           maxSalary,
           requiredQualification,
           requiredSkills,
-          deadLine,
+          deadLine :formattedDeadLine,
           experience,
           mustSkills,
           goodSkills,
           currency,
           revalentExp,
+          status
         });
       })
       .catch((err) => {
