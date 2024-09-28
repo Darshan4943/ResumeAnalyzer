@@ -1,7 +1,14 @@
 import React from 'react';
+import ReactSelect from 'react-select';
+import { currencyMap } from '../../../utils/data';
 
-const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails }) => {
+const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, setFormData }) => {
 
+
+  const currencyOptions = currencyMap.map((item) => ({
+    value: item.currency,
+    label: item.currency,
+  }));
   const handleNumberInput = (field, value) => {
 
     if (/^\d*$/.test(value)) {
@@ -9,7 +16,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails })
     }
   };
 
-  console.log(11, jobDetails)
+
   return (
     <div className="flex flex-col gap-4">
       <div className='flex flex-row gap-4 items-center'>
@@ -51,37 +58,132 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails })
           </div>
         </div>
 
-        <div className="grid ms:grid-cols-2 grid-cols-1 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Current CTC ({jobDetails?.currency})
-            </label>
-            <input
-              type="text"
-              placeholder="Enter value"
-              className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
-              value={data?.currentCTC}
-              onChange={(e) => handleNumberInput('currentCTC', e.target.value)}
-            />
-            {formError?.currentCTC && (
-              <p className="text-xs text-red font-medium mt-1">{formError.currentCTC}</p>
-            )}
-          </div>
+        <div className="flex ml:flex-row flex-col gap-4">
+          <div className='ml:w-[49.5%] w-[100%] flex flex-row  gap-4'>
+            <div className=" w-[20%]  flex flex-col ">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Currency
+              </label>
+              <div className="flex flex-col mt-1 items-center rounded-lg border  border-[#AFAFAF] bg-white text-[14px] font-montserrat font-small relative min-w-[90px] overflow-visible h-[41.33px]">
+                <ReactSelect
+                  options={currencyOptions}
+                  className="w-[100%] flex min-w-[70px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
+                  placeholder="Select Currency"
+                  value={
+                    currencyOptions.find(
+                      (option) => option.value === data?.currencyCurrentCTC
+                    ) || null
+                  }
+                  onChange={(value) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      professional: {
+                        ...prevData.professional,
+                        currencyCurrentCTC: value.value,
+                      },
+                    }));
+                  }}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+                      width: "100%",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      zIndex: 1,
+                      position: "absolute",
+                    }),
+                  }}
+                />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Expected CTC ({jobDetails?.currency})
-            </label>
-            <input
-              type="text"
-              placeholder="Enter value"
-              className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
-              value={data?.expectedCTC}
-              onChange={(e) => handleNumberInput('expectedCTC', e.target.value)}
-            />
-            {formError?.expectedCTC && (
-              <p className="text-xs text-red font-medium mt-1">{formError.expectedCTC}</p>
-            )}
+              </div>
+              <div className="flex flex-row items-start justify-start">
+                {formError && (
+                  <p className="text-[12px] text-[red] font-[500] text-left">
+                    {formError.currency}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className=" w-[78%] flex flex-col ">
+              <label className="block text-sm font-medium text-gray-700">
+                Current CTC
+              </label>
+              <input
+                type="text"
+                placeholder="Enter value"
+                className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
+                value={data?.currentCTC}
+                onChange={(e) => handleNumberInput('currentCTC', e.target.value)}
+              />
+              {formError?.currentCTC && (
+                <p className="text-xs text-red font-medium mt-1">{formError.currentCTC}</p>
+              )}
+            </div>
+          </div>
+          <div className='ml:w-[49.5%] w-[100%] flex flex-row  gap-4'>
+            <div className=" w-[20%]  flex flex-col ">
+              <label className="text-[#333333] text-[14px] font-medium">
+                Currency
+              </label>
+              <div className="flex flex-col mt-1 items-center rounded-lg border  border-[#AFAFAF] bg-white text-[14px] font-montserrat font-small relative min-w-[90px] overflow-visible h-[41.33px]">
+                <ReactSelect
+                  options={currencyOptions}
+                  className="w-[100%] flex min-w-[70px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
+                  placeholder="Select Currency"
+                  value={
+                    currencyOptions.find(
+                      (option) => option.value === data?.currencyExpectedCTC
+                    ) || null
+                  }
+                  onChange={(value) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      professional: {
+                        ...prevData.professional,
+                        currencyExpectedCTC: value.value,
+                      },
+                    }));
+                  }}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+                      width: "100%",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      zIndex: 1,
+                      position: "absolute",
+                    }),
+                  }}
+                />
+
+              </div>
+              <div className="flex flex-row items-start justify-start">
+                {formError && (
+                  <p className="text-[12px] text-[red] font-[500] text-left">
+                    {formError.currency}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className='w-[78%] flex flex-col'>
+              <label className="block text-sm font-medium text-gray-700">
+                Expected CTC
+              </label>
+              <input
+                type="text"
+                placeholder="Enter value"
+                className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
+                value={data?.expectedCTC}
+                onChange={(e) => handleNumberInput('expectedCTC', e.target.value)}
+              />
+              {formError?.expectedCTC && (
+                <p className="text-xs text-red font-medium mt-1">{formError.expectedCTC}</p>
+              )}
+            </div>
           </div>
         </div>
 

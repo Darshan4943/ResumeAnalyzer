@@ -48,56 +48,72 @@ function ApplyForm() {
       currentCTC: "",
       expectedCTC: "",
       noticePeriod: "",
+      currencyExpectedCTC: "",
+      currencyCurrentCTC: ""
     },
   });
 
   const router = useRouter();
   const { id } = router.query;
   const [jobDetails, setJobDetails] = useState();
-
+console.log(jobDetails)
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/job/getByJobId/${id}`)
-      .then((res) => setJobDetails(res.data))
-
+      .get(`http://localhost:2000/api/job/getByJobId/${id}`)
+      .then((res) => {
+      
+        setJobDetails(res.data);
+  
+        setFormData((prevData) => ({
+          ...prevData, 
+          professional: {
+            ...prevData.professional, 
+            currencyExpectedCTC: res.data?.currency || prevData.professional.currencyExpectedCTC || "",
+            currencyCurrentCTC: res.data?.currency || prevData.professional.currencyCurrentCTC || "",
+          },
+        }));
+      })
       .catch((err) => console.error(err));
   }, [id]);
-
+  
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
+        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
       )
       .then((res) => {
         const { personal, professional } = res.data.data;
         const formattedDob = personal.dob
           ? new Date(personal.dob).toISOString().split("T")[0]
           : "";
-
-        setFormData({
+  
+        setFormData((prevData) => ({
+          ...prevData, 
           personal: {
-            firstName: personal.firstName || "",
-            lastName: personal.lastName || "",
-            email: personal.email || "",
-            mobileNo: personal.mobileNo || "",
-
-            currentLocation: personal.currentLocation || "",
-            dob: formattedDob || "",
-            gender: personal.gender || "",
+            ...prevData.personal, 
+            firstName: personal.firstName || prevData.personal.firstName || "",
+            lastName: personal.lastName || prevData.personal.lastName || "",
+            email: personal.email || prevData.personal.email || "",
+            mobileNo: personal.mobileNo || prevData.personal.mobileNo || "",
+        
+            dob: formattedDob || prevData.personal.dob || "",
+            gender: personal.gender || prevData.personal.gender || "",
           },
           professional: {
-            totalExperience: professional.totalExperience || "",
-            relevantExperience: professional.relevantExperience || "",
-            currentCTC: professional.currentCTC || "",
-            expectedCTC: professional.expectedCTC || "",
-            noticePeriod: professional.noticePeriod || "",
-            comfortableWithLocation: professional.comfortableWithLocation || "",
+            ...prevData.professional, 
+            totalExperience: professional.totalExperience || prevData.professional.totalExperience || "",
+            relevantExperience: professional.relevantExperience || prevData.professional.relevantExperience || "",
+            currentCTC: professional.currentCTC || prevData.professional.currentCTC || "",
+            expectedCTC: professional.expectedCTC || prevData.professional.expectedCTC || "",
+            noticePeriod: professional.noticePeriod || prevData.professional.noticePeriod || "",
+            comfortableWithLocation: professional.comfortableWithLocation || prevData.professional.comfortableWithLocation || "",
           },
-          dial_code: personal.dial_code || "",
-        });
+          dial_code: personal.dial_code || prevData.dial_code || "",
+        }));
       })
       .catch((err) => console.error(err));
   }, []);
+  
 
   useEffect(() => {
     axios
@@ -372,18 +388,19 @@ function ApplyForm() {
     }));
   };
 
+  console.log(111, formData)
   const applyForJob = () => {
     if (!validateInput()) return;
     const totalExperience = parseInt(formData.professional?.totalExperience) || 0;
     const relevantExperience = parseInt(formData.professional?.relevantExperience) || 0;
-  
+
     if (relevantExperience > totalExperience) {
-    
+
       setFormError((prevErrors) => ({
         ...prevErrors,
         relevantExperience: "Relevant experience cannot be greater than Total experience.",
       }));
-      return; 
+      return;
     }
     setLoading(true);
     const formDataToSend = new FormData();
@@ -420,6 +437,8 @@ function ApplyForm() {
           currentCTC: formData.professional?.currentCTC,
           expectedCTC: formData.professional?.expectedCTC,
           noticePeriod: formData.professional?.noticePeriod,
+          currencyCurrentCTC: formData.professional?.currencyCurrentCTC,
+          currencyExpectedCTC: formData.professional?.currencyExpectedCTC,
           comfortableWithLocation:
             formData.professional?.comfortableWithLocation,
           aboutme: professionalSec?.aboutMe || "",
@@ -430,7 +449,7 @@ function ApplyForm() {
     );
 
     axios
-      .post(`https://jamblix.com/api/job/apply/${id}`, formDataToSend, {
+      .post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -452,7 +471,7 @@ function ApplyForm() {
       .finally(() => {
         axios
           .post(
-            "https://jamblix.com/api/userJobDetails/createOrUpdateUserJobDetails",
+            "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
             {
               userId: userDataGlobal._id,
               ...formData,
@@ -500,6 +519,7 @@ function ApplyForm() {
     link.download = { fileName };
     link.click();
   };
+
 
   return (
     <>
@@ -693,7 +713,7 @@ function ApplyForm() {
           </div>
 
           <ProfessionalDetails
-          setFormError={setFormError}
+            setFormError={setFormError}
             data={formData.professional}
             setFormData={setFormData}
             handleInputChange={(fieldName, value) =>
