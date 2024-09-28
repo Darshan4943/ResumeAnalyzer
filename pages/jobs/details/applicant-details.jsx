@@ -117,7 +117,7 @@ const ApplicantDetails = () => {
               <div className="flex flex-row gap-[16px]">
                 <img
                   src={
-                   
+                    
                       "/images/services/profile.png"
                   }
                   alt="img"
