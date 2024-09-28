@@ -115,7 +115,7 @@ const InputBox = ({
         {localIsDropdownOpen && (
           <div
             ref={dropdownRef}
-            className="dropdown mt-1 bg-[#fff] p-4 rounded-[6px] absolute bottom-100 left-[1px] w-[340px] gap-[10px] top-[46px] max-h-[270px] overflow-y-scroll"
+            className="dropdown mt-1 bg-[#fff] p-4 rounded-[6px] absolute bottom-100 left-[1px] w-[280px] gap-[10px] top-[46px] max-h-[270px] overflow-y-scroll"
             style={{ boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.25)" }}
           >
             <div className="flex flex-col gap-5 items-start">
@@ -145,15 +145,15 @@ const InputBox = ({
               ) : (
                 <p className="text-gray-500 text-sm">No options available</p>
               )}
-              <div className="flex justify-center items-start w-full gap-2">
+              <div className="flex justify-between items-start w-full gap-2">
                 <button
-                  className="rounded-[8px] border border-blue w-[49%] text-black py-[12px]"
+                  className="rounded-[8px] border border-blue w-[45%] text-black py-[8px]"
                   onClick={handleClearFilters}
                 >
                   <p className="text-[12px] font-[700px] text-black">Clear</p>
                 </button>
                 <button
-                  className="rounded-[8px] border border-blue bg-blue w-[49%] text-black py-[12px]"
+                  className="rounded-[8px] border border-blue bg-blue w-[45%] text-black py-[8px]"
                   onClick={getFilterData}
                 >
                   <p className="text-[12px] font-[700px] text-white">Apply</p>
