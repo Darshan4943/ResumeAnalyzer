@@ -33,6 +33,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   useEffect(() => {
     if (userDataGlobal._id) {
       getData();
+    }else{
+      setLoading(false);
     }
   }, [userDataGlobal]);
 
@@ -47,6 +49,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
     }
   }, []);
 
+  
   return (
     <>
       {!loading && (
