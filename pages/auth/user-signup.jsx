@@ -186,6 +186,12 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     clearError();
   };
 
+  const isEdge = () => {
+    return /Edg/.test(navigator.userAgent);
+  };
+  
+
+
   return (
     <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
       <form
@@ -221,7 +227,8 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 onChange={handlePasswordChange}
               />
 
-              {showPassword ? (
+{!isEdge() && (
+                showPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -253,7 +260,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
-              )}
+              ))}
             </div>
             <div
               className={`flex justify-start text-[10px] gap-2  font-[600]
@@ -279,7 +286,8 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 value={data.confirmPassword}
                 onChange={handleConfirmPasswordChange}
               />
-              {showConfirmPassword ? (
+                {!isEdge() && (
+                showConfirmPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -311,7 +319,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
-              )}
+              ))}
             </div>
             <div
               className={`flex justify-start text-[12px] gap-2 text-red font-[600]
