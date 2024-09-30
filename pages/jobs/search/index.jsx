@@ -162,19 +162,19 @@ function Index() {
   }, [toggleHeadings]);
 
   const sortedExperiences = (jobtypeData?.experiences || [])
-  .filter(Boolean) 
-  .sort((a, b) => {
-    const getYears = (str) => {
-      const match = str?.match(/\d+/g); 
-      return match ? parseInt(match[0]) : Infinity;
-    };
-    return getYears(a) - getYears(b);
-  });
+    .filter(Boolean)
+    .sort((a, b) => {
+      const getYears = (str) => {
+        const match = str?.match(/\d+/g);
+        return match ? parseInt(match[0]) : Infinity;
+      };
+      return getYears(a) - getYears(b);
+    });
 
 
   const sortedEducations = (jobtypeData?.educations || [])
-  .filter(Boolean) 
-  .sort((a, b) => a.localeCompare(b)); 
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b));
 
 
   const inputData = [
@@ -214,7 +214,7 @@ function Index() {
     {
       title: "Experience",
       img: "/images/jobs/arw.png",
-      child:  sortedExperiences || [],
+      child: sortedExperiences || [],
     },
     {
       title: "Education",
@@ -274,26 +274,27 @@ function Index() {
     }
   }, []);
 
-  useEffect(() => {
-    if (isLogin) {
-      axios
-        .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
-        .then((res) => {
-          const data = res.data.data;
-          const skillsSet = new Set();
-          if (data) {
-            data.forEach((item) => {
-              item.skills.forEach((skillObj) => {
-                skillsSet.add(skillObj.skill);
-              });
-            });
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     axios
+  //       .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+  //       .then((res) => {
+  //         const data = res.data.data;
+  //         const skillsSet = new Set();
+  //         if (data) {
+  //           data.forEach((item) => {
+  //             item.skills.forEach((skillObj) => {
+  //               skillsSet.add(skillObj.skill);
+  //             });
+  //           });
 
-            setUserSkills(Array.from(skillsSet));
-          }
-        })
-        .catch((err) => console.error("err", err));
-    }
-  }, [isLogin]);
+  //           setUserSkills(Array.from(skillsSet));
+  //           0
+  //         }
+  //       })
+  //       .catch((err) => console.error("err", err));
+  //   }
+  // }, [isLogin]);
 
   const getData = () => {
     axios
@@ -340,11 +341,12 @@ function Index() {
   };
 
   useEffect(() => {
-  
-      getAllData();
-   
-  }, [userSkills, page, limit, country]);
 
+    getAllData();
+
+  }, [page,limit,country]);
+ 
+console.log(country)
   // const getJobData = () => {
   //   if (userSkills) {
   //     // console.log("globalskills", userDataGlobal.skills)
@@ -539,31 +541,31 @@ function Index() {
     };
 
     try {
-     
-        const response = await axios.post(
-          "https://jamblix.com/api/job/getFilterData",
-          {
-            requiredSkills: userSkills?.map((item) => item),
-            country,
-            ...mappedFilters,
-          },
-          {
-            params: { page, limit },
-          }
-        );
-       
-        setJobData(response.data.data)
-        setTotalCount(response.data.totalCount);
-        setTotalpages(response.data.totalPages);
-        // dispatch(setJob(response.data.data));
-        setMobileFilter(false);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-     
+
+      const response = await axios.post(
+        "https://jamblix.com/api/job/getFilterData",
+        {
+          requiredSkills: userSkills?.map((item) => item),
+          country,
+          ...mappedFilters,
+        },
+        {
+          params: { page, limit },
+        }
+      );
+
+      setJobData(response.data.data)
+      setTotalCount(response.data.totalCount);
+      setTotalpages(response.data.totalPages);
+      // dispatch(setJob(response.data.data));
+      setMobileFilter(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+
     } catch (error) {
       console.error("Error fetching filter data", error);
-    } 
+    }
     // finally {
     //   setTimeout(() => {
     //     setLoading(false);
@@ -585,7 +587,7 @@ function Index() {
     }
   }, [toggleHeadings]);
 
- console.log(jobData)
+  console.log(jobData)
   return (
     <>
       {limitPopup && (
@@ -599,9 +601,9 @@ function Index() {
           className={` sticky top-[56px]
              z-50`}
         >
-          <div className="bg-[#E0F6FF] px-4 ">
-            <div className="flex justify-center items-center py-[10px] sm:py-[15px]">
-              <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start sm:py-[8px] sm:px-[10px]  scr540:px-[16px] rounded-[8px] bg-white w-[50%] scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
+          <div className="bg-[#E0F6FF]  ">
+            <div className="flex justify-center items-center py-[10px] sm:py-[15px] customMargins">
+              <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start   scr540:px-[16px] rounded-[8px] bg-white w-[100%]  scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
                 <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 p-2">
                   <svg
                     className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
@@ -645,36 +647,38 @@ function Index() {
                 <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
 
                 <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
-                  <div className=" bg-[#E0E0E0] min-w-[3px] h-[36px] sm:block hidden"></div>
-                  <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
-                    <svg
-                      className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
-                      viewBox="0 0 31 30"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                        stroke="#333333"
-                        strokeWidth="3.1544"
-                      />
-                      <path
-                        d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                        fill="white"
-                        stroke="#333333"
-                        strokeWidth="3.1544"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <div className="flex flex-row gap-4">
+                    <div className=" bg-[#E0E0E0] min-w-[3px] h-[36px] sm:block hidden"></div>
+                    <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
+                      <svg
+                        className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
+                        viewBox="0 0 31 30"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
+                          stroke="#333333"
+                          strokeWidth="3.1544"
+                        />
+                        <path
+                          d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
+                          fill="white"
+                          stroke="#333333"
+                          strokeWidth="3.1544"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
 
-                    <input
-                      type="text"
-                      placeholder="Location"
-                      className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
+                      <input
+                        type="text"
+                        placeholder="Location"
+                        className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      />
+                    </div>
                   </div>
                   {/* <svg
                      onClick={()=>{setToggleHeadings(0);setLoading(true);getAllData()}}
@@ -738,17 +742,15 @@ function Index() {
                         setToggleHeadings(index);
                       }}
                       key={index}
-                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${
-                        toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                      }`}
+                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
+                        }`}
                     >
                       <div className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px] min-w-[18px] sm:min-w-[24px]">
                         {item.img}
                       </div>
                       <p
-                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${
-                          toggleHeadings === index && "text-white"
-                        }`}
+                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
+                          }`}
                       >
                         {item.title}
                       </p>
@@ -763,9 +765,9 @@ function Index() {
                 <div className="flex items-center py-5  gap-3 flex-wrap  ">
                   {filteredInputData.map((item, index) => (
                     <InputBox
-                    setTotalCount={setTotalCount}
-                    setTotalpages={setTotalpages}
-                    setJobData={setJobData}
+                      setTotalCount={setTotalCount}
+                      setTotalpages={setTotalpages}
+                      setJobData={setJobData}
                       key={index}
                       item={item}
                       filterType={item.title.replace(/ /g, "")}

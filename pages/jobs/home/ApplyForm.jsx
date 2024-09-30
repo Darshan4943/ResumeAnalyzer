@@ -59,7 +59,7 @@ function ApplyForm() {
 console.log(jobDetails)
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/job/getByJobId/${id}`)
+      .get(`https://jamblix.com/api/job/getByJobId/${id}`)
       .then((res) => {
       
         setJobDetails(res.data);
@@ -79,7 +79,7 @@ console.log(jobDetails)
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
+        `https://jamblix.com/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
       )
       .then((res) => {
         const { personal, professional } = res.data.data;
@@ -449,7 +449,7 @@ console.log(jobDetails)
     );
 
     axios
-      .post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
+      .post(`https://jamblix.com/api/job/apply/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -471,7 +471,7 @@ console.log(jobDetails)
       .finally(() => {
         axios
           .post(
-            "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
+            "https://jamblix.com/api/userJobDetails/createOrUpdateUserJobDetails",
             {
               userId: userDataGlobal._id,
               ...formData,
@@ -523,12 +523,12 @@ console.log(jobDetails)
 
   return (
     <>
-      <div className="customMargins wl:w-[80%] w-[100%]">
+      <div className="customMargins wl:w-[100%] w-[100%]">
         <div
           className="rounded-[16px] my-6 bg-[#FFFFFF] sm:p-6 p-3 flex flex-col gap-6"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
-          <div className=" flex ml:flex-row flex-col sm:gap-4 gap-2 ml:items-center ">
+          <div className=" flex xxlg:flex-row flex-col sm:gap-4 gap-2 xxlg:items-center ">
             <svg
               className=" cursor-pointer"
               onClick={() => router.back()}
@@ -552,11 +552,11 @@ console.log(jobDetails)
                 {jobDetails?.jobTitle}
               </span>
             </p>
-            <div className="bg-[#DEDEDE] w-[2px] h-[29px] ml:block hidden"></div>
+            <div className="bg-[#DEDEDE] w-[2px] h-[29px] xxlg:block hidden"></div>
             <p className="sm:text-[24px] text-[18px]  font-medium">
               {jobDetails?.companyName}
             </p>
-            <div className="flex flex-row gap-1 items-center">
+            <div className="flex flex-row gap-1 items-start">
               <svg
                 width="20"
                 height="21"

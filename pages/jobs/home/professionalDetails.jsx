@@ -60,14 +60,14 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, s
 
         <div className="flex ml:flex-row flex-col gap-4">
           <div className='ml:w-[49.5%] w-[100%] flex flex-row  gap-4'>
-            <div className=" w-[20%]  flex flex-col ">
+            <div className=" sm:w-[20%]  flex flex-col ">
               <label className="text-[#333333] text-[14px] font-medium">
                 Currency
               </label>
               <div className="flex flex-col mt-1 items-center rounded-lg border  border-[#AFAFAF] bg-white text-[14px] font-montserrat font-small relative min-w-[90px] overflow-visible h-[41.33px]">
                 <ReactSelect
                   options={currencyOptions}
-                  className="w-[100%] flex min-w-[70px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
+                  className="w-[100%] flex min-w-[85px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
                   placeholder="Select Currency"
                   value={
                     currencyOptions.find(
@@ -123,14 +123,14 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, s
             </div>
           </div>
           <div className='ml:w-[49.5%] w-[100%] flex flex-row  gap-4'>
-            <div className=" w-[20%]  flex flex-col ">
+            <div className=" sm:w-[20%]  flex flex-col ">
               <label className="text-[#333333] text-[14px] font-medium">
                 Currency
               </label>
               <div className="flex flex-col mt-1 items-center rounded-lg border  border-[#AFAFAF] bg-white text-[14px] font-montserrat font-small relative min-w-[90px] overflow-visible h-[41.33px]">
                 <ReactSelect
                   options={currencyOptions}
-                  className="w-[100%] flex min-w-[70px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
+                  className="w-[100%] flex min-w-[85px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
                   placeholder="Select Currency"
                   value={
                     currencyOptions.find(
