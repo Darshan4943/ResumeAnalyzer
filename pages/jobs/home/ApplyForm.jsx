@@ -48,21 +48,34 @@ function ApplyForm() {
       currentCTC: "",
       expectedCTC: "",
       noticePeriod: "",
+      currencyExpectedCTC: "",
+      currencyCurrentCTC: ""
     },
   });
 
   const router = useRouter();
   const { id } = router.query;
   const [jobDetails, setJobDetails] = useState();
-
+console.log(jobDetails)
   useEffect(() => {
     axios
       .get(`https://jamblix.com/api/job/getByJobId/${id}`)
-      .then((res) => setJobDetails(res.data))
-
+      .then((res) => {
+      
+        setJobDetails(res.data);
+  
+        setFormData((prevData) => ({
+          ...prevData, 
+          professional: {
+            ...prevData.professional, 
+            currencyExpectedCTC: res.data?.currency || prevData.professional.currencyExpectedCTC || "",
+            currencyCurrentCTC: res.data?.currency || prevData.professional.currencyCurrentCTC || "",
+          },
+        }));
+      })
       .catch((err) => console.error(err));
   }, [id]);
-
+  
   useEffect(() => {
     axios
       .get(
@@ -73,31 +86,34 @@ function ApplyForm() {
         const formattedDob = personal.dob
           ? new Date(personal.dob).toISOString().split("T")[0]
           : "";
-
-        setFormData({
+  
+        setFormData((prevData) => ({
+          ...prevData, 
           personal: {
-            firstName: personal.firstName || "",
-            lastName: personal.lastName || "",
-            email: personal.email || "",
-            mobileNo: personal.mobileNo || "",
-
-            currentLocation: personal.currentLocation || "",
-            dob: formattedDob || "",
-            gender: personal.gender || "",
+            ...prevData.personal, 
+            firstName: personal.firstName || prevData.personal.firstName || "",
+            lastName: personal.lastName || prevData.personal.lastName || "",
+            email: personal.email || prevData.personal.email || "",
+            mobileNo: personal.mobileNo || prevData.personal.mobileNo || "",
+        
+            dob: formattedDob || prevData.personal.dob || "",
+            gender: personal.gender || prevData.personal.gender || "",
           },
           professional: {
-            totalExperience: professional.totalExperience || "",
-            relevantExperience: professional.relevantExperience || "",
-            currentCTC: professional.currentCTC || "",
-            expectedCTC: professional.expectedCTC || "",
-            noticePeriod: professional.noticePeriod || "",
-            comfortableWithLocation: professional.comfortableWithLocation || "",
+            ...prevData.professional, 
+            totalExperience: professional.totalExperience || prevData.professional.totalExperience || "",
+            relevantExperience: professional.relevantExperience || prevData.professional.relevantExperience || "",
+            currentCTC: professional.currentCTC || prevData.professional.currentCTC || "",
+            expectedCTC: professional.expectedCTC || prevData.professional.expectedCTC || "",
+            noticePeriod: professional.noticePeriod || prevData.professional.noticePeriod || "",
+            comfortableWithLocation: professional.comfortableWithLocation || prevData.professional.comfortableWithLocation || "",
           },
-          dial_code: personal.dial_code || "",
-        });
+          dial_code: personal.dial_code || prevData.dial_code || "",
+        }));
       })
       .catch((err) => console.error(err));
   }, []);
+  
 
   useEffect(() => {
     axios
@@ -372,18 +388,19 @@ function ApplyForm() {
     }));
   };
 
+  console.log(111, formData)
   const applyForJob = () => {
     if (!validateInput()) return;
     const totalExperience = parseInt(formData.professional?.totalExperience) || 0;
     const relevantExperience = parseInt(formData.professional?.relevantExperience) || 0;
-  
+
     if (relevantExperience > totalExperience) {
-    
+
       setFormError((prevErrors) => ({
         ...prevErrors,
         relevantExperience: "Relevant experience cannot be greater than Total experience.",
       }));
-      return; 
+      return;
     }
     setLoading(true);
     const formDataToSend = new FormData();
@@ -420,6 +437,8 @@ function ApplyForm() {
           currentCTC: formData.professional?.currentCTC,
           expectedCTC: formData.professional?.expectedCTC,
           noticePeriod: formData.professional?.noticePeriod,
+          currencyCurrentCTC: formData.professional?.currencyCurrentCTC,
+          currencyExpectedCTC: formData.professional?.currencyExpectedCTC,
           comfortableWithLocation:
             formData.professional?.comfortableWithLocation,
           aboutme: professionalSec?.aboutMe || "",
@@ -501,14 +520,15 @@ function ApplyForm() {
     link.click();
   };
 
+
   return (
     <>
-      <div className="customMargins wl:w-[80%] w-[100%]">
+      <div className="customMargins wl:w-[100%] w-[100%]">
         <div
           className="rounded-[16px] my-6 bg-[#FFFFFF] sm:p-6 p-3 flex flex-col gap-6"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
-          <div className=" flex ml:flex-row flex-col sm:gap-4 gap-2 ml:items-center ">
+          <div className=" flex xxlg:flex-row flex-col sm:gap-4 gap-2 xxlg:items-center ">
             <svg
               className=" cursor-pointer"
               onClick={() => router.back()}
@@ -532,11 +552,11 @@ function ApplyForm() {
                 {jobDetails?.jobTitle}
               </span>
             </p>
-            <div className="bg-[#DEDEDE] w-[2px] h-[29px] ml:block hidden"></div>
+            <div className="bg-[#DEDEDE] w-[2px] h-[29px] xxlg:block hidden"></div>
             <p className="sm:text-[24px] text-[18px]  font-medium">
               {jobDetails?.companyName}
             </p>
-            <div className="flex flex-row gap-1 items-center">
+            <div className="flex flex-row gap-1 items-start">
               <svg
                 width="20"
                 height="21"
@@ -693,7 +713,7 @@ function ApplyForm() {
           </div>
 
           <ProfessionalDetails
-          setFormError={setFormError}
+            setFormError={setFormError}
             data={formData.professional}
             setFormData={setFormData}
             handleInputChange={(fieldName, value) =>
