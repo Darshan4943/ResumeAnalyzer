@@ -315,11 +315,10 @@ function Index() {
       const res = await axios.post(
         "https://jamblix.com/api/job/getAll",
         {
-          requiredSkills:
-            jobTitle || location ? [] : userSkills?.map((item) => item),
-          jobTitle: jobTitle || "",
+          requiredSkills: jobTitle || location ? [] : userSkills?.map((item) => item),
+          jobTitle: jobTitle.trim() || "",
           country: location ? "" : country,
-          location: location,
+          location: location.trim(),
         },
         {
           params: { page, limit },
@@ -344,8 +343,8 @@ function Index() {
 
     getAllData();
 
-  }, [page,limit,country]);
- 
+  }, [page, limit, country]);
+
 
   // const getJobData = () => {
   //   if (userSkills) {
@@ -587,7 +586,7 @@ function Index() {
     }
   }, [toggleHeadings]);
 
- 
+
   return (
     <>
       {limitPopup && (
