@@ -49,7 +49,7 @@ const ProjectInternship = ({ data, setData }) => {
     },
   ];
 
-  console.log(99, [...data?.relevantSkills]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProjectData({ ...ProjectData, [name]: value });

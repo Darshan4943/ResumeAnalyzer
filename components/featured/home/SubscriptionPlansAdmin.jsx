@@ -26,7 +26,7 @@ function SubscriptionPlansAdmin({ toggle }) {
     useEffect(() => {
         const exchangeRate = localStorage.getItem("exchangeRate");
         const icon = localStorage.getItem("icon");
-        console.log(icon)
+       
         setexchangeRate(exchangeRate);
         seticon(icon);
 

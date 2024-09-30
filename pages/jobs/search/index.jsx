@@ -346,7 +346,7 @@ function Index() {
 
   }, [page,limit,country]);
  
-console.log(country)
+
   // const getJobData = () => {
   //   if (userSkills) {
   //     // console.log("globalskills", userDataGlobal.skills)
@@ -587,7 +587,7 @@ console.log(country)
     }
   }, [toggleHeadings]);
 
-  console.log(jobData)
+ 
   return (
     <>
       {limitPopup && (

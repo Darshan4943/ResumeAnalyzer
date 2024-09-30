@@ -62,7 +62,7 @@ function Resume2({ data }) {
                 educationContainer.current.appendChild(parentDiv);
                 const height = parentDiv.clientHeight;
                 educationDivHeightremaining -= height;
-                console.log(21, height)
+                
                 if (educationDivHeightremaining < height) {
                     educationContainer.current.removeChild(parentDiv);
                     dataForSecondPage.education.push(detail);

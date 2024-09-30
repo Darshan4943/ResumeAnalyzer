@@ -90,7 +90,7 @@ const Name = () => {
 
   const dispatch = useDispatch();
   const [selectedResume, setSelectedResume] = useState();
-  console.log(selectedResume);
+
   useEffect(() => {
     dispatch(setPageOpened());
     if (userId) {

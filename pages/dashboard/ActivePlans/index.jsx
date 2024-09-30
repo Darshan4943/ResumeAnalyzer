@@ -23,7 +23,7 @@ function ActivePlans() {
         params: { page: currentPage, limit },
       })
       .then((res) => {
-        console.log(123, res.data);
+      
 
         setData(res.data.data);
         setUserList(

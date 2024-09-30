@@ -26,7 +26,7 @@ const Index = () => {
         params: { page, limit },
       })
       .then((res) => {
-        console.log(res);
+     
         setList(res.data.data.results);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);

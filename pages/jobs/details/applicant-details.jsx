@@ -23,7 +23,7 @@ const ApplicantDetails = () => {
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState(null);
   const [application, setApplication] = useState({});
-  console.log(query);
+
   const getData = () => {
     setLoading(true);
 

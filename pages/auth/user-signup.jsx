@@ -65,7 +65,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   };
 
   useEffect(() => {
-    console.log(66, Object.keys(userDataGlobal).length > 0);
+   
     if (Object.keys(userDataGlobal).length > 0) {
       window.location.href = "/home?signIn=false";
     }

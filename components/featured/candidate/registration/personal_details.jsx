@@ -97,7 +97,7 @@ const PersonalDetails = ({
   };
 
   const handleInputChange = (fieldName, value) => {
-    console.log(value.replace(/\D/g, "").length <= 10);
+   
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });

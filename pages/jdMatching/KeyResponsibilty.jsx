@@ -41,7 +41,7 @@ const KeyResponsibility = ({
 
   const handleDelete = (index) => {
     if (keyResponsibilities?.length > 0 && index >= 0) {
-      console.log(6999, keyResponsibilities);
+    
       const filteredBenefits = keyResponsibilities.filter(
         (_, i) => i !== index
       );

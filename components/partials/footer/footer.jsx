@@ -44,7 +44,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
       toast.success("Subscribe successfully");
       // console.log('Subscribed with email:', email);
     } else {
-      console.log("Valid email is required to subscribe");
+    
       toast.error("please enter a valid email");
     }
   };

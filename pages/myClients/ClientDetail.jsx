@@ -73,7 +73,7 @@ function ClientDetail({ tabIndex }) {
 
   const deleteResume = () => {
     const ids = selectedIndexes.map((item) => resumeList[item]?._id);
-    console.log(ids);
+   
 
     if (ids.length === 0) {
       toast.error("Please select file to delete");
@@ -108,7 +108,7 @@ function ClientDetail({ tabIndex }) {
     axios
       .delete(`https://jamblix.com/api/cover/delete/${ids}`)
       .then((response) => {
-        console.log(1122, response);
+      
         toast.success("Resume Deleted successfully");
 
         setView(false);

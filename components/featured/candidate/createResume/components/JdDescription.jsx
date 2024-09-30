@@ -26,7 +26,7 @@ function JdDescription({
   //   localStorage.setItem("JdDescription", text);
   // }, [text]);
 
-  console.log(8787, text);
+ 
   return (
     <div className="flex flex-col gap-6 ml:w-[100%] w-[100%]">
       <div className="flex flex-col gap-4 ">
