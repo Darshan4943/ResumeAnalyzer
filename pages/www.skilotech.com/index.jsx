@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 function Index() {
   const [resume, setResume] = useState();
-  console.log(resume);
+
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(9, userDataGlobal);
+ 
   useEffect(() => {
     axios
       .get("https://jamblix.com/api/resume/" + userDataGlobal._id)

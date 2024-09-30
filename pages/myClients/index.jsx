@@ -76,7 +76,7 @@ function MyClients() {
         data: { ids },
       })
       .then((response) => {
-        console.log(response.data);
+       
         dispatch(reCallUserData());
         toast.success("Client Deleted successfully");
         setSelectedIndexes([]);

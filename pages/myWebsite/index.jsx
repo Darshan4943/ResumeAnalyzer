@@ -136,7 +136,7 @@ const Index = () => {
         console.error("Failed to copy text: ", err);
       });
   };
-  console.log(resumeList);
+
   return (
     <>
       {editProfilePopUp && (

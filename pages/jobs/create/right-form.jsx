@@ -29,7 +29,7 @@ const Rightform = ({
 
   const handleItemClick = (selectedOption) => {
     setSelectedCurrency(selectedOption);
-    console.log("Selected currency:", selectedOption.value);
+   
   };
 
   const postJob = () => {

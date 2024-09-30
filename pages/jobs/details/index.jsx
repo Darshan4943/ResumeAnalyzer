@@ -58,7 +58,7 @@ const Index = () => {
     getData();
     getAllAppliedData();
   }, [id]);
-  console.log("options", options);
+ 
 
   //sycn resume manually
   const SyncResume = async () => {

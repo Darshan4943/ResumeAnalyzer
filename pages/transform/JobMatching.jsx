@@ -109,7 +109,7 @@ const JobMatching = () => {
       .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-          console.log(item.type);
+       
           if (item.type == "file" && item.isSync === true) {
             return true;
           } else if (item.type == "folder") {

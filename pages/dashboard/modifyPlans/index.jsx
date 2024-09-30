@@ -44,7 +44,7 @@ const Index = () => {
       const response = await axios.get(
         `https://jamblix.com/api/plans/getByIndex/${planId}`
       );
-      console.log("API response:", response.data);
+    
       const plan = response.data.data[0];
       setPlanData({
         name: plan.name,

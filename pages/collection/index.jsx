@@ -509,7 +509,7 @@ function Collection() {
       const response = await axios.put(apiUrl, { uploadCount });
 
       if (response.data.success) {
-        console.log('Plan Updated:', response.data.data);
+        
         setUploadCount(0);
         dispatch(reCallUserData())
         return response.data;

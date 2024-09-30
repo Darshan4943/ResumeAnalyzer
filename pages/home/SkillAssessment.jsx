@@ -695,7 +695,7 @@ function SkillAssessment() {
 
   const handleStart = () => {
     const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-    console.log(isActivePlan)
+   
     if (!isActivePlan ) {
       setisLevel(false);
       setIsplan(true);

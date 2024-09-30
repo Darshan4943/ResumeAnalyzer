@@ -164,7 +164,7 @@ const ExistingChat = ({
     setOnce(false);
     const dummyData = { ...existingChat };
     delete dummyData[key];
-    console.log(dummyData);
+    
     localStorage.setItem("chat", JSON.stringify(dummyData));
     setSelectedChat(Object.keys(dummyData)[0]);
     forceUpdate();

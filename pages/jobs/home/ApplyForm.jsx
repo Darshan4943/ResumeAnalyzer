@@ -58,7 +58,7 @@ function ApplyForm() {
   const router = useRouter();
   const { id } = router.query;
   const [jobDetails, setJobDetails] = useState();
-console.log(jobDetails)
+
   useEffect(() => {
     axios
       .get(`https://jamblix.com/api/job/getByJobId/${id}`)
@@ -217,7 +217,7 @@ console.log(jobDetails)
   };
 
   const extractResumeSections = (text) => {
-    console.log("text", text);
+    
     const sections = {
       aboutMe: "",
       skills: [],
@@ -327,7 +327,7 @@ console.log(jobDetails)
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("file", file);
+    
       parseData(file, setText)
         .then((extractedText) => {
           setText(extractedText);
@@ -397,7 +397,7 @@ console.log(jobDetails)
     }));
   };
 
-  console.log(111, formData)
+
   const applyForJob = () => {
     if (!validateInput()) return;
     const totalExperience = parseInt(formData.professional?.totalExperience) || 0;

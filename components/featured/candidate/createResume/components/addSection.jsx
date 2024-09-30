@@ -121,7 +121,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     const dummyData = [...data.section];
     dummyData[index].subSection = [...listItems];
     dummyData[index].header = header;
-    console.log(dummyData);
+  
     setData({ ...data, section: dummyData });
     setIsModified({ status: false, index: 0 });
     setIsEdited(false);

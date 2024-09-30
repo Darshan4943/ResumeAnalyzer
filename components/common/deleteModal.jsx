@@ -1,7 +1,7 @@
 import React from "react";
 
 const DeleteModal = ({ deleteHandler, closeDeleteModal, type }) => {
-  console.log(666, type);
+ 
   return (
     <>
       <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>

@@ -258,7 +258,7 @@ function AccountDetails({
     return empty;
   }
 
-  console.log(111,selectedItem)
+
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const getPriceId = async (obj) => {
     const currency = localStorage.getItem("currency");

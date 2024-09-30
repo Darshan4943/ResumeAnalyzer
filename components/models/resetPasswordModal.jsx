@@ -28,7 +28,7 @@ const ResetPasswordModal = ({ visible }) => {
   }, []);
 
   const submitHandler = () => {
-    console.log(data.newConfirm != data.new);
+  
 
     if (userDataGlobal.tempPassword !== data.current) {
       setError("Current password does not match");

@@ -74,7 +74,7 @@ const UserResumes = ({
   useEffect(() => {
     if (userDataGlobal) {
       if (userDataGlobal.role == "recruiter") {
-        console.log("first", resumeList);
+       
         setData(resumeList);
         setAllData(resumeList);
         // setSelect(resumeList[0]);

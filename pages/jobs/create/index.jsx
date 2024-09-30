@@ -48,7 +48,7 @@ const Index = () => {
         const formattedDeadLine = res.data.deadLine
           ? new Date(res.data.deadLine).toISOString().split("T")[0]
           : "";
-          console.log(formattedDeadLine)
+     
         const {
           companyName,
           jobTitle,

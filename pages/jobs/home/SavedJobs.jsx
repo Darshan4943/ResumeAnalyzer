@@ -126,7 +126,7 @@ function SavedJobs({ setLimitPopup, appliedJobs
 
               <div
                 className={`web1024  col-span-7
-            ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
+            ml:mt-4 sticky top-[232px] overflow-y-auto h-[calc(100vh-288.33px)] `}
               >
                 <Description selectedJob={selectedJob} setLimitPopup={setLimitPopup} />
               </div>

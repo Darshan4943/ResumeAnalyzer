@@ -216,7 +216,7 @@ const CustomTextEditor = ({ data, setData, placeholder }) => {
 
     prevDataRef.current = data;
   }, [data, editor]);
-  console.log("d2", data);
+  
 
   return (
     <div className="flex flex-col border-none shadow-custom rounded-[10px]">

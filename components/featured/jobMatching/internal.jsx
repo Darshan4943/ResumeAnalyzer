@@ -62,7 +62,7 @@ const InternalJobMatching = () => {
         resumeCount,
       })
       .then((res) => {
-        console.log(res.data);
+      
         setResuneList(res.data.data);
         setLoading(false);
       })

@@ -195,8 +195,7 @@ const Reference = ({
     }
   };
 
-  console.log("data11", data);
-  console.log(777);
+ 
   // useEffect(() => {
   //   const allFieldsValid = validateFields();
   //   if (allFieldsValid && isModified?.status) {

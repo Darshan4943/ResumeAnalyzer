@@ -116,7 +116,7 @@ function AllJobs({
 
               <div
                 className={`web1024 col-span-7
-             ml:mt-4 sticky top-[336px] overflow-y-auto h-[calc(100vh-360px)] `}
+             ml:mt-4 sticky top-[320px] overflow-y-auto h-[calc(100vh-380px)] `}
               >
                 <Description
                   selectedJob={selectedJob}
