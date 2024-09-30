@@ -891,7 +891,7 @@ function Index() {
                       exit={{ x: "-100%" }}
                       transition={{ duration: 0.5 }}
                       ref={taskRef}
-                      className="fixed z-[2000]  rounded-[8px] h-[calc(95vh-283px)] overflow-y-auto"
+                      className="fixed z-[2000]  rounded-[8px] h-[calc(100vh-283px)] bottom-12 overflow-y-auto"
                       style={{
                         background: "white",
                         backdropFilter: "blur(10px)",
