@@ -14,6 +14,7 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import mammoth from "mammoth";
 import { pdf } from "@react-pdf/renderer";
+import { telCode } from "../../../utils/data";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
   const userDataGlobal = useSelector((state) => state.userData);
@@ -27,6 +28,7 @@ function ApplyForm() {
   const [fileType, setFileType] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [resumeIdd, setResumeIdd] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [professionalSec, setProfessionalSec] = useState({
     education: "",
     skills: [],
@@ -99,6 +101,7 @@ console.log(jobDetails)
             dob: formattedDob || prevData.personal.dob || "",
             gender: personal.gender || prevData.personal.gender || "",
           },
+         
           professional: {
             ...prevData.professional, 
             totalExperience: professional.totalExperience || prevData.professional.totalExperience || "",
@@ -109,7 +112,13 @@ console.log(jobDetails)
             comfortableWithLocation: professional.comfortableWithLocation || prevData.professional.comfortableWithLocation || "",
           },
           dial_code: personal.dial_code || prevData.dial_code || "",
+          
         }));
+        const selectedItem = telCode.find((item) => item.dial_code === personal.dial_code);
+  
+        if (selectedItem) {
+          setSelectedItem(selectedItem);
+        }
       })
       .catch((err) => console.error(err));
   }, []);
@@ -583,6 +592,8 @@ console.log(jobDetails)
               handleInputChange("personal", fieldName, value)
             }
             formError={formError}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
           />
 
           <div className="flex flex-col gap-4">

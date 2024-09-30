@@ -596,7 +596,7 @@ console.log(country)
         </div>
       )}
 
-      <div className="relative ">
+      <div className="relative bg-[#F9F9F9] min-h-[calc(100vh-57.33px)] ">
         <div
           className={` sticky top-[56px]
              z-50`}
@@ -759,7 +759,7 @@ console.log(country)
               </div>
             </div>
           </div>
-          {toggleHeadings <= 2 && (
+          {toggleHeadings < 1 && (
             <div style={{ backgroundColor: "#E0F6FF" }} className="">
               <div className="customMargins web">
                 <div className="flex items-center py-5  gap-3 flex-wrap  ">
@@ -840,7 +840,7 @@ console.log(country)
         } */}
         </div>
 
-        <div className="bg-[#F9F9F9] min-h-[calc(100vh-303px)]">
+        <div className="">
           <div className=" customMargins">
             <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
               {/* <div className=" mobile600 col-span-12 ">

@@ -23,8 +23,8 @@ const Index = () => {
 
   return (
     <>
-      <div className=" w-full h-auto min-h-[93vh] flex">
-        <div className="flex w-full justify-center min-h-[93vh] ">
+      <div className=" w-full  min-h-[calc(100vh-57.33px)] flex">
+        <div className="flex w-full justify-center max-h-[calc(100vh-57.33px)] ">
           <ExistingChat
             messages={messages}
             isSidebarOpen={isSidebarOpen}

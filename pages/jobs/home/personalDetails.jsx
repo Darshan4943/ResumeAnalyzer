@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import ReactSelect from 'react-select';
 import { telCode } from '../../../utils/data';
 
-const PersonalDetails = ({ data, handleInputChange, formError, setFormData }) => {
+const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSelectedItem,selectedItem }) => {
   
     const [filteredTelCode, setFilteredTelCode] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedItem, setSelectedItem] = useState();
+ 
     const handleItemClick = (item) => {
         setSelectedItem(item);
         const newErrors = { ...formError };

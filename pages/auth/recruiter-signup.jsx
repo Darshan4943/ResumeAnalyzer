@@ -103,6 +103,11 @@ function Recruiter_signup({}) {
     if (profilePicture) {
       setCroppedImage({ url: profilePicture });
     }
+    const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
+  
+        if (selectedItem) {
+          setSelectedItem(selectedItem);
+        }
   }, []);
 
   function validatePassword(password) {

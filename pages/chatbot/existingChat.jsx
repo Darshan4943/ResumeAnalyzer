@@ -186,8 +186,8 @@ const ExistingChat = ({
           }}
           transition={{ duration: 0.1 }}
         >
-          <div className="w-full relative flex h-[93vh] overflow-y-auto ">
-            <div className="flex flex-col w-[100%] h-[93vh]  ">
+          <div className="w-full relative flex h-[calc(100vh-100px)] min-h-[calc(100vh-57.33px)] overflow-y-auto ">
+            <div className="flex flex-col w-[100%]   ">
               <div className=" p-4 flex flex-col gap-4 iitem-start ">
                 <div className="flex gap-3 items-start justify-start">
                   <img
@@ -218,8 +218,8 @@ const ExistingChat = ({
                 </div>
               </div>
               <div className="w-full overflow-y-auto ">
-                <div className="flex flex-col w-full p-6">
-                  <div className="flex flex-col h-[70vh] gap-6 ">
+                <div className="flex flex-col w-full min-h-[calc(100vh-160.33px)] p-6">
+                  <div className="flex flex-col  gap-6 ">
                     {Object.keys(existingChatDayWise).length > 0 ? (
                       <>
                         {" "}

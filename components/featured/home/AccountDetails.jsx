@@ -203,6 +203,11 @@ function AccountDetails({
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
       setData({ ...jsonData });
+      const selectedItem = telCode.find((item) => item.dial_code === jsonData.dial_code);
+  
+      if (selectedItem) {
+        setSelectedItem(selectedItem);
+      }
     } else {
       if (recruiterid) {
         axios
@@ -214,8 +219,13 @@ function AccountDetails({
               firstName: decode._doc.firstName ? decode._doc.firstName : "",
               lastName: decode._doc.lastName ? decode._doc.lastName : "",
               mobileNo: decode._doc.mobileNo ? decode._doc.mobileNo : "",
-              dial_code: decode._doc.dial_code ? decode._doc.dial_codel : "",
+              dial_code: decode._doc.dial_code ? decode._doc.dial_code : "",
             });
+            const selectedItem = telCode.find((item) => item.dial_code === decode._doc.dial_code);
+  
+            if (selectedItem) {
+              setSelectedItem(selectedItem);
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -226,11 +236,13 @@ function AccountDetails({
           firstName: userDataGlobal.firstName ? userDataGlobal.firstName : "",
           lastName: userDataGlobal.lastName ? userDataGlobal.lastName : "",
           mobileNo: userDataGlobal.mobileNo ? userDataGlobal.mobileNo : "",
-          dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_codel : "",
+          dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_code : "",
         });
-        setSelectedItem(
-          telCode.find((item) => item.dial_code === userDataGlobal.dial_code)
-        );
+        const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal.dial_code);
+  
+        if (selectedItem) {
+          setSelectedItem(selectedItem);
+        }
       }
     }
   }, []);
@@ -246,6 +258,7 @@ function AccountDetails({
     return empty;
   }
 
+  console.log(111,selectedItem)
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const getPriceId = async (obj) => {
     const currency = localStorage.getItem("currency");
