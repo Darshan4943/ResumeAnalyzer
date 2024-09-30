@@ -89,6 +89,7 @@ function Recruiter_signup({}) {
       location,
       country,
       profilePicture,
+      dial_code
     } = userDataGlobal;
     setData({
       ...data,
@@ -98,7 +99,8 @@ function Recruiter_signup({}) {
       lastName,
       role,
       currentLocation: location,
-      country
+      country,
+      dial_code
     });
     if (profilePicture) {
       setCroppedImage({ url: profilePicture });
