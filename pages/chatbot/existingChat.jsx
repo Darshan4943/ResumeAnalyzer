@@ -193,7 +193,7 @@ const ExistingChat = ({
                   <img
                     src="/images/resumeBuilder/sklogo.png"
                     alt=""
-                    className="h-[24px] w-[24px]"
+                    className="h-[24px] w-[24px]" 
                   />
                   <p className="text-[18px] font-[600] font-Montserrat">
                   
