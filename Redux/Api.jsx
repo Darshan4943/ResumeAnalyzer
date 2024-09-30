@@ -296,7 +296,8 @@ export const Api = ({}) => {
         );
 
         // const currency = Country ? Country.currency : "USD";
-        const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
+        // const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
+        const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
         );

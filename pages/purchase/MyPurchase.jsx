@@ -272,7 +272,7 @@ function MyPurchase() {
                               className={`px-9 py-3  ${subscription?.isActive && !(limits?.used?.uploads === limits?.total?.uploads || limits?.used?.save === limits?.total?.save || (limits?.used?.clients === limits?.total?.clients && limits?.total?.clients !== 0))
                                 ? "bg-[#DEDEDE] "
                                 : "bg-[#06a9ef] btn_hover_effect"
-                                } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[160px] `}
+                                } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                             >
                               {subscription?.isActive
                                 ? !(limits?.used?.uploads === limits?.total?.uploads || limits?.used?.save === limits?.total?.save || (limits?.used?.clients === limits?.total?.clients && limits?.total?.clients !== 0)) ? "Purchased" : "Upgrade Plan"

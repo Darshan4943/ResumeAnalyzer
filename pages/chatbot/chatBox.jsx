@@ -309,7 +309,7 @@ const ChatBox = ({
       {errorModel && <FileError setError={setError} />}
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
         {isSidebarOpen && (
-          <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
+          <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center min-h-[calc(100vh-57.33px)] bg-[#FBFBFB]">
             <img
               src="/images/resumeBuilder/sklogo.png"
               alt=""
@@ -362,7 +362,7 @@ const ChatBox = ({
           />
         </button>
 
-        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col">
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[calc(100vh-140px)]">
           {chat?.length > 0 ? (
             <div
               style={{ scrollbarWidth: "none" }}
@@ -409,7 +409,7 @@ const ChatBox = ({
             </div>
           ) : (
             <>
-              <div className="flex w-full h-[80vh]">
+              <div className="flex w-full ">
                 <div className="flex w-full items-center justify-center">
                   <div className="flex flex-col gap-[60px] w-[480px] h-[320px] ">
                     <div className="flex flex-col items-center">
