@@ -802,7 +802,7 @@ function AccountDetails({
             className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
             onClick={
-              selectedPlan.index === 1 ? handleFreeSession : purchaseHandler
+             ( selectedPlan.index === 1 ||  selectedPlan.index === 4) ? handleFreeSession : purchaseHandler
             }
           >
             {loading ? (

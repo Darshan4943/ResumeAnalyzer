@@ -388,7 +388,7 @@ function Collection() {
               formData
             );
             setCount((prevCount) => prevCount + 1);
-            setUploadCount((prevCount) => prevCount + 1); // Increment the upload count here
+            setUploadCount((prevCount) => prevCount + 1);
             resolve({ index, response: response.data });
           } catch (e) {
             setCount((prevCount) => prevCount + 1);
@@ -400,7 +400,7 @@ function Collection() {
         } catch (err) {
           return;
         }
-      }, 200); // Simulating a network delay
+      }, 200);
     });
   };
 
@@ -450,8 +450,8 @@ function Collection() {
     const textData = [];
 
 
-    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
-
+    // const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
+    const allowedFiles = Array.from(selectedFiles);
     if (allowedFiles.length) {
       const promise = allowedFiles.map((file, index) => {
         if (
@@ -832,11 +832,11 @@ function Collection() {
               )}
               <div className="flex justify-between gap-6">
                 <div className="text-[16px] font-medium">
-                  {isFile &&
+                  {/* {isFile &&
                     <>
                       Upload limit : {collectionCount ? collectionCount : 0}
                     </>
-                  }
+                  } */}
                 </div>
 
                 <div className="flex justify-end gap-6 text-blue font-medium">
@@ -856,7 +856,7 @@ function Collection() {
                       setTimeout(() => {
                         getUnSyncFiles()
                       }, 10000);
-                      updateCollectionLimit()
+                      // updateCollectionLimit()
 
                     }}
                   >

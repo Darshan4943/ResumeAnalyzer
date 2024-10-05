@@ -245,7 +245,7 @@ function SubscriptionPlans({ fromMain }) {
                     </div>
                   ))}
                 </div>
-                {(isFree && plan.index === 1) ?
+                {(isFree && (plan.index === 1 || plan.index === 4)) ?
                   <button
                     disabled={true}
                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
