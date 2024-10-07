@@ -417,7 +417,7 @@ function AccountDetails({
       } else {
         setLoading(true);
         try {
-          await axios.post("https://jamblix.com/api/add/subscription", {
+          await axios.post("http://localhost:2000/api/add/subscription", {
             userId: userDataGlobal._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,

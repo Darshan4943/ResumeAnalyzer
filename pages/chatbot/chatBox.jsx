@@ -9,6 +9,7 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import FileError from "../../components/models/fileError";
 import mammoth from "mammoth";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -47,7 +48,7 @@ const formatData = (data) => {
 //       ));
 // };
 
-const ParentTemp = ({ answer, i, chat, chatEndRef ,once}) => {
+const ParentTemp = ({ answer, i, chat, chatEndRef, once }) => {
   const [count, setCount] = useState(1);
 
   // Effect to scroll to bottom whenever count or answer changes
@@ -109,9 +110,34 @@ const ChatBox = ({
   const chatEndRef = useRef(null);
   const [img, setImg] = useState(null);
   const [errorModel, setError] = useState(false);
+  const [chatCount,setChatCount]=useState(0)
+
+  useEffect(() => {
+  const chatCount = Number(localStorage.getItem("chatCount"));
+  setChatCount(chatCount)
+  },[])
+
+  const [limitPopup, setLimitPopup] = useState(false);
+  console.log(111, chatCount)
+  const updateChatCount = () => {
+    axios
+      .put(
+        `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal._id}`
+      )
+      .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
+        const chatCounts = Number(localStorage.getItem("chatCount"));
+        setChatCount(chatCounts)
+      })
+      .catch((err) => console.error(err));
+  }
 
   const submitHandler = (e) => {
+  
     e.preventDefault();
+    if (chatCount <= 0) {
+      setLimitPopup(true); // Show limit popup
+      return; // Exit the function early to prevent API call
+    }
     if (text?.length > 5) {
       const obj = {
         question: text,
@@ -143,6 +169,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+          updateChatCount()
         })
         .catch((err) => {
           console.log(err);
@@ -306,6 +333,11 @@ const ChatBox = ({
   };
   return (
     <>
+    {limitPopup && (
+        <div className="z-[200000]">
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+        </div>
+      )}
       {errorModel && <FileError setError={setError} />}
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
         {isSidebarOpen && (
@@ -348,17 +380,15 @@ const ChatBox = ({
         )}
 
         <button
-          className={`absolute ${
-            isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
-          } ml:top-[45vh] left-0 top-[2vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+          className={`absolute ${isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
+            } ml:top-[45vh] left-0 top-[2vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
           onClick={handleToggleSidebar}
         >
           <img
             src="/images/resumeBuilder/chatArrow.png"
             alt=""
-            className={`h-[24px] w-[24px] transform transition-transform ${
-              isSidebarOpen ? "rotate-180" : ""
-            }`}
+            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
+              }`}
           />
         </button>
 
@@ -367,7 +397,7 @@ const ChatBox = ({
             <div
               style={{ scrollbarWidth: "none" }}
               className="flex flex-col gap-[16px] scr1150:w-[60%] sm:w-[70%] w-[90%] sm:pt-0 pt-10 h-[80vh] overflow-y-auto"
-              // ref={divRef}
+            // ref={divRef}
             >
               {chat?.map((item, index) => (
                 <div key={index} className="flex flex-col gap-[12px]">
