@@ -118,7 +118,7 @@ export default function ResumeLink() {
                     </p>
                 </div>
                 <div className="font-medium ml:text-[1.1vw] text-[14px] w-[100%] break-words">
-                    Sharing your resume has never been easier. Skilotech's intuitive platform allows you to create a shareable link for your resume in just a few clicks. Send it to hiring managers, post it on your social media profiles, or embed it on your website. Let your resume do the talking.
+                    Sharing your resume has never been easier. Skilotech&apos;s intuitive platform allows you to create a shareable link for your resume in just a few clicks. Send it to hiring managers, post it on your social media profiles, or embed it on your website. Let your resume do the talking.
                 </div>
                 <button onClick={() =>
                     router.push("/auth?signin=true&role=user")
