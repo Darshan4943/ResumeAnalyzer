@@ -106,16 +106,20 @@ export default function ResumeLink() {
 
     return (
         <div ref={generateAiRef} className=" customMargins flex ml:flex-row flex-col-reverse gap-[2vw] xl:gap-12 items-center py-9">
-            <div className="flex flex-col gap-6 ml:w-[45%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
+            <div className="flex flex-col gap-6 ml:w-[47%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
                 <div className="font-semibold ml:text-[3.2vw] text-[30px] leading-tight">
-                    Create a{" "}
-                    <span className="text-[#06A9EF]">Resume Link,</span>
+                    <p>
+                        Create a{" "}
+                        <span className="text-[#06A9EF]">Resume Link,</span>
+                    </p>
+
                     <p>
                         Share it with the{" "}
-                        <span className="text-[#06A9EF]">
-                            World
-                        </span>
+                        
                     </p>
+                    <p className="text-[#06A9EF]">
+                            World
+                        </p>
                 </div>
                 <div className="font-medium ml:text-[1.1vw] text-[14px] w-[100%] break-words">
                     Sharing your resume has never been easier. Skilotech&apos;s intuitive platform allows you to create a shareable link for your resume in just a few clicks. Send it to hiring managers, post it on your social media profiles, or embed it on your website. Let your resume do the talking.
@@ -129,11 +133,16 @@ export default function ResumeLink() {
                 </button>
             </div>
             <div className="ml:w-[55%] w-full flex justify-center items-center ">
-            <div className="relative">
+                <div className="relative">
                     <img
                         src="/images/resumeBuilder/resumeLink.png"
                         alt=""
                         className="w-[40vw] h-[40vw] object-contain"
+                    />
+                    <img
+                        src="/images/resumeBuilder/boy1.png"
+                        alt=""
+                        className="w-[12vw] h-[13vw] object-contain absolute right-[11.5vw] top-[13.5vw] z-20"
                     />
                     <motion.img
                         src="/images/resumeBuilder/circle.png"
@@ -157,13 +166,13 @@ export default function ResumeLink() {
                             rotate: isGirl1 ? 0 : -10,
 
                         }}
-                        transition={{ duration: 1, ease: "easeInOut",  }}
+                        transition={{ duration: 1, ease: "easeInOut", }}
                         style={{ transformOrigin: "center center" }}
                     />
                     <div
                         style={{
                             opacity: isBoy ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out', 
+                            transition: 'opacity 1s ease-in-out',
                         }}
                     >
                         <img
@@ -192,7 +201,7 @@ export default function ResumeLink() {
                     <div
                         style={{
                             opacity: isGirl2 ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out', 
+                            transition: 'opacity 1s ease-in-out',
                         }}
                     >
                         <img
@@ -220,7 +229,7 @@ export default function ResumeLink() {
                     <div
                         style={{
                             opacity: isGirl3 ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out', 
+                            transition: 'opacity 1s ease-in-out',
                         }}
                     >
                         <img
