@@ -122,7 +122,7 @@ const ChatBox = ({
   const updateChatCount = () => {
     axios
       .put(
-        `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal._id}`
+        `https://jamblix.com/api/subscription/updateChatLimit/${userDataGlobal._id}`
       )
       .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
         const chatCounts = Number(localStorage.getItem("chatCount"));

@@ -45,7 +45,7 @@ function PrecisionMatching() {
         if (isLogin) {
             router.push("/transform/JobMatching");
         } else {
-            router.push("/auth?signin=true&role=recruiter")
+           router.push("/auth?signin=true&role=recruiter")
         }
     };
     const positions = [
@@ -96,7 +96,7 @@ function PrecisionMatching() {
     return (
         <div ref={precisionRef} className='flex ml:flex-row flex-col gap-12 w-[100%] items-center justify-center   ml:py-1 py-6 overflow-hidden customMargins'>
             <div className='relative ml:w-[46%] w-[100%] flex justify-center items-center'>
-                <img className=' ml:h-[45vw] ml:w-[45vw] h-[75vw] w-[75vw]  object-contain ' src="/images/recruiter/recruiterAni.png" alt="" />
+                <img className='  ' src="/images/recruiter/recruiterAni.png" alt="" />
                 <motion.img
                     animate={controls}
                     className='absolute w-[32%] '

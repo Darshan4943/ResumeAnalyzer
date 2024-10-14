@@ -41,7 +41,7 @@ function RecruiterPage() {
           <RecruiterHero />
         </div>
         <PrecisionMatching />
-        <TransformResume />
+        {/* <TransformResume /> */}
         
         <ClientSection />
         <AskKrutUiRec />
@@ -66,14 +66,14 @@ function RecruiterPage() {
           <div className="h-[32rem] ml:h-[47vw] pt-[3rem]">
             <PrecisionMatching />
           </div>
-          <Parallax
+          {/* <Parallax
             strength={400}
             className="h-[32rem] ml:h-[50vw] pt-[36px] flex items-center"
           >
             <Background className="custom-bg">
               <TransformResume />
             </Background>
-          </Parallax>
+          </Parallax> */}
           <ClientSection />
           <AskKrutUiRec />
           <JobPostingUi />
