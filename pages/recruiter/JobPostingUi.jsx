@@ -35,7 +35,7 @@ function JobPostingUi() {
       <div className="flex flex-col ml:gap-6 gap-4 ml:w-[40%] w-[95%] ml:items-start items-center">
         <div className="flex flex-col gap-2 ml:text-start text-center">
         <p className="font-semibold ml:text-[3.2vw] text-[28px] leading-tight">
-          Reach Top Talent with Skilotech's <span className="text-[#06A9EF]">Job Posting</span>  Platform
+          Reach Top Talent with Skilotech&apos;s <span className="text-[#06A9EF]">Job Posting</span>  Platform
           
           </p>
         </div>

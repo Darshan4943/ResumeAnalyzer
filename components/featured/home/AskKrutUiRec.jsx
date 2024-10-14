@@ -12,7 +12,7 @@ export default function AskKrutUiRec() {
                 Chatbot, Your Digital Companion
                 </div>
                 <div className='font-medium ml:text-[1.1vw] text-[14px]  w-[100%] break-words text-[#333333]'>
-                Skilotech's AI chatbot is <span className='text-[#06A9EF]'>always available to answer your questions, 24/7.</span> No matter what time of day or night, you can reach out to our chatbot for assistance. With its ability to provide instant responses and personalized advice, <span className='text-[#06A9EF]'>our chatbot is the perfect tool for recruiters who want to stay ahead of the curve.</span>                </div>
+                Skilotech&apos;s AI chatbot is <span className='text-[#06A9EF]'>always available to answer your questions, 24/7.</span> No matter what time of day or night, you can reach out to our chatbot for assistance. With its ability to provide instant responses and personalized advice, <span className='text-[#06A9EF]'>our chatbot is the perfect tool for recruiters who want to stay ahead of the curve.</span>                </div>
 
                 <button onClick={() =>
                    router.push("/auth?signin=true&role=recruiter")
