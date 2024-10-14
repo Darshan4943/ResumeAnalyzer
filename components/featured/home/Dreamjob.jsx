@@ -26,7 +26,7 @@ function DreamJob({ isLogin }) {
               </p>
             </div>
             <div className="font-medium ml:text-[1.2vw] text-[14px] text-[#333333] ">
-            Skilotech is committed to helping you achieve your career goals. Our job section is designed to connect you with employers who are looking for talented individuals like you. Whether you're a recent graduate, an experienced professional, or looking for a career change, Skilotech has the resources to help you find your dream job
+            Skilotech is committed to helping you achieve your career goals. Our job section is designed to connect you with employers who are looking for talented individuals like you. Whether you&apos;re a recent graduate, an experienced professional, or looking for a career change, Skilotech has the resources to help you find your dream job
 
             </div>
             <button onClick={() =>
