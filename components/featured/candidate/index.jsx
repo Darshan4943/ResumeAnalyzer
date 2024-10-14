@@ -192,6 +192,9 @@ import { useDispatch, useSelector } from "react-redux";
 import MobileView from "../home/mobileView";
 import Home from "../home/images";
 import Footer from "../../partials/footer/footer";
+import ResumeLink from "../home/ResumeLink";
+import AskKrutAi from "../home/AskKrutUi";
+import DreamJob from "../home/Dreamjob";
 
 function CandidateHome({ onScrollToTop }) {
   const [isSubscribe, setIsSubscrib] = useState(false);
@@ -306,8 +309,12 @@ function CandidateHome({ onScrollToTop }) {
         </div>
 
         <SkillAssessment isLogin={isLogin} />
-        <JdResume isLogin={isLogin} />
+        <ResumeLink/>
+        {/* <JdResume isLogin={isLogin} /> */}
+    
         <ResumeInventory isLogin={isLogin} />
+        <AskKrutAi/>
+        <DreamJob/>
         <SubscriptionPlan isLogin={isLogin} />
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
