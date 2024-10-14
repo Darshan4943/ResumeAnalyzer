@@ -129,50 +129,52 @@ export default function ResumeLink() {
                 </button>
             </div>
             <div className="ml:w-[55%] w-full flex justify-center items-center ">
-                <div className="relative">
+            <div className="relative">
                     <img
                         src="/images/resumeBuilder/resumeLink.png"
                         alt=""
-                        className="ml:w-[40vw] w-[50vw] ml:h-[40vw] h-[50vw] object-contain"
+                        className="w-[40vw] h-[40vw] object-contain"
                     />
                     <motion.img
                         src="/images/resumeBuilder/circle.png"
                         alt=""
-                        className="ml:w-[11.5vw] w-[14vw] ml:h-[9.5vw] h-[12vw] object-contain absolute top-[3.8vw] right-[3vw]"
+                        className="w-[11.5vw] h-[9.5vw] object-contain absolute top-[3.8vw] right-[3vw]"
                         initial={{ rotate: -20 }}
                         animate={isGirl1 ? { rotate: 10 } : {}}
                         transition={{
                             duration: 1,
                             ease: "easeInOut",
+
                         }}
                         style={{ transformOrigin: "center center" }}
                     />
                     <motion.img
                         src="/images/resumeBuilder/girl1.png"
                         alt=""
-                        className="ml:w-[13.5vw] w-[16vw] ml:h-[11.5vw] h-[14vw] object-contain absolute"
+                        className="w-[13.5vw] h-[11.5vw] object-contain absolute"
                         initial={{ rotate: -10, top: '1.75vw', right: '5vw' }}
                         animate={{
                             rotate: isGirl1 ? 0 : -10,
+
                         }}
-                        transition={{ duration: 1, ease: "easeInOut" }}
+                        transition={{ duration: 1, ease: "easeInOut",  }}
                         style={{ transformOrigin: "center center" }}
                     />
                     <div
                         style={{
                             opacity: isBoy ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out',
+                            transition: 'opacity 1s ease-in-out', 
                         }}
                     >
                         <img
                             src="/images/resumeBuilder/boyCircle.png"
                             alt=""
-                            className="ml:w-[12vw] w-[15vw] ml:h-[13vw] h-[16vw] object-contain absolute bottom-[2.5vw] left-[5.2vw]"
+                            className="w-[12vw] h-[13vw] object-contain absolute bottom-[2.5vw] left-[5.2vw]"
                         />
                         <motion.img
                             src="/images/resumeBuilder/boy.png"
                             alt=""
-                            className="ml:w-[15vw] w-[18vw] ml:h-[15vw] h-[18vw] object-contain absolute z-10"
+                            className="w-[15vw] h-[15vw] object-contain absolute z-10"
                             initial={{ rotate: 0, bottom: '3vw', left: '6.6vw' }}
                             animate={{
                                 rotate: isBoy ? 10 : 0,
@@ -183,25 +185,25 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="ml:w-[9.2vw] w-[11vw] ml:h-[9.2vw] h-[11vw] object-contain absolute bottom-[4.1vw] left-[6.7vw]"
+                            className="w-[9.2vw] h-[9.2vw] object-contain absolute bottom-[4.1vw] left-[6.7vw]"
                         />
                     </div>
 
                     <div
                         style={{
                             opacity: isGirl2 ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out',
+                            transition: 'opacity 1s ease-in-out', 
                         }}
                     >
                         <img
                             src="/images/resumeBuilder/girlCircle2.png"
                             alt=""
-                            className="ml:w-[12vw] w-[15vw] ml:h-[13vw] h-[16vw] object-contain absolute bottom-[4.5vw] right-[3vw]"
+                            className="w-[12vw] h-[13vw] object-contain absolute bottom-[4.5vw] right-[3vw] "
                         />
                         <motion.img
                             src="/images/resumeBuilder/girl2.png"
                             alt=""
-                            className="ml:w-[11vw] w-[14vw] ml:h-[11vw] h-[14vw] object-contain absolute z-10"
+                            className="w-[11vw] h-[11vw] object-contain absolute z-10"
                             initial={{ rotate: 10, bottom: '5.1vw', right: '2.9vw' }}
                             animate={{
                                 rotate: isGirl2 ? 0 : 10,
@@ -212,24 +214,24 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="ml:w-[9.3vw] w-[12vw] ml:h-[9.3vw] h-[12vw] object-contain absolute bottom-[6.1vw] right-[3.6vw]"
+                            className="w-[9.3vw] h-[9.3vw] object-contain absolute bottom-[6.1vw] right-[3.6vw]"
                         />
                     </div>
                     <div
                         style={{
                             opacity: isGirl3 ? 1 : 0,
-                            transition: 'opacity 1s ease-in-out',
+                            transition: 'opacity 1s ease-in-out', 
                         }}
                     >
                         <img
                             src="/images/resumeBuilder/girlCircle3.png"
                             alt=""
-                            className="ml:w-[13vw] w-[16vw] ml:h-[13vw] h-[16vw] object-contain absolute top-[8vw] left-[1.9vw]"
+                            className="w-[13vw] h-[13vw] object-contain absolute top-[8vw] left-[1.9vw] "
                         />
                         <motion.img
                             src="/images/resumeBuilder/girl3.png"
                             alt=""
-                            className="ml:w-[14vw] w-[17vw] ml:h-[15.3vw] h-[18vw] object-contain absolute z-10"
+                            className="w-[14vw] h-[15.3vw] object-contain absolute z-10"
                             initial={{ rotate: 0, top: '6.5vw', left: '1.5vw' }}
                             animate={{
                                 rotate: isGirl3 ? 10 : 0,
@@ -240,9 +242,10 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="ml:w-[9.3vw] w-[12vw] ml:h-[9.3vw] h-[12vw] object-contain absolute top-[9.85vw] left-[3.35vw]"
+                            className="w-[9.3vw] h-[9.3vw] object-contain absolute top-[9.85vw] left-[3.35vw]"
                         />
                     </div>
+
                 </div>
 
             </div>
