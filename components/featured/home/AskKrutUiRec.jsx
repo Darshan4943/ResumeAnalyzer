@@ -2,31 +2,20 @@ import React, { useEffect, useRef } from 'react';
 
 import AskKrutAnimation from './AskKrutAnimation';
 
-export default function AskKrutAi() {
+export default function AskKrutUiRec() {
    
     return (
         <div className=" customMargins flex ml:flex-row flex-col-reverse ml:gap-[2vw] gap-8 xl:gap-12 items-center py-9">
             <div className="flex flex-col gap-6 ml:w-[45%] w-full text-[#333333] pr-6 ml:text-start text-center ml:items-start items-center ">
                 <div className="font-semibold ml:text-[3.2vw] text-[28px] leading-tight">
-                    Get Advice with
-                    Skilotech's AI Featured
-
-
-
-                    <p className="text-[#06A9EF]">
-                        “MyKrute”
-                        <span className="font-semibold ml:text-[3.2vw] text-[30px] w-[100%] break-words text-[#333333]">
-                            Chatbot
-                        </span>
-                    </p>
-
+                Meet <span className='text-[#06A9EF]'>“My Krute”</span> {" "}
+                Chatbot, Your Digital Companion
                 </div>
                 <div className='font-medium ml:text-[1.1vw] text-[14px]  w-[100%] break-words text-[#333333]'>
-                    Our AI chatbot is powered by advanced technology that allows it to understand and respond to your queries in a natural and informative way. Whether you're looking for job search tips, resume writing advice, or career guidance, our chatbot can provide you with the information you need. With Skilotech's AI chatbot, you have a knowledgeable and helpful resource at your fingertips
-                </div>
+                Skilotech's AI chatbot is <span className='text-[#06A9EF]'>always available to answer your questions, 24/7.</span> No matter what time of day or night, you can reach out to our chatbot for assistance. With its ability to provide instant responses and personalized advice, <span className='text-[#06A9EF]'>our chatbot is the perfect tool for recruiters who want to stay ahead of the curve.</span>                </div>
 
                 <button onClick={() =>
-                   router.push("/auth?signin=true&role=user")
+                   router.push("/auth?signin=true&role=recruiter")
                 }
                       className="ml:px-10 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect max-w-[167px]"
                 >

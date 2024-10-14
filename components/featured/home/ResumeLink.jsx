@@ -105,9 +105,9 @@ export default function ResumeLink() {
 
 
     return (
-        <div ref={generateAiRef} className=" customMargins flex md:flex-row flex-col-reverse gap-[2vw] xl:gap-12 items-center py-9">
-            <div className="flex flex-col gap-6 md:w-[45%] w-full text-[#333333] md:text-start text-center md:items-start items-center  ">
-                <div className="font-semibold md:text-[3.2vw] text-[30px] leading-tight">
+        <div ref={generateAiRef} className=" customMargins flex ml:flex-row flex-col-reverse gap-[2vw] xl:gap-12 items-center py-9">
+            <div className="flex flex-col gap-6 ml:w-[45%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
+                <div className="font-semibold ml:text-[3.2vw] text-[30px] leading-tight">
                     Create a{" "}
                     <span className="text-[#06A9EF]">Resume Link,</span>
                     <p>
@@ -117,28 +117,28 @@ export default function ResumeLink() {
                         </span>
                     </p>
                 </div>
-                <div className="font-medium md:text-[1.1vw] text-[14px] w-[100%] break-words">
+                <div className="font-medium ml:text-[1.1vw] text-[14px] w-[100%] break-words">
                     Sharing your resume has never been easier. Skilotech's intuitive platform allows you to create a shareable link for your resume in just a few clicks. Send it to hiring managers, post it on your social media profiles, or embed it on your website. Let your resume do the talking.
                 </div>
                 <button onClick={() =>
                     router.push("/auth?signin=true&role=user")
                 }
-                    className="md:px-10 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect"
+                    className="ml:px-10 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect"
                 >
                     Get Started
                 </button>
             </div>
-            <div className="md:w-[55%] w-full flex justify-center items-center ">
+            <div className="ml:w-[55%] w-full flex justify-center items-center ">
                 <div className="relative">
                     <img
                         src="/images/resumeBuilder/resumeLink.png"
                         alt=""
-                        className="md:w-[40vw] w-[50vw] md:h-[40vw] h-[50vw] object-contain"
+                        className="ml:w-[40vw] w-[50vw] ml:h-[40vw] h-[50vw] object-contain"
                     />
                     <motion.img
                         src="/images/resumeBuilder/circle.png"
                         alt=""
-                        className="md:w-[11.5vw] w-[14vw] md:h-[9.5vw] h-[12vw] object-contain absolute top-[3.8vw] right-[3vw]"
+                        className="ml:w-[11.5vw] w-[14vw] ml:h-[9.5vw] h-[12vw] object-contain absolute top-[3.8vw] right-[3vw]"
                         initial={{ rotate: -20 }}
                         animate={isGirl1 ? { rotate: 10 } : {}}
                         transition={{
@@ -150,7 +150,7 @@ export default function ResumeLink() {
                     <motion.img
                         src="/images/resumeBuilder/girl1.png"
                         alt=""
-                        className="md:w-[13.5vw] w-[16vw] md:h-[11.5vw] h-[14vw] object-contain absolute"
+                        className="ml:w-[13.5vw] w-[16vw] ml:h-[11.5vw] h-[14vw] object-contain absolute"
                         initial={{ rotate: -10, top: '1.75vw', right: '5vw' }}
                         animate={{
                             rotate: isGirl1 ? 0 : -10,
@@ -167,12 +167,12 @@ export default function ResumeLink() {
                         <img
                             src="/images/resumeBuilder/boyCircle.png"
                             alt=""
-                            className="md:w-[12vw] w-[15vw] md:h-[13vw] h-[16vw] object-contain absolute bottom-[2.5vw] left-[5.2vw]"
+                            className="ml:w-[12vw] w-[15vw] ml:h-[13vw] h-[16vw] object-contain absolute bottom-[2.5vw] left-[5.2vw]"
                         />
                         <motion.img
                             src="/images/resumeBuilder/boy.png"
                             alt=""
-                            className="md:w-[15vw] w-[18vw] md:h-[15vw] h-[18vw] object-contain absolute z-10"
+                            className="ml:w-[15vw] w-[18vw] ml:h-[15vw] h-[18vw] object-contain absolute z-10"
                             initial={{ rotate: 0, bottom: '3vw', left: '6.6vw' }}
                             animate={{
                                 rotate: isBoy ? 10 : 0,
@@ -183,7 +183,7 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="md:w-[9.2vw] w-[11vw] md:h-[9.2vw] h-[11vw] object-contain absolute bottom-[4.1vw] left-[6.7vw]"
+                            className="ml:w-[9.2vw] w-[11vw] ml:h-[9.2vw] h-[11vw] object-contain absolute bottom-[4.1vw] left-[6.7vw]"
                         />
                     </div>
 
@@ -196,12 +196,12 @@ export default function ResumeLink() {
                         <img
                             src="/images/resumeBuilder/girlCircle2.png"
                             alt=""
-                            className="md:w-[12vw] w-[15vw] md:h-[13vw] h-[16vw] object-contain absolute bottom-[4.5vw] right-[3vw]"
+                            className="ml:w-[12vw] w-[15vw] ml:h-[13vw] h-[16vw] object-contain absolute bottom-[4.5vw] right-[3vw]"
                         />
                         <motion.img
                             src="/images/resumeBuilder/girl2.png"
                             alt=""
-                            className="md:w-[11vw] w-[14vw] md:h-[11vw] h-[14vw] object-contain absolute z-10"
+                            className="ml:w-[11vw] w-[14vw] ml:h-[11vw] h-[14vw] object-contain absolute z-10"
                             initial={{ rotate: 10, bottom: '5.1vw', right: '2.9vw' }}
                             animate={{
                                 rotate: isGirl2 ? 0 : 10,
@@ -212,7 +212,7 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="md:w-[9.3vw] w-[12vw] md:h-[9.3vw] h-[12vw] object-contain absolute bottom-[6.1vw] right-[3.6vw]"
+                            className="ml:w-[9.3vw] w-[12vw] ml:h-[9.3vw] h-[12vw] object-contain absolute bottom-[6.1vw] right-[3.6vw]"
                         />
                     </div>
                     <div
@@ -224,12 +224,12 @@ export default function ResumeLink() {
                         <img
                             src="/images/resumeBuilder/girlCircle3.png"
                             alt=""
-                            className="md:w-[13vw] w-[16vw] md:h-[13vw] h-[16vw] object-contain absolute top-[8vw] left-[1.9vw]"
+                            className="ml:w-[13vw] w-[16vw] ml:h-[13vw] h-[16vw] object-contain absolute top-[8vw] left-[1.9vw]"
                         />
                         <motion.img
                             src="/images/resumeBuilder/girl3.png"
                             alt=""
-                            className="md:w-[14vw] w-[17vw] md:h-[15.3vw] h-[18vw] object-contain absolute z-10"
+                            className="ml:w-[14vw] w-[17vw] ml:h-[15.3vw] h-[18vw] object-contain absolute z-10"
                             initial={{ rotate: 0, top: '6.5vw', left: '1.5vw' }}
                             animate={{
                                 rotate: isGirl3 ? 10 : 0,
@@ -240,7 +240,7 @@ export default function ResumeLink() {
                         <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
-                            className="md:w-[9.3vw] w-[12vw] md:h-[9.3vw] h-[12vw] object-contain absolute top-[9.85vw] left-[3.35vw]"
+                            className="ml:w-[9.3vw] w-[12vw] ml:h-[9.3vw] h-[12vw] object-contain absolute top-[9.85vw] left-[3.35vw]"
                         />
                     </div>
                 </div>

@@ -24,7 +24,7 @@ function TransformResume() {
         if (isLogin) {
             router.push("/transform/TransformJob");
         } else {
-            router.push("/auth?signin=true");
+            router.push("/auth?signin=true&role=recruiter")
         }
     };
     useEffect(() => {
@@ -84,17 +84,17 @@ function TransformResume() {
         <div ref={transformRef} className='flex ml:gap-[10%] ml:flex-row gap-6 flex-col-reverse  w-screen items-center justify-center  customMargins'>
             <div className='flex flex-col ml:gap-6 gap-4 ml:w-[51%] w-[90%] ml:items-start items-center'>
                 <div className='flex flex-col gap-2 ml:text-start text-center'>
-                    <p className='ml:text-[3vw] text-[9vw]  font-bold leading-tight'>  Job Ready Resumes
+                    <p className='ml:text-[3vw] text-[28px]  font-bold leading-tight'>  Job Ready Resumes
                         for any  <span className='text-[#06A9EF]'>Job Description</span></p>
-                    <p className='ml:text-[1.3vw] text-[5vw] font-medium'> Transform resumes to match job descriptions Perfectly</p>
+                    <p className='ml:text-[1.3vw] text-[16px] font-medium'> Transform resumes to match job descriptions Perfectly</p>
                 </div>
-                <div className='ml:text-[1.2vw] text-[4vw] font-medium ml:text-start text-center'>
+                <div className='ml:text-[1.2vw] text-[14px] font-medium ml:text-start text-center'>
 
                     <span className='text-[#06A9EF]'>Crafting personalized resumes </span>to fit each job perfectly by highlighting the right skills and experiences. By making sure resumes match what employers are looking for, <span className='text-[#06A9EF]'>help candidates stand out</span> and land their dream jobs.
                 </div>
                 <button
                     onClick={clickHandler}
-                    className='bg-[#06A9EF] btn_hover_effect text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
+                    className='bg-[#06A9EF] btn_hover_effect text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[14px] font-semibold'>
                     Transform Resume
                 </button>
 

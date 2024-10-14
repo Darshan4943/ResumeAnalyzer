@@ -221,7 +221,7 @@ const MobileView = ({ clickHandler, isLogin, isSubscribe, setIsSubcrib }) => {
             <p className="text-[32px] text-[#333333] font-[700]">
               Try our <span className="text-[#06A9EF]">Subscription</span> plans
             </p>
-            <p className="text-[14px] text-[#646464] font-[400]">
+            <p className="text-[16px] text-[#646464] font-[400]">
               Affordable plans for all the aspiring professionals.
             </p>
           </div>
