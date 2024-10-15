@@ -51,9 +51,13 @@ function Collection() {
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
+  const [collectionCount, setCollectionCount] = useState()
 
-  const collectionCount = localStorage.getItem("collectionCount");
+  useEffect(() => {
+    const collectionCount = Number(localStorage.getItem("collectionCount"));
+    setCollectionCount(collectionCount)
 
+  }, [])
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -120,7 +124,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -135,7 +139,7 @@ function Collection() {
 
   const getClientData = (clientId) => {
     axios
-      .get("https://jamblix.com/api/resume/" + clientId)
+      .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -149,7 +153,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -166,7 +170,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
 
@@ -183,7 +187,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -199,7 +203,7 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
         const files = res.data.data.filter(item => item.type === 'file');
         setUnSyncFiles(files.length);
@@ -236,7 +240,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("https://jamblix.com/api/folder/create", formData)
+        .post("http://localhost:2000/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -256,7 +260,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://jamblix.com/api/resume/extraction",
+      "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
       }
@@ -384,12 +388,13 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
             setUploadCount((prevCount) => prevCount + 1);
             resolve({ index, response: response.data });
+            updateCollectionLimit()
           } catch (e) {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
@@ -450,8 +455,8 @@ function Collection() {
     const textData = [];
 
 
-    // const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
-    const allowedFiles = Array.from(selectedFiles);
+    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
+    // const allowedFiles = Array.from(selectedFiles);
     if (allowedFiles.length) {
       const promise = allowedFiles.map((file, index) => {
         if (
@@ -499,32 +504,41 @@ function Collection() {
     setFiles(allowedFiles);
   };
 
+  // const updateCollectionLimit = async () => {
+  //   if (uploadCount === 0) {
+  //     console.log('No files to update. Skipping API call.');
+  //     return { success: false, message: 'Files count is zero, no update needed.' };
+  //   }
+  //   try {
+  //     const apiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+  //     const response = await axios.put(apiUrl, { uploadCount });
+
+  //     if (response.data.success) {
+
+  //       setUploadCount(0);
+  //       dispatch(reCallUserData())
+  //       return response.data;
+  //     } else {
+  //       console.error('Error:', response.data.message);
+  //       setUploadCount(0);
+  //       return response.data;
+
+  //     }
+  //   } catch (error) {
+  //     console.error('Something went wrong:', error);
+  //     setUploadCount(0);
+  //     return { success: false, message: 'Something went wrong', error };
+
+  //   }
+  // };
+
   const updateCollectionLimit = async () => {
-    if (uploadCount === 0) {
-      console.log('No files to update. Skipping API call.');
-      return { success: false, message: 'Files count is zero, no update needed.' };
-    }
-    try {
-      const apiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
-      const response = await axios.put(apiUrl, { uploadCount });
+    console.log(uploadCount)
+    localStorage.setItem("collectionCount", collectionCount - uploadCount);
+    const collectionCounts = Number(localStorage.getItem("collectionCount"));
+    setCollectionCount(collectionCounts)
+  
 
-      if (response.data.success) {
-        
-        setUploadCount(0);
-        dispatch(reCallUserData())
-        return response.data;
-      } else {
-        console.error('Error:', response.data.message);
-        setUploadCount(0);
-        return response.data;
-
-      }
-    } catch (error) {
-      console.error('Something went wrong:', error);
-      setUploadCount(0);
-      return { success: false, message: 'Something went wrong', error };
-
-    }
   };
 
   return (
@@ -831,12 +845,12 @@ function Collection() {
                 </>
               )}
               <div className="flex justify-between gap-6">
-                <div className="text-[16px] font-medium">
-                  {/* {isFile &&
+                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`}>
+                  {isFile &&
                     <>
                       Upload limit : {collectionCount ? collectionCount : 0}
                     </>
-                  } */}
+                  }
                 </div>
 
                 <div className="flex justify-end gap-6 text-blue font-medium">
@@ -856,6 +870,7 @@ function Collection() {
                       setTimeout(() => {
                         getUnSyncFiles()
                       }, 10000);
+                    
                       // updateCollectionLimit()
 
                     }}
@@ -921,6 +936,7 @@ function Collection() {
               <button
                 onClick={(e) => {
                   setIsCreate(!isCreate);
+                  
                   e.stopPropagation();
                 }}
                 disabled={tab != 1}

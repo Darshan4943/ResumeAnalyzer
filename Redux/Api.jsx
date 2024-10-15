@@ -23,9 +23,9 @@ import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
 import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
+const ENDPOINT = "http://localhost:2000"; // Replace with your backend WebSocket server URL
 
-export const Api = ({}) => {
+export const Api = ({ }) => {
   const store = useStore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,7 @@ export const Api = ({}) => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -86,7 +86,7 @@ export const Api = ({}) => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
+          .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -102,7 +102,7 @@ export const Api = ({}) => {
       }
     }
   }, [reCallUser, showPlan]);
-
+ 
   useEffect(() => {
     const planActive =
       localStorage.getItem("planActive") == true ? true : false;
@@ -110,7 +110,7 @@ export const Api = ({}) => {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -125,10 +125,10 @@ export const Api = ({}) => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
-            localStorage.setItem("collectionCount", result.collectionStored);
+          
             localStorage.setItem("jobsApply", result.jobsApply);
             localStorage.setItem("planAvailable", true);
-            localStorage.setItem("chatCount", result.chatCount);
+          
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
@@ -137,7 +137,7 @@ export const Api = ({}) => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" + result._id
+                  "http://localhost:2000/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -162,16 +162,47 @@ export const Api = ({}) => {
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
             localStorage.setItem("jobsApply", 0);
+            localStorage.setItem("chatCount", 0);
+            localStorage.setItem("collectionCount", 0);
             localStorage.setItem("downloadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
+            localStorage.setItem("jdCount", 0);
           }
         })
         .catch((err) => {
           console.log(err);
         });
+
+       
     }
+
   }, [userDataGlobal, reCallUser, showPlan, allPlans]);
+
+  useEffect(()=>{
+    if(userDataGlobal._id){
+    let userId = userDataGlobal._id;
+    let role = userDataGlobal.role;
+    
+    axios
+      .post("http://localhost:2000/api/apiLogs/get", {
+        userId,
+        role,
+      })
+      .then((res) => {
+        const result = res.data.data;
+        localStorage.setItem("chatCount", result.chatBot); 
+        localStorage.setItem("jdCount", result.jobMatching.matchCount);
+        localStorage.setItem("collectionCount", result.collectionLimit); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },[userDataGlobal])
+
+
+
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -199,7 +230,7 @@ export const Api = ({}) => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://jamblix.com/api/exchangeRate/" + currency
+  //                 "http://localhost:2000/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -290,14 +321,14 @@ export const Api = ({}) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
-        localStorage.setItem("country",country)
+        localStorage.setItem("country", country)
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
           (item) => item?.countryCode === codeJson?.code
         );
 
         // const currency = Country ? Country.currency : "USD";
-        const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
+        const currency = country === "India" ? "INR" : country === "United Kingdom" ? "GBP" : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
@@ -306,7 +337,7 @@ export const Api = ({}) => {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `https://jamblix.com/api/exchangeRate/${currency}`
+          `http://localhost:2000/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem(
@@ -360,9 +391,9 @@ export const Api = ({}) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;

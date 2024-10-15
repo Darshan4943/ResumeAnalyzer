@@ -110,33 +110,40 @@ const ChatBox = ({
   const chatEndRef = useRef(null);
   const [img, setImg] = useState(null);
   const [errorModel, setError] = useState(false);
-  const [chatCount,setChatCount]=useState(0)
-
+  const [chatCount, setChatCount] = useState(0)
+  const [activePlan, setActivePlan] = useState(0)
   useEffect(() => {
-  const chatCount = Number(localStorage.getItem("chatCount"));
-  setChatCount(chatCount)
-  },[])
+    const chatCount = Number(localStorage.getItem("chatCount"));
+    const activePlan = Number(localStorage.getItem("activePlan"));
+    setChatCount(chatCount)
+    setActivePlan(activePlan)
+  }, [])
 
   const [limitPopup, setLimitPopup] = useState(false);
-  console.log(111, chatCount)
-  const updateChatCount = () => {
-    axios
-      .put(
-        `https://jamblix.com/api/subscription/updateChatLimit/${userDataGlobal._id}`
-      )
-      .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
-        const chatCounts = Number(localStorage.getItem("chatCount"));
-        setChatCount(chatCounts)
-      })
-      .catch((err) => console.error(err));
-  }
+ 
+  // const updateChatCount = () => {
+  //   axios
+  //     .put(
+  //       `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal._id}`
+  //     )
+  //     .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
+  //       const chatCounts = Number(localStorage.getItem("chatCount"));
+  //       setChatCount(chatCounts)
+  //     })
+  //     .catch((err) => console.error(err));
+  // }
 
+  const updateChatCount = () => {
+    localStorage.setItem("chatCount", chatCount - 1);
+    const chatCounts = Number(localStorage.getItem("chatCount"));
+    setChatCount(chatCounts)
+  }
   const submitHandler = (e) => {
-  
+
     e.preventDefault();
-    if (chatCount <= 0) {
-      setLimitPopup(true); // Show limit popup
-      return; // Exit the function early to prevent API call
+    if (chatCount <= 0 && (activePlan === 1 || activePlan === 4)) {
+      setLimitPopup(true); 
+      return; 
     }
     if (text?.length > 5) {
       const obj = {
@@ -147,10 +154,11 @@ const ChatBox = ({
       };
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/qna", {
+        .post("http://localhost:2000/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
           userType: userDataGlobal.role,
+          userId: userDataGlobal._id
         })
         .then((res) => {
           setOnce(true)
@@ -247,7 +255,7 @@ const ChatBox = ({
       //   formData.append("file", file);
       //   try {
       //     const response = await axios.post(
-      //       "https://jamblix.com/convert",
+      //       "http://localhost:2000/convert",
       //       formData,
       //       {
       //         responseType: "blob",
@@ -296,7 +304,7 @@ const ChatBox = ({
       const formData = new FormData();
       formData.append("img", file);
       axios
-        .post("https://jamblix.com/api/getImageUrl", formData)
+        .post("http://localhost:2000/api/getImageUrl", formData)
         .then((res) => {
           if (res.data.success) {
             setImg(res.data.location);
@@ -333,7 +341,7 @@ const ChatBox = ({
   };
   return (
     <>
-    {limitPopup && (
+      {limitPopup && (
         <div className="z-[200000]">
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>

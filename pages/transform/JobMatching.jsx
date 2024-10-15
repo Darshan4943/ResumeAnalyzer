@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 
 const JobMatching = () => {
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,19 @@ const JobMatching = () => {
   // const [message, setMessage] = useState("Analyzing Data, Please wait");
   const [mainMessage, setMainMessage] = useState("Analyzing Data");
   const [findMatchLoader, setMatchLoader] = useState(false);
+
+  const [jdCount, setJdCount] = useState(0)
+  const [activePlan, setActivePlan] = useState(0)
+  const [limitPopup, setLimitPopup] = useState(false);
+
+  useEffect(() => {
+    const jdCount = Number(localStorage.getItem("jdCount"));
+    console.log(jdCount)
+    const activePlan = Number(localStorage.getItem("activePlan"));
+    setJdCount(jdCount)
+    setActivePlan(activePlan)
+  }, [])
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -84,7 +98,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -106,10 +120,10 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-       
+
           if (item.type == "file" && item.isSync === true) {
             return true;
           } else if (item.type == "folder") {
@@ -128,14 +142,26 @@ const JobMatching = () => {
       });
   };
 
+  const updateChatCount = () => {
+    localStorage.setItem("jdCount", jdCount - 1);
+    const jdCount = Number(localStorage.getItem("jdCount"));
+    setJdCount(jdCount)
+  }
   const jobMatching = async () => {
+
+    if (jdCount <= 0 && activePlan === 4) {
+      setLimitPopup(true);
+      return;
+    }
     setLoadingg(true);
     setIsAnimate(false);
+    let userId=userDataGlobal._id
     try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
-        text,
+      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+        text,userId
       });
       const jd = res.data.jsonData[0];
+      updateChatCount()
       localStorage.removeItem("JdDescription");
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
@@ -181,7 +207,7 @@ const JobMatching = () => {
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://jamblix.com/api/resume/extraction",
+      "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
       }
@@ -295,7 +321,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching/",
+      "http://localhost:2000/api/external/jobMatching/",
 
       {
         jd: jd,
@@ -390,157 +416,195 @@ const JobMatching = () => {
   }, []);
 
   return (
-    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
-      {loadingg && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-              <div className="w-[165px] h-[124px] flex items-center justify-center">
-                <motion.img
-                  src="/images/resumeBuilder/bot.png"
-                  alt=""
-                  className="h-[68px] w-[68px]"
-                  animate={{ y: [-30, 0, -30] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center relative z-100">
-                <span className="text-center text-[#fff] text-[16px]">
-                  Analyzing Data,
-                </span>
-                <span className="text-left text-[#fff] text-[16px] loading_dots">
-                  Please wait
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      {findMatchLoader && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-              <div className="w-[165px] h-[124px] flex items-center justify-center">
-                <motion.img
-                  src="/images/resumeBuilder/bot.png"
-                  alt=""
-                  className="h-[68px] w-[68px]"
-                  animate={{ y: [-30, 0, -30] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center relative z-100">
-                <span className="text-center text-[#fff] text-[16px]">
-                  {mainMessage},
-                </span>
-                <span className="text-left text-[#fff] text-[16px] loading_dots">
-                  Please wait
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      <div className="font-semibold text-[20px]">Job Description Matching</div>
-      <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-      <div className="flex flex-col gap-6 h-full relative overflow-hidden">
-        <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
-          <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
-            <div className="text-[18px] text-[#333333] font-medium">
-              Select From Collection
-            </div>
-            <JdFiles
-              details={details}
-              query={router.query}
-              setSelectedIndexes={setSelectedIndexes}
-              selectedIndexes={selectedIndexes}
-              loading={loading}
-              selectedIndexesFileTypes={selectedIndexesFileTypes}
-              setSelectedIndexesFilesType={setSelectedIndexesFilesType}
-            />
-
-            <JdDescription
-              text={text}
-              error={error}
-              resumeCount={resumeCount}
-              loadingg={loadingg}
-              setText={setText}
-              setError={setError}
-              setResumeCount={setResumeCount}
-              jobMatching={jobMatching}
-              setShowsideBar={setShowsideBar}
-              showMatchingSidebar={showMatchingSidebar}
-              MatchJob={MatchJob}
-              btnToggle={btnToggle}
-              setButtonToggle={setButtonToggle}
-            />
-          </div>
-
-          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
-          <div className="ml:w-[56%] w-full">
-            <JdMatching
-              details={details}
-              resumeList={resumeList}
-              isAnimate={isAnimate}
-              setShowsideBar={setShowsideBar}
-            />
-          </div>
+    <>
+      {limitPopup && (
+        <div className="z-[200000]">
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
-      </div>
+      )}
 
-      <AnimatePresence>
-        {showMatchingSidebar && (
+      <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
+        {loadingg && (
           <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 3 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
-              style={
-                {
-                  // background: "rgba(255, 255, 255, 0.5)",
-                  // backdropFilter: "blur(10px)",
-                }
-              }
-            ></motion.div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                <div className="w-[165px] h-[124px] flex items-center justify-center">
+                  <motion.img
+                    src="/images/resumeBuilder/bot.png"
+                    alt=""
+                    className="h-[68px] w-[68px]"
+                    animate={{ y: [-30, 0, -30] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center relative z-100">
+                  <span className="text-center text-[#fff] text-[16px]">
+                    Analyzing Data,
+                  </span>
+                  <span className="text-left text-[#fff] text-[16px] loading_dots">
+                    Please wait
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
-            {/* Sidebar */}
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
-              style={{
-                background: "rgba(255, 255, 255, 0.5)",
-                backdropFilter: "blur(10px)",
-                ...(navigator.userAgent.includes("Safari") &&
-                  !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(5px)",
-                  }),
-                willChange: "transform",
-              }}
-            >
-              <JdMatchingsideBar
-                extratctedData={extratctedData}
-                setExtractedData={setExtractedData}
-                text={text}
-                setText={setText}
-                MatchJob={MatchJob}
-                setShowsideBar={setShowsideBar}
-                setIsEdit={setIsEdit}
-                setShowForm={setShowForm}
-                setEditId={setEditId}
+        {findMatchLoader && (
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                <div className="w-[165px] h-[124px] flex items-center justify-center">
+                  <motion.img
+                    src="/images/resumeBuilder/bot.png"
+                    alt=""
+                    className="h-[68px] w-[68px]"
+                    animate={{ y: [-30, 0, -30] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center relative z-100">
+                  <span className="text-center text-[#fff] text-[16px]">
+                    {mainMessage},
+                  </span>
+                  <span className="text-left text-[#fff] text-[16px] loading_dots">
+                    Please wait
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        <div className="font-semibold text-[20px]">Job Description Matching</div>
+        <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+        <div className="flex flex-col gap-6 h-full relative overflow-hidden">
+          <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
+            <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
+              <div className="text-[18px] text-[#333333] font-medium">
+                Select From Collection
+              </div>
+              <JdFiles
+                details={details}
+                query={router.query}
+                setSelectedIndexes={setSelectedIndexes}
+                selectedIndexes={selectedIndexes}
+                loading={loading}
+                selectedIndexesFileTypes={selectedIndexesFileTypes}
+                setSelectedIndexesFilesType={setSelectedIndexesFilesType}
               />
 
+              <JdDescription
+                text={text}
+                error={error}
+                resumeCount={resumeCount}
+                loadingg={loadingg}
+                setText={setText}
+                setError={setError}
+                setResumeCount={setResumeCount}
+                jobMatching={jobMatching}
+                setShowsideBar={setShowsideBar}
+                showMatchingSidebar={showMatchingSidebar}
+                MatchJob={MatchJob}
+                btnToggle={btnToggle}
+                setButtonToggle={setButtonToggle}
+              />
+            </div>
+
+            <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
+            <div className="ml:w-[56%] w-full">
+              <JdMatching
+                details={details}
+                resumeList={resumeList}
+                isAnimate={isAnimate}
+                setShowsideBar={setShowsideBar}
+              />
+            </div>
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {showMatchingSidebar && (
+            <>
+              {/* Overlay */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 3 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
+                style={
+                  {
+                    // background: "rgba(255, 255, 255, 0.5)",
+                    // backdropFilter: "blur(10px)",
+                  }
+                }
+              ></motion.div>
+
+              {/* Sidebar */}
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
+                style={{
+                  background: "rgba(255, 255, 255, 0.5)",
+                  backdropFilter: "blur(10px)",
+                  ...(navigator.userAgent.includes("Safari") &&
+                    !navigator.userAgent.includes("Chrome") && {
+                    WebkitBackdropFilter: "blur(5px)",
+                  }),
+                  willChange: "transform",
+                }}
+              >
+                <JdMatchingsideBar
+                  extratctedData={extratctedData}
+                  setExtractedData={setExtractedData}
+                  text={text}
+                  setText={setText}
+                  MatchJob={MatchJob}
+                  setShowsideBar={setShowsideBar}
+                  setIsEdit={setIsEdit}
+                  setShowForm={setShowForm}
+                  setEditId={setEditId}
+                />
+
+                {(ShowForm || isEdit) && (
+                  <div className="block ml:hidden">
+                    <ExtraSectionForm
+                      extratctedData={extratctedData}
+                      setExtractedData={setExtractedData}
+                      isEdit={isEdit}
+                      setShowForm={setShowForm}
+                      editId={editId}
+                      setIsEdit={setIsEdit}
+                      setEditId={setEditId}
+                      ShowForm={ShowForm}
+                    />
+                  </div>
+                )}
+              </motion.div>
+
+              {/* ExtraSectionForm for larger screens */}
               {(ShowForm || isEdit) && (
-                <div className="block ml:hidden">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
+                  style={{
+                    backdropFilter: "blur(10px)",
+                    ...(navigator.userAgent.includes("Safari") &&
+                      !navigator.userAgent.includes("Chrome") && {
+                      WebkitBackdropFilter: "blur(10px)",
+                    }),
+                    willChange: "transform",
+                  }}
+                >
                   <ExtraSectionForm
                     extratctedData={extratctedData}
                     setExtractedData={setExtractedData}
@@ -551,43 +615,13 @@ const JobMatching = () => {
                     setEditId={setEditId}
                     ShowForm={ShowForm}
                   />
-                </div>
+                </motion.div>
               )}
-            </motion.div>
-
-            {/* ExtraSectionForm for larger screens */}
-            {(ShowForm || isEdit) && (
-              <motion.div
-                initial={{ x: 0 }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
-                style={{
-                  backdropFilter: "blur(10px)",
-                  ...(navigator.userAgent.includes("Safari") &&
-                    !navigator.userAgent.includes("Chrome") && {
-                      WebkitBackdropFilter: "blur(10px)",
-                    }),
-                  willChange: "transform",
-                }}
-              >
-                <ExtraSectionForm
-                  extratctedData={extratctedData}
-                  setExtractedData={setExtractedData}
-                  isEdit={isEdit}
-                  setShowForm={setShowForm}
-                  editId={editId}
-                  setIsEdit={setIsEdit}
-                  setEditId={setEditId}
-                  ShowForm={ShowForm}
-                />
-              </motion.div>
-            )}
-          </>
-        )}
-      </AnimatePresence>
-    </div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 };
 

@@ -144,7 +144,7 @@ export default function ResumeLink() {
                         alt=""
                         className="w-[12vw] h-[13vw] object-contain absolute right-[11.5vw] top-[13.5vw] z-20"
                     />
-                    <motion.img
+                    {/* <motion.img
                         src="/images/resumeBuilder/circle.png"
                         alt=""
                         className="w-[11.5vw] h-[9.5vw] object-contain absolute top-[3.8vw] right-[3vw]"
@@ -156,12 +156,12 @@ export default function ResumeLink() {
 
                         }}
                         style={{ transformOrigin: "center center" }}
-                    />
+                    /> */}
                     <motion.img
-                        src="/images/resumeBuilder/girl1.png"
+                        src="/images/resumeBuilder/girl11.png"
                         alt=""
-                        className="w-[13.5vw] h-[11.5vw] object-contain absolute"
-                        initial={{ rotate: -10, top: '1.75vw', right: '5vw' }}
+                        className="w-[17.5vw] h-[17.5vw] object-contain absolute"
+                        initial={{ rotate: -10, top: '-0.2vw', right: '0.1vw' }}
                         animate={{
                             rotate: isGirl1 ? 0 : -10,
 
@@ -181,21 +181,21 @@ export default function ResumeLink() {
                             className="w-[12vw] h-[13vw] object-contain absolute bottom-[2.5vw] left-[5.2vw]"
                         />
                         <motion.img
-                            src="/images/resumeBuilder/boy.png"
+                            src="/images/resumeBuilder/boy11.png"
                             alt=""
-                            className="w-[15vw] h-[15vw] object-contain absolute z-10"
-                            initial={{ rotate: 0, bottom: '3vw', left: '6.6vw' }}
+                            className="w-[19vw] h-[19vw] object-contain absolute z-10"
+                            initial={{ rotate: 0, bottom: '-0.9vw', left: '1.8vw' }}
                             animate={{
                                 rotate: isBoy ? 10 : 0,
                             }}
                             transition={{ duration: 1, ease: "easeInOut", delay: 2 }}
                             style={{ transformOrigin: "center center" }}
                         />
-                        <motion.img
+                        {/* <motion.img
                             src="/images/resumeBuilder/circle.png"
                             alt=""
                             className="w-[9.2vw] h-[9.2vw] object-contain absolute bottom-[4.1vw] left-[6.7vw]"
-                        />
+                        /> */}
                     </div>
 
                     <div
