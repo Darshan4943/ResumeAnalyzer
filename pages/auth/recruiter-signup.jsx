@@ -724,7 +724,7 @@ function Recruiter_signup({ }) {
                                   </button>
                                 )
                               ) : (
-                                <button className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
+                                <button  className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
                                   {loadingg ? (
                                     <MiniLoader />
                                   ) : (
