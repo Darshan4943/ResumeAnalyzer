@@ -51,13 +51,9 @@ function Collection() {
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
-  const [collectionCount, setCollectionCount] = useState()
 
-  useEffect(() => {
-    const collectionCount = Number(localStorage.getItem("collectionCount"));
-    setCollectionCount(collectionCount)
+  const collectionCount = localStorage.getItem("collectionCount");
 
-  }, [])
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -124,7 +120,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -139,7 +135,7 @@ function Collection() {
 
   const getClientData = (clientId) => {
     axios
-      .get("http://localhost:2000/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -153,7 +149,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -170,7 +166,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
 
@@ -187,7 +183,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -203,7 +199,7 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
         const files = res.data.data.filter(item => item.type === 'file');
         setUnSyncFiles(files.length);
@@ -240,7 +236,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("http://localhost:2000/api/folder/create", formData)
+        .post("https://jamblix.com/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -260,7 +256,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -388,13 +384,12 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "http://localhost:2000/api/folder/create",
+              "https://jamblix.com/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
             setUploadCount((prevCount) => prevCount + 1);
             resolve({ index, response: response.data });
-            updateCollectionLimit()
           } catch (e) {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
@@ -510,11 +505,12 @@ function Collection() {
   //     return { success: false, message: 'Files count is zero, no update needed.' };
   //   }
   //   try {
-  //     const apiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+      
+  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
-
+        
   //       setUploadCount(0);
   //       dispatch(reCallUserData())
   //       return response.data;
@@ -530,16 +526,52 @@ function Collection() {
   //     return { success: false, message: 'Something went wrong', error };
 
   //   }
+    
   // };
 
   const updateCollectionLimit = async () => {
-    console.log(uploadCount)
-    localStorage.setItem("collectionCount", collectionCount - uploadCount);
-    const collectionCounts = Number(localStorage.getItem("collectionCount"));
-    setCollectionCount(collectionCounts)
+    if (uploadCount === 0) {
+      console.log('No files to update. Skipping API call.');
+      return { success: false, message: 'Files count is zero, no update needed.' };
+    }
+    try {
+      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
   
-
+      const updateCountPromise = axios.put(apiUrl, { uploadCount });
+      const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount});
+  
+      const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
+  
+      if (response.data.success) {
+       
+        setUploadCount(0);
+        dispatch(reCallUserData());
+      } else {
+        console.error('First API call error:', response.data.message);
+      }
+  
+      if (secondResponse.data.success) {
+        
+        console.log('Second API call was successful');
+      } else {
+        console.error('Second API call error:', secondResponse.data.message);
+      }
+  
+    
+      return {
+        success: response.data.success && secondResponse.data.success,
+        message: 'Both API calls completed',
+        firstApiResponse: response.data,
+        secondApiResponse: secondResponse.data,
+      };
+    } catch (error) {
+      console.error('Something went wrong:', error);
+      setUploadCount(0);
+      return { success: false, message: 'Something went wrong', error };
+    }
   };
+  
 
   return (
     <>
@@ -845,7 +877,7 @@ function Collection() {
                 </>
               )}
               <div className="flex justify-between gap-6">
-                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`}>
+                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" :"text-red"}`} >
                   {isFile &&
                     <>
                       Upload limit : {collectionCount ? collectionCount : 0}
@@ -870,8 +902,7 @@ function Collection() {
                       setTimeout(() => {
                         getUnSyncFiles()
                       }, 10000);
-                    
-                      // updateCollectionLimit()
+                      updateCollectionLimit()
 
                     }}
                   >
@@ -936,7 +967,6 @@ function Collection() {
               <button
                 onClick={(e) => {
                   setIsCreate(!isCreate);
-                  
                   e.stopPropagation();
                 }}
                 disabled={tab != 1}

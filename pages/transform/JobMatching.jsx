@@ -19,6 +19,7 @@ import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
 import LimitUsedModal from "../../components/models/limitUsedModal";
+import { reCallUserData } from "../../Redux/actions/user";
 
 const JobMatching = () => {
   const [loading, setLoading] = useState(true);
@@ -142,26 +143,22 @@ const JobMatching = () => {
       });
   };
 
-  const updateChatCount = () => {
-    localStorage.setItem("jdCount", jdCount - 1);
-    const jdCount = Number(localStorage.getItem("jdCount"));
-    setJdCount(jdCount)
-  }
+
   const jobMatching = async () => {
 
-    if (jdCount <= 0 && activePlan === 4) {
+    if (jdCount >= 10 && activePlan === 4 ) {
       setLimitPopup(true);
       return;
     }
+
     setLoadingg(true);
     setIsAnimate(false);
-    let userId=userDataGlobal._id
     try {
       const res = await axios.post("http://localhost:2000/api/jd/extraction", {
-        text,userId
+        text,
       });
       const jd = res.data.jsonData[0];
-      updateChatCount()
+      updateJobMatchLimit()
       localStorage.removeItem("JdDescription");
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
@@ -177,6 +174,7 @@ const JobMatching = () => {
       // toast.error("Something went wrong, please try again");
     }
   };
+
 
   useEffect(() => {
     if (count > 3) {
@@ -381,7 +379,8 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
-
+      setSelectedIndexes([])
+      setSelectedIndexesFilesType([])
       setButtonToggle(false);
       // setLoadingg(false);
       setMatchLoader(false);
@@ -414,6 +413,35 @@ const JobMatching = () => {
       clearTimeout(updateMessage);
     };
   }, []);
+
+
+
+  const updateJobMatchLimit = async () => {
+    let resumeCount = selectedIndexesFileTypes.length
+
+    try {
+
+      const apiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const response = await axios.put(apiUrl, { resumeCount });
+
+      if (response.data.success) {
+
+        
+        dispatch(reCallUserData())
+        return response.data;
+      } else {
+        console.error('Error:', response.data.message);
+        
+        return response.data;
+
+      }
+    } catch (error) {
+      console.error('Something went wrong:', error);
+     
+      return { success: false, message: 'Something went wrong', error };
+
+    }
+  };
 
   return (
     <>

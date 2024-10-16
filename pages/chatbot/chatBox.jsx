@@ -134,14 +134,14 @@ const ChatBox = ({
   // }
 
   const updateChatCount = () => {
-    localStorage.setItem("chatCount", chatCount - 1);
+    localStorage.setItem("chatCount", chatCount + 1);
     const chatCounts = Number(localStorage.getItem("chatCount"));
     setChatCount(chatCounts)
   }
   const submitHandler = (e) => {
 
     e.preventDefault();
-    if (chatCount <= 0 && (activePlan === 1 || activePlan === 4)) {
+    if ((activePlan === 1 && chatCount >= 10) || (activePlan === 4 && chatCount >= 50)) {
       setLimitPopup(true); 
       return; 
     }

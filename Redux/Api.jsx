@@ -125,7 +125,7 @@ export const Api = ({ }) => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
-          
+            localStorage.setItem("collectionCount", result.collectionStored); 
             localStorage.setItem("jobsApply", result.jobsApply);
             localStorage.setItem("planAvailable", true);
           
@@ -193,7 +193,7 @@ export const Api = ({ }) => {
         const result = res.data.data;
         localStorage.setItem("chatCount", result.chatBot); 
         localStorage.setItem("jdCount", result.jobMatching.matchCount);
-        localStorage.setItem("collectionCount", result.collectionLimit); 
+       
       })
       .catch((err) => {
         console.log(err);

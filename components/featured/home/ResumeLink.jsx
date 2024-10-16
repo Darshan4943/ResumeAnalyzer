@@ -161,12 +161,12 @@ export default function ResumeLink() {
                         src="/images/resumeBuilder/girl11.png"
                         alt=""
                         className="w-[17.5vw] h-[17.5vw] object-contain absolute"
-                        initial={{ rotate: -10, top: '-0.2vw', right: '0.1vw' }}
+                        initial={{ rotate: -10, top: '-0.2vw', right: '0.1vw'}}
                         animate={{
                             rotate: isGirl1 ? 0 : -10,
 
                         }}
-                        transition={{ duration: 1, ease: "easeInOut", }}
+                        transition={{ duration: 1, ease: "easeInOut", delay:1 }}
                         style={{ transformOrigin: "center center" }}
                     />
                     <div
