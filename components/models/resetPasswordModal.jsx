@@ -52,7 +52,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/updatePassword", {
+      .post("https://jamblix.com/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

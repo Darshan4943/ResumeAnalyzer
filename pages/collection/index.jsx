@@ -506,7 +506,7 @@ function Collection() {
   //   }
   //   try {
       
-  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+  //     const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
@@ -535,8 +535,8 @@ function Collection() {
       return { success: false, message: 'Files count is zero, no update needed.' };
     }
     try {
-      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
-      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+      const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+      const anotherApiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
   
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount});

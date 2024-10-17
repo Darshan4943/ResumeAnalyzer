@@ -19,7 +19,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const getData = () => {
     axios
       .get(
-        `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+        `https://jamblix.com/api/job/getAllAppliedJobs/${userDataGlobal._id}`
       )
       .then((res) => {
         setAppliedJobs(res.data);
