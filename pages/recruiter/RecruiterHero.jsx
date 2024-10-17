@@ -200,7 +200,7 @@ function RecruiterHero() {
         </p>
 
         <div className=" text-center ml:text-[1.1vw] ms:text-[18px] text-[14px]  font-medium">
-          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. It's that easy!
+          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. It&apos;s that easy!
         </div>
         <button
           onClick={clickHandler}

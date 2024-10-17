@@ -61,7 +61,7 @@ function NewSkillAssessment() {
                             Get Skill Certified
                         </p>
                         <p className='ml:text-[16px]  text-[13px]   font-normal'>
-                            By earning Skilotech certifications, you'll validate your expertise and boost your career prospects.
+                            By earning Skilotech certifications, you&apos;ll validate your expertise and boost your career prospects.
                         </p>
 
                     </div>
