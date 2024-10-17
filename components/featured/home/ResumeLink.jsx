@@ -109,16 +109,12 @@ export default function ResumeLink() {
             <div className="flex flex-col gap-6 ml:w-[47%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
                 <div className="font-semibold ml:text-[3.2vw] text-[30px] leading-tight">
                     <p>
-                        Create a{" "}
-                        <span className="text-[#06A9EF]">Resume Link,</span>
+                    Transform your Resume
                     </p>
 
-                    <p>
-                        Share it with the{" "}
-                        
-                    </p>
+                    
                     <p className="text-[#06A9EF]">
-                            World
+                    into a Link
                         </p>
                 </div>
                 <div className="font-medium ml:text-[1.1vw] text-[14px] w-[100%] break-words">

@@ -12,7 +12,7 @@ export default function AskKrutAi() {
                     <p className="text-[#06A9EF]">
                         <span className='font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]'>from </span> “Krut” <span className='font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]'>Skilotech&apos;s </span>
                         <span className="font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]">
-                            Personalized  Chatbot
+                            Personalized
                         </span>
                         {" "}  AI Chatbot
                     </p>

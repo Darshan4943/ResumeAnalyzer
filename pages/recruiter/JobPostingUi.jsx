@@ -24,7 +24,7 @@ function JobPostingUi() {
   };
 
   return (
-    <div className="flex ml:flex-row flex-col ml:gap-[40px] w-[100%] justify-center items-center ">
+    <div className="flex ml:flex-row flex-col-reverse ml:gap-[40px] w-[100%] justify-center items-center ">
    
        
 

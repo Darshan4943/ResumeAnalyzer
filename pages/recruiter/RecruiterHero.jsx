@@ -192,7 +192,7 @@ function RecruiterHero() {
           opacity: visible ? 1 : 0,
           transition: "opacity 2s ease-in-out",
         }}
-        className="flex ml:w-[50%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center "
+        className="flex ml:w-[50%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center sm:px-6  px-2"
       >
         <p className=" text-center ml:text-[3vw] ms:text-[40px] text-[28px] font-bold leading-tight">
           {" "}
@@ -200,7 +200,7 @@ function RecruiterHero() {
         </p>
 
         <div className=" text-center ml:text-[1.1vw] ms:text-[18px] text-[14px]  font-medium">
-        Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. It's that easy!
+          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. It's that easy!
         </div>
         <button
           onClick={clickHandler}
