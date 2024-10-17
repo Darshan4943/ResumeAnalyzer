@@ -24,13 +24,9 @@ function JobPostingUi() {
   };
 
   return (
-    <div className="flex ml:flex-row flex-col ml:gap-[40px] w-[100%] justify-center items-center  ml:pb-12 pb-12 ">
+    <div className="flex ml:flex-row flex-col ml:gap-[40px] w-[100%] justify-center items-center ">
    
-        <img
-          className=" ml:h-[45vw] ml:w-[45vw] h-[75vw] w-[75vw]  object-contain  "
-          src="/images/recruiter/JobPostingUi.png"
-          alt=""
-        />
+       
 
       <div className="flex flex-col ml:gap-6 gap-4 ml:w-[40%] w-[95%] ml:items-start items-center">
         <div className="flex flex-col gap-2 ml:text-start text-center">
@@ -48,6 +44,11 @@ function JobPostingUi() {
           <p className="ml:text-[16px] text-[14px] font-semibold">Get Started</p>
         </button>
       </div>
+      <img
+          className=" ml:h-[45vw] ml:w-[45vw] h-[75vw] w-[75vw]  object-contain  "
+          src="/images/recruiter/JobPostingUi.png"
+          alt=""
+        />
     </div>
   );
 }

@@ -624,7 +624,7 @@ function Dashboard() {
                 <button
                   onClick={() => {
                     setIsSuccessful(false);
-                    if (signIn !== "true") {
+                    if ((signIn !== "true") && (userDataGlobal.role==="user")) {
                       setEditProfilePopUp(true);
                     }
                   }}

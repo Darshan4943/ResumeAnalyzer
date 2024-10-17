@@ -192,18 +192,15 @@ function RecruiterHero() {
           opacity: visible ? 1 : 0,
           transition: "opacity 2s ease-in-out",
         }}
-        className="flex ml:w-[57%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center "
+        className="flex ml:w-[50%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center "
       >
         <p className=" text-center ml:text-[3vw] ms:text-[40px] text-[28px] font-bold leading-tight">
           {" "}
-          <span className="text-[#06A9EF]">Empowering</span> Recruiters to
-          Create Job Winning Resumes
+          <span className="text-[#06A9EF]">Precision Matching</span> for Perfect Job Fits
         </p>
 
         <div className=" text-center ml:text-[1.1vw] ms:text-[18px] text-[14px]  font-medium">
-          Transform recruiters into resume experts! With our platform,
-          effortlessly create customized resumes for clients, manage multiple
-          CVs and many more.
+        Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. It's that easy!
         </div>
         <button
           onClick={clickHandler}

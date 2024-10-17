@@ -269,6 +269,7 @@ function Recruiter_signup({ }) {
       data.dial_code.includes(inputValue)
     );
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -283,6 +284,7 @@ function Recruiter_signup({ }) {
       "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
+    console.log(emptyFields)
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
@@ -379,12 +381,11 @@ function Recruiter_signup({ }) {
     setTimer(30);
     setLoadingg(true);
     e.preventDefault();
-    let otp = Math.floor(100000 + Math.random() * 900000);
-    setOtp(otp);
+    let tempUser = "tempRecruiter"
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
-        otp,
+        tempUser
       })
       .then((res) => {
         setLoadingg(false);
@@ -429,11 +430,28 @@ function Recruiter_signup({ }) {
   }, [verify]);
 
   const verifyOtp = () => {
-    if (otp == otpEntered) {
-      setVerified(true);
-    } else {
-      toast.error("OTP does not match");
-    }
+  
+    axios
+      .post("http://localhost:2000/api/verifyOtp", {
+        userEmail: data.email,
+        otpEntered
+      })
+      .then((res) => {
+    
+        const result = res.data;
+        if (result.success) {
+
+
+          setVerified(true);
+        } else {
+          toast.error("OTP does not match");
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data.message);
+    
+      });
+
   };
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -663,8 +681,8 @@ function Recruiter_signup({ }) {
                           name=""
                           // id="single_input"
                           placeholder={`${isViewportBelow850
-                              ? "Enter Number "
-                              : "Enter Contact Number "
+                            ? "Enter Number "
+                            : "Enter Contact Number "
                             }`}
                           value={data.mobileNo}
                           onChange={(e) =>
@@ -724,7 +742,7 @@ function Recruiter_signup({ }) {
                                   </button>
                                 )
                               ) : (
-                                <button  className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
+                                <button className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
                                   {loadingg ? (
                                     <MiniLoader />
                                   ) : (

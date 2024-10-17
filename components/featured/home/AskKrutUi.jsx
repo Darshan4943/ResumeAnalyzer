@@ -7,13 +7,14 @@ export default function AskKrutAi() {
     return (
         <div className=" customMargins flex ml:flex-row flex-col-reverse ml:gap-[2vw] gap-8 xl:gap-12 items-center py-9">
             <div className="flex flex-col gap-6 ml:w-[45%] w-full text-[#333333] pr-6 ml:text-start text-center ml:items-start items-center ">
-                <div className="font-semibold ml:text-[3.2vw] text-[28px] leading-tight">
-                    Get Advice with Skilotech&apos;s AI Featured
+                <div className="font-semibold ml:text-[3vw] text-[28px] leading-tight">
+                    Get Curated Advice
                     <p className="text-[#06A9EF]">
-                        “MyKrute”
-                        <span className="font-semibold ml:text-[3.2vw] text-[30px] w-[100%] break-words text-[#333333]">
-                            Chatbot
+                        <span className='font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]'>from </span> “Krut” <span className='font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]'>Skilotech&apos;s </span>
+                        <span className="font-semibold ml:text-[3vw] text-[28px] w-[100%] break-words text-[#333333]">
+                            Personalized  Chatbot
                         </span>
+                        {" "}  AI Chatbot
                     </p>
                 </div>
 

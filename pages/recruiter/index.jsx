@@ -40,12 +40,13 @@ function RecruiterPage() {
         <div className="overflow-hidden">
           <RecruiterHero />
         </div>
-        <PrecisionMatching />
+        <JobPostingUi />
+        {/* <PrecisionMatching /> */}
         {/* <TransformResume /> */}
         
         <ClientSection />
         <AskKrutUiRec />
-        <JobPostingUi />
+       
       </div>
 
       <div className="heroBlock relative">
@@ -63,9 +64,10 @@ function RecruiterPage() {
               <RecruiterHero />
             </Background>
           </Parallax>
-          <div className="h-[32rem] ml:h-[47vw] pt-[3rem]">
+          <JobPostingUi />
+          {/* <div className="h-[32rem] ml:h-[47vw] pt-[3rem]">
             <PrecisionMatching />
-          </div>
+          </div> */}
           {/* <Parallax
             strength={400}
             className="h-[32rem] ml:h-[50vw] pt-[36px] flex items-center"
@@ -76,7 +78,7 @@ function RecruiterPage() {
           </Parallax> */}
           <ClientSection />
           <AskKrutUiRec />
-          <JobPostingUi />
+          
         </ReactLenis>
       </div>
       {!enablePopup && <SubscriptionPlan fromMain={true} />}

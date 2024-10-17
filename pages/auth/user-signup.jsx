@@ -32,16 +32,17 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const handleVerification = (e) => {
     setResend(false);
     setTimer(30);
-    setLoading(true);
-    e.preventDefault();
 
+    e.preventDefault();
+    let tempUser = "tempUser"
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
-
+        tempUser
       })
       .then((res) => {
         setLoading(false);
+        setLoadingg(false)
         const result = res.data;
         if (result.success) {
           setVerify(true);
@@ -54,6 +55,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       .catch((err) => {
         toast.error(err?.response?.data.message);
         setLoading(false);
+        setLoadingg(false)
       });
   };
 
@@ -342,7 +344,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                   name=""
                   id=""
                   placeholder="Enter OTP"
-                  className="  leading-tight"
+                  className="  leading-tight text-black"
                   onChange={(e) =>
                     setOtpEntered(parseInt(e.target.value))
                   }
@@ -356,7 +358,8 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                       {!resend ? (
                         <p>{formatTime(timer)}</p>
                       ) : (
-                        <p onClick={handleVerification}>
+                        <p onClick={(e) => { handleVerification(e); setLoadingg(true); }}
+                        >
                           Resend OTP
                         </p>
                       )}
@@ -511,7 +514,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <>
               {!verify ?
                 <div
-                  onClick={handleVerification}
+                  onClick={(e) => { handleVerification(e); setLoading(true); }}
                   className="w-full px-[36px] py-[12px] leading-tight h-[50.33px] flex items-center justify-center text-center cursor-pointer rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
                 >
                   {loading ? (
@@ -536,7 +539,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             :
             <button
               disabled={!isEmailEntered || passwordError}
-              className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
+              className="w-full px-[36px] py-[12px] rounded-[12px] h-[50.33px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
               style={{
                 borderColor: "#06a9ef",
                 display: "flex",
