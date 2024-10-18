@@ -36,7 +36,7 @@ function NewSkillAssessment() {
                 <div className='flex flex-col ml:gap-9 gap-4 items-center  justify-between text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
                     <img
                         className=" ml:h-[182px] ml:w-[182px]  w-[120px] h-[120px]  object-contain  "
-                        src="/images/candidate/skill1.png"
+                        src="/images/candidate/skill2.png"
                         alt=""
                     />
                     <div className='flex flex-col ml:gap-4 gap-2 text-center items-center' >
@@ -53,7 +53,7 @@ function NewSkillAssessment() {
                 <div className='flex flex-col ml:gap-9 gap-4 items-center text-center  justify-between bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
                     <img
                         className=" ml:h-[182px] ml:w-[182px]  w-[120px] h-[120px]  object-contain  "
-                        src="/images/candidate/skill1.png"
+                        src="/images/candidate/skill3.png"
                         alt=""
                     />
                     <div className='flex flex-col ml:gap-4 gap-2 text-center items-center' >
