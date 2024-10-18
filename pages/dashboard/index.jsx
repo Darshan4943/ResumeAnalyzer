@@ -260,7 +260,7 @@ function Dashboard() {
         .then((res) => {
           const plan = allPlans.find(
             (item) =>
-              item.name == res.data.findIsActive?.plan
+              item.index == res.data.findIsActive?.index
           );
 
           if (res.data.findIsActive.isActive === true) {
@@ -273,7 +273,7 @@ function Dashboard() {
             setLimits({
               used: {
                 uploads: plan?.limits?.uploads - parseInt(uploadCount),
-                download: plan?.limits?.download - parseInt(saveCount),
+                download: plan?.limits?.save - parseInt(saveCount),
                 save: plan?.limits?.save - parseInt(saveCount),
                 clients: plan?.limits?.clients - parseInt(clientCount),
               },

@@ -89,12 +89,12 @@ function MyPurchase() {
         .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-
+          console.log(result)
           setSubscription(result);
           setPlan(
             allPlans.find(
               (item) =>
-                item.name == result?.plan
+                item.index == result?.index
             )
           );
 

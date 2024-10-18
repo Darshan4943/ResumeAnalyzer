@@ -94,14 +94,14 @@ function AskKrutAnimation() {
     }, [img3]);
 
     return (
-        <div ref={generateAiRef} className="w-[55%] flex justify-center items-center ">
+        <div ref={generateAiRef} className=" flex justify-center items-center ">
             <div className="relative ml:block hidden">
                 <img
                     src="/images/resumeBuilder/askKrut.png"
                     alt=""
-                    className="w-[40vw] h-[40vw] object-contain"
+                    className="w-[28vw] h-[40vw] object-contain"
                 />
-                <div className="w-[24vw] h-[30vw] object-contain absolute bottom-[8vw]  left-[8vw] overflow-hidden" style={{
+                <div className="w-[24vw] h-[30vw] object-contain absolute bottom-[8vw]  left-[2vw] overflow-hidden" style={{
                     opacity: isAnimate ? 1 : 0,
                     transition: 'opacity 2s ease-in-out',
                 }}>
@@ -154,7 +154,7 @@ function AskKrutAnimation() {
                 <img
                     src="/images/resumeBuilder/askKrut.png"
                     alt=""
-                    className="w-[60vw] h-[90vw] object-contain"
+                    className="w-[52vw] h-[90vw] object-contain"
                 />
                 <div className="w-[45vw] h-[55vw] object-contain absolute bottom-[22vw]  left-[3.5vw] overflow-hidden" style={{
                     opacity: isAnimate ? 1 : 0,

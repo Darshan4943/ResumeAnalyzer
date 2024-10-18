@@ -25,20 +25,20 @@ function SubscriptionPlans({ fromMain }) {
   const [allPlans, setAllPlans] = useState([])
   const [subscription, setSubscription] = useState(null);
   const [isFree, setIsFree] = useState(false);
-
+console.log(isFree)
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
 
     setexchangeRate(exchangeRate);
     seticon(icon);
-    if (userDataGlobal.role == "recruiter" || fromMain) {
-      setIsUser(false);
-      setPlans(plans.slice(3,5));
-    } else {
-      setIsUser(true);
-      setPlans(plans.slice(0, 2));
-    }
+    // if (userDataGlobal.role == "recruiter" || fromMain) {
+    //   setIsUser(false);
+    //   setPlans(plans.slice(3));
+    // } else {
+    //   setIsUser(true);
+    //   setPlans(plans.slice(0, 3));
+    // }
 
 
     const token = localStorage.getItem("authToken");
@@ -87,10 +87,20 @@ function SubscriptionPlans({ fromMain }) {
 
         if (userDataGlobal.role == "recruiter" || fromMain) {
           setIsUser(false);
-          setAllPlans(allPlan.slice(3,5));
+          if (isFree) {
+            setAllPlans([allPlan[4], allPlan[5]]); 
+          } else {
+            setAllPlans([allPlan[3], allPlan[5]]); 
+          }
+          
         } else {
           setIsUser(true);
-          setAllPlans(allPlan.slice(0, 2));
+          if (isFree) {
+            setAllPlans(allPlan.slice(1, 3)); 
+          } else {
+            setAllPlans([allPlan[0], allPlan[2]]); 
+          }
+          
         }
       })
       .catch((err) => {
@@ -98,7 +108,7 @@ function SubscriptionPlans({ fromMain }) {
       });
 
 
-  }, [userDataGlobal]);
+  }, [userDataGlobal,isFree]);
 
   const clickHandler = (index) => {
     if (isLogin) {
@@ -200,22 +210,30 @@ function SubscriptionPlans({ fromMain }) {
                       <span > Plan</span>
                     }
                   </p>
-                  {plan.index !== 1 &&
-                    <div className="flex flex-row gap-2 w-full items-center justify-center ">
-                      <p className="text-[2.5vw] font-[700]">{icon}</p>
-                      <p className="text-[2.5vw] font-[700]">
+
+                  <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
+                    <div className={`flex flex-row ${ (plan.index === 1 || plan.index === 4) ? "gap-0 line-through" :"gap-2"}  `}>
+
+                      <p className={` font-[700] ${(plan.index === 1 || plan.index === 4) ? "text-[#666666] text-[1.5vw] pb-1  " :"text-[2.5vw]"}`}>{icon}</p>
+                      <p className={` font-[700] ${(plan.index === 1 || plan.index === 4) ? "text-[#666666] text-[1.5vw] pb-1" :"text-[2.5vw]"}`}>
                         {Math.ceil(plan?.amount * exchangeRate)}
                       </p>
                     </div>
-                  }
-                  {plan.index === 1 &&
+                    {(plan.index === 1 || plan.index === 4) &&
+                      <p className="text-[2.5vw] font-[700]">
+                        Free
+                      </p>
+                    }
+                  </div>
+
+                  {/* {plan.index === 1 &&
                     <div className="flex flex-row gap-2 w-full items-center justify-center">
 
                       <p className="text-[2.5vw] font-[700]">
                         Free
                       </p>
                     </div>
-                  }
+                  } */}
 
                   <p
                     className="text-[1vw] font-[500]"
