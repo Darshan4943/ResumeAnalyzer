@@ -15,8 +15,8 @@ function NewSkillAssessment() {
                 <p className='font-semibold ml:text-[3.2vw] text-center text-[28px]'> Skill Assessment</p>
                 <p className='ml:text-[20px] font-medium text-center text-[16px]'> Explore your Growth through Skill Assessment and test your limits</p>
             </div>
-            <div className='flex scr700:flex-row flex-col  items-center justify-between customMargins w-full ml:gap-6 gap-3'>
-                <div className='flex flex-col ml:gap-9 gap-4 items-center text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
+            <div className='flex scr700:flex-row flex-col   justify-between customMargins w-full ml:gap-6 gap-3 max-w-[1256px]'>
+                <div className='flex flex-col ml:gap-9 gap-4 justify-between items-center text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
                     <img
                         className=" ml:h-[182px] ml:w-[182px]  w-[120px] h-[120px]  object-contain  "
                         src="/images/candidate/skill1.png"
@@ -33,7 +33,7 @@ function NewSkillAssessment() {
                     </div>
 
                 </div>
-                <div className='flex flex-col ml:gap-9 gap-4 items-center text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
+                <div className='flex flex-col ml:gap-9 gap-4 items-center  justify-between text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
                     <img
                         className=" ml:h-[182px] ml:w-[182px]  w-[120px] h-[120px]  object-contain  "
                         src="/images/candidate/skill1.png"
@@ -50,7 +50,7 @@ function NewSkillAssessment() {
                     </div>
 
                 </div>
-                <div className='flex flex-col ml:gap-9 gap-4 items-center text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
+                <div className='flex flex-col ml:gap-9 gap-4 items-center text-center  justify-between bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>
                     <img
                         className=" ml:h-[182px] ml:w-[182px]  w-[120px] h-[120px]  object-contain  "
                         src="/images/candidate/skill1.png"

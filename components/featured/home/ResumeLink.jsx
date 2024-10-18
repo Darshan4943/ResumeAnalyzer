@@ -106,8 +106,8 @@ export default function ResumeLink() {
 
     return (
         <div ref={generateAiRef} className=" customMargins flex ml:flex-row flex-col-reverse gap-[2vw] xl:gap-12 items-center py-9">
-            <div className="flex flex-col gap-6 ml:w-[47%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
-                <div className="font-semibold ml:text-[3.2vw] text-[30px] leading-tight">
+            <div className="flex flex-col gap-6 ml:w-[49%] w-full text-[#333333] ml:text-start text-center ml:items-start items-center  ">
+                <div className="font-semibold ml:text-[3vw] text-[30px] leading-tight">
                     <p>
                     Transform your Resume
                     </p>
