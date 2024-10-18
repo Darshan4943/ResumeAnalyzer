@@ -201,7 +201,7 @@ function SubscriptionPlans({ fromMain }) {
                     }
                   </p>
                   {plan.index !== 1 &&
-                    <div className="flex flex-row gap-2 w-full items-center justify-center  line-through">
+                    <div className="flex flex-row gap-2 w-full items-center justify-center ">
                       <p className="text-[2.5vw] font-[700]">{icon}</p>
                       <p className="text-[2.5vw] font-[700]">
                         {Math.ceil(plan?.amount * exchangeRate)}
