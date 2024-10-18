@@ -148,7 +148,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/allSkills")
+      .get("https://api.shindedarshan.com/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -163,7 +163,7 @@ function SkillAssessment() {
     const found = skills?.find((item) => item === selectedOption.label);
     if (!found) {
       try {
-        const response = await fetch("https://jamblix.com/api/skills", {
+        const response = await fetch("https://api.shindedarshan.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -246,7 +246,7 @@ function SkillAssessment() {
   useEffect(() => {
     setMainLoading(true);
     axios
-      .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+      .get("https://api.shindedarshan.com/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
         // setAttemptCtn(res.data.data?.count);
@@ -326,7 +326,7 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("https://jamblix.com/api/qnaSkill", {
+          .post("https://api.shindedarshan.com/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
             lastQuestions: question,
@@ -430,7 +430,7 @@ function SkillAssessment() {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("https://jamblix.com/api/assessment/add", {
+        .post("https://api.shindedarshan.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
@@ -490,7 +490,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
+      .get(`https://api.shindedarshan.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         const data = res.data.data;
   

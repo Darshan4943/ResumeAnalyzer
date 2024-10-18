@@ -22,7 +22,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/enquires", {
+      .get("https://api.shindedarshan.com/api/enquires", {
         params: { page, limit },
       })
       .then((res) => {

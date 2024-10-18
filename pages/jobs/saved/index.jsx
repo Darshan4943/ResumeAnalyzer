@@ -17,7 +17,7 @@ const Saved = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/job/byIds", {
+      .post("https://api.shindedarshan.com/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

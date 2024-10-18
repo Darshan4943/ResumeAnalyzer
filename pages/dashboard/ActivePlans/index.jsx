@@ -19,7 +19,7 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/activeSubscription", {
+      .get("https://api.shindedarshan.com/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {

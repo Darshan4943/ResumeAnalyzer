@@ -42,7 +42,7 @@ const Index = () => {
   const fetchPlanData = async (planId) => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/plans/getByIndex/${planId}`
+        `https://api.shindedarshan.com/api/plans/getByIndex/${planId}`
       );
     
       const plan = response.data.data[0];
@@ -92,7 +92,7 @@ const Index = () => {
   const handleSubmitData = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://jamblix.com/api/plans/update/${id}`, planData);
+      await axios.put(`https://api.shindedarshan.com/api/plans/update/${id}`, planData);
       console.log("Data updated successfully");
       setHasChanges(false);
       router.back();

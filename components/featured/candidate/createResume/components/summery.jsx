@@ -65,7 +65,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
           setUploadsRemaining(result.resumeUpladed);

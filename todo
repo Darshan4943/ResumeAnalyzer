@@ -92,7 +92,7 @@
 x;
 // add same popup to change resume name
 
-// remove toast of job search  (https://jamblix.com/jobs/search)
+// remove toast of job search  (https://api.shindedarshan.com/jobs/search)
 
 // add saved jobs page
 

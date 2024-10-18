@@ -48,7 +48,7 @@ function MyClients() {
   const callData = () => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://api.shindedarshan.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -72,7 +72,7 @@ function MyClients() {
     }
 
     axios
-      .delete("https://jamblix.com/api/client/deleteClients", {
+      .delete("https://api.shindedarshan.com/api/client/deleteClients", {
         data: { ids },
       })
       .then((response) => {

@@ -308,8 +308,8 @@ function Recruiter_signup({ }) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://jamblix.com/api/updateUser"
-        : "https://jamblix.com/api/skiloteckuser/recruiter";
+        ? "https://api.shindedarshan.com/api/updateUser"
+        : "https://api.shindedarshan.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -383,7 +383,7 @@ function Recruiter_signup({ }) {
     e.preventDefault();
     let tempUser = "tempRecruiter"
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("https://api.shindedarshan.com/api/otpMailSignup", {
         userEmail: data.email,
         tempUser
       })
@@ -432,7 +432,7 @@ function Recruiter_signup({ }) {
   const verifyOtp = () => {
   
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("https://api.shindedarshan.com/api/verifyOtp", {
         userEmail: data.email,
         otpEntered
       })

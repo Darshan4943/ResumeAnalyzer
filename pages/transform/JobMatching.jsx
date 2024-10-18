@@ -99,7 +99,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`https://api.shindedarshan.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -121,7 +121,7 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://api.shindedarshan.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
 
@@ -154,7 +154,7 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
+      const res = await axios.post("https://api.shindedarshan.com/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
@@ -205,7 +205,7 @@ const JobMatching = () => {
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://jamblix.com/api/resume/extraction",
+      "https://api.shindedarshan.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -319,7 +319,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching/",
+      "https://api.shindedarshan.com/api/external/jobMatching/",
 
       {
         jd: jd,
@@ -421,7 +421,7 @@ const JobMatching = () => {
 
     try {
 
-      const apiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const apiUrl = `https://api.shindedarshan.com/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
       const response = await axios.put(apiUrl, { resumeCount });
 
       if (response.data.success) {
