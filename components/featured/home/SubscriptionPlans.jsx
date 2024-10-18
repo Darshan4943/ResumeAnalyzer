@@ -34,10 +34,10 @@ function SubscriptionPlans({ fromMain }) {
     seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {
       setIsUser(false);
-      setPlans(plans.slice(3));
+      setPlans(plans.slice(3,5));
     } else {
       setIsUser(true);
-      setPlans(plans.slice(0, 3));
+      setPlans(plans.slice(0, 2));
     }
 
 
@@ -87,10 +87,10 @@ function SubscriptionPlans({ fromMain }) {
 
         if (userDataGlobal.role == "recruiter" || fromMain) {
           setIsUser(false);
-          setAllPlans(allPlan.slice(3));
+          setAllPlans(allPlan.slice(3,5));
         } else {
           setIsUser(true);
-          setAllPlans(allPlan.slice(0, 3));
+          setAllPlans(allPlan.slice(0, 2));
         }
       })
       .catch((err) => {
