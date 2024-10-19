@@ -26,17 +26,17 @@ function SubscriptionPlansAdmin({ toggle }) {
     useEffect(() => {
         const exchangeRate = localStorage.getItem("exchangeRate");
         const icon = localStorage.getItem("icon");
-       
+
         setexchangeRate(exchangeRate);
         seticon(icon);
 
-        if (toggle === true) {
-            setPlans(allPlans.slice(0, 3));
 
-        } else {
-            setPlans(allPlans.slice(3));
+        const filtered = allPlans.filter((plan) =>
+            toggle ? plan.type === "candidate" : plan.type === "recruiter"
+        );
+        setPlans(filtered);
 
-        }
+
 
 
         const token = localStorage.getItem("authToken");
@@ -47,12 +47,12 @@ function SubscriptionPlansAdmin({ toggle }) {
                 setIsLogin(false);
             }
         }
-    }, [userDataGlobal, showPlan, toggle,allPlans]);
+    }, [userDataGlobal, showPlan, toggle, allPlans]);
     const [subscription, setSubscription] = useState(null);
 
     useEffect(() => {
         axios
-            .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+            .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
             .then((res) => {
                 setSubscription(res.data.findIsActive);
             })
@@ -65,12 +65,12 @@ function SubscriptionPlansAdmin({ toggle }) {
 
     useEffect(() => {
         axios
-            .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+            .get("http://localhost:2000/api/plans/getAllPlans")
             .then((res) => {
 
                 setAllPlans(res.data.data)
 
-                
+
             })
             .catch((err) => {
                 console.log(err);
@@ -92,7 +92,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                 } `}
                             style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
                         >
-                            
+
 
                             <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                                 <div className="flex text-center flex-col gap-3 text-[#333333] ">
@@ -109,11 +109,19 @@ function SubscriptionPlansAdmin({ toggle }) {
                                             <span > Plan</span>
                                         }
                                     </p>
-                                    <div className="flex flex-row gap-2 w-full items-center justify-center">
-                                        <p className="text-[2.5vw] font-[700]">{icon}</p>
-                                        <p className="text-[2.5vw] font-[700]">
-                                            {Math.ceil(plan?.amount * exchangeRate)}
-                                        </p>
+                                    <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
+                                        <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
+
+                                            <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1  " : "text-[2.5vw]"}`}>{icon}</p>
+                                            <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1" : "text-[2.5vw]"}`}>
+                                                {Math.ceil(plan?.amount * exchangeRate)}
+                                            </p>
+                                        </div>
+                                        {(plan.isFree) &&
+                                            <p className="text-[2.5vw] font-[700]">
+                                                Free
+                                            </p>
+                                        }
                                     </div>
 
                                     <p
@@ -145,7 +153,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                     ))}
                                 </div>
                                 <button
-                                     onClick={() => router.push(`/dashboard/modifyPlans?id=${plan.index}`)}
+                                    onClick={() => router.push(`/dashboard/modifyPlans?id=${plan.index}`)}
                                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                                 >
                                     Modify

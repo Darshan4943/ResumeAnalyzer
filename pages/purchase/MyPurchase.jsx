@@ -69,7 +69,7 @@ function MyPurchase() {
   }, [subscription]);
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
 
         setAllPlans(res.data.data)
@@ -86,7 +86,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
           console.log(result)
@@ -115,7 +115,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("https://api.shindedarshan.com/api/AllSubscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/AllSubscription/" + userDataGlobal._id)
         .then((res) => {
 
           setSubscriptionHistory(res.data.data.reverse());

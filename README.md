@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [https://api.shindedarshan.com](https://api.shindedarshan.com) with your browser to see the result.
+Open [http://localhost:2000](http://localhost:2000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

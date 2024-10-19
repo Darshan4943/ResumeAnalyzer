@@ -71,16 +71,16 @@ const ResumePreview = ({
   const [name, setName] = useState(data.firstName + "_resume");
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
-  const [downloadLimit, setDownloadLimit] = useState(0);
+  const [saveCountLimit, setSaveCountLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
   const [resumeLoading, setResumeLoading] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   // console.log(67, userDataGlobal);
   const getLimits = () => {
-    const downloadCount = localStorage.getItem("downloadCount");
+    const saveCountLimit = localStorage.getItem("saveCountLimit");
     const saveCount = localStorage.getItem("saveCount");
-    if (downloadCount) {
-      setDownloadLimit(downloadCount);
+    if (saveCountLimit) {
+      setSaveCountLimit(saveCountLimit);
     }
     if (saveCount) {
       setSaveLimit(saveCount);
@@ -104,7 +104,7 @@ const ResumePreview = ({
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://api.shindedarshan.com/api/resume/${id}`)
+        .get(`http://localhost:2000/api/resume/${id}`)
 
         .then((res) => {
 
@@ -375,7 +375,7 @@ const ResumePreview = ({
 
     if (blob !== null) {
 
-      if (saveLimit <= 0) {
+      if (saveLimit >= saveCountLimit) {
         setLimitUsedModal(true);
         return;
       }
@@ -408,10 +408,11 @@ const ResumePreview = ({
         }
 
         axios
-          .put("https://api.shindedarshan.com/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-            localStorage.setItem("saveCount", saveLimit - 1);
+            localStorage.setItem("saveCount", Number(saveLimit) + 1);
+
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -471,11 +472,11 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://api.shindedarshan.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
+            localStorage.setItem("saveCount", Number(saveLimit) + 1);
 
-            localStorage.setItem("saveCount", saveLimit - 1);
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -513,7 +514,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://api.shindedarshan.com/api/subscription/updateDownloadLimit/" +
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {

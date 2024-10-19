@@ -64,7 +64,8 @@ const CandidateAiPower = ({
   const [docfileError, setDocFileError] = useState(false);
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
-    setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
+    const resumeUploadCountLimit = localStorage.getItem("uploadCountLimit");
+    setUploadLimit(resumeUploadCount ? resumeUploadCountLimit-resumeUploadCount : 0);
   }, []);
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -185,7 +186,7 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://api.shindedarshan.com/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -196,15 +197,16 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "https://api.shindedarshan.com/api/subscription/updateUploadLimit/" +
+                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
                   userDataGlobal._id
                 )
                 .then((res) => {
                   const result = res.data;
+                  console.log(result)
                   if (result.success) {
                     localStorage.setItem(
                       "uploadCount",
-                      result.data.resumeUpladed
+                      result.data.used.resumeUploded
                     );
                     setLoading(false);
                     setfile(file);

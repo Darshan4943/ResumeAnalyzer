@@ -171,7 +171,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://api.shindedarshan.com/api/add/subscription", {
+  //       .post("http://localhost:2000/api/add/subscription", {
   //         userId: userDataGlobal._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -212,7 +212,7 @@ function AccountDetails({
     } else {
       if (recruiterid) {
         axios
-          .get("https://api.shindedarshan.com/api/skiloteckuser/user/" + recruiterid)
+          .get("http://localhost:2000/api/skiloteckuser/user/" + recruiterid)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -266,7 +266,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://api.shindedarshan.com/api/getPriceId",
+        "http://localhost:2000/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -295,7 +295,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://api.shindedarshan.com/api/proceed/payment", {
+            .post("http://localhost:2000/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -319,7 +319,7 @@ function AccountDetails({
       try {
         // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://api.shindedarshan.com/api/retrieve/session",
+          "http://localhost:2000/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -369,7 +369,7 @@ function AccountDetails({
     seticon(icon);
     setexchangeRate(exchangeRate);
     try {
-      await axios.post("https://api.shindedarshan.com/api/add/subscription", {
+      await axios.post("http://localhost:2000/api/add/subscription", {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.name}`,
         ...jsonData,
@@ -418,7 +418,7 @@ function AccountDetails({
       } else {
         setLoading(true);
         try {
-          await axios.post("https://api.shindedarshan.com/api/add/subscription", {
+          await axios.post("http://localhost:2000/api/add/subscription", {
             userId: userDataGlobal._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,
@@ -803,7 +803,7 @@ function AccountDetails({
             className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
             onClick={
-             ( selectedPlan.index === 1 ||  selectedPlan.index === 4) ? handleFreeSession : purchaseHandler
+             ( selectedPlan.isFree) ? handleFreeSession : purchaseHandler
             }
           >
             {loading ? (

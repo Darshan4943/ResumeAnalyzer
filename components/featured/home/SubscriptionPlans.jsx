@@ -25,7 +25,7 @@ function SubscriptionPlans({ fromMain }) {
   const [allPlans, setAllPlans] = useState([])
   const [subscription, setSubscription] = useState(null);
   const [isFree, setIsFree] = useState(false);
-console.log(isFree)
+  console.log(isFree)
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -54,7 +54,7 @@ console.log(isFree)
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/checkForFreePlanByUserId/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)
       .then((res) => {
 
         setIsFree(res.data.success);
@@ -67,7 +67,7 @@ console.log(isFree)
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -80,7 +80,7 @@ console.log(isFree)
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
 
         const allPlan = res.data.data
@@ -88,19 +88,19 @@ console.log(isFree)
         if (userDataGlobal.role == "recruiter" || fromMain) {
           setIsUser(false);
           if (isFree) {
-            setAllPlans([allPlan[4], allPlan[5]]); 
+            setAllPlans([allPlan[4], allPlan[5]]);
           } else {
-            setAllPlans([allPlan[3], allPlan[5]]); 
+            setAllPlans([allPlan[3], allPlan[5]]);
           }
-          
+
         } else {
           setIsUser(true);
           if (isFree) {
-            setAllPlans(allPlan.slice(1, 3)); 
+            setAllPlans(allPlan.slice(1, 3));
           } else {
-            setAllPlans([allPlan[0], allPlan[2]]); 
+            setAllPlans([allPlan[0], allPlan[2]]);
           }
-          
+
         }
       })
       .catch((err) => {
@@ -108,7 +108,7 @@ console.log(isFree)
       });
 
 
-  }, [userDataGlobal,isFree]);
+  }, [userDataGlobal, isFree]);
 
   const clickHandler = (index) => {
     if (isLogin) {
@@ -212,14 +212,14 @@ console.log(isFree)
                   </p>
 
                   <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
-                    <div className={`flex flex-row ${ (plan.index === 1 || plan.index === 4) ? "gap-0 line-through" :"gap-2"}  `}>
+                    <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
 
-                      <p className={` font-[700] ${(plan.index === 1 || plan.index === 4) ? "text-[#666666] text-[1.5vw] pb-1  " :"text-[2.5vw]"}`}>{icon}</p>
-                      <p className={` font-[700] ${(plan.index === 1 || plan.index === 4) ? "text-[#666666] text-[1.5vw] pb-1" :"text-[2.5vw]"}`}>
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1  " : "text-[2.5vw]"}`}>{icon}</p>
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1" : "text-[2.5vw]"}`}>
                         {Math.ceil(plan?.amount * exchangeRate)}
                       </p>
                     </div>
-                    {(plan.index === 1 || plan.index === 4) &&
+                    {(plan.isFree) &&
                       <p className="text-[2.5vw] font-[700]">
                         Free
                       </p>
@@ -263,7 +263,7 @@ console.log(isFree)
                     </div>
                   ))}
                 </div>
-                {(isFree && (plan.index === 1 || plan.index === 4)) ?
+                {(isFree && (plan.isFree)) ?
                   <button
                     disabled={true}
                     className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
@@ -398,22 +398,29 @@ console.log(isFree)
                         }
 
                       </p>
-                      {plan.index !== 1 &&
-                        <div className="flex flex-row gap-2 w-full items-center justify-center">
-                          <p className="text-[28px] font-[700]">{icon}</p>
-                          <p className="text-[28px] font-[700]">
-                            {Math.ceil(plan?.amount * exchangeRate)}
-                          </p>
-                        </div>
-                      }
-                      {plan.index === 1 &&
+                    
+                     <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
+                    <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
+
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[20px] pb-1  " : "text-[28px]"}`}>{icon}</p>
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[20px] pb-1" : "text-[28px]"}`}>
+                        {Math.ceil(plan?.amount * exchangeRate)}
+                      </p>
+                    </div>
+                    {(plan.isFree) &&
+                      <p className="text-[28px] font-[700]">
+                        Free
+                      </p>
+                    }
+                  </div>
+                      {/* {plan.index === 1 &&
                         <div className="flex flex-row gap-2 w-full items-center justify-center">
 
                           <p className="text-[28px] font-[700]">
                             Free
                           </p>
                         </div>
-                      }
+                      } */}
 
                       <p className="text-[12px] font-[500]">
                         {plan?.description}

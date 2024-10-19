@@ -39,7 +39,7 @@ const ApplicantRanking = ({
       const limit = options || 10;
 
       const response = await axios.get(
-        `https://api.shindedarshan.com/api/job/appliedSyncJobs/${id}`,
+        `http://localhost:2000/api/job/appliedSyncJobs/${id}`,
         {
           params: {
             limit: limit,

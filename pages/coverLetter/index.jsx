@@ -101,7 +101,7 @@ function Index() {
   //   console.log("id", id);
   //   if (id) {
   //     axios
-  //       .get(`https://api.shindedarshan.com/api/cover/getById/${id}`)
+  //       .get(`http://localhost:2000/api/cover/getById/${id}`)
   //       .then((res) => {
   //         setResumeList(res.data.data);
   //       })

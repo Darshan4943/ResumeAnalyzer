@@ -52,7 +52,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("https://api.shindedarshan.com/api/updatePassword", {
+      .post("http://localhost:2000/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

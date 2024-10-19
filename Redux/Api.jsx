@@ -23,7 +23,7 @@ import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
 import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "https://api.shindedarshan.com"; // Replace with your backend WebSocket server URL
+const ENDPOINT = "http://localhost:2000"; // Replace with your backend WebSocket server URL
 
 export const Api = ({ }) => {
   const store = useStore();
@@ -60,7 +60,7 @@ export const Api = ({ }) => {
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -86,7 +86,7 @@ export const Api = ({ }) => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://api.shindedarshan.com/api/skiloteckuser/user/" + decoded._id)
+          .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -110,23 +110,33 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       axios
-        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
           if (result?.isActive == true) {
             const selectedPlan = allPlans.find(
-              (item) => item.name == result.plan
+              (item) => item.index == result.index
             );
 
-            localStorage.setItem("activePlan", selectedPlan?.index ? selectedPlan?.index : null);
-            localStorage.setItem("uploadCount", result.resumeUpladed);
+            localStorage.setItem("activePlan", result?.index ? result?.index : null);
             localStorage.setItem("planActive", result.isActive);
-            localStorage.setItem("downloadCount", result.resumeSaves.num);
-            localStorage.setItem("saveCount", result.resumeSaves.num);
-            localStorage.setItem("clientCount", result.clientStored);
-            localStorage.setItem("collectionCount", result.collectionStored); 
-            localStorage.setItem("jobsApply", result.jobsApply);
+            localStorage.setItem("uploadCount", result.used.resumeUploded);
+            localStorage.setItem("saveCount", result.used.resumeStored);
+            localStorage.setItem("clientCount", result.used.clientStored);
+            localStorage.setItem("collectionCount", result.used.collectionStored); 
+            localStorage.setItem("jobsApply", result.used.jobsApply);
+            localStorage.setItem("coverCount", result.used.coverStored);
+            localStorage.setItem("skillTestCount", result.used.skillTest);
+            localStorage.setItem("skillCertifiedCount", result.used.skillCertified);
+            localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
+            localStorage.setItem("saveCountLimit", result.limits.resumeStoredLimit);
+            localStorage.setItem("clientCountLimit", result.limits.clientStoredLimit);
+            localStorage.setItem("collectionCountLimit", result.limits.collectionStoredLimit); 
+            localStorage.setItem("jobsApplyLimit", result.limits.jobsApplyLimit);
+            localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
+            localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
+            localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
             localStorage.setItem("planAvailable", true);
           
             let newEnddate = moment(result.endDate).format(
@@ -137,7 +147,7 @@ export const Api = ({ }) => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://api.shindedarshan.com/api/subscription/update/" + result._id
+                  "http://localhost:2000/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -161,13 +171,27 @@ export const Api = ({ }) => {
 
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
-            localStorage.setItem("jobsApply", 0);
+     
             localStorage.setItem("chatCount", 0);
-            localStorage.setItem("collectionCount", 0);
-            localStorage.setItem("downloadCount", 0);
+          
+            localStorage.setItem("jdCount", 0);
+
+            localStorage.setItem("uploadCount",0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
-            localStorage.setItem("jdCount", 0);
+            localStorage.setItem("collectionCount", 0); 
+            localStorage.setItem("jobsApply", 0);
+            localStorage.setItem("coverSCount", 0);
+            localStorage.setItem("skillTestCount", 0);
+            localStorage.setItem("skillCertifiedCount", 0);
+            localStorage.setItem("uploadCountLimit", 0);
+            localStorage.setItem("saveCountLimit", 0);
+            localStorage.setItem("clientCountLimit", 0);
+            localStorage.setItem("collectionCountLimit", 0); 
+            localStorage.setItem("jobsApplyLimit", 0);
+            localStorage.setItem("coverCountLimit", 0);
+            localStorage.setItem("skillTestCountLimit", 0);
+            localStorage.setItem("skillCertifiedCountLimit", 0);
           }
         })
         .catch((err) => {
@@ -185,7 +209,7 @@ export const Api = ({ }) => {
     let role = userDataGlobal.role;
     
     axios
-      .post("https://api.shindedarshan.com/api/apiLogs/get", {
+      .post("http://localhost:2000/api/apiLogs/get", {
         userId,
         role,
       })
@@ -230,7 +254,7 @@ export const Api = ({ }) => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://api.shindedarshan.com/api/exchangeRate/" + currency
+  //                 "http://localhost:2000/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -337,7 +361,7 @@ export const Api = ({ }) => {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `https://api.shindedarshan.com/api/exchangeRate/${currency}`
+          `http://localhost:2000/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem(

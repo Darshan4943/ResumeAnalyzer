@@ -32,7 +32,7 @@ function Details() {
 
   useEffect(() => {
     axios
-      .get(`https://api.shindedarshan.com/api/plans/getByIndex/${id}`)
+      .get(`http://localhost:2000/api/plans/getByIndex/${id}`)
       .then((res) => {
 
         setSelectedPlan(res.data.data[0])

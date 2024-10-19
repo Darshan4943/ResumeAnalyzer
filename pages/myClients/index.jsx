@@ -48,7 +48,7 @@ function MyClients() {
   const callData = () => {
     axios
       .get(
-        `https://api.shindedarshan.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -72,7 +72,7 @@ function MyClients() {
     }
 
     axios
-      .delete("https://api.shindedarshan.com/api/client/deleteClients", {
+      .delete("http://localhost:2000/api/client/deleteClients", {
         data: { ids },
       })
       .then((response) => {

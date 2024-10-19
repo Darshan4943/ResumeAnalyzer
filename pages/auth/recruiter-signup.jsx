@@ -308,8 +308,8 @@ function Recruiter_signup({ }) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://api.shindedarshan.com/api/updateUser"
-        : "https://api.shindedarshan.com/api/skiloteckuser/recruiter";
+        ? "http://localhost:2000/api/updateUser"
+        : "http://localhost:2000/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -383,7 +383,7 @@ function Recruiter_signup({ }) {
     e.preventDefault();
     let tempUser = "tempRecruiter"
     axios
-      .post("https://api.shindedarshan.com/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
         tempUser
       })
@@ -432,7 +432,7 @@ function Recruiter_signup({ }) {
   const verifyOtp = () => {
   
     axios
-      .post("https://api.shindedarshan.com/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered
       })

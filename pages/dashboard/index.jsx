@@ -136,7 +136,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/website.png",
       new: "New",
     },
-    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" ,new: "New"},
+    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
@@ -161,7 +161,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/collection.png",
     },
     { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png",new: "New" },
+    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
@@ -225,7 +225,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+      .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
 
         setAllPlans(res.data.data)
@@ -240,29 +240,36 @@ function Dashboard() {
   }, [userDataGlobal]);
 
   useEffect(() => {
-    const selectedPlan = localStorage.getItem("activePlan");
+
     const uploadCount = localStorage.getItem("uploadCount");
-    const downloadCount = localStorage.getItem("downloadCount");
     const saveCount = localStorage.getItem("saveCount");
     const clientCount = localStorage.getItem("clientCount");
-    const planActive = localStorage.getItem("planActive");
+    const collectionCount = localStorage.getItem("collectionCount");
+    const jobsApply = localStorage.getItem("jobsApply");
+    const coverSCount = localStorage.getItem("coverSCount");
+    const skillTestCount = localStorage.getItem("skillTestCount");
+    const skillCertifiedCount = localStorage.getItem("skillCertifiedCount");
 
-    // const plan = plans.find((item) => item.index == selectedPlan);
-    // console.log(118, plan);
-    // if (plan) {
-    //   setSelectedPlan(plan);
-
+    const uploadCountLimit = localStorage.getItem("uploadCountLimit");
+    const saveCountLimit = localStorage.getItem("saveCountLimit");
+    const clientCountLimit = localStorage.getItem("clientCountLimit");
+    const collectionCountLimit = localStorage.getItem("collectionCountLimit");
+    const jobsApplyLimit = localStorage.getItem("jobsApplyLimit");
+    const coverCountLimit = localStorage.getItem("coverCountLimit");
+    const skillTestCountLimit = localStorage.getItem("skillTestCountLimit");
+    const skillCertifiedCountLimit = localStorage.getItem("skillCertifiedCountLimit");
 
 
     if (userDataGlobal) {
       axios
-        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const plan = allPlans.find(
             (item) =>
               item.index == res.data.findIsActive?.index
           );
-
+          const result = res.data.findIsActive;
+          console.log(333, result)
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
@@ -271,13 +278,8 @@ function Dashboard() {
             setSelectedPlan(plan);
 
             setLimits({
-              used: {
-                uploads: plan?.limits?.uploads - parseInt(uploadCount),
-                download: plan?.limits?.save - parseInt(saveCount),
-                save: plan?.limits?.save - parseInt(saveCount),
-                clients: plan?.limits?.clients - parseInt(clientCount),
-              },
-              total: plan?.limits,
+              used: result.used,
+              total: result.limits
             });
           }
 
@@ -559,8 +561,8 @@ function Dashboard() {
       {editProfilePopUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div   className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-            <div  ref={taskRef} className="absolute ms:w-[28%] w-[60%] flex flex-col gap-6  justify-between items-center text-center rounded-[24px] bg-white py-6 px-10  text-[24px] font-medium">
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+            <div ref={taskRef} className="absolute ms:w-[28%] w-[60%] flex flex-col gap-6  justify-between items-center text-center rounded-[24px] bg-white py-6 px-10  text-[24px] font-medium">
               Please edit your profile to update the details !
               <button
                 onClick={() => {
@@ -624,7 +626,7 @@ function Dashboard() {
                 <button
                   onClick={() => {
                     setIsSuccessful(false);
-                    if ((signIn !== "true") && (userDataGlobal.role==="user")) {
+                    if ((signIn !== "true") && (userDataGlobal.role === "user")) {
                       setEditProfilePopUp(true);
                     }
                   }}

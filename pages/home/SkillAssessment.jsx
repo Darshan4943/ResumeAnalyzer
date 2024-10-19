@@ -65,9 +65,7 @@ function SkillAssessment() {
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [attemptCount, setAttemptCtn] = useState();
-  const [normalCount, setNormalCount] = useState(0);
-  const [certifiedCount, setCertifiedCount] = useState(0);
-
+  
   
   const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -109,8 +107,37 @@ function SkillAssessment() {
     // { question: 9, isSkiped: true, Answer: "" },
     // { question: 10, isSkiped: true, Answer: "" },
   ]);
+  const [skillTestCount, setSkillTestCount] = useState(0);
+  const [skillCertifiedCount, setSkillCertifiedCount] = useState(0);
+  const [skillTestCountLimit, setSkillTestCountLimit] = useState(0);
+  const [skillCertifiedCountLimit, setSkillCertifiedCountLimit] = useState(0);
+  
 
+  const getLimits = () => {
+    const skillTestCount = localStorage.getItem("skillTestCount");
+    const skillCertifiedCount = localStorage.getItem("skillCertifiedCount");
+    const skillTestCountLimit = localStorage.getItem("skillTestCountLimit");
+    const skillCertifiedCountLimit = localStorage.getItem("skillCertifiedCountLimit");
 
+    if (skillTestCount) {
+      setSkillTestCount(skillTestCount);
+    }
+    if (skillCertifiedCount) {
+      setSkillCertifiedCount(skillCertifiedCount);
+    }
+
+    if (skillTestCountLimit) {
+      setSkillTestCountLimit(skillTestCountLimit);
+    }
+    if (skillCertifiedCountLimit) {
+      setSkillCertifiedCountLimit(skillCertifiedCountLimit);
+    }
+   
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -148,7 +175,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/allSkills")
+      .get("http://localhost:2000/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -163,7 +190,7 @@ function SkillAssessment() {
     const found = skills?.find((item) => item === selectedOption.label);
     if (!found) {
       try {
-        const response = await fetch("https://api.shindedarshan.com/api/skills", {
+        const response = await fetch("http://localhost:2000/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -246,7 +273,7 @@ function SkillAssessment() {
   useEffect(() => {
     setMainLoading(true);
     axios
-      .get("https://api.shindedarshan.com/api/resume/skills/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
         // setAttemptCtn(res.data.data?.count);
@@ -326,7 +353,7 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("https://api.shindedarshan.com/api/qnaSkill", {
+          .post("http://localhost:2000/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
             lastQuestions: question,
@@ -430,7 +457,7 @@ function SkillAssessment() {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("https://api.shindedarshan.com/api/assessment/add", {
+        .post("http://localhost:2000/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
@@ -490,7 +517,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(`https://api.shindedarshan.com/api/assessment/getByUser/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         const data = res.data.data;
   
@@ -500,8 +527,8 @@ function SkillAssessment() {
         setAttemptCtn(data.length);
         setAssessmentList(data.reverse());
   
-        setNormalCount(normalCount);
-        setCertifiedCount(certifiedCount);
+        // setNormalCount(normalCount);
+        // setCertifiedCount(certifiedCount);
       })
       .catch((err) => {
         console.log(err);
@@ -671,41 +698,42 @@ function SkillAssessment() {
     setLoadingg(false);
   };
 
-  // const handleStart = () => {
-  //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-  //   const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-  //   if (!isActivePlan) {
-  //     setisLevel(false);
-  //     setIsplan(true);
-  //   }
-  //   else if (!selectedSkill) {
-  //     toast.error("Please select a skill to start assessment");
-  //   }
-  //   else if (isActivePlan && assesmentType === "Certificate" && activePlan === 1 && attemptCount < 0) {
-  //     setisLevel(true);
-  //   }
-  //   else if (isActivePlan && assesmentType === "Normal" && activePlan === 1 && attemptCount < 3) {
-  //     setisLevel(true);
-  //   }
-  //   else {
-  //     setisLevel(true);
-  //   }
-  // };
-
-
   const handleStart = () => {
     const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-   
-    if (!isActivePlan ) {
-      setisLevel(false);
-      setIsplan(true);
-    } else if (!selectedSkill) {
+    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+    // if (!isActivePlan) {
+    //   setisLevel(false);
+    //   setIsplan(true);
+    // }
+    // else
+     if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
+    }
+    else if (isActivePlan && assesmentType === "Certificate" && activePlan === 1 && attemptCount < 0) {
+      setisLevel(true);
+    }
+    else if (isActivePlan && assesmentType === "Normal" && activePlan === 1 && attemptCount < 3) {
+      setisLevel(true);
     }
     else {
       setisLevel(true);
     }
   };
+
+
+  // const handleStart = () => {
+  //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
+   
+  //   if (!isActivePlan ) {
+  //     setisLevel(false);
+  //     setIsplan(true);
+  //   } else if (!selectedSkill) {
+  //     toast.error("Please select a skill to start assessment");
+  //   }
+  //   else {
+  //     setisLevel(true);
+  //   }
+  // };
 
 
   function formatScore(score) {

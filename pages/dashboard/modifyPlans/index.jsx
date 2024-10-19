@@ -9,6 +9,7 @@ const Index = () => {
     name: "",
     days: "",
     amount: "",
+    isFree: false,
     description: "",
     limits: {
       uploads: "",
@@ -17,7 +18,10 @@ const Index = () => {
       clients: "",
       collection: "",
       apply: "",
-      type: ""
+      coverLetter:"",
+      type: "",
+      skillTest:"",
+      skillCertified:""
     },
     features: [],
   });
@@ -42,14 +46,15 @@ const Index = () => {
   const fetchPlanData = async (planId) => {
     try {
       const response = await axios.get(
-        `https://api.shindedarshan.com/api/plans/getByIndex/${planId}`
+        `http://localhost:2000/api/plans/getByIndex/${planId}`
       );
-    
+
       const plan = response.data.data[0];
       setPlanData({
         name: plan.name,
         days: plan.days,
         amount: plan.amount,
+        isFree: plan.isFree,
         description: plan.description,
         type: plan.type,
         limits: {
@@ -59,6 +64,9 @@ const Index = () => {
           clients: plan.limits.clients,
           collection: plan.limits.collection,
           apply: plan.limits.apply,
+          coverLetter:plan.limits.coverLetter,
+          skillTest:plan.limits.skillTest,
+          skillCertified:plan.limits.skillCertified,
         },
         features: plan.features || [],
       });
@@ -92,7 +100,7 @@ const Index = () => {
   const handleSubmitData = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://api.shindedarshan.com/api/plans/update/${id}`, planData);
+      await axios.put(`http://localhost:2000/api/plans/update/${id}`, planData);
       console.log("Data updated successfully");
       setHasChanges(false);
       router.back();
@@ -150,12 +158,20 @@ const Index = () => {
     setIsEditing(true);
     setEditIndex(index);
   };
+  const handleIsFreeChange = (e) => {
+    const { value } = e.target;
+    setPlanData((prevData) => ({
+      ...prevData,
+      isFree: value === "true",
+    }));
+    setHasChanges(true);
+  };
 
   return (
     <>
       <div className="flex flex-col w-[100%] h-full  sm:p-8 p-1 items-center sm:items-start gap-4 bg-[#f9f9f9]">
-        <div className="ml:flex-row flex flex-col w-full gap-4 items-center">
-          <div className="bg-white ml:h-[450px] h-[510px] scr1250:w-[60%] sm:w-[100%] w-[95%] p-4 rounded-lg">
+        <div className="ml:flex-row flex flex-col w-full gap-4">
+          <div className="bg-white  scr1250:w-[60%] sm:w-[100%] w-[95%] p-4 rounded-lg">
             <div className="flex flex-col gap-6 w-full h-full">
               <div className="flex flex-col gap-4 h-full">
                 <div className="flex w-full ml:justify-between gap-2 ">
@@ -267,6 +283,18 @@ const Index = () => {
                       />
                     </div>
                   }
+                  
+                   <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Cover Letter Limit</p>
+                      <input
+                        type="text"
+                        name="coverLetter"
+                        value={planData.limits.coverLetter}
+                        onChange={handleLimitsChange}
+                        placeholder="coverLetter"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
                   {planData.type === "candidate" &&
                     <div className="ml:w-[100%] gap-1 lg:col-span-1">
                       <p className="scr420:text-[14px] text-[12px]">Apply Limit</p>
@@ -280,6 +308,44 @@ const Index = () => {
                       />
                     </div>
                   }
+                   {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">skill Test Limit</p>
+                      <input
+                        type="text"
+                        name="skillTest"
+                        value={planData.limits.skillTest}
+                        onChange={handleLimitsChange}
+                        placeholder="skillTest"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                   {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">skill Certification Limit</p>
+                      <input
+                        type="text"
+                        name="skillCertified"
+                        value={planData.limits.skillCertified}
+                        onChange={handleLimitsChange}
+                        placeholder="skillCertified"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                    <p className="scr420:text-[14px] text-[12px]">Is Free</p>
+                    <select
+                      name="isFree"
+                      value={planData?.isFree?.toString()}
+                      onChange={handleIsFreeChange}
+                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                    >
+                      <option value="false">False</option>
+                      <option value="true">True</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>

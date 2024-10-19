@@ -24,7 +24,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://api.shindedarshan.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);

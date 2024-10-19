@@ -17,7 +17,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     setLoading(true);
     if (data) {
       axios
-        .get("https://api.shindedarshan.com/api/job/getById/" + data?._id)
+        .get("http://localhost:2000/api/job/getById/" + data?._id)
         .then((res) => {
           setLoading(false);
           setIsApplied(
@@ -40,7 +40,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("https://api.shindedarshan.com/api/job/apply/" + data?._id, {
+      .post("http://localhost:2000/api/job/apply/" + data?._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
         percentage: data?.percentage,
@@ -57,7 +57,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   };
   const SaveJob = (id) => {
     axios
-      .post(`https://api.shindedarshan.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
         getData();

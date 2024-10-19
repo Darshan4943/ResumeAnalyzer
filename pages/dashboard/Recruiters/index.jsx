@@ -19,7 +19,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("https://api.shindedarshan.com/api/recruiters", {
+      .get("http://localhost:2000/api/recruiters", {
         params: { page, limit },
       })
       .then((res) => {

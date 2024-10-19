@@ -45,7 +45,7 @@ const InputBox = ({
     try {
       if (country) {
         const response = await axios.post(
-          "https://api.shindedarshan.com/api/job/getFilterData",
+          "http://localhost:2000/api/job/getFilterData",
           {
             requiredSkills: userSkills?.map((item) => item),
             country,

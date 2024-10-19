@@ -120,7 +120,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://api.shindedarshan.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -135,7 +135,7 @@ function Collection() {
 
   const getClientData = (clientId) => {
     axios
-      .get("https://api.shindedarshan.com/api/resume/" + clientId)
+      .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -149,7 +149,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://api.shindedarshan.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -166,7 +166,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://api.shindedarshan.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
 
@@ -183,7 +183,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://api.shindedarshan.com/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -199,7 +199,7 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`https://api.shindedarshan.com/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
         const files = res.data.data.filter(item => item.type === 'file');
         setUnSyncFiles(files.length);
@@ -236,7 +236,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("https://api.shindedarshan.com/api/folder/create", formData)
+        .post("http://localhost:2000/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -256,7 +256,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://api.shindedarshan.com/api/resume/extraction",
+      "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
       }
@@ -384,7 +384,7 @@ function Collection() {
 
           try {
             const response = await axios.post(
-              "https://api.shindedarshan.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
@@ -506,7 +506,7 @@ function Collection() {
   //   }
   //   try {
       
-  //     const apiUrl = `https://api.shindedarshan.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
@@ -535,8 +535,8 @@ function Collection() {
       return { success: false, message: 'Files count is zero, no update needed.' };
     }
     try {
-      const apiUrl = `https://api.shindedarshan.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
-      const anotherApiUrl = `https://api.shindedarshan.com/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
   
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount});
