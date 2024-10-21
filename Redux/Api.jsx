@@ -127,6 +127,7 @@ export const Api = ({ }) => {
             localStorage.setItem("collectionCount", result.used.collectionStored); 
             localStorage.setItem("jobsApply", result.used.jobsApply);
             localStorage.setItem("coverCount", result.used.coverStored);
+            localStorage.setItem("jdMatchingCount", result.used.jdMatching);
             localStorage.setItem("skillTestCount", result.used.skillTest);
             localStorage.setItem("skillCertifiedCount", result.used.skillCertified);
             localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
@@ -137,6 +138,7 @@ export const Api = ({ }) => {
             localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
             localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
             localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
+            localStorage.setItem("jdMatchingLimit", result.limits.jdMatchingLimit);
             localStorage.setItem("planAvailable", true);
           
             let newEnddate = moment(result.endDate).format(

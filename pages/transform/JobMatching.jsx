@@ -52,12 +52,15 @@ const JobMatching = () => {
   const [findMatchLoader, setMatchLoader] = useState(false);
 
   const [jdCount, setJdCount] = useState(0)
+  const [jdMatchingLimit, setJdMatchingLimit] = useState(0)
   const [activePlan, setActivePlan] = useState(0)
   const [limitPopup, setLimitPopup] = useState(false);
 
   useEffect(() => {
     const jdCount = Number(localStorage.getItem("jdCount"));
-    console.log(jdCount)
+
+    const jdLimit = Number(localStorage.getItem("jdMatchingLimit"));
+    setJdMatchingLimit(jdLimit)
     const activePlan = Number(localStorage.getItem("activePlan"));
     setJdCount(jdCount)
     setActivePlan(activePlan)
@@ -146,7 +149,7 @@ const JobMatching = () => {
 
   const jobMatching = async () => {
 
-    if (jdCount >= 10 && activePlan === 4 ) {
+    if (jdCount >= jdMatchingLimit ) {
       setLimitPopup(true);
       return;
     }
@@ -426,18 +429,18 @@ const JobMatching = () => {
 
       if (response.data.success) {
 
-        
+
         dispatch(reCallUserData())
         return response.data;
       } else {
         console.error('Error:', response.data.message);
-        
+
         return response.data;
 
       }
     } catch (error) {
       console.error('Something went wrong:', error);
-     
+
       return { success: false, message: 'Something went wrong', error };
 
     }

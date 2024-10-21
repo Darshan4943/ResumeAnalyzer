@@ -110,7 +110,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                                         }
                                     </p>
                                     <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
-                                        <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
+                                        {/* <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
 
                                             <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1  " : "text-[2.5vw]"}`}>{icon}</p>
                                             <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1" : "text-[2.5vw]"}`}>
@@ -121,6 +121,19 @@ function SubscriptionPlansAdmin({ toggle }) {
                                             <p className="text-[2.5vw] font-[700]">
                                                 Free
                                             </p>
+                                        } */}
+                                        {plan.isFree ?
+                                            <p className="text-[2.5vw] font-[700]">
+                                                Free
+                                            </p>
+                                            :
+                                            <div className={`flex flex-row  gap-2  `}>
+
+                                                <p className={` font-[700] text-[2.5vw]`}>{icon}</p>
+                                                <p className={` font-[700] text-[2.5vw]`}>
+                                                    {Math.ceil(plan?.amount * exchangeRate)}
+                                                </p>
+                                            </div>
                                         }
                                     </div>
 

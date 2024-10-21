@@ -19,19 +19,33 @@ function MyClients() {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [ClientCount, setClientCount] = useState(0);
-
+  const [clientCount, setClientCount] = useState(0);
+  const [clientCountLimit, setClientCountLimit] = useState(0)
   const [limitPopUp, setLimitPopUp] = useState(false);
   const dispatch = useDispatch();
 
+  const [planAvailable, setplanAvailable] = useState(false);
+
+  useEffect(() => {
+    const planavailable =
+      localStorage.getItem("planAvailable") == "true" ? true : false;
+    if (planavailable) {
+      setplanAvailable(planavailable);
+    }
+  }, []);
+
   const getLimits = () => {
     const clientCount = localStorage.getItem("clientCount");
+    const clientCountLimit = localStorage.getItem("clientCountLimit");
+    setClientCountLimit(parseInt(clientCountLimit))
     setClientCount(parseInt(clientCount));
+
   };
 
   useEffect(() => {
     getLimits();
   }, []);
+    
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -76,7 +90,7 @@ function MyClients() {
         data: { ids },
       })
       .then((response) => {
-       
+
         dispatch(reCallUserData());
         toast.success("Client Deleted successfully");
         setSelectedIndexes([]);
@@ -197,9 +211,8 @@ function MyClients() {
                     </div>
                   )}
                   <div
-                    className={` ${
-                      select ? "flex" : "hidden"
-                    } gap-12  items-center w-[100%]  `}
+                    className={` ${select ? "flex" : "hidden"
+                      } gap-12  items-center w-[100%]  `}
                   >
                     {select && (
                       <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[280px]  scr420:h-[48px] h-[40px]  ">
@@ -261,14 +274,21 @@ function MyClients() {
                   </div>
                   {!select && (
                     <button
+                      // onClick={() => {
+                      //   if (clientCount >= clientCountLimit) {
+                      //     setLimitPopUp(true);
+                      //   } else {
+                      //     router.push("/myClients/CreateNewClient");
+                      //   }
+                      // }}
                       onClick={() => {
-                        if (ClientCount === 0) {
+                        if (!planAvailable) {
                           setLimitPopUp(true);
                         } else {
                           router.push("/myClients/CreateNewClient");
                         }
                       }}
-                      className="ml:hidden flex items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                      className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                       type="button"
                     >
                       <svg
@@ -289,8 +309,15 @@ function MyClients() {
                   )}
 
                   <button
+                    // onClick={() => {
+                    //   if (clientCount >= clientCountLimit) {
+                    //     setLimitPopUp(true);
+                    //   } else {
+                    //     router.push("/myClients/CreateNewClient");
+                    //   }
+                    // }}
                     onClick={() => {
-                      if (ClientCount === 0) {
+                      if (!planAvailable) {
                         setLimitPopUp(true);
                       } else {
                         router.push("/myClients/CreateNewClient");
@@ -342,13 +369,21 @@ function MyClients() {
                   setSelect={setSelect}
                   select={select}
                   deleteClient={deleteClient}
-                  ClientCount={ClientCount}
+                  clientCount={clientCount}
+                  clientCountLimit={clientCountLimit}
                   setLimitPopUp={setLimitPopUp}
                 />
               ) : (
                 <div
+                  // onClick={() => {
+                  //   if (clientCount >= clientCountLimit) {
+                  //     setLimitPopUp(true);
+                  //   } else {
+                  //     router.push("/myClients/CreateNewClient");
+                  //   }
+                  // }}
                   onClick={() => {
-                    if (ClientCount === 0) {
+                    if (!planAvailable) {
                       setLimitPopUp(true);
                     } else {
                       router.push("/myClients/CreateNewClient");

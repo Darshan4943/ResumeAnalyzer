@@ -385,6 +385,7 @@ function SkillAssessment() {
             } else {
               console.error("Backend error: ", res.data.error);
               setQuestion(question)
+              toggleContent()
               // Handle backend error, show error message to user
             }
           })
@@ -467,6 +468,7 @@ function SkillAssessment() {
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
+          assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1): localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount)+1);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
@@ -474,6 +476,7 @@ function SkillAssessment() {
           setSkipped([]);
           setTimeout(() => {
             setScore(true);
+            getLimits()
           }, 500);
         })
         .catch((err) => {
@@ -709,14 +712,15 @@ function SkillAssessment() {
      if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
     }
-    else if (isActivePlan && assesmentType === "Certificate" && activePlan === 1 && attemptCount < 0) {
+    else if (isActivePlan && assesmentType === "Certificate" && skillCertifiedCount < skillCertifiedCountLimit ) {
       setisLevel(true);
     }
-    else if (isActivePlan && assesmentType === "Normal" && activePlan === 1 && attemptCount < 3) {
+    else if (isActivePlan && assesmentType === "Normal" &&   skillTestCount < skillTestCountLimit) {
       setisLevel(true);
     }
     else {
-      setisLevel(true);
+      setisLevel(false);
+       setIsplan(true);
     }
   };
 
@@ -1663,6 +1667,7 @@ function SkillAssessment() {
                           // window.location.reload();
                           setBtnEnable1(false)
                           dispatch(reCallUserData());
+                          
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >

@@ -236,7 +236,7 @@ function CreateNewClient() {
           gender: "male",
         });
         const clientSaveLimit = localStorage.getItem("clientCount");
-        localStorage.setItem("clientCount", clientSaveLimit - 1);
+        localStorage.setItem("clientCount", Number(clientSaveLimit) + 1);
 
         setFormError({});
         setLoading(false);

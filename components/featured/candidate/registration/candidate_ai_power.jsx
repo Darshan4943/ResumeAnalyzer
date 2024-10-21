@@ -62,10 +62,21 @@ const CandidateAiPower = ({
   const [resumeErrorPopup, setResumeErrorPopup] = useState(false);
   const [count, setCount] = useState(0);
   const [docfileError, setDocFileError] = useState(false);
+  const [planAvailable, setplanAvailable] = useState(false);
+
+  useEffect(() => {
+    const planavailable =
+      localStorage.getItem("planAvailable") == "true" ? true : false;
+    if (planavailable) {
+      setplanAvailable(planavailable);
+    }
+  }, []);
+
+
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     const resumeUploadCountLimit = localStorage.getItem("uploadCountLimit");
-    setUploadLimit(resumeUploadCount ? resumeUploadCountLimit-resumeUploadCount : 0);
+    setUploadLimit(resumeUploadCount ? resumeUploadCountLimit - resumeUploadCount : 0);
   }, []);
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -89,11 +100,11 @@ const CandidateAiPower = ({
 
   const handleFile = (selectedFile) => {
     if (selectedFile) {
-      if (selectedFile.type === "application/pdf" || "application/msword" ||  "application/docs") {
+      if (selectedFile.type === "application/pdf" || "application/msword" || "application/docs") {
         // Adjust file type checks as per your requirement
         sendFile(selectedFile);
       } else {
-       setDocFileError(true);
+        setDocFileError(true);
       }
     }
   };
@@ -177,10 +188,15 @@ const CandidateAiPower = ({
 
   const navigate = () => {
 
-    if (uploadLimit <= 0) {
+    // if (uploadLimit <= 0) {
+    //   setLimitUsedModal(true);
+    //   return;
+    // }
+    if (!planAvailable) {
       setLimitUsedModal(true);
       return;
     }
+
     setLoading(true);
     extracteText(file).then((result) => {
 
@@ -421,9 +437,9 @@ const CandidateAiPower = ({
                   </div>
 
                 )}
-                <span className="text-[12px] scr360:text-[14px] text-right">
+                {/* <span className="text-[12px] scr360:text-[14px] text-right">
                   {uploadLimit} Remaining Attempts
-                </span>
+                </span> */}
               </div>
 
               <div className="flex flex-row gap-[24px]">

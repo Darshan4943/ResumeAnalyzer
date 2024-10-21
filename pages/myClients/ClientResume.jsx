@@ -8,12 +8,28 @@ function ClientResume() {
   const router = useRouter();
   const [allData, setAllData] = useState([]);
   const [details, setDetails] = useState();
-  const [ClientCount, setClientCount] = useState(0);
+  const [clientCount, setClientCount] = useState(0);
+  const [clientCountLimit, setClientCountLimit] = useState(0)
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [limitPopUp, setLimitPopUp] = useState(false);
+  const [planAvailable, setplanAvailable] = useState(false);
+
+  useEffect(() => {
+    const planavailable =
+      localStorage.getItem("planAvailable") == "true" ? true : false;
+    if (planavailable) {
+      setplanAvailable(planavailable);
+    }
+  }, []);
+
+
   const getLimits = () => {
     const clientCount = localStorage.getItem("clientCount");
+    const clientCountLimit = localStorage.getItem("clientCountLimit");
+    setClientCountLimit(parseInt(clientCountLimit))
     setClientCount(parseInt(clientCount));
+
   };
 
   const {cover} =router.query
@@ -112,8 +128,15 @@ function ClientResume() {
             <div className="flex  gap-5 flex-wrap scr700:justify-start justify-center ">
               {details?.length > 0 && (
                 <div
+                  // onClick={() => {
+                  //   if (clientCount >= clientCountLimit) {
+                  //     setLimitPopUp(true);
+                  //   } else {
+                  //     router.push("/myClients/CreateNewClient");
+                  //   }
+                  // }}
                   onClick={() => {
-                    if (ClientCount === 0) {
+                    if (!planAvailable) {
                       setLimitPopUp(true);
                     } else {
                       router.push("/myClients/CreateNewClient");
@@ -258,8 +281,15 @@ function ClientResume() {
                 </>
               ) : (
                 <div
+                  // onClick={() => {
+                  //   if (clientCount >= clientCountLimit) {
+                  //     setLimitPopUp(true);
+                  //   } else {
+                  //     router.push("/myClients/CreateNewClient");
+                  //   }
+                  // }}
                   onClick={() => {
-                    if (ClientCount === 0) {
+                    if (!planAvailable) {
                       setLimitPopUp(true);
                     } else {
                       router.push("/myClients/CreateNewClient");

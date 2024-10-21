@@ -21,7 +21,8 @@ const Index = () => {
       coverLetter:"",
       type: "",
       skillTest:"",
-      skillCertified:""
+      skillCertified:"",
+      jdMatching:""
     },
     features: [],
   });
@@ -67,6 +68,7 @@ const Index = () => {
           coverLetter:plan.limits.coverLetter,
           skillTest:plan.limits.skillTest,
           skillCertified:plan.limits.skillCertified,
+          jdMatching:plan.limits.jdMatching,
         },
         features: plan.features || [],
       });
@@ -330,6 +332,19 @@ const Index = () => {
                         value={planData.limits.skillCertified}
                         onChange={handleLimitsChange}
                         placeholder="skillCertified"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Jd Matching Limit</p>
+                      <input
+                        type="text"
+                        name="jdMatching"
+                        value={planData.limits.jdMatching}
+                        onChange={handleLimitsChange}
+                        placeholder="jdMatching"
                         className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
                       />
                     </div>
