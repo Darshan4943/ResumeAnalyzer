@@ -23,8 +23,8 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
   const callData = () => {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     const url = isResume
-    ? `http://localhost:2000/api/resume/${id}`
-    : `http://localhost:2000/api/cover/get/${id}`;
+    ? `https://api.shindedarshan.com/api/resume/${id}`
+    : `https://api.shindedarshan.com/api/cover/get/${id}`;
   
     if (id) {
       axios

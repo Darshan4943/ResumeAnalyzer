@@ -26,7 +26,7 @@ function AppliedJobs({  setLimitPopup }) {
 
   const getAppliedData = () => {
     axios
-      .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`, {
+      .get(`https://api.shindedarshan.com/api/job/getAppliedJobs/${userDataGlobal._id}`, {
         params: { page, limit },
       })
       .then((res) => {

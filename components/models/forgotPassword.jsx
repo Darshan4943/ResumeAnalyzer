@@ -27,7 +27,7 @@ function ForgotPassword({ setIsForgot }) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("http://localhost:2000/api/otpMail", {
+      .post("https://api.shindedarshan.com/api/otpMail", {
         userEmail: email,
         otp,
       })
@@ -63,7 +63,7 @@ function ForgotPassword({ setIsForgot }) {
       }
 
       const response = await axios.post(
-        "http://localhost:2000/api/updatePassword",
+        "https://api.shindedarshan.com/api/updatePassword",
         {
           email: email,
           newPassword: password,

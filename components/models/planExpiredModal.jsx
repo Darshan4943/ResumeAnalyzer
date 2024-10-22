@@ -17,7 +17,7 @@ const PlanExpiredModal = () => {
         return;
       }
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           if (res.data.success) {
             if (
@@ -26,7 +26,7 @@ const PlanExpiredModal = () => {
             ) {
               axios
                 .put(
-                  "http://localhost:2000/api/subscription/update/" +
+                  "https://api.shindedarshan.com/api/subscription/update/" +
                     userDataGlobal._id
                 )
                 .then((res) => {

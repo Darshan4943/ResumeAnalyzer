@@ -73,7 +73,7 @@ function CreateNewClient() {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `https://api.shindedarshan.com/api/client/getByRecruiter/${userDataGlobal._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -219,8 +219,8 @@ function CreateNewClient() {
         );
         formdata.append("isProfileImageRemoved", isProfileImageRemoved);
         const url = isUpdate
-          ? "http://localhost:2000/api/updateClient"
-          : "http://localhost:2000/api/client/create";
+          ? "https://api.shindedarshan.com/api/updateClient"
+          : "https://api.shindedarshan.com/api/client/create";
 
         const response = await axios.post(url, formdata);
 
@@ -265,7 +265,7 @@ function CreateNewClient() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:2000/api/client/getByClientId/${id}`)
+        .get(`https://api.shindedarshan.com/api/client/getByClientId/${id}`)
         .then((res) => {
           const details = res.data.data;
           setDetails(details);

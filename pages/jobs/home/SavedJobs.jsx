@@ -33,7 +33,7 @@ function SavedJobs({ setLimitPopup, appliedJobs
 
   const getData = () => {
     axios
-      .post("http://localhost:2000/api/job/getSaveJobByIds", {
+      .post("https://api.shindedarshan.com/api/job/getSaveJobByIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

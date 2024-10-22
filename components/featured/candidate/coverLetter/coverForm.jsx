@@ -179,7 +179,7 @@ function CoverForm({
 
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
-            "http://localhost:2000/api/cover-letter/transform",
+            "https://api.shindedarshan.com/api/cover-letter/transform",
             data
           );
           const letterData = response.data;
@@ -219,7 +219,7 @@ function CoverForm({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/cover/rephrase", { prompt })
+      .post("https://api.shindedarshan.com/api/cover/rephrase", { prompt })
       .then((res) => {
         setLoading(false);
         const rephrasedPassage = res.data;

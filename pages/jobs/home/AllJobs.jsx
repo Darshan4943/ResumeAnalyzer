@@ -36,7 +36,7 @@ function AllJobs({
 
   const getData = () => {
     axios
-      .post("http://localhost:2000/api/job/byIds", {
+      .post("https://api.shindedarshan.com/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

@@ -84,7 +84,7 @@ function SubscriptionPlan({ isLogin, fromMain }) {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `http://localhost:2000/api/exchangeRate/${currency}`
+          `https://api.shindedarshan.com/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem("exchangeRate", exchangeRate?.data === "" ? "1" : exchangeRate?.data?.rate);

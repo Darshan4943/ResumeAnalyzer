@@ -31,7 +31,7 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://api.shindedarshan.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setTimeout(() => {
@@ -47,8 +47,8 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      // .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
-      .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
+      // .get("https://api.shindedarshan.com/api/cover/get/" + userDataGlobal?._id)
+      .get("https://api.shindedarshan.com/api/cover/get/" + userDataGlobal?._id)
 
       .then((res) => {
         setCoverList(res.data.data);
@@ -78,7 +78,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("http://localhost:2000/api/resume/deleteResume", {
+      .delete("https://api.shindedarshan.com/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -102,7 +102,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
+      .delete(`https://api.shindedarshan.com/api/cover/delete/${ids}`)
       .then((response) => {
         toast.success("Cover Letter Deleted successfully");
         setView(false);

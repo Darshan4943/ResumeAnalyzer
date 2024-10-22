@@ -28,7 +28,7 @@ const ApplicantDetails = () => {
     setLoading(true);
 
     axios
-      .get(`http://localhost:2000/api/job/getById/${query.id}`)
+      .get(`https://api.shindedarshan.com/api/job/getById/${query.id}`)
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);

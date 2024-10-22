@@ -52,7 +52,7 @@ function AllJobCard({
     // setLoading(false);
     e.stopPropagation();
     axios
-      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://api.shindedarshan.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
 
@@ -69,7 +69,7 @@ function AllJobCard({
     e.stopPropagation();
     axios
       .post(
-        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `https://api.shindedarshan.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
         dispatch(reCallUserData());

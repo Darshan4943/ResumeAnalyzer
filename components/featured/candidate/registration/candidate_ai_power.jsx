@@ -202,7 +202,7 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("http://localhost:2000/api/resume/extraction", {
+          .post("https://api.shindedarshan.com/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -213,7 +213,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
+                  "https://api.shindedarshan.com/api/subscription/updateUploadLimit/" +
                   userDataGlobal._id
                 )
                 .then((res) => {
