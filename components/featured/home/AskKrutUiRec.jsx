@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 export default function AskKrutUiRec() {
     const router = useRouter();
     return (
-        <div className=" customMargins flex ml:flex-row flex-col-reverse ml:gap-[2vw] gap-8 xl:gap-12 items-center py-9">
+        <div className=" customMargins flex ml:flex-row flex-col-reverse ml:gap-[2vw] gap-8 xl:gap-12 items-center justify-between py-9 ml:pr-12">
             <div className="flex flex-col gap-6 ml:w-[45%] w-full text-[#333333] pr-6 ml:text-start text-center ml:items-start items-center ">
                 <div className="font-semibold ml:text-[3.1vw] text-[28px] leading-tight">
                 Meet <span className='text-[#06A9EF]'>“Krut”</span> {" "}
