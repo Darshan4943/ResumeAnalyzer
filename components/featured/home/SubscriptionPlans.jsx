@@ -103,16 +103,23 @@ function SubscriptionPlans({ fromMain }) {
 
         // }
         if (userDataGlobal.role === "recruiter" || fromMain) {
-          setIsUser(false);
-
-          setAllPlans(allPlan.filter(plan => plan.type === "recruiter"));
-
+          setIsUser(false);  
+        
+          setAllPlans(
+            allPlan
+              .filter(plan => plan.type === "recruiter")
+              .sort((a, b) => a.amount - b.amount)
+          );
         } else {
           setIsUser(true);
-
-          setAllPlans(allPlan.filter(plan => plan.type === "candidate"));
-
+          
+          setAllPlans(
+            allPlan
+              .filter(plan => plan.type === "candidate")
+              .sort((a, b) => a.amount - b.amount)
+          );
         }
+        
 
       })
       .catch((err) => {
