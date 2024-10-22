@@ -103,8 +103,8 @@ function SubscriptionPlans({ fromMain }) {
 
         // }
         if (userDataGlobal.role === "recruiter" || fromMain) {
-          setIsUser(false);  
-        
+          setIsUser(false);
+
           setAllPlans(
             allPlan
               .filter(plan => plan.type === "recruiter")
@@ -112,14 +112,14 @@ function SubscriptionPlans({ fromMain }) {
           );
         } else {
           setIsUser(true);
-          
+
           setAllPlans(
             allPlan
               .filter(plan => plan.type === "candidate")
               .sort((a, b) => a.amount - b.amount)
           );
         }
-        
+
 
       })
       .catch((err) => {
@@ -291,7 +291,18 @@ function SubscriptionPlans({ fromMain }) {
                           fill="#06A9EF"
                         />
                       </svg>
-                      <p className="text-[0.8vw] font-[500]">{feature}</p>
+                      <p className="text-[0.8vw] font-[500]">
+                        {feature.includes('(') ? (
+                          <>
+                            {feature.split('(')[0]}
+                            <br />
+                            ({feature.split('(')[1]}
+                          </>
+                        ) : (
+                          feature
+                        )}
+                      </p>
+
                     </div>
                   ))}
                 </div>
