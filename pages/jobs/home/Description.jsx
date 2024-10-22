@@ -33,7 +33,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   useEffect(() => {
     if (userDataGlobal._id) {
       getData();
-    }else{
+    } else {
       setLoading(false);
     }
   }, [userDataGlobal]);
@@ -49,14 +49,15 @@ function Description({ selectedJob, filter, setLimitPopup }) {
     }
   }, []);
 
-  
+
   return (
     <>
       {!loading && (
         <div>
           {selectedJob && (
             <>
-              <div
+              <div 
+                onWheel={(e) => e.stopPropagation()}
                 className="p-[16px] border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  h-[calc(100vh-288.33px)] overflow-y-scroll "
                 style={{
                   boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -99,7 +100,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <button
                       disabled={(appliedJobs?.some(
                         (job) => job._id === selectedJob._id
-                      )) ||selectedJob.status==="Hold" }
+                      )) || selectedJob.status === "Hold"}
                       onClick={() => {
                         if (isLogin) {
                           if (jobApplyCount > 0) {
@@ -120,9 +121,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                           setLimitPopup(true);
                         }
                       }}
-                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status ==="Hold"
-                          ? "cursor-not-allowed"
-                          : " cursor-pointer"
+                      className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status === "Hold"
+                        ? "cursor-not-allowed"
+                        : " cursor-pointer"
                         }`}
                     >
                       {appliedJobs?.some((job) => job._id === selectedJob._id)
@@ -258,9 +259,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
                 <div className="flex justify-end">
                   <button
-                   disabled={(appliedJobs?.some(
-                    (job) => job._id === selectedJob._id
-                  )) ||selectedJob.status==="Hold" }
+                    disabled={(appliedJobs?.some(
+                      (job) => job._id === selectedJob._id
+                    )) || selectedJob.status === "Hold"}
                     onClick={() => {
                       if (isLogin) {
                         if (jobApplyCount > 0) {
@@ -281,9 +282,9 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         setLimitPopup(true);
                       }
                     }}
-                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status==="Hold"
-                        ? "cursor-not-allowed"
-                        : " cursor-pointer"
+                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status === "Hold"
+                      ? "cursor-not-allowed"
+                      : " cursor-pointer"
                       }`}
                   >
                     {appliedJobs?.some((job) => job._id === selectedJob._id)
