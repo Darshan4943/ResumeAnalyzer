@@ -53,7 +53,7 @@ function Collection() {
   const [refresh, setRefresh] = useState(true)
   const [collectionCount, setCollectionCount] = useState(0)
 
-  useEffect(() => {
+  const getLimits=()=>{
     const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
     const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
     const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
@@ -65,6 +65,9 @@ function Collection() {
 
     const finalLimit = Math.max(0, Math.min(remainingDaily, remainingMonthly));
     setCollectionCount(finalLimit)
+  }
+  useEffect(() => {
+    getLimits()
   }, []);
 
   const fileToText = (file, pageNumber) => {
@@ -556,7 +559,7 @@ function Collection() {
       const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
 
       if (response.data.success) {
-
+       
         setUploadCount(0);
         dispatch(reCallUserData());
       } else {
@@ -915,7 +918,7 @@ function Collection() {
                         getUnSyncFiles()
                       }, 10000);
                       updateCollectionLimit()
-
+                      
                     }}
                   >
                     Close
@@ -1037,6 +1040,7 @@ function Collection() {
                         onClick={(e) => {
                           setIsFile(true);
                           setIsCreateFolder(true);
+                          getLimits()
                         }}
                       >
                         <svg
