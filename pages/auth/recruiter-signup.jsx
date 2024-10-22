@@ -392,7 +392,7 @@ function Recruiter_signup({ }) {
         const result = res.data;
         if (result.success) {
           setVerify(true);
-        } else if (result.message === "user already exist") {
+        } else if (result.message === "User already exists") {
           toast.error("User already exists");
         } else {
           toast.error("Something went wrong");

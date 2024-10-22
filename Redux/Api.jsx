@@ -123,8 +123,13 @@ export const Api = ({ }) => {
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("uploadCount", result.used.resumeUploded);
             localStorage.setItem("saveCount", result.used.resumeStored);
+            localStorage.setItem("chatCountDaily", result.used.chatBot.daily); 
+            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly); 
+            localStorage.setItem("jdCountDaily", result.used.jdMatching.daily); 
+            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly); 
             localStorage.setItem("clientCount", result.used.clientStored);
-            localStorage.setItem("collectionCount", result.used.collectionStored); 
+            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily); 
+            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly); 
             localStorage.setItem("jobsApply", result.used.jobsApply);
             localStorage.setItem("coverCount", result.used.coverStored);
             localStorage.setItem("jdMatchingCount", result.used.jdMatching);
@@ -133,12 +138,17 @@ export const Api = ({ }) => {
             localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
             localStorage.setItem("saveCountLimit", result.limits.resumeStoredLimit);
             localStorage.setItem("clientCountLimit", result.limits.clientStoredLimit);
-            localStorage.setItem("collectionCountLimit", result.limits.collectionStoredLimit); 
+            localStorage.setItem("isFree", result.isFree);
             localStorage.setItem("jobsApplyLimit", result.limits.jobsApplyLimit);
             localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
             localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
             localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
-            localStorage.setItem("jdMatchingLimit", result.limits.jdMatchingLimit);
+            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily); 
+            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly); 
+            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily); 
+            localStorage.setItem("jdCountMonthlyLimit", result.limits.jdMatchingLimit.monthly);
+            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily); 
+            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly); 
             localStorage.setItem("planAvailable", true);
           
             let newEnddate = moment(result.endDate).format(
@@ -217,8 +227,8 @@ export const Api = ({ }) => {
       })
       .then((res) => {
         const result = res.data.data;
-        localStorage.setItem("chatCount", result.chatBot); 
-        localStorage.setItem("jdCount", result.jobMatching.matchCount);
+        // localStorage.setItem("chatCount", result.chatBot); 
+        // localStorage.setItem("jdCount", result.jobMatching.matchCount);
        
       })
       .catch((err) => {

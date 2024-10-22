@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import InternalJobMatching from "../../components/featured/jobMatching/internal";
 import ExternalJobMatching from "../../components/featured/jobMatching/external";
 import ReactSelect from "react-select";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { DocSVG, PDFSvg, SearchIcon } from "../../utils/svg";
 import { useRouter } from "next/router";
@@ -22,6 +22,7 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import { reCallUserData } from "../../Redux/actions/user";
 
 const JobMatching = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [isAnimate, setIsAnimate] = useState(true);
   const router = useRouter();
@@ -51,19 +52,23 @@ const JobMatching = () => {
   const [mainMessage, setMainMessage] = useState("Analyzing Data");
   const [findMatchLoader, setMatchLoader] = useState(false);
 
-  const [jdCount, setJdCount] = useState(0)
-  const [jdMatchingLimit, setJdMatchingLimit] = useState(0)
+  const [jdCountMonthly, setJdCountMonthly] = useState(0)
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0)
   const [activePlan, setActivePlan] = useState(0)
   const [limitPopup, setLimitPopup] = useState(false);
 
-  useEffect(() => {
-    const jdCount = Number(localStorage.getItem("jdCount"));
+const getLimits=()=>{
+  const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
+  setJdCountMonthly(jdCountMonthly)
 
-    const jdLimit = Number(localStorage.getItem("jdMatchingLimit"));
-    setJdMatchingLimit(jdLimit)
-    const activePlan = Number(localStorage.getItem("activePlan"));
-    setJdCount(jdCount)
-    setActivePlan(activePlan)
+  const jdCountMonthlyLimit = JSON.parse(localStorage.getItem("jdCountMonthlyLimit"));
+  setJdCountMonthlyLimit(jdCountMonthlyLimit)
+  const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+  
+  setActivePlan(activePlan)
+}
+  useEffect(() => {
+    getLimits()
   }, [])
 
   useEffect(() => {
@@ -146,27 +151,33 @@ const JobMatching = () => {
       });
   };
 
-
+console.log(jdCountMonthly,jdCountMonthlyLimit)
   const jobMatching = async () => {
 
-    if (jdCount >= jdMatchingLimit ) {
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
       return;
     }
-
+    let userId = userDataGlobal._id
     setLoadingg(true);
     setIsAnimate(false);
     try {
       const res = await axios.post("http://localhost:2000/api/jd/extraction", {
-        text,
+        text, userId
       });
       const jd = res.data.jsonData[0];
-      updateJobMatchLimit()
+      setTimeout(() => {
+        getLimits()
+      }, 5000);
+   
+      
+     
       localStorage.removeItem("JdDescription");
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
         setLoadingg(false);
         setShowsideBar(true);
+        updateJobMatchLimit()
       } else {
         setCount(count + 1);
       }
@@ -420,32 +431,35 @@ const JobMatching = () => {
 
 
   const updateJobMatchLimit = async () => {
-    let resumeCount = selectedIndexesFileTypes.length
-
+    let resumeCount = selectedIndexesFileTypes.length;
+  
     try {
-
-      const apiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
-      const response = await axios.put(apiUrl, { resumeCount });
-
-      if (response.data.success) {
-
-
-        dispatch(reCallUserData())
-        return response.data;
-      } else {
-        console.error('Error:', response.data.message);
-
-        return response.data;
-
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
+  
+      if (!updateJobMatchResponse.data.success) {
+        console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
       }
+  
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
+      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
+  
+      if (!jdSubscriptionResponse.data.success) {
+        console.error('Error in updateJdSubscriptionLimit:', jdSubscriptionResponse.data.message);
+      }
+  
+      dispatch(reCallUserData());
+  
+      return {
+        updateJobMatchResponse: updateJobMatchResponse.data,
+        jdSubscriptionResponse: jdSubscriptionResponse.data,
+      };
     } catch (error) {
       console.error('Something went wrong:', error);
-
       return { success: false, message: 'Something went wrong', error };
-
     }
   };
-
+  
   return (
     <>
       {limitPopup && (

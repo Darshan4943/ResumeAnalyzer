@@ -51,9 +51,21 @@ function Collection() {
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
+  const [collectionCount, setCollectionCount] = useState(0)
 
-  const collectionCount = localStorage.getItem("collectionCount");
+  useEffect(() => {
+    const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
+    const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
+    const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
+    const collectionCountMonthlyLimit = JSON.parse(localStorage.getItem("collectionCountMonthlyLimit"));
 
+    const remainingDaily = collectionCountDailyLimit - collectionCountDaily;
+    const remainingMonthly = collectionCountMonthlyLimit - collectionCountMonthly;
+
+
+    const finalLimit = Math.max(0, Math.min(remainingDaily, remainingMonthly));
+    setCollectionCount(finalLimit)
+  }, []);
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -505,12 +517,12 @@ function Collection() {
   //     return { success: false, message: 'Files count is zero, no update needed.' };
   //   }
   //   try {
-      
+
   //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
-        
+
   //       setUploadCount(0);
   //       dispatch(reCallUserData())
   //       return response.data;
@@ -526,7 +538,7 @@ function Collection() {
   //     return { success: false, message: 'Something went wrong', error };
 
   //   }
-    
+
   // };
 
   const updateCollectionLimit = async () => {
@@ -537,28 +549,28 @@ function Collection() {
     try {
       const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
       const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
-  
+
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
-      const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount});
-  
+      const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });
+
       const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
-  
+
       if (response.data.success) {
-       
+
         setUploadCount(0);
         dispatch(reCallUserData());
       } else {
         console.error('First API call error:', response.data.message);
       }
-  
+
       if (secondResponse.data.success) {
-        
+
         console.log('Second API call was successful');
       } else {
         console.error('Second API call error:', secondResponse.data.message);
       }
-  
-    
+
+
       return {
         success: response.data.success && secondResponse.data.success,
         message: 'Both API calls completed',
@@ -571,7 +583,7 @@ function Collection() {
       return { success: false, message: 'Something went wrong', error };
     }
   };
-  
+
 
   return (
     <>
@@ -877,7 +889,7 @@ function Collection() {
                 </>
               )}
               <div className="flex justify-between gap-6">
-                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" :"text-red"}`} >
+                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
                   {isFile &&
                     <>
                       Upload limit : {collectionCount ? collectionCount : 0}

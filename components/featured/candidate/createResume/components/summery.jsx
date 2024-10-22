@@ -22,6 +22,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [activePlanIndex, setActivePlanIndex] = useState()
+  const[isFree,setIsFree] =useState()
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
@@ -29,6 +30,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     const icon = localStorage.getItem("icon");
     setexchangeRate(exchangeRate);
     seticon(icon);
+    const isFree = JSON.parse(localStorage.getItem("isFree"));
+    setIsFree(isFree)
   }, []);
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
@@ -149,7 +152,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                 <div className="flex flex-col gap-4">
                   {isActive ? (
                     <div className="">
-                      {activePlanIndex === 1 ?
+                      {isFree ?
                         <p className="ml:text-[2vw] font-[700] text-[24px] text-center"> Free</p> 
                         :
                         <div className="flex flex-row gap-2 w-full items-center justify-center">
@@ -295,7 +298,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
               </p>
             </div> */}
 
-                {userDataGlobal?.role != "user" && (
+                {/* {userDataGlobal?.role != "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -325,7 +328,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

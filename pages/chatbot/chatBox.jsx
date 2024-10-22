@@ -110,17 +110,27 @@ const ChatBox = ({
   const chatEndRef = useRef(null);
   const [img, setImg] = useState(null);
   const [errorModel, setError] = useState(false);
-  const [chatCount, setChatCount] = useState(0)
+  const [chatCountDaily, setChatCountDaily] = useState(0)
+  const [chatCountDailyLimit, setChatCountDailyLimit] = useState(0)
+  const [chatCountMonthly, setChatCountMonthly] = useState(0)
+  const [chatCountMonthlyLimit, setChatCountMonthlyLimit] = useState(0)
   const [activePlan, setActivePlan] = useState(0)
   useEffect(() => {
-    const chatCount = Number(localStorage.getItem("chatCount"));
-    const activePlan = Number(localStorage.getItem("activePlan"));
-    setChatCount(chatCount)
+    const chatCountDaily = JSON.parse(localStorage.getItem("chatCountDaily"));
+    const chatCountMonthly = JSON.parse(localStorage.getItem("chatCountMonthly"));
+    const chatCountDailyLimit = JSON.parse(localStorage.getItem("chatCountDailyLimit"));
+    const chatCountMonthlyLimit = JSON.parse(localStorage.getItem("chatCountMonthlyLimit"));
+    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+    setChatCountDaily(chatCountDaily)
+    setChatCountMonthly(chatCountMonthly)
+    setChatCountDailyLimit(chatCountDailyLimit)
+    setChatCountMonthlyLimit(chatCountMonthlyLimit)
+
     setActivePlan(activePlan)
   }, [])
 
   const [limitPopup, setLimitPopup] = useState(false);
- 
+
   // const updateChatCount = () => {
   //   axios
   //     .put(
@@ -134,16 +144,31 @@ const ChatBox = ({
   // }
 
   const updateChatCount = () => {
-    localStorage.setItem("chatCount", chatCount + 1);
-    const chatCounts = Number(localStorage.getItem("chatCount"));
-    setChatCount(chatCounts)
+    if (chatCountDailyLimit === null) {
+      localStorage.setItem("chatCountMonthly", chatCountMonthly + 1);
+      const chatCounts = JSON.parse(localStorage.getItem("chatCountMonthly"));
+      setChatCountMonthly(chatCounts)
+    } else {
+      localStorage.setItem("chatCountDaily", chatCountDaily + 1);
+      const chatCounts = JSON.parse(localStorage.getItem("chatCountDaily"));
+      setChatCountDaily(chatCounts)
+    }
+
   }
+
   const submitHandler = (e) => {
 
     e.preventDefault();
-    if ((activePlan === 1 && chatCount >= 10) || (activePlan === 4 && chatCount >= 50)) {
-      setLimitPopup(true); 
-      return; 
+    if (chatCountDailyLimit === null) {
+      if (chatCountMonthly >= chatCountMonthlyLimit) {
+        setLimitPopup(true);
+        return;
+      }
+    } else {
+      if (chatCountDaily >= chatCountDailyLimit) {
+        setLimitPopup(true);
+        return;
+      }
     }
     if (text?.length > 5) {
       const obj = {
