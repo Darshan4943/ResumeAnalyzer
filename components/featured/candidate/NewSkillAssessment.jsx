@@ -6,7 +6,7 @@ function NewSkillAssessment() {
     const router = useRouter();
     const clickHandler = () => {
 
-        router.push("/auth?signin=true&role=recruiter")
+        router.push("/auth?signin=true&role=user")
 
     };
     return (

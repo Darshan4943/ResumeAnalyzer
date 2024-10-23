@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
 import AskKrutAnimation from './AskKrutAnimation';
+import { useRouter } from 'next/router';
 
 export default function AskKrutAi() {
 
+    const router = useRouter();
     return (
         <div className=" customMargins flex ml:flex-row flex-col-reverse ml:gap-[2vw] gap-8 xl:gap-12 items-center justify-between py-9">
             <div className="flex flex-col gap-6 ml:w-[60%] w-full text-[#333333] pr-6 ml:text-start text-center ml:items-start items-center ">
@@ -19,7 +21,7 @@ export default function AskKrutAi() {
                 </div>
 
                 <div className='font-medium ml:text-[1.1vw] text-[14px]  w-[100%] break-words text-[#333333]'>
-                    Our AI chatbot is powered by advanced technology that allows it to understand and respond to your queries in a natural and informative way. Whether you&apos;re looking for job search tips, resume writing advice, or career guidance, our chatbot can provide you with the information you need. With Skilotech&apos;s AI chatbot, you have a knowledgeable and helpful resource at your fingertips
+                    Our AI chatbot is powered by advanced technology that allows it to understand and respond to your queries in a natural and informative way. Whether you&apos;re looking for job search tips, resume writing advice, or career guidance, our chatbot can provide you with the information you need. With Skilotech&apos;s AI chatbot, you have a knowledgeable and helpful resource at your fingertips.
                 </div>
 
                 <button onClick={() =>

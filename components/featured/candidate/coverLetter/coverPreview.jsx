@@ -38,8 +38,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [coverCountLimit, setCoverCountLimit] = useState(0);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const getLimits = () => {
-    const coverCountLimit = localStorage.getItem("coverCountLimit");
-    const saveCount = localStorage.getItem("coverCount");
+    const coverCountLimit = JSON.parse(localStorage.getItem("coverCountLimit"));
+    const saveCount = JSON.parse(localStorage.getItem("coverCount"));
     if (coverCountLimit) {
       setCoverCountLimit(coverCountLimit);
     }
@@ -119,7 +119,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         return;
       }
 
-      if (saveLimit <= 0) {
+      if (saveLimit >= coverCountLimit) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);

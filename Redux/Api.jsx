@@ -193,7 +193,7 @@ export const Api = ({ }) => {
             localStorage.setItem("clientCount", 0);
             localStorage.setItem("collectionCount", 0); 
             localStorage.setItem("jobsApply", 0);
-            localStorage.setItem("coverSCount", 0);
+            localStorage.setItem("coverCount", 0);
             localStorage.setItem("skillTestCount", 0);
             localStorage.setItem("skillCertifiedCount", 0);
             localStorage.setItem("uploadCountLimit", 0);

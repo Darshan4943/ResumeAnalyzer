@@ -302,7 +302,7 @@ function CandidateHome({ onScrollToTop }) {
                 </p>
               </div> */}
               <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[100%] break-words">
-              Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters.
+              Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters
               </div>
               <button
                 onClick={clickHandler}
