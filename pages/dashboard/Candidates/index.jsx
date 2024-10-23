@@ -22,7 +22,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("https://api.shindedarshan.com/api/candidates", {
+      .get("https://jamblix.com/api/candidates", {
         params: { page, limit },
       })
       .then((res) => {

@@ -47,7 +47,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
         e.stopPropagation();
         axios
             .post(
-                `https://api.shindedarshan.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+                `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             )
             .then((res) => {
                 dispatch(reCallUserData());

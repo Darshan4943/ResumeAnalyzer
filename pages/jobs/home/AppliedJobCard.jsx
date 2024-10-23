@@ -49,7 +49,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const getData = () => {
         axios
 
-            .post("https://api.shindedarshan.com/api/job/byIds", {
+            .post("https://jamblix.com/api/job/byIds", {
                 ids: userDataGlobal?.savedJobs
                     ?.map((item) => item.id)
                     .filter((item) => item != "undefined"),
@@ -76,7 +76,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
         // setLoading(false);
         e.stopPropagation();
         axios
-            .post(`https://api.shindedarshan.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+            .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
                 dispatch(reCallUserData());
@@ -93,7 +93,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
         axios
-            .post(`https://api.shindedarshan.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
+            .post(`https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
                 dispatch(reCallUserData());

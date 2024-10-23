@@ -104,7 +104,7 @@ const ResumePreview = ({
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://api.shindedarshan.com/api/resume/${id}`)
+        .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
 
@@ -408,7 +408,7 @@ console.log(saveLimit,saveCountLimit)
         }
 
         axios
-          .put("https://api.shindedarshan.com/api/resume/" + id, formData)
+          .put("https://jamblix.com/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -472,7 +472,7 @@ console.log(saveLimit,saveCountLimit)
         }
 
         axios
-          .post("https://api.shindedarshan.com/api/resume/add", formData)
+          .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -514,7 +514,7 @@ console.log(saveLimit,saveCountLimit)
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://api.shindedarshan.com/api/subscription/updateDownloadLimit/" +
+        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {

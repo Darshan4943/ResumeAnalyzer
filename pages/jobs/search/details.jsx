@@ -18,7 +18,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://api.shindedarshan.com/api/job/getById/" + data._id)
+      .get("https://jamblix.com/api/job/getById/" + data._id)
       .then((res) => {
         setLoading(false);
         setIsApplied(
@@ -40,7 +40,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("https://api.shindedarshan.com/api/job/apply/" + data._id, {
+      .post("https://jamblix.com/api/job/apply/" + data._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
         percentage: data.percentage,

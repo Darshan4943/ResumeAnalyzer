@@ -23,7 +23,7 @@ import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
 import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "https://api.shindedarshan.com"; // Replace with your backend WebSocket server URL
+const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
 export const Api = ({ }) => {
   const store = useStore();
@@ -60,7 +60,7 @@ export const Api = ({ }) => {
 
   useEffect(() => {
     axios
-      .get("https://api.shindedarshan.com/api/plans/getAllPlans")
+      .get("https://jamblix.com/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -86,7 +86,7 @@ export const Api = ({ }) => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://api.shindedarshan.com/api/skiloteckuser/user/" + decoded._id)
+          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -110,7 +110,7 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       axios
-        .get("https://api.shindedarshan.com/api/subscription/" + userDataGlobal._id)
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -159,7 +159,7 @@ export const Api = ({ }) => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://api.shindedarshan.com/api/subscription/update/" + result._id
+                  "https://jamblix.com/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -221,7 +221,7 @@ export const Api = ({ }) => {
     let role = userDataGlobal.role;
     
     axios
-      .post("https://api.shindedarshan.com/api/apiLogs/get", {
+      .post("https://jamblix.com/api/apiLogs/get", {
         userId,
         role,
       })
@@ -266,7 +266,7 @@ export const Api = ({ }) => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://api.shindedarshan.com/api/exchangeRate/" + currency
+  //                 "https://jamblix.com/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -373,7 +373,7 @@ export const Api = ({ }) => {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `https://api.shindedarshan.com/api/exchangeRate/${currency}`
+          `https://jamblix.com/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem(

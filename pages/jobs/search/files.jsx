@@ -13,7 +13,7 @@ const Files = ({ selected, setSelected }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://api.shindedarshan.com/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setLoading(false);

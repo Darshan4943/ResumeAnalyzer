@@ -140,7 +140,7 @@ function Index() {
         e.preventDefault();
         try {
           const response = await axios.post(
-            "https://api.shindedarshan.com/api/planEnquiry/create",
+            "https://jamblix.com/api/planEnquiry/create",
             data
           );
           

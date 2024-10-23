@@ -39,7 +39,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://api.shindedarshan.com/api/contactUs/create",
+        "https://jamblix.com/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);
