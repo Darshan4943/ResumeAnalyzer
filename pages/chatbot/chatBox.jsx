@@ -366,11 +366,11 @@ const ChatBox = ({
   };
   return (
     <>
-      {limitPopup && (
+      {/* {limitPopup && (
         <div className="z-[200000]">
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
-      )}
+      )} */}
       {errorModel && <FileError setError={setError} />}
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
         {isSidebarOpen && (
@@ -513,11 +513,17 @@ const ChatBox = ({
               </div>
             </>
           )}
-          <div className="w-[90%] gap-3 flex flex-col items-end sticky">
+          <div className="w-[90%] gap-3 flex flex-col items-start sticky">
+            {limitPopup && (
+              <div className="text-[14px] text-red pl-2">
+                {`You have reached your daily limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per day) with your current plan.`}
+              </div>
+            )}
             <form
-              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
+              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex  items-center"
               onSubmit={submitHandler}
             >
+
               <div className="gap-1 flex w-full items-center pl-2">
                 <input
                   type="text"

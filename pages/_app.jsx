@@ -85,10 +85,10 @@ const WrappedApp = ({ Component, pageProps }) => {
                 </div>
                 <div className="flex flex-col items-center justify-center relative z-100">
                   <span
-                    className=" text-left text-[#333333] text-[16px] loading_dots"
-                    style={{ marginLeft: "44px" }}
+                    className=" min-w-[170px] text-[#333333] text-[16px] loading_dots text-left"
+                    style={{ marginLeft: "4px" }}
                   >
-                    Loading{" "}
+                    Setting Things Up{" "}
                   </span>
                 </div>
               </div>

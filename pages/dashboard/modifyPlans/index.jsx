@@ -330,7 +330,7 @@ const Index = () => {
                   
                   {planData.type === "candidate" &&
                     <div className="ml:w-[100%] gap-1 lg:col-span-1">
-                      <p className="scr420:text-[14px] text-[12px]">Apply Limit</p>
+                      <p className="scr420:text-[14px] text-[12px]">Job Apply Limit</p>
                       <input
                         type="text"
                         name="apply"

@@ -34,7 +34,7 @@ function SubscriptionPlansAdmin({ toggle }) {
         const filtered = allPlans.filter((plan) =>
             toggle ? plan.type === "candidate" : plan.type === "recruiter"
         );
-        setPlans(filtered);
+        setPlans(filtered.sort((a, b) => a.amount - b.amount));
 
 
 
@@ -88,7 +88,7 @@ function SubscriptionPlansAdmin({ toggle }) {
                     {subPlans.map((plan, index) => (
                         <div
                             key={index}
-                            className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card max-w-[19vw] "
+                            className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card max-w-[22vw] "
                                 } `}
                             style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
                         >
