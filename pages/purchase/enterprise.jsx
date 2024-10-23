@@ -161,26 +161,26 @@ function Index() {
                 </div>
             </div>
 
-            <div className="flex items-center justify-center pb-12  px-2 customMargins ">
+            <div className="flex items-center justify-center pb-12  px-2 customMargins xxlg:w-[60%] scr700:w-[80%] sm:w-[90%] w-full">
                 <div
                     style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
                     className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px]"
                 >
                     <div
 
-                        className={`group relative p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card w-[40%] max-w-[23vw] 
+                        className={`group relative p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card scr700:w-[40%] w-full scr700:max-w-[23vw] 
                             } `}
                         style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
                     >
                         <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
-                            <p className="text-[1.4vw] font-[600]">
+                            <p className="scr700:text-[1.4vw] text-[24px] font-[600]">
                                 <span className="text-[#06A9EF]">Enterprise </span>{" "}
                                 Plan
                             </p>
-                            <p className="text-[1vw] font-[500]">Tailored Solutions for Organizations</p>
+                            <p className="scr700:text-[1vw] text-[20px] font-[500]">Tailored Solutions for Organizations</p>
                             <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
                         </div>
-                        <div className="flex gap-3 flex-col text-center items-center w-[168px]">
+                        <div className="flex gap-3 flex-col text-center items-center scr700:w-[168px] w-[260px]">
                             <img
                                 src="/images/support_agent.png"
                                 className="h-[80px] w-[80px]"
@@ -193,7 +193,7 @@ function Index() {
 
                     </div>
 
-                    <div className=" flex flex-col gap-4 justify-center w-[60%] ">
+                    <div className=" flex flex-col gap-4 justify-center scr700:w-[60%] ">
                         <div className="text-[18px] font-[600] ">User Details</div>
                         <div className="flex flex-col gap-6 w-[100%] text-[14px]">
                             <div className="flex gap-5 w-[100%] ">
@@ -343,7 +343,7 @@ function Index() {
                             <button
                                 // disabled={true}
                                 onClick={(e) => planEnquiry(e)}
-                                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full hover:bg-[#ffda1d] hover:text-[#333] transition-all "
+                                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] scr700:text-[1.2vw] text-[20px] font-semibold w-full hover:bg-[#ffda1d] hover:text-[#333] transition-all "
                             // style={{ opacity: 0.6 }}
                             >
                                 Enquiry
