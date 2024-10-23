@@ -208,7 +208,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             </div>
             <div className="xxlg:hidden w-full h-[1px] bg-[#DEDEDE]"></div>
             <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
-              <p className="font-medium">Available services</p>
+              <p className="font-semibold">Available services</p>
               <div className="flex flex-col gap-5 scr420:text-[14px] text-[12px] font-medium ">
                 <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                   <p className=" scr420:min-w-[164px] min-w-[140px]">
