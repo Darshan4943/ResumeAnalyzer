@@ -204,7 +204,7 @@ function SubscriptionPlans({ fromMain }) {
           {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[18.5vw]" : "max-w-[18.5vw] "
                 } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
@@ -326,14 +326,12 @@ function SubscriptionPlans({ fromMain }) {
 
               </div>
 
-
-
             </div>
           ))}
 
           <div
 
-            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[18.5vw]" : "max-w-[18.5vw] "
               } `}
             style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
           >
