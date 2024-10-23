@@ -895,7 +895,7 @@ function Collection() {
                 <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
                   {isFile &&
                     <>
-                      Upload limit : {collectionCount ? collectionCount : 0}
+                      Daily upload limit : {collectionCount ? collectionCount : 0}
                     </>
                   }
                 </div>

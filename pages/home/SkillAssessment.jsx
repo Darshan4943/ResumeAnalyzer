@@ -114,10 +114,10 @@ function SkillAssessment() {
   
 
   const getLimits = () => {
-    const skillTestCount = localStorage.getItem("skillTestCount");
-    const skillCertifiedCount = localStorage.getItem("skillCertifiedCount");
-    const skillTestCountLimit = localStorage.getItem("skillTestCountLimit");
-    const skillCertifiedCountLimit = localStorage.getItem("skillCertifiedCountLimit");
+    const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
+    const skillCertifiedCount = JSON.parse(localStorage.getItem("skillCertifiedCount"));
+    const skillTestCountLimit = JSON.parse(localStorage.getItem("skillTestCountLimit"));
+    const skillCertifiedCountLimit = JSON.parse(localStorage.getItem("skillCertifiedCountLimit"));
 
     if (skillTestCount) {
       setSkillTestCount(skillTestCount);

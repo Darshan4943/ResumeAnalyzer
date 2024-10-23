@@ -77,8 +77,8 @@ const ResumePreview = ({
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   // console.log(67, userDataGlobal);
   const getLimits = () => {
-    const saveCountLimit = localStorage.getItem("saveCountLimit");
-    const saveCount = localStorage.getItem("saveCount");
+    const saveCountLimit = JSON.parse(localStorage.getItem("saveCountLimit"));
+    const saveCount = JSON.parse(localStorage.getItem("saveCount"));
     if (saveCountLimit) {
       setSaveCountLimit(saveCountLimit);
     }
@@ -369,7 +369,7 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
-
+console.log(saveLimit,saveCountLimit)
   const saveResume = async (blob, download) => {
     setdisabled(true);
 
