@@ -25,7 +25,7 @@ import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
 const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
-export const Api = ({}) => {
+export const Api = ({ }) => {
   const store = useStore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -102,7 +102,7 @@ export const Api = ({}) => {
       }
     }
   }, [reCallUser, showPlan]);
-
+ 
   useEffect(() => {
     const planActive =
       localStorage.getItem("planActive") == true ? true : false;
@@ -116,18 +116,41 @@ export const Api = ({}) => {
 
           if (result?.isActive == true) {
             const selectedPlan = allPlans.find(
-              (item) => item.name == result.plan
+              (item) => item.index == result.index
             );
 
-            localStorage.setItem("activePlan", selectedPlan?.index ? selectedPlan?.index : null);
-            localStorage.setItem("uploadCount", result.resumeUpladed);
+            localStorage.setItem("activePlan", result?.index ? result?.index : null);
             localStorage.setItem("planActive", result.isActive);
-            localStorage.setItem("downloadCount", result.resumeDownloads);
-            localStorage.setItem("saveCount", result.resumeSaves.num);
-            localStorage.setItem("clientCount", result.clientStored);
-            localStorage.setItem("collectionCount", result.collectionStored);
-            localStorage.setItem("jobsApply", result.jobsApply);
+            localStorage.setItem("uploadCount", result.used.resumeUploded);
+            localStorage.setItem("saveCount", result.used.resumeStored);
+            localStorage.setItem("chatCountDaily", result.used.chatBot.daily); 
+            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly); 
+            localStorage.setItem("jdCountDaily", result.used.jdMatching.daily); 
+            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly); 
+            localStorage.setItem("clientCount", result.used.clientStored);
+            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily); 
+            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly); 
+            localStorage.setItem("jobsApply", result.used.jobsApply);
+            localStorage.setItem("coverCount", result.used.coverStored);
+            localStorage.setItem("jdMatchingCount", result.used.jdMatching);
+            localStorage.setItem("skillTestCount", result.used.skillTest);
+            localStorage.setItem("skillCertifiedCount", result.used.skillCertified);
+            localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
+            localStorage.setItem("saveCountLimit", result.limits.resumeStoredLimit);
+            localStorage.setItem("clientCountLimit", result.limits.clientStoredLimit);
+            localStorage.setItem("isFree", result.isFree);
+            localStorage.setItem("jobsApplyLimit", result.limits.jobsApplyLimit);
+            localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
+            localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
+            localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
+            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily); 
+            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly); 
+            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily); 
+            localStorage.setItem("jdCountMonthlyLimit", result.limits.jdMatchingLimit.monthly);
+            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily); 
+            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly); 
             localStorage.setItem("planAvailable", true);
+          
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
@@ -160,17 +183,62 @@ export const Api = ({}) => {
 
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
-            localStorage.setItem("jobsApply", 0);
-            localStorage.setItem("downloadCount", 0);
+     
+            localStorage.setItem("chatCount", 0);
+          
+            localStorage.setItem("jdCount", 0);
+
+            localStorage.setItem("uploadCount",0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
+            localStorage.setItem("collectionCount", 0); 
+            localStorage.setItem("jobsApply", 0);
+            localStorage.setItem("coverCount", 0);
+            localStorage.setItem("skillTestCount", 0);
+            localStorage.setItem("skillCertifiedCount", 0);
+            localStorage.setItem("uploadCountLimit", 0);
+            localStorage.setItem("saveCountLimit", 0);
+            localStorage.setItem("clientCountLimit", 0);
+            localStorage.setItem("collectionCountLimit", 0); 
+            localStorage.setItem("jobsApplyLimit", 0);
+            localStorage.setItem("coverCountLimit", 0);
+            localStorage.setItem("skillTestCountLimit", 0);
+            localStorage.setItem("skillCertifiedCountLimit", 0);
           }
         })
         .catch((err) => {
           console.log(err);
         });
+
+       
     }
+
   }, [userDataGlobal, reCallUser, showPlan, allPlans]);
+
+  useEffect(()=>{
+    if(userDataGlobal._id){
+    let userId = userDataGlobal._id;
+    let role = userDataGlobal.role;
+    
+    axios
+      .post("https://jamblix.com/api/apiLogs/get", {
+        userId,
+        role,
+      })
+      .then((res) => {
+        const result = res.data.data;
+        // localStorage.setItem("chatCount", result.chatBot); 
+        // localStorage.setItem("jdCount", result.jobMatching.matchCount);
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },[userDataGlobal])
+
+
+
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -289,15 +357,15 @@ export const Api = ({}) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
-        localStorage.setItem("country",country)
+        localStorage.setItem("country", country)
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
           (item) => item?.countryCode === codeJson?.code
         );
 
         // const currency = Country ? Country.currency : "USD";
-        // const currency = country ==="India" ? "INR" : country ==="United Kingdom" ? "GBP" : "USD";
-        const currency = "USD";
+        const currency = country === "India" ? "INR" : country === "United Kingdom" ? "GBP" : "USD";
+        // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
         );
@@ -359,9 +427,9 @@ export const Api = ({}) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;

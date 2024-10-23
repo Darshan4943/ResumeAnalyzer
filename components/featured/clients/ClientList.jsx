@@ -13,12 +13,22 @@ function ClientList({
   setSelectedIndexes,
   select,
   deleteClient,
-  ClientCount,
+  clientCount,
+  clientCountLimit,
   setLimitPopUp
 }) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
+  const [planAvailable, setplanAvailable] = useState(false);
+
+  useEffect(() => {
+    const planavailable =
+      localStorage.getItem("planAvailable") == "true" ? true : false;
+    if (planavailable) {
+      setplanAvailable(planavailable);
+    }
+  }, []);
 
   const taskRef = useRef(null);
 
@@ -60,8 +70,15 @@ function ClientList({
 
         <div className="flex  gap-4 flex-wrap scr700:justify-start justify-center  ">
           <div
+            // onClick={() => {
+            //   if (clientCount >= clientCountLimit) {
+            //     setLimitPopUp(true);
+            //   } else {
+            //     router.push("/myClients/CreateNewClient");
+            //   }
+            // }}
             onClick={() => {
-              if (ClientCount === 0) {
+              if (!planAvailable) {
                 setLimitPopUp(true);
               } else {
                 router.push("/myClients/CreateNewClient");

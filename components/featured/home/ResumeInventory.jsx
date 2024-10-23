@@ -7,16 +7,16 @@ function ResumeInventory({ isLogin }) {
   const router = useRouter();
   const dispatch = useDispatch();
   return (
-    <div className=" bg-bg_inventory bg-cover bg-no-repeat ">
+    // <div className=" bg-bg_inventory bg-cover bg-no-repeat ">
       <div className="customMargins flex flex-row gap-8 items-center">
-        <div className="w-[60%]  flex justify-center  items-center ">
+        <div className="w-[50%]  flex justify-center  items-center pr-12 ">
           <img
             src="/images/resumeBuilder/resumeInventory.png"
             alt=""
             className={`w-[45vw] h-[45vw] object-contain`}
           />
         </div>
-        <div className=" flex flex-col gap-6 w-[52.5%] text-[#000000] ">
+        <div className=" flex flex-col gap-6 w-[40%] text-[#000000] ">
           <div className="flex flex-col gap-[24px]">
             <div className="font-semibold text-[2.5vw] leading-tight">
               <span className="text-[#06A9EF]">My Collection</span> is Your
@@ -46,7 +46,7 @@ function ResumeInventory({ isLogin }) {
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
 

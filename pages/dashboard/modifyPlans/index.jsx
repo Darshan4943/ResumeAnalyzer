@@ -9,15 +9,21 @@ const Index = () => {
     name: "",
     days: "",
     amount: "",
+    isFree: false,
     description: "",
     limits: {
       uploads: "",
       download: "",
       save: "",
       clients: "",
-      collection: "",
+      collection: { daily: "", monthly: "" },
       apply: "",
-      type: ""
+      coverLetter: "",
+      type: "",
+      skillTest: "",
+      skillCertified: "",
+      jdMatching: { daily: "", monthly: "" },
+      chatBot: { daily: "", monthly: "" }
     },
     features: [],
   });
@@ -44,12 +50,13 @@ const Index = () => {
       const response = await axios.get(
         `https://jamblix.com/api/plans/getByIndex/${planId}`
       );
-    
+
       const plan = response.data.data[0];
       setPlanData({
         name: plan.name,
         days: plan.days,
         amount: plan.amount,
+        isFree: plan.isFree,
         description: plan.description,
         type: plan.type,
         limits: {
@@ -57,8 +64,13 @@ const Index = () => {
           download: plan.limits.download,
           save: plan.limits.save,
           clients: plan.limits.clients,
-          collection: plan.limits.collection,
+          collection: { daily: plan.limits.collection.daily, monthly: plan.limits.collection.monthly },
           apply: plan.limits.apply,
+          coverLetter: plan.limits.coverLetter,
+          skillTest: plan.limits.skillTest,
+          skillCertified: plan.limits.skillCertified,
+          jdMatching: { daily: plan.limits.jdMatching.daily, monthly: plan.limits.jdMatching.monthly },
+          chatBot: { daily: plan.limits.chatBot.daily, monthly: plan.limits.chatBot.monthly }
         },
         features: plan.features || [],
       });
@@ -79,15 +91,31 @@ const Index = () => {
 
   const handleLimitsChange = (e) => {
     const { name, value } = e.target;
-    setPlanData((prevData) => ({
-      ...prevData,
-      limits: {
-        ...prevData.limits,
-        [name]: value,
-      },
-    }));
+    const keys = name.split('.'); // Split the name by dot to handle nested fields
+  
+    setPlanData((prevData) => {
+      // Create a copy of the limits object
+      const updatedLimits = { ...prevData.limits };
+  
+      // Traverse through the keys to update the nested value
+      let current = updatedLimits;
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) current[keys[i]] = {}; // Initialize if not present
+        current = current[keys[i]];
+      }
+  
+      // Update the final key's value
+      current[keys[keys.length - 1]] = value;
+  
+      return {
+        ...prevData,
+        limits: updatedLimits,
+      };
+    });
+  
     setHasChanges(true);
   };
+  
 
   const handleSubmitData = async (e) => {
     e.preventDefault();
@@ -150,12 +178,20 @@ const Index = () => {
     setIsEditing(true);
     setEditIndex(index);
   };
+  const handleIsFreeChange = (e) => {
+    const { value } = e.target;
+    setPlanData((prevData) => ({
+      ...prevData,
+      isFree: value === "true",
+    }));
+    setHasChanges(true);
+  };
 
   return (
     <>
       <div className="flex flex-col w-[100%] h-full  sm:p-8 p-1 items-center sm:items-start gap-4 bg-[#f9f9f9]">
-        <div className="ml:flex-row flex flex-col w-full gap-4 items-center">
-          <div className="bg-white ml:h-[450px] h-[510px] scr1250:w-[60%] sm:w-[100%] w-[95%] p-4 rounded-lg">
+        <div className="ml:flex-row flex flex-col w-full gap-4">
+          <div className="bg-white  scr1250:w-[60%] sm:w-[100%] w-[95%] p-4 rounded-lg">
             <div className="flex flex-col gap-6 w-full h-full">
               <div className="flex flex-col gap-4 h-full">
                 <div className="flex w-full ml:justify-between gap-2 ">
@@ -241,7 +277,134 @@ const Index = () => {
                       className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
                     />
                   </div>
+                  <div className="ml:w-[100%] gap-1">
+                    <p className="scr420:text-[14px] text-[12px]">Chat Bot Limit Daily</p>
+                    <input
+                      type="text"
+                      name="chatBot.daily"
+                      value={planData.limits.chatBot.daily}
+                      onChange={handleLimitsChange}
+                      placeholder="Chat Bot Daily"
+                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                    />
+                  </div>
+                  <div className="ml:w-[100%] gap-1">
+                    <p className="scr420:text-[14px] text-[12px]">Chat Bot Limit Monthly</p>
+                    <input
+                      type="text"
+                      name="chatBot.monthly"
+                      value={planData.limits.chatBot.monthly}
+                      onChange={handleLimitsChange}
+                      placeholder="Chat Bot Monthly"
+                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                    />
+                  </div>
+                 
                   {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Collection Limit Daily</p>
+                      <input
+                        type="text"
+                        name="collection.daily"
+                        value={planData.limits.collection.daily}
+                        onChange={handleLimitsChange}
+                        placeholder="Collection daily"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                   {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Collection Limit Monthly</p>
+                      <input
+                        type="text"
+                        name="collection.monthly"
+                        value={planData.limits.collection.monthly}
+                        onChange={handleLimitsChange}
+                        placeholder="Collection monthly"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+
+                  
+                  {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Job Apply Limit</p>
+                      <input
+                        type="text"
+                        name="apply"
+                        value={planData.limits.apply}
+                        onChange={handleLimitsChange}
+                        placeholder="Apply"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">skill Test Limit</p>
+                      <input
+                        type="text"
+                        name="skillTest"
+                        value={planData.limits.skillTest}
+                        onChange={handleLimitsChange}
+                        placeholder="skillTest"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "candidate" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">skill Certification Limit</p>
+                      <input
+                        type="text"
+                        name="skillCertified"
+                        value={planData.limits.skillCertified}
+                        onChange={handleLimitsChange}
+                        placeholder="skillCertified"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Jd Matching Limit Daily</p>
+                      <input
+                        type="text"
+                        name="jdMatching.daily"
+                        value={planData.limits.jdMatching.daily}
+                        onChange={handleLimitsChange}
+                        placeholder="jdMatching daily"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  {planData.type === "recruiter" &&
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Jd Matching Limit Monthly</p>
+                      <input
+                        type="text"
+                        name="jdMatching.monthly"
+                        value={planData.limits.jdMatching.monthly}
+                        onChange={handleLimitsChange}
+                        placeholder="jdMatching monthly"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  }
+                  <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                    <p className="scr420:text-[14px] text-[12px]">Cover Letter Limit</p>
+                    <input
+                      type="text"
+                      name="coverLetter"
+                      value={planData.limits.coverLetter}
+                      onChange={handleLimitsChange}
+                      placeholder="coverLetter"
+                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                    />
+                  </div>
+                   {planData.type === "recruiter" &&
                     <div className="ml:w-[100%] gap-1 lg:col-span-1">
                       <p className="scr420:text-[14px] text-[12px]">Clients Limit</p>
                       <input
@@ -254,32 +417,18 @@ const Index = () => {
                       />
                     </div>
                   }
-                  {planData.type === "recruiter" &&
-                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
-                      <p className="scr420:text-[14px] text-[12px]">Collection Limit</p>
-                      <input
-                        type="text"
-                        name="collection"
-                        value={planData.limits.collection}
-                        onChange={handleLimitsChange}
-                        placeholder="Collection"
-                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
-                      />
-                    </div>
-                  }
-                  {planData.type === "candidate" &&
-                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
-                      <p className="scr420:text-[14px] text-[12px]">Apply Limit</p>
-                      <input
-                        type="text"
-                        name="apply"
-                        value={planData.limits.apply}
-                        onChange={handleLimitsChange}
-                        placeholder="Apply"
-                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
-                      />
-                    </div>
-                  }
+                  <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                    <p className="scr420:text-[14px] text-[12px]">Is Free</p>
+                    <select
+                      name="isFree"
+                      value={planData?.isFree?.toString()}
+                      onChange={handleIsFreeChange}
+                      className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                    >
+                      <option value="false">False</option>
+                      <option value="true">True</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>

@@ -35,13 +35,13 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [minZoomLevel, setMinZoomLevel] = useState(0.5);
   const [maxZoomLevel, setMaxZoomLevel] = useState(2);
   const [saveLimit, setSaveLimit] = useState(0);
-  const [downloadLimit, setDownloadLimit] = useState(0);
+  const [coverCountLimit, setCoverCountLimit] = useState(0);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const getLimits = () => {
-    const downloadCount = localStorage.getItem("downloadCount");
-    const saveCount = localStorage.getItem("saveCount");
-    if (downloadCount) {
-      setDownloadLimit(downloadCount);
+    const coverCountLimit = JSON.parse(localStorage.getItem("coverCountLimit"));
+    const saveCount = JSON.parse(localStorage.getItem("coverCount"));
+    if (coverCountLimit) {
+      setCoverCountLimit(coverCountLimit);
     }
     if (saveCount) {
       setSaveLimit(saveCount);
@@ -119,7 +119,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         return;
       }
 
-      if (saveLimit <= 0) {
+      if (saveLimit >= coverCountLimit) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);
@@ -151,7 +151,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
       const response = await axios[method](url, formData);
 
-      localStorage.setItem("saveCount", saveLimit - 1);
+      localStorage.setItem("coverCount", Number(saveLimit) + 1);
       getLimits();
       toast.success(
         `Cover Letter ${isCoverEdit ? "updated" : "added"} successfully`
@@ -197,7 +197,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
-    if (saveLimit <= 0) {
+    if (saveLimit >= coverCountLimit) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
@@ -236,9 +236,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   };
 
   //downloadw
-
+console.log(saveLimit,coverCountLimit)
   const downloadPdfBlob = async () => {
-    if (saveLimit <= 0) {
+    if (saveLimit >= coverCountLimit) {
       setLoading(false);
       setLoading1(false);
       setLimitUsedModal(true);
@@ -263,7 +263,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       }
 
       const pdfBlob = pdf.output("blob");
-      if (saveLimit <= 0) {
+      if (saveLimit >= coverCountLimit) {
         setLoading(false);
         setLoading1(false);
         setLimitUsedModal(true);

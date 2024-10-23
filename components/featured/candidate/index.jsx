@@ -192,6 +192,10 @@ import { useDispatch, useSelector } from "react-redux";
 import MobileView from "../home/mobileView";
 import Home from "../home/images";
 import Footer from "../../partials/footer/footer";
+import ResumeLink from "../home/ResumeLink";
+import AskKrutAi from "../home/AskKrutUi";
+import DreamJob from "../home/Dreamjob";
+import NewSkillAssessment from "./NewSkillAssessment";
 
 function CandidateHome({ onScrollToTop }) {
   const [isSubscribe, setIsSubscrib] = useState(false);
@@ -241,14 +245,10 @@ function CandidateHome({ onScrollToTop }) {
           <div className="flex flex-col gap-6 w-[50%] text-[#333333]">
             <div className="flex flex-col gap-[24px] pl-[112px]">
               <div className="font-semibold text-[4vw] leading-tight">
-                The Ultimate AI Resume Builder
+                ATS Compliant AI Resume Creator
               </div>
               <div className="font-medium text-[1.2vw]">
-                Craft compelling, recruiter-vetted resumes effortlessly with our
-                cutting-edge resume builder powered by Generative AI. Tailor
-                resumes for each role swiftly, leveraging a myriad of remarkable
-                features. Enhance your prospects of securing an interview and
-                distinguish yourself from competitors in just a few minutes.
+                Our AI-powered resume creator helps you craft professional, ATS-optimized resumes tailored to your unique experiences and target jobs. With customizable templates, keyword optimization, and continuous improvement, our tool ensures your resume gets noticed by recruiters and increases your chances of landing your dream job.
               </div>
               <button
                 onClick={clickHandler}
@@ -273,12 +273,18 @@ function CandidateHome({ onScrollToTop }) {
               <ImgCarousel />
             </div>
 
-            <div className="flex flex-col gap-6 w-[35%] text-[#333333]">
-              <div className="font-semibold text-[2.5vw] leading-tight">
-                Resume Templates for All{" "}
-                <span className="text-[#06A9EF]">Careers and Levels</span>
+            <div className="flex flex-col gap-6 w-[40%] text-[#333333]">
+              <div className="font-semibold text-[2.5vw] leading-tight text-[#06A9EF]">
+                ATS Friendly{" "}
+                <span className="text-[#333333]">Resume</span>
+                <p>
+                Templates <span className="text-[#333333]">for All</span>  
+                </p>
+                <p className="text-[#333333]">
+                Careers.
+                </p>
               </div>
-              <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words">
+              {/* <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words">
                 <p>
                   Select one of our{" "}
                   <span className="text-[#06A9EF]">
@@ -294,6 +300,9 @@ function CandidateHome({ onScrollToTop }) {
                   with a resume built on one of the best recruiter-approved
                   templates.
                 </p>
+              </div> */}
+              <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[100%] break-words">
+              Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters
               </div>
               <button
                 onClick={clickHandler}
@@ -305,9 +314,14 @@ function CandidateHome({ onScrollToTop }) {
           </div>
         </div>
 
-        <SkillAssessment isLogin={isLogin} />
-        <JdResume isLogin={isLogin} />
+        {/* <SkillAssessment isLogin={isLogin} /> */}
+        <NewSkillAssessment />
+        <ResumeLink />
+        {/* <JdResume isLogin={isLogin} /> */}
+
         <ResumeInventory isLogin={isLogin} />
+        <AskKrutAi />
+        <DreamJob />
         <SubscriptionPlan isLogin={isLogin} />
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>

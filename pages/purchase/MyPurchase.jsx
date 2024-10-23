@@ -89,12 +89,12 @@ function MyPurchase() {
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-
+          console.log(result)
           setSubscription(result);
           setPlan(
             allPlans.find(
               (item) =>
-                item.name == result?.plan
+                item.index == result?.index
             )
           );
 
@@ -267,15 +267,15 @@ function MyPurchase() {
                           ) : (
                             <button
                               onClick={() => router.push("/purchase/plans")}
-                              disabled={subscription?.isActive && !(limits?.used?.uploads === limits?.total?.uploads || limits?.used?.save === limits?.total?.save || (limits?.used?.clients === limits?.total?.clients && limits?.total?.clients !== 0))
+                              disabled={subscription?.isActive 
                               }
-                              className={`px-9 py-3  ${subscription?.isActive && !(limits?.used?.uploads === limits?.total?.uploads || limits?.used?.save === limits?.total?.save || (limits?.used?.clients === limits?.total?.clients && limits?.total?.clients !== 0))
+                              className={`px-9 py-3  ${subscription?.isActive 
                                 ? "bg-[#DEDEDE] "
                                 : "bg-[#06a9ef] btn_hover_effect"
                                 } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                             >
                               {subscription?.isActive
-                                ? !(limits?.used?.uploads === limits?.total?.uploads || limits?.used?.save === limits?.total?.save || (limits?.used?.clients === limits?.total?.clients && limits?.total?.clients !== 0)) ? "Purchased" : "Upgrade Plan"
+                                ? "Purchased" 
                                 : "Purchase"}
                             </button>
                           )}

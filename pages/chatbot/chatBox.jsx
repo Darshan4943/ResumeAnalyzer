@@ -9,6 +9,7 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import FileError from "../../components/models/fileError";
 import mammoth from "mammoth";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -47,7 +48,7 @@ const formatData = (data) => {
 //       ));
 // };
 
-const ParentTemp = ({ answer, i, chat, chatEndRef ,once}) => {
+const ParentTemp = ({ answer, i, chat, chatEndRef, once }) => {
   const [count, setCount] = useState(1);
 
   // Effect to scroll to bottom whenever count or answer changes
@@ -109,9 +110,66 @@ const ChatBox = ({
   const chatEndRef = useRef(null);
   const [img, setImg] = useState(null);
   const [errorModel, setError] = useState(false);
+  const [chatCountDaily, setChatCountDaily] = useState(0)
+  const [chatCountDailyLimit, setChatCountDailyLimit] = useState(0)
+  const [chatCountMonthly, setChatCountMonthly] = useState(0)
+  const [chatCountMonthlyLimit, setChatCountMonthlyLimit] = useState(0)
+  const [activePlan, setActivePlan] = useState(0)
+  useEffect(() => {
+    const chatCountDaily = JSON.parse(localStorage.getItem("chatCountDaily"));
+    const chatCountMonthly = JSON.parse(localStorage.getItem("chatCountMonthly"));
+    const chatCountDailyLimit = JSON.parse(localStorage.getItem("chatCountDailyLimit"));
+    const chatCountMonthlyLimit = JSON.parse(localStorage.getItem("chatCountMonthlyLimit"));
+    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+    setChatCountDaily(chatCountDaily)
+    setChatCountMonthly(chatCountMonthly)
+    setChatCountDailyLimit(chatCountDailyLimit)
+    setChatCountMonthlyLimit(chatCountMonthlyLimit)
+
+    setActivePlan(activePlan)
+  }, [])
+
+  const [limitPopup, setLimitPopup] = useState(false);
+
+  // const updateChatCount = () => {
+  //   axios
+  //     .put(
+  //       `https://jamblix.com/api/subscription/updateChatLimit/${userDataGlobal._id}`
+  //     )
+  //     .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
+  //       const chatCounts = Number(localStorage.getItem("chatCount"));
+  //       setChatCount(chatCounts)
+  //     })
+  //     .catch((err) => console.error(err));
+  // }
+
+  const updateChatCount = () => {
+    if (chatCountDailyLimit === null) {
+      localStorage.setItem("chatCountMonthly", chatCountMonthly + 1);
+      const chatCounts = JSON.parse(localStorage.getItem("chatCountMonthly"));
+      setChatCountMonthly(chatCounts)
+    } else {
+      localStorage.setItem("chatCountDaily", chatCountDaily + 1);
+      const chatCounts = JSON.parse(localStorage.getItem("chatCountDaily"));
+      setChatCountDaily(chatCounts)
+    }
+
+  }
 
   const submitHandler = (e) => {
+
     e.preventDefault();
+    if (chatCountDailyLimit === null) {
+      if (chatCountMonthly >= chatCountMonthlyLimit) {
+        setLimitPopup(true);
+        return;
+      }
+    } else {
+      if (chatCountDaily >= chatCountDailyLimit) {
+        setLimitPopup(true);
+        return;
+      }
+    }
     if (text?.length > 5) {
       const obj = {
         question: text,
@@ -125,6 +183,7 @@ const ChatBox = ({
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
           userType: userDataGlobal.role,
+          userId: userDataGlobal._id
         })
         .then((res) => {
           setOnce(true)
@@ -143,6 +202,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+          updateChatCount()
         })
         .catch((err) => {
           console.log(err);
@@ -306,6 +366,11 @@ const ChatBox = ({
   };
   return (
     <>
+      {/* {limitPopup && (
+        <div className="z-[200000]">
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+        </div>
+      )} */}
       {errorModel && <FileError setError={setError} />}
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
         {isSidebarOpen && (
@@ -348,17 +413,15 @@ const ChatBox = ({
         )}
 
         <button
-          className={`absolute ${
-            isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
-          } ml:top-[45vh] left-0 top-[2vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+          className={`absolute ${isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
+            } ml:top-[45vh] left-0 top-[2vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
           onClick={handleToggleSidebar}
         >
           <img
             src="/images/resumeBuilder/chatArrow.png"
             alt=""
-            className={`h-[24px] w-[24px] transform transition-transform ${
-              isSidebarOpen ? "rotate-180" : ""
-            }`}
+            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
+              }`}
           />
         </button>
 
@@ -367,7 +430,7 @@ const ChatBox = ({
             <div
               style={{ scrollbarWidth: "none" }}
               className="flex flex-col gap-[16px] scr1150:w-[60%] sm:w-[70%] w-[90%] sm:pt-0 pt-10 h-[80vh] overflow-y-auto"
-              // ref={divRef}
+            // ref={divRef}
             >
               {chat?.map((item, index) => (
                 <div key={index} className="flex flex-col gap-[12px]">
@@ -450,11 +513,17 @@ const ChatBox = ({
               </div>
             </>
           )}
-          <div className="w-[90%] gap-3 flex flex-col items-end sticky">
+          <div className="w-[90%] gap-3 flex flex-col items-start sticky">
+            {limitPopup && (
+              <div className="text-[14px] text-red pl-2">
+                {`You have reached your daily limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per day) with your current plan.`}
+              </div>
+            )}
             <form
-              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
+              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex  items-center"
               onSubmit={submitHandler}
             >
+
               <div className="gap-1 flex w-full items-center pl-2">
                 <input
                   type="text"

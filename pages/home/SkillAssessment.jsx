@@ -65,9 +65,7 @@ function SkillAssessment() {
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [attemptCount, setAttemptCtn] = useState();
-  const [normalCount, setNormalCount] = useState(0);
-  const [certifiedCount, setCertifiedCount] = useState(0);
-
+  
   
   const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -109,8 +107,37 @@ function SkillAssessment() {
     // { question: 9, isSkiped: true, Answer: "" },
     // { question: 10, isSkiped: true, Answer: "" },
   ]);
+  const [skillTestCount, setSkillTestCount] = useState(0);
+  const [skillCertifiedCount, setSkillCertifiedCount] = useState(0);
+  const [skillTestCountLimit, setSkillTestCountLimit] = useState(0);
+  const [skillCertifiedCountLimit, setSkillCertifiedCountLimit] = useState(0);
+  
 
+  const getLimits = () => {
+    const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
+    const skillCertifiedCount = JSON.parse(localStorage.getItem("skillCertifiedCount"));
+    const skillTestCountLimit = JSON.parse(localStorage.getItem("skillTestCountLimit"));
+    const skillCertifiedCountLimit = JSON.parse(localStorage.getItem("skillCertifiedCountLimit"));
 
+    if (skillTestCount) {
+      setSkillTestCount(skillTestCount);
+    }
+    if (skillCertifiedCount) {
+      setSkillCertifiedCount(skillCertifiedCount);
+    }
+
+    if (skillTestCountLimit) {
+      setSkillTestCountLimit(skillTestCountLimit);
+    }
+    if (skillCertifiedCountLimit) {
+      setSkillCertifiedCountLimit(skillCertifiedCountLimit);
+    }
+   
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -358,6 +385,7 @@ function SkillAssessment() {
             } else {
               console.error("Backend error: ", res.data.error);
               setQuestion(question)
+              toggleContent()
               // Handle backend error, show error message to user
             }
           })
@@ -440,6 +468,7 @@ function SkillAssessment() {
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
+          assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1): localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount)+1);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
@@ -447,6 +476,7 @@ function SkillAssessment() {
           setSkipped([]);
           setTimeout(() => {
             setScore(true);
+            getLimits()
           }, 500);
         })
         .catch((err) => {
@@ -500,8 +530,8 @@ function SkillAssessment() {
         setAttemptCtn(data.length);
         setAssessmentList(data.reverse());
   
-        setNormalCount(normalCount);
-        setCertifiedCount(certifiedCount);
+        // setNormalCount(normalCount);
+        // setCertifiedCount(certifiedCount);
       })
       .catch((err) => {
         console.log(err);
@@ -671,41 +701,43 @@ function SkillAssessment() {
     setLoadingg(false);
   };
 
+  const handleStart = () => {
+    const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
+    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+    // if (!isActivePlan) {
+    //   setisLevel(false);
+    //   setIsplan(true);
+    // }
+    // else
+     if (!selectedSkill) {
+      toast.error("Please select a skill to start assessment");
+    }
+    else if (isActivePlan && assesmentType === "Certificate" && skillCertifiedCount < skillCertifiedCountLimit ) {
+      setisLevel(true);
+    }
+    else if (isActivePlan && assesmentType === "Normal" &&   skillTestCount < skillTestCountLimit) {
+      setisLevel(true);
+    }
+    else {
+      setisLevel(false);
+       setIsplan(true);
+    }
+  };
+
+
   // const handleStart = () => {
   //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-  //   const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-  //   if (!isActivePlan) {
+   
+  //   if (!isActivePlan ) {
   //     setisLevel(false);
   //     setIsplan(true);
-  //   }
-  //   else if (!selectedSkill) {
+  //   } else if (!selectedSkill) {
   //     toast.error("Please select a skill to start assessment");
-  //   }
-  //   else if (isActivePlan && assesmentType === "Certificate" && activePlan === 1 && attemptCount < 0) {
-  //     setisLevel(true);
-  //   }
-  //   else if (isActivePlan && assesmentType === "Normal" && activePlan === 1 && attemptCount < 3) {
-  //     setisLevel(true);
   //   }
   //   else {
   //     setisLevel(true);
   //   }
   // };
-
-
-  const handleStart = () => {
-    const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-   
-    if (!isActivePlan ) {
-      setisLevel(false);
-      setIsplan(true);
-    } else if (!selectedSkill) {
-      toast.error("Please select a skill to start assessment");
-    }
-    else {
-      setisLevel(true);
-    }
-  };
 
 
   function formatScore(score) {
@@ -1635,6 +1667,7 @@ function SkillAssessment() {
                           // window.location.reload();
                           setBtnEnable1(false)
                           dispatch(reCallUserData());
+                          
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >

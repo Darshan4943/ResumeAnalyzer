@@ -36,7 +36,7 @@ function MyFolders({
             <>
               {!isList ? (
                 sortFoldersAndFiles(data)?.map((item, index) => (
-                  <>
+                
                     <div
                       onClick={() => {
                         !select &&
@@ -73,7 +73,7 @@ function MyFolders({
                         {item.fileName}
                       </div>
                     </div>
-                  </>
+                
                 ))
               ) : (
                 <table className="w-[100%] flex flex-col">

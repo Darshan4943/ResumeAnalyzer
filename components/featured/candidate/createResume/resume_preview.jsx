@@ -71,16 +71,16 @@ const ResumePreview = ({
   const [name, setName] = useState(data.firstName + "_resume");
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
-  const [downloadLimit, setDownloadLimit] = useState(0);
+  const [saveCountLimit, setSaveCountLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
   const [resumeLoading, setResumeLoading] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   // console.log(67, userDataGlobal);
   const getLimits = () => {
-    const downloadCount = localStorage.getItem("downloadCount");
-    const saveCount = localStorage.getItem("saveCount");
-    if (downloadCount) {
-      setDownloadLimit(downloadCount);
+    const saveCountLimit = JSON.parse(localStorage.getItem("saveCountLimit"));
+    const saveCount = JSON.parse(localStorage.getItem("saveCount"));
+    if (saveCountLimit) {
+      setSaveCountLimit(saveCountLimit);
     }
     if (saveCount) {
       setSaveLimit(saveCount);
@@ -369,13 +369,13 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
-
+console.log(saveLimit,saveCountLimit)
   const saveResume = async (blob, download) => {
     setdisabled(true);
 
     if (blob !== null) {
 
-      if (saveLimit <= 0) {
+      if (saveLimit >= saveCountLimit) {
         setLimitUsedModal(true);
         return;
       }
@@ -411,7 +411,8 @@ const ResumePreview = ({
           .put("https://jamblix.com/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-            localStorage.setItem("saveCount", saveLimit - 1);
+            localStorage.setItem("saveCount", Number(saveLimit) + 1);
+
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -474,8 +475,8 @@ const ResumePreview = ({
           .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
+            localStorage.setItem("saveCount", Number(saveLimit) + 1);
 
-            localStorage.setItem("saveCount", saveLimit - 1);
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;

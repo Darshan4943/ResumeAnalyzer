@@ -12,6 +12,11 @@ import { popupVisible } from "../../../Redux/actions/user";
 import SubscriptionPlans from "./SubscriptionPlans";
 import GenerateAi from "./GenerateAi";
 import Footer from "../../partials/footer/footer";
+import ResumeLink from "./ResumeLink";
+import ResumeInventory from "./ResumeInventory";
+import AskKrutAi from "./AskKrutUi";
+import DreamJob from "./Dreamjob";
+import NewSkillAssessment from "../candidate/NewSkillAssessment";
 
 const images = [
   "templates/template1.png",
@@ -31,7 +36,7 @@ const images = [
   "templates/template15.png",
 ];
 
-function ImageParallex({}) {
+function ImageParallex({ }) {
   const gallery = useRef(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
@@ -115,7 +120,7 @@ const Column = ({ images, y }) => {
   );
 };
 
-const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
+const MobileView = ({ clickHandler, isLogin, isSubscribe, setIsSubcrib }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   return (
@@ -125,14 +130,10 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
         <div className=" flex flex-col gap-6 w-[100%] text-[#333333] ">
           <div className="flex flex-col items-center  px-[8px] py-[36px] gap-4">
             <div className="font-semibold text-[34px] leading-tight text-center ">
-              The Ultimate AI Resume Builder
+            ATS Compliant AI Resume Creator
             </div>
             <div className="font-medium text-[14px] text-center ">
-              Craft compelling, recruiter-vetted resumes effortlessly with our
-              cutting-edge resume builder powered by Generative AI . Tailor
-              resumes for each role swiftly, leveraging a myriad of remarkable
-              features. Enhance your prospects of securing an interview and
-              distinguish yourself from competitors in just few minutes.
+            Our AI-powered resume creator helps you craft professional, ATS-optimized resumes tailored to your unique experiences and target jobs. With customizable templates, keyword optimization, and continuous improvement, our tool ensures your resume gets noticed by recruiters and increases your chances of landing your dream job.
             </div>
             <button
               onClick={clickHandler}
@@ -153,13 +154,11 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
           </div>
 
           <div className=" flex flex-col gap-6 w-[100%] text-[#333333] items-center ml:px-8 px-2">
-            <div className="font-semibold  text-[34px] leading-tight text-center ">
-            Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels</span>
+            <div className="font-semibold  text-[34px] text-[#06A9EF] leading-tight text-center ">
+            ATS Friendly <span className="text-[#333333]">Resume</span> {" "}<span className="text-[#06A9EF]">Templates</span>{" "}<span className="text-[#333333]">for All Careers.</span>
             </div>
             <div className="font-medium text-[14px] ml:text-[20px] w-[95%] break-words text-center ">
-            <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
-                and style, No Experience needed!</p>
-              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
+            Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters.
             </div>
             <button
               onClick={clickHandler}
@@ -169,9 +168,14 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
             </button>
           </div>
         </div>
-        <SkillAssessment isLogin={isLogin} />
-        <JdResume isLogin={isLogin} />
-        <div className="flex flex-col gap-2 items-center  pb-[42px] bg-inventory bg-cover bg-no-repeat ">
+        {/* <SkillAssessment isLogin={isLogin} /> */}
+        <NewSkillAssessment/>
+        {/* <JdResume isLogin={isLogin} /> */}
+        <ResumeLink />
+        {/* <JdResume isLogin={isLogin} /> */}
+
+
+        <div className="flex flex-col gap-2 items-center  pb-[42px]  ">
           <div className="w-[100%]  flex justify-center  items-center ">
             <img
               src="/images/resumeBuilder/resumeInventory.png"
@@ -183,24 +187,20 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
           <div className=" flex flex-col gap-6 w-[100%] text-[#000000] pl-[24px] items-center ml:px-8 px-6">
             <div className="flex flex-col gap-[24px] items-center">
               <div className="font-semibold text-[30px] leading-tight text-center">
-              <span className="text-[#06A9EF]">My Collection</span> is Your
-            Personal Resume Inventory
+                <span className="text-[#06A9EF]">My Collection</span> is Your
+                Personal Resume Inventory
               </div>
               <div className="font-medium text-[14px] text-[#333333] text-center ">
-              My Collection is your one-stop destination for organizing and
-            managing your <span className="text-[#06A9EF]">personalized resume collections.</span> 
+                My Collection is your one-stop destination for organizing and
+                managing your <span className="text-[#06A9EF]">personalized resume collections.</span>
               </div>
-              
-            <div className="font-medium text-[14px] text-[#333333] text-center ">
-            <span className="text-[#06A9EF]">Seamlessly store, update, and tailor</span> your differently crafted resumes for various job opportunities with
-            ease.
+
+              <div className="font-medium text-[14px] text-[#333333] text-center ">
+                <span className="text-[#06A9EF]">Seamlessly store, update, and tailor</span> your differently crafted resumes for various job opportunities with
+                ease.
               </div>
               <button
-                onClick={() =>
-                  isLogin
-                    ? router.push("/home/BuildResume")
-                    : router.push("/auth?signin=true")
-                }
+                   onClick={clickHandler}
                 className="px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold"
                 style={{ width: "fit-content" }}
               >
@@ -209,19 +209,22 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
             </div>
           </div>
         </div>
+
+        <AskKrutAi />
+        <DreamJob />
         <div className="flex flex-col gap-12  bg-subscriptionPlan justify-center items-left bg-cover bg-no-repeat  py-[24px]">
           <div className="text-center px-[8px]">
             <p className="text-[32px] text-[#333333] font-[700]">
-              Try our <span className="text-[#06A9EF]">Subscription</span> plans
+            Choose the <span className="text-[#06A9EF]">Subscription</span>Plan That Fits Your Needs
             </p>
-            <p className="text-[14px] text-[#646464] font-[400]">
-              Affordable plans for all the aspiring professionals.
+            <p className="text-[16px] text-[#646464] font-[400]">
+            Unlock Premium Features and Enhance Your Experience.
             </p>
           </div>
 
           <SubscriptionPlans isLogin={isLogin} />
         </div>
-        <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib}/>
+        <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
 
       </div>
     </>

@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import InternalJobMatching from "../../components/featured/jobMatching/internal";
 import ExternalJobMatching from "../../components/featured/jobMatching/external";
 import ReactSelect from "react-select";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { DocSVG, PDFSvg, SearchIcon } from "../../utils/svg";
 import { useRouter } from "next/router";
@@ -18,8 +18,11 @@ import { toast } from "react-toastify";
 import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
+import LimitUsedModal from "../../components/models/limitUsedModal";
+import { reCallUserData } from "../../Redux/actions/user";
 
 const JobMatching = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [isAnimate, setIsAnimate] = useState(true);
   const router = useRouter();
@@ -48,6 +51,26 @@ const JobMatching = () => {
   // const [message, setMessage] = useState("Analyzing Data, Please wait");
   const [mainMessage, setMainMessage] = useState("Analyzing Data");
   const [findMatchLoader, setMatchLoader] = useState(false);
+
+  const [jdCountMonthly, setJdCountMonthly] = useState(0)
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0)
+  const [activePlan, setActivePlan] = useState(0)
+  const [limitPopup, setLimitPopup] = useState(false);
+
+const getLimits=()=>{
+  const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
+  setJdCountMonthly(jdCountMonthly)
+
+  const jdCountMonthlyLimit = JSON.parse(localStorage.getItem("jdCountMonthlyLimit"));
+  setJdCountMonthlyLimit(jdCountMonthlyLimit)
+  const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+  
+  setActivePlan(activePlan)
+}
+  useEffect(() => {
+    getLimits()
+  }, [])
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -109,7 +132,7 @@ const JobMatching = () => {
       .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-       
+
           if (item.type == "file" && item.isSync === true) {
             return true;
           } else if (item.type == "folder") {
@@ -128,19 +151,33 @@ const JobMatching = () => {
       });
   };
 
+console.log(jdCountMonthly,jdCountMonthlyLimit)
   const jobMatching = async () => {
+
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
+    let userId = userDataGlobal._id
     setLoadingg(true);
     setIsAnimate(false);
     try {
       const res = await axios.post("https://jamblix.com/api/jd/extraction", {
-        text,
+        text, userId
       });
       const jd = res.data.jsonData[0];
+      setTimeout(() => {
+        getLimits()
+      }, 5000);
+   
+      
+     
       localStorage.removeItem("JdDescription");
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
         setLoadingg(false);
         setShowsideBar(true);
+        updateJobMatchLimit()
       } else {
         setCount(count + 1);
       }
@@ -151,6 +188,7 @@ const JobMatching = () => {
       // toast.error("Something went wrong, please try again");
     }
   };
+
 
   useEffect(() => {
     if (count > 3) {
@@ -355,7 +393,8 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
-
+      setSelectedIndexes([])
+      setSelectedIndexesFilesType([])
       setButtonToggle(false);
       // setLoadingg(false);
       setMatchLoader(false);
@@ -389,158 +428,228 @@ const JobMatching = () => {
     };
   }, []);
 
+
+
+  const updateJobMatchLimit = async () => {
+    let resumeCount = selectedIndexesFileTypes.length;
+  
+    try {
+      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
+  
+      if (!updateJobMatchResponse.data.success) {
+        console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
+      }
+  
+      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
+      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
+  
+      if (!jdSubscriptionResponse.data.success) {
+        console.error('Error in updateJdSubscriptionLimit:', jdSubscriptionResponse.data.message);
+      }
+  
+      dispatch(reCallUserData());
+  
+      return {
+        updateJobMatchResponse: updateJobMatchResponse.data,
+        jdSubscriptionResponse: jdSubscriptionResponse.data,
+      };
+    } catch (error) {
+      console.error('Something went wrong:', error);
+      return { success: false, message: 'Something went wrong', error };
+    }
+  };
+  
   return (
-    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
-      {loadingg && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-              <div className="w-[165px] h-[124px] flex items-center justify-center">
-                <motion.img
-                  src="/images/resumeBuilder/bot.png"
-                  alt=""
-                  className="h-[68px] w-[68px]"
-                  animate={{ y: [-30, 0, -30] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center relative z-100">
-                <span className="text-center text-[#fff] text-[16px]">
-                  Analyzing Data,
-                </span>
-                <span className="text-left text-[#fff] text-[16px] loading_dots">
-                  Please wait
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      {findMatchLoader && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-            <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-              <div className="w-[165px] h-[124px] flex items-center justify-center">
-                <motion.img
-                  src="/images/resumeBuilder/bot.png"
-                  alt=""
-                  className="h-[68px] w-[68px]"
-                  animate={{ y: [-30, 0, -30] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center relative z-100">
-                <span className="text-center text-[#fff] text-[16px]">
-                  {mainMessage},
-                </span>
-                <span className="text-left text-[#fff] text-[16px] loading_dots">
-                  Please wait
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      <div className="font-semibold text-[20px]">Job Description Matching</div>
-      <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-      <div className="flex flex-col gap-6 h-full relative overflow-hidden">
-        <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
-          <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
-            <div className="text-[18px] text-[#333333] font-medium">
-              Select From Collection
-            </div>
-            <JdFiles
-              details={details}
-              query={router.query}
-              setSelectedIndexes={setSelectedIndexes}
-              selectedIndexes={selectedIndexes}
-              loading={loading}
-              selectedIndexesFileTypes={selectedIndexesFileTypes}
-              setSelectedIndexesFilesType={setSelectedIndexesFilesType}
-            />
-
-            <JdDescription
-              text={text}
-              error={error}
-              resumeCount={resumeCount}
-              loadingg={loadingg}
-              setText={setText}
-              setError={setError}
-              setResumeCount={setResumeCount}
-              jobMatching={jobMatching}
-              setShowsideBar={setShowsideBar}
-              showMatchingSidebar={showMatchingSidebar}
-              MatchJob={MatchJob}
-              btnToggle={btnToggle}
-              setButtonToggle={setButtonToggle}
-            />
-          </div>
-
-          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
-          <div className="ml:w-[56%] w-full">
-            <JdMatching
-              details={details}
-              resumeList={resumeList}
-              isAnimate={isAnimate}
-              setShowsideBar={setShowsideBar}
-            />
-          </div>
+    <>
+      {limitPopup && (
+        <div className="z-[200000]">
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
-      </div>
+      )}
 
-      <AnimatePresence>
-        {showMatchingSidebar && (
+      <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
+        {loadingg && (
           <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 3 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
-              style={
-                {
-                  // background: "rgba(255, 255, 255, 0.5)",
-                  // backdropFilter: "blur(10px)",
-                }
-              }
-            ></motion.div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                <div className="w-[165px] h-[124px] flex items-center justify-center">
+                  <motion.img
+                    src="/images/resumeBuilder/bot.png"
+                    alt=""
+                    className="h-[68px] w-[68px]"
+                    animate={{ y: [-30, 0, -30] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center relative z-100">
+                  <span className="text-center text-[#fff] text-[16px]">
+                    Analyzing Data,
+                  </span>
+                  <span className="text-left text-[#fff] text-[16px] loading_dots">
+                    Please wait
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
-            {/* Sidebar */}
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
-              style={{
-                background: "rgba(255, 255, 255, 0.5)",
-                backdropFilter: "blur(10px)",
-                ...(navigator.userAgent.includes("Safari") &&
-                  !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(5px)",
-                  }),
-                willChange: "transform",
-              }}
-            >
-              <JdMatchingsideBar
-                extratctedData={extratctedData}
-                setExtractedData={setExtractedData}
-                text={text}
-                setText={setText}
-                MatchJob={MatchJob}
-                setShowsideBar={setShowsideBar}
-                setIsEdit={setIsEdit}
-                setShowForm={setShowForm}
-                setEditId={setEditId}
+        {findMatchLoader && (
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                <div className="w-[165px] h-[124px] flex items-center justify-center">
+                  <motion.img
+                    src="/images/resumeBuilder/bot.png"
+                    alt=""
+                    className="h-[68px] w-[68px]"
+                    animate={{ y: [-30, 0, -30] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center relative z-100">
+                  <span className="text-center text-[#fff] text-[16px]">
+                    {mainMessage},
+                  </span>
+                  <span className="text-left text-[#fff] text-[16px] loading_dots">
+                    Please wait
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        <div className="font-semibold text-[20px]">Job Description Matching</div>
+        <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+        <div className="flex flex-col gap-6 h-full relative overflow-hidden">
+          <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
+            <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
+              <div className="text-[18px] text-[#333333] font-medium">
+                Select From Collection
+              </div>
+              <JdFiles
+                details={details}
+                query={router.query}
+                setSelectedIndexes={setSelectedIndexes}
+                selectedIndexes={selectedIndexes}
+                loading={loading}
+                selectedIndexesFileTypes={selectedIndexesFileTypes}
+                setSelectedIndexesFilesType={setSelectedIndexesFilesType}
               />
 
+              <JdDescription
+                text={text}
+                error={error}
+                resumeCount={resumeCount}
+                loadingg={loadingg}
+                setText={setText}
+                setError={setError}
+                setResumeCount={setResumeCount}
+                jobMatching={jobMatching}
+                setShowsideBar={setShowsideBar}
+                showMatchingSidebar={showMatchingSidebar}
+                MatchJob={MatchJob}
+                btnToggle={btnToggle}
+                setButtonToggle={setButtonToggle}
+              />
+            </div>
+
+            <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
+            <div className="ml:w-[56%] w-full">
+              <JdMatching
+                details={details}
+                resumeList={resumeList}
+                isAnimate={isAnimate}
+                setShowsideBar={setShowsideBar}
+              />
+            </div>
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {showMatchingSidebar && (
+            <>
+              {/* Overlay */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 3 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
+                style={
+                  {
+                    // background: "rgba(255, 255, 255, 0.5)",
+                    // backdropFilter: "blur(10px)",
+                  }
+                }
+              ></motion.div>
+
+              {/* Sidebar */}
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
+                style={{
+                  background: "rgba(255, 255, 255, 0.5)",
+                  backdropFilter: "blur(10px)",
+                  ...(navigator.userAgent.includes("Safari") &&
+                    !navigator.userAgent.includes("Chrome") && {
+                    WebkitBackdropFilter: "blur(5px)",
+                  }),
+                  willChange: "transform",
+                }}
+              >
+                <JdMatchingsideBar
+                  extratctedData={extratctedData}
+                  setExtractedData={setExtractedData}
+                  text={text}
+                  setText={setText}
+                  MatchJob={MatchJob}
+                  setShowsideBar={setShowsideBar}
+                  setIsEdit={setIsEdit}
+                  setShowForm={setShowForm}
+                  setEditId={setEditId}
+                />
+
+                {(ShowForm || isEdit) && (
+                  <div className="block ml:hidden">
+                    <ExtraSectionForm
+                      extratctedData={extratctedData}
+                      setExtractedData={setExtractedData}
+                      isEdit={isEdit}
+                      setShowForm={setShowForm}
+                      editId={editId}
+                      setIsEdit={setIsEdit}
+                      setEditId={setEditId}
+                      ShowForm={ShowForm}
+                    />
+                  </div>
+                )}
+              </motion.div>
+
+              {/* ExtraSectionForm for larger screens */}
               {(ShowForm || isEdit) && (
-                <div className="block ml:hidden">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
+                  style={{
+                    backdropFilter: "blur(10px)",
+                    ...(navigator.userAgent.includes("Safari") &&
+                      !navigator.userAgent.includes("Chrome") && {
+                      WebkitBackdropFilter: "blur(10px)",
+                    }),
+                    willChange: "transform",
+                  }}
+                >
                   <ExtraSectionForm
                     extratctedData={extratctedData}
                     setExtractedData={setExtractedData}
@@ -551,43 +660,13 @@ const JobMatching = () => {
                     setEditId={setEditId}
                     ShowForm={ShowForm}
                   />
-                </div>
+                </motion.div>
               )}
-            </motion.div>
-
-            {/* ExtraSectionForm for larger screens */}
-            {(ShowForm || isEdit) && (
-              <motion.div
-                initial={{ x: 0 }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
-                style={{
-                  backdropFilter: "blur(10px)",
-                  ...(navigator.userAgent.includes("Safari") &&
-                    !navigator.userAgent.includes("Chrome") && {
-                      WebkitBackdropFilter: "blur(10px)",
-                    }),
-                  willChange: "transform",
-                }}
-              >
-                <ExtraSectionForm
-                  extratctedData={extratctedData}
-                  setExtractedData={setExtractedData}
-                  isEdit={isEdit}
-                  setShowForm={setShowForm}
-                  editId={editId}
-                  setIsEdit={setIsEdit}
-                  setEditId={setEditId}
-                  ShowForm={ShowForm}
-                />
-              </motion.div>
-            )}
-          </>
-        )}
-      </AnimatePresence>
-    </div>
+            </>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 };
 

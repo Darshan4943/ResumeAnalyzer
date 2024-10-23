@@ -269,6 +269,7 @@ function Recruiter_signup({ }) {
       data.dial_code.includes(inputValue)
     );
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -283,6 +284,7 @@ function Recruiter_signup({ }) {
       "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
+    console.log(emptyFields)
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
@@ -379,19 +381,18 @@ function Recruiter_signup({ }) {
     setTimer(30);
     setLoadingg(true);
     e.preventDefault();
-    let otp = Math.floor(100000 + Math.random() * 900000);
-    setOtp(otp);
+    let tempUser = "tempRecruiter"
     axios
       .post("https://jamblix.com/api/otpMailSignup", {
         userEmail: data.email,
-        otp,
+        tempUser
       })
       .then((res) => {
         setLoadingg(false);
         const result = res.data;
         if (result.success) {
           setVerify(true);
-        } else if (result.message === "user already exist") {
+        } else if (result.message === "User already exists") {
           toast.error("User already exists");
         } else {
           toast.error("Something went wrong");
@@ -429,11 +430,28 @@ function Recruiter_signup({ }) {
   }, [verify]);
 
   const verifyOtp = () => {
-    if (otp == otpEntered) {
-      setVerified(true);
-    } else {
-      toast.error("OTP does not match");
-    }
+  
+    axios
+      .post("https://jamblix.com/api/verifyOtp", {
+        userEmail: data.email,
+        otpEntered
+      })
+      .then((res) => {
+    
+        const result = res.data;
+        if (result.success) {
+
+
+          setVerified(true);
+        } else {
+          toast.error("OTP does not match");
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data.message);
+    
+      });
+
   };
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -663,8 +681,8 @@ function Recruiter_signup({ }) {
                           name=""
                           // id="single_input"
                           placeholder={`${isViewportBelow850
-                              ? "Enter Number "
-                              : "Enter Contact Number "
+                            ? "Enter Number "
+                            : "Enter Contact Number "
                             }`}
                           value={data.mobileNo}
                           onChange={(e) =>
@@ -714,7 +732,7 @@ function Recruiter_signup({ }) {
                                 !isUpdate && (
                                   <button
                                     onClick={handleVerification}
-                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px]"
+                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center  bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] btn_hover_effect"
                                   >
                                     {loadingg ? (
                                       <MiniLoader />
@@ -766,7 +784,7 @@ function Recruiter_signup({ }) {
                             {!verified && (
                               <button
                                 onClick={verifyOtp}
-                                className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight"
+                                className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight btn_hover_effect"
                               >
                                 Verify
                               </button>
@@ -959,8 +977,8 @@ function Recruiter_signup({ }) {
                       Cancel
                     </button>
                     <button
-                      className="buttons font-[500] bg-[#06A9EF] text-white"
-                      id="border_button"
+                      className="buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect"
+                      // id="border_button"
                       onClick={submitHandler}
                     >
                       {loading ? (

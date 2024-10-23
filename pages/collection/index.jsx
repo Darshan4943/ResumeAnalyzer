@@ -51,9 +51,24 @@ function Collection() {
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
+  const [collectionCount, setCollectionCount] = useState(0)
 
-  const collectionCount = localStorage.getItem("collectionCount");
+  const getLimits=()=>{
+    const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
+    const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
+    const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
+    const collectionCountMonthlyLimit = JSON.parse(localStorage.getItem("collectionCountMonthlyLimit"));
 
+    const remainingDaily = collectionCountDailyLimit - collectionCountDaily;
+    const remainingMonthly = collectionCountMonthlyLimit - collectionCountMonthly;
+
+
+    const finalLimit = Math.max(0, Math.min(remainingDaily, remainingMonthly));
+    setCollectionCount(finalLimit)
+  }
+  useEffect(() => {
+    getLimits()
+  }, []);
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -388,7 +403,7 @@ function Collection() {
               formData
             );
             setCount((prevCount) => prevCount + 1);
-            setUploadCount((prevCount) => prevCount + 1); // Increment the upload count here
+            setUploadCount((prevCount) => prevCount + 1);
             resolve({ index, response: response.data });
           } catch (e) {
             setCount((prevCount) => prevCount + 1);
@@ -400,7 +415,7 @@ function Collection() {
         } catch (err) {
           return;
         }
-      }, 200); // Simulating a network delay
+      }, 200);
     });
   };
 
@@ -451,7 +466,7 @@ function Collection() {
 
 
     const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
-
+    // const allowedFiles = Array.from(selectedFiles);
     if (allowedFiles.length) {
       const promise = allowedFiles.map((file, index) => {
         if (
@@ -499,33 +514,79 @@ function Collection() {
     setFiles(allowedFiles);
   };
 
+  // const updateCollectionLimit = async () => {
+  //   if (uploadCount === 0) {
+  //     console.log('No files to update. Skipping API call.');
+  //     return { success: false, message: 'Files count is zero, no update needed.' };
+  //   }
+  //   try {
+
+  //     const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+  //     const response = await axios.put(apiUrl, { uploadCount });
+
+  //     if (response.data.success) {
+
+  //       setUploadCount(0);
+  //       dispatch(reCallUserData())
+  //       return response.data;
+  //     } else {
+  //       console.error('Error:', response.data.message);
+  //       setUploadCount(0);
+  //       return response.data;
+
+  //     }
+  //   } catch (error) {
+  //     console.error('Something went wrong:', error);
+  //     setUploadCount(0);
+  //     return { success: false, message: 'Something went wrong', error };
+
+  //   }
+
+  // };
+
   const updateCollectionLimit = async () => {
     if (uploadCount === 0) {
       console.log('No files to update. Skipping API call.');
       return { success: false, message: 'Files count is zero, no update needed.' };
     }
     try {
-      const apiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
-      const response = await axios.put(apiUrl, { uploadCount });
+      const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+      const anotherApiUrl = `https://jamblix.com/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+
+      const updateCountPromise = axios.put(apiUrl, { uploadCount });
+      const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });
+
+      const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
 
       if (response.data.success) {
-        
+       
         setUploadCount(0);
-        dispatch(reCallUserData())
-        return response.data;
+        dispatch(reCallUserData());
       } else {
-        console.error('Error:', response.data.message);
-        setUploadCount(0);
-        return response.data;
-
+        console.error('First API call error:', response.data.message);
       }
+
+      if (secondResponse.data.success) {
+
+        console.log('Second API call was successful');
+      } else {
+        console.error('Second API call error:', secondResponse.data.message);
+      }
+
+
+      return {
+        success: response.data.success && secondResponse.data.success,
+        message: 'Both API calls completed',
+        firstApiResponse: response.data,
+        secondApiResponse: secondResponse.data,
+      };
     } catch (error) {
       console.error('Something went wrong:', error);
       setUploadCount(0);
       return { success: false, message: 'Something went wrong', error };
-
     }
   };
+
 
   return (
     <>
@@ -831,10 +892,10 @@ function Collection() {
                 </>
               )}
               <div className="flex justify-between gap-6">
-                <div className="text-[16px] font-medium">
+                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
                   {isFile &&
                     <>
-                      Upload limit : {collectionCount ? collectionCount : 0}
+                      Daily upload limit : {collectionCount ? collectionCount : 0}
                     </>
                   }
                 </div>
@@ -857,7 +918,7 @@ function Collection() {
                         getUnSyncFiles()
                       }, 10000);
                       updateCollectionLimit()
-
+                      
                     }}
                   >
                     Close
@@ -979,6 +1040,7 @@ function Collection() {
                         onClick={(e) => {
                           setIsFile(true);
                           setIsCreateFolder(true);
+                          getLimits()
                         }}
                       >
                         <svg
