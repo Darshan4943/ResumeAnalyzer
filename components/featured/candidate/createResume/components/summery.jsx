@@ -167,15 +167,33 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {selectedPlan?.days} Days
                       </p>
-                      {(limits.used.coverStored >= limits.total.coverStoredLimit ||
-                        limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.skillTest >= limits.total.skillTestLimit || limits.used.skillCertified >= limits.total.skillCertifiedLimit) && (
-                          <div
-                            onClick={() => router.push("/purchase/plans")}
-                            className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                          >
-                            Upgrade Plan
-                          </div>
-                        )}
+                      {userDataGlobal.role === "user" &&
+                        <>
+                          {(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                            limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.skillTest >= limits.total.skillTestLimit || limits.used.skillCertified >= limits.total.skillCertifiedLimit || limits.used.chatBot.monthly >= limits.total.chatBotLimit.monthly) && (
+                              <div
+                                onClick={() => router.push("/purchase/plans")}
+                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                              >
+                                Upgrade Plan
+                              </div>
+                            )}
+                        </>
+                      }
+                      {userDataGlobal.role === "recruiter" &&
+                        <>
+                          {(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                            limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.chatBot.daily >= limits.total.chatBotLimit.daily || limits.used.jdMatching.monthly >= limits.total.jdMatchingLimit.monthly || limits.used.collectionStored.monthly >= limits.total.collectionStoredLimit.monthly) && (
+                              <div
+                                onClick={() => router.push("/purchase/plans")}
+                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                              >
+                                Upgrade Plan
+                              </div>
+                            )}
+                        </>
+                      }
+
                     </div>
                   ) : (
                     <div
@@ -190,7 +208,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             </div>
             <div className="xxlg:hidden w-full h-[1px] bg-[#DEDEDE]"></div>
             <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
-              <p className="font-medium">Available services</p>
+              <p className="font-semibold">Available services</p>
               <div className="flex flex-col gap-5 scr420:text-[14px] text-[12px] font-medium ">
                 <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                   <p className=" scr420:min-w-[164px] min-w-[140px]">
@@ -475,7 +493,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 }
 
-              
+
                 {/* <div className="flex gap-4 items-center">
               <p className="scr420:min-w-[164px] min-w-[140px]">
                 Total Save/Downloads
