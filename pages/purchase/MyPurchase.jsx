@@ -128,10 +128,15 @@ function MyPurchase() {
           setLoading(false);
         });
 
-        setLimits({
-          used: result.used,
-          total: result.limits
-        });
+      setLimits({
+        used: {
+          uploads: plan?.limits?.uploads - parseInt(uploadCount),
+          download: plan?.limits?.download - parseInt(saveCount),
+          save: plan?.limits?.save - parseInt(saveCount),
+          clients: plan?.limits?.clients - parseInt(clientCount),
+        },
+        total: plan?.limits,
+      });
     }
   }, [userDataGlobal, allPlans, plan]);
 
@@ -262,15 +267,15 @@ function MyPurchase() {
                           ) : (
                             <button
                               onClick={() => router.push("/purchase/plans")}
-                              disabled={subscription?.isActive && !(limits?.used?.resumeStored === limits?.total?.resumeStoredLimit || limits?.used?.coverStored === limits?.total?.coverStoredLimit )
+                              disabled={subscription?.isActive 
                               }
-                              className={`px-9 py-3  ${subscription?.isActive && !(limits?.used?.resumeStored === limits?.total?.resumeStoredLimit || limits?.used?.coverStored === limits?.total?.coverStoredLimit)
+                              className={`px-9 py-3  ${subscription?.isActive 
                                 ? "bg-[#DEDEDE] "
                                 : "bg-[#06a9ef] btn_hover_effect"
                                 } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                             >
                               {subscription?.isActive
-                                ? !(limits?.used?.resumeStored === limits?.total?.resumeStoredLimit || limits?.used?.coverStored === limits?.total?.coverStoredLimit ) ? "Purchased" : "Upgrade Plan"
+                                ? "Purchased" 
                                 : "Purchase"}
                             </button>
                           )}

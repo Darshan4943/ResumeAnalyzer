@@ -269,7 +269,7 @@ function Dashboard() {
               item.index == res.data.findIsActive?.index
           );
           const result = res.data.findIsActive;
-          console.log(333, result)
+         
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
