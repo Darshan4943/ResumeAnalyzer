@@ -167,8 +167,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {selectedPlan?.days} Days
                       </p>
-                      {(limits.used.resumeUploded >= limits.total.resumeUplodedLimit ||
-                        limits.used.resumeStored >= limits.total.resumeStoredLimit) && (
+                      {(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                        limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.skillTest >= limits.total.skillTestLimit || limits.used.skillCertified >= limits.total.skillCertifiedLimit) && (
                           <div
                             onClick={() => router.push("/purchase/plans")}
                             className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"

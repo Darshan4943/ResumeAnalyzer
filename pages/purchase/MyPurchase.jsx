@@ -177,27 +177,27 @@ function MyPurchase() {
               </div>
               <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Purchased Plan <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData.plan}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Purchased Plan <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData?.plan}</p>
 
               </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Status<span>:</span>  </p>  <p className={`font-bold ${selectedPlansData.isActive ? "text-[#0C8A0A]" : "text-[#C00000]"}`}>{selectedPlansData.isActive ? "Active" : "Expired"}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Status<span>:</span>  </p>  <p className={`font-bold ${selectedPlansData?.isActive ? "text-[#0C8A0A]" : "text-[#C00000]"}`}>{selectedPlansData.isActive ? "Active" : "Expired"}</p>
 
               </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Purchase Date <span>:</span>  </p>  <p className=" font-medium">{formatDate(selectedPlansData.paidAt)}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Purchase Date <span>:</span>  </p>  <p className=" font-medium">{formatDate(selectedPlansData?.paidAt)}</p>
 
               </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Expiry Date <span>:</span>  </p>  <p className=" font-medium">{formatDate(selectedPlansData.endDate)}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Expiry Date <span>:</span>  </p>  <p className=" font-medium">{formatDate(selectedPlansData?.endDate)}</p>
 
               </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Plan Validity <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData.days}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Plan Validity <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData?.days}</p>
 
               </div>
               <div className="text-[12px] flex gap-3">
-                <p className="w-[114px] font-semibold  flex justify-between">Price <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData.icon}  {selectedPlansData.amount}</p>
+                <p className="w-[114px] font-semibold  flex justify-between">Price <span>:</span>  </p>  <p className=" font-medium">{selectedPlansData?.icon}  {selectedPlansData?.amount}</p>
 
               </div>
             </div>
