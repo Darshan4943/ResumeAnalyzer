@@ -30,7 +30,7 @@ function MyPurchase() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
-
+  console.log(limits)
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -97,7 +97,14 @@ function MyPurchase() {
                 item.index == result?.index
             )
           );
+          if (plan) {
 
+
+            setLimits({
+              used: result.used,
+              total: result.limits
+            });
+          }
           setTimeout(() => {
             setLoading(false);
           }, 1000);
@@ -128,15 +135,7 @@ function MyPurchase() {
           setLoading(false);
         });
 
-      setLimits({
-        used: {
-          uploads: plan?.limits?.uploads - parseInt(uploadCount),
-          download: plan?.limits?.download - parseInt(saveCount),
-          save: plan?.limits?.save - parseInt(saveCount),
-          clients: plan?.limits?.clients - parseInt(clientCount),
-        },
-        total: plan?.limits,
-      });
+
     }
   }, [userDataGlobal, allPlans, plan]);
 
@@ -265,21 +264,67 @@ function MyPurchase() {
                               In Review
                             </button>
                           ) : (
-                            <button
-                              onClick={() => router.push("/purchase/plans")}
-                              disabled={subscription?.isActive 
+                            <>
+                              {userDataGlobal.role === "user" &&
+                                <button
+                                  onClick={() => router.push("/purchase/plans")}
+                                  disabled={subscription?.isActive && !(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                                    limits.used.resumeStored >= limits.total.resumeStoredLimit ||
+                                    limits.used.skillTest >= limits.total.skillTestLimit ||
+                                    limits.used.skillCertified >= limits.total.skillCertifiedLimit ||
+                                    limits.used.chatBot.monthly >= limits.total.chatBotLimit.monthly)
+
+                                  }
+                                  className={`px-9 py-3  ${(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                                    limits.used.resumeStored >= limits.total.resumeStoredLimit ||
+                                    limits.used.skillTest >= limits.total.skillTestLimit ||
+                                    limits.used.skillCertified >= limits.total.skillCertifiedLimit ||
+                                    limits.used.chatBot.monthly >= limits.total.chatBotLimit.monthly)
+                                    ? "bg-[#06a9ef] btn_hover_effect" : subscription?.isActive
+                                      ? "bg-[#DEDEDE] "
+                                      : "bg-[#06a9ef] btn_hover_effect"
+                                    } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
+                                >
+                                  {(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                                    limits.used.resumeStored >= limits.total.resumeStoredLimit ||
+                                    limits.used.skillTest >= limits.total.skillTestLimit ||
+                                    limits.used.skillCertified >= limits.total.skillCertifiedLimit ||
+                                    limits.used.chatBot.monthly >= limits.total.chatBotLimit.monthly)
+                                    ? "Upgrade Plan" : subscription?.isActive
+                                      ? "Purchased"
+
+                                      : "Purchase"}
+                                </button>
                               }
-                              className={`px-9 py-3  ${subscription?.isActive 
-                                ? "bg-[#DEDEDE] "
-                                : "bg-[#06a9ef] btn_hover_effect"
-                                } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
-                            >
-                              {subscription?.isActive
-                                ? "Purchased" 
-                                : "Purchase"}
-                            </button>
+                               {userDataGlobal.role === "recruiter" &&
+                                <button
+                                  onClick={() => router.push("/purchase/plans")}
+                                  disabled={subscription?.isActive && !(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                                    limits.used.resumeStored >= limits.total.resumeStoredLimit ||
+                                    limits.used.skillTest >= limits.total.skillTestLimit ||
+                                    limits.used.skillCertified >= limits.total.skillCertifiedLimit ||
+                                    limits.used.chatBot.monthly >= limits.total.chatBotLimit.monthly)
+
+                                  }
+                                  className={`px-9 py-3  ${(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                                    limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.chatBot.daily >= limits.total.chatBotLimit.daily || limits.used.jdMatching.monthly >= limits.total.jdMatchingLimit.monthly || limits.used.collectionStored.monthly >= limits.total.collectionStoredLimit.monthly)
+                                    ? "bg-[#06a9ef] btn_hover_effect" : subscription?.isActive
+                                      ? "bg-[#DEDEDE] "
+                                      : "bg-[#06a9ef] btn_hover_effect"
+                                    } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
+                                >
+                                  {(limits.used.coverStored >= limits.total.coverStoredLimit ||
+                            limits.used.resumeStored >= limits.total.resumeStoredLimit || limits.used.chatBot.daily >= limits.total.chatBotLimit.daily || limits.used.jdMatching.monthly >= limits.total.jdMatchingLimit.monthly || limits.used.collectionStored.monthly >= limits.total.collectionStoredLimit.monthly)
+                                    ? "Upgrade Plan" : subscription?.isActive
+                                      ? "Purchased"
+
+                                      : "Purchase"}
+                                </button>
+                              }
+                            </>
                           )}
                         </div>
+
                         <div className="flex flex-col gap-6  md:w-[60%] w-[100%]  ml:pl-4">
                           <div className="text-[18px] font-[600]">
                             {" "}
@@ -379,25 +424,29 @@ function MyPurchase() {
                     </div>
                     <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
                       <div className="flex flex-col gap-6 scr1200:min-w-[30%] min-w-[35%] ">
-                        <div className="flex  gap-4">
-                          <div className="flex  gap-4 font-[700] text-[14px] justify-between w-[40%]">
-                            <p>User Name </p>
-                            <div>:</div>
-                          </div>
-                          <div className="text-[14px] font-[500] capitalize break-all">
-                            {subscription?.firstName} {subscription?.lastName}
-                          </div>
-                        </div>
-                        <div className="flex  gap-4">
-                          <div className="flex  gap-4 font-[700] text-[14px] justify-between w-[40%]">
-                            <p>Contact No </p>
-                            <div>:</div>
-                          </div>
-                          <div className="text-[14px] font-[500] capitalize break-all">
-                            {subscription?.mobileNo}
-                          </div>
-                        </div>
+                        {subscription?.firstName &&
+                          <div className="flex  gap-4">
+                            <div className="flex  gap-4 font-[700] text-[14px] justify-between w-[40%]">
+                              <p>User Name </p>
+                              <div>:</div>
+                            </div>
+                            <div className="text-[14px] font-[500] capitalize break-all">
+                              {subscription?.firstName} {subscription?.lastName}
+                            </div>
 
+                          </div>
+                        }
+                        {subscription?.mobileNo &&
+                          <div className="flex  gap-4">
+                            <div className="flex  gap-4 font-[700] text-[14px] justify-between w-[40%]">
+                              <p>Contact No </p>
+                              <div>:</div>
+                            </div>
+                            <div className="text-[14px] font-[500] capitalize break-all">
+                              {subscription?.mobileNo}
+                            </div>
+                          </div>
+                        }
                         {subscription?.isActive && (
                           <div className="flex gap-4">
                             <div className="flex  text-[14px] gap-4 justify-between font-[700] w-[40%]">

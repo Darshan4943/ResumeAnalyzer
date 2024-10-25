@@ -152,6 +152,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       const response = await axios[method](url, formData);
 
       localStorage.setItem("coverCount", Number(saveLimit) + 1);
+      const saveCount = JSON.parse(localStorage.getItem("coverCount"));
+      setSaveLimit(saveCount)
       getLimits();
       toast.success(
         `Cover Letter ${isCoverEdit ? "updated" : "added"} successfully`
