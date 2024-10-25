@@ -412,6 +412,8 @@ console.log(saveLimit,saveCountLimit)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
+             const saveCount = JSON.parse(localStorage.getItem("saveCount"));
+            setSaveLimit(saveCount)
 
             if (download) {
               const link = document.createElement("a");
@@ -476,7 +478,8 @@ console.log(saveLimit,saveCountLimit)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
-
+            const saveCount = JSON.parse(localStorage.getItem("saveCount"));
+            setSaveLimit(saveCount)
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
