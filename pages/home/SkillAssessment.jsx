@@ -469,10 +469,10 @@ function SkillAssessment() {
         })
         .then((res) => {
           assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1) : localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount) + 1);
-          const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
-          const skillCertifiedCount = JSON.parse(localStorage.getItem("skillCertifiedCount"));
-          setSkillTestCount(skillTestCount);
-          setSkillCertifiedCount(skillCertifiedCount);
+          const skillTestCount1 = JSON.parse(localStorage.getItem("skillTestCount"));
+          const skillCertifiedCount1 = JSON.parse(localStorage.getItem("skillCertifiedCount"));
+          setSkillTestCount(skillTestCount1);
+          setSkillCertifiedCount(skillCertifiedCount1);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
