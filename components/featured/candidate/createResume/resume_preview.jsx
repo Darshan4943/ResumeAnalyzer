@@ -369,7 +369,7 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
-console.log(saveLimit,saveCountLimit)
+
   const saveResume = async (blob, download) => {
     setdisabled(true);
 
@@ -428,7 +428,7 @@ console.log(saveLimit,saveCountLimit)
             toast.success("Resume Updated successfully");
             setTimeout(() => {
               setSaveDisabled(false);
-            }, 3000);
+            }, 10000);
 
             setTimeout(() => {
               setLoading(false);
@@ -495,7 +495,7 @@ console.log(saveLimit,saveCountLimit)
             localStorage.removeItem("resumeData");
             setTimeout(() => {
               setSaveDisabled(false);
-            }, 3000);
+            }, 10000);
             setLoading(false);
             setTimeout(() => {
               setdisabled(false);

@@ -65,8 +65,8 @@ function SkillAssessment() {
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [attemptCount, setAttemptCtn] = useState();
-  
-  
+
+
   const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [isNext, setIsNext] = useState(false);
@@ -111,7 +111,7 @@ function SkillAssessment() {
   const [skillCertifiedCount, setSkillCertifiedCount] = useState(0);
   const [skillTestCountLimit, setSkillTestCountLimit] = useState(0);
   const [skillCertifiedCountLimit, setSkillCertifiedCountLimit] = useState(0);
-  
+
 
   const getLimits = () => {
     const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
@@ -132,7 +132,7 @@ function SkillAssessment() {
     if (skillCertifiedCountLimit) {
       setSkillCertifiedCountLimit(skillCertifiedCountLimit);
     }
-   
+
   };
 
   useEffect(() => {
@@ -468,7 +468,11 @@ function SkillAssessment() {
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
-          assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1): localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount)+1);
+          assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1) : localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount) + 1);
+          const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
+          const skillCertifiedCount = JSON.parse(localStorage.getItem("skillCertifiedCount"));
+          setSkillTestCount(skillTestCount);
+          setSkillCertifiedCount(skillCertifiedCount);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
@@ -523,13 +527,13 @@ function SkillAssessment() {
       .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         const data = res.data.data;
-  
+
         const normalCount = data.filter(item => item.isCertification === false).length;
         const certifiedCount = data.filter(item => item.isCertification === true).length;
-  
+
         setAttemptCtn(data.length);
         setAssessmentList(data.reverse());
-  
+
         // setNormalCount(normalCount);
         // setCertifiedCount(certifiedCount);
       })
@@ -537,7 +541,7 @@ function SkillAssessment() {
         console.log(err);
       });
   }, [selectedSkill, reCall, userDataGlobal]);
-  
+
 
   const resetSelection = () => {
     answerSetter(questionIndex + 1, "");
@@ -622,12 +626,14 @@ function SkillAssessment() {
 
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
+    // let correctAnswers = 58;
     let totalQuestions = question.length;
-    let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2);
-
+    let percentageScore = parseFloat(((correctAnswers * 100) / totalQuestions).toFixed(2));
+  
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
-    return percentageScore + `%`;
+    return percentageScore;
   }
+  
   // const handleDownload = async () => {
   //   setLoadingg(true);
   //   const doc = (
@@ -709,25 +715,25 @@ function SkillAssessment() {
     //   setIsplan(true);
     // }
     // else
-     if (!selectedSkill) {
+    if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
     }
-    else if (isActivePlan && assesmentType === "Certificate" && skillCertifiedCount < skillCertifiedCountLimit ) {
+    else if (isActivePlan && assesmentType === "Certificate" && skillCertifiedCount < skillCertifiedCountLimit) {
       setisLevel(true);
     }
-    else if (isActivePlan && assesmentType === "Normal" &&   skillTestCount < skillTestCountLimit) {
+    else if (isActivePlan && assesmentType === "Normal" && skillTestCount < skillTestCountLimit) {
       setisLevel(true);
     }
     else {
       setisLevel(false);
-       setIsplan(true);
+      setIsplan(true);
     }
   };
 
 
   // const handleStart = () => {
   //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-   
+
   //   if (!isActivePlan ) {
   //     setisLevel(false);
   //     setIsplan(true);
@@ -831,7 +837,7 @@ function SkillAssessment() {
                     }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                   onClick={() => setAssesmentType("Certificate")}
                 >
-                Certification Assessment
+                  Certification Assessment
                 </button>
               </div>
               <div
@@ -1623,14 +1629,14 @@ function SkillAssessment() {
                             {assesmentType === "Normal" && checkAnswer()}
                             {assesmentType === "Normal" && `/${10}`}
                             {assesmentType !== "Normal" && (
-                              <>{calculateMarkOutOf60()}</>
+                              <>{calculateMarkOutOf60() } %</>
                             )}
                           </div>
 
                           {assesmentType !== "Normal" && (
                             <>
 
-                              {calculateMarkOutOf60() >= "70%" ? (
+                              {calculateMarkOutOf60() >= 70.00 ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
                                 </div>
@@ -1648,7 +1654,7 @@ function SkillAssessment() {
 
                     <div
                       className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
-                        calculateMarkOutOf60() >= "70%"
+                        calculateMarkOutOf60() >= 70
                         ? "sm:w-[90%] w-[95%]"
                         : "w-[80%]"
                         } `}
@@ -1667,7 +1673,7 @@ function SkillAssessment() {
                           // window.location.reload();
                           setBtnEnable1(false)
                           dispatch(reCallUserData());
-                          
+
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >
@@ -1675,7 +1681,7 @@ function SkillAssessment() {
                       </button>
 
                       {assesmentType !== "Normal" &&
-                        calculateMarkOutOf60() >= "70%" && (
+                        calculateMarkOutOf60() >= 70 && (
                           <button
                             className="btn_hover_effect min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
