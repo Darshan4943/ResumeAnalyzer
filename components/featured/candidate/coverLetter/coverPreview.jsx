@@ -36,6 +36,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [maxZoomLevel, setMaxZoomLevel] = useState(2);
   const [saveLimit, setSaveLimit] = useState(0);
   const [coverCountLimit, setCoverCountLimit] = useState(0);
+  const [saveDisabled, setSaveDisabled] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const getLimits = () => {
     const coverCountLimit = JSON.parse(localStorage.getItem("coverCountLimit"));
@@ -199,6 +200,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
+  
     if (saveLimit >= coverCountLimit) {
       setLoading(false);
       setLoading1(false);
@@ -237,9 +239,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     }
   };
 
-  //downloadw
-console.log(saveLimit,coverCountLimit)
+  
   const downloadPdfBlob = async () => {
+
     if (saveLimit >= coverCountLimit) {
       setLoading(false);
       setLoading1(false);
@@ -283,11 +285,15 @@ console.log(saveLimit,coverCountLimit)
     }
   };
   const handleDownload = async () => {
+    setSaveDisabled(true);
     const pdfBlob = await downloadPdfBlob();
 
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
       console.log("PDF downloaded successfully");
+      setTimeout(() => {
+        setSaveDisabled(false);
+      }, 10000);
     } else {
       console.error("Failed to download PDF");
       setLoading(false);
@@ -296,10 +302,14 @@ console.log(saveLimit,coverCountLimit)
   };
 
   const handleSave = async () => {
+    setSaveDisabled(true);
     const pdfBlob = await generatePdfBlob();
 
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
+      setTimeout(() => {
+        setSaveDisabled(false);
+      }, 10000);
     } else {
       console.error("Failed to generate PDF");
       setLoading(false);
@@ -314,8 +324,8 @@ console.log(saveLimit,coverCountLimit)
         setLoading1(true);
       }}
       className="hover:bg-[#06A9EF] hover-svg-white h-[38.33px] hover:text-[white] flex gap-1 text-[14px] w-fit justify-center font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF]"
-      disabled={loading1}
-      style={{ opacity: loading1 ? "0.5" : 1 }}
+      disabled={loading1 || saveDisabled}
+      style={{ opacity: (loading1 || saveDisabled )? 0.5 : 1 }}
     >
       {loading1 ? (
         <svg
@@ -473,6 +483,8 @@ console.log(saveLimit,coverCountLimit)
         </div>
         <div className="flex gap-4 justify-end ">
           <button
+           disabled={loading || saveDisabled}
+           style={{ opacity: (loading || saveDisabled )? 0.5 : 1 }}
             onClick={() => {
               if (data?.passages) {
                 handleSave();
