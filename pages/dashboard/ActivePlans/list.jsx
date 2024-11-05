@@ -128,7 +128,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
                 </div>
             ) : (
                 <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
-                    No Recruiter Available !
+                    No Active Plans Available !
                 </div>
             )}
             <div className="px-[16px] w-full justify-between flex ">

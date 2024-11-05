@@ -131,7 +131,7 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
         </div>
       ) : (
         <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
-          No Recruiter Available !
+          No Candidates Available !
         </div>
       )}
         <div className="px-[16px] w-full justify-between flex ">
