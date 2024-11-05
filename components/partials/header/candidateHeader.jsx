@@ -169,7 +169,7 @@ function CandidateHeader() {
             >
               <li>Active Plans</li>
             </Link>
-            <Link
+            {/* <Link
               onClick={() => setServices(false)}
               href="/dashboard/Plans"
               className={
@@ -179,7 +179,7 @@ function CandidateHeader() {
               }
             >
               <li>Plans</li>
-            </Link>
+            </Link> */}
           </>
         ) : (
           <>
