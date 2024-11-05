@@ -23,16 +23,15 @@ function ActivePlans() {
         params: { page: currentPage, limit },
       })
       .then((res) => {
-      
 
-        setData(res.data.data);
-        setUserList(
-          res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        );
+
+        setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
-        // setTotalPages(res.data.totalPages);
-        setLimit(res?.data?.users?.current?.limit || limit);
-        setCurrentPage(res?.data?.users?.current?.page || currentPage);
+        setData(res.data.users);
+        setTotalpages(res.data.totalPages);
+        setLimit(res?.data?.users?.current?.limit);
+        setCurrentPage(res?.data?.users?.current?.page);
+
 
         setLoading(false);
         setTimeout(() => {
@@ -65,7 +64,7 @@ function ActivePlans() {
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Total Active - {data.length}
+              Total Active - {data?.length}
               {/* Total Recruiters - {data.users ? data.users.results.length : 0} */}
             </span>
             <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
