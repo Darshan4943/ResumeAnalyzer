@@ -9,7 +9,7 @@ function HeaderSidebar({
   isLogin,
   isSidebar,
 }) {
-  const boforeLoginList = ["Candidate", "Recruiter"];
+  const boforeLoginList = ["Candidate", "Recruiter", "Jobs"];
   const loginListCandidate = [
     "Home",
     "Create New Resume",
@@ -132,8 +132,8 @@ function HeaderSidebar({
         <div className="flex flex-col" style={{ listStyle: "none" }}>
           {isLogin && (
             <div
-            onClick={() =>
-               router.push("/profile")}
+              onClick={() =>
+                router.push("/profile")}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateX(0)" : "translateX(-100%)",
@@ -143,12 +143,12 @@ function HeaderSidebar({
             >
               {userDataGlobal?.profilePicture ? (
                 <img
-                className=" rounded-full object-cover h-[36px] w-[36px]"
-                src={
-                  userDataGlobal?.profilePicture ||
-                  "/images/profile/profileNew.png"
-                }
-              />
+                  className=" rounded-full object-cover h-[36px] w-[36px]"
+                  src={
+                    userDataGlobal?.profilePicture ||
+                    "/images/profile/profileNew.png"
+                  }
+                />
               ) : (
                 <div
                   className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
@@ -176,6 +176,10 @@ function HeaderSidebar({
                 }),
                 ...(item === "Recruiter" && {
                   ...getListItemStyles("/recruiter"),
+                  transition: "transform 0.8s ease-in-out",
+                }),
+                ...(item === "Jobs" && {
+                  ...getListItemStyles("/jobs/search"),
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Home" && {
@@ -207,7 +211,7 @@ function HeaderSidebar({
                   transition: "transform 1s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
-                  ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection"),
+                  ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Skill Assessments & Certification" && {
@@ -243,6 +247,9 @@ function HeaderSidebar({
                   case "Recruiter":
                     handleNavigation("/recruiter");
                     break;
+                  case "Jobs":
+                    handleNavigation("/jobs/search");
+                    break;
                   case "Home":
                     handleNavigation("/home");
                     break;
@@ -254,7 +261,7 @@ function HeaderSidebar({
                       ? "/home/BuildResume"
                       : "/myClients/ClientResume");
                     break;
-                    case "Create New Cover Letter":
+                  case "Create New Cover Letter":
                     handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
                     break;
                   case "My Resumes":
@@ -277,7 +284,7 @@ function HeaderSidebar({
                     handleNavigation("/myWebsite");
                     break;
                   case "My Collection":
-                    handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
+                    handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
                     break;
                   case "Skill Assessments & Certification":
                     handleNavigation("/home/SkillAssessment");
