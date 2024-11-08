@@ -13,7 +13,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   // const [limitPopup, setLimitPopup] = useState(false)
   const [isLogin, setIsLogin] = useState(false);
 
-  const jobApplyCount = localStorage.getItem("jobsApply");
+  const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const isPlanActive = JSON.parse(localStorage.getItem("planActive"));
   const [loading, setLoading] = useState(true);
   const getData = () => {
