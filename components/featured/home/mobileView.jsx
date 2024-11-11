@@ -145,7 +145,7 @@ const MobileView = ({ clickHandler, isLogin, isSubscribe, setIsSubcrib }) => {
           </div>
           <ImageParallex />
         </div>{" "}
-        <div className="flex items-end justify-center overflow-hidden ">
+        {/* <div className="flex items-end justify-center overflow-hidden ">
           <GenerateAi />
         </div>
         <div className="flex flex-col gap-9 items-center  pb-[72px] bg-carousel_bg bg-cover bg-no-repeat ">
@@ -168,11 +168,11 @@ const MobileView = ({ clickHandler, isLogin, isSubscribe, setIsSubcrib }) => {
             </button>
           </div>
         </div>
-        {/* <SkillAssessment isLogin={isLogin} /> */}
+      
         <NewSkillAssessment/>
-        {/* <JdResume isLogin={isLogin} /> */}
+  
         <ResumeLink />
-        {/* <JdResume isLogin={isLogin} /> */}
+     
 
 
         <div className="flex flex-col gap-2 items-center  pb-[42px]  ">
@@ -224,7 +224,7 @@ const MobileView = ({ clickHandler, isLogin, isSubscribe, setIsSubcrib }) => {
 
           <SubscriptionPlans isLogin={isLogin} />
         </div>
-        <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
+        <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} /> */}
 
       </div>
     </>
