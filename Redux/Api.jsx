@@ -54,7 +54,7 @@ export const Api = ({ }) => {
   useEffect(() => {
     if (!userDataGlobal?.isLocalStorageClr) {
       axios
-        .put("http://localhost:2000/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
+        .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
         .then((res) => {
           localStorage.clear();
           console.log("Local Storage Cleared")
