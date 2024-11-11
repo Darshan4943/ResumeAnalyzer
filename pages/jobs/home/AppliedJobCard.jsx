@@ -25,14 +25,16 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     
    
   
-    const nextPage = () => {
+    const nextPage = (e) => {
+        e.stopPropagation();
       if (currentPage < totalPages) {
         setCurrentPage(currentPage + 1);
         setPage(currentPage + 1);
       }
     };
   
-    const prevPage = () => {
+    const prevPage = (e) => {
+        e.stopPropagation();
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1);
         setPage(currentPage - 1);
@@ -310,6 +312,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
 
                         <select
                             value={limit}
+                            onClick={(e) => e.stopPropagation()}
                             onChange={handleChange}
                             className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
                         >
@@ -332,7 +335,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                     <button
                         disabled={currentPage === 1}
                     >
-                        <svg onClick={prevPage} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg  onClick={(e) =>prevPage(e)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10517)">
                                 <path d="M15 6L9 12L15 18" stroke={
                                     currentPage !== 1 ? "#333333" :
@@ -349,7 +352,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                         disabled={currentPage === totalPages}
                     >
                         <svg width="25" height="24"
-                            onClick={nextPage} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                onClick={(e) =>nextPage(e)} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10530)">
                                 <path d="M9.375 6L15.625 12L9.375 18" stroke={
                                     currentPage !== totalPages ? "#333333" :

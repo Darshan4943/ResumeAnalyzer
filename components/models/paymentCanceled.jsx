@@ -27,11 +27,11 @@ const PaymentCanceled = ({
                 />
               </svg>
 
-              <span className="text-[20px] scr390:text-[24px] ml:text-[30px] text-[#333333] font-semibold text-center">
+              <span className="text-[20px] scr420:text-[24px] ml:text-[30px] text-[#333333] font-semibold text-center">
                 Payment Cancelled !
               </span>
             </div>
-            <span className="text-[12px] scr390:text-[14px] ml:text-[16px] text-[#333333] font-medium text-center">
+            <span className="text-[12px] scr420:text-[14px] ml:text-[16px] text-[#333333] font-medium text-center">
               Payment Cancelled, please try again.
             </span>
           </div>

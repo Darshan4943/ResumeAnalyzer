@@ -757,11 +757,11 @@ function AccountDetails({
             </div>
           </div>
         </div>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-start ">
           <input
             type="checkbox"
             checked={data.checked}
-            className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox"
+            className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox  mt-1"
             onClick={() => {
               setError(false);
               setData({ ...data, checked: !data.checked });

@@ -29,20 +29,23 @@ function AllJobCard({
   const router = useRouter();
   const [miniLoading, setMiniloading] = useState(false);
 
-  const nextPage = () => {
+  const nextPage = (e) => {
+    e.stopPropagation();
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
       setPage(currentPage + 1);
     }
   };
 
-  const prevPage = () => {
+  const prevPage = (e) => {
+    e.stopPropagation();
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       setPage(currentPage - 1);
     }
   };
   const handleChange = (e) => {
+   
     setLimit(parseInt(e.target.value));
     setPage(1);
     setCurrentPage(1);
@@ -56,14 +59,14 @@ function AllJobCard({
       .then((res) => {
         dispatch(reCallUserData());
 
-                // toast.success("Job Saved Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
+        // toast.success("Job Saved Successfully");
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoading(false);
+      });
+  };
 
   const removeSavedJob = (e, id) => {
     e.stopPropagation();
@@ -74,14 +77,14 @@ function AllJobCard({
       .then((res) => {
         dispatch(reCallUserData());
 
-                // toast.success("Job Removed Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
+        // toast.success("Job Removed Successfully");
+        getData();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoading(false);
+      });
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -102,9 +105,8 @@ function AllJobCard({
                   const newPageNumber = Math.ceil((index + 1) / itemsPerPage);
                   setCurrentPage(newPageNumber);
                 }}
-                className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${
-                  selectedJob?._id == item._id && "selected_job_card"
-                } `}
+                className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
+                  } `}
                 style={{
                   borderBottom:
                     selectedJob?._id == item._id
@@ -318,7 +320,8 @@ function AllJobCard({
 
             <select
               value={limit}
-              onChange={handleChange}
+              onClick={(e) => e.stopPropagation()}
+              onChange={(e) =>handleChange(e)}
               className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
             >
               <option value="10">10</option>
@@ -349,7 +352,7 @@ function AllJobCard({
           </p>
           <button disabled={currentPage === 1}>
             <svg
-              onClick={prevPage}
+              onClick={(e) =>prevPage(e)}
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -376,7 +379,7 @@ function AllJobCard({
             <svg
               width="25"
               height="24"
-              onClick={nextPage}
+              onClick={(e) =>nextPage(e)}
               viewBox="0 0 25 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

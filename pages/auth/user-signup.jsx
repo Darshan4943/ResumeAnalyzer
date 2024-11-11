@@ -258,7 +258,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   function validatePassword(password) {
     const strongPasswordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{4,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&.])[A-Za-z\d@#$!%*?&.]{4,}$/;
     return strongPasswordRegex.test(password);
   }
 

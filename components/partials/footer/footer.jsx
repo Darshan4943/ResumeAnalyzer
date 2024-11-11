@@ -87,7 +87,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <div className="footer_add ">
                 <div className=" flex flex-col gap-1 ">
                   <p className="text-[#fff] font-[600]">Offices </p>
-                  <p className="footer_address_Para">
+                  <div className="footer_address_Para">
                     <ul className="flex flex-col gap-[4px]">
                       <li className="flex flex-row gap-2 items-start  font-[400]  text-[14px]">
                         London, United Kingdom.
@@ -99,7 +99,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                         Harare, Zimbabwe.
                       </li>
                     </ul>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

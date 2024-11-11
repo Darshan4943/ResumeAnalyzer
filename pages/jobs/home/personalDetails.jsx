@@ -61,7 +61,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
             <div className='flex flex-row gap-4 items-center'>
 
                 <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[239px] min-w-[200px]">Professional Details</h2>
-                <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
+                <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
             </div>
             <form className="space-y-4">
                 <div className='flex ml:flex-row flex-col gap-4 '>
@@ -231,7 +231,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
 
                 </div>
 
-                <div className='ml:w-[49.5%] w-[100%]'>
+                {/* <div className='ml:w-[49.5%] w-[100%]'>
                     <label className="block text-sm font-medium text-gray-700">
                         Date of Birth <span className="text-red font-medium">*</span>
                     </label>
@@ -244,7 +244,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
                     {formError?.dob && (
                         <p className="text-xs text-red font-medium mt-1">{formError.dob}</p>
                     )}
-                </div>
+                </div> */}
             </form>
         </div>
     );

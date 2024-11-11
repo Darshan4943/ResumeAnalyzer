@@ -206,7 +206,7 @@ function CandidateHome({ onScrollToTop }) {
   const showPlan = useSelector((state) => state.showPlan.show);
 
   const firstComponentRef = useRef(null);
-  const generateAiRef = useRef(null);
+  // const generateAiRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -264,7 +264,7 @@ function CandidateHome({ onScrollToTop }) {
           </div>
         </div>
         <div className="flex items-end justify-center">
-          <GenerateAi ref={generateAiRef} />
+          <GenerateAi  />
         </div>
 
         <div className="bg-resume_bg bg-cover bg-no-repeat pb-[80px]">
@@ -284,23 +284,7 @@ function CandidateHome({ onScrollToTop }) {
                 Careers.
                 </p>
               </div>
-              {/* <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words">
-                <p>
-                  Select one of our{" "}
-                  <span className="text-[#06A9EF]">
-                    expertly designed resume templates
-                  </span>{" "}
-                  and create a resume that fits your needs and style, No
-                  Experience needed!
-                </p>
-                <p>
-                  <span className="text-[#06A9EF]">
-                    Stand out from the crowd
-                  </span>{" "}
-                  with a resume built on one of the best recruiter-approved
-                  templates.
-                </p>
-              </div> */}
+          
               <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[100%] break-words">
               Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters
               </div>
@@ -314,10 +298,9 @@ function CandidateHome({ onScrollToTop }) {
           </div>
         </div>
 
-        {/* <SkillAssessment isLogin={isLogin} /> */}
         <NewSkillAssessment />
         <ResumeLink />
-        {/* <JdResume isLogin={isLogin} /> */}
+       
 
         <ResumeInventory isLogin={isLogin} />
         <AskKrutAi />

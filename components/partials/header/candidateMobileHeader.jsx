@@ -54,8 +54,9 @@ function CandidateMobileHeader() {
         {!isLogin && (
           <div className=" relative">
             <button
-              onMouseEnter={() => setIsSignIn(true)}
-              onMouseLeave={() => setIsSignIn(false)}
+              // onMouseEnter={() => setIsSignIn(true)}
+              // onMouseLeave={() => setIsSignIn(false)}
+              onClick={() => setIsSignIn(!isSignIn)}
               className="px-4 py-2 border border-[#06A9EF] rounded-[8px] font-[500]"
             >
               Sign In

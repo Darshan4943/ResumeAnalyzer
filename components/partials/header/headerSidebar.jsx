@@ -90,7 +90,7 @@ function HeaderSidebar({
   };
 
   return (
-    <div className="  flex flex-col  pt-[3.5rem] relative overflow-y-auto ">
+    <div className="  flex flex-col  pt-[3.5rem] relative overflow-y-auto mb-8 ">
       <div className="sticky top-0">
         <div
           style={{

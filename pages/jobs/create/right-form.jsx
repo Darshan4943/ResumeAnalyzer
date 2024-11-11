@@ -649,7 +649,7 @@ const Rightform = ({
         </div>
       </div>
       <div className="flex flex-row justify-between">
-        <button className="rounded-[12px] py-[12px] px-[24px] border border-[#06A9EF] text-[16px] font-medium text-[#333333]">
+        <button onClick={()=> router.push("/jobs/list")} className="rounded-[12px] py-[12px] px-[24px] border border-[#06A9EF] text-[16px] font-medium text-[#333333]">
           Cancel
         </button>
         <button

@@ -320,7 +320,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
             </label>
 
             <div
-              className={`w-[72%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+              className={` flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
                 (errors && errors["dial_code"]) ||
                 (errors && errors["mobileNumber"])
                   ? "border-red"
