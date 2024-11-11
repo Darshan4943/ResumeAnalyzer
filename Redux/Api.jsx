@@ -53,7 +53,7 @@ export const Api = ({ }) => {
 
   console.log(userDataGlobal)
   useEffect(() => {
-    if (!userDataGlobal?.isLocalStorageClr ) {
+    if (!userDataGlobal?.isLocalStorageClr && Object.keys(userDataGlobal).length === 0) {
 
       axios
         .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
