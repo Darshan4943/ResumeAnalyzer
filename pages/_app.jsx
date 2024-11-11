@@ -16,41 +16,41 @@ import EarthLoader from "../components/common/EarthLoader.jsx";
 const WrappedApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // const { latitude, longitude } = position.coords;
-          const latitude = -25.7461;
-          const longitude = 28.1881;
-          const southAfricaBoundingBox = {
-            minLatitude: -35.9,
-            maxLatitude: -22,
-            minLongitude: 16.45,
-            maxLongitude: 32.89,
-          };
-          const isInSouthAfrica =
-            latitude >= southAfricaBoundingBox.minLatitude &&
-            latitude <= southAfricaBoundingBox.maxLatitude &&
-            longitude >= southAfricaBoundingBox.minLongitude &&
-            longitude <= southAfricaBoundingBox.maxLongitude;
+  // useEffect(() => {
+  //   const getLocation = () => {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         // const { latitude, longitude } = position.coords;
+  //         const latitude = -25.7461;
+  //         const longitude = 28.1881;
+  //         const southAfricaBoundingBox = {
+  //           minLatitude: -35.9,
+  //           maxLatitude: -22,
+  //           minLongitude: 16.45,
+  //           maxLongitude: 32.89,
+  //         };
+  //         const isInSouthAfrica =
+  //           latitude >= southAfricaBoundingBox.minLatitude &&
+  //           latitude <= southAfricaBoundingBox.maxLatitude &&
+  //           longitude >= southAfricaBoundingBox.minLongitude &&
+  //           longitude <= southAfricaBoundingBox.maxLongitude;
 
-          localStorage.setItem("isInSouthAfrica", isInSouthAfrica);
-        },
-        (error) => {
-          console.error("Error getting location:", error.message);
-        }
-      );
-    };
+  //         localStorage.setItem("isInSouthAfrica", isInSouthAfrica);
+  //       },
+  //       (error) => {
+  //         console.error("Error getting location:", error.message);
+  //       }
+  //     );
+  //   };
 
-    getLocation();
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+  //   getLocation();
+  //   setLoading(true);
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
   return (
     <>
       <Helmet>
