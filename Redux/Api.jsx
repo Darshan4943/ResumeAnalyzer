@@ -56,7 +56,7 @@ export const Api = ({ }) => {
 
   // console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
-  dispatch(setPageClosed());
+  // dispatch(setPageClosed());
 
   useEffect(() => {
     axios
