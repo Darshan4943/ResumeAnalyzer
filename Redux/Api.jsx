@@ -51,8 +51,10 @@ export const Api = ({ }) => {
   //     };
   // }, []);
 
+  console.log(userDataGlobal)
   useEffect(() => {
-    if (!userDataGlobal?.isLocalStorageClr) {
+    if (!userDataGlobal?.isLocalStorageClr && !userDataGlobal) {
+
       axios
         .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
         .then((res) => {
@@ -64,6 +66,12 @@ export const Api = ({ }) => {
         });
     }
   }, [userDataGlobal]);
+  // useEffect(() => {
+  //   if (!userDataGlobal || (typeof userDataGlobal === 'object' && Object.keys(userDataGlobal).length === 0)) {
+  //     localStorage.clear();
+  //   }
+  // }, [userDataGlobal]);
+  
 
   const dispatch = useDispatch();
 
