@@ -8,7 +8,7 @@ const LocationEnablePopup = ({ setEnablePopup, enablePopup, getLocation }) => {
   const router = useRouter();
 
   return (
-    enablePopup && (
+    !enablePopup && (
       <div className="expiryModel ">
         <div className="modal">
           <div className="container sm:w-[432px] w-[100vw] scr420:p-4 p-8">

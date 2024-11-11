@@ -206,7 +206,7 @@ function CandidateHome({ onScrollToTop }) {
   const showPlan = useSelector((state) => state.showPlan.show);
 
   const firstComponentRef = useRef(null);
-  const generateAiRef = useRef(null);
+  // const generateAiRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -264,7 +264,7 @@ function CandidateHome({ onScrollToTop }) {
           </div>
         </div>
         <div className="flex items-end justify-center">
-          <GenerateAi ref={generateAiRef} />
+          <GenerateAi  />
         </div>
 
         <div className="bg-resume_bg bg-cover bg-no-repeat pb-[80px]">
