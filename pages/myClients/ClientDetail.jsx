@@ -190,6 +190,15 @@ function ClientDetail({ tabIndex }) {
 
         {/* <div className=" "> */}
         <button
+         onClick={() =>
+          router.push({
+            pathname: `/myClients/CreateNewClient`,
+            query: {
+              id: clientId,
+              isUpdate: true,
+            },
+          })
+        }
           style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           className="p-4 rounded-[16px] block scr700:hidden  w-fit h-fit "
         >

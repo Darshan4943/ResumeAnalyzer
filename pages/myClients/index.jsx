@@ -288,7 +288,7 @@ function MyClients() {
                           router.push("/myClients/CreateNewClient");
                         }
                       }}
-                      className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                      className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[51px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                       type="button"
                     >
                       <svg
@@ -323,7 +323,7 @@ function MyClients() {
                         router.push("/myClients/CreateNewClient");
                       }
                     }}
-                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[48px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[51px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
                     <svg

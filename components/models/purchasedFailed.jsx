@@ -24,11 +24,11 @@ const PurchasedFailed = ({
                                 />
                             </svg>
 
-                            <span className={`text-[20px] scr390:text-[24px] ${ alreadyUsedFree ? "ml:text-[28px]" : "ml:text-[26px]"} text-[#333333] font-semibold text-center`}>
+                            <span className={`text-[20px] scr420:text-[24px] ${ alreadyUsedFree ? "ml:text-[28px]" : "ml:text-[26px]"} text-[#333333] font-semibold text-center`}>
                               {alreadyUsedFree ? "You have already used free plan" : "Purchased Cancelled !"}  
                             </span>
                         </div>
-                        <span className="text-[12px] scr390:text-[14px] ml:text-[16px] text-[#333333] font-medium text-center">
+                        <span className="text-[12px] scr420:text-[14px] ml:text-[16px] text-[#333333] font-medium text-center">
                         {alreadyUsedFree ? "Please try another plan" : " Purchased Cancelled, please try again."}  
                         </span>
                     </div>

@@ -21,7 +21,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, s
     <div className="flex flex-col gap-4">
       <div className='flex flex-row gap-4 items-center'>
         <h2 className="sm:text-[24px] text-[20px] font-medium sm:min-w-[239px] min-w-[200px]">Professional Details</h2>
-        <div className='h-[1px] w-[75%] bg-[#DEDEDE]'></div>
+        <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
       </div>
 
       <form className="space-y-4">

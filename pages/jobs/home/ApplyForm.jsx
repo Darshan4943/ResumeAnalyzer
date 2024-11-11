@@ -161,20 +161,20 @@ function ApplyForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(personal.email)) {
       errors.email = "Email is invalid";
     }
-    if (!personal?.dob) errors.dob = "Date of birth is required";
+    // if (!personal?.dob) errors.dob = "Date of birth is required";
     if (!personal?.gender) errors.gender = "Gender is required";
     if (!personal?.mobileNo) errors.mobileNo = "Mobile Number is required";
 
-    if (!professional?.totalExperience)
-      errors.totalExperience = "Total experience is required";
-    if (!professional?.relevantExperience)
-      errors.relevantExperience = "Relevant experience is required";
-    if (!professional?.currentCTC)
-      errors.currentCTC = "Current CTC is required";
-    if (!professional?.expectedCTC)
-      errors.expectedCTC = "Expected CTC is required";
-    if (!professional?.noticePeriod)
-      errors.noticePeriod = "Notice period is required";
+    // if (!professional?.totalExperience)
+    //   errors.totalExperience = "Total experience is required";
+    // if (!professional?.relevantExperience)
+    //   errors.relevantExperience = "Relevant experience is required";
+    // if (!professional?.currentCTC)
+    //   errors.currentCTC = "Current CTC is required";
+    // if (!professional?.expectedCTC)
+    //   errors.expectedCTC = "Expected CTC is required";
+    // if (!professional?.noticePeriod)
+    //   errors.noticePeriod = "Notice period is required";
 
     // Check if a resume is selected or uploaded
     if (!selectedResume && !uploadedResume) {
@@ -437,7 +437,7 @@ function ApplyForm() {
           dial_code: formData?.dial_code,
           mobileNo: formData.personal?.mobileNo,
           currentLocation: formData.personal?.currentLocation,
-          dob: formData.personal?.dob,
+          // dob: formData.personal?.dob,
           gender: formData.personal?.gender,
         },
         professional: {
@@ -601,7 +601,7 @@ function ApplyForm() {
               <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[270px] min-w-[210px]">
                 Upload CV / Resume
               </h2>
-              <div className="h-[1px] w-[70%] bg-[#DEDEDE]"></div>
+              <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
             </div>
 
 
