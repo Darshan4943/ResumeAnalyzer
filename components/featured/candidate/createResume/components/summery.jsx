@@ -7,8 +7,7 @@ import MiniLoader from "../../../../common/miniLoader";
 
 function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
 
-
-
+ 
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -23,6 +22,13 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   const [icon, seticon] = useState("$");
   const [activePlanIndex, setActivePlanIndex] = useState()
   const [isFree, setIsFree] = useState()
+
+  // useEffect(() => {
+  //   if ( Object.keys(userDataGlobal).length === 0) {
+  //     localStorage.clear();
+  //   }
+  // }, [userDataGlobal]);
+
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
