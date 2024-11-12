@@ -29,8 +29,8 @@ const JdMatchingsideBar = ({
 
   return (
     <>
-      <div className="flex flex-row justify-center gap-[8px] overflow-hidden md:pt-[56px] pt-[70px]  ">
-        <div class="flex flex-col p-[24px] px-[16px] gap-[16px] bg-[#FFFFFF] overflow-y-scroll relative">
+      <div className="flex flex-row  gap-[8px] overflow-hidden md:pt-[56px] pt-[56px]  w-full ">
+        <div class="flex flex-col py-[24px] md:px-[16px] px-[8px] gap-[16px] bg-[#FFFFFF] overflow-y-scroll relative  w-full">
           <JobInfo
             jdData={jdData}
             setJdData={setJdData}
@@ -66,7 +66,7 @@ const JdMatchingsideBar = ({
           {isExtraData && (
             <>
               {extratctedData.extra_section && (
-                <div className="flex flex-col gap-[16px] w-[416px]">
+                <div className="flex flex-col gap-[16px] ">
                   <h3 className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
                     Extra Section
                   </h3>
@@ -92,7 +92,7 @@ const JdMatchingsideBar = ({
               )}
             </>
           )}
-          <div className="flex justify-end items-end gap-[10px] bg-[#FFFFF] w-[416px]">
+          <div className="flex justify-end items-end gap-[10px] bg-[#FFFFF] ">
             <div className="flex rounded-[24px] p-[4px] px-[12px] pl-[6px] border border-solid border-[#06A9EF]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ const JdMatchingsideBar = ({
               <p
                 onClick={() => setAddExtraSection(true)}
                 className="text-[16px] font-semibold text-[#333333] cursor-pointer"
-                // disabled={!isChecked}
+              // disabled={!isChecked}
               >
                 Add Section
               </p>
@@ -135,8 +135,7 @@ const JdMatchingsideBar = ({
               disabled={loadingg || text.length < 100}
               onClick={() => {
                 MatchJob();
-                // setShowsideBar(false);
-                // window.scrollTo(0, 0);
+                
               }}
             >
               {loadingg ? (

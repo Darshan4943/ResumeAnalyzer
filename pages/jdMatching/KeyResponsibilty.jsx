@@ -51,7 +51,7 @@ const KeyResponsibility = ({
   };
 
   return (
-    <div className="flex flex-col gap-[16px] w-[416px]">
+    <div className="flex flex-col gap-[16px] ">
       <div className="flex flex-row justify-between items-center  ">
         <div className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
           Key Responsibility <span className="text-[#e74c3c]">*</span>
