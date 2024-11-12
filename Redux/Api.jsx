@@ -50,6 +50,29 @@ export const Api = ({ }) => {
   //         socket.disconnect();
   //     };
   // }, []);
+
+  console.log(userDataGlobal)
+  useEffect(() => {
+    if (!userDataGlobal?.isLocalStorageClr && Object.keys(userDataGlobal).length === 0) {
+
+      axios
+        .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
+        .then((res) => {
+          localStorage.clear();
+          console.log("Local Storage Cleared")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userDataGlobal]);
+  // useEffect(() => {
+  //   if (!userDataGlobal || (typeof userDataGlobal === 'object' && Object.keys(userDataGlobal).length === 0)) {
+  //     localStorage.clear();
+  //   }
+  // }, [userDataGlobal]);
+  
+
   const dispatch = useDispatch();
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -102,7 +125,7 @@ export const Api = ({ }) => {
       }
     }
   }, [reCallUser, showPlan]);
- 
+
   useEffect(() => {
     const planActive =
       localStorage.getItem("planActive") == true ? true : false;
@@ -123,13 +146,13 @@ export const Api = ({ }) => {
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("uploadCount", result.used.resumeUploded);
             localStorage.setItem("saveCount", result.used.resumeStored);
-            localStorage.setItem("chatCountDaily", result.used.chatBot.daily); 
-            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly); 
-            localStorage.setItem("jdCountDaily", result.used.jdMatching.daily); 
-            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly); 
+            localStorage.setItem("chatCountDaily", result.used.chatBot.daily);
+            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly);
+            localStorage.setItem("jdCountDaily", result.used.jdMatching.daily);
+            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly);
             localStorage.setItem("clientCount", result.used.clientStored);
-            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily); 
-            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly); 
+            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily);
+            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly);
             localStorage.setItem("jobsApply", result.used.jobsApply);
             localStorage.setItem("coverCount", result.used.coverStored);
             localStorage.setItem("jdMatchingCount", result.used.jdMatching);
@@ -143,14 +166,14 @@ export const Api = ({ }) => {
             localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
             localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
             localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
-            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily); 
-            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly); 
-            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily); 
+            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily);
+            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly);
+            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily);
             localStorage.setItem("jdCountMonthlyLimit", result.limits.jdMatchingLimit.monthly);
-            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily); 
-            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly); 
+            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily);
+            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly);
             localStorage.setItem("planAvailable", true);
-          
+
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
@@ -183,15 +206,15 @@ export const Api = ({ }) => {
 
             localStorage.setItem("planActive", false);
             localStorage.setItem("planAvailable", false);
-     
+
             localStorage.setItem("chatCount", 0);
-          
+
             localStorage.setItem("jdCount", 0);
 
-            localStorage.setItem("uploadCount",0);
+            localStorage.setItem("uploadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
-            localStorage.setItem("collectionCount", 0); 
+            localStorage.setItem("collectionCount", 0);
             localStorage.setItem("jobsApply", 0);
             localStorage.setItem("coverCount", 0);
             localStorage.setItem("skillTestCount", 0);
@@ -199,7 +222,7 @@ export const Api = ({ }) => {
             localStorage.setItem("uploadCountLimit", 0);
             localStorage.setItem("saveCountLimit", 0);
             localStorage.setItem("clientCountLimit", 0);
-            localStorage.setItem("collectionCountLimit", 0); 
+            localStorage.setItem("collectionCountLimit", 0);
             localStorage.setItem("jobsApplyLimit", 0);
             localStorage.setItem("coverCountLimit", 0);
             localStorage.setItem("skillTestCountLimit", 0);
@@ -210,32 +233,32 @@ export const Api = ({ }) => {
           console.log(err);
         });
 
-       
+
     }
 
   }, [userDataGlobal, reCallUser, showPlan, allPlans]);
 
-  useEffect(()=>{
-    if(userDataGlobal._id){
-    let userId = userDataGlobal._id;
-    let role = userDataGlobal.role;
-    
-    axios
-      .post("https://jamblix.com/api/apiLogs/get", {
-        userId,
-        role,
-      })
-      .then((res) => {
-        const result = res.data.data;
-        // localStorage.setItem("chatCount", result.chatBot); 
-        // localStorage.setItem("jdCount", result.jobMatching.matchCount);
-       
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      let userId = userDataGlobal._id;
+      let role = userDataGlobal.role;
+
+      axios
+        .post("https://jamblix.com/api/apiLogs/get", {
+          userId,
+          role,
+        })
+        .then((res) => {
+          const result = res.data.data;
+          // localStorage.setItem("chatCount", result.chatBot); 
+          // localStorage.setItem("jdCount", result.jobMatching.matchCount);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  },[userDataGlobal])
+  }, [userDataGlobal])
 
 
 
