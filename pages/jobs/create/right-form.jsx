@@ -29,7 +29,6 @@ const Rightform = ({
 
   const handleItemClick = (selectedOption) => {
     setSelectedCurrency(selectedOption);
-   
   };
 
   const postJob = () => {
@@ -94,8 +93,9 @@ const Rightform = ({
       emptyFields.forEach((field) => {
         setFormError((formError) => ({
           ...formError,
-          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)
-            } is required`,
+          [field]: `${
+            field.charAt(0).toUpperCase() + field.slice(1)
+          } is required`,
         }));
       });
       hasError = true;
@@ -341,8 +341,8 @@ const Rightform = ({
                 Min Salary
               </label>
               <input
-                type="text"
-                placeholder=""
+                type="Number"
+                placeholder="eg.100000"
                 className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
                 value={data?.minSalary}
                 onChange={(e) => {
@@ -355,8 +355,8 @@ const Rightform = ({
                 Max Salary
               </label>
               <input
-                type="text"
-                placeholder=""
+                type="Number"
+                placeholder="eg.400000"
                 className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
                 value={data?.maxSalary}
                 onChange={(e) => {
@@ -393,7 +393,10 @@ const Rightform = ({
             onInputChange={(data) => {
               // Only add non-empty skills to the list
               if (data.trim()) {
-                setSkills((prevSkills) => [data, ...prevSkills.filter(skill => skill.trim() !== "")]);
+                setSkills((prevSkills) => [
+                  data,
+                  ...prevSkills.filter((skill) => skill.trim() !== ""),
+                ]);
               }
             }}
             options={skills
@@ -457,7 +460,10 @@ const Rightform = ({
             onInputChange={(data) => {
               // Only add non-empty skills to the list
               if (data.trim()) {
-                setSkills((prevSkills) => [data, ...prevSkills.filter(skill => skill.trim() !== "")]);
+                setSkills((prevSkills) => [
+                  data,
+                  ...prevSkills.filter((skill) => skill.trim() !== ""),
+                ]);
               }
             }}
             options={skills
@@ -511,7 +517,9 @@ const Rightform = ({
         </div>
         <div className="flex sm:flex-row flex-col gap-4 w-[100%] justify-between">
           <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
-            <label className="text-[#333333] text-[14px] font-medium">Total Experience</label>
+            <label className="text-[#333333] text-[14px] font-medium">
+              Total Experience
+            </label>
             <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select
                 style={{
@@ -543,7 +551,9 @@ const Rightform = ({
           </div>
 
           <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
-            <label className="text-[#333333] text-[14px] font-medium">Relevant Experience</label>
+            <label className="text-[#333333] text-[14px] font-medium">
+              Relevant Experience
+            </label>
             <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select
                 style={{
@@ -557,8 +567,11 @@ const Rightform = ({
                 onChange={(e) => {
                   const newRelevantExp = e.target.value;
 
-                  const totalExpIndex = experienceIndices.indexOf(data?.experience);
-                  const relevantExpIndex = experienceIndices.indexOf(newRelevantExp);
+                  const totalExpIndex = experienceIndices.indexOf(
+                    data?.experience
+                  );
+                  const relevantExpIndex =
+                    experienceIndices.indexOf(newRelevantExp);
 
                   // Allow selection only if the relevant experience index is less than or equal to the total experience index
                   if (isRelevantAllowed(totalExpIndex, relevantExpIndex)) {
@@ -634,9 +647,7 @@ const Rightform = ({
                 <option value="Live">Live</option>
 
                 <option value="Hold">Hold</option>
-                {id &&
-                  <option value="Closed">Closed</option>
-                }
+                {id && <option value="Closed">Closed</option>}
               </select>
 
               <img
@@ -649,7 +660,10 @@ const Rightform = ({
         </div>
       </div>
       <div className="flex flex-row justify-between">
-        <button onClick={()=> router.push("/jobs/list")} className="rounded-[12px] py-[12px] px-[24px] border border-[#06A9EF] text-[16px] font-medium text-[#333333]">
+        <button
+          onClick={() => router.push("/jobs/list")}
+          className="rounded-[12px] py-[12px] px-[24px] border border-[#06A9EF] text-[16px] font-medium text-[#333333]"
+        >
           Cancel
         </button>
         <button

@@ -26,8 +26,8 @@ const Index = () => {
     aboutOrganization: "",
     description: "",
     salaryType: "",
-    minSalary: 0,
-    maxSalary: 0,
+    minSalary: "",
+    maxSalary: "",
     currency: "",
     requiredQualification: "",
     requiredSkills: "",
@@ -36,7 +36,7 @@ const Index = () => {
     revalentExp: "",
     mustSkills: [],
     goodSkills: [],
-    status:"Live"
+    status: "Live",
   });
 
   const getData = () => {
@@ -48,7 +48,7 @@ const Index = () => {
         const formattedDeadLine = res.data.deadLine
           ? new Date(res.data.deadLine).toISOString().split("T")[0]
           : "";
-     
+
         const {
           companyName,
           jobTitle,
@@ -68,7 +68,7 @@ const Index = () => {
           goodSkills,
           currency,
           revalentExp,
-          status
+          status,
         } = res.data;
         setData({
           ...data,
@@ -84,13 +84,13 @@ const Index = () => {
           maxSalary,
           requiredQualification,
           requiredSkills,
-          deadLine :formattedDeadLine,
+          deadLine: formattedDeadLine,
           experience,
           mustSkills,
           goodSkills,
           currency,
           revalentExp,
-          status
+          status,
         });
       })
       .catch((err) => {
