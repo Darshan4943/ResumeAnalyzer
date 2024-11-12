@@ -50,6 +50,32 @@ const Index = () => {
     setMiniloading(true);
     getData();
   }, [page, limit]);
+  const handleDownload = async () => {
+    try {
+      let role = "recruiter"
+      const response = await axios.post(
+        'https://jamblix.com/api/users/download',
+        { role },
+        {
+          responseType: 'blob',
+        }
+      );
+
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'users_data.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (error) {
+      console.error('Error downloading the users data:', error);
+    }
+  };
 
   return (
     <>
@@ -66,6 +92,12 @@ const Index = () => {
           >
             <AddIcon color={"#fff"} /> Add Recruiter
           </button> */}
+           <button
+            onClick={handleDownload}
+            className="mt-4 buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect"
+          >
+            Download
+          </button>
         </div>
         <div
           className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "

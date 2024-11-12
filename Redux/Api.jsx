@@ -51,27 +51,37 @@ export const Api = ({ }) => {
   //     };
   // }, []);
 
-  console.log(userDataGlobal)
   useEffect(() => {
-    if (!userDataGlobal?.isLocalStorageClr && Object.keys(userDataGlobal).length === 0) {
 
-      axios
-        .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
-        .then((res) => {
-          localStorage.clear();
-          console.log("Local Storage Cleared")
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const timeoutId = setTimeout(() => {
+      if (Object.keys(userDataGlobal).length === 0) {
+        localStorage.clear();
+        console.log("Local Storage Cleared");
+      }
+    }, 10000); 
+  
+    
+    return () => clearTimeout(timeoutId);
   }, [userDataGlobal]);
+  
+  // if (userDataGlobal._id) {
+        //   axios
+        //     .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
+        //     .then((res) => {
+
+        //     })
+        //     .catch((err) => {
+        //       console.log(err);
+        //     });
+        // }
+
+
   // useEffect(() => {
   //   if (!userDataGlobal || (typeof userDataGlobal === 'object' && Object.keys(userDataGlobal).length === 0)) {
   //     localStorage.clear();
   //   }
   // }, [userDataGlobal]);
-  
+
 
   const dispatch = useDispatch();
 

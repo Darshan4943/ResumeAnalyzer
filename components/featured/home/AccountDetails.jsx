@@ -25,7 +25,7 @@ function AccountDetails({
   canceled,
   setCancelModel,
 }) {
-  console.log(selectedPlan)
+  
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);

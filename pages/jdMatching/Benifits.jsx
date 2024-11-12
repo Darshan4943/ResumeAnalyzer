@@ -93,7 +93,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
         extratctedData?.benefits?.map((benefit, index) => (
           <div
             key={index}
-            className="flex flex-col w-[416px] gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"
+            className="flex flex-col  gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"
           >
             <div className="flex flex-col p-[12px] gap-[6px]">
               <div className="flex flex-col gap-[4px]">
@@ -161,7 +161,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
 
       {showFrom && (
         <>
-          <div className="flex flex-col w-[416px] gap-[4px]">
+          <div className="flex flex-col  gap-[4px]">
             <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
               Type<span className="text-[#C00000]"> *</span>
             </label>
@@ -173,7 +173,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
               className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
             />
           </div>
-          <div className="flex flex-col w-[416px] gap-[4px]">
+          <div className="flex flex-col  gap-[4px]">
             <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
               Description<span className="text-[#C00000]"> *</span>
             </label>
@@ -188,7 +188,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-end gap-[4px] w-[416px]">
+          <div className="flex flex-row justify-end gap-[4px] ">
             {isEdit && (
               <button
                 type="button"

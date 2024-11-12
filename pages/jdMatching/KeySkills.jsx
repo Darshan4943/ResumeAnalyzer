@@ -39,7 +39,7 @@ const KeySkills = ({ extratctedData, setExtractedData }) => {
         </span>
       </div>
       <div className="flex flex-col gap-[12px]">
-        <div className="flex flex-row gap-[8px] flex-wrap w-[416px]">
+        <div className="flex flex-row gap-[8px] flex-wrap ">
           {skills.map((item, index) => (
             <div
               className="flex gap-[2px] px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md"
