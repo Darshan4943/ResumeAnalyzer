@@ -194,7 +194,7 @@ const MyCollection = () => {
         ) : (
           <>
             {isResumes === "resumes" ? (
-              <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+              <div className="flex flex-row scr540:justify-start justify-center flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
                 <div
                   onClick={() => router.push(`/home/BuildResume`)}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
@@ -321,7 +321,7 @@ const MyCollection = () => {
                 </>
               </div>
             ) : (
-              <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+              <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px] scr540:justify-start justify-center  ">
                 <div
                   onClick={() => router.push(`/coverLetter`)}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
