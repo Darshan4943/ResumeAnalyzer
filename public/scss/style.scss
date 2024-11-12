@@ -120,27 +120,21 @@ html {
     background-image: url("../images/resumeBuilder/watermark.png");
     background-position: center;
   }
-  .bg-skillheader{
+  .bg-skillheader {
     background-image: url("../images/skillHeader.png");
     background-position: center;
   }
-  .bg-skillfooter{
+  .bg-skillfooter {
     background-image: url("../images/skillFooter.png");
     background-position: start;
   }
-  .bg-certificate{
+  .bg-certificate {
     background-image: url("../images/resumeBuilder/certificate.png");
-    
   }
-  .bg-noJobs{
+  .bg-noJobs {
     background-image: url("../images/jobs/noJobsBg.png");
-    
   }
-  
-  
-  
 }
-
 
 .resumes {
   .react-pdf__Page__canvas {
@@ -151,14 +145,14 @@ html {
   }
 }
 
-@media (max-width: 460px) {
-  .resumes {
-    .react-pdf__Page__canvas {
-      width: 132px !important;
-      height: 200px !important;
-    }
-  }
-}
+// @media (max-width: 460px) {
+//   .resumes {
+//     .react-pdf__Page__canvas {
+//       width: 132px !important;
+//       height: 200px !important;
+//     }
+//   }
+// }
 
 .resumes1 {
   .react-pdf__Page__canvas {
@@ -183,8 +177,7 @@ html {
   .resumes2 {
     .react-pdf__Page__canvas {
       width: 100% !important;
-    height: 100vw !important;
-
+      height: 100vw !important;
     }
   }
 }
@@ -197,7 +190,6 @@ html {
 //     height: 872px !important;
 //   }
 // }
-
 
 .react-pdf__Page__canvas,
 .react-pdf__Page__textContent,
@@ -405,7 +397,7 @@ ol {
 }
 
 .move {
-  transition: all .3s linear;
+  transition: all 0.3s linear;
 }
 
 @keyframes move {
@@ -421,7 +413,6 @@ ol {
 .css-1hb7zxy-IndicatorsContainer {
   display: flex;
   flex-direction: row-reverse;
-
 }
 
 .css-1xc3v61-indicatorContainer {

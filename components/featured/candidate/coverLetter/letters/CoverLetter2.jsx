@@ -5,10 +5,14 @@ import CustomParastyle from "./CustomParastyle";
 const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
   const firstPageRef = useRef(null);
   const [splitContents, setSplitContent] = useState({ first: [], second: [] });
+  // const [firstPageHeight, setFirstPageHeight]=useState(400)
 
+ 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 450;
+    const screenHeight = window.innerHeight;
+    const firstPageHeight = screenHeight >= 800 ? 815 : 400;
+    // const firstPageHeight = 450;
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");

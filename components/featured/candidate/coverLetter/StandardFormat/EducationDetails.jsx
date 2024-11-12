@@ -142,7 +142,6 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
     setError(newErrors);
   };
 
- 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
@@ -198,7 +197,8 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -215,7 +215,12 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      {errors[employer.name]}
+                      {console.log(errors[employer?.name])}
+                      {errors[employer.name] === "Sector is required"
+                        ? "industry or sector is required"
+                        : errors[employer.name]
+                        ? errors[employer.name]
+                        : ""}
                     </span>
                   )}
                 </div>
@@ -232,7 +237,8 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -250,7 +256,11 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      {errors[employer?.name]}
+                      {errors[employer?.name] === "Course is required"
+                        ? "course name is required"
+                        : errors[employer?.name]
+                        ? errors[employer?.name]
+                        : ""}
                     </span>
                   )}
                 </div>
@@ -263,7 +273,8 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -281,7 +292,9 @@ const EducationDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[10px] text-red">
-                      {errors[employer?.name]}
+                      {errors[employer?.name]
+                        ? "university name is required"
+                        : ""}
                     </span>
                   )}
                 </div>
