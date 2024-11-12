@@ -169,6 +169,17 @@ function CandidateHeader() {
             >
               <li>Active Plans</li>
             </Link>
+            <Link
+              onClick={() => setServices(false)}
+              href="/dashboard/ApiLogs"
+              className={
+                selectedPage === "/dashboard/ApiLogs"
+                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+              }
+            >
+              <li>Api Logs</li>
+            </Link>
             {/* <Link
               onClick={() => setServices(false)}
               href="/dashboard/Plans"

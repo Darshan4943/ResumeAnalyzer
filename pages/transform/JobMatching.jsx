@@ -594,7 +594,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
+                className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto w-[98%] max-w-[416px]"
                 style={{
                   background: "rgba(255, 255, 255, 0.5)",
                   backdropFilter: "blur(10px)",

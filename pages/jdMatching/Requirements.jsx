@@ -145,7 +145,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
   return (
     <>
       <div>
-        <div className="flex flex-row justify-between w-[416px] gap-[8px] ">
+        <div className="flex flex-row justify-between  gap-[8px] ">
           <h6 className="flex font-[400] text-[14px] text-left font-montserrat gap-2">
             Requirements<span className="text-[#C00000]">*</span>
           </h6>
@@ -185,7 +185,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
         <h6 className="flex font-[600] text-[12px] text-left font-montserrat gap-2">
           Must_Have
         </h6>
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <label className="flex font-[600] text-[12px] text-left font-montserrat gap-2">
             Qualification <span className="text-[#C00000]"> *</span>
           </label>
@@ -201,7 +201,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
             className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] font-[400]"
           />
         </div>
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <label className="flex font-[600] text-[12px] text-left font-montserrat gap-2">
             Year of Experience <span className="text-[#C00000]"> *</span>
           </label>
@@ -217,14 +217,14 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
             className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] font-[400]"
           />
         </div>
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <div className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
             <span>
               Skills <span className="text-[#C00000]">*</span>
             </span>
           </div>
           <div className="flex flex-col gap-[4px]">
-            <div className="flex flex-row gap-[4px] flex-wrap w-[416px]">
+            <div className="flex flex-row gap-[4px] flex-wrap ">
               {skills &&
                 skills.map((item, index) => (
                   <div
@@ -276,14 +276,14 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
           </div>
         </div>
 
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <div className="flex font-[400] text-[14px] text-left font-montserrat gap-2">
             <span>
               Soft Skills <span className="text-[#C00000]">*</span>
             </span>
           </div>
           <div className="flex flex-col gap-[8px] ">
-            <div className="flex flex-row gap-[4px] flex-wrap w-[416px]">
+            <div className="flex flex-row gap-[4px] flex-wrap ">
               {softSkills &&
                 softSkills.map((item, index) => (
                   <div
@@ -349,12 +349,12 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
         <h6 className="flex font-[600] text-[12px] text-left font-montserrat gap-2">
           Nice to Have
         </h6>
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <div className="flex font-[500] text-[14px]  text-left font-montserrat gap-2">
             <span>Skills</span>
           </div>
           <div className="flex flex-col gap-[4px]">
-            <div className="flex flex-row gap-[4px] flex-wrap w-[416px]">
+            <div className="flex flex-row gap-[4px] flex-wrap ">
               {niceToHaveSkills &&
                 niceToHaveSkills.map((item, index) => (
                   <div
@@ -406,7 +406,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
           </div>
         </div>
 
-        <div className="flex flex-col w-[416px] gap-[4px]">
+        <div className="flex flex-col  gap-[4px]">
           <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
             Experience
           </label>
@@ -434,7 +434,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
       </div>
 
       {/* Description */}
-      <div className="flex flex-col w-[416px] gap-[4px]">
+      <div className="flex flex-col  gap-[4px]">
         <label className="flex font-[500] text-[14px] text-left font-montserrat gap-2">
           Description <span className="text-[#C00000]"> *</span>
         </label>
