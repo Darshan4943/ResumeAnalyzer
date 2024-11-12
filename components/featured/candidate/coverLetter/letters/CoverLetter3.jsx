@@ -9,7 +9,9 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const screenHeight = window.innerHeight;
+    const firstPageHeight = screenHeight >= 800 ? 715 : 350;
+    // const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");

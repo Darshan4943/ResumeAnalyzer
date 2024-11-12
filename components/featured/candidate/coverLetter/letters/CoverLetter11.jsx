@@ -9,7 +9,9 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350;
+    const screenHeight = window.innerHeight;
+    const firstPageHeight = screenHeight >= 800 ? 615 : 350;
+    // const firstPageHeight = 350;
     const tempDiv = document.createElement("div");
     tempDiv.style.position = "absolute";
     tempDiv.style.visibility = "hidden";

@@ -9,7 +9,9 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const screenHeight = window.innerHeight;
+    const firstPageHeight = screenHeight >= 800 ? 615 : 350;
+    // const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -52,7 +54,6 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
     return link;
   };
 
-
   const formatName = (link) => {
     if (link?.length > 18) {
       return link?.match(/.{1,18}/g).join("\n");
@@ -67,8 +68,6 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
     return link;
   };
 
-
-
   return (
     <div className="flex flex-col gap-[24px]">
       <div
@@ -78,8 +77,8 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
         <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px] gap-[16px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
             <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-word ">
-              {formatName(camelCase(data?.firstName))} {formatName(camelCase(data?.lastName))}
-
+              {formatName(camelCase(data?.firstName))}{" "}
+              {formatName(camelCase(data?.lastName))}
             </span>
 
             <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-word">
@@ -231,20 +230,20 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
             <div className="flex flex-col justify-start w-full gap-[8px]">
               <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                 {splitContents.second.map((passage, index) => (
-                   <>
-                  <CustomParastyle
-                    style={{
-                      margin: "16px 0",
-                      fontSize: "10px",
-                      fontWeight: "400",
-                      color: "#414042",
-                      textAlign: "justify",
-                      fontFamily: "Poppins",
-                    }}
-                    key={index}
-                    passage={passage}
-                  />
-                </>
+                  <>
+                    <CustomParastyle
+                      style={{
+                        margin: "16px 0",
+                        fontSize: "10px",
+                        fontWeight: "400",
+                        color: "#414042",
+                        textAlign: "justify",
+                        fontFamily: "Poppins",
+                      }}
+                      key={index}
+                      passage={passage}
+                    />
+                  </>
                 ))}
               </div>
               {splitContents?.second?.length > 0 && (
