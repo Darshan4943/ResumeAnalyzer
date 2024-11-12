@@ -19,7 +19,6 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
     const screenHeight = window.innerHeight;
-    console.log(33, screenHeight);
     const firstPageHeight = screenHeight >= 600 ? 990 : 350;
 
     // Create a temporary element to measure content height
