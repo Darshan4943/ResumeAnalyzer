@@ -65,9 +65,8 @@ const ResultPdf = ({
     const splitContent = () => {
       // const pageHeight = 800;
       const screenHeight = window.innerHeight;
-      console.log(44, screenHeight);
-      const pageHeight = screenHeight >= 700 ? 800: 1400;
-      console.log(222, pageHeight);
+
+      const pageHeight = screenHeight >= 700 ? 800 : 1400;
 
       const tempDiv = document.createElement("div");
 
