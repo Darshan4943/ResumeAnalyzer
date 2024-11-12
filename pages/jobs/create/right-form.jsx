@@ -34,62 +34,11 @@ const Rightform = ({
   const postJob = () => {
     let hasError = false;
 
-    if (!data.mustSkills || data.mustSkills.length === 0) {
-      setFormError((formError) => ({
-        ...formError,
-        mustSkills: "Must have Skills are required",
-      }));
-      toast.error("Must have Skills are required");
-      hasError = true;
-    }
-
-    if (!data.goodSkills || data.goodSkills.length === 0) {
-      setFormError((formError) => ({
-        ...formError,
-        goodSkills: "Good to have Skills are required",
-      }));
-      toast.error("Good to have Skills are required");
-      hasError = true;
-    }
-
-    if (!data.deadLine) {
-      setFormError((formError) => ({
-        ...formError,
-        deadLine: "Deadline required",
-      }));
-      toast.error("Deadline required");
-      hasError = true;
-    }
-    if (!data.location || data.location.length === 0) {
-      setFormError((formError) => ({
-        ...formError,
-        location: "Location is required",
-      }));
-      toast.error("Location is required");
-      hasError = true;
-    }
-    if (!data.country || data.country.length === 0) {
-      setFormError((formError) => ({
-        ...formError,
-        country: "Country is required",
-      }));
-      toast.error("Country is required");
-      hasError = true;
-    }
-    if (!data.currency) {
-      setFormError((formError) => ({
-        ...formError,
-        currency: "currency is required",
-      }));
-      toast.error("currency is required");
-      hasError = true;
-    }
-
     const requiredFields = ["companyName", "jobTitle"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
     if (emptyFields.length > 0) {
-      toast.error("Please fill in all required fields");
+      toast.error("please fill required fields");
       emptyFields.forEach((field) => {
         setFormError((formError) => ({
           ...formError,
