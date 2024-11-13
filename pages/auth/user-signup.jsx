@@ -368,7 +368,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 </div>
               </div>
               {resend &&
-              <p className="text-[12px] text-red pl-1"> Didn't receive your OTP? Please check your spam or junk folder.</p>
+              <p className="text-[12px] text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
               }
             </div>
           )}
