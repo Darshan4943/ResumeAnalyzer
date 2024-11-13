@@ -33,20 +33,93 @@ const Rightform = ({
 
   const postJob = () => {
     let hasError = false;
+    if (!data.companyName || data.companyName.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        companyName: "company Name is required",
+      }));
+    
+      hasError = true;
+    }
+    if (!data.jobTitle || data.jobTitle.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        jobTitle: "Job Title is required",
+      }));
+    
+      hasError = true;
+    }
+    if (!data.jobType || data.jobType.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        jobType: "Job Type is required",
+      }));
+    
+      hasError = true;
+    }
+    if (!data.mustSkills || data.mustSkills.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        mustSkills: "Must have Skills are required",
+      }));
+    
+      hasError = true;
+    }
 
-    const requiredFields = ["companyName", "jobTitle"];
+    if (!data.goodSkills || data.goodSkills.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        goodSkills: "Good to have Skills are required",
+      }));
+    
+      hasError = true;
+    }
+
+    if (!data.deadLine) {
+      setFormError((formError) => ({
+        ...formError,
+        deadLine: "Deadline required",
+      }));
+ 
+      hasError = true;
+    }
+    if (!data.location || data.location.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        location: "Location is required",
+      }));
+    
+      hasError = true;
+    }
+    if (!data.country || data.country.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        country: "Country is required",
+      }));
+    
+      hasError = true;
+    }
+    // if (!data.currency) {
+    //   setFormError((formError) => ({
+    //     ...formError,
+    //     currency: "currency is required",
+    //   }));
+      
+    //   hasError = true;
+    // }
+    const requiredFields = ["companyName", "jobTitle","mustSkills","country","location",'deadLine',"goodSkills","jobType"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
     if (emptyFields.length > 0) {
       toast.error("please fill required fields");
-      emptyFields.forEach((field) => {
-        setFormError((formError) => ({
-          ...formError,
-          [field]: `${
-            field.charAt(0).toUpperCase() + field.slice(1)
-          } is required`,
-        }));
-      });
+      // emptyFields.forEach((field) => {
+      //   setFormError((formError) => ({
+      //     ...formError,
+      //     [field]: `${
+      //       field.charAt(0).toUpperCase() + field.slice(1)
+      //     } is required`,
+      //   }));
+      // });
       hasError = true;
     }
 
@@ -134,7 +207,7 @@ const Rightform = ({
       <div className="flex justify-between gap-4">
         <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
           <label className="text-[#333333] text-[14px] font-medium">
-            Job Type
+            Job Type <span className="text-red">*</span>
           </label>
           <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
             <select
@@ -149,6 +222,10 @@ const Rightform = ({
               value={data?.jobType}
               onChange={(e) => {
                 setData({ ...data, jobType: e.target.value });
+                setFormError((prevErrors) => ({
+                  ...prevErrors,
+                  jobType: "",
+                }));
               }}
               className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
             >
@@ -164,7 +241,13 @@ const Rightform = ({
               className="h-[20px] w-[20px] absolute right-[4px]"
               alt=""
             />
+            
           </div>
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.jobType}
+            </p>
+          )}
         </div>
 
         <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">

@@ -56,7 +56,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
         <div>
           {selectedJob && (
             <>
-              <div 
+              <div
                 onWheel={(e) => e.stopPropagation()}
                 className="p-[16px] border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  h-[calc(100vh-288.33px)] overflow-y-scroll "
                 style={{
@@ -154,7 +154,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         Job Mode : {selectedJob.jobMode}
                       </div>
                     }
-                    {(selectedJob.minSalary || selectedJob.maxSalary) && (
+
+                    {(selectedJob.minSalary > 0 || selectedJob.maxSalary > 0) && (
                       <div className="text-[12px] font-[500] ">
                         Salary :{" "}
                         {
@@ -162,8 +163,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                           (() => {
                             const icon = currenciesWithIcons?.find(
                               (item) =>
-                                item?.icon?.toLowerCase() ===
-                                selectedJob?.currency?.toLowerCase()
+                                item?.icon?.toLowerCase() === selectedJob?.currency?.toLowerCase()
                             );
 
                             // Return the formatted string
@@ -171,9 +171,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                               <>
                                 {icon ? icon.symbol : selectedJob?.currency}{" "}
                                 {selectedJob.minSalary}{" "}
-                                {selectedJob.minSalary &&
-                                  selectedJob.maxSalary &&
-                                  "-"}{" "}
+                                {selectedJob.minSalary && selectedJob.maxSalary && "-"}{" "}
                                 {icon ? icon.symbol : selectedJob?.currency}{" "}
                                 {selectedJob.maxSalary}{" "}
                                 {selectedJob.salaryType === "Annual"
@@ -185,6 +183,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         }
                       </div>
                     )}
+
                     {selectedJob.requiredQualification && (
                       <div className="text-[12px] font-[500] ">
                         Education : {selectedJob.requiredQualification}
