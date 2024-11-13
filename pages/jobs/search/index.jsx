@@ -334,7 +334,7 @@ function Index() {
     } catch (err) {
       setTimeout(() => {
         setLoading(false);
-      }, 5000);
+      }, 1000);
       console.error(err);
     }
   };
@@ -580,7 +580,7 @@ function Index() {
       setLoading(true);
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
