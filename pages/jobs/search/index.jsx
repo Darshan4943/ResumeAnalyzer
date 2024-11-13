@@ -580,7 +580,7 @@ function Index() {
       setLoading(true);
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }

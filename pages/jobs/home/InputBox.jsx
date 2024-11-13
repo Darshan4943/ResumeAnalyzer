@@ -43,7 +43,7 @@ const InputBox = ({
     };
 
     try {
-      if (country) {
+      // if (country) {
         const response = await axios.post(
           "https://jamblix.com/api/job/getFilterData",
           {
@@ -64,7 +64,7 @@ const InputBox = ({
           setLoading(false);
         }, 1000);
         setLocalIsDropdownOpen(false);
-      }
+      // }
     } catch (error) {
       console.error("Error fetching filter data", error);
     } 
