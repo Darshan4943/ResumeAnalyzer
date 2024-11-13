@@ -815,7 +815,7 @@ function Recruiter_signup({ }) {
                               )}
                             </div>
                             {resend &&
-                              <p className="text-[12px]  text-red pl-1"> Didn't receive your OTP? Please check your spam or junk folder.</p>
+                              <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
                             }
                           </div>
                         )}
@@ -858,7 +858,7 @@ function Recruiter_signup({ }) {
                         <div className="flex gap-2 items-center">
                           Enter Code
                           {resend &&
-                            <p className="text-[12px]  text-red pl-1"> Didn't receive your OTP? Please check your spam or junk folder.</p>
+                            <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
                           }
                         </div>
                         <div className="flex gap-4 h-[48px]  items-center ml:w-[49%] ">
