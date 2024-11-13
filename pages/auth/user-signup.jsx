@@ -56,6 +56,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         toast.error(err?.response?.data.message);
         setLoading(false);
         setLoadingg(false)
+        toast.error("Enter Valid Mail");
       });
   };
 
