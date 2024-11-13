@@ -96,7 +96,8 @@ const Index = () => {
         ids: selectedIndexes,
       })
       .then((response) => {
-       
+        setSelect(false)
+        setSelectedIndexes([])
         setSelectAll([]);
         getData();
         toast.success("Post Deleted successfully");
