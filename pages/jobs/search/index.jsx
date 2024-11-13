@@ -334,7 +334,7 @@ function Index() {
     } catch (err) {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 5000);
       console.error(err);
     }
   };
