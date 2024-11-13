@@ -344,13 +344,13 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                   name=""
                   id=""
                   placeholder="Enter OTP"
-                  className="  leading-tight text-black"
+                  className="  leading-tight text-black scr390:max-w-full max-w-[150px]"
                   onChange={(e) =>
                     setOtpEntered(parseInt(e.target.value))
                   }
                 />
 
-                <div className="  text-[16px] font-medium flex justify-center items-center cursor-pointer text-[#C00000] leading-tight">
+                <div className="  scr390:text-[16px] text-[14px] font-medium flex justify-center items-center cursor-pointer text-[#C00000] leading-tight">
                   {loadingg ? (
                     <MiniLoader />
                   ) : (
