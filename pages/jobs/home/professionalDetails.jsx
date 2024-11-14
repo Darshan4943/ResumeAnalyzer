@@ -68,7 +68,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, s
                 <ReactSelect
                   options={currencyOptions}
                   className="w-[100%] flex min-w-[85px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
-                  placeholder="Select Currency"
+                  placeholder="Currency"
                   value={
                     currencyOptions.find(
                       (option) => option.value === data?.currencyCurrentCTC
@@ -131,7 +131,7 @@ const ProfessionalDetails = ({ data, handleInputChange, formError, jobDetails, s
                 <ReactSelect
                   options={currencyOptions}
                   className="w-[100%] flex min-w-[85px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[41.33px]"
-                  placeholder="Select Currency"
+                  placeholder="Currency"
                   value={
                     currencyOptions.find(
                       (option) => option.value === data?.currencyExpectedCTC

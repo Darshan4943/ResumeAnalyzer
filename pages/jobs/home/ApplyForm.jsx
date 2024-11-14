@@ -598,8 +598,8 @@ function ApplyForm() {
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-4 items-center">
-              <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[270px] min-w-[210px]">
-                Upload CV / Resume
+              <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[200px] min-w-[170px]">
+                Upload Resume
               </h2>
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
             </div>
@@ -608,7 +608,7 @@ function ApplyForm() {
             {!loadingg ? (
               <>
                 {resumes?.length > 0 &&
-                  <div className="flex flex-col gap-3 h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
+                  <div className="flex flex-col gap-3 max-h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
                     {resumes?.map((item, index) => (
                       <div
                         key={index}
