@@ -150,7 +150,8 @@ const Applications = ({
                           {item?.details?.personal?.currentLocation}
                         </th>*/}
                         <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
-                          {item.matchingPercentage}%
+                        {item.matchingPercentage ? `${item.matchingPercentage}%` : "Syncing..."}
+
                         </th>
                         <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                           {dateSeter(item.appliedOn)}

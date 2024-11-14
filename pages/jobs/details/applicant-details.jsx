@@ -23,7 +23,7 @@ const ApplicantDetails = () => {
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState(null);
   const [application, setApplication] = useState({});
-
+  console.log(application)
   const getData = () => {
     setLoading(true);
 
@@ -117,8 +117,8 @@ const ApplicantDetails = () => {
               <div className="flex flex-row gap-[16px]">
                 <img
                   src={
-                    
-                      "/images/services/profile.png"
+
+                    "/images/services/profile.png"
                   }
                   alt="img"
                   className="h-[96px] w-[96px] object-contain rounded-[50%]"
@@ -267,7 +267,7 @@ const ApplicantDetails = () => {
                     </div>*/}
                     <div className="flex ms:flex-col flex-col gap-[16px] justify-between w-full">
                       <div className="w-[50%] ms:w-[100%] flex flex-col gap-[16px] ">
-                        {application?.details?.professional?.hightestQul && (
+                        {/* {application?.details?.professional?.hightestQul && (
                           <div className="flex flex-col">
                             <span className="text-[16px] text-[#333333] font-medium">
                               Educational Qualifications
@@ -279,21 +279,24 @@ const ApplicantDetails = () => {
                                 : "Syncning..."}
                             </span>
                           </div>
-                        )}
+                        )} */}
 
                         <div className="flex ms:flex-row flex-col w-full justify-between gap-4">
-                          <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
-                            <span className="text-[16px] text-[#333333] font-medium">
-                              Total Experience
-                            </span>
-                            <span className="text-[14px] text-[#333333] font-normal">
-                              {application?.details?.professional
-                                ?.totalExperience
-                                ? application?.details?.professional
+                          {application?.details?.professional
+                            ?.totalExperience &&
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Total Experience
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
                                   ?.totalExperience
-                                : "Syncing..."}
-                            </span>
-                          </div>
+                                  ? application?.details?.professional
+                                    ?.totalExperience
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          }
                           {application?.details?.professional
                             ?.relevantExperience && (
                               <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
@@ -312,9 +315,10 @@ const ApplicantDetails = () => {
                         </div>
 
                         <div className="flex ms:flex-row  flex-col w-full justify-between gap-4">
+                        {application?.details?.professional?.currentCTC && 
                           <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
                             <span className="text-[16px] text-[#333333] font-medium">
-                              Current CTC 
+                              Current CTC
                             </span>
                             <span className="text-[14px] text-[#333333] font-normal">
                               {application?.details?.professional?.currentCTC
@@ -322,9 +326,11 @@ const ApplicantDetails = () => {
                                 : "Syncing..."}
                             </span>
                           </div>
+}
+                          {application?.details?.professional?.expectedCTC &&
                           <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
                             <span className="text-[16px] text-[#333333] font-medium">
-                              Expected CTC 
+                              Expected CTC
                             </span>
                             <span className="text-[14px] text-[#333333] font-normal">
                               {application?.details?.professional?.expectedCTC
@@ -332,23 +338,23 @@ const ApplicantDetails = () => {
                                 : "Syncing..."}
                             </span>
                           </div>
-                          
+}
                         </div>
                         {application?.details?.professional
-                            ?.relevantExperience && (
-                              <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
-                                <span className="text-[16px] text-[#333333] font-medium">
-                                  Notice Period
-                                </span>
-                                <span className="text-[14px] text-[#333333] font-normal">
-                                  {application?.details?.professional
+                          ?.relevantExperience && (
+                            <div className="ms:w-[50%] w-full flex flex-col gap-[16px] ">
+                              <span className="text-[16px] text-[#333333] font-medium">
+                                Notice Period
+                              </span>
+                              <span className="text-[14px] text-[#333333] font-normal">
+                                {application?.details?.professional
+                                  ?.noticePeriod
+                                  ? application?.details?.professional
                                     ?.noticePeriod
-                                    ? application?.details?.professional
-                                      ?.noticePeriod
-                                    : "Syncing..."}
-                                </span>
-                              </div>
-                            )}
+                                  : "Syncing..."}
+                              </span>
+                            </div>
+                          )}
                       </div>
                       {application?.details?.professional?.skills.length > 0 &&
                         <div className="ms:w-[70%] w-full flex flex-col gap-[16px] ">
