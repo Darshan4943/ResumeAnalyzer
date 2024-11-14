@@ -384,8 +384,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                               limits.total.chatBotLimit.monthly)
                           ) : 0}% `,
                           maxWidth: `${Math.round(
-                            ((limits.total.chatBotLimit.monthly * 100) /
-                              limits.total.chatBotLimit.monthly)
+                            ((limits?.total?.chatBotLimit?.monthly * 100) /
+                              limits?.total?.chatBotLimit?.monthly)
                           )}%`
                         }}
                         className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
