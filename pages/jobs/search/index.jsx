@@ -140,6 +140,7 @@ function Index() {
   const [totalCount, setTotalCount] = useState(0);
   const [isCountrySet, setIsCountrySet] = useState(false);
   const [miniLoading, setMiniloading] = useState(false);
+  
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1);
