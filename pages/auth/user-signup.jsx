@@ -14,7 +14,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const [verify, setVerify] = useState(false);
   const [otp, setOtp] = useState(null);
   const [otpEntered, setOtpEntered] = useState(null);
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(true);
   const [otpError, setOtpError] = useState("");
   const router = useRouter();
   const [timer, setTimer] = useState(30);
@@ -250,7 +250,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   const handleEmailChange = (e) => {
     setVerify(false);
-    setVerified(false);
+    // setVerified(false);
     const lowercaseEmail = e.target.value.toLowerCase();
     setData({ ...data, email: lowercaseEmail });
     setIsEmailEntered(lowercaseEmail.trim() !== "");
@@ -315,7 +315,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
               className="w-full   "
             />
-            {verified && (
+            {/* {verified && (
               <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
                 <svg
                   width="24"
@@ -333,7 +333,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 </svg>
 
               </div>
-            )}
+            )} */}
           </div>
 
           {(verify && !verified) && (
