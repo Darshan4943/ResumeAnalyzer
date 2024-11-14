@@ -4,6 +4,7 @@ import { setJob } from "../../../Redux/actions";
 import { useDispatch } from "react-redux";
 
 const InputBox = ({
+  isCountrySet,
   setTotalpages,
   setTotalCount,
   limit,
@@ -44,30 +45,30 @@ const InputBox = ({
 
     try {
       // if (country) {
-        const response = await axios.post(
-          "https://jamblix.com/api/job/getFilterData",
-          {
-            requiredSkills: userSkills?.map((item) => item),
-            country,
-            ...mappedFilters,
-          },
-          {
-            params: { page,limit },
-          }
-        );
-        
-        setJobData(response.data.data)
-        setTotalCount(response.data.totalCount);
-        setTotalpages(response.data.totalPages);
-        // dispatch(setJob(response.data.data));
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-        setLocalIsDropdownOpen(false);
+      const response = await axios.post(
+        "https://jamblix.com/api/job/getFilterData",
+        {
+          requiredSkills: userSkills?.map((item) => item),
+          country,
+          ...mappedFilters,
+        },
+        {
+          params: { page, limit },
+        }
+      );
+
+      setJobData(response.data.data)
+      setTotalCount(response.data.totalCount);
+      setTotalpages(response.data.totalPages);
+      // dispatch(setJob(response.data.data));
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      setLocalIsDropdownOpen(false);
       // }
     } catch (error) {
       console.error("Error fetching filter data", error);
-    } 
+    }
   };
 
   const handleClearFilters = () => {
@@ -78,7 +79,9 @@ const InputBox = ({
 
 
   useEffect(() => {
-    getFilterData()
+    if (isCountrySet) {
+      getFilterData()
+    }
   }, [clear]);
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import { CountPostingDays } from "../../../utils/data";
 import MiniLoader from "../../../components/common/miniLoader";
 import SavedJobCard from "./SavedJobCard";
 import NoJobs from "./noJobs";
-function SavedJobs({ setLimitPopup, appliedJobs
+function SavedJobs({ setLimitPopup, appliedJobs,
 }) {
   const [selectedJob, setSelectedJob] = useState();
   const jobData = useSelector((state) => state.getAllJobs.data);
@@ -22,8 +22,8 @@ function SavedJobs({ setLimitPopup, appliedJobs
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [savedJobList, setSavedJobList] = useState([]);
-  const [miniLoading, setMiniloading] = useState(false);
 
+  const [miniLoading, setMiniloading] = useState(false);
 
   const [isDescription, setIsDescription] = useState(false);
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
@@ -32,6 +32,7 @@ function SavedJobs({ setLimitPopup, appliedJobs
 
 
   const getData = () => {
+    setMiniloading(true)
     axios
       .post("https://jamblix.com/api/job/getSaveJobByIds", {
         ids: userDataGlobal?.savedJobs
@@ -46,12 +47,14 @@ function SavedJobs({ setLimitPopup, appliedJobs
         setTotalpages(res.data.totalPages);
         setTimeout(() => {
           setLoading(false);
+          setMiniloading(false)
         }, 1000);
       })
       .catch((err) => {
         console.log(err);
         setTimeout(() => {
           setLoading(false);
+          setMiniloading(false)
         }, 1000);
       });
   };
@@ -88,6 +91,7 @@ function SavedJobs({ setLimitPopup, appliedJobs
                     }`}
                 >
                   <SavedJobCard
+                   miniLoading={miniLoading}
                     selectedJob={selectedJob}
                     setIsDescription={setIsDescription}
                     setSelectedJob={setSelectedJob}
@@ -109,6 +113,7 @@ function SavedJobs({ setLimitPopup, appliedJobs
            ml:mt-4`}
               >
                 <SavedJobCard
+                 miniLoading={miniLoading}
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
                   setSelectedJob={setSelectedJob}

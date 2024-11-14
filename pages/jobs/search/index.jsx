@@ -138,7 +138,8 @@ function Index() {
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
-
+  const [isCountrySet, setIsCountrySet] = useState(false);
+  const [miniLoading, setMiniloading] = useState(false);
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1);
@@ -147,6 +148,7 @@ function Index() {
 
   useEffect(() => {
     setCountry(userDataGlobal.country);
+    setIsCountrySet(true);
     axios
       .get("https://jamblix.com/api/jobs/getJobAttributes")
       .then((res) => {
@@ -311,6 +313,7 @@ function Index() {
   }, [userDataGlobal]);
 
   const getAllData = async () => {
+    setMiniloading(true);
     try {
       const res = await axios.post(
         "https://jamblix.com/api/job/getAll",
@@ -330,19 +333,21 @@ function Index() {
       setTotalpages(res.data.totalPages);
       setTimeout(() => {
         setLoading(false);
+        setMiniloading(false);
       }, 1000);
     } catch (err) {
       setTimeout(() => {
         setLoading(false);
+        setMiniloading(false);
       }, 1000);
       console.error(err);
     }
   };
 
   useEffect(() => {
-
-    getAllData();
-
+    if (isCountrySet) {
+      getAllData();
+    }
   }, [page, limit, country]);
 
 
@@ -764,6 +769,7 @@ function Index() {
                 <div className="flex items-center py-5  gap-3 flex-wrap  ">
                   {filteredInputData.map((item, index) => (
                     <InputBox
+                    isCountrySet={isCountrySet}
                       setTotalCount={setTotalCount}
                       setTotalpages={setTotalpages}
                       setJobData={setJobData}
@@ -954,6 +960,8 @@ function Index() {
                       </div>
                     ) : (
                       <AllJobs
+                      setMiniloading={setMiniloading}
+                      miniLoading={miniLoading}
                         loading={loading}
                         setLoading={setLoading}
                         setLimitPopup={setLimitPopup}
@@ -974,13 +982,16 @@ function Index() {
 
                 {toggleHeadings === 1 && (
                   <div className="col-span-12">
-                    <AppliedJobs setLimitPopup={setLimitPopup} />
+                    <AppliedJobs setLimitPopup={setLimitPopup} 
+                      setMiniloading={setMiniloading}
+                      miniLoading={miniLoading} />
                   </div>
                 )}
 
                 {toggleHeadings === 2 && (
                   <div className="col-span-12">
                     <SavedJobs
+                    
                       setLimitPopup={setLimitPopup}
                       appliedJobs={appliedJobs}
                     />
