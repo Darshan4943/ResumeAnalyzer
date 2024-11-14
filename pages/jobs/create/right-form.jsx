@@ -38,7 +38,7 @@ const Rightform = ({
         ...formError,
         companyName: "company Name is required",
       }));
-    
+
       hasError = true;
     }
     if (!data.jobTitle || data.jobTitle.length === 0) {
@@ -46,7 +46,7 @@ const Rightform = ({
         ...formError,
         jobTitle: "Job Title is required",
       }));
-    
+
       hasError = true;
     }
     if (!data.jobType || data.jobType.length === 0) {
@@ -54,7 +54,7 @@ const Rightform = ({
         ...formError,
         jobType: "Job Type is required",
       }));
-    
+
       hasError = true;
     }
     if (!data.mustSkills || data.mustSkills.length === 0) {
@@ -62,7 +62,7 @@ const Rightform = ({
         ...formError,
         mustSkills: "Must have Skills are required",
       }));
-    
+
       hasError = true;
     }
 
@@ -71,7 +71,7 @@ const Rightform = ({
         ...formError,
         goodSkills: "Good to have Skills are required",
       }));
-    
+
       hasError = true;
     }
 
@@ -80,7 +80,7 @@ const Rightform = ({
         ...formError,
         deadLine: "Deadline required",
       }));
- 
+
       hasError = true;
     }
     if (!data.location || data.location.length === 0) {
@@ -88,7 +88,7 @@ const Rightform = ({
         ...formError,
         location: "Location is required",
       }));
-    
+
       hasError = true;
     }
     if (!data.country || data.country.length === 0) {
@@ -96,7 +96,7 @@ const Rightform = ({
         ...formError,
         country: "Country is required",
       }));
-    
+
       hasError = true;
     }
     // if (!data.currency) {
@@ -104,10 +104,10 @@ const Rightform = ({
     //     ...formError,
     //     currency: "currency is required",
     //   }));
-      
+
     //   hasError = true;
     // }
-    const requiredFields = ["companyName", "jobTitle","mustSkills","country","location",'deadLine',"goodSkills","jobType"];
+    const requiredFields = ["companyName", "jobTitle", "mustSkills", "country", "location", 'deadLine', "goodSkills", "jobType"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
     if (emptyFields.length > 0) {
@@ -180,8 +180,25 @@ const Rightform = ({
   const isRelevantAllowed = (totalExpIndex, relevantExpIndex) => {
     return relevantExpIndex <= totalExpIndex;
   };
+
+
+
+  const qualificationOptions = [
+    { value: 'Doctorate', label: 'Doctorate (Ph.D. or equivalent)' },
+    { value: 'Masters', label: "Master's Degree" },
+    { value: 'Bachelors', label: "Bachelor's Degree" },
+    { value: 'Associate', label: 'Associate Degree' },
+    { value: 'Diploma', label: 'Diploma' },
+    { value: 'Certificate', label: 'Certificate' },
+    { value: 'HighSchool', label: 'High School Diploma' },
+    { value: 'Vocational', label: 'Vocational Training' },
+    { value: 'GraduateDiploma', label: 'Graduate Diploma' },
+    { value: 'PostgraduateCertificate', label: 'Postgraduate Certificate' },
+    { value: 'Intermediate', label: 'Intermediate' },
+    { value: 'Matric', label: 'Matric' },
+  ];
   return (
-    <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
+    <div className="flex flex-col md:w-[50%] w-full gap-[16px] ml:pt-0 pt-6">
       <div className="flex flex-col w-full gap-[16px]">
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
@@ -241,7 +258,7 @@ const Rightform = ({
               className="h-[20px] w-[20px] absolute right-[4px]"
               alt=""
             />
-            
+
           </div>
           {formError && (
             <p className="text-[12px] text-[red] font-[500]">
@@ -398,20 +415,64 @@ const Rightform = ({
             </div>
           </div>
         </div>
+      
+         
+
+       
         <div className="form-group">
-          <label className="text-[#333333] text-[14px] font-medium">
-            Required Qualification
-          </label>
-          <input
-            type="text"
-            placeholder="Required Qualification"
-            className="input"
-            value={data?.requiredQualification}
-            onChange={(e) => {
-              setData({ ...data, requiredQualification: e.target.value });
-            }}
-          />
-        </div>
+            <label className="text-[#333333] text-[14px] font-medium">
+              Qualification Type
+            </label>
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] ">
+
+              <ReactSelect
+
+                options={qualificationOptions}
+                isMulti
+                className="w-full min-w-[150px]  rounded-[8px] text-[14px] font-montserrat font-small text-black  leading-tight"
+                placeholder="Select qualifications"
+                value={qualificationOptions.filter(option => data?.qualificationType?.includes(option.value))}
+                onChange={(selectedOptions) => {
+                  setData({
+                    ...data,
+                    qualificationType: selectedOptions.map(option => option.value),
+                  });
+               
+                }}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    border: 'none',
+                    width: '100%',
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    zIndex: 1,
+                    position: 'absolute',
+                  }),
+                }}
+              />
+
+            </div>
+
+          </div>
+          <div className="form-group">
+            <label className="text-[#333333] text-[14px] font-medium">
+              Required Qualification
+            </label>
+
+            <input
+              type="text"
+              placeholder="Required Qualification"
+              className="input"
+              value={data?.requiredQualification}
+              onChange={(e) => {
+                setData({ ...data, requiredQualification: e.target.value });
+              }}
+            />
+
+          </div>
+          
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
             Must have Skills
