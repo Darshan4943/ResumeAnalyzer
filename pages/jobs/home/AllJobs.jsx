@@ -24,6 +24,8 @@ function AllJobs({
   appliedJobs,
   jobData,
   loading,
+  setMiniloading,
+  miniLoading,
 }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -75,6 +77,7 @@ function AllJobs({
                   }`}
                 >
                   <AllJobCard
+                    miniLoading={miniLoading}
                     selectedJob={selectedJob}
                     setIsDescription={setIsDescription}
                     setSelectedJob={setSelectedJob}
@@ -96,6 +99,7 @@ function AllJobs({
 
               <div className={`web1024 col-span-5 ml:mt-4`}>
                 <AllJobCard
+                  miniLoading={miniLoading}
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
                   setSelectedJob={setSelectedJob}

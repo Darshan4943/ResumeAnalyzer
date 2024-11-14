@@ -10,7 +10,7 @@ import NoJobs from "./noJobs";
 import AppliedJobCard from "./AppliedJobCard";
 import Description from "./Description";
 import MiniLoader from "../../../components/common/miniLoader";
-function AppliedJobs({  setLimitPopup }) {
+function AppliedJobs({  setLimitPopup, }) {
   const [selectedJob, setSelectedJob] = useState();
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
@@ -18,13 +18,14 @@ function AppliedJobs({  setLimitPopup }) {
   const [appliedJobs, setAppliedJobs] = useState()
   const [isDescription, setIsDescription] = useState(false);
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
-  
+  const [miniLoading, setMiniloading] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const dispatch = useDispatch();
 
   const getAppliedData = () => {
+    setMiniloading(true)
     axios
       .get(`https://jamblix.com/api/job/getAppliedJobs/${userDataGlobal._id}`, {
         params: { page, limit },
@@ -40,12 +41,14 @@ function AppliedJobs({  setLimitPopup }) {
         setTotalpages(res.data.totalPages);
         setTimeout(() => {
           setLoading(false);
+          setMiniloading(false);
         }, 1000);
       })
       .catch((err) => {
         console.error(err);
         setTimeout(() => {
           setLoading(false);
+          setMiniloading(false);
         }, 1000);
       });
 }
@@ -81,7 +84,7 @@ function AppliedJobs({  setLimitPopup }) {
                     selectedJob={selectedJob}
                     setIsDescription={setIsDescription}
                     setSelectedJob={setSelectedJob}
-
+                    miniLoading={miniLoading}
                     setLimit={setLimit}
                     limit={limit}
                     setTotalpages={setTotalpages}
@@ -99,6 +102,7 @@ function AppliedJobs({  setLimitPopup }) {
                ml:mt-4`}
               >
                 <AppliedJobCard
+                 miniLoading={miniLoading}
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
                   setSelectedJob={setSelectedJob}

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { reCallUserData } from '../../../Redux/actions/user';
 import MiniLoader from '../../../components/common/mini-loader';
 
-function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage, }) {
+function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage,  miniLoading, }) {
 
     const userDataGlobal = useSelector((state) => state.userData);
     
@@ -16,10 +16,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
     const [currentPage, setCurrentPage] = useState(1);
     
     const router = useRouter();
-    const [miniLoading, setMiniloading] = useState(false);
-    
-   
-
+  
     
     const nextPage = (e) => {
         e.stopPropagation();

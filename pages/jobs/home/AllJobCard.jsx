@@ -22,12 +22,15 @@ function AllJobCard({
   isLogin,
   appliedJobs,
   jobData,
+  setMiniloading,
+  miniLoading,
+
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [miniLoading, setMiniloading] = useState(false);
+ 
 
   const nextPage = (e) => {
     e.stopPropagation();

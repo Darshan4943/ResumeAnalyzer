@@ -9,7 +9,7 @@ import MiniLoader from '../../../components/common/mini-loader';
 
 function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     limit,
-  
+    miniLoading,
     totalPages,
     page,
     setPage, }) {
@@ -21,7 +21,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     const [currentPage, setCurrentPage] = useState(1);
     
     const router = useRouter();
-    const [miniLoading, setMiniloading] = useState(false);
+
     
    
   
