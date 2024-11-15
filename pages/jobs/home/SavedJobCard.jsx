@@ -7,17 +7,17 @@ import { toast } from 'react-toastify';
 import { reCallUserData } from '../../../Redux/actions/user';
 import MiniLoader from '../../../components/common/mini-loader';
 
-function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit,savedJobList,totalPages,page,setPage,  miniLoading, }) {
+function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, miniLoading, }) {
 
     const userDataGlobal = useSelector((state) => state.userData);
-    
- 
+
+
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     const router = useRouter();
-  
-    
+
+
     const nextPage = (e) => {
         e.stopPropagation();
         if (currentPage < totalPages) {
@@ -40,7 +40,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
 
     };
 
-  
+
 
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
@@ -175,7 +175,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                                     </g>
                                                 </svg>
                                                 <div className="text-[#262626] text-[12px] font-[400]">
-                                                {item.country.join(", ")} || {item.location.join(", ")}
+                                                    {item.country.join(", ")} || {item.location.join(", ")}
                                                 </div>
                                             </div>
                                         )}
@@ -198,7 +198,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                             </svg>
                                         </div>
                                         <div className="text-[#262626] font-[400] text-[12px]">
-                                        {item?.description?.length > 80
+                                            {item?.description?.length > 80
                                                 ? `${item.description.slice(0, 80)}...`
                                                 : item.description}
                                         </div>
@@ -223,22 +223,22 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                                     )}
 
                                     <div>
-                                      
-                                            <svg
-                                                onClick={(e) => removeSavedJob(e, item._id)}
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="14"
-                                                className=' cursor-pointer'
-                                                height="18"
-                                                viewBox="0 0 14 18"
-                                                fill="none"
-                                            >
-                                                <path
-                                                    d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
-                                                    fill="#333333"
-                                                />
-                                            </svg>
-                                        
+
+                                        <svg
+                                            onClick={(e) => removeSavedJob(e, item._id)}
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="14"
+                                            className=' cursor-pointer'
+                                            height="18"
+                                            viewBox="0 0 14 18"
+                                            fill="none"
+                                        >
+                                            <path
+                                                d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z"
+                                                fill="#333333"
+                                            />
+                                        </svg>
+
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                     <button
                         disabled={currentPage === 1}
                     >
-                        <svg  onClick={(e) =>prevPage(e)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={(e) => prevPage(e)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10517)">
                                 <path d="M15 6L9 12L15 18" stroke={
                                     currentPage !== 1 ? "#333333" :
@@ -295,7 +295,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,limit
                         disabled={currentPage === totalPages}
                     >
                         <svg width="25" height="24"
-                                onClick={(e) =>nextPage(e)} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            onClick={(e) => nextPage(e)} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10530)">
                                 <path d="M9.375 6L15.625 12L9.375 18" stroke={
                                     currentPage !== totalPages ? "#333333" :
