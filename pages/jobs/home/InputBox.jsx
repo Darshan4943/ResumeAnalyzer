@@ -78,11 +78,11 @@ const InputBox = ({
   };
 
 
-  useEffect(() => {
-    if (isCountrySet) {
-      getFilterData()
-    }
-  }, [clear]);
+  // useEffect(() => {
+  //   if (isCountrySet) {
+  //     getFilterData()
+  //   }
+  // }, [clear]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
