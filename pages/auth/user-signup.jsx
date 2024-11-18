@@ -302,7 +302,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[30px] font-[600]">Sign Up</div>
+        <div className="text-[30px] font-[600]"> Candidate Sign Up</div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row  gap-2 border-[1px] px-[16px] py-[12px]  rounded-[8px] border-solid border-[#9D9D9D]">
             <input

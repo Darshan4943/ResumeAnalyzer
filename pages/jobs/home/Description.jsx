@@ -117,8 +117,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                             setLimitPopup(true);
                           }
                         } else {
-                          // router.push(`/auth?signin=true&role=user`);
-                          setLimitPopup(true);
+                          router.push(`/auth?signin=true&role=user`);
+                          // setLimitPopup(true);
                         }
                       }}
                       className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status === "Hold"
@@ -277,8 +277,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                           setLimitPopup(true);
                         }
                       } else {
-                        // router.push(`/auth?signin=true&role=user`);
-                        setLimitPopup(true);
+                        router.push(`/auth?signin=true&role=user`);
+                        // setLimitPopup(true);
                       }
                     }}
                     className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px] ${(appliedJobs?.some((job) => job._id === selectedJob._id)) || selectedJob.status === "Hold"

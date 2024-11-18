@@ -736,7 +736,7 @@ function Index() {
             <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
               <div className=" customMargins overflow-x-auto  ">
                 <div
-                  className={`flex items-start lg:gap-4 sm:gap-3 gap-1 py-3 overflow-x-auto `}
+                  className={`flex items-start lg:gap-4 sm:gap-3 gap-1 py-3 overflow-x-auto ${!isLogin && "hidden"} `}
                 >
                   {headings
                     .filter((_, index) => isLogin || index === 0)
