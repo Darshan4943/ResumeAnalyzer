@@ -18,14 +18,14 @@ function DreamJob({ isLogin }) {
         </div>
         <div className=" flex flex-col gap-6 ml:w-[47%] w-full text-[#000000] ml:text-start text-center  ">
           <div className="flex flex-col gap-[24px] ml:items-start items-center">
-            <div className="font-semibold ml:text-[2.5vw] text-[30px] leading-tight">
+            <div className="font-semibold ml:text-[2.5vw] text-[30px] leading-tight xl:text-[42px]">
                Find Your <span className="text-[#06A9EF]">Dream Job</span>
            
-            <p className="font-semibold ml:text-[2.5vw] text-[30px] text-[#333333] ">
+            <p className="font-semibold ml:text-[2.5vw] text-[30px] text-[#333333] xl:text-[42px]">
               With <span className="text-[#06A9EF]">Skilotech</span>
               </p>
             </div>
-            <div className="font-medium ml:text-[1.2vw] text-[14px] text-[#333333] ">
+            <div className="font-medium ml:text-[1.2vw] text-[14px] text-[#333333] xl:text-[16px] ">
             Skilotech is committed to helping you achieve your career goals. Our job section is designed to connect you with employers who are looking for talented individuals like you. Whether you&apos;re a recent graduate, an experienced professional, or looking for a career change, Skilotech has the resources to help you find your dream job.
 
             </div>

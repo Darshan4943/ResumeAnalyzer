@@ -5,17 +5,20 @@ import { telCode } from '../../utils/data';
 import { useMediaQuery } from "@react-hook/media-query";
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 function Index() {
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const userDataGlobal = useSelector((state) => state.userData);
+    const [successModel, setSuccessModel] = useState(false)
+    const router = useRouter();
     const [data, setData] = useState({
         firstName: userDataGlobal.firstName || '',
         lastName: userDataGlobal.lastName || '',
-        mobileNo: userDataGlobal.mobileNo || '',
+        mobileNo: userDataGlobal.mobileNo ? String(userDataGlobal.mobileNo) : '',
         email: userDataGlobal.email || '',
         dial_code: userDataGlobal.dial_code || '',
-        role:userDataGlobal.role || '',
+        role: userDataGlobal.role || '',
     });
 
     const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -35,12 +38,12 @@ function Index() {
         const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
         setFilteredTelCode(combinedCodes);
 
-        
+
         const initialDialCode = combinedCodes.find(
             (code) => code.dial_code === userDataGlobal.dial_code
         );
 
-  
+
         if (initialDialCode) {
             setSelectedItem(initialDialCode);
         }
@@ -53,68 +56,59 @@ function Index() {
 
     const [formError, setFormError] = useState({});
     const validateInput = (fieldName, value) => {
-        const errors = { ...formError };
-
+        let error;
         switch (fieldName) {
             case "firstName":
                 if (!value.trim()) {
-                    errors.firstName = "First Name is required";
+                    error = "First Name is required";
                 } else if (!isNaN(value)) {
-                    errors.firstName = "First Name cannot be a number";
+                    error = "First Name cannot be a number";
                 } else if (/\d/.test(value)) {
-                    errors.firstName = "First Name cannot contain numbers";
-                } else {
-                    delete errors.firstName;
+                    error = "First Name cannot contain numbers";
                 }
                 break;
             case "lastName":
                 if (!value.trim()) {
-                    errors.lastName = "Last Name is required";
+                    error = "Last Name is required";
                 } else if (!isNaN(value)) {
-                    errors.lastName = "Last Name cannot be a number";
+                    error = "Last Name cannot be a number";
                 } else if (/\d/.test(value)) {
-                    errors.lastName = "Last Name cannot contain numbers";
-                } else {
-                    delete errors.lastName;
+                    error = "Last Name cannot contain numbers";
                 }
                 break;
             case "email":
                 if (!value.trim()) {
-                    errors.email = "Email is required";
+                    error = "Email is required";
                 } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                    errors.email = "Invalid email format";
-                } else {
-                    delete errors.email;
+                    error = "Invalid email format";
                 }
                 break;
-
             case "mobileNo":
                 if (!value.trim()) {
-                    errors.mobileNo = "Mobile Number is required";
+                    error = "Mobile Number is required";
                 } else if (value.trim().length < 10) {
-                    errors.mobileNo = "Mobile Number should be 10 digits";
+                    error = "Mobile Number should be 10 digits";
                 } else if (isNaN(value)) {
-                    errors.mobileNo = "Mobile Number cannot be text";
-                } else {
-                    delete errors.mobileNo;
+                    error = "Mobile Number cannot be text";
                 }
                 break;
             case "dial_code":
                 if (!value.trim()) {
-                    errors.dial_code = "Dial code is required";
-                } else {
-                    delete errors.dial_code;
+                    error = "Dial code is required";
                 }
                 break;
-
             default:
                 break;
         }
 
-        setFormError(errors);
+        setFormError((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: error,
+        }));
 
-        return errors;
+        return error;
     };
+
 
     const handleInputChange = (fieldName, value) => {
         if (fieldName === "mobileNo") {
@@ -135,21 +129,39 @@ function Index() {
         );
     };
 
-
     const planEnquiry = async (e) => {
         e.preventDefault();
-        try {
-          const response = await axios.post(
-            "https://jamblix.com/api/planEnquiry/create",
-            data
-          );
-          
-          toast.success("Contacted Successfully");
-         
-        } catch (error) {
-          console.error("Error:", error);
+
+
+        const errors = {};
+        errors.firstName = validateInput("firstName", data.firstName);
+        errors.lastName = validateInput("lastName", data.lastName);
+        errors.email = validateInput("email", data.email);
+        errors.mobileNo = validateInput("mobileNo", data.mobileNo);
+        errors.dial_code = validateInput("dial_code", data.dial_code);
+
+
+        const hasErrors = Object.values(errors).some((error) => error !== undefined);
+        if (hasErrors) {
+            toast.error("Please fix the errors in the form.");
+            return;
         }
-      };
+
+        try {
+            const response = await axios.post(
+                "https://jamblix.com/api/planEnquiry/create",
+                data
+            );
+            // toast.success("Contacted Successfully");
+            setSuccessModel(true)
+
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("Something went wrong. Please try again.");
+        }
+    };
+
+
     return (
         <div className=" flex flex-col gap-9">
             <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
@@ -160,11 +172,70 @@ function Index() {
                     Purchase plan and make payment
                 </div>
             </div>
+            {successModel &&
+                <>
+                    <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                    <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+                        <div
+
+                            className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-6 flex flex-col gap-6 ml:min-w-[350px] ml:w-[30%] ms:w-[50%] scr420:w-[80%] w-[90%] "
+                        >
+                            <svg
+                                className="absolute top-[-40px]  left-[40%] right-[60%] flex"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="85"
+                                height="85"
+                                viewBox="0 0 85 85"
+                                fill="none"
+                            >
+                                <g clip-path="url(#clip0_6622_116765)">
+                                    <rect width="85" height="85" rx="42.5" fill="#0C8A0A" />
+                                    <g mask="url(#mask0_6622_116765)">
+                                        <path
+                                            d="M34.5 58.1875L20.1562 43.8438L24.0938 39.9062L34.5 50.3125L59.9062 24.9062L63.8438 28.8438L34.5 58.1875Z"
+                                            fill="white"
+                                        />
+                                    </g>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_6622_116765">
+                                        <rect width="85" height="85" rx="42.5" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <div className="text-center flex flex-col gap-2">
+                                <div className="scr420:text-[24px] text-[20px] font-[500] text-[#333]">
+                                    Plan Enquiry Submitted!
+                                </div>
+                                <div className="text-[16px] font-[500] text-[#333]">
+                                    Your enquiry has been submitted successfully. We will contact you shortly.
+                                </div>
+                            </div>
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={() => {
+                                        setSuccessModel(false);
+                                        router.push("/home")
+
+                                    }}
+                                    className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                                >
+                                    Done
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+
+            }
 
             <div className="flex items-center justify-center pb-12  px-2 customMargins xxlg:w-[60%] scr700:w-[80%] sm:w-[90%] w-full">
                 <div
-                    style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
-                    className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px]"
+                    // style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
+                    className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px] border border-[#00000040]"
                 >
                     <div
 

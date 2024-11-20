@@ -194,16 +194,16 @@ function RecruiterHero() {
         }}
         className="flex ml:w-[50%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center sm:px-6  px-2"
       >
-        <p className=" text-center ml:text-[3vw] ms:text-[40px] text-[28px] font-bold leading-tight">
+        <p className=" text-center ml:text-[3vw] ms:text-[40px] text-[28px] font-bold leading-tight xl:text-[48px]">
           {" "}
           <span className="text-[#06A9EF]">Precision Matching</span> for Perfect Job Fits
         </p>
 
-        <div className=" text-center ml:text-[1.1vw] ms:text-[18px] text-[14px]  font-medium">
+        <div className=" text-center ml:text-[1.1vw] ms:text-[18px] text-[14px]  font-medium xl:text-[18px]">
         With our job description compatibility search feature, simply input the job description and let our AI algorithm sift through your client database to find the perfect matches, saving you time and effort.        </div>
         <button
           onClick={clickHandler}
-          className="bg-[#06A9EF] btn_hover_effect text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] ms:text-[16px] text-[16px] font-semibold"
+          className="bg-[#06A9EF] xl:text-[16px] btn_hover_effect text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] ms:text-[16px] text-[16px] font-semibold"
         >
           Get Started
         </button>

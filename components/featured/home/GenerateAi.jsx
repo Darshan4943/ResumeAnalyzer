@@ -229,7 +229,7 @@ function GenerateAi() {
       <div className=" customMargins xl:py-[120px] scr1200:py-[80px] py-[60px]  flex items-center justify-center   ">
         <div className=" ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-between  gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ">
           <div
-            className=" ml:w-[30vw] w-[95%] ml:h-[26vw] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
+            className=" ml:w-[30vw] w-[95%] ml:h-[26vw] xl:h-[400px] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
             style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
           >
             <div className="w-full font-medium ml:text-[1.5vw] text-[16px]">
@@ -242,7 +242,7 @@ function GenerateAi() {
                   <MiniLoader />
                 </div>
               ) : (
-                <div className=" w-[100%] ml:text-[1vw] sm:text-[14px] text-[12px] ">
+                <div className=" w-[100%] ml:text-[1vw] sm:text-[14px] text-[12px] xl:text-[15px] ">
                   {animationText}
                 </div>
               )}
@@ -283,7 +283,7 @@ function GenerateAi() {
                 )}
 
                 <p
-                  className={` ml:text-[0.9vw] text-[12px] font-semibold ${
+                  className={` ml:text-[0.9vw] text-[12px] font-semibold xl:text-[13px] ${
                     isClicked && "text-white"
                   }`}
                 >
@@ -328,7 +328,7 @@ function GenerateAi() {
             )}
           </div>
           <div className=" ml:w-[30%] ml:h-[26vw] w-[95%]  flex flex-col gap-4 justify-center text-center items-center ml:leading-loose">
-            <div className="flex flex-col sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold">
+            <div className="flex flex-col sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] xl:text-[24px] font-bold">
               <p className="text-center"> Try our Generative AI </p>
               <p className="text-center"> Feature to </p>
 
@@ -340,7 +340,7 @@ function GenerateAi() {
               <p className=" ">your profile</p>
             </div>
             <div className="flex flex-col justify-center items-center gap-2 w-[90%] relative">
-              <p className="text-[14px] ml:text-[1vw]  font-semibold">
+              <p className="text-[14px] ml:text-[1vw] xl:text-[14px]  font-semibold">
                 Write something about yourself & Click on
               </p>
               <img
@@ -368,18 +368,18 @@ function GenerateAi() {
                   className="max-h-[22px] w-[22px]"
                 />
 
-                <p className=" ml:text-[0.9vw] text-[12px] text-center font-semibold  ">
+                <p className=" ml:text-[0.9vw] text-[12px] xl:text-[13px] text-center font-semibold  ">
                   Generate with AI
                 </p>
               </button>
-              <p className="text-[14px] ml:text-[1.5vw] text-[#06A9EF] font-bold">
+              <p className="text-[14px] ml:text-[1.5vw] text-[#06A9EF] font-bold xl:text-[22px]">
                 Try now !
               </p>
             </div>
           </div>
           <div className="ml:w-[30vw] w-[95%]   border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px]">
             <div
-              className="  flex w-full ml:h-[26vw]  flex-col gap-2 rounded-[16px] p-4 bg-white "
+              className="  flex w-full ml:h-[26vw] xl:h-[400px]  flex-col gap-2 rounded-[16px] p-4 bg-white "
               style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
             >
               <p className="w-full font-medium ml:text-[1.5vw] text-[16px]">

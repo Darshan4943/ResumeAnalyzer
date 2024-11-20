@@ -18,16 +18,16 @@ function ResumeInventory({ isLogin }) {
         </div>
         <div className=" flex flex-col gap-6 w-[40%] text-[#000000] ">
           <div className="flex flex-col gap-[24px]">
-            <div className="font-semibold text-[2.5vw] leading-tight">
+            <div className="font-semibold text-[2.5vw] leading-tight xl:text-[42px]">
               <span className="text-[#06A9EF]">My Collection</span> is Your
               Personal Resume Inventory
             </div>
-            <div className="font-medium text-[1.2vw] text-[#333333] ">
+            <div className="font-medium text-[1.2vw] text-[#333333] xl:text-[16px] ">
               My Collection is your one-stop destination for organizing and
               managing your <span className="text-[#06A9EF]">personalized resume collections.</span>
 
             </div>
-            <div className="font-medium text-[1.2vw] text-[#333333] ">
+            <div className="font-medium text-[1.2vw] text-[#333333] xl:text-[16px] ">
               <span className="text-[#06A9EF]">Seamlessly store, update, and tailor</span> your differently crafted resumes for various job opportunities with
               ease.
 
@@ -38,7 +38,7 @@ function ResumeInventory({ isLogin }) {
                   ? router.push("/home/BuildResume")
                   : router.push("/auth?signin=true&role=user")
               }
-              className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[1.11111vw] font-semibold"
+              className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[1.11111vw] font-semibold xl:text-[16px]"
               style={{ width: "fit-content" }}
             >
               Get Started

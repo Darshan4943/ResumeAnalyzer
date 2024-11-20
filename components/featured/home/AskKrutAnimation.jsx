@@ -99,9 +99,9 @@ function AskKrutAnimation() {
                 <img
                     src="/images/resumeBuilder/askKrut.png"
                     alt=""
-                    className="w-[28vw] h-[40vw] object-contain"
+                    className="w-[28vw] h-[40vw] xl1:w-[500px] xl1:h-[690px] object-contain"
                 />
-                <div className="w-[24vw] h-[30vw] object-contain absolute bottom-[8vw]  left-[2vw] overflow-hidden" style={{
+                <div className="w-[24vw]  h-[30vw] xl1:w-[400px] xl1:h-[500px]  object-contain absolute bottom-[8vw] xl1:bottom-[140px]   left-[2vw] xl1:left-[50px] overflow-hidden" style={{
                     opacity: isAnimate ? 1 : 0,
                     transition: 'opacity 2s ease-in-out',
                 }}>
