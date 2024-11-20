@@ -320,8 +320,8 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
               </div>
             )}
             <div
-              onClick={() => {
-                router.push("/auth?signup=true");
+              onClick={() => { role === "user" ? 
+                router.push("/auth/user-signup"):  router.push("/auth/recruiter-signup");
               }}
               className="flex justify-center items-center text-[14px] font-medium text-[#646464] cursor-pointer"
             >

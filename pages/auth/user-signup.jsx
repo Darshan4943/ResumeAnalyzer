@@ -14,7 +14,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const [verify, setVerify] = useState(false);
   const [otp, setOtp] = useState(null);
   const [otpEntered, setOtpEntered] = useState(null);
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   const [otpError, setOtpError] = useState("");
   const router = useRouter();
   const [timer, setTimer] = useState(30);
@@ -250,7 +250,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   const handleEmailChange = (e) => {
     setVerify(false);
-    // setVerified(false);
+    setVerified(false);
     const lowercaseEmail = e.target.value.toLowerCase();
     setData({ ...data, email: lowercaseEmail });
     setIsEmailEntered(lowercaseEmail.trim() !== "");
@@ -302,7 +302,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[30px] font-[600]">Sign Up</div>
+        <div className="text-[30px] font-[600]"> Candidate Sign Up</div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row  gap-2 border-[1px] px-[16px] py-[12px]  rounded-[8px] border-solid border-[#9D9D9D]">
             <input
@@ -315,7 +315,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
               className="w-full   "
             />
-            {/* {verified && (
+            {verified && (
               <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
                 <svg
                   width="24"
@@ -333,7 +333,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 </svg>
 
               </div>
-            )} */}
+            )}
           </div>
 
           {(verify && !verified) && (

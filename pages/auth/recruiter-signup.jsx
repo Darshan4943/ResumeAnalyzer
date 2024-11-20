@@ -304,10 +304,10 @@ function Recruiter_signup({ }) {
       toast.error("Please enter valid information");
       setFormError(errors);
     } 
-    // else if (!verified && !isUpdate) {
-    //   setOtpError("Email Verification Required");
-    //   toast.error("Email Verification Required");
-    // }
+    else if (!verified && !isUpdate) {
+      setOtpError("Email Verification Required");
+      toast.error("Email Verification Required");
+    }
      else {
       const url = isUpdate
         ? "https://jamblix.com/api/updateUser"
@@ -728,7 +728,7 @@ function Recruiter_signup({ }) {
                               setVerified(false);
                             }}
                           />
-                          {/* {!verified && (
+                          {!verified && (
                             <>
                               {!verify ? (
                                 !isUpdate && (
@@ -761,7 +761,7 @@ function Recruiter_signup({ }) {
                                 </button>
                               )}
                             </>
-                          )} */}
+                          )}
                         </div>
                         {formError && (
                           <p className="text-[12px] text-[red] font-[500]">

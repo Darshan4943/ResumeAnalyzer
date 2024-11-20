@@ -12,8 +12,8 @@ function NewSkillAssessment() {
     return (
         <div className='bg-[#DAF2FD99] py-6 flex flex-col gap-9 items-center '>
             <div className='flex flex-col gap-2 ml:px-6 px-2'>
-                <p className='font-semibold ml:text-[3.2vw] text-center text-[28px]'> Skill Assessment</p>
-                <p className='ml:text-[20px] font-medium text-center text-[16px]'> Explore your Growth through Skill Assessment and test your limits</p>
+                <p className='font-semibold ml:text-[3.2vw] text-center text-[28px] xl:text-[42px]'> Skill Assessment</p>
+                <p className='ml:text-[20px] font-medium text-center text-[16px] xl:text-[20px]'> Explore your Growth through Skill Assessment and test your limits</p>
             </div>
             <div className='flex scr700:flex-row flex-col ml:items-stretch items-center  justify-between customMargins w-full ml:gap-6 gap-3 max-w-[1256px]'>
                 <div className='flex flex-col ml:gap-9 gap-4 justify-between items-center text-center bg-[#FFFFFF]  border-[0.5px] border-blue rounded-[16px] ml:p-4 p-2 ml:w-[324px] sm:w-[280px] w-[250px]'>

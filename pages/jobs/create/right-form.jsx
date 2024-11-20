@@ -80,9 +80,23 @@ const Rightform = ({
         ...formError,
         deadLine: "Deadline required",
       }));
-
       hasError = true;
+    } else {
+      const currentDate = new Date();
+      const inputDate = new Date(data.deadLine);
+    
+      const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+      const inputDateOnly = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
+    
+      if (inputDateOnly < currentDateOnly) {
+        setFormError((formError) => ({
+          ...formError,
+          deadLine: "Deadline cannot be earlier than today's date",
+        }));
+        hasError = true;
+      }
     }
+    
     if (!data.location || data.location.length === 0) {
       setFormError((formError) => ({
         ...formError,

@@ -200,11 +200,11 @@ function SubscriptionPlans({ fromMain }) {
         </>
       )}
       <div className="hidden lg:block w-full ">
-        <div className="flex gap-9 justify-center">
+        <div className="flex gap-6 justify-center">
           {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[18.5vw]" : "max-w-[18.5vw] "
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
                 } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
@@ -216,7 +216,7 @@ function SubscriptionPlans({ fromMain }) {
 
               <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                 <div className="flex text-center flex-col gap-3 text-[#333333] ">
-                  <p className="text-[1.4vw] font-[600]">
+                  <p className="text-[1.4vw] font-[600] xl:text-[20px]">
                     {plan.type === "candidate" &&
                       <>
                         <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
@@ -244,14 +244,14 @@ function SubscriptionPlans({ fromMain }) {
                       </p>
                     } */}
                     {plan.isFree ?
-                      <p className="text-[2.5vw] font-[700]">
+                      <p className="text-[2.5vw] font-[700] xl:text-[36px]">
                         Free
                       </p>
                       :
                       <div className={`flex flex-row  gap-2  `}>
 
-                        <p className={` font-[700] text-[2.5vw]`}>{icon}</p>
-                        <p className={` font-[700] text-[2.5vw]`}>
+                        <p className={` font-[700] text-[2.5vw] xl:text-[36px]`}>{icon}</p>
+                        <p className={` font-[700] text-[2.5vw] xl:text-[36px]`}>
                           {Math.ceil(plan?.amount * exchangeRate)}
                         </p>
                       </div>
@@ -268,7 +268,7 @@ function SubscriptionPlans({ fromMain }) {
                   } */}
 
                   <p
-                    className="text-[1vw] font-[500]"
+                    className="text-[1vw] font-[500] xl:text-[14px]"
                     style={{ textTransform: "capitalize" }}
                   >
                     {plan?.description}
@@ -291,7 +291,7 @@ function SubscriptionPlans({ fromMain }) {
                           fill="#06A9EF"
                         />
                       </svg>
-                      <p className="text-[0.8vw] font-[500]">
+                      <p className="text-[0.8vw] font-[500] xl:text-[12px]">
                         {feature.includes('(') ? (
                           <>
                             {feature.split('(')[0]}
@@ -309,7 +309,7 @@ function SubscriptionPlans({ fromMain }) {
                 {(isFree && (plan.isFree)) ?
                   <button
                     disabled={true}
-                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 "
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                   >
                     Purchased
                   </button>
@@ -317,7 +317,7 @@ function SubscriptionPlans({ fromMain }) {
                   <button
 
                     onClick={() => clickHandler(plan.index)}
-                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                    className="px-6 py-3 bg-[#06A9EF] xl:text-[18px] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                   >
                     Purchase Plan
                   </button>
@@ -331,16 +331,16 @@ function SubscriptionPlans({ fromMain }) {
 
           <div
 
-            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[18.5vw]" : "max-w-[18.5vw] "
+            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
               } `}
             style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
           >
             <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
-              <p className="text-[1.4vw] font-[600]">
+              <p className="text-[1.4vw] font-[600] xl:text-[20px]">
                 <span className="text-[#06A9EF]">Enterprise </span>{" "}
                 Plan
               </p>
-              <p className="text-[1vw] font-[500] px-2">Tailored Solutions for {isUser ? "Candidates" : "Organizations"}</p>
+              <p className="text-[1vw] font-[500]  px-2">Tailored Solutions for {isUser ? "Candidates" : "Organizations"}</p>
               <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
             </div>
             <div className="flex gap-3 flex-col text-center items-center w-[168px]">
@@ -349,14 +349,14 @@ function SubscriptionPlans({ fromMain }) {
                 className="h-[80px] w-[80px]"
                 alt=""
               />
-              <span className="text-[16px] font-[500] text-center">
+              <span className="text-[16px] font-[500] text-center xl:text-[16px]">
                 Contact Us for Custom Plan as per your needs
               </span>
             </div>
             <button
               // disabled={true}
               onClick={() => router.push('/purchase/enterprise')}
-              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[18px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
             // style={{ opacity: 0.6 }}
             >
               Contact Us

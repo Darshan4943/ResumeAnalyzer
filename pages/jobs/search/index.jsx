@@ -124,6 +124,7 @@ function Index() {
   const [page, setPage] = useState(1);
   const [clear, setClear] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingg, setLoadingg] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [country, setCountry] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -140,7 +141,22 @@ function Index() {
   const [totalCount, setTotalCount] = useState(0);
   const [isCountrySet, setIsCountrySet] = useState(false);
   const [miniLoading, setMiniloading] = useState(false);
-  
+ 
+
+  const { loc, jobTit, search } = router.query;
+  useEffect(() => {
+    if (jobTit) {
+      setJobTitle(jobTit)
+    }
+    if (loc) {
+      setLocation(loc)
+    }
+
+   
+    // getAllData()
+  }, [loc, jobTit, search]);
+ 
+
   useEffect(() => {
     if (applied == "true") {
       setToggleHeadings(1);
@@ -149,13 +165,20 @@ function Index() {
 
   useEffect(() => {
     setCountry(userDataGlobal.country);
+
     setIsCountrySet(true);
+
     axios
       .get("https://jamblix.com/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
+        setTimeout(() => {
+          setLoadingg(false)
+        }, 1000);
+       
       })
       .catch((err) => console.error(err));
+    
   }, []);
 
   useEffect(() => {
@@ -349,7 +372,7 @@ function Index() {
     if (isCountrySet) {
       getAllData();
     }
-  }, [page, limit, country]);
+  }, [page, limit, country, search]);
 
 
   // const getJobData = () => {
@@ -514,7 +537,7 @@ function Index() {
         ...prevFilters,
         [filterType]: [],
       }));
-      setClear(!clear);
+      setClear(false);
     } else {
       const isChecked = e.target.checked;
       setFilters((prevFilters) => {
@@ -533,6 +556,7 @@ function Index() {
   };
 
   const getFilterData = async () => {
+    setLoading(true)
     const mappedFilters = {
       sortBy: filters.SortBy,
       jobType: filters.JobType,
@@ -544,7 +568,7 @@ function Index() {
       industryType: filters.IndustryType,
       jobMode: filters.JobMode,
     };
-
+    console.log(mappedFilters)
     try {
 
       const response = await axios.post(
@@ -577,9 +601,12 @@ function Index() {
     //   }, 1000);
     // }
   };
-  // useEffect(() => {
-  //   getFilterData()
-  // }, [clear]);
+  useEffect(() => {
+    if (clear === true) {
+      getFilterData()
+    }
+
+  }, [clear]);
 
   useEffect(() => {
     if (toggleHeadings === 0) {
@@ -593,6 +620,8 @@ function Index() {
   }, [toggleHeadings]);
 
 
+
+
   return (
     <>
       {limitPopup && (
@@ -600,208 +629,181 @@ function Index() {
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
       )}
-
-      <div className="relative bg-[#F9F9F9] min-h-[calc(100vh-57.33px)] ">
-        <div
-          className={` sticky top-[56px]
+      {!loadingg ?
+        <div className="relative bg-[#F9F9F9] min-h-[calc(100vh-57.33px)] ">
+          <div
+            className={` sticky top-[56px]
              z-50`}
-        >
-          <div className="bg-[#E0F6FF]  ">
-            <div className="flex justify-center items-center py-[10px] sm:py-[15px] customMargins">
-              <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start   scr540:px-[16px] rounded-[8px] bg-white w-[100%]  scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
-                <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 p-2">
-                  <svg
-                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-
-                  <input
-                    type="text"
-                    placeholder="Job title"
-                    className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
-                    value={jobTitle}
-                    onChange={(e) => setJobTitle(e.target.value)}
-                  />
-                  {/* <svg
-                   onClick={()=>{setToggleHeadings(0);setLoading(true);getAllData()}}
-                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block  min-w-[28px] cursor-pointer"
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg> */}
-                </div>
-
-                <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
-
-                <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
-                  <div className="flex flex-row gap-4">
-                    <div className=" bg-[#E0E0E0] min-w-[3px] h-[36px] sm:block hidden"></div>
-                    <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
-                      <svg
-                        className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
-                        viewBox="0 0 31 30"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                          stroke="#333333"
-                          strokeWidth="3.1544"
-                        />
-                        <path
-                          d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                          fill="white"
-                          stroke="#333333"
-                          strokeWidth="3.1544"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-
-                      <input
-                        type="text"
-                        placeholder="Location"
-                        className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
+          >
+            <div className="bg-[#E0F6FF] ml:hidden  ">
+              <div className="flex justify-center items-center py-[10px] sm:py-[15px] customMargins">
+                <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start   scr540:px-[16px] rounded-[8px] bg-white w-[100%]  scr540:min-w-[530px] ms:min-w-[570px] sm:min-w-[470px] min-w-[100%]">
+                  <div className="flex flex-row gap-[12px] sm:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 p-2">
+                    <svg
+                      className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] min-w-[28px]  "
+                      viewBox="0 0 36 36"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
+                        stroke="#333333"
+                        strokeWidth="3.1544"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
-                    </div>
-                  </div>
-                  {/* <svg
-                     onClick={()=>{setToggleHeadings(0);setLoading(true);getAllData()}}
-                    className="w-[28px] h-[28px] sm:w-[36px] sm:h-[36px] sm:hidden block cursor-pointer "
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg> */}
+                    </svg>
 
-                  <button
-                    onClick={() => {
-                      setToggleHeadings(0);
-                      setLoading(true);
-                      getAllData();
-                    }}
-                    className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[6px] scr540:px-[18px] gap-0 rounded-[8px] border-opacity-0 sm:block hidden"
-                  >
-                    <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
-                      Search
-                    </p>
-                  </button>
-                </div>
-                <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
-                <div className="pt-1 px-2 pb-2 w-full block sm:hidden ">
-                  <button
-                    onClick={() => {
-                      setToggleHeadings(0);
-                      setLoading(true);
-                      getAllData();
-                    }}
-                    className="border border-blue w-full  py-[8px] px-[20px]  gap-0 rounded-[8px]  "
-                  >
-                    <p className="text-[14px] scr540:text-[14px] font-[500]  font-Montserrat">
-                      Search
-                    </p>
-                  </button>
+                    <input
+                      type="text"
+                      placeholder="Job title"
+                      className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                    />
+
+                  </div>
+
+                  <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
+
+                  <div className="flex flex-row justify-between items-center gap-[12px] sm:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px] p-2 sm:p-0">
+                    <div className="flex flex-row gap-4">
+                      <div className=" bg-[#E0E0E0] min-w-[3px] h-[36px] sm:block hidden"></div>
+                      <div className="flex flex-row gap-[12px] sm:gap-[16.82px]  items-center">
+                        <svg
+                          className="w-[24px] h-[24px] sm:w-[31px] sm:h-[30px]  min-w-[24px]"
+                          viewBox="0 0 31 30"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
+                            stroke="#333333"
+                            strokeWidth="3.1544"
+                          />
+                          <path
+                            d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
+                            fill="white"
+                            stroke="#333333"
+                            strokeWidth="3.1544"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+
+                        <input
+                          type="text"
+                          placeholder="Location"
+                          className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
+                          value={location}
+                          onChange={(e) => setLocation(e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        setToggleHeadings(0);
+                        setLoading(true);
+                        getAllData();
+                      }}
+                      className="border border-blue bg-blue text-black  py-[8px] px-[20px] scr540:py-[6px] scr540:px-[18px] gap-0 rounded-[8px] border-opacity-0 sm:block hidden"
+                    >
+                      <p className="text-[14px] scr540:text-[16px] font-[600] text-white font-Montserrat">
+                        Search
+                      </p>
+                    </button>
+                  </div>
+                  <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
+                  <div className="pt-1 px-2 pb-2 w-full block sm:hidden ">
+                    <button
+                      onClick={() => {
+                        setToggleHeadings(0);
+                        setLoading(true);
+                        getAllData();
+                      }}
+                      className="border border-blue w-full  py-[8px] px-[20px]  gap-0 rounded-[8px]  "
+                    >
+                      <p className="text-[14px] scr540:text-[14px] font-[500]  font-Montserrat">
+                        Search
+                      </p>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
-            <div className=" customMargins overflow-x-auto  ">
-              <div
-                className={`flex items-start lg:gap-4 sm:gap-3 gap-1 py-3 overflow-x-auto `}
-              >
-                {headings
-                  .filter((_, index) => isLogin || index === 0)
-                  .map((item, index) => (
-                    <div
-                      onClick={() => {
-                        forceUpdate();
-                        setToggleHeadings(index);
-                      }}
-                      key={index}
-                      className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
-                        }`}
-                    >
-                      <div className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px] min-w-[18px] sm:min-w-[24px]">
-                        {item.img}
-                      </div>
-                      <p
-                        className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
+            <div style={{ backgroundColor: "#BCECFF", overflowX: "auto" }}>
+              <div className=" customMargins overflow-x-auto  ">
+                <div
+                  className={`flex items-start lg:gap-4 sm:gap-3 gap-1 py-3 overflow-x-auto ${!isLogin && "hidden"} `}
+                >
+                  {headings
+                    .filter((_, index) => isLogin || index === 0)
+                    .map((item, index) => (
+                      <div
+                        onClick={() => {
+                          forceUpdate();
+                          setToggleHeadings(index);
+                        }}
+                        key={index}
+                        className={`flex sm:gap-2 gap-1 py-2 lg:px-4 px-2 items-center  cursor-pointer ${toggleHeadings === index && "bg-[#06A9EF] rounded-[6px]"
                           }`}
                       >
-                        {item.title}
-                      </p>
-                    </div>
-                  ))}
+                        <div className="h-[16px] w-[16px] sm:h-[24px] sm:w-[24px] min-w-[18px] sm:min-w-[24px]">
+                          {item.img}
+                        </div>
+                        <p
+                          className={`sm:text-[16px] scr360:text-[12px] text-[11px] text-black font-semibold cursor-pointer ${toggleHeadings === index && "text-white"
+                            }`}
+                        >
+                          {item.title}
+                        </p>
+                      </div>
+                    ))}
+                </div>
               </div>
             </div>
-          </div>
-          {toggleHeadings < 1 && (
-            <div style={{ backgroundColor: "#E0F6FF" }} className="">
-              <div className="customMargins web">
-                <div className="flex items-center py-5  gap-3 flex-wrap  ">
-                  {filteredInputData.map((item, index) => (
-                    <InputBox
-                    isCountrySet={isCountrySet}
-                      setTotalCount={setTotalCount}
-                      setTotalpages={setTotalpages}
-                      setJobData={setJobData}
-                      key={index}
-                      item={item}
-                      filterType={item.title.replace(/ /g, "")}
-                      setClear={setClear}
-                      clear={clear}
-                      onChange={handleCheckboxChange}
-                      country={country}
-                      page={page}
-                      limit={limit}
-                      filters={filters}
-                      userSkills={userSkills}
-                      setLoading={setLoading}
-                      className="text-[14px] font-medium flex items-center w-auto cursor-pointer"
-                      isOpen={openDropdown === index}
-                      onDropdownClick={handleDropdownClick}
-                      id={index}
-                    />
-                  ))}
-                  <button
-                    onClick={() => {
-                      setFilters({});
-                      setClear(!clear);
-                    }}
-                    className="text-primary font-montserrat text-sm font-medium text-blue"
-                  >
-                    Reset all
-                  </button>
-                  {/* <button
+            {toggleHeadings < 1 && (
+              <div style={{ backgroundColor: "#E0F6FF" }} className="">
+                <div className="customMargins web">
+                  <div className="flex items-center py-5  gap-3 flex-wrap  ">
+                    {filteredInputData.map((item, index) => (
+                      <InputBox
+                        isCountrySet={isCountrySet}
+                        setTotalCount={setTotalCount}
+                        setTotalpages={setTotalpages}
+                        setJobData={setJobData}
+                        key={index}
+                        item={item}
+                        filterType={item.title.replace(/ /g, "")}
+                        setClear={setClear}
+                        clear={clear}
+                        onChange={handleCheckboxChange}
+                        country={country}
+                        page={page}
+                        limit={limit}
+                        filters={filters}
+                        userSkills={userSkills}
+                        setLoading={setLoading}
+                        className="text-[14px] font-medium flex items-center w-auto cursor-pointer"
+                        isOpen={openDropdown === index}
+                        onDropdownClick={handleDropdownClick}
+                        id={index}
+                      />
+                    ))}
+                    <button
+                      onClick={() => {
+                        setFilters({});
+                        setClear(true);
+
+                      }}
+
+                      className="text-primary font-montserrat text-sm font-medium text-blue"
+                    >
+                      Reset all
+                    </button>
+                    {/* <button
                   onClick={() => setFilter(!filter)}
                   className="px-4 py-3  rounded-[6px] bg-[#FFF] "
                 >
@@ -811,25 +813,25 @@ function Index() {
                     alt=""
                   />
                 </button> */}
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => setMobileFilter(!mobileFilter)}
+                  className="p-2 mobile "
+                >
+                  <button className="sm:px-4 sm:py-2 px-2 py-2  rounded-[6px] bg-[#FFF]   flex gap-2">
+                    <img
+                      className="h-[24px] w-[24px]"
+                      src="/images/jobs/fil.png"
+                      alt=""
+                    />
+                    Filter
+                  </button>
                 </div>
               </div>
-
-              <div
-                onClick={() => setMobileFilter(!mobileFilter)}
-                className="p-2 mobile "
-              >
-                <button className="sm:px-4 sm:py-2 px-2 py-2  rounded-[6px] bg-[#FFF]   flex gap-2">
-                  <img
-                    className="h-[24px] w-[24px]"
-                    src="/images/jobs/fil.png"
-                    alt=""
-                  />
-                  Filter
-                </button>
-              </div>
-            </div>
-          )}
-          {/* {toggleHeadings === 2 &&
+            )}
+            {/* {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
               <div className="inline-flex pt-6 justify-center items-center gap-2">
@@ -844,15 +846,15 @@ function Index() {
             </div>
           </div>
         } */}
-        </div>
+          </div>
 
-        <div className="">
-          <div className=" customMargins">
-            <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
-              {/* <div className=" mobile600 col-span-12 ">
+          <div className="">
+            <div className=" customMargins">
+              <div className="grid grid-cols-12 py-[16px] gap-[24px] relative  ">
+                {/* <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div> */}
-              {/* 
+                {/* 
             {filter ? (
               <AnimatePresence>
                 <motion.div
@@ -887,122 +889,128 @@ function Index() {
               </div>
             )} */}
 
-              <AnimatePresence>
-                {mobileFilter && (
-                  <>
-                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+                <AnimatePresence>
+                  {mobileFilter && (
+                    <>
+                      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
 
-                    <motion.div
-                      initial={{ x: "-100%" }}
-                      animate={{ x: 0 }}
-                      exit={{ x: "-100%" }}
-                      transition={{ duration: 0.5 }}
-                      ref={taskRef}
-                      className="fixed z-[2000]  rounded-[8px] h-[calc(100vh-283px)] bottom-12 overflow-y-auto"
-                      style={{
-                        background: "white",
-                        backdropFilter: "blur(10px)",
-                      }}
-                    >
-                      <div className="flex justify-between  p-4 bg-white shadow-md  items-center rounded-t-[8px] mb-4 ">
-                        <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                          All Filters
-                        </p>
-
-                        <button
-                          onClick={() => {
-                            setFilters({});
-                            setClear(!clear);
-                          }}
-                          className="text-primary font-montserrat text-sm font-medium text-blue"
-                        >
-                          Reset all
-                        </button>
-                        <button
-                          className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
-                          onClick={getFilterData}
-                        >
-                          <p className="text-[12px] font-[700] text-white">
-                            Apply
+                      <motion.div
+                        initial={{ x: "-100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "-100%" }}
+                        transition={{ duration: 0.5 }}
+                        ref={taskRef}
+                        className="fixed z-[2000]  rounded-[8px] h-[calc(100vh-283px)] bottom-12 overflow-y-auto"
+                        style={{
+                          background: "white",
+                          backdropFilter: "blur(10px)",
+                        }}
+                      >
+                        <div className="flex justify-between  p-4 bg-white shadow-md  items-center rounded-t-[8px] mb-4 ">
+                          <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                            All Filters
                           </p>
-                        </button>
-                      </div>
 
-                      {filteredInputData.map((item, index) => (
-                        <Filter
-                          key={index}
-                          item={item}
-                          filterType={item.title.replace(/ /g, "")}
-                          setClear={setClear}
-                          clear={clear}
-                          onChange={handleCheckboxChange}
-                          country={country}
-                          page={page}
-                          filters={filters}
-                          userSkills={userSkills}
+                          <button
+                            onClick={() => {
+                              setFilters({});
+                              setClear(!clear);
+
+                            }}
+                            className="text-primary font-montserrat text-sm font-medium text-blue"
+                          >
+                            Reset all
+                          </button>
+                          <button
+                            className="rounded-[8px] border border-blue bg-blue w-[30%] text-black py-[8px]"
+                            onClick={getFilterData}
+                          >
+                            <p className="text-[12px] font-[700] text-white">
+                              Apply
+                            </p>
+                          </button>
+                        </div>
+
+                        {filteredInputData.map((item, index) => (
+                          <Filter
+                            key={index}
+                            item={item}
+                            filterType={item.title.replace(/ /g, "")}
+                            setClear={setClear}
+                            clear={clear}
+                            onChange={handleCheckboxChange}
+                            country={country}
+                            page={page}
+                            filters={filters}
+                            userSkills={userSkills}
+                            setLoading={setLoading}
+                            className="text-[14px] font-medium flex items-center w-auto bg-white"
+                            isOpen={openDropdown === index}
+                            onDropdownClick={handleDropdownClick}
+                            id={index}
+                          />
+                        ))}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+
+                <>
+                  {toggleHeadings === 0 && (
+                    <div className="col-span-12">
+                      {loading ? (
+                        <div className="h-[70vh]">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <AllJobs
+                          setMiniloading={setMiniloading}
+                          miniLoading={miniLoading}
+                          loading={loading}
                           setLoading={setLoading}
-                          className="text-[14px] font-medium flex items-center w-auto bg-white"
-                          isOpen={openDropdown === index}
-                          onDropdownClick={handleDropdownClick}
-                          id={index}
+                          setLimitPopup={setLimitPopup}
+                          setCurrentPage={setPage}
+                          isLogin={isLogin}
+                          appliedJobs={appliedJobs}
+                          setLimit={setLimit}
+                          limit={limit}
+                          setTotalpages={setTotalpages}
+                          totalPages={totalPages}
+                          page={page}
+                          setPage={setPage}
+                          jobData={jobData}
                         />
-                      ))}
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
+                      )}
+                    </div>
+                  )}
 
-              <>
-                {toggleHeadings === 0 && (
-                  <div className="col-span-12">
-                    {loading ? (
-                      <div className="h-[70vh]">
-                        <MiniLoader />
-                      </div>
-                    ) : (
-                      <AllJobs
-                      setMiniloading={setMiniloading}
-                      miniLoading={miniLoading}
-                        loading={loading}
-                        setLoading={setLoading}
+                  {toggleHeadings === 1 && (
+                    <div className="col-span-12">
+                      <AppliedJobs setLimitPopup={setLimitPopup}
+                        setMiniloading={setMiniloading}
+                        miniLoading={miniLoading} />
+                    </div>
+                  )}
+
+                  {toggleHeadings === 2 && (
+                    <div className="col-span-12">
+                      <SavedJobs
+
                         setLimitPopup={setLimitPopup}
-                        setCurrentPage={setPage}
-                        isLogin={isLogin}
                         appliedJobs={appliedJobs}
-                        setLimit={setLimit}
-                        limit={limit}
-                        setTotalpages={setTotalpages}
-                        totalPages={totalPages}
-                        page={page}
-                        setPage={setPage}
-                        jobData={jobData}
                       />
-                    )}
-                  </div>
-                )}
-
-                {toggleHeadings === 1 && (
-                  <div className="col-span-12">
-                    <AppliedJobs setLimitPopup={setLimitPopup} 
-                      setMiniloading={setMiniloading}
-                      miniLoading={miniLoading} />
-                  </div>
-                )}
-
-                {toggleHeadings === 2 && (
-                  <div className="col-span-12">
-                    <SavedJobs
-                    
-                      setLimitPopup={setLimitPopup}
-                      appliedJobs={appliedJobs}
-                    />
-                  </div>
-                )}
-              </>
+                    </div>
+                  )}
+                </>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        :
+        <div className=" h-[80vh] flex items-center justify-center ">
+          <MiniLoader />
+        </div>
+      }
     </>
   );
 }

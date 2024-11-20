@@ -241,30 +241,35 @@ function CandidateHome({ onScrollToTop }) {
   return (
     <div className="">
       <div className="hidden ml:block w-full">
-        <div ref={firstComponentRef} className="flex flex-row gap-8 items-center">
-          <div className="flex flex-col gap-6 w-[50%] text-[#333333]">
-            <div className="flex flex-col gap-[24px] pl-[112px]">
-              <div className="font-semibold text-[4vw] leading-tight">
-                ATS Compliant AI Resume Creator
+        <div  ref={firstComponentRef} className=" flex relative h-[100vh] ">
+          <div  className="flex flex-row gap-8 items-center justify-start customMargins">
+            <div className="flex flex-col gap-6 w-[50%] text-[#333333]   ">
+              <div className="flex flex-col gap-[24px] ">
+                <div className="font-semibold text-[4vw] xl:text-[56px] leading-tight">
+                  ATS Compliant AI Resume Creator
+                </div>
+                <div className="font-medium text-[1.2vw] xl:text-[16px]">
+                  Our AI-powered resume creator helps you craft professional, ATS-optimized resumes tailored to your unique experiences and target jobs. With customizable templates, keyword optimization, and continuous improvement, our tool ensures your resume gets noticed by recruiters and increases your chances of landing your dream job.
+                </div>
+                <button
+                  onClick={clickHandler}
+                  className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold xl:text-[16px]"
+                  style={{ width: "fit-content" }}
+                >
+                  Build My Resume
+                </button>
               </div>
-              <div className="font-medium text-[1.2vw]">
-                Our AI-powered resume creator helps you craft professional, ATS-optimized resumes tailored to your unique experiences and target jobs. With customizable templates, keyword optimization, and continuous improvement, our tool ensures your resume gets noticed by recruiters and increases your chances of landing your dream job.
-              </div>
-              <button
-                onClick={clickHandler}
-                className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold"
-                style={{ width: "fit-content" }}
-              >
-                Build My Resume
-              </button>
             </div>
+            <div className="w-[50%] "></div>
+
           </div>
-          <div className="w-[50%]">
+          <div className="w-[50%] absolute right-0">
             <Home />
           </div>
+
         </div>
         <div className="flex items-end justify-center">
-          <GenerateAi  />
+          <GenerateAi />
         </div>
 
         <div className="bg-resume_bg bg-cover bg-no-repeat pb-[80px]">
@@ -274,23 +279,23 @@ function CandidateHome({ onScrollToTop }) {
             </div>
 
             <div className="flex flex-col gap-6 w-[40%] text-[#333333]">
-              <div className="font-semibold text-[2.5vw] leading-tight text-[#06A9EF]">
+              <div className="font-semibold text-[2.5vw] xl:text-[36px] leading-tight text-[#06A9EF]">
                 ATS Friendly{" "}
                 <span className="text-[#333333]">Resume</span>
                 <p>
-                Templates <span className="text-[#333333]">for All</span>  
+                  Templates <span className="text-[#333333]">for All</span>
                 </p>
                 <p className="text-[#333333]">
-                Careers.
+                  Careers.
                 </p>
               </div>
-          
-              <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[100%] break-words">
-              Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters
+
+              <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[100%] break-words xl:text-[16px]">
+                Our ATS-friendly resume templates are designed to help you create professional, standout resumes for any career path. With customizable options, keyword optimization, and continuous updates, our templates ensure your resume passes through ATS and gets noticed by recruiters
               </div>
               <button
                 onClick={clickHandler}
-                className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-[1.11111vw] text-white w-[13vw] font-semibold rounded-[12px]"
+                className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-[1.11111vw] text-white w-[13vw] font-semibold rounded-[12px] xl:text-[16px]"
               >
                 Get Started
               </button>
@@ -300,7 +305,7 @@ function CandidateHome({ onScrollToTop }) {
 
         <NewSkillAssessment />
         <ResumeLink />
-       
+
 
         <ResumeInventory isLogin={isLogin} />
         <AskKrutAi />
