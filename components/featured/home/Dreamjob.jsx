@@ -32,7 +32,7 @@ function DreamJob({ isLogin }) {
             <button onClick={() =>
                     router.push("/auth?signin=true&role=user")
                 }
-                    className="ml:px-10 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect"
+                   className="ml:px-9 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect xl:text-[16px] max-w-[167px]"
                 >
                     Get Started
                 </button>
