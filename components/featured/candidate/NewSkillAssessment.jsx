@@ -72,7 +72,7 @@ function NewSkillAssessment() {
             </div>
             <button
                 onClick={clickHandler}
-                className="bg-[#06A9EF] btn_hover_effect text-white flex gap-2  px-6  ml:py-3 py-2 ml:w-[174px] ml:rounded-[12px] rounded-[8px] justify-center items-center"
+                className="bg-[#06A9EF] btn_hover_effect text-white flex gap-2  px-6  ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] justify-center items-center"
             >
                 <p className="ml:text-[16px] text-[14px] font-semibold">Get Started</p>
             </button>
