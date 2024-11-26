@@ -77,12 +77,17 @@ function ClientList({
             //     router.push("/myClients/CreateNewClient");
             //   }
             // }}
+            // onClick={() => {
+            //   if (!planAvailable) {
+            //     setLimitPopUp(true);
+            //   } else {
+            //     router.push("/myClients/CreateNewClient");
+            //   }
+            // }}
             onClick={() => {
-              if (!planAvailable) {
-                setLimitPopUp(true);
-              } else {
-                router.push("/myClients/CreateNewClient");
-              }
+
+              router.push("/myClients/CreateNewClient");
+
             }}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
             className="rounded-[24px] text-center text-white justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px]   max-w-[224px] bg-[#646464] p-4 cursor-pointer"
