@@ -358,12 +358,12 @@ function Index() {
       setTimeout(() => {
         setLoading(false);
         setMiniloading(false);
-      }, 1000);
+      }, 500);
     } catch (err) {
       setTimeout(() => {
         setLoading(false);
         setMiniloading(false);
-      }, 1000);
+      }, 500);
       console.error(err);
     }
   };
@@ -608,16 +608,16 @@ function Index() {
 
   }, [clear]);
 
-  useEffect(() => {
-    if (toggleHeadings === 0) {
-      setLoading(true);
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 5000);
+  // useEffect(() => {
+  //   if (toggleHeadings === 0) {
+  //     setLoading(true);
+  //     const timer = setTimeout(() => {
+  //       setLoading(false);
+  //     }, 5000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [toggleHeadings]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [toggleHeadings]);
 
 
 
