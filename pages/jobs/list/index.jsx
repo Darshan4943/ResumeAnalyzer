@@ -20,14 +20,22 @@ const Index = () => {
     axios
       .get("https://jamblix.com/api/job/getByCreatedId/" + userDataGlobal._id)
       .then((res) => {
-        setLoading(false);
+       
         setJobPost(res.data);
+        setLoading(false);
+        
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (userDataGlobal._id) {
+      getData();
+    }
+  }, [userDataGlobal]);
 
   const statusPriority = {
     Live: 1,
@@ -38,10 +46,8 @@ const Index = () => {
   const sortedJobs = jobPost
     .filter((job) => filterStatus === "All" ? true : job.status === filterStatus)
     .sort((a, b) => {
-      // First sort by status priority
       const statusComparison = statusPriority[a.status] - statusPriority[b.status];
 
-      // If status is the same, sort by creation date (newest first)
       if (statusComparison === 0) {
         return new Date(b.createdAt) - new Date(a.createdAt);
       }
@@ -50,12 +56,7 @@ const Index = () => {
     });
 
 
-  useEffect(() => {
-    if (userDataGlobal._id) {
-      getData();
-    }
-  }, [userDataGlobal]);
-
+ 
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
     var date2 = new Date();
@@ -359,7 +360,7 @@ const Index = () => {
                           Total Applications
                         </div>
                         <div className="text-[36px] font-semibold text-[#333333] w-[50%] text-center">
-                          {item?.applications?.length}
+                          {item?.applicationsLength}
                         </div>
                       </div>
                       <div className="px-[16px] flex flex-row justify-between items-center">

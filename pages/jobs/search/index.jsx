@@ -174,7 +174,7 @@ function Index() {
         setJobTypeData(res.data);
         setTimeout(() => {
           setLoadingg(false)
-        }, 1000);
+        }, 500);
        
       })
       .catch((err) => console.error(err));
