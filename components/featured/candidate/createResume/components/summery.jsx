@@ -222,7 +222,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     Cover Letter Creation
                   </p>
                   <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                       <div
                         style={{
                           width: `${isActive ? Math.round(
@@ -263,7 +263,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     Resume Creation
                   </p>
                   <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                       <div
                         style={{
                           width: `${isActive ? Math.round(
@@ -301,7 +301,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       Skill Assessment
                     </p>
                     <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
                             width: `${isActive ? Math.round(
@@ -339,7 +339,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       Certification
                     </p>
                     <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
                             width: `${isActive ? Math.round(
@@ -376,7 +376,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     Chatbot
                   </p>
                   <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                       <div
                         style={{
                           width: `${isActive ? Math.round(
@@ -412,8 +412,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       {" "}
                       Jd Matching
                     </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                    <div className="flex w-full items-center gap-4 ">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
                             width: `${isActive ? Math.round(
@@ -452,7 +452,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       My Collection
                     </p>
                     <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
                             width: `${isActive ? Math.round(

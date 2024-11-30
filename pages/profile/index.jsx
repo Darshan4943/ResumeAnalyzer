@@ -62,10 +62,10 @@ const Profile = () => {
                 <div className="text-[18px] font-Montserrat font-semibold text-[#333]">
                   Account Details
                 </div>
-                <div className="flex scr540:flex-row flex-col scr1024:gap-[46px] gap-[20px]">
-                  <div className="scr540:w-[60%] ml:w-[40%] w-[100%] gap-6 flex flex-col ">
+                <div className="flex scr1024:flex-row flex-col scr1024:gap-[30px] gap-[20px]">
+                  <div className=" scr1024:w-[40%] w-[100%] gap-6 flex flex-col ">
                     <div className="w-[100%] flex gap-4 items-center">
-                      <div className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
+                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         User Name <span>:</span>{" "}
                       </div>
                       <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
@@ -86,20 +86,20 @@ const Profile = () => {
                       </div>
                     </div> */}
                     <div className="w-[100%] flex gap-4 items-center">
-                      <div className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
+                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         Activated on <span>:</span>{" "}
                       </div>
-                      <div className="w-[50%] sm:text-[12px] text-[12px] font-Montserrat font-medium text-[#333]">
+                      <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
                         {dateFormatter(data.createdAt)}
                       </div>
                     </div>
                   </div>
-                  <div className="h-[1px] scr540:w-[1px] w-[100%] ml:h-[170px] scr1024:h-[102px] scr540:h-[180px] bg-[#DEDEDE]">
+                  <div className="h-[1px] scr1024:w-[1px] w-[100%]  scr1024:h-[102px]  bg-[#DEDEDE]">
                     {" "}
                   </div>
-                  <div className=" ml:w-[60%] w-[100%] gap-6 flex flex-col ">
+                  <div className=" scr1024:w-[60%] w-[100%] gap-6 flex flex-col ">
                     <div className="w-[100%] flex gap-4 items-center">
-                      <div className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
+                      <div className="scr1024:w-[50%] min-w-[140px]  text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         Email ID <span>:</span>{" "}
                       </div>
                       <div className="w-[50%] break-all sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
@@ -107,10 +107,10 @@ const Profile = () => {
                       </div>
                     </div>
                     <div className="w-[100%] flex gap-4 items-center">
-                      <div className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
+                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         Contact Number <span>:</span>{" "}
                       </div>
-                      <div className="w-[50%] text-[14px] font-Montserrat font-medium text-[#333]">
+                      <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
                         {data?.mobileNo ? data.mobileNo : '-'}
                       </div>
                     </div>
