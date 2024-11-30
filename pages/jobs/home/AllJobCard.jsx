@@ -48,7 +48,7 @@ function AllJobCard({
     }
   };
   const handleChange = (e) => {
-   
+
     setLimit(parseInt(e.target.value));
     setPage(1);
     setCurrentPage(1);
@@ -261,11 +261,25 @@ function AllJobCard({
                         </g>
                       </svg>
                       Applied{" "}
-                      {CountPostingDays(
-                        item.applications.find(
+                    
+                     
+                       {appliedJobs?.map((job) => {
+                        const matchingApplication = job?.applications?.find(
                           (app) => app.applicantId === userDataGlobal._id
-                        )?.appliedOn
-                      )}
+                        );
+
+                        return (
+                          <div
+                            key={job._id}
+                            className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center"
+                          >
+
+                            {CountPostingDays(matchingApplication?.appliedOn) || ""}
+                          </div>
+                        );
+                      })}
+
+
                     </div>
                   ) : (
                     <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">
@@ -324,7 +338,7 @@ function AllJobCard({
             <select
               value={limit}
               onClick={(e) => e.stopPropagation()}
-              onChange={(e) =>handleChange(e)}
+              onChange={(e) => handleChange(e)}
               className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
             >
               <option value="10">10</option>
@@ -355,7 +369,7 @@ function AllJobCard({
           </p>
           <button disabled={currentPage === 1}>
             <svg
-              onClick={(e) =>prevPage(e)}
+              onClick={(e) => prevPage(e)}
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -382,7 +396,7 @@ function AllJobCard({
             <svg
               width="25"
               height="24"
-              onClick={(e) =>nextPage(e)}
+              onClick={(e) => nextPage(e)}
               viewBox="0 0 25 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
