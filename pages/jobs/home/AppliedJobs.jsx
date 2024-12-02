@@ -27,7 +27,7 @@ function AppliedJobs({  setLimitPopup, }) {
   const getAppliedData = () => {
     setMiniloading(true)
     axios
-      .get(`https://jamblix.com/api/job/getAppliedJobs/${userDataGlobal._id}`, {
+      .get(`http://localhost:2000/api/job/getAppliedJobs/${userDataGlobal._id}`, {
         params: { page, limit },
       })
       .then((res) => {

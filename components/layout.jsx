@@ -20,7 +20,7 @@ function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const pageOpened = useSelector((state) => state?.pageState?.pageOpened);
-  
+  const [isSubscribe, setIsSubscrib] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -32,7 +32,7 @@ function Layout({ children }) {
         <div>
           <CandidateMobileHeader />
         </div>
-        <div className="pt-[3.5rem]  ">{children}</div>
+        <div className="pt-[3.75rem]  ">{children}</div>
       </div>
 
       <div className="web">
@@ -41,7 +41,8 @@ function Layout({ children }) {
           <Header />
         </div>
 }
-        <div className="pt-[3.5rem] ">{children}</div>
+        <div className="pt-[3.75rem] bg-[#F3F4F5] ">{children}</div>
+        <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
     </>
   );

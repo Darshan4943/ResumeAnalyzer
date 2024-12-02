@@ -34,7 +34,7 @@ function SavedJobs({ setLimitPopup, appliedJobs,
   const getData = () => {
     setMiniloading(true)
     axios
-      .post("https://jamblix.com/api/job/getSaveJobByIds", {
+      .post("http://localhost:2000/api/job/getSaveJobByIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

@@ -2,11 +2,12 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function Services({ isServices, isMove, setIsMove }) {
+function Services() {
   const router = useRouter();
-
+  const [isServices, setServices] = useState(true);
+  const [isMove, setIsMove] = useState(false);
   useEffect(() => {
-    if (isServices) {
+   
       const imagedownTimer = setTimeout(() => {
         setIsMove(true);
       }, 200);
@@ -14,8 +15,8 @@ function Services({ isServices, isMove, setIsMove }) {
       return () => {
         clearTimeout(imagedownTimer);
       };
-    }
-  }, [isServices]);
+ 
+  }, []);
 
   const userDataGlobal = useSelector((state) => state.userData);
   const loginListCandidate = [

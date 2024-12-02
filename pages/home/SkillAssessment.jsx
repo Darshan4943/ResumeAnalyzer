@@ -175,7 +175,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/allSkills")
+      .get("http://localhost:2000/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -190,7 +190,7 @@ function SkillAssessment() {
     const found = skills?.find((item) => item === selectedOption.label);
     if (!found) {
       try {
-        const response = await fetch("https://jamblix.com/api/skills", {
+        const response = await fetch("http://localhost:2000/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -273,7 +273,7 @@ function SkillAssessment() {
   useEffect(() => {
     setMainLoading(true);
     axios
-      .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
         // setAttemptCtn(res.data.data?.count);
@@ -353,7 +353,7 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("https://jamblix.com/api/qnaSkill", {
+          .post("http://localhost:2000/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
             lastQuestions: question,
@@ -458,7 +458,7 @@ function SkillAssessment() {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("https://jamblix.com/api/assessment/add", {
+        .post("http://localhost:2000/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
@@ -524,7 +524,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         const data = res.data.data;
 

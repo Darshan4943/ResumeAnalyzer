@@ -34,16 +34,15 @@ function Main_sign_page() {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           if (sendToPurchaseResult?.status) {
             localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${
-              sendToPurchaseResult.index + 1
-            }`;
+            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
+              }`;
           } else {
             setGoogleLoading(false);
             window.location.href = "/home?signIn=true";
@@ -66,65 +65,14 @@ function Main_sign_page() {
   return (
     <div>
       <div className=" justify-center relative w-[100%] flex overflow-hidden">
-        <motion.div
-          className="earth object-contain -z-10 web"
-          initial={{
-            right: signin ? "0%" : "",
-            left: signup ? "0%" : "",
-          }}
-          animate={{
-            right: signin ? "85%" : "",
-            left: signup ? "85%" : "",
-          }}
-          transition={{ duration: 1 }}
-        />
+
 
         <div className=" z-100">
-          {signin && (
-            <Sign_in
-              setIsSignIn={setIsSignIn}
-              handleGoogle={handleGoogle}
-              googleLoading={googleLoading}
-              role={role}
-            />
-          )}
-          {signup && <Sign_up handleGoogle={handleGoogle} />}
+
+          <Sign_up handleGoogle={handleGoogle} signin={signin} signup={signup}/>
         </div>
 
-        <div className="rightEarth -z-10 web">
-          <motion.img
-            initial={{
-              left: signin ? "10%" : "",
-              right: signup ? "10%" : "",
-            }}
-            animate={{
-              left: signin ? "75%" : "",
-              right: signup ? "75%" : "",
-            }}
-            transition={{ duration: 1 }}
-            src="/images/Earth.png"
-            alt=""
-            className="earth1 object-contain"
-          />
-          <motion.img
-            initial={{
-              left: signin ? "0%" : "",
-              right: signup ? "0%" : "",
-            }}
-            animate={{
-              left: signin ? "75%" : "",
-              right: signup ? "75%" : "",
-              scaleX: signup ? -1 : 1,
-            }}
-            transition={{ duration: 1 }}
-            src="images/employer/Employer_hire_candidates/tethescope.png"
-            alt=""
-            className="sign_up_tethescope object-contain absolute"
-            style={{
-              right: "-26%",
-            }}
-          />
-        </div>
+
       </div>
     </div>
   );

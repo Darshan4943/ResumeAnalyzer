@@ -169,7 +169,7 @@ function Index() {
     setIsCountrySet(true);
 
     axios
-      .get("https://jamblix.com/api/jobs/getJobAttributes")
+      .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
         setTimeout(() => {
@@ -303,7 +303,7 @@ function Index() {
   // useEffect(() => {
   //   if (isLogin) {
   //     axios
-  //       .get("https://jamblix.com/api/resume/skills/" + userDataGlobal?._id)
+  //       .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
   //       .then((res) => {
   //         const data = res.data.data;
   //         const skillsSet = new Set();
@@ -325,7 +325,7 @@ function Index() {
   const getData = () => {
     axios
       .get(
-        `https://jamblix.com/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+        `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
       )
       .then((res) => setAppliedJobs(res.data))
       .catch((err) => console.error(err));
@@ -340,7 +340,7 @@ function Index() {
     setMiniloading(true);
     try {
       const res = await axios.post(
-        "https://jamblix.com/api/job/getAll",
+        "http://localhost:2000/api/job/getAll",
         {
           requiredSkills: jobTitle || location ? [] : userSkills?.map((item) => item),
           jobTitle: jobTitle.trim() || "",
@@ -379,7 +379,7 @@ function Index() {
   //   if (userSkills) {
   //     // console.log("globalskills", userDataGlobal.skills)
   //     axios
-  //       .post("https://jamblix.com/api/job/getAll", {
+  //       .post("http://localhost:2000/api/job/getAll", {
   //         requiredSkills: userSkills?.map((item) => item),
   //       })
   //       .then((res) => {
@@ -572,7 +572,7 @@ function Index() {
     try {
 
       const response = await axios.post(
-        "https://jamblix.com/api/job/getFilterData",
+        "http://localhost:2000/api/job/getFilterData",
         {
           requiredSkills: userSkills?.map((item) => item),
           country,

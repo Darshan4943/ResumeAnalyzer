@@ -76,6 +76,7 @@ import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
 import AdminDashboard from "../dashboard/adminDashboard";
 import MiniLoader from "../../components/common/miniLoader";
+import WithoutLogin from "../withoutLogin";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -115,11 +116,8 @@ function BeforeLoginHome() {
     setShowScrollImage(scrollingDown);
   };
 
-  return loading ? (
-    <div className="h-[60vh] w-full flex items-center justify-center">
-      <MiniLoader />
-    </div>
-  ) : (
+  return(
+  
     <div className="">
       <PlanExpiredModal />
       {isLogin ? (
@@ -140,7 +138,7 @@ function BeforeLoginHome() {
               />
             </div>
           )}
-          <CandidateHome onScrollToTop={handleScrollDown} />
+          <WithoutLogin  />
         </>
       )}
     </div>

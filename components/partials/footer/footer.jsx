@@ -62,7 +62,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
         flexDirection: "column",
         justifyContent: "start",
         alignItems: "center",
-        background: "#212121",
+        background: "#00303B",
         gap: "12px",
       }}
     >

@@ -107,7 +107,7 @@ const getLimits=()=>{
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -129,7 +129,7 @@ const getLimits=()=>{
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
 
@@ -162,7 +162,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
+      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
         text, userId
       });
       const jd = res.data.jsonData[0];
@@ -219,7 +219,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://jamblix.com/api/resume/extraction",
+      "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
       }
@@ -333,7 +333,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching/",
+      "http://localhost:2000/api/external/jobMatching/",
 
       {
         jd: jd,
@@ -434,14 +434,14 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
     let resumeCount = selectedIndexesFileTypes.length;
   
     try {
-      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
   
       if (!updateJobMatchResponse.data.success) {
         console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
       }
   
-      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
   
       if (!jdSubscriptionResponse.data.success) {
