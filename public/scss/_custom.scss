@@ -11,6 +11,12 @@ body {
   padding: 0 24px;
 }
 
+.customMargins2 {
+  max-width: 1168px;
+  margin: 0px auto;
+  padding: 0 24px;
+}
+
 
 
 
@@ -610,3 +616,18 @@ input:checked + .slider:before {
 }
 
 
+.zoom-rotate-animation {
+  animation: zoomRotate 0.8s ease-out forwards;
+}
+
+@keyframes zoomRotate {
+  0% {
+    transform: rotate(-80deg) scale(1);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.8); /* Zoom in */
+  }
+  100% {
+    transform: rotate(0deg) scale(1); /* Zoom out to original size */
+  }
+}

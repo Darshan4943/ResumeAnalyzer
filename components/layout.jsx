@@ -35,13 +35,13 @@ function Layout({ children }) {
         <div className="pt-[3.75rem]  ">{children}</div>
       </div>
 
-      <div className="web">
+      <div className="web min-h-[100vh]">
         {!pageOpened &&
         <div>
           <Header />
         </div>
 }
-        <div className="pt-[3.75rem] bg-[#F3F4F5] ">{children}</div>
+        <div className="pt-[3.75rem] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
     </>

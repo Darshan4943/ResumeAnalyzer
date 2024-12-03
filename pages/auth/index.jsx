@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sign_up from "../../components/models/Sign_up";
+import Sign_up from "../../components/models/roleSelect";
 import Sign_in from "../../components/models/Sign_in";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -7,12 +7,12 @@ import axios from "axios";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../../utils/firebase";
+import RoleSelect from "../../components/models/roleSelect";
 function Main_sign_page() {
   const { signin, signup, role } = useRouter().query;
 
   const [isSignIn, setIsSignIn] = useState(true);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const auth = getAuth();
+  
   useEffect(() => {
     if (signin) {
       setIsSignIn(true);
@@ -20,47 +20,7 @@ function Main_sign_page() {
       setIsSignIn(false);
     }
   }, [signin, signup]);
-  const handleGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      setGoogleLoading(true);
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userData = {
-        name: user.displayName,
-        email: user.email,
-      };
-      const sendToPurchase = localStorage.getItem("purchase");
-      const sendToPurchaseResult = JSON.parse(sendToPurchase);
-      axios
-        .post(
-          "http://localhost:2000/api/skiloteckuser/user/google/signup",
-          userData
-        )
-        .then((res) => {
-          localStorage.setItem("authToken", JSON.stringify(res.data));
-          if (sendToPurchaseResult?.status) {
-            localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-              }`;
-          } else {
-            setGoogleLoading(false);
-            window.location.href = "/home?signIn=true";
-          }
-        })
-        .catch((err) => {
-          setGoogleLoading(false);
-          console.log(err);
-        });
-    } catch (error) {
-      if (error.code === "auth/cancelled-popup-request") {
-        console.log("Sign-in with Google popup was cancelled by the user.");
-      } else {
-        console.log("Error signing in with Google:", error.message);
-      }
-      setGoogleLoading(false);
-    }
-  };
+ 
 
   return (
     <div>
@@ -69,7 +29,7 @@ function Main_sign_page() {
 
         <div className=" z-100">
 
-          <Sign_up handleGoogle={handleGoogle} signin={signin} signup={signup}/>
+          <RoleSelect  signin={signin} signup={signup} />
         </div>
 
 
