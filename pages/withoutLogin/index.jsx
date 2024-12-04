@@ -4,6 +4,10 @@ import JobCategories from '../../components/featured/withoutLogin/JobCategories'
 import SkillAssessment from '../../components/featured/withoutLogin/SkillAssessment'
 import ForCandidate from '../../components/featured/withoutLogin/ForCandidate'
 import DreamJob from '../../components/featured/home/Dreamjob'
+import TrustedBy from '../../components/featured/withoutLogin/TrustedBy'
+import ResumeComp from '../../components/featured/withoutLogin/ResumeComp'
+import Testimonials from '../../components/featured/withoutLogin/Testimonials'
+import FrequentAskQue from '../../components/featured/withoutLogin/FrequentAskQue'
 
 function WithoutLogin() {
   return (
@@ -13,6 +17,11 @@ function WithoutLogin() {
       <SkillAssessment/>
       <ForCandidate/>
       <DreamJob/>
+      <TrustedBy/>
+      <ResumeComp/>
+      <Testimonials/>
+      <FrequentAskQue/>
+
       
     </div>
   )

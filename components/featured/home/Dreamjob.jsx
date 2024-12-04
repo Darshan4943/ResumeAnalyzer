@@ -9,7 +9,7 @@ function DreamJob({ isLogin }) {
   return (
     // <div className=" bg-bg_inventory bg-cover bg-no-repeat ">
       <div className="customMargins flex ml:flex-row flex-col ml:gap-[2vw]  gap-6 items-center ">
-        <div className="ml:w-[40%] w-full  flex justify-end  items-center ">
+        <div className="ml:w-[40%] w-full  flex ml:justify-end  justify-center items-center ">
           <img
             src="/images/withoutLogin/dreamJob.png"
             alt=""
