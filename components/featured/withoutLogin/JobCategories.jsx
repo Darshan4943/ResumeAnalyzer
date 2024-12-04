@@ -29,7 +29,10 @@ function JobCategories() {
                 {categories.map((category, index) => (
                     <div
                         key={index}
-                        style={{ boxShadow: "0px 3px 8px 0px rgba(0, 0, 0, 0.25)" }}
+                        style={{ boxShadow: "0px 3px 8px 0px #C9C8C840" }}
+                     
+                   
+
                         className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center'
                     >
                         <img
