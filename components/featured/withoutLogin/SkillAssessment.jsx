@@ -3,17 +3,17 @@ import React from 'react'
 function SkillAssessment() {
     return (
         <div className='customMargins'>
-            <div className='py-4 px-4 rounded-[12px] bg-Skill bg-cover bg-no-repeat  flex gap-12 items-center scr1024:w-[930px] justify-between ' >
-                <div className='flex flex-col gap-6'>
-                    <p className='text-[18px] font-[500]'>Uncover Your Potential with Effortless Skill Assessment.<br /> Elevate Your Abilities, Elevate Your Success!</p>
-                    <button className='py-3 px-9 text-[#FFFFFF] bg-blue text-[14px] font-[600] rounded-[30px] h-[42px] w-[155px]'>
+            <div className='py-4 px-4 rounded-[12px] bg-Skill bg-cover bg-no-repeat flex scr540:flex-row flex-col-reverse scr460:gap-12 gap-6 items-center scr1024:w-[930px] justify-between ' >
+                <div className='flex flex-col scr540:items-start items-center  gap-6'>
+                    <p className='ml:text-[18px] scr460:text-[16px] text-[14px] font-[500] scr540:text-start text-center'>Uncover Your Potential with Effortless Skill Assessment.<br className='ml:block hidden'/> Elevate Your Abilities, Elevate Your Success!</p>
+                    <button className='py-3 ml:px-9 px-6 text-[#FFFFFF] bg-blue ml:text-[14px] text-[12px] font-[600] rounded-[30px] h-[42px] ml:w-[155px] w-[140px]'>
                         Get Started
                     </button>
                 </div>
                 <img
                     src="/images/withoutLogin/SkillImg.png"
                     alt=""
-                    className="h-[150px] w-[161px]  object-cover "
+                    className="scr460:h-[150px] scr460:w-[161px] w-[120px] h-[110px] object-cover "
 
                 />
             </div>

@@ -38,17 +38,17 @@ function Header({ userData }) {
           selectedPage === "/auth/Employer_register" ||
           selectedPage === "/auth/Recruiter_register"
           ? " "
-          : "bg-white z-[100] fixed w-[100%]  "
+          : "bg-white z-[1000000] fixed w-[100%]  "
       }
       style={{
         borderBottom: "1.5px solid #DEDEDE",
       }}
     >
-      <div className="flex justify-center items-center   z-[100] customMargins  ">
+      <div className="flex justify-center items-center   z-[100000] customMargins  ">
         <div className="flex justify-between w-[100%]  h-[60px]  gap-2 ">
           {!isLogin ? (
             <>
-              <div className="flex items-center scr1150:gap-9 scr1024:gap-5 gap-2">
+              <div className="flex items-center gap-9 ">
                 <Link href="/">
                   {" "}
                   <img

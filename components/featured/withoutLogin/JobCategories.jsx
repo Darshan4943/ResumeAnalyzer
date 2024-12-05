@@ -19,13 +19,13 @@ function JobCategories() {
     return (
         <div className='flex flex-col gap-6 customMargins'>
             <div className='flex flex-col gap-3 text-center'>
-                <p className='text-[24px] font-bold'>Popular Job Categories</p>
-                <p className='text-[14px] font-medium text-[#705E5E]'>
-                    Discover exciting career opportunities in popular fields, from technology to healthcare,<br />
+                <p className='scr460:text-[24px] text-[18px] font-bold'>Popular Job Categories</p>
+                <p className='scr460:text-[14px] text-[12px] font-medium text-[#705E5E]'>
+                    Discover exciting career opportunities in popular fields, from technology to healthcare,<br className='scr700:block hidden' />
                     finance to marketing, and more.
                 </p>
             </div>
-            <div className='flex flex-wrap gap-6 justify-center'>
+            <div className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center'>
                 {categories.map((category, index) => (
                     <div
                         key={index}
@@ -38,9 +38,9 @@ function JobCategories() {
                         <img
                             src={category.img}
                             alt={category.label}
-                            className="h-[34px] w-[30px] object-cover"
+                            className="scr460:h-[34px] h-[24px] scr460:w-[30px] w-[22px] object-cover"
                         />
-                        <span className='text-[14px] font-[600]'>{category.label}</span>
+                        <span className='scr460:text-[14px] text-[12px] font-[600]'>{category.label}</span>
                         <svg
                             width="24"
                             height="24"

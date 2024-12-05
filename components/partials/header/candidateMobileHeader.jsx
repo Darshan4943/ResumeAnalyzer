@@ -27,7 +27,7 @@ function CandidateMobileHeader() {
   return (
     <>
       <div
-        className="flex p-2 justify-between fixed w-[100%] bg-white z-[100]  "
+        className="flex p-2 justify-between fixed w-[100%] bg-white z-[100000]  "
         style={{ boxShadow: "0px 1px 1px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="flex gap-2 items-center">

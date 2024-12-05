@@ -6,12 +6,12 @@ function ResumeComp() {
             <div style={{
                 background: "linear-gradient(177.77deg, #FFFFFF 30.14%, #FFDF9B 192.48%)"
             }}
-                className='py-5 px-10  flex gap-12 items-center scr1024:w-[930px] justify-between border border-[#D99403] rounded-[12px]' >
-                <div className='flex flex-col gap-6'>
-                    <p className='text-[22px] font-[600]'>
+                className='py-5 px-10  flex ms:flex-row flex-col-reverse ml:gap-12 gap-6 items-center scr1024:w-[930px] justify-between border border-[#D99403] rounded-[12px]' >
+                <div className='flex flex-col gap-6 ms:items-start items-center'>
+                    <p className='ml:text-[22px] text-[18px] font-[600] ms:text-start text-center'>
                         Craft Your Perfect Resume in Minutes
                     </p>
-                    <p className='text-[14px] font-[500]'>Uncover Your Potential with Effortless Skill Assessment.<br /> Elevate Your Abilities, Elevate Your Success!</p>
+                    <p className='text-[14px] font-[500] ms:text-start text-center'>Uncover Your Potential with Effortless Skill Assessment.<br className='ml:block hidden'/> Elevate Your Abilities, Elevate Your Success!</p>
                     <button className='py-3 px-9 text-[#FFFFFF] bg-blue text-[14px] font-[600] rounded-[30px] h-[42px] w-[155px]'>
                         Get Started
                     </button>

@@ -8,10 +8,11 @@ import TrustedBy from '../../components/featured/withoutLogin/TrustedBy'
 import ResumeComp from '../../components/featured/withoutLogin/ResumeComp'
 import Testimonials from '../../components/featured/withoutLogin/Testimonials'
 import FrequentAskQue from '../../components/featured/withoutLogin/FrequentAskQue'
+import SubscriptionPlans from '../../components/featured/home/SubscriptionPlans'
 
 function WithoutLogin() {
   return (
-    <div className=' flex flex-col gap-[100px] bg-[#FFFFFF]'>
+    <div className=' flex flex-col scr460:gap-[100px] gap-9 bg-[#FFFFFF]'>
       <HeroSection/>
       <JobCategories/>
       <SkillAssessment/>
@@ -20,6 +21,7 @@ function WithoutLogin() {
       <TrustedBy/>
       <ResumeComp/>
       <Testimonials/>
+ 
       <FrequentAskQue/>
 
       

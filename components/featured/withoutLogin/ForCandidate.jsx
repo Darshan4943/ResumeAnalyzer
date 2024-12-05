@@ -13,11 +13,11 @@ function ForCandidate() {
     const [toggle, setToggle] = useState(true);
 
     const springProps = useSpring({
-        opacity: toggle ? 1 : 0, 
-        transform: toggle ? 'scale(1)' : 'scale(0.9)', 
-        config: { duration: 1000 }, 
-      });
-    
+        opacity: toggle ? 1 : 0,
+        transform: toggle ? 'scale(1)' : 'scale(0.9)',
+        config: { duration: 1000 },
+    });
+
 
     const slowConfig = {
         duration: 1000,
@@ -107,10 +107,10 @@ function ForCandidate() {
             setmoveRight(false);
             setInitial(true);
             setMoveRightAgain(false);
-        }, 12000); 
+        }, 12000);
 
         return () => {
-            clearInterval(interval); 
+            clearInterval(interval);
         };
     }, []);
     useEffect(() => {
@@ -160,7 +160,7 @@ function ForCandidate() {
     }, [recall]);
 
     return (
-        <div className="h-[404px]  customMargins relative w-full ">
+        <div className="lg:h-[404px]  customMargins relative w-full overflow-hidden ">
 
 
 
@@ -183,32 +183,32 @@ function ForCandidate() {
 
 
 
-            <div className="  pt-8 ">
+            <div className="pt-8 lg:block hidden ">
                 {data.map((item, index) => (
                     <animated.div className="create_account " key={index} style={index % 2 === 0 ? springProps1 : springProps2}>
 
 
                         {toggle ? (
 
-                            <div id="smooth"  className="z-[1000] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-blue rounded-[192px] ">
+                            <div id="smooth" className="z-[100] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-blue rounded-[192px] ">
                                 <div className=" flex justify-center items-center h-[188px] w-[188px]  rounded-[188px] circle10">
                                     <div className="flex flex-col gap-[18px] items-center justify-center w-[140px]">
                                         <img id="smooth" src={item.img1} alt="" className="h-[56px] w-[56px]" />
                                         <p id="smooth" className="text-[14px] font-[500] items-center text-center">{item.name1}</p>
                                     </div>
                                 </div>
-                                <div style={{ filter: 'blur(200px)', opacity:0.4 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px] bg-[#06A9EF] rounded-[268px] pulse-animation">
+                                <div style={{ filter: 'blur(35px)', opacity: 0.1 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px] rounded-[268px] pulse-animation ">
                                 </div>
                             </div>
                         ) : (
-                            <div id="smooth" className="z-[1000] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-[#FFC65C] rounded-[192px] ">
+                            <div id="smooth" className="z-[100] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-[#FFC65C] rounded-[192px] ">
                                 <div className=" flex justify-center items-center h-[188px] w-[188px]  rounded-[188px] circle11">
                                     <div className="flex flex-col gap-[18px] items-center justify-center w-[140px]">
                                         <img id="smooth" src={item.img2} alt="" className="h-[56px] w-[56px]" />
                                         <p id="smooth" className="text-[14px] font-[500] items-center text-center">{item.name2}</p>
                                     </div>
                                 </div>
-                                <div style={{ filter: 'blur(200px)', opacity:0.1 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px] bg-[#FFC65C] rounded-[268px] pulse-animation1">
+                                <div style={{ filter: 'blur(35px)', opacity: 0.1 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px]  rounded-[268px] pulse-animation1">
                                 </div>
                             </div>
                         )}
@@ -216,6 +216,38 @@ function ForCandidate() {
 
 
                     </animated.div>
+                ))}
+            </div>
+
+
+            <div className="lg:hidden flex flex-wrap scr460:gap-y-[100px] gap-y-[40px] scr700:gap-x-[200px] gap-x-[60px] justify-evenly mt-9">
+                {data.map((item, index) => (
+                    <div >
+                        {toggle ? (
+
+                            <div id="smooth" className="z-[100] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-blue rounded-[192px] ">
+                                <div className=" flex justify-center items-center h-[188px] w-[188px]  rounded-[188px] circle10">
+                                    <div className="flex flex-col gap-[18px] items-center justify-center w-[140px]">
+                                        <img id="smooth" src={item.img1} alt="" className="h-[56px] w-[56px]" />
+                                        <p id="smooth" className="text-[14px] font-[500] items-center text-center">{item.name1}</p>
+                                    </div>
+                                </div>
+                                <div style={{ filter: 'blur(35px)', opacity: 0.1 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px]  rounded-[268px] pulse-animation over">
+                                </div>
+                            </div>
+                        ) : (
+                            <div id="smooth" className="z-[100] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-[#FFC65C] rounded-[192px] ">
+                                <div className=" flex justify-center items-center h-[188px] w-[188px]  rounded-[188px] circle11">
+                                    <div className="flex flex-col gap-[18px] items-center justify-center w-[140px]">
+                                        <img id="smooth" src={item.img2} alt="" className="h-[56px] w-[56px]" />
+                                        <p id="smooth" className="text-[14px] font-[500] items-center text-center">{item.name2}</p>
+                                    </div>
+                                </div>
+                                <div style={{ filter: 'blur(35px)', opacity: 0.1 }} className="absolute flex flex-col justify-center items-center h-[268px] w-[268px] rounded-[268px] pulse-animation1">
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 ))}
             </div>
 

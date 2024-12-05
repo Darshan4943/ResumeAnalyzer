@@ -27,22 +27,22 @@ function FrequentAskQue() {
     ];
 
     return (
-        <div className="customMargins flex flex-col gap-[42px] pb-[100px] w-full">
-            <p className="text-[30px] font-[600] text-center">Frequently Asked Questions</p>
+        <div className="customMargins flex flex-col scr460:gap-[42px] gap-6 pb-[100px] w-full">
+            <p className="scr460:text-[30px] text-[18px] font-[600] text-center">Frequently Asked Questions</p>
             <div className="flex gap-[10px]">
                 <img
                     src="/images/withoutLogin/freqAsk.png"
                     alt=""
-                    className="h-[344px] min-w-[327px] object-cover"
+                    className="h-[344px] min-w-[327px] object-cover ml:block hidden"
                 />
                 <div className="flex flex-col gap-7 p-[10px] w-full">
                     {questions.map((que, index) => (
                         <div
                             key={index}
-                            className="flex flex-col gap-[18px] justify-between py-[18px] pl-[20px] pr-12 border-b-[0.5px] border-[#EAEAEA]"
+                            className="flex flex-col gap-[18px] justify-between scr460:py-[18px] scr460:pl-[20px] py-2 pl-2  scr460:pr-12 pr-2 border-b-[0.5px] border-[#EAEAEA]"
                         >
-                            <div className="flex justify-between items-center">
-                                <p className="text-[20px] font-[400]">{que.que}</p>
+                            <div className="flex justify-between items-start scr460:gap-0 gap-1">
+                                <p className="scr1024:text-[20px] scr460:text-[16px] text-[14px] font-[400]">{que.que}</p>
                                 <svg
                                     onClick={() => toggleAnswer(index)}
                                     width="24"
@@ -50,7 +50,7 @@ function FrequentAskQue() {
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="cursor-pointer"
+                                    className="cursor-pointer min-w-[24px]"
                                 >
                                     <rect
                                         width="24"
@@ -71,7 +71,7 @@ function FrequentAskQue() {
                                 </svg>
                             </div>
                             {openIndex === index && (
-                                <div className="text-[14px] font-[400]">{que.ans}</div>
+                                <div className="scr460:text-[14px] text-[12px]  font-[400]">{que.ans}</div>
                             )}
                         </div>
                     ))}

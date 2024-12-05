@@ -10,7 +10,7 @@ body {
   margin: 0px auto;
   padding: 0 24px;
 }
-
+ 
 .customMargins2 {
   max-width: 1168px;
   margin: 0px auto;
@@ -29,6 +29,11 @@ body {
   .customMargins1 {
     padding: 0 2px;
   }
+  .customMargins {
+    
+    padding: 0 8px;
+  }
+   
 }
 
 @media (min-width: 1440px) {
