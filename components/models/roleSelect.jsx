@@ -196,7 +196,7 @@ function RoleSelect({ signin, signup }) {
           </div>
           {signin ?
             <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
-              Don't have an account?{"  "}
+              Do not have an account?{"  "}
               <span
                 onClick={() =>
                   router.push(

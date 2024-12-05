@@ -47,7 +47,7 @@ function Testimonials() {
                             className="swiper-slide-card "
                         >
                             <div className="flex flex-col gap-[26px] p-5 bg-[#F5FCFF] justify-center items-center">
-                                <p className="ml:text-[16px] text-[14px] font-[600] text-center">"{category.label}"</p>
+                                <p className="ml:text-[16px] text-[14px] font-[600] text-center">{`"${category.label}"`}</p>
                                 <div className="flex flex-col gap-4 justify-center items-center">
                                     <img
                                         src={category.img}
@@ -92,7 +92,7 @@ function Testimonials() {
                                 className=" swiper-slide-card1"
                             >
                                 <div  className="flex flex-col gap-[26px] p-5 bg-[#F5FCFF] justify-center items-center">
-                                    <p className="ml:text-[16px] text-[14px] font-[600] text-center">"{category.label}"</p>
+                                    <p className="ml:text-[16px] text-[14px] font-[600] text-center">{`"${category.label}"`}</p>
                                     <div className="flex flex-col gap-4 justify-center items-center">
                                         <img
                                             src={category.img}

@@ -222,7 +222,7 @@ function ForCandidate() {
 
             <div className="lg:hidden flex flex-wrap scr460:gap-y-[100px] gap-y-[40px] scr700:gap-x-[200px] gap-x-[60px] justify-evenly mt-9">
                 {data.map((item, index) => (
-                    <div >
+                    <div key={index} >
                         {toggle ? (
 
                             <div id="smooth" className="z-[100] relative  flex flex-col justify-center items-center h-[192px] w-[192px] border border-blue rounded-[192px] ">
