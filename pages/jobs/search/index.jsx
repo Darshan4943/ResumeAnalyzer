@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import AllJobCard from '../home/AllJobCard';
 
-function index() {
+function Index() {
     const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
     const [filter, setFilter] = useState(false);
     const [mobileFilter, setMobileFilter] = useState(false);
@@ -287,4 +287,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
