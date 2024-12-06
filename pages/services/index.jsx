@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 
 function Services() {
   const router = useRouter();
+  const [candidate, setCandidate] = useState(true);
+  
   const [isServices, setServices] = useState(true);
   const [isMove, setIsMove] = useState(false);
   useEffect(() => {
@@ -154,7 +156,11 @@ function Services() {
       return loginListCandidate;
     } else if (userDataGlobal.role === "recruiter") {
       return loginListRecruiter;
-    } else return loginListRecruiter;
+    } else if(candidate){
+      return loginListCandidate;
+    } else{
+      return loginListRecruiter;
+    }
   };
 
   function getServiceItemClassName(itemName) {
@@ -247,7 +253,7 @@ function Services() {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
+    <div className="fixed z-[2000]  top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${
@@ -257,95 +263,17 @@ function Services() {
           }`}
           style={{ transition: " all .2s linear" }}
         >
-          <div className="flex flex-col gap-[24px]">
-            <div
-              onClick={() => router.push("/home")}
-              className={` group min-w-[272px] h-[186px] `}
-            >
-              <div className="border border-[#DEDEDE] dashboard group-hover:border-[#F9F9F9] rounded-[24px] bg-[#F9F9F9] flex flex-col justify-between gap-2 p-6  leading-tight cursor-pointer">
-                <div
-                  className=" flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-16px] group-hover:translate-x-0 move"
-                  style={{ transition: " all .3s linear" }}
-                >
-                  <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_1897_29995)">
-                      <path
-                        d="M12.6 12.5L8 7.9L9.4 6.5L15.4 12.5L9.4 18.5L8 17.1L12.6 12.5Z"
-                        fill="white"
-                      />
-                    </g>
-                  </svg>
-                </div>
+         <div className="flex flex-col gap-4">
+          <button onClick={()=>setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px]">
+            Candicate
 
-                <div className="flex flex-col gap-2 w-[124px] ">
-                  <svg
-                    className="min-w-[32px]"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_2038_22277)">
-                      <path
-                        className="icon-path "
-                        d="M7.99997 25.3332H12.4615V17.4101H19.5384V25.3332H24V13.3332L16 7.30755L7.99997 13.3332V25.3332ZM6 27.3331V12.3332L16 4.80762L25.9999 12.3332V27.3331H17.5384V19.4101H14.4615V27.3331H6Z"
-                        fill="#808080"
-                      />
-                    </g>
-                  </svg>
-                  <p className="text-[14px] font-medium group-hover:text-white">
-                    Dashboard
-                  </p>
-                  <p className="text-[12px] font-medium text-[#808080] group-hover:text-white">
-                    Go to your personalized home page
-                  </p>
-                </div>
-              </div>
-            </div>
+          </button>
+          <button onClick={()=>setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px]">
+            Recruiter
 
-            {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={() => router.push('/jobs/saved')}>
-              <svg
-                width="12"
-                height="16"
-                viewBox="0 0 12 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.166504 15.5V2.16667C0.166504 1.70833 0.329698 1.31597 0.656087 0.989583C0.982476 0.663194 1.37484 0.5 1.83317 0.5H10.1665C10.6248 0.5 11.0172 0.663194 11.3436 0.989583C11.67 1.31597 11.8332 1.70833 11.8332 2.16667V15.5L5.99984 13L0.166504 15.5ZM1.83317 12.9583L5.99984 11.1667L10.1665 12.9583V2.16667H1.83317V12.9583Z"
-                  fill="#808080"
-                />
-              </svg>
-              <span className="text-[#33333] text-[16px] font-normal">
-                Saved Jobs
-              </span>
-            </button> */}
-            {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center">
-              <svg
-                width="18"
-                height="17"
-                viewBox="0 0 18 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.33317 16.5001C1.87484 16.5001 1.48248 16.3369 1.15609 16.0105C0.829698 15.6841 0.666504 15.2917 0.666504 14.8334V5.66675C0.666504 5.20841 0.829698 4.81605 1.15609 4.48966C1.48248 4.16328 1.87484 4.00008 2.33317 4.00008H5.6665V2.33341C5.6665 1.87508 5.8297 1.48272 6.15609 1.15633C6.48248 0.829943 6.87484 0.666748 7.33317 0.666748H10.6665C11.1248 0.666748 11.5172 0.829943 11.8436 1.15633C12.17 1.48272 12.3332 1.87508 12.3332 2.33341V4.00008H15.6665C16.1248 4.00008 16.5172 4.16328 16.8436 4.48966C17.17 4.81605 17.3332 5.20841 17.3332 5.66675V14.8334C17.3332 15.2917 17.17 15.6841 16.8436 16.0105C16.5172 16.3369 16.1248 16.5001 15.6665 16.5001H2.33317ZM2.33317 14.8334H15.6665V5.66675H2.33317V14.8334ZM7.33317 4.00008H10.6665V2.33341H7.33317V4.00008Z"
-                  fill="#808080"
-                />
-              </svg>
+          </button>
 
-              <span className="text-[#33333] text-[16px] font-normal">
-                Applied Jobs
-              </span>
-            </button> */}
-          </div>
+         </div>
           <div className="flex flex-col gap-6 w-[800px]  ">
             <div className="header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] ">
               Services
@@ -363,31 +291,31 @@ function Services() {
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] p-4  ${
+                    className={`flex items-start gap-[20px] px-4 py-3  ${
                       visible !== index
                         ? "border border-[#DEDEDE]"
                         : "border border-[#FFF]"
-                    } rounded-[16px] cursor-pointer w-[370px] `}
+                    } rounded-[8px] cursor-pointer w-[370px] h-[66px] `}
                   >
                     <div className="flex items-center gap-3">
                       <img
                         src={item.imgSrc}
                         alt=""
-                        className="w-[46px] h-[46px]"
+                        className="w-[30px] h-[30px]"
                       />
-                      <div className="w-[270px] flex flex-col gap-1  ">
+                      <div className="w-[270px] flex flex-col gap-1 h-[43px]  ">
                         <div className="flex gap-3 items-center">
-                          <span className="text-[14px] font-medium">
+                          <span className="text-[12px] font-medium leading-tight">
                             {item.name}
                           </span>
                           {item.new && (
-                            <div className="flex justify-center items-center px-2 h-[17px] bg-[#F72C2C] rounded-[4px] text-[#FFF] text-[12px] font-medium leading-tight">
+                            <div className="flex justify-center items-center px-1 h-[15px] bg-[#F72C2C] rounded-[4px] text-[#FFF] text-[10px] font-normal leading-tight">
                               {item.new}
                             </div>
                           )}
                         </div>
 
-                        <p className="text-[12px] font-normal text-[#808080]">
+                        <p className="text-[10px] font-normal text-[#808080] leading-tight">
                           {item.desc}
                         </p>
                       </div>

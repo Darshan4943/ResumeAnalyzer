@@ -90,15 +90,9 @@ function AllJobCard({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <div
-        className={`flex flex-col   
-     rounded-md border-primary bg-white shadow-md `}
-        style={{
-          boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
-        }}
-      >
-        <div className="p-[8px]  leading-tight ">
+    <div className="flex flex-col gap-4 w-full max-w-[548px]">
+      
+        <div className="flex flex-col gap-4">
           {jobData?.map((item, index) => (
             <>
               <div
@@ -108,20 +102,18 @@ function AllJobCard({
                   const newPageNumber = Math.ceil((index + 1) / itemsPerPage);
                   setCurrentPage(newPageNumber);
                 }}
-                className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
+                className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px] h-[169px] min-h-[169px] bg-[#FFFFFF] z-0 ${selectedJob?._id == item._id && "selected_job_card"
                   } `}
                 style={{
-                  borderBottom:
-                    selectedJob?._id == item._id
-                      ? "unset"
-                      : "1px solid #646464",
+                  boxShadow: "0px 0px 14px 0px #00000005"
+                
                 }}
                 key={index}
               >
-                <div className=" flex flex-col gap-[16px] ">
+                <div className=" flex flex-col gap-[8px] ">
                   <div className="flex flex-row">
                     <div className="flex flex-col gap-[4px] w-full">
-                      <div className="xxsm:text-[16px] sm:text-[20px] font-medium">
+                      <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
                         {item?.jobTitle}
                       </div>
                       <div className="text-[12px] font-medium">
@@ -234,14 +226,14 @@ function AllJobCard({
                       </svg>
                     </div>
                     <div className="text-[#262626] font-[400] text-[12px]">
-                      {item?.description?.length > 80
-                        ? `${item.description.slice(0, 80)}...`
+                      {item?.description?.length > 100
+                        ? `${item.description.slice(0, 100)}...`
                         : item.description}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1 h-[24px]">
+                <div className="flex flex-row justify-between items-center px-1 h-[24px]">
                   {appliedJobs?.some(
                     (appliedJob) => appliedJob._id === item._id
                   ) ? (
@@ -271,7 +263,7 @@ function AllJobCard({
                         return (
                           <div
                             key={job._id}
-                            className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center"
+                            className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
                           >
 
                             {CountPostingDays(matchingApplication?.appliedOn) || ""}
@@ -287,9 +279,9 @@ function AllJobCard({
                     </div>
                   )}
 
-                  {isLogin && (
+                  {/* {isLogin && ( */}
                     <div className=" cursor-pointer">
-                      {savedJobList.find((data) => data._id == item._id) ? (
+                      {savedJobList?.find((data) => data._id == item._id) ? (
                         <svg
                           onClick={(e) => removeSavedJob(e, item._id)}
                           width="24"
@@ -322,13 +314,13 @@ function AllJobCard({
                         </svg>
                       )}
                     </div>
-                  )}
+                  {/* )} */}
                 </div>
               </div>
             </>
           ))}
         </div>
-      </div>
+      
       <div className="sm:px-[16px] px-0 w-full justify-between flex ">
         <div className="flex items-center sm:gap-4 gap-2">
           <p className="text-[14px] text-[#646464] font-600">View</p>
@@ -341,6 +333,7 @@ function AllJobCard({
               onChange={(e) => handleChange(e)}
               className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
             >
+              
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="20">20</option>

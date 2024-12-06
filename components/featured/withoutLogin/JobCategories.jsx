@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 function JobCategories() {
+    const router = useRouter();
     const categories = [
         { img: "/images/withoutLogin/cat1.png", label: "MNC" },
         { img: "/images/withoutLogin/cat2.png", label: "Sales" },
@@ -25,13 +27,13 @@ function JobCategories() {
                     finance to marketing, and more.
                 </p>
             </div>
-            <div className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center'>
+            <div  className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center'>
                 {categories.map((category, index) => (
                     <div
                         key={index}
                         style={{ boxShadow: "0px 3px 8px 0px #C9C8C840" }}
                      
-                   
+                   onClick={()=>router.push("./jobs/search")}
 
                         className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center'
                     >
