@@ -24,7 +24,7 @@ function HeroSection() {
                             Search, apply, and land your dream job.
                         </p>
                     </text>
-                    <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%] ms:w-[87%] md:w-[70%] w-full ">
+                    <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%] ms:w-[87%] md:w-[70%] w-full max-w-[620px] ">
 
                         <div className="flex ms:flex-row flex-col justify-between scr1100:h-[62px] ms:h-[48px] ms:items-center  lg:gap-2 ms:gap-1 gap-2 items-start    scr1100:px-3 ms:px-2 px-4 scr1100:py-[10px] ms:py-2 py-4 border border-[#E1E3E3] ms:rounded-[30px] rounded-[12px] bg-white w-[100%]   ">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='min-w-[24px] ms:block hidden'>
@@ -61,13 +61,13 @@ function HeroSection() {
                                 onChange={(e) => setLocation(e.target.value)}
                             />
                             <div className=" bg-[#E0E0E0]  h-[1px] w-full ms:hidden"></div>
-                            <div className='w-full flex items-center ms:justify-end justify-center'>
+                            <div className=' flex items-center ms:justify-end justify-center scr1100:w-[122px] ms:w-[76px] w-full'>
                                 <button
                                     onClick={() => {
                                         router.push(`/jobs/search?search=${true}&loc=${location}&jobTit=${jobTitle}`);
 
                                     }}
-                                    className="ms:block hidden scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
+                                    className="ms:block hidden scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] w-[76px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
                                 >
                                     Search
 

@@ -33,6 +33,7 @@ function Layout({ children }) {
           <CandidateMobileHeader />
         </div>
         <div className="pt-[3.75rem]  ">{children}</div>
+        <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
 
       <div className="web min-h-[100vh]">
