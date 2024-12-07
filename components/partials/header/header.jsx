@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import CandidateHeader from "./candidateHeader";
 import { Service } from "../../../utils/svg";
-import Services from "../../../pages/services";
+import Services from "../../featured/candidate/createResume/components/services";
+
 
 function Header({ userData }) {
   const router = useRouter();
@@ -44,7 +45,7 @@ function Header({ userData }) {
         borderBottom: "1.5px solid #DEDEDE",
       }}
     >
-      <div className="flex justify-center items-center   z-[100000] customMargins  ">
+      <div className="flex justify-center items-center   z-[10000000] customMargins  ">
         <div className="flex justify-between w-[100%]  h-[60px]  gap-2 ">
           {!isLogin ? (
             <>
@@ -87,44 +88,46 @@ function Header({ userData }) {
                 >
                   Jobs
                 </Link> */}
-                <Link
-                  href="/"
+                <div
+                  onClick={() => setServices(false)}
+
                   className={
-                    selectedPage === "/" || selectedPage === "/home"
+                    !isServices  || !isServices 
                       ? "active scr1250:text-[16px] text-[16px]"
                       : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Jobs
-                </Link>
+                </div>
 
-                <Link
-                  href="/services"
+                <div
+                  // href="/services"
+                  onClick={() => setServices(true)}
                   className={
-                    selectedPage === "/services" 
+                    isServices
                       ? "active scr1250:text-[16px] text-[16px]"
                       : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Services
-                </Link>
+                </div>
 
 
               </div>
               <div className="w-[60%] gap-4   flex justify-end  items-center ">
-                
-             
-                  <button
-                   onClick={() => {
+
+
+                <button
+                  onClick={() => {
                     router.push("/auth?signin=true");
                   }}
-                    className={`buttonTransparent  scr1150:min-w-[123px] scr1024:min-w-[110px] min-w-[100px]  rounded-[30px] flex justify-center items-center bg-white text-[#333] py-[10px] h-[42px] scr1150:px-6 scr1024:px-3 px-2 text-[14px] font-semibold  border-[1px] border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white] leading-[18px] `}
-                  >
-                    Sign in
-                  
-                  </button>
-                
-             
+                  className={`buttonTransparent  scr1150:min-w-[123px] scr1024:min-w-[110px] min-w-[100px]  rounded-[30px] flex justify-center items-center bg-white text-[#333] py-[10px] h-[42px] scr1150:px-6 scr1024:px-3 px-2 text-[14px] font-semibold  border-[1px] border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white] leading-[18px] `}
+                >
+                  Sign in
+
+                </button>
+
+
 
                 <button
                   onClick={() => {
@@ -141,6 +144,12 @@ function Header({ userData }) {
               <CandidateHeader />
             </>
           )}
+
+          {isServices &&
+           
+              <Services />
+
+          }
         </div>
       </div>
     </div>
