@@ -8,9 +8,7 @@ import { CountPostingDays } from "../../../utils/data";
 import MiniLoader from "../../../components/common/mini-loader";
 
 function AllJobCard({
-  selectedJob,
-  setIsDescription,
-  setSelectedJob,
+ 
   savedJobList,
   setSavedJobList,
   setLimit,
@@ -26,6 +24,7 @@ function AllJobCard({
   miniLoading,
 
 }) {
+  const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -139,7 +138,7 @@ function AllJobCard({
         // setLoading(false);
       });
   };
-  console.log(jobData)
+
   return (
     <div className="flex flex-col gap-4 w-full max-w-[548px]">
 
@@ -151,10 +150,7 @@ function AllJobCard({
               <>
                 <div
                   onClick={() => {
-                    setSelectedJob(item);
-                    const itemsPerPage = 10;
-                    const newPageNumber = Math.ceil((index + 1) / itemsPerPage);
-                    setCurrentPage(newPageNumber);
+                    router.push(`/jobs/search/JobDetails?id=${item._id}`)
                   }}
                   className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px] h-[169px] min-h-[169px] bg-[#FFFFFF] z-0 ${selectedJob?._id == item._id && "selected_job_card"
                     } `}

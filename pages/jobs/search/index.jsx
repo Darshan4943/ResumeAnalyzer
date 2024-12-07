@@ -41,7 +41,7 @@ function Index() {
     const [miniLoading, setMiniloading] = useState(false);
     const { loc, jobTit, search } = router.query;
     const [hiddenFilters, setHiddenFilters] = useState({});
-
+   
     const toggleFilterVisibility = (filterId) => {
         setHiddenFilters((prev) => ({
             ...prev,
