@@ -380,6 +380,7 @@ function AllJobCard({
                   : item.background
 
               }}
+              key={index}
                 className='p-[16px] flex   sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between items-center  rounded-[12px]  min-h-[169px] overflow-hidden ' >
                 <div className='flex flex-col gap-2 sm:items-start items-center justify-between h-full'>
                   <div className='flex flex-col gap-2 sm:items-start items-center '>

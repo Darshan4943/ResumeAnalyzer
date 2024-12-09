@@ -70,17 +70,17 @@ function Index() {
     }, []);
     const handleOutsideClick = (event) => {
         if (taskRef.current && !taskRef.current.contains(event.target)) {
-          setMobileFilter(false);
-          setOpenDropdown(false);
+            setMobileFilter(false);
+            setOpenDropdown(false);
         }
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         document.addEventListener("mousedown", handleOutsideClick);
         return () => {
-          document.removeEventListener("mousedown", handleOutsideClick);
+            document.removeEventListener("mousedown", handleOutsideClick);
         };
-      }, []);
+    }, []);
 
     const handleDropdownClick = (id) => {
         setOpenDropdown(openDropdown === id ? null : id);
@@ -224,7 +224,14 @@ function Index() {
     return (
         <>
             <div className="w-full customMargins pt-6 scr700:hidden ">
-                <button onClick={() => setMobileFilter(true)} className=" px-6 py-2 bg-blue text-white rounded-[8px]">
+                <button stle={{boxShadow: "0px 0px 14px 0px #00000005"}} onClick={() => setMobileFilter(true)} className=" px-2 py-2 flex gap-2 bg-[#FFFFFF] rounded-[6px]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                        <g mask="url(#mask0_6317_76206)">
+                            <path d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z" fill="#646464" />
+                        </g>
+                    </svg>
+
                     Filter
                 </button>
             </div>
