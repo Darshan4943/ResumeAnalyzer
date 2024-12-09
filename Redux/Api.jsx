@@ -501,7 +501,11 @@ export const Api = ({ }) => {
       // Process the closest country data
       await processCountryData(closestData.results);
     } else {
-      console.log("No relevant data found");
+       console.log("No relevant data found");
+      localStorage.setItem("exchangeRate",  "1" );
+      localStorage.setItem("currency", "USD");
+      localStorage.setItem("icon",  "$" );
+      setShowPlans(true)
     }
   };
 
