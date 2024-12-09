@@ -154,7 +154,7 @@ function Sign_in({  setSignIn, setSignUp }) {
 
     return (
         <div className=" flex justify-center items-center py-[72px] px-2 gap-[50px] min-h-[calc(100vh-351.66px)]">
-            <div>
+            <div className="scr1024:block hidden">
                 <img
                     src="/images/auth/signIn.png"
                     alt=""

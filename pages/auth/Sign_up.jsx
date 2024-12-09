@@ -367,7 +367,13 @@ function Sign_up({ }) {
       "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-
+    if (!data.firstName) {
+      setFormError((prevErrors) => ({
+        ...prevErrors,
+        firstName: "Enter First Name",
+      }));
+      return;
+    }
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
@@ -375,6 +381,7 @@ function Sign_up({ }) {
       }));
       return;
     }
+   
     if (!data.mobileNo) {
       setFormError((prevErrors) => ({
         ...prevErrors,
@@ -555,7 +562,7 @@ function Sign_up({ }) {
       <img
         src="/images/auth/signIn.png"
         alt=""
-        className="h-[480px] w-[480px]  object-cover"
+        className="h-[480px] w-[480px]  object-cover scr1024:block hidden"
 
       />
       <form
@@ -565,9 +572,9 @@ function Sign_up({ }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[30px] font-[600]"> {role === "user" ? "Candidate Sign Up " : "Recruiter Sign Up"}</div>
-        <div className="flex flex-row gap-4">
-          <div className="w-[50%] flex flex-col gap-1">
+        <div className="text-[20px] font-[600]"> {role === "user" ? "Candidate Sign Up " : "Recruiter Sign Up"}</div>
+        <div className="flex scr390:flex-row flex-col gap-4 w-full ">
+          <div className="scr390:w-[50%] w-full flex flex-col gap-1">
             <div className={`flex flex-col px-[16px] py-[10px] border-[1px]   rounded-[8px] border-solid ${formError.firstName ? "border-red" : "border-[#DEDEDE]"}`}>
 
               <input
@@ -584,7 +591,7 @@ function Sign_up({ }) {
             </div>
 
           </div>
-          <div className="w-[50%] flex flex-col gap-1">
+          <div className="scr390:w-[50%] w-full flex flex-col gap-1">
             <div className={`flex flex-col px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid ${formError.lastName ? "border-red" : "border-[#DEDEDE]"}`}>
               <input
                 type="text"

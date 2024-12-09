@@ -49,19 +49,19 @@ function RoleSelect({ signin, signup }) {
         <img
           src="/images/auth/selectrole.png"
           alt=""
-          className="h-[316px] w-[474px]  object-cover"
+          className="h-[316px] w-[474px]  object-cover scr1024:block hidden"
 
         />
-        <div className="flex flex-col gap-[24px] p-6 border border-[#DEDEDE] rounded-[12px]">
-          <div className="text-[20px] font-semibold text-center">
+        <div className="flex flex-col sm:gap-[24px] gap-4  scr1024:p-6 p-3 border border-[#DEDEDE] rounded-[12px] max-w-[400px] scr1024:min-w-[400px]">
+          <div className="text-[18px]  sm:text-[20px] font-semibold text-center">
             {signin ? "Sign In" :"Sign Up"}
             
           </div>
           <div className=" flex flex-col gap-2">
-            <div className="text-[#333] text-center text-[18px]  font-[600]">
+            <div className="text-[#333] text-center text-[16px]  sm:text-[18px]  font-[600]">
               Select a role to get started
             </div>
-            <div className="text-[#646464] text-center text-[14px]  font-[500]">
+            <div className="text-[#646464] text-center text-[12px]  sm:text-[14px]  font-[500]">
               We need to know which role best matches you so that we can personalize your experience.
             </div>
           </div>
@@ -71,13 +71,14 @@ function RoleSelect({ signin, signup }) {
               <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/Sign_up?role=user") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className="flex items-center">
-                    <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border h-[40px] w-[40px]">
+                    <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
                         fill="none"
+                        className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
                       >
                         <g clipPath="url(#clip0_3813_27793)">
                           <path
@@ -125,10 +126,10 @@ function RoleSelect({ signin, signup }) {
                     </div>
                   </div>
                   <div>
-                    <div className="text-[16px] font-[500] sign_ip_text">
+                    <div className="text-[14px]  sm:text-[16px] font-[500] sign_ip_text">
                       Candidate
                     </div>
-                    <div className="text-[12px] font-[500] text-[#646464] sign_ip_text">
+                    <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] sign_ip_text">
                       Create your own resume
                     </div>
                   </div>
@@ -148,6 +149,7 @@ function RoleSelect({ signin, signup }) {
                       viewBox="0 0 40 40"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
                     >
                       <rect
                         x="0.5"
@@ -180,8 +182,8 @@ function RoleSelect({ signin, signup }) {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-[16px] font-[500] ">Recruiter</div>
-                    <div className="text-[12px] font-[500] text-[#646464] ">
+                    <div className="text-[14px]  sm:text-[16px] font-[500] ">Recruiter</div>
+                    <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] ">
                       Create resumes for various clients
                     </div>
                   </div>
@@ -195,7 +197,7 @@ function RoleSelect({ signin, signup }) {
             </div>
           </div>
           {signin ?
-            <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
+            <div className="flex items-center justify-center text-[12px]  sm:text-[14px] font-[500] text-[#646464]">
               Do not have an account?{"  "}
               <span
                 onClick={() =>
