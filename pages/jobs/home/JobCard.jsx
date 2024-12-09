@@ -7,7 +7,7 @@ function Job_card({ jobData, appliedJobs, savedJobList }) {
       {jobData?.map((item, index) => (
         <div
 
-          className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px] h-[169px] min-h-[169px] bg-[#FFFFFF] z-0 `}
+          className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 `}
           style={{
             boxShadow: "0px 0px 14px 0px #00000005"
 

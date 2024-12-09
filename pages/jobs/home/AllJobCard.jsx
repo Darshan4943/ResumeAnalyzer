@@ -8,7 +8,7 @@ import { CountPostingDays } from "../../../utils/data";
 import MiniLoader from "../../../components/common/mini-loader";
 
 function AllJobCard({
- 
+
   savedJobList,
   setSavedJobList,
   setLimit,
@@ -141,6 +141,8 @@ function AllJobCard({
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-[548px]">
+     
+
 
       <div className="flex flex-col gap-4">
         {combinedData?.map((item, index) => {
@@ -152,7 +154,7 @@ function AllJobCard({
                   onClick={() => {
                     router.push(`/jobs/search/JobDetails?id=${item._id}`)
                   }}
-                  className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px] h-[169px] min-h-[169px] bg-[#FFFFFF] z-0 ${selectedJob?._id == item._id && "selected_job_card"
+                  className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 ${selectedJob?._id == item._id && "selected_job_card"
                     } `}
                   style={{
                     boxShadow: "0px 0px 14px 0px #00000005"
@@ -163,7 +165,7 @@ function AllJobCard({
                   <div className=" flex flex-col gap-[8px] ">
                     <div className="flex flex-row">
                       <div className="flex flex-col gap-[4px] w-full">
-                        <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
+                        <div className="xxsm:text-[16px] sm:text-[16px] font-[600]">
                           {item?.jobTitle}
                         </div>
                         <div className="text-[12px] font-medium">
@@ -184,7 +186,7 @@ function AllJobCard({
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-row gap-[11px] items-center leading-tight  flex-wrap ">
+                    <div className="flex flex-row sm:gap-[11px] gap-1 items-center leading-tight  flex-wrap ">
                       {item?.experience && (
                         <>
                           {" "}
@@ -378,22 +380,22 @@ function AllJobCard({
                   : item.background
 
               }}
-                className='p-[16px]  flex relative gap-[80px]  justify-between items-center  rounded-[12px] h-[169px] min-h-[169px] overflow-hidden ' >
-                <div className='flex flex-col gap-2 ms:items-start items-center justify-between h-full'>
-                  <div className='flex flex-col gap-2 ms:items-start items-center '>
-                    <p className=' text-[16px] font-[600] ms:text-start text-center'>
+                className='p-[16px] flex   sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between items-center  rounded-[12px]  min-h-[169px] overflow-hidden ' >
+                <div className='flex flex-col gap-2 sm:items-start items-center justify-between h-full'>
+                  <div className='flex flex-col gap-2 sm:items-start items-center '>
+                    <p className=' text-[16px] font-[600] sm:text-start text-center'>
                       {item?.title}
                     </p>
-                    <p className='text-[10px] font-[500] ms:text-start text-center'> {item?.description}</p>
+                    <p className='text-[10px] font-[500] sm:text-start text-center'> {item?.description}</p>
                   </div>
-                  <button className='py-3 px-9 text-[#FFFFFF] bg-blue text-[14px] font-[600] rounded-[30px] h-[42px] w-[155px]'>
+                  <button className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
                     Know More
                   </button>
                 </div>
                 {item?.isCircle &&
                   <div style={{
                     background: "linear-gradient(249.4deg, #FCE1AA 10.64%, #FFE8B5 98.56%)"
-                  }} className=" h-[206px] w-[206px] rounded-[206px] absolute right-[-50px] top-[-20px]">
+                  }} className=" h-[206px] w-[206px] rounded-[206px] absolute right-[-50px] top-[-20px]   sm:block hidden">
 
                   </div>
                 }

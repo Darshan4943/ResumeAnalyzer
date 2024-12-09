@@ -89,12 +89,13 @@ function Header({ userData }) {
                   Jobs
                 </Link> */}
                 <div
-                  onClick={() => setServices(false)}
+                  onClick={() =>{router.push("/") ;setServices(false)}}
 
                   className={
+                    
                     !isServices  || !isServices 
-                      ? "active scr1250:text-[16px] text-[16px]"
-                      : "li scr1250:text-[16px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px] cursor-pointer "
+                      : "li scr1250:text-[16px] text-[16px] cursor-pointer" 
                   }
                 >
                   Jobs
@@ -105,8 +106,8 @@ function Header({ userData }) {
                   onClick={() => setServices(true)}
                   className={
                     isServices
-                      ? "active scr1250:text-[16px] text-[16px]"
-                      : "li scr1250:text-[16px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px] cursor-pointer"
+                      : "li scr1250:text-[16px] text-[16px] cursor-pointer"
                   }
                 >
                   Services

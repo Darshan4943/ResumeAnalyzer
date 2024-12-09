@@ -25,14 +25,14 @@ function JobDetails() {
   }, []);
   return (
     <div className='customMargins py-6 flex gap-5'>
-      <div className='flex flex-col gap-4 max-w-[700px]'>
+      <div className='flex flex-col gap-4 ml:max-w-[700px] w-full'>
         <Job_card jobData={jobData} />
         <Description
           selectedJob={jobData[0]}
           setLimitPopup={setLimitPopup}
         />
       </div>
-      <div className='w-[400px]'>
+      <div className='w-[400px] ml:block hidden'>
 
       </div>
 

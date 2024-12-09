@@ -32,7 +32,7 @@ function Layout({ children }) {
         <div>
           <CandidateMobileHeader />
         </div>
-        <div className="pt-[3.75rem]  ">{children}</div>
+        <div className="pt-[3.75rem] bg-[#F3F4F5] ">{children}</div>
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
 
