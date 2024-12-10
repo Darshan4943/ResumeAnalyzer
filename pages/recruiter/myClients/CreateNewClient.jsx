@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useRef, useState } from "react";
 import ReactSelect from "react-select";
-import { details, telCode } from "../../utils/data";
+import { details, telCode } from "../../../utils/data";
 
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import ImageContainer from "../../components/common/image";
-import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
+import ImageContainer from "../../../components/common/image";
+import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
 function CreateNewClient() {
   const router = useRouter();
 

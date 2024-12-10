@@ -71,12 +71,14 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { popupVisible } from "../../Redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
-import CandidateHome from "../../components/featured/candidate";
+
 import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
 import AdminDashboard from "../dashboard/adminDashboard";
 import MiniLoader from "../../components/common/miniLoader";
 import WithoutLogin from "../withoutLogin";
+import RecruiterDashBoard from "../recruiter";
+import CandidateHome from "../candidate";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -116,15 +118,18 @@ function BeforeLoginHome() {
     setShowScrollImage(scrollingDown);
   };
 
-  return(
-  
+  return (
+
     <div className="">
       <PlanExpiredModal />
       {isLogin ? (
         userDataGlobal?.role === "admin" ? (
           <AdminDashboard />
         ) : (
-          <Dashboard />
+          userDataGlobal?.role === "user" ?
+            <CandidateHome />
+            : <RecruiterDashBoard />
+
         )
       ) : (
         <>
@@ -138,7 +143,7 @@ function BeforeLoginHome() {
               />
             </div>
           )}
-          <WithoutLogin  />
+          <WithoutLogin />
         </>
       )}
     </div>

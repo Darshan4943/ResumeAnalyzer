@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import ClientList from "../../components/featured/clients/ClientList";
+import ClientList from "../../../components/featured/clients/ClientList";
 import CreateNewClient from "./CreateNewClient";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import Fuse from "fuse.js";
 import { useRouter } from "next/router";
-import { reCallUserData } from "../../Redux/actions/user";
+import { reCallUserData } from "../../../Redux/actions/user";
 import { toast } from "react-toastify";
-import LimitUsedModal from "../../components/models/limitUsedModal";
+import LimitUsedModal from "../../../components/models/limitUsedModal";
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);

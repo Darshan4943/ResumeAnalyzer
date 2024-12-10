@@ -1,15 +1,15 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import InternalJobMatching from "../../components/featured/jobMatching/internal";
-import ExternalJobMatching from "../../components/featured/jobMatching/external";
+import InternalJobMatching from "../../../components/featured/jobMatching/internal";
+import ExternalJobMatching from "../../../components/featured/jobMatching/external";
 import ReactSelect from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { DocSVG, PDFSvg, SearchIcon } from "../../utils/svg";
+import { DocSVG, PDFSvg, SearchIcon } from "../../../utils/svg";
 import { useRouter } from "next/router";
-import JdFiles from "../../components/featured/candidate/createResume/components/JdFiles";
-import JdMatching from "../../components/featured/candidate/createResume/components/JdMatching";
-import JdDescription from "../../components/featured/candidate/createResume/components/JdDescription";
-import EarthLoader from "../../components/common/EarthLoader";
+import JdFiles from "../../../components/featured/candidate/createResume/components/JdFiles";
+import JdMatching from "../../../components/featured/candidate/createResume/components/JdMatching";
+import JdDescription from "../../../components/featured/candidate/createResume/components/JdDescription";
+import EarthLoader from "../../../components/common/EarthLoader";
 import Tesseract from "tesseract.js";
 import { pdfjs } from "react-pdf";
 import PizZip from "pizzip";
@@ -18,8 +18,8 @@ import { toast } from "react-toastify";
 import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
-import LimitUsedModal from "../../components/models/limitUsedModal";
-import { reCallUserData } from "../../Redux/actions/user";
+import LimitUsedModal from "../../../components/models/limitUsedModal";
+import { reCallUserData } from "../../../Redux/actions/user";
 
 const JobMatching = () => {
   const dispatch = useDispatch();

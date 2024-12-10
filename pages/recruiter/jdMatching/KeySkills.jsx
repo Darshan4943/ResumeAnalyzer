@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Close_svg } from "../../utils/svg";
+import { Close_svg } from "../../../utils/svg";
 
 const KeySkills = ({ extratctedData, setExtractedData }) => {
   const [skills, setSkills] = useState([]);

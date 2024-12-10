@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useRouter } from "next/router";
-import { reCallUserData } from "../../Redux/actions/user";
-import DeleteModal from "../../components/common/deleteModal";
+import { reCallUserData } from "../../../Redux/actions/user";
+import DeleteModal from "../../../components/common/deleteModal";
 import { toast } from "react-toastify";
-import MiniLoader from "../../components/common/miniLoader";
+import MiniLoader from "../../../components/common/miniLoader";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 

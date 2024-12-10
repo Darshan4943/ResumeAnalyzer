@@ -89,11 +89,11 @@ function Header({ userData }) {
                   Jobs
                 </Link> */}
                 <div
-                  onClick={() =>{router.push("/") ;setServices(false)}}
+                  onClick={() =>{router.push("/jobs/search") ;setServices(false)}}
 
                   className={
                     
-                    !isServices  || !isServices 
+                    selectedPage === "/jobs/search" && !isServices
                       ? "active scr1250:text-[16px] text-[16px] cursor-pointer "
                       : "li scr1250:text-[16px] text-[16px] cursor-pointer" 
                   }

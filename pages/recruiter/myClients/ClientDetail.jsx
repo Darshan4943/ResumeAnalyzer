@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import ResumePreview from "../../components/common/ResumePreview";
-import { reCallUserData } from "../../Redux/actions/user";
+import ResumePreview from "../../../components/common/ResumePreview";
+import { reCallUserData } from "../../../Redux/actions/user";
 import { toast } from "react-toastify";
-import DeleteModal from "../../components/common/deleteModal";
-import MiniLoader from "../../components/common/mini-loader";
+import DeleteModal from "../../../components/common/deleteModal";
+import MiniLoader from "../../../components/common/mini-loader";
 import { motion } from "framer-motion";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {

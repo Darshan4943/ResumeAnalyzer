@@ -1,6 +1,6 @@
 import React from 'react'
 
-function RecruiterDashBoard() {
+function CandidateHome() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function RecruiterDashBoard() {
   )
 }
 
-export default RecruiterDashBoard
+export default CandidateHome
