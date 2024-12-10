@@ -233,7 +233,7 @@ function Services() {
         );
         break;
       case "Skill Assessments & Certification":
-        handleNavigation("/home/SkillAssessment");
+        handleNavigation("/candidate/SkillAssessment");
         break;
       case "Ask Krut":
         handleNavigation("/chatbot");
