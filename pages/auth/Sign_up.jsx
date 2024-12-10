@@ -19,7 +19,7 @@ function Sign_up({ }) {
   const { byAdmin, isUpdate, role } = router.query;
 
   const userDataGlobal = useSelector((state) => state.userData);
-
+ 
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
@@ -40,9 +40,15 @@ function Sign_up({ }) {
   const [otpEntered, setOtpEntered] = useState(null);
   const [verified, setVerified] = useState(false);
   const [otpError, setOtpError] = useState("");
-
+const [parseData,setParseData] = useState()
   const [formError, setFormError] = useState({});
 
+
+  useEffect(() => {
+    const parsedResume = JSON.parse(localStorage.getItem("parsedResume"));
+    setParseData(parsedResume)
+    console.log(111,parsedResume)
+  }, []);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -53,6 +59,28 @@ function Sign_up({ }) {
     dial_code: "",
     img: null,
   });
+
+  useEffect(() => {
+
+    if (parseData) {
+      
+      setData({
+        ...data,
+        firstName: parseData?.first_name || "",
+        lastName: parseData?.last_name || "",
+        mobileNo: parseData?.mobileNo || "",
+        email: parseData?.email || "",
+        dial_code: parseData?.dial_code || "",
+      });
+     
+      const selectedItem = telCode.find((item) => item.dial_code === parseData?.dial_code);
+
+    if (selectedItem) {
+      setSelectedItem(selectedItem);
+    }
+    }
+  }, [parseData]);
+
 
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
@@ -423,7 +451,7 @@ function Sign_up({ }) {
 
       formdata.append("userRole", role)
 
-
+      formdata.append("parseData", JSON.stringify(parseData));
 
       axios
         .post(url, formdata)

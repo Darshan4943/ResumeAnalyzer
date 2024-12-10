@@ -68,7 +68,7 @@ function RoleSelect({ signin, signup }) {
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
 
-              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/Sign_up?role=user") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className="flex items-center">
                     <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">

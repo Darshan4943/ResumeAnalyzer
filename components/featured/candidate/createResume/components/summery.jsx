@@ -128,7 +128,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         strokeWidth="8"
                         fill="transparent"
                         strokeDasharray={
-                          isActive ? circumference : 2 * Math.PI * 70
+                          isActive = 2 * Math.PI * 70
                         }
                         strokeDashoffset={
                           isActive ? dashOffset : 2 * Math.PI * 70
