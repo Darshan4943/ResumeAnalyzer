@@ -461,7 +461,7 @@ function CreateResume() {
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
-      const achievements = parsedData.achivements;
+      const achievements = parsedData.achievements;
 
       const socialLinks = parsedData["social links"];
       const extraCaricularActivity = parsedData["extra-curricular activities"];
@@ -479,6 +479,7 @@ function CreateResume() {
         showInternship: true,
         showLanguage: true,
         showLinks: true,
+        
         showCustomSection: true,
         showProject: true,
         showReference: true,
