@@ -12,7 +12,7 @@ function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
   const [details, setDetails] = useState();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
   const [select, setSelect] = useState(false);

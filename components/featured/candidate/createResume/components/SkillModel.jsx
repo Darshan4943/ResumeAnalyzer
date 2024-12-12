@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../../../../Redux/actions/user";
+
 import axios from "axios";
 import ReactSelect from "react-select";
 
@@ -14,7 +14,7 @@ import { camelCase } from "../../../../../utils/middleware";
 const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const [skil, setSkil] = useState(userData?.skills);
   const [skills, setSkills] = useState([...SkillList]);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   // console.log(skil);
 
@@ -28,7 +28,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
 
       .then((res) => {
         toast.success("Skill added successfully");
-        dispatch(reCallUserData());
+      
         handleImageClick(false);
         setSkil(inputValue);
       })

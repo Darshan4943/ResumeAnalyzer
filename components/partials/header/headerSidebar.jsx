@@ -37,7 +37,7 @@ function HeaderSidebar({
   ];
   const router = useRouter();
   const [visible, setvisible] = useState(false);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const handleNavigation = (page) => {
     setIsSidebar(false);

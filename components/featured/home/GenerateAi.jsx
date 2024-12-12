@@ -39,7 +39,7 @@ function GenerateAi() {
     };
   }, [generateAiRef]);
 
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const [animationText, setAnimationText] = useState(" ");
 

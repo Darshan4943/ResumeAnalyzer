@@ -34,7 +34,7 @@ const InternalJobMatching = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([]);
 

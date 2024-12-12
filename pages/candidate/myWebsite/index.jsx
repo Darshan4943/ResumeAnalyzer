@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useRouter } from "next/router";
-import { reCallUserData } from "../../../Redux/actions/user";
-import DeleteModal from "../../../components/common/deleteModal";
+
 import { toast } from "react-toastify";
 import MiniLoader from "../../../components/common/miniLoader";
 
@@ -45,7 +44,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
 };
 const Index = () => {
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -109,7 +108,7 @@ const Index = () => {
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `http://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);

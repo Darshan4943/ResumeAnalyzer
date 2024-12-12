@@ -18,7 +18,7 @@ const ResetPasswordModal = ({ visible }) => {
     newConfirm: null,
   });
   const [error, setError] = useState(null);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   useEffect(() => {
     const timer = setTimeout(() => {
       setTabIndex(2);

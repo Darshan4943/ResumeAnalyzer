@@ -26,7 +26,7 @@ function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
   const dispatch = useDispatch();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [rename, setRename] = useState(null);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);

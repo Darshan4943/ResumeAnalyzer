@@ -17,7 +17,7 @@ import { pdf } from "@react-pdf/renderer";
 import { telCode } from "../../../utils/data";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
   const [loading, setLoading] = useState(false);

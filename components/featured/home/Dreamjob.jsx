@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { popupVisible } from "../../../Redux/actions/user";
+
 import { useRouter } from "next/router";
 
 function DreamJob({ isLogin }) {

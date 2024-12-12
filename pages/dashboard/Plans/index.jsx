@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SubscriptionPlansAdmin from '../../../components/featured/home/SubscriptionPlansAdmin';
 
 function Index() {
-    const userDataGlobal = useSelector((state) => state.userData);
+  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
     const [toggle, setToggle] = useState(true)
 
     return (

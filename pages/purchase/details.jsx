@@ -12,7 +12,7 @@ function Details() {
   const router = useRouter();
   const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [selectedPlan, setSelectedPlan] = useState();
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");

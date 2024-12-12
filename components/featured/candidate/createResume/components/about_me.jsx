@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { textFieldClasses } from "@mui/material";
 
 const AboutMe = ({ data, setData }) => {
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [text, setText] = useState("");
   const [attempt, setAttempt] = useState(5);
   const [loading, setLoading] = useState(false);

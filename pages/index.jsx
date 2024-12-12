@@ -4,7 +4,7 @@ import {  useSelector } from "react-redux";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 
 function Home() {
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(true);
   const [visible,setVisible] = useState(false)
   const [isLogin, setIsLogin] = useState(false);

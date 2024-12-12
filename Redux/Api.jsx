@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { userAction } from "./actions/user";
-import { jwtDecode } from "jwt-decode";
-import { setJob } from "./actions";
+
+
 
 import {
   countriesCoordinatesEast,
@@ -17,22 +15,27 @@ import {
 } from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
-import { recallUser } from "./reducers/userReducer";
+
+
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
-import { setPageClosed, setPageOpened } from "./actions/website";
-import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "http://localhost:2000"; // Replace with your backend WebSocket server URL
+import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
+import { fetchUserData } from "./slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 export const Api = ({ }) => {
-  const store = useStore();
+ 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  console.log(userDataGlobal)
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
-  const showPlan = useSelector((state) => state.showPlan.show);
+  console.log(enablePopup)
+
   const [allPlans, setAllPlans] = useState([]);
 
   //   useEffect(() => {
@@ -51,29 +54,29 @@ export const Api = ({ }) => {
   //     };
   // }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const timeoutId = setTimeout(() => {
-      if (Object.keys(userDataGlobal).length === 0) {
-        localStorage.clear();
-        console.log("Local Storage Cleared");
-      }
-    }, 10000); 
-  
-    
-    return () => clearTimeout(timeoutId);
-  }, [userDataGlobal]);
-  
+  //   const timeoutId = setTimeout(() => {
+  //     if (Object.keys(userDataGlobal).length === 0) {
+  //       localStorage.clear();
+  //       console.log("Local Storage Cleared");
+  //     }
+  //   }, 10000); 
+
+
+  //   return () => clearTimeout(timeoutId);
+  // }, [userDataGlobal]);
+
   // if (userDataGlobal._id) {
-        //   axios
-        //     .put("http://localhost:2000/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
-        //     .then((res) => {
+  //   axios
+  //     .put("http://localhost:2000/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
+  //     .then((res) => {
 
-        //     })
-        //     .catch((err) => {
-        //       console.log(err);
-        //     });
-        // }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
 
   // useEffect(() => {
@@ -84,6 +87,12 @@ export const Api = ({ }) => {
 
 
   const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
@@ -110,31 +119,31 @@ export const Api = ({ }) => {
 
       return () => clearTimeout(timer);
     }
-  }, [userDataGlobal, showPlan]);
+  }, [userDataGlobal]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = JSON.parse(localStorage.getItem("authToken"));
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const token = JSON.parse(localStorage.getItem("authToken"));
 
-      if (token && token != "undefined") {
-        const decoded = jwtDecode(token.token);
-        axios
-          .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
-          .then((res) => {
-            const decode = jwtDecode(res.data.data);
-            dispatch(
-              userAction({
-                ...decode._doc,
-                profileScore: res.data.profileScore,
-              })
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
-  }, [reCallUser, showPlan]);
+  //     if (token && token != "undefined") {
+  //       const decoded = jwtDecode(token.token);
+  //       axios
+  //         .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
+  //         .then((res) => {
+  //           const decode = jwtDecode(res.data.data);
+  //           dispatch(
+  //             userAction({
+  //               ...decode._doc,
+  //               profileScore: res.data.profileScore,
+  //             })
+  //           );
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     }
+  //   }
+  // }, [reCallUser]);
 
   useEffect(() => {
     const planActive =
@@ -246,12 +255,12 @@ export const Api = ({ }) => {
 
     }
 
-  }, [userDataGlobal, reCallUser, showPlan, allPlans]);
+  }, [userDataGlobal, reCallUser, allPlans]);
 
   useEffect(() => {
-    if (userDataGlobal._id) {
-      let userId = userDataGlobal._id;
-      let role = userDataGlobal.role;
+    if (userDataGlobal?._id) {
+      let userId = userDataGlobal?._id;
+      let role = userDataGlobal?.role;
 
       axios
         .post("http://localhost:2000/api/apiLogs/get", {

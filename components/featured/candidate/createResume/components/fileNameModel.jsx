@@ -18,7 +18,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
       setError("File name cannot exceed 40 characters");
     }
   };
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const callData = () => {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;

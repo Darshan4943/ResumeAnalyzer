@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function Index() {
   const [resume, setResume] = useState();
 
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
  
   useEffect(() => {
     axios

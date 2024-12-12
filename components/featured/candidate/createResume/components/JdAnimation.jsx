@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 function JdAnimation({ details, count }) {
     const router = useRouter();
-    const userDataGlobal = useSelector((state) => state.userData);
+  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
     const [borderline, setBorderLine] = useState(false)
     useEffect(() => {
         const timeout1 = setTimeout(() => {

@@ -20,7 +20,7 @@ function Services() {
  
   }, []);
 
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const loginListCandidate = [
     {
       name: "Create New Resume",

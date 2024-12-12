@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  const pageOpened = useSelector((state) => state?.pageState?.pageOpened);
+  const pageOpened = useSelector((state) => state?.website?.pageOpened);
   const [isSubscribe, setIsSubscrib] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);

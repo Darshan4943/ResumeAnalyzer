@@ -11,7 +11,7 @@ function ClientResume() {
   const [clientCount, setClientCount] = useState(0);
   const [clientCountLimit, setClientCountLimit] = useState(0)
 
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [limitPopUp, setLimitPopUp] = useState(false);
   const [planAvailable, setplanAvailable] = useState(false);
 

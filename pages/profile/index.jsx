@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 const Profile = () => {
   const router = useRouter();
 
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const data = userDataGlobal;
   
   return (

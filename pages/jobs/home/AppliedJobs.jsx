@@ -13,7 +13,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 function AppliedJobs({  setLimitPopup, }) {
   const [selectedJob, setSelectedJob] = useState();
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [page, setPage] = useState(1);
   const [appliedJobs, setAppliedJobs] = useState()
   const [isDescription, setIsDescription] = useState(false);

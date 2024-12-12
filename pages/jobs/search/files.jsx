@@ -8,7 +8,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 const Files = ({ selected, setSelected }) => {
   const [loading, setLoading] = useState();
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [resumeList, setResumeList] = useState([]);
   useEffect(() => {
     setLoading(true);

@@ -26,7 +26,7 @@ function AllJobCard({
 }) {
   const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const posters = [

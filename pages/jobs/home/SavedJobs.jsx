@@ -14,7 +14,7 @@ function SavedJobs({ setLimitPopup, appliedJobs,
   const [selectedJob, setSelectedJob] = useState();
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);

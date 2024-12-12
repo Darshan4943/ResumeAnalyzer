@@ -11,7 +11,7 @@ import { popupVisible } from "../../../Redux/actions/user";
 import axios from "axios";
 function SubscriptionPlansAdmin({ toggle }) {
     const router = useRouter();
-    const userDataGlobal = useSelector((state) => state.userData);
+  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
     // const showPlan = useSelector((state) => state.showPlan.show);
 
     const [subPlans, setPlans] = useState([]);

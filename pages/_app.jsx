@@ -9,10 +9,11 @@ import { Provider } from "react-redux";
 
 import "../utils/pdfFont.js";
 import Layout from "../components/layout.jsx";
-import Store from "../Redux/Store.js";
-import { Api } from "../Redux/Api.jsx";
+
 import Head from "next/head.js";
 import EarthLoader from "../components/common/EarthLoader.jsx";
+import store from "../Redux/Store.js";
+import { Api } from "../Redux/Api.jsx";
 const WrappedApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +68,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           src="https://checkout.razorpay.com/v1/checkout.js"
         ></script>
       </Helmet>
-      <Provider store={Store}>
+      <Provider store={store}>
         <Api />
         {loading && (
           <>

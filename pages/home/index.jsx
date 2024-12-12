@@ -12,7 +12,7 @@
 // function BeforeLoginHome() {
 //   const [isLogin, setIsLogin] = useState(false);
 //   const dispatch = useDispatch();
-//   const userDataGlobal = useSelector((state) => state.userData);
+// const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
 //   const [visible, setVisible] = useState(false);
 //   const [loading, setLoading] = useState(true);
@@ -69,7 +69,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { popupVisible } from "../../Redux/actions/user";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import Dashboard from "../dashboard";
@@ -83,7 +83,7 @@ import CandidateHome from "../candidate";
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -106,17 +106,6 @@ function BeforeLoginHome() {
   }, []);
 
   const router = useRouter();
-  const clickHandler = () => {
-    if (isLogin) {
-      router.push("/home/BuildResume");
-    } else {
-      dispatch(popupVisible());
-    }
-  };
-
-  const handleScrollDown = (scrollingDown) => {
-    setShowScrollImage(scrollingDown);
-  };
 
   return (
 

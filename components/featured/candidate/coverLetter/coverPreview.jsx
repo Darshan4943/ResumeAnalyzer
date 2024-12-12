@@ -24,7 +24,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_cover");
   const [blob, setBlob] = useState("");
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
   const [loading, setLoading] = useState(false);

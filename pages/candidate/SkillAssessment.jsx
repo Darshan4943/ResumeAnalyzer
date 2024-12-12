@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import Certificate from "../../components/featured/home/Certificate";
 import LimitUsedModal from "../../components/models/limitUsedModal";
 import { PDFViewer, pdf } from "@react-pdf/renderer";
@@ -34,7 +34,7 @@ function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
   const resumeRef2 = useRef();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
   const router = useRouter();
@@ -629,11 +629,11 @@ function SkillAssessment() {
     // let correctAnswers = 58;
     let totalQuestions = question.length;
     let percentageScore = parseFloat(((correctAnswers * 100) / totalQuestions).toFixed(2));
-  
+
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore;
   }
-  
+
   // const handleDownload = async () => {
   //   setLoadingg(true);
   //   const doc = (
@@ -1629,7 +1629,7 @@ function SkillAssessment() {
                             {assesmentType === "Normal" && checkAnswer()}
                             {assesmentType === "Normal" && `/${10}`}
                             {assesmentType !== "Normal" && (
-                              <>{calculateMarkOutOf60() } %</>
+                              <>{calculateMarkOutOf60()} %</>
                             )}
                           </div>
 
@@ -1672,7 +1672,7 @@ function SkillAssessment() {
                           // setSkippedArray([])
                           // window.location.reload();
                           setBtnEnable1(false)
-                          dispatch(reCallUserData());
+
 
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"

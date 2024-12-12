@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [isApplied, setIsApplied] = useState(true);
   const getData = () => {
     setLoading(true);

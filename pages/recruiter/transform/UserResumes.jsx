@@ -68,7 +68,7 @@ const UserResumes = ({
 }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {

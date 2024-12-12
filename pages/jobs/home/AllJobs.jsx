@@ -27,7 +27,7 @@ function AllJobs({
   setMiniloading,
   miniLoading,
 }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const [isDescription, setIsDescription] = useState(false);

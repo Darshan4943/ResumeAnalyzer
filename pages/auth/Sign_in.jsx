@@ -8,6 +8,7 @@ import { popupNotVisible, reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import ForgotPassword from "../../components/models/forgotPassword";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { fetchUserData } from "../../Redux/slices/userSlice";
 
 
 function Sign_in({  setSignIn, setSignUp }) {
@@ -110,7 +111,7 @@ function Sign_in({  setSignIn, setSignUp }) {
                 try {
                     const response = res.data;
                     localStorage.setItem("authToken", JSON.stringify(response));
-                    dispatch(reCallUserData());
+                    dispatch(fetchUserData());
                     toast.success("Sign in Successfully");
                     if (sendToPurchase?.status) {
                         localStorage.removeItem("purchase");

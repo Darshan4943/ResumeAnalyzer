@@ -15,7 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 const MyCollection = () => {
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);

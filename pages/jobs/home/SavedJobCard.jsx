@@ -9,7 +9,7 @@ import MiniLoader from '../../../components/common/mini-loader';
 
 function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, miniLoading, }) {
 
-    const userDataGlobal = useSelector((state) => state.userData);
+  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
 
 
     const dispatch = useDispatch();
