@@ -1,13 +1,55 @@
 import React from "react";
-import { CountPostingDays } from "../../../utils/data";
-function Job_card({ jobData, appliedJobs, savedJobList }) {
-  console.log(111, jobData)
+import { CountPostingDays } from "../../../../utils/data";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { fetchUserData } from "../../../../Redux/slices/userSlice";
+function Job_card({ jobData, setSaved, save }) {
+
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  
+  const dispatch = useDispatch();
+  const SaveJob = async (e, id) => {
+    e.stopPropagation();
+    try {
+      await axios.post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`);
+      
+     
+      await dispatch(fetchUserData());
+      // setTimeout(() => {
+      //   setSaved((prevState) => !prevState);
+      // }, 2000);
+    
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+  const removeSavedJob = async (e, id) => {
+    e.stopPropagation();
+    try {
+     
+      await axios.post(
+        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+      );
+      
+      await dispatch(fetchUserData());
+  
+      // setTimeout(() => {
+      //   setSaved((prevState) => !prevState);
+      // }, 2000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+
   return (
     <>
       {jobData?.map((item, index) => (
         <div
 
-          className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 `}
+          className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]   bg-[#FFFFFF]  `}
           style={{
             boxShadow: "0px 0px 14px 0px #00000005"
 
@@ -20,7 +62,7 @@ function Job_card({ jobData, appliedJobs, savedJobList }) {
                 <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
                   {item?.jobTitle}
                 </div>
-                <div className="text-[12px] font-medium">
+                <div className="text-[12px] font-normal">
                   {item?.companyName}
                 </div>
               </div>
@@ -136,89 +178,123 @@ function Job_card({ jobData, appliedJobs, savedJobList }) {
               </div>
             </div>
           </div>
+          <div className="flex justify-between items-center">
+            <div className="border border-[#B506EF] text-[#B506EF] rounded-[30px] flex gap-1 px-2 py-1 items-center text-[14px] font-medium">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-          <div className="flex flex-row justify-between items-center px-1 h-[24px]">
-            {appliedJobs?.some(
-              (appliedJob) => appliedJob._id === item._id
-            ) ? (
-              <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g mask="url(#mask0_5716_127442)">
-                    <path
-                      d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z"
-                      fill="#0C8A0A"
-                    />
-                  </g>
-                </svg>
-                Applied{" "}
+                <g mask="url(#mask0_5959_78834)">
+                  <path d="M8.4375 14.0625H7.5C7.34063 14.0625 7.20706 14.0086 7.09931 13.9007C6.99144 13.7928 6.9375 13.6592 6.9375 13.4998C6.9375 13.3403 6.99144 13.2067 7.09931 13.0991C7.20706 12.9914 7.34063 12.9375 7.5 12.9375H8.4375V11.0164C7.46438 10.875 6.65862 10.4344 6.02025 9.6945C5.38175 8.95463 5.0625 8.09044 5.0625 7.10194C5.0625 6.01256 5.44638 5.08781 6.21413 4.32769C6.982 3.56756 7.91062 3.1875 9 3.1875C10.0894 3.1875 11.018 3.56756 11.7859 4.32769C12.5536 5.08781 12.9375 6.01256 12.9375 7.10194C12.9375 8.09044 12.6182 8.95463 11.9797 9.6945C11.3414 10.4344 10.5356 10.875 9.5625 11.0164V12.9375H10.5C10.6594 12.9375 10.7929 12.9914 10.9007 13.0993C11.0086 13.2072 11.0625 13.3408 11.0625 13.5002C11.0625 13.6597 11.0086 13.7933 10.9007 13.9009C10.7929 14.0086 10.6594 14.0625 10.5 14.0625H9.5625V15C9.5625 15.1594 9.50856 15.2929 9.40069 15.4007C9.29281 15.5086 9.15919 15.5625 8.99981 15.5625C8.84031 15.5625 8.70675 15.5086 8.59912 15.4007C8.49137 15.2929 8.4375 15.1594 8.4375 15V14.0625ZM9.00113 9.9375C9.77825 9.9375 10.4411 9.66281 10.9897 9.11344C11.5382 8.56419 11.8125 7.901 11.8125 7.12388C11.8125 6.34675 11.5378 5.68388 10.9884 5.13525C10.4392 4.58675 9.776 4.3125 8.99888 4.3125C8.22175 4.3125 7.55888 4.58719 7.01025 5.13656C6.46175 5.68581 6.1875 6.349 6.1875 7.12613C6.1875 7.90325 6.46219 8.56612 7.01156 9.11475C7.56081 9.66325 8.224 9.9375 9.00113 9.9375Z" fill="#B506EF" />
+                </g>
+              </svg>
 
-
-                {appliedJobs?.map((job) => {
-                  const matchingApplication = job?.applications?.find(
-                    (app) => app.applicantId === userDataGlobal._id
-                  );
-
-                  return (
-                    <div
-                      key={job._id}
-                      className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
-                    >
-
-                      {CountPostingDays(matchingApplication?.appliedOn) || ""}
-                    </div>
-                  );
-                })}
-
-
-              </div>
-            ) : (
-              <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">
-                Posted {CountPostingDays(item.createdAt)}
-              </div>
-            )}
-
-            {/* {isLogin && ( */}
-            <div className=" cursor-pointer">
-              {savedJobList?.find((data) => data._id == item._id) ? (
-                <svg
-                  onClick={(e) => removeSavedJob(e, item._id)}
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g mask="url(#mask0_4135_58652)">
-                    <path
-                      d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z"
-                      fill="#333333"
-                    />
-                  </g>
-                </svg>
-              ) : (
-                <svg
-                  onClick={(e) => SaveJob(e, item._id)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <g mask="url(#mask0_4135_57938)">
-                    <path
-                      d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                      fill={"#646464"}
-                    />
-                  </g>
-                </svg>
-              )}
+              Woman Candidate Proffered
             </div>
-            {/* )} */}
+            <p className="text-[14px] font-semibold text-[#06A9EF]">Find similar jobs openings</p>
+
+          </div>
+          <div className="bg-[#AFAFAF99] h-[1px] w-full my-1"></div>
+
+          <div className="flex flex-row justify-between items-center px-1 ">
+            <div className="flex gap-3">
+              {jobData?.some(
+                (job) => job?.matchedApplication?.applicantId === userDataGlobal._id
+              ) ? (
+                <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_5716_127442)">
+                      <path
+                        d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z"
+                        fill="#0C8A0A"
+                      />
+                    </g>
+                  </svg>
+                  Applied{" "}
+
+
+
+                  <div
+
+                    className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
+                  >
+
+                    {CountPostingDays(jobData[0]?.matchedApplication?.appliedOn) || ""}
+                  </div>
+
+
+                </div>
+              ) : (
+                <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                  Posted : {CountPostingDays(item.createdAt)}
+                </div>
+              )}
+
+              <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                Applicants : {jobData[0]?.totalApplicationCount}
+              </div>
+              <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                Openings: {1}
+              </div>
+            </div>
+
+
+            <div className="flex gap-2 h-[42px]">
+              {userDataGlobal?.savedJobs?.some((data) => data.id === item._id) ?
+                <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
+                  Saved
+
+                </button> :
+
+                <button onClick={(e) => SaveJob(e, item._id)} className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight">
+                  Save
+
+                </button>
+
+              }
+
+
+              <button
+                disabled={
+                  jobData?.some(
+                    (job) => job?.matchedApplication?.applicantId === userDataGlobal._id) ||
+                  item?.status === "Hold"
+                }
+                onClick={() => {
+                  if (isLogin) {
+                    if (jobApplyCount > 0) {
+                      if (
+                        !jobData?.some(
+                          (job) => job?.matchedApplication?.applicantId === userDataGlobal._id)
+                      ) {
+                        router.push(
+                          `/jobs/home/ApplyForm?id=${item._id}`
+                        );
+                      }
+                    } else {
+                      setLimitPopup(true);
+                    }
+                  } else {
+                    router.push(`/auth?signin=true&role=user`);
+                  }
+                }}
+                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${jobData?.some(
+                  (job) => job?.matchedApplication?.applicantId === userDataGlobal._id) ||
+                  item.status === "Hold"
+                  ? "cursor-not-allowed"
+                  : " cursor-pointer"
+                  }`}
+              >
+                {jobData?.some(
+                  (job) => job?.matchedApplication?.applicantId === userDataGlobal._id
+                ) ? "Applied" : "Apply"}
+              </button>
+
+            </div>
           </div>
         </div>
       ))}

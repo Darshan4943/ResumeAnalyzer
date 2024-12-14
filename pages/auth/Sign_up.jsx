@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import { plans, telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
@@ -180,39 +180,39 @@ const [parseData,setParseData] = useState()
   useEffect(() => {
     setData({ ...data, img: croppedImage?.blob });
   }, [croppedImage]);
+console.log(333,userDataGlobal)
+  // useEffect(() => {
+  //   const {
+  //     email,
+  //     mobileNo,
+  //     firstName,
+  //     lastName,
+  //     role,
 
-  useEffect(() => {
-    const {
-      email,
-      mobileNo,
-      firstName,
-      lastName,
-      role,
+  //     country,
+  //     profilePicture,
+  //     dial_code
+  //   } = userDataGlobal;
+  //   setData({
+  //     ...data,
+  //     email,
+  //     mobileNo,
+  //     firstName,
+  //     lastName,
+  //     role,
 
-      country,
-      profilePicture,
-      dial_code
-    } = userDataGlobal;
-    setData({
-      ...data,
-      email,
-      mobileNo,
-      firstName,
-      lastName,
-      role,
+  //     country,
+  //     dial_code
+  //   });
+  //   if (profilePicture) {
+  //     setCroppedImage({ url: profilePicture });
+  //   }
+  //   const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
 
-      country,
-      dial_code
-    });
-    if (profilePicture) {
-      setCroppedImage({ url: profilePicture });
-    }
-    const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
-
-    if (selectedItem) {
-      setSelectedItem(selectedItem);
-    }
-  }, []);
+  //   if (selectedItem) {
+  //     setSelectedItem(selectedItem);
+  //   }
+  // }, []);
 
   function validatePassword(password) {
     const strongPasswordRegex =
@@ -461,7 +461,7 @@ const [parseData,setParseData] = useState()
             if (response?.success) {
 
               localStorage.setItem("authToken", JSON.stringify(response));
-              dispatch(reCallUserData());
+           
               toast.success("Sign up Successfully");
               if (sendToPurchase && sendToPurchase?.status) {
                 window.location.href = `/purchase/details?id=${sendToPurchase.index + 1

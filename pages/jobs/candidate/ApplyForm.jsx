@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import PersonalDetails from "./personalDetails";
-import ProfessionalDetails from "./professionalDetails";
+
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import MiniLoader from "../../../components/common/mini-loader";
@@ -15,6 +14,8 @@ import PizZip from "pizzip";
 import mammoth from "mammoth";
 import { pdf } from "@react-pdf/renderer";
 import { telCode } from "../../../utils/data";
+import PersonalDetails from "../../../components/featured/candidate/jobs/personalDetails";
+import ProfessionalDetails from "../../../components/featured/candidate/jobs/professionalDetails";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
 const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);

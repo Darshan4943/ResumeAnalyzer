@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { popupNotVisible, reCallUserData } from "../../Redux/actions/user";
+
 import Link from "next/link";
 import ForgotPassword from "../../components/models/forgotPassword";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";

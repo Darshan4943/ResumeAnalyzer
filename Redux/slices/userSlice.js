@@ -28,7 +28,8 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (_, { 
 
 export const fetchProfileData = createAsyncThunk('user/fetchProfileData', async (userId) => {
   const response = await axios.get(`http://localhost:2000/api/candidate/${userId}`);
-  return response.data;
+  const profileData = jwtDecode(response.data.data);
+  return profileData._doc;
 });
 
 const userSlice = createSlice({

@@ -89,7 +89,7 @@ function Header({ userData }) {
                   Jobs
                 </Link> */}
                 <div
-                  onClick={() =>{router.push("/jobs/search") ;setServices(false)}}
+                  onClick={() =>{router.push("/jobs/candidate") ;setServices(false)}}
 
                   className={
                     

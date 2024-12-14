@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactSelect from 'react-select';
-import { telCode } from '../../../utils/data';
+import { telCode } from '../../../../utils/data';
 
 const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSelectedItem,selectedItem }) => {
   

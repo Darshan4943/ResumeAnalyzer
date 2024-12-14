@@ -197,9 +197,9 @@ function CandidateHeader() {
         ) : (
           <>
             {" "}
-            <Link
+            <div
               onClick={() => setServices(false)}
-              href="/home"
+              // href="/home"
               className={
                 (selectedPage === "/home" && !isServices)
                   ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
@@ -235,7 +235,7 @@ function CandidateHeader() {
               </svg>
 
               <li>Home</li>
-            </Link>
+            </div>
             <div className="relative ">
               {!isServices ? (
                 <div
@@ -276,7 +276,7 @@ function CandidateHeader() {
                 onClick={() => setServices(false)}
                 href="/jobs/search"
                 className={
-                  (selectedPage === "/jobs/search" && !isServices)
+                  (selectedPage === "/jobs/candidate" && !isServices)
                     ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
                     : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
                 }

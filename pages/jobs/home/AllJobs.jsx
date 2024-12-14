@@ -7,10 +7,10 @@ import { reCallUserData } from "../../../Redux/actions/user";
 import { CountPostingDays } from "../../../utils/data";
 import { useRouter } from "next/router";
 
-import AllJobCard from "./AllJobCard";
-import Description from "./Description";
+import AllJobCard from "../../../components/featured/candidate/jobs/AllJobCard";
+import Description from "../../../components/featured/candidate/jobs/Description";
 import MiniLoader from "../../../components/common/miniLoader";
-import NoJobs from "./noJobs";
+import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 
 function AllJobs({
   setLimitPopup,

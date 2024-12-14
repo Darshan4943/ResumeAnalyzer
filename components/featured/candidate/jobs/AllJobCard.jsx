@@ -2,31 +2,32 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../../Redux/actions/user";
+
 import { toast } from "react-toastify";
-import { CountPostingDays } from "../../../utils/data";
-import MiniLoader from "../../../components/common/mini-loader";
+import { CountPostingDays } from "../../../../utils/data";
+import MiniLoader from "../../../common/mini-loader";
 
 function AllJobCard({
 
   savedJobList,
-  setSavedJobList,
+
   setLimit,
   limit,
-  setTotalpages,
+
   totalPages,
   page,
   setPage,
-  isLogin,
+
   appliedJobs,
   jobData,
-  setMiniloading,
+
   miniLoading,
 
 }) {
+  console.log(jobData)
   const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const posters = [
@@ -110,7 +111,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     axios
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-        dispatch(reCallUserData());
+        // dispatch(reCallUserData());
 
         // toast.success("Job Saved Successfully");
         getData();
@@ -128,7 +129,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
-        dispatch(reCallUserData());
+        // dispatch(reCallUserData());
 
         // toast.success("Job Removed Successfully");
         getData();
@@ -141,7 +142,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-[548px]">
-     
+
 
 
       <div className="flex flex-col gap-4">
@@ -149,10 +150,10 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
           if (item._id) {
 
             return (
-              <>
+              < div key={index}>
                 <div
                   onClick={() => {
-                    router.push(`/jobs/search/JobDetails?id=${item._id}`)
+                    router.push(`/jobs/candidate/JobDetails?id=${item._id}`)
                   }}
                   className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 ${selectedJob?._id == item._id && "selected_job_card"
                     } `}
@@ -369,7 +370,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                     {/* )} */}
                   </div>
                 </div>
-              </>
+              </div>
             )
           }
           else {
@@ -380,7 +381,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                   : item.background
 
               }}
-              key={index}
+                key={index}
                 className='p-[16px] flex   sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between items-center  rounded-[12px]  min-h-[169px] overflow-hidden ' >
                 <div className='flex flex-col gap-2 sm:items-start items-center justify-between h-full'>
                   <div className='flex flex-col gap-2 sm:items-start items-center '>

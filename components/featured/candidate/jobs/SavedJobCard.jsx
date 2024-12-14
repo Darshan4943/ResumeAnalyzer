@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { CountPostingDays } from '../../../utils/data';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import { reCallUserData } from '../../../Redux/actions/user';
-import MiniLoader from '../../../components/common/mini-loader';
 
-function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, miniLoading, }) {
+import { CountPostingDays } from '../../../../utils/data';
+import MiniLoader from '../../../common/mini-loader';
+import { fetchUserData } from '../../../../Redux/slices/userSlice';
 
-  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage,    setMiniloading, miniLoading,getData }) {
+
+    const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
 
 
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
 
     const nextPage = (e) => {
         e.stopPropagation();
+        setMiniloading(true)
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
             setPage(currentPage + 1);
@@ -28,12 +30,14 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
 
     const prevPage = (e) => {
         e.stopPropagation();
+        setMiniloading(true)
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
             setPage(currentPage - 1);
         }
     };
     const handleChange = (e) => {
+        setMiniloading(true)
         setLimit(parseInt(e.target.value));
         setPage(1)
         setCurrentPage(1)
@@ -42,44 +46,36 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
 
 
 
-    const removeSavedJob = (e, id) => {
+    const removeSavedJob = async (e, id) => {
         e.stopPropagation();
-        axios
-            .post(
+        try {
+            const res = await axios.post(
                 `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
-            )
-            .then((res) => {
-                dispatch(reCallUserData());
-
-                // toast.success("Job Removed  Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
+            );
+            await dispatch(fetchUserData());
+            await getData(); 
+        } catch (err) {
+            console.error(err);
+        }
     };
+    
+    
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`flex flex-col   
-   rounded-md border-primary bg-white shadow-md `}
-                style={{
-                    boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
-                }}
+                className={`flex flex-col rounded-md border-primary  `}
+
             >
-                <div className="p-[8px]  leading-tight ">
+                <div className=" flex flex-col gap-5 leading-tight ">
                     {savedJobList?.map((item, index) => (
                         <>
                             <div
                                 onClick={() => {
-                                    setSelectedJob(item);
+                                    router.push(`/jobs/candidate/JobDetails?id=${item._id}`)
                                 }}
-                                className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
-                                    } `}
+                                className={`p-[16px] flex flex-col gap-[8px] bg-white relative z-0  rounded-[12px] `}
                                 style={{
-                                    borderBottom:
-                                        selectedJob?._id == item._id ? "unset" : "1px solid #646464",
+                                    boxShadow: "0px 0px 14px 0px #00000005"
                                 }}
                                 key={index}
                             >
@@ -204,7 +200,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] p-1">
+                                <div className="flex flex-row justify-between items-center  p-1">
                                     {appliedJobs?.some(appliedJob => appliedJob._id === item._id) ? (
                                         <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

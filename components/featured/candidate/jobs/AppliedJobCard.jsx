@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { CountPostingDays } from '../../../utils/data';
+import { CountPostingDays } from '../../../../utils/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { reCallUserData } from '../../../Redux/actions/user';
+
 import { useRouter } from 'next/router';
-import MiniLoader from '../../../components/common/mini-loader';
+import MiniLoader from '../../../common/mini-loader';
 
 function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     limit,
@@ -81,7 +81,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
             .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
-                dispatch(reCallUserData());
+                // dispatch(reCallUserData());
 
                 // toast.success("Job Saved  Successfully");
                 getData();
@@ -98,7 +98,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
             .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
 
-                dispatch(reCallUserData());
+                // dispatch(reCallUserData());
 
                 // toast.success("Job Removed  Successfully");
                 getData();
@@ -112,32 +112,28 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     return (
         <div className="flex flex-col gap-4">
             <div
-                className={`flex flex-col rounded-md border-primary bg-white shadow-md `}
-                style={{
-                    boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
-                }}
+                className={`flex flex-col rounded-md border-primary  `}
+                
             >
-                <div className="p-[8px]  leading-tight ">
+                <div className=" leading-tight flex flex-col gap-5 ">
                     {appliedJobs?.map((item, index) => (
                         <>
                             <div
                                 onClick={() => {
-                                    setSelectedJob(item);
+                                    router.push(`/jobs/candidate/JobDetails?id=${item._id}`)
 
 
                                 }}
-                                className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
-                                    } `}
+                                className={`p-[16px] flex flex-col gap-[8px] relative bg-white rounded-[12px]  `}
                                 style={{
-                                    borderBottom:
-                                        selectedJob?._id == item._id ? "unset" : "1px solid #646464",
+                                     boxShadow: "0px 0px 14px 0px #00000005"
                                 }}
                                 key={index}
                             >
-                                <div className=" flex flex-col gap-[16px] ">
+                                <div className=" flex flex-col gap-[8px] ">
                                     <div className="flex flex-row">
                                         <div className="flex flex-col gap-[4px] w-full">
-                                            <div className="xxsm:text-[16px] sm:text-[20px] font-medium">
+                                            <div className="text-px] font-semibold">
                                                 {item?.jobTitle}
                                             </div>
                                             <div className="text-[12px] font-medium">
@@ -159,7 +155,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                             </div>
                                         }
                                     </div>
-                                    <div className="flex flex-row gap-[11px] items-center flex-wrap leading-tight  flex-wrap">
+                                    <div className="flex flex-row gap-[11px] items-center flex-wrap leading-tight  ">
                                         {item?.experience && (
                                             <>
                                                 {" "}
@@ -256,7 +252,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-row justify-between items-center bg-[#E0F6FF] px-1">
+                                <div className="flex flex-row justify-between items-center  ">
                                     <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -267,7 +263,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
 
                                         Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal._id).appliedOn)}
                                     </div>
-                                    <div className=' cursor-pointer'>
+                                    {/* <div className=' cursor-pointer'>
 
                                         {savedJobList?.find((data) => data._id == item._id) ? (
 
@@ -295,7 +291,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                                 </g>
                                             </svg>
                                         )}
-                                    </div>
+                                    </div> */}
                                 </div>
 
                             </div>

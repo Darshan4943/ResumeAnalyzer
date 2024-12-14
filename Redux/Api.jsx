@@ -4,10 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 
 
 import {
-  countriesCoordinatesEast,
-  countriesCoordinatesNorthEast,
-  countriesCoordinatesSouthEast,
-  countryCondition1,
+  
   currenciesWithIcons,
   currencyMap,
   plans,
@@ -21,22 +18,30 @@ import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 
 import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
-import { fetchUserData } from "./slices/userSlice";
+import { fetchProfileData, fetchUserData } from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 
 
 export const Api = ({ }) => {
- 
+
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
-  console.log(userDataGlobal)
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
-  console.log(enablePopup)
+
 
   const [allPlans, setAllPlans] = useState([]);
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -86,19 +91,16 @@ export const Api = ({ }) => {
   // }, [userDataGlobal]);
 
 
-  const dispatch = useDispatch();
-
-
-
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, [dispatch]);
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
-  // console.log(25,timezone)
-  const reCallUser = useSelector((state) => state.reCallUser);
-  // dispatch(setPageClosed());
+  useEffect(() => {
+
+    if (userDataGlobal) {
+      dispatch(fetchProfileData(userDataGlobal._id));
+    }
+
+  }, [userDataGlobal]);
 
   useEffect(() => {
     axios
@@ -110,6 +112,7 @@ export const Api = ({ }) => {
         console.log(err);
       });
   }, [userDataGlobal]);
+
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
@@ -255,84 +258,10 @@ export const Api = ({ }) => {
 
     }
 
-  }, [userDataGlobal, reCallUser, allPlans]);
-
-  useEffect(() => {
-    if (userDataGlobal?._id) {
-      let userId = userDataGlobal?._id;
-      let role = userDataGlobal?.role;
-
-      axios
-        .post("http://localhost:2000/api/apiLogs/get", {
-          userId,
-          role,
-        })
-        .then((res) => {
-          const result = res.data.data;
-          // localStorage.setItem("chatCount", result.chatBot); 
-          // localStorage.setItem("jdCount", result.jobMatching.matchCount);
-
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [userDataGlobal])
+  }, [userDataGlobal, allPlans]);
 
 
 
-  // const getLocation = () => {
-  //   if (navigator.geolocation) {
-  //     console.log(138, "again called");
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         console.log(1771, position.coords);
-  //         axios
-  //           .get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
-  //           )
-  //           .then(async (response) => {
-  //             const results = response.data.results;
-  //             const countryData = response.data.results.find((result) =>
-  //               result.types.includes("country")
-  //             );
-  //             if (countryData) {
-  //               const country = countryData.formatted_address;
-  //               const codeJson = telCode.find((item) => item.name == country);
-  //               const Country = currencyMap.find(
-  //                 (item) => item.countryCode == codeJson.code
-  //               );
-  //               const currency = Country ? Country.currency : "USD";
-  //               const icon = currenciesWithIcons.find(
-  //                 (item) => item.icon == currency.toLowerCase()
-  //               );
-  //               const symbol = icon ? icon.symbol : currency;
-  //               const exchangeRate = await axios.get(
-  //                 "http://localhost:2000/api/exchangeRate/" + currency
-  //               );
-  //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
-  //               localStorage.setItem("currency", currency);
-  //               localStorage.setItem("icon", symbol);
-  //             } else {
-  //               console.log(err);
-  //             }
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //           });
-  //       },
-  //       (error) => {
-  //         console.log(4444444, error);
-  //         if (error.code === 1) {
-  //           setEnablePopup(true);
-  //         }
-  //         setError(error.message);
-  //       }
-  //     );
-  //   } else {
-  //     setError("Geolocation is not supported by this browser.");
-  //   }
-  // };
 
   const getLocation = () => {
     if (navigator.geolocation) {

@@ -50,7 +50,7 @@ function Index() {
         }));
     };
 
-console.log(444,userDataGlobal)
+    console.log(444, userDataGlobal)
     useEffect(() => {
         setCountry(userDataGlobal?.country);
 
@@ -217,10 +217,10 @@ console.log(444,userDataGlobal)
 
     useEffect(() => {
         if (isCountrySet) {
-           
+
             getAllData();
         }
-    }, [page, limit, country, search,jobtypeData]);
+    }, [page, limit, country, search, jobtypeData]);
 
     return (
         <>
