@@ -9,13 +9,13 @@ function ProfileSection() {
     
 
     const latestEducation = [...(profileData?.education || [])].sort((a, b) => {
-        const aDate = a.duration.endDate;
-        const bDate = b.duration.endDate;
+        const aDate = a?.duration?.endDate;
+        const bDate = b?.duration?.endDate;
       
-        if (aDate.years !== bDate.years) {
-          return bDate.years - aDate.years;
+        if (aDate?.years !== bDate?.years) {
+          return bDate?.years - aDate?.years;
         }
-        return bDate.months - aDate.months;
+        return bDate?.months - aDate?.months;
       })[0];
       
       console.log("Latest Education:", latestEducation);

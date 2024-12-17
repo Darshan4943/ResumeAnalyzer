@@ -23,7 +23,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     setIsChecked(!isChecked);
   };
 
-  const [profileData, setProfileData] = useState({
+  const [profileDataa, setProfileDataa] = useState({
     firstName: "",
     lastName: "",
     mobileNumber: "",
@@ -33,6 +33,22 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     dial_code: "",
   });
 
+  useEffect(() => {
+    if (profileData?.basics) {
+      console.log("hii")
+      const { firstName, lastName, mobileNo, email } = profileData?.basics;
+
+      setProfileDataa((prevState) => ({
+        ...prevState,
+        firstName: firstName || "",
+        lastName: lastName || "",
+        mobileNumber: mobileNo || "",
+        email: email || "",
+      }));
+    }
+  }, [profileData]);
+ 
+ console.log(555,profileData?.basics)
   const [formErrors, setFormErrors] = useState({
     firstName: false,
     lastName: false,
@@ -74,7 +90,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    setProfileData({ ...profileData, dial_code: item.dial_code });
+    setProfileDataa({ ...profileDataa, dial_code: item.dial_code });
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
   };
@@ -85,7 +101,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "text",
       name: "firstName",
       placeholder: "Enter First Name",
-      value: profileData.firstName,
+      value: profileDataa.firstName,
       className: " ",
     },
     {
@@ -93,7 +109,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "text",
       name: "lastName",
       placeholder: "Enter Last Name",
-      value: profileData.lastName,
+      value: profileDataa.lastName,
       className: " ",
     },
     {
@@ -101,7 +117,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "text",
       name: "designation",
       placeholder: "Enter Designation",
-      value: profileData.designation,
+      value: profileDataa.designation,
       className: " col-span-2",
     },
     {
@@ -109,7 +125,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "text",
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
-      value: profileData.mobileNumber,
+      value: profileDataa.mobileNumber,
       className: " col-span-2 ",
     },
     {
@@ -117,7 +133,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "email",
       name: "email",
       placeholder: "Enter Email Address",
-      value: profileData.email,
+      value: profileDataa.email,
       className: " col-span-2",
     },
     {
@@ -125,7 +141,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       type: "text",
       name: "location",
       placeholder: "Current Location",
-      value: profileData.location,
+      value: profileDataa.location,
       className: " col-span-2",
     },
   ];
@@ -136,7 +152,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
     inputFields.forEach((field) => {
       const { name } = field;
-      const value = profileData[name];
+      const value = profileDataa[name];
 
       switch (name) {
         case "firstName":
@@ -197,16 +213,16 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
     if (name === "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
-        setProfileData({
-          ...profileData,
+        setProfileDataa({
+          ...profileDataa,
           [name]: value.replace(/\D/g, ""),
         });
         setIsModified(true);
         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
       }
     } else {
-      setProfileData({
-        ...profileData,
+      setProfileDataa({
+        ...profileDataa,
         [name]: value,
       });
       setIsModified(true);
@@ -217,7 +233,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
   const isDisabled = () => {
     if (!isChecked || !isModified) return true;
 
-    const isAnyFieldEmpty = Object.values(profileData).some((value) => {
+    const isAnyFieldEmpty = Object.values(profileDataa).some((value) => {
       if (typeof value === "string") {
         return value.trim() === "";
       }
@@ -237,13 +253,13 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       setData({
         ...data,
         dial_code: data.dial_code,
-        firstName: camelCase(profileData.firstName),
-        lastName: camelCase(profileData.lastName),
-        mobileNumber: profileData.mobileNumber,
-        dial_code: profileData.dial_code,
-        email: profileData.email.toLowerCase(),
-        location: camelCase(profileData.location),
-        designation: profileData.designation,
+        firstName: camelCase(profileDataa.firstName),
+        lastName: camelCase(profileDataa.lastName),
+        mobileNumber: profileDataa.mobileNumber,
+        dial_code: profileDataa.dial_code,
+        email: profileDataa.email.toLowerCase(),
+        location: camelCase(profileDataa.location),
+        designation: profileDataa.designation,
         selectedResumeIndex: selectedResumeIndex,
         createdAt: data.createdAt || new Date().toISOString(),
       });
@@ -256,7 +272,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     if (allFieldsValid && isModified) {
       setIsModified(true);
     }
-  }, [profileData]);
+  }, [profileDataa]);
 
   useEffect(() => {
     const {
@@ -269,7 +285,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       dial_code,
     } = data;
     setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
-    setProfileData({
+    setProfileDataa({
       firstName,
       lastName,
       email,
@@ -368,7 +384,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                       name={item.name}
                       placeholder={item.placeholder}
                       className="w-full text-[14px]"
-                      value={profileData[item.name]}
+                      value={profileDataa[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
@@ -387,7 +403,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                     name={item.name}
                     placeholder={item.placeholder}
                     className="w-full text-[14px]"
-                    value={profileData[item.name]}
+                    value={profileDataa[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
                     maxLength={
@@ -440,7 +456,7 @@ export default PersonalDetails;
 //   selectedColor,
 //   selectedResumeIndex,
 // }) => {
-// const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+// const {userDataGlobal,profileDataa} = useSelector((state) => state.user.userData);
 
 //   const [isChecked, setIsChecked] = useState(true);
 //   const [isModified, setIsModified] = useState(false);
@@ -450,7 +466,7 @@ export default PersonalDetails;
 //   const handleSwitchChange = () => {
 //     setIsChecked(!isChecked);
 //   };
-//   const [profileData, setProfileData] = useState({
+//   const [profileDataa, setProfileDataa] = useState({
 //     firstName: "",
 //     lastName: "",
 //     mobileNumber: "",
@@ -481,7 +497,7 @@ export default PersonalDetails;
 
 //   const handleItemClick = (item) => {
 //     setSelectedItem(item);
-//     setProfileData({ ...profileData, dial_code: item.dial_code });
+//     setProfileDataa({ ...profileDataa, dial_code: item.dial_code });
 //     setIsModified(true);
 //   };
 //   const inputFields = [
@@ -490,7 +506,7 @@ export default PersonalDetails;
 //       type: "text",
 //       name: "firstName",
 //       placeholder: "Entet First Name",
-//       value: profileData.firstName,
+//       value: profileDataa.firstName,
 //       className: " ",
 //     },
 //     {
@@ -498,7 +514,7 @@ export default PersonalDetails;
 //       type: "text",
 //       name: "lastName",
 //       placeholder: "Enter Last Name",
-//       value: profileData.lastName,
+//       value: profileDataa.lastName,
 //       className: " ",
 //     },
 //     {
@@ -506,7 +522,7 @@ export default PersonalDetails;
 //       type: "text",
 //       name: "designation",
 //       placeholder: "Enter designation",
-//       value: profileData.designation,
+//       value: profileDataa.designation,
 //       className: " col-span-2",
 //     },
 //     {
@@ -514,7 +530,7 @@ export default PersonalDetails;
 //       type: "text",
 //       name: "mobileNumber",
 //       placeholder: "Enter Mobile Number",
-//       value: profileData.mobileNumber,
+//       value: profileDataa.mobileNumber,
 //       className: " col-span-2 ",
 //     },
 //     {
@@ -522,7 +538,7 @@ export default PersonalDetails;
 //       type: "email",
 //       name: "email",
 //       placeholder: "Enter Email Address",
-//       value: profileData.email,
+//       value: profileDataa.email,
 //       className: " col-span-2",
 //     },
 //     {
@@ -530,7 +546,7 @@ export default PersonalDetails;
 //       type: "text",
 //       name: "location",
 //       placeholder: "Current Location",
-//       value: profileData.location,
+//       value: profileDataa.location,
 //       className: " col-span-2",
 //     },
 //   ];
@@ -551,7 +567,7 @@ export default PersonalDetails;
 
 //     inputFields.forEach((field) => {
 //       const { name } = field;
-//       const value = profileData[name];
+//       const value = profileDataa[name];
 
 //       switch (name) {
 //         case "firstName":
@@ -611,7 +627,7 @@ export default PersonalDetails;
 
 //   //   inputFields.forEach((field) => {
 //   //     const { name } = field;
-//   //     const value = profileData[name];
+//   //     const value = profileDataa[name];
 
 //   //     if (typeof value === "string" && value.trim() === "") {
 //   //       newErrors[name] = true;
@@ -625,7 +641,7 @@ export default PersonalDetails;
 //   //   return allFieldsValid;
 //   // };
 
-//   // console.log(1616,profileData.dial_code)
+//   // console.log(1616,profileDataa.dial_code)
 //   // console.log(1111111,data.dial_code)
 
 //   const handleInputChange = (e) => {
@@ -633,16 +649,16 @@ export default PersonalDetails;
 
 //     if (name == "mobileNumber") {
 //       if (value.replace(/\D/g, "").length <= 10) {
-//         setProfileData({
-//           ...profileData,
+//         setProfileDataa({
+//           ...profileDataa,
 //           [name]: value.replace(/\D/g, ""),
 //         });
 //         setIsModified(true);
 //         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
 //       }
 //     } else {
-//       setProfileData({
-//         ...profileData,
+//       setProfileDataa({
+//         ...profileDataa,
 //         [name]: value,
 //       });
 //       setIsModified(true);
@@ -653,7 +669,7 @@ export default PersonalDetails;
 //   const isDisabled = () => {
 //     if (!isChecked || !isModified) return true;
 
-//     const isAnyFieldEmpty = Object.values(profileData).some((value) => {
+//     const isAnyFieldEmpty = Object.values(profileDataa).some((value) => {
 //       if (typeof value === "string") {
 //         return value.trim() === "";
 //       }
@@ -673,13 +689,13 @@ export default PersonalDetails;
 //       setData({
 //         ...data,
 //         dial_code: data.dial_code,
-//         firstName: camelCase(profileData.firstName),
-//         lastName: camelCase(profileData.lastName),
-//         mobileNumber: profileData.mobileNumber,
-//         dial_code: profileData.dial_code,
-//         email: profileData.email.toLowerCase(),
-//         location: camelCase(profileData.location),
-//         designation: profileData.designation,
+//         firstName: camelCase(profileDataa.firstName),
+//         lastName: camelCase(profileDataa.lastName),
+//         mobileNumber: profileDataa.mobileNumber,
+//         dial_code: profileDataa.dial_code,
+//         email: profileDataa.email.toLowerCase(),
+//         location: camelCase(profileDataa.location),
+//         designation: profileDataa.designation,
 //         selectedResumeIndex: selectedResumeIndex,
 
 //         createdAt: data.createdAt || new Date().toISOString(),
@@ -693,7 +709,7 @@ export default PersonalDetails;
 //     if (allFieldsValid && isModified) {
 //       setIsModified(true);
 //     }
-//   }, [profileData]);
+//   }, [profileDataa]);
 
 //   useEffect(() => {
 //     const {
@@ -706,8 +722,8 @@ export default PersonalDetails;
 //       dial_code,
 //     } = data;
 //     setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
-//     setProfileData({
-//       ...profileData,
+//     setProfileDataa({
+//       ...profileDataa,
 //       firstName,
 //       lastName,
 //       email,
@@ -820,7 +836,7 @@ export default PersonalDetails;
 //                       name={item.name}
 //                       placeholder={item.placeholder}
 //                       className="w-full text-[14px] "
-//                       value={profileData[item.name]}
+//                       value={profileDataa[item.name]}
 //                       onChange={handleInputChange}
 //                       disabled={!isChecked}
 //                     />
@@ -838,7 +854,7 @@ export default PersonalDetails;
 //                     name={item.name}
 //                     placeholder={item.placeholder}
 //                     className="w-full text-[14px] "
-//                     value={profileData[item.name]}
+//                     value={profileDataa[item.name]}
 //                     onChange={handleInputChange}
 //                     disabled={!isChecked}
 //                     maxLength={

@@ -93,7 +93,7 @@ function Header({ userData }) {
 
                   className={
                     
-                    selectedPage === "/jobs/search" && !isServices
+                    selectedPage === "/jobs/candidate" && !isServices
                       ? "active scr1250:text-[16px] text-[16px] cursor-pointer "
                       : "li scr1250:text-[16px] text-[16px] cursor-pointer" 
                   }

@@ -1,149 +1,250 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { dateFormatter } from "../../utils/middleware";
-import { useRouter } from "next/router";
+import {
+  Link as ScrollLink,
+  Element as ScrollElement,
+  scroller,
+} from "react-scroll";
+import ALink from "../../components/alink";
+import ProfileHeader from "../../components/featured/profile/profileHeader";
+import ResumeList from "../../components/featured/profile/resumeList";
+import AboutModal from "../../components/featured/profile/aboutModel";
+import WorkExperiance from "../../components/featured/profile/workExperience";
+import Education from "../../components/featured/profile/education";
+import Skills from "../../components/featured/profile/skills";
+import Courses from "../../components/featured/profile/courses";
+import Social_links_ndWebsites from "../../components/featured/profile/socialLinks";
+import Projects from "../../components/featured/profile/projects";
+import Achievements from "../../components/featured/profile/achievements";
+import JobPrefrence from "../../components/featured/profile/jobPreferences";
+import PersonalDetails from "../../components/featured/profile/personalDetails";
 
 
+function Profile() {
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  console.log(222, profileData)
+  const [userData, setUserData] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("My Resume");
+  const arr = [
+    "My Resume",
+    "About me",
+    "Work Experience",
+    "Education",
+    "Skills",
+    "Certifications",
+    "Websites & Social links",
+    "Projects",
+    "Achievements",
+    "Job Prefrence",
+    "Personal details",
+  ];
+  const scrollTo = (element) => {
+    setSelectedTab(element);
+    scroller.scrollTo(element, {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
+      offset: -100,
+    });
+  };
 
-const Profile = () => {
-  const router = useRouter();
+  useEffect(() => {
+    setUserData(profileData);
+  }, [profileData]);
+  function mapPercentageToDegree(percentage) {
+    const clampedPercentage = Math.min(100, Math.max(0, percentage));
+    const degree = 90 + (clampedPercentage / 100) * 270;
+    return degree;
+  }
+  const containerStyle = {
+    backgroundImage: `linear-gradient(${mapPercentageToDegree(
+      userData?.profileScore?.toFixed(0)
+    )}deg, transparent 50%, #f0f0f0 50%), linear-gradient(90deg, #f0f0f0 50%, transparent 50%)`,
+  };
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
-  const data = userDataGlobal;
-  
+  const [isComponentOpen, setIsComponentOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsComponentOpen(!isComponentOpen);
+  };
+
   return (
-    <div className=" py-6 w-[100%] customMargins">
-      <div className="w-[100%] gap-4 flex flex-col">
-        <div className="text-[24px] font-Montserrat font-semibold text-[#333]">
-          My Profile
-        </div>
-        <div className="w-[100%] ml:flex ml:flex-row  flex scr500:flex-col gap-4 flex-col-reverse  ">
-          <div
-            className="flex ml:flex-row flex-col items-center justify-start w-[100%] ml:w-[100%] p-6 gap-[34px] rounded-2xl bg-[#fff] "
-            style={{
-              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-            }}
-          >
-            {
-              <img
-                src={data?.profilePicture ? data.profilePicture : "/images/profile/john_doe.png"}
-                alt=""
-                className="object-contain h-[180px] w-[180px] flex justify-center rounded-full overflow-hidden "
-              />
-            }
+    <div className="bg-[#F9F9F9]">
+      <div>{userData && <ProfileHeader userData={userData} />}</div>
 
-            <div className="flex flex-col w-[100%] lg:w-[80%] gap-4">
-              <div className="flex flex-col w-[100%]">
-                {/* <p className="text-[18px] font-Montserrat font-medium text-[#333]">
-                  {data?.firstName && data?.lastName
-                    ? `${data.firstName} ${data.lastName}`
-                    : null}
+      <div className="customMargins relative pb-6">
+        <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
+          <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px]">
+            <div className="score_all">
+              <div className="profile_score">
+                <div class="circle-border" style={containerStyle}>
+                  <div class="circle">
+                    <p className="profile_percent">
+                      {userData?.profileScore?.toFixed(0)} %
+                    </p>
+                  </div>
+                </div>
+                {/* <img src="./images/profile/Ellipse_24.png" alt="" />
+                <img
+                  src="./images/profile/Ellipse_25.png"
+                  className="eclips_25"
+                  alt=""
+                /> */}
+                {/* <p className="profile_percent">
+                  {userData.profileScore?.toFixed(0)} %
                 </p> */}
+              </div>
 
-                <div className="w-[100%] flex gap-[6px]">
-                  {data.role === "recruiter" ? (
-                    <>
-                      <img
-                        src="/images/profile/check.png"
-                        className="w-[20px] h-[20px] object-contain"
-                        alt=""
-                      />
-                      <div className="text-[14px] font-Montserrat font-medium">
-                        Verified Recruiter
-                      </div>
-                    </>
-                  ) : (
+              <div className="profile_right_section profile_align">
+                <p className="profile_score_text">Profile Score</p>
+                <p className="improve_text">
+                  Improve your profile score, to get more recruiter attention.
+                </p>
+              </div>
+            </div>
 
-                    null
-                  )}
+            <div className="profile_option heroBlock">
+              {arr.map((item) => (
+                <ScrollLink
+                  to="home"
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  onClick={() => scrollTo(item)}
+                  className="w-[100%]"
+                >
+                  <div
+                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
+                      }`}
+                  >
+                    <p className="my_resume cursor-pointer">{item}</p>
+                  </div>
+                </ScrollLink>
+              ))}
+            </div>
+          </div>
+
+          <div className="profile_right w-[100%] education_page">
+            <div className="build_ai w-[100%] flex_column">
+              <div className="build_ai_left  w-fit">
+                <div className="flex flex-row w-[100%] ">
+                  <div className="w-[50%] md:w-fit">
+                    <img className="w-[152px] h-[152px]" src="./images/profile/Wavy_Bus.png" alt="" />
+                  </div>
+                  <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
+                    <ALink href={"/candidate/create_resume"}>
+                      <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
+                        Create New Resume
+                      </button>
+                    </ALink>
+                    <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
+                      Download Resume
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="w-full flex flex-col gap-6">
-                <div className="text-[18px] font-Montserrat font-semibold text-[#333]">
-                  Account Details
+
+              <div className="build_ai_right">
+                <p className=" text-[20px] font-[500]">Build AI Powered Resume</p>
+                <div className=" flex gap-3 items-center w-full ">
+                  <p className=" text-[12px] font-[500] ">Professional Templates</p>
+                  <div className="h-[12px] min-w-[1px] w-[1px] bg-[#AFAFAF] "></div>
+                  <p className=" text-center text-[12px] font-[500] ">AI suggestion</p>
+                  <div className="h-[12px] min-w-[1px] w-[1px] bg-[#AFAFAF] "></div>
+                  <p className="text-center text-[12px] font-[500]">Preview</p>
                 </div>
-                <div className="flex scr1024:flex-row flex-col scr1024:gap-[30px] gap-[20px]">
-                  <div className=" scr1024:w-[40%] w-[100%] gap-6 flex flex-col ">
-                    <div className="w-[100%] flex gap-4 items-center">
-                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        User Name <span>:</span>{" "}
-                      </div>
-                      <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {/* {data?.name ? data.name : '-'} */}
-                        <div className="break-all sm:text-[14px] text-[12px]   font-Montserrat font-medium text-[#333]">
-                          {data?.firstName && data?.lastName
-                            ? `${data.firstName} ${data.lastName}`
-                            : null}
-                        </div>
-                      </div>
-                    </div>
-                    {/* <div className="w-[100%] flex gap-4 items-center">
-                      <div className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        User ID <span>:</span>{" "}
-                      </div>
-                      <div className="w-[50%] text-[14px] font-Montserrat font-medium text-[#333]">
-                        {data.id}
-                      </div>
-                    </div> */}
-                    <div className="w-[100%] flex gap-4 items-center">
-                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        Activated on <span>:</span>{" "}
-                      </div>
-                      <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {dateFormatter(data.createdAt)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="h-[1px] scr1024:w-[1px] w-[100%]  scr1024:h-[102px]  bg-[#DEDEDE]">
-                    {" "}
-                  </div>
-                  <div className=" scr1024:w-[60%] w-[100%] gap-6 flex flex-col ">
-                    <div className="w-[100%] flex gap-4 items-center">
-                      <div className="scr1024:w-[50%] min-w-[140px]  text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        Email ID <span>:</span>{" "}
-                      </div>
-                      <div className="w-[50%] break-all sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {data.email}
-                      </div>
-                    </div>
-                    <div className="w-[100%] flex gap-4 items-center">
-                      <div className="scr1024:w-[50%] min-w-[140px] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        Contact Number <span>:</span>{" "}
-                      </div>
-                      <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {data?.mobileNo ? data.mobileNo : '-'}
-                      </div>
-                    </div>
-                    {/* <div className="w-[100%] flex gap-4 items-center">
-                      <p className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
-                        Date of Renewal <span>:</span>{" "}
-                      </p>
-                      <p className="w-[50%] sm:text-[12px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {dateFormatter(data.updatedAt)}
-                      </p>
-                    </div> */}
-                  </div>
+
+                <p className="text-[12px] font-[400]">
+                  Use our pre-designed resume template, customized to your
+                  Skilotech profile, or quickly create your own CV.
+                </p>
+
+                <div className="build_ai_button_parent build_ai_none">
+                  <ALink href={"/candidate/create_resume"}>
+                    <button className="bg-blue text-[#FFFFFF] border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-semibold leading-tight">
+                      Create New Resume
+                    </button>
+                  </ALink>
+
+                  <button  className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight">Download Resume</button>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            className=" bg-[#fff] ml:W-[5%] w-[48px] h-[5%] p-3 rounded-xl cursor-pointer"
-            onClick={()=>router.push(`/auth/recruiter-signup?isUpdate=true` )}
-            style={{
-              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-            }}
-          >
-            <img
-              src="/images/profile/edit.png"
-              className="w-[24px] h-[24px] object-contain"
-              alt=""
-            />
+            {userData?.resumeUrl?.length > 0 &&
+              <ScrollElement name="My Resume" className="section">
+                <ResumeList userData={userData} />
+              </ScrollElement>
+            }
+
+            <ScrollElement name="About me" className="section">
+              <div className="build_ai ai2  ">
+                <div className="gap">
+                  <p className="page_headings text-[18px] scr420:text-[20px]">About me</p>
+                  <img
+                    style={{ width: "24px" }}
+                    src="./images/profile/edit.png"
+                    alt=""
+                    onClick={handleImageClick}
+                    data-modal-target="default-modal"
+                    data-modal-toggle="default-modal"
+                  />
+                </div>
+
+                <p className="content_text break-words">{userData?.summary}</p>
+                {isComponentOpen && (
+                  <AboutModal
+                    handleImageClick={handleImageClick}
+                    userData={userData}
+                  />
+                )}
+              </div>
+            </ScrollElement>
+           
+            <ScrollElement name="Work Experience" className="section">
+              <WorkExperiance userData={userData} />
+            </ScrollElement>
+ 
+            <ScrollElement name="Education" className="section">
+              <Education userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Skills" className="section">
+              <Skills
+                userData={userData}
+                setIsComponentOpen={setIsComponentOpen}
+              />
+            </ScrollElement>
+
+            <ScrollElement name="Certifications" className="section">
+              <Courses userData={userData} />
+            </ScrollElement>
+{/*
+            <ScrollElement name="Websites & Social links" className="section">
+              <Social_links_ndWebsites userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Projects" className="section">
+              <Projects userData={userData} />
+            </ScrollElement>
+
+
+            <ScrollElement name="Achievements" className="section ">
+              <Achievements userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Job Prefrence" className="section">
+              <JobPrefrence userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Personal details" className="section">
+              <PersonalDetails userData={userData} />
+            </ScrollElement> */}
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Profile;

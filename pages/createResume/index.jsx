@@ -41,7 +41,7 @@ function BuildResume() {
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
               <ALink
-                href={`/home/createResume?clientId=${clientId}`}
+                href={`/createResume/createResume?clientId=${clientId}`}
                 onClick={() => localStorage.removeItem("parsedResume")}
               >
                 <div className="scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">

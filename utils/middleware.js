@@ -28,12 +28,12 @@ import Template48 from "../components/featured/resumeTemplates/Template48";
 import { DocSVG, DocSVG1, PDFSvg, PDFSvg1, PNGICON, PNGICON1 } from "./svg";
 
 export function camelCase(str) {
+  if (typeof str !== "string") return ""; 
   return str
-    ?.toLowerCase() // Convert the entire string to lowercase
-    .replace(/\b\w/g, function (word) {
-      return word.toUpperCase(); // Convert the first character of each word to uppercase
-    });
+    .toLowerCase()
+    .replace(/\b\w/g, (word) => word.toUpperCase());
 }
+
 export const dateSeter = (date) => {
   const monthLater = [
     "Jan",

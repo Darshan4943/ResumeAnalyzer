@@ -93,7 +93,7 @@ const DateSelector = ({
 
   return (
     <div className="flex gap-[14px] flex-wrap relative ">
-      <div className="flex gap-[14px] flex-col ">
+      <div className={`flex gap-[14px] ${isRow ? "flex-col scr700:flex-row" : "flex-col"} `}>
         <div
           className="flex flex-col gap-2 "
           style={{ opacity: isChecked ? 1 : 0.5 }}
@@ -103,11 +103,11 @@ const DateSelector = ({
               className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
               htmlFor={`${idPrefix}-startMonth`}
             >
-              Start Date
+              {idPrefix === "addCourse" ? "Issued On" : "Start Date"}
             </label>
           </div>
           <div className="flex gap-4">
-            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden relative">
+            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  min-w-[110px] w-full overflow-hidden relative">
               <select
                 // disabled={!isChecked}
                 id={`${idPrefix}-startMonth`}
@@ -196,7 +196,7 @@ const DateSelector = ({
                 className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
                 htmlFor={`${idPrefix}-endMonth`}
               >
-                End Date
+                {idPrefix === "addCourse" ? "Expiry On" : "End Date"}
               </label>
             </div>
             <div className="flex gap-4">

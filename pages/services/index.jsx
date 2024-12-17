@@ -201,7 +201,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       case "Create New Resume":
         handleNavigation(
           userDataGlobal.role === "user"
-            ? "/home/BuildResume"
+            ? "/createResume"
             : "/myClients/ClientResume"
         );
         break;
@@ -253,7 +253,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
   }
 
   return (
-    <div className="fixed z-[2000]  top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
+    <div className="fixed z-[2000]  top-[61px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${

@@ -78,7 +78,7 @@ function CandidateHeader() {
   return (
     <>
       <div className="flex justify-center items-center list-none  scr1600:gap-9 xxlg:gap-4 gap-0 ">
-        <Link href="/home">
+        <Link href="/">
           {" "}
           <img
             src="/images/logo_skilotech.png"
@@ -196,89 +196,15 @@ function CandidateHeader() {
           </>
         ) : (
           <>
-            {" "}
-            <div
-              onClick={() => setServices(false)}
-              // href="/home"
-              className={
-                (selectedPage === "/home" && !isServices)
-                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
-                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
-              }
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g mask="url(#mask0_1861_9679)">
-                  <path
-                    d="M4.99967 15.8333H7.49967V10.8333H12.4997V15.8333H14.9997V8.33333L9.99967 4.58333L4.99967 8.33333V15.8333ZM3.33301 17.5V7.5L9.99967 2.5L16.6663 7.5V17.5H10.833V12.5H9.16634V17.5H3.33301Z"
-                    fill="url(#paint0_linear_1861_9679)"
-                  />
-                </g>
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_1861_9679"
-                    x1="3.33301"
-                    y1="10"
-                    x2="16.6663"
-                    y2="10"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#06A9EF" />
-                    <stop offset="1" stopColor="#55CCFF" />
-                  </linearGradient>
-                </defs>
-              </svg>
-
-              <li>Home</li>
-            </div>
-            <div className="relative ">
-              {!isServices ? (
-                <div
-                  onClick={() => setServices(true)}
-                  className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
-                  }
-                >
-                  <Service />
-
-                  <li>Services</li>
-                </div>
-              ) : (
-                <div
-                  onClick={() => {
-                    setIsMove(false);
-                  }}
-                  className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
-                  }
-                >
-                  <Service />
-
-                  <li>Services</li>
-                </div>
-              )}
-              {isServices && (
-                <Services
-                  setServices={setServices}
-                  isServices={isServices}
-                  setIsMove={setIsMove}
-                  isMove={isMove}
-                />
-              )}
-            </div>
+            
             {userDataGlobal?.role == "user" &&
-              <Link
-                onClick={() => setServices(false)}
-                href="/jobs/search"
+              <div
+                onClick={() => {setServices(false);selectedPage !== "/" && router.push("/")}}
+               
                 className={
-                  (selectedPage === "/jobs/candidate" && !isServices)
-                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
-                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+                  (selectedPage === "/" && !isServices)
+                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px] cursor-pointer"
+                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
                 }
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,14 +227,46 @@ function CandidateHeader() {
                   </defs>
                 </svg>
 
-
-
-
-
-
                 <li>Jobs</li>
-              </Link>
+              </div>
             }
+           
+            <div className="relative ">
+              {!isServices ? (
+                <div
+                  onClick={() => setServices(true)}
+                  className={
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                  }
+                >
+                  <Service />
+
+                  <li>Services</li>
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    setServices(false);
+                  }}
+                  className={
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                  }
+                >
+                  <Service />
+
+                  <li>Services</li>
+                </div>
+              )}
+              {isServices && (
+                <Services
+                  setServices={setServices}
+                  isServices={isServices}
+                  setIsMove={setIsMove}
+                  isMove={isMove}
+                />
+              )}
+            </div>
+           
           </>
         )}
       </div>
