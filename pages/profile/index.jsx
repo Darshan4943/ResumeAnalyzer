@@ -33,9 +33,10 @@ function Profile() {
     "Education",
     "Skills",
     "Certifications",
+    "Achievements",
     "Websites & Social links",
     "Projects",
-    "Achievements",
+  
     "Job Prefrence",
     "Personal details",
   ];
@@ -167,7 +168,7 @@ function Profile() {
                     </button>
                   </ALink>
 
-                  <button  className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight">Download Resume</button>
+                  <button className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight">Download Resume</button>
                 </div>
               </div>
             </div>
@@ -200,11 +201,11 @@ function Profile() {
                 )}
               </div>
             </ScrollElement>
-           
+
             <ScrollElement name="Work Experience" className="section">
               <WorkExperiance userData={userData} />
             </ScrollElement>
- 
+
             <ScrollElement name="Education" className="section">
               <Education userData={userData} />
             </ScrollElement>
@@ -219,20 +220,19 @@ function Profile() {
             <ScrollElement name="Certifications" className="section">
               <Courses userData={userData} />
             </ScrollElement>
-{/*
-            <ScrollElement name="Websites & Social links" className="section">
-              <Social_links_ndWebsites userData={userData} />
-            </ScrollElement>
-
-            <ScrollElement name="Projects" className="section">
-              <Projects userData={userData} />
-            </ScrollElement>
-
 
             <ScrollElement name="Achievements" className="section ">
               <Achievements userData={userData} />
             </ScrollElement>
 
+            <ScrollElement name="Websites & Social links" className="section">
+              <Social_links_ndWebsites userData={userData} />
+            </ScrollElement>
+           
+            <ScrollElement name="Projects" className="section">
+              <Projects userData={userData} />
+            </ScrollElement>
+ {/*
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />
             </ScrollElement>

@@ -93,21 +93,21 @@ const DateSelector = ({
 
   return (
     <div className="flex gap-[14px] flex-wrap relative ">
-      <div className={`flex gap-[14px] ${isRow ? "flex-col scr700:flex-row" : "flex-col"} `}>
+      <div className={`flex gap-[14px] ${isRow ? "flex-col scr700:flex-row" : "flex-col"} w-full `}>
         <div
-          className="flex flex-col gap-2 "
+          className="flex flex-col gap-2 scr700:w-[50%] w-full "
           style={{ opacity: isChecked ? 1 : 0.5 }}
         >
           <div>
             <label
-              className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
+              className="w-full flex gap-2 text-[14px] font-montserrat  font-medium text-[#333]"
               htmlFor={`${idPrefix}-startMonth`}
             >
-              {idPrefix === "addCourse" ? "Issued On" : "Start Date"}
+              {idPrefix === "addCourse" || "addAchievement" ? "Issued On" : "Start Date"}
             </label>
           </div>
           <div className="flex gap-4">
-            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  min-w-[110px] w-full overflow-hidden relative">
+            <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small  min-w-[110px] w-full overflow-hidden relative">
               <select
                 // disabled={!isChecked}
                 id={`${idPrefix}-startMonth`}
@@ -123,7 +123,7 @@ const DateSelector = ({
                   background: " transparent",
                 }}
               >
-                <option value="" className="px-4  text-[14px] py-2">
+                <option value="" className="px-4  text-[12px] py-2">
                   Month
                 </option>
 
@@ -131,7 +131,7 @@ const DateSelector = ({
                   <option
                     key={month}
                     value={month}
-                    className="px-4 text-[14px] py-2"
+                    className="px-4 text-[12px] py-2"
                   >
                     {new Date(0, month - 1).toLocaleString("en", {
                       month: "long",
@@ -147,7 +147,7 @@ const DateSelector = ({
               />
             </div>
 
-            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
+            <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-startYear`}
                 disabled={!isChecked}
@@ -163,14 +163,14 @@ const DateSelector = ({
                 }}
                 className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
-                <option value="" className="px-4  text-[14px] py-2">
+                <option value="" className="px-4  text-[12px] py-2">
                   Year
                 </option>
                 {getYear().map((year) => (
                   <option
                     key={year}
                     value={year}
-                    className="mt-4 text-[14px] px-4 py-2"
+                    className="mt-4 text-[12px] px-4 py-2"
                   >
                     {year}
                   </option>
@@ -186,21 +186,21 @@ const DateSelector = ({
           </div>
         </div>
 
-        {!data.currentlyWorking && (
+        {!data?.currentlyWorking && (
           <div
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-2  scr700:w-[50%] w-full"
             style={{ opacity: isChecked ? 1 : 0.5 }}
           >
             <div>
               <label
-                className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
+                className="w-full flex gap-2 text-[14px] font-montserrat  font-medium text-[#333]"
                 htmlFor={`${idPrefix}-endMonth`}
               >
                 {idPrefix === "addCourse" ? "Expiry On" : "End Date"}
               </label>
             </div>
             <div className="flex gap-4">
-              <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
+              <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
                 <select
                   id={`${idPrefix}-endMonth`}
                   // disabled={!isChecked}
@@ -232,7 +232,7 @@ const DateSelector = ({
                   alt=""
                 />
               </div>
-              <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
+              <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
                 <select
                   id={`${idPrefix}-endYear`}
                   // disabled={!isChecked}

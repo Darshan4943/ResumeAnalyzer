@@ -4,17 +4,19 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import { ClosedIcon } from "../../../utils/svg";
+import DateSelector from "../../common/dateSelector";
+import { fetchUserData } from "../../../Redux/slices/userSlice";
 
-function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
+function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const dispatch = useDispatch();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [data, setData] = useState({
     title: '',
     issuedBy: '',
-    issuedDate: { year: 0, month: 0 },
+    issuedDate: { year: "Year", month: "Month" },
     discription: '',
-    ...(editAchievement && { 
+    ...(editAchievement && {
       title: Achievement?.title,
       issuedBy: Achievement?.issuedBy,
       issuedDate: {
@@ -27,7 +29,7 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
 
   function getYear() {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 100; 
+    const startYear = currentYear - 100;
 
     const years = [];
     for (let year = currentYear; year >= startYear; year--) {
@@ -39,7 +41,7 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
 
 
   const isEditing = !!editAchievement;
-  console.log(41,isEditing)
+
 
   // const handleSubmit = () => {
 
@@ -68,13 +70,13 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
 
 
   const handleSubmit = () => {
-   
+
     const awardData = {
       title: data.title,
       issuedBy: data.issuedBy,
-      issuedDateYear: data.issuedDate.year, 
+      issuedDateYear: data.issuedDate.year,
       issuedDateMonth: data.issuedDate.month,
-      discription: data.discription, 
+      discription: data.discription,
     };
     if (isEditing) {
       axios
@@ -83,10 +85,10 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
           data
         )
         .then((res) => {
-          console.log(444, res.data);
-        // dispatch(reCallUserData());
-        setAddAchivements(false);
-        toast.success("Awards updated successfully");
+         
+          dispatch(fetchUserData());
+          setAddAchivements(false);
+          toast.success("Awards updated successfully");
         })
         .catch((err) => {
 
@@ -94,18 +96,18 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
         });
     } else {
       axios
-      .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal._id}`, awardData)
-      .then((res) => {
+        .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal._id}`, awardData)
+        .then((res) => {
 
-        console.log(444, res.data);
-        // dispatch(reCallUserData());
-        setAddAchivements(false);
-        toast.success("Awards added successfully");
-      })
-      .catch((err) => {
+         
+          dispatch(fetchUserData());
+          setAddAchivements(false);
+          toast.success("Awards added successfully");
+        })
+        .catch((err) => {
 
-        console.error(err);
-      });
+          console.error(err);
+        });
     }
   };
 
@@ -113,13 +115,13 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name === "years" || name === "months") {
       setData({
         ...data,
         issuedDate: {
           ...data.issuedDate,
-          [name]: parseInt(value) || 0, 
+          [name]: parseInt(value) || 0,
         },
       });
     } else {
@@ -129,43 +131,48 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
       });
     }
   };
-  
+
 
   return (
     <>
       <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]">
-      <div className="flex items-center gap-4 self-stretch w-full">
-            <div className="w-[30%] text-[#25324B] font-Montserrat font-medium text-[16px] md:text-base lg:text-xl leading-160">
-              Add Honors & Awards
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-4 self-stretch w-full">
+            <div className="min-w-[180px] text-[#25324B] font-Montserrat  text-[18px] font-[600] leading-160">
+            {isEditing? " Edit" : "Add"} Achievements
             </div>
-            <div className="bg-[#DEDEDE] h-[1px] w-[50%] md:w-[75.45%]"></div>
-            <div  onClick={() => setAddAchivements(false)}>
+            <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
+            <div onClick={() => setAddAchivements(false)}>
               <ClosedIcon />
             </div>
           </div>
-          <p className="text-[12px] leading-[20px] text-[#333]">Add links to your Honors and Awards given for your work</p>
+          <div className="flex flex-col gap-2">
 
-        <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
-            Award title <span className="text-[#C00000]">*</span>
+
+            <p className="text-[12px] leading-[20px] text-[#333]">Add links to your Honors and Awards given for your work</p>
+
+            <div className=" w-full flex flex-col gap-[8px]">
+              <div className="text-[14px] font-[500]">
+                Award title <span className="text-[#C00000]">*</span>
+              </div>
+              <input
+                className="text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+                placeholder="Enter award title"
+                type="text"
+                name="title"
+                value={data.title}
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
-          <input
-            className="text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
-            placeholder="Enter award title"
-            type="text"
-            name="title"
-            value={data.title}
-            onChange={handleInputChange}
-          />
         </div>
 
-
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
+          <div className="text-[14px] font-[500]">
             Awarded by <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className="text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className="text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter name of awarding entity"
             type="text"
             name="issuedBy"
@@ -175,96 +182,112 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
         </div>
 
         <div className="flex flex-col gap-4 w-[100%] sm:w-[50%]">
-          <div className="text-[16px] font-[500]">
+          <div className="text-[14px] font-[500]">
             Issued Date <span className="text-[#C00000]">*</span>
           </div>
           <div className="flex gap-4 w-full">
-          <div className="flex gap-4 w-full">
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small w-[50%]">
-            <select
-              value={data.issuedDate.month}
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  issuedDate: {
-                    ...data.issuedDate,
-                    month: e.target.value,
-                  },
-                })
-              }
-              className="w-full outline-none"
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-            >
-              <option value="Month" disabled hidden className="px-4 py-2">
-                Month
-              </option>
+            <div className="flex gap-4 w-full">
+              <div className="flex  items-center rounded-lg border border-[#646464] bg-white text-[12px]  font-montserrat font-small w-[50%]">
+                <select
+                  value={data.issuedDate.month}
+                  onChange={(e) =>
+                    setData({
+                      ...data,
+                      issuedDate: {
+                        ...data.issuedDate,
+                        month: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-outline-none focus-visible:outline-none  p-2 w-full "
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    position: "relative",
+                    zIndex: 1,
+                    background: " transparent",
+                  }}
+                >
+                  <option value="Month" className="px-4 py-2">
+                    Month
+                  </option>
 
-              {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
-                  {new Date(0, month - 1).toLocaleString("en", {
-                    month: "long",
-                  })}
-                </option>
-              ))}
-            </select>
+                  {months.map((month) => (
+                    <option
+                      key={month}
+                      value={month}
+                      className="px-4 text-[12px] py-2"
+                    >
+                      {new Date(0, month - 1).toLocaleString("en", {
+                        month: "long",
+                      })}
+                    </option>
+                  ))}
+                </select>
 
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
+                <img
+                  src="/images/down_arrow.png"
+                  className="h-[20px] w-[20px]"
+                  alt=""
+                />
+              </div>
+
+              <div className="flex  items-center rounded-lg border border-[#646464] bg-white text-[12px]  font-montserrat font-small  w-[50%]">
+                <select
+                  value={data.issuedDate.year}
+                  onChange={(e) =>
+                    setData({
+                      ...data,
+                      issuedDate: {
+                        ...data.issuedDate,
+                        year: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-outline-none focus-visible:outline-none  p-2 w-full "
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    position: "relative",
+                    zIndex: 1,
+                    background: " transparent",
+                  }}
+                >
+                  <option value="Year" >
+                    Year
+                  </option>
+                  {getYear().map((year) => (
+                    <option key={year} value={year} className="mt-4 px-4 py-2">
+                      {year}
+                    </option>
+                  ))}
+                </select>
+                <img
+                  src="/images/down_arrow.png"
+                  className="h-[20px] w-[20px]"
+                  alt=""
+                />
+              </div>
+            </div>
+
+
+
           </div>
-
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
-            <select
-              value={data.issuedDate.year}
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  issuedDate: {
-                    ...data.issuedDate,
-                    year: e.target.value,
-                  },
-                })
-              }
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-              className="w-full outline-none"
-            >
-              <option value="Year" disabled hidden>
-                Year
-              </option>
-              {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 px-4 py-2">
-                  {year}
-                </option>
-              ))}
-            </select>
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
-          </div>
         </div>
 
-         
-        
-        </div>
-        </div>
-
+        {/* <DateSelector
+          idPrefix="addAchievement"
+          data={Achievement}
+          dataSeter={setAddAchivements}
+          isRow={true}
+        /> */}
 
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">Description</div>
+          <div className="text-[14px] font-[500]">Description</div>
           <textarea
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
+            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
             name="discription"
             value={data.discription}
@@ -276,16 +299,16 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[30px] py-[8px] sm:px-[36px] px-4 border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px] font-[500] hover:cursor-pointer"
               onClick={() => setAddAchivements(false)}
             >
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[16px] font-[500] bg-[#06A9EF]"
+              className="rounded-[30px] py-[8px] sm:px-[36px] px-4 border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px]  font-[500] bg-[#06A9EF]"
               onClick={handleSubmit}
             >
-              Save Changes
+               {isEditing? " Save Changes" : "Add Achievement"} 
             </button>
           </div>
         </div>

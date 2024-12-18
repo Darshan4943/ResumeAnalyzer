@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 const JobPrefrenceModal = ({ setEditView }) => {
 
   const dispatch = useDispatch();
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   const jobMode = ["onSiteWork", "remoteWork", "hybridWork"]
   const jobType = ["fullTime",
     "partTime",

@@ -77,16 +77,16 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
       <div id="demo-modal" class="modal ">
         <div class="modal__content md:w-[56%] gap-4 flex flex-col p-6 rounded-xl">
           <div className="flex items-center gap-4 self-stretch w-full">
-            <div className="w-[23.24%] text-[#25324B] font-Montserrat text-[18px] md:font-medium text-base lg:text-xl leading-160">
+            <div className="min-w-[140px] text-[#25324B]  text-[18px] font-[600] leading-160">
               Edit About me
             </div>
-            <div className="bg-[#DEDEDE] h-[1px] w-[68.45%]"></div>
+            <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
 
-            <Close_svg handleImageClick={handleImageClick} />
+            <Close_svg  handleImageClick={handleImageClick} />
           </div>
           <div className="flex w-full  px-4 py-3 rounded-md border border-gray-300 bg-white">
             <textarea
-              className="text-[#333] font-Montserrat text-[12px] md:text-base font-normal leading-170 w-full focus:outline-none"
+              className="text-[#333] font-Montserrat text-[14px]  font-normal leading-170 w-full focus:outline-none"
               name="summary"
               id=""
               cols="30"
@@ -98,7 +98,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
           </div>
           <div className="w-full flex justify-between items-start self-stretch">
             <div
-              className=" flex px-4 py-2 justify-center items-center gap-2 rounded-md border border-primary bg-white w-[220px] cursor-pointer"
+              className=" flex px-4 py-3 justify-center items-center gap-2 rounded-[8px] border border-blue bg-white  cursor-pointer"
               onClick={generateText}
             >
               {loading ? (
@@ -111,7 +111,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
                     alt=""
                     className="w-[20px] h-[20px]"
                   />
-                  <p className="xsm:text-[12px] text-[11px] text-[#333] font-Montserrat  md:text-14 font-semibold leading-normal">
+                  <p className=" text-[14px] text-[#333333] font-Montserrat   font-semibold leading-normal">
                     Generate with AI
                   </p>
                 </>
@@ -121,9 +121,9 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               {400 - text?.length} characters left
             </p>
           </div>
-          <div className="w-full flex items-end justify-end self-stretch">
+          <div className="w-full flex items-end justify-end self-stretch gap-3">
             <button
-              className="flex items-center justify-center px-4 py-2 font-Montserrat text-[14px] md:text-16 font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
+              className="flex items-center justify-center px-9 py-[10px] font-Montserrat text-[14px] md:text-16 font-medium leading-normal rounded-[30px] border border-[#06A9EF]  bg-white "
               onClick={() => {
                 handleImageClick(false);
               }}
@@ -131,7 +131,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               Cancel
             </button>
             <button
-              className="flex items-center justify-center px-4 py-2 font-Montserrat text-[14px] md:text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-md border border-border-color bg-primary"
+              className="flex items-center justify-center px-9 py-[10px] font-Montserrat text-[14px] md:text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-[30px] border border-border-color bg-primary"
               onClick={handleSubmit}
             >
               Save Changes

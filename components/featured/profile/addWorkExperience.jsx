@@ -131,15 +131,16 @@ function AddWorkExperience({
       className="flex flex-col gap-4 p-6 bg-white rounded-[16px]"
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
+      <div className="flex flex-col gap-1">
       <div className="flex justify-between w-full items-center">
-        <p className="ml:text-[24px] text-[18px] font-medium">Add Work Experience</p>
-        <div className="bg-[#DEDEDE] h-[1px] w-[54.54%]"></div>
+        <p className=" text-[18px] font-semibold min-w-[220px]">Add Work Experience</p>
+        <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
         <div onClick={() => setOpenAddExperience(false)}>
           <ClosedIcon />
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="md:text-[16px] text-[14px] font-medium">Is this your current Job? </p>
+        <p className=" text-[14px] font-medium">Is this your current Job? </p>
         <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
           <input
             type="radio"
@@ -159,15 +160,15 @@ function AddWorkExperience({
           <label>No</label>
         </div>
       </div>
-
+      </div>
       <div className="flex w-full gap-4 flex_column">
         <div className="flex flex-col gap-2 ">
-          <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
+          <div className=" text-[14px] font-montserrat  font-medium">
             Job Type
           </div>
           <div className=" ">
             <select
-              className="w-[150px] md:text-[16px] text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+              className="w-[150px]  text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
               name="jobType"
               value={experienceData.jobType} // Prefill jobType
               onChange={handleInputChange}
@@ -180,12 +181,12 @@ function AddWorkExperience({
         </div>
 
         <div className="flex flex-col gap-2 ">
-          <div className="w-full md:text-[16px] text-[14px] font-montserrat  font-medium">
+          <div className="w-full  text-[14px] font-montserrat  font-medium">
             Job Mode
           </div>
           <div className="">
             <select
-              className="w-[150px]  border-[1px] md:text-[16px] text-[14px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+              className="w-[150px]  border-[1px]  text-[14px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
               name="jobMode"
               value={experienceData.jobMode} // Prefill jobMode
               onChange={handleInputChange}
@@ -199,7 +200,7 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
+        <div className=" text-[14px] font-montserrat  font-medium">
           Designation
         </div>
         <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
@@ -215,7 +216,7 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
+        <div className=" text-[14px] font-montserrat  font-medium">
           Organisation
         </div>
         <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
@@ -231,7 +232,7 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">Location</div>
+        <div className=" text-[14px] font-montserrat  font-medium">Location</div>
         <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
           <input
             type="text"
@@ -246,6 +247,7 @@ function AddWorkExperience({
 
       <div className="w-full">
         <DateSelector
+        isRow={true}
           idPrefix="workExperience"
           data={experienceData}
           dataSeter={setExperienceData}
@@ -253,10 +255,10 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">Notice Period</div>
+        <div className="text-[14px] font-montserrat  font-medium">Notice Period</div>
         <div className="">
           <select
-            className="w-[46.51%] md:text-[16px] text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+            className="scr700:w-[46.51%] w-full  text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
             name="noticePeriod"
             value={experienceData.noticePeriod} // Prefill noticePeriod
             onChange={handleInputChange}
@@ -269,7 +271,7 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
+        <div className=" text-[14px] font-montserrat  font-medium">
           Skills Learned
         </div>
         <ReactSelect
@@ -278,7 +280,7 @@ function AddWorkExperience({
             label: camelCase(item),
           }))}
           isMulti
-          className="w-full"
+          className="w-full text-[12px]"
           value={experienceData.skillsLearned} // Prefill skills
           onChange={(selectedOptions) => {
             setExperienceData({
@@ -290,7 +292,7 @@ function AddWorkExperience({
       </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
+        <div className=" text-[14px] font-montserrat  font-medium">
           Work Description
         </div>
         <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
@@ -307,14 +309,14 @@ function AddWorkExperience({
 
       <div className="flex justify-end gap-3">
         <button
-          className="px-4 py-2 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
+          className="sm:px-9 px-4 py-[10px] bg-white-600 border border-[#06A9EF] text-[14px]  font-medium rounded-[30px]"
           onClick={() => setOpenAddExperience(false)}
         >
           Cancel
         </button>
 
         <button
-          className="px-4 py-2 bg-[#06A9EF] text-white font font-medium rounded-[12px]"
+          className="sm:px-9 px-4 py-[10px] bg-[#06A9EF] text-white text-[14px] font-medium rounded-[130px]"
           onClick={handleSaveChanges}
         >
           {isEditing ? "Save Changes" : "Add Experience"}

@@ -5,11 +5,14 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 import DeleteModal from "../../common/deleteModal";
-import { AddIcon } from "../../../utils/svg";
+
+import Social_Links from "./socialLinksModel";
+import { AddIcon, Delete_icon, Edit_icon } from "../../../utils/svg";
+import { fetchUserData } from "../../../Redux/slices/userSlice";
 function Social_links_ndWebsites({ userData }) {
   const [addWebsites, setaddWebsites] = useState(false);
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [linkData, setLinkData] = useState({
     profile: "PHD",
@@ -31,7 +34,7 @@ function Social_links_ndWebsites({ userData }) {
         `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteSocialLink/${deleteData.id}`
       )
       .then((res) => {
-        // dispatch(reCallUserData());
+        dispatch(fetchUserData());
         setDeleteData({ view: false, id: "" });
         toast.success("Social Link deleted successfully");
       })
@@ -65,7 +68,7 @@ function Social_links_ndWebsites({ userData }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="flex gap-[16px] text-[18px] scr420:text-[20px] font-[500] text-[#333] items-center justify-between">
+        <div className="flex gap-[16px] text-[16px] font-[600] text-[#333] items-center justify-between">
           Website & Social Links
 
           <div onClick={() => {setaddWebsites(true),setEditSocial(false)}}>
@@ -74,13 +77,13 @@ function Social_links_ndWebsites({ userData }) {
         </div>
         {userData.socialLinks?.map((item) => (
           <div className="flex flex-col gap-[4px] ">
-            <div className="flex gap-[16px] items-center text-[16px] font-[500]">
+            <div className="flex gap-[16px] items-center text-[14px] font-[600]">
               {item.profile}
               <div className="flex gap-[8px]">
 
-              {/* <div onClick={() => editHandler(item)}>
+              <div onClick={() => editHandler(item)}>
                   <Edit_icon/>
-                </div> */}
+                </div>
                 <div
                   onClick={() => setDeleteData({ view: true, id: item._id })}
                 >
@@ -98,7 +101,7 @@ function Social_links_ndWebsites({ userData }) {
             >
               {item.url}
             </a>
-            <div className="text-[12px] font-[400]">{item.discription}</div>
+            {/* <div className="text-[12px] font-[400]">{item.discription}</div> */}
           </div>
         ))}
       </div>
@@ -107,7 +110,7 @@ function Social_links_ndWebsites({ userData }) {
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] ms:w-[75%] w-[90%]">
-              <Social_Links setaddWebsites={setaddWebsites} Social={Social} setEditSocial={setEditSocial}/>
+              <Social_Links setaddWebsites={setaddWebsites} Social={Social} setEditSocial={setEditSocial} editSocial={editSocial}/>
             </div>
           </div>
         </>

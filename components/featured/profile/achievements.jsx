@@ -9,10 +9,11 @@ import axios from "axios";
 import { AddIcon, Delete_icon, Edit_icon } from "../../../utils/svg";
 import HonorsAwards from "./honorsAwards";
 import DeleteModal from "../../common/deleteModal";
+import { fetchUserData } from "../../../Redux/slices/userSlice";
 
-const Achievements = () => {
+const Achievements = ({userData}) => {
     const [addAchivements, setAddAchivements] = useState(false);
-    const userDataGlobal = useSelector((state) => state.userData);
+   const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [deleteData, setDeleteData] = useState({ view: false, id: "" });
     const dispatch = useDispatch();
 
@@ -23,7 +24,7 @@ const Achievements = () => {
                 `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteAchivement/${deleteData.id}`
             )
             .then((res) => {
-                // dispatch(reCallUserData());
+                dispatch(fetchUserData());
                 setDeleteData({ view: false, id: "" });
                 toast.success("Award deleted successfully");
             })
@@ -52,16 +53,17 @@ const Achievements = () => {
                 />
             )}
             <div className="build_ai ai2" style={{ gap: "16px" }}>
-                <div className="page_headings flex justify-between w-full text-[18px] scr420:text-[20px]">
+                <div className="page_headings flex justify-between w-full text-[16px] font-semibold">
                     Achievements{" "}
                     <div onClick={() => { setAddAchivements(true), setEditfalseAchievement(false) }}>
                         <AddIcon />
                     </div>
                 </div>
-                {userDataGlobal.awards?.map((achive) => (
+                {userData.awards?.map((achive) => (
                     <div className="essential_gap">
                         <div className="flex gap-5">
-                            <p className="heading_first">{achive.title}</p>
+                            <p className="heading_first  text-[14px] font-[600]">{achive.title}</p>
+                            
                             <div className="flex gap-3">
                                 <div onClick={() => editHandler(achive)}>
                                     <Edit_icon />
@@ -72,7 +74,7 @@ const Achievements = () => {
                                 </div>
                             </div>
                         </div>
-
+                       
                         <p className="sec_head">{achive.issuedBy}</p>
                     </div>
                 ))}

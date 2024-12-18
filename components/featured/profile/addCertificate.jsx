@@ -314,11 +314,11 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
-            <p className="text-[#25324B] text-[18px] ms:text-[24px] font-[500] leading-[160%]">
+            <p className="text-[#25324B] text-[18px]  font-[600] min-w-[160px] leading-[160%]">
               {isEditing ? "Edit Certification": "Add Certification"}
             </p>
 
-            <div className="h-[1px] bg-[#DEDEDE] flex items-center w-[60%]"></div>
+            <div className="h-[1px] bg-[#DEDEDE] flex items-center w-full"></div>
             <svg
               onClick={() => setAddCertificate(false)}
               xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +341,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <p className="text-[#333] text-[16px] font-[500] ">
+          <p className="text-[#333] text-[14px] font-[500] ">
             Certification Name<span className="text-[#C00000]">*</span>
           </p>
           <input
@@ -349,13 +349,13 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateName}
             name={"certificateName"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%]"
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
             placeholder="Enter certification name here"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <p className="text-[#333] text-[16px] font-[500] ">
+          <p className="text-[#333] text-[14px] font-[500] ">
             Certification Provider
           </p>
           <input
@@ -363,13 +363,13 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateProvider}
             name={"certificateProvider"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%]"
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
             placeholder="Enter your certification provider"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <p className="text-[#333] text-[16px] font-[500] ">
+          <p className="text-[#333] text-[14px] font-[500] ">
             Certification ID
           </p>
           <input
@@ -377,13 +377,13 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateId}
             name={"certificateId"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%]"
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
             placeholder="Enter your course completion ID"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <p className="text-[#333] text-[16px] font-[500] ">
+          <p className="text-[#333] text-[14px] font-[500] ">
             Certification URL
           </p>
           <input
@@ -391,7 +391,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateUrl}
             name={"certificateUrl"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%]"
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
             placeholder="Enter your certification URL"
           />
         </div>
@@ -403,13 +403,13 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
         />
         <div className="flex justify-end items-start self-stretch gap-[12px]">
           <button
-            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px]    text-[16px] font-[500] border-[1px] border-solid border-[#06A9EF]"
+            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px]    text-[14px] font-[500] border-[1px] border-solid border-[#06A9EF]"
             onClick={() => setAddCertificate(false)}
           >
             Cancel
           </button>
           <button
-            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px] bg-[#06A9EF] text-[#fff]  text-[16px] font-[500] border-[1px] border-solid border-[#06A9EF] h-[42px] w-[166px]"
+            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px] bg-[#06A9EF] text-[#fff]  text-[14px] font-[500] border-[1px] border-solid border-[#06A9EF] h-[42px] w-[166px]"
             onClick={postData}
           >
             {loading ? (

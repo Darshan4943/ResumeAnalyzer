@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 
 function EditProfile({ setEditProfile }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
 
   const [data, setData] = useState({

@@ -142,15 +142,16 @@ function AddEducation({
       className="flex flex-col gap-4 p-6 bg-white rounded-[16px] h-[90vh] overflow-y-auto"
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
+       <div className="flex flex-col gap-1">
       <div className="flex justify-between w-full items-center ">
-        <p className="md:text-[24px] text-[18px] font-medium">  {editEducation ? "Edit Education" : "Add Education"}</p>
-        <div className="bg-[#DEDEDE] h-[1px] w-[54.54%]"></div>
+        <p className=" text-[18px] font-semibold min-w-[160px]">  {editEducation ? "Edit Education" : "Add Education"}</p>
+        <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
         <div onClick={() => setOpenAddEducation(false)}>
           <ClosedIcon />
         </div>
       </div>
       <div className="flex flex-col gap-3 ">
-        <p className="text-[16px] font-medium">What is your Education type?</p>
+        <p className="text-[14px] font-medium">What is your Education type?</p>
         <div className="w-[70%] flex justify-between text-[14px] font-montserrat items-start font-medium  flex_column">
           <div className="flex gap-2">
             <input
@@ -184,13 +185,14 @@ function AddEducation({
           </div>
         </div>
       </div>
+      </div>
 
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat font-medium">Education</div>
+        <div className="text-[14px] font-montserrat font-medium">Education</div>
         <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
           <select
             name="education"
-            className="w-full text-[14px] font-montserrat font-small"
+            className="w-full text-[12px] font-montserrat font-small"
             value={educationData.education}
             onChange={handleInputChange}
           >
@@ -217,13 +219,13 @@ function AddEducation({
         { label: "Location", name: "location", placeholder: "Enter your location" },
       ].map(({ label, name, placeholder }) => (
         <div key={name} className="flex flex-col gap-2 ">
-          <div className="text-[16px] font-montserrat font-medium">{label}</div>
+          <div className="text-[14px] font-montserrat font-medium">{label}</div>
           <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
             <input
               type="text"
               name={name}
               placeholder={placeholder}
-              className="w-full text-[14px] font-montserrat font-small"
+              className="w-full text-[12px] font-montserrat font-small"
               value={educationData[name]}
               onChange={handleInputChange}
             />
@@ -232,7 +234,7 @@ function AddEducation({
       ))}
 
       <div className="flex flex-col gap-3">
-        <p className="text-[16px] font-medium">Are you currently pursuing?</p>
+        <p className="text-[14px] font-medium">Are you currently pursuing?</p>
         <div className="w-full flex gap-4 text-[14px] font-montserrat items-center font-medium">
           <div className="flex gap-2">
             <input
@@ -259,6 +261,7 @@ function AddEducation({
 
       <div className="w-full">
         <DateSelector
+        isRow={true}
           idPrefix="addEducation"
           data={educationData}
           dataSeter={setEducationData}
@@ -266,13 +269,13 @@ function AddEducation({
       </div>
 
       <div className="flex flex-col gap-2 mb-4">
-        <p className="text-[16px] font-medium">Grading System</p>
+        <p className="text-[14px] font-medium">Grading System</p>
         <div className="flex flex-wrap gap-4 items-center">
           {["Percentage", "CGPA", "GPA", "Grade"].map((grading) => (
             <button
               key={grading}
               style={{ boxShadow: "0px 1px 3px 1px #00000026" }}
-              className={`px-4 h-[32px] rounded-[30px] text-[14px] font-normal ${educationData.gradingSystem === grading.toLowerCase()
+              className={`px-4 h-[32px] rounded-[30px] text-[12px] font-normal ${educationData.gradingSystem === grading.toLowerCase()
                   ? "bg-blue text-white"
                   : "bg-white"
                 }`}
@@ -288,7 +291,7 @@ function AddEducation({
           ))}
           <input
             type="text"
-            className="px-4 py-[6px] border rounded-[8px] border-[#DEDEDE] text-[14px] w-[120px]"
+            className="px-4 py-[6px] border rounded-[8px] border-[#DEDEDE] text-[12px] w-[120px]"
             placeholder="Enter Score"
             value={educationData.score}
             onChange={(e) =>
@@ -303,7 +306,7 @@ function AddEducation({
 
       <div className="flex justify-end gap-3">
         <button
-          className="md:px-4 md:py-2 px-[8px] py-[5px] text-[14px] bg-white-600 border border-[#06A9EF] font md:font-medium rounded-[12px]"
+          className="sm:px-9 py-2 px-4 text-[14px] bg-white-600 border border-[#06A9EF] font md:font-medium rounded-[30px]"
           id="button"
           onClick={() => setOpenAddEducation(false)}
         >
@@ -311,7 +314,7 @@ function AddEducation({
         </button>
 
         <button
-          className={`md:px-4 md:py-2 px-[8px] py-[5px] text-[14px] bg-[#06A9EF] border rounded-[12px] font-semibold text-white `}
+          className={`sm:px-9 py-2 px-4 text-[14px] bg-[#06A9EF] border rounded-[30px] font-semibold text-white `}
           onClick={(e) => handleSaveChanges(e)}
         >
           {editEducation ? "Save Changes" : "Add Education"}

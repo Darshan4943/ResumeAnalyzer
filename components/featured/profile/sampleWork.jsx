@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import DateSelector from '../../common/dateSelector';
+import { fetchUserData } from '../../../Redux/slices/userSlice';
 
 
-function SampleWork({ setaddSampleWork,Project,editProject }) {
+function SampleWork({ setaddSampleWork, Project, editProject }) {
   const dispatch = useDispatch();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [data, setData] = useState({
     title: "",
@@ -26,10 +27,10 @@ function SampleWork({ setaddSampleWork,Project,editProject }) {
     },
     description: "",
 
-    ...(editProject && { 
+    ...(editProject && {
       title: Project?.title,
       url: Project?.url,
-      isCurrentlyWorking:Project?.isCurrentlyWorking,
+      isCurrentlyWorking: Project?.isCurrentlyWorking,
       duration: {
         from: {
           years: Project?.duration?.from?.years,
@@ -48,98 +49,98 @@ function SampleWork({ setaddSampleWork,Project,editProject }) {
   const isEditing = !!editProject;
 
   const handleSubmit = () => {
-    const projectData = 
-      {
-        title: data.title,
-        url: data.url,
-        isCurrentlyWorking: data.isCurrentlyWorking,
-        duration: {
-          from: {
-            years: data.duration.from.years,
-            months: data.duration.from.months,
-          },
-          to: {
-            years: data.duration.to.years,
-            months: data.duration.to.months,
-          },
+    const projectData =
+    {
+      title: data.title,
+      url: data.url,
+      isCurrentlyWorking: data.isCurrentlyWorking,
+      duration: {
+        from: {
+          years: data.duration.from.years,
+          months: data.duration.from.months,
         },
-        description: data.description,
-      }
-      
-    
-
-   
-      // axios
-      // .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal._id}`, projectData)
-      //   .then((res) => {
-      //     dispatch(reCallUserData());
-      //     console.log(444, res.data);
-      //     setaddSampleWork(false)
-      //     toast.success("Projects Added successfully");
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+        to: {
+          years: data.duration.to.years,
+          months: data.duration.to.months,
+        },
+      },
+      description: data.description,
+    }
 
 
-        if (isEditing) {
-          axios
-            .put(
-              `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateProject/${Project._id}`,
-              data
-            )
-            .then((res) => {
-              console.log(444, res.data);
-            // dispatch(reCallUserData());
-            setaddSampleWork(false);
-            toast.success("Project updated successfully");
-            })
-            .catch((err) => {
-    
-              console.error(err);
-            });
-        } else {
-          axios
-          .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal._id}`, projectData)
-            .then((res) => {
-            //   dispatch(reCallUserData());
-              console.log(444, res.data);
-              setaddSampleWork(false)
-              toast.success("Projects Added successfully");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-  
+
+
+    // axios
+    // .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal._id}`, projectData)
+    //   .then((res) => {
+    //     dispatch(reCallUserData());
+    //     console.log(444, res.data);
+    //     setaddSampleWork(false)
+    //     toast.success("Projects Added successfully");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+
+    if (isEditing) {
+      axios
+        .put(
+          `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateProject/${Project._id}`,
+          data
+        )
+        .then((res) => {
+
+          dispatch(fetchUserData());
+          setaddSampleWork(false);
+          toast.success("Project updated successfully");
+        })
+        .catch((err) => {
+
+          console.error(err);
+        });
+    } else {
+      axios
+        .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal._id}`, projectData)
+        .then((res) => {
+          dispatch(fetchUserData());
+
+          setaddSampleWork(false)
+          toast.success("Projects Added successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
   };
 
   return (
     <>
       <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px] h-[80vh] overflow-y-auto">
         <div className="flex gap-[4px] w-full items-center">
-        
-            <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">Add Sample Work</div>
-            <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
-            <svg
-              className="hover:cursor-pointer"
-              onClick={() => setaddSampleWork(false)}
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-            >
-              <g mask="url(#mask0_5716_141042)">
-                <path
-                  d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
-                  fill="#646464"
-                  className="hover:cursor-pointer"
-                />
-              </g>
-            </svg>
-        
-          
+
+          <div className="text-[18px] font-[600] text-[#25324B] min-w-[160px]">Add Sample Work</div>
+          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
+          <svg
+            className="hover:cursor-pointer"
+            onClick={() => setaddSampleWork(false)}
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <g mask="url(#mask0_5716_141042)">
+              <path
+                d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
+                fill="#646464"
+                className="hover:cursor-pointer"
+              />
+            </g>
+          </svg>
+
+
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">

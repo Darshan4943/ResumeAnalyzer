@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function Edit_personal_Dtls({ setaddWebsites }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   console.log(userDataGlobal);
   const dispatch = useDispatch();
   const [Data, setData] = useState({

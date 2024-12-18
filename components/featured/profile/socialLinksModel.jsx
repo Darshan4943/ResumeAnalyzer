@@ -2,20 +2,21 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { reCallUserData } from "../../../../../Redux/actions/user";
-function Social_Links({ setaddWebsites,setEditSocial,Social }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+import { fetchUserData } from "../../../Redux/slices/userSlice";
+
+function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [data, setData] = useState({
-    profile: "PHD",
+    profile: "",
     url: "",
     discription: "",
 
-    // ...(setEditSocial && { 
-    //   profile: Social.profile,
-    // url: Social.url,
-    // discription: Social.discription,
-    // }),
+    ...(editSocial && { 
+      profile: Social.profile,
+    url: Social.url,
+    discription: Social.discription,
+    }),
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,56 +36,43 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
   };
 
 
-  const isEditing = !!setEditSocial;
+  const isEditing = !!editSocial;
   const handleSubmit = () => {
-    axios
-      .post(
-        "http://localhost:2000/api/candidate/addSocialLinks/" +
-          userDataGlobal._id,
-        data
-      )
-      .then((res) => {
-        if (res.data.success) {
-          toast.success("Social Links added successfully");
-          dispatch(reCallUserData());
+    
+
+
+      if (isEditing) {
+        axios
+          .put(
+            `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateSocialLinks/${Social._id}`,
+            data
+          )
+          .then((res) => {
+            console.log(444, res.data);
+          dispatch(fetchUserData());
           setaddWebsites(false);
-        }
-      })
-      .catch((err) => console.log(err));
-
-
-  //     if (isEditing) {
-  //       axios
-  //         .put(
-  //           `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateAchivement/${Achievement._id}`,
-  //           data
-  //         )
-  //         .then((res) => {
-  //           console.log(444, res.data);
-  //         dispatch(reCallUserData());
-  //         setaddWebsites(false);
-  //         toast.success("Awards updated successfully");
-  //         })
-  //         .catch((err) => {
+          toast.success("Awards updated successfully");
+          })
+          .catch((err) => {
   
-  //           console.error(err);
-  //         });
-  //     } else {
-  //       axios
-  //       .post(
-  //         "http://localhost:2000/api/candidate/addSocialLinks/" +
-  //           userDataGlobal._id,
-  //         data
-  //       )
-  //       .then((res) => {
-  //         if (res.data.success) {
-  //           toast.success("Social Links added successfully");
-  //           dispatch(reCallUserData());
-  //           setaddWebsites(false);
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //     }
+            console.error(err);
+          });
+      } else {
+        axios
+        .post(
+          "http://localhost:2000/api/candidate/addSocialLinks/" +
+            userDataGlobal._id,
+          data
+        )
+        .then((res) => {
+          if (res.data.success) {
+            toast.success("Social Links added successfully");
+            dispatch(fetchUserData());
+            setaddWebsites(false);
+          }
+        })
+        .catch((err) => console.log(err));
+      }
    };
 
   return (
@@ -97,12 +85,12 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
       >
         <div className="flex flex-col gap-[4px] w-full">
           <div className="flex gap-[16px] items-center">
-            <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">
-              Add Online Profile
+            <div className="text-[18px] font-[600] text-[#25324B] min-w-[180px]">
+             {isEditing? " Edit" : "Add"} Online Profile
             </div>
-            <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
+            <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
             <svg
-              className="hover:cursor-pointer"
+              className="hover:cursor-pointer min-w-[40px]"
               onClick={() => setaddWebsites(false)}
               xmlns="http://www.w3.org/2000/svg"
               width="40"
@@ -119,18 +107,19 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
               </g>
             </svg>
           </div>
-          <div className="text-[14px] font-[400] text-[#646464] w-full">
+          <div className="text-[12px] font-[400] text-[#646464] w-full">
             Add links to your social profiles (e.g., Linkedin, Facebook, etc.).
           </div>
         </div>
-        <div className=" w-[50%] flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
+        <div className=" sm:w-[50%] flex flex-col gap-[8px]">
+          <div className="text-[14px] font-[500]">
             Social Profile <span className="text-[#C00000]">*</span>
           </div>
           <select
             name="SocialProfile"
+            value={data.profile} 
             onChange={(e) => setData({ ...data, profile: e.target.value })}
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
           >
             Select social profile{" "}
             <svg
@@ -156,11 +145,11 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
           </select>
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
+          <div className="text-[14px] font-[500]">
             URL <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter your social Profile URL"
             type="text"
             value={data.url}
@@ -170,7 +159,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
           />
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">Description</div>
+          <div className="text-[14px] font-[500]">Description</div>
           <textarea
             className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
@@ -180,7 +169,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
           >
             {data.discription}
           </textarea>
-          <div className="text-[14px] font-[400] text-[#646464] flex justify-end">
+          <div className="text-[12px] font-[400] text-[#646464] flex justify-end">
             {400 - data.discription.length} characters left
           </div>
         </div>
@@ -188,7 +177,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
           
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[5px] md:py-[8px] px-[8px] md:px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px] md:text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[30px] py-[8px] md:py-[8px] px-[16px] md:px-[36px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px]  font-[500] hover:cursor-pointer"
               onClick={() => {
                 setData({
                   profile: "",
@@ -201,10 +190,10 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[5px] md:py-[8px] px-[8px] md:px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px] md:text-[16px] font-[500] bg-[#06A9EF] "
+              className="rounded-[30px] py-[8px] md:py-[8px] px-[16px] md:px-[36px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px] font-[500] bg-[#06A9EF] "
               onClick={handleSubmit}
             >
-              Save Changes
+              {isEditing? " Save Changes" : "Add Social Link"} 
             </button>
           </div>
         </div>

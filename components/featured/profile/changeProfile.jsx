@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function ChangeProfile({ setIsChangeProfile, userData }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [isImg, IsNotImg] = useState(null);
   const [file, setFile] = useState(null);
