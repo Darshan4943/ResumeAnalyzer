@@ -109,7 +109,7 @@ function Social_links_ndWebsites({ userData }) {
         <>
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-            <div className="absolute max-w-[800px] ms:w-[75%] w-[90%]">
+            <div className="absolute max-w-[800px] ms:w-[75%] w-[90%] top-[100px]">
               <Social_Links setaddWebsites={setaddWebsites} Social={Social} setEditSocial={setEditSocial} editSocial={editSocial}/>
             </div>
           </div>

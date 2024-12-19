@@ -13,7 +13,8 @@ import { countries, telCode } from "../../../utils/data";
 import Select from "react-select";
 
 
-const Leftform = ({
+const 
+Leftform = ({
   file,
   setFile,
   data,

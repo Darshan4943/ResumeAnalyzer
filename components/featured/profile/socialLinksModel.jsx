@@ -76,12 +76,11 @@ function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
    };
 
   return (
-    <>
+    <div className="bg-white rounded-[16px] py-3 "
+    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
       <div
-        className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]"
-        style={{
-          boxShadow: " 0px 1px 6px 0px rgba(0, 0, 0, 0.25)",
-        }}
+        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
+    
       >
         <div className="flex flex-col gap-[4px] w-full">
           <div className="flex gap-[16px] items-center">
@@ -198,7 +197,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

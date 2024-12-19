@@ -15,7 +15,7 @@ function Projects({ userData }) {
   const dispatch = useDispatch();
   const [addSampleWork, setaddSampleWork] = useState(false);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  console.log(7, userDataGlobal.projects)
+ 
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
 
 
@@ -90,7 +90,7 @@ function Projects({ userData }) {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-            <div className="absolute ms:w-[75.08%] w-[90%] ">
+            <div className="absolute ms:w-[75.08%] w-[90%] top-[100px] ">
               <SampleWork setaddSampleWork={setaddSampleWork}
                 Project={Project} editProject={editProject}
               />

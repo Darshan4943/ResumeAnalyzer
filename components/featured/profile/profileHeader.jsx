@@ -2,12 +2,22 @@
 import React, { useState } from "react";
 
 import { timeAgo } from "../../../utils/middleware";
-import EditProfile from "./editProfile";
+
 import ChangeProfile from "./changeProfile";
+import EditProfile from "./editProfile";
 
 const ProfileHeader = ({ userData }) => {
 
+  const latestEducation = [...(userData?.education || [])].sort((a, b) => {
+    const aDate = a?.duration?.endDate;
+    const bDate = b?.duration?.endDate;
   
+    if (aDate?.years !== bDate?.years) {
+      return bDate?.years - aDate?.years;
+    }
+    return bDate?.months - aDate?.months;
+  })[0];
+
   const [editProfile, setEditProfile] = useState(false);
 
   const [ischangeProfile, setIsChangeProfile] = useState(false);
@@ -124,8 +134,8 @@ const ProfileHeader = ({ userData }) => {
                           alt=""
                         />
                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                          {userData?.education[0]?.stream} <br />{" "}
-                          {userData?.education[0]?.institute}
+                          {latestEducation?.specialization} {latestEducation?.stream}
+                        
                         </p>
                       </div>
                     )}
@@ -156,8 +166,7 @@ const ProfileHeader = ({ userData }) => {
                       alt=""
                     />
                     <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                      {userData?.education[0]?.stream} <br />{" "}
-                      {userData?.education[0]?.institute}
+                    {latestEducation?.specialization} {latestEducation?.stream}
                     </p>
                   </div>
                 )}
@@ -195,7 +204,7 @@ const ProfileHeader = ({ userData }) => {
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-            <div className="absolute max-w-[800px] w-full">
+            <div className="absolute max-w-[800px] w-full top-[100px]">
               <EditProfile setEditProfile={setEditProfile} />
             </div>
           </div>

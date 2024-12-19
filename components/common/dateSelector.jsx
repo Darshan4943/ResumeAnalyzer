@@ -103,7 +103,7 @@ const DateSelector = ({
               className="w-full flex gap-2 text-[14px] font-montserrat  font-medium text-[#333]"
               htmlFor={`${idPrefix}-startMonth`}
             >
-              {idPrefix === "addCourse" || "addAchievement" ? "Issued On" : "Start Date"}
+              {(idPrefix === "addCourse" || idPrefix === "addAchievement") ? "Issued On" : "Start Date"}
             </label>
           </div>
           <div className="flex gap-4">

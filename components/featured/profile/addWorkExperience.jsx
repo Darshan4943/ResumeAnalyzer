@@ -127,10 +127,12 @@ function AddWorkExperience({
   };
 
   return (
-    <div
-      className="flex flex-col gap-4 p-6 bg-white rounded-[16px]"
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
-    >
+    <div className="bg-white rounded-[16px] py-3 "
+    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+      <div
+        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
+    
+      >
       <div className="flex flex-col gap-1">
       <div className="flex justify-between w-full items-center">
         <p className=" text-[18px] font-semibold min-w-[220px]">Add Work Experience</p>
@@ -322,6 +324,7 @@ function AddWorkExperience({
           {isEditing ? "Save Changes" : "Add Experience"}
         </button>
       </div>
+    </div>
     </div>
   );
 }

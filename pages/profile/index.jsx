@@ -23,7 +23,7 @@ import PersonalDetails from "../../components/featured/profile/personalDetails";
 
 function Profile() {
   const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
-  console.log(222, profileData)
+
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -49,6 +49,8 @@ function Profile() {
       offset: -100,
     });
   };
+
+  
 
   useEffect(() => {
     setUserData(profileData);
@@ -232,14 +234,14 @@ function Profile() {
             <ScrollElement name="Projects" className="section">
               <Projects userData={userData} />
             </ScrollElement>
- {/*
+
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />
             </ScrollElement>
-
+ 
             <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
-            </ScrollElement> */}
+            </ScrollElement> 
           </div>
         </div>
       </div>

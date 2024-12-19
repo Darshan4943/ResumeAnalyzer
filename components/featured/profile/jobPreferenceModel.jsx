@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { SkillList } from "@/utils/data";
+
 import ReactSelect from "react-select";
-import { camelCase } from "../../../../../utils/middleware";
-import { ClosedIcon } from "../../../../../utils/svg";
-import { City } from "../../../../../utils/data";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { reCallUserData } from "@/Redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
+import { camelCase } from "../../../utils/middleware";
+import { ClosedIcon } from "../../../utils/svg";
+import { City } from "../../../utils/data";
+import { fetchUserData } from "../../../Redux/slices/userSlice";
 const JobPrefrenceModal = ({ setEditView }) => {
 
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
 
   const [preferedLocation, setPreferedLocation] = useState([]);
 
-  console.log(50, preferedLocation)
+  
   const inputField = [
     {
       label: "Preferred Industry",
@@ -133,8 +133,8 @@ const JobPrefrenceModal = ({ setEditView }) => {
         console.log(68, data);
         if (res) {
           console.log(111, res);
-          toast.success("Upgrade Job preferance successfully");
-          dispatch(reCallUserData());
+          toast.success("Updated Job preferances successfully");
+          dispatch(fetchUserData());
           setEditView(false)
         }
       })
@@ -142,14 +142,16 @@ const JobPrefrenceModal = ({ setEditView }) => {
     // You may want to reset the form or perform any other actions after submission
   };
   return (
-    <>
+    <div className="bg-white rounded-[16px] py-3 "
+    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
       <div
-        className="flex flex-col gap-4 p-6 bg-[#fff] rounded-[16px] modal_container h-[80vh] overflow-y-auto"
-        style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] modal_container py-3 px-6 overflow-y-auto "
+    
       >
+        <div className="flex flex-col gap-1">
         <div className="modal_title flex justify-between gap-[16px]  items-center">
-         <p className="text-[18px] md:text-[24px]"> Edit Job Preferences{" "}</p>
-          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
+         <p className="text-[18px] font-[600] min-w-[200px]"> Edit Job Preferences{" "}</p>
+          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
           <svg
             className="hover:cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
@@ -171,14 +173,15 @@ const JobPrefrenceModal = ({ setEditView }) => {
         <p className="text-[12px]">
           Customize your job settings to match what you're looking for in a job.
         </p>
+        </div>
         <form action="">
           <div className="w-full form_container_col form_container">
             {inputField.map((item) => (
               <div className="input-container w-[100%] md:w-[46%] ">
-                <label className="label">{item.label}</label>
+                <label className="text-[14px] font-medium">{item.label}</label>
                 <input
                   type="text"
-                  className="w-full input"
+                  className="w-full input text-[12px] font-[400]"
                   placeholder={item.placeholder}
                   name={item.name}
                   value={data[item.name]}
@@ -187,9 +190,9 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </div>
             ))}
             <div className="input-container w-[100%] md:w-[46%]  ">
-              <label className="label">Preferred Job Type</label>
+              <label className="text-[14px] font-medium">Preferred Job Type</label>
               <select
-                className="w-full input"
+                className="w-full input text-[12px] font-[400]"
                 value={data.jobType || ""}
                 onChange={(e) => handleJobTypeChange(e.target.value)}
               >
@@ -203,9 +206,9 @@ const JobPrefrenceModal = ({ setEditView }) => {
 
             </div>
             <div className="input-container w-[100%] md:w-[46%] ">
-              <label className="label">Preferred Job Mode</label>
+              <label className="text-[14px] font-medium">Preferred Job Mode</label>
               <select
-                className="w-full input"
+                className="w-full input text-[12px] font-[400]"
                 value={data.jobMode ||""}
                 onChange={(e) => handleJobModeChange(e.target.value)}
               ><option value="">Select Job Mode</option>
@@ -217,9 +220,9 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </select>
             </div>
             <div className="input-container w-[100%] md:w-[46%] ">
-              <label className="label">Preferred Shift</label>
+              <label className="text-[14px] font-medium">Preferred Shift</label>
               <select
-                className="w-full input"
+                className="w-full input text-[12px] font-[400]"
                 value={data.shift || ''}
                 onChange={(e) => handleShiftChange(e.target.value)}
               >
@@ -233,10 +236,10 @@ const JobPrefrenceModal = ({ setEditView }) => {
             </div>
 
             <div className="input-container w-[100%] md:w-[46%]">
-              <label className="label">Expected salary</label>
+              <label className="text-[14px] font-medium">Expected salary</label>
               <input
                 type="text"
-                className="w-full input"
+                className="w-full input text-[12px] font-[400]"
                 placeholder={"Enter here your preference"}
                 name={"expectedSalary"}
                 value={data.expectedSalary}
@@ -244,13 +247,13 @@ const JobPrefrenceModal = ({ setEditView }) => {
               />
             </div>
             <div className="input-container w-[100%] md:w-[46%] ">
-              <label className="label">Preferred work location</label>
+              <label className="text-[14px] font-medium ">Preferred work location</label>
               <ReactSelect
                 options={City?.map((item) => ({
                   value: item,
                   label: camelCase(item),
                 }))}
-                className="w-full  "
+                className="w-full text-[12px] font-[400]  "
                 onChange={(data) => {
                   setPreferedLocation([
                     ...preferedLocation,
@@ -260,12 +263,12 @@ const JobPrefrenceModal = ({ setEditView }) => {
               />
             </div>
           </div>
-          <div className="location-list">
+          <div className="location-list ">
             {preferedLocation.map((item) => (
-              <div className="location_item">
+              <div className="location_item text-[12px] font-[400] h-[36px]">
                 {item.location}
                 <div onClick={(e) => removeCity(e, item)}>
-                  <ClosedIcon className={"w-5 h-5 cursor-pointer"} />
+                  <ClosedIcon className={"w-5 h-5 cursor-pointer "} />
                 </div>
               </div>
             ))}
@@ -277,21 +280,21 @@ const JobPrefrenceModal = ({ setEditView }) => {
         </button> */}
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[30px] py-[8px] sm:px-9 px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[14px] font-[600] hover:cursor-pointer"
               onClick={() => setEditView(false)}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[16px] font-[500] bg-[#06A9EF] "
+              className="rounded-[30px] py-[8px] sm:px-9 px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[14px] font-[600] bg-[#06A9EF] "
             >
               Save Changes
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

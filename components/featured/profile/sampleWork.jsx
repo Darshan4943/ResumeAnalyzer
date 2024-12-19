@@ -14,38 +14,32 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
   const [data, setData] = useState({
     title: "",
     url: "",
-    isCurrentlyWorking: true,
+    currentlyWorking: false,
     duration: {
-      from: {
-        years: 2021,
-        months: 9,
-      },
-      to: {
-        years: 2022,
-        months: 6,
-      },
+      start: { year: "Year", month: "Month" },
+      end: { year: "Year", month: "Month" },
     },
     description: "",
 
     ...(editProject && {
       title: Project?.title,
       url: Project?.url,
-      isCurrentlyWorking: Project?.isCurrentlyWorking,
+      currentlyWorking: Project?.isCurrentlyWorking || false,
       duration: {
-        from: {
-          years: Project?.duration?.from?.years,
-          months: Project?.duration?.from?.months,
+        start: {
+          year: Project?.duration?.startDate?.year || "Year",
+          month: Project?.duration?.startDate?.month || "Month",
         },
-        to: {
-          years: Project?.duration?.to?.years,
-          months: Project?.duration?.to?.months,
+        end: {
+          year: Project?.duration?.endDate?.year || "Year",
+          month: Project?.duration?.endDate?.month || "Month",
         },
       },
       description: Project?.description,
     }),
   })
 
-
+  console.log(333,data)
   const isEditing = !!editProject;
 
   const handleSubmit = () => {
@@ -53,15 +47,16 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
     {
       title: data.title,
       url: data.url,
-      isCurrentlyWorking: data.isCurrentlyWorking,
+      isCurrentlyWorking: data.currentlyWorking,
+     
       duration: {
-        from: {
-          years: data.duration.from.years,
-          months: data.duration.from.months,
+        startDate: {
+          year: data.duration?.start.year,
+          month: data.duration?.start.month,
         },
-        to: {
-          years: data.duration.to.years,
-          months: data.duration.to.months,
+        endDate: {
+          year: data.duration?.end.year,
+          month: data.duration?.end.month,
         },
       },
       description: data.description,
@@ -69,25 +64,11 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
 
 
 
-
-    // axios
-    // .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal._id}`, projectData)
-    //   .then((res) => {
-    //     dispatch(reCallUserData());
-    //     console.log(444, res.data);
-    //     setaddSampleWork(false)
-    //     toast.success("Projects Added successfully");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-
     if (isEditing) {
       axios
         .put(
           `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateProject/${Project._id}`,
-          data
+          projectData
         )
         .then((res) => {
 
@@ -115,39 +96,57 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
 
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: name === "currentlyWorking" ? value === "true" : value,
+    }));
+  };
+
+
   return (
-    <>
-      <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px] h-[80vh] overflow-y-auto">
-        <div className="flex gap-[4px] w-full items-center">
+    <div className="bg-white rounded-[16px] py-3 "
+    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+      <div
+        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
+    
+      >
+        <div className='flex flex-col gap-1 text-[12px] font-normal'>
+          <div className="flex gap-[4px] w-full items-center">
 
-          <div className="text-[18px] font-[600] text-[#25324B] min-w-[160px]">Add Sample Work</div>
-          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
-          <svg
-            className="hover:cursor-pointer"
-            onClick={() => setaddSampleWork(false)}
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            fill="none"
-          >
-            <g mask="url(#mask0_5716_141042)">
-              <path
-                d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
-                fill="#646464"
-                className="hover:cursor-pointer"
-              />
-            </g>
-          </svg>
+            <div className="text-[18px] font-[600] text-[#25324B] min-w-[180px]">Add Sample Work</div>
+            <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
+            <svg
+              className="hover:cursor-pointer"
+              onClick={() => setaddSampleWork(false)}
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+            >
+              <g mask="url(#mask0_5716_141042)">
+                <path
+                  d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
+                  fill="#646464"
+                  className="hover:cursor-pointer"
+                />
+              </g>
+            </svg>
 
 
+          </div>
+          Add link to your projects (e.g. Github links etc.)
         </div>
+
+
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
+          <div className="text-[14px] font-[500]">
             Work title <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter work title"
             type="text"
             name="title"
@@ -156,11 +155,11 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
           />
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">
+          <div className="text-[14px] font-[500]">
             URL <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter your social Profile URL"
             type="text"
             name="url"
@@ -169,54 +168,54 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
           />
         </div>
         <div className="flex flex-col gap-[16px]">
-          <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+          <div className="w-[50%] flex flex-col gap-[12px] text-[14px] font-[500] ">
             Are you currently working on this?{" "}
             <div className="flex gap-[16px] items-center">
-              <div className="flex gap-[8px]">
+              <div className="flex gap-2">
                 <input
-                  className="custom-radio"
                   type="radio"
-                  name="isCurrentlyWorking"
-                  checked={data.isCurrentlyWorking}
-                  onChange={() => setData({ ...data, isCurrentlyWorking: true })}
+                  name="currentlyWorking"
+                  value={true}
+                  checked={data.currentlyWorking === true}
+                  onChange={handleInputChange}
                 />
-                <label className="text-[14px] font-[500]">yes</label>
+                <label>Yes</label>
               </div>
-              <div className="flex gap-[8px]">
+              <div className="flex gap-2">
                 <input
-                  className="custom-radio"
                   type="radio"
-                  name="isCurrentlyWorking"
-                  checked={!data.isCurrentlyWorking}
-                  onChange={() => setData({ ...data, isCurrentlyWorking: false })}
+                  name="currentlyWorking"
+                  value={false}
+                  checked={data.currentlyWorking === false}
+                  onChange={handleInputChange}
                 />
-                <label className="text-[14px] font-[500]">no</label>
+                <label>No</label>
               </div>
             </div>
           </div>
         </div>
-        <DateSelector idPrefix='projects' data={data} dataSeter={setData} />
+        <DateSelector idPrefix='projects' data={data} dataSeter={setData} isRow={true} />
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">Description</div>
+          <div className="text-[14px] font-[500]">Description</div>
           <textarea
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
+            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
             name="description"
             value={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}
           />
-          <div className="text-[14px] font-[400] text-[#646464] flex justify-end"></div>
+
         </div>
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[30px] py-[8px] sm:px-9 px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
               onClick={() => setaddSampleWork(false)}
             >
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF]"
+              className="rounded-[30px] py-[8px] sm:px-9  px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF]"
               onClick={handleSubmit}
             >
               Save Changes
@@ -224,7 +223,7 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

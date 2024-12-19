@@ -121,7 +121,7 @@ const Courses = ({ userData }) => {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-              <div className="absolute ms:w-[75.08%] w-[90%] h-[80vh] overflow-y-auto ">
+              <div className="absolute ms:w-[75.08%] w-[90%] top-[100px] ">
               <AddCertificate setAddCertificate={setAddCertificate}  editCourseData={editCourseData} Course={Course} />
             </div>
           </div>

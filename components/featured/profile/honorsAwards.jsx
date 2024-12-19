@@ -15,15 +15,15 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     title: '',
     issuedBy: '',
     issuedDate: { year: "Year", month: "Month" },
-    discription: '',
+    description: '',
     ...(editAchievement && {
       title: Achievement?.title,
       issuedBy: Achievement?.issuedBy,
       issuedDate: {
-        year: Achievement?.issuedDateYear,
-        month: Achievement?.issuedDateMonth,
+        year: Achievement?.issuedDate?.years,
+        month: Achievement?.issuedDate?.months,
       },
-      discription: Achievement?.discription,
+      description: Achievement?.description,
     }),
   });
 
@@ -76,13 +76,13 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
       issuedBy: data.issuedBy,
       issuedDateYear: data.issuedDate.year,
       issuedDateMonth: data.issuedDate.month,
-      discription: data.discription,
+      description: data.description,
     };
-    if (isEditing) {
+    if (isEditing) { 
       axios
         .put(
           `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateAchivement/${Achievement._id}`,
-          data
+          awardData
         )
         .then((res) => {
          
@@ -134,8 +134,12 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
 
 
   return (
-    <>
-      <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]">
+    <div className="bg-white rounded-[16px] py-3 "
+    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+      <div
+        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
+    
+      >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 self-stretch w-full">
             <div className="min-w-[180px] text-[#25324B] font-Montserrat  text-[18px] font-[600] leading-160">
@@ -289,8 +293,8 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
           <textarea
             className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
-            name="discription"
-            value={data.discription}
+            name="description"
+            value={data.description}
             onChange={handleInputChange}
           ></textarea>
         </div>
@@ -313,7 +317,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
