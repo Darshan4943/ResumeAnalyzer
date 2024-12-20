@@ -28,15 +28,16 @@ const ProfileHeader = ({ userData }) => {
 //       return "/images/profile/john_doe.png";
 //     }
 //   };
+
   return (
     <>
       <div className="bg-[#E0F6FF] py-[24px]">
         <div className="customMargins">
           <div class="grid grid-cols-1 ">
             <div class="flex flex-row w-full pt-[8px] pb-[18px] md:px-[16px] px-[8px] items-start gap-5 rounded-lg bg-white shadow-md">
-              <div className="max-w-[120px] max-h-[120px] w-[100vw] h-[100vh] rounded-full  object-fit border flex items-start ">
+              <div className="min-w-[120px] min-h-[120px]  rounded-full  object-fit border-2 border-[#646464] flex items-center justify-center ">
                 <img
-                  className="max-w-[119px] max-h-[119px] w-[100vw] h-[100vh] rounded-full  p-1 object-contain"
+                  className="max-w-[110px] max-h-[110px] rounded-full  p-1 object-contain"
                   onClick={() => setIsChangeProfile(true)}
                   src={
                     userData?.profilePicture?.img
@@ -100,7 +101,7 @@ const ProfileHeader = ({ userData }) => {
                         </p>
                       </div>
                     )}
-                    {userData?.workExperiance?.workExperiance && (
+                    {userData?.workExperiance?.length>0 && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -126,7 +127,7 @@ const ProfileHeader = ({ userData }) => {
                     )}
                   </div>
                   <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
-                    {userData?.education && (
+                    {userData?.education?.length >0 && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -158,7 +159,7 @@ const ProfileHeader = ({ userData }) => {
             <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
               <div className="bg-[#868383] h-[1px] w-[95%]"></div>
               <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
-                {userData?.education && (
+                {userData?.education?.length >0 && (
                   <div class="flex items-center gap-[5px]">
                     <img
                       class="w-[20px] h-[20px]"
@@ -192,8 +193,8 @@ const ProfileHeader = ({ userData }) => {
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-            <div className="absolute max-w-[800px] w-full">
-              <ChangeProfile setIsChangeProfile={setIsChangeProfile} />
+            <div className="absolute max-w-[800px] w-full top-[100px]">
+              <ChangeProfile setIsChangeProfile={setIsChangeProfile}  userData={userData}/>
             </div>
           </div>
         </>

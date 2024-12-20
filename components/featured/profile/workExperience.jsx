@@ -70,7 +70,7 @@ const WorkExperiance = ({ userData }) => {
           closeDeleteModal={closeDeleteModal}
         />
       )}
-      {userData.workExperiance?.length >= 0 && (
+      {userData?.workExperiance?.length >= 0 && (
         <div className="build_ai ai2 gap-4 ">
           <div className=" gap">
             <p className="page_headings text-[16px] font-[600]">Work Experience</p>

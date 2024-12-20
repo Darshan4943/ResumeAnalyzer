@@ -208,6 +208,22 @@ export const Delete_icon = ({ width = 20, height = 20 }) => (
     </svg>
   </>
 );
+export const ImageSelect = () => (
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_6706_125925)">
+      <rect width="44" height="44" rx="22" fill="#0C8A0A" />
+
+      <g mask="url(#mask0_6706_125925)">
+        <path d="M17.8547 30.1205L10.4297 22.6955L12.4679 20.6573L17.8547 26.044L31.0062 12.8926L33.0444 14.9308L17.8547 30.1205Z" fill="white" />
+      </g>
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_125925">
+        <rect width="44" height="44" rx="22" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+)
 
 export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
   <>

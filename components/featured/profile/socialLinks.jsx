@@ -75,7 +75,7 @@ function Social_links_ndWebsites({ userData }) {
             <AddIcon />
           </div>
         </div>
-        {userData.socialLinks?.map((item) => (
+        {userData?.socialLinks?.map((item) => (
           <div className="flex flex-col gap-[4px] ">
             <div className="flex gap-[16px] items-center text-[14px] font-[600]">
               {item.profile}

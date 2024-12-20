@@ -59,7 +59,7 @@ const Achievements = ({userData}) => {
                         <AddIcon />
                     </div>
                 </div>
-                {userData.awards?.map((achive) => (
+                {userData?.awards?.map((achive) => (
                     <div className="essential_gap">
                         <div className="flex gap-5">
                             <p className="heading_first  text-[14px] font-[600]">{achive.title}</p>

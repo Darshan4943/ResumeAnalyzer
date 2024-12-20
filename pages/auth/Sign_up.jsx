@@ -180,7 +180,7 @@ const [parseData,setParseData] = useState()
   useEffect(() => {
     setData({ ...data, img: croppedImage?.blob });
   }, [croppedImage]);
-console.log(333,userDataGlobal)
+
   // useEffect(() => {
   //   const {
   //     email,

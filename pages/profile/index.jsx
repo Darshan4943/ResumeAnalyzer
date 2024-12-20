@@ -73,8 +73,8 @@ function Profile() {
   };
 
   return (
-    <div className="bg-[#F9F9F9]">
-      <div>{userData && <ProfileHeader userData={userData} />}</div>
+    <div className="">
+      <div>{ <ProfileHeader userData={userData} />}</div>
 
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
