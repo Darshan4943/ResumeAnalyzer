@@ -53,6 +53,7 @@ function Projects({ userData }) {
         <DeleteModal
           deleteHandler={deleteHandler}
           closeDeleteModal={closeDeleteModal}
+          type={"Projects"}
         />
       )}
       <div

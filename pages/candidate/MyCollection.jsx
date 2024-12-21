@@ -7,7 +7,7 @@ import { ClosedIcon } from "../../utils/svg";
 import { selectResumeTemplate } from "../../utils/middleware";
 import ResumePreview from "../../components/common/ResumePreview";
 import { useRouter } from "next/router";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import DeleteModal from "../../components/common/deleteModal";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/miniLoader";

@@ -23,7 +23,7 @@ import PersonalDetails from "../../components/featured/profile/personalDetails";
 
 function Profile() {
   const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
-
+  const [resumeCount, setResumeCount] = useState(1)
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -36,7 +36,7 @@ function Profile() {
     "Achievements",
     "Websites & Social links",
     "Projects",
-  
+
     "Job Prefrence",
     "Personal details",
   ];
@@ -50,7 +50,7 @@ function Profile() {
     });
   };
 
-  
+
 
   useEffect(() => {
     setUserData(profileData);
@@ -72,9 +72,11 @@ function Profile() {
     setIsComponentOpen(!isComponentOpen);
   };
 
+  
+
   return (
     <div className="">
-      <div>{ <ProfileHeader userData={userData} />}</div>
+      <div>{<ProfileHeader userData={userData} />}</div>
 
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
@@ -174,9 +176,9 @@ function Profile() {
                 </div>
               </div>
             </div>
-            {userData?.resumeUrl?.length > 0 &&
+            {resumeCount > 0 &&
               <ScrollElement name="My Resume" className="section">
-                <ResumeList userData={userData} />
+                <ResumeList userData={userData} resumeCount={resumeCount} setResumeCount={setResumeCount} />
               </ScrollElement>
             }
 
@@ -230,7 +232,7 @@ function Profile() {
             <ScrollElement name="Websites & Social links" className="section">
               <Social_links_ndWebsites userData={userData} />
             </ScrollElement>
-           
+
             <ScrollElement name="Projects" className="section">
               <Projects userData={userData} />
             </ScrollElement>
@@ -238,10 +240,10 @@ function Profile() {
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />
             </ScrollElement>
- 
+
             <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
-            </ScrollElement> 
+            </ScrollElement>
           </div>
         </div>
       </div>

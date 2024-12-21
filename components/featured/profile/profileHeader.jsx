@@ -37,7 +37,7 @@ const ProfileHeader = ({ userData }) => {
             <div class="flex flex-row w-full pt-[8px] pb-[18px] md:px-[16px] px-[8px] items-start gap-5 rounded-lg bg-white shadow-md">
               <div className="min-w-[120px] min-h-[120px]  rounded-full  object-fit border-2 border-[#646464] flex items-center justify-center ">
                 <img
-                  className="max-w-[110px] max-h-[110px] rounded-full  p-1 object-contain"
+                  className="max-w-[110px] max-h-[110px] rounded-full  p-1 object-cover"
                   onClick={() => setIsChangeProfile(true)}
                   src={
                     userData?.profilePicture?.img
@@ -101,7 +101,7 @@ const ProfileHeader = ({ userData }) => {
                         </p>
                       </div>
                     )}
-                    {userData?.workExperiance?.length>0 && (
+                    {/* {userData?.workExperiance?.length > 0 && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -112,7 +112,7 @@ const ProfileHeader = ({ userData }) => {
                           4 Years
                         </p>
                       </div>
-                    )}
+                    )} */}
                     {userData?.basics?.mobileNo && (
                       <div class="flex items-center gap-[5px]">
                         <img

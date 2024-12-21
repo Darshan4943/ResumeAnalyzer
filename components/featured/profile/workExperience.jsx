@@ -68,6 +68,7 @@ const WorkExperiance = ({ userData }) => {
         <DeleteModal
           deleteHandler={deleteHandler}
           closeDeleteModal={closeDeleteModal}
+          type={"Work Experience"}
         />
       )}
       {userData?.workExperiance?.length >= 0 && (

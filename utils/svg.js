@@ -224,7 +224,15 @@ export const ImageSelect = () => (
     </defs>
   </svg>
 )
+export const DeleteProfileImg = () => (
 
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="white" />
+    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" stroke="#646464" />
+    <path d="M15.125 34C14.3688 34 13.7214 33.7389 13.1828 33.2167C12.6443 32.6944 12.375 32.0667 12.375 31.3333V14H11V11.3333H17.875V10H26.125V11.3333H33V14H31.625V31.3333C31.625 32.0667 31.3557 32.6944 30.8172 33.2167C30.2786 33.7389 29.6313 34 28.875 34H15.125ZM28.875 14H15.125V31.3333H28.875V14ZM17.875 28.6667H20.625V16.6667H17.875V28.6667ZM23.375 28.6667H26.125V16.6667H23.375V28.6667Z" fill="#FF0000" />
+  </svg>
+
+)
 export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
   <>
     <svg

@@ -198,11 +198,15 @@ function EditProfile({ setEditProfile }) {
     }
     else {
       setLoading(true)
+      const requestData = {
+        ...data,               
+        EmailChanged: isLogo 
+      };
       axios
         .put(
           "http://localhost:2000/api/candidate/updateProfile/" +
           userDataGlobal._id,
-          data
+          requestData
         )
 
         .then((res) => {

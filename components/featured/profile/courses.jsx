@@ -61,6 +61,7 @@ const Courses = ({ userData }) => {
         <DeleteModal
           deleteHandler={deleteHandler}
           closeDeleteModal={closeDeleteModal}
+          type={"Certificate"}
         />
       )}
       <div className="build_ai ai2">

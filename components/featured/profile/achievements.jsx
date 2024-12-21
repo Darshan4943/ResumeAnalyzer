@@ -50,6 +50,7 @@ const Achievements = ({userData}) => {
                 <DeleteModal
                     deleteHandler={deleteHandler}
                     closeDeleteModal={closeDeleteModal}
+                    type={"Achievements"}
                 />
             )}
             <div className="build_ai ai2" style={{ gap: "16px" }}>

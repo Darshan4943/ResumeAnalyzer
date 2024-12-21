@@ -362,11 +362,11 @@ function CandidateHeader() {
           className="flex items-center gap-[8px] cursor-pointer"
         >
           <div className=" h-[36px] w-[36px]">
-            {userDataGlobal?.profilePicture ? (
+            {profileData?.profilePicture.img ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
                 src={
-                  userDataGlobal?.profilePicture ||
+                  profileData?.profilePicture.img ||
                   "/images/profile/profileNew.png"
                 }
               />
@@ -382,8 +382,8 @@ function CandidateHeader() {
           </div>
           {userDataGlobal?.firstName && (
             <div className="scr1250:text-[14px] text-[14px] xxlg:block hidden">
-              {camelCase(userDataGlobal?.firstName)}{" "}
-              {camelCase(userDataGlobal?.lastName)}
+              {camelCase(profileData?.basics?.firstName)}{" "}
+              {camelCase(profileData?.basics?.lastName)}
             </div>
           )}
 

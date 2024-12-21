@@ -56,6 +56,7 @@ const Education = ({ userData }) => {
                 <DeleteModal
                     deleteHandler={deleteHandler}
                     closeDeleteModal={closeDeleteModal}
+                    type={"Education"}
                 />
             )}
             <div className="build_ai ai2 gap-4">

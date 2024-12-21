@@ -60,6 +60,7 @@ function Social_links_ndWebsites({ userData }) {
         <DeleteModal
           deleteHandler={deleteHandler}
           closeDeleteModal={closeDeleteModal}
+          type={"Social Links"}
         />
       )}
       <div
