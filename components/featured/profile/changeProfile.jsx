@@ -21,10 +21,11 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
   const [selectedImg, setSelectedImg] = useState("device")
   const [selectedImgToPass, setSelectedImgToPass] = useState()
 
+  console.log(111,selectedImgToPass)
   console.log(selectedImg)
 
   useEffect(() => {
-    setSelectedImgToPass(croppedImage?.blob)
+    setSelectedImgToPass(croppedImage)
 
   }, [croppedImage]);
 
@@ -113,7 +114,8 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
   };
   const saveProfilePhoto = () => {
     const formData = new FormData();
-    formData.append("img", selectedImgToPass);
+    formData.append("img", croppedImage.blob);
+    console.log(222,croppedImage.blob)
     axios
       .put(
         "http://localhost:2000/api/candidate/updateProfileImage/" +
