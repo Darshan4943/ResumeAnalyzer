@@ -8,12 +8,12 @@ import MiniLoader from "../../../components/common/miniLoader";
 import SavedJobCard from "../../../components/featured/candidate/jobs/SavedJobCard";
 import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 
-function SavedJobs({ setLimitPopup, appliedJobs,
+function SavedJobs({ setLimitPopup,
 }) {
   const [selectedJob, setSelectedJob] = useState();
 
   const [loading, setLoading] = useState(true);
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const { userDataGlobal, profileData,appliedJobData } = useSelector((state) => state.user.userData);
   const [totalPages, setTotalpages] = useState(0);
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
@@ -80,7 +80,7 @@ function SavedJobs({ setLimitPopup, appliedJobs,
     }
   }, [savedJobList]);
 
-  console.log(selectedJob)
+ 
   return (
     <>
       {!loading ?
@@ -105,7 +105,7 @@ function SavedJobs({ setLimitPopup, appliedJobs,
                   totalPages={totalPages}
                   page={page}
                   setPage={setPage}
-                  appliedJobs={appliedJobs}
+                  appliedJobs={appliedJobData}
                   getData={getData}
                   setMiniloading={setMiniloading}
 

@@ -1,48 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CountPostingDays } from "../../../../utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUserData } from "../../../../Redux/slices/userSlice";
+import { useRouter } from "next/router";
 function Job_card({ jobData, setSaved, save }) {
-
+  const [limitPopup, setLimitPopup] = useState(false)
   const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const [isLogin, setIsLogin] = useState(false);
   
+    const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+      if (token) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+  }, []);
+
+  const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const dispatch = useDispatch();
   const SaveJob = async (e, id) => {
     e.stopPropagation();
     try {
       await axios.post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`);
-      
-     
-      await dispatch(fetchUserData());
+
+      setSaved((prevState) => !prevState);
+      //  dispatch(fetchUserData());
       // setTimeout(() => {
-      //   setSaved((prevState) => !prevState);
+      //  
       // }, 2000);
-    
-      
+
+
     } catch (err) {
       console.error(err);
     }
   };
-  
+
   const removeSavedJob = async (e, id) => {
     e.stopPropagation();
     try {
-     
+
       await axios.post(
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
-      
-      await dispatch(fetchUserData());
-  
+      setSaved((prevState) => !prevState);
+    //  dispatch(fetchUserData());
+
       // setTimeout(() => {
-      //   setSaved((prevState) => !prevState);
+      //  
       // }, 2000);
     } catch (err) {
       console.error(err);
     }
   };
-  
+
 
   return (
     <>
@@ -244,7 +259,7 @@ function Job_card({ jobData, setSaved, save }) {
 
 
             <div className="flex gap-2 h-[42px]">
-              {userDataGlobal?.savedJobs?.some((data) => data.id === item._id) ?
+              {item?.isSaved ?
                 <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
                   Saved
 
@@ -272,11 +287,14 @@ function Job_card({ jobData, setSaved, save }) {
                           (job) => job?.matchedApplication?.applicantId === userDataGlobal._id)
                       ) {
                         router.push(
-                          `/jobs/home/ApplyForm?id=${item._id}`
+                          `/jobs/candidate/ApplyForm?id=${item._id}`
                         );
                       }
                     } else {
-                      setLimitPopup(true);
+                      router.push(
+                        `/jobs/candidate/ApplyForm?id=${item._id}`
+                      );
+                      // setLimitPopup(true);
                     }
                   } else {
                     router.push(`/auth?signin=true&role=user`);

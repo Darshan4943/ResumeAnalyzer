@@ -18,7 +18,7 @@ import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 
 import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
-import { fetchProfileData, fetchUserData } from "./slices/userSlice";
+import { fetchAppliedJob, fetchProfileData, fetchSavedJobIds, fetchUserData } from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -98,6 +98,8 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       dispatch(fetchProfileData(userDataGlobal._id));
+      dispatch(fetchAppliedJob(userDataGlobal._id));
+      dispatch(fetchSavedJobIds(userDataGlobal._id));
     }
 
   }, [userDataGlobal]);

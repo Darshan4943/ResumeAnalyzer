@@ -535,7 +535,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     <>
       <div className="customMargins wl:w-[100%] w-[100%]">
         <div
-          className="rounded-[16px] my-6 bg-[#FFFFFF] sm:p-6 p-3 flex flex-col gap-6"
+          className="rounded-[16px] my-6 bg-[#FFFFFF] sm:p-6 p-3 flex flex-col gap-4"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
           <div className=" flex xxlg:flex-row flex-col sm:gap-4 gap-2 xxlg:items-center ">
@@ -556,17 +556,17 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
               </g>
             </svg>
 
-            <p className="text-[#06A9EF] sm:text-[24px] text-[18px] font-medium">
+            <p className="text-[#06A9EF]  text-[18px] font-medium">
               Apply to{" "}
-              <span className="font-[24px] text-[#333333]">
+              <span className="text-[18px] text-[#333333]">
                 {jobDetails?.jobTitle}
               </span>
             </p>
-            <div className="bg-[#DEDEDE] w-[2px] h-[29px] xxlg:block hidden"></div>
-            <p className="sm:text-[24px] text-[18px]  font-medium">
+            <div className="bg-[#DEDEDE] w-[2px] h-[28px] xxlg:block hidden"></div>
+            <p className="text-[16px]  font-medium">
               {jobDetails?.companyName}
             </p>
-            <div className="flex flex-row gap-1 items-start">
+            <div className="flex flex-row gap-1 items-start text-[14px] font-medium">
               <svg
                 width="20"
                 height="21"
@@ -599,7 +599,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-4 items-center">
-              <h2 className="sm:text-[24px] text-[20px]  font-medium sm:min-w-[200px] min-w-[170px]">
+              <h2 className=" text-[18px]  font-semibold  min-w-[160px]">
                 Upload Resume
               </h2>
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
@@ -711,7 +711,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                   DOC, DOCX, PDF (2 MB)
                 </p>
               )}
-              <label className="sm:px-6 px-3 sm:py-[10px] py-[6px] min-w-[140px] max-w-[140px] sm:max-w-full border border-[#06A9EF] rounded-[8px] sm:text-[16px] text-[14px]  font-medium text-[#333333] cursor-pointer">
+              <label className="sm:px-6 px-3 sm:py-[10px] py-[6px] min-w-[140px] max-w-[140px] sm:max-w-full border border-[#06A9EF] rounded-[30px]  text-[14px]  font-semibold text-[#333333] cursor-pointer">
                 Upload Resume
                 <input
                   type="file"
@@ -737,13 +737,13 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
           <div className="flex justify-end flex-row gap-4 pt-8">
             <button
-              className="px-[24px] py-2 rounded-[12px] border border-[#06A9EF]"
+              className="px-[36px] py-2 rounded-[30px] text-[14px] font-semibold border border-[#06A9EF]"
               onClick={() => router.back()}
             >
               Cancel
             </button>
             <button
-              className="bg-[#06A9EF] px-[24px] py-2 text-[#FFFFFF] rounded-[12px]"
+              className="bg-[#06A9EF] px-[36px] py-2 text-[#FFFFFF] text-[14px] font-semibold rounded-[30px]"
               onClick={() => validateInput() && applyForJob()}
             >
               {loading ? <MiniLoader /> : "Apply"}
