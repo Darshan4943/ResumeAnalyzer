@@ -6,20 +6,20 @@ function ProfileSection() {
     const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
     const [circumference, setCircumference] = useState(2 * Math.PI * 52);
     const [dashOffset, setDashOffset] = useState(2 * Math.PI * 52);
-    
+
 
     const latestEducation = [...(profileData?.education || [])].sort((a, b) => {
         const aDate = a?.duration?.endDate;
         const bDate = b?.duration?.endDate;
-      
+
         if (aDate?.years !== bDate?.years) {
-          return bDate?.years - aDate?.years;
+            return bDate?.years - aDate?.years;
         }
         return bDate?.months - aDate?.months;
-      })[0];
-      
-      console.log("Latest Education:", latestEducation);
-      
+    })[0];
+
+    console.log("Latest Education:", latestEducation);
+
     return (
         <div className='min-w-[262px] bg-[#FFFFFF] rounded-[16px] px-4 py-7 flex flex-col gap-4 '>
             <div className="flex flex-col gap-4 text-center">
@@ -67,12 +67,14 @@ function ProfileSection() {
                         {latestEducation?.education}
 
                     </p>
-                    <p className='text-[12px] font-medium'>
-                        @ {latestEducation?.university}
+                    {latestEducation?.university &&
+                        <p className='text-[12px] font-medium'>
+                            @ {latestEducation?.university}
 
-                    </p>
+                        </p>
+                    }
                     <p className='text-[12px] font-normal text-[#646464]'>
-                   Last updated {CountPostingDays(profileData?.updatedAt)}
+                        Last updated {CountPostingDays(profileData?.updatedAt)}
 
                     </p>
 

@@ -194,6 +194,60 @@ function RoleSelect({ signin, signup }) {
                 <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
               </div>
 
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=employer") : router.push("/auth/Sign_up?role=employer") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
+                <div className="flex flex-row justify-center item-center gap-[12px] ">
+                  <div className="flex items-center">
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
+                    >
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width="39"
+                        height="38.9999"
+                        rx="19.4999"
+                        stroke="#333333"
+                      />
+                      <g clip-path="url(#clip0_2267_28073)">
+                        <path
+                          d="M32 19.2851H29.615C29.2645 14.5338 25.4665 10.736 20.7149 10.3849V8H19.2851V10.3849C14.5337 10.736 10.7354 14.5337 10.3849 19.2851H8V20.7149H10.3849C10.7354 25.4666 14.5337 29.264 19.2851 29.6151V32H20.7149V29.6151C25.4665 29.264 29.2645 25.4666 29.615 20.7149H32V19.2851ZM20.0001 28.2215C15.4669 28.2215 11.7785 24.5331 11.7785 19.9999C11.7785 15.4668 15.4669 11.7784 20.0001 11.7784C24.5332 11.7784 28.2216 15.4668 28.2216 19.9999C28.2216 24.5331 24.5332 28.2215 20.0001 28.2215Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M21.4325 20.3477C22.4824 19.6412 23.2058 18.2476 23.2058 16.9931C23.2058 15.2229 21.7703 13.7881 19.9999 13.7881C18.2304 13.7881 16.7957 15.2235 16.7957 16.9931C16.7957 18.2476 17.5176 19.6412 18.5686 20.3477C16.0563 20.9845 14.1968 23.1641 14.1968 24.7796C14.1968 26.6898 25.8044 26.6898 25.8044 24.7796C25.8044 23.1649 23.943 20.9845 21.4325 20.3477ZM19.9999 26.2109L18.3749 24.5855L19.7433 21.2771H19.729L19.1969 20.6676C19.4535 20.7598 19.7216 20.8156 19.9999 20.8156C20.2777 20.8156 20.5459 20.7598 20.8027 20.669L20.2707 21.2779H20.2582L21.6266 24.5864L19.9999 26.2109Z"
+                          fill="#333333"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_2267_28073">
+                          <rect
+                            width="24"
+                            height="23.9999"
+                            fill="white"
+                            transform="translate(8 8)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-[14px]  sm:text-[16px] font-[500] ">Employer</div>
+                    <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] ">
+                      Create resumes for various clients
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-center items-center">
+                  <ArrowLeft />
+                </div>
+                <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
+              </div>
+
             </div>
           </div>
           {signin ?

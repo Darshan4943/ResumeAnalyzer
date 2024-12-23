@@ -79,6 +79,8 @@ import MiniLoader from "../../components/common/miniLoader";
 import WithoutLogin from "../withoutLogin";
 import RecruiterDashBoard from "../recruiter";
 import CandidateHome from "../candidate";
+import EmployerDashBoard from "../employer";
+import EmployerHome from "../employer/EmployerHome";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -117,7 +119,10 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
         ) : (
           userDataGlobal?.role === "user" ?
             <CandidateHome />
-            : <RecruiterDashBoard />
+            :  userDataGlobal?.role === "recruiter" ?
+             <RecruiterDashBoard />
+             :
+             <EmployerHome/>
 
         )
       ) : (

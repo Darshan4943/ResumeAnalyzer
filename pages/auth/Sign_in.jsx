@@ -170,7 +170,7 @@ function Sign_in({  setSignIn, setSignUp }) {
                     boxShadow: "0px 0px 14px 0px #00000005",
                 }}
             >
-                <div className="text-[20px] font-[600]"> {role === "user" ? "Candidate Sign In " : "Recruiter Sign In"}</div>
+                <div className="text-[20px] font-[600]"> {role === "user" ? "Candidate Sign In " : role === "recruiter" ? "Recruiter Sign In" : "Employer Sign In"}</div>
                 <div className="w-full flex flex-col gap-[24px]">
                     <div className="flex flex-row px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid border-[#DEDEDE]">
                         <input
