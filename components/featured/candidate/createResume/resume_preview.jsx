@@ -69,7 +69,8 @@ const ResumePreview = ({
 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [saveCountLimit, setSaveCountLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);

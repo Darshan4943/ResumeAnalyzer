@@ -21,7 +21,7 @@ const Rightform = ({
   setFormError,
 }) => {
   const [loading, setLoading] = useState(false);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
   const [skillText, setSkillText] = useState("");

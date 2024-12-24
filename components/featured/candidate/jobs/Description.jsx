@@ -8,7 +8,7 @@ import { currenciesWithIcons } from "../../../../utils/data";
 
 function Description({ selectedJob, filter, setLimitPopup }) {
   const router = useRouter();
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [appliedJobs, setAppliedJobs] = useState();
   // const [limitPopup, setLimitPopup] = useState(false)
   const [isLogin, setIsLogin] = useState(false);

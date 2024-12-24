@@ -10,7 +10,7 @@ import { auth } from "../../utils/firebase";
 import MiniLoader from "../../components/common/mini-loader";
 
 function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [verify, setVerify] = useState(false);
   const [otp, setOtp] = useState(null);
   const [otpEntered, setOtpEntered] = useState(null);

@@ -44,7 +44,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
 };
 const Index = () => {
   const router = useRouter();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);

@@ -34,7 +34,7 @@ function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
   const resumeRef2 = useRef();
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
   const router = useRouter();

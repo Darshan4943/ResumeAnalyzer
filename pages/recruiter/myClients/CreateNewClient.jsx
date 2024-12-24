@@ -16,7 +16,7 @@ function CreateNewClient() {
 
   const { id, isUpdate } = router.query;
   // console.log(322, id, isUpdate)
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState({});

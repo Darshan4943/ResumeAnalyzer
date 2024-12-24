@@ -35,7 +35,8 @@ function CoverForm({
 
   const [FieldError, setFieldError] = useState("");
   const [isError, setError] = useState(null);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");

@@ -15,7 +15,7 @@ function Index() {
 
     const [toggleHeadings, setToggleHeadings] = useState(0);
 
-    const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+     const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [userSkills, setUserSkills] = useState();
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const dispatch = useDispatch();

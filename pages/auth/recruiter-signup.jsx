@@ -16,7 +16,7 @@ function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);

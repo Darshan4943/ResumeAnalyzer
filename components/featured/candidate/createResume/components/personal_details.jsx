@@ -11,7 +11,7 @@ const PersonalDetails = ({
   selectedColor,
   selectedResumeIndex,
 }) => {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);

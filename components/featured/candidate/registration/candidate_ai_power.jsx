@@ -57,7 +57,7 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const [resumeErrorPopup, setResumeErrorPopup] = useState(false);
   const [count, setCount] = useState(0);

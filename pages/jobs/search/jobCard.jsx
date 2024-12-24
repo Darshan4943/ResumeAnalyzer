@@ -8,7 +8,7 @@ import { reCallUserData } from "../../../Redux/actions/user";
 
 const JobCard = ({ data, setJd, resume, jd }) => {
   const [loading, setLoading] = useState(true);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isApplied, setIsApplied] = useState(true);
   const [isApply, setIsApply] = useState(false);
   const dispatch = useDispatch();

@@ -12,7 +12,7 @@
 // function BeforeLoginHome() {
 //   const [isLogin, setIsLogin] = useState(false);
 //   const dispatch = useDispatch();
-// const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+//  const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
 //   const [visible, setVisible] = useState(false);
 //   const [loading, setLoading] = useState(true);

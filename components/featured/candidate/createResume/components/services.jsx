@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 function Services() {
   const router = useRouter();
   const [candidate, setCandidate] = useState(true);
-  
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [isServices, setServices] = useState(true);
   const [isMove, setIsMove] = useState(false);
   useEffect(() => {
@@ -20,7 +21,7 @@ function Services() {
  
   }, []);
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+
   const loginListCandidate = [
     {
       name: "Create New Resume",

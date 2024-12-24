@@ -54,7 +54,8 @@ const ResumeList = ({ setResumeCount }) => {
       .then((response) => {
         toast.success("Resume Deleted successfully");
         setDeleteData({ view: false, ids: "" });
-        dispatch(fetchUserData());
+        getData()
+        // dispatch(fetchUserData());
 
       })
       .catch((error) => {
@@ -67,9 +68,9 @@ const ResumeList = ({ setResumeCount }) => {
     axios
       .put("http://localhost:2000/api/resume/updateIsDefaultResume/" + resumeId)
       .then((res) => {
-
+        getData()
         // toast.success("Resume Deleted successfully");
-        dispatch(fetchUserData());
+        // dispatch(fetchUserData());
 
       })
       .catch((err) => {

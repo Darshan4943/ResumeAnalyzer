@@ -12,7 +12,8 @@ function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
   const [details, setDetails] = useState();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); 
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
   const [select, setSelect] = useState(false);
@@ -45,7 +46,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
   useEffect(() => {
     getLimits();
   }, []);
-    
+
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -291,7 +292,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                       onClick={() => {
 
                         router.push("/myClients/CreateNewClient");
-    
+
                       }}
                       className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[51px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                       type="button"
@@ -331,7 +332,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                     onClick={() => {
 
                       router.push("/myClients/CreateNewClient");
-  
+
                     }}
                     className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[51px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"

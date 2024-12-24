@@ -10,7 +10,7 @@ import { fetchUserData } from '../../../../Redux/slices/userSlice';
 
 function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, setMiniloading, miniLoading, getData }) {
 
-    const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+     const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
 
     const dispatch = useDispatch();

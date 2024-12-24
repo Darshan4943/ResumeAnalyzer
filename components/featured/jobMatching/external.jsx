@@ -20,7 +20,7 @@ const ExternalJobMatching = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([]);
   const [files, setFiles] = useState([]);

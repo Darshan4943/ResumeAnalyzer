@@ -18,7 +18,7 @@ import PersonalDetails from "../../../components/featured/candidate/jobs/persona
 import ProfessionalDetails from "../../../components/featured/candidate/jobs/professionalDetails";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
   const [loading, setLoading] = useState(false);

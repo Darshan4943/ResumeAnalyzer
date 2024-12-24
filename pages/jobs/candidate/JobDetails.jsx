@@ -12,7 +12,7 @@ function JobDetails() {
   const [limitPopup, setLimitPopup] = useState(false);
   const { id } = router.query;
   const [loading, setLoading] = useState(true);
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [save, setSaved] = useState(false)
   console.log(jobData)
 

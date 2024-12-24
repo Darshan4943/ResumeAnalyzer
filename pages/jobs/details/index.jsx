@@ -16,7 +16,7 @@ const Index = () => {
   const { id, isUser } = router.query;
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(0);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [jobPost, setJobPost] = useState(null);
   const [applications, setApplications] = useState([]);
   const [options, setOption] = useState(10);

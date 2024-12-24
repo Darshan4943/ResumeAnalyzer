@@ -14,7 +14,7 @@
 //   const [skillerror, setSkillError] = useState("");
 //   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
 //   // console.log(isClearable)
-// const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+//  const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 //   const [saveDisabled, setSaveDisabled] = useState(false);
 //   const [skillList, setSkillList] = useState([]);
 //   const initialRatings = Array(5).fill(5);
@@ -197,7 +197,8 @@ const Skills = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [skillerror, setSkillError] = useState("");
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [saveDisabled, setSaveDisabled] = useState(true);
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);

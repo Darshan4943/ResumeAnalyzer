@@ -12,7 +12,8 @@ const Reference = ({
   setReferenceView,
   setCustomOptions,
 }) => {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
 
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });

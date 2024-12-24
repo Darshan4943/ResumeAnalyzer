@@ -6,7 +6,8 @@ import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
 function Job_card({ jobData, setSaved, save }) {
   const [limitPopup, setLimitPopup] = useState(false)
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);      
+      const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isLogin, setIsLogin] = useState(false);
   
     const router = useRouter();
@@ -193,8 +194,8 @@ function Job_card({ jobData, setSaved, save }) {
               </div>
             </div>
           </div>
-          <div className="flex justify-between items-center">
-            <div className="border border-[#B506EF] text-[#B506EF] rounded-[30px] flex gap-1 px-2 py-1 items-center text-[14px] font-medium">
+          <div className="flex justify-end items-center">
+            {/* <div className="border border-[#B506EF] text-[#B506EF] rounded-[30px] flex gap-1 px-2 py-1 items-center text-[14px] font-medium">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                 <g mask="url(#mask0_5959_78834)">
@@ -202,8 +203,8 @@ function Job_card({ jobData, setSaved, save }) {
                 </g>
               </svg>
 
-              Woman Candidate Proffered
-            </div>
+              Woman Candidate Preffered
+            </div> */}
             <p className="text-[14px] font-semibold text-[#06A9EF]">Find similar jobs openings</p>
 
           </div>

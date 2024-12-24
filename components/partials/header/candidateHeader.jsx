@@ -6,6 +6,7 @@ import Services from "../../../pages/services";
 import { Service, ServiceCross } from "../../../utils/svg";
 import { camelCase } from "../../../utils/middleware";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
 function CandidateHeader() {
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -22,7 +23,7 @@ function CandidateHeader() {
   const [location, setLocation] = useState("");
   const [experience, setExperience] = useState("");
   const [isSearch, setIsSearch] = useState(false)
-
+  const [experinceData, setExperinceData] = useState([]);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -53,6 +54,29 @@ function CandidateHeader() {
       }
     }
   }, []);
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .then((res) => {
+        const { experiences } = res.data;
+        setExperinceData(experiences);
+
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const sortedExperiences = (experinceData || [])
+    .filter(Boolean)
+    .sort((a, b) => {
+      const getYears = (str) => {
+        const match = str?.match(/\d+/g);
+        return match ? parseInt(match[0]) : Infinity;
+      };
+      return getYears(a) - getYears(b);
+    });
+
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -476,7 +500,7 @@ function CandidateHeader() {
 
                 <div className="flex justify-center items-center  border border-[#E1E3E3] rounded-[30px] w-[648px] min-w-[350px] h-[62px] px-3 py-[10px] ">
 
-                  <div className="flex flex-row gap-[8px] scr1024:gap-5 items-center justify-between   w-full  ">
+                  <div className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between   w-full  ">
                     <svg className="min-w-[24px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                       <g mask="url(#mask0_6706_106760)">
@@ -492,13 +516,24 @@ function CandidateHeader() {
                       onChange={(e) => setJobTitle(e.target.value)}
                     />
                     <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
-                    <input
-                      type="text"
-                      placeholder="Enter Experience"
-                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[122px] min-w-[80px]"
+                    <select
+                      className="text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px]"
                       value={experience}
                       onChange={(e) => setExperience(e.target.value)}
-                    />
+                    >
+                      <option className="text-[14px] font-[500]  ">
+                        Select Experience
+                      </option>
+                      {sortedExperiences
+                        .filter((exp) => exp)
+                        .map((exp, index) => (
+                          <option key={index} value={exp} className="text-[14px] font-[500] ">
+                            {exp}
+                          </option>
+                        ))}
+                    </select>
+
+
                     <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
                     <input
                       type="text"

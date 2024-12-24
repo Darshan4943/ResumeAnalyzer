@@ -49,7 +49,7 @@ function TransformJd({
   useEffect(() => {
     setName(data?.firstName + "_resume");
   }, [data]);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const saveResume = async (blob, download) => {
     setLoading(true);
 
