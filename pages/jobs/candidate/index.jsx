@@ -15,7 +15,8 @@ function Index() {
 
     const [toggleHeadings, setToggleHeadings] = useState(0);
 
-    const { userDataGlobal, profileData,appliedJobData } = useSelector((state) => state.user.userData);
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
     const [userSkills, setUserSkills] = useState();
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function Index() {
     const [totalCount, setTotalCount] = useState(0);
     const [isCountrySet, setIsCountrySet] = useState(false);
     const [miniLoading, setMiniloading] = useState(false);
-    const { loc, jobTit, search } = router.query;
+    const { loc, jobTit, experinece,search } = router.query;
     const [hiddenFilters, setHiddenFilters] = useState({});
     const taskRef = useRef(null);
     const toggleFilterVisibility = (filterId) => {
@@ -50,7 +51,7 @@ function Index() {
         }));
     };
 
-    console.log(444, userDataGlobal)
+   
     useEffect(() => {
         setCountry(userDataGlobal?.country);
 

@@ -4,7 +4,7 @@ import MiddleSection from '../../components/featured/candidate/candidateHome/mid
 
 function CandidateHome() {
   return (
-    <div className='flex gap-4 customMargins pt-6'>
+    <div className='flex gap-4 customMargins pt-6 min-w-[1200px]'>
       <div className='flex flex-col gap-4 max-w-[262px]'>
         <ProfileSection />
         <div className='min-w-[262px] rounded-[12px] bg-[#FFFFFF] h-[300px]'>

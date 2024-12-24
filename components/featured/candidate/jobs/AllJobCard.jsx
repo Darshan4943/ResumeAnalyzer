@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CountPostingDays } from "../../../../utils/data";
 import MiniLoader from "../../../common/mini-loader";
-import { fetchSavedJobIds } from "../../../../Redux/slices/userSlice";
+import { fetchSavedJobIds } from "../../../../Redux/slices/jobSlice";
+;
 
 function AllJobCard({
 
@@ -28,8 +29,9 @@ function AllJobCard({
 
   const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const { userDataGlobal, profileData,savedJobIds } = useSelector((state) => state.user.userData);
-  console.log(555,savedJobIds)
+  const { userDataGlobal, profileData, } = useSelector((state) => state.user.userData);
+  const { appliedJobData,savedJobIds} = useSelector((state) => state.job.jobData);
+
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(false);
 

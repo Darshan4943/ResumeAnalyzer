@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 function Index() {
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
-  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [successModel, setSuccessModel] = useState(false)
     const router = useRouter();
     const [data, setData] = useState({

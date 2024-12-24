@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { CountPostingDays } from '../../../../utils/data';
 
 function ProfileSection() {
-    const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+    const { profileData } = useSelector((state) => state.profile.profileData);
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [circumference, setCircumference] = useState(2 * Math.PI * 52);
     const [dashOffset, setDashOffset] = useState(2 * Math.PI * 52);
 
@@ -18,7 +19,7 @@ function ProfileSection() {
         return bDate?.months - aDate?.months;
     })[0];
 
-    console.log("Latest Education:", latestEducation);
+
 
     return (
         <div className='min-w-[262px] bg-[#FFFFFF] rounded-[16px] px-4 py-7 flex flex-col gap-4 '>

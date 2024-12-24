@@ -4,12 +4,15 @@ import Link from "next/link";
 import CandidateHeader from "./candidateHeader";
 import { Service } from "../../../utils/svg";
 import Services from "../../featured/candidate/createResume/components/services";
+import { useSelector } from "react-redux";
 
 
 function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  const [isLogin, setIsLogin] = useState(null);
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  console.log(isLogin)
+  // const [isLogin, setIsLogin] = useState(null);
   const [isSignIn, setIsSignIn] = useState(false);
   const [isServices, setServices] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
@@ -19,18 +22,20 @@ function Header({ userData }) {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token && token != "undefined") {
-      if (token) {
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
-    } else {
-      setIsLogin(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authToken");
+  //   console.log("first")
+  //   if (token && token != "undefined") {
+  //     if (token) {
+     
+  //       setIsLogin(true);
+  //     } else {
+  //       setIsLogin(false);
+  //     }
+  //   } else {
+  //     setIsLogin(false);
+  //   }
+  // }, []);
 
   return (
     <div
@@ -46,7 +51,7 @@ function Header({ userData }) {
       }}
     >
       <div className="flex justify-center items-center   z-[10000000] customMargins  ">
-        <div className="flex justify-between w-[100%]  h-[60px]  gap-2 ">
+        <div className="flex justify-between w-[100%]  h-[70px]  gap-2 ">
           {!isLogin ? (
             <>
               <div className="flex items-center gap-9 ">
