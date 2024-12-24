@@ -16,7 +16,8 @@ import { useSelector } from "react-redux";
 import "react-quill/dist/quill.snow.css";
 import Description from "../candidate/jobs/Description";
 import ImageCropper from "../candidate/createResume/components/imageCropper";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CreateNewJob({ setToggle }) {
   const [file, setFile] = useState(null);
@@ -602,7 +603,6 @@ function CreateNewJob({ setToggle }) {
                               </>
                             )}
                           </div>
-
                           <>
                             <div
                               ref={fileRef}
@@ -689,109 +689,112 @@ function CreateNewJob({ setToggle }) {
                       </div>
 
                       <div className="w-full max-w-full flex flex-col">
-                        {/* <div className="flex scr540:flex-row flex-col gap-[16px]">
-                          <div className="flex flex-col gap-[8px] scr540:w-[358px] w-full">
-                            <div className="text-[14px] font-[500]">
-                              Company Name <span className="text-[red]">*</span>
+                        <div className="flex flex-col scr1024:flex-row gap-[16px] w-full">
+                          <div className="flex w-full flex-col md:flex-row scr1024:w-[66.66%] gap-[16px]">
+                            <div className="flex flex-col gap-[8px] w-full">
+                              <div className="text-[14px] font-[500]">
+                                Company Name{" "}
+                                <span className="text-[red]">*</span>
+                              </div>
+                              <input
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                  formError.companyName
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
+                                placeholder="Enter Company name"
+                                type="text"
+                                name="companyName"
+                                value={data.companyName}
+                                onChange={handleChange}
+                              />
                             </div>
-                            <input
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[354px] text-[12px] font-[400] ${
-                                formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
-                              placeholder="Enter Company name"
-                              type="text"
-                              name="companyName"
-                              value={data.companyName}
-                              onChange={handleChange}
-                            />
-                          </div>
-                          <div className="flex flex-col gap-[8px] scr540:w-[382px] w-full ">
-                            <div className="text-[14px] font-[500]">
-                              Location <span className="text-[red]">*</span>
+                            <div className="flex flex-col gap-[8px]  w-full ">
+                              <div className="text-[14px] font-[500]">
+                                Location <span className="text-[red]">*</span>
+                              </div>
+                              <ReactSelect
+                                options={[
+                                  { value: "New York", label: "New York" },
+                                  {
+                                    value: "Los Angeles",
+                                    label: "Los Angeles",
+                                  },
+                                  { value: "Chicago", label: "Chicago" },
+                                  {
+                                    value: "San Francisco",
+                                    label: "San Francisco",
+                                  },
+                                  { value: "Boston", label: "Boston" },
+                                ]}
+                                isMulti
+                                className="w-full rounded-[8px] text-[14px] font-montserrat font-small text-black "
+                                placeholder="Select locations"
+                                value={
+                                  data.location
+                                    ? data.location.map((location) => ({
+                                        value: location,
+                                        label: location,
+                                      }))
+                                    : []
+                                }
+                                onChange={(selectedOptions) => {
+                                  setData({
+                                    ...data,
+                                    location: selectedOptions.map(
+                                      (option) => option.value
+                                    ),
+                                  });
+                                }}
+                                styles={{
+                                  valueContainer: (provided) => ({
+                                    ...provided,
+                                    display: "flex",
+                                    flexWrap: "nowrap",
+                                    overflowX: "auto",
+                                    gap: "8px",
+                                    padding: "4px",
+                                    whiteSpace: "nowrap",
+                                    alignItems: "center",
+                                  }),
+                                  control: (provided) => ({
+                                    ...provided,
+                                    border: formError.location
+                                      ? "1px solid red"
+                                      : "1px solid #DEDEDE",
+                                    borderRadius: "8px",
+                                    padding: "0 12px",
+                                  }),
+                                  multiValue: (provided) => ({
+                                    ...provided,
+                                    backgroundColor: "#EFFAFF",
+                                    color: "#06A9EF",
+                                    marginRight: "12px",
+                                  }),
+                                  multiValueLabel: (provided) => ({
+                                    ...provided,
+                                    color: "#06A9EF",
+                                    overflowX: "scroll",
+                                  }),
+                                  multiValueRemove: (provided) => ({
+                                    ...provided,
+                                    color: "#06A9EF",
+                                  }),
+                                  menu: (provided) => ({
+                                    ...provided,
+                                    zIndex: 1,
+                                    position: "absolute",
+                                  }),
+                                }}
+                              />
                             </div>
-                            <ReactSelect
-                              options={[
-                                { value: "New York", label: "New York" },
-                                {
-                                  value: "Los Angeles",
-                                  label: "Los Angeles",
-                                },
-                                { value: "Chicago", label: "Chicago" },
-                                {
-                                  value: "San Francisco",
-                                  label: "San Francisco",
-                                },
-                                { value: "Boston", label: "Boston" },
-                              ]}
-                              isMulti
-                              className="w-full min-w-[382px] rounded-[8px] text-[14px] font-montserrat font-small text-black "
-                              placeholder="Select locations"
-                              value={
-                                data.location
-                                  ? data.location.map((location) => ({
-                                      value: location,
-                                      label: location,
-                                    }))
-                                  : []
-                              }
-                              onChange={(selectedOptions) => {
-                                setData({
-                                  ...data,
-                                  location: selectedOptions.map(
-                                    (option) => option.value
-                                  ),
-                                });
-                              }}
-                              styles={{
-                                valueContainer: (provided) => ({
-                                  ...provided,
-                                  display: "flex",
-                                  flexWrap: "nowrap",
-                                  overflowX: "auto",
-                                  gap: "8px",
-                                  padding: "4px",
-                                  whiteSpace: "nowrap",
-                                  alignItems: "center",
-                                }),
-                                control: (provided) => ({
-                                  ...provided,
-                                  border: formError.location
-                                    ? "1px solid red"
-                                    : "1px solid #DEDEDE",
-                                  borderRadius: "8px",
-                                  padding: "0 12px",
-                                }),
-                                multiValue: (provided) => ({
-                                  ...provided,
-                                  backgroundColor: "#EFFAFF",
-                                  color: "#06A9EF",
-                                  marginRight: "12px",
-                                }),
-                                multiValueLabel: (provided) => ({
-                                  ...provided,
-                                  color: "#06A9EF",
-                                  overflowX: "scroll",
-                                }),
-                                multiValueRemove: (provided) => ({
-                                  ...provided,
-                                  color: "#06A9EF",
-                                }),
-                                menu: (provided) => ({
-                                  ...provided,
-                                  zIndex: 1,
-                                  position: "absolute",
-                                }),
-                              }}
-                            />
                           </div>
-                          <div className="flex flex-col gap-[8px] w-full">
+                          <div className="flex flex-col gap-[8px] w-full scr1024:w-[33.33%]">
                             <div className="text-[14px] font-[500]">
                               Country <span className="text-[red]">*</span>
                             </div>
                             <select
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[278px] text-[12px] font-[400] ${
+                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
                                 formError.country
                                   ? "border-red"
                                   : "border-[#DEDEDE]"
@@ -809,25 +812,6 @@ function CreateNewJob({ setToggle }) {
                               <option value="Australia">Australia</option>
                               <option value="UK">United Kingdom</option>
                             </select>
-                          </div>
-                        </div> */}
-                        <div className="flex gap-[16px] ">
-                          <div className="flex flex-col gap-[8px] scr540:w-[358px] w-full">
-                            <div className="text-[14px] font-[500]">
-                              Company Name <span className="text-[red]">*</span>
-                            </div>
-                            <input
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[354px] text-[12px] font-[400] ${
-                                formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
-                              placeholder="Enter Company name"
-                              type="text"
-                              name="companyName"
-                              value={data.companyName}
-                              onChange={handleChange}
-                            />
                           </div>
                         </div>
                         <div className="flex flex-col gap-[8px] w-full">
@@ -877,18 +861,18 @@ function CreateNewJob({ setToggle }) {
                   <div>
                     <div className="p-4 gap-4 flex flex-col">
                       <div className="text-lg font-semibold">Salary</div>
-                      <div className="flex w-full gap-5">
-                        <div className="flex flex-col gap-2 ">
+                      <div className="flex flex-col md:flex-row w-full gap-5">
+                        <div className="flex flex-col gap-2 w-full">
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
                             <select
                               style={{
-                                width: "250px",
                                 height: "40px",
                                 border: "1px solid #DEDEDE",
                                 borderRadius: "8px",
                                 padding: "5px",
                               }}
+                              className="w-full"
                               type="text"
                               name="salaryType"
                               value={data.salaryType}
@@ -933,100 +917,102 @@ function CreateNewJob({ setToggle }) {
                       <div className="text-lg font-semibold">
                         Job Information
                       </div>
-
-                      <div className="flex  gap-[20px]">
-                        <div className="flex flex-col gap-2">
-                          <div className="text-sm font-medium">
-                            Open Positions
+                      <div className="flex flex-col scr700:flex-row w-full  gap-[20px]">
+                        <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[40%] gap-[20px]">
+                          <div className="flex flex-col gap-2">
+                            <div className="text-sm font-medium">
+                              Open Positions
+                            </div>
+                            <select
+                              style={{
+                                width: "109px",
+                                height: "40px",
+                                border: "1px solid #ccc",
+                                borderRadius: "5px",
+                                padding: "5px",
+                              }}
+                              type="number"
+                              name="openPositions"
+                              value={data.openPositions}
+                              onChange={handleChange}
+                            >
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
                           </div>
-                          <select
-                            style={{
-                              width: "109px",
-                              height: "40px",
-                              border: "1px solid #ccc",
-                              borderRadius: "5px",
-                              padding: "5px",
-                            }}
-                            type="number"
-                            name="openPositions"
-                            value={data.openPositions}
-                            onChange={handleChange}
-                          >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                          </select>
-                        </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">Job Sector</div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: "1px solid #ccc",
-                              borderRadius: "5px",
-                              padding: "5px",
-                            }}
-                            type="number"
-                            name="jobSector"
-                            value={data.jobSector}
-                            onChange={handleChange}
-                          >
-                            <option value="Accounting">Accounting</option>
-                            <option value="Finance">Finance</option>
-                            <option value="HR">HR</option>
-                          </select>
-                        </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">
-                            Job Type <span className="text-[red]">*</span>
+                          <div className="flex flex-col gap-2 w-full ">
+                            <div className="text-sm font-medium">
+                              Job Sector
+                            </div>
+                            <select
+                              style={{
+                                width: "100%",
+                                height: "40px",
+                                border: "1px solid #ccc",
+                                borderRadius: "5px",
+                                padding: "5px",
+                              }}
+                              type="number"
+                              name="jobSector"
+                              value={data.jobSector}
+                              onChange={handleChange}
+                            >
+                              <option value="Accounting">Accounting</option>
+                              <option value="Finance">Finance</option>
+                              <option value="HR">HR</option>
+                            </select>
                           </div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: formError.jobType
-                                ? "1px solid red"
-                                : "1px solid #ccc",
-                              borderRadius: "5px",
-                              padding: "5px",
-                            }}
-                            type="text"
-                            name="jobType"
-                            value={data.jobType}
-                            onChange={handleChange}
-                          >
-                            <option value="Full Time">Full Time</option>
-                            <option value="Part Time">Part Time</option>
-                            <option value="Contract">Contract</option>
-                          </select>
                         </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">Work From</div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: "1px solid #ccc",
-                              borderRadius: "5px",
-                              padding: "5px",
-                            }}
-                            type="text"
-                            name="workFrom"
-                            value={data.workFrom}
-                            onChange={handleChange}
-                          >
-                            <option value="Office">Office</option>
-                            <option value="Hybrid">Hybrid</option>
-                            <option value="Remote">Remote</option>
-                          </select>
+                        <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[60%] gap-[20px]">
+                          <div className="flex flex-col gap-2 w-full ">
+                            <div className="text-sm font-medium">
+                              Job Type <span className="text-[red]">*</span>
+                            </div>
+                            <select
+                              style={{
+                                width: "100%",
+                                height: "40px",
+                                border: formError.jobType
+                                  ? "1px solid red"
+                                  : "1px solid #ccc",
+                                borderRadius: "5px",
+                                padding: "5px",
+                              }}
+                              type="text"
+                              name="jobType"
+                              value={data.jobType}
+                              onChange={handleChange}
+                            >
+                              <option value="Full Time">Full Time</option>
+                              <option value="Part Time">Part Time</option>
+                              <option value="Contract">Contract</option>
+                            </select>
+                          </div>
+                          <div className="flex flex-col gap-2 w-full ">
+                            <div className="text-sm font-medium">Work From</div>
+                            <select
+                              style={{
+                                width: "100%",
+                                height: "40px",
+                                border: "1px solid #ccc",
+                                borderRadius: "5px",
+                                padding: "5px",
+                              }}
+                              type="text"
+                              name="workFrom"
+                              value={data.workFrom}
+                              onChange={handleChange}
+                            >
+                              <option value="Office">Office</option>
+                              <option value="Hybrid">Hybrid</option>
+                              <option value="Remote">Remote</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex gap-[16px]">
+                      <div className="flex flex-col scr540:flex-row gap-[16px]">
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">
                             Required Qualification
@@ -1049,7 +1035,6 @@ function CreateNewJob({ setToggle }) {
                             <option value="PhD">PhD</option>
                           </select>
                         </div>
-
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">
                             Required Skills{" "}
@@ -1108,8 +1093,7 @@ function CreateNewJob({ setToggle }) {
                           />
                         </div>
                       </div>
-
-                      <div className="flex  gap-[16px]">
+                      <div className="flex flex-col scr540:flex-row  gap-[16px]">
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">
                             Application Deadline{" "}
@@ -1131,7 +1115,6 @@ function CreateNewJob({ setToggle }) {
                             onChange={handleChange}
                           />
                         </div>
-
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">Experience</div>
                           <select
@@ -1146,7 +1129,7 @@ function CreateNewJob({ setToggle }) {
                             value={data.revalentExp}
                             onChange={handleChange}
                           >
-                            <option value="0-2 Years">0-2 Years</option>
+                            <option value="0-2 `Years">0-2 Years</option>
                             <option value="3-5 Years">3-5 Years</option>
                             <option value="5+ Years">5+ Years</option>
                           </select>
@@ -1154,7 +1137,7 @@ function CreateNewJob({ setToggle }) {
                       </div>
                     </div>
 
-                    {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
+                    <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
                       <div className="flex gap-4">
                         <div
                           onClick={handleClick}
@@ -1191,7 +1174,7 @@ function CreateNewJob({ setToggle }) {
                           Create Basic Profile Form
                         </button>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
