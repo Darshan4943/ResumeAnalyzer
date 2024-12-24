@@ -41,9 +41,24 @@ function Index() {
     const [totalCount, setTotalCount] = useState(0);
     const [isCountrySet, setIsCountrySet] = useState(false);
     const [miniLoading, setMiniloading] = useState(false);
-    const { loc, jobTit, experinece,search } = router.query;
+    const { loc, jobTit, exp, search } = router.query;
     const [hiddenFilters, setHiddenFilters] = useState({});
     const taskRef = useRef(null);
+    const [experience, setExperience] = useState("");
+
+    useEffect(() => {
+        if (jobTit) {
+            setJobTitle(jobTit)
+        }
+        if (loc) {
+            setLocation(loc)
+        }
+        if (exp) {
+            setExperience(exp)
+        }
+
+    }, [loc, jobTit, search]);
+
     const toggleFilterVisibility = (filterId) => {
         setHiddenFilters((prev) => ({
             ...prev,
@@ -51,7 +66,7 @@ function Index() {
         }));
     };
 
-   
+
     useEffect(() => {
         setCountry(userDataGlobal?.country);
 

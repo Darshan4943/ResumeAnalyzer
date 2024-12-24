@@ -510,7 +510,7 @@ function CandidateHeader() {
 
                     <button
                       onClick={() => {
-                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&experience=${experience}&loc=${location}`);
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
 
                       }}
                       className=" px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
