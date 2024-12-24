@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const CreateNewRequisition = ({setToggle}) => {
+const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
   const [successfull, setSuccessfull] = useState(false);
   const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
@@ -35,7 +35,7 @@ const CreateNewRequisition = ({setToggle}) => {
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
 
           <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
-          <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
+            <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
             Create New Requisition
           </div>
 
@@ -45,7 +45,7 @@ const CreateNewRequisition = ({setToggle}) => {
               <input
                 type="text"
                 placeholder="Eg: Product Manager"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
               />
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
@@ -53,7 +53,7 @@ const CreateNewRequisition = ({setToggle}) => {
               <input
                 type="text"
                 placeholder="Enter Number"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
               />
             </div>
           </div>
@@ -72,20 +72,28 @@ const CreateNewRequisition = ({setToggle}) => {
               <input
                 type="text"
                 placeholder="From (INR)"
-                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
+                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
               />
               <input
                 type="text"
                 placeholder="To (INR)"
-                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
+                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
               />
             </div>
           </div>
 
           <div className="flex sm:flex-row flex-col gap-4">
+            <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
+              <p className=" text-[14px]  font-medium">Experience</p>
+              <input
+                type="text"
+                placeholder="Ex: 2 Yrs"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+              />
+            </div>
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">Requisition Type</p>
-              <select className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#646464] text-[14px]  font-[400] rounded-[6px]">
+              <select className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]">
                 <option value="" disabled selected className="">
                   Select{" "}
                 </option>
@@ -93,20 +101,12 @@ const CreateNewRequisition = ({setToggle}) => {
                 <option value="developer">Developer</option>
               </select>
             </div>
-            <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
-              <p className=" text-[14px]  font-medium">Experience</p>
-              <input
-                type="text"
-                placeholder="Ex: 2 Yrs"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
-              />
-            </div>
           </div>
 
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium ">Location</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
@@ -116,7 +116,7 @@ const CreateNewRequisition = ({setToggle}) => {
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className=" text-[14px]  font-medium">Department</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
@@ -129,7 +129,7 @@ const CreateNewRequisition = ({setToggle}) => {
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className=" text-[14px]  font-medium">Target Hiring Date</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
@@ -139,7 +139,7 @@ const CreateNewRequisition = ({setToggle}) => {
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">Job Type</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
@@ -152,7 +152,7 @@ const CreateNewRequisition = ({setToggle}) => {
           <div className="flex flex-col  gap-[8px] ">
             <p className="text-[14px]  font-medium">Additional Comments</p>
             <textarea
-              className="h-[148px] border-[1px] border-solid border-[#646464] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
+              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
               placeholder="Provide your comment"
             ></textarea>
           </div>
@@ -264,12 +264,12 @@ const CreateNewRequisition = ({setToggle}) => {
                       <input
                         type="text"
                         placeholder="Role / Employee"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
                       />
                       <input
                         type="text"
                         placeholder="Enter Email"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
                       />
                     </div>
                   ))}
@@ -286,9 +286,9 @@ const CreateNewRequisition = ({setToggle}) => {
 
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
-              <button 
-              onClick={() => setToggle(0)} 
-              className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
+              <button
+                onClick={() => setToggle(0)}
+                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
                 Cancel
               </button>
               <button
@@ -336,15 +336,15 @@ const CreateNewRequisition = ({setToggle}) => {
 
                 <div className="text-center">
                   <div className="text-[24px] font-[500] text-[#333]">
-                  Successfully Updated
+                    Successfully Updated
                   </div>
                   <div className="text-[16px] font-[500] text-[#333]">
-                  Requisition settings updated successfully
+                    Requisition settings updated successfully
                   </div>
                 </div>
                 <div className="flex justify-center">
                   <button
-                    onClick={() =>setSuccessfull(false)}
+                    onClick={() => setSuccessfull(false)}
                     className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                   >
                     Done
