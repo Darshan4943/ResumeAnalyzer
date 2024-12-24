@@ -603,7 +603,6 @@ function CreateNewJob({ setToggle }) {
                               </>
                             )}
                           </div>
-
                           <>
                             <div
                               ref={fileRef}
@@ -1130,7 +1129,7 @@ function CreateNewJob({ setToggle }) {
                             value={data.revalentExp}
                             onChange={handleChange}
                           >
-                            <option value="0-2 Years">0-2 Years</option>
+                            <option value="0-2 `Years">0-2 Years</option>
                             <option value="3-5 Years">3-5 Years</option>
                             <option value="5+ Years">5+ Years</option>
                           </select>
