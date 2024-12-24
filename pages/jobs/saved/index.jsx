@@ -10,10 +10,11 @@ import { PencilLineIcon } from "lucide-react";
 
 const Saved = () => {
   const router = useRouter();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
   const isUser = userDataGlobal?.role == "user";
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
+  console.log(111,jobPost)
   const getData = () => {
     setLoading(true);
     axios

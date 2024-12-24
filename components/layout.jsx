@@ -75,7 +75,7 @@ function Layout({ children }) {
   );
   return (
     <>
-     {userDataGlobal?.role==="employer" ? <Temp2 /> : <Temp />}
+     {selectedPage.startsWith('/employer') ? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

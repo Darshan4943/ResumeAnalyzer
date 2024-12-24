@@ -8,7 +8,7 @@ import { CountPostingDays } from '../../../../utils/data';
 import MiniLoader from '../../../common/mini-loader';
 import { fetchUserData } from '../../../../Redux/slices/userSlice';
 
-function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage,    setMiniloading, miniLoading,getData }) {
+function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, setMiniloading, miniLoading, getData }) {
 
     const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
 
@@ -53,13 +53,13 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                 `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             );
             await dispatch(fetchUserData());
-            await getData(); 
+            await getData();
         } catch (err) {
             console.error(err);
         }
     };
-    
-    
+
+
     return (
         <div className="flex flex-col gap-4">
             <div
@@ -210,7 +210,12 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                                 </g>
                                             </svg>
 
-                                            Applied {CountPostingDays(item?.applications?.find(app => app.applicantId === userDataGlobal._id)?.appliedOn)}
+                                            Applied {CountPostingDays(
+                                                appliedJobs
+                                                    ?.find((job) => job._id === item._id)
+                                                    ?.applications?.find((application) => application?.applicantId === userDataGlobal._id)
+                                                    ?.appliedOn
+                                            )}
                                         </div>
                                     ) : (
                                         <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">

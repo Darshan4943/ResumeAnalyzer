@@ -15,7 +15,7 @@ function Index() {
 
     const [toggleHeadings, setToggleHeadings] = useState(0);
 
-    const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+    const { userDataGlobal, profileData,appliedJobData } = useSelector((state) => state.user.userData);
     const [userSkills, setUserSkills] = useState();
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const dispatch = useDispatch();
@@ -352,7 +352,7 @@ function Index() {
                     setLimitPopup={setLimitPopup}
                     setCurrentPage={setPage}
                     isLogin={isLogin}
-                    appliedJobs={appliedJobs}
+                    appliedJobs={appliedJobData}
                     setLimit={setLimit}
                     limit={limit}
                     setTotalpages={setTotalpages}
