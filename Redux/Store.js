@@ -4,6 +4,9 @@ import websiteReducer from "./slices/websiteSlice";
 import userReducer from "./slices/userSlice";
 import popupReducer from "./slices/popupSlice";
 import locationReducer from "./slices/locationSlice";
+import jobReducer from "./slices/jobSlice";
+import profileReducer from "./slices/profileSlice"
+import authReducer from "./slices/loginSlice"
 
 const store = configureStore({
     reducer: {
@@ -11,6 +14,9 @@ const store = configureStore({
         user: userReducer,
         popup: popupReducer,
         location: locationReducer,
+        job:jobReducer,
+        profile:profileReducer,
+        auth: authReducer,
     },
 });
 

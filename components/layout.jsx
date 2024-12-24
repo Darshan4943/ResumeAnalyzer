@@ -19,7 +19,8 @@ import EmployerHeader from "./partials/header/EmployerHeader";
 import EmployerSidebar from "./partials/header/EmployerSidebar";
 
 function Layout({ children }) {
-  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const pageOpened = useSelector((state) => state?.website?.pageOpened);
@@ -28,7 +29,7 @@ function Layout({ children }) {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
- 
+
   const Temp = () => (
     <>
       <div className="mobile">
@@ -41,10 +42,10 @@ function Layout({ children }) {
 
       <div className="web min-h-[100vh]">
         {!pageOpened &&
-        <div>
-          <Header />
-        </div>
-}
+          <div>
+            <Header />
+          </div>
+        }
         <div className="pt-[3.75rem] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
@@ -75,7 +76,7 @@ function Layout({ children }) {
   );
   return (
     <>
-     {userDataGlobal?.role==="employer" ? <Temp2 /> : <Temp />}
+      {(selectedPage.startsWith('/employer') || userDataGlobal?.role==="employer" )? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

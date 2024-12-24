@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
 import { CountPostingDays } from "../../../../utils/data";
 import MiniLoader from "../../../common/mini-loader";
+import { fetchSavedJobIds } from "../../../../Redux/slices/jobSlice";
+;
 
 function AllJobCard({
 
@@ -24,12 +26,28 @@ function AllJobCard({
   miniLoading,
 
 }) {
-  console.log(jobData)
+
   const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const { userDataGlobal, profileData, } = useSelector((state) => state.user.userData);
+  const { appliedJobData,savedJobIds} = useSelector((state) => state.job.jobData);
+
   const dispatch = useDispatch();
+  const [isLogin, setIsLogin] = useState(false);
+
   const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+      if (token) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+  }, []);
+
+
   const posters = [
     {
       title: "Craft a Winning CV in Minutes with AI",
@@ -72,7 +90,7 @@ function AllJobCard({
   const pagePoster = posters.find((poster) => poster.page === page);
 
 
-  const combinedData = jobData.reduce((acc, job, index) => {
+  const combinedData = jobData?.reduce((acc, job, index) => {
     acc.push(job);
 
     if (pagePoster && index + 1 === pagePoster.no) {
@@ -111,7 +129,7 @@ function AllJobCard({
     axios
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-        // dispatch(reCallUserData());
+        dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
         // toast.success("Job Saved Successfully");
         getData();
@@ -129,7 +147,7 @@ function AllJobCard({
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
-        // dispatch(reCallUserData());
+        dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
         // toast.success("Job Removed Successfully");
         getData();
@@ -308,22 +326,12 @@ function AllJobCard({
                         Applied{" "}
 
 
-                        {appliedJobs?.map((job) => {
-                          const matchingApplication = job?.applications?.find(
-                            (app) => app.applicantId === userDataGlobal._id
-                          );
-
-                          return (
-                            <div
-                              key={job._id}
-                              className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
-                            >
-
-                              {CountPostingDays(matchingApplication?.appliedOn) || ""}
-                            </div>
-                          );
-                        })}
-
+                        {CountPostingDays(
+                          appliedJobs
+                            ?.find((job) => job._id === item._id)
+                            ?.applications?.find((application) => application?.applicantId === userDataGlobal._id)
+                            ?.appliedOn
+                        )}
 
                       </div>
                     ) : (
@@ -332,42 +340,42 @@ function AllJobCard({
                       </div>
                     )}
 
-                    {/* {isLogin && ( */}
-                    <div className=" cursor-pointer">
-                      {savedJobList?.find((data) => data._id == item._id) ? (
-                        <svg
-                          onClick={(e) => removeSavedJob(e, item._id)}
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g mask="url(#mask0_4135_58652)">
-                            <path
-                              d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z"
-                              fill="#333333"
-                            />
-                          </g>
-                        </svg>
-                      ) : (
-                        <svg
-                          onClick={(e) => SaveJob(e, item._id)}
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <g mask="url(#mask0_4135_57938)">
-                            <path
-                              d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                              fill={"#646464"}
-                            />
-                          </g>
-                        </svg>
-                      )}
-                    </div>
-                    {/* )} */}
+                    {isLogin && (
+                      <div className=" cursor-pointer">
+                        {savedJobIds?.find((data) => data == item._id) ? (
+                          <svg
+                            onClick={(e) => removeSavedJob(e, item._id)}
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g mask="url(#mask0_4135_58652)">
+                              <path
+                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                        ) : (
+                          <svg
+                            onClick={(e) => SaveJob(e, item._id)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <g mask="url(#mask0_4135_57938)">
+                              <path
+                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
+                                fill={"#646464"}
+                              />
+                            </g>
+                          </svg>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

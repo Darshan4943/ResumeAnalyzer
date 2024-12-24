@@ -85,7 +85,7 @@ import EmployerHome from "../employer/EmployerHome";
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+const {userDataGlobal} = useSelector((state) => state.user.userData);
 
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -113,33 +113,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
     <div className="">
       <PlanExpiredModal />
-      {isLogin ? (
-        userDataGlobal?.role === "admin" ? (
-          <AdminDashboard />
-        ) : (
-          userDataGlobal?.role === "user" ?
-            <CandidateHome />
-            :  userDataGlobal?.role === "recruiter" ?
-             <RecruiterDashBoard />
-             :
-             <EmployerHome/>
-
-        )
-      ) : (
-        <>
-          {showScrollImage && (
-            <div className="relative">
-              <img
-                src="/images/ar.png"
-                alt=""
-                className="fixed top-[90vh] right-[2vw] z-[300000] h-[52px] w-[52px] cursor-pointer"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              />
-            </div>
-          )}
-          <WithoutLogin />
-        </>
-      )}
+      <CandidateHome />
     </div>
   );
 }

@@ -16,8 +16,7 @@ function JobDetails() {
   const [save, setSaved] = useState(false)
   console.log(jobData)
 
-  useEffect(() => {
-    console.log("hii")
+  const getData = () => {
     axios
       .get(`http://localhost:2000/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
@@ -36,7 +35,15 @@ function JobDetails() {
 
 
       })
+  }
+
+
+  useEffect(() => {
+    
+    getData()
   }, [save]);
+
+ 
   
 
   return (

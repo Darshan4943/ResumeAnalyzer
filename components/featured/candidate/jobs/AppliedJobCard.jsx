@@ -14,7 +14,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
     page,
     setPage, }) {
 
-  const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
     
     const [savedJobList, setSavedJobList] = useState([]);
     const dispatch = useDispatch();

@@ -5,10 +5,11 @@ import Link from "next/link";
 import Services from "../../../pages/services";
 import { Service, ServiceCross } from "../../../utils/svg";
 import { camelCase } from "../../../utils/middleware";
-
+import { AnimatePresence, motion } from "framer-motion";
 function CandidateHeader() {
   const router = useRouter();
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
@@ -19,6 +20,9 @@ function CandidateHeader() {
   const [isMove, setIsMove] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
+  const [experience, setExperience] = useState("");
+  const [isSearch, setIsSearch] = useState(false)
+
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -53,6 +57,7 @@ function CandidateHeader() {
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsLogout(false);
+      setIsSearch(false)
     }
   };
 
@@ -196,11 +201,11 @@ function CandidateHeader() {
           </>
         ) : (
           <>
-            
+
             {userDataGlobal?.role == "user" &&
               <div
-                onClick={() => {setServices(false);selectedPage !== "/" && router.push("/")}}
-               
+                onClick={() => { setServices(false); selectedPage !== "/" && router.push("/") }}
+
                 className={
                   (selectedPage === "/" && !isServices)
                     ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px] cursor-pointer"
@@ -230,7 +235,7 @@ function CandidateHeader() {
                 <li>Jobs</li>
               </div>
             }
-           
+
             <div className="relative ">
               {!isServices ? (
                 <div
@@ -266,97 +271,29 @@ function CandidateHeader() {
                 />
               )}
             </div>
-           
+            {userDataGlobal?.role == "user" &&
+              <div onClick={() => setIsSearch(true)} className="flex justify-between pl-[10px] gap-4 items-center border border-[#E1E3E3] rounded-[30px] pr-1 py-1 min-w-[258px]">
+                <div className="text-[14px] font-medium text-[#889FBA]">
+                  UX  Designer
+                </div>
+                <div className="bg-blue rounded-[50%] h-[38px] w-[38px] flex justify-center items-center ">
+                  <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g mask="url(#mask0_6706_105484)">
+                      <path d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z" fill="white" />
+                    </g>
+                  </svg>
+
+                </div>
+              </div>
+            }
+
           </>
         )}
       </div>
 
-      <div className="relative flex gap-4 justify-end  items-center w-[60%]  ">
-        {userDataGlobal?.role == "user" &&
-          <div className="flex justify-center items-center  border border-[#9D9D9D] rounded-[8px] w-[60%] min-w-[350px] ">
-            <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start   scr1024:px-[12px] px-2 scr1024:py-2 py-1 rounded-[8px] bg-white w-[100%]   ">
-              <div className="flex flex-row gap-[8px] scr1024:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 ">
-                <svg
-                  className="w-[22px] h-[22px]  min-w-[22px]  "
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                    stroke="#333333"
-                    strokeWidth="3.1544"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+      <div className="relative flex gap-4 justify-end  items-center w-[30%]  ">
 
-                <input
-                  type="text"
-                  placeholder="Job title"
-                  className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                />
-
-              </div>
-
-
-
-              <div className="flex flex-row justify-between items-center gap-[8px] scr1024:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px]  sm:p-0">
-                <div className="flex flex-row gap-4">
-                  <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
-                  <div className="flex flex-row gap-[8px] scr1024:gap-[16px]  items-center">
-                    <svg
-                      className="w-[22px] h-[22px]  min-w-[22px]"
-                      viewBox="0 0 31 30"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                        stroke="#333333"
-                        strokeWidth="3.1544"
-                      />
-                      <path
-                        d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                        fill="white"
-                        stroke="#333333"
-                        strokeWidth="3.1544"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-
-                    <input
-                      type="text"
-                      placeholder="Location"
-                      className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => {
-                    router.push(`/jobs/search?search=${true}&loc=${location}&jobTit=${jobTitle}`);
-
-                  }}
-                  className=" cursor-pointer"
-                >
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.6504 20.1774L14.6942 13.2211C15.7736 11.8256 16.3575 10.1193 16.3575 8.32468C16.3575 6.17647 15.5192 4.16218 14.0031 2.64343C12.487 1.12468 10.4674 0.28897 8.32184 0.28897C6.1763 0.28897 4.15666 1.12736 2.64059 2.64343C1.12184 4.1595 0.286121 6.17647 0.286121 8.32468C0.286121 10.4702 1.12451 12.4899 2.64059 14.0059C4.15666 15.5247 6.17362 16.3604 8.32184 16.3604C10.1165 16.3604 11.8201 15.7765 13.2156 14.6997L20.1718 21.6533C20.1922 21.6737 20.2165 21.6899 20.2431 21.7009C20.2698 21.7119 20.2983 21.7176 20.3272 21.7176C20.356 21.7176 20.3846 21.7119 20.4113 21.7009C20.4379 21.6899 20.4622 21.6737 20.4825 21.6533L21.6504 20.4881C21.6708 20.4677 21.687 20.4435 21.6981 20.4168C21.7091 20.3901 21.7148 20.3616 21.7148 20.3327C21.7148 20.3039 21.7091 20.2753 21.6981 20.2486C21.687 20.222 21.6708 20.1978 21.6504 20.1774ZM12.5647 12.5675C11.429 13.7006 9.92362 14.3247 8.32184 14.3247C6.72005 14.3247 5.21469 13.7006 4.07898 12.5675C2.94594 11.4318 2.32184 9.92647 2.32184 8.32468C2.32184 6.7229 2.94594 5.21486 4.07898 4.08183C5.21469 2.94879 6.72005 2.32468 8.32184 2.32468C9.92362 2.32468 11.4317 2.94611 12.5647 4.08183C13.6977 5.21754 14.3218 6.7229 14.3218 8.32468C14.3218 9.92647 13.6977 11.4345 12.5647 12.5675Z" fill="#06A9EF" />
-                  </svg>
-
-
-                </div>
-              </div>
-              <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
-
-            </div>
-          </div>
-        }
         <div
           onClick={() => setIsLogout(!isLogout)}
           className="flex items-center gap-[8px] cursor-pointer"
@@ -380,8 +317,8 @@ function CandidateHeader() {
               </div>
             )}
           </div>
-          {userDataGlobal?.firstName && (
-            <div className="scr1250:text-[14px] text-[14px] xxlg:block hidden">
+          {profileData?.basics?.firstName && (
+            <div className=" text-[14px] font-semibold xxlg:block hidden">
               {camelCase(profileData?.basics?.firstName)}{" "}
               {camelCase(profileData?.basics?.lastName)}
             </div>
@@ -511,6 +448,91 @@ function CandidateHeader() {
           </div>
         )}
       </div>
+      <AnimatePresence>
+        {isSearch &&
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+
+            <motion.div
+              initial={{ y: "-100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.5 }}
+              ref={taskRef}
+              className="fixed z-[2000]  h-[153px]  top-0 left-0 right-0 bottom-0 px-4 py-4"
+              style={{
+                background: "white",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <div className="flex flex-col items-center gap-4 justify-between customMargins h-full ">
+                <div className="w-full flex justify-start">
+                  <img
+                    src="/images/logo_skilotech.png"
+                    alt=""
+                    className="object-contain h-[40px]"
+                  />
+                </div>
+
+                <div className="flex justify-center items-center  border border-[#E1E3E3] rounded-[30px] w-[648px] min-w-[350px] h-[62px] px-3 py-[10px] ">
+
+                  <div className="flex flex-row gap-[8px] scr1024:gap-5 items-center justify-between   w-full  ">
+                    <svg className="min-w-[24px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_6706_106760)">
+                        <path d="M9.5215 15.6153C7.81383 15.6153 6.36767 15.023 5.183 13.8385C3.9985 12.6538 3.40625 11.2077 3.40625 9.50002C3.40625 7.79235 3.9985 6.34618 5.183 5.16152C6.36767 3.97702 7.81383 3.38477 9.5215 3.38477C11.2292 3.38477 12.6753 3.97702 13.86 5.16152C15.0445 6.34618 15.6367 7.79235 15.6367 9.50002C15.6367 10.2142 15.5169 10.8963 15.2772 11.5463C15.0374 12.1963 14.7175 12.7616 14.3175 13.2423L20.0715 18.9963C20.21 19.1346 20.2808 19.3086 20.284 19.5183C20.2872 19.7279 20.2163 19.9052 20.0715 20.05C19.9267 20.1948 19.751 20.2673 19.5445 20.2673C19.3382 20.2673 19.1626 20.1948 19.0177 20.05L13.2638 14.296C12.7638 14.7088 12.1887 15.0319 11.5387 15.2653C10.8887 15.4986 10.2163 15.6153 9.5215 15.6153ZM9.5215 14.1155C10.81 14.1155 11.9013 13.6683 12.7955 12.774C13.6898 11.8798 14.137 10.7885 14.137 9.50002C14.137 8.21152 13.6898 7.12018 12.7955 6.22601C11.9013 5.33168 10.81 4.88452 9.5215 4.88452C8.233 4.88452 7.14167 5.33168 6.2475 6.22601C5.35317 7.12018 4.906 8.21152 4.906 9.50002C4.906 10.7885 5.35317 11.8798 6.2475 12.774C7.14167 13.6683 8.233 14.1155 9.5215 14.1155Z" fill="#333333" fill-opacity="0.5" />
+                      </g>
+                    </svg>
+
+                    <input
+                      type="text"
+                      placeholder="Enter Job title"
+                      className="text-[14px]  font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px]"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                    />
+                    <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+                    <input
+                      type="text"
+                      placeholder="Enter Experience"
+                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[122px] min-w-[80px]"
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                    />
+                    <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+                    <input
+                      type="text"
+                      placeholder=" Enter Location"
+                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[110px] min-w-[80px]"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+
+                    <button
+                      onClick={() => {
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+
+                      }}
+                      className=" px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
+                    >
+                      Search
+
+
+                    </button>
+
+                  </div>
+
+
+
+
+
+
+                </div>
+              </div>
+            </motion.div>
+          </>
+        }
+      </AnimatePresence>
     </>
   );
 }

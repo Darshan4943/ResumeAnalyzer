@@ -22,7 +22,9 @@ import PersonalDetails from "../../components/featured/profile/personalDetails";
 
 
 function Profile() {
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+ 
+  const { profileData } = useSelector((state) => state.profile.profileData);
+
   const [resumeCount, setResumeCount] = useState(1)
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
@@ -55,6 +57,7 @@ function Profile() {
   useEffect(() => {
     setUserData(profileData);
   }, [profileData]);
+
   function mapPercentageToDegree(percentage) {
     const clampedPercentage = Math.min(100, Math.max(0, percentage));
     const degree = 90 + (clampedPercentage / 100) * 270;

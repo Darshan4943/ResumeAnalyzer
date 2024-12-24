@@ -42,6 +42,9 @@ function Index() {
     const [miniLoading, setMiniloading] = useState(false);
     const { loc, jobTit, search } = router.query;
     const [hiddenFilters, setHiddenFilters] = useState({});
+
+   
+
     const taskRef = useRef(null);
     const toggleFilterVisibility = (filterId) => {
         setHiddenFilters((prev) => ({
@@ -50,7 +53,7 @@ function Index() {
         }));
     };
 
-console.log(444,userDataGlobal)
+
     useEffect(() => {
         setCountry(userDataGlobal?.country);
 

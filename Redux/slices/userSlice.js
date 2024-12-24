@@ -26,24 +26,25 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (_, { 
   }
 });
 
-export const fetchProfileData = createAsyncThunk('user/fetchProfileData', async (userId) => {
-  const response = await axios.get(`http://localhost:2000/api/candidate/${userId}`);
-  const profileData = jwtDecode(response.data.data);
-  return profileData._doc;
-});
+
+
+
+
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     userData: {
       userDataGlobal: null,
-      profileData: null,
+   
+    
     },
   },
   reducers: {
     resetState(state) {
       state.userData.userDataGlobal = null;
-      state.userData.profileData = null;
+
+  
     },
   },
   extraReducers: (builder) => {
@@ -51,9 +52,7 @@ const userSlice = createSlice({
       state.userData.userDataGlobal = action.payload;
     });
 
-    builder.addCase(fetchProfileData.fulfilled, (state, action) => {
-      state.userData.profileData = action.payload;
-    });
+  
   },
 });
 

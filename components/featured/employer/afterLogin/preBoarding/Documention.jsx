@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
-import { applicants } from "@/utils/preboardArray";
-import { applicantsMobile } from "@/utils/preboardArray";
-import { headings } from "@/utils/preboardArray";
 
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);

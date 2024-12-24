@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
-import { applicants } from "@/utils/preboardArray";
-import { applicantsMobile } from "@/utils/preboardArray";
+import { headings } from "../../../../../utils/preboardArray";
 // import { headings } from "@/utils/preboardArray";
 
 const Declined = ({ toggleContentt, setPreview }) => {
@@ -30,7 +29,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
   return (
     <>
       <div className="web w-full">
-        {/* <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
+        <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
           {headings.map((headingObj, index) => (
             <>
               <select
@@ -81,7 +80,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
             </svg>
             <div>Filter</div>
           </div>
-        </div> */}
+        </div>
         <div className="grid grid-rows-1 w-full ">
           <div className="grid grid-cols-7 w-full grid-flow-col">
             {labels.map((req, index) => (

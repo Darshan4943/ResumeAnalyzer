@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
-import { applicants } from "@/utils/preboardArray";
-import { applicantsMobile } from "@/utils/preboardArray";
-import { headings } from "@/utils/preboardArray";
 import { AnimatePresence, motion } from "framer-motion";
 const Acceptance = ({ toggleContentt, setToggle }) => {
   const [hired, setHired] = useState(false);

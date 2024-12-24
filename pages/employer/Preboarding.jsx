@@ -1,20 +1,19 @@
-import Initial from "@/components/featured/employer/afterLogin/preBoarding/Initial";
+// import Initial from "@/components/featured/employer/afterLogin/preBoarding/Initial";
 import React, { useState } from "react";
-import { TablePagination } from "@mui/material";
+
 import { useRouter } from "next/router";
-import Documention from "@/components/featured/employer/afterLogin/preBoarding/Documention";
-import Verification from "@/components/featured/employer/afterLogin/preBoarding/Verification";
-import Offer from "@/components/featured/employer/afterLogin/preBoarding/Offer";
-import Acceptance from "@/components/featured/employer/afterLogin/preBoarding/Acceptance";
-import Hire from "@/components/featured/employer/afterLogin/preBoarding/Hire";
-import ApplicantDetails from "@/components/featured/employer/ApplicantDetails";
-import ApplicantPreview from "@/components/featured/employer/afterLogin/preBoarding/ApplicantPreview";
-import { preboarding } from "@/utils/preboardArray";
-import { headings } from "@/utils/preboardArray";
-import Joined from "@/components/featured/employer/afterLogin/preBoarding/Joined";
-import Declined from "@/components/featured/employer/afterLogin/preBoarding/Declined";
-import { applicants } from "@/utils/preboardArray";
-import EditOfferTemplate from "@/components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
+import Initial from "../../components/featured/employer/afterLogin/preBoarding/Initial";
+import Documention from "../../components/featured/employer/afterLogin/preBoarding/Documention";
+import Verification from "../../components/featured/employer/afterLogin/preBoarding/Verification";
+import Offer from "../../components/featured/employer/afterLogin/preBoarding/Offer";
+import Acceptance from "../../components/featured/employer/afterLogin/preBoarding/Acceptance";
+import Hire from "../../components/featured/employer/afterLogin/preBoarding/Hire";
+import Joined from "../../components/featured/employer/afterLogin/preBoarding/Joined";
+import Declined from "../../components/featured/employer/afterLogin/preBoarding/Declined";
+import ApplicantPreview from "../../components/featured/employer/afterLogin/preBoarding/ApplicantPreview";
+import EditOfferTemplate from "../../components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
+
+
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
   const [editTemplate, setEditTemplate] = useState(false)
@@ -124,8 +123,8 @@ function Preboarding() {
 
               {activeOption === "In Preboarding" && (
                 <>
-                  <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
-                    {preboarding.map((e, index) => (
+                  {/* <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
+                    {Preboarding.map((e, index) => (
                       <>
                         <div
                           onClick={() => setToggle(index)}
@@ -151,7 +150,7 @@ function Preboarding() {
                         <div>{e.line}</div>
                       </>
                     ))}
-                  </div>
+                  </div> */}
 
                   {/* INITIAL 1ST PAGE  */}
 

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "@mui/material";
-import { applicants } from "@/utils/preboardArray";
-import { applicantsMobile } from "@/utils/preboardArray";
-import { headings } from "@/utils/preboardArray";
+
 import StartPreboarding from "./StartPreboarding";
+import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import { TablePagination } from "@mui/material";
 
 const Initial = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [startPreboarding, setStartPreboarding] = useState(false)
+  const [startPreboarding, setStartPreboarding] = useState(false);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -32,16 +31,13 @@ const Initial = ({ toggleContentt, setToggle }) => {
   ];
   return (
     <>
-
       <div className="web w-full">
         <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
           {headings.map((headingObj, index) => (
             <>
               <select
                 className=" w-[17.68%] bg-white p-4 "
-                onChange={(e) =>
-                  handleHeadingChange(e, headingObj.heading)
-                }
+                onChange={(e) => handleHeadingChange(e, headingObj.heading)}
               >
                 <option value=""> {headingObj.heading}</option>
                 {headingObj.options.map((option, optIndex) => (
@@ -68,11 +64,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                 stroke-linejoin="round"
               />
             </svg>
-            <input
-              className="w-[100%]"
-              type="text"
-              placeholder="search"
-            />
+            <input className="w-[100%]" type="text" placeholder="search" />
           </div>
           <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-500]  flex gap-2 items-center bg-[#fff]">
             <svg
@@ -92,9 +84,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
             <div>Filter</div>
           </div>
         </div>
-        <div className="grid grid-rows-1 w-full ">
-
-        </div>
+        <div className="grid grid-rows-1 w-full "></div>
         <div className="grid grid-rows-1 w-full ">
           <div className="grid grid-cols-5 w-full grid-flow-col">
             {labels.map((req, index) => (
@@ -121,7 +111,10 @@ const Initial = ({ toggleContentt, setToggle }) => {
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
-                          <input className="w-[24px] h-[24px]" type="checkbox" />
+                          <input
+                            className="w-[24px] h-[24px]"
+                            type="checkbox"
+                          />
                           <img
                             className="w-[40px]"
                             src="/images/employer/profile_icon.png"
@@ -144,18 +137,19 @@ const Initial = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                            ? "text-[#26A4FF] border-[#26A4FF]"
-                            : applicants.status === "Hired"
+                          className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
+                            applicants.status === "Interview"
+                              ? "text-[#26A4FF] border-[#26A4FF]"
+                              : applicants.status === "Hired"
                               ? "text-[#56CDAD] border-[#56CDAD]"
                               : applicants.status === "Shortlisted"
-                                ? "text-[#4640DE] border-[#4640DE]"
-                                : applicants.status === "Rejected"
-                                  ? "text-[#FF6550] border-[#FF6550]"
-                                  : applicants.status === "In Review"
-                                    ? "text-[#FFB836] border-[#FFB836]"
-                                    : ""
-                            }`}
+                              ? "text-[#4640DE] border-[#4640DE]"
+                              : applicants.status === "Rejected"
+                              ? "text-[#FF6550] border-[#FF6550]"
+                              : applicants.status === "In Review"
+                              ? "text-[#FFB836] border-[#FFB836]"
+                              : ""
+                          }`}
                         >
                           {applicants.status}
                         </div>
@@ -183,10 +177,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
         </div>
       </div>
 
-
       <div className="mobile relative overflow-y-scroll  w-full">
-
-
         <div className="sticky top-0">
           <div className="flex bg-[#06A9EF] gap-[1px] p-4 w-[100%]">
             <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
@@ -364,14 +355,9 @@ const Initial = ({ toggleContentt, setToggle }) => {
                   </div>
                 </>
               ))}
-
-
           </div>
         </div>
-
-
       </div>
-
 
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
@@ -384,16 +370,14 @@ const Initial = ({ toggleContentt, setToggle }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
-
-      {startPreboarding &&
+      {startPreboarding && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
-            <StartPreboarding  setStartPreboarding={setStartPreboarding}/>
+            <StartPreboarding setStartPreboarding={setStartPreboarding} />
           </div>
         </>
-      }
-
+      )}
     </>
   );
 };

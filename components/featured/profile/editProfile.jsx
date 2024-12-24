@@ -37,7 +37,8 @@ function EditProfile({ setEditProfile }) {
     email: "",
     currentLocation: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    country:""
   });
 
   function validatePassword(password) {
