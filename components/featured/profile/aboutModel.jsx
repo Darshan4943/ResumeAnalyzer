@@ -11,7 +11,7 @@ import { fetchUserData } from "../../../Redux/slices/userSlice";
 
 const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const [text, setText] = useState(userData?.summary);
- const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState({

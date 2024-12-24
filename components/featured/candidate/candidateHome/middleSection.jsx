@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopCompanies from './topCompanies';
 import RecommendedJobs from './recommendedJobs';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAppliedJob, fetchSavedJobIds } from '../../../../Redux/slices/jobSlice';
 
 function MiddleSection() {
-    const { userDataGlobal, profileData, appliedJobData } = useSelector((state) => state.user.userData);
-   
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { appliedJobData,savedJobIds} = useSelector((state) => state.job.jobData);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchSavedJobIds(userDataGlobal?._id));
+        dispatch(fetchAppliedJob(userDataGlobal?._id));
+    }, [])
+
     const router = useRouter();
     const posters = [
         {
@@ -63,7 +72,7 @@ function MiddleSection() {
                         <path d="M14.9317 1.71484H3.70193C2.60877 1.71484 1.71436 2.60925 1.71436 3.70242V21.044C1.71436 21.5161 1.98765 21.9633 2.41001 22.1621C2.85721 22.3608 3.35411 22.3111 3.72678 22.013L3.75162 21.9881L9.31684 17.2925L14.8821 21.9881L14.9069 22.013C15.1305 22.1869 15.4038 22.2863 15.6771 22.2863C15.851 22.2863 16.0498 22.2366 16.2237 22.1372C16.646 21.9384 16.9193 21.4912 16.9193 21.0192V3.70242C16.9193 2.60925 16.0249 1.71484 14.9317 1.71484Z" fill="#06A9EF" />
                     </svg>
 
-                    Saved Jobs ({userDataGlobal?.savedJobs?.length})
+                    Saved Jobs ({savedJobIds?.length})
 
                 </button>
 

@@ -7,16 +7,19 @@ import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
 import DeleteModal from "../../common/deleteModal";
 
-const ResumeList = ({ userData, setResumeCount }) => {
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+const ResumeList = ({ setResumeCount }) => {
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(false);
   const [deleteData, setDeleteData] = useState({ view: false, ids: [] });
   const [resumeList, setResumeList] = useState([]);
-console.log(deleteData)
+
   const [isChecked, setIsChecked] = useState();
   const [isResumes, setIsResumes] = useState("resumes");
   const dispatch = useDispatch();
-  useEffect(() => {
+
+
+
+  const getData = () => {
     setLoading(true);
 
     axios
@@ -36,7 +39,10 @@ console.log(deleteData)
         console.log(err);
         setLoading(false);
       });
-  }, [userDataGlobal, isResumes]);
+  }
+  useEffect(() => {
+    getData()
+  }, []);
 
   const deleteHandler = () => {
 
@@ -74,7 +80,7 @@ console.log(deleteData)
 
   const closeDeleteModal = () => {
     setDeleteData({ view: false, ids: "" });
-};
+  };
 
   return (
     <>

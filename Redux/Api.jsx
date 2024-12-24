@@ -18,8 +18,11 @@ import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 
 import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
-import { fetchAppliedJob, fetchProfileData, fetchSavedJobIds, fetchUserData } from "./slices/userSlice";
+import {  fetchUserData } from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchAppliedJob, fetchSavedJobIds } from "./slices/jobSlice";
+import { fetchProfileData } from "./slices/profileSlice";
+import { setLoginState } from "./slices/loginSlice";
 
 
 
@@ -28,7 +31,7 @@ export const Api = ({ }) => {
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
@@ -42,6 +45,18 @@ export const Api = ({ }) => {
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);
+
+
+  
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      const isLoggedIn = token && token !== 'undefined';
+      dispatch(setLoginState(isLoggedIn));
+    }
+  }, [dispatch]);
+
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);

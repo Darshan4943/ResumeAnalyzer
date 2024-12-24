@@ -26,27 +26,7 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async (_, { 
   }
 });
 
-export const fetchProfileData = createAsyncThunk('user/fetchProfileData', async (userId) => {
-  const response = await axios.get(`http://localhost:2000/api/candidate/${userId}`);
-  const profileData = jwtDecode(response.data.data);
-  return profileData._doc;
-});
 
-
-export const fetchAppliedJob = createAsyncThunk('user/fetchAppliedJob', async (userId) => {
-  const response = await axios.get(`http://localhost:2000/api/job/getAppliedJobs/${userId}`);
-
-  const appliedJobData = response.data.data;
-  return appliedJobData
-})
-
-export const fetchSavedJobIds = createAsyncThunk('user/fetchSavedJobIds', async (userId) => {
-  const response = await axios.get(`http://localhost:2000/api/job/getSaveJobIds/${userId}`);
-
-  const savedJobIds = response.data.savedJobIds;
-  
-  return savedJobIds
-})
 
 
 
@@ -56,17 +36,15 @@ const userSlice = createSlice({
   initialState: {
     userData: {
       userDataGlobal: null,
-      profileData: null,
-      appliedJobData:null,
-      savedJobIds:null
+   
+    
     },
   },
   reducers: {
     resetState(state) {
       state.userData.userDataGlobal = null;
-      state.userData.profileData = null;
-      state.userData.appliedJobData=null
-      state.userData.savedJobIds=null
+
+  
     },
   },
   extraReducers: (builder) => {
@@ -74,15 +52,7 @@ const userSlice = createSlice({
       state.userData.userDataGlobal = action.payload;
     });
 
-    builder.addCase(fetchProfileData.fulfilled, (state, action) => {
-      state.userData.profileData = action.payload;
-    });
-    builder.addCase(fetchAppliedJob.fulfilled, (state, action) => {
-      state.userData.appliedJobData = action.payload;
-    });
-    builder.addCase(fetchSavedJobIds.fulfilled, (state, action) => {
-      state.userData.savedJobIds = action.payload;
-    });
+  
   },
 });
 
