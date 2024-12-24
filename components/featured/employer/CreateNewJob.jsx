@@ -689,7 +689,7 @@ function CreateNewJob({ setToggle }) {
                       </div>
 
                       <div className="w-full max-w-full flex flex-col">
-                        <div className="flex scr540:flex-row flex-col gap-[16px]">
+                        {/* <div className="flex scr540:flex-row flex-col gap-[16px]">
                           <div className="flex flex-col gap-[8px] scr540:w-[358px] w-full">
                             <div className="text-[14px] font-[500]">
                               Company Name <span className="text-[red]">*</span>
@@ -707,32 +707,6 @@ function CreateNewJob({ setToggle }) {
                               onChange={handleChange}
                             />
                           </div>
-
-                          <div className="flex flex-col gap-[8px] ">
-                            <div className="text-[14px] font-[500]">
-                              Country <span className="text-[red]">*</span>
-                            </div>
-                            <select
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[278px] text-[12px] font-[400] ${
-                                formError.country
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
-                              name="country"
-                              value={data.country}
-                              onChange={handleChange}
-                            >
-                              <option value="" disabled>
-                                Select Country
-                              </option>
-                              <option value="USA">United States</option>
-                              <option value="Canada">Canada</option>
-                              <option value="India">India</option>
-                              <option value="Australia">Australia</option>
-                              <option value="UK">United Kingdom</option>
-                            </select>
-                          </div>
-
                           <div className="flex flex-col gap-[8px] scr540:w-[382px] w-full ">
                             <div className="text-[14px] font-[500]">
                               Location <span className="text-[red]">*</span>
@@ -812,14 +786,55 @@ function CreateNewJob({ setToggle }) {
                               }}
                             />
                           </div>
+                          <div className="flex flex-col gap-[8px] w-full">
+                            <div className="text-[14px] font-[500]">
+                              Country <span className="text-[red]">*</span>
+                            </div>
+                            <select
+                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[278px] text-[12px] font-[400] ${
+                                formError.country
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
+                              name="country"
+                              value={data.country}
+                              onChange={handleChange}
+                            >
+                              <option value="" disabled>
+                                Select Country
+                              </option>
+                              <option value="USA">United States</option>
+                              <option value="Canada">Canada</option>
+                              <option value="India">India</option>
+                              <option value="Australia">Australia</option>
+                              <option value="UK">United Kingdom</option>
+                            </select>
+                          </div>
+                        </div> */}
+                        <div className="flex gap-[16px] ">
+                          <div className="flex flex-col gap-[8px] scr540:w-[358px] w-full">
+                            <div className="text-[14px] font-[500]">
+                              Company Name <span className="text-[red]">*</span>
+                            </div>
+                            <input
+                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-[354px] text-[12px] font-[400] ${
+                                formError.companyName
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
+                              placeholder="Enter Company name"
+                              type="text"
+                              name="companyName"
+                              value={data.companyName}
+                              onChange={handleChange}
+                            />
+                          </div>
                         </div>
-
                         <div className="flex flex-col gap-[8px] w-full">
                           <div className="text-[14px] pt-[16px] font-[500]">
                             Job Description{" "}
                             <span className="text-[red]">*</span>
                           </div>
-
                           <div
                             style={{
                               display: "flex",
@@ -1139,18 +1154,19 @@ function CreateNewJob({ setToggle }) {
                       </div>
                     </div>
 
-                    <div className="sm:flex gap-[12px] flex flex-wrap  justify-between w-full  p-4">
-                      <div className="flex gap-[12px]">
+                    {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
+                      <div className="flex gap-4">
                         <div
                           onClick={handleClick}
-                          className="text-sm  cursor-pointer flex justify-start font-semibold px-6 py-1 scr900:px-9 scr900:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full "
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
                         >
                           Cancel
                         </div>
+
                         {id ? null : (
                           <button
                             onClick={resetFormData}
-                            className="text-sm font-semibold cursor-pointer px-6 py-1 scr900:px-9 scr900:py-3 border-2 border-[#06A9EF] rounded-full"
+                            className="text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                           >
                             Reset
                           </button>
@@ -1158,23 +1174,24 @@ function CreateNewJob({ setToggle }) {
 
                         <button
                           onClick={toggleModal}
-                          className="text-sm font-semibold cursor-pointer  px-6 py-1 scr900:px-9 scr900:py-3 border-2 border-[#06A9EF] rounded-full  "
+                          className="text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Preview
                         </button>
                       </div>
-                      <div className="flex sm:justify-end  justify-start gap-2 scr900:gap-4">
+
+                      <div className="flex sm:justify-end justify-start gap-2 sm:gap-4">
                         <button
                           onClick={handleSubmit}
-                          className="text-sm font-semibold  text-white px-6 py-1 scr900:px-9 scr900:py-3 bg-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:border-[#06A9EF] hover:text-black cursor-pointer transition duration-300"
+                          className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:border-[#06A9EF] hover:text-black cursor-pointer transition duration-300"
                         >
                           Post Job
                         </button>
-                        <button className="text-sm font-semibold cursor-pointer  px-6 py-1 scr900:px-9 scr900:py-3 border-2 border-[#06A9EF] rounded-full  ">
+                        <button className="text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
                           Create Basic Profile Form
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
