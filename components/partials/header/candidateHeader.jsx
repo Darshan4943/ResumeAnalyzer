@@ -323,11 +323,11 @@ function CandidateHeader() {
           className="flex items-center gap-[8px] cursor-pointer"
         >
           <div className=" h-[36px] w-[36px]">
-            {profileData?.profilePicture.img ? (
+            {profileData?.profilePicture?.img ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
                 src={
-                  profileData?.profilePicture.img ||
+                  profileData?.profilePicture?.img ||
                   "/images/profile/profileNew.png"
                 }
               />

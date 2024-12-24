@@ -89,7 +89,7 @@ const ProfileHeader = ({ userData }) => {
                 </div>
                 <div class="flex justify-between w-full heroBlock">
                   <div class="flex flex-col  gap-[10px] flex-grow w-0">
-                    {userData?.basics?.address && (
+                    {userData?.basics?.currentLocation && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -97,11 +97,11 @@ const ProfileHeader = ({ userData }) => {
                           alt=""
                         />
                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                          {userData?.basics?.address}
+                          {userData?.basics?.currentLocation}
                         </p>
                       </div>
                     )}
-                    {/* {userData?.workExperiance?.length > 0 && (
+                    {userData?.totalExperience && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -109,10 +109,10 @@ const ProfileHeader = ({ userData }) => {
                           alt=""
                         />
                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                          4 Years
+                          {userData?.totalExperience?.years} Years
                         </p>
                       </div>
-                    )} */}
+                    )}
                     {userData?.basics?.mobileNo && (
                       <div class="flex items-center gap-[5px]">
                         <img
@@ -126,7 +126,7 @@ const ProfileHeader = ({ userData }) => {
                       </div>
                     )}
                   </div>
-                  <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
+                  <div class="flex px-[16px] py-[0px] flex-col justify-between items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
                     {userData?.education?.length >0 && (
                       <div class="flex items-center gap-[5px]">
                         <img

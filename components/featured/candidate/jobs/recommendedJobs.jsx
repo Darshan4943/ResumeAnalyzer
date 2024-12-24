@@ -1,6 +1,10 @@
 import React from 'react'
+import NormalJobCard from './NormalJobCard'
+import JobsForYou from './JobsForYou'
+import { useRouter } from 'next/router';
 
 function RecommendedJobs() {
+    const router = useRouter();
     return (
         <div className='flex flex-col p-6 bg-[#FFFFFF] rounded-[16px] gap-5'>
             <div className='flex gap-2 justify-between items-center'>
@@ -13,12 +17,18 @@ function RecommendedJobs() {
                     </p>
 
                 </div>
-                <div className='text-[#06A9EF] text-[14px] font-semibold'>
+                <div
+                    onClick={() => {
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+
+                    }}
+                    className='text-[#06A9EF] text-[14px] font-semibold'>
                     View All
                 </div>
 
+
             </div>
-            
+            <JobsForYou />
 
         </div>
     )

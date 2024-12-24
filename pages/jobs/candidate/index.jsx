@@ -16,8 +16,10 @@ function Index() {
     const [toggleHeadings, setToggleHeadings] = useState(0);
 
     const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { profileData } = useSelector((state) => state.profile.profileData);
     const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
     const [userSkills, setUserSkills] = useState();
+
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const dispatch = useDispatch();
 
@@ -46,7 +48,9 @@ function Index() {
     const [hiddenFilters, setHiddenFilters] = useState({});
     const taskRef = useRef(null);
     const [experience, setExperience] = useState("");
-    const [isFilterUsed,setIsFilterUsed] = useState(false)
+    const [isFilterUsed, setIsFilterUsed] = useState(false)
+
+
 
     useEffect(() => {
         if (jobTit) {
@@ -59,7 +63,14 @@ function Index() {
             setExperience(exp)
         }
 
+
     }, [loc, jobTit, search]);
+
+    useEffect(() => {
+        if (profileData.skills) {
+            setUserSkills(profileData.skills.map((item)=>item.value))
+        }
+    }, [profileData])
 
     const toggleFilterVisibility = (filterId) => {
         setHiddenFilters((prev) => ({
@@ -423,6 +434,7 @@ function Index() {
                 </AnimatePresence>
                 <AllJobCard
                     setMiniloading={setMiniloading}
+                    getAllData={getAllData}
                     miniLoading={miniLoading}
                     loading={loading}
                     setLoading={setLoading}

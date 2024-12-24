@@ -5,8 +5,11 @@ import { jwtDecode } from 'jwt-decode';
 
 export const fetchProfileData = createAsyncThunk('profile/fetchProfileData', async (userId) => {
     const response = await axios.get(`http://localhost:2000/api/candidate/${userId}`);
+ 
     const profileData = jwtDecode(response.data.data);
-    return profileData._doc;
+    const { totalExperience, _doc } = profileData;
+
+    return { ..._doc, totalExperience };
 });
 
 
