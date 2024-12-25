@@ -58,7 +58,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
   return (
     <>
       <div
-        className="flex flex-col py-4 gap-2 rounded-lg bg-white"
+        className="flex flex-col p-4 gap-2 rounded-2xl bg-white"
         // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         style={{
           opacity: isChecked ? 1 : 0.5,

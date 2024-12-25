@@ -644,16 +644,14 @@ const ResumePreview = ({
       className="ml:w-[100%] w-[100%] "
       style={{
         position: "relative",
-        overflowY: "auto",
+        // overflowY: "auto",
         maxHeight: "88vh",
       }}
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
-        className="flex  h-fit flex-col w-full  sm:px-4 px-2 gap-[14px] rounded-lg bg-white shadow-md"
-        style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-        }}
+        className="flex  h-fit flex-col w-full  sm:px-4 p-3 gap-[14px]  "
+        
       >
         <div className="" ref={resumeRef}>
           <div className="flex justify-between  scr1024:gap-4 gap-2 ">
@@ -723,7 +721,7 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full ms:flex items-center justify-center  bg-[#525659] py-[24px] rounded-[8px] min-h-[700px] relative hidden "
+            className=" w-full ms:flex items-center justify-center  bg-[#525659] py-[16px] rounded-[8px] min-h-[700px] relative hidden "
             style={{
               transformOrigin: "top left",
             }}
@@ -734,12 +732,12 @@ const ResumePreview = ({
               </div>
             ) : ( */}
 
-            <PDFViewer width="90%" height="900px" showToolbar={false}>
+            <PDFViewer width="98%" height="836px" showToolbar={false}>
               <MyComponent />
             </PDFViewer>
 
             {/* )}  */}
-            {resumeLoading && (
+            {/* {resumeLoading && (
               <div
                 className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
                 style={{
@@ -750,7 +748,7 @@ const ResumePreview = ({
                   <MiniLoader />
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         )}
 

@@ -229,7 +229,8 @@ function Index() {
                     jobTitle: jobTitle.trim() || "",
                     country: location ? "" : country,
                     location: location.trim(),
-                    experience: experience
+                    experience: experience ? experience : profileData?.totalExperience?.years,
+                    isExperinceNo:experience? false:true
                 },
                 {
                     params: { page, limit },

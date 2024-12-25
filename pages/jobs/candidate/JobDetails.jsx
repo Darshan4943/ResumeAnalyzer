@@ -7,6 +7,7 @@ import MiniLoader from '../../../components/common/miniLoader';
 import { useSelector } from 'react-redux';
 import JobsForYou from '../../../components/featured/candidate/jobs/JobsForYou';
 import RelevantJobs from '../../../components/featured/candidate/jobs/RelevantJobs';
+import SimilarJobs from '../../../components/featured/candidate/jobs/SimilarJobs';
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
@@ -14,9 +15,10 @@ function JobDetails() {
   const [limitPopup, setLimitPopup] = useState(false);
   const { id } = router.query;
   const [loading, setLoading] = useState(true);
-  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [save, setSaved] = useState(false)
-  console.log(jobData)
+ 
 
   const getData = () => {
     axios
@@ -61,18 +63,11 @@ function JobDetails() {
             selectedJob={jobData[0]}
             setLimitPopup={setLimitPopup}
           />
+          <SimilarJobs/>
         </div>
-        <div className='w-[400px]  hidden ml:flex flex-col px-2 pt-3 bg-[#FFFFFF] rounded-[16px] gap-1'>
+        <div className='w-[400px]  hidden ml:flex flex-col px-2 pt-3 bg-[#FFFFFF] rounded-[16px] gap-1 h-fit'>
          
-            <div className='flex gap-2  items-center'>
-
-              <p className='text-[18px] font-semibold px-4'>
-                Relevant Job Opportunities
-              </p>
-
-            </div>
-            <JobsForYou isRelevant={true}/>
-
+           <RelevantJobs/>
        
         </div>
 

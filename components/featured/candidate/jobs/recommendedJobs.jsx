@@ -19,10 +19,10 @@ function RecommendedJobs() {
                 </div>
                 <div
                     onClick={() => {
-                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+                        router.push(`/jobs/candidate?search=${true}`);
 
                     }}
-                    className='text-[#06A9EF] text-[14px] font-semibold'>
+                    className='text-[#06A9EF] text-[14px] font-semibold cursor-pointer'>
                     View All
                 </div>
 

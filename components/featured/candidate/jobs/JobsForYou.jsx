@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import NormalJobCard from './NormalJobCard';
 
-function JobsForYou({isRelevant}) {
+function JobsForYou({ isRelevant,isSimilar }) {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(5);
     const [country, setCountry] = useState("");
@@ -41,13 +41,12 @@ function JobsForYou({isRelevant}) {
             const res = await axios.post(
                 "http://localhost:2000/api/job/getAll",
                 {
-                    requiredSkills: userSkills?.map((item) => item),
-
-                    jobTitle: "",
+                    requiredSkills: (isRelevant || isSimilar) ? userSkills?.map((item) => item) : "",
+                    jobTitle:  "",
                     country: country,
                     location: "",
-
-                    experience: ""
+                    experience: (isRelevant || isSimilar) ? "" : profileData?.totalExperience?.years,
+                    isExperinceNo: true
                 },
                 {
                     params: { page, limit },
@@ -68,12 +67,12 @@ function JobsForYou({isRelevant}) {
     }, [country]);
 
     return (
-        <div className={`flex flex-col ${!isRelevant && "gap-5"}`}style={{
+        <div className={`flex flex-col  ${isRelevant ? "" : isSimilar ? "gap-3" :"gap-5" }`} style={{
             ...(isRelevant ? {} : { boxShadow: "0px 0px 14px 0px #00000005" }),
-          }}
-          >
+        }}
+        >
             {jobData?.map((item, index) => (
-                <div key={index} className={`${isRelevant ? (index !== jobData.length - 1 && "border-b"):"border rounded-[12px]"} border-[#D2D2D2]  w-full`}>
+                <div key={index} className={`${isRelevant ? (index !== jobData.length - 1 && "border-b") : "border rounded-[12px]"} border-[#D2D2D2]  w-full`}>
                     <NormalJobCard item={item} />
                 </div>
             ))}

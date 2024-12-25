@@ -1,127 +1,887 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { ClosedIcon, ClosedIcon1, LeftArow } from "../../utils/svg";
+import ResumeForm from "../../components/featured/candidate/createResume/resume_form";
+import ResumePreview from "../../components/featured/candidate/createResume/resume_preview";
+import { useSelector } from "react-redux";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import ALink from "../../components/alink";
-const ArrowLeft = ({ index }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="25"
-    height="24"
-    viewBox="0 0 25 24"
-    fill="none"
-  >
-    <g mask="url(#mask0_3991_32467)">
-      <path
-        d="M8.525 22L6.75 20.225L14.975 12L6.75 3.775L8.525 2L18.525 12L8.525 22Z"
-        fill="#333333"
-        className={index != 1 && "svg_classs"}
-      />
-    </g>
-  </svg>
-);
+import { camelCase } from "../../utils/middleware";
+import axios from "axios";
 
-function BuildResume() {
+function CreateResume() {
+  const [selectedFont, setSelectedFont] = useState("Roboto");
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedResumeIndex, setSelectedResumeIndex] = useState();
+
+  const [render, setRender] = useState(true);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const taskRef = useRef(null);
   const router = useRouter();
-  const clientId = router.query.clientId;
+  const [editId, setEnditId] = useState();
+  const userData = router.query;
+  // const { clientId, continueEdit } = router.query;
+  const { clientId, continueEdit } = router.query;
+  const currentYear = new Date().getFullYear();
+  const allData = JSON.parse(localStorage.getItem("userData"));
+  const templates = [
+    {
+      title: "Template1",
+      imgUrl: "/images/templates/template1.png",
+      index: 1,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
+    // {
+    //   title: "Template2",
+    //   imgUrl: "/images/templates/template2.png",
+    //   index: 2,
+    //   fontFamily: "Barlow",
+    //   themeColor: "#F7902B",
+    // },
+    {
+      title: "Template3",
+      imgUrl: "/images/templates/template3.png",
+      index: 3,
+      fontFamily: "Inter",
+      themeColor: "#414042",
+    },
+    {
+      title: "Template4",
+      imgUrl: "/images/templates/template4.png",
+      index: 4,
+      fontFamily: "Montserrat",
+      themeColor: "#00AEEF",
+    },
+    // {
+    //   title: "Template5",
+    //   imgUrl: "/images/templates/template5.png",
+    //   index: 5,
+    //   fontFamily: "Kanit",
+    //   themeColor: "#316059",
+    // },
+    // {
+    //   title: "Template6",
+    //   imgUrl: "/images/templates/template6.png",
+    //   index: 6,
+    //   fontFamily: "Lato",
+    //   themeColor: "#FFC20E",
+    // },
+    // {
+    //   title: "Template7",
+    //   imgUrl: "/images/templates/template7.png",
+    //   index: 7,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#0077F9",
+    // },
+    // {
+    //   title: "Template8",
+    //   imgUrl: "/images/templates/template8.png",
+    //   index: 8,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#646464",
+    // },
+    // {
+    //   title: "Template9",
+    //   imgUrl: "/images/templates/template9.png",
+    //   index: 9,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#FFD740",
+    // },
+    // {
+    //   title: "Template10",
+    //   imgUrl: "/images/templates/template10.png",
+    //   index: 10,
+    //   fontFamily: "Inter",
+    //   themeColor: "#F2BE5C",
+    // },
+    {
+      title: "Template11",
+      imgUrl: "/images/templates/template11.png",
+      index: 11,
+      fontFamily: "Montserrat",
+      themeColor: "#E6E7E8",
+    },
+    // {
+    //   title: "Template12",
+    //   imgUrl: "/images/templates/template12.png",
+    //   index: 12,
+    //   fontFamily: "Lato",
+    //   themeColor: "#0C2438",
+    // },
+    {
+      title: "Template13",
+      imgUrl: "/images/templates/template13.png",
+      index: 13,
+      fontFamily: "Poppins",
+      themeColor: "#0E6CC2",
+    },
+    {
+      title: "Template14",
+      imgUrl: "/images/templates/template14.png",
+      index: 14,
+      fontFamily: "Inter",
+      themeColor: "#242424",
+    },
+    // {
+    //   title: "Template15",
+    //   imgUrl: "/images/templates/template15.png",
+    //   index: 15,
+    //   fontFamily: "Inter",
+    //   themeColor: "#716D6D",
+    // },
+    {
+      title: "Template53",
+      imgUrl: "/images/templates/template53.png",
+      index: 53,
+      fontFamily: "Montserrat",
+      themeColor: "#AC5428",
+    },
+    // {
+    //   title: "Template17",
+    //   imgUrl: "/images/templates/template17.png",
+    //   index: 17,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#D1D2D3",
+    // },
+    {
+      title: "Template18",
+      imgUrl: "/images/templates/template54.png",
+      index: 18,
+      fontFamily: "Montserrat",
+      themeColor: "#242424",
+    },
+    {
+      title: "Template19",
+      imgUrl: "/images/templates/template19.png",
+      index: 19,
+      fontFamily: "Inter",
+      themeColor: "#000000",
+    },
+    // {
+    //   title: "Template20",
+    //   imgUrl: "/images/templates/template20.png",
+    //   index: 20,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#303030",
+    // },
+    {
+      title: "Template32",
+      imgUrl: "/images/templates/template32.png",
+      index: 32,
+      fontFamily: "Montserrat",
+      themeColor: "#0072BC",
+    },
+    {
+      title: "Template39",
+      imgUrl: "/images/templates/template39.png",
+      index: 39,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
+    {
+      title: "Template48",
+      imgUrl: "/images/templates/template48.png",
+      index: 48,
+      fontFamily: "Montserrat",
+      themeColor: "#F7941D",
+    },
+    {
+      title: "Template44",
+      imgUrl: "/images/templates/template44.png",
+      index: 44,
+      fontFamily: "Inter",
+      themeColor: "#C7EAFB",
+    },
+
+    {
+      title: "Template47",
+      imgUrl: "/images/templates/template47.png",
+      index: 47,
+      fontFamily: "Poppins",
+      themeColor: "#27AAE1",
+    },
+    {
+      title: "Template30",
+      imgUrl: "/images/templates/template30.png",
+      index: 30,
+      fontFamily: "Lato",
+      themeColor: "#0054A6",
+    },
+  ];
+
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      isSetEdit(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+  const [isEdit, isSetEdit] = useState(false);
+  const [dataFromLocal, setDataFromLocal] = useState([]);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("allData"));
+
+    if (storedData) {
+      setDataFromLocal(storedData);
+    }
+  }, []);
+  // const [data, setData] = useState({
+  //   profilePhoto: null,
+  //   designation: dataFromLocal?.designation ? dataFromLocal?.designation : "",
+  //   firstName: dataFromLocal?.firstName ? dataFromLocal?.firstName : "",
+  //   lastName: dataFromLocal?.lastName ? dataFromLocal?.lastName : "",
+  //   mobileNumber: dataFromLocal?.mobileNumber
+  //     ? dataFromLocal?.mobileNumber
+  //     : "",
+  //   email: dataFromLocal?.email ? dataFromLocal?.email : "",
+  //   location: dataFromLocal?.location ? dataFromLocal?.location : "",
+  //   summary: dataFromLocal?.summary ? dataFromLocal?.summary : "",
+  //   showSummary: true,
+  //   education: dataFromLocal?.education ? dataFromLocal?.education : [],
+  //   showEducation: true,
+  //   experience: dataFromLocal?.experience ? dataFromLocal?.experience : [],
+  //   showExperience: true,
+  //   course: dataFromLocal?.course ? dataFromLocal?.course : [],
+  //   showCourse: true,
+  //   skills: dataFromLocal?.skills ? dataFromLocal?.skills : [],
+  //   achievement: dataFromLocal?.achievement ? dataFromLocal?.achievement : [],
+  //   sociaLinks: dataFromLocal?.sociaLinks ? dataFromLocal?.sociaLinks : [],
+  //   hobbies: dataFromLocal?.hobbies ? dataFromLocal?.hobbies : [],
+  //   languages: dataFromLocal?.languages ? dataFromLocal?.languages : [],
+  //   // internship:[],
+  //   // reference:[],
+  //   section: dataFromLocal?.section ? dataFromLocal?.section : [],
+  // });
+
+  // const [data, setData] = useState(() => {
+  //   // Check if data exists in localStorage, if not, initialize it with the default state
+  //   // const storedData = localStorage.getItem("userData");
+  //   // return storedData
+  //   //   ? JSON.parse(storedData)
+  //   //   : {
+  //   //       profilePhoto: null,
+  //   //       designation: "",
+  //   //       firstName: "",
+  //   //       lastName: "",
+  //   //       mobileNumber: "",
+  //   //       email: "",
+  //   //       location: "",
+  //   //       summary: "",
+  //   //       showSummary: true,
+  //   //       education: [],
+  //   //       showEducation: true,
+  //   //       experience: [],
+  //   //       showExperience: true,
+  //   //       course: [],
+  //   //       showCourse: true,
+  //   //       skills: [],
+  //   //       achievement: [],
+  //   //       sociaLinks: [],
+  //   //       hobbies: [],
+  //   //       languages: [],
+  //   //       section: [],
+  //   //     };
+
+  //   if (typeof window !== "undefined") {
+  //     // Check if data exists in localStorage, if not, initialize it with the default state
+  //     // console.log(274, "i am in");
+  //     const storedData = localStorage.getItem("userData");
+  //     return storedData
+  //       ? JSON.parse(storedData)
+  //       : {
+  //           profilePhoto: null,
+  //           designation: "",
+  //           firstName: "",
+  //           lastName: "",
+  //           mobileNumber: "",
+  //           email: "",
+  //           location: "",
+  //           summary: "",
+  //           showSummary: true,
+  //           education: [],
+  //           showEducation: true,
+  //           experience: [],
+  //           showExperience: true,
+  //           course: [],
+  //           showCourse: true,
+  //           skills: [],
+  //           achievement: [],
+  //           sociaLinks: [],
+  //           hobbies: [],
+  //           languages: [],
+  //           section: [],
+  //         };
+  //   } else {
+  //     return {
+  //       profilePhoto: null,
+  //       designation: "",
+  //       firstName: "",
+  //       lastName: "",
+  //       mobileNumber: "",
+  //       email: "",
+  //       location: "",
+  //       summary: "",
+  //       showSummary: true,
+  //       education: [],
+  //       showEducation: true,
+  //       experience: [],
+  //       showExperience: true,
+  //       course: [],
+  //       showCourse: true,
+  //       skills: [],
+  //       achievement: [],
+  //       sociaLinks: [],
+  //       hobbies: [],
+  //       languages: [],
+  //       section: [],
+  //     };
+  //   }
+  // });
+
+  const defaultState = {
+    showSkills: true,
+    showAchievements: true,
+    showProfile: true,
+    showCourses: true,
+    showExtraCariculam: true,
+    showHobbies: true,
+    showInternship: true,
+    showLanguage: true,
+    showLinks: true,
+    showCustomSection: true,
+    showProject: true,
+    showReference: true,
+    profilePhoto: null,
+    designation: "",
+    firstName: "",
+    lastName: "",
+    mobileNumber: "",
+    email: "",
+    location: "",
+    summary: "",
+    showSummary: true,
+    education: [],
+    showEducation: true,
+    experience: [],
+    showExperience: true,
+    course: [],
+    showCourse: true,
+    skills: [],
+    achievements: [],
+    socialLinks: [],
+    hobbies: [],
+    languages: [],
+    section: [],
+    selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
+    reference: [],
+    project: [],
+    internship: [],
+    extraCaricularData: [],
+    createdAt: "",
+    customDataSection: [],
+    clientId: clientId,
+  };
+
+  const [data, setData] = useState(defaultState);
+  const [isClient, setIsClient] = useState(false);
+  const [isDataInLocal, setIsDataInLocal] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setIsDataInLocal(true);
+        const parsedData = JSON.parse(storedData);
+
+        setSelectedResumeIndex(parsedData.selectedResumeIndex);
+        setData(JSON.parse(storedData));
+      }
+      setIsClient(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && clientId == "undefined") {
+      setData({
+        ...data,
+
+        selectedResumeIndex: selectedResumeIndex,
+      });
+    }
+  }, [selectedResumeIndex]);
+
+  const resumeData = {
+    selectedColor: selectedColor,
+    selectedFont: selectedFont,
+    selectedResumeIndex: selectedResumeIndex,
+  };
+
+  useEffect(() => {
+    if (isClient && clientId == "undefined") {
+      localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    }
+  }, [data, isClient, selectedColor, selectedFont, selectedResumeIndex]);
+
+  function extractMobileNumber(inputString) {
+    var regex = /[0-9]{10}/g;
+
+    var matches = inputString.slice(3, 14).match(regex);
+    return matches ? matches[0] : null;
+  }
+  const parsedDataSeter = () => {
+    const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
+
+    if (parsedData) {
+      const {
+        first_name,
+        last_name,
+        email,
+        mobileNo,
+        designation,
+        summary,
+        address,
+        skills,
+      } = parsedData;
+      const languages = parsedData?.languages;
+      const hobbies = parsedData?.hobbies;
+
+      const educations = parsedData.education;
+
+      const experience = parsedData["work experience"]
+        ? parsedData["work experience"]
+        : parsedData.work_experience
+          ? parsedData.work_experience
+          : [];
+      const project = parsedData.projects;
+      const internship = parsedData.internship;
+      const references = parsedData.references;
+      const achievements = parsedData.achievements;
+
+      const socialLinks = parsedData["social links"];
+      const extraCaricularActivity = parsedData["extra-curricular activities"];
+
+      const courses = parsedData["certification/courses"]
+        ? parsedData?.issuing_organization
+        : [];
+      setData({
+        ...data,
+        showSkills: true,
+        showAchievements: true,
+        showCourses: true,
+        showExtraCariculam: true,
+        showHobbies: true,
+        showInternship: true,
+        showLanguage: true,
+        showLinks: true,
+
+        showCustomSection: true,
+        showProject: true,
+        showReference: true,
+        clientId: clientId ? clientId : null,
+        firstName: first_name,
+        lastName: last_name,
+        email: email,
+        dial_code: null,
+        mobileNumber: mobileNo,
+        designation: designation,
+        summery: summary,
+        location: address,
+        skills: skills?.length > 0 ? skills?.map((item) => ({
+          skill: item,
+          rating: [5, 5, 5, 5, 5],
+        })) : [],
+        hobbies: hobbies?.length > 0 ? hobbies?.map((item) => ({
+          title: item,
+        })) : [],
+        languages:
+          languages?.length > 0
+            ? languages?.map((item) => ({
+              languages: item,
+              rating: [3, 3, 3],
+            }))
+            : [],
+        education: educations?.map((item) => ({
+          qualification: item.courseName,
+          specialization: item["Specialization/Board"],
+          instituteName: item["University Name"],
+          type: "full-time",
+          location: "",
+          duration: {
+            start: {
+              year: item["Passing Year"].startDate?.year ? item["Passing Year"].startDate?.year : "Year",
+              month: null,
+            },
+            end: {
+              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year : "Year",
+              month: null,
+            },
+          },
+        })),
+        experience: experience?.map((item) => ({
+          designation: item.title,
+          organization: item.company,
+          description: item.description,
+          currentlyWorking: false,
+          location: item.location,
+          duration: {
+            start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
+              month: null,
+            },
+          },
+        })),
+        project:
+          project?.length > 0
+            ? project?.map((item) => ({
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
+
+              duration: {
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
+                  month: null,
+                },
+              },
+            }))
+            : [],
+        internship:
+          internship?.length > 0
+            ? internship?.map((item) => ({
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
+
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
+                },
+              },
+            }))
+            : [],
+        extraCaricularData:
+          extraCaricularActivity?.length > 0
+            ? extraCaricularActivity?.map((item) => ({
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
+                },
+              },
+            }))
+            : [],
+        course:
+          courses?.length > 0
+            ? courses?.map((item) => ({
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: true,
+
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
+                },
+              },
+            }))
+            : [],
+        socialLinks:
+          socialLinks?.length > 0
+            ? socialLinks?.map((item) => ({
+              platform: item.platform,
+              link: item.link,
+            }))
+            : [],
+        reference:
+          references?.length > 0
+            ? references?.map((item) => ({
+              referantName: item.referantName,
+              designation: item.designation,
+              "Organization Name": item["Organization Name"],
+              email: item.name,
+            }))
+            : [],
+        achievements:
+          achievements?.length > 0
+            ? achievements?.map((item) => ({
+              title: item.title,
+            }))
+            : [],
+      });
+    } else if (clientId) {
+      axios
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
+        .then((res) => {
+          const result = res.data.data;
+          setData({
+            ...data,
+            clientId,
+            designation: result.designation,
+            email: result.email,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            location: result.location,
+            mobileNumber: result.mobileNo,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (userData) {
+      if (userData.isEdit) {
+        const parsedData = JSON.parse(userData.data);
+        setData({ ...data, ...parsedData });
+        setSelectedResumeIndex(parsedData.resumeTemplateIndex);
+        setSelectedColor(parsedData.selectedColor);
+        setSelectedFont(parsedData.selectedFont);
+        setEnditId(parsedData._id);
+      } else if (continueEdit) {
+
+
+        const selectedTemplate = templates.find(template => template.index === allData?.selectedResumeIndex);
+
+        if (selectedTemplate) {
+          setSelectedColor(selectedTemplate.themeColor);
+          setSelectedFont(selectedTemplate.fontFamily);
+        } else {
+          setSelectedColor("");
+        }
+      } else {
+        setTimeout(() => {
+          setSelectedResumeIndex(1);
+          setSelectedColor("#414042");
+        }, 400);
+        if (isDataInLocal === false) {
+          parsedDataSeter();
+        }
+      }
+    }
+  }, [userData]);
+  useEffect(() => {
+    setRender(false);
+    setTimeout(() => setRender(true), 400);
+  }, [data]);
 
   return (
-    <>
-      <div className="flex justify-center  w-full my-[3rem] ">
-        <div className="w-full flex flex-col gap-[36px] pb-[10px]  items-center">
-          <div className="ml:w-[55%] sm:w-[80%] w-[95%] flex flex-col gap-3 ">
-            <div className="text-[#333] text-center scr540:text-[36px] text-[24px] ms:text-[40px] font-[600] leading-tight">
-              How would you like to create your resume?
-            </div>
-            <div className="text-[#646464] text-center text-[12px] scr540:text-[16px] font-[500]">
-              Craft your resume manually or upload for easy restructuring.
-              Choose what works for you to highlight your professional journey
-              effortlessly.
+    <div className="">
+      <div className="  pt-2 customMargins ">
+        <div className="flex flex-col gap-4 py-6 ">
+          <div className="flex ml:hidden flex-row gap-4 ">
+            <button
+              onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+              className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+              style={{}}
+            >
+              <svg
+                className=" cursor-pointer"
+
+                width="24"
+                height="24"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_629_16604)">
+                  <path
+                    d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
+                    fill="white"
+                  />
+                </g>
+              </svg>
+            </button>
+            <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+              Create Resume
             </div>
           </div>
-          <div className="flex justify-center item-center">
-            <div className="flex flex-col gap-[24px] px-[8px]">
-              <ALink
-                href={`/createResume/createResume?clientId=${clientId}`}
-                onClick={() => localStorage.removeItem("parsedResume")}
+          <div className="web">
+            <div className=" h-fit flex gap-6 relative ">
+              <div
+                className=" w-[40%]  "
+                onWheel={(e) => {
+                  e.stopPropagation();
+                }}
               >
-                <div className="scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 40 40"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g mask="url(#mask0_181_4664)">
-                          <path
-                            className="svg_classs"
-                            d="M19 29H21V21H29V19H21V11H19V19H11V21H19V29ZM20.0067 38C17.5176 38 15.1774 37.5277 12.9862 36.583C10.795 35.6384 8.88888 34.3564 7.26795 32.737C5.64705 31.1176 4.36383 29.2133 3.4183 27.0241C2.47277 24.8349 2 22.4958 2 20.0067C2 17.5176 2.47232 15.1774 3.41695 12.9862C4.36162 10.795 5.64365 8.88888 7.26305 7.26795C8.88245 5.64705 10.7867 4.36383 12.9759 3.4183C15.1651 2.47277 17.5042 2 19.9933 2C22.4824 2 24.8226 2.47232 27.0138 3.41695C29.205 4.36162 31.1111 5.64365 32.732 7.26305C34.3529 8.88245 35.6362 10.7867 36.5817 12.9759C37.5272 15.1651 38 17.5042 38 19.9933C38 22.4824 37.5277 24.8226 36.583 27.0138C35.6384 29.205 34.3564 31.1111 32.737 32.732C31.1176 34.3529 29.2133 35.6362 27.0241 36.5817C24.8349 37.5272 22.4958 38 20.0067 38ZM20 36C24.4667 36 28.25 34.45 31.35 31.35C34.45 28.25 36 24.4667 36 20C36 15.5333 34.45 11.75 31.35 8.65C28.25 5.55 24.4667 4 20 4C15.5333 4 11.75 5.55 8.65 8.65C5.55 11.75 4 15.5333 4 20C4 24.4667 5.55 28.25 8.65 31.35C11.75 34.45 15.5333 36 20 36Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
+                <ResumeForm
+                  selectedFont={selectedFont}
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  template={templates}
+                  clientId={clientId}
+                />
+              </div>
+              <div className="sticky top-[102px]  h-[50rem] w-[60%] rounded-lg bg-white overflow-y-auto">
+                <ResumePreview
+                  data={data}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  isEdit={userData.isEdit}
+                  id={editId}
+                  render={render}
+                  clientId={clientId}
+                />
+              </div>
+            </div>
+          </div>
 
-                      <div>
-                        <div className="scr540:text-[20px] text-[16px] font-[500] sign_ip_text leading-tight">
-                          Create New Resume
-                        </div>
-                        <div className="scr540:text-[14px] text-[13px] font-[500] text-[#646464] sign_ip_text leading-tight">
-                          Enter your details manually
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
-                </div>
-              </ALink>
-              <ALink
-                href={`/auth/Candidate_register?isResume=true&clientId=${clientId}`}
+          {isEdit && (
+            <AnimatePresence>
+              <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
+              <motion.div
+                onWheel={(e) => e.stopPropagation()}
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5 }}
+                ref={taskRef}
+                className={`mobile flex flex-col gap-4 z-[2000]  sm:p-4 p-2 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
               >
-                <div className="scr540:px-[16px] px-2 py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2  relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 40 40"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g mask="url(#mask0_181_4668)">
-                          <path
-                            d="M19.5556 30.2564H21.3333V21.9111L25.0667 25.6444L26.3248 24.3761L20.4444 18.4957L14.5641 24.3761L15.8325 25.6342L19.5556 21.9111V30.2564ZM10.8718 36C10.0536 36 9.37037 35.7259 8.82222 35.1778C8.27407 34.6296 8 33.9464 8 33.1282V6.87178C8 6.05356 8.27407 5.37037 8.82222 4.82222C9.37037 4.27407 10.0536 4 10.8718 4H24.8889L32.8889 12V33.1282C32.8889 33.9464 32.6148 34.6296 32.0667 35.1778C31.5185 35.7259 30.8353 36 30.0171 36H10.8718ZM24 12.8889V5.77778H10.8718C10.5983 5.77778 10.3476 5.89173 10.1196 6.11965C9.89173 6.34759 9.77778 6.5983 9.77778 6.87178V33.1282C9.77778 33.4017 9.89173 33.6524 10.1196 33.8804C10.3476 34.1083 10.5983 34.2222 10.8718 34.2222H30.0171C30.2906 34.2222 30.5413 34.1083 30.7692 33.8804C30.9972 33.6524 31.1111 33.4017 31.1111 33.1282V12.8889H24Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-
-                      <div>
-                        <div className="scr540:text-[20px] text-[16px] font-[500] leading-tight ">
-                          Already Have a Resume
-                        </div>
-                        <div className="scr540:text-[14px] text-[13px] font-[500] text-[#646464] leading-tight ">
-                          Upload your resume
-                        </div>
-                      </div>
-                    </div>
+                <div className="flex justify-between  text-[18px] font-semibold">
+                  Edit
+                  <div
+                    className="h-[24px] w-[24px]"
+                    onClick={() => isSetEdit(false)}
+                  >
+                    <ClosedIcon1 />
                   </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft index={1} />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
-              </ALink>
+                <ResumeForm
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  template={templates}
+                  clientId={clientId}
+                />
+              </motion.div>
+            </AnimatePresence>
+          )}
+          <div className="mobile ">
+            <div className="flex flex-col gap-6">
+              <ResumePreview
+                data={data}
+                isSetEdit={isSetEdit}
+                selectedResumeIndex={selectedResumeIndex}
+                setSelectedResumeIndex={setSelectedResumeIndex}
+                setSelectedColor={setSelectedColor}
+                selectedColor={selectedColor}
+                setSelectedFont={setSelectedFont}
+                selectedFont={selectedFont}
+                isEdit={userData.isEdit}
+                id={editId}
+                render={render}
+                clientId={clientId}
+              />
+              <div className="mobile600">
+                <ResumeForm
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  template={templates}
+                  clientId={clientId}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default BuildResume;
+export default CreateResume;
+
+// import React, { useState, useEffect, useMemo } from "react";
+// import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
+// import debounce from "lodash.debounce";
+
+// const MyPDFDocument = ({ data }) => (
+//   <Document height="1124px" dpi={72}>
+//     <Page size="A4" style={{ padding: 24,backgroundColor:'red' }} pageMode={"fullScreen"} wrap={true}>
+// <Text>{data}</Text>
+//     </Page>
+//   </Document>
+// );
+
+// const MemoizedPDFDocument = React.memo(MyPDFDocument);
+
+// const CreateResume = () => {
+//   const [state1, setState1] = useState("");
+//   const [state2, setState2] = useState("");
+//   const [data, setData] = useState("");
+
+//   const debouncedSetData = useMemo(
+//     () => debounce(setData, 300),
+//     []
+//   );
+
+//   useEffect(() => {
+//     const combinedData = `${state1} ${state2}`;
+//     debouncedSetData(combinedData);
+//   }, [state1, state2, debouncedSetData]);
+
+//   return (
+//     <div>
+//       <input
+//         value={state1}
+//         onChange={(e) => setState1(e.target.value)}
+//         placeholder="State 1"
+//       />
+//       <input
+//         value={state2}
+//         onChange={(e) => setState2(e.target.value)}
+//         placeholder="State 2"
+//       />
+//       <PDFDownloadLink
+//         document={<MemoizedPDFDocument data={data} />}
+//         fileName="my_document.pdf"
+//       >
+//         {({ loading }) => (loading ? "Loading document..." : "Download PDF")}
+//       </PDFDownloadLink>
+//       <MemoizedPDFDocument data={data} />
+//     </div>
+//   );
+// };
+
+// export default CreateResume;

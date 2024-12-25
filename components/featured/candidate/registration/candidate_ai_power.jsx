@@ -57,7 +57,8 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const [resumeErrorPopup, setResumeErrorPopup] = useState(false);
   const [count, setCount] = useState(0);
@@ -227,13 +228,13 @@ const CandidateAiPower = ({
                     setLoading(false);
                     setfile(file);
 
-                    router.push(`/home/createResume?clientId=${clientId}`);
+                    router.push(`/createResume?clientId=${clientId}`);
                   } else {
                     localStorage.setItem("uploadCount", 0);
                     setLoading(false);
                     setfile(file);
 
-                    router.push(`/home/createResume?clientId=${clientId}`);
+                    router.push(`/createResume?clientId=${clientId}`);
                   }
                 })
                 .catch((err) => {
@@ -241,7 +242,7 @@ const CandidateAiPower = ({
                   setLoading(false);
                   setfile(file);
 
-                  router.push(`/home/createResume?clientId=${clientId}`);
+                  router.push(`/createResume?clientId=${clientId}`);
                 });
             } else {
               setCount(count + 1);

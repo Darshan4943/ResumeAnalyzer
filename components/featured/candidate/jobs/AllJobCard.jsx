@@ -27,7 +27,7 @@ function AllJobCard({
   miniLoading,
 
 }) {
-console.log(totalCount)
+
   const [selectedJob, setSelectedJob] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
