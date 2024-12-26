@@ -634,7 +634,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
               transform: `scale(${zoomLevel})`,
               transformOrigin: "top center",
               display: "inline-block",
+              
             }}
+           
           >
             <div style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
               {selectCoverTemplate(selectedCoverIndex)}

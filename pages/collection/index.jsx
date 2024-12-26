@@ -26,7 +26,8 @@ function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
   const dispatch = useDispatch();
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [rename, setRename] = useState(null);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
@@ -53,7 +54,7 @@ function Collection() {
   const [refresh, setRefresh] = useState(true)
   const [collectionCount, setCollectionCount] = useState(0)
 
-  const getLimits=()=>{
+  const getLimits = () => {
     const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
     const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
     const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
@@ -559,7 +560,7 @@ function Collection() {
       const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
 
       if (response.data.success) {
-       
+
         setUploadCount(0);
         dispatch(reCallUserData());
       } else {
@@ -918,7 +919,7 @@ function Collection() {
                         getUnSyncFiles()
                       }, 10000);
                       updateCollectionLimit()
-                      
+
                     }}
                   >
                     Close

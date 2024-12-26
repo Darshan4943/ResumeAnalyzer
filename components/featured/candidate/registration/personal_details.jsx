@@ -23,12 +23,13 @@ const PersonalDetails = ({
   error,
   setError,
   isResume,
+  selectedItem, setSelectedItem
 }) => {
   const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [formError, setFormError] = useState({});
-
+console.log(selectedItem)
   function togglePasswordVisibility(e) {
     e.preventDefault();
     setIsPasswordVisible((prevState) => !prevState);
@@ -139,7 +140,7 @@ const PersonalDetails = ({
   };
 
   const [dropdown, setDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState();
+ 
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
   const handleSearch = (e) => {

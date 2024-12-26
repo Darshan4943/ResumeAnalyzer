@@ -218,7 +218,7 @@ function Services() {
         handleNavigation("/myClients");
         break;
       case "My Resumes":
-        handleNavigation("/home/MyCollection");
+        handleNavigation("/candidate/MyCollection");
         break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
@@ -231,7 +231,7 @@ function Services() {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+          userDataGlobal.role === "user" ? "/candidate/MyCollection" : "/collection"
         );
         break;
       case "Skill Assessments & Certification":

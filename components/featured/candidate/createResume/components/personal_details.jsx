@@ -36,7 +36,7 @@ const PersonalDetails = ({
 
   useEffect(() => {
     if (profileData?.basics) {
-      console.log("hii")
+     
       const { firstName, lastName, mobileNo, email } = profileData?.basics;
 
       setProfileDataa((prevState) => ({
@@ -49,7 +49,7 @@ const PersonalDetails = ({
     }
   }, [profileData]);
  
- console.log(555,profileData?.basics)
+
   const [formErrors, setFormErrors] = useState({
     firstName: false,
     lastName: false,

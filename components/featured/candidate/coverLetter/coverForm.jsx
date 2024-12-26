@@ -250,7 +250,7 @@ function CoverForm({
 
   return (
     <div
-      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white "
+      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white p-4"
       style={{ scrollbarWidth: "none" }}
     >
       <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2  ">
@@ -394,7 +394,7 @@ function CoverForm({
         </div>
       )}
       {isShow === false && (
-        <div className="flex flex-col gap-[16px] sticky md:top-[0px]  z-[10] bg-white pt-5 pb-4">
+        <div className="flex flex-col gap-[16px] sticky md:top-[-40px]  z-[10] bg-white pt-5 pb-4">
           {/** <ThemeForm
             selectedCoverIndex={selectedCoverIndex}
             selectedColor={selectedColor}
@@ -543,7 +543,7 @@ function CoverForm({
           </div>
         )}
       </div>
-      <div className=" p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] sticky bottom-[0px]  bg-white">
+      <div className=" p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] sticky bottom-[-16px]  bg-white">
         {isShow === false && (
           <div className="flex justify-end ">
             {isFormat === "standard" && (
