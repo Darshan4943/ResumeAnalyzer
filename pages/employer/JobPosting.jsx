@@ -365,7 +365,7 @@ function JobPosting() {
             </div>
           </div>
 
-          <div className="mobile relative flex flex-col gap-3 overflow-y-scroll ">
+          <div className="mobile ml:hidden relative flex flex-col gap-3 overflow-y-scroll ">
             <div className="sticky top-0">
               <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                 <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
