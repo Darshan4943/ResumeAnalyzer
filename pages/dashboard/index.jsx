@@ -45,7 +45,7 @@ import Template30 from "../../components/featured/resumeTemplates/Template30";
 import Template53 from "../../components/featured/resumeTemplates/Template53";
 import MiniLoader from "../../components/common/miniLoader";
 function Dashboard() {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const { signIn } = router.query;
   const [successful, setIsSuccessful] = useState(false);

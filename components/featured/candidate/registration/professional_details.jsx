@@ -54,8 +54,8 @@ const ProfessionalDetails = ({
     setData({ ...data, jobDuration: duration.duration });
 
     router.push({
-      pathname: "/home/createResume",
-      query: { ...data, keySkills: JSON.stringify(data.keySkills),jobDuration:  JSON.stringify(duration.duration),educationDuration: JSON.stringify(data.educationDuration)},
+      pathname: "/createResume",
+      query: { ...data, keySkills: JSON.stringify(data.keySkills), jobDuration: JSON.stringify(duration.duration), educationDuration: JSON.stringify(data.educationDuration) },
     });
   };
   const validateInput = (fieldName, value) => {
@@ -131,10 +131,9 @@ const ProfessionalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${
-                            data.employmentStatus == "employed" &&
+                          className={`gen_button ${data.employmentStatus == "employed" &&
                             "gen_button_active"
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, employmentStatus: "employed" });
@@ -143,10 +142,9 @@ const ProfessionalDetails = ({
                           Employed
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.employmentStatus == "unemployed" &&
+                          className={`gen_button ${data.employmentStatus == "unemployed" &&
                             "gen_button_active"
-                          }`}
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({
@@ -163,9 +161,8 @@ const ProfessionalDetails = ({
                 )}
 
                 <div
-                  className={`personal_single_input  ${
-                    data.workStatus == "Fresher" ? "w-full" : "w-[50%]"
-                  }`}
+                  className={`personal_single_input  ${data.workStatus == "Fresher" ? "w-full" : "w-[50%]"
+                    }`}
                 >
                   <div className="personal_single_input w-[100%]">
                     <div className="personal_name w-[100%]">
@@ -178,7 +175,7 @@ const ProfessionalDetails = ({
                       <input
                         type="text"
                         name=""
-                        id="single_input"
+                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                         placeholder="Enter Company Name"
                         value={data.companyName}
                         onChange={(e) =>
@@ -210,7 +207,7 @@ const ProfessionalDetails = ({
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                      className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder={
                         data.workStatus == "Fresher"
                           ? "Enter Role"
@@ -242,7 +239,7 @@ const ProfessionalDetails = ({
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                      className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder="Enter job location"
                       value={data.jobLocation}
                       onChange={(e) =>
@@ -260,7 +257,7 @@ const ProfessionalDetails = ({
               <div className="personal_single_input w-[100%]">
                 <div className="personal_name w-[100%]">
                   <p className="form_text_heading">
-                    Duration{" "}
+                    Date of Joining{" "}
                     {data.workStatus != "Fresher" && (
                       <span className="star">*</span>
                     )}
@@ -269,6 +266,7 @@ const ProfessionalDetails = ({
                     idPrefix="education"
                     data={duration}
                     dataSeter={setDuration}
+                    isRow={true}
                   />
                 </div>
               </div>
@@ -276,7 +274,7 @@ const ProfessionalDetails = ({
                 onWheel={(e) => e.stopPropagation()}
                 className="flex gap-6 w-[100%] ml:flex-row flex-col"
               >
-                <div className="personal_single_input w-[100%]">
+                <div className="personal_single_input w-[100%] gap-2">
                   <p className="form_text_heading w-[100%]">Key skills</p>
                   <ReactSelect
                     options={skills}
@@ -320,21 +318,19 @@ const ProfessionalDetails = ({
                 </div>
               )}
 
-              <div className="bottom_buttons">
+              <div className="bottom_buttons pt-4 flex justify-between w-full">
                 <button
-                  className="buttons"
-                  id="border_button"
+                  className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
                   onClick={() => {
                     setTabIndex(3);
 
                     window.scroll(0, 0);
                   }}
                 >
-                  Go Back
+                  Back
                 </button>
                 <button
-                  className="buttons bg-[#06A9EF] text-white"
-                  id="border_button"
+                  className=" font-[600] bg-[#06A9EF] text-white px-9 py-[11.25px] rounded-[30px] text-[14px] leading-tight"
                   onClick={handleClick}
                 >
                   {loading && <MiniLoader />}

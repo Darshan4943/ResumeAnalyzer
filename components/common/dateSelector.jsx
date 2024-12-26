@@ -92,7 +92,7 @@ const DateSelector = ({
   // }, [fromCreate]);
 
   return (
-    <div className="flex gap-[14px] flex-wrap relative ">
+    <div className="flex gap-[14px] flex-wrap relative w-full ">
       <div className={`flex gap-[14px] ${isRow ? "flex-col scr700:flex-row" : "flex-col"} w-full `}>
         <div
           className="flex flex-col gap-2 scr700:w-[50%] w-full "

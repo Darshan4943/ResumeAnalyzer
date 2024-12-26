@@ -11,7 +11,7 @@ function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log(isLogin)
+ 
   // const [isLogin, setIsLogin] = useState(null);
   const [isSignIn, setIsSignIn] = useState(false);
   const [isServices, setServices] = useState(false);

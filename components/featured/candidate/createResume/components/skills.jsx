@@ -14,7 +14,7 @@
 //   const [skillerror, setSkillError] = useState("");
 //   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
 //   // console.log(isClearable)
-// const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+//  const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 //   const [saveDisabled, setSaveDisabled] = useState(false);
 //   const [skillList, setSkillList] = useState([]);
 //   const initialRatings = Array(5).fill(5);
@@ -197,7 +197,8 @@ const Skills = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [skillerror, setSkillError] = useState("");
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [saveDisabled, setSaveDisabled] = useState(true);
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
@@ -327,7 +328,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
 
   return (
     <div
-      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col p-4 gap-2 rounded-2xl bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,

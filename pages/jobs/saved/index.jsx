@@ -10,7 +10,7 @@ import { PencilLineIcon } from "lucide-react";
 
 const Saved = () => {
   const router = useRouter();
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const isUser = userDataGlobal?.role == "user";
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);

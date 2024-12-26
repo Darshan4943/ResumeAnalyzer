@@ -11,7 +11,7 @@ import { fetchUserData } from "../../../Redux/slices/userSlice";
 const WorkExperiance = ({ userData }) => {
   const dispatch = useDispatch();
  
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
  
 

@@ -10,7 +10,7 @@ import AppliedJobCard from "../../../components/featured/candidate/jobs/AppliedJ
 function AppliedJobs({ setLimitPopup, }) {
   const [selectedJob, setSelectedJob] = useState();
   const [loading, setLoading] = useState(true);
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [page, setPage] = useState(1);
   const [appliedJobs, setAppliedJobs] = useState()
   const [isDescription, setIsDescription] = useState(false);

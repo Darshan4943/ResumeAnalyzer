@@ -5,13 +5,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import EducationDetails from "../../components/featured/candidate/registration/education_details";
 import ProfessionalDetails from "../../components/featured/candidate/registration/professional_details";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import { SkillList } from "../../utils/data";
 import { camelCase } from "../../utils/middleware";
 import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
 import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
 import Stepper from "../../components/featured/candidate/registration/stepper";
-function Candidate_register() {
+function CandidateResumeDetails() {
   const router = useRouter();
   const clientId = router.query.clientId;
   const [tabindex, setTabIndex] = useState(2);
@@ -59,9 +59,9 @@ function Candidate_register() {
 
   return (
     <>
-      <div className=" relative !important">
-        <div className="register_head sticky mt-[30px] ml:top-[55px] top-[3.5rem] w-[100%] z-50 pb-4 bg-white">
-          <div className="register_cadidate py-3 px-2 overflow-hidden">
+      <div className=" relative !important ">
+        <div className="register_head  w-[100%] z-50   gap-12">
+          <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px]">
             <div className="register_text_parent">
               <div className="register_heding text-center">
                 <p className="ml:text-[30px] text-[24px] font-semibold text-white">
@@ -118,4 +118,4 @@ function Candidate_register() {
   );
 }
 
-export default Candidate_register;
+export default CandidateResumeDetails;

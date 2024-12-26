@@ -11,7 +11,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [circumference, setCircumference] = useState(2 * Math.PI * 70);
   // const circumference = 2 * Math.PI * 70;
   const [dashOffset, setDashOffset] = useState(2 * Math.PI * 70);

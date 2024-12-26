@@ -11,7 +11,7 @@ import { currenciesWithIcons, currencyMap, plans, telCode } from "../../../utils
 import axios from "axios";
 function SubscriptionPlans({ fromMain }) {
   const router = useRouter();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   // const showPlan = useSelector((state) => state.showPlan.show);
 
   const [subPlans, setPlans] = useState([]);

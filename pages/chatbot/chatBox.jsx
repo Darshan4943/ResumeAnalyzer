@@ -99,7 +99,7 @@ const ChatBox = ({
   isNew,
   once, setOnce
 }) => {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [existingChat, setExistingChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
