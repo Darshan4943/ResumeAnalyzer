@@ -97,7 +97,7 @@ const PersonalDetails = ({
   };
 
   const handleInputChange = (fieldName, value) => {
-   
+
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
@@ -209,7 +209,7 @@ const PersonalDetails = ({
                         <input
                           type="text"
                           name=""
-                          id="first_name"
+                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                           placeholder="Enter first name"
                           value={data.firstName}
                           onChange={(e) =>
@@ -230,7 +230,7 @@ const PersonalDetails = ({
                         <input
                           type="text"
                           name=""
-                          id="first_name"
+                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                           placeholder="Enter Last name"
                           value={data.lastName}
                           onChange={(e) =>
@@ -245,14 +245,14 @@ const PersonalDetails = ({
                       </div>
                     </div>
 
-                    <div className="personal_single_input">
+                    <div className="personal_single_input gap-2">
                       <p className="form_text_heading">
                         Email <span className="star">*</span>
                       </p>
                       <input
                         type="email"
                         name=""
-                        id="single_input"
+                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                         placeholder="Enter Email"
                         value={data.email}
                         onChange={(e) =>
@@ -272,15 +272,13 @@ const PersonalDetails = ({
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
-                        id="single_input"
+                        className={`flex w-[100%] px-2 text-[14px] font-normal  rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
+
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div
                             className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -338,11 +336,10 @@ const PersonalDetails = ({
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
+                          placeholder={`${isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                          }`}
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -366,7 +363,7 @@ const PersonalDetails = ({
                         <input
                           type="text"
                           name=""
-                          id="single_input"
+                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                           placeholder="Enter Your Location"
                           value={data.currentLocation}
                           onChange={(e) =>
@@ -379,7 +376,7 @@ const PersonalDetails = ({
                           </p>
                         )}
                         <img
-                          className="icon"
+                          className="icon max-h-[20px] max-w-[20px]"
                           src="/images/auth/candidate/location_on.png"
                           alt=""
                         />
@@ -394,9 +391,8 @@ const PersonalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${
-                            data.gender == "male" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "male" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "male" });
@@ -405,9 +401,8 @@ const PersonalDetails = ({
                           Male
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "female" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "female" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "female" });
@@ -416,9 +411,8 @@ const PersonalDetails = ({
                           Female
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "other" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "other" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "other" });
@@ -436,10 +430,9 @@ const PersonalDetails = ({
                         </p>
                         <div className="gender_button">
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Experienced" &&
+                            className={`gen_button ${data.workStatus == "Experienced" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -451,10 +444,9 @@ const PersonalDetails = ({
                             Experienced
                           </button>
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Fresher" &&
+                            className={`gen_button ${data.workStatus == "Fresher" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -470,10 +462,10 @@ const PersonalDetails = ({
                     </div>
                   </div>
 
-                  <div className="bottom_buttons font-[500]">
+                  <div className="flex justify-between w-full font-[500] pt-4">
                     <button
-                      className="buttons"
-                      id="border_button"
+                      className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
+                  
                       onClick={() => {
                         if (isResume) {
                           setTabIndex(1);
@@ -483,11 +475,11 @@ const PersonalDetails = ({
                         }
                       }}
                     >
-                      Go Back
+                      Back
                     </button>
                     <button
-                      className="buttons font-[500] bg-[#06A9EF] text-white"
-                      id="border_button"
+                      className=" font-[600] bg-[#06A9EF] text-white px-9 py-[11.25px] rounded-[30px] text-[14px] leading-tight"
+                     
                       onClick={submitHandler}
                     >
                       Continue

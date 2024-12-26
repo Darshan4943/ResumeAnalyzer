@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { textFieldClasses } from "@mui/material";
 
 const AboutMe = ({ data, setData }) => {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [text, setText] = useState("");
   const [attempt, setAttempt] = useState(5);
   const [loading, setLoading] = useState(false);
@@ -91,7 +92,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
   return (
     <>
       <div
-        className="flex flex-col py-4 gap-2 rounded-lg bg-white "
+        className="flex flex-col p-4 gap-2 rounded-2xl bg-white "
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,

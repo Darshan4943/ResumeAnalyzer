@@ -16,7 +16,7 @@ function MyPurchase() {
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const [allPlans, setAllPlans] = useState([])
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [progress, setProgress] = useState(0);

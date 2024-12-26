@@ -16,8 +16,10 @@ function Index() {
     const [toggleHeadings, setToggleHeadings] = useState(0);
 
     const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { profileData } = useSelector((state) => state.profile.profileData);
     const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
     const [userSkills, setUserSkills] = useState();
+
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
     const dispatch = useDispatch();
 
@@ -27,6 +29,7 @@ function Index() {
     const [loadingg, setLoadingg] = useState(true);
     const [openDropdown, setOpenDropdown] = useState(null);
     const [country, setCountry] = useState("");
+
     const [jobTitle, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
     const [filters, setFilters] = useState({});
@@ -45,6 +48,9 @@ function Index() {
     const [hiddenFilters, setHiddenFilters] = useState({});
     const taskRef = useRef(null);
     const [experience, setExperience] = useState("");
+    const [isFilterUsed, setIsFilterUsed] = useState(false)
+
+
 
     useEffect(() => {
         if (jobTit) {
@@ -57,7 +63,14 @@ function Index() {
             setExperience(exp)
         }
 
+
     }, [loc, jobTit, search]);
+
+    useEffect(() => {
+        if (profileData.skills) {
+            setUserSkills(profileData.skills.map((item)=>item.value))
+        }
+    }, [profileData])
 
     const toggleFilterVisibility = (filterId) => {
         setHiddenFilters((prev) => ({
@@ -68,8 +81,12 @@ function Index() {
 
 
     useEffect(() => {
-        setCountry(userDataGlobal?.country);
-
+        if (userDataGlobal?.country) {
+            setCountry(userDataGlobal?.country);
+        }
+        else {
+            setCountry(localStorage.getItem("country", country))
+        }
         setIsCountrySet(true);
 
         axios
@@ -84,6 +101,8 @@ function Index() {
             .catch((err) => console.error(err));
 
     }, []);
+
+
     const handleOutsideClick = (event) => {
         if (taskRef.current && !taskRef.current.contains(event.target)) {
             setMobileFilter(false);
@@ -102,6 +121,7 @@ function Index() {
         setOpenDropdown(openDropdown === id ? null : id);
     };
     const handleCheckboxChange = (e, filterType, value) => {
+        setIsFilterUsed(true)
         if (e === null) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
@@ -209,6 +229,8 @@ function Index() {
                     jobTitle: jobTitle.trim() || "",
                     country: location ? "" : country,
                     location: location.trim(),
+                    experience: experience ? experience : profileData?.totalExperience?.years,
+                    isExperinceNo:experience? false:true
                 },
                 {
                     params: { page, limit },
@@ -238,6 +260,57 @@ function Index() {
         }
     }, [page, limit, country, search, jobtypeData]);
 
+
+    const getFilterData = async () => {
+        setLoading(true)
+        const mappedFilters = {
+            sortBy: filters.SortBy,
+            jobType: filters.JobType,
+            datePosted: filters.DatePosted,
+            industryType: filters.Industry,
+            salaries: filters.Salary,
+            experience: filters.Experience,
+            education: filters.Education,
+            industryType: filters.IndustryType,
+            jobMode: filters.JobMode,
+        };
+
+        try {
+
+            const response = await axios.post(
+                "http://localhost:2000/api/job/getFilterData",
+                {
+                    requiredSkills: userSkills?.map((item) => item),
+                    country,
+                    ...mappedFilters,
+                },
+                {
+                    params: { page, limit },
+                }
+            );
+
+            setJobData(response.data.data)
+            setTotalCount(response.data.totalCount);
+            setTotalpages(response.data.totalPages);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+
+        } catch (error) {
+            console.error("Error fetching filter data", error);
+        }
+    };
+
+    useEffect(() => {
+
+        if (isFilterUsed) {
+            getFilterData();
+        }
+
+    }, [filters]);
+
+
     return (
         <>
             <div className="w-full customMargins pt-6 scr700:hidden ">
@@ -264,11 +337,11 @@ function Index() {
                         </p>
 
                         <button
-                            // onClick={() => {
-                            //   setFilters({});
-                            //   setClear(!clear);
+                            onClick={() => {
+                                setFilters({});
+                                setClear(!clear);
 
-                            // }}
+                            }}
                             className="text-primary font-montserrat text-sm font-medium text-blue"
                         >
                             Reset all
@@ -324,11 +397,11 @@ function Index() {
                                     </p>
 
                                     <button
-                                        // onClick={() => {
-                                        //   setFilters({});
-                                        //   setClear(!clear);
+                                        onClick={() => {
+                                            setFilters({});
+                                            setClear(!clear);
 
-                                        // }}
+                                        }}
                                         className="text-primary font-montserrat text-sm font-medium text-blue"
                                     >
                                         Reset all
@@ -362,6 +435,7 @@ function Index() {
                 </AnimatePresence>
                 <AllJobCard
                     setMiniloading={setMiniloading}
+                    getAllData={getAllData}
                     miniLoading={miniLoading}
                     loading={loading}
                     setLoading={setLoading}
@@ -376,6 +450,7 @@ function Index() {
                     page={page}
                     setPage={setPage}
                     jobData={jobData}
+                    totalCount={totalCount}
                 />
                 <div className=' flex-col gap-6 rounded-[12px] scr900:flex hidden'>
                     <img

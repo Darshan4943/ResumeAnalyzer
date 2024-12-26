@@ -183,7 +183,7 @@ const ResumeList = ({ data, setData }) => {
         </svg>
       </div> */}
       <div
-        className="flex flex-col gap-4 py-4 bg-white rounded-lg"
+        className="flex flex-col gap-4   bg-white rounded-2xl p-4"
         // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",

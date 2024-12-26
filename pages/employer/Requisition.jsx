@@ -286,14 +286,12 @@ function Requisition() {
                                         <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
                                             All Requisition Requests
                                         </p>
-
                                         <button
                                             onClick={toggleContent}
                                             className=" py-[8px] px-[12px] max-w-[210px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
                                         >
                                             + Create New Requistion
                                         </button>
-
                                     </div>
                                     <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
                                         <div onClick={() => setOpenSort(true)} className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]">

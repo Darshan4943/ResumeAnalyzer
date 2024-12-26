@@ -5,22 +5,24 @@ import { useSelector } from "react-redux";
 function Services() {
   const router = useRouter();
   const [candidate, setCandidate] = useState(true);
-  
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isServices, setServices] = useState(true);
   const [isMove, setIsMove] = useState(false);
+  const isLogin = useSelector((state) => state.auth.isLogin);
   useEffect(() => {
-   
-      const imagedownTimer = setTimeout(() => {
-        setIsMove(true);
-      }, 200);
 
-      return () => {
-        clearTimeout(imagedownTimer);
-      };
- 
+    const imagedownTimer = setTimeout(() => {
+      setIsMove(true);
+    }, 200);
+
+    return () => {
+      clearTimeout(imagedownTimer);
+    };
+
   }, []);
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+
   const loginListCandidate = [
     {
       name: "Create New Resume",
@@ -152,13 +154,13 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
   };
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
-    } else if(candidate){
+    } else if (candidate) {
       return loginListCandidate;
-    } else{
+    } else {
       return loginListRecruiter;
     }
   };
@@ -201,7 +203,7 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
       case "Create New Resume":
         handleNavigation(
           userDataGlobal.role === "user"
-            ? "/createResume"
+            ? "/createResume/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
@@ -256,24 +258,26 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     <div className="fixed z-[2000]  top-[61px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${
-            isMove
-              ? "translate-y-0  opacity-100"
-              : "translate-y-[30px] opacity-0 move"
-          }`}
+          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${isMove
+            ? "translate-y-0  opacity-100"
+            : "translate-y-[30px] opacity-0 move"
+            }`}
           style={{ transition: " all .2s linear" }}
         >
-         <div className="flex flex-col gap-4">
-          <button onClick={()=>setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px]">
-            Candicate
+          <div className="flex flex-col gap-4">
+            {(userDataGlobal?.role === "user"  || !isLogin) &&
+              <button onClick={() => setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px]">
+                Candicate
 
-          </button>
-          <button onClick={()=>setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px]">
-            Recruiter
+              </button>
+            }
+            {(userDataGlobal?.role === "recruiter" || !isLogin) &&
+              <button onClick={() => setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px]">
+                Recruiter
 
-          </button>
-
-         </div>
+              </button>
+            }
+          </div>
           <div className="flex flex-col gap-6 w-[800px]  ">
             <div className="header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] ">
               Services
@@ -291,11 +295,10 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] px-4 py-3  ${
-                      visible !== index
-                        ? "border border-[#DEDEDE]"
-                        : "border border-[#FFF]"
-                    } rounded-[8px] cursor-pointer w-[370px] h-[66px] `}
+                    className={`flex items-start gap-[20px] px-4 py-3  ${visible !== index
+                      ? "border border-[#DEDEDE]"
+                      : "border border-[#FFF]"
+                      } rounded-[8px] cursor-pointer w-[370px] h-[66px] `}
                   >
                     <div className="flex items-center gap-3">
                       <img

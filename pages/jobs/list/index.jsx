@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 const Index = () => {
   const router = useRouter();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);

@@ -7,7 +7,7 @@ function Certificate({
   setDownloadCertificate,
   downloadCertificate,
 }) {
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   function formatDate(inputDate) {
     const date = new Date(inputDate);

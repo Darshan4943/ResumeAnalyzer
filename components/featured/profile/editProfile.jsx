@@ -8,7 +8,8 @@ import { telCode } from "../../../utils/data";
 import ReactSelect from "react-select";
 import MiniLoader from "../../common/mini-loader";
 function EditProfile({ setEditProfile }) {
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+ const { userDataGlobal } = useSelector((state) => state.user.userData);
+   const { profileData } = useSelector((state) => state.profile.profileData);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState();

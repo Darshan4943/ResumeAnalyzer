@@ -16,7 +16,8 @@ function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
@@ -303,12 +304,12 @@ const {userDataGlobal,profileData} = useSelector((state) => state.user.userData)
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    } 
+    }
     else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
     }
-     else {
+    else {
       const url = isUpdate
         ? "http://localhost:2000/api/updateUser"
         : "http://localhost:2000/api/skiloteckuser/recruiter";

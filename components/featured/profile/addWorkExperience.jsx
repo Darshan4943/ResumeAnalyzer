@@ -23,7 +23,7 @@ function AddWorkExperience({
   const [experiences, setExperiences] = useState([]);
 
   const [experienceData, setExperienceData] = useState(() => ({
-    isCurrentJob: editExperience ? !!Experience?.isCurrent : false,
+    currentlyWorking: editExperience ? !!Experience?.isCurrent : false,
     jobType: editExperience ? Experience?.jobType || "" : "",
     jobMode: editExperience ? Experience?.jobMode || "" : "",
     designation: editExperience ? Experience?.jobTitle || "" : "",
@@ -58,7 +58,7 @@ function AddWorkExperience({
       const { name, value } = event.target;
       setExperienceData({
         ...experienceData,
-        [name]: name === "isCurrentJob" ? value === "true" : value,
+        [name]: name === "currentlyWorking" ? value === "true" : value,
       });
     }
   };
@@ -71,7 +71,7 @@ function AddWorkExperience({
     setExperiences(updatedExperiences);
 
     const obj = {
-      isCurrent: experienceData.isCurrentJob,
+      isCurrent: experienceData.currentlyWorking,
       jobType: experienceData.jobType,
       jobMode: experienceData.jobMode,
       companyName: experienceData.organisation,
@@ -146,17 +146,17 @@ function AddWorkExperience({
         <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
           <input
             type="radio"
-            name="isCurrentJob"
+            name="currentlyWorking"
             value={true}
-            checked={experienceData.isCurrentJob === true}
+            checked={experienceData.currentlyWorking === true}
             onChange={handleInputChange}
           />
           <label>Yes</label>
           <input
             type="radio"
-            name="isCurrentJob"
+            name="currentlyWorking"
             value={false}
-            checked={experienceData.isCurrentJob === false}
+            checked={experienceData.currentlyWorking === false}
             onChange={handleInputChange}
           />
           <label>No</label>

@@ -18,7 +18,7 @@ function Sign_up({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate, role } = router.query;
 
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
  
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);

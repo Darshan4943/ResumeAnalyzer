@@ -22,7 +22,7 @@ function TransformJob() {
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [count, setCount] = useState(0);
   const [view, setView] = useState(0);
   const [errors, setErrors] = useState("");

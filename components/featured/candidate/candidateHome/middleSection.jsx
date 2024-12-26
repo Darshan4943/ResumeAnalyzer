@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import TopCompanies from './topCompanies';
-import RecommendedJobs from './recommendedJobs';
+import RecommendedJobs from '../jobs/recommendedJobs';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppliedJob, fetchSavedJobIds } from '../../../../Redux/slices/jobSlice';

@@ -14,7 +14,7 @@ import { camelCase } from "../../../../../utils/middleware";
 const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const [skil, setSkil] = useState(userData?.skills);
   const [skills, setSkills] = useState([...SkillList]);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   // console.log(skil);
 

@@ -27,7 +27,7 @@ const JobMatching = () => {
   const [isAnimate, setIsAnimate] = useState(true);
   const router = useRouter();
   const fileRef = useRef(null);
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
   const [text, setText] = useState("");

@@ -27,7 +27,7 @@ function AccountDetails({
 }) {
   
   const router = useRouter();
-const {userDataGlobal,profileData} = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [freePlanSuccess, setFreePlanSuccess] = useState(false);
