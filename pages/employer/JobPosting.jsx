@@ -7,6 +7,7 @@ import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 function JobPosting() {
   const router = useRouter();
   const query = router.query;
+  const [openSort, setOpenSort] = useState(false);
 
   const [toggle, setToggle] = useState(0);
 
@@ -246,7 +247,7 @@ function JobPosting() {
     <div className="">
       {toggle === 0 && (
         <div>
-          <div>
+          <div className="hidden ml:block">
             <div className="flex flex-col gap-[16px]">
               <div className="h-[74px] w-full bg-[#fff] p-[16px] rounded-[6px] flex flex-row items-center justify-between sticky top-0">
                 <p className="  text-[18px] font-[500px]">
@@ -309,9 +310,8 @@ function JobPosting() {
                       .map((req, index) => (
                         <div
                           key={index}
-                          className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
-                            index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                          }  `}
+                          className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                            }  `}
                         >
                           <div className=" w-[14%]">
                             <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -365,7 +365,7 @@ function JobPosting() {
             </div>
           </div>
 
-          <div className="mobile relative overflow-y-scroll ">
+          <div className="mobile ml:hidden relative flex flex-col gap-3 overflow-y-scroll ">
             <div className="sticky top-0">
               <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                 <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
@@ -379,30 +379,8 @@ function JobPosting() {
                   + Create New Job
                 </button>
               </div>
-              <div className="flex bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
-                <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                      stroke="#646464"
-                      stroke-width="2.02783"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <input
-                    className="w-[100%] text-[#646464]"
-                    type="text"
-                    placeholder="search"
-                  />
-                </div>
-                <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
+              <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+                <div onClick={() => setOpenSort(true)} className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -439,8 +417,38 @@ function JobPosting() {
                       </clipPath>
                     </defs>
                   </svg>
-                  <div>Sort</div>
+                  <div>
+                    Sort
+                  </div>
                 </div>
+                {
+                  openSort && (
+                    <div
+                      style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                      className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
+                      {search.map((headingObj, index) => (
+                        <select
+                          className="bg-whites"
+                          onChange={(e) =>
+                            handleHeadingChange(e, headingObj.heading)
+                          }
+                        >
+                          <option value=""> {headingObj.heading}</option>
+                          {headingObj.options.map((option, optIndex) => (
+                            <option key={optIndex} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ))}
+                      <button
+                        onClick={() => setOpenSort(false)}
+                        className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]">
+                        Search
+                      </button>
+                    </div>
+                  )
+                }
               </div>
             </div>
             {requisition
