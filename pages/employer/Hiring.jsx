@@ -219,7 +219,7 @@ function Hiring() {
 
               <div className="flex w-[19.87%] bg-white justify-center  p-2  ">
                 <button className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
-                  Search{" "}
+                  Search{" "} 
                 </button>
               </div>
             </div>

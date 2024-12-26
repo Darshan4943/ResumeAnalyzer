@@ -22,7 +22,7 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
   return (
     <div
       style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-      className={`w-[132px] scr460:w-[192px] h-[200px] scr460:h-[272px] rounded-lg overflow-hidden `}
+      className={`w-[132px] scr460:w-[234px] h-[200px] scr460:h-[330px] rounded-lg overflow-hidden `}
     >
       {loadingg && (
         <div className="skeleton-loader">
@@ -44,7 +44,8 @@ const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
 };
 const Index = () => {
   const router = useRouter();
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -88,7 +89,7 @@ const Index = () => {
   };
 
   const generateToken = async () => {
-    if (!userDataGlobal.firstName) {
+    if (!userDataGlobal?.firstName) {
       setEditProfilePopUp(true);
     } else {
       if (selectedIndexes) {
@@ -108,7 +109,7 @@ const Index = () => {
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `http://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);
@@ -125,11 +126,12 @@ const Index = () => {
   };
   const copyToClipboard = (text) => {
     setCopy(true);
-    toast.success("Link Copied successfully");
+    // toast.success("Link Copied successfully");
     navigator.clipboard
       .writeText(text)
       .then(() => {
         // alert('Link copied to clipboard');
+         toast.success("Link Copied successfully");
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);
@@ -165,7 +167,7 @@ const Index = () => {
           <MiniLoader />
         </div>
       ) : (
-        <div className="customMargins py-6 min-h-[80vh]">
+        <div className="customMargins py-6 ">
           {resumeList.length > 0 ? (
             <div className="flex flex-col gap-4">
               <div className="flex ml:flex-row flex-col justify-between gap-2">
@@ -186,11 +188,11 @@ const Index = () => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                    
+
                         <g mask="url(#mask0_4820_45573)">
                           <path
                             d="M6.37383 12.7512C6.0232 12.7512 5.72305 12.6263 5.47336 12.3766C5.22367 12.127 5.09883 11.8268 5.09883 11.4762V2.97617C5.09883 2.62555 5.22367 2.32539 5.47336 2.0757C5.72305 1.82602 6.0232 1.70117 6.37383 1.70117H13.1738C13.5245 1.70117 13.8246 1.82602 14.0743 2.0757C14.324 2.32539 14.4488 2.62555 14.4488 2.97617V11.4762C14.4488 11.8268 14.324 12.127 14.0743 12.3766C13.8246 12.6263 13.5245 12.7512 13.1738 12.7512H6.37383ZM6.37383 11.4762H13.1738V2.97617H6.37383V11.4762ZM3.82383 15.3012C3.4732 15.3012 3.17305 15.1763 2.92336 14.9266C2.67367 14.677 2.54883 14.3768 2.54883 14.0262V4.88867C2.54883 4.70805 2.60957 4.55664 2.73105 4.43445C2.85253 4.31227 3.00305 4.25117 3.18261 4.25117C3.36217 4.25117 3.51393 4.31227 3.63789 4.43445C3.76185 4.55664 3.82383 4.70805 3.82383 4.88867V14.0262H11.2613C11.442 14.0262 11.5934 14.0869 11.7155 14.2084C11.8377 14.3299 11.8988 14.4804 11.8988 14.66C11.8988 14.8395 11.8377 14.9913 11.7155 15.1152C11.5934 15.2392 11.442 15.3012 11.2613 15.3012H3.82383Z"
-                            fill= "#fff"
+                            fill="#fff"
                           />
                         </g>
                       </svg>
@@ -206,7 +208,7 @@ const Index = () => {
                     </div>
                   </div>
                   <button
-                  style={{backgroundColor: selectedLink ? "#DEDEDE" : '#06A9EF'}}
+                    style={{ backgroundColor: selectedLink ? "#DEDEDE" : '#06A9EF' }}
                     onClick={generateToken}
                     disabled={selectedLink ? true : false}
                     className=" text-[14px] px-4 py-2 text-white rounded-lg cursor-pointer font-medium"
@@ -216,19 +218,18 @@ const Index = () => {
                 </div>
               </div>
 
-              <div style={{ columnGap: "10px" }} className="flex flex-wrap gap-9 p-6 bg-gray-100 rounded-lg">
+              <div style={{ columnGap: "10px" }} className="flex flex-wrap gap-9 p-6  rounded-lg">
                 {resumeList.map((item, index) => (
                   <div
                     key={item._id}
                     onClick={() => toggleSelect(item)}
-                    className="flex flex-col h-[230px] scr460:h-[300px] items-center justify-between group relative cursor-pointer resumes"
+                    className="flex flex-col h-[230px] scr460:h-[360px] items-center justify-between group relative cursor-pointer resumes"
                   >
                     <div
-                      className={`${
-                        item._id === selectedIndexes
+                      className={`${item._id === selectedIndexes
                           ? "border-4 border-blue rounded-[12px] "
-                          : " border-4 border-white"
-                      }  `}
+                          : " border-4 border-[#F3F4F5]"
+                        }  `}
                     >
                       <PdfViewer
                         pdfUrl={item.resumeUrl}
