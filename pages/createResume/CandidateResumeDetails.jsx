@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import EducationDetails from "../../components/featured/candidate/registration/education_details";
 import ProfessionalDetails from "../../components/featured/candidate/registration/professional_details";
 
-import { SkillList } from "../../utils/data";
+import { SkillList, telCode } from "../../utils/data";
 import { camelCase } from "../../utils/middleware";
 import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
 import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
@@ -15,7 +15,7 @@ function CandidateResumeDetails() {
   const router = useRouter();
   const clientId = router.query.clientId;
   const [tabindex, setTabIndex] = useState(2);
-
+  const [selectedItem, setSelectedItem] = useState();
   const { isResume } = router.query;
   useEffect(() => {
     if (isResume) {
@@ -38,13 +38,13 @@ function CandidateResumeDetails() {
     stream: "",
     university: "",
     institute: "",
-    dateOfComplition: "",
+    educationDuration:"",
     workStatus: "Experienced",
     workExperiance: "",
     companyName: "",
     jobTitle: "",
     jobLocation: "",
-    dateOfJoining: "",
+    jobDuration:"",
     keySkills: "",
     currentCTC: "",
     noticePeriod: "15 days or less",
@@ -52,6 +52,21 @@ function CandidateResumeDetails() {
     clientId: clientId,
   });
 
+
+  useEffect(() => {
+    const preResumeData = JSON.parse(localStorage.getItem("preResumeData"));
+    if (preResumeData) {
+      setData((prevData) => ({
+        ...prevData,
+        ...preResumeData,
+      }));
+      const selectedItem = telCode.find((item) => item.dial_code === preResumeData?.dial_code);
+
+      if (selectedItem) {
+        setSelectedItem(selectedItem);
+      }
+    }
+  }, []);
   const [error, setError] = useState({
     firstName: { message: "Please Enter Valid First Name", view: null },
     lastName: null,
@@ -93,6 +108,8 @@ function CandidateResumeDetails() {
           setError={setError}
           error={error}
           isResume={isResume}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
         />
         <EducationDetails
           data={data}
@@ -105,13 +122,14 @@ function CandidateResumeDetails() {
           setData={setData}
           setTabIndex={setTabIndex}
           tabindex={tabindex}
+          clientId={clientId}
           skills={skills.map((item) => ({
             value: item,
             label: camelCase(item),
           }))}
-          // register_cadidate={register_cadidate}
-          // setCertificate={setCertificate}
-          // certificate={certificate}
+        // register_cadidate={register_cadidate}
+        // setCertificate={setCertificate}
+        // certificate={certificate}
         />
       </div>
     </>

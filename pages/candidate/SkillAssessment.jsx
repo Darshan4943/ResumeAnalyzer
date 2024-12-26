@@ -6,37 +6,23 @@ import MiniLoader from "../../components/common/mini-loader";
 import MiniLoader2 from "../../components/common/miniLoader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import {
-
-  Assessmentlogo,
-
-  ClosedIcon30,
-} from "../../utils/svg";
+import { Assessmentlogo, ClosedIcon30 } from "../../utils/svg";
 import CreatableSelect from "react-select/creatable";
-import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
-
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
-import QuestionList from "../../components/featured/home/QuestionList";
-import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
 
 import Certificate from "../../components/featured/home/Certificate";
 import LimitUsedModal from "../../components/models/limitUsedModal";
-import { PDFViewer, pdf } from "@react-pdf/renderer";
-import { TRUE } from "sass";
-import Result from "../../components/featured/home/Result";
 import ResultPdf from "../../components/featured/home/ResultPdf";
 import jsPDF from "jspdf";
-
 import html2canvas from "html2canvas";
 
 function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
   const resumeRef2 = useRef();
-   const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const userDataGlobal = useSelector((state) => state.user.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
-  const [viewAddSkill, setViewAddSkill] = useState(false);
   const router = useRouter();
   const query = router.query;
   const [skipped, setSkipped] = useState([]);
@@ -56,17 +42,12 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
-  // const [isActivePlan, setisActivePlan]=useState(false)
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
-
-  // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [attemptCount, setAttemptCtn] = useState();
-
-
   const [isPlan, setIsplan] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [isNext, setIsNext] = useState(false);
@@ -76,9 +57,9 @@ function SkillAssessment() {
   const [resultType, setResultType] = useState(false);
   const [assesmentType, setAssesmentType] = useState("Normal");
   const [downloadCertificate, setDownloadCertificate] = useState([]);
-  const [viewCertificate, setViewCertificate] = useState()
-  const [viewCertificateData, setViewCertificateData] = useState([])
-  const [viewCertificateLoader, setViewCertificateLoader] = useState(false)
+  const [viewCertificate, setViewCertificate] = useState();
+  const [viewCertificateData, setViewCertificateData] = useState([]);
+  const [viewCertificateLoader, setViewCertificateLoader] = useState(false);
   const firstContainer = useRef(null);
   const secondContainer = useRef(null);
   const thirdContainer = useRef(null);
@@ -89,35 +70,28 @@ function SkillAssessment() {
   const eighthContainer = useRef(null);
   const ninthContainer = useRef(null);
   const tenthContainer = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
   const barWidth = Math.ceil(
     ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
   );
 
-
-
-  const [skippedArray, setSkippedArray] = useState([
-    // { question: 1, isSkiped: true, Answer: "" },
-    // { question: 2, isSkiped: true, Answer: "" },
-    // { question: 3, isSkiped: true, Answer: "" },
-    // { question: 4, isSkiped: true, Answer: "" },
-    // { question: 5, isSkiped: true, Answer: "" },
-    // { question: 6, isSkiped: true, Answer: "" },
-    // { question: 7, isSkiped: true, Answer: "" },
-    // { question: 8, isSkiped: true, Answer: "" },
-    // { question: 9, isSkiped: true, Answer: "" },
-    // { question: 10, isSkiped: true, Answer: "" },
-  ]);
+  const [skippedArray, setSkippedArray] = useState([]);
   const [skillTestCount, setSkillTestCount] = useState(0);
   const [skillCertifiedCount, setSkillCertifiedCount] = useState(0);
   const [skillTestCountLimit, setSkillTestCountLimit] = useState(0);
   const [skillCertifiedCountLimit, setSkillCertifiedCountLimit] = useState(0);
 
-
   const getLimits = () => {
     const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
-    const skillCertifiedCount = JSON.parse(localStorage.getItem("skillCertifiedCount"));
-    const skillTestCountLimit = JSON.parse(localStorage.getItem("skillTestCountLimit"));
-    const skillCertifiedCountLimit = JSON.parse(localStorage.getItem("skillCertifiedCountLimit"));
+    const skillCertifiedCount = JSON.parse(
+      localStorage.getItem("skillCertifiedCount")
+    );
+    const skillTestCountLimit = JSON.parse(
+      localStorage.getItem("skillTestCountLimit")
+    );
+    const skillCertifiedCountLimit = JSON.parse(
+      localStorage.getItem("skillCertifiedCountLimit")
+    );
 
     if (skillTestCount) {
       setSkillTestCount(skillTestCount);
@@ -132,7 +106,6 @@ function SkillAssessment() {
     if (skillCertifiedCountLimit) {
       setSkillCertifiedCountLimit(skillCertifiedCountLimit);
     }
-
   };
 
   useEffect(() => {
@@ -142,7 +115,7 @@ function SkillAssessment() {
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setisLevel(false)
+      setisLevel(false);
     }
   };
   useEffect(() => {
@@ -167,9 +140,6 @@ function SkillAssessment() {
   };
 
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
-
-  // START
-  // START
   const [skills, setSkills] = useState([]);
   const [skillList, setSkillList] = useState([]);
 
@@ -217,39 +187,8 @@ function SkillAssessment() {
     setLevel(event.target.value);
   };
 
-  // const handleInputChange = (selectedOption) => {
-  //   setSelectedSkill(selectedOption.value);
-  //   setInputValue(selectedOption.value);
-  // };
-  // const handleLevelChange = (event) => {
-  //   setLevel(event.target.value);
-  // };
-
   useEffect(() => {
     if (question.length > 0) {
-      // const uniqueQuestionsSet = new Set();
-      // const filteredQuestions = [];
-
-      // question.forEach((data) => {
-      //   if (
-      //     !uniqueQuestionsSet.has(data.question) && assesmentType === "Normal"
-      //       ? filteredQuestions.length < 10
-      //       : filteredQuestions.length < 60
-      //   ) {
-      //     uniqueQuestionsSet.add(data.question);
-      //     filteredQuestions.push(data);
-      //   }
-      // });
-      // setUniqueQuestions(filteredQuestions);
-
-      // while (filteredQuestions.length < 10) {
-      //   toggleContent(); // This function should generate a new unique question
-      // if (!uniqueQuestionsSet.has(newQuestion.question)) {
-      //   uniqueQuestionsSet.add(newQuestion.question);
-      //   filteredQuestions.push(newQuestion);
-      // }
-      // }
-
       if (
         assesmentType === "Normal"
           ? question.length < 10
@@ -260,23 +199,12 @@ function SkillAssessment() {
     }
   }, [question]);
 
-  const [isSkiped, setIsSkiped] = useState(false);
-
-  // const handleInputChange = (selectedOption) => {
-  //   setSelectedSkill(selectedOption.value);
-  //   setInputValue(selectedOption.value);
-  // };
-  // const handleLevelChange = (event) => {
-  //   setLevel(event.target.value);
-  // };
-
   useEffect(() => {
     setMainLoading(true);
     axios
       .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
-        // setAttemptCtn(res.data.data?.count);
         setMainLoading(false);
       })
       .catch((err) => {
@@ -322,11 +250,7 @@ function SkillAssessment() {
         filename: `${selectedSkill}_certificate_skilotech.pdf`,
         resolution: Resolution.HIGH,
         page: {
-          // // margin is in MM, default is Margin.NONE = 0
-          // margin: Margin.SMALL,
-          // default is 'A4'
           format: "letter",
-          // default is 'portrait'
           orientation: "landscape",
         },
       });
@@ -361,8 +285,6 @@ function SkillAssessment() {
               question.length == 9 || question.length === 59 ? "1" : "2",
           })
           .then((res) => {
-
-
             if (res.data.success) {
               try {
                 const newQuestions = res.data.data;
@@ -380,13 +302,11 @@ function SkillAssessment() {
                 setStartTimer(true);
               } catch (error) {
                 console.error("JSON parsing error: ", error);
-                // Handle parsing error, possibly retry or show user-friendly message
               }
             } else {
               console.error("Backend error: ", res.data.error);
-              setQuestion(question)
-              toggleContent()
-              // Handle backend error, show error message to user
+              setQuestion(question);
+              toggleContent();
             }
           })
           .catch((err) => {
@@ -400,16 +320,6 @@ function SkillAssessment() {
   };
 
   useEffect(() => {
-    // if (assesmentType === "Normal") {
-    //   if (questionIndex == 7 || questionIndex == 8) {
-    //     setBtnEnable(true);
-    //   }
-    // } else if (assesmentType !== "Normal") {
-    //   if (questionIndex == 59 || questionIndex == 60) {
-    //     setBtnEnable(true);
-    //   }
-    // } else
-
     if (question.length > questionIndex + 2) {
       setBtnEnable(true);
     } else {
@@ -429,9 +339,8 @@ function SkillAssessment() {
 
   useEffect(() => {
     setStartTimer(true);
-    setBtnEnable1(false)
+    setBtnEnable1(false);
   }, [questionIndex]);
-
 
   const skippedQuestion = () => {
     setTimer(30);
@@ -442,15 +351,13 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-            ? questionIndex + 1
-            : assesmentType === "Normal"
-              ? 9
-              : 59
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
       );
-
     }
-  }
-
+  };
 
   const sumbit = () => {
     setStartTimer(false);
@@ -468,9 +375,18 @@ function SkillAssessment() {
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
-          assesmentType === "Normal" ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1) : localStorage.setItem("skillCertifiedCount", Number(skillCertifiedCount) + 1);
-          const skillTestCount1 = JSON.parse(localStorage.getItem("skillTestCount"));
-          const skillCertifiedCount1 = JSON.parse(localStorage.getItem("skillCertifiedCount"));
+          assesmentType === "Normal"
+            ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1)
+            : localStorage.setItem(
+                "skillCertifiedCount",
+                Number(skillCertifiedCount) + 1
+              );
+          const skillTestCount1 = JSON.parse(
+            localStorage.getItem("skillTestCount")
+          );
+          const skillCertifiedCount1 = JSON.parse(
+            localStorage.getItem("skillCertifiedCount")
+          );
           setSkillTestCount(skillTestCount1);
           setSkillCertifiedCount(skillCertifiedCount1);
           setDownloadCertificate(res.data.data);
@@ -480,7 +396,7 @@ function SkillAssessment() {
           setSkipped([]);
           setTimeout(() => {
             setScore(true);
-            getLimits()
+            getLimits();
           }, 500);
         })
         .catch((err) => {
@@ -493,18 +409,17 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-            ? questionIndex + 1
-            : assesmentType === "Normal"
-              ? 9
-              : 59
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
       );
-
     }
   };
 
   useEffect(() => {
     let timer;
-    setIsNext(!isNext)
+    setIsNext(!isNext);
     if (questionIndex && isSubmit === false) {
       timer = setTimeout(() => {
         if (
@@ -512,7 +427,7 @@ function SkillAssessment() {
             ? questionIndex === 9
             : questionIndex === 59 && isSubmit === false
         ) {
-          setIsNext(!isNext)
+          setIsNext(!isNext);
           sumbit();
         }
       }, 30000);
@@ -521,27 +436,28 @@ function SkillAssessment() {
     return () => clearTimeout(timer);
   }, [questionIndex, isSubmit]);
 
-
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`)
+      .get(
+        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+      )
       .then((res) => {
         const data = res.data.data;
 
-        const normalCount = data.filter(item => item.isCertification === false).length;
-        const certifiedCount = data.filter(item => item.isCertification === true).length;
+        const normalCount = data.filter(
+          (item) => item.isCertification === false
+        ).length;
+        const certifiedCount = data.filter(
+          (item) => item.isCertification === true
+        ).length;
 
         setAttemptCtn(data.length);
         setAssessmentList(data.reverse());
-
-        // setNormalCount(normalCount);
-        // setCertifiedCount(certifiedCount);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [selectedSkill, reCall, userDataGlobal]);
-
 
   const resetSelection = () => {
     answerSetter(questionIndex + 1, "");
@@ -573,7 +489,6 @@ function SkillAssessment() {
     }
 
     if (Answer === "") {
-      // Remove the answer if Answer is empty (reset case)
       const updatedSkippedArray = skippedArray.map((item) => {
         if (item.question == question) {
           return { ...item, isSkiped: true, Answer: "" };
@@ -584,7 +499,7 @@ function SkillAssessment() {
       setSkippedArray(updatedSkippedArray);
       setAnswer(updatedSkippedArray);
     }
-  }
+  };
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
       (data) => data?.Answer === Answer && data?.question == question
@@ -603,7 +518,6 @@ function SkillAssessment() {
         }
       }
     });
-
 
     return Math.round(correctAnswer);
   };
@@ -628,33 +542,13 @@ function SkillAssessment() {
     let correctAnswers = checkAnswer();
     // let correctAnswers = 58;
     let totalQuestions = question.length;
-    let percentageScore = parseFloat(((correctAnswers * 100) / totalQuestions).toFixed(2));
+    let percentageScore = parseFloat(
+      ((correctAnswers * 100) / totalQuestions).toFixed(2)
+    );
 
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
     return percentageScore;
   }
-
-  // const handleDownload = async () => {
-  //   setLoadingg(true);
-  //   const doc = (
-  //     <Result
-  //       questions={question}
-  //       answers={answer}
-  //       selectedSkill={selectedSkill}
-  //       checkAnswer={checkAnswer}
-  //     />
-  //   );
-  //   const blob = await pdf(doc).toBlob();
-  //   const url = URL.createObjectURL(blob);
-  //   const a = document.createElement("a");
-  //   a.href = url;
-  //   a.download = `${selectedSkill}_assessment.pdf`;
-  //   document.body.appendChild(a);
-  //   a.click();
-  //   document.body.removeChild(a);
-  //   URL.revokeObjectURL(url);
-  //   setLoadingg(false);
-  // };
 
   const generatePdfBlob = async () => {
     const containers = [
@@ -703,48 +597,31 @@ function SkillAssessment() {
     } else {
       console.error("Failed to generate PDF");
     }
-    // document.body.removeChild(container);
     setLoadingg(false);
   };
 
   const handleStart = () => {
     const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-    // if (!isActivePlan) {
-    //   setisLevel(false);
-    //   setIsplan(true);
-    // }
-    // else
     if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
-    }
-    else if (isActivePlan && assesmentType === "Certificate" && skillCertifiedCount < skillCertifiedCountLimit) {
+    } else if (
+      isActivePlan &&
+      assesmentType === "Certificate" &&
+      skillCertifiedCount < skillCertifiedCountLimit
+    ) {
       setisLevel(true);
-    }
-    else if (isActivePlan && assesmentType === "Normal" && skillTestCount < skillTestCountLimit) {
+    } else if (
+      isActivePlan &&
+      assesmentType === "Normal" &&
+      skillTestCount < skillTestCountLimit
+    ) {
       setisLevel(true);
-    }
-    else {
+    } else {
       setisLevel(false);
       setIsplan(true);
     }
   };
-
-
-  // const handleStart = () => {
-  //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-
-  //   if (!isActivePlan ) {
-  //     setisLevel(false);
-  //     setIsplan(true);
-  //   } else if (!selectedSkill) {
-  //     toast.error("Please select a skill to start assessment");
-  //   }
-  //   else {
-  //     setisLevel(true);
-  //   }
-  // };
-
 
   function formatScore(score) {
     let percentageScore = (score * 100) / 60;
@@ -753,14 +630,11 @@ function SkillAssessment() {
       : percentageScore.toFixed(2);
   }
   const generatePdf3 = async (item, index) => {
-
     setViewCertificateLoader(true);
     setViewCertificate(index);
     setViewCertificateData(item);
 
-
     await new Promise((resolve) => setTimeout(resolve, 0));
-
 
     try {
       await generatePDF(resumeRef2, {
@@ -771,7 +645,6 @@ function SkillAssessment() {
           orientation: "landscape",
         },
       });
-
 
       setTimeout(() => {
         setViewCertificateLoader(false);
@@ -816,262 +689,278 @@ function SkillAssessment() {
       ) : (
         <div
           onWheel={(e) => e.stopPropagation()}
-          className="bg-[#F9F9F9] w-full  " style={{ minHeight: 'calc(100vh - 56px)' }}
+          className="bg-[#F9F9F9] w-full  "
+          style={{ minHeight: "calc(100vh - 56px)" }}
         >
           {toggle === 0 && (
-            <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
-              <div className=" w-[100%] flex flex-row gap-[8px] ">
-                <button
-                  className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
-                  onClick={() => setAssesmentType("Normal")}
-                >
-                  Quick Assessment
-                </button>
-                <button
-                  className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
-                  onClick={() => setAssesmentType("Certificate")}
-                >
-                  Certification Assessment
-                </button>
-              </div>
+            <div className="flex flex-col gap-[24px] pt-[24px] pb-[95px] items-center  customMargins">
               <div
                 className="  w-[100%] ml:p-[16px] p-2 flex ml:flex-row flex-col justify-between  gap-[16px] rounded-[12px] bg-[#fff]"
                 style={{
                   boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                 }}
               >
-                {viewAddSkill ? (
-                  <div className=" w-[100%] flex justify-between ml:items-center items-end  gap-[16px] rounded-[12px] bg-[#fff]">
-                    <div className="flex flex-col gap-4 w-[100%]">
-                      <div className="flex scr540:flex-row flex-col  justify-between">
-                        <div className="text-[20px] font-medium">
-                          Select Skill
-                        </div>
-                        <div className="flex gap-2 justify-end ">
-                          <button
-                            onClick={() => setViewAddSkill(false)}
-                            className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
-                          >
-                            Select From My Skills
-                            <svg
-                              class="w-4 h-4 hover:fill-current hover:text-gray-700"
-                              viewBox="0 0 15 14"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                          </button>
-                          <div
-                            className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
-                            onClick={() => setshowSecondDiv(!showSecondDiv)}
-                          >
-                            {!showSecondDiv ? (
-                              <button className=" btn_hover_effect rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
-                                View Results
-                              </button>
-                            ) : (
-                              <button className="btn_hover_effect rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
-                                Hide Results
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                <div className="  w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
+                  <div className="flex flex-row gap-4  justify-between items-end w-full">
+                    <div className="flex flex-col  gap-4 w-[100%]">
+                      <div className="text-[20px] font-medium">My Skills</div>
 
-                      <CreatableSelect
-                        options={skills.map((item) => ({
-                          value: item,
-                          label: item,
-                        }))}
-                        className="w-full"
-                        onChange={handleInputChange}
-                      />
-                      {/* <CreatableSelect
-                      onInputChange={(data) => {
-                        // setSkills([data, ...skills]);
-                      }}
-                      options={skills.map((item) => ({
-                        value: item,
-                        label: camelCase(item),
-                      }))}
-                      className="w-full"
-                      onChange={handleInputChange}
-                    /> */}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="  w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
-                    <div className="flex flex-row gap-4  justify-between items-end w-full">
-                      <div className="flex flex-col  gap-4 w-[100%]">
-                        <div className="flex  scr540:flex-row flex-col justify-between">
-                          <div className="text-[20px] font-medium">
-                            My Skills
-                          </div>
-                          <div className="flex gap-2 justify-end ">
-                            <button
-                              onClick={() => setViewAddSkill(true)}
-                              className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white  h-[40px] font-semibold"
-                            >
-                              Select Another Skill
+                      <div className="flex justify-between items-center">
+                        <div className=" relative flex flex-col gap-4  ">
+                          <CreatableSelect
+                            options={skills.map((item) => ({
+                              value: item,
+                              label: item,
+                            }))}
+                            className="ms:w-[400px] scr420:w-[240px] xsm:w-[200px] w-[160px] rounded-[40px]"
+                            styles={{
+                              control: (baseStyles) => ({
+                                ...baseStyles,
+                                borderRadius: "6px",
+                                padding: "4px 4px",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                position: "relative",
+                                background: "none",
+                                "& svg": {
+                                  display: "none",
+                                },
+                                "&::before": {
+                                  content: `' '`,
+                                  width: "18px",
+                                  height: "18px",
+                                  background:
+                                    "url('data:image/svg+xml,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6.5193%2012.6133C4.81164%2012.6133%203.36547%2012.0211%202.1808%2010.8366C0.996302%209.6519%200.404053%208.20573%200.404053%206.49806C0.404053%204.7904%200.996302%203.34423%202.1808%202.15956C3.36547%200.975063%204.81164%200.382812%206.5193%200.382812C8.22697%200.382812%209.67314%200.975063%2010.8578%202.15956C12.0423%203.34423%2012.6346%204.7904%2012.6346%206.49806C12.6346%207.21223%2012.5147%207.89431%2012.2751%208.54431C12.0352%209.19431%2011.7153%209.75965%2011.3153%2010.2403L17.0693%2015.9943C17.2078%2016.1326%2017.2786%2016.3066%2017.2818%2016.5163C17.285%2016.726%2017.2141%2016.9032%2017.0693%2017.0481C16.9245%2017.1929%2016.7488%2017.2653%2016.5423%2017.2653C16.336%2017.2653%2016.1604%2017.1929%2016.0156%2017.0481L10.2616%2011.2941C9.76155%2011.7069%209.18655%2012.03%208.53655%2012.2633C7.88655%2012.4966%207.21414%2012.6133%206.5193%2012.6133ZM6.5193%2011.1136C7.8078%2011.1136%208.89914%2010.6664%209.7933%209.77206C10.6876%208.8779%2011.1348%207.78656%2011.1348%206.49806C11.1348%205.20956%2010.6876%204.11823%209.7933%203.22406C8.89914%202.32973%207.8078%201.88256%206.5193%201.88256C5.2308%201.88256%204.13947%202.32973%203.2453%203.22406C2.35097%204.11823%201.9038%205.20956%201.9038%206.49806C1.9038%207.78656%202.35097%208.8779%203.2453%209.77206C4.13947%2010.6664%205.2308%2011.1136%206.5193%2011.1136Z%22%20fill%3D%22%23646464%22%2F%3E%3C%2Fsvg%3E') no-repeat center center",
+                                  backgroundSize: "contain",
+                                  display: "flex",
+                                  justifyContent: "flex-end",
+                                  position: "relative",
+                                  left: "92%",
+                                },
+                                "@media (max-width: 460px)": {
+                                  "&::before": {
+                                    left: "86%",
+                                  },
+                                },
+                              }),
+                            }}
+                            placeholder="Search"
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div
+                          className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px]   "
+                          onClick={() => setshowSecondDiv(!showSecondDiv)}
+                        >
+                          {!showSecondDiv ? (
+                            <button className="text-[#333333] scr420:text-[12px] text-[10px]  font-[600] gap-[2px] border-[1px] border-[#06A9EF] rounded-[30px] scr420:p-[6px_16px] p-[10px] flex justify-center items-center ">
                               <svg
-                                class="w-4 h-4 hover:fill-current hover:text-gray-700"
-                                viewBox="0 0 15 14"
+                                width="18"
+                                height="12"
+                                viewBox="0 0 18 12"
+                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                                  fill="currentColor"
+                                  d="M9.00005 9C9.93755 9 10.7344 8.67188 11.3907 8.01562C12.0469 7.35938 12.375 6.5625 12.375 5.625C12.375 4.6875 12.0469 3.89062 11.3907 3.23438C10.7344 2.57812 9.93755 2.25 9.00005 2.25C8.06255 2.25 7.26567 2.57812 6.60942 3.23438C5.95317 3.89062 5.62505 4.6875 5.62505 5.625C5.62505 6.5625 5.95317 7.35938 6.60942 8.01562C7.26567 8.67188 8.06255 9 9.00005 9ZM9.00005 7.65C8.43755 7.65 7.95942 7.45313 7.56567 7.05938C7.17192 6.66563 6.97505 6.1875 6.97505 5.625C6.97505 5.0625 7.17192 4.58437 7.56567 4.19063C7.95942 3.79688 8.43755 3.6 9.00005 3.6C9.56255 3.6 10.0407 3.79688 10.4344 4.19063C10.8282 4.58437 11.0251 5.0625 11.0251 5.625C11.0251 6.1875 10.8282 6.66563 10.4344 7.05938C10.0407 7.45313 9.56255 7.65 9.00005 7.65ZM9.00005 11.25C7.32505 11.25 5.79692 10.8 4.41567 9.9C3.03442 9 1.9438 7.8125 1.1438 6.3375C1.0813 6.225 1.03442 6.10938 1.00317 5.99063C0.971924 5.87188 0.956299 5.75 0.956299 5.625C0.956299 5.5 0.971924 5.37813 1.00317 5.25938C1.03442 5.14062 1.0813 5.025 1.1438 4.9125C1.9438 3.4375 3.03442 2.25 4.41567 1.35C5.79692 0.45 7.32505 0 9.00005 0C10.675 0 12.2032 0.45 13.5844 1.35C14.9657 2.25 16.0563 3.4375 16.8563 4.9125C16.9188 5.025 16.9657 5.14062 16.9969 5.25938C17.0282 5.37813 17.0438 5.5 17.0438 5.625C17.0438 5.75 17.0282 5.87188 16.9969 5.99063C16.9657 6.10938 16.9188 6.225 16.8563 6.3375C16.0563 7.8125 14.9657 9 13.5844 9.9C12.2032 10.8 10.675 11.25 9.00005 11.25ZM9.00005 9.75C10.4125 9.75 11.7094 9.37813 12.8907 8.63437C14.0719 7.89062 14.975 6.8875 15.6 5.625C14.975 4.3625 14.0719 3.35938 12.8907 2.61562C11.7094 1.87187 10.4125 1.5 9.00005 1.5C7.58755 1.5 6.29067 1.87187 5.10942 2.61562C3.92817 3.35938 3.02505 4.3625 2.40005 5.625C3.02505 6.8875 3.92817 7.89062 5.10942 8.63437C6.29067 9.37813 7.58755 9.75 9.00005 9.75Z"
+                                  fill="#646464"
                                 />
                               </svg>
+                              View Results
                             </button>
-                            <div
-                              className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
-                              onClick={() => setshowSecondDiv(!showSecondDiv)}
-                            >
-                              {!showSecondDiv ? (
-                                <button className="btn_hover_effect rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
-                                  View Results
-                                </button>
-                              ) : (
-                                <button className="btn_hover_effect rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
-                                  Hide Results
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-full flex flex-row gap-[16px] overflow-x-auto flex-wrap ">
-                          {userSkills?.map((item, index) => (
-                            <button
-                              key={index}
-                              onClick={() => {
-                                setSelectedSkill(item);
-                              }}
-                              className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item &&
-                                "bg-[#06A9EF] text-white"
-                                }`}
-                            >
-                              {item}
+                          ) : (
+                            <button className="text-[#333333] scr420:text-[12px] text-[10px]  font-[600] gap-[2px] border-[1px] border-[#06A9EF] rounded-[30px] scr420:p-[6px_16px] p-[10px] flex justify-center items-center ">
+                              <svg
+                                width="18"
+                                height="15"
+                                viewBox="0 0 18 15"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M11.3813 4.24297C11.7438 4.60547 12.0094 5.01797 12.1781 5.48047C12.3469 5.94297 12.4063 6.41797 12.3563 6.90547C12.3563 7.09297 12.2875 7.25234 12.15 7.38359C12.0125 7.51484 11.85 7.58047 11.6625 7.58047C11.475 7.58047 11.3156 7.51484 11.1844 7.38359C11.0531 7.25234 10.9875 7.09297 10.9875 6.90547C11.05 6.58047 11.0313 6.26797 10.9313 5.96797C10.8313 5.66797 10.675 5.41172 10.4625 5.19922C10.25 4.98672 9.99375 4.82422 9.69375 4.71172C9.39375 4.59922 9.075 4.57422 8.7375 4.63672C8.55 4.63672 8.39063 4.56797 8.25938 4.43047C8.12813 4.29297 8.0625 4.13047 8.0625 3.94297C8.0625 3.75547 8.12813 3.59609 8.25938 3.46484C8.39063 3.33359 8.55 3.26797 8.7375 3.26797C9.2125 3.21797 9.68125 3.27734 10.1438 3.44609C10.6063 3.61484 11.0188 3.88047 11.3813 4.24297ZM9 2.49922C8.7625 2.49922 8.53125 2.50859 8.30625 2.52734C8.08125 2.54609 7.85625 2.58047 7.63125 2.63047C7.41875 2.66797 7.22813 2.63672 7.05938 2.53672C6.89063 2.43672 6.775 2.28672 6.7125 2.08672C6.65 1.88672 6.67188 1.69297 6.77813 1.50547C6.88438 1.31797 7.0375 1.20547 7.2375 1.16797C7.525 1.10547 7.81563 1.06172 8.10938 1.03672C8.40313 1.01172 8.7 0.999219 9 0.999219C10.7125 0.999219 12.2781 1.44922 13.6969 2.34922C15.1156 3.24922 16.2 4.46172 16.95 5.98672C17 6.08672 17.0375 6.18984 17.0625 6.29609C17.0875 6.40234 17.1 6.51172 17.1 6.62422C17.1 6.73672 17.0906 6.84609 17.0719 6.95234C17.0531 7.05859 17.0188 7.16172 16.9688 7.26172C16.7438 7.76172 16.4656 8.23047 16.1344 8.66797C15.8031 9.10547 15.4375 9.50547 15.0375 9.86797C14.8875 10.0055 14.7125 10.0617 14.5125 10.0367C14.3125 10.0117 14.15 9.91172 14.025 9.73672C13.9 9.56172 13.8469 9.37109 13.8656 9.16484C13.8844 8.95859 13.9688 8.78672 14.1188 8.64922C14.4188 8.36172 14.6938 8.04922 14.9438 7.71172C15.1938 7.37422 15.4125 7.01172 15.6 6.62422C14.975 5.36172 14.0719 4.35859 12.8906 3.61484C11.7094 2.87109 10.4125 2.49922 9 2.49922ZM9 12.2492C7.325 12.2492 5.79375 11.7961 4.40625 10.8898C3.01875 9.98359 1.925 8.79297 1.125 7.31797C1.0625 7.21797 1.01563 7.10859 0.984375 6.98984C0.953125 6.87109 0.9375 6.74922 0.9375 6.62422C0.9375 6.49922 0.95 6.38047 0.975 6.26797C1 6.15547 1.04375 6.04297 1.10625 5.93047C1.35625 5.43047 1.64688 4.95234 1.97813 4.49609C2.30938 4.03984 2.6875 3.62422 3.1125 3.24922L1.55625 1.67422C1.41875 1.52422 1.35313 1.34609 1.35938 1.13984C1.36563 0.933594 1.4375 0.761719 1.575 0.624219C1.7125 0.486719 1.8875 0.417969 2.1 0.417969C2.3125 0.417969 2.4875 0.486719 2.625 0.624219L15.375 13.3742C15.5125 13.5117 15.5844 13.6836 15.5906 13.8898C15.5969 14.0961 15.525 14.2742 15.375 14.4242C15.2375 14.5617 15.0625 14.6305 14.85 14.6305C14.6375 14.6305 14.4625 14.5617 14.325 14.4242L11.7 11.8367C11.2625 11.9742 10.8188 12.0773 10.3688 12.1461C9.91875 12.2148 9.4625 12.2492 9 12.2492ZM4.1625 4.29922C3.8 4.62422 3.46875 4.98047 3.16875 5.36797C2.86875 5.75547 2.6125 6.17422 2.4 6.62422C3.025 7.88672 3.92813 8.88984 5.10938 9.63359C6.29063 10.3773 7.5875 10.7492 9 10.7492C9.25 10.7492 9.49375 10.7336 9.73125 10.7023C9.96875 10.6711 10.2125 10.6367 10.4625 10.5992L9.7875 9.88672C9.65 9.92422 9.51875 9.95234 9.39375 9.97109C9.26875 9.98984 9.1375 9.99922 9 9.99922C8.0625 9.99922 7.26563 9.67109 6.60938 9.01484C5.95313 8.35859 5.625 7.56172 5.625 6.62422C5.625 6.48672 5.63438 6.35547 5.65313 6.23047C5.67188 6.10547 5.7 5.97422 5.7375 5.83672L4.1625 4.29922Z"
+                                  fill="#646464"
+                                />
+                              </svg>
+                              Hide Results
                             </button>
-                          ))}
+                          )}
                         </div>
+                      </div>
+
+                      <div className="w-full flex flex-row gap-[16px] overflow-x-auto flex-wrap ">
+                        {userSkills?.map((item, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setSelectedSkill(item);
+                            }}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-              {/* {isLevel && (
-                <>
-                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-                    <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
-                      <div className="flex justify-between">
-                        Difficulty Level
-                        <div
-                          onClick={() => {
-                            setisLevel(false);
-                          }}
-                          className="cursor-pointer"
-                        >
-                          <CloseIcon />
-                        </div>
-                      </div>
-                      <div className="flex sm:gap-4 gap-2 justify-between sm:text-[16px] text-[14px] font-medium">
-                        <div>
-                          <label className="flex gap-2 items-center">
-                            <input
-                              className="h-[15px] w-[15px]"
-                              type="radio"
-                              name="level"
-                              value="Easy"
-                              onChange={handleLevelChange}
-                              checked={level === "Easy"}
-                            />
-                            Easy
-                          </label>
-                        </div>
-                        <div>
-                          <label className="flex gap-2 items-center">
-                            <input
-                              className="h-[15px] w-[15px]"
-                              type="radio"
-                              name="level"
-                              value="Intermediate"
-                              onChange={handleLevelChange}
-                              checked={level === "Intermediate"}
-                            />
-                            Intermediate
-                          </label>
-                        </div>
-                        <div>
-                          <label className="flex gap-2 items-center">
-                            <input
-                              className="h-[15px] w-[15px]"
-                              type="radio"
-                              name="level"
-                              value="Advanced"
-                              onChange={handleLevelChange}
-                              checked={level === "Advanced"}
-                            />
-                            Advanced
-                          </label>
-                        </div>
-                      </div>
-                      <div className="w-full flex justify-end">
-                        <button
-                          onClick={() => {
-                            toggleContent();
-                            setisLevel(false);
-                          }}
-                          className={`flex justify-center items-center w-[90px] py-1 text-[16px]
-                              bg-blue rounded-[8px] text-white
-                              }`}
-                        >
-                          {" "}
-                          Start
-                        </button>
-                      </div>
+
+              {!showSecondDiv ? (
+                <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center ">
+                  <button
+                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                      assesmentType === "Normal"
+                        ? "bg-blue text-white btn_hover_effect"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                    onClick={() => setAssesmentType("Normal")}
+                  >
+                    Quick Assessment
+                  </button>
+                  <button
+                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                      assesmentType === "Certificate"
+                        ? "bg-blue text-white btn_hover_effect"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium  `}
+                    onClick={() => setAssesmentType("Certificate")}
+                  >
+                    Certification Assessment
+                  </button>
+                </div>
+              ) : (
+                <div className=" w-[100%] flex justify-center flex-row gap-[24px] ">
+                  {showSecondDiv && (
+                    <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
+                      <button
+                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                          assesmentType === "Normal"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                        onClick={() => setResultType(false)}
+                      >
+                        Quick Assesment Result
+                      </button>
+                      <button
+                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                          assesmentType === "Certificate"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
+                        onClick={() => setResultType(true)}
+                      >
+                        Certification Assesment Result
+                      </button>
                     </div>
-                  </div>
-                </>
-              )} */}
+                  )}
+                </div>
+              )}
+
               {isLevel && (
                 <>
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
 
                   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-
-                    <div ref={taskRef} className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-5 gap-3 scr500:min-w-[489px] min-w-[300px]  bg-white rounded-[16px] relative  ">
-
+                    <div
+                      ref={taskRef}
+                      className="flex sm:py-4 py-2 flex-col text-[20px] leading-tight font-bold justify-center scr420:gap-5 gap-3 scr500:min-w-[489px] min-w-[300px]  bg-white rounded-[16px] relative  "
+                    >
                       <div className="w-full flex justify-center items-center">
-                        <div onClick={() => setisLevel(false)} className=" cursor-pointer z-[3000] absolute right-2 top-2"><ClosedIcon30 /></div>
-                        <svg width="119" height="80" viewBox="0 0 119 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M59.5001 0C75.6069 0 90.1958 6.49392 100.794 17.0056L96.6407 28.095L90.9404 26.8591C82.864 18.8692 71.7588 13.9349 59.5001 13.9349L50.5396 7.26812L59.5001 0Z" fill="#F93778" />
-                          <path d="M28.0596 26.8591L19.6091 23.9092L18.2061 17.0056C28.8043 6.49392 43.3932 0 59.5 0V13.9349C47.2413 13.9349 36.136 18.8692 28.0596 26.8591Z" fill="#75E0F6" />
-                          <path d="M118.103 58.2997H104.207C104.113 46.003 99.056 34.8884 90.9399 26.8594L100.793 17.0059C111.431 27.5566 118.009 42.1551 118.103 58.2997Z" fill="#FA7085" />
-                          <path d="M14.7927 58.2997H0.897186C0.991041 42.1551 7.56852 27.5566 18.2061 17.0059L28.0596 26.8594C19.9438 34.8884 14.8863 46.003 14.7927 58.2997Z" fill="#01BAFE" />
-                          <path d="M16.413 3.19531L28.0596 14.8422V26.8587L14.4587 17.0052L10.4046 9.2037L16.413 3.19531Z" fill="#555C7C" />
-                          <path d="M28.0596 26.8581H16.0433L4.39641 15.2115L10.4046 9.20312L28.0596 26.8581Z" fill="#373A5B" />
-                          <path d="M59.5011 60.7559H78.6533V74.8594L59.5011 79.9988L57.4903 71.0133L59.5011 60.7559Z" fill="#555C7C" />
-                          <path d="M40.3488 60.7559H59.501V79.9988L40.3488 74.8594V60.7559Z" fill="#373A5B" />
-                          <path d="M65.0079 50.186L72.9277 53.4035L68.4115 60.7564L67.7989 69.1881L59.5006 67.136L54.1286 56.4183L59.5006 43.6484L65.0079 50.186Z" fill="#FFE643" />
-                          <path d="M53.9936 50.186L59.501 43.6484V67.136L51.2027 69.1881L50.59 60.7564L46.0738 53.4035L53.9936 50.186Z" fill="#FFCA00" />
+                        <div
+                          onClick={() => setisLevel(false)}
+                          className=" cursor-pointer z-[3000] absolute right-2 top-2"
+                        >
+                          <ClosedIcon30 />
+                        </div>
+                        <svg
+                          width="119"
+                          height="80"
+                          viewBox="0 0 119 80"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M59.5001 0C75.6069 0 90.1958 6.49392 100.794 17.0056L96.6407 28.095L90.9404 26.8591C82.864 18.8692 71.7588 13.9349 59.5001 13.9349L50.5396 7.26812L59.5001 0Z"
+                            fill="#F93778"
+                          />
+                          <path
+                            d="M28.0596 26.8591L19.6091 23.9092L18.2061 17.0056C28.8043 6.49392 43.3932 0 59.5 0V13.9349C47.2413 13.9349 36.136 18.8692 28.0596 26.8591Z"
+                            fill="#75E0F6"
+                          />
+                          <path
+                            d="M118.103 58.2997H104.207C104.113 46.003 99.056 34.8884 90.9399 26.8594L100.793 17.0059C111.431 27.5566 118.009 42.1551 118.103 58.2997Z"
+                            fill="#FA7085"
+                          />
+                          <path
+                            d="M14.7927 58.2997H0.897186C0.991041 42.1551 7.56852 27.5566 18.2061 17.0059L28.0596 26.8594C19.9438 34.8884 14.8863 46.003 14.7927 58.2997Z"
+                            fill="#01BAFE"
+                          />
+                          <path
+                            d="M16.413 3.19531L28.0596 14.8422V26.8587L14.4587 17.0052L10.4046 9.2037L16.413 3.19531Z"
+                            fill="#555C7C"
+                          />
+                          <path
+                            d="M28.0596 26.8581H16.0433L4.39641 15.2115L10.4046 9.20312L28.0596 26.8581Z"
+                            fill="#373A5B"
+                          />
+                          <path
+                            d="M59.5011 60.7559H78.6533V74.8594L59.5011 79.9988L57.4903 71.0133L59.5011 60.7559Z"
+                            fill="#555C7C"
+                          />
+                          <path
+                            d="M40.3488 60.7559H59.501V79.9988L40.3488 74.8594V60.7559Z"
+                            fill="#373A5B"
+                          />
+                          <path
+                            d="M65.0079 50.186L72.9277 53.4035L68.4115 60.7564L67.7989 69.1881L59.5006 67.136L54.1286 56.4183L59.5006 43.6484L65.0079 50.186Z"
+                            fill="#FFE643"
+                          />
+                          <path
+                            d="M53.9936 50.186L59.501 43.6484V67.136L51.2027 69.1881L50.59 60.7564L46.0738 53.4035L53.9936 50.186Z"
+                            fill="#FFCA00"
+                          />
                         </svg>
                       </div>
-                      <div className="w-full py-[6px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]"> Select difficulty level</div>
+                      <div className="w-full py-[6px] flex justify-center items-center bg-[#06A9EF] text-[18px] font-[500] text-[#ffffff]">
+                        {" "}
+                        Select difficulty level
+                      </div>
                       <div className="scr500:h-[44px] h-[34px] scr500:px-[20px] px-[12px] w-full flex justify-between">
-                        <button className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Easy"); setisLevel(false); toggleContent() }}>Easy</button>
-                        <button className="scr500:w-[33.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Intermediate"); setisLevel(false); toggleContent() }}>Intermediate</button>
-                        <button className="scr500:w-[28.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]" onClick={() => { setLevel("Advanced"); setisLevel(false); toggleContent() }}>Advanced</button>
+                        <button
+                          className="scr500:w-[26.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]"
+                          onClick={() => {
+                            setLevel("Easy");
+                            setisLevel(false);
+                            toggleContent();
+                          }}
+                        >
+                          Easy
+                        </button>
+                        <button
+                          className="scr500:w-[33.96%] w-[36.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]"
+                          onClick={() => {
+                            setLevel("Intermediate");
+                            setisLevel(false);
+                            toggleContent();
+                          }}
+                        >
+                          Intermediate
+                        </button>
+                        <button
+                          className="scr500:w-[28.84%] w-[28.84%] rounded-[8px] flex justify-center items-center bg-[#ffffff] hover:bg-[#06A9EF] border-solid border-[0.82px] border-[#06A9EF] scr500:text-[16px] text-[12px] text-[#333333] hover:text-[#ffffff] font-[600]"
+                          onClick={() => {
+                            setLevel("Advanced");
+                            setisLevel(false);
+                            toggleContent();
+                          }}
+                        >
+                          Advanced
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -1079,337 +968,371 @@ function SkillAssessment() {
               )}
 
               <div className="flex flex-col gap-4 w-[100%]">
-                <div className="flex flex-row justify-end">
-                  {showSecondDiv && (
-                    // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
-                    <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
-                      <button
-                        className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
-                          ? "bg-blue text-white btn_hover_effect"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
-                        onClick={() => setResultType(false)}
-                      >
-                        Quick Assesment Result
-                      </button>
-                      <button
-                        className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
-                          ? "bg-blue text-white btn_hover_effect"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
-                        onClick={() => setResultType(true)}
-                      >
-                        Certification Assesment Result
-                      </button>
-                    </div>
-                    // </div>
-                  )}
-                </div>
                 <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
-                  <div
-                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
-                      } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
-                  >
-                    <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px] text-center">
-                      <Assessmentlogo />
-                      {camelCase(selectedSkill)} Assessment
-                    </div>
-                    <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
-                      <div
-                        className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
-                        style={{
-                          backgroundColor: "rgba(6, 169, 239, 0.50)",
-                          backdropFilter: "blur(22.5px)",
-                        }}
-                      >
-                        <svg
-                          xlgns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                          className=" scr820:w-[40px]"
-                        >
-                          <g mask="url(#mask0_4403_58326)">
-                            <path
-                              d="M26.6875 35.279C25.725 35.279 24.9034 34.9392 24.2226 34.2597C23.5418 33.5803 23.2014 32.7602 23.2014 31.7995V25.1461C23.2014 24.1896 23.5418 23.3706 24.2226 22.689C24.9034 22.0074 25.725 21.6666 26.6875 21.6666H33.3343C34.2968 21.6666 35.1184 22.0074 35.7992 22.689C36.48 23.3706 36.8204 24.1896 36.8204 25.1461V31.7995C36.8204 32.7602 36.48 33.5803 35.7992 34.2597C35.1184 34.9392 34.2968 35.279 33.3343 35.279H26.6875ZM26.3644 32.1226H33.6573V24.823H26.3644V32.1226ZM3.05859 30.0543V26.8913H18.1881V30.0543H3.05859ZM26.6875 18.3333C25.725 18.3333 24.9034 17.9929 24.2226 17.3121C23.5418 16.6313 23.2014 15.8097 23.2014 14.8472V8.20048C23.2014 7.23795 23.5418 6.4163 24.2226 5.73552C24.9034 5.05474 25.725 4.71436 26.6875 4.71436H33.3343C34.2968 4.71436 35.1184 5.05474 35.7992 5.73552C36.48 6.4163 36.8204 7.23795 36.8204 8.20048V14.8472C36.8204 15.8097 36.48 16.6313 35.7992 17.3121C35.1184 17.9929 34.2968 18.3333 33.3343 18.3333H26.6875ZM26.3644 15.1703H33.6573V7.8774H26.3644V15.1703ZM3.05859 13.102V9.94565H18.1881V13.102H3.05859Z"
-                              fill="white"
-                            />
-                          </g>
-                        </svg>
-                        <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                          {assesmentType === "Normal" ? 10 : 60} MCQs
-                        </div>
-                        <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                          4 Options each
-                        </div>
-                      </div>
-                      <div
-                        className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px] "
-                        style={{
-                          backgroundColor: "rgba(6, 169, 239, 0.50)",
-                          backdropFilter: "blur(22.5px)",
-                        }}
-                      >
-                        <svg
-                          xlgns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                        >
-                          <g mask="url(#mask0_4403_58332)">
-                            <path
-                              d="M20.0004 36.9456C17.6682 36.9456 15.4719 36.502 13.4113 35.6148C11.3507 34.7276 9.55303 33.5167 8.01831 31.9819C6.48359 30.4472 5.27265 28.6497 4.38548 26.5893C3.49828 24.5289 3.05469 22.3327 3.05469 20.0008C3.05469 17.6504 3.49828 15.4446 4.38548 13.3836C5.27265 11.3226 6.48324 9.5293 8.01727 8.00361C9.5513 6.47791 11.3487 5.2705 13.4094 4.38136C15.4701 3.49219 17.6666 3.04761 19.9989 3.04761C22.3497 3.04761 24.5559 3.49201 26.6174 4.38082C28.6789 5.26965 30.4723 6.47662 31.9977 8.00173C33.5231 9.52682 34.7302 11.32 35.6192 13.3811C36.5082 15.4423 36.9526 17.6486 36.9526 19.9999C36.9526 20.7781 36.9034 21.5494 36.8049 22.3139C36.7063 23.0784 36.555 23.822 36.3509 24.5446C35.9675 24.1404 35.5301 23.8092 35.0386 23.5511C34.5471 23.2929 34.0182 23.1238 33.4518 23.0437C33.5655 22.5521 33.6502 22.055 33.706 21.5521C33.7617 21.0493 33.7896 20.5319 33.7896 19.9999C33.7896 16.1561 32.4524 12.8969 29.7779 10.2224C27.1033 7.5479 23.8431 6.21065 19.997 6.21065C16.1695 6.21065 12.915 7.5479 10.2334 10.2224C7.55188 12.8969 6.2111 16.1572 6.2111 20.0032C6.2111 23.8307 7.55133 27.0853 10.2318 29.7668C12.9122 32.4484 16.1675 33.7892 19.9976 33.7892C21.5258 33.7892 22.9767 33.554 24.3503 33.0836C25.7239 32.6131 26.9828 31.9644 28.1269 31.1373C28.4298 31.5966 28.7939 32.0051 29.2191 32.3627C29.6443 32.7203 30.1124 32.9981 30.6232 33.1961C29.1666 34.3766 27.5369 35.2967 25.7342 35.9562C23.9316 36.6158 22.0203 36.9456 20.0004 36.9456ZM32.545 30.2478C31.9865 30.2478 31.5136 30.0541 31.1266 29.6669C30.7395 29.2796 30.546 28.806 30.546 28.2463C30.546 27.6884 30.7396 27.2165 31.1269 26.8304C31.5142 26.4444 31.9877 26.2514 32.5475 26.2514C33.1053 26.2514 33.5773 26.4447 33.9633 26.8312C34.3493 27.2176 34.5423 27.6901 34.5423 28.2487C34.5423 28.8073 34.3491 29.2801 33.9626 29.6672C33.5761 30.0542 33.1036 30.2478 32.545 30.2478ZM25.7941 28.0186L18.5719 20.6049V11.3486H21.5955V19.3779L28.0112 25.8215L25.7941 28.0186Z"
-                              fill="white"
-                            />
-                          </g>
-                        </svg>
-                        <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                          {assesmentType === "Normal" ? 5 : 30} Minutes
-                        </div>
-                        <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                          30 seconds per Question
-                        </div>
-                      </div>
-                      <div
-                        className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
-                        style={{
-                          backgroundColor: "rgba(6, 169, 239, 0.50)",
-                          backdropFilter: "blur(22.5px)",
-                        }}
-                      >
-                        <svg
-                          xlgns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                        >
-                          <g mask="url(#mask0_4403_58338)">
-                            <path
-                              d="M15.9248 9.36795H18.7557V6.5437H15.9248V9.36795ZM21.58 9.36795V6.5437H24.4108V9.36795H21.58ZM15.9248 20.6783V17.854H18.7557V20.6783H15.9248ZM27.2351 15.0231V12.1989H30.066V15.0231H27.2351ZM27.2351 20.6783V17.854H30.066V20.6783H27.2351ZM21.58 20.6783V17.854H24.4108V20.6783H21.58ZM27.2351 9.36795V6.5437H30.066V9.36795H27.2351ZM18.7557 12.1989V9.36795H21.58V12.1989H18.7557ZM9.9375 33.589V6.5437H13.1005V9.36795H15.9248V12.1966H13.1005V15.0253H15.9248V17.854H13.1005V33.589H9.9375ZM24.4108 17.854V15.0231H27.2351V17.854H24.4108ZM18.7557 17.854V15.0231H21.58V17.854H18.7557ZM15.9248 15.0231V12.1989H18.7557V15.0231H15.9248ZM21.58 15.0231V12.1989H24.4108V15.0231H21.58ZM24.4108 12.1989V9.36795H27.2351V12.1989H24.4108Z"
-                              fill="white"
-                            />
-                          </g>
-                        </svg>
-                        <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                          {assesmentType === "Normal"
-                            ? "Quick Result"
-                            : "Quick Certification"}
-                        </div>
-                        <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                          See your score after the Test
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-[14px] scr820:text-[16px] text-[#fff] font-[600] flex justify-center items-center">
-                      Get ready to test your Skill!
-                    </div>
-                    <div className="flex flex-col justify-between items-center text-center w-full">
-                      <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
-                        The Test begins as soon as you click
-                        <span className="text-[10px] scr820:text-[12px] text-[#fff] font-[700]">
-                          {" "}
-                          Start.
-                        </span>
-                      </div>
-                      <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
-                        Make sure you have a stable internet connection.
-                      </div>
-                    </div>
-
+                  {!showSecondDiv ? (
                     <div
-                      onClick={() => {
-                        // setisLevel(true);
-                        handleStart();
-                      }}
+                      className={`p-[12px] xl:w-[100%] ms:px-[60px] scr1024: w-[100%]  rounded-[12px] bg-[#FFFFFF] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                     >
-                      <button
-                        className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
-                        disabled={loading}
-                      // onClick={() =>
-                      //   setQuestionIndex(
-                      //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                      //   )
-                      // }
-                      >
-                        {loading ? <MiniLoader /> : " Get Started"}
-                      </button>
-                    </div>
-                  </div>
+                      <div className="text-[20px] font-[600] text-[#333333] flex flex-row gap-[12px] text-center">
+                        <Assessmentlogo />
+                        {camelCase(selectedSkill)} Assessment
+                      </div>
+                      <div className="flex w-full ms:gap-[48px]  justify-center text-center scr420:gap-[20px] gap-[14px]">
+                        <div
+                          className=" w-[252px] md:h-[88px] h-[98px] p-[12px] flex md:flex-row  flex-col  rounded-[12px] justify-start items-center gap-[16px]"
+                          style={{
+                            backgroundColor: "rgba(203, 239, 255, 1)",
+                            // backdropFilter: "blur(45px)",
+                          }}
+                        >
+                          <svg
+                            width="34"
+                            height="32"
+                            viewBox="0 0 34 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className=" h-[22px] md:h-[32px] "
+                          >
+                            <path
+                              d="M23.6865 31.2795C22.724 31.2795 21.9024 30.9397 21.2216 30.2602C20.5408 29.5807 20.2005 28.7607 20.2005 27.8V21.1466C20.2005 20.1901 20.5408 19.3711 21.2216 18.6895C21.9024 18.0079 22.724 17.6671 23.6865 17.6671H30.3333C31.2958 17.6671 32.1174 18.0079 32.7982 18.6895C33.479 19.3711 33.8194 20.1901 33.8194 21.1466V27.8C33.8194 28.7607 33.479 29.5807 32.7982 30.2602C32.1174 30.9397 31.2958 31.2795 30.3333 31.2795H23.6865ZM23.3635 28.1231H30.6564V20.8235H23.3635V28.1231ZM0.0576172 26.0548V22.8918H15.1872V26.0548H0.0576172ZM23.6865 14.3338C22.724 14.3338 21.9024 13.9934 21.2216 13.3126C20.5408 12.6318 20.2005 11.8102 20.2005 10.8477V4.20097C20.2005 3.23844 20.5408 2.41679 21.2216 1.73601C21.9024 1.05523 22.724 0.714844 23.6865 0.714844H30.3333C31.2958 0.714844 32.1174 1.05523 32.7982 1.73601C33.479 2.41679 33.8194 3.23844 33.8194 4.20097V10.8477C33.8194 11.8102 33.479 12.6318 32.7982 13.3126C32.1174 13.9934 31.2958 14.3338 30.3333 14.3338H23.6865ZM23.3635 11.1708H30.6564V3.87788H23.3635V11.1708ZM0.0576172 9.10251V5.94613H15.1872V9.10251H0.0576172Z"
+                              fill="#646464"
+                            />
+                          </svg>
 
-                  {showSecondDiv && (
-                    <div className="flex flex-col  justify-center items-center lg:w-[60%] sm:w-[85%]  w-[100%] gap-6 ">
-                      {!resultType ? (
-                        <div className="flex flex-col justify-start items-center rounded-lg shadow-md  w-[100%] ">
-                          <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                            <div className="flex w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                Assessment Name
-                              </p>
+                          <div className="flex flex-col gap-2 md:item-start item-center">
+                            <div className="text-[10px] md:text-[12px]  scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
+                              {assesmentType === "Normal" ? 10 : 60} MCQs
                             </div>
-                            <div className="flex  w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                Date
-                              </p>
-                            </div>
-                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                              <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                Score
-                              </p>
+                            <div className=" text-[10px] md:text-[12px]  scr820:text-[12px] text-[#333333] font-[500] flex flex-col leading-tight md:text-start text-center">
+                              4 Options each
                             </div>
                           </div>
-                          <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                            {assessmentList
-                              ?.filter((data) => data.isCertification !== true)
-                              ?.map((item, index) => (
-                                <div
-                                  key={index}
-                                  className="border-b border-solid border-[#DEDEDE] w-full"
-                                >
-                                  <div className="flex  text-center gap-2 justify-between flex-row lg:gap-[14px] py-[8px] scr420:px-4 px-2 w-[100%] lg:w-full items-center self-stretch ">
-                                    <div className="  w-[50%]  flex justify-between gap-[12px]">
-                                      <div className="flex  gap-3 items-center self-stretch ">
-                                        <div className="w-[40px] h-[40px]">
-                                          <Assessmentlogo />
-                                        </div>
-                                        <div className="w-full">
-                                          <p className="text-text-primary text-start break-word font-montserrat text-base font-medium leading-6">
-                                            {item.skill}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
+                        </div>
 
-                                    <div className="flex w-[30%] justify-center items-center self-stretch ">
-                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                        {item?.date && formatDate(item?.date)}
+                        <div
+                          className=" w-[252px] md:h-[88px] h-[98px] p-[12px] flex md:flex-row  flex-col  rounded-[12px] justify-start items-center gap-[16px]"
+                          style={{
+                            backgroundColor: "rgba(203, 239, 255, 1)",
+                            backdropFilter: "blur(22.5px)",
+                          }}
+                        >
+                          <svg
+                            width="34"
+                            height="34"
+                            viewBox="0 0 34 34"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className=" h-[22px] md:h-[32px] "
+                          >
+                            <path
+                              d="M17 33.9448C14.6678 33.9448 12.4715 33.5012 10.4109 32.614C8.35032 31.7269 6.55267 30.5159 5.01795 28.9812C3.48322 27.4465 2.27228 25.6489 1.38511 23.5885C0.497918 21.5282 0.0543213 19.332 0.0543213 17.0001C0.0543213 14.6496 0.497918 12.4439 1.38511 10.3829C2.27228 8.32192 3.48288 6.52857 5.0169 5.00287C6.55093 3.47718 8.34829 2.26976 10.409 1.38063C12.4697 0.491459 14.6662 0.046875 16.9985 0.046875C19.3493 0.046875 21.5555 0.491278 23.617 1.38008C25.6785 2.26892 27.472 3.47589 28.9973 5.001C30.5227 6.52608 31.7299 8.31922 32.6188 10.3804C33.5078 12.4416 33.9523 14.6478 33.9523 16.9992C33.9523 17.7774 33.903 18.5487 33.8045 19.3132C33.706 20.0777 33.5546 20.8212 33.3505 21.5439C32.9671 21.1397 32.5297 20.8085 32.0382 20.5504C31.5468 20.2922 31.0178 20.1231 30.4514 20.043C30.5651 19.5514 30.6499 19.0542 30.7056 18.5514C30.7614 18.0486 30.7892 17.5312 30.7892 16.9992C30.7892 13.1554 29.452 9.8962 26.7775 7.22167C24.103 4.54717 20.8427 3.20992 16.9967 3.20992C13.1692 3.20992 9.91463 4.54717 7.23307 7.22167C4.55152 9.8962 3.21074 13.1565 3.21074 17.0025C3.21074 20.83 4.55096 24.0845 7.2314 26.7661C9.91188 29.4476 13.1672 30.7884 16.9972 30.7884C18.5254 30.7884 19.9763 30.5532 21.3499 30.0828C22.7235 29.6124 23.9824 28.9637 25.1265 28.1365C25.4294 28.5959 25.7935 29.0043 26.2187 29.362C26.644 29.7195 27.112 29.9974 27.6229 30.1954C26.1662 31.3759 24.5365 32.2959 22.7339 32.9555C20.9312 33.6151 19.0199 33.9448 17 33.9448ZM29.5447 27.247C28.9861 27.247 28.5133 27.0534 28.1262 26.6661C27.7391 26.2788 27.5456 25.8053 27.5456 25.2455C27.5456 24.6877 27.7393 24.2157 28.1265 23.8297C28.5138 23.4437 28.9874 23.2507 29.5471 23.2507C30.105 23.2507 30.5769 23.4439 30.9629 23.8304C31.3489 24.2169 31.5419 24.6894 31.5419 25.248C31.5419 25.8066 31.3487 26.2794 30.9622 26.6665C30.5758 27.0535 30.1032 27.247 29.5447 27.247ZM22.7938 25.0179L15.5716 17.6042V8.34788H18.5951V16.3772L25.0109 22.8208L22.7938 25.0179Z"
+                              fill="#646464"
+                            />
+                          </svg>
+
+                          <div className="flex flex-col gap-2 md:item-start item-center">
+                            <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
+                              {assesmentType === "Normal" ? 5 : 30} Minutes
+                            </div>
+                            <div className=" text-[10px] md:text-[12px]  scr820:text-[12px] text-[#333333] font-[500] flex flex-col leading-tight md:text-start text-center">
+                              30 seconds per Question
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className=" w-[252px] md:h-[88px] h-[98px] p-[12px] flex md:flex-row  flex-col  rounded-[12px]  items-center gap-[16px]"
+                          style={{
+                            backgroundColor: "rgba(203, 239, 255, 1)",
+                            backdropFilter: "blur(22.5px)",
+                          }}
+                        >
+                          <svg
+                            width="22"
+                            height="28"
+                            viewBox="0 0 22 28"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className=" h-[22px] md:h-[32px] "
+                          >
+                            <path
+                              d="M6.92308 3.36722H9.75396V0.542969H6.92308V3.36722ZM12.5782 3.36722V0.542969H15.4091V3.36722H12.5782ZM6.92308 14.6776V11.8533H9.75396V14.6776H6.92308ZM18.2334 9.02238V6.19814H21.0643V9.02238H18.2334ZM18.2334 14.6776V11.8533H21.0643V14.6776H18.2334ZM12.5782 14.6776V11.8533H15.4091V14.6776H12.5782ZM18.2334 3.36722V0.542969H21.0643V3.36722H18.2334ZM9.75396 6.19814V3.36722H12.5782V6.19814H9.75396ZM0.935791 27.5883V0.542969H4.09883V3.36722H6.92308V6.19588H4.09883V9.02459H6.92308V11.8533H4.09883V27.5883H0.935791ZM15.4091 11.8533V9.02238H18.2334V11.8533H15.4091ZM9.75396 11.8533V9.02238H12.5782V11.8533H9.75396ZM6.92308 9.02238V6.19814H9.75396V9.02238H6.92308ZM12.5782 9.02238V6.19814H15.4091V9.02238H12.5782ZM15.4091 6.19814V3.36722H18.2334V6.19814H15.4091Z"
+                              fill="#646464"
+                            />
+                          </svg>
+
+                          <div className="flex flex-col gap-2 md:item-start item-center">
+                            <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
+                              {assesmentType === "Normal"
+                                ? "Quick Result"
+                                : "Quick Certification"}
+                            </div>
+                            <div className=" text-[10px] md:text-[12px]  scr820:text-[12px] text-[#333333] font-[500] flex flex-col leading-tight md:text-start text-center">
+                              See your score after the Test
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-[14px] font-[Montserrat] scr820:text-[16px] text-[#333333] font-[600] flex justify-center items-center">
+                        Get ready to test your Skill!
+                      </div>
+
+                      <div
+                        onClick={() => {
+                          handleStart();
+                        }}
+                      >
+                        <button
+                          onMouseEnter={() => setIsHovered(true)}
+                          onMouseLeave={() => setIsHovered(false)}
+                          className="h-[42px] w-[252px] flex items-center justify-center rounded-[30px] text-[14px] text-[#FFFFFF] gap-[4px] font-[600] bg-[#06A9EF]  border border-transparent hover:text-[#000000] hover:bg-[#FFFFFF] hover:border hover:border-[#06A9EF]  "
+                          disabled={loading}
+                        >
+                          {loading ? <MiniLoader /> : "Start"}
+                          <svg
+                            width="12"
+                            height="8"
+                            viewBox="0 0 12 8"
+                            fill={isHovered ? "black" : "white"}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.45863 4.56116H0.9375C0.777875 4.56116 0.64425 4.50728 0.536625 4.39953C0.428875 4.29191 0.375 4.15828 0.375 3.99866C0.375 3.83903 0.428875 3.70541 0.536625 3.59778C0.64425 3.49003 0.777875 3.43616 0.9375 3.43616H9.45863L6.98944 0.966969C6.87794 0.855344 6.82288 0.724781 6.82425 0.575281C6.82575 0.425781 6.88081 0.292844 6.98944 0.176469C7.10581 0.0602194 7.23944 0.000156055 7.39031 -0.00371894C7.54131 -0.00759394 7.675 0.0486561 7.79137 0.165031L11.1504 3.52409C11.2207 3.59434 11.2702 3.66841 11.2989 3.74628C11.3278 3.82416 11.3422 3.90828 11.3422 3.99866C11.3422 4.08903 11.3278 4.17316 11.2989 4.25103C11.2702 4.32891 11.2207 4.40297 11.1504 4.47322L7.79137 7.83228C7.67975 7.94378 7.54731 7.99884 7.39406 7.99747C7.24069 7.99597 7.10581 7.93709 6.98944 7.82084C6.88081 7.70447 6.82456 7.57272 6.82069 7.42559C6.81681 7.27847 6.87306 7.14672 6.98944 7.03034L9.45863 4.56116Z"
+                              fill={isHovered ? "black" : "white"}
+                            />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div className="ms:flex pb-[36px] gap-[8px] justify-center items-center text-center w-full ">
+                        <div className="text-[10px] scr820:text-[12px] text-[#646464] font-[500] ">
+                          The Test begins as soon as you click
+                          <span className="text-[10px] scr820:text-[12px] text-[#646464] font-[700]">
+                            {" "}Start.
+                          </span>
+                        </div>
+                        <div className="text-[10px] scr820:text-[12px] text-[#646464] font-[500] ">
+                          Make sure you have a stable internet connection.
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {showSecondDiv && (
+                        <div className="w-[100%]">
+                          {showSecondDiv && (
+                            <div className="flex flex-col  justify-center items-center lg:w-[100%] w-[100%]  gap-6 ">
+                              {!resultType ? (
+                                <div className="flex flex-col justify-start items-center rounded-lg shadow-md  w-[100%] ">
+                                  <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                                    <div className="flex scr700:w-[20%] w-[116px] justify-between  items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                                      <p className=" ml:text-[16px] md:text-[14px] scr700:text-[13px] scr540:text-[12px] text-[10px] font-montserrat  font-medium leading-6">
+                                        Assessment Name
+                                      </p>
+                                    </div>
+                                    <div className="flex  scr700:w-[20%] w-[116px] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                                      <p className=" ml:text-[16px] scr540:text-[14px] text-[12px] font-montserrat  font-medium leading-6">
+                                        Date
                                       </p>
                                     </div>
                                     <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {item.score} / 10
+                                      <p className=" ml:text-[16px] scr540:text-[14px] text-[12px] font-montserrat  font-medium leading-6">
+                                        Score
                                       </p>
                                     </div>
                                   </div>
+                                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                                    {assessmentList
+                                      ?.filter(
+                                        (data) => data.isCertification !== true
+                                      )
+                                      ?.map((item, index) => (
+                                        <div
+                                          key={index}
+                                          className="border-b border-solid border-[#DEDEDE] w-full"
+                                        >
+                                          <div className="flex  text-center gap-2 justify-between flex-row lg:gap-[14px] py-[8px] scr420:px-4 px-2 w-[100%] lg:w-full items-center self-stretch ">
+                                            <div className="  w-[20%]  flex justify-between gap-[12px]">
+                                              <div className="flex  gap-3 items-center self-stretch ">
+                                                <div className="w-[40px] h-[40px]">
+                                                  <Assessmentlogo />
+                                                </div>
+                                                <div className="w-full">
+                                                  <p className=" ml:text-[16px] scr540:text-[14px] text-[12px] font-montserrat  font-medium leading-6">
+                                                    {item.skill}
+                                                  </p>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div className="flex w-[30%] justify-center items-center self-stretch ">
+                                              <p className=" ml:text-[16px] scr540:text-[14px] text-[12px] font-montserrat  font-medium leading-6">
+                                                {item?.date &&
+                                                  formatDate(item?.date)}
+                                              </p>
+                                            </div>
+                                            <div className="flex w-[20%] justify-center items-center self-stretch  ">
+                                              <p className="text-[#0C8A0A] ml:text-[16px] scr540:text-[14px] text-[12px] items-center  font-montserrat text-sm font-semibold leading-7">
+                                                {item.score} / 10
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
+                                  </div>
                                 </div>
-                              ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
-                          <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                            <div className="flex w-[36.04%] ms:w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
-                                Assessment Name
-                              </p>
-                            </div>
-                            <div className="flex w-[19.76%] ms:w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
-                                Date
-                              </p>
-                            </div>
-                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
-                                Score
-                              </p>
-                            </div>
-                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
-                              <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
-                                Certificate
-                              </p>
-                            </div>
-                          </div>
-                          <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                            {assessmentList
-                              ?.filter((data) => data.isCertification === true)
-                              ?.map((item, index) => (
-                                <div
-                                  key={index}
-                                  className="border-b border-solid border-[#DEDEDE] w-full"
-                                >
-                                  <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch justify-between">
-                                    <div className=" w-[36.04%] ms:w-[50%]  flex justify-between gap-[12px]">
-                                      <div className="flex  gap-3 items-center self-stretch ">
-                                        <div className="w-[40px] h-[40px]">
-                                          <Assessmentlogo />
-                                        </div>
-                                        <div className="w-full">
-                                          <p className="text-text-primary text-start break-word font-montserrat text-[10px] ms:text-base font-medium leading-6">
-                                            {item.skill}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <div className="flex  justify-center items-center self-stretch w-[19.76%] ms:w-[30%]">
-                                      <p className=" font-montserrat text-[10px] ms:text-base font-medium leading-6">
-                                        {item?.date && formatDate(item?.date)}
+                              ) : (
+                                <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                                  <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                                    <div className="flex w-[36.04%] ms:w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                                      <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
+                                        Assessment Name
                                       </p>
                                     </div>
-                                    <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
-                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {formatScore(item.score)}%
-                                        {/* let percentageScore = ((correctAnswers * 100) / totalQuestions).toFixed(2); */}
+                                    <div className="flex w-[19.76%] ms:w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                                      <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
+                                        Date
                                       </p>
                                     </div>
+                                    <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                                      <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
+                                        Score
+                                      </p>
+                                    </div>
+                                    <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  ">
+                                      <p className="text-text-primary font-montserrat text-[12px] ms:text-base font-medium leading-6">
+                                        Certificate
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                                    {assessmentList
+                                      ?.filter(
+                                        (data) => data.isCertification === true
+                                      )
+                                      ?.map((item, index) => (
+                                        <div
+                                          key={index}
+                                          className="border-b border-solid border-[#DEDEDE] w-full"
+                                        >
+                                          <div className="flex  text-center   flex-row  py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch justify-between">
+                                            <div className=" w-[36.04%] ms:w-[50%]  flex justify-between gap-[12px]">
+                                              <div className="flex  gap-3 items-center self-stretch ">
+                                                <div className="w-[40px] h-[40px]">
+                                                  <Assessmentlogo />
+                                                </div>
+                                                <div className="w-full">
+                                                  <p className="text-text-primary text-start break-word font-montserrat text-[10px] ms:text-base font-medium leading-6">
+                                                    {item.skill}
+                                                  </p>
+                                                </div>
+                                              </div>
+                                            </div>
 
-                                    <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  text-[10px] ms:text-base font-medium leading-6 ">
-                                      {Number(formatScore(item.score)) >= 70 ?
-                                        <button onClick={() => generatePdf3(item, index)} className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4">
-                                          {index === viewCertificate ?
-                                            <>
-                                              {viewCertificateLoader ?
+                                            <div className="flex  justify-center items-center self-stretch w-[19.76%] ms:w-[30%]">
+                                              <p className=" font-montserrat text-[10px] ms:text-base font-medium leading-6">
+                                                {item?.date &&
+                                                  formatDate(item?.date)}
+                                              </p>
+                                            </div>
+                                            <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
+                                              <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                                {formatScore(item.score)}%
+                                              </p>
+                                            </div>
+
+                                            <div className="flex w-[19.76%] ms:w-[20%] justify-center items-center self-stretch  text-[10px] ms:text-base font-medium leading-6 ">
+                                              {Number(
+                                                formatScore(item.score)
+                                              ) >= 70 ? (
+                                                <button
+                                                  onClick={() =>
+                                                    generatePdf3(item, index)
+                                                  }
+                                                  className="text-[#06A9EF] items-center font-montserrat text-[10px] ms:text-base font-semibold leading-4"
+                                                >
+                                                  {index === viewCertificate ? (
+                                                    <>
+                                                      {viewCertificateLoader ? (
+                                                        <svg
+                                                          aria-hidden="true"
+                                                          className="w-6 h-6 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
+                                                          viewBox="0 0 100 101"
+                                                          fill="none"
+                                                          xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                          <path
+                                                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                            fill="currentColor"
+                                                          />
+                                                          <path
+                                                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                            fill="currentFill"
+                                                          />
+                                                        </svg>
+                                                      ) : (
+                                                        <svg
+                                                          width="24"
+                                                          height="24"
+                                                          viewBox="0 0 24 24"
+                                                          fill="none"
+                                                          xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                          <g mask="url(#mask0_5292_61102)">
+                                                            <path
+                                                              d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z"
+                                                              fill="#06A9EF"
+                                                            />
+                                                          </g>
+                                                        </svg>
+                                                      )}
+                                                    </>
+                                                  ) : (
+                                                    <svg
+                                                      width="24"
+                                                      height="24"
+                                                      viewBox="0 0 24 24"
+                                                      fill="none"
+                                                      xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                      <g mask="url(#mask0_5292_61102)">
+                                                        <path
+                                                          d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z"
+                                                          fill="#06A9EF"
+                                                        />
+                                                      </g>
+                                                    </svg>
+                                                  )}
+                                                </button>
+                                              ) : (
                                                 <svg
-                                                  aria-hidden="true"
-                                                  className="w-6 h-6 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
-                                                  viewBox="0 0 100 101"
+                                                  className=" cursor-not-allowed"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
                                                   fill="none"
                                                   xmlns="http://www.w3.org/2000/svg"
                                                 >
-                                                  <path
-                                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                                    fill="currentColor"
-                                                  />
-                                                  <path
-                                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                                    fill="currentFill"
-                                                  />
-                                                </svg>
-                                                : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
                                                   <g mask="url(#mask0_5292_61102)">
-                                                    <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                                                    <path
+                                                      d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z"
+                                                      fill="#DEDEDE"
+                                                    />
                                                   </g>
                                                 </svg>
-                                              }
-                                            </>
-                                            :
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                                              <g mask="url(#mask0_5292_61102)">
-                                                <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
-                                              </g>
-                                            </svg>}
-                                        </button>
-                                        :
-                                        <svg className=" cursor-not-allowed" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                                          <g mask="url(#mask0_5292_61102)">
-                                            <path d="M12 15.575C11.8667 15.575 11.7417 15.5542 11.625 15.5125C11.5083 15.4708 11.4 15.4 11.3 15.3L7.7 11.7C7.5 11.5 7.40417 11.2667 7.4125 11C7.42083 10.7333 7.51667 10.5 7.7 10.3C7.9 10.1 8.1375 9.99583 8.4125 9.9875C8.6875 9.97917 8.925 10.075 9.125 10.275L11 12.15V5C11 4.71667 11.0958 4.47917 11.2875 4.2875C11.4792 4.09583 11.7167 4 12 4C12.2833 4 12.5208 4.09583 12.7125 4.2875C12.9042 4.47917 13 4.71667 13 5V12.15L14.875 10.275C15.075 10.075 15.3125 9.97917 15.5875 9.9875C15.8625 9.99583 16.1 10.1 16.3 10.3C16.4833 10.5 16.5792 10.7333 16.5875 11C16.5958 11.2667 16.5 11.5 16.3 11.7L12.7 15.3C12.6 15.4 12.4917 15.4708 12.375 15.5125C12.2583 15.5542 12.1333 15.575 12 15.575ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V16C4 15.7167 4.09583 15.4792 4.2875 15.2875C4.47917 15.0958 4.71667 15 5 15C5.28333 15 5.52083 15.0958 5.7125 15.2875C5.90417 15.4792 6 15.7167 6 16V18H18V16C18 15.7167 18.0958 15.4792 18.2875 15.2875C18.4792 15.0958 18.7167 15 19 15C19.2833 15 19.5208 15.0958 19.7125 15.2875C19.9042 15.4792 20 15.7167 20 16V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#DEDEDE" />
-                                          </g>
-                                        </svg>}
-
-                                    </div>
-
+                                              )}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
                                   </div>
                                 </div>
-                              ))}
-                          </div>
+                              )}
+                            </div>
+                          )}
+                          <div className="flex flex-row justify-end"></div>
                         </div>
                       )}
-                    </div>
+                    </>
                   )}
                 </div>
               </div>
@@ -1444,7 +1367,6 @@ function SkillAssessment() {
                     ></div>
                   </div>
                   <p className="text-[16px] flex justify-end font-semibold scr420:w-[70px] w-[85px]">
-                    {" "}
                     {questionIndex + 1} / {assesmentType === "Normal" ? 10 : 60}
                   </p>
                 </div>
@@ -1453,58 +1375,58 @@ function SkillAssessment() {
                   style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
                 >
                   <div className="flex flex-col gap-6 ">
-                    <p className="text-[#333333] font-medium">
+                    <p className="text-[#333333] text-[20px] font-[600]">
                       Question {questionIndex + 1}
                     </p>
-                    <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
+                    <div className="flex flex-col gap-8 bg-[#E0F6FF] p-[24px] text-[#333333] font-medium  md:text-[14px] text-[12px]">
                       <p> {question[questionIndex]?.question}</p>
                     </div>
-                    <div className="w-full flex  flex-col gap-5">
+
+                    <div className="w-full md:grid grid-cols-2 flex flex-col gap-[24px]">
                       {question[questionIndex]?.options.map((option, index) => (
-                        <div key={index} className="flex items-start gap-4">
-                          <input
-                            type="radio"
-                            className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
-                            id={`option${index}`}
-                            name="options"
-                            value={option}
-                            checked={isSelected(
+                        <div
+                          key={index}
+                          className={`flex items-start py-[12px] px-[16px] gap-4 rounded-[8px] cursor-pointer ${
+                            isSelected(
                               option,
                               questionIndex + 1,
                               question[questionIndex]?.question
-                            )}
-                            onChange={() => {
-
-                              answerSetter(
-                                questionIndex + 1,
-                                option,
-                                question[questionIndex]?.question,
-
-                              )
-
-                            }
-                            }
-                          />
-                          <label
-                            htmlFor={`option${index}`}
-                            className="text-[14px] ms:text-[16px] font-[500] leading-tight"
-                          >
+                            )
+                              ? "bg-[#06A9EF] text-white"
+                              : "bg-white"
+                          }`}
+                          style={{
+                            boxShadow: "0px 0px 2px 0px #00000080",
+                            transition: "background-color 0.3s ease",
+                          }}
+                          onClick={() => {
+                            answerSetter(
+                              questionIndex + 1,
+                              option,
+                              question[questionIndex]?.question
+                            );
+                          }}
+                        >
+                          <div className="md:text-[14px] text-[12px]  font-[500] leading-tight">
+                            {String.fromCharCode(65 + index)})
+                          </div>
+                          <label className="md:text-[14px] text-[12px]  font-[500] leading-tight">
                             {option}
                           </label>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-6 ">
+                  <div className="flex gap-[16px] justify-end">
                     <button
                       style={{ opacity: !btnEnable ? "0.5" : 1 }}
                       disabled={!btnEnable}
-                      className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
+                      className="flex flex-row gap-[3px] items-center cursor-pointer text-[14px] font-[600]   px-[24px] py-[12px] justify-between leading-tight  rounded-[30px] border-[1px] border-solid border-[#06A9EF] "
                       onClick={() => {
-                        setIsNext(!isNext)
+                        setIsNext(!isNext);
                         resetSelection();
                         setBtnEnable(false);
-                        skippedQuestion()
+                        skippedQuestion();
                         let result = assesmentType === "Normal" ? 9 : 59;
                         if (questionIndex === result) {
                           setIsSubmit(true);
@@ -1513,15 +1435,14 @@ function SkillAssessment() {
                     >
                       Skip
                     </button>
-
                     <button
-                      className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
+                      className="flex flex-row gap-[4px] items-center px-6 py-3 rounded-[30px] bg-blue leading-tight text-white justify-center text-[14px] font-[600] "
                       style={{ opacity: !btnEnable || !btnEnable1 ? "0.5" : 1 }}
                       disabled={!btnEnable || !btnEnable1}
                       onClick={() => {
-                        setIsNext(!isNext)
+                        setIsNext(!isNext);
                         setBtnEnable(false);
-                        setBtnEnable1(false)
+                        setBtnEnable1(false);
                         sumbit();
 
                         let result = assesmentType === "Normal" ? 9 : 59;
@@ -1535,8 +1456,21 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                          ? "Submit"
-                          : "Next"}
+                        ? "Submit"
+                        : "Next"}
+
+                      <svg
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.45863 4.56116H0.9375C0.777875 4.56116 0.64425 4.50728 0.536625 4.39953C0.428875 4.29191 0.375 4.15828 0.375 3.99866C0.375 3.83903 0.428875 3.70541 0.536625 3.59778C0.64425 3.49003 0.777875 3.43616 0.9375 3.43616H9.45863L6.98944 0.966969C6.87794 0.855344 6.82288 0.724781 6.82425 0.575281C6.82575 0.425781 6.88081 0.292844 6.98944 0.176469C7.10581 0.0602194 7.23944 0.000156055 7.39031 -0.00371894C7.54131 -0.00759394 7.675 0.0486561 7.79137 0.165031L11.1504 3.52409C11.2207 3.59434 11.2702 3.66841 11.2989 3.74628C11.3278 3.82416 11.3422 3.90828 11.3422 3.99866C11.3422 4.08903 11.3278 4.17316 11.2989 4.25103C11.2702 4.32891 11.2207 4.40297 11.1504 4.47322L7.79137 7.83228C7.67975 7.94378 7.54731 7.99884 7.39406 7.99747C7.24069 7.99597 7.10581 7.93709 6.98944 7.82084C6.88081 7.70447 6.82456 7.57272 6.82069 7.42559C6.81681 7.27847 6.87306 7.14672 6.98944 7.03034L9.45863 4.56116Z"
+                          fill="white"
+                        />
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -1635,15 +1569,15 @@ function SkillAssessment() {
 
                           {assesmentType !== "Normal" && (
                             <>
-
-                              {calculateMarkOutOf60() >= 70.00 ? (
+                              {calculateMarkOutOf60() >= 70.0 ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
                                 </div>
                               ) : (
                                 <di className="text-[14px] text-[#C00000] font-[500]">
-                                  The resulted score did not meet the Certification requirements. You may try again! (Required above 70%)
-
+                                  The resulted score did not meet the
+                                  Certification requirements. You may try again!
+                                  (Required above 70%)
                                 </di>
                               )}
                             </>
@@ -1653,11 +1587,12 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${
+                        assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= 70
-                        ? "sm:w-[90%] w-[95%]"
-                        : "w-[80%]"
-                        } `}
+                          ? "sm:w-[90%] w-[95%]"
+                          : "w-[80%]"
+                      } `}
                     >
                       <button
                         onClick={() => {
@@ -1668,12 +1603,11 @@ function SkillAssessment() {
                           setSkipped([]);
                           setUniqueQuestions([]);
                           setIsSubmit(false);
-                          setIsNext(!isNext)
+                          setIsNext(!isNext);
                           // setSkippedArray([])
                           // window.location.reload();
-                          setBtnEnable1(false)
-
-
+                          setBtnEnable1(false);
+                          dispatch(reCallUserData());
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >
@@ -1688,31 +1622,16 @@ function SkillAssessment() {
                           >
                             {loading3 && <MiniLoader />}
                             {!loading3 && "Download Certificate"}
-
                           </button>
                         )}
                       <button
                         className="btn_hover_effect  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
                         onClick={() => handleDownload()}
                       >
-                        {" "}
                         {loadingg && <MiniLoader />}
                         {!loadingg && "Download"}
                       </button>
                     </div>
-
-                    {/* <div
-                      className="absolute overflow-hidden left-[-5000px]"
-                      ref={resumeRef}
-                    >
-                      <Result
-                        questions={question}
-                        answers={answer}
-                        selectedSkill={selectedSkill}
-                        checkAnswer={checkAnswer}
-                      />
-                    </div> */}
-
                     <div
                       className="absolute overflow-hidden left-[-8000px]"
                       ref={resumeRef1}
@@ -1729,10 +1648,7 @@ function SkillAssessment() {
               </div>
             </>
           )}
-
-          <div
-            className="flex overflow-hidden absolute left-[-9999px]"
-          >
+          <div className="flex overflow-hidden absolute left-[-9999px]">
             <ResultPdf
               questions={question}
               answers={answer}
@@ -1757,10 +1673,7 @@ function SkillAssessment() {
           </div>
         </div>
       )}
-      <div
-        className="absolute overflow-hidden left-[-8000px]"
-        ref={resumeRef2}
-      >
+      <div className="absolute overflow-hidden left-[-8000px]" ref={resumeRef2}>
         <Certificate
           selectedSkill={viewCertificateData.skill}
           level={viewCertificateData.level}
@@ -1768,9 +1681,7 @@ function SkillAssessment() {
           setDownloadCertificate={setDownloadCertificate}
         />
       </div>
-
     </div>
   );
 }
-
 export default SkillAssessment;

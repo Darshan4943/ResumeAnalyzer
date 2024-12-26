@@ -15,6 +15,7 @@ const ProfessionalDetails = ({
   register_cadidate,
   certificate,
   setCertificate,
+  clientId
 }) => {
   const [loading, setLoading] = useState(false);
   const [duration, setDuration] = useState({});
@@ -29,21 +30,23 @@ const ProfessionalDetails = ({
         return;
       }
       if (duration?.duration) {
-        if (Object.keys(duration.duration).length < 2) {
-          toast.error("Please fill duration");
-          return;
-        } else {
+        // if (Object.keys(duration.duration).length < 2) {
+        //   toast.error("Please fill duration");
+        //   return;
+        // }
+        //  else {
           if (Object.keys(duration.duration.start).length < 2) {
             toast.error("Please fill start duration");
             return;
-          } else if (
-            duration.duration.end &&
-            Object.keys(duration.duration.end).length < 2
-          ) {
-            toast.error("Please fill end duration");
-            return;
-          }
-        }
+          } 
+          // else if (
+          //   duration.duration.end &&
+          //   Object.keys(duration.duration.end).length < 2
+          // ) {
+          //   toast.error("Please fill end duration");
+          //   return;
+          // }
+        // }
       } else {
         toast.error("Please fill duration");
         return;
@@ -52,11 +55,8 @@ const ProfessionalDetails = ({
 
     // setLoading(true);
     setData({ ...data, jobDuration: duration.duration });
-
-    router.push({
-      pathname: "/createResume",
-      query: { ...data, keySkills: JSON.stringify(data.keySkills), jobDuration: JSON.stringify(duration.duration), educationDuration: JSON.stringify(data.educationDuration) },
-    });
+    localStorage.setItem("preResumeData", JSON.stringify(data));
+    router.push(`/createResume?clientId=${clientId}`);
   };
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
@@ -263,7 +263,7 @@ const ProfessionalDetails = ({
                     )}
                   </p>
                   <DateSelector
-                    idPrefix="education"
+                    idPrefix="experience"
                     data={duration}
                     dataSeter={setDuration}
                     isRow={true}

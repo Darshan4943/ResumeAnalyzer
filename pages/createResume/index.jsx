@@ -391,7 +391,7 @@ function CreateResume() {
   const [data, setData] = useState(defaultState);
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
-
+  console.log(data)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -437,7 +437,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-
+    const preResumeData = JSON.parse(localStorage.getItem("preResumeData"));
     if (parsedData) {
       const {
         first_name,
@@ -628,6 +628,61 @@ function CreateResume() {
             }))
             : [],
       });
+    } else if (preResumeData) {
+      setData({
+        ...data,
+
+        clientId: clientId ? clientId : null,
+        firstName: preResumeData.firstName,
+        lastName: preResumeData.lastName,
+        email: preResumeData.email,
+        dial_code: preResumeData.dial_code,
+        mobileNumber: preResumeData.mobileNo,
+        location: preResumeData.currentLocation,
+        skills: preResumeData.keySkills
+          ?.length > 0 ? preResumeData.keySkills
+            ?.map((item) => ({
+              skill: item.value,
+              rating: [5, 5, 5, 5, 5],
+            })) : [],
+
+        education: [{
+          qualification: preResumeData.stream,
+          specialization: preResumeData.specialization,
+          instituteName: preResumeData.university,
+          type: "full-time",
+          location: "",
+          duration: {
+            start: {
+              year: preResumeData.educationDuration.start?.year ? preResumeData.educationDuration.start?.year : "Year",
+              month: preResumeData.educationDuration.start?.month ? preResumeData.educationDuration.start?.month : "Month",
+            },
+            end: {
+              year: preResumeData.educationDuration.end?.year ? preResumeData.educationDuration.end?.year : "Year",
+              month: preResumeData.educationDuration.end?.month ? preResumeData.educationDuration.end?.month : "Month",
+            },
+          },
+        }],
+        experience: [{
+          designation: preResumeData.jobTitle,
+          organization: preResumeData.companyName,
+          description: "",
+          currentlyWorking: false,
+          location: preResumeData.jobLocation,
+          duration: {
+            start: {
+              year: preResumeData.jobDuration.start?.year ? preResumeData.jobDuration.start?.year : "Year",
+              month: preResumeData.jobDuration.start?.month ? preResumeData.jobDuration.start?.month : "Month",
+            },
+            end: {
+              year: preResumeData.jobDuration.end?.year ? preResumeData.jobDuration.end?.year : "Year",
+              month: preResumeData.jobDuration.end?.month ? preResumeData.jobDuration.end?.month : "Month",
+            },
+          },
+        }],
+
+      });
+
     } else if (clientId) {
       axios
         .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
@@ -738,7 +793,7 @@ function CreateResume() {
                   clientId={clientId}
                 />
               </div>
-              <div className="sticky top-[102px]  h-[50rem] w-[60%] rounded-lg bg-white overflow-y-auto">
+              <div className="sticky top-[102px]  h-[calc(100vh-120px)] w-[60%] rounded-lg bg-white overflow-y-auto">
                 <ResumePreview
                   data={data}
                   selectedResumeIndex={selectedResumeIndex}

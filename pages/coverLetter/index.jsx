@@ -161,7 +161,7 @@ function Index() {
 
   return (
     <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">
-      <div className="ml:w-[41%] scr1024:min-w-[508px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px] ">
+      <div className="ml:w-[41%] scr1024:min-w-[486px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px]  ">
         <CoverForm
           selectedCoverIndex={selectedCoverIndex}
           setSelectedCoverIndex={setSelectedCoverIndex}
