@@ -21,7 +21,8 @@ function SkillAssessment() {
   const resumeRef = useRef();
   const resumeRef1 = useRef();
   const resumeRef2 = useRef();
-  const userDataGlobal = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const router = useRouter();
   const query = router.query;
@@ -351,10 +352,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
@@ -378,9 +379,9 @@ function SkillAssessment() {
           assesmentType === "Normal"
             ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1)
             : localStorage.setItem(
-                "skillCertifiedCount",
-                Number(skillCertifiedCount) + 1
-              );
+              "skillCertifiedCount",
+              Number(skillCertifiedCount) + 1
+            );
           const skillTestCount1 = JSON.parse(
             localStorage.getItem("skillTestCount")
           );
@@ -409,10 +410,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
@@ -796,9 +797,8 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                              selectedSkill == item && "bg-[#06A9EF] text-white"
-                            }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
                           >
                             {item}
                           </button>
@@ -812,21 +812,19 @@ function SkillAssessment() {
               {!showSecondDiv ? (
                 <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center ">
                   <button
-                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
-                      assesmentType === "Normal"
-                        ? "bg-blue text-white btn_hover_effect"
-                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
+                      ? "bg-blue text-white btn_hover_effect"
+                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                      }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
                     onClick={() => setAssesmentType("Normal")}
                   >
                     Quick Assessment
                   </button>
                   <button
-                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
-                      assesmentType === "Certificate"
-                        ? "bg-blue text-white btn_hover_effect"
-                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    } ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium  `}
+                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
+                      ? "bg-blue text-white btn_hover_effect"
+                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                      } ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium  `}
                     onClick={() => setAssesmentType("Certificate")}
                   >
                     Certification Assessment
@@ -837,21 +835,19 @@ function SkillAssessment() {
                   {showSecondDiv && (
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
-                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
-                          assesmentType === "Normal"
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
-                          assesmentType === "Certificate"
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
+                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                          }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
                         onClick={() => setResultType(true)}
                       >
                         Certification Assesment Result
@@ -985,19 +981,13 @@ function SkillAssessment() {
                             // backdropFilter: "blur(45px)",
                           }}
                         >
-                          <svg
-                            width="34"
-                            height="32"
-                            viewBox="0 0 34 32"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className=" h-[22px] md:h-[32px] "
-                          >
-                            <path
-                              d="M23.6865 31.2795C22.724 31.2795 21.9024 30.9397 21.2216 30.2602C20.5408 29.5807 20.2005 28.7607 20.2005 27.8V21.1466C20.2005 20.1901 20.5408 19.3711 21.2216 18.6895C21.9024 18.0079 22.724 17.6671 23.6865 17.6671H30.3333C31.2958 17.6671 32.1174 18.0079 32.7982 18.6895C33.479 19.3711 33.8194 20.1901 33.8194 21.1466V27.8C33.8194 28.7607 33.479 29.5807 32.7982 30.2602C32.1174 30.9397 31.2958 31.2795 30.3333 31.2795H23.6865ZM23.3635 28.1231H30.6564V20.8235H23.3635V28.1231ZM0.0576172 26.0548V22.8918H15.1872V26.0548H0.0576172ZM23.6865 14.3338C22.724 14.3338 21.9024 13.9934 21.2216 13.3126C20.5408 12.6318 20.2005 11.8102 20.2005 10.8477V4.20097C20.2005 3.23844 20.5408 2.41679 21.2216 1.73601C21.9024 1.05523 22.724 0.714844 23.6865 0.714844H30.3333C31.2958 0.714844 32.1174 1.05523 32.7982 1.73601C33.479 2.41679 33.8194 3.23844 33.8194 4.20097V10.8477C33.8194 11.8102 33.479 12.6318 32.7982 13.3126C32.1174 13.9934 31.2958 14.3338 30.3333 14.3338H23.6865ZM23.3635 11.1708H30.6564V3.87788H23.3635V11.1708ZM0.0576172 9.10251V5.94613H15.1872V9.10251H0.0576172Z"
-                              fill="#646464"
-                            />
+                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                            <g mask="url(#mask0_6706_119836)">
+                              <path d="M26.6836 35.2795C25.7211 35.2795 24.8995 34.9397 24.2187 34.2602C23.5379 33.5807 23.1975 32.7607 23.1975 31.8V25.1466C23.1975 24.1901 23.5379 23.3711 24.2187 22.6895C24.8995 22.0079 25.7211 21.6671 26.6836 21.6671H33.3304C34.2929 21.6671 35.1145 22.0079 35.7953 22.6895C36.4761 23.3711 36.8165 24.1901 36.8165 25.1466V31.8C36.8165 32.7607 36.4761 33.5807 35.7953 34.2602C35.1145 34.9397 34.2929 35.2795 33.3304 35.2795H26.6836ZM26.3605 32.1231H33.6534V24.8235H26.3605V32.1231ZM3.05469 30.0548V26.8918H18.1842V30.0548H3.05469ZM26.6836 18.3338C25.7211 18.3338 24.8995 17.9934 24.2187 17.3126C23.5379 16.6318 23.1975 15.8102 23.1975 14.8477V8.20097C23.1975 7.23844 23.5379 6.41679 24.2187 5.73601C24.8995 5.05523 25.7211 4.71484 26.6836 4.71484H33.3304C34.2929 4.71484 35.1145 5.05523 35.7953 5.73601C36.4761 6.41679 36.8165 7.23844 36.8165 8.20097V14.8477C36.8165 15.8102 36.4761 16.6318 35.7953 17.3126C35.1145 17.9934 34.2929 18.3338 33.3304 18.3338H26.6836ZM26.3605 15.1708H33.6534V7.87788H26.3605V15.1708ZM3.05469 13.1025V9.94613H18.1842V13.1025H3.05469Z" fill="#646464" />
+                            </g>
                           </svg>
+
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px]  scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1016,19 +1006,13 @@ function SkillAssessment() {
                             backdropFilter: "blur(22.5px)",
                           }}
                         >
-                          <svg
-                            width="34"
-                            height="34"
-                            viewBox="0 0 34 34"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className=" h-[22px] md:h-[32px] "
-                          >
-                            <path
-                              d="M17 33.9448C14.6678 33.9448 12.4715 33.5012 10.4109 32.614C8.35032 31.7269 6.55267 30.5159 5.01795 28.9812C3.48322 27.4465 2.27228 25.6489 1.38511 23.5885C0.497918 21.5282 0.0543213 19.332 0.0543213 17.0001C0.0543213 14.6496 0.497918 12.4439 1.38511 10.3829C2.27228 8.32192 3.48288 6.52857 5.0169 5.00287C6.55093 3.47718 8.34829 2.26976 10.409 1.38063C12.4697 0.491459 14.6662 0.046875 16.9985 0.046875C19.3493 0.046875 21.5555 0.491278 23.617 1.38008C25.6785 2.26892 27.472 3.47589 28.9973 5.001C30.5227 6.52608 31.7299 8.31922 32.6188 10.3804C33.5078 12.4416 33.9523 14.6478 33.9523 16.9992C33.9523 17.7774 33.903 18.5487 33.8045 19.3132C33.706 20.0777 33.5546 20.8212 33.3505 21.5439C32.9671 21.1397 32.5297 20.8085 32.0382 20.5504C31.5468 20.2922 31.0178 20.1231 30.4514 20.043C30.5651 19.5514 30.6499 19.0542 30.7056 18.5514C30.7614 18.0486 30.7892 17.5312 30.7892 16.9992C30.7892 13.1554 29.452 9.8962 26.7775 7.22167C24.103 4.54717 20.8427 3.20992 16.9967 3.20992C13.1692 3.20992 9.91463 4.54717 7.23307 7.22167C4.55152 9.8962 3.21074 13.1565 3.21074 17.0025C3.21074 20.83 4.55096 24.0845 7.2314 26.7661C9.91188 29.4476 13.1672 30.7884 16.9972 30.7884C18.5254 30.7884 19.9763 30.5532 21.3499 30.0828C22.7235 29.6124 23.9824 28.9637 25.1265 28.1365C25.4294 28.5959 25.7935 29.0043 26.2187 29.362C26.644 29.7195 27.112 29.9974 27.6229 30.1954C26.1662 31.3759 24.5365 32.2959 22.7339 32.9555C20.9312 33.6151 19.0199 33.9448 17 33.9448ZM29.5447 27.247C28.9861 27.247 28.5133 27.0534 28.1262 26.6661C27.7391 26.2788 27.5456 25.8053 27.5456 25.2455C27.5456 24.6877 27.7393 24.2157 28.1265 23.8297C28.5138 23.4437 28.9874 23.2507 29.5471 23.2507C30.105 23.2507 30.5769 23.4439 30.9629 23.8304C31.3489 24.2169 31.5419 24.6894 31.5419 25.248C31.5419 25.8066 31.3487 26.2794 30.9622 26.6665C30.5758 27.0535 30.1032 27.247 29.5447 27.247ZM22.7938 25.0179L15.5716 17.6042V8.34788H18.5951V16.3772L25.0109 22.8208L22.7938 25.0179Z"
-                              fill="#646464"
-                            />
+                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                            <g mask="url(#mask0_6706_119843)">
+                              <path d="M20.0004 36.9448C17.6682 36.9448 15.4719 36.5012 13.4113 35.614C11.3507 34.7269 9.55303 33.5159 8.01831 31.9812C6.48359 30.4465 5.27265 28.6489 4.38548 26.5885C3.49828 24.5282 3.05469 22.332 3.05469 20.0001C3.05469 17.6496 3.49828 15.4439 4.38548 13.3829C5.27265 11.3219 6.48324 9.52857 8.01727 8.00287C9.5513 6.47718 11.3487 5.26976 13.4094 4.38063C15.4701 3.49146 17.6666 3.04688 19.9989 3.04688C22.3497 3.04688 24.5559 3.49128 26.6174 4.38008C28.6789 5.26892 30.4723 6.47589 31.9977 8.001C33.5231 9.52608 34.7302 11.3192 35.6192 13.3804C36.5082 15.4416 36.9526 17.6478 36.9526 19.9992C36.9526 20.7774 36.9034 21.5487 36.8049 22.3132C36.7063 23.0777 36.555 23.8212 36.3509 24.5439C35.9675 24.1397 35.5301 23.8085 35.0386 23.5504C34.5471 23.2922 34.0182 23.1231 33.4518 23.043C33.5655 22.5514 33.6502 22.0542 33.706 21.5514C33.7617 21.0486 33.7896 20.5312 33.7896 19.9992C33.7896 16.1554 32.4524 12.8962 29.7779 10.2217C27.1033 7.54717 23.8431 6.20992 19.997 6.20992C16.1695 6.20992 12.915 7.54717 10.2334 10.2217C7.55188 12.8962 6.2111 16.1565 6.2111 20.0025C6.2111 23.83 7.55133 27.0845 10.2318 29.7661C12.9122 32.4476 16.1675 33.7884 19.9976 33.7884C21.5258 33.7884 22.9767 33.5532 24.3503 33.0828C25.7239 32.6124 26.9828 31.9637 28.1269 31.1365C28.4298 31.5959 28.7939 32.0043 29.2191 32.362C29.6443 32.7195 30.1124 32.9974 30.6232 33.1954C29.1666 34.3759 27.5369 35.2959 25.7342 35.9555C23.9316 36.6151 22.0203 36.9448 20.0004 36.9448ZM32.545 30.247C31.9865 30.247 31.5136 30.0534 31.1266 29.6661C30.7395 29.2788 30.546 28.8053 30.546 28.2455C30.546 27.6877 30.7396 27.2157 31.1269 26.8297C31.5142 26.4437 31.9877 26.2507 32.5475 26.2507C33.1053 26.2507 33.5773 26.4439 33.9633 26.8304C34.3493 27.2169 34.5423 27.6894 34.5423 28.248C34.5423 28.8066 34.3491 29.2794 33.9626 29.6665C33.5761 30.0535 33.1036 30.247 32.545 30.247ZM25.7941 28.0179L18.5719 20.6042V11.3479H21.5955V19.3772L28.0112 25.8208L25.7941 28.0179Z" fill="#646464" />
+                            </g>
                           </svg>
+
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1046,19 +1030,13 @@ function SkillAssessment() {
                             backdropFilter: "blur(22.5px)",
                           }}
                         >
-                          <svg
-                            width="22"
-                            height="28"
-                            viewBox="0 0 22 28"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className=" h-[22px] md:h-[32px] "
-                          >
-                            <path
-                              d="M6.92308 3.36722H9.75396V0.542969H6.92308V3.36722ZM12.5782 3.36722V0.542969H15.4091V3.36722H12.5782ZM6.92308 14.6776V11.8533H9.75396V14.6776H6.92308ZM18.2334 9.02238V6.19814H21.0643V9.02238H18.2334ZM18.2334 14.6776V11.8533H21.0643V14.6776H18.2334ZM12.5782 14.6776V11.8533H15.4091V14.6776H12.5782ZM18.2334 3.36722V0.542969H21.0643V3.36722H18.2334ZM9.75396 6.19814V3.36722H12.5782V6.19814H9.75396ZM0.935791 27.5883V0.542969H4.09883V3.36722H6.92308V6.19588H4.09883V9.02459H6.92308V11.8533H4.09883V27.5883H0.935791ZM15.4091 11.8533V9.02238H18.2334V11.8533H15.4091ZM9.75396 11.8533V9.02238H12.5782V11.8533H9.75396ZM6.92308 9.02238V6.19814H9.75396V9.02238H6.92308ZM12.5782 9.02238V6.19814H15.4091V9.02238H12.5782ZM15.4091 6.19814V3.36722H18.2334V6.19814H15.4091Z"
-                              fill="#646464"
-                            />
+                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                            <g mask="url(#mask0_6706_119850)">
+                              <path d="M15.9248 9.36722H18.7557V6.54297H15.9248V9.36722ZM21.58 9.36722V6.54297H24.4108V9.36722H21.58ZM15.9248 20.6776V17.8533H18.7557V20.6776H15.9248ZM27.2351 15.0224V12.1981H30.066V15.0224H27.2351ZM27.2351 20.6776V17.8533H30.066V20.6776H27.2351ZM21.58 20.6776V17.8533H24.4108V20.6776H21.58ZM27.2351 9.36722V6.54297H30.066V9.36722H27.2351ZM18.7557 12.1981V9.36722H21.58V12.1981H18.7557ZM9.9375 33.5883V6.54297H13.1005V9.36722H15.9248V12.1959H13.1005V15.0246H15.9248V17.8533H13.1005V33.5883H9.9375ZM24.4108 17.8533V15.0224H27.2351V17.8533H24.4108ZM18.7557 17.8533V15.0224H21.58V17.8533H18.7557ZM15.9248 15.0224V12.1981H18.7557V15.0224H15.9248ZM21.58 15.0224V12.1981H24.4108V15.0224H21.58ZM24.4108 12.1981V9.36722H27.2351V12.1981H24.4108Z" fill="#646464" />
+                            </g>
                           </svg>
+
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1081,25 +1059,29 @@ function SkillAssessment() {
                           handleStart();
                         }}
                       >
+
                         <button
                           onMouseEnter={() => setIsHovered(true)}
                           onMouseLeave={() => setIsHovered(false)}
                           className="h-[42px] w-[252px] flex items-center justify-center rounded-[30px] text-[14px] text-[#FFFFFF] gap-[4px] font-[600] bg-[#06A9EF]  border border-transparent hover:text-[#000000] hover:bg-[#FFFFFF] hover:border hover:border-[#06A9EF]  "
                           disabled={loading}
                         >
-                          {loading ? <MiniLoader /> : "Start"}
-                          <svg
-                            width="12"
-                            height="8"
-                            viewBox="0 0 12 8"
-                            fill={isHovered ? "black" : "white"}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9.45863 4.56116H0.9375C0.777875 4.56116 0.64425 4.50728 0.536625 4.39953C0.428875 4.29191 0.375 4.15828 0.375 3.99866C0.375 3.83903 0.428875 3.70541 0.536625 3.59778C0.64425 3.49003 0.777875 3.43616 0.9375 3.43616H9.45863L6.98944 0.966969C6.87794 0.855344 6.82288 0.724781 6.82425 0.575281C6.82575 0.425781 6.88081 0.292844 6.98944 0.176469C7.10581 0.0602194 7.23944 0.000156055 7.39031 -0.00371894C7.54131 -0.00759394 7.675 0.0486561 7.79137 0.165031L11.1504 3.52409C11.2207 3.59434 11.2702 3.66841 11.2989 3.74628C11.3278 3.82416 11.3422 3.90828 11.3422 3.99866C11.3422 4.08903 11.3278 4.17316 11.2989 4.25103C11.2702 4.32891 11.2207 4.40297 11.1504 4.47322L7.79137 7.83228C7.67975 7.94378 7.54731 7.99884 7.39406 7.99747C7.24069 7.99597 7.10581 7.93709 6.98944 7.82084C6.88081 7.70447 6.82456 7.57272 6.82069 7.42559C6.81681 7.27847 6.87306 7.14672 6.98944 7.03034L9.45863 4.56116Z"
-                              fill={isHovered ? "black" : "white"}
-                            />
-                          </svg>
+                          {loading ? <MiniLoader /> :
+                            <>
+                              Start
+                              <svg
+                                width="12"
+                                height="8"
+                                viewBox="0 0 12 8"
+                                fill={isHovered ? "black" : "white"}
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.45863 4.56116H0.9375C0.777875 4.56116 0.64425 4.50728 0.536625 4.39953C0.428875 4.29191 0.375 4.15828 0.375 3.99866C0.375 3.83903 0.428875 3.70541 0.536625 3.59778C0.64425 3.49003 0.777875 3.43616 0.9375 3.43616H9.45863L6.98944 0.966969C6.87794 0.855344 6.82288 0.724781 6.82425 0.575281C6.82575 0.425781 6.88081 0.292844 6.98944 0.176469C7.10581 0.0602194 7.23944 0.000156055 7.39031 -0.00371894C7.54131 -0.00759394 7.675 0.0486561 7.79137 0.165031L11.1504 3.52409C11.2207 3.59434 11.2702 3.66841 11.2989 3.74628C11.3278 3.82416 11.3422 3.90828 11.3422 3.99866C11.3422 4.08903 11.3278 4.17316 11.2989 4.25103C11.2702 4.32891 11.2207 4.40297 11.1504 4.47322L7.79137 7.83228C7.67975 7.94378 7.54731 7.99884 7.39406 7.99747C7.24069 7.99597 7.10581 7.93709 6.98944 7.82084C6.88081 7.70447 6.82456 7.57272 6.82069 7.42559C6.81681 7.27847 6.87306 7.14672 6.98944 7.03034L9.45863 4.56116Z"
+                                  fill={isHovered ? "black" : "white"}
+                                />
+                              </svg>
+                            </>}
                         </button>
                       </div>
 
@@ -1378,7 +1360,7 @@ function SkillAssessment() {
                     <p className="text-[#333333] text-[20px] font-[600]">
                       Question {questionIndex + 1}
                     </p>
-                    <div className="flex flex-col gap-8 bg-[#E0F6FF] p-[24px] text-[#333333] font-medium  md:text-[14px] text-[12px]">
+                    <div className="flex flex-col gap-8 bg-[#E0F6FF] p-[24px] rounded-[10px] text-[#333333] font-medium  md:text-[16px] text-[12px]">
                       <p> {question[questionIndex]?.question}</p>
                     </div>
 
@@ -1386,15 +1368,14 @@ function SkillAssessment() {
                       {question[questionIndex]?.options.map((option, index) => (
                         <div
                           key={index}
-                          className={`flex items-start py-[12px] px-[16px] gap-4 rounded-[8px] cursor-pointer ${
-                            isSelected(
-                              option,
-                              questionIndex + 1,
-                              question[questionIndex]?.question
-                            )
-                              ? "bg-[#06A9EF] text-white"
-                              : "bg-white"
-                          }`}
+                          className={`flex items-start py-[12px] px-[16px] gap-4 rounded-[8px] cursor-pointer ${isSelected(
+                            option,
+                            questionIndex + 1,
+                            question[questionIndex]?.question
+                          )
+                            ? "bg-[#06A9EF] text-white"
+                            : "bg-white"
+                            }`}
                           style={{
                             boxShadow: "0px 0px 2px 0px #00000080",
                             transition: "background-color 0.3s ease",
@@ -1456,8 +1437,8 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                        ? "Submit"
-                        : "Next"}
+                          ? "Submit"
+                          : "Next"}
 
                       <svg
                         width="12"
@@ -1587,12 +1568,11 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${
-                        assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= 70
-                          ? "sm:w-[90%] w-[95%]"
-                          : "w-[80%]"
-                      } `}
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                        } `}
                     >
                       <button
                         onClick={() => {
@@ -1607,7 +1587,7 @@ function SkillAssessment() {
                           // setSkippedArray([])
                           // window.location.reload();
                           setBtnEnable1(false);
-                          dispatch(reCallUserData());
+
                         }}
                         className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                       >
