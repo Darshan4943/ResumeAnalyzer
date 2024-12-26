@@ -303,7 +303,7 @@ function JobPost({ toggleContentt, setToggle }) {
               </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex flex-col scr1024:flex-row justify-between">
               <div className="flex gap-[10px]  justify-start">
                 <div className="flex gap-[4px] items-center">
                   <div>
@@ -381,9 +381,8 @@ function JobPost({ toggleContentt, setToggle }) {
                   onClick={() => {
                     setOption(0), setActiveOption("Applicants");
                   }}
-                  className={` ${
-                    activeOption === "Applicants" ? "" : "text-[#646464]"
-                  } cursor-pointer text-[16px] font-[600]`}
+                  className={` ${activeOption === "Applicants" ? "" : "text-[#646464]"
+                    } cursor-pointer text-[16px] font-[600]`}
                 >
                   Applicants
                 </p>
@@ -405,9 +404,8 @@ function JobPost({ toggleContentt, setToggle }) {
                   onClick={() => {
                     setOption(1), setActiveOption("JobDetails");
                   }}
-                  className={` ${
-                    activeOption === "JobDetails" ? "" : "text-[#646464]"
-                  } cursor-pointer font-[600]`}
+                  className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                 >
                   Job Details
                 </p>
@@ -429,9 +427,8 @@ function JobPost({ toggleContentt, setToggle }) {
                   onClick={() => {
                     setOption(2), setActiveOption("Analytics");
                   }}
-                  className={` ${
-                    activeOption === "Analytics" ? "" : "text-[#646464]"
-                  } cursor-pointer font-[600]`}
+                  className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                 >
                   Analytics
                 </p>
@@ -549,19 +546,18 @@ function JobPost({ toggleContentt, setToggle }) {
                           </div>
                           <div className="w-[20%]">
                             <div
-                              className={`flex py-[6px] min-w-[110px]  w-[60%] justify-center px-[10px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                                applicants.status === "Interview"
+                              className={`flex py-[6px] min-w-[110px]  w-[60%] justify-center px-[10px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
                                   ? "text-[#26A4FF] border-[#26A4FF]"
                                   : applicants.status === "Hired"
-                                  ? "text-[#56CDAD] border-[#56CDAD]"
-                                  : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE] border-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                  ? "text-[#FF6550] border-[#FF6550]"
-                                  : applicants.status === "In Review"
-                                  ? "text-[#FFB836] border-[#FFB836]"
-                                  : ""
-                              }`}
+                                    ? "text-[#56CDAD] border-[#56CDAD]"
+                                    : applicants.status === "Shortlisted"
+                                      ? "text-[#4640DE] border-[#4640DE]"
+                                      : applicants.status === "Rejected"
+                                        ? "text-[#FF6550] border-[#FF6550]"
+                                        : applicants.status === "In Review"
+                                          ? "text-[#FFB836] border-[#FFB836]"
+                                          : ""
+                                }`}
                             >
                               {applicants.status}
                             </div>
