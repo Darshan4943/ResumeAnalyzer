@@ -4,6 +4,7 @@ import { TablePagination } from "@mui/material";
 import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 
+
 function JobPosting() {
   const router = useRouter();
   const query = router.query;

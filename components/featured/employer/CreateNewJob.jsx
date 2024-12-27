@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import JobPostSetting from "./JobPostSetting";
-import HiringPostJob from "./HiringPostJob";
-import { AnimatePresence, motion } from "framer-motion";
-import PersonalDetails from "./afterLogin/jobPosting/PersonalDetails";
+
 import CreateProfileFields from "./afterLogin/jobPosting/CreateProfileFields";
 import { useRouter } from "next/router";
 import axios from "axios";
