@@ -268,6 +268,7 @@ function JobPosting() {
                     {search.map((headingObj, index) => (
                       <>
                         <select
+                        key={index}
                           className=" w-[19.87%] bg-whites"
                           onChange={(e) =>
                             handleHeadingChange(e, headingObj.heading)
