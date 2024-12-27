@@ -587,13 +587,14 @@ function Sign_up({ }) {
 
   return (
     <div className=" flex justify-center items-center py-[72px]  gap-[50px] customMargins">
+      <div className="h-[480px] min-w-[480px] scr1024:block hidden">
+        <img
+          src="/images/auth/signIn.png"
+          alt=""
+          className="h-[480px] w-[480px]  object-cover "
 
-      <img
-        src="/images/auth/signIn.png"
-        alt=""
-        className="h-[480px] w-[480px]  object-cover scr1024:block hidden"
-
-      />
+        />
+      </div>
       <form
         onSubmit={submitHandler}
         className="  bg-white flex w-[400px]  sm:p-[24px] p-3 gap-[16px] flex-col justify-center items-center rounded-[24px] "
