@@ -138,7 +138,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
             </svg>
             <option value="PHD">PHD</option>
             <option value="Masters">Masters</option>
-            <option value="Bachelor">Bachelor's</option>
+            <option value="Bachelor">Bachelors</option>
             <option value="12th">12th</option>
             <option value="10th">10th</option>
           </select>

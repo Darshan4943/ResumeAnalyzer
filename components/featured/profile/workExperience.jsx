@@ -88,8 +88,8 @@ const WorkExperiance = ({ userData }) => {
               />
             </div> */}
           </div>
-          {userData?.workExperiance?.map((job) => (
-            <div className="work_logo">
+          {userData?.workExperiance?.map((job,index) => (
+            <div key={index} className="work_logo">
               {/* <div className="logo_img">
    <img src="./images/profile/logo_1.png" alt="" />
  </div> */}

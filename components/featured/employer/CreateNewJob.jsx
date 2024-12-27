@@ -1027,8 +1027,8 @@ function CreateNewJob({ setToggle }) {
                             value={data.requiredQualification}
                             onChange={handleChange}
                           >
-                            <option value="Bachelor's">Bachelor's</option>
-                            <option value="Master's">Master's</option>
+                            <option value="Bachelor's">Bachelors</option>
+                            <option value="Master's">Masters</option>
                             <option value="PhD">PhD</option>
                           </select>
                         </div>

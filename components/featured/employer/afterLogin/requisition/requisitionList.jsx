@@ -167,8 +167,8 @@ function RequisitionList() {
     return (
         <div className="h-[calc(95vh-328px)] w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
             <div className='w-full bg-[#E0F6FF] p-[16px] flex justify-between items-center'>
-                {labels.map((req) => (
-                    <div className='w-[12.84%] text-[#333333] text-center text-[16px] font-[600]'>{req}</div>
+                {labels.map((req,index) => (
+                    <div key={index} className='w-[12.84%] text-[#333333] text-center text-[16px] font-[600]'>{req}</div>
                 ))}
             </div>
             <div className='overflow-scroll h-[66%]'>

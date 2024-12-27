@@ -48,8 +48,8 @@ const Skills = ({ userData }) => {
       </div>
 
       <div className="skill_buttons">
-        {userData?.skills?.map((item) => (
-          <div className="skill_button text-[14px] font-[500] leading-tight">{item.label}</div>
+        {userData?.skills?.map((item,index) => (
+          <div key={index} className="skill_button text-[14px] font-[500] leading-tight">{item.label}</div>
         ))}
       </div>
     </div>

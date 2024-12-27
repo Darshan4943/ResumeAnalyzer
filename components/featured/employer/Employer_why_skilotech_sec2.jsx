@@ -50,7 +50,7 @@ function Employer_why_skilotech_sec2() {
       <div className=  " flex  gap-8 justify-center items-center m-[2rem] flex-wrap lg:w-[936px]  ">
         {arr.map((item, index) => (
           // <Parallax speed={yPathSeter(index)}>
-          <div className="employer_card flex flex-col w-[168px] ml:w-[234px] h-[222px] ml:h-[272px] text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
+          <div key={index} className="employer_card flex flex-col w-[168px] ml:w-[234px] h-[222px] ml:h-[272px] text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
             <div className="flex h-[122px] flex-col p-[0.6rem] items-center gap-2 self-stretch rounded-md bg-[#d2e7f0]  w-full transition-all duration-500 Employer_why_skilotech_sec2_cart_1st">
               <div className="employer_card_svg bg-[#fff] flex items-center justify-center h-[68px] w-[80px] p-[8px] ">
                 <img
