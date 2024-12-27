@@ -281,7 +281,7 @@ function JobPosting() {
                             </option>
                           ))}
                         </select>
-                        <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
+                        <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div> 
                       </>
                     ))}
                     <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
