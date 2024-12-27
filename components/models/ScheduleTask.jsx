@@ -1,4 +1,3 @@
-
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { Delete_icon, PlusAddLogo } from '../../utils/svg';

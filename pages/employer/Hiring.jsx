@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import JobPost from "../../components/featured/employer/JobPost";
 import ApplicantDetails from "../jobs/details/applicant-details";
 import axios from "axios";
-import { TablePagination } from "@mui/material";
+import MiniLoader from "../../components/common/mini-loader";
 
 function Hiring() {
   const router = useRouter();
@@ -16,19 +16,14 @@ function Hiring() {
   const [toggle, setToggle] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [filters, setFilters] = useState({});
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [miniLoading, setMiniloading] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const [totalCount, setTotalCount] = useState(0);
+  const [selectedJob, setSelectedJob]=useState("")
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -40,9 +35,10 @@ function Hiring() {
     }
   }, [router.query]);
 
-  const toggleContent = () => {
+  const toggleContent = (job) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    router.push(`Hiring/?content=${JobPost}`);
+    setSelectedJob(job._id)
+    router.push(`Hiring/?content=${JobPost}&id=${job._id}`);
     setToggle((prevToggle) => !prevToggle);
   };
 
@@ -50,9 +46,10 @@ function Hiring() {
     {
       heading: "Department",
       options: [
-        " software devlopment",
+        "software developement",
         "Backend Devloper",
         "React Js Developer",
+        "Secretary"
       ],
     },
     {
@@ -65,41 +62,60 @@ function Hiring() {
     },
   ];
 
-  const fetchJobs = async (page = 1, limit = 10, appliedFilters = {}) => {
+  const fetchJobs = async () => {
+    setMiniloading(true);
     try {
-      setLoading(true);
-
-      const cleanFilters = Object.keys(appliedFilters).reduce((acc, key) => {
-        if (appliedFilters[key]) {
-          acc[key] = appliedFilters[key];
-        }
-        return acc;
-      }, {});
-
-      const res = await axios.post(
+      const response = await axios.post(
         "http://localhost:2000/api/job/getAllJobDetails",
-        { page, limit, ...cleanFilters }
+        filters,
+        {
+          params: { page, limit },
+        }
       );
 
-      setData(res.data.jobs);
-      setPagination(res.data.pagination);
-    } catch (err) {
-      setError("Error fetching jobs");
-      console.error("Error:", err);
+      const { jobs, pagination } = response.data;
+      setData(jobs);
+      setTotalCount(pagination.totalCount);
+      setTotalPages(pagination.totalPages);
+    } catch (error) {
+      console.error("Error fetching jobs:", error.message || error);
     } finally {
+      setMiniloading(false);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchJobs(page + 1, rowsPerPage, filters);
-  }, [filters, page, rowsPerPage]);
+    fetchJobs();
+  }, [filters, limit, page]);
 
   const handleFilterChange = (heading, value) => {
     setFilters(() => {
       const updatedFilters = value ? { [heading]: value } : {};
       return updatedFilters;
     });
+  };
+
+  const nextPage = (e) => {
+    e.stopPropagation();
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      setPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = (e) => {
+    e.stopPropagation();
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      setPage(currentPage - 1);
+    }
+  };
+
+  const handleChange = (e) => {
+    setLimit(parseInt(e.target.value));
+    setPage(1);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -113,17 +129,14 @@ function Hiring() {
   }, [query.content]);
 
   useEffect(() => {
-    fetchJobs(1, pagination.limit, filters);
-  }, [filters, pagination.limit]);
+    fetchJobs(1, pagination?.limit, filters);
+  }, [filters, pagination?.limit]);
 
-  const handlePageChange = (event, newPage) => {
-    fetchJobs(newPage + 1, pagination.limit, filters);
-  };
+  const handelclear =()=>{
+    setFilters("");
+  }
 
-  const handleRowsPerPageChange = (event) => {
-    const newLimit = parseInt(event.target.value, 10);
-    setPagination((prev) => ({ ...prev, limit: newLimit }));
-  };
+
   return (
     <div>
       {toggle === 0 && (
@@ -209,39 +222,42 @@ function Hiring() {
               </div>
             </div>
           </div>
-          <div className="xl:w-[1024px] scr1024:w-[800px] w-[700px]">
-            <div className="h-[62px]  flex rounded-[6px] flex-row  justify-between  text-[#333] sticky top-[72px] ">
-              {headings.map((filter, index) => (
-                <>
-                  <select
-                    className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
-                    onChange={(e) =>
-                      handleFilterChange(filter.heading, e.target.value)
-                    }
-                  >
-                    <option value=""> {filter.heading}</option>
-                    {filter.options.map((option, optIndex) => (
-                      <option key={optIndex} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </>
-              ))}
+          <div className=" xl:w-[1024px] scr1024:w-[860px] rounded-[12px]  bg-white">
+            <div className=" w-[800px]">
+              <div className="h-[62px]  flex rounded-[6px] flex-row  justify-between  text-[#333] sticky top-[72px] ">
+                {headings.map((filter, index) => (
+                  <>
+                    <select
+                      className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
+                      onChange={(e) =>
+                        handleFilterChange(filter.heading, e.target.value)
+                      }
+                    >
+                      <option value=""> {filter.heading}</option>
+                      {filter.options.map((option, optIndex) => (
+                        <option key={optIndex} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                ))}
 
-              <div className="flex w-[19.87%] bg-white justify-center  p-2  ">
-                <button className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
-                  Search{" "}
-                </button>
+                <div className="flex w-[19.87%] bg-white justify-center gap-[12px]  p-2  ">
+                  <button onClick={handleFilterChange} className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
+                    Search
+                  </button>
+                  <button onClick={handelclear} className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]">
+                    Clear
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className=" grid md:grid-cols-12 grid-clos-6 gap-6">
-            {data.map((job, index) => (
+          <div className=" grid md:grid-cols-12 grid-clos-6 gap-6 ">
+            {data?.map((job, index) => (
               <div
-              key={index}
-                onClick={toggleContent}
+                onClick={()=>toggleContent(job)}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >
                 <div className="flex justify-between w-[100%]">
@@ -250,7 +266,7 @@ function Hiring() {
                     <div className="flex gap-[3px] items-center">
                       {job.status === "Live" ? (
                         <>
-                          <div className="w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
+                          <div className="w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
                           <div className="text-[12px] font-[500] text-[#0C8A0A]">
                             Active
                           </div>
@@ -369,21 +385,103 @@ function Hiring() {
                 </div>
               </div>
             ))}
-            <TablePagination
-              component="div"
-              rowsPerPageOptions={[5, 10, 15]}
-              count={pagination.totalJobs}
-              rowsPerPage={pagination.limit || 10}
-              page={pagination.currentPage - 1}
-              onPageChange={handlePageChange}
-              onRowsPerPageChange={handleRowsPerPageChange}
-              className="mt-6"
-            />
           </div>
+          <>
+            <div className="sm:px-[16px] px-0 w-full justify-between flex ">
+              <div className="flex items-center sm:gap-4 gap-2">
+                <p className="text-[14px] text-[#646464] font-600">View</p>
+                <div className="flex gap-[8px] items-center">
+                  <select
+                    value={limit}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(e) => handleChange(e)}
+                    className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
+                  >
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+                <p className="text-[14px] sm:block hidden text-[#646464] font-[600]">
+                  Jobs per page
+                </p>
+              </div>
+
+              <div
+                className="flex items-center"
+                style={{ radious: "0px 0px 16px 16px" }}
+              >
+                <div className="mr-4">{miniLoading && <MiniLoader />}</div>
+
+                <p className="text-[14px] text-[#646464] font-[500]">
+                  pages
+                  <span className="text-[#333] px-[10px] font-[600]">
+                    {currentPage}
+                  </span>{" "}
+                  of{" "}
+                  <span className="text-[#333] px-[10px]  font-[600]">
+                    {totalPages}
+                  </span>
+                </p>
+                <button disabled={currentPage === 1}>
+                  <svg
+                    onClick={(e) => prevPage(e)}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_2529_10517)">
+                      <path
+                        d="M15 6L9 12L15 18"
+                        stroke={currentPage !== 1 ? "#333333" : "#646464"}
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2529_10517">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+                <button disabled={currentPage === totalPages}>
+                  <svg
+                    width="25"
+                    height="24"
+                    onClick={(e) => nextPage(e)}
+                    viewBox="0 0 25 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_2529_10530)">
+                      <path
+                        d="M9.375 6L15.625 12L9.375 18"
+                        stroke={
+                          currentPage !== totalPages ? "#333333" : "#646464"
+                        }
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2529_10530">
+                        <rect width="25" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </>
         </div>
       )}
       {toggle === 1 && (
-        <JobPost toggleContentt={toggleContent} setToggle={setToggle} />
+        <JobPost toggleContentt={toggleContent} selectedJob={selectedJob} setToggle={setToggle} />
       )}
       {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />}
     </div>

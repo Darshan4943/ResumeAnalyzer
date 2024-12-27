@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
+import { applicants, applicantsMobile } from "../../../../../utils/preboardArray";
 // import { headings } from "@/utils/preboardArray";
 
-const Joined = ({ toggleContentt, setPreview }) => {
+const Joined = ({ toggleContentt, setPreview, }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -131,11 +132,10 @@ const Joined = ({ toggleContentt, setPreview }) => {
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
-                          applicants.Department === "IT"
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.Department === "IT"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                        } `}
+                          } `}
                       >
                         {applicants.Department}
                       </div>
@@ -144,26 +144,25 @@ const Joined = ({ toggleContentt, setPreview }) => {
                       </div>
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
-                          className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                            applicants.status === "Interview"
+                          className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
                               ? "text-[#26A4FF] border-[#26A4FF]"
                               : applicants.status === "Hired"
-                              ? "text-[#56CDAD] border-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
-                              ? "text-[#4640DE] border-[#4640DE]"
-                              : applicants.status === "Rejected"
-                              ? "text-[#FF6550] border-[#FF6550]"
-                              : applicants.status === "In Review"
-                              ? "text-[#FFB836] border-[#FFB836]"
-                              : ""
-                          }`}
+                                ? "text-[#56CDAD] border-[#56CDAD]"
+                                : applicants.status === "Shortlisted"
+                                  ? "text-[#4640DE] border-[#4640DE]"
+                                  : applicants.status === "Rejected"
+                                    ? "text-[#FF6550] border-[#FF6550]"
+                                    : applicants.status === "In Review"
+                                      ? "text-[#FFB836] border-[#FFB836]"
+                                      : ""
+                            }`}
                         >
                           {applicants.status}
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex   items-center w-full  ">
-                          <div     onClick={() => setPreview(true)} className="flex lg:py-3 gap-1 lg:px-2 px-1 py-1 justify-center items-center rounded-[6px] border border-[#06A9EF] bg-[#06A9EF]">
+                          <div onClick={() => setPreview(true)} className="flex lg:py-3 gap-1 lg:px-2 px-1 py-1 justify-center items-center rounded-[6px] border border-[#06A9EF] bg-[#06A9EF]">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="18"
@@ -177,7 +176,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                               />
                             </svg>
                             <button
-                          
+
                               className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
                             >
                               {applicants.Preview}
@@ -266,7 +265,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile
+            {applicantsMobile 
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((applicantsMobile, index) => (
                 <>
@@ -352,11 +351,10 @@ const Joined = ({ toggleContentt, setPreview }) => {
                           Doc Status
                         </p>
                         <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
-                            applicantsMobile.Department === "IT"
+                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.Department === "IT"
                               ? "text-[#0C8A0A]"
                               : "text-[#333]"
-                          } `}
+                            } `}
                         >
                           {applicantsMobile.Department}
                         </div>
@@ -417,15 +415,15 @@ const Joined = ({ toggleContentt, setPreview }) => {
         </div>
       </div>
       <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
-            component="div"
-            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-            count={applicants.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div"
+        className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
+        count={applicants.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 };
