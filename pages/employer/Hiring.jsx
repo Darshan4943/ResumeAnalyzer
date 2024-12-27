@@ -2,12 +2,33 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import JobPost from "../../components/featured/employer/JobPost";
 import ApplicantDetails from "../jobs/details/applicant-details";
+import axios from "axios";
+import { TablePagination } from "@mui/material";
 
 function Hiring() {
   const router = useRouter();
   const query = router.query;
-
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    totalJobs: 0,
+  });
   const [toggle, setToggle] = useState(0);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -19,85 +40,6 @@ function Hiring() {
     }
   }, [router.query]);
 
-  const toggleContent = () => {
-    const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    router.push(`Hiring/?content=${JobPost}`);
-    setToggle((prevToggle) => !prevToggle);
-  };
-
-  const job_card = [
-    {
-      post: "Assistant Manager",
-      location: "Delhi",
-      time1: "Full-Time",
-      yrs: "1-2years",
-      time3: "",
-      button: (
-        <div className="flex gap-[3px] items-center">
-          <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
-          <div className="text-[12px] font-[500] text-[#0C8A0A]">Active</div>
-          <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#B3261E] rounded-[90px]"></div>
-          <div className="text-[12px] font-[500] text-[#B3261E]">inactive</div>
-        </div>
-      ),
-      img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />,
-      applicant_no: 16,
-      date_posted: "24 May 2020",
-      due_date: "30 May 2020",
-    },
-    {
-      post: "Assistant Manager",
-      location: "Delhi",
-      time1: "Full-Time",
-      yrs: "1-2years",
-      time3: "",
-      button: (
-        <div className="flex gap-[3px] items-center">
-          <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
-          <div className="text-[12px] font-[500] text-[#0C8A0A]">Active</div>
-        </div>
-      ),
-      img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />,
-      applicant_no: 16,
-      date_posted: "24 May 2020",
-      due_date: "30 May 2020",
-    },
-    {
-      post: "Assistant Manager",
-      location: "Delhi",
-      time1: "Full-Time",
-      yrs: "1-2years",
-      time3: "",
-      button: (
-        <div className="flex gap-[3px] items-center">
-          <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
-          <div className="text-[12px] font-[500] text-[#0C8A0A]">Active</div>
-        </div>
-      ),
-      img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />,
-      applicant_no: 16,
-      date_posted: "24 May 2020",
-      due_date: "30 May 2020",
-    },
-    {
-      post: "Assistant Manager",
-      location: "Delhi",
-      time1: "Full-Time",
-      yrs: "1-2years",
-      time3: "",
-      button: (
-        <div className="flex gap-[3px] items-center">
-          <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
-          <div className="text-[12px] font-[500] text-[#0C8A0A]">Active</div>
-        </div>
-      ),
-      img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />,
-      applicant_no: 16,
-      date_posted: "24 May 2020",
-      due_date: "30 May 2020",
-    },
-
-  ];
   const headings = [
     {
       heading: "Department",
@@ -120,6 +62,56 @@ function Hiring() {
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
+  };
+
+  const fetchJobs = async (page = 1, limit = 10) => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "http://localhost:2000/api/job/getAllJobDetails",
+        { page, limit }
+      );
+      setData(res.data.jobs);
+      setPagination(res.data.pagination);
+    } catch (err) {
+      setError("Error fetching jobs");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []); // fetch jobs when the component mounts
+
+  useEffect(() => {
+    if (query.content === "ApplicantDetails") {
+      setToggle(2);
+    } else if (query.content === "JobPost") {
+      setToggle(1);
+    } else {
+      setToggle(0);
+    }
+  }, [query.content]);
+
+  const handlePageChange = (event, newPage) => {
+    fetchJobs(newPage + 1);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setPagination((prev) => ({
+      ...prev,
+      limit: parseInt(event.target.value, 10),
+    }));
+    fetchJobs(1, parseInt(event.target.value, 10)); // Reset page to 1 when rows per page changes
+  };
+
+  const toggleContent = () => {
+    const nextContent =
+      toggle === 0 ? "JobPost" : toggle === 1 ? "ApplicantDetails" : "JobPost";
+    router.push(`/Hiring?content=${nextContent}`);
+    setToggle((prev) => (prev + 1) % 3);
   };
 
   return (
@@ -234,17 +226,39 @@ function Hiring() {
           </div>
 
           <div className=" grid md:grid-cols-12 grid-clos-6 gap-6">
-            {job_card.map((job_card) => (
+            {data.map((job, index) => (
               <div
                 onClick={toggleContent}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >
                 <div className="flex justify-between w-[100%]">
                   <div className="flex justify-between gap-[20px] ">
-                    <p className=" text-[14px] font-[600]">{job_card.post}</p>
-                    <div className="">{job_card.button}</div>
+                    <p className=" text-[14px] font-[600]">{job.jobTitle}</p>
+                    <div className="flex gap-[3px] items-center">
+                      {job.status === "Live" ? (
+                        <>
+                          <div className="w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
+                          <div className="text-[12px] font-[500] text-[#0C8A0A]">
+                            Active
+                          </div>
+                        </>
+                      ) : job.status === "Hold" ? (
+                        <>
+                          <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
+                          <div className="text-[12px] font-[500] text-[#ddda40]">
+                            On Hold
+                          </div>
+                        </>
+                      ) : job.status === "Closed" ? (
+                        <>
+                          <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                          <div className="text-[12px] font-[500] text-[#B3261E]">
+                            Inactive
+                          </div>
+                        </>
+                      ) : null}
+                    </div>
                   </div>
-                  {job_card.img}
                 </div>
 
                 <div className="flex w-[100%] justify-between items-center ">
@@ -252,7 +266,7 @@ function Hiring() {
                     Total Applications
                   </p>
                   <p className="text-[#333] items-center text-[36px] font-[600] ">
-                    16
+                    {job.totalApplicationCount}
                   </p>
                 </div>
 
@@ -262,7 +276,11 @@ function Hiring() {
                       Date posted
                     </p>
                     <p className="text-[#333] font-[500] text-[12px]">
-                      {job_card.date_posted}
+                      {new Date(job.createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-[4px]">
@@ -270,7 +288,11 @@ function Hiring() {
                       Due Date
                     </p>
                     <p className="text-[#333] font-[500] text-[12px]">
-                      {job_card.due_date}
+                      {new Date(job.deadLine).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </p>
                   </div>
                 </div>
@@ -291,7 +313,9 @@ function Hiring() {
                         />
                       </svg>
                     </div>
-                    <div className="text-[12px] font-[400]">{job_card.yrs}</div>
+                    <div className="text-[12px] font-[400]">
+                      {job.revalentExp}
+                    </div>
                   </div>
                   <div className="border-[1px] border-[#AFAFAF]"></div>
                   <div className="flex gap-[4px] items-center">
@@ -309,7 +333,7 @@ function Hiring() {
                         />
                       </svg>
                     </div>
-                    <div className="text-[12px] font-[400]">{job_card.time1}</div>
+                    <div className="text-[12px] font-[400]">{job.jobType}</div>
                   </div>
                   <div className="border-[1px] border-[#AFAFAF]"></div>
                   <div className="flex gap-[4px] items-center">
@@ -327,12 +351,22 @@ function Hiring() {
                         />
                       </svg>
                     </div>
-                    <div className="text-[12px] font-[400]">{job_card.location}</div>
+                    <div className="text-[12px] font-[400]">{job.location}</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          <TablePagination
+            component="div"
+            rowsPerPageOptions={[5, 10, 15]}
+            count={pagination.totalJobs}
+            rowsPerPage={pagination.limit || 10}
+            page={pagination.currentPage - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleRowsPerPageChange}
+            className="mt-6"
+          />
         </div>
       )}
       {toggle === 1 && (

@@ -202,14 +202,14 @@ function Services() {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/createResume/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
       case "Create New Cover Letter":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/coverLetter"
             : `/myClients/ClientResume?cover=true`
         );
@@ -246,7 +246,7 @@ function Services() {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal.role === "user" ? "/jobs/candidate" : "/jobs/list"
         );
         break;
       default:
@@ -255,7 +255,7 @@ function Services() {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[61px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
+    <div className="fixed z-[2000]  top-[71px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${isMove
