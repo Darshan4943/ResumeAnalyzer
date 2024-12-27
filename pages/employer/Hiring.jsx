@@ -17,7 +17,7 @@ function Hiring() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [filters, setFilters] = useState({});
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -40,50 +40,67 @@ function Hiring() {
     }
   }, [router.query]);
 
+  const toggleContent = () => {
+    const JobPost = toggle ? "ApplicantDetails" : "JobPost";
+    router.push(`Hiring/?content=${JobPost}`);
+    setToggle((prevToggle) => !prevToggle);
+  };
+
   const headings = [
     {
       heading: "Department",
-      options: ["Assistant Manager", "Option 2", "Option 3"],
+      options: [
+        " software devlopment",
+        "Backend Devloper",
+        "React Js Developer",
+      ],
     },
     {
       heading: "Location",
-      options: ["Mumbai", "Pune", "Banglore"],
+      options: ["Los Angeles", "New York", "San Francisco"],
     },
     {
       heading: "Status",
-      options: ["Pending", "Approved"],
-    },
-    {
-      heading: "Priority",
-      options: ["Yes", "No"],
+      options: ["Live", "Hold", "closed"],
     },
   ];
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
-    const selectedHeading = headings[index];
-  };
-
-  const fetchJobs = async (page = 1, limit = 10) => {
+  const fetchJobs = async (page = 1, limit = 10, appliedFilters = {}) => {
     try {
       setLoading(true);
+
+      const cleanFilters = Object.keys(appliedFilters).reduce((acc, key) => {
+        if (appliedFilters[key]) {
+          acc[key] = appliedFilters[key];
+        }
+        return acc;
+      }, {});
+
       const res = await axios.post(
         "http://localhost:2000/api/job/getAllJobDetails",
-        { page, limit }
+        { page, limit, ...cleanFilters }
       );
+
       setData(res.data.jobs);
       setPagination(res.data.pagination);
     } catch (err) {
       setError("Error fetching jobs");
-      console.error(err);
+      console.error("Error:", err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, []); // fetch jobs when the component mounts
+    fetchJobs(page + 1, rowsPerPage, filters);
+  }, [filters, page, rowsPerPage]);
+
+  const handleFilterChange = (heading, value) => {
+    setFilters(() => {
+      const updatedFilters = value ? { [heading]: value } : {};
+      return updatedFilters;
+    });
+  };
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -95,25 +112,18 @@ function Hiring() {
     }
   }, [query.content]);
 
+  useEffect(() => {
+    fetchJobs(1, pagination.limit, filters);
+  }, [filters, pagination.limit]);
+
   const handlePageChange = (event, newPage) => {
-    fetchJobs(newPage + 1);
+    fetchJobs(newPage + 1, pagination.limit, filters);
   };
 
   const handleRowsPerPageChange = (event) => {
-    setPagination((prev) => ({
-      ...prev,
-      limit: parseInt(event.target.value, 10),
-    }));
-    fetchJobs(1, parseInt(event.target.value, 10)); // Reset page to 1 when rows per page changes
+    const newLimit = parseInt(event.target.value, 10);
+    setPagination((prev) => ({ ...prev, limit: newLimit }));
   };
-
-  const toggleContent = () => {
-    const nextContent =
-      toggle === 0 ? "JobPost" : toggle === 1 ? "ApplicantDetails" : "JobPost";
-    router.push(`/Hiring?content=${nextContent}`);
-    setToggle((prev) => (prev + 1) % 3);
-  };
-
   return (
     <div>
       {toggle === 0 && (
@@ -201,14 +211,16 @@ function Hiring() {
           </div>
           <div className="xl:w-[1024px] scr1024:w-[800px] w-[700px]">
             <div className="h-[62px]  flex rounded-[6px] flex-row  justify-between  text-[#333] sticky top-[72px] ">
-              {headings.map((headingObj, index) => (
+              {headings.map((filter, index) => (
                 <>
                   <select
                     className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
-                    onChange={(e) => handleHeadingChange(e, headingObj.heading)}
+                    onChange={(e) =>
+                      handleFilterChange(filter.heading, e.target.value)
+                    }
                   >
-                    <option value=""> {headingObj.heading}</option>
-                    {headingObj.options.map((option, optIndex) => (
+                    <option value=""> {filter.heading}</option>
+                    {filter.options.map((option, optIndex) => (
                       <option key={optIndex} value={option}>
                         {option}
                       </option>
@@ -219,7 +231,7 @@ function Hiring() {
 
               <div className="flex w-[19.87%] bg-white justify-center  p-2  ">
                 <button className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
-                  Search{" "} 
+                  Search{" "}
                 </button>
               </div>
             </div>
@@ -356,17 +368,17 @@ function Hiring() {
                 </div>
               </div>
             ))}
+            <TablePagination
+              component="div"
+              rowsPerPageOptions={[5, 10, 15]}
+              count={pagination.totalJobs}
+              rowsPerPage={pagination.limit || 10}
+              page={pagination.currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              className="mt-6"
+            />
           </div>
-          <TablePagination
-            component="div"
-            rowsPerPageOptions={[5, 10, 15]}
-            count={pagination.totalJobs}
-            rowsPerPage={pagination.limit || 10}
-            page={pagination.currentPage - 1}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleRowsPerPageChange}
-            className="mt-6"
-          />
         </div>
       )}
       {toggle === 1 && (
