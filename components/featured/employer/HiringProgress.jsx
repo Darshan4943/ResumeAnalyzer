@@ -80,7 +80,7 @@ function HiringProgress() {
                     >
                         <LevelUpdate closeTaskPopup={closeTaskPopup} setSuccessfull={setSuccessfull} setTaskSuccessfull={setTaskSuccessfull} />
                     </motion.div>
-                )}
+                )} 
             </AnimatePresence>
 
             {(successfull || taskSuccessfull) && (
