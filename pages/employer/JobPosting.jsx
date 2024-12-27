@@ -4,6 +4,7 @@ import { TablePagination } from "@mui/material";
 import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 
+
 function JobPosting() {
   const router = useRouter();
   const query = router.query;
@@ -290,8 +291,8 @@ function JobPosting() {
 
                 <div>
                   <div className=" bg-[#E0F6FF] flex flex-row p-[16px]  gap-4   ">
-                    {headings.map((req) => (
-                      <div className=" w-[14%] text-[16px] font-[600]">
+                    {headings.map((req,index) => (
+                      <div key={index} className=" w-[14%] text-[16px] font-[600]">
                         {req}
                       </div>
                     ))}
@@ -428,6 +429,7 @@ function JobPosting() {
                       className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
                       {search.map((headingObj, index) => (
                         <select
+                        key={index}
                           className="bg-whites"
                           onChange={(e) =>
                             handleHeadingChange(e, headingObj.heading)
@@ -454,7 +456,7 @@ function JobPosting() {
             {requisition
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((req, index) => (
-                <div className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
+                <div key={index} className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-[2px]">
                       <div className="text-[12px] font-[500] text-[#06A9EF]">

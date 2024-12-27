@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import TextEditor from '../common/textEditor'
-import ScheduleInterview from './ScheduleInterview';
+
+
 import { motion, AnimatePresence } from 'framer-motion';
 import ScheduleTask from './ScheduleTask';
+import ScheduleInterview from './ScheduleInterview';
 
-function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
+
+function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
     const [isNextLevel, setIsNextLevel] = useState("nextLevel")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
     const [showAssignTask, setShowAssignTask] = useState(false);
@@ -59,13 +61,13 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
 
 
     const handleSave = () => {
-      
+
         const newLevelData = [...levelData, { ...selectedValues, isNextLevel }];
-        
-        
+
+
         setLevelData(newLevelData);
 
-        
+
         setSelectedValues({
             status: "",
             date: "",
@@ -73,21 +75,21 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
 
 
 
-            
+
         });
 
-      
+
         console.log('Level Data:', newLevelData);
         closeTaskPopup()
     };
- 
+
     const [selectedValues, setSelectedValues] = useState({
         status: "",
         date: "",
         levelTitle: "",
     });
 
-  
+
     const handleStatusChange = (value) => {
         setSelectedValues((prevValues) => ({ ...prevValues, status: value }));
     };
@@ -100,7 +102,7 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
         setSelectedValues((prevValues) => ({ ...prevValues, levelTitle: e.target.value }));
     };
 
-   
+
 
     return (
         <div className='sm:p-6 p-2 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -115,10 +117,11 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
                         <p className='text-[20px] font-medium'>Interview Status</p>
                         <p className='text-[12px] font-normal'>Change Interview Status of the Candidate</p>
                     </div>
+
                     <select
-                        className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                        className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px]  font-[400]"
                         value={selectedValues.status}
-                    onChange={(e) => handleStatusChange(e.target.value)}
+                        onChange={(e) => handleStatusChange(e.target.value)}
                     >
                         <option value="" disabled selected>Select </option>
                         <option value="product_manager">In Progress</option>
@@ -134,7 +137,7 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
                     <input
                         type="date"
                         placeholder='Select Date'
-                        class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                        class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                         value={selectedValues.date}
                         onChange={(e) => handleDateChange(e)}
                     />
@@ -177,9 +180,9 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
                     <input
                         type="input"
                         placeholder='Add Comment'
-                        class=" px-[16px] w-full py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                        class=" px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                         value=""
-                       
+
                     />
                 </div>
             </div>
@@ -229,7 +232,7 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
                             <input
                                 type="text"
                                 placeholder="Eg: Technical Round-I"
-                                className="px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                                className="px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px]  font-[400]"
                                 value={selectedValues.levelTitle}
                                 onChange={(e) => handleLevelTitleChange(e)}
                             />
@@ -276,18 +279,18 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
             <AnimatePresence>
                 {showScheduleInterview && (
                     <div>
-                   
-                   <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ duration: 0.5 }}
-                        // ref={taskRef}
-                        className='absolute z-[2500] right-0 w-[100%] top-[0]'
-                    >
-                        <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} />
-                    </motion.div>
+
+                        <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ duration: 0.5 }}
+                            // ref={taskRef}
+                            className='absolute z-[2500] right-0 w-[100%] top-[0]'
+                        >
+                            <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} />
+                        </motion.div>
                     </div>
                 )}
             </AnimatePresence>
@@ -295,18 +298,18 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
             <AnimatePresence>
                 {showAssignTask && (
                     <div>
-                   
-                   <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ duration: 0.5 }}
-                        // ref={taskRef}
-                        className='absolute z-[2500] right-0 w-[100%] top-[0]'
-                    >
-                        <ScheduleTask setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} />
-                    </motion.div>
+
+                        <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ duration: 0.5 }}
+                            // ref={taskRef}
+                            className='absolute z-[2500] right-0 w-[100%] top-[0]'
+                        >
+                            <ScheduleTask setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} />
+                        </motion.div>
                     </div>
                 )}
             </AnimatePresence>

@@ -61,7 +61,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
             <p>
               Communicate your expertise and reputation to recruiters, such as
               your knowledge of Java, Oracle, and direct marketing. Based on
-              these abilities, we'll provide you recommendations for jobs.{" "}
+              these abilities, well provide you recommendations for jobs.{" "}
             </p>
           </div>
           </div>
@@ -70,8 +70,8 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
             Skills
           </p>
           <div className="skill_buttons">
-            {skil?.map((item) => (
-              <div className="skill_button text-[14px] font-[500] gap-1 ">
+            {skil?.map((item,index) => (
+              <div key={index}s className="skill_button text-[14px] font-[500] gap-1 ">
                 {item.label}
                 <div onClick={() => deleteHandler(item.value)}>
                   <Close_svg className="" height={20} width={20} />

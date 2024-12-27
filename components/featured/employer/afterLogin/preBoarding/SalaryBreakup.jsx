@@ -394,6 +394,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -422,6 +423,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr2.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -451,7 +453,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               </div>
               <div className="flex flex-col w-full">
                 {arr3.map((cur, ind) => (
-                  <div
+                  <div key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -496,6 +498,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr4.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -524,6 +527,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr5.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -554,6 +558,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr6.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -598,6 +603,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr7.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -626,6 +632,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr8.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
@@ -656,6 +663,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               <div className="flex flex-col w-full">
                 {arr9.map((cur, ind) => (
                   <div
+                  key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >

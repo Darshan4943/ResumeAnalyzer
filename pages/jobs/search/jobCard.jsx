@@ -3,8 +3,8 @@ import Progress_bar from "../../../components/featured/jobMatching/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { recallUser } from "../../../Redux/reducers/userReducer";
-import { reCallUserData } from "../../../Redux/actions/user";
+
+
 
 const JobCard = ({ data, setJd, resume, jd }) => {
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     axios
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-        dispatch(reCallUserData());
+        // dispatch(reCallUserData());
         getData();
         toast.success("Job Saved  Successfully");
       })

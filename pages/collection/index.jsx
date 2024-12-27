@@ -1,25 +1,24 @@
 import Fuse from "fuse.js";
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import Folders from "../../components/featured/candidate/createResume/components/folders";
+
 import axios from "axios";
 import { toast } from "react-toastify";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { reCallUserData } from "../../Redux/actions/user";
+
 import { useRouter } from "next/router";
 import Tesseract from "tesseract.js";
 import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
-import { resolve } from "styled-jsx/css";
-import MiniLoader from "../../components/common/miniLoader";
-import { recallUser } from "../../Redux/reducers/userReducer";
+
 import {
   fileIconSeter,
   fileIconSeter1,
   fileIconSeter2,
 } from "../../utils/middleware";
+import Folders from "../../components/featured/candidate/createResume/components/folders";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
@@ -230,11 +229,11 @@ function Collection() {
   useEffect(() => {
 
     getUnSyncFiles();
-    dispatch(reCallUserData())
+ 
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
         getUnSyncFiles()
-        dispatch(reCallUserData())
+     
       }, 30000);
 
       return () => clearInterval(interval);
@@ -528,7 +527,7 @@ function Collection() {
   //     if (response.data.success) {
 
   //       setUploadCount(0);
-  //       dispatch(reCallUserData())
+  //    
   //       return response.data;
   //     } else {
   //       console.error('Error:', response.data.message);
@@ -562,7 +561,7 @@ function Collection() {
       if (response.data.success) {
 
         setUploadCount(0);
-        dispatch(reCallUserData());
+     ;
       } else {
         console.error('First API call error:', response.data.message);
       }

@@ -1,6 +1,6 @@
-import { Delete_icon, PlusAddLogo } from '@/utils/svg';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
+import { Delete_icon, PlusAddLogo } from '../../utils/svg';
 
 function ScheduleTask({ setShowAssignTask,setTaskSuccessfull }) {
     const [levels, setLevels] = useState([{ id: 1, name: 'Question 1' }]);

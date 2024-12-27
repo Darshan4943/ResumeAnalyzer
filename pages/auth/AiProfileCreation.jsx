@@ -244,13 +244,14 @@ function AiProfileCreation() {
 
     return (
         <div className='customMargins py-[72px] flex gap-[96px] justify-center'>
+            <div className='h-[330px] w-[330px] scr1024:block hidden '>
+                <img
+                    src="/images/auth/AiProfileCreation.png"
+                    alt=""
+                    className="h-[330px] w-[330px]  object-cover"
 
-            <img
-                src="/images/auth/AiProfileCreation.png"
-                alt=""
-                className="h-[330px] w-[330px]  object-cover"
-
-            />
+                />
+            </div>
             <div className='bg-[#FFFFFF] rounded-[16px] p-6 flex flex-col gap-4'>
                 <div className='flex flex-col gap-1'>
                     <p className='text-[18px] font-[600] leading-tight'>Ai Powered profile creation</p>
@@ -261,7 +262,7 @@ function AiProfileCreation() {
                     <p className='text-[12px] font-[500] text-[#646464] leading-tight'>2. Let system scan it and make your profile almost ready.</p>
                 </div>
                 {loading ? (
-                    <div className="border-dashed border-[3px] border-[#BCBCBC] flex flex-col rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper h-[107px] w-[360px]">
+                    <div className="border-dashed border-[3px] border-[#BCBCBC] flex flex-col rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper h-[107px] sm:w-[360px]">
                         <MiniLoader />
                         <span>Analyzing Resume, Please Wait...</span>
                     </div>
@@ -270,7 +271,7 @@ function AiProfileCreation() {
                         ref={fileRef}
                         onDragOver={handleDragOver}
                         onDrop={handleDrop}
-                        className="border-dashed border-[3px] border-[#BCBCBC] flex flex-col w-[360px] rounded-[12px] px-[8px] py-[16px] items-center justify-center gap-[8px] upload-btn-wrapper h-[107px]"
+                        className="border-dashed border-[3px] border-[#BCBCBC] flex flex-col sm:w-[360px] rounded-[12px] px-[8px] py-[16px] items-center justify-center gap-[8px] upload-btn-wrapper h-[107px]"
                     >
                         <input
                             type="file"
@@ -354,7 +355,7 @@ function AiProfileCreation() {
                     </div>
                 )}
                 <div className='flex gap-6 justify-center'>
-                    <button onClick={()=> router.push("/auth/Sign_up?role=user")} className='border border-[#06A9EF] text-[14px] font-[600] rounded-[30px] h-[42px] w-[104px]'>
+                    <button onClick={() => router.push("/auth/Sign_up?role=user")} className='border border-[#06A9EF] text-[14px] font-[600] rounded-[30px] h-[42px] w-[104px]'>
                         Skip
                     </button>
 

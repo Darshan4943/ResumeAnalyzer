@@ -171,13 +171,13 @@ const JobPrefrenceModal = ({ setEditView }) => {
           </svg>
         </div>
         <p className="text-[12px]">
-          Customize your job settings to match what you're looking for in a job.
+          Customize your job settings to match what youre looking for in a job.
         </p>
         </div>
         <form action="">
           <div className="w-full form_container_col form_container">
-            {inputField.map((item) => (
-              <div className="input-container w-[100%] md:w-[46%] ">
+            {inputField.map((item,index) => (
+              <div key={index} className="input-container w-[100%] md:w-[46%] ">
                 <label className="text-[14px] font-medium">{item.label}</label>
                 <input
                   type="text"
@@ -264,8 +264,8 @@ const JobPrefrenceModal = ({ setEditView }) => {
             </div>
           </div>
           <div className="location-list ">
-            {preferedLocation.map((item) => (
-              <div className="location_item text-[12px] font-[400] h-[36px]">
+            {preferedLocation.map((item,index) => (
+              <div key={index} className="location_item text-[12px] font-[400] h-[36px]">
                 {item.location}
                 <div onClick={(e) => removeCity(e, item)}>
                   <ClosedIcon className={"w-5 h-5 cursor-pointer "} />

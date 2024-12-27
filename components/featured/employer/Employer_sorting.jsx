@@ -64,8 +64,9 @@ function Employer_sorting({ showAnimation }) {
       />
     </div>,
     <div key={4} className="animation 4rt">
-      {[1, 2, 3, 4].map((item) => (
+      {[1, 2, 3, 4].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 4 && "a"} img${item}`}
           alt=""
@@ -73,8 +74,9 @@ function Employer_sorting({ showAnimation }) {
       ))}{" "}
     </div>,
     <div key={5} className="animation 5th">
-      {[1, 2, 3, 4, 5].map((item) => (
+      {[1, 2, 3, 4, 5].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 5 && "a"} img${item}`}
           alt=""
@@ -82,8 +84,9 @@ function Employer_sorting({ showAnimation }) {
       ))}{" "}
     </div>,
     <div key={6} className="animation 6th">
-      {[1, 2, 3, 4, 5, 6].map((item) => (
+      {[1, 2, 3, 4, 5, 6].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 6 && "a"} img${item}`}
           alt=""
@@ -91,8 +94,9 @@ function Employer_sorting({ showAnimation }) {
       ))}{" "}
     </div>,
     <div key={7} className="animation 7th">
-      {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+      {[1, 2, 3, 4, 5, 6, 7].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 7 && "a"} img${item}`}
           alt=""
@@ -100,8 +104,9 @@ function Employer_sorting({ showAnimation }) {
       ))}
     </div>,
     <div key={8} className="animation 8th">
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 8 && "a"} img${item}`}
           alt=""
@@ -109,8 +114,9 @@ function Employer_sorting({ showAnimation }) {
       ))}
     </div>,
     <div key={9} className="animation 9th">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item,index) => (
         <img
+        key={index}
           src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 9 && "a"} img${item}`}
           alt=""

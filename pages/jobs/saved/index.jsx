@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { AddIcon, Edit_icon } from "../../../utils/svg";
+
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { setLocation } from "../../../Redux/actions";
+
 import { dateSeter } from "../../../utils/middleware";
 import MiniLoader from "../../../components/common/miniLoader";
-import { PencilLineIcon } from "lucide-react";
+
 
 const Saved = () => {
   const router = useRouter();

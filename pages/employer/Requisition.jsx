@@ -341,7 +341,7 @@ function Requisition() {
                                                     style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
                                                     className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
                                                     {headings.map((headingObj, index) => (
-                                                        <select className=" bg-whites" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
+                                                        <select key={index} className=" bg-whites" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
                                                             <option value=""> {headingObj.heading}</option>
                                                             {headingObj.options.map((option, optIndex) => (
                                                                 <option key={optIndex} value={option}>
@@ -364,7 +364,7 @@ function Requisition() {
                                     {requisition
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((req, index) => (
-                                            <div className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
+                                            <div key={index} className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
                                                 <div className="flex justify-between items-center">
                                                     <div className="flex flex-col gap-[2px]">
                                                         <div className="text-[12px] font-[500] text-[#06A9EF]">

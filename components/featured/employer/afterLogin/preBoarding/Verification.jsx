@@ -502,9 +502,9 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     Photo ID & Address Proof
                   </p>
                   <div className="flex flex-start flex-wrap gap-4">
-                    {id.map((e) => (
+                    {id.map((e,index) => (
                       <>
-                        <div className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
+                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
                           <p className="text-[12px] font-[400] text-[#333]">
                             {e.tittle}
                           </p>
@@ -518,9 +518,9 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 <div className="flex flex-col items-start gap-[4px]">
                   <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">Payroll</p>
                   <div className="flex flex-start flex-wrap gap-4">
-                    {Payroll.map((e) => (
+                    {Payroll.map((e,index) => (
                       <>
-                        <div className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
+                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
                           <p className="text-[12px] font-[400] text-[#333]">
                             {e.tittle}
                           </p>
@@ -534,8 +534,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 <div className="flex flex-col items-start gap-[4px]">
                   <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">Degrees</p>
                   <div className="flex gap-4  flex-wrap flex-row">
-                    {degree.map((e) => (
-                      <div className="flex gap-1 flex-col">
+                    {degree.map((e,index) => (
+                      <div   key={index} className="flex gap-1 flex-col">
                         <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">{e.education}</p>
                         <div className="flex flex-start gap-4">
                           <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">

@@ -71,7 +71,7 @@ console.log(appliedJobs)
         <>
           {appliedJobs?.length > 0 ?
             <div className="grid grid-cols-12 gap-[24px] customMargins py-6">
-              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You've Applied <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {appliedJobs?.length} Jobs )</span></p>
+              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You&apos;ve Applied <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {appliedJobs?.length} Jobs )</span></p>
               <div
                 onClick={() => setIsDescription(true)}
                 className="col-span-8"

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-
-import { motion, AnimatePresence } from 'framer-motion';
 import HiringProgress from '../../../components/featured/employer/HiringProgress';
+
+
 
 
 function ApplicantDetails({ setTogglee }) {

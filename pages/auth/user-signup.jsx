@@ -3,8 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../Redux/actions/user";
-import Link from "next/link";
+
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import MiniLoader from "../../components/common/mini-loader";
@@ -212,7 +211,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         try {
           if (response?.success) {
             localStorage.setItem("authToken", JSON.stringify(response));
-            dispatch(reCallUserData());
+      
             toast.success("Sign up Successfully");
             if (sendToPurchase && sendToPurchase?.status) {
               setLoading(false);

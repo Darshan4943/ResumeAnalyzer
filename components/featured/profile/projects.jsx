@@ -70,8 +70,8 @@ function Projects({ userData }) {
             <AddIcon />
           </div>
         </div>
-        {userData?.projects?.map((SampleWark) => (
-          <div className="essential_gap">
+        {userData?.projects?.map((SampleWark,index) => (
+          <div key={index} className="essential_gap">
             <div className=" flex gap-4">
               <p className="heading_first">{SampleWark.title}</p>
 
