@@ -32,59 +32,55 @@ const Initial = ({ toggleContentt, setToggle }) => {
   return (
     <>
       <div className="web w-full">
-        <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
-          {headings.map((headingObj, index) => (
-            <>
-              <select
-                className=" w-[17.68%] bg-white p-4 "
-                onChange={(e) => handleHeadingChange(e, headingObj.heading)}
-              >
-                <option value=""> {headingObj.heading}</option>
-                {headingObj.options.map((option, optIndex) => (
-                  <option key={optIndex} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </>
-          ))}
-          <div className=" w-[19.87%] bg-white p-4 flex gap-[10px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                stroke="#646464"
-                stroke-width="2.02783"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <input className="w-[100%]" type="text" placeholder="search" />
+        <div className="flex w-full items-center mb-6">
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Initial</div>
+            <div className="text-[14px] font-[600] text-[#333333]">2</div>
           </div>
-          <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-500]  flex gap-2 items-center bg-[#fff]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <g mask="url(#mask0_7804_62876)">
-                <path
-                  d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z"
-                  fill="#646464"
-                />
-              </g>
-            </svg>
-            <div>Filter</div>
+          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Documentation</div>
+            <div className="text-[14px] font-[600] text-[#333333]">10</div>
+          </div>
+          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Verification</div>
+            <div className="text-[14px] font-[600] text-[#333333]">2</div>
+          </div>
+          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Release Offer</div>
+            <div className="text-[14px] font-[600] text-[#333333]">10</div>
+          </div>
+          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Offer Acceptance</div>
+            <div className="text-[14px] font-[600] text-[#333333]">10</div>
+          </div>
+          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
+          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+            <div className="text-[12px] font-[600] text-[#646464]">Hired</div>
+            <div className="text-[14px] font-[600] text-[#333333]">10</div>
           </div>
         </div>
-        <div className="grid grid-rows-1 w-full "></div>
+        <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
+          <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+            {headings.map((headingObj, index) => (
+              <>
+                <select className=" w-[19.87%] bg-whites" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
+                  <option value=""> {headingObj.heading}</option>
+                  {headingObj.options.map((option, optIndex) => (
+                    <option key={optIndex} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
+              </>
+            ))}
+            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">Search</button>
+          </div>
+        </div>
         <div className="grid grid-rows-1 w-full ">
           <div className="grid grid-cols-5 w-full grid-flow-col">
             {labels.map((req, index) => (
@@ -137,19 +133,18 @@ const Initial = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                            applicants.status === "Interview"
-                              ? "text-[#26A4FF] border-[#26A4FF]"
-                              : applicants.status === "Hired"
+                          className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
                               ? "text-[#56CDAD] border-[#56CDAD]"
                               : applicants.status === "Shortlisted"
-                              ? "text-[#4640DE] border-[#4640DE]"
-                              : applicants.status === "Rejected"
-                              ? "text-[#FF6550] border-[#FF6550]"
-                              : applicants.status === "In Review"
-                              ? "text-[#FFB836] border-[#FFB836]"
-                              : ""
-                          }`}
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicants.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicants.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
+                            }`}
                         >
                           {applicants.status}
                         </div>
@@ -175,7 +170,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
               ))}
           </div>
         </div>
-      </div>
+      </div >
 
       <div className="mobile relative overflow-y-scroll  w-full">
         <div className="sticky top-0">
@@ -370,14 +365,16 @@ const Initial = ({ toggleContentt, setToggle }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
-      {startPreboarding && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
-            <StartPreboarding setStartPreboarding={setStartPreboarding} />
-          </div>
-        </>
-      )}
+      {
+        startPreboarding && (
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
+              <StartPreboarding setStartPreboarding={setStartPreboarding} />
+            </div>
+          </>
+        )
+      }
     </>
   );
 };

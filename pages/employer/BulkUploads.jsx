@@ -1,9 +1,9 @@
-import ApplicantsDetails from "@/components/featured/employer/afterLogin/bulkUploads/ApplicantsDetails";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import ApplicantsDetails from "../../components/featured/employer/afterLogin/bulkUploads/ApplicantsDetails";
 
 function BulkUploads() {
-  const router =useRouter()
+  const router = useRouter()
   const query = router.query;
 
   const [toggle, setToggle] = useState(0);
@@ -11,17 +11,17 @@ function BulkUploads() {
 
   useEffect(() => {
 
-      if (query.content === "ApplicantDetails") {
-          setToggle(1);
-      } else {
-          setToggle(0);
-      }
+    if (query.content === "ApplicantDetails") {
+      setToggle(1);
+    } else {
+      setToggle(0);
+    }
   }, [router.query]);
 
   const toggleContent = () => {
-      const ApplicantDetails = toggle ? "" : "ApplicantDetails";
-      router.push(`BulkUploads/?content=${ApplicantDetails}`);
-      setToggle((prevToggle) => !prevToggle);
+    const ApplicantDetails = toggle ? "" : "ApplicantDetails";
+    router.push(`BulkUploads/?content=${ApplicantDetails}`);
+    setToggle((prevToggle) => !prevToggle);
   };
 
 
@@ -72,283 +72,283 @@ function BulkUploads() {
 
   return (
     <>
-{toggle ===0 &&
-    <div className="grid items-start gap-4 ml:h-[80vh] overflow-y-auto pb-2">
+      {toggle === 0 &&
+        <div className="grid items-start gap-4 ml:h-[80vh] overflow-y-auto pb-2">
 
-      <div
-        className="flex w-[100%] p-[16px] flex-col items-start gap-4 rounded-[16px] bg-[#fff] "
-        style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-      >
-        <div className="flex flex-col">
-          <p className="text-[18px] sm:text-[24px] text-[#333] font-[500] leading-normal">
-            Bulk Upload
-          </p>
-          <p className="text-[12px] sm:text-[14px] text-[#646464] font-[500] leading-normal">
-            upload bulk CV / Resumes & get quick filtered data
-          </p>
-        </div>
-        <p className="text-[16px] sm:text-[20px] text-[#333] font-[500] leading-normal">
-          Select Job role
-        </p>
-
-        <div className="flex flex-col sm:flex sm:flex-row gap-2 w-[100%] sm:w-auto">
-          <select
-            className="flex py-[12px] px-[16px] text-[14px] text-[#333] items-center gap-1 rounded-[6px] border solid bg-[#fff] sm:w-[183px] w-[100%] border-[#DEDEDE]"
-            name=""
-            id=""
-          >
-            <option value="">Department</option>
-            <option value="">b</option>
-          </select>
-
-          <select
-            className="flex py-[12px] px-[16px]  text-[14px] text-[#333] items-center gap-1 rounded-[6px] border solid bg-[#fff] sm:w-[183px] w-[100%] border-[#DEDEDE]"
-            name=""
-            id=""
-          >
-            <option value="">Job Role</option>
-            <option value="">b</option>
-          </select>
-        </div>
-      </div>
-
-      <div className=" flex p-[24px] w-[100%]  flex-col justify-center items-center gap-4 rounded-[8px] border-[2px] border-dashed border-[#06A9EF] bg-[#EFFAFF]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="56"
-          height="55"
-          viewBox="0 0 56 55"
-          fill="none"
-        >
-          <g clip-path="url(#clip0_7804_70267)">
-            <path
-              d="M40.455 23.809V13.4004C40.455 13.1025 40.3174 12.8272 40.1227 12.6095L28.4531 0.355415C28.2354 0.126304 27.9257 0 27.6164 0H9.11472C5.69905 0 2.9707 2.78541 2.9707 6.20151V41.187C2.9707 44.6031 5.69905 47.3428 9.11472 47.3428H23.719C26.4814 51.9279 31.5025 54.9999 37.2223 54.9999C45.9113 54.9999 53.007 47.9386 53.007 39.2383C53.0187 31.6382 47.562 25.2877 40.455 23.809ZM28.7628 4.0237L36.592 12.2654H31.5138C30.0007 12.2654 28.7628 11.0162 28.7628 9.50305V4.0237ZM9.11472 45.05C6.97132 45.05 5.26349 43.3304 5.26349 41.187V6.20151C5.26349 4.04636 6.97132 2.29278 9.11472 2.29278H26.47V9.50305C26.47 12.2885 28.7284 14.5582 31.5138 14.5582H38.1622V23.5107C37.8186 23.4993 37.5433 23.4649 37.2454 23.4649C33.2447 23.4649 29.5651 25.0011 26.791 27.4085H12.2329C11.6022 27.4085 11.0865 27.9242 11.0865 28.5545C11.0865 29.1851 11.6022 29.7008 12.2329 29.7008H24.659C23.8449 30.8472 23.1685 31.9936 22.6415 33.2546H12.2329C11.6022 33.2546 11.0865 33.7703 11.0865 34.401C11.0865 35.0312 11.6022 35.5474 12.2329 35.5474H21.8962C21.6096 36.6938 21.4607 37.966 21.4607 39.2383C21.4607 41.3016 21.8618 43.3421 22.584 45.0617H9.11472V45.05ZM37.234 52.7189C29.806 52.7189 23.7648 46.6777 23.7648 39.2496C23.7648 31.8216 29.7942 25.7804 37.234 25.7804C44.6734 25.7804 50.7029 31.8216 50.7029 39.2496C50.7029 46.6777 44.6621 52.7189 37.234 52.7189Z"
-              fill="#06A9EF"
-            />
-            <path
-              d="M12.2333 23.9588H23.8453C24.476 23.9588 24.9917 23.4427 24.9917 22.8124C24.9917 22.1817 24.476 21.666 23.8453 21.666H12.2333C11.6026 21.666 11.0869 22.1817 11.0869 22.8124C11.0869 23.4427 11.6026 23.9588 12.2333 23.9588Z"
-              fill="#06A9EF"
-            />
-            <path
-              d="M38.0481 30.7906C37.8304 30.5615 37.5324 30.4238 37.2114 30.4238C36.8904 30.4238 36.5925 30.5615 36.3747 30.7906L29.6571 38.0008C29.2215 38.4595 29.2559 39.193 29.7146 39.6172C30.1732 40.0528 30.918 40.0184 31.3536 39.5601L36.0994 34.4819V46.9995C36.0994 47.6302 36.6151 48.1459 37.2458 48.1459C37.8761 48.1459 38.3922 47.6302 38.3922 46.9995V34.4819L43.1033 39.5601C43.3328 39.8006 43.6307 39.9269 43.9404 39.9269C44.2152 39.9269 44.4905 39.8236 44.7196 39.6172C45.1783 39.1816 45.2127 38.4595 44.7771 38.0008L38.0481 30.7906Z"
-              fill="#06A9EF"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_7804_70267">
-              <rect
-                width="55"
-                height="55"
-                fill="white"
-                transform="translate(0.5)"
-              />
-            </clipPath>
-          </defs>
-        </svg>
-
-        <div className="flex flex-col">
-          <p className="text-[12px] sm:text-[14px] text-[#333] font-[400] leading-[160%] ">
-            {" "}
-            <span className="text-[#06A9EF] font-[400] ">Browse file</span> or
-            drag and drop
-          </p>
-          <p className="text-[12px] sm:text-[14px] text-[#333] font-[400] leading-[160%] ">
-            Allowed file formats: PDF, DOC, DOCX | up to 1.5 MB
-          </p>
-        </div>
-
-        <button className="py-[8px] text-[12px] sm:text-[14px] text-[#333] font-[500]  px-[16px] flex flex-row justify-center items-center gap-1 rounded-[8px] border-[1px] bg-[#fff] border-[#06A9EF]">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <g mask="url(#mask0_7804_70276)">
-              <path
-                d="M11.25 15.7884V7.3884L8.78462 9.85378L7.7308 8.7692L12 4.5L16.2692 8.7692L15.2153 9.85378L12.7499 7.3884V15.7884H11.25ZM6.3077 19.5C5.80257 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6923V14.9808H5.99997V17.6923C5.99997 17.7692 6.03202 17.8397 6.09612 17.9038C6.16024 17.9679 6.23077 18 6.3077 18H17.6922C17.7692 18 17.8397 17.9679 17.9038 17.9038C17.9679 17.8397 18 17.7692 18 17.6923V14.9808H19.5V17.6923C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6922 19.5H6.3077Z"
-                fill="#333333"
-              />
-            </g>
-          </svg>
-          Bulk Upload Files
-        </button>
-      </div>
-
-      <div className="flex gap-6 items-center">
-        <div className="flex gap-3 items-center">
-          <p className="text-[11px] sm:text-[16px] text-[#333]">Set Filter Limit</p>
-          <p className="text-[11px] sm:text-[16px] text-[#333] py-[12px] px-[16px] items-center border-[1px] border-[#DEDEDE] bg-[#fff] rounded-[6px] ">
-            04
-          </p>
-        </div>
-
-        <button className="py-[8px] sm:px-[16px] px-[8px] flex justify-center items-center gap-[6px] rounded-[6px] bg-[#06A9EF] border-[#06A9EF]">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <g mask="url(#mask0_7804_70287)">
-              <path
-                d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z"
-                fill="white"
-              />
-            </g>
-          </svg>
-          <span className="text-[11px] sm:text-[16px] text-[#fff] font-[600]">
-            Filter Data
-          </span>
-        </button>
-      </div>
-
-      <div className="flex flex-col">
-        <div className="flex gap-[24px] items-center">
-          <div className="flex w-[100%]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30%"
-              height="8"
-              viewBox="0 0 347 8"
-              fill="none"
-            >
-              <path
-                d="M4 0C1.79086 0 0 1.79086 0 4C0 6.20914 1.79086 8 4 8V0ZM4 8H347V0H4V8Z"
-                fill="#06A9EF"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="70%"
-              height="8"
-              viewBox="0 0 842 8"
-              fill="none"
-            >
-              <path
-                d="M838 8C840.209 8 842 6.20914 842 4C842 1.79086 840.209 0 838 0V8ZM0 8H838V0H0L0 8Z"
-                fill="#C7C7C7"
-              />
-            </svg>
-          </div>
-          <p className="text-[16px] sm:text-[20px] text-[#333] font-[500] leading-normal">
-            13%
-          </p>
-        </div>
-        <p className="font-[400] text-[10px] sm:text-[14px]">
-          Please wait while we are{" "}
-          <span className="text-[#06A9EF] text-[10px] sm:text-[14px] font-[500]">fetching data</span> for
-          you ...... let,s shortlist best candidates for your preference....
-        </p>
-      </div>
-
-      {
-        [1, 2, 3, 4].map(() => (
           <div
-            className="flex w-[100%] gap-4 p-[16px] flex-col items-start rounded-[16px] border-[1px] border-[#06A9EF] bg-[#fff] "
+            className="flex w-[100%] p-[16px] flex-col items-start gap-4 rounded-[16px] bg-[#fff] "
             style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
           >
-            <p className="text-[16px] sm:text-[20px] text-[#333] leading-normal font-[500]">
-              4 results found for Assistant Manager
+            <div className="flex flex-col">
+              <p className="text-[18px] sm:text-[24px] text-[#333] font-[500] leading-normal">
+                Bulk Upload
+              </p>
+              <p className="text-[12px] sm:text-[14px] text-[#646464] font-[500] leading-normal">
+                upload bulk CV / Resumes & get quick filtered data
+              </p>
+            </div>
+            <p className="text-[16px] sm:text-[20px] text-[#333] font-[500] leading-normal">
+              Select Job role
             </p>
 
-            <div
-              className="grid scr1200:grid-cols-3 scr800:grid-cols-2 grid-cols-1 p-[24px] w-[100%] items-start gap-[16px] rounded-[16px] border-[1px] border-[#DEDEDE] bg-[#fff] "
-              style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+            <div className="flex flex-col sm:flex sm:flex-row gap-2 w-[100%] sm:w-auto">
+              <select
+                className="flex py-[12px] px-[16px] text-[14px] text-[#333] items-center gap-1 rounded-[6px] border solid bg-[#fff] sm:w-[183px] w-[100%] border-[#DEDEDE]"
+                name=""
+                id=""
+              >
+                <option value="">Department</option>
+                <option value="">b</option>
+              </select>
+
+              <select
+                className="flex py-[12px] px-[16px]  text-[14px] text-[#333] items-center gap-1 rounded-[6px] border solid bg-[#fff] sm:w-[183px] w-[100%] border-[#DEDEDE]"
+                name=""
+                id=""
+              >
+                <option value="">Job Role</option>
+                <option value="">b</option>
+              </select>
+            </div>
+          </div>
+
+          <div className=" flex p-[24px] w-[100%]  flex-col justify-center items-center gap-4 rounded-[8px] border-[2px] border-dashed border-[#06A9EF] bg-[#EFFAFF]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="56"
+              height="55"
+              viewBox="0 0 56 55"
+              fill="none"
             >
-              <div className=" w-[100%]  flex flex-col justify-between items-start">
-                <div className="flex gap-[21px] ">
-                  <img
-                    src="/images/profile_icon.png"
-                    className="w-[96px] h-[96px] rounded-[96px]"
-                    alt=""
+              <g clip-path="url(#clip0_7804_70267)">
+                <path
+                  d="M40.455 23.809V13.4004C40.455 13.1025 40.3174 12.8272 40.1227 12.6095L28.4531 0.355415C28.2354 0.126304 27.9257 0 27.6164 0H9.11472C5.69905 0 2.9707 2.78541 2.9707 6.20151V41.187C2.9707 44.6031 5.69905 47.3428 9.11472 47.3428H23.719C26.4814 51.9279 31.5025 54.9999 37.2223 54.9999C45.9113 54.9999 53.007 47.9386 53.007 39.2383C53.0187 31.6382 47.562 25.2877 40.455 23.809ZM28.7628 4.0237L36.592 12.2654H31.5138C30.0007 12.2654 28.7628 11.0162 28.7628 9.50305V4.0237ZM9.11472 45.05C6.97132 45.05 5.26349 43.3304 5.26349 41.187V6.20151C5.26349 4.04636 6.97132 2.29278 9.11472 2.29278H26.47V9.50305C26.47 12.2885 28.7284 14.5582 31.5138 14.5582H38.1622V23.5107C37.8186 23.4993 37.5433 23.4649 37.2454 23.4649C33.2447 23.4649 29.5651 25.0011 26.791 27.4085H12.2329C11.6022 27.4085 11.0865 27.9242 11.0865 28.5545C11.0865 29.1851 11.6022 29.7008 12.2329 29.7008H24.659C23.8449 30.8472 23.1685 31.9936 22.6415 33.2546H12.2329C11.6022 33.2546 11.0865 33.7703 11.0865 34.401C11.0865 35.0312 11.6022 35.5474 12.2329 35.5474H21.8962C21.6096 36.6938 21.4607 37.966 21.4607 39.2383C21.4607 41.3016 21.8618 43.3421 22.584 45.0617H9.11472V45.05ZM37.234 52.7189C29.806 52.7189 23.7648 46.6777 23.7648 39.2496C23.7648 31.8216 29.7942 25.7804 37.234 25.7804C44.6734 25.7804 50.7029 31.8216 50.7029 39.2496C50.7029 46.6777 44.6621 52.7189 37.234 52.7189Z"
+                  fill="#06A9EF"
+                />
+                <path
+                  d="M12.2333 23.9588H23.8453C24.476 23.9588 24.9917 23.4427 24.9917 22.8124C24.9917 22.1817 24.476 21.666 23.8453 21.666H12.2333C11.6026 21.666 11.0869 22.1817 11.0869 22.8124C11.0869 23.4427 11.6026 23.9588 12.2333 23.9588Z"
+                  fill="#06A9EF"
+                />
+                <path
+                  d="M38.0481 30.7906C37.8304 30.5615 37.5324 30.4238 37.2114 30.4238C36.8904 30.4238 36.5925 30.5615 36.3747 30.7906L29.6571 38.0008C29.2215 38.4595 29.2559 39.193 29.7146 39.6172C30.1732 40.0528 30.918 40.0184 31.3536 39.5601L36.0994 34.4819V46.9995C36.0994 47.6302 36.6151 48.1459 37.2458 48.1459C37.8761 48.1459 38.3922 47.6302 38.3922 46.9995V34.4819L43.1033 39.5601C43.3328 39.8006 43.6307 39.9269 43.9404 39.9269C44.2152 39.9269 44.4905 39.8236 44.7196 39.6172C45.1783 39.1816 45.2127 38.4595 44.7771 38.0008L38.0481 30.7906Z"
+                  fill="#06A9EF"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_7804_70267">
+                  <rect
+                    width="55"
+                    height="55"
+                    fill="white"
+                    transform="translate(0.5)"
                   />
-                  <div className="flex flex-col items-start justify-between">
-                    <p className="text-[18px] sm:text-[24px] text-[#333] leading-[160%] font-[500]">
-                      John Doe
-                    </p>
-                    <p className="text-[14px] sm:text-[16px] leading-[160%] text-[#646464] font-[400] ">
-                      Product Designer
-                    </p>
-                    <div className="gap-2 flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M21.2841 8.27657L15.3333 7.41173L12.6731 2.01876C12.6005 1.8711 12.4809 1.75157 12.3333 1.67891C11.963 1.4961 11.513 1.64845 11.3278 2.01876L8.66766 7.41173L2.71688 8.27657C2.55282 8.30001 2.40281 8.37735 2.28797 8.49454C2.14913 8.63724 2.07262 8.82923 2.07526 9.02831C2.0779 9.22739 2.15946 9.41728 2.30203 9.55626L6.6075 13.7539L5.59031 19.6813C5.56646 19.8191 5.58172 19.961 5.63436 20.0906C5.687 20.2203 5.77491 20.3326 5.88813 20.4148C6.00135 20.497 6.13535 20.5459 6.27492 20.5558C6.4145 20.5658 6.55407 20.5364 6.67781 20.4711L12.0005 17.6727L17.3231 20.4711C17.4684 20.5484 17.6372 20.5742 17.7989 20.5461C18.2067 20.4758 18.4809 20.0891 18.4106 19.6813L17.3934 13.7539L21.6989 9.55626C21.8161 9.44142 21.8934 9.29142 21.9169 9.12735C21.9802 8.7172 21.6942 8.33751 21.2841 8.27657Z"
-                          fill="#FFB836"
-                        />
-                      </svg>
-                      <p className="text-[14px] sm:text-[16px] leading-[160%] text-[#333] font-[400] ">
-                        4.0
+                </clipPath>
+              </defs>
+            </svg>
+
+            <div className="flex flex-col">
+              <p className="text-[12px] sm:text-[14px] text-[#333] font-[400] leading-[160%] ">
+                {" "}
+                <span className="text-[#06A9EF] font-[400] ">Browse file</span> or
+                drag and drop
+              </p>
+              <p className="text-[12px] sm:text-[14px] text-[#333] font-[400] leading-[160%] ">
+                Allowed file formats: PDF, DOC, DOCX | up to 1.5 MB
+              </p>
+            </div>
+
+            <button className="py-[8px] text-[12px] sm:text-[14px] text-[#333] font-[500]  px-[16px] flex flex-row justify-center items-center gap-1 rounded-[8px] border-[1px] bg-[#fff] border-[#06A9EF]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <g mask="url(#mask0_7804_70276)">
+                  <path
+                    d="M11.25 15.7884V7.3884L8.78462 9.85378L7.7308 8.7692L12 4.5L16.2692 8.7692L15.2153 9.85378L12.7499 7.3884V15.7884H11.25ZM6.3077 19.5C5.80257 19.5 5.375 19.325 5.025 18.975C4.675 18.625 4.5 18.1974 4.5 17.6923V14.9808H5.99997V17.6923C5.99997 17.7692 6.03202 17.8397 6.09612 17.9038C6.16024 17.9679 6.23077 18 6.3077 18H17.6922C17.7692 18 17.8397 17.9679 17.9038 17.9038C17.9679 17.8397 18 17.7692 18 17.6923V14.9808H19.5V17.6923C19.5 18.1974 19.325 18.625 18.975 18.975C18.625 19.325 18.1974 19.5 17.6922 19.5H6.3077Z"
+                    fill="#333333"
+                  />
+                </g>
+              </svg>
+              Bulk Upload Files
+            </button>
+          </div>
+
+          <div className="flex gap-6 items-center">
+            <div className="flex gap-3 items-center">
+              <p className="text-[11px] sm:text-[16px] text-[#333]">Set Filter Limit</p>
+              <p className="text-[11px] sm:text-[16px] text-[#333] py-[12px] px-[16px] items-center border-[1px] border-[#DEDEDE] bg-[#fff] rounded-[6px] ">
+                04
+              </p>
+            </div>
+
+            <button className="py-[8px] sm:px-[16px] px-[8px] flex justify-center items-center gap-[6px] rounded-[6px] bg-[#06A9EF] border-[#06A9EF]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <g mask="url(#mask0_7804_70287)">
+                  <path
+                    d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z"
+                    fill="white"
+                  />
+                </g>
+              </svg>
+              <span className="text-[11px] sm:text-[16px] text-[#fff] font-[600]">
+                Filter Data
+              </span>
+            </button>
+          </div>
+
+          <div className="flex flex-col">
+            <div className="flex gap-[24px] items-center">
+              <div className="flex w-[100%]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30%"
+                  height="8"
+                  viewBox="0 0 347 8"
+                  fill="none"
+                >
+                  <path
+                    d="M4 0C1.79086 0 0 1.79086 0 4C0 6.20914 1.79086 8 4 8V0ZM4 8H347V0H4V8Z"
+                    fill="#06A9EF"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="70%"
+                  height="8"
+                  viewBox="0 0 842 8"
+                  fill="none"
+                >
+                  <path
+                    d="M838 8C840.209 8 842 6.20914 842 4C842 1.79086 840.209 0 838 0V8ZM0 8H838V0H0L0 8Z"
+                    fill="#C7C7C7"
+                  />
+                </svg>
+              </div>
+              <p className="text-[16px] sm:text-[20px] text-[#333] font-[500] leading-normal">
+                13%
+              </p>
+            </div>
+            <p className="font-[400] text-[10px] sm:text-[14px]">
+              Please wait while we are{" "}
+              <span className="text-[#06A9EF] text-[10px] sm:text-[14px] font-[500]">fetching data</span> for
+              you ...... let,s shortlist best candidates for your preference....
+            </p>
+          </div>
+
+          {
+            [1, 2, 3, 4].map(() => (
+              <div
+                className="flex w-[100%] gap-4 p-[16px] flex-col items-start rounded-[16px] border-[1px] border-[#06A9EF] bg-[#fff] "
+                style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+              >
+                <p className="text-[16px] sm:text-[20px] text-[#333] leading-normal font-[500]">
+                  4 results found for Assistant Manager
+                </p>
+
+                <div
+                  className="grid scr1200:grid-cols-3 scr800:grid-cols-2 grid-cols-1 p-[24px] w-[100%] items-start gap-[16px] rounded-[16px] border-[1px] border-[#DEDEDE] bg-[#fff] "
+                  style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                >
+                  <div className=" w-[100%]  flex flex-col justify-between items-start">
+                    <div className="flex gap-[21px] ">
+                      <img
+                        src="/images/profile_icon.png"
+                        className="w-[96px] h-[96px] rounded-[96px]"
+                        alt=""
+                      />
+                      <div className="flex flex-col items-start justify-between">
+                        <p className="text-[18px] sm:text-[24px] text-[#333] leading-[160%] font-[500]">
+                          John Doe
+                        </p>
+                        <p className="text-[14px] sm:text-[16px] leading-[160%] text-[#646464] font-[400] ">
+                          Product Designer
+                        </p>
+                        <div className="gap-2 flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M21.2841 8.27657L15.3333 7.41173L12.6731 2.01876C12.6005 1.8711 12.4809 1.75157 12.3333 1.67891C11.963 1.4961 11.513 1.64845 11.3278 2.01876L8.66766 7.41173L2.71688 8.27657C2.55282 8.30001 2.40281 8.37735 2.28797 8.49454C2.14913 8.63724 2.07262 8.82923 2.07526 9.02831C2.0779 9.22739 2.15946 9.41728 2.30203 9.55626L6.6075 13.7539L5.59031 19.6813C5.56646 19.8191 5.58172 19.961 5.63436 20.0906C5.687 20.2203 5.77491 20.3326 5.88813 20.4148C6.00135 20.497 6.13535 20.5459 6.27492 20.5558C6.4145 20.5658 6.55407 20.5364 6.67781 20.4711L12.0005 17.6727L17.3231 20.4711C17.4684 20.5484 17.6372 20.5742 17.7989 20.5461C18.2067 20.4758 18.4809 20.0891 18.4106 19.6813L17.3934 13.7539L21.6989 9.55626C21.8161 9.44142 21.8934 9.29142 21.9169 9.12735C21.9802 8.7172 21.6942 8.33751 21.2841 8.27657Z"
+                              fill="#FFB836"
+                            />
+                          </svg>
+                          <p className="text-[14px] sm:text-[16px] leading-[160%] text-[#333] font-[400] ">
+                            4.0
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex py-[8px] mt-[10px] px-[16px] flex-col items-start gap-1 rounded-[12px] bg-[#EFFAFF] ">
+                      <p className="text-[14px] sm:text-[16px] font-[500] text-[#333] leading-[160%] ">
+                        Assistant Manager
+                      </p>
+                      <div className="h-[1px] bg-[#D6DDEB]"></div>
+                      <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] mb-[2px]">
+                        Product Development
+                      </p>
+                      <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] ">
+                        Marketing
                       </p>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex py-[8px] mt-[10px] px-[16px] flex-col items-start gap-1 rounded-[12px] bg-[#EFFAFF] ">
-                  <p className="text-[14px] sm:text-[16px] font-[500] text-[#333] leading-[160%] ">
-                    Assistant Manager
-                  </p>
-                  <div className="h-[1px] bg-[#D6DDEB]"></div>
-                  <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] mb-[2px]">
-                    Product Development
-                  </p>
-                  <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] ">
-                    Marketing
-                  </p>
-                </div>
-              </div>
-
-              <div className=" w-[100%]  flex flex-col items-start gap-4">
-                <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[600]">
-                  Contact
-                </p>
-                {
-                  contact_info.map((e) => (
-                  <div className="flex break-all gap-[8px]">
-                    {e.icon}
-                    <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
+                  <div className=" w-[100%]  flex flex-col items-start gap-4">
+                    <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[600]">
+                      Contact
+                    </p>
+                    {
+                      contact_info.map((e) => (
+                        <div className="flex break-all gap-[8px]">
+                          {e.icon}
+                          <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
+                        </div>
+                      ))}
                   </div>
-                  ))}
-              </div>
 
-              <div className=" flex flex-col w-[100%] items-start gap-4">
-                <div className="flex justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
-                  <p className="text-[#333] scr1350:text-[20px] scr1200:text-[17px] text-[14px] font-[500] ">Profile Match Score</p>
-                  <p className="text-[#333] text-[23px] scr1350:text-[36px] scr1200:text-[30px] font-[500] ">87 %</p>
-                </div>
-                <div className="flex w-[100%] rounded-[12px]">
-                  <div className="w-[51px] flex justify-center items-center p-[10px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000]">
-                    <p className="text-[#fff] text-[14px] ">PDF</p>
-                  </div>
-                  <div className="flex p-4 justify-betweeen items-center bg-[#fff] border-[1px] border-t-[#DEDEDE] border-r-[#DEDEDE] border-b-[#DEDEDE] border-l-[#fff] rounded-tr-[12px] rounded-br-[12px]">
-                    <div className="flex flex-col gap-[8px] items-start ">
-                      <p className="text-[14px] text-[#333] font-[500] ">John Doe Resume Bsc CS 2024.pdf (Default)</p>
-                      <p className="text-[12px] text-[#646464] font-[400]">190 Kb</p>
+                  <div className=" flex flex-col w-[100%] items-start gap-4">
+                    <div className="flex justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
+                      <p className="text-[#333] scr1350:text-[20px] scr1200:text-[17px] text-[14px] font-[500] ">Profile Match Score</p>
+                      <p className="text-[#333] text-[23px] scr1350:text-[36px] scr1200:text-[30px] font-[500] ">87 %</p>
+                    </div>
+                    <div className="flex w-[100%] rounded-[12px]">
+                      <div className="w-[51px] flex justify-center items-center p-[10px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000]">
+                        <p className="text-[#fff] text-[14px] ">PDF</p>
+                      </div>
+                      <div className="flex p-4 justify-betweeen items-center bg-[#fff] border-[1px] border-t-[#DEDEDE] border-r-[#DEDEDE] border-b-[#DEDEDE] border-l-[#fff] rounded-tr-[12px] rounded-br-[12px]">
+                        <div className="flex flex-col gap-[8px] items-start ">
+                          <p className="text-[14px] text-[#333] font-[500] ">John Doe Resume Bsc CS 2024.pdf (Default)</p>
+                          <p className="text-[12px] text-[#646464] font-[400]">190 Kb</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-[16px] w-[100%] items-start">
+                      <button onClick={() => router.push("/employer/afterLogin/Hiring?content=JobPost")} className="flex py-[12px] w-[50%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] bg-[#06A9EF] text-[12px] sm:text-[16px] text-[#fff] font-[600] leading-[160%]">Move to Hiring</button>
+                      <button onClick={toggleContent} className="flex py-[12px] w-[50%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] text-[12px] sm:text-[15px] text-[#333] font-[500] border-[1px] border-[#06A9EF] leading-[160%]">See Application</button>
+
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-[16px] w-[100%] items-start">
-                  <button onClick={()=>router.push("/employer/afterLogin/Hiring?content=JobPost")} className="flex py-[12px] w-[50%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] bg-[#06A9EF] text-[12px] sm:text-[16px] text-[#fff] font-[600] leading-[160%]">Move to Hiring</button>
-                  <button onClick={toggleContent} className="flex py-[12px] w-[50%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] text-[12px] sm:text-[15px] text-[#333] font-[500] border-[1px] border-[#06A9EF] leading-[160%]">See Application</button>
-
-                </div>
               </div>
-            </div>
-          </div>
-        ))}
-    </div>
-}
-    {toggle ===1  && 
-    <ApplicantsDetails setIsApplicantDetails={setIsApplicantDetails} setTogglee={setToggle} />
-    }
+            ))}
+        </div>
+      }
+      {toggle === 1 &&
+        <ApplicantsDetails setIsApplicantDetails={setIsApplicantDetails} setTogglee={setToggle} />
+      }
 
     </>
   );
