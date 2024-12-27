@@ -87,7 +87,7 @@ function SavedJobs({ setLimitPopup,
         <>
           {savedJobList?.length > 0 ?
             <div className="grid grid-cols-12 gap-[24px] customMargins py-6">
-              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You've Saved <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {savedJobList?.length} Jobs )</span></p>
+              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You&apos;ve Saved <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {savedJobList?.length} Jobs )</span></p>
 
               <div
                 onClick={() => setIsDescription(true)}

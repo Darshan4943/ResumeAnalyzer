@@ -240,6 +240,7 @@ function Hiring() {
           <div className=" grid md:grid-cols-12 grid-clos-6 gap-6">
             {data.map((job, index) => (
               <div
+              key={index}
                 onClick={toggleContent}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >

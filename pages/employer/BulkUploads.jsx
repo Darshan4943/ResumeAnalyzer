@@ -245,8 +245,9 @@ function BulkUploads() {
       </div>
 
       {
-        [1, 2, 3, 4].map(() => (
+        [1, 2, 3, 4].map((index) => (
           <div
+          key={index}
             className="flex w-[100%] gap-4 p-[16px] flex-col items-start rounded-[16px] border-[1px] border-[#06A9EF] bg-[#fff] "
             style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
           >
@@ -311,8 +312,8 @@ function BulkUploads() {
                   Contact
                 </p>
                 {
-                  contact_info.map((e) => (
-                  <div className="flex break-all gap-[8px]">
+                  contact_info.map((e,index) => (
+                  <div key={index} className="flex break-all gap-[8px]">
                     {e.icon}
                     <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
                   </div>

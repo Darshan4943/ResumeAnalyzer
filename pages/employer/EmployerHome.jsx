@@ -763,8 +763,8 @@ function EmployerHome({ toggleContentt }) {
               borderBottom: "1px solid var(--Neutrals-20, #D6DDEB)",
             }}
           >
-            {applicant_head.map((applicant_head) => (
-              <div className="w-[20%] flex items-center gap-6 justify-evenly ">
+            {applicant_head.map((applicant_head,index) => (
+              <div key={index} className="w-[20%] flex items-center gap-6 justify-evenly ">
                 <div>{applicant_head.check}</div>
 
                 <div className="flex  justify-between items-center gap-[8px]">

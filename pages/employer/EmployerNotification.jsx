@@ -157,8 +157,8 @@ function EmployerNotification() {
         </p>
 
         <div className=" pb-[5px] flex items-start gap-[12px]  overflow-x-scroll w-full">
-          {notification.map((e) => (
-            <button
+          {notification.map((e,index) => (
+            <button key={index}
               className="py-[10px] px-[16px] flex items-center   rounded-[25px] border border-solid border-[#DEDEDE] ms:text-[16px] text-[12px] text-[#333] font-[600]"
               style={{
                 boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -183,6 +183,7 @@ function EmployerNotification() {
       >
         {card.map((e, i) => (
           <div
+          key={i}
             className={`flex w-[100%] p-[8px] gap-[24px] items-center rouded-[12px] 
             ${i === 0 ? "bg-[#E0F6FF]" : "bg-[#fff]"}`}
           >
