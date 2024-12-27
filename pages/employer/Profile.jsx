@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-scroll";
 import ReactSelect from "react-select";
 import { useRouter } from "next/navigation";
-import { telCode } from "@/utils/data";
+
 import { useMediaQuery } from "@react-hook/media-query";
-import Skills from "@/components/featured/employer/afterLogin/Skills";
+import Skills from "../../components/featured/employer/afterLogin/Skills";
+import { telCode } from "../../utils/data";
+
 function Profile() {
 
   const router = useRouter();

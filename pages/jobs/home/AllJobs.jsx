@@ -2,9 +2,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { reCallUserData } from "../../../Redux/actions/user";
-import { CountPostingDays } from "../../../utils/data";
+
 import { useRouter } from "next/router";
 
 import AllJobCard from "../../../components/featured/candidate/jobs/AllJobCard";
