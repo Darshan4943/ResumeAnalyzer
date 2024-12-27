@@ -202,14 +202,14 @@ function Services() {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/createResume/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
       case "Create New Cover Letter":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/coverLetter"
             : `/myClients/ClientResume?cover=true`
         );
