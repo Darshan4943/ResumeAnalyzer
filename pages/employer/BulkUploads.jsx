@@ -1,6 +1,7 @@
-import ApplicantsDetails from "@/components/featured/employer/afterLogin/bulkUploads/ApplicantsDetails";
+
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import ApplicantsDetails from "../../components/featured/employer/afterLogin/bulkUploads/ApplicantsDetails";
 
 function BulkUploads() {
   const router =useRouter()

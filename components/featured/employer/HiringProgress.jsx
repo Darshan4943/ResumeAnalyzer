@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
 import LevelUpdate from '../../models/levelUpdate';
 
+
 function HiringProgress() {
 
     const [openTaskModel, setOpenTaskModel] = useState(false)

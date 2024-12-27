@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import { plans, telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";

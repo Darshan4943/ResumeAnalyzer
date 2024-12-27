@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import TextEditor from '../common/textEditor'
-import ScheduleInterview from './ScheduleInterview';
+
+
 import { motion, AnimatePresence } from 'framer-motion';
 import ScheduleTask from './ScheduleTask';
+import ScheduleInterview from './ScheduleInterview';
+
 
 function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
     const [isNextLevel, setIsNextLevel] = useState("nextLevel")
