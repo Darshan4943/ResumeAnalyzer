@@ -113,8 +113,9 @@ function Profile() {
             </div>
 
             <div className="profile_option heroBlock">
-              {arr.map((item) => (
+              {arr.map((item,index) => (
                 <ScrollLink
+                key={index}
                   to="home"
                   spy={true}
                   smooth={true}

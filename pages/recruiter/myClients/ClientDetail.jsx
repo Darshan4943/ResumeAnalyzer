@@ -4,7 +4,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import ResumePreview from "../../../components/common/ResumePreview";
-import { reCallUserData } from "../../../Redux/actions/user";
+
 import { toast } from "react-toastify";
 import DeleteModal from "../../../components/common/deleteModal";
 import MiniLoader from "../../../components/common/mini-loader";
@@ -89,7 +89,7 @@ function ClientDetail({ tabIndex }) {
 
         setView(false);
         setDeleted(!deleted);
-        dispatch(reCallUserData());
+     ;
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -113,7 +113,7 @@ function ClientDetail({ tabIndex }) {
 
         setView(false);
         setDeleted(!deleted);
-        dispatch(reCallUserData());
+     ;
         setSelectedIndexes([]);
       })
       .catch((error) => {

@@ -86,7 +86,7 @@ const MyCollection = () => {
 
         setView(false);
         setDeleted(!deleted);
-        dispatch(reCallUserData());
+      
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ const MyCollection = () => {
         toast.success("Cover Letter Deleted successfully");
         setView(false);
         setDeleted(!deleted);
-        dispatch(reCallUserData());
+  
         setSelectedIndexes([]);
       })
       .catch((error) => {

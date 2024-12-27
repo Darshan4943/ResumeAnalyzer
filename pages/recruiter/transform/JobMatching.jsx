@@ -19,7 +19,7 @@ import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
 import LimitUsedModal from "../../../components/models/limitUsedModal";
-import { reCallUserData } from "../../../Redux/actions/user";
+
 
 const JobMatching = () => {
   const dispatch = useDispatch();
@@ -448,7 +448,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
         console.error('Error in updateJdSubscriptionLimit:', jdSubscriptionResponse.data.message);
       }
   
-      dispatch(reCallUserData());
+   ;
   
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,

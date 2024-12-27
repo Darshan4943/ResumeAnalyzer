@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { setJob } from "../../../Redux/actions";
+
 import { useDispatch } from "react-redux";
 
 const InputBox = ({

@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { reCallUserData } from "../../Redux/actions/user";
+
 import { plans, telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
@@ -337,7 +337,7 @@ function Recruiter_signup({ }) {
           try {
             if (response?.success) {
               if (isUpdate) {
-                dispatch(reCallUserData());
+                // dispatch(reCallUserData());
                 toast.success("Updated Successfully");
                 router.push("/profile");
               } else {
@@ -345,7 +345,7 @@ function Recruiter_signup({ }) {
                   router.push("/dashboard/Recruiters");
                 } else {
                   localStorage.setItem("authToken", JSON.stringify(response));
-                  dispatch(reCallUserData());
+                  // dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
                     window.location.href = `/purchase/details?id=${sendToPurchase.index + 1

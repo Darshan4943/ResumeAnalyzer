@@ -200,8 +200,8 @@ function EditOfferTemplate({ setEditTemplate }) {
               </div>
             </div>
             <div className="p-[12px] flex flex-col h-[124px] ml:h-[788px] border-solid border-[1px] border-[#DEDEDE] rounded-[6px] gap-[20px] overflow-y-auto">
-              {AttributesList.map((item) => (
-                <div className="text-[14px] flex gap-2  justify-between font-[500] text-[#06A9EF]">
+              {AttributesList.map((item,index) => (
+                <div key={index} className="text-[14px] flex gap-2  justify-between font-[500] text-[#06A9EF]">
                   {item}
                   {item === "Salary Breakup" &&
                     <svg onClick={() => setSalaryBreakup(true)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

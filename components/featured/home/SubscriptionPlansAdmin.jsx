@@ -6,12 +6,12 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { currenciesWithIcons, currencyMap, plans, telCode } from "../../../utils/data";
-import { popupVisible } from "../../../Redux/actions/user";
+
 import axios from "axios";
 function SubscriptionPlansAdmin({ toggle }) {
     const router = useRouter();
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);      
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
     // const showPlan = useSelector((state) => state.showPlan.show);
 
     const [subPlans, setPlans] = useState([]);

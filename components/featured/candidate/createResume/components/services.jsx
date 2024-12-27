@@ -153,7 +153,7 @@ function Services() {
   };
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
     } else if (userDataGlobal.role === "recruiter") {
       return loginListRecruiter;
@@ -201,14 +201,14 @@ function Services() {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/home/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
       case "Create New Cover Letter":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/coverLetter"
             : `/myClients/ClientResume?cover=true`
         );

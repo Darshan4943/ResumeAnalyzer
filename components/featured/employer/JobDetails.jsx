@@ -90,7 +90,7 @@ function JobDetails() {
               <span className="text-[12px] font-[500px] text-[#333]">
                 Qualifications :
               </span>{" "}
-              Bachelor's degree in user experience, design or related field 2+
+              Bachelors degree in user experience, design or related field 2+
               years of experience with UI design Strong communication, design
               and creative thinking skills Experience with Adobe Pro,
               Illustrator and Photoshop, Figma, InVision.
@@ -105,7 +105,7 @@ function JobDetails() {
                 Schedule: Day shift{" "}
               </span>{" "}
               <span className="text-[12px] font-[500] text-[#333]">
-                Education: Bachelor's (Preferred){" "}
+                Education: Bachelors (Preferred){" "}
               </span>{" "}
               <span className="text-[12px] font-[500] text-[#333]">
                 Experience: total work: 2 years (Required)
@@ -190,7 +190,7 @@ function JobDetails() {
                <div className="flex items-center gap-2 flex-wrap">
                 {
                   btnArr.map((cur,ind) => (
-                    <button className="flex items-center px-4 py-3 rounded-[25px] font-medium text-[#333] text-[12px] md:text-[14px] bg-[#fff]"
+                    <button key={ind} className="flex items-center px-4 py-3 rounded-[25px] font-medium text-[#333] text-[12px] md:text-[14px] bg-[#fff]"
                     style={{border:'1px solid var(--primary, #06A9EF)',boxShadow:' 0px 1px 2px 0px rgba(0, 0, 0, 0.25)'}}
                     >{cur}</button>
                   ))

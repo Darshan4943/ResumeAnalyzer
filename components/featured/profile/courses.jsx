@@ -83,8 +83,8 @@ const Courses = ({ userData }) => {
         </div>
         {userData?.courses?.length > 0 && (
           <>
-            {userData?.courses?.map((item) => (
-              <div className="work_logo ">
+            {userData?.courses?.map((item,index) => (
+              <div key={index} className="work_logo ">
                 <div className="logo_disc">
                   <p className="heading_first flex gap-2 items-center">
                     {item.name}{" "}

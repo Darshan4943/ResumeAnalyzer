@@ -1,3 +1,4 @@
+
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ApplicantsDetails from "../../components/featured/employer/afterLogin/bulkUploads/ApplicantsDetails";
@@ -244,15 +245,16 @@ function BulkUploads() {
             </p>
           </div>
 
-          {
-            [1, 2, 3, 4].map(() => (
-              <div
-                className="flex w-[100%] gap-4 p-[16px] flex-col items-start rounded-[16px] border-[1px] border-[#06A9EF] bg-[#fff] "
-                style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-              >
-                <p className="text-[16px] sm:text-[20px] text-[#333] leading-normal font-[500]">
-                  4 results found for Assistant Manager
-                </p>
+      {
+        [1, 2, 3, 4].map((index) => (
+          <div
+          key={index}
+            className="flex w-[100%] gap-4 p-[16px] flex-col items-start rounded-[16px] border-[1px] border-[#06A9EF] bg-[#fff] "
+            style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+          >
+            <p className="text-[16px] sm:text-[20px] text-[#333] leading-normal font-[500]">
+              4 results found for Assistant Manager
+            </p>
 
                 <div
                   className="grid scr1200:grid-cols-3 scr800:grid-cols-2 grid-cols-1 p-[24px] w-[100%] items-start gap-[16px] rounded-[16px] border-[1px] border-[#DEDEDE] bg-[#fff] "
@@ -306,18 +308,18 @@ function BulkUploads() {
                     </div>
                   </div>
 
-                  <div className=" w-[100%]  flex flex-col items-start gap-4">
-                    <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[600]">
-                      Contact
-                    </p>
-                    {
-                      contact_info.map((e) => (
-                        <div className="flex break-all gap-[8px]">
-                          {e.icon}
-                          <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
-                        </div>
-                      ))}
+              <div className=" w-[100%]  flex flex-col items-start gap-4">
+                <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[600]">
+                  Contact
+                </p>
+                {
+                  contact_info.map((e,index) => (
+                  <div key={index} className="flex break-all gap-[8px]">
+                    {e.icon}
+                    <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
                   </div>
+                  ))}
+              </div>
 
                   <div className=" flex flex-col w-[100%] items-start gap-4">
                     <div className="flex justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">

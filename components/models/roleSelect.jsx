@@ -46,12 +46,14 @@ function RoleSelect({ signin, signup }) {
   return (
     <>
       <div className="flex justify-center  items-center  my-[72px] flex-row lg:gap-[74px] gap-0 customMargins scr1168:w-[85%]  ">
+        <div className="h-[316px] min-w-[474px] scr1024:block hidden">
         <img
           src="/images/auth/selectrole.png"
           alt=""
-          className="h-[316px] w-[474px]  object-cover scr1024:block hidden"
+          className="h-[316px] w-[474px]  object-cover "
 
         />
+        </div>
         <div className="flex flex-col sm:gap-[24px] gap-4  scr1024:p-6 p-3 border border-[#DEDEDE] rounded-[12px] max-w-[400px] scr1024:min-w-[400px]">
           <div className="text-[18px]  sm:text-[20px] font-semibold text-center">
             {signin ? "Sign In" :"Sign Up"}
