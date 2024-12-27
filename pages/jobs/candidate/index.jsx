@@ -67,8 +67,8 @@ function Index() {
     }, [loc, jobTit, search]);
 
     useEffect(() => {
-        if (profileData.skills) {
-            setUserSkills(profileData.skills.map((item)=>item.value))
+        if (profileData?.skills) {
+            setUserSkills(profileData?.skills.map((item)=>item.value))
         }
     }, [profileData])
 

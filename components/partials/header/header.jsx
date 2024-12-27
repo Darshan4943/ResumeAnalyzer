@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import CandidateHeader from "./candidateHeader";
 import { Service } from "../../../utils/svg";
-import Services from "../../featured/candidate/createResume/components/services";
+import Services from "../../../pages/services";
 import { useSelector } from "react-redux";
 
 
@@ -11,7 +11,7 @@ function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const isLogin = useSelector((state) => state.auth.isLogin);
- 
+
   // const [isLogin, setIsLogin] = useState(null);
   const [isSignIn, setIsSignIn] = useState(false);
   const [isServices, setServices] = useState(false);
@@ -27,7 +27,7 @@ function Header({ userData }) {
   //   console.log("first")
   //   if (token && token != "undefined") {
   //     if (token) {
-     
+
   //       setIsLogin(true);
   //     } else {
   //       setIsLogin(false);
@@ -94,13 +94,13 @@ function Header({ userData }) {
                   Jobs
                 </Link> */}
                 <div
-                  onClick={() =>{router.push("/jobs/candidate") ;setServices(false)}}
+                  onClick={() => { router.push("/jobs/candidate"); setServices(false) }}
 
                   className={
-                    
+
                     selectedPage === "/jobs/candidate" && !isServices
                       ? "active scr1250:text-[16px] text-[16px] cursor-pointer "
-                      : "li scr1250:text-[16px] text-[16px] cursor-pointer" 
+                      : "li scr1250:text-[16px] text-[16px] cursor-pointer"
                   }
                 >
                   Jobs
@@ -152,8 +152,13 @@ function Header({ userData }) {
           )}
 
           {isServices &&
-           
-              <Services />
+
+            <Services
+              setServices={setServices}
+              isServices={isServices}
+              setIsMove={setIsMove}
+              isMove={isMove}
+            />
 
           }
         </div>

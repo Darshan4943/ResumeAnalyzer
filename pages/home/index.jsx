@@ -68,52 +68,30 @@
 
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
-import AdminDashboard from "../dashboard/adminDashboard";
-import MiniLoader from "../../components/common/miniLoader";
-import WithoutLogin from "../withoutLogin";
-import RecruiterDashBoard from "../recruiter";
+
 import CandidateHome from "../candidate";
-import EmployerDashBoard from "../employer";
-import EmployerHome from "../employer/EmployerHome";
+import WithoutLogin from "../withoutLogin";
+import { useSelector } from "react-redux";
+
 
 function BeforeLoginHome() {
-  const [isLogin, setIsLogin] = useState(false);
-  const dispatch = useDispatch();
-const {userDataGlobal} = useSelector((state) => state.user.userData);
 
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [showScrollImage, setShowScrollImage] = useState(false);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const isLogin = useSelector((state) => state.auth.isLogin);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token && token !== "undefined") {
-      setIsLogin(!!token);
-    }
 
-    const timer = setTimeout(() => {
-      setLoading(false);
-      if (userDataGlobal?.tempPassword?.length > 0) {
-        setVisible(true);
-      }
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const router = useRouter();
 
   return (
 
     <div className="">
       <PlanExpiredModal />
-      <CandidateHome />
+      {isLogin ?
+        <CandidateHome />
+        :
+        <WithoutLogin />
+      }
     </div>
   );
 }
