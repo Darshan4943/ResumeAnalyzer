@@ -265,10 +265,10 @@ function JobPosting() {
               <div className=" flex flex-col gap-[16px] ">
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
                   <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
-                    {search.map((headingObj, index) => (
-                      <div   key={index}>
+                    {search.map((headingObj,index) => (
+                      <div key={index}>
                         <select
-                      
+
                           className=" w-[19.87%] bg-whites"
                           onChange={(e) =>
                             handleHeadingChange(e, headingObj.heading)
@@ -281,7 +281,7 @@ function JobPosting() {
                             </option>
                           ))}
                         </select>
-                        <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div> 
+                        <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
                       </div>
                     ))}
                     <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
@@ -292,7 +292,7 @@ function JobPosting() {
 
                 <div>
                   <div className=" bg-[#E0F6FF] flex flex-row p-[16px]  gap-4   ">
-                    {headings.map((req,index) => (
+                    {headings.map((req, index) => (
                       <div key={index} className=" w-[14%] text-[16px] font-[600]">
                         {req}
                       </div>
@@ -430,7 +430,7 @@ function JobPosting() {
                       className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
                       {search.map((headingObj, index) => (
                         <select
-                        key={index}
+                          key={index}
                           className="bg-whites"
                           onChange={(e) =>
                             handleHeadingChange(e, headingObj.heading)
