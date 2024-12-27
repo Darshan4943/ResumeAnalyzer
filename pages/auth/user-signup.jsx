@@ -211,7 +211,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         try {
           if (response?.success) {
             localStorage.setItem("authToken", JSON.stringify(response));
-            dispatch(reCallUserData());
+      
             toast.success("Sign up Successfully");
             if (sendToPurchase && sendToPurchase?.status) {
               setLoading(false);

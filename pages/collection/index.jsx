@@ -229,11 +229,11 @@ function Collection() {
   useEffect(() => {
 
     getUnSyncFiles();
-    dispatch(reCallUserData())
+ 
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
         getUnSyncFiles()
-        dispatch(reCallUserData())
+     
       }, 30000);
 
       return () => clearInterval(interval);
@@ -527,7 +527,7 @@ function Collection() {
   //     if (response.data.success) {
 
   //       setUploadCount(0);
-  //       dispatch(reCallUserData())
+  //    
   //       return response.data;
   //     } else {
   //       console.error('Error:', response.data.message);
@@ -561,7 +561,7 @@ function Collection() {
       if (response.data.success) {
 
         setUploadCount(0);
-        dispatch(reCallUserData());
+     ;
       } else {
         console.error('First API call error:', response.data.message);
       }

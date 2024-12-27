@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import Fuse from "fuse.js";
 import { useRouter } from "next/router";
-import { reCallUserData } from "../../../Redux/actions/user";
+
 import { toast } from "react-toastify";
 import LimitUsedModal from "../../../components/models/limitUsedModal";
 function MyClients() {
@@ -92,7 +92,7 @@ function MyClients() {
       })
       .then((response) => {
 
-        dispatch(reCallUserData());
+     ;
         toast.success("Client Deleted successfully");
         setSelectedIndexes([]);
         setSelect(false);
