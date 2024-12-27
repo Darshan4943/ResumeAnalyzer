@@ -453,7 +453,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
               </div>
               <div className="flex flex-col w-full">
                 {arr3.map((cur, ind) => (
-                  <div
+                  <div key={ind}
                     className="flex items-start w-full p-4 bg-[#fff]"
                     style={{ borderBottom: "1px solid var(--Stroke, #DEDEDE)" }}
                   >
