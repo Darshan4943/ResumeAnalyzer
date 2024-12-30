@@ -86,7 +86,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
             {labels.map((req, index) => (
               <div
                 key={index}
-                className="flex px-4 text-[14px] font-medium font-Montserrat text-[#333] py-2 items-center bg-[#E6E6E6] justify-between w-full"
+                className="flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center bg-[#EFFAFF] justify-between w-full"
               >
                 <p>{req}</p>
               </div>
@@ -101,8 +101,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
               .map((applicants, index) => (
                 <>
                   <div
-                    className="flex w-[100%] p-[16px] justify-between items-center"
-                    style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}
+                    className="flex w-[100%] p-[16px] justify-between bg-[#FFFFFF] items-center"
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
@@ -131,7 +130,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                           {applicants.Recruiting}
                         </p>
                       </div>
-                      <div className="flex items-center justify-start col-span-1 pl-5">
+                      <div className="flex items-center justify-start col-span-1 pl-5"> 
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
                             ? "text-[#26A4FF] border-[#26A4FF]"
@@ -153,7 +152,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                         <div className="flex   items-center w-full  justify-between">
                           <button
                             onClick={() => setStartPreboarding(true)}
-                            className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[6px] border border-[#06A9EF] bg-[#06A9EF] text-white lg:text-[14px] text-[10px] font-[600]  font-Montserrat "
+                            className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-white lg:text-[14px] text-[10px] font-[600]  font-Montserrat "
                           >
                             {applicants.action}
                           </button>
