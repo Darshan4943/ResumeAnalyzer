@@ -1,5 +1,10 @@
+import axios from "axios";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import "react-quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -7,19 +12,97 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
   const [showApprovalChain, setShowApprovalChain] = useState(false);
   const [approvalChoice, setApprovalChoice] = useState(null);
+  const [data, setData] = useState({
+    jobTitle: "",
+    positions: "",
+    isPriority: false,
+    budgetFrom: "",
+    budgetTo: "",
+    experience: "",
+    requisitionType: "",
+    location: "",
+    department: "",
+    hiringDate: "",
+    jobType: "",
+    comments: "",
+    description: "",
+    RequisitionLevel: [
+      {
+        id: 1,
+        name: "",
+        email: "",
+      },
+    ],
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:2000/api/creatrequasetion",
+        data
+      );
+      setSuccessfull(true)
+      toast.success("Requisition created successfully", response.data);
+    } catch (error) {
+      toast.error("Error creating requisition:", error);
+    }
+  };
+
+  const handleChange = (e, name) => {
+    const { value, type, checked } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleChange1 = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      description: value,
+    }));
+  };
+
+  const handleChange2 = (e, index, field) => {
+    const { value } = e.target;
+
+    setData((prevState) => {
+      const updatedLevels = [...prevState.RequisitionLevel];
+
+      if (updatedLevels[index]) {
+        updatedLevels[index][field] = value;
+      }
+
+      return {
+        ...prevState,
+        RequisitionLevel: updatedLevels,
+      };
+    });
+  };
 
   const addLevel = () => {
     const newLevel = {
-      id: levels.length + 1,
-      name: `Level ${levels.length + 1}`,
+      id: data.RequisitionLevel.length + 1,
+      name: "",
+      email: "",
     };
-    setLevels([...levels, newLevel]);
+    setData({
+      ...data,
+      RequisitionLevel: [...data.RequisitionLevel, newLevel],
+    });
   };
 
   const deleteLevel = (id) => {
     if (id === 1) return;
-    const updatedLevels = levels.filter((level) => level.id !== id);
-    setLevels(updatedLevels);
+    const updatedLevels = data.RequisitionLevel.filter(
+      (level) => level.id !== id
+    );
+    setData({
+      ...data,
+      RequisitionLevel: updatedLevels,
+    });
   };
 
   const handleApprovalChoice = (value) => {
@@ -33,9 +116,13 @@ const CreateNewRequisition = ({ setToggle }) => {
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
-
           <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
-            <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
+            <img
+              onClick={() => setToggle(0)}
+              className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer"
+              src="/images/employer/Icon_left.png"
+              alt=""
+            />
             Create New Requisition
           </div>
 
@@ -44,6 +131,8 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className="text-[14px]  font-medium">Job Title</p>
               <input
                 type="text"
+                value={data.jobTitle}
+                onChange={(e) => handleChange(e, "jobTitle")}
                 placeholder="Eg: Product Manager"
                 className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
               />
@@ -52,6 +141,8 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className="  text-[14px]  font-medium">Number of Positions</p>
               <input
                 type="text"
+                value={data.positions}
+                onChange={(e) => handleChange(e, "positions")}
                 placeholder="Enter Number"
                 className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
               />
@@ -61,6 +152,8 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className=" flex flex-row gap-2">
             <input
               type="checkbox"
+              checked={data.isPriority}
+              onChange={(e) => handleChange(e, "isPriority")}
               className="border border-[#06A9EF] text-[14px]  font-medium custom-checkbox"
             />
             <p>Mark as priority</p>
@@ -71,11 +164,15 @@ const CreateNewRequisition = ({ setToggle }) => {
             <div className="flex sm:flex-row flex-col gap-4 ">
               <input
                 type="text"
+                value={data.budgetFrom}
+                onChange={(e) => handleChange(e, "budgetFrom")}
                 placeholder="From (INR)"
                 className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
               />
               <input
                 type="text"
+                value={data.budgetTo}
+                onChange={(e) => handleChange(e, "budgetTo")}
                 placeholder="To (INR)"
                 className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
               />
@@ -87,17 +184,23 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className=" text-[14px]  font-medium">Experience</p>
               <input
                 type="text"
+                value={data.experience}
+                onChange={(e) => handleChange(e, "experience")}
                 placeholder="Ex: 2 Yrs"
                 className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
               />
             </div>
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">Requisition Type</p>
-              <select className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]">
+              <select
+                value={data.requisitionType}
+                onChange={(e) => handleChange(e, "requisitionType")}
+                className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]"
+              >
                 <option value="" disabled selected className="">
                   Select{" "}
                 </option>
-                <option value="product_manager">Product Manager</option>
+                <option value="product manager">Product Manager</option>
                 <option value="developer">Developer</option>
               </select>
             </div>
@@ -106,22 +209,30 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium ">Location</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
+              <select
+                value={data.location}
+                onChange={(e) => handleChange(e, "location")}
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+              >
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
-                <option value="product_manager">Pune</option>
-                <option value="developer">Mumbai</option>
+                <option value="Pune">Pune</option>
+                <option value="Mumbai">Mumbai</option>
               </select>
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className=" text-[14px]  font-medium">Department</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
+              <select
+                value={data.department}
+                onChange={(e) => handleChange(e, "department")}
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+              >
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
-                <option value="product_manager">Pune</option>
-                <option value="developer">Mumbai</option>
+                <option value="It">It</option>
+                <option value="Devlopment ">Devlopment</option>
               </select>
             </div>
           </div>
@@ -129,22 +240,25 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className=" text-[14px]  font-medium">Target Hiring Date</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
-                <option value="" disabled selected>
-                  Select{" "}
-                </option>
-                <option value="product_manager">Pune</option>
-                <option value="developer">Mumbai</option>
-              </select>
+              <input
+                type="date"
+                value={data.hiringDate}
+                onChange={(e) => handleChange(e, "hiringDate")}
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+              ></input>
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">Job Type</p>
-              <select className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
+              <select
+                value={data.jobType}
+                onChange={(e) => handleChange(e, "jobType")}
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+              >
                 <option value="" disabled selected>
                   Select{" "}
                 </option>
-                <option value="product_manager">Full Time </option>
-                <option value="developer">Part Time</option>
+                <option value="Full Time">Full Time </option>
+                <option value="Part Time">Part Time</option>
               </select>
             </div>
           </div>
@@ -152,6 +266,8 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className="flex flex-col  gap-[8px] ">
             <p className="text-[14px]  font-medium">Additional Comments</p>
             <textarea
+              value={data.comments}
+              onChange={(e) => handleChange(e, "comments")}
               className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
               placeholder="Provide your comment"
             ></textarea>
@@ -159,6 +275,25 @@ const CreateNewRequisition = ({ setToggle }) => {
 
           <div className="text-[14px]  font-medium">
             <p>Job Description</p>
+            <ReactQuill
+              value={data.description}
+              onChange={handleChange1}
+              readOnly={false}
+              modules={{
+                toolbar: [
+                  [{ header: "1" }, { header: "2" }, { font: [] }],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ align: [] }],
+                  ["link", "image"],
+                ],
+              }}
+              style={{
+                border: `1px #DEDEDE`,
+                height: "238px",
+                borderRadius: "20px",
+              }}
+            />
           </div>
         </div>
       </div>
@@ -234,14 +369,15 @@ const CreateNewRequisition = ({ setToggle }) => {
                     </div>
                   ))}
                 </div>
+
                 <div className="w-[91.5%] flex flex-col gap-4">
-                  {levels.map((level) => (
+                  {data.RequisitionLevel.map((level, index) => (
                     <div
                       className="flex flex-col gap-[8px] w-full level"
                       key={level.id}
                     >
                       <div className="flex gap-2 justify-between">
-                        <p>{level.name}</p>
+                        <p>{`Level ${level.id}`}</p>
                         {level.id !== 1 && (
                           <svg
                             className="delete-level"
@@ -263,13 +399,17 @@ const CreateNewRequisition = ({ setToggle }) => {
                       </div>
                       <input
                         type="text"
+                        value={level.name || ""}
+                        onChange={(e) => handleChange2(e, index, "name")}
                         placeholder="Role / Employee"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px] font-[400]"
                       />
                       <input
                         type="text"
+                        value={level.email || ""}
+                        onChange={(e) => handleChange2(e, index, "email")}
                         placeholder="Enter Email"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px] font-[400]"
                       />
                     </div>
                   ))}
@@ -288,12 +428,13 @@ const CreateNewRequisition = ({ setToggle }) => {
             <div className="flex flex-row justify-between">
               <button
                 onClick={() => setToggle(0)}
-                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
+                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 "
+              >
                 Cancel
               </button>
               <button
                 className="  text-[#fff] text-[16px] font-semibold px-9 py-3 max-scr1100:px-6  bg-[#06A9EF] rounded-[12px]"
-                onClick={() => setSuccessfull(true)}
+                onClick={handleSubmit}
               >
                 Create
               </button>
@@ -344,7 +485,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 </div>
                 <div className="flex justify-center">
                   <button
-                    onClick={() => setSuccessfull(false)}
+                   onClick={() => setToggle(0)}
                     className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                   >
                     Done
