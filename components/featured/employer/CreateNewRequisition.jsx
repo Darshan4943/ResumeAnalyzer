@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
 const CreateNewRequisition = ({ setToggle }) => {
