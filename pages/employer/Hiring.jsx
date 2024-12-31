@@ -5,6 +5,7 @@ import ApplicantDetails from "../jobs/details/applicant-details";
 import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 
+
 function Hiring() {
   const router = useRouter();
   const query = router.query;
@@ -23,7 +24,7 @@ function Hiring() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedJob, setSelectedJob]=useState("")
+  const [selectedJob, setSelectedJob] = useState("");
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -35,12 +36,30 @@ function Hiring() {
     }
   }, [router.query]);
 
-  const toggleContent = (job) => {
+  const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    setSelectedJob(job._id)
-    router.push(`Hiring/?content=${JobPost}&id=${job._id}`);
+    const jobId = job._id ? job._id : query._id; 
+  
+    const queryParams = {
+      content: JobPost,
+      id: jobId,
+    };
+  
+   
+    if (JobPost === "ApplicantDetails") {
+      queryParams.applicantId = applicantId;
+    }
+  
+    setSelectedJob(jobId);
+  
+    router.push({
+      pathname: "Hiring/",
+      query: queryParams,
+    });
+  
     setToggle((prevToggle) => !prevToggle);
   };
+  
 
   const headings = [
     {
@@ -49,7 +68,7 @@ function Hiring() {
         "software developement",
         "Backend Devloper",
         "React Js Developer",
-        "Secretary"
+        "Secretary",
       ],
     },
     {
@@ -132,10 +151,9 @@ function Hiring() {
     fetchJobs(1, pagination?.limit, filters);
   }, [filters, pagination?.limit]);
 
-  const handelclear =()=>{
+  const handelclear = () => {
     setFilters("");
-  }
-
+  };
 
   return (
     <div>
@@ -244,10 +262,16 @@ function Hiring() {
                 ))}
 
                 <div className="flex w-[19.87%] bg-white justify-center gap-[12px]  p-2  ">
-                  <button onClick={handleFilterChange} className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
+                  <button
+                    onClick={handleFilterChange}
+                    className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
+                  >
                     Search
                   </button>
-                  <button onClick={handelclear} className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]">
+                  <button
+                    onClick={handelclear}
+                    className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
+                  >
                     Clear
                   </button>
                 </div>
@@ -257,7 +281,7 @@ function Hiring() {
           <div className=" grid md:grid-cols-12 grid-clos-6 gap-6 ">
             {data?.map((job, index) => (
               <div
-                onClick={()=>toggleContent(job)}
+                onClick={() => toggleContent(job)}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >
                 <div className="flex justify-between w-[100%]">
@@ -481,7 +505,11 @@ function Hiring() {
         </div>
       )}
       {toggle === 1 && (
-        <JobPost toggleContentt={toggleContent} selectedJob={selectedJob} setToggle={setToggle} />
+        <JobPost
+          toggleContentt={toggleContent}
+          selectedJob={selectedJob}
+          setToggle={setToggle}
+        />
       )}
       {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />}
     </div>
