@@ -57,7 +57,12 @@ function RequisitionList() {
     "Status",
   ];
 
- 
+  // Paginate requisitions based on current page and rowsPerPage
+  const paginatedRequisitions = requisitions.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   return (
     <div className="h-[calc(95vh-328px)] w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
       <div className="w-full bg-[#E0F6FF] p-[16px] flex justify-between items-center">
@@ -71,9 +76,9 @@ function RequisitionList() {
         ))}
       </div>
       <div className="overflow-scroll h-[66%]">
-        {requisitions.map((requisition) => (
-          <div className="w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]">
-            <div className="w-[12.84%] text-[#333333]  text-[16px] font-[600] flex flex-col gap-[6px]">
+        {paginatedRequisitions.map((requisition) => (
+          <div className="w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]" key={requisition.id}>
+            <div className="w-[12.84%] text-[#333333] text-[16px] font-[600] flex flex-col gap-[6px]">
               <div className="text-[#333333] text-center text-[14px] font-[500]">
                 {requisition.requisitionType}
               </div>
@@ -86,14 +91,14 @@ function RequisitionList() {
                 {requisition.Requestedby}
               </div>
               <div className="text-[#646464] text-center text-[12px] font-[500]">
-              {new Date(requisition.createdAt).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
+                {new Date(requisition.createdAt).toLocaleDateString(
+                  "en-GB",
+                  {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  }
+                )}
               </div>
             </div>
             <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
@@ -103,7 +108,7 @@ function RequisitionList() {
               {requisition.location}
             </div>
             <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-             ${requisition.budgetFrom}-{requisition.budgetTo}
+              ${requisition.budgetFrom}-{requisition.budgetTo}
             </div>
             <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
               {requisition.positions} positions

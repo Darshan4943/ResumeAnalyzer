@@ -1,6 +1,5 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
@@ -16,6 +15,8 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
   const [showApprovalChain, setShowApprovalChain] = useState(false);
   const [approvalChoice, setApprovalChoice] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const [data, setData] = useState({
     jobTitle: "",
     positions: "",
@@ -41,18 +42,24 @@ const CreateNewRequisition = ({ setToggle }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
         "http://localhost:2000/api/creatrequasetion",
         data
       );
-      setSuccessfull(true)
+
+      setSuccessfull(true);
       toast.success("Requisition created successfully", response.data);
     } catch (error) {
-      toast.error("Error creating requisition:", error);
+      setLoading(false);
+      toast.error(`Error creating requisition: ${error.response?.data?.message || error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
+
 
   const handleChange = (e, name) => {
     const { value, type, checked } = e.target;
@@ -489,7 +496,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 </div>
                 <div className="flex justify-center">
                   <button
-                   onClick={() => setToggle(0)}
+                    onClick={() => setToggle(0)}
                     className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                   >
                     Done
