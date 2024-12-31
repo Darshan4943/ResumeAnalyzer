@@ -130,7 +130,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                           {applicants.Recruiting}
                         </p>
                       </div>
-                      <div className="flex items-center justify-start col-span-1 pl-5"> 
+                      <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
                             ? "text-[#26A4FF] border-[#26A4FF]"

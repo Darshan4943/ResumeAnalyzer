@@ -1,10 +1,14 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+
+
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();

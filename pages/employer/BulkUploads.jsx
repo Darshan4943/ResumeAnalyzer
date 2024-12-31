@@ -218,6 +218,7 @@ function BulkUploads() {
                 >
                   <path
                     d="M4 0C1.79086 0 0 1.79086 0 4C0 6.20914 1.79086 8 4 8V0ZM4 8H347V0H4V8Z"
+                    width="100%"
                     fill="#06A9EF"
                   />
                 </svg>
