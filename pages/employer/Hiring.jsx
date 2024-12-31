@@ -5,6 +5,7 @@ import ApplicantDetails from "../jobs/details/applicant-details";
 import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 
+
 function Hiring() {
   const router = useRouter();
   const query = router.query;
@@ -36,12 +37,30 @@ function Hiring() {
     }
   }, [router.query]);
 
-  const toggleContent = (job) => {
+  const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    setSelectedJob(job._id)
-    router.push(`Hiring/?content=${JobPost}&id=${job._id}`);
+    const jobId = job._id ? job._id : query._id; 
+  
+    const queryParams = {
+      content: JobPost,
+      id: jobId,
+    };
+  
+   
+    if (JobPost === "ApplicantDetails") {
+      queryParams.applicantId = applicantId;
+    }
+  
+    setSelectedJob(jobId);
+  
+    router.push({
+      pathname: "Hiring/",
+      query: queryParams,
+    });
+  
     setToggle((prevToggle) => !prevToggle);
   };
+  
 
   const headings = [
     {
@@ -50,7 +69,7 @@ function Hiring() {
         "software developement",
         "Backend Devloper",
         "React Js Developer",
-        "Secretary"
+        "Secretary",
       ],
     },
     {
@@ -478,7 +497,11 @@ function Hiring() {
         </div>
       )}
       {toggle === 1 && (
-        <JobPost toggleContentt={toggleContent} selectedJob={selectedJob} setToggle={setToggle} />
+        <JobPost
+          toggleContentt={toggleContent}
+          selectedJob={selectedJob}
+          setToggle={setToggle}
+        />
       )}
       {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />}
     </div>

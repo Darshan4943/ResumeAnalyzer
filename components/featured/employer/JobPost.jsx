@@ -407,7 +407,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                     <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobDetails.location.join(", ")}
+                        {jobDetails.location.join(", ")}
                     </div>
                   </div>
                 </div>
@@ -600,6 +600,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           style={{
                             background: index % 2 == 0 ? "#EFFAFF" : "#fff",
                           }}
+                      key={applicant._id}
                         >
                           <div className="  gap-[24px]  w-full justify-between flex items-center">
                             <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
@@ -658,8 +659,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             </div>
                             <div className="flex  w-[20%] items-center gap-[16px] relative">
                               <div
-                                className=" cursor-pointer"
-                                onClick={toggleContentt}
+                                className="cursor-pointer"
+                                onClick={() =>
+                              toggleContentt(jobDetails, applicant._id)
+                            }
                               >
                                 <svg
                                   width="24"
