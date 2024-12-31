@@ -1,5 +1,10 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -159,6 +164,29 @@ const CreateNewRequisition = ({ setToggle }) => {
 
           <div className="text-[14px]  font-medium">
             <p>Job Description</p>
+            <ReactQuill
+              // value={data.description}
+              // onChange={handleChange1}
+              readOnly={false}
+              modules={{
+                toolbar: [
+                  [
+                    { header: "1" },
+                    { header: "2" },
+                    { font: [] },
+                  ],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ align: [] }],
+                  ["link", "image"],
+                ],
+              }}
+              style={{
+                border: `1px`,
+                height: "238px",
+                borderRadius: "20px",
+              }}
+            />
           </div>
         </div>
       </div>

@@ -23,7 +23,8 @@ function Hiring() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedJob, setSelectedJob]=useState("")
+  const [selectedJob, setSelectedJob] = useState("")
+  const [openSort, setOpenSort] = useState(false);
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -95,6 +96,13 @@ function Hiring() {
       return updatedFilters;
     });
   };
+  const handleFilterChangemobile = (heading, value) => {
+    setFilters(() => {
+      const updatedFilters = value ? { [heading]: value } : {};
+      return updatedFilters;
+    });
+    setOpenSort(false)
+  };
 
   const nextPage = (e) => {
     e.stopPropagation();
@@ -132,8 +140,12 @@ function Hiring() {
     fetchJobs(1, pagination?.limit, filters);
   }, [filters, pagination?.limit]);
 
-  const handelclear =()=>{
+  const handelclear = () => {
     setFilters("");
+  }
+  const handelclearmobile = () => {
+    setFilters("");
+    setOpenSort(false)
   }
 
 
@@ -142,46 +154,8 @@ function Hiring() {
       {toggle === 0 && (
         <div className="flex flex-col gap-[16px] w-[100%] ml:max-h-[80vh]  relative ">
           <div className=" mobile">
-            <div className=" bg-[#fff] xsm:p-[12px] p-2 items-center flex  ms:flex-row xsm:gap-[12px] gap-2 z-[500] justify-between rounded-[12px] ">
-              <p className="h-[29px] text-[18px] ml:text-[24px] font-medium">
-                Job Post Status
-              </p>
-
-              <button
-                onClick={() =>
-                  router.push(
-                    "/employer/afterLogin/JobPosting?content=CreateNewJob"
-                  )
-                }
-                className=" py-[8px] xsm:px-[12px] px-2 bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
-              >
-                + Create New Job
-              </button>
-            </div>
-            <div className="flex bg-[#06A9EF] gap-[1px] mt-4 p-3 ml:w-[20%] w-full">
-              <div className=" bg-white p-3 flex gap-[10px] w-full items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                    stroke="#646464"
-                    stroke-width="2.02783"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <input
-                  className="w-[100%] text-[#646464]"
-                  type="text"
-                  placeholder="search"
-                />
-              </div>
-              <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
+            <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+              <div onClick={() => setOpenSort(true)} className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -218,46 +192,69 @@ function Hiring() {
                     </clipPath>
                   </defs>
                 </svg>
-                <div>Sort</div>
-              </div>
-            </div>
-          </div>
-          <div className=" xl:w-[1024px] scr1024:w-[860px] rounded-[12px]  bg-white">
-            <div className=" w-[800px]">
-              <div className="h-[62px]  flex rounded-[6px] flex-row  justify-between  text-[#333] sticky top-[72px] ">
-                {headings.map((filter, index) => (
-                  <>
-                    <select
-                      className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
-                      onChange={(e) =>
-                        handleFilterChange(filter.heading, e.target.value)
-                      }
-                    >
-                      <option value=""> {filter.heading}</option>
-                      {filter.options.map((option, optIndex) => (
-                        <option key={optIndex} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </>
-                ))}
-
-                <div className="flex w-[19.87%] bg-white justify-center gap-[12px]  p-2  ">
-                  <button onClick={handleFilterChange} className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
-                    Search
-                  </button>
-                  <button onClick={handelclear} className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]">
-                    Clear
-                  </button>
+                <div>
+                  Sort
                 </div>
               </div>
+              {
+                openSort && (
+                  <div
+                    style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                    className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
+                    {headings.map((filter, index) => (
+                      <select key={index} className=" bg-whites" onChange={(e) => handleFilterChange(filter.heading, e.target.value)}>
+                        <option value=""> {filter.heading}</option>
+                        {filter.options.map((option, optIndex) => (
+                          <option key={optIndex} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    ))}
+                    <button
+                      onClick={handelclearmobile}
+                      className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]">
+                      Clear
+                    </button>
+                    <button
+                      onClick={handleFilterChangemobile}
+                      className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]">
+                      Search
+                    </button>
+                  </div>
+                )
+              }
             </div>
+          </div>
+          <div className="hidden ml:flex w-[80.58%] rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
+            {headings.map((filter, index) => (
+              <>
+                <select
+                  className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
+                  onChange={(e) =>
+                    handleFilterChange(filter.heading, e.target.value)
+                  }
+                >
+                  <option value=""> {filter.heading}</option>
+                  {filter.options.map((option, optIndex) => (
+                    <option key={optIndex} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </>
+            ))}
+            <button onClick={handleFilterChange} className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]">
+              Search
+            </button>
+            <button onClick={handelclear} className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]">
+              Clear
+            </button>
           </div>
           <div className=" grid md:grid-cols-12 grid-clos-6 gap-6 ">
             {data?.map((job, index) => (
               <div
-                onClick={()=>toggleContent(job)}
+                onClick={() => toggleContent(job)}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >
                 <div className="flex justify-between w-[100%]">

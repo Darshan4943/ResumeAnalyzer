@@ -13,37 +13,37 @@ function EmployerMobileHeader({ selectedPage, setIsSidebar, setIsLogin, isLogin 
             img: '/images/employer/sidebar/home.png',
             img2: '/images/employer/sidebar/home2.png',
             title: 'Home',
-            route: '/employer/afterLogin/EmployerHome',
+            route: '/employer/EmployerHome',
         },
         {
             img: '/images/employer/sidebar/requisition.png',
             img2: '/images/employer/sidebar/requisition2.png',
             title: 'Requisition',
-            route: '/employer/afterLogin/Requisition',
+            route: '/employer/Requisition',
         },
         {
             img: '/images/employer/sidebar/jobPosting.png',
             img2: '/images/employer/sidebar/jobPosting2.png',
             title: 'Job Posting',
-            route: '/employer/afterLogin/JobPosting',
+            route: '/employer/JobPosting',
         },
         {
             img: '/images/employer/sidebar/hiring.png',
             img2: '/images/employer/sidebar/hiring2.png',
             title: 'Hiring',
-            route: '/employer/afterLogin/Hiring',
+            route: '/employer/Hiring',
         },
         {
             img: '/images/employer/sidebar/preboarding.png',
             img2: '/images/employer/sidebar/preboarding2.png',
             title: 'Preboarding',
-            route: '/employer/afterLogin/Preboarding',
+            route: '/employer/Preboarding',
         },
         {
             img: '/images/employer/sidebar/bulkUploads.png',
             img2: '/images/employer/sidebar/bulkUploads2.png',
             title: 'Bulk Uploads',
-            route: '/employer/afterLogin/BulkUploads',
+            route: '/employer/BulkUploads',
         },
     ];
 
