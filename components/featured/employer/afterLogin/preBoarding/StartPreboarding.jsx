@@ -11,10 +11,8 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
   const [openReactQuill, setOpenReactQuill] = useState(false);
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
-  const [createdBy, setCreatedBy] = useState(""); 
+  const [createdBy, setCreatedBy] = useState("");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
-  console.log(12132, applicant);
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal._id) {
@@ -31,7 +29,6 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
     }
   }, [id]);
 
-
   useEffect(() => {
     if (applicant?.applicantId) {
       setData((prevState) => ({
@@ -43,7 +40,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
 
   const [data, setData] = useState({
     createdBy: "",
-    applicantId : "",
+    applicantId: "",
     isCollecting: false,
     isNotCollecting: false,
     isPhotoId: false,
@@ -145,8 +142,9 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
       <div className="flex  justify-between items-start self-stretch gap-4">
         <div>
           <p className="text-[18px] ml:text-[24px] font-Montserrat font-medium text-[#333]">
-            Start Preboarding Process for <span className="font-[700]">
-            {`${applicant?.details?.personal?.firstName} ${applicant?.details?.personal?.lastName}`}{" "}
+            Start Preboarding Process for{" "}
+            <span className="font-[700]">
+              {`${applicant?.details?.personal?.firstName} ${applicant?.details?.personal?.lastName}`}{" "}
             </span>
           </p>
         </div>
