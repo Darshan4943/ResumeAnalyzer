@@ -7,11 +7,10 @@ import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-function StartPreboarding({ setStartPreboarding }) {
+function StartPreboarding({ setStartPreboarding, applicant }) {
   const [openReactQuill, setOpenReactQuill] = useState(false);
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
-
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
@@ -24,13 +23,23 @@ function StartPreboarding({ setStartPreboarding }) {
     if (id) {
       setData((prevData) => ({
         ...prevData,
-        id: id,
+        createdBy: id,
       }));
     }
   }, [id]);
 
+  useEffect(() => {
+    if (applicant?.applicantId) {
+      setData((prevState) => ({
+        ...prevState,
+        applicantId: applicant.applicantId,
+      }));
+    }
+  }, [applicant]);
+
   const [data, setData] = useState({
-    id: "",
+    createdBy: "",
+    applicantId: "",
     isCollecting: false,
     isNotCollecting: false,
     isPhotoId: false,
@@ -42,7 +51,6 @@ function StartPreboarding({ setStartPreboarding }) {
     isExperience: false,
     note: "",
   });
-
 
   const handleChange1 = useCallback(
     debounce((value) => {
@@ -81,7 +89,10 @@ function StartPreboarding({ setStartPreboarding }) {
 
   const handleRadioChange = (name) => {
     if (name === "isNotCollecting") {
-      setData({
+      setData((prevData) => ({
+        ...prevData,
+        createdBy: prevData.createdBy,
+        applicantId: prevData.applicantId,
         isCollecting: false,
         isNotCollecting: true,
         isPhotoId: false,
@@ -92,10 +103,12 @@ function StartPreboarding({ setStartPreboarding }) {
         isCertifications: false,
         isExperience: false,
         note: "",
-      });
+      }));
     } else {
       setData((prevData) => ({
         ...prevData,
+        createdBy: prevData.createdBy,
+        applicantId: prevData.applicantId,
         isCollecting: true,
         isNotCollecting: false,
       }));
@@ -116,7 +129,8 @@ function StartPreboarding({ setStartPreboarding }) {
       toast.success("Preboarding created successfully.");
     } catch (error) {
       toast.error(
-        `Error creating Preboarding: ${error.response?.data?.message || error.message
+        `Error creating Preboarding: ${
+          error.response?.data?.message || error.message
         }`
       );
     } finally {
@@ -130,9 +144,14 @@ function StartPreboarding({ setStartPreboarding }) {
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex  justify-between items-start self-stretch gap-4">
-        <p className="text-[18px] ml:text-[24px] font-Montserrat font-medium text-[#333]">
-          Start Preboarding Process for candidate 1
-        </p>
+        <div>
+          <p className="text-[18px] ml:text-[24px] font-Montserrat font-medium text-[#333]">
+            Start Preboarding Process for{" "}
+            <span className="font-[700]">
+              {`${applicant?.details?.personal?.firstName} ${applicant?.details?.personal?.lastName}`}{" "}
+            </span>
+          </p>
+        </div>
         <svg
           onClick={() => setStartPreboarding(false)}
           xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +175,9 @@ function StartPreboarding({ setStartPreboarding }) {
           </p>
           <div className="flex ml:flex-row flex-col items-start gap-2 self-stretch">
             <div
-              className="flex p-3 gap-3 flex-col self-stretch bg-[#BCEBFF] rounded-xl"
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${
+                data.isCollecting ? "bg-[#BCEBFF]" : "bg-white"
+              }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
@@ -178,7 +199,9 @@ function StartPreboarding({ setStartPreboarding }) {
               </div>
             </div>
             <div
-              className="flex p-3 gap-3 flex-col self-stretch bg-[fFF] rounded-xl"
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${
+                data.isNotCollecting ? "bg-[#BCEBFF]" : "bg-white"
+              }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
@@ -419,8 +442,9 @@ function StartPreboarding({ setStartPreboarding }) {
           />
         )}
         <div
-          className={`flex justify-end gap-4 self-stretch items-start ${openReactQuill && "pt-[32px]"
-            }`}
+          className={`flex justify-end gap-4 self-stretch items-start ${
+            openReactQuill && "pt-[32px]"
+          }`}
         >
           <button
             onClick={() => setStartPreboarding(false)}
