@@ -4,7 +4,7 @@ import StartPreboarding from "./StartPreboarding";
 import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
 
-const Initial = ({ toggleContentt, setToggle }) => {
+const Initial = ({ toggleContentt, setToggle, jobs }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -105,9 +105,9 @@ const Initial = ({ toggleContentt, setToggle }) => {
 
         <div className="grid grid-rows-1 w-full">
           <div className="grid grid-cols-1 w-full">
-            {applicants
+            {jobs
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicants, index) => (
+              .map((jobs, index) => (
                 <>
                   <div
                     className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"}`}>
@@ -126,18 +126,20 @@ const Initial = ({ toggleContentt, setToggle }) => {
                             alt=""
                           />
                           <p className="text-[14px] font-[600] text-[#333333]">
-                            {applicants.name}
+                            {!jobs.details.personal.firstName.length == 0 ? <>{jobs.details.personal.firstName}{" "}{jobs.details.personal.lastName}</> : "-"}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
-                          {applicants.role}
+                          {/* {applicants.role} */}
+                          Software Developer
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
-                          {applicants.Recruiting}
+                          {/* {applicants.Recruiting} */}
+                          Nikhil Patil
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
@@ -177,7 +179,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                             onClick={() => setStartPreboarding(true)}
                             className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat "
                           >
-                            {applicants.action}
+                            Start Preboarding
                           </button>
                           <img
                             onClick={() => {
