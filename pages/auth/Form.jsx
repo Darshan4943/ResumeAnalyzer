@@ -11,8 +11,9 @@ import ReactSelect from "react-select";
 import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
+import { fetchUserData } from "../../Redux/slices/userSlice";
 
-function Recruiter_signup({ }) {
+function Form({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -337,15 +338,15 @@ function Recruiter_signup({ }) {
           try {
             if (response?.success) {
               if (isUpdate) {
-                // dispatch(reCallUserData());
+                dispatch(fetchUserData());
                 toast.success("Updated Successfully");
-                router.push("/profile");
+                router.back();
               } else {
                 if (byAdmin) {
                   router.push("/dashboard/Recruiters");
                 } else {
                   localStorage.setItem("authToken", JSON.stringify(response));
-                  // dispatch(reCallUserData());
+                  dispatch(fetchUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
                     window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
@@ -1080,4 +1081,4 @@ function Recruiter_signup({ }) {
   );
 }
 
-export default Recruiter_signup;
+export default Form;

@@ -120,10 +120,12 @@ function Sign_in({  setSignIn, setSignUp }) {
                             window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
                                 }`;
                         }, 1000);
+                        
                     } else {
                         setTimeout(() => {
                             setLoading(false);
-                            window.location.href = "/home?signIn=true";
+                            window.location.href = role === "user" ? "/home?signIn=true" :"/dashboard";
+
                         }, 1000);
                     }
                 } catch (err) {

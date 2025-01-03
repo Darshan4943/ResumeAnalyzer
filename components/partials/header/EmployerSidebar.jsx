@@ -1,61 +1,122 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ALink from '../../alink';
+import { useSelector } from 'react-redux';
 
 
 
 function EmployerSidebar() {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState('');
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
-  const dataArray = [
+  const recruiterList = [
     {
       img: '/images/employer/sidebar/home.png',
+      img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/employer/EmployerHome',
+      route: '/dashboard',
     },
     {
-      img: '/images/employer/sidebar/requisition.png',
-      title: 'Requisition',
-      route: '/employer/Requisition',
+      img: '/images/employer/sidebar/companies.png',
+      img1: '/images/employer/sidebar/companies1.png',
+      title: 'Companies',
+      route: '/recruiter/companies',
     },
     {
       img: '/images/employer/sidebar/jobPosting.png',
+      img1: '/images/employer/sidebar/jobPosting1.png',
       title: 'Job Posting',
       route: '/employer/JobPosting',
     },
     {
       img: '/images/employer/sidebar/hiring.png',
+      img1: '/images/employer/sidebar/hiring1.png',
+      title: 'Hiring',
+      route: '/employer/Hiring',
+    },
+    {
+      img: '/images/employer/sidebar/candidate.png',
+      img1: '/images/employer/sidebar/candidate1.png',
+      title: 'Candidates',
+      route: '/recruiter/myClients',
+    },
+    {
+      img: '/images/employer/sidebar/myCollection.png',
+      img1: '/images/employer/sidebar/myCollection1.png',
+      title: 'My Collection',
+      route: '/recruiter/myCollection',
+    },
+    {
+      img: '/images/employer/sidebar/jdMatching.png',
+      img1: '/images/employer/sidebar/jdMatching1.png',
+      title: 'JD MAtching',
+      route: '/recruiter/JobMatching',
+    },
+  ];
+
+  const employerList = [
+    {
+      img: '/images/employer/sidebar/home.png',
+      img1: '/images/employer/sidebar/home1.png',
+      title: 'Home',
+      route: '/dashboard',
+    },
+    {
+      img: '/images/employer/sidebar/requisition.png',
+      img1: '/images/employer/sidebar/requisition1.png',
+      title: 'Requisition',
+      route: '/employer/requisition',
+    },
+    {
+      img: '/images/employer/sidebar/jobPosting.png',
+      img1: '/images/employer/sidebar/jobPosting1.png',
+      title: 'Job Posting',
+      route: '/employer/JobPosting',
+    },
+    {
+      img: '/images/employer/sidebar/hiring.png',
+      img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
       route: '/employer/Hiring',
     },
     {
       img: '/images/employer/sidebar/preboarding.png',
+      img1: '/images/employer/sidebar/preboarding1.png',
       title: 'Preboarding',
       route: '/employer/Preboarding',
     },
     {
-      img: '/images/employer/sidebar/bulkUploads.png',
-      title: 'Bulk Uploads',
-      route: '/employer/BulkUploads',
+      img: '/images/employer/sidebar/myCollection.png',
+      img1: '/images/employer/sidebar/myCollection1.png',
+      title: 'My Collection',
+      route: '/recruiter/myCollection',
     },
+    {
+      img: '/images/employer/sidebar/jdMatching.png',
+      img1: '/images/employer/sidebar/jdMatching1.png',
+      title: 'JD MAtching',
+      route: '/recruiter/JobMatching',
+    },
+    
   ];
-
   return (
-    <div className="flex flex-col h-[100vh] bg-blue w-[120px] pt-[70px] overflow-hidden">
-      {dataArray.map((item, index) => (
-        <ALink href={item.route} key={index}>
+    <div className="flex flex-col  bg-white w-[120px] pt-[86px] h-full ">
+      {(userDataGlobal.role === "recruiter" ? recruiterList : employerList).map((item, index) => (
+        <ALink href={item.route} key={index} >
           <div
-            className={`flex flex-col gap-2 px-2 py-4 justify-center items-center ${
-              selectedPage === item.route ? 'border-l-[4px] pl-1 border-[#FFDA1D] bg-[#57697B]' : '' 
-            }`}
+            className={`p-2`}
           >
-            <img src={item.img} alt="" className="w-[32px] h-[32px]" />
-            <div className="text-center text-[12px] font-semibold text-white">{item.title}</div>
+            <div className={`w-full flex flex-col gap-2 p-2 justify-center items-center rounded-[8px] ${selectedPage.startsWith(item.route) ? 'bg-[#DFF4FD]' : ''
+              }`}>
+              <img src={selectedPage.startsWith(item.route) ? item.img1: item.img} alt="" className="w-[24px] h-[24px]" />
+              <div className={`text-center text-[12px] font-medium  ${selectedPage.startsWith(item.route) ? "text-blue" : 'text-[#646464]'
+                }`}>{item.title}</div></div>
           </div>
         </ALink>
       ))}

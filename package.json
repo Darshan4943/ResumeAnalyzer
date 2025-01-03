@@ -85,6 +85,7 @@
     "socket.io-client": "^4.7.5",
     "stripe": "^15.6.0",
     "swiper": "^11.0.7",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "tesseract.js": "^5.0.5",
     "xlsx": "^0.18.5"
   },

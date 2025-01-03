@@ -383,7 +383,8 @@ function Requisition() {
             <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] flex items-center justify-between text-[#333333] text-[18px] font-[500]">
               All Requisition Requests
               <button
-                onClick={toggleContent}
+                // onClick={toggleContent}
+                onClick={()=>router.push("/employer/requisition/CreateNewRequisition")}
                 className="px-[36px] py-[12px] bg-[#06A9EF] text-[#FFFFFF] text-[14px] font-[600] rounded-[36px] flex gap-[2px] items-center"
               >
                 <svg
@@ -409,7 +410,7 @@ function Requisition() {
         </>
       )}
 
-      {toggle === 1 && <CreateNewRequisition setToggle={setToggle} />}
+      {/* {toggle === 1 && <CreateNewRequisition setToggle={setToggle} />} */}
     </div>
   );
 }

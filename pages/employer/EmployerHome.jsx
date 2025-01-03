@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import StackedBarChart from "../../components/common/StackedBarChart";
 
 function EmployerHome({ toggleContentt }) {
+
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
