@@ -19,7 +19,7 @@ function StartPreboarding({ setStartPreboarding }) {
       setId(userDataGlobal._id);
     }
   }, [userDataGlobal]);
-  
+
   useEffect(() => {
     if (id) {
       setData((prevData) => ({
@@ -43,7 +43,6 @@ function StartPreboarding({ setStartPreboarding }) {
     note: "",
   });
 
-  console.log(17, id)
 
   const handleChange1 = useCallback(
     debounce((value) => {
@@ -115,7 +114,6 @@ function StartPreboarding({ setStartPreboarding }) {
 
       setStartPreboarding(false);
       toast.success("Preboarding created successfully.");
-      console.log("Response:", response.data);
     } catch (error) {
       toast.error(
         `Error creating Preboarding: ${error.response?.data?.message || error.message
