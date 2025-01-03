@@ -1,15 +1,36 @@
 import axios from "axios";
 import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function StartPreboarding({ setStartPreboarding }) {
   const [openReactQuill, setOpenReactQuill] = useState(false);
   const [loading, setLoading] = useState();
+  const [id, setId] = useState("");
+
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
+  useEffect(() => {
+    if (userDataGlobal && userDataGlobal._id) {
+      setId(userDataGlobal._id);
+    }
+  }, [userDataGlobal]);
+  
+  useEffect(() => {
+    if (id) {
+      setData((prevData) => ({
+        ...prevData,
+        id: id,
+      }));
+    }
+  }, [id]);
+
   const [data, setData] = useState({
+    id: "",
     isCollecting: false,
     isNotCollecting: false,
     isPhotoId: false,
@@ -21,7 +42,8 @@ function StartPreboarding({ setStartPreboarding }) {
     isExperience: false,
     note: "",
   });
-  console.log(data);
+
+  console.log(17, id)
 
   const handleChange1 = useCallback(
     debounce((value) => {
@@ -96,8 +118,7 @@ function StartPreboarding({ setStartPreboarding }) {
       console.log("Response:", response.data);
     } catch (error) {
       toast.error(
-        `Error creating Preboarding: ${
-          error.response?.data?.message || error.message
+        `Error creating Preboarding: ${error.response?.data?.message || error.message
         }`
       );
     } finally {
@@ -379,7 +400,7 @@ function StartPreboarding({ setStartPreboarding }) {
         </div>
         {openReactQuill && (
           <ReactQuill
-          readOnly={data.isNotCollecting}
+            readOnly={data.isNotCollecting}
             value={data.note}
             onChange={handleChange1}
             modules={{
@@ -400,9 +421,8 @@ function StartPreboarding({ setStartPreboarding }) {
           />
         )}
         <div
-          className={`flex justify-end gap-4 self-stretch items-start ${
-            openReactQuill && "pt-[32px]"
-          }`}
+          className={`flex justify-end gap-4 self-stretch items-start ${openReactQuill && "pt-[32px]"
+            }`}
         >
           <button
             onClick={() => setStartPreboarding(false)}
