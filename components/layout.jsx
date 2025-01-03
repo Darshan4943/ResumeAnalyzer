@@ -63,11 +63,15 @@ function Layout({ children }) {
         <div className="web">
           <EmployerSidebar />
         </div>
-        <div className=" ml:max-h-[100vh] min-h-[100vh] overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative">
-          <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-5 px-2 ">
-            <Breadcrumb />
-          </div>
-          <div className="ml:px-5 px-2 pt-1 pb-4">
+        <div className=" ml:max-h-[100vh] min-h-[100vh] overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative "
+          style={{ scrollbarWidth: "none" }}
+        >
+          {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) &&
+            <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-5 px-6 ">
+              <Breadcrumb />
+            </div>
+          }
+          <div className="ml:px-5 px-2 pt-6 pb-4">
             {children}
           </div>
         </div>
@@ -76,7 +80,7 @@ function Layout({ children }) {
   );
   return (
     <>
-      {(selectedPage.startsWith('/employer') || userDataGlobal?.role==="employer" )? <Temp2 /> : <Temp />}
+      {( userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

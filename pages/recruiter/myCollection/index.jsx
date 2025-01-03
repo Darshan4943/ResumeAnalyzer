@@ -17,8 +17,8 @@ import {
   fileIconSeter,
   fileIconSeter1,
   fileIconSeter2,
-} from "../../utils/middleware";
-import Folders from "../../components/featured/candidate/createResume/components/folders";
+} from "../../../utils/middleware";
+import Folders from "../../../components/featured/candidate/createResume/components/folders";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {

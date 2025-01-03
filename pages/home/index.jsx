@@ -74,6 +74,7 @@ import PlanExpiredModal from "../../components/models/planExpiredModal";
 import CandidateHome from "../candidate";
 import WithoutLogin from "../withoutLogin";
 import { useSelector } from "react-redux";
+import Home from "./home";
 
 
 function BeforeLoginHome() {
@@ -88,7 +89,7 @@ function BeforeLoginHome() {
     <div className="">
       <PlanExpiredModal />
       {isLogin ?
-        <CandidateHome />
+        <Home />
         :
         <WithoutLogin />
       }
