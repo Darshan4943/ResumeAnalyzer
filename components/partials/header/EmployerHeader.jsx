@@ -26,7 +26,7 @@ function EmployerHeader() {
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setOpenTaskModel(false);
+      setIsLogout(false);
     }
   };
 

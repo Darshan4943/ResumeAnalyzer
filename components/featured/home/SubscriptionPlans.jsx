@@ -204,9 +204,11 @@ function SubscriptionPlans({ fromMain }) {
           {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
                 } `}
-              style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
+              style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
+              
+
             >
               {index === 1 && (
                 <div className="absolute left-0 xxl:top-[-45px] xl:top-[-35px] scr1200:top-[-35px] top-[-28px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[50px] bg-[#06A9EF] text-white rounded-t-[16px]">
@@ -333,7 +335,7 @@ function SubscriptionPlans({ fromMain }) {
 
             className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
               } `}
-            style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
+              style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
           >
             <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
               <p className="text-[1.4vw] font-[600] xl:text-[20px]">
