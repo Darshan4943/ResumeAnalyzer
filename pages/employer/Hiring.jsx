@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import JobPost from "../../components/featured/employer/JobPost";
-import ApplicantDetails from "../jobs/details/applicant-details";
+
 import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 
@@ -39,28 +38,28 @@ function Hiring() {
 
   const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    const jobId = job._id ? job._id : query._id; 
-  
+    const jobId = job._id ? job._id : query._id;
+
     const queryParams = {
       content: JobPost,
       id: jobId,
     };
-  
-   
+
+
     if (JobPost === "ApplicantDetails") {
       queryParams.applicantId = applicantId;
     }
-  
+
     setSelectedJob(jobId);
-  
+
     router.push({
       pathname: "Hiring/",
       query: queryParams,
     });
-  
+
     setToggle((prevToggle) => !prevToggle);
   };
-  
+
 
   const headings = [
     {
@@ -273,7 +272,9 @@ function Hiring() {
           <div className=" grid md:grid-cols-12 grid-clos-6 gap-6 ">
             {data?.map((job, index) => (
               <div
-                onClick={() => toggleContent(job)}
+                key={index}
+                // onClick={() => toggleContent(job)}
+                onClick={()=>router.push(`/employer/hiring/JobPost?id=${job._id}`)}
                 className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
               >
                 <div className="flex justify-between w-[100%]">
@@ -496,14 +497,14 @@ function Hiring() {
           </>
         </div>
       )}
-      {toggle === 1 && (
+      {/* {toggle === 1 && (
         <JobPost
           toggleContentt={toggleContent}
           selectedJob={selectedJob}
           setToggle={setToggle}
         />
       )}
-      {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />}
+      {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />} */}
     </div>
   );
 }
