@@ -39,28 +39,28 @@ function Hiring() {
 
   const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
-    const jobId = job._id ? job._id : query._id; 
-  
+    const jobId = job._id ? job._id : query._id;
+
     const queryParams = {
       content: JobPost,
       id: jobId,
     };
-  
-   
+
+
     if (JobPost === "ApplicantDetails") {
       queryParams.applicantId = applicantId;
     }
-  
+
     setSelectedJob(jobId);
-  
+
     router.push({
       pathname: "Hiring/",
       query: queryParams,
     });
-  
+
     setToggle((prevToggle) => !prevToggle);
   };
-  
+
 
   const headings = [
     {
