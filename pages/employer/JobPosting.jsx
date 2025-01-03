@@ -3,14 +3,19 @@ import { TablePagination } from "@mui/material";
 
 import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
-
+import axios from "axios";
 
 function JobPosting() {
   const router = useRouter();
   const query = router.query;
   const [openSort, setOpenSort] = useState(false);
-
   const [toggle, setToggle] = useState(0);
+  const [filterData, setFilterData] = useState({});
+  const [page, setPage] = useState(0); // Page is zero-based
+  const [rowsPerPage, setRowsPerPage] = useState(10); // Default rows per page
+  const [requisitions, setRequisitions] = useState([]);
+  const [totalCount, setTotalCount] = useState(0); // Initialize totalCount
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
@@ -26,17 +31,6 @@ function JobPosting() {
     setToggle((prevToggle) => !prevToggle);
   };
 
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
   const headings = [
     "Job Title",
     "No. of Openings",
@@ -46,188 +40,20 @@ function JobPosting() {
     "Hiring Period",
   ];
 
-  const requisition = [
-    {
-      heading: "Job Title",
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      opening: "1 position",
-      location: "mumbai",
-      budget: "Not Available",
-      requested_by: "hr manager ",
-      hiring_period: "pending",
-    },
-    {
-      heading: "No. of Openings",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "Location",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "Budget",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-
-    {
-      heading: "Requested by",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "Hiring Period",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "Hiring Period",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-    {
-      heading: "",
-      tittle1: "CS Executive",
-      tittle2: "Accounts",
-      opening: "1 Position",
-      location: "Banglore",
-      budget: "$5000-5200",
-      requested_by: "Market Executive",
-      hiring_period: "Approved",
-    },
-  ];
-
   const search = [
     {
       heading: "Department",
-      options: ["Assistant Manager", "Option 2", "Option 3"],
+      options: [
+        "Assistant Manager",
+        "Product Manager",
+        "Devlopment",
+        "It",
+        "Developer",
+      ],
     },
     {
       heading: "Location",
-      options: ["Mumbai", "Pune", "Banglore"],
+      options: ["Mumbai", "Pune", "Bangalore"],
     },
     {
       heading: "Status",
@@ -241,7 +67,48 @@ function JobPosting() {
 
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
-    const selectedHeading = headings[index];
+    const selectedHeading = search[index].heading;
+
+    setFilterData((prev) => ({
+      ...prev,
+      [selectedHeading]: selectedOption,
+    }));
+  };
+
+  useEffect(() => {
+    const fetchRequisitions = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/getrequisitions",
+          {
+            params: {
+              ...filterData,
+              page: page + 1, // Convert zero-based to one-based for API
+              limit: rowsPerPage,
+            },
+          }
+        );
+        setRequisitions(response.data.data);
+        setTotalCount(response.data.pagination.totalCount); // Ensure totalCount is used correctly
+      } catch (error) {
+        setError("Failed to fetch requisitions");
+        console.error("Error fetching requisitions:", error);
+      }
+    };
+
+    fetchRequisitions();
+  }, [filterData, page, rowsPerPage]);
+
+  const handleChangePage = (event, newPage) => {
+    console.log("New Page:", newPage);
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    const newRowsPerPage = parseInt(event.target.value, 10);
+    console.log("New Rows Per Page:", newRowsPerPage);
+    setRowsPerPage(newRowsPerPage); // Update rows per page
+    setPage(0); // Reset to the first page
   };
 
   return (
@@ -266,28 +133,36 @@ function JobPosting() {
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
                   <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
                     {search.map((headingObj, index) => (
-                      <>
-                        <select key={index} className=" w-[19.87%] bg-whites outline-none"
-                          onChange={(e) => handleHeadingChange(e, headingObj.heading)}
+                      <div key={index}>
+                        <select
+                          className=" bg-whites"
+                          onChange={(e) => handleHeadingChange(e, index)}
+                          value={filterData[headingObj.heading] || ""}
                         >
-                          <option value=""> {headingObj.heading}</option>
+                          <option value="">{headingObj.heading}</option>
                           {headingObj.options.map((option, optIndex) => (
                             <option key={optIndex} value={option}>
                               {option}
                             </option>
                           ))}
                         </select>
-                        <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
-                      </>
+                        {index < headings.length - 1 && <div></div>}
+                      </div>
                     ))}
-                    <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">Search</button>
+
+                    <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
+                      Search
+                    </button>
                   </div>
                 </div>
 
                 <div>
                   <div className=" bg-[#E0F6FF] flex flex-row p-[16px]  gap-4   ">
                     {headings.map((req, index) => (
-                      <div key={index} className=" w-[14%] text-[16px] font-[600]">
+                      <div
+                        key={index}
+                        className=" w-[14%] text-[16px] font-[600]"
+                      >
                         {req}
                       </div>
                     ))}
@@ -298,39 +173,36 @@ function JobPosting() {
                   </div>
 
                   <div className=" ">
-                    {requisition
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((req, index) => (
+                    {requisitions.length > 0 ? (
+                      requisitions.map((requisition, index) => (
                         <div
                           key={index}
-                          className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                            }  `}
+                          className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
+                            index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                          }  `}
                         >
                           <div className=" w-[14%]">
                             <p className="text-[14px] font-[500] text-[#06A9EF]">
-                              {req.tittle1}
+                              {requisition.requisitionType}
                             </p>
                             <p className="text-[14px] font-[500] text-[#333333]">
-                              {req.tittle2}
+                              {requisition.jobTitle}
                             </p>
                           </div>
                           <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {req.opening}
+                            {requisition.positions}
                           </p>
                           <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {req.location}
+                            {requisition.location}
                           </p>
                           <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {req.budget}
+                            ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
                           </p>
                           <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {req.requested_by}
+                            {requisition.requested_by}
                           </p>
                           <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {req.hiring_period}
+                            {requisition.hiring_period}
                           </p>
 
                           <button
@@ -354,7 +226,16 @@ function JobPosting() {
                             Post Job
                           </button>
                         </div>
-                      ))}
+                      ))
+                    ) : (
+                      <div className="p-3  flex items-center justify-center">
+                      <img
+                      className="w-[50%]"
+                        src="/images/employer/OBJECTS.png"
+                        alt="No data available"
+                      />
+                    </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -376,7 +257,10 @@ function JobPosting() {
                 </button>
               </div>
               <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
-                <div onClick={() => setOpenSort(true)} className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]">
+                <div
+                  onClick={() => setOpenSort(true)}
+                  className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -413,56 +297,56 @@ function JobPosting() {
                       </clipPath>
                     </defs>
                   </svg>
-                  <div>
-                    Sort
-                  </div>
+                  <div>Sort</div>
                 </div>
-                {
-                  openSort && (
-                    <div
-                      style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                      className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]">
-                      {search.map((headingObj, index) => (
-                        <select
-                          key={index}
-                          className="bg-whites outline-none"
-                          onChange={(e) =>
-                            handleHeadingChange(e, headingObj.heading)
-                          }
-                        >
-                          <option value=""> {headingObj.heading}</option>
-                          {headingObj.options.map((option, optIndex) => (
-                            <option key={optIndex} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      ))}
-                      <button
-                        onClick={() => setOpenSort(false)}
-                        className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]">
-                        Search
-                      </button>
-                    </div>
-                  )
-                }
+                {openSort && (
+                  <div
+                    style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                    className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                  >
+                    {search.map((headingObj, index) => (
+                      <select
+                        key={index}
+                        className="bg-whites outline-none"
+                        onChange={(e) =>
+                          handleHeadingChange(e, headingObj.heading)
+                        }
+                      >
+                        <option value=""> {headingObj.heading}</option>
+                        {headingObj.options.map((option, optIndex) => (
+                          <option key={optIndex} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    ))}
+                    <button
+                      onClick={() => setOpenSort(false)}
+                      className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                    >
+                      Search
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-            {requisition
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((req, index) => (
-                <div key={index} className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
+            {requisitions.length > 0 ? (
+              requisitions.map((requisition, index) => (
+                <div
+                  key={index}
+                  className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]"
+                >
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-[2px]">
                       <div className="text-[12px] font-[500] text-[#06A9EF]">
-                        {req.tittle1}
+                        {requisition.requisitionType}
                       </div>
                       <div className="text-[#646464] text-[10px] font-[500]">
-                        {req.tittle2}
+                        {requisition.jobTitle}
                       </div>
                     </div>
                     <div className="text-[#333] text-[12px] font-[500]">
-                      {req.location}
+                      {requisition.location}
                     </div>
                   </div>
                   <div className="flex justify-evenly">
@@ -471,7 +355,7 @@ function JobPosting() {
                         Requested by
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]  ">
-                        {req.requested_by}
+                        {requisition.requested_by}
                         <div className="text-[#646464] text-[10px] font-[500]"></div>
                       </div>
                     </div>
@@ -480,7 +364,7 @@ function JobPosting() {
                         Budget
                       </div>
                       <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
-                        {req.budget}
+                        ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
                       </div>
                     </div>
                     <div className="text-center">
@@ -488,13 +372,13 @@ function JobPosting() {
                         Open Position
                       </div>
                       <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
-                        {req.opening}
+                        {requisition.positions}
                       </div>
                     </div>
                   </div>
                   <div className="flex justify-between">
                     <div className="flex items-center py-[6px] px-[12px] border-[1px] border-solid border-[#FF7A00] text-[14px] font-[600] text-[#FF7A00] rounded-[80px]">
-                      {req.hiring_period}
+                      {requisition.hiring_period}
                     </div>
                     <button
                       onClick={toggleContent}
@@ -518,18 +402,25 @@ function JobPosting() {
                     </button>
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="p-3 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                />
+              </div>
+            )}
           </div>
 
           <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
-            component="div"
-            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px] border-t-[#DEDEDE] bg-white sticky bottom-0 w-[100%]"
-            count={requisition.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[5, 10, 15]} // Options for rows per page
+            component="div" // Optional, specify the container type
+            count={totalCount} // Total number of rows (not pages)
+            rowsPerPage={rowsPerPage} // Current rows per page
+            page={page} // Current zero-based page
+            onPageChange={(event, newPage) => handleChangePage(event, newPage)} // Handles page changes
+            onRowsPerPageChange={handleChangeRowsPerPage} // Handles rows-per-page changes
           />
         </div>
       )}

@@ -1,9 +1,26 @@
-import React from 'react'
+import debounce from 'lodash.debounce';
+import React, { useCallback, useState } from 'react'
+import ReactQuill from 'react-quill';
 
 function StartPreboarding({ setStartPreboarding }) {
+    const [openReactQuill, setOpenReactQuill] = useState(false);
+    const [data, setData] = useState({
+        description: "",
+    });
+
+    const handleChange1 = useCallback(
+        debounce((value) => {
+            const plainText = value.replace(/<[^>]*>/g, "");
+            setData((prevData) => ({
+                ...prevData,
+                description: plainText,
+            }));
+        }, 500),
+        []
+    );
     return (
         <div
-            className="flex flex-col items-center gap-3 p-3 bg-white ml:w-[70%] w-full rounded-[16px] h-[80vh]   overflow-y-auto"
+            className="flex flex-col items-center gap-3 p-3 ml:p-6 bg-white ml:w-[70%] w-full rounded-[16px] h-[80vh]   overflow-y-auto"
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         >
             <div className="flex  justify-between items-start self-stretch gap-4">
@@ -37,15 +54,14 @@ function StartPreboarding({ setStartPreboarding }) {
                             style={{ border: "1px solid var(--primary, #06A9EF)" }}
                         >
                             <div className="flex items-start gap-1 self-stretch leading-[20px]">
-                              
                                 <input
-                        type="radio"
-                        name="approvalChoice"
-                        value="yes"
-                        className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                        // onChange={(e) => handleApprovalChoice(e.target.value)}
-                        checked
-                    />
+                                    type="radio"
+                                    name="approvalChoice"
+                                    value="yes"
+                                    className="h-[20px] w-[20px] custom-radio cursor-pointer"
+                                    // onChange={(e) => handleApprovalChoice(e.target.value)}
+                                    checked
+                                />
                                 <div className="flex flex-col justify-center items-start gap-1">
                                     <p className="text-[14px] ml:text-[16px] font-Montserrat font-medium text-[#333]">
                                         Start by collecting documents
@@ -61,27 +77,26 @@ function StartPreboarding({ setStartPreboarding }) {
                             style={{ border: "1px solid var(--primary, #06A9EF)" }}
                         >
                             <div className="flex items-start gap-1 self-stretch leading-[20px]">
-                              
+
                                 <input
-                        type="radio"
-                        name="approvalChoice"
-                        value="no"
-                        className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                    // onChange={(e) => handleApprovalChoice(e.target.value)}
-                    />
+                                    type="radio"
+                                    name="approvalChoice"
+                                    value="no"
+                                    className="h-[20px] w-[20px] custom-radio cursor-pointer"
+                                // onChange={(e) => handleApprovalChoice(e.target.value)}
+                                />
                                 <div className="flex flex-col justify-center items-start gap-1">
                                     <p className="text-[14px] ml:text-[16px] font-Montserrat font-medium text-[#333]">
-                                    Start without collecting Documents
+                                        Start without collecting Documents
                                     </p>
                                     <p className="text-[12px] font-Montserrat font-medium text-[#333]">
-                                    Start generating offer letter for the candidate directly
+                                        Start generating offer letter for the candidate directly
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className="flex flex-col items-start gap-1 self-stretch ">
                     <p className="text-[16px] ml:text-[20px] font-Montserrat font-medium text-[#333]">
                         Documents
@@ -110,7 +125,7 @@ function StartPreboarding({ setStartPreboarding }) {
                                 Photo ID
                             </p>
                             <p className="text-[12px] font-Montserrat font-medium text-[#646464]">
-                            Aadhar card, Driving License, Pan Card, Passport, Voter ID Card
+                                Aadhar card, Driving License, Pan Card, Passport, Voter ID Card
                             </p>
                         </div>
                     </div>
@@ -123,15 +138,15 @@ function StartPreboarding({ setStartPreboarding }) {
                                 backgroundColor: "white",
                                 height: "20px",
                                 width: "20px",
-                                
+
                             }}
                         />
                         <div className="flex flex-col items-start gap-1 self-stretch justify-center leading-[14px]">
                             <p className="text-[14px] font-Montserrat font-medium text-[#333]">
-                            Address Proof
+                                Address Proof
                             </p>
                             <p className="text-[12px] font-Montserrat font-medium text-[#646464]">
-                            Aadhar card, Driving License, Passport, Voter ID Card
+                                Aadhar card, Driving License, Passport, Voter ID Card
                             </p>
                         </div>
                     </div>
@@ -148,10 +163,10 @@ function StartPreboarding({ setStartPreboarding }) {
                         />
                         <div className="flex flex-col items-start gap-1 self-stretch justify-center leading-[14px]">
                             <p className="text-[14px] font-Montserrat font-medium text-[#333]">
-                            Payroll
+                                Payroll
                             </p>
                             <p className="text-[12px] font-Montserrat font-medium text-[#646464]">
-                            Pan Card, Bank statement
+                                Pan Card, Bank statement
                             </p>
                         </div>
                     </div>
@@ -172,7 +187,6 @@ function StartPreboarding({ setStartPreboarding }) {
                             }}
                         />
                         <p className="text-[14px] font-Montserrat font-medium text-[#333]">Academic Certificate</p>
-
                     </div>
                     <div className="flex items-center gap-2 self-stretch">
                         <input
@@ -186,7 +200,6 @@ function StartPreboarding({ setStartPreboarding }) {
                             }}
                         />
                         <p className="text-[14px] font-Montserrat font-medium text-[#333]">Degrees & Certificates</p>
-
                     </div>
                     <div className="flex items-center gap-2 self-stretch">
                         <input
@@ -200,9 +213,7 @@ function StartPreboarding({ setStartPreboarding }) {
                             }}
                         />
                         <p className="text-[14px] font-Montserrat font-medium text-[#333]">Certifications</p>
-
                     </div>
-
                 </div>
                 <div className="flex flex-col items-start gap-4 self-stretch">
                     <p className="text-[14px] ml:text-[16px] font-Montserrat font-semibold text-[#333]">
@@ -220,30 +231,53 @@ function StartPreboarding({ setStartPreboarding }) {
                             }}
                         />
                         <p className="text-[14px] font-Montserrat font-medium text-[#333]">Experience & Appreciation Letters</p>
-
                     </div>
                 </div>
-                <div className="flex items-center">
+                <div
+                    onClick={() => { setOpenReactQuill(true) }}
+                    className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
                         <g mask="url(#mask0_7804_65968)">
                             <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
                         </g>
                     </svg>
                     <p className="text-[12px] ml:text-[14px] font-Montserrat font-semibold text-[#06A9EF]">
-                    Add Note for Candidate
+                        Add Note for Candidate
                     </p>
-
                 </div>
-                <div className="flex justify-end gap-4 self-stretch items-start">
+                {openReactQuill &&
+                    <ReactQuill
+                        value={data.description}
+                        onChange={handleChange1}
+                        readOnly={false}
+                        modules={{
+                            toolbar: [
+                                [{ header: "1" }, { header: "2" }, { font: [] }],
+                                [{ list: "ordered" }, { list: "bullet" }],
+                                ["bold", "italic", "underline", "strike"],
+                                [{ align: [] }],
+                                ["link", "image"],
+                            ],
+                        }}
+                        style={{
+                            width:"100%",
+                            border: `1px #DEDEDE`,
+                            height: "238px",
+                            borderRadius: "20px",
+                        }}
+                    />
+                }
+                <div className={`flex justify-end gap-4 self-stretch items-start ${openReactQuill && "pt-[32px]"}`}>
                     <button onClick={() => setStartPreboarding(false)} className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
                         style={{ border: '1px solid var(--primary, #06A9EF)' }}
-                    >Cancel</button>
+                    >
+                        Cancel
+                    </button>
                     <button onClick={() => setStartPreboarding(false)} className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
                         style={{ border: '1px solid var(--primary, #06A9EF)' }}
-                    >Send</button>
-
-
+                    >
+                        Send
+                    </button>
                 </div>
             </div>
         </div>

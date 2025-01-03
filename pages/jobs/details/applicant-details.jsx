@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import HiringProgress from "../../../components/featured/employer/HiringProgress";
 import { useRouter } from "next/router";
-import __WEBPACK_EXTERNAL_MODULE_jspdf__ from "html2pdf.js";
+
 import axios from "axios";
+import { Document, Page, pdfjs } from "react-pdf";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -10,10 +11,10 @@ function ApplicantDetails({ setTogglee }) {
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const router = useRouter();
+  const [loadingg, setLoadingg] = useState(true);
+
   const { id, applicantId } = router.query;
-  console.log("id", applicantId);
 
   useEffect(() => {
     console.log("Fetching applicant details...");
@@ -56,12 +57,44 @@ function ApplicantDetails({ setTogglee }) {
     }
   }, [id, applicantId]);
 
-  console.log("jobDetails", jobDetails);
-
   const handleOptionClick = (option) => {
     setActiveOption(option);
     setToggle(option);
   };
+
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+  const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
+    const [numPages, setNumPages] = useState(null);
+
+    const onDocumentLoadSuccess = ({ numPages }) => {
+      setNumPages(numPages);
+      setTimeout(() => {
+        setLoadingg(false);
+      }, 2000);
+    };
+
+    return (
+      <div className="ms:h-[729px] ms:w-[520px] scr420:h-[465px] scr420:w-[350px] h-[400px] w-[300px] rounded-[3px]">
+        {loadingg && (
+          <div className="skeleton-loader">
+            <div className="skeleton-image"></div>
+            <div className="skeleton-text">
+              <div className="skeleton-title"></div>
+              <div className="skeleton-subtitle"></div>
+              <div className="skeleton-line"></div>
+              <div className="skeleton-line short"></div>
+              <div className="skeleton-line shorter"></div>
+            </div>
+          </div>
+        )}
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
+
   return (
     <div>
       {loading ? (
@@ -384,13 +417,18 @@ function ApplicantDetails({ setTogglee }) {
                       <div className="flex flex-col gap-4 w-[50%]">
                         <div>
                           <p className=" font-medium">Full Name</p>
-                          <p> {jobDetails?.details?.personal?.firstName +
-                                " " +
-                                jobDetails?.details?.personal?.lastName}</p>
+                          <p>
+                            {" "}
+                            {jobDetails?.details?.personal?.firstName +
+                              " " +
+                              jobDetails?.details?.personal?.lastName}
+                          </p>
                         </div>
                         <div>
                           <p className=" font-medium">Address</p>
-                          <p>{jobDetails?.details?.personal?.currentLocation}</p>
+                          <p>
+                            {jobDetails?.details?.personal?.currentLocation}
+                          </p>
                         </div>
                       </div>
                       <div className="flex flex-col gap-4 w-[50%]">
@@ -463,11 +501,11 @@ function ApplicantDetails({ setTogglee }) {
                   </div>
                 )}
                 {toggle === "Resume" && (
-                  <div className="flex justify-center overflow-y-auto  px-6">
-                    <img
-                      src="/images/employer/mobileResume.png"
-                      className="h-[729px] w-[520px] rounded-[10px]"
-                      alt=""
+                  <div className=" flex justify-center overflow-y-auto  px-6">
+                    <PdfViewer
+                      pdfUrl={jobDetails?.resumeUrl}
+                      loadingg={loadingg}
+                      setLoadingg={setLoadingg}
                     />
                   </div>
                 )}

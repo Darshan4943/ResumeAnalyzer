@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 
 
-function ApplicantsDetails({ setIsApplicantDetails,setTogglee }) {
+function ApplicantsDetails({ setIsApplicantDetails, setTogglee }) {
 
 
 
@@ -230,12 +230,12 @@ function ApplicantsDetails({ setIsApplicantDetails,setTogglee }) {
                     }
                     {toggle === "Resume" &&
                         <div className='flex justify-center overflow-y-auto  px-6'>
-                           <img
+                            <img
                                 src="/images/employer/mobileResume.png"
                                 className="ms:h-[729px] ms:w-[520px] scr420:h-[465px] scr420:w-[350px] h-[400px] w-[300px]  rounded-[10px]"
                                 alt=""
                             />
-                            
+
                         </div>
                     }
 

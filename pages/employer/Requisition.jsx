@@ -11,7 +11,7 @@ function Requisition() {
   const query = router.query;
   const [toggle, setToggle] = useState(0);
   const [openSort, setOpenSort] = useState(false);
-
+  const [filterData, setFilterData] = useState({});
   useEffect(() => {
     if (query.content === "CreateNewRequisition") {
       setToggle(1);
@@ -196,7 +196,6 @@ function Requisition() {
       Status: "Pending",
     },
   ];
-
 
   return (
     <div className="">
@@ -404,8 +403,14 @@ function Requisition() {
                 Create New Requisition
               </button>
             </div>
-            <RequisitionFilter />
-            <RequisitionList />
+            <RequisitionFilter
+              filterData={filterData}
+              setFilterData={setFilterData}
+            />
+            <RequisitionList
+              filterData={filterData}
+              setFilterData={setFilterData}
+            />
           </div>
         </>
       )}
