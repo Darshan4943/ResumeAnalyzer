@@ -90,7 +90,10 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
 
   const handleRadioChange = (name) => {
     if (name === "isNotCollecting") {
-      setData({
+      setData((prevData) => ({
+        ...prevData,
+        createdBy: prevData.createdBy,
+        applicantId: prevData.applicantId,
         isCollecting: false,
         isNotCollecting: true,
         isPhotoId: false,
@@ -101,10 +104,12 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
         isCertifications: false,
         isExperience: false,
         note: "",
-      });
+      }));
     } else {
       setData((prevData) => ({
         ...prevData,
+        createdBy: prevData.createdBy,
+        applicantId: prevData.applicantId,
         isCollecting: true,
         isNotCollecting: false,
       }));
