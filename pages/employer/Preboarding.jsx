@@ -1,5 +1,5 @@
 // import Initial from "@/components/featured/employer/afterLogin/preBoarding/Initial";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Initial from "../../components/featured/employer/afterLogin/preBoarding/Initial";
@@ -12,6 +12,8 @@ import Joined from "../../components/featured/employer/afterLogin/preBoarding/Jo
 import Declined from "../../components/featured/employer/afterLogin/preBoarding/Declined";
 import ApplicantPreview from "../../components/featured/employer/afterLogin/preBoarding/ApplicantPreview";
 import EditOfferTemplate from "../../components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 
 function Preboarding() {
@@ -19,8 +21,7 @@ function Preboarding() {
   const [editTemplate, setEditTemplate] = useState(false)
   const router = useRouter();
   const query = router.query;
-
-
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -38,7 +39,32 @@ function Preboarding() {
 
   const [preview, setPreview] = useState(false);
   const [activeOption, setActiveOption] = useState("In Preboarding");
+  const [id, setId] = useState("");
 
+  useEffect(() => {
+    if (userDataGlobal && userDataGlobal._id) {
+      setId(userDataGlobal._id);
+    }
+  }, [userDataGlobal]);
+
+  const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(`http://localhost:2000/api/job/getJobById/${id}`);
+        setJobs(response.data);
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+        setError("Failed to fetch jobs.");
+      }
+    };
+
+    if (id) {
+      fetchJobs();
+    }
+  }, [id]);
   return (
     <>
       {!editTemplate &&
@@ -123,40 +149,12 @@ function Preboarding() {
 
               {activeOption === "In Preboarding" && (
                 <>
-                  {/* <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
-                    {Preboarding.map((e, index) => (
-                      <>
-                        <div
-                          onClick={() => setToggle(index)}
-                          key={index}
-                          className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                            }`}
-                          style={{
-                            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                          }}
-                        >
-                          <p
-                            className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
-                              }`}
-                          >
-                            {e.name}
-                          </p>
-                          <div className=" flex ">
-                            <p className="bg-[#E9EBFD]  p-1 rounded-[8px] w-[30px] flex justify-center items-center">
-                              {e.num}
-                            </p>
-                          </div>
-                        </div>
-                        <div>{e.line}</div>
-                      </>
-                    ))}
-                  </div> */}
 
                   {/* INITIAL 1ST PAGE  */}
 
                   {toggle === 0 && (
                     <>
-                      <Initial setToggle={setToggle} />
+                      <Initial jobs={jobs} setToggle={setToggle} />
                     </>
                   )}
 
@@ -203,8 +201,6 @@ function Preboarding() {
               {activeOption === "Joined" && (
                 <>
                   <Joined setPreview={setPreview} />
-
-
                 </>
               )}
               {activeOption === "Declined" &&
@@ -214,12 +210,9 @@ function Preboarding() {
               }
             </div>
           )}
-
           {preview && <ApplicantPreview setPreview={setPreview} />}
-
         </>
       }
-
       {editTemplate &&
         <EditOfferTemplate setEditTemplate={setEditTemplate} />
       }

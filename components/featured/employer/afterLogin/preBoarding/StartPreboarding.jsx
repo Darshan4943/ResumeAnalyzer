@@ -1,6 +1,9 @@
 import debounce from 'lodash.debounce';
+import dynamic from 'next/dynamic';
 import React, { useCallback, useState } from 'react'
-import ReactQuill from 'react-quill';
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+
 
 function StartPreboarding({ setStartPreboarding }) {
     const [openReactQuill, setOpenReactQuill] = useState(false);
