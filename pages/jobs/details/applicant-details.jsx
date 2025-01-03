@@ -75,8 +75,7 @@ function ApplicantDetails({ setTogglee }) {
     };
 
     return (
-      <div
-      >
+      <div className="ms:h-[729px] ms:w-[520px] scr420:h-[465px] scr420:w-[350px] h-[400px] w-[300px] rounded-[3px]">
         {loadingg && (
           <div className="skeleton-loader">
             <div className="skeleton-image"></div>
@@ -502,7 +501,7 @@ function ApplicantDetails({ setTogglee }) {
                   </div>
                 )}
                 {toggle === "Resume" && (
-                  <div className="flex justify-center overflow-y-auto  px-6">
+                  <div className=" flex justify-center overflow-y-auto  px-6">
                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
                       loadingg={loadingg}
