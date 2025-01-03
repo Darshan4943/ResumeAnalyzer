@@ -15,10 +15,9 @@ import EditOfferTemplate from "../../components/featured/employer/afterLogin/pre
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
-  const [editTemplate, setEditTemplate] = useState(false)
+  const [editTemplate, setEditTemplate] = useState(false);
   const router = useRouter();
   const query = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -53,7 +52,9 @@ function Preboarding() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`http://localhost:2000/api/job/getJobById/${id}`);
+        const response = await axios.get(
+          `http://localhost:2000/api/job/getJobById/${id}`
+        );
         setJobs(response.data);
       } catch (err) {
         console.error("Error fetching jobs:", err);
@@ -67,22 +68,24 @@ function Preboarding() {
   }, [id]);
   return (
     <>
-      {!editTemplate &&
+      {!editTemplate && (
         <>
           {!preview && (
             <div className="flex flex-col items-start gap-6 w-full  ">
               <div
                 className="flex p-2 ml:p-4 gap-0 ml:gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
-                style={{ boxShadow: "box-shadow: 0px -1px 0px 0px #D6DDEB inset" }}
+                style={{
+                  boxShadow: "box-shadow: 0px -1px 0px 0px #D6DDEB inset",
+                }}
               >
-
                 <div className="flex flex-col cursor-pointer items-center gap-[2px] ml:gap-[7px] shadow-border">
                   <p
                     onClick={() => {
                       setActiveOption("In Preboarding");
                     }}
-                    className={` ${activeOption === "In Preboarding" ? "" : "text-[#646464]"
-                      } ml:text-[16px] text-[14px]   font-[600]`}
+                    className={` ${
+                      activeOption === "In Preboarding" ? "" : "text-[#646464]"
+                    } ml:text-[16px] text-[14px]   font-[600]`}
                   >
                     In Preboarding
                   </p>
@@ -95,7 +98,9 @@ function Preboarding() {
                   >
                     <path
                       d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
-                      fill={activeOption === "In Preboarding" ? "#06A9EF" : "white"}
+                      fill={
+                        activeOption === "In Preboarding" ? "#06A9EF" : "white"
+                      }
                     />
                   </svg>
                 </div>
@@ -104,8 +109,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Joined");
                     }}
-                    className={` ${activeOption === "Joined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Joined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Joined
                   </p>
@@ -127,8 +133,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Declined");
                     }}
-                    className={` ${activeOption === "Declined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Declined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Declined
                   </p>
@@ -149,16 +156,11 @@ function Preboarding() {
 
               {activeOption === "In Preboarding" && (
                 <>
-
-                  {/* INITIAL 1ST PAGE  */}
-
                   {toggle === 0 && (
                     <>
                       <Initial jobs={jobs} setToggle={setToggle} />
                     </>
                   )}
-
-                  {/* DOCUMENTATION PAGE  */}
 
                   {toggle === 1 && (
                     <>
@@ -166,30 +168,25 @@ function Preboarding() {
                     </>
                   )}
 
-                  {/* VERIFICATION PAGE  */}
-
                   {toggle === 2 && (
                     <>
                       <Verification setToggle={setToggle} />
                     </>
                   )}
-
-                  {/* OFFER PAGE  */}
                   {toggle === 3 && (
                     <>
-                      <Offer setToggle={setToggle} setEditTemplate={setEditTemplate} />
+                      <Offer
+                        setToggle={setToggle}
+                        setEditTemplate={setEditTemplate}
+                      />
                     </>
                   )}
-
-                  {/* Offer Acceptance PAGE  */}
 
                   {toggle === 4 && (
                     <>
                       <Acceptance setToggle={setToggle} />
                     </>
                   )}
-
-                  {/* HIRED */}
 
                   {toggle === 5 && (
                     <>
@@ -203,22 +200,18 @@ function Preboarding() {
                   <Joined setPreview={setPreview} />
                 </>
               )}
-              {activeOption === "Declined" &&
+              {activeOption === "Declined" && (
                 <>
                   <Declined setPreview={setPreview} />
                 </>
-              }
+              )}
             </div>
           )}
           {preview && <ApplicantPreview setPreview={setPreview} />}
         </>
-      }
-      {editTemplate &&
-        <EditOfferTemplate setEditTemplate={setEditTemplate} />
-      }
+      )}
+      {editTemplate && <EditOfferTemplate setEditTemplate={setEditTemplate} />}
     </>
-
-
   );
 }
 
