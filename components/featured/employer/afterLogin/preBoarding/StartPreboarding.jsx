@@ -11,7 +11,6 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
   const [openReactQuill, setOpenReactQuill] = useState(false);
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
-  const [createdBy, setCreatedBy] = useState("");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
