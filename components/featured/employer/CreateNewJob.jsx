@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 import CreateProfileFields from "./afterLogin/jobPosting/CreateProfileFields";
 import { useRouter } from "next/router";
@@ -14,6 +14,8 @@ import "react-quill/dist/quill.snow.css";
 import Description from "../candidate/jobs/Description";
 import ImageCropper from "../candidate/createResume/components/imageCropper";
 import dynamic from "next/dynamic";
+import debounce from 'lodash.debounce';
+
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CreateNewJob({ setToggle }) {
@@ -320,12 +322,22 @@ function CreateNewJob({ setToggle }) {
     }));
   };
 
-  const handleChange1 = (value) => {
-    setData((prevData) => ({
-      ...prevData,
-      description: value,
-    }));
-  };
+  // const handleChange1 = (value) => {
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     description: value,
+  //   }));
+  // };
+  const handleChange1 = useCallback(
+    debounce((value) => {
+      const plainText = value.replace(/<[^>]*>/g, "");
+      setData((prevData) => ({
+        ...prevData,
+        description: plainText,
+      }));
+    }, 500),
+    []
+  );
 
   const resetFormData = () => {
     setData({
@@ -828,11 +840,7 @@ function CreateNewJob({ setToggle }) {
                                 readOnly={false}
                                 modules={{
                                   toolbar: [
-                                    [
-                                      { header: "1" },
-                                      { header: "2" },
-                                      { font: [] },
-                                    ],
+                                    [{ header: "1" }, { header: "2" }, { font: [] }],
                                     [{ list: "ordered" }, { list: "bullet" }],
                                     ["bold", "italic", "underline", "strike"],
                                     [{ align: [] }],
@@ -840,7 +848,7 @@ function CreateNewJob({ setToggle }) {
                                   ],
                                 }}
                                 style={{
-                                  border: `1px  ${borderColor}`,
+                                  border: `1px #DEDEDE`,
                                   height: "238px",
                                   borderRadius: "20px",
                                 }}

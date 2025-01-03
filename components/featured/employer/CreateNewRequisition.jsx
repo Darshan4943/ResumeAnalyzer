@@ -1,12 +1,12 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
-
+import debounce from 'lodash.debounce';
 
 
 const CreateNewRequisition = ({ setToggle }) => {
@@ -69,12 +69,16 @@ const CreateNewRequisition = ({ setToggle }) => {
     }));
   };
 
-  const handleChange1 = (value) => {
-    setData((prevData) => ({
-      ...prevData,
-      description: value,
-    }));
-  };
+  const handleChange1 = useCallback(
+    debounce((value) => {
+      const plainText = value.replace(/<[^>]*>/g, "");
+      setData((prevData) => ({
+        ...prevData,
+        description: plainText,
+      }));
+    }, 500),
+    []
+  );
 
   const handleChange2 = (e, index, field) => {
     const { value } = e.target;

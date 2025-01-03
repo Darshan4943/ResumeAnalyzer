@@ -9,6 +9,9 @@ const Initial = ({ toggleContentt, setToggle }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
+  const [openSort, setOpenSort] = useState(false);
+  const [openThreeDts, setOpenThreeDts] = useState(false);
+  const [checkedApplicants, setCheckedApplicants] = useState({});
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -21,7 +24,6 @@ const Initial = ({ toggleContentt, setToggle }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
   const labels = [
     "Name of Candidate",
     "Job Role",
@@ -29,6 +31,13 @@ const Initial = ({ toggleContentt, setToggle }) => {
     "Preboarding Status",
     "Actions",
   ];
+
+  const handleCheckboxChange = (index) => {
+    setCheckedApplicants((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
   return (
     <>
       <div className="web w-full">
@@ -67,7 +76,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
             {headings.map((headingObj, index) => (
               <>
-                <select className=" w-[19.87%] bg-whites" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
+                <select className=" w-[19.87%] bg-whites outline-none" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
                   <option value=""> {headingObj.heading}</option>
                   {headingObj.options.map((option, optIndex) => (
                     <option key={optIndex} value={option}>
@@ -101,48 +110,62 @@ const Initial = ({ toggleContentt, setToggle }) => {
               .map((applicants, index) => (
                 <>
                   <div
-                    className="flex w-[100%] p-[16px] justify-between bg-[#FFFFFF] items-center"
-                  >
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"}`}>
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
                           <input
                             className="w-[24px] h-[24px]"
                             type="checkbox"
+                            checked={!!checkedApplicants[index]}
+                            onChange={() => handleCheckboxChange(index)}
                           />
                           <img
-                            className="w-[40px]"
+                            className="w-[40px]  rounded-[50%]"
                             src="/images/employer/profile_icon.png"
                             alt=""
                           />
-                          <p className="text-[16px] font-[600]">
+                          <p className="text-[14px] font-[600] text-[#333333]">
                             {applicants.name}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[14px] font-[600] text-[#333] font-Montserrat">
+                        <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
                           {applicants.role}
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[14px] font-[600] text-[#333] font-Montserrat">
+                        <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
                           {applicants.Recruiting}
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                            ? "text-[#26A4FF] border-[#26A4FF]"
-                            : applicants.status === "Hired"
-                              ? "text-[#56CDAD] border-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
-                                ? "text-[#4640DE] border-[#4640DE]"
-                                : applicants.status === "Rejected"
-                                  ? "text-[#FF6550] border-[#FF6550]"
-                                  : applicants.status === "In Review"
-                                    ? "text-[#FFB836] border-[#FFB836]"
-                                    : ""
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants.status === "Interview"
+                              ? "bg-[#26A4FF1A]"
+                              : applicants.status === "Hired"
+                                ? "bg-[#56CDAD1A]"
+                                : applicants.status === "Shortlisted"
+                                  ? "bg-[#4640DE1A]"
+                                  : applicants.status === "Rejected"
+                                    ? "bg-[#FF65501A]"
+                                    : applicants.status === "In Review"
+                                      ? "bg-[#EB85331A]"
+                                      : ""
+                            } ${applicants.status === "Interview"
+                              ? "text-[#26A4FF]"
+                              : applicants.status === "Hired"
+                                ? "text-[#56CDAD]"
+                                : applicants.status === "Shortlisted"
+                                  ? "text-[#4640DE]"
+                                  : applicants.status === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : applicants.status === "In Review"
+                                      ? "text-[#FFB836]"
+                                      : "text-[#333333]"
                             }`}
                         >
                           {applicants.status}
@@ -152,15 +175,26 @@ const Initial = ({ toggleContentt, setToggle }) => {
                         <div className="flex   items-center w-full  justify-between">
                           <button
                             onClick={() => setStartPreboarding(true)}
-                            className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-white lg:text-[14px] text-[10px] font-[600]  font-Montserrat "
+                            className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat "
                           >
                             {applicants.action}
                           </button>
                           <img
+                            onClick={() => {
+                              setOpenThreeDts(true)
+                            }}
                             className="w-[24px]"
                             src="/images/employer/three-dot.png"
                             alt=""
                           />
+                          {/* {openThreeDts &&
+                            <div style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }} className="flex flex-col gap-2 bg-white rounded-[6px] p-2 absolute">
+                              <p onClick={() => {
+                                setOpenThreeDts(false)
+                              }}>View Profile</p>
+                              <p></p>
+                            </div>
+                          } */}
                         </div>
                       </div>
                     </div>
@@ -169,34 +203,24 @@ const Initial = ({ toggleContentt, setToggle }) => {
               ))}
           </div>
         </div>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 15]}
+          component="div"
+          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
+          count={applicants.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </div >
-
       <div className="mobile relative overflow-y-scroll  w-full">
         <div className="sticky top-0">
-          <div className="flex bg-[#06A9EF] gap-[1px] p-4 w-[100%]">
-            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                  stroke="#646464"
-                  stroke-width="2.02783"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <input
-                className="w-[100%] text-[#646464]"
-                type="text"
-                placeholder="search"
-              />
-            </div>
-            <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
+          <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+            <div
+              onClick={() => setOpenSort(true)}
+              className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -233,8 +257,37 @@ const Initial = ({ toggleContentt, setToggle }) => {
                   </clipPath>
                 </defs>
               </svg>
-              <div>Filter</div>
+              <div>Sort</div>
             </div>
+            {openSort && (
+              <div
+                style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+              >
+                {headings.map((headingObj, index) => (
+                  <select
+                    key={index}
+                    className=" bg-whites outline-none"
+                    onChange={(e) =>
+                      handleHeadingChange(e, headingObj.heading)
+                    }
+                  >
+                    <option value=""> {headingObj.heading}</option>
+                    {headingObj.options.map((option, optIndex) => (
+                      <option key={optIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ))}
+                <button
+                  onClick={() => setOpenSort(false)}
+                  className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                >
+                  Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
@@ -351,19 +404,17 @@ const Initial = ({ toggleContentt, setToggle }) => {
               ))}
           </div>
         </div>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 15]}
+          component="div"
+          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
+          count={applicants.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </div>
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 15]}
-        component="div"
-        className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-        count={applicants.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-
       {
         startPreboarding && (
           <>
