@@ -19,6 +19,7 @@ function Requisition() {
       setToggle(0);
     }
   }, [router.query]);
+  
 
   const toggleContent = () => {
     const CreateNewRequisition = toggle ? "" : "CreateNewRequisition";
