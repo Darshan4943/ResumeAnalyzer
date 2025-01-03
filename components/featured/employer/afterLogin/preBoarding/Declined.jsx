@@ -139,10 +139,10 @@ const Declined = ({ toggleContentt, setPreview }) => {
                       <div className="flex items-center justify-start col-span-1 ">
                         <div className="flex   items-center w-full  justify-between">
                           <button
-                            onClick={() => setStartPreboarding(true)}
+                            onClick={() => setPreview(true)}
                             className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat "
                           >
-                            {applicants.action}
+                            {applicants.Preview}
                           </button>
                           <img
                             className="w-[24px]"
