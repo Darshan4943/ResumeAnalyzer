@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ClientList from "../../../components/featured/clients/ClientList";
+import ClientList from "../../components/featured/clients/ClientList";
 import CreateNewClient from "./CreateNewClient";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import Fuse from "fuse.js";
 import { useRouter } from "next/router";
 
 import { toast } from "react-toastify";
-import LimitUsedModal from "../../../components/models/limitUsedModal";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
@@ -93,7 +93,7 @@ function MyClients() {
       .then((response) => {
 
      ;
-        toast.success("Client Deleted successfully");
+        toast.success("Candidate Deleted successfully");
         setSelectedIndexes([]);
         setSelect(false);
       })
@@ -145,14 +145,14 @@ function MyClients() {
   }, [selectedIndexes]);
 
   return (
-    <div className="flex justify-center customMargins py-6">
+    <div className="flex justify-center  py-6">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
-          <div className="text-[20px] font-semibold">My Clients</div>
+          <div className="text-[20px] font-semibold">Candidates</div>
           {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
           <div
             style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-            className="rounded-[16px] p-4 "
+            className="rounded-[16px] p-4 bg-white"
           >
             <div
               // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
@@ -184,7 +184,7 @@ function MyClients() {
                     <input
                       className="w-full h-[24px] scr420:text-[16px] sm:text-[14px] sm:placeholder:text-[16px] placeholder:text-[14px]"
                       type="text"
-                      placeholder="Search client name or keyword"
+                      placeholder="Search Candidate name or keyword"
                       onChange={(e) => changeHandler(e.target.value)}
                     />
                   </div>
@@ -291,7 +291,7 @@ function MyClients() {
                       // }}
                       onClick={() => {
 
-                        router.push("/myClients/CreateNewClient");
+                        router.push("/candidates/CreateNewClient");
 
                       }}
                       className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[51px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
@@ -310,7 +310,7 @@ function MyClients() {
                           />
                         </g>
                       </svg>
-                      Create New Client
+                      Create New Candidate
                     </button>
                   )}
 
@@ -331,7 +331,7 @@ function MyClients() {
                     // }}
                     onClick={() => {
 
-                      router.push("/myClients/CreateNewClient");
+                      router.push("/candidates/CreateNewClient");
 
                     }}
                     className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[51px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
@@ -351,7 +351,7 @@ function MyClients() {
                         />
                       </g>
                     </svg>
-                    Create New Client
+                    Create New Candidate
                   </button>
 
                   {/* {isOptions && (
@@ -402,7 +402,7 @@ function MyClients() {
                   // }}
                   onClick={() => {
 
-                    router.push("/myClients/CreateNewClient");
+                    router.push("/candidates/CreateNewClient");
 
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
@@ -421,7 +421,7 @@ function MyClients() {
                     />
                   </svg>
 
-                  <p>Create New Client</p>
+                  <p>Create New Candidate</p>
                 </div>
               )}
               {limitPopUp && (
