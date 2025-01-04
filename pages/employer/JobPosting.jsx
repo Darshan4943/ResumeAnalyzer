@@ -4,6 +4,7 @@ import { TablePagination } from "@mui/material";
 import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 import axios from "axios";
+import MiniLoader from "../../components/common/miniLoader";
 
 function JobPosting() {
   const router = useRouter();
@@ -11,11 +12,12 @@ function JobPosting() {
   const [openSort, setOpenSort] = useState(false);
   const [toggle, setToggle] = useState(0);
   const [filterData, setFilterData] = useState({});
-  const [page, setPage] = useState(0); // Page is zero-based
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Default rows per page
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
-  const [totalCount, setTotalCount] = useState(0); // Initialize totalCount
+  const [totalCount, setTotalCount] = useState(0);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
@@ -76,6 +78,7 @@ function JobPosting() {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
@@ -83,15 +86,21 @@ function JobPosting() {
           {
             params: {
               ...filterData,
-              page: page + 1, // Convert zero-based to one-based for API
+              page: page + 1,
               limit: rowsPerPage,
             },
           }
         );
         setRequisitions(response.data.data);
-        setTotalCount(response.data.pagination.totalCount); // Ensure totalCount is used correctly
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+        setTotalCount(response.data.pagination.totalCount);
       } catch (error) {
         setError("Failed to fetch requisitions");
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
         console.error("Error fetching requisitions:", error);
       }
     };
@@ -107,8 +116,8 @@ function JobPosting() {
   const handleChangeRowsPerPage = (event) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
     console.log("New Rows Per Page:", newRowsPerPage);
-    setRowsPerPage(newRowsPerPage); // Update rows per page
-    setPage(0); // Reset to the first page
+    setRowsPerPage(newRowsPerPage);
+    setPage(0);
   };
 
   return (
@@ -172,71 +181,77 @@ function JobPosting() {
                     </div>
                   </div>
 
-                  <div className=" ">
-                    {requisitions.length > 0 ? (
-                      requisitions.map((requisition, index) => (
-                        <div
-                          key={index}
-                          className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
-                            index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                          }  `}
-                        >
-                          <div className=" w-[14%]">
-                            <p className="text-[14px] font-[500] text-[#06A9EF]">
-                              {requisition.requisitionType}
-                            </p>
-                            <p className="text-[14px] font-[500] text-[#333333]">
-                              {requisition.jobTitle}
-                            </p>
-                          </div>
-                          <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {requisition.positions}
-                          </p>
-                          <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {requisition.location}
-                          </p>
-                          <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
-                          </p>
-                          <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {requisition.requested_by}
-                          </p>
-                          <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {requisition.hiring_period}
-                          </p>
-
-                          <button
-                            onClick={toggleContent}
-                            className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <g mask="url(#mask0_4754_60413)">
-                                <path
-                                  d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
-                                  fill="#333333"
-                                />
-                              </g>
-                            </svg>
-                            Post Job
-                          </button>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="p-3  flex items-center justify-center">
-                      <img
-                      className="w-[50%]"
-                        src="/images/employer/OBJECTS.png"
-                        alt="No data available"
-                      />
+                  {loading ? (
+                    <div className=" min-h-[360px] ">
+                      <MiniLoader />
                     </div>
-                    )}
-                  </div>
+                  ) : (
+                    <div>
+                      {requisitions.length > 0 ? (
+                        requisitions.map((requisition, index) => (
+                          <div
+                            key={index}
+                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
+                              index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                            }  `}
+                          >
+                            <div className=" w-[14%]">
+                              <p className="text-[14px] font-[500] text-[#06A9EF]">
+                                {requisition.requisitionType}
+                              </p>
+                              <p className="text-[14px] font-[500] text-[#333333]">
+                                {requisition.jobTitle}
+                              </p>
+                            </div>
+                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                              {requisition.positions}
+                            </p>
+                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                              {requisition.location}
+                            </p>
+                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                              ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
+                            </p>
+                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                              {requisition.requested_by}
+                            </p>
+                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                              {requisition.hiring_period}
+                            </p>
+
+                            <button
+                              onClick={toggleContent}
+                              className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <g mask="url(#mask0_4754_60413)">
+                                  <path
+                                    d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
+                                    fill="#333333"
+                                  />
+                                </g>
+                              </svg>
+                              Post Job
+                            </button>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-3  flex items-center justify-center">
+                          <img
+                            className="w-[50%]"
+                            src="/images/employer/OBJECTS.png"
+                            alt="No data available"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
