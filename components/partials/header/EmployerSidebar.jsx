@@ -38,7 +38,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/Hiring',
+      route: '/employer/hiring',
     },
     {
       img: '/images/employer/sidebar/candidate.png',
@@ -83,7 +83,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/Hiring',
+      route: '/employer/hiring',
     },
     {
       img: '/images/employer/sidebar/preboarding.png',

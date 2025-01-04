@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
-import JobDetails from "./JobDetails";
-import Analytics from "./Analytics";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import JobDetails from "./JobDetails";
+import Analytics from "../../../components/featured/employer/Analytics";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
@@ -12,6 +13,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [activeOption, setActiveOption] = useState("applicant");
   const router = useRouter();
   const { id } = router.query;
+
   const [jobDetails, setJobDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -679,9 +681,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             <div className="flex  w-[20%] items-center gap-[16px] relative">
                               <div
                                 className="cursor-pointer"
-                                onClick={() =>
-                                  toggleContentt(jobDetails, applicant._id)
-                                }
+                            //     onClick={() =>
+                            //   toggleContentt(jobDetails, applicant._id)
+                              
+                            // }
+                            onClick={()=>router.push(`/employer/hiring/ApplicantDetails?applicantId=${applicant._id}&id=${jobDetails._id}`)}
                               >
                                 <svg
                                   width="24"

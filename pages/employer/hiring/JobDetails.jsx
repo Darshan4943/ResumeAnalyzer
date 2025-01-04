@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 function JobDetails({ jobDetails }) {
   console.log(121, jobDetails);
+  const router = useRouter();
+   const { id } = router.query;
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
