@@ -306,7 +306,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
                 <div className="flex gap-[20px] justify-center  items-center">
-                  <div>
+                  <div onClick={router.back}>
                     <svg
                       width="16"
                       height="16"
@@ -806,7 +806,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   </>
                   :
                   <div className="p-10 w-full flex items-center justify-center">
-                    <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[150px] w-[300px]" />
+                    <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px]" />
                   </div>
                 }
               </div>
