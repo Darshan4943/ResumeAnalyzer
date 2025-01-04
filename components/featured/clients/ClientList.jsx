@@ -52,7 +52,7 @@ function ClientList({
   };
   const toggleDetails = (detail) => {
     setSelectedDetail(details[detail]);
-    router.push(`/myClients/ClientDetail?detailIndex=${detail._id}`);
+    router.push(`/candidates/ClientDetail?detailIndex=${detail._id}`);
   };
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -86,7 +86,7 @@ function ClientList({
             // }}
             onClick={() => {
 
-              router.push("/myClients/CreateNewClient");
+              router.push("/candidates/CreateNewClient");
 
             }}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}

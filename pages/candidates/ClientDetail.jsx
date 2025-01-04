@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import ResumePreview from "../../../components/common/ResumePreview";
+import ResumePreview from "../../components/common/ResumePreview";
 
 import { toast } from "react-toastify";
-import DeleteModal from "../../../components/common/deleteModal";
-import MiniLoader from "../../../components/common/mini-loader";
+import DeleteModal from "../../components/common/deleteModal";
+import MiniLoader from "../../components/common/mini-loader";
 import { motion } from "framer-motion";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
@@ -166,12 +166,12 @@ function ClientDetail({ tabIndex }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-6 customMargins">
+    <div className="flex flex-col gap-4 py-6 ">
       <div className="flex justify-between ">
         <div className="flex text-[18px] font-semibold gap-4 items-center">
           <svg
             className=" cursor-pointer"
-            onClick={() => router.push("/myClients")}
+            onClick={() => router.push("/candidates")}
             width="24"
             height="24"
             viewBox="0 0 40 40"
@@ -185,14 +185,14 @@ function ClientDetail({ tabIndex }) {
               />
             </g>
           </svg>
-          My Clients
+          Candidates
         </div>
 
         {/* <div className=" "> */}
         <button
          onClick={() =>
           router.push({
-            pathname: `/myClients/CreateNewClient`,
+            pathname: `/candidates/CreateNewClient`,
             query: {
               id: clientId,
               isUpdate: true,
@@ -327,7 +327,7 @@ function ClientDetail({ tabIndex }) {
         <button
           onClick={() =>
             router.push({
-              pathname: `/myClients/CreateNewClient`,
+              pathname: `/candidates/CreateNewClient`,
               query: {
                 id: clientId,
                 isUpdate: true,
