@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
+import { useSelector } from "react-redux";
 
 function Hiring() {
   const router = useRouter();
   const query = router.query;
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -24,6 +27,9 @@ function Hiring() {
   const [selectedJob, setSelectedJob] = useState("");
   const [openSort, setOpenSort] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [id, setId] = useState();
+  const [error, setError] = useState();
+  const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
     if (query.content === "ApplicantDetails") {
@@ -58,12 +64,44 @@ function Hiring() {
     setToggle((prevToggle) => !prevToggle);
   };
 
-  const headings = [
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
+        );
+        const data = response.data;
+        setAttributes(data);
+        setHeadings((prevHeadings) =>
+          prevHeadings.map((item) => {
+            if (item.heading === "Department") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.jobTitles])],
+              };
+            } else if (item.heading === "Location") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.locations])],
+              };
+            }
+            return item;
+          })
+        );
+      } catch (error) {
+        console.error("Error fetching job attributes:", error);
+      }
+    };
+
+    fetchAttributes();
+  }, []);
+
+  const [headings, setHeadings] = useState([
     {
       heading: "Department",
       options: [
-        "software developement",
-        "Backend Devloper",
+        "software development",
+        "Backend Developer",
         "React Js Developer",
         "Secretary",
       ],
@@ -74,23 +112,27 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["Live", "Hold", "closed"],
+      options: ["Live", "Hold", "Closed"],
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (userDataGlobal && userDataGlobal._id) {
+      setId(userDataGlobal._id);
+    }
+  }, [userDataGlobal]);
 
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:2000/api/job/getAllJobDetails",
-        filters,
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getAllJobDetails/${id}`,
         {
-          params: { page, limit },
+          params: { page, limit, ...filters },
         }
       );
 
       const { jobs, pagination } = response.data;
-      console.log(121,response.data)
       setData(jobs);
       setTimeout(() => {
         setLoading(false);
@@ -106,8 +148,10 @@ function Hiring() {
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, [filters, limit, page]);
+    if (id) {
+      fetchJobs();
+    }
+  }, [id, filters, limit, page]);
 
   const handleFilterChange = (heading, value) => {
     setFilters(() => {
@@ -286,13 +330,23 @@ function Hiring() {
 
           {loading ? (
             <MiniLoader />
+          ) : data.length === 0 ? (
+            <div className="p-3  flex items-center justify-center">
+              <img
+                className="w-[40%]"
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+              />
+            </div>
           ) : (
             <div className=" grid md:grid-cols-12 grid-clos-6 gap-6 ">
               {data?.map((job, index) => (
                 <div
                   key={index}
-                // onClick={() => toggleContent(job)}
-                onClick={()=>router.push(`/employer/hiring/JobPost?id=${job._id}`)}
+                  // onClick={() => toggleContent(job)}
+                  onClick={() =>
+                    router.push(`/employer/hiring/JobPost?id=${job._id}`)
+                  }
                   className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
                 >
                   <div className="flex justify-between w-[100%]">
@@ -519,14 +573,6 @@ function Hiring() {
           </>
         </div>
       )}
-      {/* {toggle === 1 && (
-        <JobPost
-          toggleContentt={toggleContent}
-          selectedJob={selectedJob}
-          setToggle={setToggle}
-        />
-      )}
-      {toggle === 2 && <ApplicantDetails setTogglee={setToggle} />} */}
     </div>
   );
 }
