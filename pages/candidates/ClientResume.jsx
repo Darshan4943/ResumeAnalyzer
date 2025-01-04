@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
-import LimitUsedModal from "../../../components/models/limitUsedModal";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 function ClientResume() {
   const router = useRouter();
   const [allData, setAllData] = useState([]);
@@ -76,7 +76,7 @@ function ClientResume() {
   return (
     <div className="flex justify-center customMargins">
       <div className="flex flex-col gap-4 sm:py-6 py-2 w-[100%]">
-        <div className="text-[24px] font-semibold">Select Client</div>
+        <div className="text-[24px] font-semibold">Select Candidate</div>
         <div
           // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
           className="flex flex-col gap-4  rounded-[24px]"
@@ -145,7 +145,7 @@ function ClientResume() {
                   // }}
                   onClick={() => {
 
-                    router.push("/myClients/CreateNewClient");
+                    router.push("/candidates/CreateNewClient");
 
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
@@ -303,7 +303,7 @@ function ClientResume() {
                   // }}
                   onClick={() => {
 
-                    router.push("/myClients/CreateNewClient");
+                    router.push("/candidates/CreateNewClient");
 
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}

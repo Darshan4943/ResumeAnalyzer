@@ -3,18 +3,48 @@ import { useRouter } from 'next/router';
 
 const Breadcrumb = () => {
   const router = useRouter();
-  const pathSegments = router.asPath.split('/').filter((segment) => segment !== '');
+  const pathSegments = router.asPath.split('?')[0].split('/').filter((segment) => segment !== '');
 
-  const breadcrumbItems = [
+  const queryParams = new URLSearchParams(router.asPath.split('?')[1] || '');
 
-    ...pathSegments.slice(1).map((segment, index) => ({
-      label: segment === 'dashboard' ? 'Home' : segment === 'JobPosting' ? 'Job Posting' : segment === "JobPosting?content=CreateNewJob" ? "Create New Job" : segment === "Requisition?content=CreateNewRequisition" ? "Create New Requisition" : segment === "Hiring?content=JobPost" ? "Job Post" : segment === "Hiring?content=ApplicantDetails" ? "Applicant Details" : segment === "BulkUploads?content=ApplicantDetails" ? "Applicant Details" : segment === "BulkUploads" ? "Bulk Uploads" : segment,
-      path: `/${pathSegments.slice(0, index + 2).join('/')}`,
-    })),
-  ];
-  {console.log(breadcrumbItems)}
+
+  const breadcrumbMapping = {
+    dashboard: 'Home',
+    JobPosting: 'Job Posting',
+    'JobPosting?content=CreateNewJob': 'Create New Job',
+    'Requisition?content=CreateNewRequisition': 'Create New Requisition',
+    'Hiring?content=ApplicantDetails': 'Applicant Details',
+    'BulkUploads?content=ApplicantDetails': 'Applicant Details',
+    BulkUploads: 'Bulk Uploads',
+  };
+
+ 
+  const breadcrumbItems = pathSegments.slice(1).map((segment, index) => {
+    const fullPath = `/${pathSegments.slice(0, index + 2).join('/')}`; 
+
+    if (segment === 'JobPost' && queryParams.get('id')) {
+      return {
+        label: `Job Post`, 
+        path: fullPath, 
+      };
+    }
+
+    if (segment === 'ApplicantDetails' && queryParams.get('id')) {
+      return {
+        label: `Applicant Details`, 
+        path: fullPath,
+      };
+    }
+
+    return {
+      label: breadcrumbMapping[segment] || segment,
+      path: fullPath, 
+    };
+  })
+
+  
   return (
-    <nav className=" pt-6">
+    <nav className=" py-6">
       <ol className="flex gap-2 items-center">
         <li className="breadcrumb-item text-[#333333]">
           Skilotech

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 import StartPreboarding from "./StartPreboarding";
-import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import {
+  applicants,
+  applicantsMobile,
+  headings,
+} from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
 
 const Initial = ({ toggleContentt, setToggle, jobs }) => {
-  const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   const [openThreeDts, setOpenThreeDts] = useState(false);
   const [checkedApplicants, setCheckedApplicants] = useState({});
+  const [applicant, selectedApplicant] = useState();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -42,32 +46,58 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
     <>
       <div className="web w-full">
         <div className="flex w-full items-center mb-6">
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
             <div className="text-[12px] font-[600] text-[#646464]">Initial</div>
             <div className="text-[14px] font-[600] text-[#333333]">2</div>
           </div>
           <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
-            <div className="text-[12px] font-[600] text-[#646464]">Documentation</div>
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
+            <div className="text-[12px] font-[600] text-[#646464]">
+              Documentation
+            </div>
             <div className="text-[14px] font-[600] text-[#333333]">10</div>
           </div>
           <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
-            <div className="text-[12px] font-[600] text-[#646464]">Verification</div>
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
+            <div className="text-[12px] font-[600] text-[#646464]">
+              Verification
+            </div>
             <div className="text-[14px] font-[600] text-[#333333]">2</div>
           </div>
           <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
-            <div className="text-[12px] font-[600] text-[#646464]">Release Offer</div>
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
+            <div className="text-[12px] font-[600] text-[#646464]">
+              Release Offer
+            </div>
             <div className="text-[14px] font-[600] text-[#333333]">10</div>
           </div>
           <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
-            <div className="text-[12px] font-[600] text-[#646464]">Offer Acceptance</div>
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
+            <div className="text-[12px] font-[600] text-[#646464]">
+              Offer Acceptance
+            </div>
             <div className="text-[14px] font-[600] text-[#333333]">10</div>
           </div>
           <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div style={{ boxShadow: " 0px 1px 2px 0px #00000040" }} className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between">
+          <div
+            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
+          >
             <div className="text-[12px] font-[600] text-[#646464]">Hired</div>
             <div className="text-[14px] font-[600] text-[#333333]">10</div>
           </div>
@@ -76,7 +106,10 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
             {headings.map((headingObj, index) => (
               <>
-                <select className=" w-[19.87%] bg-whites outline-none" onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
+                <select
+                  className=" w-[19.87%] bg-whites outline-none"
+                  onChange={(e) => handleHeadingChange(e, headingObj.heading)}
+                >
                   <option value=""> {headingObj.heading}</option>
                   {headingObj.options.map((option, optIndex) => (
                     <option key={optIndex} value={option}>
@@ -87,7 +120,9 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                 <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
               </>
             ))}
-            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">Search</button>
+            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
+              Search
+            </button>
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
@@ -107,10 +142,13 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
           <div className="grid grid-cols-1 w-full">
             {jobs
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((jobs, index) => (
+              .map((job, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"}`}>
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${
+                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                    }`}
+                  >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
@@ -126,7 +164,14 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                             alt=""
                           />
                           <p className="text-[14px] font-[600] text-[#333333]">
-                            {!jobs.details.personal.firstName.length == 0 ? <>{jobs.details.personal.firstName}{" "}{jobs.details.personal.lastName}</> : "-"}
+                            {!job.details.personal.firstName.length == 0 ? (
+                              <>
+                                {job.details.personal.firstName}{" "}
+                                {job.details.personal.lastName}
+                              </>
+                            ) : (
+                              "-"
+                            )}
                           </p>
                         </div>
                       </div>
@@ -144,31 +189,33 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants.status === "Interview"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                            checkedApplicants[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants.status === "Interview"
                               ? "bg-[#26A4FF1A]"
                               : applicants.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicants.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : applicants.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${applicants.status === "Interview"
+                              ? "bg-[#56CDAD1A]"
+                              : applicants.status === "Shortlisted"
+                              ? "bg-[#4640DE1A]"
+                              : applicants.status === "Rejected"
+                              ? "bg-[#FF65501A]"
+                              : applicants.status === "In Review"
+                              ? "bg-[#EB85331A]"
+                              : ""
+                          } ${
+                            applicants.status === "Interview"
                               ? "text-[#26A4FF]"
                               : applicants.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
+                              ? "text-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                              ? "text-[#4640DE]"
+                              : applicants.status === "Rejected"
+                              ? "text-[#FF6550]"
+                              : applicants.status === "In Review"
+                              ? "text-[#FFB836]"
+                              : "text-[#333333]"
+                          }`}
                         >
                           {applicants.status}
                         </div>
@@ -176,27 +223,22 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                       <div className="flex items-center justify-start col-span-1 ">
                         <div className="flex   items-center w-full  justify-between">
                           <button
-                            onClick={() => setStartPreboarding(true)}
+                            onClick={() => {
+                              setStartPreboarding(true);
+                              selectedApplicant(job);
+                            }}
                             className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat "
                           >
                             Start Preboarding
                           </button>
                           <img
                             onClick={() => {
-                              setOpenThreeDts(true)
+                              setOpenThreeDts(true);
                             }}
                             className="w-[24px]"
                             src="/images/employer/three-dot.png"
                             alt=""
                           />
-                          {/* {openThreeDts &&
-                            <div style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }} className="flex flex-col gap-2 bg-white rounded-[6px] p-2 absolute">
-                              <p onClick={() => {
-                                setOpenThreeDts(false)
-                              }}>View Profile</p>
-                              <p></p>
-                            </div>
-                          } */}
                         </div>
                       </div>
                     </div>
@@ -215,7 +257,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </div >
+      </div>
       <div className="mobile relative overflow-y-scroll  w-full">
         <div className="sticky top-0">
           <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
@@ -270,9 +312,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                   <select
                     key={index}
                     className=" bg-whites outline-none"
-                    onChange={(e) =>
-                      handleHeadingChange(e, headingObj.heading)
-                    }
+                    onChange={(e) => handleHeadingChange(e, headingObj.heading)}
                   >
                     <option value=""> {headingObj.heading}</option>
                     {headingObj.options.map((option, optIndex) => (
@@ -294,9 +334,9 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile
+            {jobs
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicantsMobile, index) => (
+              .map((job, index) => (
                 <>
                   <div
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
@@ -311,7 +351,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                             alt=""
                           />
                           <p className="text-[14px] text-[#333] font-[600]">
-                            {applicantsMobile.name}
+                            {job.firstName}
                           </p>
                         </div>
                         <div className="flex justify-end items-center gap-4">
@@ -364,7 +404,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                           job Role
                         </p>
                         <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                          {applicantsMobile.role}
+                          {job.role}
                         </p>
                       </div>
                       <div className="flex justify-between items-center self-stretch">
@@ -372,13 +412,13 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                           Recruiter
                         </p>
                         <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.role}
+                          {job.role}
                         </p>
                       </div>
 
                       <div className="flex justify-between items-center self-stretch">
                         <p className="text-[14px] text-[#646464] font-[500]">
-                          {applicantsMobile.proboard}
+                          {job.proboard}
                         </p>
                         <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
                           <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
@@ -393,7 +433,10 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                             borderRadius: "8px",
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
-                          onClick={() => setStartPreboarding(true)}
+                          onClick={() => {
+                            setStartPreboarding(true);
+                            selectedApplicant(applicantsMobile);
+                          }}
                         >
                           <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
                             {applicantsMobile.action}
@@ -417,16 +460,18 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-      {
-        startPreboarding && (
-          <>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-            <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
-              <StartPreboarding setStartPreboarding={setStartPreboarding} />
-            </div>
-          </>
-        )
-      }
+      {startPreboarding && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
+            <StartPreboarding
+              applicant={applicant}
+              jobs={jobs}
+              setStartPreboarding={setStartPreboarding}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };

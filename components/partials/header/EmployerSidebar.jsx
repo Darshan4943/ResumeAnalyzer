@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import ALink from '../../alink';
 import { useSelector } from 'react-redux';
 
-
-
 function EmployerSidebar() {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState('');
@@ -20,7 +18,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/dashboard',
+      route: '/',
     },
     {
       img: '/images/employer/sidebar/companies.png',
@@ -38,24 +36,24 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/Hiring',
+      route: '/employer/hiring',
     },
     {
       img: '/images/employer/sidebar/candidate.png',
       img1: '/images/employer/sidebar/candidate1.png',
       title: 'Candidates',
-      route: '/recruiter/myClients',
+      route: '/candidates',
     },
     {
       img: '/images/employer/sidebar/myCollection.png',
       img1: '/images/employer/sidebar/myCollection1.png',
       title: 'My Collection',
-      route: '/recruiter/myCollection',
+      route: '/myCollection',
     },
     {
       img: '/images/employer/sidebar/jdMatching.png',
       img1: '/images/employer/sidebar/jdMatching1.png',
-      title: 'JD MAtching',
+      title: 'JD Matching',
       route: '/recruiter/JobMatching',
     },
   ];
@@ -65,7 +63,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/dashboard',
+      route: '/',
     },
     {
       img: '/images/employer/sidebar/requisition.png',
@@ -83,7 +81,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/Hiring',
+      route: '/employer/hiring',
     },
     {
       img: '/images/employer/sidebar/preboarding.png',
@@ -95,31 +93,48 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/myCollection.png',
       img1: '/images/employer/sidebar/myCollection1.png',
       title: 'My Collection',
-      route: '/recruiter/myCollection',
+      route: '/myCollection',
     },
     {
       img: '/images/employer/sidebar/jdMatching.png',
       img1: '/images/employer/sidebar/jdMatching1.png',
-      title: 'JD MAtching',
+      title: 'JD Matching',
       route: '/recruiter/JobMatching',
     },
-    
   ];
+
+  const menuList = userDataGlobal.role === 'recruiter' ? recruiterList : employerList;
+
   return (
-    <div className="flex flex-col  bg-white w-[120px] pt-[86px] h-full ">
-      {(userDataGlobal.role === "recruiter" ? recruiterList : employerList).map((item, index) => (
-        <ALink href={item.route} key={index} >
-          <div
-            className={`p-2`}
-          >
-            <div className={`w-full flex flex-col gap-2 p-2 justify-center items-center rounded-[8px] ${selectedPage.startsWith(item.route) ? 'bg-[#DFF4FD]' : ''
-              }`}>
-              <img src={selectedPage.startsWith(item.route) ? item.img1: item.img} alt="" className="w-[24px] h-[24px]" />
-              <div className={`text-center text-[12px] font-medium  ${selectedPage.startsWith(item.route) ? "text-blue" : 'text-[#646464]'
-                }`}>{item.title}</div></div>
-          </div>
-        </ALink>
-      ))}
+    <div className="flex flex-col bg-white w-[120px] pt-[86px] h-full">
+      {menuList.map((item, index) => {
+        const isActive =
+          item.route === '/' ? selectedPage === item.route : selectedPage.startsWith(item.route);
+        return (
+          <ALink href={item.route} key={index}>
+            <div className="p-2">
+              <div
+                className={`w-full flex flex-col gap-2 p-2 justify-center items-center rounded-[8px] ${
+                  isActive ? 'bg-[#DFF4FD]' : ''
+                }`}
+              >
+                <img
+                  src={isActive ? item.img1 : item.img}
+                  alt={item.title}
+                  className="w-[24px] h-[24px]"
+                />
+                <div
+                  className={`text-center text-[12px] font-medium ${
+                    isActive ? 'text-blue' : 'text-[#646464]'
+                  }`}
+                >
+                  {item.title}
+                </div>
+              </div>
+            </div>
+          </ALink>
+        );
+      })}
     </div>
   );
 }

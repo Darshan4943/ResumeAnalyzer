@@ -2,6 +2,7 @@ import React from 'react';
 import CandidateHome from '../candidate';
 import EmployerHome from '../employer/EmployerHome';
 import { useSelector } from 'react-redux';
+import Dashboard from '../dashboard';
 
 function Home() {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -11,7 +12,7 @@ function Home() {
             {userDataGlobal?.role === "user" ?
                 <CandidateHome />
                 :
-                <EmployerHome />
+                <Dashboard />
 
             }
 

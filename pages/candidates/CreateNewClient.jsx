@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useRef, useState } from "react";
 import ReactSelect from "react-select";
-import { details, telCode } from "../../../utils/data";
+import { details, telCode } from "../../utils/data";
 
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import ImageContainer from "../../../components/common/image";
-import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
+import ImageContainer from "../../components/common/image";
+import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 function CreateNewClient() {
   const router = useRouter();
 
@@ -240,23 +240,23 @@ function CreateNewClient() {
 
         setFormError({});
         setLoading(false);
-        router.push("/myClients");
+        router.push("/candidates");
 
         toast.success(
           isUpdate
-            ? "Client Updated successfully"
-            : "Client created successfully"
+            ? "Candidate Updated successfully"
+            : "Candidate created successfully"
         );
       } catch (error) {
         setLoading(false);
         if (error.response?.data.message === "User already exist") {
-          toast.error("Client already exist");
+          toast.error("Candidate already exist");
         } else {
           console.error(
-            "Error updating/creating client:",
+            "Error updating/creating Candidate:",
             error.response || error.message
           );
-          toast.error("Failed to create client");
+          toast.error("Failed to create Candidate");
         }
       }
     }
@@ -358,12 +358,12 @@ function CreateNewClient() {
         />
       )}
       <div className="flex justify-center">
-        <div className="flex flex-col  gap-4 sm:p-6 p-2 scr1200:w-[70%] sm:w-[90%] w-[100%] ">
+        <div className="flex flex-col  gap-4 sm:p-6 p-2   w-[100%] ">
           <p className="text-[24px] font-semibold">
-            {isUpdate ? "Update" : "Create New"} Client
+            {isUpdate ? "Update" : "Create New"} Candidate
           </p>
           <div
-            className="flex flex-col gap-9 rounded-[16px] sm:py-6 py-2"
+            className="flex flex-col gap-9 rounded-[16px] p-6 bg-white"
             // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
@@ -430,7 +430,7 @@ function CreateNewClient() {
               <div>
                 <div className="flex flex-col gap-4">
                   <div className=" flex justify-center pt-4  pb-2">
-                    <form className="personal_details_form w-[100%]  education_page ">
+                    <form className=" w-[100%]  education_page ">
                       <>
                         <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
                           <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[49%] w-[100%]">
@@ -720,9 +720,9 @@ function CreateNewClient() {
                                 />
                               </svg>
                             ) : isUpdate ? (
-                              "Update Client"
+                              "Update Candidate"
                             ) : (
-                              "Create Client"
+                              "Create Candidate"
                             )}
                           </button>
                         </div>
