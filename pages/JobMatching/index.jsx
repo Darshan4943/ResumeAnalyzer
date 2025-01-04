@@ -1,24 +1,24 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import InternalJobMatching from "../../../components/featured/jobMatching/internal";
-import ExternalJobMatching from "../../../components/featured/jobMatching/external";
+import InternalJobMatching from "../../components/featured/jobMatching/internal";
+import ExternalJobMatching from "../../components/featured/jobMatching/external";
 import ReactSelect from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { DocSVG, PDFSvg, SearchIcon } from "../../../utils/svg";
+import { DocSVG, PDFSvg, SearchIcon } from "../../utils/svg";
 import { useRouter } from "next/router";
-import JdFiles from "../../../components/featured/candidate/createResume/components/JdFiles";
-import JdMatching from "../../../components/featured/candidate/createResume/components/JdMatching";
-import JdDescription from "../../../components/featured/candidate/createResume/components/JdDescription";
-import EarthLoader from "../../../components/common/EarthLoader";
+import JdFiles from "../../components/featured/candidate/createResume/components/JdFiles";
+import JdMatching from "../../components/featured/candidate/createResume/components/JdMatching";
+import JdDescription from "../../components/featured/candidate/createResume/components/JdDescription";
+import EarthLoader from "../../components/common/EarthLoader";
 import Tesseract from "tesseract.js";
 import { pdfjs } from "react-pdf";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 import { toast } from "react-toastify";
-import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
-import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
+import ExtraSectionForm from "../recruiter/jdMatching/ExtraSectionForm";
+import JdMatchingsideBar from "../recruiter/jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
-import LimitUsedModal from "../../../components/models/limitUsedModal";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 
 
 const JobMatching = () => {
@@ -27,7 +27,7 @@ const JobMatching = () => {
   const [isAnimate, setIsAnimate] = useState(true);
   const router = useRouter();
   const fileRef = useRef(null);
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
   const [text, setText] = useState("");
@@ -39,7 +39,8 @@ const JobMatching = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
-
+const [collection,setCollection] = useState()
+const [isCollection,setIsCollection] = useState()
   //sideBar implimentation
   const [showMatchingSidebar, setShowsideBar] = useState(false);
   const [extratctedData, setExtractedData] = useState(null);
@@ -57,16 +58,16 @@ const JobMatching = () => {
   const [activePlan, setActivePlan] = useState(0)
   const [limitPopup, setLimitPopup] = useState(false);
 
-const getLimits=()=>{
-  const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
-  setJdCountMonthly(jdCountMonthly)
+  const getLimits = () => {
+    const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
+    setJdCountMonthly(jdCountMonthly)
 
-  const jdCountMonthlyLimit = JSON.parse(localStorage.getItem("jdCountMonthlyLimit"));
-  setJdCountMonthlyLimit(jdCountMonthlyLimit)
-  const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-  
-  setActivePlan(activePlan)
-}
+    const jdCountMonthlyLimit = JSON.parse(localStorage.getItem("jdCountMonthlyLimit"));
+    setJdCountMonthlyLimit(jdCountMonthlyLimit)
+    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+
+    setActivePlan(activePlan)
+  }
   useEffect(() => {
     getLimits()
   }, [])
@@ -151,43 +152,7 @@ const getLimits=()=>{
       });
   };
 
-console.log(jdCountMonthly,jdCountMonthlyLimit)
-  const jobMatching = async () => {
-
-    if (jdCountMonthly >= jdCountMonthlyLimit) {
-      setLimitPopup(true);
-      return;
-    }
-    let userId = userDataGlobal._id
-    setLoadingg(true);
-    setIsAnimate(false);
-    try {
-      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
-        text, userId
-      });
-      const jd = res.data.jsonData[0];
-      setTimeout(() => {
-        getLimits()
-      }, 5000);
-   
-      
-     
-      localStorage.removeItem("JdDescription");
-      if (Object.keys(jd).length > 5) {
-        setExtractedData(jd);
-        setLoadingg(false);
-        setShowsideBar(true);
-        updateJobMatchLimit()
-      } else {
-        setCount(count + 1);
-      }
-    } catch (e) {
-      // console.log("error", e);
-      setCount(count + 1);
-      // setLoadingg(false);
-      // toast.error("Something went wrong, please try again");
-    }
-  };
+  console.log(jdCountMonthly, jdCountMonthlyLimit)
 
 
   useEffect(() => {
@@ -216,109 +181,6 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
       };
       reader.readAsArrayBuffer(file);
     });
-  };
-  const textExtractor = async (textData) => {
-    const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
-      {
-        data: textData,
-      }
-    );
-    return data.data;
-  };
-  const parseData = () => {
-    return new Promise((resolve, reject) => {
-      const textData = [];
-      Object.values(files).forEach(async (file, index) => {
-        if (
-          file.type ==
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ) {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            const content = e.target.result;
-            var doc = new Docxtemplater(new PizZip(content), {
-              delimiters: {
-                start: "12op1j2po1j2poj1po",
-                end: "op21j4po21jp4oj1op24j",
-              },
-            });
-            var text = doc.getFullText();
-            textData.push({ text, index });
-          };
-          reader.readAsBinaryString(file);
-        } else if (file.type == "image/png") {
-          Tesseract.recognize(file, "eng", {
-            logger: (m) => console.log(m),
-          }).then(async ({ data: { text } }) => {
-            textData.push({ text, index });
-          });
-        } else if (file.type == "application/pdf") {
-          let fullText = "";
-          const pdfTextPromises = [];
-          for (let i = 1; i <= 1; i++) {
-            pdfTextPromises.push(fileToText(file, i));
-          }
-          Promise.all(pdfTextPromises).then(async (texts) => {
-            fullText = texts.join("");
-            textData.push({ text: fullText, index });
-          });
-        }
-        return;
-      });
-      setTimeout(() => {
-        resolve(textData);
-      }, 1000);
-    });
-  };
-
-  const handleFileChange = async (e) => {
-    const selectedFiles = e.target.files;
-    const textData = [];
-    if (Object.values(selectedFiles).length) {
-      const promise = Object.values(selectedFiles).map((file, index) => {
-        if (
-          file.type ==
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ) {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            const content = e.target.result;
-            var doc = new Docxtemplater(new PizZip(content), {
-              delimiters: {
-                start: "12op1j2po1j2poj1po",
-                end: "op21j4po21jp4oj1op24j",
-              },
-            });
-            var text = doc.getFullText();
-
-            textData.push({ index, text });
-          };
-          reader.readAsBinaryString(file);
-        } else if (file.type == "image/png") {
-          Tesseract.recognize(file, "eng", {
-            logger: (m) => console.log(m),
-          }).then(async ({ data: { text } }) => {
-            textData.push({ index, text });
-          });
-        } else if (file.type == "application/pdf") {
-          let fullText = "";
-          const pdfTextPromises = [];
-
-          for (let i = 1; i <= 1; i++) {
-            pdfTextPromises.push(fileToText(file, i));
-          }
-
-          Promise.all(pdfTextPromises).then(async (texts) => {
-            fullText = texts.join("");
-            textData.push({ index, text: fullText });
-          });
-        }
-      });
-      await Promise.all(promise);
-    }
-    // setTextData(textData);
-    setFiles(selectedFiles);
   };
 
   //new logic
@@ -432,24 +294,24 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
 
   const updateJobMatchLimit = async () => {
     let resumeCount = selectedIndexesFileTypes.length;
-  
+
     try {
       const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
-  
+
       if (!updateJobMatchResponse.data.success) {
         console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
       }
-  
+
       const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
-  
+
       if (!jdSubscriptionResponse.data.success) {
         console.error('Error in updateJdSubscriptionLimit:', jdSubscriptionResponse.data.message);
       }
-  
-   ;
-  
+
+      ;
+
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
         jdSubscriptionResponse: jdSubscriptionResponse.data,
@@ -459,7 +321,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
       return { success: false, message: 'Something went wrong', error };
     }
   };
-  
+
   return (
     <>
       {limitPopup && (
@@ -468,7 +330,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
         </div>
       )}
 
-      <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
+      <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh]  ">
         {loadingg && (
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -522,43 +384,68 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
             </div>
           </>
         )}
+        <div className="flex flex-col gap-4">
+          <div className="p-4 bg-white rounded-[16px] flex flex-col gap-1">
+            <p className="text-[18px] font-medium">
+              JD Matching
+            </p>
+            <p className="text-[12px] font-medium text-[#646464]">
+              upload bulk CV / Resumes & get quick filtered data
+            </p>
 
-        <div className="font-semibold text-[20px]">Job Description Matching</div>
-        <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-        <div className="flex flex-col gap-6 h-full relative overflow-hidden">
-          <div className="flex md:flex-row flex-col ml:gap-6 md:gap-2 h-full">
-            <div className="relative md:w-[60%] ml:w-[45%] xxl:w-[60%] w-full flex flex-col gap-6 ">
-              <div className="text-[18px] text-[#333333] font-medium">
-                Select From Collection
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+                <div className="w-full text-[14px] font-montserrat  font-medium">
+                  Education Type
+                </div>
+                <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
+                  <input
+                    type="radio"
+                    className="h-4 w-4 custom-radio"
+                    value={collection}
+                    checked={collection == "MyCollection"}
+                    onChange={() => {
+                      setCollection("MyCollection" );
+                      setIsCollection(true)
+                    }}
+                  />
+                  <label>My Collection</label>
+
+                  <input
+                    // disabled={!isChecked}
+                    type="radio"
+                    className="h-4 w-4 custom-radio"
+                    value={collection}
+                    checked={collection == "SkilotechCollection"}
+                    onChange={() => {
+                      setCollection("SkilotechCollection" );
+                      setIsCollection(true)
+                    }}
+                  />
+                  <label>Skilotech Collection</label>
+                </div>
               </div>
-              <JdFiles
-                details={details}
-                query={router.query}
-                setSelectedIndexes={setSelectedIndexes}
-                selectedIndexes={selectedIndexes}
-                loading={loading}
-                selectedIndexesFileTypes={selectedIndexesFileTypes}
-                setSelectedIndexesFilesType={setSelectedIndexesFilesType}
-              />
 
-              <JdDescription
-                text={text}
-                error={error}
-                resumeCount={resumeCount}
-                loadingg={loadingg}
-                setText={setText}
-                setError={setError}
-                setResumeCount={setResumeCount}
-                jobMatching={jobMatching}
-                setShowsideBar={setShowsideBar}
-                showMatchingSidebar={showMatchingSidebar}
-                MatchJob={MatchJob}
-                btnToggle={btnToggle}
-                setButtonToggle={setButtonToggle}
-              />
-            </div>
+        </div>
+        <div className="flex flex-col gap-6 h-full relative overflow-hidden">
+          <div className="flex  flex-col ml:gap-6 md:gap-2 h-full">
+           {isCollection &&
+             
 
-            <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full ml:m-0 my-4"></div>
+                <JdFiles
+                  details={details}
+                  query={router.query}
+                  setSelectedIndexes={setSelectedIndexes}
+                  selectedIndexes={selectedIndexes}
+                  loading={loading}
+                  selectedIndexesFileTypes={selectedIndexesFileTypes}
+                  setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+                />
+
+           }
+             
+
+         
             <div className="ml:w-[56%] w-full">
               <JdMatching
                 details={details}
@@ -570,101 +457,7 @@ console.log(jdCountMonthly,jdCountMonthlyLimit)
           </div>
         </div>
 
-        <AnimatePresence>
-          {showMatchingSidebar && (
-            <>
-              {/* Overlay */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 3 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-15"
-                style={
-                  {
-                    // background: "rgba(255, 255, 255, 0.5)",
-                    // backdropFilter: "blur(10px)",
-                  }
-                }
-              ></motion.div>
 
-              {/* Sidebar */}
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto w-[98%] max-w-[416px]"
-                style={{
-                  background: "rgba(255, 255, 255, 0.5)",
-                  backdropFilter: "blur(10px)",
-                  ...(navigator.userAgent.includes("Safari") &&
-                    !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(5px)",
-                  }),
-                  willChange: "transform",
-                }}
-              >
-                <JdMatchingsideBar
-                  extratctedData={extratctedData}
-                  setExtractedData={setExtractedData}
-                  text={text}
-                  setText={setText}
-                  MatchJob={MatchJob}
-                  setShowsideBar={setShowsideBar}
-                  setIsEdit={setIsEdit}
-                  setShowForm={setShowForm}
-                  setEditId={setEditId}
-                />
-
-                {(ShowForm || isEdit) && (
-                  <div className="block ml:hidden">
-                    <ExtraSectionForm
-                      extratctedData={extratctedData}
-                      setExtractedData={setExtractedData}
-                      isEdit={isEdit}
-                      setShowForm={setShowForm}
-                      editId={editId}
-                      setIsEdit={setIsEdit}
-                      setEditId={setEditId}
-                      ShowForm={ShowForm}
-                    />
-                  </div>
-                )}
-              </motion.div>
-
-              {/* ExtraSectionForm for larger screens */}
-              {(ShowForm || isEdit) && (
-                <motion.div
-                  initial={{ x: 0 }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "-100%" }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
-                  style={{
-                    backdropFilter: "blur(10px)",
-                    ...(navigator.userAgent.includes("Safari") &&
-                      !navigator.userAgent.includes("Chrome") && {
-                      WebkitBackdropFilter: "blur(10px)",
-                    }),
-                    willChange: "transform",
-                  }}
-                >
-                  <ExtraSectionForm
-                    extratctedData={extratctedData}
-                    setExtractedData={setExtractedData}
-                    isEdit={isEdit}
-                    setShowForm={setShowForm}
-                    editId={editId}
-                    setIsEdit={setIsEdit}
-                    setEditId={setEditId}
-                    ShowForm={ShowForm}
-                  />
-                </motion.div>
-              )}
-            </>
-          )}
-        </AnimatePresence>
       </div>
     </>
   );

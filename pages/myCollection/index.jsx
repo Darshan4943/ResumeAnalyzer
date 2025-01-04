@@ -974,14 +974,14 @@ function Collection() {
         </>
       )}
       <div className="">
-        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12  relative ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh]  ">
-            <div className="flex flex-col gap-5 ">
+        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:pt-6 pt-2 relative  ">
+          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%]  min-w-[188px] ">
+            <div className="flex flex-col gap-4 ">
               <p className="text-[18px] font-semibold h-[36px] ">
                 My Collection
               </p>
               
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] p-4 h-screen">
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] p-4 ml:min-h-[560px]  ">
                 
                 <button
                   onClick={() => {

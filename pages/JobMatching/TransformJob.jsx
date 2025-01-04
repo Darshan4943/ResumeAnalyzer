@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import TransformJd from "../../../components/featured/home/transformJd";
-import Fonts from "../../../public/fonts/fonts";
+import TransformJd from "../../components/featured/home/transformJd";
+import Fonts from "../../public/fonts/fonts";
 import UserResumes from "./UserResumes";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { data } from "autoprefixer";
 import { motion } from "framer-motion";
-import { ListSvg, PDFSvgSM, SearchIcon, TileViewSvg } from "../../../utils/svg";
-import EarthLoader from "../../../components/common/EarthLoader";
-import JdAnimation from "../../../components/featured/candidate/createResume/components/JdAnimation";
+import { ListSvg, PDFSvgSM, SearchIcon, TileViewSvg } from "../../utils/svg";
+import EarthLoader from "../../components/common/EarthLoader";
+import JdAnimation from "../../components/featured/candidate/createResume/components/JdAnimation";
 <Fonts />;
 
 function TransformJob() {
