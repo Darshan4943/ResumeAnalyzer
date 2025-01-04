@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-
+import Select from "react-select";
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
 import { useSelector } from "react-redux";
@@ -20,7 +20,6 @@ function Hiring() {
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [miniLoading, setMiniloading] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
@@ -28,7 +27,6 @@ function Hiring() {
   const [openSort, setOpenSort] = useState(false);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState();
-  const [error, setError] = useState();
   const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
@@ -154,11 +152,17 @@ function Hiring() {
   }, [id, filters, limit, page]);
 
   const handleFilterChange = (heading, value) => {
-    setFilters(() => {
-      const updatedFilters = value ? { [heading]: value } : {};
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      if (value) {
+        updatedFilters[heading] = value;
+      } else {
+        delete updatedFilters[heading];
+      }
       return updatedFilters;
     });
   };
+
   const handleFilterChangemobile = (heading, value) => {
     setFilters(() => {
       const updatedFilters = value ? { [heading]: value } : {};
@@ -209,6 +213,33 @@ function Hiring() {
   const handelclearmobile = () => {
     setFilters("");
     setOpenSort(false);
+  };
+
+    const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: "none",
+      boxShadow: "none",
+      width: "172px",
+      gap: "10px",
+    }),
+    input:(provided) => ({
+      ...provided,
+      width: "100%",
+    }),
+
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      padding: 0,
+    }),
+    indicatorSeparator: (provided) => ({
+      ...provided,
+      display: "none",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      width: "240px",
+    }),
   };
 
   return (
@@ -299,19 +330,32 @@ function Hiring() {
           <div className="hidden ml:flex w-[80.58%] rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
             {headings.map((filter, index) => (
               <>
-                <select
-                  className=" w-[19.87%] bg-white p-4 text-[14px] font-normal "
-                  onChange={(e) =>
-                    handleFilterChange(filter.heading, e.target.value)
+                <Select
+                  key={index}
+                  className="bg-whites"
+                  options={filter.options.map((option) => ({
+                    value: option,
+                    label: option,
+                  }))}
+                  onChange={(selectedOption) =>
+                    handleFilterChange(
+                      filter.heading,
+                      selectedOption ? selectedOption.value : ""
+                    )
                   }
-                >
-                  <option value=""> {filter.heading}</option>
-                  {filter.options.map((option, optIndex) => (
-                    <option key={optIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                  value={
+                    filter.value
+                      ? {
+                          label: filter.value,
+                          value: filter.value,
+                        }
+                      : null
+                  }
+                  placeholder={filter.heading}
+                  isSearchable={true}
+                  noOptionsMessage={() => "No options available"}
+                  styles={customStyles} // You can define any custom styles as needed
+                />
               </>
             ))}
             <button
