@@ -71,7 +71,7 @@ function Layout({ children }) {
               <Breadcrumb />
             </div>
           }
-          <div className="ml:px-5 px-2 pt-6 pb-4">
+          <div className="ml:px-5 px-2  pb-4">
             {children}
           </div>
         </div>

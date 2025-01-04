@@ -14,13 +14,13 @@ function EmployerSidebar() {
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
-
+console.log(selectedPage);
   const recruiterList = [
     {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/dashboard',
+      route: '/',
     },
     {
       img: '/images/employer/sidebar/companies.png',
@@ -65,7 +65,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/dashboard',
+      route: '/',
     },
     {
       img: '/images/employer/sidebar/requisition.png',
@@ -106,7 +106,7 @@ function EmployerSidebar() {
     
   ];
   return (
-    <div className="flex flex-col  bg-white w-[120px] pt-[86px] h-full ">
+    <div className="flex flex-col  bg-white w-[120px] pt-[86px] h-full  ">
       {(userDataGlobal.role === "recruiter" ? recruiterList : employerList).map((item, index) => (
         <ALink href={item.route} key={index} >
           <div

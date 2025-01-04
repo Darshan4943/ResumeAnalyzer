@@ -7,7 +7,7 @@ const Breadcrumb = () => {
 
   const queryParams = new URLSearchParams(router.asPath.split('?')[1] || '');
 
-  // Breadcrumb label mappings
+
   const breadcrumbMapping = {
     dashboard: 'Home',
     JobPosting: 'Job Posting',
@@ -18,33 +18,33 @@ const Breadcrumb = () => {
     BulkUploads: 'Bulk Uploads',
   };
 
-  // Generate breadcrumb items
+ 
   const breadcrumbItems = pathSegments.slice(1).map((segment, index) => {
-    const fullPath = `/${pathSegments.slice(0, index + 2).join('/')}`; // Include skipped segment in the path
+    const fullPath = `/${pathSegments.slice(0, index + 2).join('/')}`; 
 
     if (segment === 'JobPost' && queryParams.get('id')) {
       return {
-        label: `Job Post`, // Display without 'employer'
-        path: fullPath, // Include 'employer' in the path
+        label: `Job Post`, 
+        path: fullPath, 
       };
     }
 
     if (segment === 'ApplicantDetails' && queryParams.get('id')) {
       return {
-        label: `Applicant Details`, // Display without 'employer'
-        path: fullPath, // Include 'employer' in the path
+        label: `Applicant Details`, 
+        path: fullPath,
       };
     }
 
     return {
-      label: breadcrumbMapping[segment] || segment, // Display without 'employer'
-      path: fullPath, // Include 'employer' in the path
+      label: breadcrumbMapping[segment] || segment,
+      path: fullPath, 
     };
   })
 
   
   return (
-    <nav className=" pt-6">
+    <nav className=" py-6">
       <ol className="flex gap-2 items-center">
         <li className="breadcrumb-item text-[#333333]">
           Skilotech
