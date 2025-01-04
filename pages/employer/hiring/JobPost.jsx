@@ -477,7 +477,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
                       } cursor-pointer text-[16px] font-[600]`}
                   >
-                    applicant
+                    Applicant
                   </p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

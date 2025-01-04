@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
+import Select from "react-select";
 
 function RequisitionFilter({ filterData, setFilterData }) {
+  const [attributes, setAttributes] = useState([]);
+
   const router = useRouter();
   const query = router.query;
   const [toggle, setToggle] = useState(0);
@@ -14,7 +18,39 @@ function RequisitionFilter({ filterData, setFilterData }) {
     }
   }, [query.content]);
 
-  const headings = [
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
+        );
+        const data = response.data;
+        setAttributes(data);
+        setHeadings((prevHeadings) =>
+          prevHeadings.map((item) => {
+            if (item.heading === "Department") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.jobTitles])],
+              };
+            } else if (item.heading === "Location") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.locations])],
+              };
+            }
+            return item;
+          })
+        );
+      } catch (error) {
+        console.error("Error fetching job attributes:", error);
+      }
+    };
+
+    fetchAttributes();
+  }, []);
+
+  const [headings, setHeadings] = useState([
     {
       heading: "Department",
       options: [
@@ -37,15 +73,14 @@ function RequisitionFilter({ filterData, setFilterData }) {
       heading: "Priority",
       options: ["Yes", "No"],
     },
-  ];
+  ]);
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
+  const handleHeadingChange = (selectedOption, index) => {
     const selectedHeading = headings[index].heading;
 
     setFilterData((prev) => ({
       ...prev,
-      [selectedHeading]: selectedOption,
+      [selectedHeading]: selectedOption.value, 
     }));
   };
 
@@ -53,23 +88,46 @@ function RequisitionFilter({ filterData, setFilterData }) {
     console.log("Filters applied:", filterData);
   };
 
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: 'none', 
+      boxShadow: 'none', 
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      padding: 0, 
+    }),
+    indicatorSeparator: (provided) => ({
+      ...provided,
+      display: 'none', 
+    }),
+  };
+
   return (
     <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
       <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
         {headings.map((headingObj, index) => (
           <React.Fragment key={index}>
-            <select
+            <Select
               className="w-[19.87%] bg-whites"
-              onChange={(e) => handleHeadingChange(e, index)}
-              value={filterData[headingObj.heading] || ""}
-            >
-              <option value="">{headingObj.heading}</option>
-              {headingObj.options.map((option, optIndex) => (
-                <option key={optIndex} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+              options={headingObj.options.map((option) => ({
+                value: option,
+                label: option,
+              }))}
+              onChange={(selectedOption) =>
+                handleHeadingChange(selectedOption, index)
+              }
+              value={
+                filterData[headingObj.heading]
+                  ? { label: filterData[headingObj.heading], value: filterData[headingObj.heading] }
+                  : null
+              }
+              placeholder={headingObj.heading}
+              isSearchable={true} 
+              noOptionsMessage={() => "No options available"} 
+              styles={customStyles}
+            />
             {index < headings.length - 1 && (
               <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
             )}
