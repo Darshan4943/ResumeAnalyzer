@@ -155,27 +155,16 @@ function JobPosting() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: "none",
-      boxShadow: "none",
-      width: "172px",
-      gap: "10px",
+      border: 'none', 
+      boxShadow: 'none', 
     }),
-    input:(provided) => ({
-      ...provided,
-      width: "100%",
-    }),
-
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0,
+      padding: 0, 
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: "none",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      width: "240px",
+      display: 'none', 
     }),
   };
 
@@ -199,7 +188,7 @@ function JobPosting() {
 
               <div className=" flex flex-col gap-[16px] ">
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
-                  <div className="w-full justify-between  flex items-center  border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+                  <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
                     {search.map((headingObj, index) => (
                       <div className="" key={index}>
                         <Select
