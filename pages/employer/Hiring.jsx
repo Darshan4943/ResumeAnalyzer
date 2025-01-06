@@ -215,30 +215,19 @@ function Hiring() {
     setOpenSort(false);
   };
 
-    const customStyles = {
+  const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: "none",
-      boxShadow: "none",
-      width: "172px",
-      gap: "10px",
+      border: 'none', 
+      boxShadow: 'none', 
     }),
-    input:(provided) => ({
-      ...provided,
-      width: "100%",
-    }),
-
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0,
+      padding: 0, 
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: "none",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      width: "240px",
+      display: 'none', 
     }),
   };
 

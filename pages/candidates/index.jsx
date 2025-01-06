@@ -12,7 +12,7 @@ function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
   const [details, setDetails] = useState();
-  const { profileData } = useSelector((state) => state.profile.profileData); 
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
@@ -92,7 +92,7 @@ function MyClients() {
       })
       .then((response) => {
 
-     ;
+        ;
         toast.success("Candidate Deleted successfully");
         setSelectedIndexes([]);
         setSelect(false);
@@ -150,18 +150,12 @@ function MyClients() {
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">Candidates</div>
           {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
-          <div
-            style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-            className="rounded-[16px] p-4 bg-white"
+          <div className="rounded-[16px] p-4 bg-white"
           >
-            <div
-              // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-              className="flex flex-col gap-4  py-3 rounded-[24px]"
+            <div className="flex flex-col gap-4  py-3 rounded-[24px]"
             >
               <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
-                <div
-                  style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-                  className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center "
+                <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]"
                 >
                   <div className="flex gap-4  w-full items-center ">
                     <svg
@@ -193,7 +187,7 @@ function MyClients() {
                   {!select && (
                     <div
                       onClick={() => setSelect(!select)}
-                      className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
+                      className="scr420:py-3 scr420:px-[36px] px-2 py-2 flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[30px] items-center cursor-pointer"
                     >
                       <svg
                         className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
@@ -334,7 +328,7 @@ function MyClients() {
                       router.push("/candidates/CreateNewClient");
 
                     }}
-                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[51px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-[36px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[30px] text-white"
                     type="button"
                   >
                     <svg
