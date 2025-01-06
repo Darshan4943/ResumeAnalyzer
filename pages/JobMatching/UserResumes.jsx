@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { templates } from "../../../utils/data";
+import { templates } from "../../utils/data";
 import { useSelector } from "react-redux";
-import { PDFSvg, SearchIcon } from "../../../utils/svg";
+import { PDFSvg, SearchIcon } from "../../utils/svg";
 import Fuse from "fuse.js";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 const selectedStyle = {

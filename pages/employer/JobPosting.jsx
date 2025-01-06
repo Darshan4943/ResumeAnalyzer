@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
-
+import Select from "react-select";
 import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 import axios from "axios";
@@ -18,6 +18,7 @@ function JobPosting() {
   const [totalCount, setTotalCount] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
@@ -42,7 +43,39 @@ function JobPosting() {
     "Hiring Period",
   ];
 
-  const search = [
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
+        );
+        const data = response.data;
+        setAttributes(data);
+        setHeadings((prevHeadings) =>
+          prevHeadings.map((item) => {
+            if (item.heading === "Department") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.jobTitles])],
+              };
+            } else if (item.heading === "Location") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.locations])],
+              };
+            }
+            return item;
+          })
+        );
+      } catch (error) {
+        console.error("Error fetching job attributes:", error);
+      }
+    };
+
+    fetchAttributes();
+  }, []);
+
+  const [search, setHeadings] = useState([
     {
       heading: "Department",
       options: [
@@ -65,15 +98,14 @@ function JobPosting() {
       heading: "Priority",
       options: ["Yes", "No"],
     },
-  ];
+  ]);
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
+  const handleHeadingChange = (selectedOption, index) => {
     const selectedHeading = search[index].heading;
 
     setFilterData((prev) => ({
       ...prev,
-      [selectedHeading]: selectedOption,
+      [selectedHeading]: selectedOption ? selectedOption.value : "",
     }));
   };
 
@@ -120,6 +152,22 @@ function JobPosting() {
     setPage(0);
   };
 
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: 'none', 
+      boxShadow: 'none', 
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      padding: 0, 
+    }),
+    indicatorSeparator: (provided) => ({
+      ...provided,
+      display: 'none', 
+    }),
+  };
+
   return (
     <div className="">
       {toggle === 0 && (
@@ -142,19 +190,28 @@ function JobPosting() {
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
                   <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
                     {search.map((headingObj, index) => (
-                      <div key={index}>
-                        <select
-                          className=" bg-whites"
-                          onChange={(e) => handleHeadingChange(e, index)}
-                          value={filterData[headingObj.heading] || ""}
-                        >
-                          <option value="">{headingObj.heading}</option>
-                          {headingObj.options.map((option, optIndex) => (
-                            <option key={optIndex} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                      <div className="" key={index}>
+                        <Select
+                          options={headingObj.options.map((option) => ({
+                            value: option,
+                            label: option,
+                          }))}
+                          onChange={(selectedOption) =>
+                            handleHeadingChange(selectedOption, index)
+                          }
+                          value={
+                            filterData[headingObj.heading]
+                              ? {
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
+                              : null
+                          }
+                          placeholder={headingObj.heading}
+                          isSearchable={true}
+                          noOptionsMessage={() => "No options available"}
+                          styles={customStyles}
+                        />
                         {index < headings.length - 1 && <div></div>}
                       </div>
                     ))}

@@ -66,6 +66,7 @@ function Preboarding() {
       fetchJobs();
     }
   }, [id]);
+  
   return (
     <>
       {!editTemplate && (

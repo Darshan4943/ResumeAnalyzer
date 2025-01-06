@@ -37,6 +37,7 @@ function Collection() {
   const [folderName, setFolderName] = useState("");
   const inputRef = useRef(null);
   const [tab, setTab] = useState(null);
+  console.log(tab);
   const [ParentId, setParentId] = useState(null);
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -126,9 +127,9 @@ function Collection() {
       getTrashed();
 
     } else {
-      setTab(0);
+      setTab(1);
       setTabIndex(0);
-      getClients();
+      getFolderData();
 
     }
   };
@@ -973,42 +974,20 @@ function Collection() {
         </>
       )}
       <div className="">
-        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12  relative ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh]  ">
-            <div className="flex flex-col gap-5 ">
+        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:pt-6 pt-2 relative  ">
+          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%]  min-w-[188px] ">
+            <div className="flex flex-col gap-4 ">
               <p className="text-[18px] font-semibold h-[36px] ">
                 My Collection
               </p>
               
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] p-4 h-screen">
-                <button
-                  onClick={() => {
-                    router.push("/collection?clients=true");
-                  }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
-                    }   `}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_1148_17425)">
-                      <path
-                        d="M2.49967 17.5003C2.04134 17.5003 1.64898 17.3371 1.32259 17.0107C0.996202 16.6844 0.833008 16.292 0.833008 15.8337V5.00033H2.49967V15.8337H16.6663V17.5003H2.49967ZM5.83301 14.167C5.37467 14.167 4.98231 14.0038 4.65592 13.6774C4.32954 13.351 4.16634 12.9587 4.16634 12.5003V3.33366C4.16634 2.87533 4.32954 2.48296 4.65592 2.15658C4.98231 1.83019 5.37467 1.66699 5.83301 1.66699H9.99967L11.6663 3.33366H17.4997C17.958 3.33366 18.3504 3.49685 18.6768 3.82324C19.0031 4.14963 19.1663 4.54199 19.1663 5.00033V12.5003C19.1663 12.9587 19.0031 13.351 18.6768 13.6774C18.3504 14.0038 17.958 14.167 17.4997 14.167H5.83301ZM5.83301 12.5003H17.4997V5.00033H10.9788L9.31217 3.33366H5.83301V12.5003Z"
-                        fill="#1C1B1F"
-                      />
-                    </g>
-                  </svg>
-                  My Clients
-                </button>
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] p-4 ml:min-h-[560px]  ">
+                
                 <button
                   onClick={() => {
                     // setTab(1);
                     // setTabIndex(0);
-                    router.push("/collection?folders=true");
+                    router.push("/myCollection?folders=true");
                   }}
                   className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
                     }  `}
@@ -1031,7 +1010,30 @@ function Collection() {
                 </button>
                 <button
                   onClick={() => {
-                    router.push("/collection?trash=true");
+                    router.push("/myCollection?clients=true");
+                  }}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                    }   `}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_1148_17425)">
+                      <path
+                        d="M2.49967 17.5003C2.04134 17.5003 1.64898 17.3371 1.32259 17.0107C0.996202 16.6844 0.833008 16.292 0.833008 15.8337V5.00033H2.49967V15.8337H16.6663V17.5003H2.49967ZM5.83301 14.167C5.37467 14.167 4.98231 14.0038 4.65592 13.6774C4.32954 13.351 4.16634 12.9587 4.16634 12.5003V3.33366C4.16634 2.87533 4.32954 2.48296 4.65592 2.15658C4.98231 1.83019 5.37467 1.66699 5.83301 1.66699H9.99967L11.6663 3.33366H17.4997C17.958 3.33366 18.3504 3.49685 18.6768 3.82324C19.0031 4.14963 19.1663 4.54199 19.1663 5.00033V12.5003C19.1663 12.9587 19.0031 13.351 18.6768 13.6774C18.3504 14.0038 17.958 14.167 17.4997 14.167H5.83301ZM5.83301 12.5003H17.4997V5.00033H10.9788L9.31217 3.33366H5.83301V12.5003Z"
+                        fill="#1C1B1F"
+                      />
+                    </g>
+                  </svg>
+                  Collection
+                </button>
+                <button
+                  onClick={() => {
+                    router.push("/myCollection?trash=true");
                   }}
                   className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
                     }  `}
@@ -1082,6 +1084,7 @@ function Collection() {
             setIsCreate={setIsCreate}
             setIsFile={setIsFile}
             setIsCreateFolder={setIsCreateFolder}
+            getLimits={getLimits}
           />
         </div>
       </div>

@@ -228,117 +228,122 @@ function JdFiles({
   };
 
   return (
-    <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
-      <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
-        <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
-          {name && (
-            <svg
-              className="min-w-[32px]"
-              onClick={() => router.back()}
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g mask="url(#mask0_1706_29363)">
-                <path
-                  d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
-                  fill="#1C1B1F"
-                />
-              </g>
-            </svg>
-          )}
-          {/* {name && (
+    <>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+        <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px] w-[60%]">
+          <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
+            <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
+              {name && (
+                <svg
+                  className="min-w-[32px]"
+                  onClick={() => router.back()}
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g mask="url(#mask0_1706_29363)">
+                    <path
+                      d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
+                      fill="#1C1B1F"
+                    />
+                  </g>
+                </svg>
+              )}
+              {/* {name && (
             <span className="text-[14px] text-[#333333] font-normal">
               {name}
             </span>
           )} */}
-          <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
-            <SearchIcon />
+              <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
+                <SearchIcon />
 
-            <input
-              type="text"
-              className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
-              placeholder="Search"
-              onChange={(e) => changeHandler(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="w-full flex justify-end">
-          <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
-            <div className="flex gap-2 text-[14px] font-medium">
-              <label className="flex items-center gap-2 text-[14px] font-medium">
-                Select All
                 <input
-                  type="checkbox"
-                  className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
-                  style={{ width: "20px", height: "20px" }}
-                  // checked={selectAll}
-                  checked={selectedIndexes.length > 0}
-                  onChange={toggleSelectAll}
+                  type="text"
+                  className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
+                  placeholder="Search"
+                  onChange={(e) => changeHandler(e.target.value)}
                 />
-              </label>
+              </div>
             </div>
-            <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
-              {selectedIndexesFileTypes.length} selected
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
-      <div
-        className="flex flex-row flex-wrap gap-4  py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-        // style={{ overflowX: "auto" }}
-      >
-        {loading ? (
-          <div className="w-full ">
-            <MiniLoader />
-          </div>
-        ) : data?.length > 0 ? (
-          data?.map((item, index) => (
-            <>
-              <div
-                key={index}
-                onClick={() => openFolder(index, item._id, item.fileName, item)}
-                className="w-[98px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
-              >
-                <div className="relative">
-                  {fileIconSeter(item)}
-                  {/* {select && ( */}
-                  {(getAllFiles(item).filter((item) => item.type == "file")
-                    ?.length > 0 ||
-                    item.type === "file") && (
+            <div className="w-full flex justify-end">
+              <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
+                <div className="flex gap-2 text-[14px] font-medium">
+                  <label className="flex items-center gap-2 text-[14px] font-medium">
+                    Select All
                     <input
                       type="checkbox"
-                      className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                      className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
                       style={{ width: "20px", height: "20px" }}
-                      onClick={(e) => e.stopPropagation()}
-                      checked={selectedIndexes?.includes(item._id)}
-                      onChange={() => toggleSelect(item._id, item)}
+                      // checked={selectAll}
+                      checked={selectedIndexes.length > 0}
+                      onChange={toggleSelectAll}
                     />
-                  )}
-                  {/* )} */}
+                  </label>
                 </div>
-
-                <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
-                  {item.fileName.length > 17
-                    ? `${item.fileName.slice(0, 17)}...`
-                    : item.fileName}
-                </span>
-                <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                  {item.fileName}
+                <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
+                  {selectedIndexesFileTypes.length} selected
                 </div>
               </div>
-            </>
-          ))
-        ) : (
-          <div className="text-[20px] font-medium text-center w-full py-[24px]">
-            No Resume Available
+            </div>
           </div>
-        )}
+          <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
+          <div
+            className="flex flex-row flex-wrap gap-4  py-4  h-[50vh] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+          // style={{ overflowX: "auto" }}
+          >
+            {loading ? (
+              <div className="w-full ">
+                <MiniLoader />
+              </div>
+            ) : data?.length > 0 ? (
+              data?.map((item, index) => (
+                <>
+                  <div
+                    key={index}
+                    onClick={() => openFolder(index, item._id, item.fileName, item)}
+                    className="w-[98px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
+                  >
+                    <div className="relative">
+                      {fileIconSeter(item)}
+                      {/* {select && ( */}
+                      {(getAllFiles(item).filter((item) => item.type == "file")
+                        ?.length > 0 ||
+                        item.type === "file") && (
+                          <input
+                            type="checkbox"
+                            className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                            style={{ width: "20px", height: "20px" }}
+                            onClick={(e) => e.stopPropagation()}
+                            checked={selectedIndexes?.includes(item._id)}
+                            onChange={() => toggleSelect(item._id, item)}
+                          />
+                        )}
+                      {/* )} */}
+                    </div>
+
+                    <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
+                      {item.fileName.length > 17
+                        ? `${item.fileName.slice(0, 17)}...`
+                        : item.fileName}
+                    </span>
+                    <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                      {item.fileName}
+                    </div>
+                  </div>
+                </>
+              ))
+            ) : (
+              <div className="text-[20px] font-medium text-center w-full py-[24px]">
+                No Resume Available
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
