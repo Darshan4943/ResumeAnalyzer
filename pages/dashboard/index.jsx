@@ -270,9 +270,9 @@ function Dashboard({ toggleContentt }) {
   ];
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
     } else return loginListRecruiter;
   };
