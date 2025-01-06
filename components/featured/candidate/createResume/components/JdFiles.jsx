@@ -29,7 +29,7 @@ function JdFiles({
         return a.type === "folder" ? -1 : 1;
       });
     }
-    // sortFoldersAndFiles(details);
+    sortFoldersAndFiles(details);
     setData(details);
     setAllData(details);
   }, [details]);
@@ -52,7 +52,7 @@ function JdFiles({
       data?.fileName?.includes("DOC") ||
       data?.fileName?.includes("DOCX")
     ) {
-      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
+      return <img src="/images/docIcon.png" className="h-[42px] w-[42px]" />;
       m;
     } else if (
       data?.fileName?.includes("pdf") ||
@@ -68,8 +68,8 @@ function JdFiles({
     } else {
       return (
         <svg
-          width="57"
-          height="48"
+          width="50"
+          height="41"
           viewBox="0 0 57 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg "
@@ -228,9 +228,8 @@ function JdFiles({
   };
 
   return (
-    <>
-      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+  
+      
         <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px] w-[60%]">
           <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
@@ -304,7 +303,7 @@ function JdFiles({
                   <div
                     key={index}
                     onClick={() => openFolder(index, item._id, item.fileName, item)}
-                    className="w-[98px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
+                    className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] rounded-[8px] cursor-pointer "
                   >
                     <div className="relative">
                       {fileIconSeter(item)}
@@ -324,7 +323,7 @@ function JdFiles({
                       {/* )} */}
                     </div>
 
-                    <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
+                    <span className=" text-[12px] text-[#333333] text-center break-all">
                       {item.fileName.length > 17
                         ? `${item.fileName.slice(0, 17)}...`
                         : item.fileName}
@@ -342,8 +341,8 @@ function JdFiles({
             )}
           </div>
         </div>
-      </div>
-    </>
+    
+   
   );
 }
 
