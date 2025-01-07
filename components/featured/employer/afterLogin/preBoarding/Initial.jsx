@@ -1,33 +1,43 @@
 import React, { useEffect, useState } from "react";
-
 import StartPreboarding from "./StartPreboarding";
 import {
-  applicants,
   applicantsMobile,
   headings,
 } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
 
-const Initial = ({ toggleContentt, setToggle, jobs }) => {
+const Initial = ({ jobs, fetchPreboardings }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [openSort, setOpenSort] = useState(false);
-  const [openThreeDts, setOpenThreeDts] = useState(false);
-  const [checkedApplicants, setCheckedApplicants] = useState({});
+  const [checkedjob, setCheckedApplicants] = useState({});
   const [applicant, selectedApplicant] = useState();
+  const [setOpenThreeDts] = useState(false);
+
+  useEffect(() => {
+    if (applicant?.applicantId) {
+      fetchPreboardings(applicant.applicantId);
+    }
+  }, [applicant]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
+    console.log(
+      `Heading changed: ${selectedHeading} - New Option: ${selectedOption}`
+    );
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const labels = [
     "Name of Candidate",
     "Job Role",
@@ -42,6 +52,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
       [index]: !prev[index],
     }));
   };
+
   return (
     <>
       <div className="web w-full">
@@ -146,7 +157,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                 <>
                   <div
                     className={`flex w-[100%] p-[16px] justify-between items-center ${
-                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                      checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
                     }`}
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
@@ -155,7 +166,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                           <input
                             className="w-[24px] h-[24px]"
                             type="checkbox"
-                            checked={!!checkedApplicants[index]}
+                            checked={!!checkedjob[index]}
                             onChange={() => handleCheckboxChange(index)}
                           />
                           <img
@@ -190,47 +201,56 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
                           className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                            checkedApplicants[index]
+                            checkedjob[index]
                               ? "bg-[#FFFFFF]"
-                              : applicants.status === "Interview"
+                              : job.status === "Interview"
                               ? "bg-[#26A4FF1A]"
-                              : applicants.status === "Hired"
+                              : job.status === "Hired"
                               ? "bg-[#56CDAD1A]"
-                              : applicants.status === "Shortlisted"
+                              : job.status === "Shortlisted"
                               ? "bg-[#4640DE1A]"
-                              : applicants.status === "Rejected"
+                              : job.status === "Rejected"
                               ? "bg-[#FF65501A]"
-                              : applicants.status === "In Review"
+                              : job.status === "In Review"
                               ? "bg-[#EB85331A]"
                               : ""
                           } ${
-                            applicants.status === "Interview"
+                            job.status === "Interview"
                               ? "text-[#26A4FF]"
-                              : applicants.status === "Hired"
+                              : job.status === "Hired"
                               ? "text-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
+                              : job.status === "Shortlisted"
                               ? "text-[#4640DE]"
-                              : applicants.status === "Rejected"
+                              : job.status === "Rejected"
                               ? "text-[#FF6550]"
-                              : applicants.status === "In Review"
+                              : job.status === "In Review"
                               ? "text-[#FFB836]"
                               : "text-[#333333]"
                           }`}
                         >
-                          {applicants.status}
+                          {job.status}
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1 ">
                         <div className="flex   items-center w-full  justify-between">
-                          <button
-                            onClick={() => {
-                              setStartPreboarding(true);
-                              selectedApplicant(job);
-                            }}
-                            className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat "
-                          >
-                            Start Preboarding
-                          </button>
+                          <div key={index}>
+                            {job?.isPreboarding ? (
+                              <button className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                Intied
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  setStartPreboarding(true);
+                                  selectedApplicant(job);
+                                }}
+                                className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
+                              >
+                                Start Preboarding
+                              </button>
+                            )}
+                          </div>
+
                           <img
                             onClick={() => {
                               setOpenThreeDts(true);
@@ -251,7 +271,7 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
           rowsPerPageOptions={[5, 10, 15]}
           component="div"
           className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-          count={applicants.length}
+          count={jobs.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -449,15 +469,16 @@ const Initial = ({ toggleContentt, setToggle, jobs }) => {
               ))}
           </div>
         </div>
+
         <TablePagination
           rowsPerPageOptions={[5, 10, 15]}
           component="div"
-          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-          count={applicants.length}
+          count={jobs.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
         />
       </div>
       {startPreboarding && (

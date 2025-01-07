@@ -1,6 +1,4 @@
-// import Initial from "@/components/featured/employer/afterLogin/preBoarding/Initial";
 import React, { useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
 import Initial from "../../components/featured/employer/afterLogin/preBoarding/Initial";
 import Documention from "../../components/featured/employer/afterLogin/preBoarding/Documention";
@@ -21,24 +19,16 @@ function Preboarding() {
   const router = useRouter();
   const query = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const [toggle, setToggle] = useState(0);
-
   const [preview, setPreview] = useState(false);
   const [activeOption, setActiveOption] = useState("In Preboarding");
   const [id, setId] = useState("");
+  const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState(null);
+  const [dataState, setDataState] = useState({
+    preboardings: [],
+    error: null,
+  });
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal._id) {
@@ -46,14 +36,11 @@ function Preboarding() {
     }
   }, [userDataGlobal]);
 
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/job/getJobById/${id}`
+          `http://localhost:2000/api/job/getjobapplicantstatus/${id}`
         );
         setJobs(response.data);
       } catch (err) {
@@ -66,7 +53,29 @@ function Preboarding() {
       fetchJobs();
     }
   }, [id]);
-  
+
+  const fetchPreboardings = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getPreboardings/${id}`
+      );
+
+      setDataState({
+        preboardings: response.data.data,
+        error: null,
+      });
+
+      console.log("Preboardings data:", response.data.data);
+    } catch (err) {
+      console.error("Error:", err);
+
+      setDataState({
+        preboardings: [],
+        error: err.response?.data?.message || err.message,
+      });
+    }
+  };
+
   return (
     <>
       {!editTemplate && (
@@ -159,7 +168,11 @@ function Preboarding() {
                 <>
                   {toggle === 0 && (
                     <>
-                      <Initial jobs={jobs} setToggle={setToggle} />
+                      <Initial
+                        jobs={jobs}
+                        setToggle={setToggle}
+                        fetchPreboardings={fetchPreboardings}
+                      />
                     </>
                   )}
 
