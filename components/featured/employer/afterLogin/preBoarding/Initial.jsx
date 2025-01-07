@@ -235,7 +235,8 @@ const Initial = ({ jobs, fetchPreboardings }) => {
                         <div className="flex   items-center w-full  justify-between">
                           <div key={index}>
                             {job?.isPreboarding ? (
-                              <button className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                              
+                              <button className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
                                 Intied
                               </button>
                             ) : (
