@@ -1,7 +1,8 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
-function JdMatchCard({ resumeList, extratctedData }) {
-    console.log(resumeList);
+function JdMatchCard({ resumeList, extratctedData,setTab,setUserDetails }) {
+  const router = useRouter();
     return (
 
         <div className="w-[1272px] flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] p-4 ">
@@ -168,7 +169,7 @@ function JdMatchCard({ resumeList, extratctedData }) {
 
                         <div className="flex gap-[16px] items-center">
                             <div className=" py-[12px] px-[36px] border-[1px] border-[#06A9EF] rounded-[30px]">
-                                <button className="text-[14px] font-[600]">
+                                <button onClick={()=>{setTab(2);setUserDetails(user)}} className="text-[14px] font-[600]">
                                     See Application
                                 </button>
                             </div>

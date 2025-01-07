@@ -21,6 +21,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import LimitUsedModal from "../../components/models/limitUsedModal";
 import SelectPost from "./selectPost";
 import JdMatchCard from "./JdMatchCard";
+import ApplicantDetails from "./ApplicantDetails";
 
 
 const JobMatching = () => {
@@ -63,6 +64,8 @@ const JobMatching = () => {
   const [tab, setTab] = useState(0)
   const [selectedJob, setSelectedJob] = useState()
   const [isMatched, setIsMatched] = useState(false)
+
+  const [userDetails, setUserDetails] = useState()
   const getLimits = () => {
     const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
     setJdCountMonthly(jdCountMonthly)
@@ -182,7 +185,7 @@ const JobMatching = () => {
 
   }, [tab]);
 
-  console.log(extratctedData);
+  
 
   useEffect(() => {
     if (count > 3) {
@@ -370,7 +373,7 @@ const JobMatching = () => {
             </div>
           )}
 
-          <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh]  ">
+          <div className=" flex flex-col gap-4   ">
             {loadingg && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -424,11 +427,10 @@ const JobMatching = () => {
                 </div>
               </>
             )}
-            <div ref={taskRef}>
+            <div ref={taskRef}   >
               {isCollection && (
-                <>
-                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-                  <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+              
+                 
                     <JdFiles
                       details={details}
                       query={router.query}
@@ -437,9 +439,10 @@ const JobMatching = () => {
                       loading={loading}
                       selectedIndexesFileTypes={selectedIndexesFileTypes}
                       setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+                      setIsCollection={setIsCollection}
                     />
-                  </div>
-                </>
+                  
+              
               )}
             </div>
 
@@ -512,7 +515,7 @@ const JobMatching = () => {
 
               {isMatched &&
                 <div className="ml:w-[56%] w-full">
-                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} />
+                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails}/>
                 </div>
               }
             </div>
@@ -522,6 +525,10 @@ const JobMatching = () => {
           </div>
         </>
       }
+        {tab === 2 &&
+        <ApplicantDetails userDetails={userDetails} setTab={setTab} />
+
+}
     </>
   );
 };

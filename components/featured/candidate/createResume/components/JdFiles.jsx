@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
+import { ClosedIcon, ClosedIcon1, DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
 import Fuse from "fuse.js";
 
+
 function JdFiles({
+  setIsCollection,
   files,
   details,
   query,
@@ -228,10 +230,12 @@ function JdFiles({
   };
 
   return (
-  
-      
-        <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px] w-[60%]">
-          <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
+    <>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
+        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit w-[60%] ">
+          <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] relative ">
+            
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
               {name && (
                 <svg
@@ -340,9 +344,13 @@ function JdFiles({
               </div>
             )}
           </div>
+          <div className="flex justify-end gap-4">
+            <button onClick={()=>setIsCollection(false)} className="border border-blue px-6 py-2 text-[14px] font-medium rounded-[30px]"> Cancel</button>
+            <button onClick={()=>setIsCollection(false)} className="border border-blue bg-blue px-6 py-2 text-[14px] text-white font-medium rounded-[30px]"> Done</button>
+          </div>
         </div>
-    
-   
+      </div>
+    </>
   );
 }
 
