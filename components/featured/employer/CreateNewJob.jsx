@@ -14,7 +14,7 @@ import "react-quill/dist/quill.snow.css";
 import Description from "../candidate/jobs/Description";
 import ImageCropper from "../candidate/createResume/components/imageCropper";
 import dynamic from "next/dynamic";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -188,7 +188,7 @@ function CreateNewJob({ setToggle }) {
 
       console.log("Success:", response.data);
       // router.push("/employer/JobPosting");
-      openModel(true)
+      openModel(true);
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -196,7 +196,7 @@ function CreateNewJob({ setToggle }) {
       console.error("Error:", error);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -370,7 +370,7 @@ function CreateNewJob({ setToggle }) {
   };
 
   const toggleModal = () => {
-    console.log("object")
+    console.log("object");
     openModel(!model);
   };
 
@@ -474,10 +474,11 @@ function CreateNewJob({ setToggle }) {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -498,9 +499,9 @@ function CreateNewJob({ setToggle }) {
                             value={
                               data.Keywords
                                 ? data.Keywords.map((keyword) => ({
-                                  value: keyword,
-                                  label: keyword,
-                                }))
+                                    value: keyword,
+                                    label: keyword,
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -508,8 +509,8 @@ function CreateNewJob({ setToggle }) {
                                 ...data,
                                 Keywords: selectedOptions
                                   ? selectedOptions.map(
-                                    (option) => option.value
-                                  )
+                                      (option) => option.value
+                                    )
                                   : [],
                               });
                             }}
@@ -705,10 +706,11 @@ function CreateNewJob({ setToggle }) {
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                  formError.companyName
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -740,9 +742,9 @@ function CreateNewJob({ setToggle }) {
                                 value={
                                   data.location
                                     ? data.location.map((location) => ({
-                                      value: location,
-                                      label: location,
-                                    }))
+                                        value: location,
+                                        label: location,
+                                      }))
                                     : []
                                 }
                                 onChange={(selectedOptions) => {
@@ -801,10 +803,11 @@ function CreateNewJob({ setToggle }) {
                               Country <span className="text-[red]">*</span>
                             </div>
                             <select
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.country
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
+                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                formError.country
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                               name="country"
                               value={data.country}
                               onChange={handleChange}
@@ -840,7 +843,11 @@ function CreateNewJob({ setToggle }) {
                                 readOnly={false}
                                 modules={{
                                   toolbar: [
-                                    [{ header: "1" }, { header: "2" }, { font: [] }],
+                                    [
+                                      { header: "1" },
+                                      { header: "2" },
+                                      { font: [] },
+                                    ],
                                     [{ list: "ordered" }, { list: "bullet" }],
                                     ["bold", "italic", "underline", "strike"],
                                     [{ align: [] }],
@@ -1060,16 +1067,17 @@ function CreateNewJob({ setToggle }) {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1143,32 +1151,11 @@ function CreateNewJob({ setToggle }) {
                         <button className="scr700:hidden text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
                           Create Basic Profile Form
                         </button>
-                        {/* {id ? null : (
-                          <button
-                            onClick={resetFormData}
-                            className="text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
-                          >
-                            Reset
-                          </button>
-                        )}
-
-                        <button
-                          onClick={toggleModal}
-                          className="text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
-                        >
-                          Preview
-                        </button> */}
                       </div>
 
                       <div className="flex justify-between w-full gap-2 sm:gap-4">
-                        {/* <div
-                          onClick={handleClick}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
-                        >
-                          Cancel
-                        </div> */}
                         <div className="flex w-full justify-between gap-1">
-                          <button className="hidden scr700:block text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
+                          <button className=" min-w-[258px] hidden scr700:block text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
                             Create Basic Profile Form
                           </button>
                           <div className="flex w-full justify-between gap-3">
@@ -1179,7 +1166,6 @@ function CreateNewJob({ setToggle }) {
                               Cancel
                             </div>
                             <button
-                              // onClick={toggleModal}
                               onClick={handleSubmit}
                               className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
                             >

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import GenerateOffer from "./GenerateOffer";
 import EditOfferTemplate from "./EditOfferTemplate";
+import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
 
 const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
 

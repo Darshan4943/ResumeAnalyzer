@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import StartPreboarding from "./StartPreboarding";
-import {
-  applicantsMobile,
-  headings,
-} from "../../../../../utils/preboardArray";
+import { applicantsMobile, headings } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
+import { useRouter } from "next/navigation";
 
-const Initial = ({ jobs, fetchPreboardings }) => {
+const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
@@ -14,7 +12,7 @@ const Initial = ({ jobs, fetchPreboardings }) => {
   const [checkedjob, setCheckedApplicants] = useState({});
   const [applicant, selectedApplicant] = useState();
   const [setOpenThreeDts] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     if (applicant?.applicantId) {
       fetchPreboardings(applicant.applicantId);
@@ -53,66 +51,13 @@ const Initial = ({ jobs, fetchPreboardings }) => {
     }));
   };
 
+  const handleNavigation = () => {
+    setToggle();
+  };
+
   return (
     <>
       <div className="web w-full">
-        <div className="flex w-full items-center mb-6">
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">Initial</div>
-            <div className="text-[14px] font-[600] text-[#333333]">2</div>
-          </div>
-          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">
-              Documentation
-            </div>
-            <div className="text-[14px] font-[600] text-[#333333]">10</div>
-          </div>
-          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">
-              Verification
-            </div>
-            <div className="text-[14px] font-[600] text-[#333333]">2</div>
-          </div>
-          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">
-              Release Offer
-            </div>
-            <div className="text-[14px] font-[600] text-[#333333]">10</div>
-          </div>
-          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">
-              Offer Acceptance
-            </div>
-            <div className="text-[14px] font-[600] text-[#333333]">10</div>
-          </div>
-          <div className="h-[2px] bg-[#9C9C9C] w-[1.57%]"></div>
-          <div
-            style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
-            className="w-[15.35%] bg-[#FFFFFF] rounded-[8px] px-[16px] py-[14px] flex items-center justify-between"
-          >
-            <div className="text-[12px] font-[600] text-[#646464]">Hired</div>
-            <div className="text-[14px] font-[600] text-[#333333]">10</div>
-          </div>
-        </div>
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
             {headings.map((headingObj, index) => (
@@ -235,7 +180,6 @@ const Initial = ({ jobs, fetchPreboardings }) => {
                         <div className="flex   items-center w-full  justify-between">
                           <div key={index}>
                             {job?.isPreboarding ? (
-                              
                               <button className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
                                 Intied
                               </button>

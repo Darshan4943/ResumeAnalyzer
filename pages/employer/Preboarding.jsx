@@ -12,6 +12,7 @@ import ApplicantPreview from "../../components/featured/employer/afterLogin/preB
 import EditOfferTemplate from "../../components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { preboarding } from "../../utils/preboardArray";
 
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
@@ -166,15 +167,50 @@ function Preboarding() {
 
               {activeOption === "In Preboarding" && (
                 <>
+                  <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
+                    {preboarding.map((e, index) => (
+                      <>
+                        <div
+                          onClick={() => setToggle(index)}
+                          key={index}
+                          className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${
+                            toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                          }`}
+                          style={{
+                            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                          }}
+                        >
+                          <p
+                            className={`text-[14px] text-[#333] leading-[160%]  ${
+                              toggle === index ? "text-white" : " "
+                            }`}
+                          >
+                            {e.name}
+                          </p>
+                          <div className=" flex ">
+                            <p className="bg-[#E9EBFD]  p-1 rounded-[8px] w-[30px] flex justify-center items-center">
+                              {e.num}
+                            </p>
+                          </div>
+                        </div>
+                        <div>{e.line}</div>
+                      </>
+                    ))}
+                  </div>
+
+                  {/* INITIAL 1ST PAGE  */}
+
                   {toggle === 0 && (
                     <>
                       <Initial
                         jobs={jobs}
-                        setToggle={setToggle}
                         fetchPreboardings={fetchPreboardings}
+                        setToggle={setToggle}
                       />
                     </>
                   )}
+
+                  {/* DOCUMENTATION PAGE  */}
 
                   {toggle === 1 && (
                     <>
@@ -182,11 +218,15 @@ function Preboarding() {
                     </>
                   )}
 
+                  {/* VERIFICATION PAGE  */}
+
                   {toggle === 2 && (
                     <>
                       <Verification setToggle={setToggle} />
                     </>
                   )}
+
+                  {/* OFFER PAGE  */}
                   {toggle === 3 && (
                     <>
                       <Offer
@@ -196,11 +236,15 @@ function Preboarding() {
                     </>
                   )}
 
+                  {/* Offer Acceptance PAGE  */}
+
                   {toggle === 4 && (
                     <>
                       <Acceptance setToggle={setToggle} />
                     </>
                   )}
+
+                  {/* HIRED */}
 
                   {toggle === 5 && (
                     <>
