@@ -50,6 +50,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
     isCertifications: false,
     isExperience: false,
     note: "",
+    isSuccess: true,
   });
 
   const handleChange1 = useCallback(

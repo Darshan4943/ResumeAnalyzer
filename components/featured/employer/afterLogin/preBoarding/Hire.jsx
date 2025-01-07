@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
 const Hire = ({ toggleContentt, setPreview }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
