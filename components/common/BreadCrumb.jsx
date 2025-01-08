@@ -19,29 +19,33 @@ const Breadcrumb = () => {
   };
 
  
-  const breadcrumbItems = pathSegments.slice(1).map((segment, index) => {
-    const fullPath = `/${pathSegments.slice(0, index + 2).join('/')}`; 
-
+  const breadcrumbItems = (pathSegments.length > 1 
+    ? pathSegments.slice(1) 
+    : pathSegments
+  ).map((segment, index) => {
+    const fullPath = `/${pathSegments.slice(0, pathSegments.length > 1 ? index + 2 : index + 1).join('/')}`;
+  
     if (segment === 'JobPost' && queryParams.get('id')) {
       return {
-        label: `Job Post`, 
-        path: fullPath, 
-      };
-    }
-
-    if (segment === 'ApplicantDetails' && queryParams.get('id')) {
-      return {
-        label: `Applicant Details`, 
+        label: 'Job Post',
         path: fullPath,
       };
     }
-
+  
+    if (segment === 'ApplicantDetails' && queryParams.get('id')) {
+      return {
+        label: 'Applicant Details',
+        path: fullPath,
+      };
+    }
+  
     return {
       label: breadcrumbMapping[segment] || segment,
-      path: fullPath, 
+      path: fullPath,
     };
-  })
-
+  });
+  
+  
   
   return (
     <nav className=" py-6">

@@ -54,7 +54,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal?._id)
       .then((res) => {
 
         setIsFree(res.data.success);

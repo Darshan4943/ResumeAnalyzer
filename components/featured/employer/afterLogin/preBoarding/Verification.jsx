@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
+import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
 
 
 const Verification = ({ toggleContentt, setToggle }) => {

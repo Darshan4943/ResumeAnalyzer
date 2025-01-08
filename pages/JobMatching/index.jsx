@@ -19,6 +19,9 @@ import ExtraSectionForm from "../recruiter/jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../recruiter/jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
 import LimitUsedModal from "../../components/models/limitUsedModal";
+import SelectPost from "./selectPost";
+import JdMatchCard from "./JdMatchCard";
+import ApplicantDetails from "./ApplicantDetails";
 
 
 const JobMatching = () => {
@@ -27,7 +30,8 @@ const JobMatching = () => {
   const [isAnimate, setIsAnimate] = useState(true);
   const router = useRouter();
   const fileRef = useRef(null);
-  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
   const [text, setText] = useState("");
@@ -39,8 +43,8 @@ const JobMatching = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
-const [collection,setCollection] = useState()
-const [isCollection,setIsCollection] = useState()
+  const [collection, setCollection] = useState()
+  const [isCollection, setIsCollection] = useState()
   //sideBar implimentation
   const [showMatchingSidebar, setShowsideBar] = useState(false);
   const [extratctedData, setExtractedData] = useState(null);
@@ -52,12 +56,16 @@ const [isCollection,setIsCollection] = useState()
   // const [message, setMessage] = useState("Analyzing Data, Please wait");
   const [mainMessage, setMainMessage] = useState("Analyzing Data");
   const [findMatchLoader, setMatchLoader] = useState(false);
-
+  const taskRef = useRef(null);
   const [jdCountMonthly, setJdCountMonthly] = useState(0)
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0)
   const [activePlan, setActivePlan] = useState(0)
   const [limitPopup, setLimitPopup] = useState(false);
+  const [tab, setTab] = useState(0)
+  const [selectedJob, setSelectedJob] = useState()
+  const [isMatched, setIsMatched] = useState(false)
 
+  const [userDetails, setUserDetails] = useState()
   const getLimits = () => {
     const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
     setJdCountMonthly(jdCountMonthly)
@@ -72,18 +80,20 @@ const [isCollection,setIsCollection] = useState()
     getLimits()
   }, [])
 
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsCollection(false);
+    }
+  };
+  
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setShowsideBar(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, []);
+  }, [taskRef]);
+  
+
 
   useEffect(() => {
     if (parentId) {
@@ -130,7 +140,7 @@ const [isCollection,setIsCollection] = useState()
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
 
@@ -152,8 +162,30 @@ const [isCollection,setIsCollection] = useState()
       });
   };
 
-  console.log(jdCountMonthly, jdCountMonthlyLimit)
+  const getData = async () => {
+    setLoading(true);
+    if (selectedJob) {
+      await axios
+        .get("http://localhost:2000/api/job/getById/" + selectedJob)
+        .then((res) => {
+          setLoading(false);
+          setExtractedData(res.data);
 
+
+        })
+        .catch((err) => {
+          setLoading(false);
+
+          console.log(err);
+        });
+    }
+  };
+  useEffect(() => {
+    getData();
+
+  }, [tab]);
+
+  
 
   useEffect(() => {
     if (count > 3) {
@@ -203,6 +235,7 @@ const [isCollection,setIsCollection] = useState()
       }
     );
 
+
     if (Array.isArray(response.data)) {
       outputData.push(...response.data);
     } else {
@@ -218,7 +251,7 @@ const [isCollection,setIsCollection] = useState()
     setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
-    if (Object.keys(extratctedData).length > 5) {
+    if (Object?.keys(extratctedData).length > 5) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       const counter = { count: 0 };
@@ -255,6 +288,7 @@ const [isCollection,setIsCollection] = useState()
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
+      setIsMatched(true)
       setSelectedIndexes([])
       setSelectedIndexesFilesType([])
       setButtonToggle(false);
@@ -324,141 +358,177 @@ const [isCollection,setIsCollection] = useState()
 
   return (
     <>
-      {limitPopup && (
-        <div className="z-[200000]">
-          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+      {tab === 0 &&
+        <div>
+          <SelectPost setTab={setTab} setSelectedJob={setSelectedJob} />
         </div>
-      )}
+      }
 
-      <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh]  ">
-        {loadingg && (
-          <>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-                <div className="w-[165px] h-[124px] flex items-center justify-center">
-                  <motion.img
-                    src="/images/resumeBuilder/bot.png"
-                    alt=""
-                    className="h-[68px] w-[68px]"
-                    animate={{ y: [-30, 0, -30] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  />
-                </div>
-                <div className="flex flex-col items-center justify-center relative z-100">
-                  <span className="text-center text-[#fff] text-[16px]">
-                    Analyzing Data,
-                  </span>
-                  <span className="text-left text-[#fff] text-[16px] loading_dots">
-                    Please wait
-                  </span>
-                </div>
-              </div>
+
+      {tab === 1 &&
+        <>
+          {limitPopup && (
+            <div className="z-[200000]">
+              <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
             </div>
-          </>
-        )}
+          )}
 
-        {findMatchLoader && (
-          <>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-                <div className="w-[165px] h-[124px] flex items-center justify-center">
-                  <motion.img
-                    src="/images/resumeBuilder/bot.png"
-                    alt=""
-                    className="h-[68px] w-[68px]"
-                    animate={{ y: [-30, 0, -30] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  />
+          <div className=" flex flex-col gap-4   ">
+            {loadingg && (
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                  <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                    <div className="w-[165px] h-[124px] flex items-center justify-center">
+                      <motion.img
+                        src="/images/resumeBuilder/bot.png"
+                        alt=""
+                        className="h-[68px] w-[68px]"
+                        animate={{ y: [-30, 0, -30] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-center relative z-100">
+                      <span className="text-center text-[#fff] text-[16px]">
+                        Analyzing Data,
+                      </span>
+                      <span className="text-left text-[#fff] text-[16px] loading_dots">
+                        Please wait
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center justify-center relative z-100">
-                  <span className="text-center text-[#fff] text-[16px]">
-                    {mainMessage},
-                  </span>
-                  <span className="text-left text-[#fff] text-[16px] loading_dots">
-                    Please wait
-                  </span>
+              </>
+            )}
+
+            {findMatchLoader && (
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                  <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                    <div className="w-[165px] h-[124px] flex items-center justify-center">
+                      <motion.img
+                        src="/images/resumeBuilder/bot.png"
+                        alt=""
+                        className="h-[68px] w-[68px]"
+                        animate={{ y: [-30, 0, -30] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-center relative z-100">
+                      <span className="text-center text-[#fff] text-[16px]">
+                        {mainMessage},
+                      </span>
+                      <span className="text-left text-[#fff] text-[16px] loading_dots">
+                        Please wait
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </>
+            )}
+            <div ref={taskRef}   >
+              {isCollection && (
+              
+                 
+                    <JdFiles
+                      details={details}
+                      query={router.query}
+                      setSelectedIndexes={setSelectedIndexes}
+                      selectedIndexes={selectedIndexes}
+                      loading={loading}
+                      selectedIndexesFileTypes={selectedIndexesFileTypes}
+                      setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+                      setIsCollection={setIsCollection}
+                    />
+                  
+              
+              )}
             </div>
-          </>
-        )}
-        <div className="flex flex-col gap-4">
-          <div className="p-4 bg-white rounded-[16px] flex flex-col gap-1">
-            <p className="text-[18px] font-medium">
-              JD Matching
-            </p>
-            <p className="text-[12px] font-medium text-[#646464]">
-              upload bulk CV / Resumes & get quick filtered data
-            </p>
 
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-                <div className="w-full text-[14px] font-montserrat  font-medium">
-                  Education Type
-                </div>
-                <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
-                  <input
-                    type="radio"
-                    className="h-4 w-4 custom-radio"
-                    value={collection}
-                    checked={collection == "MyCollection"}
-                    onChange={() => {
-                      setCollection("MyCollection" );
-                      setIsCollection(true)
-                    }}
-                  />
-                  <label>My Collection</label>
 
-                  <input
-                    // disabled={!isChecked}
-                    type="radio"
-                    className="h-4 w-4 custom-radio"
-                    value={collection}
-                    checked={collection == "SkilotechCollection"}
-                    onChange={() => {
-                      setCollection("SkilotechCollection" );
-                      setIsCollection(true)
-                    }}
-                  />
-                  <label>Skilotech Collection</label>
+            <div className="flex flex-col gap-4 p-4 bg-white rounded-[16px]">
+              <div className=" flex flex-col gap-1">
+                <p className="text-[18px] font-medium">
+                  JD Matching for {extratctedData?.jobTitle}
+                </p>
+
+
+              </div>
+              <div className="flex flex-col gap-2 w-full">
+
+                <div className="w-full flex gap-4 text-[14px] font-montserrat items-center font-medium">
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="radio"
+                      className="h-4 w-4 custom-radio"
+                      value={collection}
+                      checked={collection == "MyCollection"}
+                      onChange={() => {
+                        setCollection("MyCollection");
+                        setIsCollection(true)
+                      }}
+                    />
+                    <label>My Collection</label>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <input
+                      // disabled={!isChecked}
+                      type="radio"
+                      className="h-4 w-4 custom-radio"
+                      value={collection}
+                      checked={collection == "SkilotechCollection"}
+                      onChange={() => {
+                        setCollection("SkilotechCollection");
+                        setIsCollection(true)
+                      }}
+                    />
+                    <label>Skilotech Collection</label>
+                  </div>
                 </div>
               </div>
-
-        </div>
-        <div className="flex flex-col gap-6 h-full relative overflow-hidden">
-          <div className="flex  flex-col ml:gap-6 md:gap-2 h-full">
-           {isCollection &&
-             
-
-                <JdFiles
-                  details={details}
-                  query={router.query}
-                  setSelectedIndexes={setSelectedIndexes}
-                  selectedIndexes={selectedIndexes}
-                  loading={loading}
-                  selectedIndexesFileTypes={selectedIndexesFileTypes}
-                  setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+              <div className="flex flex-row gap-4 items-center">
+                <span className=" text-[14px] font-[500] text-[#333333]">
+                  Set Filter Limit{" "}
+                </span>
+                <input
+                  type="text"
+                  value={resumeCount}
+                  onChange={(e) => {
+                    setResumeCount(e.target.value);
+                  }}
+                  name=""
+                  id=""
+                  placeholder="Ex. 5"
+                  className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
                 />
+              </div>
+              <div onClick={() => MatchJob()} className="bg-blue text-white px-4 py-2 rounded-[12px] font-medium w-[130px]">Find Match</div>
 
-           }
-             
-
-         
-            <div className="ml:w-[56%] w-full">
-              <JdMatching
-                details={details}
-                resumeList={resumeList}
-                isAnimate={isAnimate}
-                setShowsideBar={setShowsideBar}
-              />
             </div>
+            <div className="flex flex-col gap-6 h-full  ">
+
+
+
+
+
+
+              {isMatched &&
+                <div className="ml:w-[56%] w-full">
+                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails}/>
+                </div>
+              }
+            </div>
+
+
+
           </div>
-        </div>
+        </>
+      }
+        {tab === 2 &&
+        <ApplicantDetails userDetails={userDetails} setTab={setTab} />
 
-
-      </div>
+}
     </>
   );
 };
