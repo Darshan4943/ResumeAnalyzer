@@ -1,58 +1,32 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Index() {
   const router = useRouter()
-  const CompanyData = [
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-    {
-      name: "Freedygo LTD",
-      description: "Brief description for your company. URLs are hyperlinked."
-    },
-  ]
+  const [companyData, setCompanyData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:2000/api/company/getCompanies");
+        setCompanyData(response.data);
+
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching company data:", err);
+        setError("Error fetching company data.");
+        setLoading(false);
+      }
+    };
+
+    fetchCompanyData();
+  }, []);
+
+
 
   return (
     <div className='flex flex-col gap-4 w-full'>
@@ -65,17 +39,21 @@ function Index() {
         Create Company Profile
       </button>
       <div className='flex w-full flex-wrap gap-[18px]'>
-        {CompanyData.map(item => (
-          <div className='bg-[#FFFFFF] p-5 rounded-[12px] flex flex-col items-center gap-1 w-[25.75%]'>
-            <img src="" alt="Company logo" className='h-[60px] w-[144px]' />
-            <div className='flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]'>
-              {item.name}
-              <div className=' w-full text-[12px] font-[400] text-[#646464] text-center'>
-                {item.description}
+        {companyData.length > 0 ? (
+          companyData.map((item, index) => (
+            <div className='bg-[#FFFFFF] p-5 rounded-[12px] flex flex-col items-center gap-1 w-full ms:w-[48%] scr1024:w-[30.75%]'>
+              <img src={item.companyLogo} alt="Company logo" className='h-[60px] w-[144px]' />
+              <div className='flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]'>
+                {item.companyName}
+                <div className=' w-full text-[12px] font-[400] text-[#646464] text-center'>
+                  {item.companyDescription}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div>No companies found.</div>
+        )}
       </div>
     </div>
 

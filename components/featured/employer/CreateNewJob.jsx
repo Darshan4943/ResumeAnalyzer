@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
-import CreateProfileFields from "./afterLogin/jobPosting/CreateProfileFields";
+import CreateProfileFields from "../../../pages/employer/CreateProfileFields";
 import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
@@ -418,6 +418,10 @@ function CreateNewJob({ setToggle }) {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  const handleNavigate = () => {
+    router.push("/employer/CreateProfileFields");
+  };
 
   return (
     <>
@@ -1155,7 +1159,10 @@ function CreateNewJob({ setToggle }) {
 
                       <div className="flex justify-between w-full gap-2 sm:gap-4">
                         <div className="flex w-full justify-between gap-1">
-                          <button className=" min-w-[258px] hidden scr700:block text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
+                          <button
+                            onClick={handleNavigate}
+                            className=" min-w-[258px] hidden scr700:block text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          >
                             Create Basic Profile Form
                           </button>
                           <div className="flex w-full justify-between gap-3">
