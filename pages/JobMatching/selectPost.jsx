@@ -81,7 +81,7 @@ const SelectPost = ({setTab,setSelectedJob}) => {
   return (
 
 
-    <div className="job-list customMargins flex flex-col gap-[16px]  ">
+    <div className="   flex flex-col gap-[16px]  ">
       <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
          Select Job 

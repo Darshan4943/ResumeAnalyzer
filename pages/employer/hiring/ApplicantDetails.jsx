@@ -17,7 +17,7 @@ function ApplicantDetails({ setTogglee }) {
   const { id, applicantId } = router.query;
 
   useEffect(() => {
-    console.log("Fetching applicant details...");
+  
     if (id && applicantId) {
       const fetchApplicantDetails = async () => {
         try {
