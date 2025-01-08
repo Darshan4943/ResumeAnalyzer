@@ -144,6 +144,7 @@ console.log(croppedImage)
   //     })
   //     .catch((err) => toast.error("Size should be less than 2 mb"));
   // };
+  
   const saveProfilePhoto = async () => {
     const formData = new FormData();
 
