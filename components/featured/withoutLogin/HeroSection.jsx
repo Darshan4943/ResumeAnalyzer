@@ -1,9 +1,13 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 function HeroSection() {
+    const router=useRouter()
 
     const [jobTitle, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
+    const [experinece, setExperience] = useState("");
+
 
     return (
         <div className='bg-[#EBF9FF] py-[30px] relative'>
@@ -48,8 +52,8 @@ function HeroSection() {
                                 type="text"
                                 placeholder="Enter Experience"
                                 className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]    font-[400]  font-Montserrat scr1100:max-w-[122px] ms:max-w-[104px]"
-                                value={location}
-                                onChange={(e) => setLocation(e.target.value)}
+                                value={experinece}
+                                onChange={(e) => setExperience(e.target.value)}
                             />
 
                             <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
@@ -64,7 +68,7 @@ function HeroSection() {
                             <div className=' flex items-center ms:justify-end justify-center scr1100:w-[122px] ms:w-[76px] w-full'>
                                 <button
                                     onClick={() => {
-                                        router.push(`/jobs/search?search=${true}&loc=${location}&jobTit=${jobTitle}`);
+                                        router.push(`/jobs/candidate?search=${true}&loc=${location}&jobTit=${jobTitle}`);
 
                                     }}
                                     className="ms:block hidden scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] w-[76px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
@@ -75,7 +79,7 @@ function HeroSection() {
                                 </button>
                                 <button
                                     onClick={() => {
-                                        router.push(`/jobs/search?search=${true}&loc=${location}&jobTit=${jobTitle}`);
+                                        router.push(`/jobs/candidate?search=${true}&loc=${location}&jobTit=${jobTitle}`);
 
                                     }}
                                     className="ms:hidden text-[14px] font-[600] border border-blue rounded-[12px] w-full h-[36px]"

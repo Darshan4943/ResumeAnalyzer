@@ -1,8 +1,22 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-toastify';
 
-function JdMatchCard({ resumeList, extratctedData,setTab,setUserDetails }) {
-  const router = useRouter();
+function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
+    const router = useRouter();
+    console.log(resumeList);
+    const downloadResume = (resumeUrl) => {
+        if (resumeUrl) {
+          const link = document.createElement('a');
+          link.href = resumeUrl; // URL of the resume
+          link.download = 'Resume.pdf'; // Default name of the downloaded file
+          document.body.appendChild(link); // Append the link to the document body
+          link.click(); // Trigger the click event
+          document.body.removeChild(link); // Clean up by removing the link
+        } else {
+          toast.error('Resume URL is not available.');
+        }
+      };
     return (
 
         <div className="w-[1272px] flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] p-4 ">
@@ -112,7 +126,7 @@ function JdMatchCard({ resumeList, extratctedData,setTab,setUserDetails }) {
                                 Matching Parameters
                             </span>
                             <div className="flex flex-col gap-[8px] ">
-                                {user?.matching_parameters?.slice(0,5)?.map((item, i) => (
+                                {user?.matching_parameters?.slice(0, 5)?.map((item, i) => (
                                     <div
                                         key={i}
                                         className="text-[#333333]  flex  items-start gap-[8px] text-[14px] font-[400]"
@@ -148,7 +162,7 @@ function JdMatchCard({ resumeList, extratctedData,setTab,setUserDetails }) {
                             <div className="text-[26px] font-[500]">{user.matching_percentage}</div>
                         </div>
                         <div
-
+                            onClick={() =>downloadResume(user?.file) }
                             className="w-[386px] h-[89px] rounde-[12px] flex  "
                         >
                             <div className="w-[51px] flex h-[89px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
@@ -169,7 +183,7 @@ function JdMatchCard({ resumeList, extratctedData,setTab,setUserDetails }) {
 
                         <div className="flex gap-[16px] items-center">
                             <div className=" py-[12px] px-[36px] border-[1px] border-[#06A9EF] rounded-[30px]">
-                                <button onClick={()=>{setTab(2);setUserDetails(user)}} className="text-[14px] font-[600]">
+                                <button onClick={() => { setTab(2); setUserDetails(user) }} className="text-[14px] font-[600]">
                                     See Application
                                 </button>
                             </div>

@@ -106,7 +106,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
   };
 
   return (
-    <div>
+    <div> 
 
       <div className="flex flex-col gap-6 relative ">
         <div className=" flex w-full gap-3 justify-between rounded-[16px] items-center">

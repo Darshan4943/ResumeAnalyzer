@@ -6,21 +6,12 @@ import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
 function Job_card({ jobData, setSaved, save }) {
   const [limitPopup, setLimitPopup] = useState(false)
-   const { profileData } = useSelector((state) => state.profile.profileData);      
-      const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [isLogin, setIsLogin] = useState(false);
-  
-    const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token && token != "undefined") {
-      if (token) {
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
-    }
-  }, []);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const router = useRouter();
+
 
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const dispatch = useDispatch();
@@ -49,7 +40,7 @@ function Job_card({ jobData, setSaved, save }) {
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
-    //  dispatch(fetchUserData());
+      //  dispatch(fetchUserData());
 
       // setTimeout(() => {
       //  
@@ -59,7 +50,7 @@ function Job_card({ jobData, setSaved, save }) {
     }
   };
 
-
+  console.log(userDataGlobal?._id);
   return (
     <>
       {jobData?.map((item, index) => (
@@ -213,8 +204,8 @@ function Job_card({ jobData, setSaved, save }) {
           <div className="flex flex-row justify-between items-center px-1 ">
             <div className="flex gap-3">
               {jobData?.some(
-                (job) => job?.matchedApplication?.applicantId === userDataGlobal._id
-              ) ? (
+                (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
+              ) && isLogin ? (
                 <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                   <svg
                     width="20"
@@ -260,24 +251,27 @@ function Job_card({ jobData, setSaved, save }) {
 
 
             <div className="flex gap-2 h-[42px]">
-              {item?.isSaved ?
-                <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
-                  Saved
+              {isLogin &&
+                <div>
+                  {item?.isSaved ?
+                    <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
+                      Saved
 
-                </button> :
+                    </button> :
 
-                <button onClick={(e) => SaveJob(e, item._id)} className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight">
-                  Save
+                    <button onClick={(e) => SaveJob(e, item._id)} className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight">
+                      Save
 
-                </button>
+                    </button>
 
+                  }
+                </div>
               }
-
 
               <button
                 disabled={
                   jobData?.some(
-                    (job) => job?.matchedApplication?.applicantId === userDataGlobal._id) ||
+                    (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
                   item?.status === "Hold"
                 }
                 onClick={() => {
@@ -285,7 +279,7 @@ function Job_card({ jobData, setSaved, save }) {
                     if (jobApplyCount > 0) {
                       if (
                         !jobData?.some(
-                          (job) => job?.matchedApplication?.applicantId === userDataGlobal._id)
+                          (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id)
                       ) {
                         router.push(
                           `/jobs/candidate/ApplyForm?id=${item._id}`
@@ -302,15 +296,15 @@ function Job_card({ jobData, setSaved, save }) {
                   }
                 }}
                 className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${jobData?.some(
-                  (job) => job?.matchedApplication?.applicantId === userDataGlobal._id) ||
+                  (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
                   item.status === "Hold"
                   ? "cursor-not-allowed"
                   : " cursor-pointer"
                   }`}
               >
                 {jobData?.some(
-                  (job) => job?.matchedApplication?.applicantId === userDataGlobal._id
-                ) ? "Applied" : "Apply"}
+                  (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
+                ) && isLogin ? "Applied" : "Apply"}
               </button>
 
             </div>
