@@ -77,7 +77,7 @@ function EditProfile({ setEditProfile }) {
         break;
       case "currentLocation":
         if (!value.trim()) {
-          errors.currentLocation = "Location Name is required";
+          errors.currentLocation = "Location is required";
         } else if (!isNaN(value)) {
           errors.currentLocation = "Location cannot be a number";
         } else if (/\d/.test(value)) {
@@ -185,7 +185,13 @@ function EditProfile({ setEditProfile }) {
 
     const errors = validateInput();
 
-
+    if (!data.currentLocation) {
+        setFormError((prevErrors) => ({
+          ...prevErrors,
+          currentLocation: "Enter Current Location",
+        }));
+        return;
+      }
 
     const hasErrors = Object.keys(errors).length > 0;
 
