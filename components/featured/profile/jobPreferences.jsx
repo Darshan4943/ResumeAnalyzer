@@ -8,15 +8,18 @@ const JobPrefrence = ({ userData }) => {
   const [editView, setEditView] = useState(false);
   return (
     <>
-      <div className="build_ai ai2" style={{ gap: "16px" }}>
+      <div  className="bg-[#fff] rounded-[16px] p-[16px] flex flex-col gap-[16px]"
+        style={{
+          boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+        }}>
         <div className="flex justify-between w-full">
-          <p className="page_headings text-[18px] font-[600]">Job Preferences</p>
+          <p className="page_headings text-[16px] font-[600]">Job Preferences</p>
           <div onClick={() => setEditView(true)}>
             <Edit_icon />
           </div>
         </div>
 
-        <div className=" w-full">
+    
           <div className=" grid grid-cols-12 gap-4 ">
             {userData?.jobPrefrences?.industry &&
               <div className=" essential_gap sm:col-span-6 col-span-12">
@@ -78,7 +81,7 @@ const JobPrefrence = ({ userData }) => {
             </div>
             }
           </div>
-        </div>
+      
       </div>
       {editView && (
         <>

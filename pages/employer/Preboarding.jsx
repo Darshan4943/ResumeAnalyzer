@@ -13,6 +13,7 @@ import EditOfferTemplate from "../../components/featured/employer/afterLogin/pre
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { preboarding } from "../../utils/preboardArray";
+import MiniLoader from "../../components/common/miniLoader";
 
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
@@ -25,6 +26,7 @@ function Preboarding() {
   const [activeOption, setActiveOption] = useState("In Preboarding");
   const [id, setId] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [dataState, setDataState] = useState({
     preboardings: [],
@@ -39,11 +41,15 @@ function Preboarding() {
 
   useEffect(() => {
     const fetchJobs = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:2000/api/job/getjobapplicantstatus/${id}`
         );
         setJobs(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       } catch (err) {
         console.error("Error fetching jobs:", err);
         setError("Failed to fetch jobs.");
@@ -56,6 +62,7 @@ function Preboarding() {
   }, [id]);
 
   const fetchPreboardings = async (id) => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `http://localhost:2000/api/getPreboardings/${id}`
@@ -65,6 +72,9 @@ function Preboarding() {
         preboardings: response.data.data,
         error: null,
       });
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
 
       console.log("Preboardings data:", response.data.data);
     } catch (err) {
@@ -198,19 +208,21 @@ function Preboarding() {
                     ))}
                   </div>
 
-                  {/* INITIAL 1ST PAGE  */}
-
                   {toggle === 0 && (
                     <>
-                      <Initial
-                        jobs={jobs}
-                        fetchPreboardings={fetchPreboardings}
-                        setToggle={setToggle}
-                      />
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Initial
+                          jobs={jobs}
+                          fetchPreboardings={fetchPreboardings}
+                          setToggle={setToggle}
+                        />
+                      )}
                     </>
                   )}
-
-                  {/* DOCUMENTATION PAGE  */}
 
                   {toggle === 1 && (
                     <>
@@ -218,15 +230,12 @@ function Preboarding() {
                     </>
                   )}
 
-                  {/* VERIFICATION PAGE  */}
-
                   {toggle === 2 && (
                     <>
                       <Verification setToggle={setToggle} />
                     </>
                   )}
 
-                  {/* OFFER PAGE  */}
                   {toggle === 3 && (
                     <>
                       <Offer
@@ -236,15 +245,11 @@ function Preboarding() {
                     </>
                   )}
 
-                  {/* Offer Acceptance PAGE  */}
-
                   {toggle === 4 && (
                     <>
                       <Acceptance setToggle={setToggle} />
                     </>
                   )}
-
-                  {/* HIRED */}
 
                   {toggle === 5 && (
                     <>
@@ -253,6 +258,7 @@ function Preboarding() {
                   )}
                 </>
               )}
+
               {activeOption === "Joined" && (
                 <>
                   <Joined setPreview={setPreview} />

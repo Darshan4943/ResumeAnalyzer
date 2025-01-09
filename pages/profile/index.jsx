@@ -39,7 +39,7 @@ function Profile() {
     "Websites & Social links",
     "Projects",
 
-    "Job Prefrence",
+    "Job Preferences",
     "Personal details",
   ];
   const scrollTo = (element) => {
@@ -189,7 +189,7 @@ function Profile() {
             <ScrollElement name="About me" className="section">
               <div className="build_ai ai2  ">
                 <div className="gap">
-                  <p className="page_headings text-[18px] scr420:text-[20px]">About me</p>
+                  <p className="page_headings text-[16px] font-semibold">About me</p>
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"
@@ -241,7 +241,7 @@ function Profile() {
               <Projects userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Job Prefrence" className="section">
+            <ScrollElement name="Job Preferences" className="section">
               <JobPrefrence userData={userData} />
             </ScrollElement>
 

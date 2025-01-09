@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React from "react";
 
 function JobDetails({ jobDetails }) {
-  console.log(121, jobDetails);
   const router = useRouter();
    const { id } = router.query;
   return (
