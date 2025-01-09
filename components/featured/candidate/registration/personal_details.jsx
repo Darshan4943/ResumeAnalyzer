@@ -205,13 +205,13 @@ console.log(selectedItem)
                     <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
                       <div className="personal_name ml:w-[48%] w-[100%]">
                         <p className="form_text_heading">
-                          First name <span className="star">*</span>
+                          First Name <span className="star">*</span>
                         </p>
                         <input
                           type="text"
                           name=""
                           className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                          placeholder="Enter first name"
+                          placeholder="Enter First Name"
                           value={data.firstName}
                           onChange={(e) =>
                             handleInputChange("firstName", e.target.value)
@@ -226,13 +226,13 @@ console.log(selectedItem)
 
                       <div className="personal_name ml:w-[48%] w-[100%]">
                         <p className="form_text_heading">
-                          Last name <span className="star">*</span>
+                          Last Name <span className="star">*</span>
                         </p>
                         <input
                           type="text"
                           name=""
                           className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                          placeholder="Enter Last name"
+                          placeholder="Enter Last Name"
                           value={data.lastName}
                           onChange={(e) =>
                             handleInputChange("lastName", e.target.value)
@@ -303,7 +303,7 @@ console.log(selectedItem)
                                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                         width="20px"
                                       />
-                                      <span className="ml-2">
+                                      <span className="ml-2 text-[#333333] text-[14px] font-normal">
                                         {option.code} {option.dial_code}
                                       </span>
                                     </div>

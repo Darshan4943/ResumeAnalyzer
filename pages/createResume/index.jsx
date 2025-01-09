@@ -633,50 +633,50 @@ function CreateResume() {
         ...data,
 
         clientId: clientId ? clientId : null,
-        firstName: preResumeData.firstName,
-        lastName: preResumeData.lastName,
-        email: preResumeData.email,
-        dial_code: preResumeData.dial_code,
-        mobileNumber: preResumeData.mobileNo,
-        location: preResumeData.currentLocation,
-        skills: preResumeData.keySkills
-          ?.length > 0 ? preResumeData.keySkills
+        firstName: preResumeData?.firstName,
+        lastName: preResumeData?.lastName,
+        email: preResumeData?.email,
+        dial_code: preResumeData?.dial_code,
+        mobileNumber: preResumeData?.mobileNo,
+        location: preResumeData?.currentLocation,
+        skills: preResumeData?.keySkills
+          ?.length > 0 ? preResumeData?.keySkills
             ?.map((item) => ({
               skill: item.value,
               rating: [5, 5, 5, 5, 5],
             })) : [],
 
         education: [{
-          qualification: preResumeData.stream,
-          specialization: preResumeData.specialization,
-          instituteName: preResumeData.university,
+          qualification: preResumeData?.stream,
+          specialization: preResumeData?.specialization,
+          instituteName: preResumeData?.university,
           type: "full-time",
           location: "",
           duration: {
             start: {
-              year: preResumeData.educationDuration.start?.year ? preResumeData.educationDuration.start?.year : "Year",
-              month: preResumeData.educationDuration.start?.month ? preResumeData.educationDuration.start?.month : "Month",
+              year: preResumeData?.educationDuration.start?.year ? preResumeData?.educationDuration.start?.year : "Year",
+              month: preResumeData?.educationDuration.start?.month ? preResumeData?.educationDuration.start?.month : "Month",
             },
             end: {
-              year: preResumeData.educationDuration.end?.year ? preResumeData.educationDuration.end?.year : "Year",
-              month: preResumeData.educationDuration.end?.month ? preResumeData.educationDuration.end?.month : "Month",
+              year: preResumeData?.educationDuration.end?.year ? preResumeData?.educationDuration.end?.year : "Year",
+              month: preResumeData?.educationDuration.end?.month ? preResumeData?.educationDuration.end?.month : "Month",
             },
           },
         }],
         experience: [{
-          designation: preResumeData.jobTitle,
-          organization: preResumeData.companyName,
+          designation: preResumeData?.jobTitle,
+          organization: preResumeData?.companyName,
           description: "",
           currentlyWorking: false,
-          location: preResumeData.jobLocation,
+          location: preResumeData?.jobLocation,
           duration: {
             start: {
-              year: preResumeData.jobDuration.start?.year ? preResumeData.jobDuration.start?.year : "Year",
-              month: preResumeData.jobDuration.start?.month ? preResumeData.jobDuration.start?.month : "Month",
+              year: preResumeData?.jobDuration.start?.year ? preResumeData?.jobDuration.start?.year : "Year",
+              month: preResumeData?.jobDuration.start?.month ? preResumeData?.jobDuration.start?.month : "Month",
             },
             end: {
-              year: preResumeData.jobDuration.end?.year ? preResumeData.jobDuration.end?.year : "Year",
-              month: preResumeData.jobDuration.end?.month ? preResumeData.jobDuration.end?.month : "Month",
+              year: preResumeData?.jobDuration.end?.year ? preResumeData?.jobDuration.end?.year : "Year",
+              month: preResumeData?.jobDuration.end?.month ? preResumeData?.jobDuration.end?.month : "Month",
             },
           },
         }],

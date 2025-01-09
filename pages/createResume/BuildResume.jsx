@@ -23,10 +23,10 @@ const ArrowLeft = ({ index }) => (
 function BuildResume() {
   const router = useRouter();
   const clientId = router.query.clientId;
-
+ 
   return (
     <>
-      <div className="flex justify-center  w-full my-[3rem] ">
+      <div className="flex justify-center  w-full py-[3rem] ">
         <div className="w-full flex flex-col gap-[36px] pb-[10px]  items-center">
           <div className="ml:w-[55%] sm:w-[80%] w-[95%] flex flex-col gap-3 ">
             <div className="text-[#333] text-center scr540:text-[36px] text-[24px] ms:text-[40px] font-[600] leading-tight">
