@@ -561,7 +561,7 @@ const ResumePreview = ({
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
-        onClick={() => generatePDFBlob()}
+        onClick={() =>{ setSaveDisabled(true); generatePDFBlob()}}
         disabled={saveDisabled}
         style={{ opacity: saveDisabled ? "0.5" : 1 }}
         className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px]  sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "

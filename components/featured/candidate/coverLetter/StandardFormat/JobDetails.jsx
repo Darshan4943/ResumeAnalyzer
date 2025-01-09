@@ -45,7 +45,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
       className: " ",
     },
     {
-      label: "Current/ Previous Organization",
+      label: "Organization",
       type: "text",
       name: "organization",
       placeholder: "Organization Name",
@@ -289,7 +289,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
             {inputFields
               .filter(
                 (employer) =>
-                  employer.label === "Current/ Previous Organization" ||
+                  employer.label === "Organization" ||
                   employer.label === "Industry/ Sector"
               )
               .map((employer, index) => (

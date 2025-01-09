@@ -263,6 +263,7 @@ function Index() {
 
 
     const getFilterData = async () => {
+
         setLoading(true)
         const mappedFilters = {
             sortBy: filters.SortBy,
@@ -296,7 +297,7 @@ function Index() {
 
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 3000);
 
         } catch (error) {
             console.error("Error fetching filter data", error);
@@ -368,6 +369,7 @@ function Index() {
                                     country={country}
                                     page={page}
                                     filters={filters}
+                                     loading={loading}
                                     userSkills={userSkills}
                                     setLoading={setLoading}
                                     className="text-[14px] font-medium flex items-center w-auto bg-white "
@@ -431,6 +433,7 @@ function Index() {
                                                 isOpen={openDropdown === index}
                                                 onDropdownClick={handleDropdownClick}
                                                 id={index}
+                                                loading={loading}
                                                 isHidden={hiddenFilters[index] || false}
                                                 toggleVisibility={toggleFilterVisibility}
                                             />
@@ -439,25 +442,32 @@ function Index() {
                                 </>
                             )}
                         </AnimatePresence>
-                        <AllJobCard
-                            setMiniloading={setMiniloading}
-                            getAllData={getAllData}
-                            miniLoading={miniLoading}
-                            loading={loading}
-                            setLoading={setLoading}
-                            setLimitPopup={setLimitPopup}
-                            setCurrentPage={setPage}
-                            isLogin={isLogin}
-                            appliedJobs={appliedJobData}
-                            setLimit={setLimit}
-                            limit={limit}
-                            setTotalpages={setTotalpages}
-                            totalPages={totalPages}
-                            page={page}
-                            setPage={setPage}
-                            jobData={jobData}
-                            totalCount={totalCount}
-                        />
+                        {loading ?
+                        <div className='w-full max-w-[548px]'>
+
+                            <MiniLoader />
+                            </div>
+                            :
+                            <AllJobCard
+                                setMiniloading={setMiniloading}
+                                getAllData={getAllData}
+                                miniLoading={miniLoading}
+                                loading={loading}
+                                setLoading={setLoading}
+                                setLimitPopup={setLimitPopup}
+                                setCurrentPage={setPage}
+                                isLogin={isLogin}
+                                appliedJobs={appliedJobData}
+                                setLimit={setLimit}
+                                limit={limit}
+                                setTotalpages={setTotalpages}
+                                totalPages={totalPages}
+                                page={page}
+                                setPage={setPage}
+                                jobData={jobData}
+                                totalCount={totalCount}
+                            />
+                        }
                         <div className=' flex-col gap-6 rounded-[12px] scr900:flex hidden'>
                             <img
                                 src="/images/jobs/jobPoster1.png"

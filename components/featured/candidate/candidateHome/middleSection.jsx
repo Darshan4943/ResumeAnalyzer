@@ -32,7 +32,7 @@ function MiddleSection() {
             isCircle: true
         },
         {
-            title: "Skill Assessmentt",
+            title: "Skill Assessment",
             description: "Uncover Your Potential with Effortless Skill Assessment. Elevate Your Abilities, Elevate Your Success!",
             path: "/about",
             img: "/images/jobs/posters/poster2.png",

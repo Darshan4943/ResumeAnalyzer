@@ -47,17 +47,17 @@ function RoleSelect({ signin, signup }) {
     <>
       <div className="flex justify-center  items-center  my-[72px] flex-row lg:gap-[74px] gap-0 customMargins scr1168:w-[85%]  ">
         <div className="h-[316px] min-w-[474px] scr1024:block hidden">
-        <img
-          src="/images/auth/selectrole.png"
-          alt=""
-          className="h-[316px] w-[474px]  object-cover "
+          <img
+            src="/images/auth/selectrole.png"
+            alt=""
+            className="h-[316px] w-[474px]  object-cover "
 
-        />
+          />
         </div>
         <div className="flex flex-col sm:gap-[24px] gap-4  scr1024:p-6 p-3 border border-[#DEDEDE] rounded-[12px] max-w-[400px] scr1024:min-w-[400px]">
           <div className="text-[18px]  sm:text-[20px] font-semibold text-center">
-            {signin ? "Sign In" :"Sign Up"}
-            
+            {signin ? "Sign In" : "Sign Up"}
+
           </div>
           <div className=" flex flex-col gap-2">
             <div className="text-[#333] text-center text-[16px]  sm:text-[18px]  font-[600]">
@@ -73,59 +73,23 @@ function RoleSelect({ signin, signup }) {
               <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className="flex items-center">
-                    <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
-                      >
-                        <g clipPath="url(#clip0_3813_27793)">
-                          <path
-                            d="M21.0358 12.812H19.1797C19.3689 13.33 19.4722 13.889 19.4722 14.4716V21.4864C19.4722 21.7293 19.43 21.9625 19.353 22.1793H22.4215C23.5678 22.1793 24.5002 21.2468 24.5002 20.1006V16.2765C24.5003 14.3662 22.9461 12.812 21.0358 12.812Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                          <path
-                            d="M5.52806 14.4716C5.52806 13.8889 5.63142 13.33 5.8206 12.812H3.96454C2.05419 12.812 0.5 14.3662 0.5 16.2765V20.1007C0.5 21.2469 1.43249 22.1794 2.57872 22.1794H5.64726C5.57034 21.9625 5.52806 21.7293 5.52806 21.4864V14.4716Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                          <path
-                            d="M14.6218 11.0071H10.3786C8.46825 11.0071 6.91406 12.5613 6.91406 14.4716V21.4865C6.91406 21.8691 7.22428 22.1794 7.60697 22.1794H17.3935C17.7761 22.1794 18.0864 21.8692 18.0864 21.4865V14.4716C18.0864 12.5613 16.5322 11.0071 14.6218 11.0071Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                          <path
-                            d="M12.5005 1.82056C10.2031 1.82056 8.33398 3.68965 8.33398 5.98714C8.33398 7.5455 9.1941 8.90652 10.4643 9.62109C11.0668 9.95999 11.7614 10.1537 12.5005 10.1537C13.2397 10.1537 13.9342 9.95999 14.5367 9.62109C15.807 8.90652 16.6671 7.54546 16.6671 5.98714C16.6671 3.6897 14.798 1.82056 12.5005 1.82056Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                          <path
-                            d="M5.18438 5.7041C3.46617 5.7041 2.06836 7.10192 2.06836 8.82012C2.06836 10.5383 3.46617 11.9361 5.18438 11.9361C5.62023 11.9361 6.03526 11.8459 6.41227 11.6836C7.06412 11.4029 7.60159 10.9062 7.93417 10.2839C8.16761 9.84716 8.3004 9.34892 8.3004 8.82012C8.3004 7.10196 6.90259 5.7041 5.18438 5.7041Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                          <path
-                            d="M19.8172 5.7041C18.099 5.7041 16.7012 7.10192 16.7012 8.82012C16.7012 9.34897 16.834 9.8472 17.0674 10.2839C17.4 10.9062 17.9375 11.403 18.5893 11.6836C18.9663 11.8459 19.3813 11.9361 19.8172 11.9361C21.5354 11.9361 22.9332 10.5383 22.9332 8.82012C22.9332 7.10192 21.5354 5.7041 19.8172 5.7041Z"
-                            fill="#333333"
-                            className="svg_classs"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_3813_27793">
-                            <rect
-                              width="24"
-                              height="24"
-                              fill="white"
-                              transform="translate(0.5)"
-                            />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="#646464" />
+                      <g clip-path="url(#clip0_7596_92341)">
+                        <path d="M28.5358 20.8125H26.6797C26.8689 21.3305 26.9722 21.8895 26.9722 22.4721V29.4869C26.9722 29.7298 26.93 29.963 26.853 30.1798H29.9215C31.0678 30.1798 32.0002 29.2473 32.0002 28.1011V24.277C32.0003 22.3667 30.4461 20.8125 28.5358 20.8125Z" fill="#646464" />
+                        <path d="M13.0281 22.4721C13.0281 21.8894 13.1314 21.3305 13.3206 20.8125H11.4645C9.55419 20.8125 8 22.3667 8 24.277V28.1012C8 29.2473 8.93249 30.1799 10.0787 30.1799H13.1473C13.0703 29.9629 13.0281 29.7298 13.0281 29.4869V22.4721Z" fill="#646464" />
+                        <path d="M22.1218 19.0078H17.8786C15.9683 19.0078 14.4141 20.562 14.4141 22.4724V29.4872C14.4141 29.8698 14.7243 30.1801 15.107 30.1801H24.8935C25.2761 30.1801 25.5864 29.8699 25.5864 29.4872V22.4724C25.5864 20.562 24.0322 19.0078 22.1218 19.0078Z" fill="#646464" />
+                        <path d="M20.0025 9.82031C17.705 9.82031 15.8359 11.6894 15.8359 13.9869C15.8359 15.5453 16.696 16.9063 17.9663 17.6208C18.5688 17.9598 19.2634 18.1534 20.0025 18.1534C20.7416 18.1534 21.4362 17.9598 22.0387 17.6208C23.309 16.9063 24.169 15.5452 24.169 13.9869C24.169 11.6895 22.2999 9.82031 20.0025 9.82031Z" fill="#646464" />
+                        <path d="M12.6863 13.7051C10.9681 13.7051 9.57031 15.1029 9.57031 16.8211C9.57031 18.5393 10.9681 19.9371 12.6863 19.9371C13.1222 19.9371 13.5372 19.8468 13.9142 19.6846C14.5661 19.4039 15.1035 18.9071 15.4361 18.2849C15.6696 17.8481 15.8024 17.3499 15.8024 16.8211C15.8024 15.1029 14.4045 13.7051 12.6863 13.7051Z" fill="#646464" />
+                        <path d="M27.3191 13.7051C25.6009 13.7051 24.2031 15.1029 24.2031 16.8211C24.2031 17.3499 24.3359 17.8482 24.5694 18.2849C24.9019 18.9072 25.4394 19.404 26.0913 19.6846C26.4683 19.8468 26.8833 19.9371 27.3191 19.9371C29.0374 19.9371 30.4352 18.5393 30.4352 16.8211C30.4352 15.1029 29.0374 13.7051 27.3191 13.7051Z" fill="#646464" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_7596_92341">
+                          <rect width="24" height="24" fill="white" transform="translate(8 8)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+
                   </div>
                   <div>
                     <div className="text-[14px]  sm:text-[16px] font-[500] sign_ip_text">
@@ -151,7 +115,7 @@ function RoleSelect({ signin, signup }) {
                       viewBox="0 0 40 40"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
+
                     >
                       <rect
                         x="0.5"
@@ -205,7 +169,7 @@ function RoleSelect({ signin, signup }) {
                       viewBox="0 0 40 40"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="sm:h-[24px] h-[20px] sm:w-[24px] w-[20px]"
+
                     >
                       <rect
                         x="0.5"
