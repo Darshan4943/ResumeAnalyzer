@@ -11,8 +11,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
   const [appliedJobs, setAppliedJobs] = useState();
   // const [limitPopup, setLimitPopup] = useState(false)
-  const [isLogin, setIsLogin] = useState(false);
 
+ const isLogin = useSelector((state) => state.auth.isLogin);
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const isPlanActive = JSON.parse(localStorage.getItem("planActive"));
  
@@ -42,17 +42,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   //   }
   // }, [userDataGlobal]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token && token != "undefined") {
-      if (token) {
-        setIsLogin(true);
-      } else {
-        setIsLogin(false);
-      }
-    }
-  }, []);
-
+  
 
   return (
     <>
@@ -149,14 +139,14 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                 <div className="flex gap-[24px]">
                   <button
                     disabled={
-                      (selectedJob?.matchedApplication?.applicantId === userDataGlobal._id) ||
+                      (selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
                       selectedJob.status === "Hold"
                     }
                     onClick={() => {
                       if (isLogin) {
                         if (jobApplyCount > 0) {
                           if (
-                            !selectedJob?.matchedApplication?.applicantId === userDataGlobal._id
+                            !selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
                           ) {
                             router.push(
                               `/jobs/home/ApplyForm?id=${selectedJob._id}`
@@ -169,13 +159,13 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         router.push(`/auth?signin=true&role=user`);
                       }
                     }}
-                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${selectedJob?.matchedApplication?.applicantId === userDataGlobal._id ||
+                    className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id  && isLogin ||
                         selectedJob.status === "Hold"
                         ? "cursor-not-allowed"
                         : " cursor-pointer"
                       }`}
                   >
-                    {selectedJob?.matchedApplication?.applicantId === userDataGlobal._id
+                    {selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id && isLogin
                       ? "Applied"
                       : "Apply"}
                   </button>

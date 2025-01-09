@@ -214,10 +214,10 @@ function Sign_up({ }) {
   //     setSelectedItem(selectedItem);
   //   }
   // }, []);
-
+  console.log(formError);
   function validatePassword(password) {
     const strongPasswordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{6,}$/;
     return strongPasswordRegex.test(password);
   }
 
@@ -225,7 +225,7 @@ function Sign_up({ }) {
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
-
+  
     switch (fieldName) {
       case "firstName":
         if (!value.trim()) {
@@ -238,6 +238,7 @@ function Sign_up({ }) {
           delete errors.firstName;
         }
         break;
+  
       case "lastName":
         if (!value.trim()) {
           errors.lastName = "Last Name is required";
@@ -249,6 +250,7 @@ function Sign_up({ }) {
           delete errors.lastName;
         }
         break;
+  
       case "email":
         if (!value.trim()) {
           errors.email = "Email is required";
@@ -258,47 +260,42 @@ function Sign_up({ }) {
           delete errors.email;
         }
         break;
-
+  
       case "mobileNo":
         if (!value.trim()) {
           errors.mobileNo = "Mobile Number is required";
         } else if (isNaN(value)) {
           errors.mobileNo = "Mobile Number cannot be text";
+        } else if (value.length < 10) {
+          errors.mobileNo = "Mobile Number must be 10 digits";
         } else {
           delete errors.mobileNo;
         }
         break;
-
-
+  
       case "password":
-        if (!isUpdate) {
-          if (!value.trim() || value.trim().length < 6) {
-            errors.password = "Password must be at least 6 characters long";
-          } else {
-            delete errors.password;
-          }
-          if (validatePassword(value)) {
-          } else {
-            errors.password =
-              "Password should include one uppercase letter, lowercase letter, number, and special character.";
-          }
-          if (!value.trim() || value.trim() != data.confirmPassword) {
-            errors.confirmPassword = "Password do not match";
-          } else {
-            delete errors.confirmPassword;
-          }
-        }
-
-        break;
-      case "confirmPassword":
-        if (!isUpdate) {
-          if (!value.trim() || value.trim() != data.password) {
-            errors.confirmPassword = "Password do not match";
-          } else {
-            delete errors.confirmPassword;
-          }
+        if (!isUpdate && (!value.trim() || value.trim().length < 6)) {
+          errors.password = "Password must be at least 6 characters long";
+        } else if (
+          !validatePassword(value) &&
+          !isUpdate
+        ) {
+          errors.password =
+            "Password should include one uppercase letter, one lowercase letter, one number, and one special character.";
+        } else {
+          delete errors.password;
         }
         break;
+        case "confirmPassword":
+          if (!isUpdate) {
+            if (!value.trim() || value.trim() != data.password) {
+              errors.confirmPassword = "Password do not match";
+            } else {
+              delete errors.confirmPassword;
+            }
+          }
+          break;
+  
       case "dial_code":
         if (!value.trim()) {
           errors.dial_code = "Country Code is required";
@@ -306,41 +303,113 @@ function Sign_up({ }) {
           delete errors.dial_code;
         }
         break;
-
+  
       default:
         break;
     }
-
+  
     setFormError(errors);
-
     return errors;
   };
-
+  
   const handleInputChange = (fieldName, value) => {
-    if (fieldName == "mobileNo") {
-      if (value.replace(/\D/g, "").length <= 10) {
-        setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
-        if (value.replace(/\D/g, "").length < 10) {
-          setFormError((prevErrors) => ({
-            ...prevErrors,
-            mobileNo: "length must be 10",
-          }));
-        }
-        else {
-          setFormError((prevErrors) => {
-            const updatedErrors = { ...prevErrors };
-            delete updatedErrors.mobileNo;
-            return updatedErrors;
-          });
-        }
-      }
-
-
-    } else {
-      setData({ ...data, [fieldName]: value });
-      validateInput(fieldName, value);
-    }
+    setData({ ...data, [fieldName]: value });
+    validateInput(fieldName, value);
   };
+  
+  const validateFields = () => {
+    const requiredFields = [
+      { key: "firstName", error: "Enter First Name" },
+      { key: "lastName", error: "Enter Last Name" },
+      { key: "email", error: "Enter a valid Email" },
+      { key: "dial_code", error: "Select a country code" },
+      { key: "mobileNo", error: "Enter Contact Number" },
+      { key: "password", error: "Enter Password" },
+      { key: "confirmPassword", error: "Enter Confirm Password" },
+    ];
+  
+    let errors = { ...formError };
+  
+    requiredFields.forEach((field) => {
+      if (!data[field.key]?.trim()) {
+        errors[field.key] = field.error;
+      }
+    });
+  
+    setFormError(errors);
+    return Object.keys(errors).length === 0; // Return true if no errors
+  };
+  
+  const submitHandler = (e) => {
+    e.preventDefault();
+  
+    const isValid = validateFields(); // Validate all fields
+    if (!isValid) {
+      // toast.error("Please fill in all required fields correctly.");
+      return;
+    }
+  
+    if (!verified) {
+      setOtpError("Email Verification Required");
+      toast.error("Email Verification Required");
+      return;
+    }
+  
+    const url = "http://localhost:2000/api/skiloteckuser/signUp";
+    const formdata = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key === "email") {
+        formdata.append(key, data[key].toLowerCase());
+      } else if (key === "currentLocation") {
+        formdata.append("location", data[key]);
+      } else {
+        formdata.append(key, data[key]);
+      }
+    });
+    formdata.append("userRole", role);
+    formdata.append("parseData", JSON.stringify(parseData));
+  
+    axios
+    .post(url, formdata)
+    .then((res) => {
+      const response = res.data;
+      try {
+        if (response?.success) {
+
+          localStorage.setItem("authToken", JSON.stringify(response));
+
+          toast.success("Sign up Successfully");
+          // if (sendToPurchase && sendToPurchase?.status) {
+          //   window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+          //     }`;
+          //   setLoading(false);
+          // } else {
+            window.location.href = `/home?signIn=false`;
+            setLoading(false);
+          // }
+
+        } else {
+          setLoading(false);
+          if (response.message === "User already exists") {
+            toast.error("User already exists");
+          } else {
+            toast.error("Something went wrong");
+          }
+        }
+      } catch (err) {
+        setLoading(false);
+        toast.error("Something went wrong");
+        console.log(err);
+      }
+    })
+    .catch((err) => {
+      console.log(err.response);
+      toast.error("Something went wrong");
+      setLoading(false);
+    });
+
+  };
+  
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -381,119 +450,7 @@ function Sign_up({ }) {
       data.dial_code.includes(inputValue)
     );
   };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const errors = validateInput();
-
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "email",
-
-      "mobileNo",
-      "dial_code",
-    ];
-    const emptyFields = requiredFields.filter((field) => !data[field]);
-    if (!data.firstName) {
-      setFormError((prevErrors) => ({
-        ...prevErrors,
-        firstName: "Enter First Name",
-      }));
-      return;
-    }
-    if (!data.dial_code) {
-      setFormError((prevErrors) => ({
-        ...prevErrors,
-        dial_code: "Select a country code",
-      }));
-      return;
-    }
-
-    if (!data.mobileNo) {
-      setFormError((prevErrors) => ({
-        ...prevErrors,
-        mobileNo: "Enter Contact Number",
-      }));
-      return;
-    }
-    if (emptyFields.length > 0) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
-
-    const hasErrors = Object.keys(errors).length > 0;
-    const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
-
-    if (hasErrors) {
-      toast.error("Please enter valid information");
-      setFormError(errors);
-    }
-    else if (!verified) {
-      setOtpError("Email Verification Required");
-      toast.error("Email Verification Required");
-    }
-    else {
-      const url = "http://localhost:2000/api/skiloteckuser/signUp";
-      // setLoading(true);
-
-      const formdata = new FormData();
-      Object.keys(data).forEach((key) => {
-        if (key == "email") {
-          formdata.append(key, data[key].toLowerCase());
-
-        } else if (key == "currentLocation") {
-          formdata.append("location", data[key]);
-        } else {
-          formdata.append(key, data[key]);
-        }
-      });
-
-      formdata.append("userRole", role)
-
-      formdata.append("parseData", JSON.stringify(parseData));
-
-      axios
-        .post(url, formdata)
-        .then((res) => {
-          const response = res.data;
-          try {
-            if (response?.success) {
-
-              localStorage.setItem("authToken", JSON.stringify(response));
-
-              toast.success("Sign up Successfully");
-              if (sendToPurchase && sendToPurchase?.status) {
-                window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                  }`;
-                setLoading(false);
-              } else {
-                window.location.href = `/home?signIn=false`;
-                setLoading(false);
-              }
-
-            } else {
-              setLoading(false);
-              if (response.message === "user already exist") {
-                toast.error("User already exists");
-              } else {
-                toast.error("Something went wrong");
-              }
-            }
-          } catch (err) {
-            setLoading(false);
-            toast.error("Something went wrong");
-            console.log(err);
-          }
-        })
-        .catch((err) => {
-          console.log(err.response);
-          toast.error("Something went wrong");
-          setLoading(false);
-        });
-    }
-  };
+ 
 
   const handleVerification = (e) => {
     setResend(false);
@@ -823,7 +780,7 @@ function Sign_up({ }) {
 
         <div className={`flex gap-2 w-[100%]  flex-col `}>
 
-          <div className=" flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid border-[#DEDEDE] justify-between h-[40px]">
+          <div className={`flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.password ? "border-red" : "border-[#DEDEDE]"}`}>
 
             <input
               type={showPassword ? "Text" : "Password"}
@@ -871,13 +828,13 @@ function Sign_up({ }) {
               ))}
 
           </div>
-          {formError && (
+          {formError.password !=="Enter Password" && (
             <p className="text-[10px] text-[red] font-[500]">
               {formError?.password}
             </p>
           )}
 
-          <div className=" flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid border-[#DEDEDE] justify-between h-[40px]">
+          <div className={`flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.confirmPassword ? "border-red" : "border-[#DEDEDE]"}`}>
 
             <input
               type={showConfirmPassword ? "Text" : "Password"}
@@ -930,7 +887,7 @@ function Sign_up({ }) {
               ))}
 
           </div>
-          {formError && (
+          {formError.confirmPassword !== "Enter Confirm Password" && (
             <p className="text-[10px] text-[red] font-[500]">
               {formError?.confirmPassword}
             </p>

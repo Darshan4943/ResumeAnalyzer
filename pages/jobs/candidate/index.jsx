@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import AllJobCard from '../../../components/featured/candidate/jobs/AllJobCard';
 import { AnimatePresence, motion } from "framer-motion";
+import MiniLoader from '../../../components/common/miniLoader';
 
 function Index() {
     const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -43,7 +44,7 @@ function Index() {
     const [limit, setLimit] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
     const [isCountrySet, setIsCountrySet] = useState(false);
-    const [miniLoading, setMiniloading] = useState(false);
+    const [miniLoading, setMiniloading] = useState(true);
     const { loc, jobTit, exp, search } = router.query;
     const [hiddenFilters, setHiddenFilters] = useState({});
     const taskRef = useRef(null);
@@ -68,7 +69,7 @@ function Index() {
 
     useEffect(() => {
         if (profileData?.skills) {
-            setUserSkills(profileData?.skills.map((item)=>item.value))
+            setUserSkills(profileData?.skills.map((item) => item.value))
         }
     }, [profileData])
 
@@ -230,7 +231,7 @@ function Index() {
                     country: location ? "" : country,
                     location: location.trim(),
                     experience: experience ? experience : profileData?.totalExperience?.years,
-                    isExperinceNo:experience? false:true
+                    isExperinceNo: experience ? false : true
                 },
                 {
                     params: { page, limit },
@@ -313,160 +314,167 @@ function Index() {
 
     return (
         <>
-            <div className="w-full customMargins pt-6 scr700:hidden ">
-                <button stle={{ boxShadow: "0px 0px 14px 0px #00000005" }} onClick={() => setMobileFilter(true)} className=" px-2 py-2 flex gap-2 bg-[#FFFFFF] rounded-[6px]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {miniLoading ?
+                <MiniLoader />
+                :
 
-                        <g mask="url(#mask0_6317_76206)">
-                            <path d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z" fill="#646464" />
-                        </g>
-                    </svg>
+                <>
+                    <div className="w-full customMargins pt-6 scr700:hidden ">
+                        <button stle={{ boxShadow: "0px 0px 14px 0px #00000005" }} onClick={() => setMobileFilter(true)} className=" px-2 py-2 flex gap-2 bg-[#FFFFFF] rounded-[6px]">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                    Filter
-                </button>
-            </div>
+                                <g mask="url(#mask0_6317_76206)">
+                                    <path d="M10.2789 17.5V16H13.7115V17.5H10.2789ZM6.40385 12.75V11.25H17.5865V12.75H6.40385ZM3.5 7.99998V6.5H20.5V7.99998H3.5Z" fill="#646464" />
+                                </g>
+                            </svg>
 
-            <div className='customMargins py-6 flex gap-6'>
-
-
-                <div style={{ boxShadow: "0px 0px 14px 0px #00000005" }} className='bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4 h-full  min-w-[200px]'>
-                    <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
-                        <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-
-                            All Filters
-                        </p>
-
-                        <button
-                            onClick={() => {
-                                setFilters({});
-                                setClear(!clear);
-
-                            }}
-                            className="text-primary font-montserrat text-sm font-medium text-blue"
-                        >
-                            Reset all
+                            Filter
                         </button>
-
                     </div>
 
+                    <div className='customMargins py-6 flex gap-6'>
 
 
-                    {filteredInputData.map((item, index) => (
-                        <Filter
-                            key={index}
-                            item={item}
-                            filterType={item.title.replace(/ /g, "")}
-                            setClear={setClear}
-                            clear={clear}
-                            onChange={handleCheckboxChange}
-                            country={country}
-                            page={page}
-                            filters={filters}
-                            userSkills={userSkills}
-                            setLoading={setLoading}
-                            className="text-[14px] font-medium flex items-center w-auto bg-white "
-                            isOpen={openDropdown === index}
-                            onDropdownClick={handleDropdownClick}
-                            id={index}
-                            isHidden={hiddenFilters[index] || false}
-                            toggleVisibility={toggleFilterVisibility}
-                        />
-                    ))}
-                </div>
-                <AnimatePresence>
-                    {mobileFilter && (
-                        <>
-                            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+                        <div style={{ boxShadow: "0px 0px 14px 0px #00000005" }} className='bg-white w-[262px]  px-4 py-2 rounded-[8px] scr700:flex hidden flex-col gap-4 h-full  min-w-[200px]'>
+                            <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
+                                <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
 
-                            <motion.div
-                                initial={{ x: "-100%" }}
-                                animate={{ x: 0 }}
-                                exit={{ x: "-100%" }}
-                                transition={{ duration: 0.5 }}
-                                ref={taskRef}
-                                className="fixed z-[2000] flex flex-col gap-4 rounded-[8px] h-[calc(100vh-200px)] top-[100px] overflow-y-auto min-w-[264px] px-4 py-2"
-                                style={{
-                                    background: "white",
-                                    backdropFilter: "blur(10px)",
-                                }}
-                            >
-                                <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
-                                    <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                                    All Filters
+                                </p>
 
-                                        All Filters
-                                    </p>
+                                <button
+                                    onClick={() => {
+                                        setFilters({});
+                                        setClear(!clear);
 
-                                    <button
-                                        onClick={() => {
-                                            setFilters({});
-                                            setClear(!clear);
+                                    }}
+                                    className="text-primary font-montserrat text-sm font-medium text-blue"
+                                >
+                                    Reset all
+                                </button>
 
+                            </div>
+
+
+
+                            {filteredInputData.map((item, index) => (
+                                <Filter
+                                    key={index}
+                                    item={item}
+                                    filterType={item.title.replace(/ /g, "")}
+                                    setClear={setClear}
+                                    clear={clear}
+                                    onChange={handleCheckboxChange}
+                                    country={country}
+                                    page={page}
+                                    filters={filters}
+                                    userSkills={userSkills}
+                                    setLoading={setLoading}
+                                    className="text-[14px] font-medium flex items-center w-auto bg-white "
+                                    isOpen={openDropdown === index}
+                                    onDropdownClick={handleDropdownClick}
+                                    id={index}
+                                    isHidden={hiddenFilters[index] || false}
+                                    toggleVisibility={toggleFilterVisibility}
+                                />
+                            ))}
+                        </div>
+                        <AnimatePresence>
+                            {mobileFilter && (
+                                <>
+                                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+
+                                    <motion.div
+                                        initial={{ x: "-100%" }}
+                                        animate={{ x: 0 }}
+                                        exit={{ x: "-100%" }}
+                                        transition={{ duration: 0.5 }}
+                                        ref={taskRef}
+                                        className="fixed z-[2000] flex flex-col gap-4 rounded-[8px] h-[calc(100vh-200px)] top-[100px] overflow-y-auto min-w-[264px] px-4 py-2"
+                                        style={{
+                                            background: "white",
+                                            backdropFilter: "blur(10px)",
                                         }}
-                                        className="text-primary font-montserrat text-sm font-medium text-blue"
                                     >
-                                        Reset all
-                                    </button>
+                                        <div className="flex justify-between   items-center  py-2 border-b border-[#AFAFAF80] ">
+                                            <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
 
-                                </div>
-                                {filteredInputData.map((item, index) => (
-                                    <Filter
-                                        key={index}
-                                        item={item}
-                                        filterType={item.title.replace(/ /g, "")}
-                                        setClear={setClear}
-                                        clear={clear}
-                                        onChange={handleCheckboxChange}
-                                        country={country}
-                                        page={page}
-                                        filters={filters}
-                                        userSkills={userSkills}
-                                        setLoading={setLoading}
-                                        className="text-[14px] font-medium flex items-center w-auto bg-white "
-                                        isOpen={openDropdown === index}
-                                        onDropdownClick={handleDropdownClick}
-                                        id={index}
-                                        isHidden={hiddenFilters[index] || false}
-                                        toggleVisibility={toggleFilterVisibility}
-                                    />
-                                ))}
-                            </motion.div>
-                        </>
-                    )}
-                </AnimatePresence>
-                <AllJobCard
-                    setMiniloading={setMiniloading}
-                    getAllData={getAllData}
-                    miniLoading={miniLoading}
-                    loading={loading}
-                    setLoading={setLoading}
-                    setLimitPopup={setLimitPopup}
-                    setCurrentPage={setPage}
-                    isLogin={isLogin}
-                    appliedJobs={appliedJobData}
-                    setLimit={setLimit}
-                    limit={limit}
-                    setTotalpages={setTotalpages}
-                    totalPages={totalPages}
-                    page={page}
-                    setPage={setPage}
-                    jobData={jobData}
-                    totalCount={totalCount}
-                />
-                <div className=' flex-col gap-6 rounded-[12px] scr900:flex hidden'>
-                    <img
-                        src="/images/jobs/jobPoster1.png"
-                        alt=""
-                        className=" scr1100:min-w-[262px] w-[220px] min-w-[200px]  rounded-[12px] scr1100:h-[356px] h-[300px] object-contain "
+                                                All Filters
+                                            </p>
 
-                    />
-                    <img
-                        src="/images/jobs/jobPoster1.png"
-                        alt=""
-                        className=" scr1100:min-w-[262px] w-[220px] min-w-[200px] rounded-[12px] scr1100:h-[356px] h-[300px] object-contain "
+                                            <button
+                                                onClick={() => {
+                                                    setFilters({});
+                                                    setClear(!clear);
 
-                    />
-                </div>
-            </div>
+                                                }}
+                                                className="text-primary font-montserrat text-sm font-medium text-blue"
+                                            >
+                                                Reset all
+                                            </button>
+
+                                        </div>
+                                        {filteredInputData.map((item, index) => (
+                                            <Filter
+                                                key={index}
+                                                item={item}
+                                                filterType={item.title.replace(/ /g, "")}
+                                                setClear={setClear}
+                                                clear={clear}
+                                                onChange={handleCheckboxChange}
+                                                country={country}
+                                                page={page}
+                                                filters={filters}
+                                                userSkills={userSkills}
+                                                setLoading={setLoading}
+                                                className="text-[14px] font-medium flex items-center w-auto bg-white "
+                                                isOpen={openDropdown === index}
+                                                onDropdownClick={handleDropdownClick}
+                                                id={index}
+                                                isHidden={hiddenFilters[index] || false}
+                                                toggleVisibility={toggleFilterVisibility}
+                                            />
+                                        ))}
+                                    </motion.div>
+                                </>
+                            )}
+                        </AnimatePresence>
+                        <AllJobCard
+                            setMiniloading={setMiniloading}
+                            getAllData={getAllData}
+                            miniLoading={miniLoading}
+                            loading={loading}
+                            setLoading={setLoading}
+                            setLimitPopup={setLimitPopup}
+                            setCurrentPage={setPage}
+                            isLogin={isLogin}
+                            appliedJobs={appliedJobData}
+                            setLimit={setLimit}
+                            limit={limit}
+                            setTotalpages={setTotalpages}
+                            totalPages={totalPages}
+                            page={page}
+                            setPage={setPage}
+                            jobData={jobData}
+                            totalCount={totalCount}
+                        />
+                        <div className=' flex-col gap-6 rounded-[12px] scr900:flex hidden'>
+                            <img
+                                src="/images/jobs/jobPoster1.png"
+                                alt=""
+                                className=" scr1100:min-w-[262px] w-[220px] min-w-[200px]  rounded-[12px] scr1100:h-[356px] h-[300px] object-contain "
+
+                            />
+                            <img
+                                src="/images/jobs/jobPoster1.png"
+                                alt=""
+                                className=" scr1100:min-w-[262px] w-[220px] min-w-[200px] rounded-[12px] scr1100:h-[356px] h-[300px] object-contain "
+
+                            />
+                        </div>
+                    </div>
+                </>
+            }
         </>
     )
 }

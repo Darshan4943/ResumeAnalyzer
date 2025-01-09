@@ -192,12 +192,12 @@ function Dashboard({ toggleContentt }) {
 
   return (
     <div
-      className=" ml:h-[calc(100vh-100px)] w-[100%]  overflow-y-auto "
+      className=" ml:h-[calc(100vh-100px)] pt-6 w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
       <div className=" lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3  ">
         <div
-          className="flex flex-col gap-6 p-4 rounded-[16px] w-[24%] "
+          className="flex flex-col gap-6 p-4 rounded-[16px] w-full lg:w-[32%] scr1067:w-[24%] "
           style={{
             background:
               "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)",
@@ -207,11 +207,11 @@ function Dashboard({ toggleContentt }) {
             <img
               src="/images/resumeBuilder/Illustration.png"
               alt=""
-              className="w-[106px] h-[98px]"
+              className="w-[35.33%] max-w-[106px] h-[98px]"
             />
-            <div className="flex flex-col gap-3">
+            <div className="flex w-[62.67%] flex-col gap-3">
               <div
-                className="text-[18px] font-semibold p-2 rounded-l-[6px] leading-tight text-[#06A9EF] scr360:w-[186px] w-[156px] mr-[-16px]"
+                className="text-[18px] font-semibold p-2 rounded-l-[6px] leading-tight text-[#06A9EF] w-full mr-[-16px]"
                 style={{
                   background:
                     "linear-gradient(89.03deg, #FFFFFF 0.83%, rgba(255, 254, 254, 0) 98.41%)",
@@ -220,7 +220,7 @@ function Dashboard({ toggleContentt }) {
                 Hello,
               </div>
               {userDataGlobal?.firstName && (
-                <div className="text-[18px] text-[#FFFFFF] font-semibold leading-tight break-all">
+                <div className="text-[18px] flex scr540:gap-2 flex-col scr540:flex-row lg:flex-col lg:gap-0 text-[#FFFFFF] font-semibold leading-tight break-all">
                   <p> {camelCase(userDataGlobal?.firstName)}</p>
                   <p> {camelCase(userDataGlobal?.lastName)}!</p>
                 </div>
@@ -229,7 +229,7 @@ function Dashboard({ toggleContentt }) {
           </div>
         </div>
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start w-[100%] lg:w-[32%] scr1067:w-[24%] gap-[6px]  ml:gap-4 h-[130px]"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -278,10 +278,10 @@ function Dashboard({ toggleContentt }) {
           </div>
         </div>
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
           style={{
             borderRadius: "12px",
-            borderLeft: "4px solid #57697B",
+            borderLeft: "4px solid #FFDA1D",
             backgroundColor: "#fff",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
@@ -330,10 +330,10 @@ function Dashboard({ toggleContentt }) {
           </div>
         </div>
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
           style={{
             borderRadius: "12px",
-            borderLeft: "4px solid #57697B",
+            borderLeft: "4px solid #06A9EF",
             backgroundColor: "#fff",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}

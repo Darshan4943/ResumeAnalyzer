@@ -974,7 +974,7 @@ function Collection() {
         </>
       )}
       <div className="">
-        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:pt-6 pt-2 relative  ">
+        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4   relative  ">
           <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%]  min-w-[188px] ">
             <div className="flex flex-col gap-4 ">
               <p className="text-[18px] font-semibold h-[36px] ">
