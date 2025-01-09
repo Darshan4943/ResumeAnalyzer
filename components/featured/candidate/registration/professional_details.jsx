@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { toast } from "react-toastify";
 import ImageContainer from "../../../common/image";
@@ -19,6 +19,7 @@ const ProfessionalDetails = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [duration, setDuration] = useState({});
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
   const [formError, setFormError] = useState({});
   const router = useRouter();
   const handleClick = () => {
@@ -53,11 +54,19 @@ const ProfessionalDetails = ({
       }
     }
 
-    // setLoading(true);
-    setData({ ...data, jobDuration: duration.duration });
-    localStorage.setItem("preResumeData", JSON.stringify(data));
-    router.push(`/createResume?clientId=${clientId}`);
+    setData((prevData) => ({ ...prevData, jobDuration: duration.duration }));
+    setIsDataUpdated(true);
+    // localStorage.setItem("preResumeData", JSON.stringify(data));
+    // router.push(`/createResume?clientId=${clientId}`);
   };
+
+  useEffect(() => {
+    if (isDataUpdated) {
+      localStorage.setItem("preResumeData", JSON.stringify(data));
+      router.push(`/createResume?clientId=${clientId}`);
+    }
+  }, [isDataUpdated]);
+
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 

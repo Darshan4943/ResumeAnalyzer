@@ -266,13 +266,13 @@ function Services() {
         >
           <div className="flex flex-col gap-4">
             {(userDataGlobal?.role === "user"  || !isLogin) &&
-              <button onClick={() => setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px]">
-                Candicate
+              <button onClick={() => setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px] font-medium">
+                Candidate
 
               </button>
             }
             {(userDataGlobal?.role === "recruiter" || !isLogin) &&
-              <button onClick={() => setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px]">
+              <button onClick={() => setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px] font-medium">
                 Recruiter
 
               </button>

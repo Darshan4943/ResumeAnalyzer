@@ -46,7 +46,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   return (
     <>
       <div id="demo-modal" class="modal ">
-        <div class="modal__content ms:w-[56%] gap-4 flex flex-col p-6 rounded-xl max-h-[80vh] overflow-y-auto">
+        <div class="modal__content ms:w-[56%] gap-4 flex flex-col p-6 rounded-xl max-h-[80vh] ">
           <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 self-stretch w-full">
             <div className=" text-[#25324B] font-Montserrat  text-[16px] font-[600] leading-160 min-w-[80px]">
@@ -79,7 +79,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
               </div>
             ))}
           </div>
-          <div className="flex justify-between items-start  self-stretch">
+          <div className="flex justify-between items-start  ">
             {/* <input
               type="text"
               placeholder="Type in your area of specialization or expertise."
@@ -103,7 +103,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
                 value: item,
                 label: camelCase(item),
               }))}
-              className="w-[100%]"
+              className="w-[100%] "
               onChange={(data) => {
                 const isAlreadySelected = skil.some(
                   (skill) => skill.value === data.value
