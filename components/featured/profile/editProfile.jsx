@@ -213,7 +213,7 @@ function EditProfile({ setEditProfile }) {
       axios
         .put(
           "http://localhost:2000/api/candidate/updateProfile/" +
-          userDataGlobal._id,
+          userDataGlobal?._id,
           requestData
         )
 
@@ -302,7 +302,7 @@ function EditProfile({ setEditProfile }) {
 
     axios
       .post("http://localhost:2000/api/otpMailProfile", {
-        userId: userDataGlobal._id, userEmail: data.email
+        userId: userDataGlobal?._id, userEmail: data.email
 
       })
       .then((res) => {
@@ -352,7 +352,7 @@ function EditProfile({ setEditProfile }) {
     const otpEntered = Number(otp.join(''));
     axios
       .post("http://localhost:2000/api/verifyOtpProfile", {
-        userId: userDataGlobal._id,
+        userId: userDataGlobal?._id,
         otpEntered
       })
       .then((res) => {

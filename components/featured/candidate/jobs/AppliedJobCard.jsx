@@ -261,7 +261,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                             </g>
                                         </svg>
 
-                                        Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal._id).appliedOn)}
+                                        Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal?._id).appliedOn)}
                                     </div>
                                     {/* <div className=' cursor-pointer'>
 

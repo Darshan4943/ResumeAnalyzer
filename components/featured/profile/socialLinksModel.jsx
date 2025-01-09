@@ -44,7 +44,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
       if (isEditing) {
         axios
           .put(
-            `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateSocialLinks/${Social._id}`,
+            `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateSocialLinks/${Social._id}`,
             data
           )
           .then((res) => {
@@ -61,7 +61,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social,editSocial }) {
         axios
         .post(
           "http://localhost:2000/api/candidate/addSocialLinks/" +
-            userDataGlobal._id,
+            userDataGlobal?._id,
           data
         )
         .then((res) => {

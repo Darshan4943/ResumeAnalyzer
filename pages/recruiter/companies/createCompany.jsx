@@ -25,7 +25,7 @@ function CreateCompany() {
 
     useEffect(() => {
         if (userDataGlobal && userDataGlobal.id) {
-            setId(userDataGlobal._id);
+            setId(userDataGlobal?._id);
         }
     }, [userDataGlobal]);
 

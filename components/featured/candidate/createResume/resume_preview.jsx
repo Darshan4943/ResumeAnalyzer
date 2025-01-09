@@ -402,9 +402,9 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         if (userDataGlobal.role === "user") {
-          formData.append("UserId", userDataGlobal._id);
+          formData.append("UserId", userDataGlobal?._id);
         } else if (userDataGlobal.role === "recruiter") {
-          formData.append("UserId", userDataGlobal._id);
+          formData.append("UserId", userDataGlobal?._id);
 
         }
 
@@ -468,10 +468,10 @@ const ResumePreview = ({
         formData.append("selectedFont", selectedFont);
 
         if (userDataGlobal.role === "user") {
-          formData.append("userId", userDataGlobal._id);
+          formData.append("userId", userDataGlobal?._id);
         } else if (userDataGlobal.role === "recruiter") {
           formData.append("userId", data.clientId);
-          formData.append("recruiterId", userDataGlobal._id);
+          formData.append("recruiterId", userDataGlobal?._id);
         }
 
         axios
@@ -519,7 +519,7 @@ const ResumePreview = ({
     axios
       .put(
         "http://localhost:2000/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+          userDataGlobal?._id
       )
       .then((res) => {
         const result = res.data;

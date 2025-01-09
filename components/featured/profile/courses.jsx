@@ -33,7 +33,7 @@ const Courses = ({ userData }) => {
   const deleteHandler = () => {
     axios
       .delete(
-        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteCourse/${deleteData.id}`
+        `http://localhost:2000/api/candidate/${userDataGlobal?._id}/deleteCourse/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());

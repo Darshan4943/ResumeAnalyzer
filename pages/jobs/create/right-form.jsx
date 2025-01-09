@@ -156,7 +156,7 @@ const Rightform = ({
       formData.append("logo", croppedImage.blob);
       formData.append("fileName", file.name);
     }
-    formData.append("createdBy", userDataGlobal._id);
+    formData.append("createdBy", userDataGlobal?._id);
 
     axios
       .post("http://localhost:2000/api/job/add/" + id, formData)

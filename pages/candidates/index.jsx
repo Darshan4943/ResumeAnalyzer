@@ -63,7 +63,7 @@ function MyClients() {
   const callData = () => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
         setDetails(res.data.data);

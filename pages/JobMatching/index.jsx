@@ -330,14 +330,14 @@ const JobMatching = () => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
-      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
 
       if (!updateJobMatchResponse.data.success) {
         console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
       }
 
-      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal._id}`;
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
 
       if (!jdSubscriptionResponse.data.success) {

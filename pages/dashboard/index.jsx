@@ -161,8 +161,8 @@ function Dashboard({ toggleContentt }) {
   };
 
   useEffect(() => {
-    if (userDataGlobal && userDataGlobal._id) {
-      setId(userDataGlobal._id);
+    if (userDataGlobal && userDataGlobal?._id) {
+      setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
 

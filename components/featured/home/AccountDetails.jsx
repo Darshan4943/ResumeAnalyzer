@@ -172,7 +172,7 @@ function AccountDetails({
   //     });
   //     axios
   //       .post("http://localhost:2000/api/add/subscription", {
-  //         userId: userDataGlobal._id,
+  //         userId: userDataGlobal?._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
   //         mobileNo: jsonData.mobileNo,
@@ -370,7 +370,7 @@ function AccountDetails({
     setexchangeRate(exchangeRate);
     try {
       await axios.post("http://localhost:2000/api/add/subscription", {
-        userId: userDataGlobal._id,
+        userId: userDataGlobal?._id,
         plan: `${selectedPlan.name}`,
         ...jsonData,
         mobileNo: jsonData?.mobileNo,
@@ -419,7 +419,7 @@ function AccountDetails({
         setLoading(true);
         try {
           await axios.post("http://localhost:2000/api/add/subscription", {
-            userId: userDataGlobal._id,
+            userId: userDataGlobal?._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,
             email: data?.email,

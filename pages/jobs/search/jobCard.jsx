@@ -22,7 +22,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
           setLoading(false);
           setIsApplied(
             res.data.data.applications?.find(
-              (item) => item.applicantId == userDataGlobal._id
+              (item) => item.applicantId == userDataGlobal?._id
             )
           );
         })
@@ -41,7 +41,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     setLoading(true);
     axios
       .post("http://localhost:2000/api/job/apply/" + data?._id, {
-        userId: userDataGlobal._id,
+        userId: userDataGlobal?._id,
         resumeId: resume._id,
         percentage: data?.percentage,
       })

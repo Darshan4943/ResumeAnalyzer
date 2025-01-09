@@ -133,7 +133,7 @@ console.log(croppedImage)
   //   axios
   //     .put(
   //       "http://localhost:2000/api/candidate/updateProfileImage/" +
-  //       userDataGlobal._id,
+  //       userDataGlobal?._id,
   //       formData
   //     )
   //     .then((res) => {
@@ -161,7 +161,7 @@ console.log(croppedImage)
 
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/candidate/updateProfileImage/${userDataGlobal._id}`,
+        `http://localhost:2000/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
         formData
       );
       dispatch(fetchUserData());

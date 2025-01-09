@@ -73,7 +73,7 @@ function CreateNewClient() {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -212,7 +212,7 @@ function CreateNewClient() {
             formdata.append(key, data[key]);
           }
         });
-        formdata.append("recruiterId", userDataGlobal._id);
+        formdata.append("recruiterId", userDataGlobal?._id);
         formdata.append(
           "img",
           croppedImage === null ? details.profilePicture : croppedImage

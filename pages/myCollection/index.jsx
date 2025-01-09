@@ -165,7 +165,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -182,7 +182,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
 
@@ -199,7 +199,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal?._id}`)
       .then((res) => {
         setFolderList(res.data.data);
 
@@ -215,7 +215,7 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
         const files = res.data.data.filter(item => item.type === 'file');
         setUnSyncFiles(files.length);
@@ -248,7 +248,7 @@ function Collection() {
       const formData = new FormData();
       formData.append("fileName", folderName);
       formData.append("type", "folder");
-      formData.append("userId", userDataGlobal._id);
+      formData.append("userId", userDataGlobal?._id);
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
@@ -393,7 +393,7 @@ function Collection() {
 
           formData.append("fileName", file.name);
           formData.append("type", "file");
-          formData.append("userId", userDataGlobal._id);
+          formData.append("userId", userDataGlobal?._id);
           formData.append("text", text);
           formData.append("file", file);
           formData.append("parentId", ParentId ? ParentId : undefined);
@@ -522,7 +522,7 @@ function Collection() {
   //   }
   //   try {
 
-  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
+  //     const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
   //     const response = await axios.put(apiUrl, { uploadCount });
 
   //     if (response.data.success) {
@@ -551,8 +551,8 @@ function Collection() {
       return { success: false, message: 'Files count is zero, no update needed.' };
     }
     try {
-      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal._id}`;
-      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal._id}`;
+      const apiUrl = `http://localhost:2000/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
+      const anotherApiUrl = `http://localhost:2000/api/subscription/updateCollectionLimit/${userDataGlobal?._id}`;
 
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });

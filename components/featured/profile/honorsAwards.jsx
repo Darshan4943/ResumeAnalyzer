@@ -54,7 +54,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
   //     discription: data.discription, 
   //   };
   //   axios
-  //     .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal._id}`, awardData)
+  //     .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal?._id}`, awardData)
   //     .then((res) => {
 
   //       console.log(444, res.data);
@@ -81,7 +81,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     if (isEditing) { 
       axios
         .put(
-          `http://localhost:2000/api/candidate/${userDataGlobal._id}/updateAchivement/${Achievement._id}`,
+          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateAchivement/${Achievement._id}`,
           awardData
         )
         .then((res) => {
@@ -96,7 +96,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
         });
     } else {
       axios
-        .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal._id}`, awardData)
+        .post(`http://localhost:2000/api/candidate/addAchivement/${userDataGlobal?._id}`, awardData)
         .then((res) => {
 
          

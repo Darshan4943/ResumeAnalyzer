@@ -367,7 +367,7 @@ function SkillAssessment() {
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
         .post("http://localhost:2000/api/assessment/add", {
-          userId: userDataGlobal._id,
+          userId: userDataGlobal?._id,
           skill: selectedSkill,
           score: checkAnswer(),
           date: new Date(),
@@ -440,7 +440,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal?._id}`
       )
       .then((res) => {
         const data = res.data.data;

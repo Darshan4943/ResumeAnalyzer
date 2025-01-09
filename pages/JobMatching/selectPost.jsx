@@ -19,7 +19,7 @@ const SelectPost = ({setTab,setSelectedJob}) => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
       .then((res) => {
        
         setJobPost(res.data);

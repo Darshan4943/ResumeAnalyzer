@@ -23,7 +23,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   // const getData = () => {
   //   axios
   //     .get(
-  //       `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal._id}`
+  //       `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {
   //       setAppliedJobs(res.data);
@@ -35,7 +35,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   //     });
   // };
   // useEffect(() => {
-  //   if (userDataGlobal._id) {
+  //   if (userDataGlobal?._id) {
   //     getData();
   //   } else {
   //     setLoading(false);

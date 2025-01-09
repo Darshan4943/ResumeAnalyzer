@@ -134,7 +134,7 @@ const ChatBox = ({
   // const updateChatCount = () => {
   //   axios
   //     .put(
-  //       `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal._id}`
+  //       `http://localhost:2000/api/subscription/updateChatLimit/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
   //       const chatCounts = Number(localStorage.getItem("chatCount"));
@@ -183,7 +183,7 @@ const ChatBox = ({
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
           userType: userDataGlobal.role,
-          userId: userDataGlobal._id
+          userId: userDataGlobal?._id
         })
         .then((res) => {
           setOnce(true)

@@ -17,7 +17,7 @@ const PlanExpiredModal = () => {
         return;
       }
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           if (res.data.success) {
             if (
@@ -27,7 +27,7 @@ const PlanExpiredModal = () => {
               axios
                 .put(
                   "http://localhost:2000/api/subscription/update/" +
-                    userDataGlobal._id
+                    userDataGlobal?._id
                 )
                 .then((res) => {
                   setVisible(true);

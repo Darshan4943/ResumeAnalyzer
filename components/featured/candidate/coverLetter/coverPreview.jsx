@@ -138,11 +138,11 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         }
       });
 
-      formData.append("UserId", userDataGlobal._id);
+      formData.append("UserId", userDataGlobal?._id);
       formData.append("pdfBlob", pdfBlob);
       formData.append(
         "userId",
-        userDataGlobal.role === "user" ? userDataGlobal._id : clientId
+        userDataGlobal.role === "user" ? userDataGlobal?._id : clientId
       );
       formData.append("fileName", name);
 

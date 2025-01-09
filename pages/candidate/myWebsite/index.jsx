@@ -65,7 +65,7 @@ const Index = () => {
     setLoading(true);
     if (userDataGlobal?._id) {
       axios
-        .get(`http://localhost:2000/api/resume/${userDataGlobal._id}`)
+        .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
         .then((res) => {
           setResumeList(res.data.data);
 
@@ -99,7 +99,7 @@ const Index = () => {
             {
               selectedIndexes,
               selectedResumeUrl,
-              _id: userDataGlobal._id,
+              _id: userDataGlobal?._id,
               resumeName: selectedResumeName,
             }
           );

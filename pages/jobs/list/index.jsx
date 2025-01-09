@@ -18,7 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
       .then((res) => {
        
         setJobPost(res.data);
@@ -32,7 +32,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    if (userDataGlobal._id) {
+    if (userDataGlobal?._id) {
       getData();
     }
   }, [userDataGlobal]);

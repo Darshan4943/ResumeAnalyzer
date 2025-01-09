@@ -34,7 +34,7 @@ const Saved = () => {
   };
 
   useEffect(() => {
-    if (userDataGlobal._id) {
+    if (userDataGlobal?._id) {
       getData();
     }
   }, [userDataGlobal]);

@@ -214,7 +214,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                             Applied {CountPostingDays(
                                                 appliedJobs
                                                     ?.find((job) => job._id === item._id)
-                                                    ?.applications?.find((application) => application?.applicantId === userDataGlobal._id)
+                                                    ?.applications?.find((application) => application?.applicantId === userDataGlobal?._id)
                                                     ?.appliedOn
                                             )}
                                         </div>

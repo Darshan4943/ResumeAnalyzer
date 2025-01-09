@@ -75,7 +75,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+          `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
         )
         .then((res) => {
           const result = res.data.data;

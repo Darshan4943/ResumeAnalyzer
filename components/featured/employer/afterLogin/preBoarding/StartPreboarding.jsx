@@ -14,8 +14,8 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
-    if (userDataGlobal && userDataGlobal._id) {
-      setId(userDataGlobal._id);
+    if (userDataGlobal && userDataGlobal?._id) {
+      setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
 

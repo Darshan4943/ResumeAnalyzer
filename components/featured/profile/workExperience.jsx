@@ -33,7 +33,7 @@ const WorkExperiance = ({ userData }) => {
   const deleteHandler = () => {
     axios
       .delete(
-        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteWorkExperience/${deleteData.id}`
+        `http://localhost:2000/api/candidate/${userDataGlobal?._id}/deleteWorkExperience/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());

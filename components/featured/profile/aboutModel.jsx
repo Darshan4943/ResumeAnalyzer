@@ -52,7 +52,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
     axios
       .post(
         "http://localhost:2000/api/candidate/updateSummery/" +
-          userDataGlobal._id,
+          userDataGlobal?._id,
 
         { summery: text }
       )

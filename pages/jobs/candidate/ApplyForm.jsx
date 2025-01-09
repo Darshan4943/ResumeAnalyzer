@@ -82,7 +82,7 @@ function ApplyForm() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal._id}`
+        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal?._id}`
       )
       .then((res) => {
         const { personal, professional } = res.data.data;
@@ -127,7 +127,7 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/resume/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
       .then((res) => {
         setResumes(res.data.data);
         setLoadingg(false);
@@ -188,7 +188,7 @@ function ApplyForm() {
   const updateApplyCount = () => {
     axios
       .put(
-        `http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal._id}`
+        `http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
       )
       .then((res) => { })
       .catch((err) => console.error(err));
@@ -414,7 +414,7 @@ function ApplyForm() {
     }
     setLoading(true);
     const formDataToSend = new FormData();
-    formDataToSend.append("userId", userDataGlobal._id);
+    formDataToSend.append("userId", userDataGlobal?._id);
     formDataToSend.append("resumeUrl", isUploaded ? null : selectedResume);
     formDataToSend.append("resumeId", resumeIdd);
     formDataToSend.append("percentage", "");
@@ -483,7 +483,7 @@ function ApplyForm() {
           .post(
             "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
             {
-              userId: userDataGlobal._id,
+              userId: userDataGlobal?._id,
               ...formData,
             }
           )

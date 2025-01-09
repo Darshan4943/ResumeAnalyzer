@@ -78,7 +78,7 @@ function MyPurchase() {
   }, [userDataGlobal]);
   if (userDataGlobal) {
     axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
       .then((res) => {
         const plan = allPlans.find(
           (item) => item.index == res.data.findIsActive?.index
@@ -106,7 +106,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -135,7 +135,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/AllSubscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/AllSubscription/" + userDataGlobal?._id)
         .then((res) => {
           setSubscriptionHistory(res.data.data.reverse());
           setTimeout(() => {

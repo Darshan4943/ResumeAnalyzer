@@ -91,7 +91,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     axios
       .put(
         "http://localhost:2000/api/candidate/updateProfileDetails/" +
-        userDataGlobal._id,
+        userDataGlobal?._id,
         obj
       )
       .then((res) => {

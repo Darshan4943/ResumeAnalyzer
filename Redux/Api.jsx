@@ -87,9 +87,9 @@ export const Api = ({ }) => {
   //   return () => clearTimeout(timeoutId);
   // }, [userDataGlobal]);
 
-  // if (userDataGlobal._id) {
+  // if (userDataGlobal?._id) {
   //   axios
-  //     .put("http://localhost:2000/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
+  //     .put("http://localhost:2000/api/skiloteckuser/clrLocalStorage/" + userDataGlobal?._id)
   //     .then((res) => {
 
   //     })
@@ -112,9 +112,9 @@ export const Api = ({ }) => {
   useEffect(() => {
 
     if (userDataGlobal) {
-      dispatch(fetchProfileData(userDataGlobal._id));
-      dispatch(fetchAppliedJob(userDataGlobal._id));
-      dispatch(fetchSavedJobIds(userDataGlobal._id));
+      dispatch(fetchProfileData(userDataGlobal?._id));
+      dispatch(fetchAppliedJob(userDataGlobal?._id));
+      dispatch(fetchSavedJobIds(userDataGlobal?._id));
     }
 
   }, [userDataGlobal]);
@@ -172,7 +172,7 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
