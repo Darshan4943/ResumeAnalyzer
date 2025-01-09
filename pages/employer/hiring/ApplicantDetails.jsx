@@ -14,9 +14,7 @@ function ApplicantDetails({ setTogglee }) {
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-
   const { id, applicantId } = router.query;
-  console.log(33333, id, applicantId);
 
   const getData = async () => {
     try {
@@ -39,7 +37,9 @@ function ApplicantDetails({ setTogglee }) {
 
       if (response.data) {
         setJobDetails(response.data.data);
-        
+        setTimeout(()=>{
+          setLoading(false)
+        },3000)
       } else {
         setError("Applicant not found");
       }
@@ -55,7 +55,7 @@ function ApplicantDetails({ setTogglee }) {
     if (id && applicantId) {
       getData();
     }
-  }, [id, applicantId]);
+  }, []);
 
   const handleOptionClick = (option) => {
     setActiveOption(option);

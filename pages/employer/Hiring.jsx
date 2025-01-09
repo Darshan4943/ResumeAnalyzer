@@ -9,7 +9,6 @@ function Hiring() {
   const router = useRouter();
   const query = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -218,16 +217,16 @@ function Hiring() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: 'none', 
-      boxShadow: 'none', 
+      border: "none",
+      boxShadow: "none",
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0, 
+      padding: 0,
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: 'none', 
+      display: "none",
     }),
   };
 
