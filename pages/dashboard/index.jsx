@@ -173,7 +173,6 @@ function Dashboard({ toggleContentt }) {
           `http://localhost:2000/api/job/getAllApplication/${id}`
         );
         setApplicants(response.data);
-        console.log(11, response.data);
       } catch (err) {
         console.error("Error:", err);
         setError("Failed to fetch jobs.");
