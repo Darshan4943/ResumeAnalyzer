@@ -119,6 +119,7 @@ function Hiring() {
     }
   }, [userDataGlobal]);
 
+
   const fetchJobs = async () => {
     setLoading(true);
     try {
@@ -130,6 +131,7 @@ function Hiring() {
       );
 
       const { jobs, pagination } = response.data;
+      console.log(response.data)
       setData(jobs);
       setTimeout(() => {
         setLoading(false);
@@ -149,6 +151,7 @@ function Hiring() {
       fetchJobs();
     }
   }, [id, filters, limit, page]);
+
 
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
@@ -362,7 +365,7 @@ function Hiring() {
 
           {loading ? (
             <MiniLoader />
-          ) : data.length === 0 ? (
+          ) : data?.length === 0 ? (
             <div className="p-3  flex items-center justify-center">
               <img
                 className="w-[40%]"
