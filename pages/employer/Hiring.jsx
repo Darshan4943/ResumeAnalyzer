@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
 import { useSelector } from "react-redux";
+import debounce from 'lodash.debounce';
 
 function Hiring() {
   const router = useRouter();
@@ -119,7 +120,6 @@ function Hiring() {
     }
   }, [userDataGlobal]);
 
-
   const fetchJobs = async () => {
     setLoading(true);
     try {
@@ -131,7 +131,7 @@ function Hiring() {
       );
 
       const { jobs, pagination } = response.data;
-      console.log(response.data)
+      console.log(response.data);
       setData(jobs);
       setTimeout(() => {
         setLoading(false);
@@ -151,7 +151,6 @@ function Hiring() {
       fetchJobs();
     }
   }, [id, filters, limit, page]);
-
 
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
@@ -217,11 +216,45 @@ function Hiring() {
     setOpenSort(false);
   };
 
+
+  const getResponsiveWidth = () => {
+    const width = window.innerWidth;
+    if (width <= 480) {
+      return "100px";
+    } else if (width <= 768) {
+      return "120px";
+    } else if (width <= 1024) {
+      return "150px";
+    } else if (width <= 1440) {
+      return "200px";
+    } else {
+      return "250px";
+    }
+  };
+
+  const [width, setWidth] = useState(getResponsiveWidth());
+
+  const handleResize = useCallback(
+    debounce(() => {
+      setWidth(getResponsiveWidth());
+    }, 300),
+    []
+  ); 
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
   const customStyles = {
     control: (provided) => ({
       ...provided,
       border: "none",
       boxShadow: "none",
+      width: width, 
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
@@ -230,6 +263,14 @@ function Hiring() {
     indicatorSeparator: (provided) => ({
       ...provided,
       display: "none",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      width: width, 
+    }),
+    option: (provided) => ({
+      ...provided,
+      width: width, 
     }),
   };
 
@@ -318,7 +359,7 @@ function Hiring() {
               )}
             </div>
           </div>
-          <div className="hidden ml:flex w-[80.58%] rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
+          <div className="hidden ml:flex  max-w-fit  rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
             {headings.map((filter, index) => (
               <>
                 <Select
@@ -345,7 +386,7 @@ function Hiring() {
                   placeholder={filter.heading}
                   isSearchable={true}
                   noOptionsMessage={() => "No options available"}
-                  styles={customStyles} // You can define any custom styles as needed
+                  styles={customStyles}
                 />
               </>
             ))}
