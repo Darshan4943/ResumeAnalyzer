@@ -313,10 +313,30 @@ function Sign_up({ }) {
   };
 
   const handleInputChange = (fieldName, value) => {
-    setData({ ...data, [fieldName]: value });
-    validateInput(fieldName, value);
-  };
 
+    if (fieldName == "mobileNo") {
+      if (value.replace(/\D/g, "").length <= 10) {
+        setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
+        if (value.replace(/\D/g, "").length < 10) {
+          setFormError((prevErrors) => ({
+            ...prevErrors,
+            mobileNo: "length must be 10",
+          }));
+        }
+        else {
+          setFormError((prevErrors) => {
+            const updatedErrors = { ...prevErrors };
+            delete updatedErrors.mobileNo;
+            return updatedErrors;
+          });
+        }
+      }
+    }
+    else {
+      setData({ ...data, [fieldName]: value });
+      validateInput(fieldName, value);
+    }
+  }
   const validateFields = () => {
     const requiredFields = [
       { key: "firstName", error: "Enter First Name" },
@@ -703,21 +723,21 @@ function Sign_up({ }) {
                     </button>
                   )
                 ) : (
-                  <button className=" min-w-[86px] text-[12px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
+                  <div className=" min-w-[86px] text-[12px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
                     {loadingg ? (
                       <MiniLoader />
                     ) : (
                       <>
                         {!resend ? (
-                          <p>{formatTime(timer)}</p>
+                          <button disabled onClick={(e) => e.stopPropagation()}>{formatTime(timer)}</button>
                         ) : (
-                          <p onClick={handleVerification}>
+                          <p className=" cursor-pointer" onClick={handleVerification}>
                             Resend Code
                           </p>
                         )}
                       </>
                     )}
-                  </button>
+                  </div>
                 )}
               </>
             )}
