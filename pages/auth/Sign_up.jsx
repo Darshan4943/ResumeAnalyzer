@@ -225,7 +225,7 @@ function Sign_up({ }) {
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
-  
+
     switch (fieldName) {
       case "firstName":
         if (!value.trim()) {
@@ -238,7 +238,7 @@ function Sign_up({ }) {
           delete errors.firstName;
         }
         break;
-  
+
       case "lastName":
         if (!value.trim()) {
           errors.lastName = "Last Name is required";
@@ -250,7 +250,7 @@ function Sign_up({ }) {
           delete errors.lastName;
         }
         break;
-  
+
       case "email":
         if (!value.trim()) {
           errors.email = "Email is required";
@@ -260,7 +260,7 @@ function Sign_up({ }) {
           delete errors.email;
         }
         break;
-  
+
       case "mobileNo":
         if (!value.trim()) {
           errors.mobileNo = "Mobile Number is required";
@@ -272,7 +272,7 @@ function Sign_up({ }) {
           delete errors.mobileNo;
         }
         break;
-  
+
       case "password":
         if (!isUpdate && (!value.trim() || value.trim().length < 6)) {
           errors.password = "Password must be at least 6 characters long";
@@ -286,16 +286,16 @@ function Sign_up({ }) {
           delete errors.password;
         }
         break;
-        case "confirmPassword":
-          if (!isUpdate) {
-            if (!value.trim() || value.trim() != data.password) {
-              errors.confirmPassword = "Password do not match";
-            } else {
-              delete errors.confirmPassword;
-            }
+      case "confirmPassword":
+        if (!isUpdate) {
+          if (!value.trim() || value.trim() != data.password) {
+            errors.confirmPassword = "Password do not match";
+          } else {
+            delete errors.confirmPassword;
           }
-          break;
-  
+        }
+        break;
+
       case "dial_code":
         if (!value.trim()) {
           errors.dial_code = "Country Code is required";
@@ -303,20 +303,20 @@ function Sign_up({ }) {
           delete errors.dial_code;
         }
         break;
-  
+
       default:
         break;
     }
-  
+
     setFormError(errors);
     return errors;
   };
-  
+
   const handleInputChange = (fieldName, value) => {
     setData({ ...data, [fieldName]: value });
     validateInput(fieldName, value);
   };
-  
+
   const validateFields = () => {
     const requiredFields = [
       { key: "firstName", error: "Enter First Name" },
@@ -327,34 +327,34 @@ function Sign_up({ }) {
       { key: "password", error: "Enter Password" },
       { key: "confirmPassword", error: "Enter Confirm Password" },
     ];
-  
+
     let errors = { ...formError };
-  
+
     requiredFields.forEach((field) => {
       if (!data[field.key]?.trim()) {
         errors[field.key] = field.error;
       }
     });
-  
+
     setFormError(errors);
     return Object.keys(errors).length === 0; // Return true if no errors
   };
-  
+
   const submitHandler = (e) => {
     e.preventDefault();
-  
+
     const isValid = validateFields(); // Validate all fields
     if (!isValid) {
       // toast.error("Please fill in all required fields correctly.");
       return;
     }
-  
+
     if (!verified) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
       return;
     }
-  
+
     const url = "http://localhost:2000/api/skiloteckuser/signUp";
     const formdata = new FormData();
     Object.keys(data).forEach((key) => {
@@ -368,48 +368,48 @@ function Sign_up({ }) {
     });
     formdata.append("userRole", role);
     formdata.append("parseData", JSON.stringify(parseData));
-  
+
     axios
-    .post(url, formdata)
-    .then((res) => {
-      const response = res.data;
-      try {
-        if (response?.success) {
+      .post(url, formdata)
+      .then((res) => {
+        const response = res.data;
+        try {
+          if (response?.success) {
 
-          localStorage.setItem("authToken", JSON.stringify(response));
+            localStorage.setItem("authToken", JSON.stringify(response));
 
-          toast.success("Sign up Successfully");
-          // if (sendToPurchase && sendToPurchase?.status) {
-          //   window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-          //     }`;
-          //   setLoading(false);
-          // } else {
+            toast.success("Sign up Successfully");
+            // if (sendToPurchase && sendToPurchase?.status) {
+            //   window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+            //     }`;
+            //   setLoading(false);
+            // } else {
             window.location.href = `/home?signIn=false`;
             setLoading(false);
-          // }
+            // }
 
-        } else {
-          setLoading(false);
-          if (response.message === "User already exists") {
-            toast.error("User already exists");
           } else {
-            toast.error("Something went wrong");
+            setLoading(false);
+            if (response.message === "User already exists") {
+              toast.error("User already exists");
+            } else {
+              toast.error("Something went wrong");
+            }
           }
+        } catch (err) {
+          setLoading(false);
+          toast.error("Something went wrong");
+          console.log(err);
         }
-      } catch (err) {
-        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.response);
         toast.error("Something went wrong");
-        console.log(err);
-      }
-    })
-    .catch((err) => {
-      console.log(err.response);
-      toast.error("Something went wrong");
-      setLoading(false);
-    });
+        setLoading(false);
+      });
 
   };
-  
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -450,7 +450,7 @@ function Sign_up({ }) {
       data.dial_code.includes(inputValue)
     );
   };
- 
+
 
   const handleVerification = (e) => {
     setResend(false);
@@ -605,7 +605,7 @@ function Sign_up({ }) {
               <div className="flex items-center  gap-1 cursor-pointer  ">
                 <ReactSelect
                   options={filteredTelCode}
-                  className=" flex  items-center py-1 ml-[10px]  rounded-[8px]"
+                  className=" flex  items-center py-1 ml-[10px] text-[12px] font-normal  rounded-[8px]"
                   name=""
                   placeholder="Select"
                   value={selectedItem}
@@ -784,7 +784,7 @@ function Sign_up({ }) {
 
             <input
               type={showPassword ? "Text" : "Password"}
-
+              className="font-[400] text-[12px]"
               placeholder="Enter Password"
               value={data.password}
               onChange={(e) =>
@@ -828,7 +828,7 @@ function Sign_up({ }) {
               ))}
 
           </div>
-          {formError.password !=="Enter Password" && (
+          {formError.password !== "Enter Password" && (
             <p className="text-[10px] text-[red] font-[500]">
               {formError?.password}
             </p>
@@ -839,7 +839,7 @@ function Sign_up({ }) {
             <input
               type={showConfirmPassword ? "Text" : "Password"}
               name=""
-
+              className="font-[400] text-[12px]"
               placeholder="Confirm Password"
               value={data.confirmPassword}
               onChange={(e) =>
