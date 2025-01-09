@@ -18,7 +18,14 @@ function Dashboard({ toggleContentt }) {
   const [page, setPage] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [applicants, setApplicants] = useState([]);
+  const [checkedApplicants, setCheckedApplicants] = useState({});
+  const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
+  const [error, setError] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  const [id, setId] = useState("");
   const router = useRouter();
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -51,193 +58,6 @@ function Dashboard({ toggleContentt }) {
     {
       name: "Action",
       check: "",
-    },
-  ];
-
-  const applicants = [
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="./images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] h-[24px]"
-          src="/images/employer/st.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "0.0",
-      source: "Skilotech collection",
-      status: "In Review",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="./images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="./images/employer/empty_star.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "0.0",
-
-      status: "In Review",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "4.0",
-
-      status: "Shortlisted",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "5.0",
-
-      status: "Hired",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "2.0",
-
-      status: "Rejected",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "4.0",
-
-      status: "Rejected",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "3.0",
-
-      status: "Interview",
-
-      date: "13 July, 2021",
-    },
-    {
-      img: (
-        <img
-          className="w-[40px]"
-          src="/images/employer/profile_icon.png"
-          alt=""
-        />
-      ),
-      name: "John Doe",
-      img_star1: (
-        <img
-          className="w-[24px] "
-          src="/images/employer/star_fill.png"
-          alt=""
-        />
-      ),
-      img_star2: "",
-      score: "4.0",
-
-      status: "Rejected",
-
-      date: "13 July, 2021",
     },
   ];
 
@@ -287,7 +107,11 @@ function Dashboard({ toggleContentt }) {
         );
         break;
       case "Create New Cover Letter":
-        handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
+        handleNavigation(
+          userDataGlobal.role === "user"
+            ? "/coverLetter"
+            : `/myClients/ClientResume?cover=true`
+        );
         break;
       case "My Clients":
         handleNavigation("/myClients");
@@ -311,7 +135,9 @@ function Dashboard({ toggleContentt }) {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
+        handleNavigation(
+          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+        );
         break;
       case "Skill Assessments & Certification":
         handleNavigation("/home/SkillAssessment");
@@ -326,9 +152,7 @@ function Dashboard({ toggleContentt }) {
         break;
     }
   }
-  const [checkedApplicants, setCheckedApplicants] = useState({});
 
-  const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
   const handleCheckboxChange = (index) => {
     setCheckedApplicants((prev) => ({
       ...prev,
@@ -336,35 +160,39 @@ function Dashboard({ toggleContentt }) {
     }));
   };
 
-  const [id, setId] = useState("");
-
   useEffect(() => {
     if (userDataGlobal && userDataGlobal._id) {
       setId(userDataGlobal._id);
     }
   }, [userDataGlobal]);
 
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`http://localhost:2000/api/job/getJobById/${id}`)
-        setJobs(response.data)
+        const response = await axios.get(
+          `http://localhost:2000/api/job/getAllApplication/${id}`
+        );
+        setApplicants(response.data);
+        console.log(11, response.data);
+      } catch (err) {
+        console.error("Error:", err);
+        setError("Failed to fetch jobs.");
       }
-      catch (err) {
-        console.error("Error:", err)
-        setError("Failed to fetch jobs.")
-      }
-    }
+    };
     if (id) {
-      fetchJobs()
+      fetchJobs();
     }
-  }, [id])
-  console.log("jobs", jobs)
+  }, [id]);
+
+  const handleNavigate = (applicantId, jobId) => {
+    router.push(
+      `/employer/hiring/ApplicantDetails?applicantId=${applicantId}&id=${jobId}`
+    );
+  };
+
   return (
-    <div className=" ml:h-[calc(100vh-100px)] pt-6 w-[100%]  overflow-y-auto "
+    <div
+      className=" ml:h-[calc(100vh-100px)] pt-6 w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
       <div className=" lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3  ">
@@ -464,8 +292,7 @@ function Dashboard({ toggleContentt }) {
             </p>
             <div className="w-[69%]">
               <p className="text-[16px] leading-4 font-medium font-montserrat ">
-                Interview Schedule for
-                today
+                Interview Schedule for today
               </p>
             </div>
             <img
@@ -475,7 +302,8 @@ function Dashboard({ toggleContentt }) {
             />
           </div>
           <div className="flex items-center gap-[3px]">
-            <div className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
+            <div
+              className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
               style={{ backgroundColor: "rgba(0, 175, 18, 0.30)" }}
             >
               <svg
@@ -516,8 +344,7 @@ function Dashboard({ toggleContentt }) {
             </p>
             <div className="w-[69%]">
               <p className=" text-[16px] leading-4 font-medium font-montserrat ">
-                In Preboarding
-                process
+                In Preboarding process
               </p>
             </div>
             <img
@@ -527,9 +354,9 @@ function Dashboard({ toggleContentt }) {
             />
           </div>
           <div className="flex items-center gap-[3px]">
-            <div className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
+            <div
+              className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
               style={{ backgroundColor: "rgba(0, 175, 18, 0.30)" }}
-
             >
               <svg
                 xlgns="http://www.w3.org/2000/svg"
@@ -730,16 +557,20 @@ function Dashboard({ toggleContentt }) {
                     Daily
                   </p>
                 </div> */}
-                <button className="px-2 p-1 border-[0.5px] border-solid border-[#DEDEDE] rounded-[6px] text-[12px] font-[500] text-[#333333]">Daily</button>
-                <button className="px-2 p-1 border-[0.5px] border-solid border-[#06A9EF] rounded-[6px] text-[12px] font-[500] text-[#FFFFFF] bg-[#06A9EF]">Weekly</button>
-                <button className="px-2 p-1 border-[0.5px] border-solid border-[#DEDEDE] rounded-[6px] text-[12px] font-[500] text-[#333333]">Monthly</button>
+                <button className="px-2 p-1 border-[0.5px] border-solid border-[#DEDEDE] rounded-[6px] text-[12px] font-[500] text-[#333333]">
+                  Daily
+                </button>
+                <button className="px-2 p-1 border-[0.5px] border-solid border-[#06A9EF] rounded-[6px] text-[12px] font-[500] text-[#FFFFFF] bg-[#06A9EF]">
+                  Weekly
+                </button>
+                <button className="px-2 p-1 border-[0.5px] border-solid border-[#DEDEDE] rounded-[6px] text-[12px] font-[500] text-[#333333]">
+                  Monthly
+                </button>
               </div>
             </div>
           </div>
           <div className="lg:flex w-full ml:flex-row-reverse flex-col flex gap-2 justify-between">
             <div className="flex ml:flex-col flex-row items-start gap-2 ml:gap-4 lg:w-[32.23%] w-[100%]">
-
-
               <div
                 className="flex ml:p-4 p-2 flex-col items-start ml:gap-4 gap-1 bg-[#fff] self-stretch w-full"
                 style={{
@@ -779,13 +610,31 @@ function Dashboard({ toggleContentt }) {
                       <p className="text-[#06A9EF] items-center ml:text-[18px]  text-[10px] font-medium">
                         6.4%
                       </p>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="21"
+                        height="21"
+                        viewBox="0 0 21 21"
+                        fill="none"
+                      >
                         <g clip-path="url(#clip0_6622_117270)">
-                          <path d="M15.7344 13L10.7344 8L5.73438 13H15.7344Z" fill="#06A9EF" stroke="#06A9EF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <path
+                            d="M15.7344 13L10.7344 8L5.73438 13H15.7344Z"
+                            fill="#06A9EF"
+                            stroke="#06A9EF"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
                         </g>
                         <defs>
                           <clipPath id="clip0_6622_117270">
-                            <rect width="20" height="20" fill="white" transform="translate(0.734375 0.5)" />
+                            <rect
+                              width="20"
+                              height="20"
+                              fill="white"
+                              transform="translate(0.734375 0.5)"
+                            />
                           </clipPath>
                         </defs>
                       </svg>
@@ -927,9 +776,7 @@ function Dashboard({ toggleContentt }) {
               className="flex items-center w-full text-[#333333] gap-[8px]"
               style={{ width: widths[index] }}
             >
-              <p className="text-[14px] font-[600]">
-                {applicant_head.name}
-              </p>
+              <p className="text-[14px] font-[600]">{applicant_head.name}</p>
               <img
                 className="w-[24px]"
                 src="/images/employer/expand_more.png"
@@ -945,7 +792,9 @@ function Dashboard({ toggleContentt }) {
               .map((applicants, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"}`}
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${
+                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                    }`}
                     key={applicants._id}
                   >
                     <div className="  gap-[24px]  w-full justify-between flex items-center">
@@ -962,7 +811,8 @@ function Dashboard({ toggleContentt }) {
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicants.name}
+                          {applicants.details.personal.firstName}{" "}
+                          {applicants.details.personal.lastName}
                         </p>
                       </div>
                       <div className="flex w-[10%] items-center justify-center   gap-[8px]">
@@ -973,36 +823,38 @@ function Dashboard({ toggleContentt }) {
 
                       <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                         <p className="text-[14px] font-[600]">
-                          {applicants.score} %
+                          {applicants.matchingPercentage} %
                         </p>
                       </div>
                       <div className="w-[20%]">
                         <button
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants.status === "Interview"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                            checkedApplicants[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants.status === "Interview"
                               ? "bg-[#26A4FF1A]"
                               : applicants.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicants.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : applicants.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${applicants.status === "Interview"
+                              ? "bg-[#56CDAD1A]"
+                              : applicants.status === "Shortlisted"
+                              ? "bg-[#4640DE1A]"
+                              : applicants.status === "Rejected"
+                              ? "bg-[#FF65501A]"
+                              : applicants.status === "In Review"
+                              ? "bg-[#EB85331A]"
+                              : ""
+                          } ${
+                            applicants.status === "Interview"
                               ? "text-[#26A4FF]"
                               : applicants.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
+                              ? "text-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                              ? "text-[#4640DE]"
+                              : applicants.status === "Rejected"
+                              ? "text-[#FF6550]"
+                              : applicants.status === "In Review"
+                              ? "text-[#FFB836]"
+                              : "text-[#333333]"
+                          }`}
                         >
                           {applicants.status}
                         </button>
@@ -1022,7 +874,10 @@ function Dashboard({ toggleContentt }) {
                         <div
                           className="cursor-pointer"
                           onClick={() =>
-                            toggleContentt(jobDetails, applicants._id)
+                            handleNavigate(
+                              applicants?.applicantId,
+                              applicants?.jobId
+                            )
                           }
                         >
                           <svg
@@ -1154,10 +1009,12 @@ function Dashboard({ toggleContentt }) {
                 <>
                   <div
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
-                    style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff", border: '1px solid #DEDEDE' }}
+                    style={{
+                      background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                      border: "1px solid #DEDEDE",
+                    }}
                   >
-                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start"
-                    >
+                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
                       <div className="flex justify-between items-center self-stretch">
                         <div className="flex items-center gap-2">
                           <img
@@ -1271,7 +1128,6 @@ function Dashboard({ toggleContentt }) {
           // style={{ border: "2px solid red" }}
           className="flex gap-[16px] scr420:gap-12 flex-wrap justify-start "
         >
-
           {list().map((item, index) => (
             <div
               key={index}
@@ -1299,11 +1155,12 @@ function Dashboard({ toggleContentt }) {
         </div>
       </div>
       <div className="py-6  flex flex-col gap-6">
-        <p className="text-[20px] font-semibold text-[#333333]">Purchase Plans</p>
+        <p className="text-[20px] font-semibold text-[#333333]">
+          Purchase Plans
+        </p>
         <SubscriptionPlans />
       </div>
     </div>
-
   );
 }
 

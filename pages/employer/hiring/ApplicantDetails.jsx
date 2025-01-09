@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
+import { CloudHSM } from "aws-sdk";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -15,45 +16,44 @@ function ApplicantDetails({ setTogglee }) {
   const [loadingg, setLoadingg] = useState(true);
 
   const { id, applicantId } = router.query;
+  console.log(33333, id, applicantId);
+
+  const getData = async () => {
+    try {
+      setLoading(true);
+      console.log(
+        "Requesting applicant details with id:",
+        id,
+        "applicantId:",
+        applicantId
+      );
+
+      const response = await axios.get(
+        "http://localhost:2000/api/applicantdetails",
+        {
+          params: { id, applicantId },
+        }
+      );
+
+      console.log("API Response:", response.data.data);
+
+      if (response.data) {
+        setJobDetails(response.data.data);
+        
+      } else {
+        setError("Applicant not found");
+      }
+    } catch (err) {
+      console.log("Error occurred:", err);
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-  
     if (id && applicantId) {
-      const fetchApplicantDetails = async () => {
-        try {
-          setLoading(true);
-          console.log(
-            "Requesting applicant details with id:",
-            id,
-            "applicantId:",
-            applicantId
-          );
-
-          const response = await axios.get(
-            "http://localhost:2000/api/applicantdetails",
-            {
-              params: { id, applicantId },
-            }
-          );
-
-          console.log("API Response:", response.data.data);
-
-          if (response.data) {
-            setJobDetails(response.data.data);
-          } else {
-            setError("Applicant not found");
-          }
-        } catch (err) {
-          console.log("Error occurred:", err);
-          setError(err.response?.data?.message || err.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchApplicantDetails();
-    } else {
-      console.log("Invalid id or applicantId:", id, applicantId);
+      getData();
     }
   }, [id, applicantId]);
 
