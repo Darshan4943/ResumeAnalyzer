@@ -45,9 +45,16 @@ function CreateCompany() {
         []
     );
 
-    const handlecompanyDescriptionChange = (value) => {
-        setcompanyDescription(value);
-        debounceUpdate(value);
+    const handleCompanyDescriptionChange = (value) => {
+        const plainText = value.replace(/<[^>]*>/g, "");
+        if (plainText.length > 200) {
+            const truncatedText = plainText.slice(0, 200);
+            setcompanyDescription(truncatedText);
+            debounceUpdate(truncatedText);
+        } else {
+            setcompanyDescription(value);
+            debounceUpdate(plainText);
+        }
     };
 
     const handleLogoChange = (e) => {
@@ -208,7 +215,7 @@ function CreateCompany() {
                     About Company
                     <ReactQuill
                         value={companyDescription}
-                        onChange={handlecompanyDescriptionChange}
+                        onChange={handleCompanyDescriptionChange}
                         readOnly={false}
                         modules={{
                             toolbar: [
@@ -223,6 +230,9 @@ function CreateCompany() {
                             height: "238px",
                         }}
                     />
+                    <div className="text-[12px] text-gray-500">
+                        {companyDescription.replace(/<[^>]*>/g, "").length} / 200 characters
+                    </div>
                 </div>
                 <div className="w-full flex justify-between pt-5">
                     <button

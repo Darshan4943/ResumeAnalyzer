@@ -31,8 +31,6 @@ function Index() {
     fetchCompanyData();
   }, []);
 
-
-
   return (
     <div className='flex flex-col gap-4 w-full'>
       <button onClick={() => router.push("/recruiter/companies/createCompany")} className='bg-[#06A9EF] text-[#FFFFFF] w-[239px] h-[42px] text-[14px] font-[600] rounded-[30px] px-6 py-3 flex items-center justify-center'>
