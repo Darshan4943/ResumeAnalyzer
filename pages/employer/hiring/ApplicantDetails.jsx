@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import HiringProgress from "../../../components/featured/employer/HiringProgress";
 import { useRouter } from "next/router";
-
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
-import { CloudHSM } from "aws-sdk";
+import MiniLoader from "../../../components/common/miniLoader";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -98,7 +97,7 @@ function ApplicantDetails({ setTogglee }) {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <MiniLoader />
       ) : error ? (
         <p>{error}</p>
       ) : (
