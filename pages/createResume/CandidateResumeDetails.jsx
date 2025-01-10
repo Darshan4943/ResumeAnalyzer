@@ -11,7 +11,8 @@ import { camelCase } from "../../utils/middleware";
 import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
 
 import Stepper from "../../components/featured/candidate/registration/stepper";
-import CandidateAiPower from "./candidate_ai_power";
+import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
+
 function CandidateResumeDetails() {
   const router = useRouter();
   const clientId = router.query.clientId;
