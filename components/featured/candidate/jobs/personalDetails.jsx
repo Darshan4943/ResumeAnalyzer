@@ -69,11 +69,11 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
 
                     <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
-                            First name <span className="text-red font-medium">*</span>
+                            First Name <span className="text-red font-medium">*</span>
                         </label>
                         <input
                             type="text"
-                            placeholder="Enter first name"
+                            placeholder="Enter First Name"
                             className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
                             value={data?.firstName}
                             onChange={(e) => handleInputChange('firstName', e.target.value)}
@@ -86,11 +86,11 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
 
                     <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
-                            Last name <span className="text-red font-medium">*</span>
+                            Last Name <span className="text-red font-medium">*</span>
                         </label>
                         <input
                             type="text"
-                            placeholder="Enter last name"
+                            placeholder="Enter Last Name"
                             className="mt-1 block w-full p-2 border border-[#AFAFAF] rounded-md"
                             value={data?.lastName}
                             onChange={(e) => handleInputChange('lastName', e.target.value)}
@@ -103,7 +103,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700">
-                        Select your Gender  <span className="text-red font-medium">*</span>
+                        Select Gender  <span className="text-red font-medium">*</span>
                     </label>
                     <div className="mt-2 flex flex-row items-center gap-6">
                         <div className="flex items-center">
@@ -174,7 +174,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
 
                     <div className='ml:w-[50%] w-[100%]'>
                         <label className="block text-sm font-medium text-gray-700">
-                            Contact number <span className="text-red font-medium">*</span>
+                            Contact Number <span className="text-red font-medium">*</span>
                         </label>
                         <div className={`mt-1 flex flex-row justify-between  h-[40px] sm:px-2 px-1 py-2 border rounded-md ${formError && (formError["dial_code"] || formError["mobileNo"]) ? "border-red" : "border-[#C4C4C4]"}`}>
                             <ReactSelect

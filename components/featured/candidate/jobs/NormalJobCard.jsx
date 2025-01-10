@@ -37,7 +37,7 @@ function NormalJobCard({ item }) {
                 `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             )
             .then((res) => {
-                dispatch(fetchSavedJobIds(userDataGlobal?._id));
+                a
 
                 // toast.success("Job Removed Successfully");
                 // getData();

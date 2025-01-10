@@ -7,13 +7,14 @@ import axios from 'axios';
 import { CountPostingDays } from '../../../../utils/data';
 import MiniLoader from '../../../common/mini-loader';
 import { fetchUserData } from '../../../../Redux/slices/userSlice';
+import { fetchSavedJobIds } from '../../../../Redux/slices/jobSlice';
 
 function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limit, savedJobList, totalPages, page, setPage, setMiniloading, miniLoading, getData }) {
 
-     const { profileData } = useSelector((state) => state.profile.profileData);      
-        const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { profileData } = useSelector((state) => state.profile.profileData);
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
 
-
+    const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -53,7 +54,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
             const res = await axios.post(
                 `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             );
-            await dispatch(fetchUserData());
+            await dispatch(fetchSavedJobIds(userDataGlobal?._id));
             await getData();
         } catch (err) {
             console.error(err);
@@ -172,7 +173,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                                     </g>
                                                 </svg>
                                                 <div className="text-[#262626] text-[12px] font-[400]">
-                                                    {item.country.join(", ")} || {item.location.join(", ")}
+                                                    {item?.country?.join(", ")} || {item?.location?.join(", ")}
                                                 </div>
                                             </div>
                                         )}
@@ -202,7 +203,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-between items-center  p-1">
-                                    {appliedJobs?.some(appliedJob => appliedJob._id === item._id) ? (
+                                    {appliedJobData?.some(appliedJob => appliedJob._id === item._id) ? (
                                         <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -212,7 +213,7 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                             </svg>
 
                                             Applied {CountPostingDays(
-                                                appliedJobs
+                                                appliedJobData
                                                     ?.find((job) => job._id === item._id)
                                                     ?.applications?.find((application) => application?.applicantId === userDataGlobal?._id)
                                                     ?.appliedOn

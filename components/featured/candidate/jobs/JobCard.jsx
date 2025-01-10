@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
-function Job_card({ jobData, setSaved, save }) {
+function Job_card({ jobData, setSaved, save ,setSimilarJobsVisible,similarJobsVisible}) {
   const [limitPopup, setLimitPopup] = useState(false)
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -50,7 +50,7 @@ function Job_card({ jobData, setSaved, save }) {
     }
   };
 
-  console.log(userDataGlobal?._id);
+  
   return (
     <>
       {jobData?.map((item, index) => (
@@ -155,8 +155,8 @@ function Job_card({ jobData, setSaved, save }) {
                     </g>
                   </svg>
                   <div className="text-[#262626] text-[12px] font-[400] ">
-                    {item.country.join(", ")} ||{" "}
-                    {item.location.join(", ")}
+                    {item?.country?.join(", ")} {item?.country && "||" }{" "}
+                    {item?.location?.join(", ")}
                   </div>
                 </div>
               )}
@@ -196,7 +196,7 @@ function Job_card({ jobData, setSaved, save }) {
 
               Woman Candidate Preffered
             </div> */}
-            <p className="text-[14px] font-semibold text-[#06A9EF]">Find similar jobs openings</p>
+            <p onClick={()=>setSimilarJobsVisible(!similarJobsVisible)} className="text-[14px] font-semibold text-[#06A9EF] cursor-pointer">Find similar jobs openings</p>
 
           </div>
           <div className="bg-[#AFAFAF99] h-[1px] w-full my-1"></div>
