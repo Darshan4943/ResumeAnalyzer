@@ -29,7 +29,7 @@ const PersonalDetails = ({
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [formError, setFormError] = useState({});
-console.log(selectedItem)
+
   function togglePasswordVisibility(e) {
     e.preventDefault();
     setIsPasswordVisible((prevState) => !prevState);
@@ -468,13 +468,10 @@ console.log(selectedItem)
                       className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
                   
                       onClick={() => {
-                        if (isResume) {
-                          setTabIndex(1);
-                          window.scroll(0, 0);
-                        } else {
-                          router.push("/home/BuildResume");
-                        }
-                      }}
+                       
+                        router.push("/createResume/BuildResume")
+                      }  
+                      }
                     >
                       Back
                     </button>
