@@ -7,113 +7,52 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import MiniLoader from '../../../common/mini-loader';
 
-function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
+function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,
     limit,
     miniLoading,
     totalPages,
     page,
     setPage, }) {
 
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
-    
-    const [savedJobList, setSavedJobList] = useState([]);
+    const { profileData } = useSelector((state) => state.profile.profileData);
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
+
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     const router = useRouter();
 
-    
-   
-  
+
+
+
     const nextPage = (e) => {
         e.stopPropagation();
-      if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-        setPage(currentPage + 1);
-      }
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            setPage(currentPage + 1);
+        }
     };
-  
+
     const prevPage = (e) => {
         e.stopPropagation();
-      if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-        setPage(currentPage - 1);
-      }
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            setPage(currentPage - 1);
+        }
     };
     const handleChange = (e) => {
-      setLimit(parseInt(e.target.value));
-      setPage(1)
-      setCurrentPage(1)
-  
-    };
-  
+        setLimit(parseInt(e.target.value));
+        setPage(1)
+        setCurrentPage(1)
 
-    const getData = () => {
-        axios
-
-            .post("http://localhost:2000/api/job/byIds", {
-                ids: userDataGlobal?.savedJobs
-                    ?.map((item) => item.id)
-                    .filter((item) => item != "undefined"),
-
-            })
-            .then((res) => {
-                setSavedJobList(res.data.data);
-
-            })
-            .catch((err) => {
-
-                console.log(err);
-            });
-    };
-    useEffect(() => {
-
-        getData()
-
-    }, [userDataGlobal]);
-
-
-
-    const SaveJob = (e, id) => {
-        // setLoading(false);
-        e.stopPropagation();
-        axios
-            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
-            .then((res) => {
-
-                // dispatch(reCallUserData());
-
-                // toast.success("Job Saved  Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
-
-    const removeSavedJob = (e, id) => {
-        e.stopPropagation();
-        axios
-            .post(`http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`)
-            .then((res) => {
-
-                // dispatch(reCallUserData());
-
-                // toast.success("Job Removed  Successfully");
-                getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
     };
 
     return (
         <div className="flex flex-col gap-4">
             <div
                 className={`flex flex-col rounded-md border-primary  `}
-                
+
             >
                 <div className=" leading-tight flex flex-col gap-5 ">
                     {appliedJobs?.map((item, index) => (
@@ -126,7 +65,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                 }}
                                 className={`p-[16px] flex flex-col gap-[8px] relative bg-white rounded-[12px]  `}
                                 style={{
-                                     boxShadow: "0px 0px 14px 0px #00000005"
+                                    boxShadow: "0px 0px 14px 0px #00000005"
                                 }}
                                 key={index}
                             >
@@ -223,7 +162,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                                     </g>
                                                 </svg>
                                                 <div className="text-[#262626] text-[12px] font-[400]">
-                                                {item.country.join(", ")} || {item.location.join(", ")}
+                                                    {item?.country?.join(", ")} || {item?.location?.join(", ")}
                                                 </div>
                                             </div>
                                         )}
@@ -246,7 +185,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                             </svg>
                                         </div>
                                         <div className="text-[#262626] font-[400] text-[12px]">
-                                        {item?.description?.length > 80
+                                            {item?.description?.length > 80
                                                 ? `${item.description.slice(0, 80)}...`
                                                 : item.description}
                                         </div>
@@ -261,7 +200,14 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                                             </g>
                                         </svg>
 
-                                        Applied {CountPostingDays(item.applications.find(app => app.applicantId === userDataGlobal?._id).appliedOn)}
+                                        Applied  {" "}
+                                        {/* {CountPostingDays(appliedJobData.find(app => app.applicantId === userDataGlobal?._id).appliedOn)} */}
+                                        {CountPostingDays(
+                                            appliedJobData
+                                                ?.find((job) => job._id === item._id)
+                                                ?.applications?.find((application) => application?.applicantId === userDataGlobal?._id)
+                                                ?.appliedOn
+                                        )}
                                     </div>
                                     {/* <div className=' cursor-pointer'>
 
@@ -331,7 +277,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                     <button
                         disabled={currentPage === 1}
                     >
-                        <svg  onClick={(e) =>prevPage(e)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={(e) => prevPage(e)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10517)">
                                 <path d="M15 6L9 12L15 18" stroke={
                                     currentPage !== 1 ? "#333333" :
@@ -348,7 +294,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs,setLimit,
                         disabled={currentPage === totalPages}
                     >
                         <svg width="25" height="24"
-                                onClick={(e) =>nextPage(e)} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            onClick={(e) => nextPage(e)} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2529_10530)">
                                 <path d="M9.375 6L15.625 12L9.375 18" stroke={
                                     currentPage !== totalPages ? "#333333" :

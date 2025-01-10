@@ -208,7 +208,10 @@ function Index() {
         {
             title: "Job Mode",
             img: "/images/jobs/arw.png",
-            child: jobtypeData?.jobModes || [],
+            child: (jobtypeData?.jobModes || []).filter(
+                (item) => item !== '' && !(typeof item === "object" && Object.keys(item).length === 0)
+              ),
+              
         },
     ];
 

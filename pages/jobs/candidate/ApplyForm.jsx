@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MiniLoader from "../../../components/common/mini-loader";
 import MiniLoader1 from "../../../components/common/miniLoader";
 import moment from "moment";
@@ -16,15 +16,18 @@ import { pdf } from "@react-pdf/renderer";
 import { telCode } from "../../../utils/data";
 import PersonalDetails from "../../../components/featured/candidate/jobs/personalDetails";
 import ProfessionalDetails from "../../../components/featured/candidate/jobs/professionalDetails";
+import { fetchAppliedJob } from "../../../Redux/slices/jobSlice";
 function ApplyForm() {
   const [formError, setFormError] = useState({});
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(true);
   const [uploadedResume, setUploadedResume] = useState(null);
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
   const [fileName, setFileName] = useState("");
   const [fileType, setFileType] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
@@ -64,13 +67,13 @@ function ApplyForm() {
     axios
       .get(`http://localhost:2000/api/job/getByJobId/${id}`)
       .then((res) => {
-      
+
         setJobDetails(res.data);
-  
+
         setFormData((prevData) => ({
-          ...prevData, 
+          ...prevData,
           professional: {
-            ...prevData.professional, 
+            ...prevData.professional,
             currencyExpectedCTC: res.data?.currency || prevData.professional.currencyExpectedCTC || "",
             currencyCurrentCTC: res.data?.currency || prevData.professional.currencyCurrentCTC || "",
           },
@@ -78,7 +81,7 @@ function ApplyForm() {
       })
       .catch((err) => console.error(err));
   }, [id]);
-  
+
   useEffect(() => {
     axios
       .get(
@@ -89,22 +92,22 @@ function ApplyForm() {
         const formattedDob = personal.dob
           ? new Date(personal.dob).toISOString().split("T")[0]
           : "";
-  
+
         setFormData((prevData) => ({
-          ...prevData, 
+          ...prevData,
           personal: {
-            ...prevData.personal, 
+            ...prevData.personal,
             firstName: personal.firstName || prevData.personal.firstName || "",
             lastName: personal.lastName || prevData.personal.lastName || "",
             email: personal.email || prevData.personal.email || "",
             mobileNo: personal.mobileNo || prevData.personal.mobileNo || "",
-        
+
             dob: formattedDob || prevData.personal.dob || "",
             gender: personal.gender || prevData.personal.gender || "",
           },
-         
+
           professional: {
-            ...prevData.professional, 
+            ...prevData.professional,
             totalExperience: professional.totalExperience || prevData.professional.totalExperience || "",
             relevantExperience: professional.relevantExperience || prevData.professional.relevantExperience || "",
             currentCTC: professional.currentCTC || prevData.professional.currentCTC || "",
@@ -113,17 +116,17 @@ function ApplyForm() {
             comfortableWithLocation: professional.comfortableWithLocation || prevData.professional.comfortableWithLocation || "",
           },
           dial_code: personal.dial_code || prevData.dial_code || "",
-          
+
         }));
         const selectedItem = telCode.find((item) => item.dial_code === personal.dial_code);
-  
+
         if (selectedItem) {
           setSelectedItem(selectedItem);
         }
       })
       .catch((err) => console.error(err));
   }, []);
-  
+
 
   useEffect(() => {
     axios
@@ -218,7 +221,7 @@ function ApplyForm() {
   };
 
   const extractResumeSections = (text) => {
-    
+
     const sections = {
       aboutMe: "",
       skills: [],
@@ -328,7 +331,7 @@ function ApplyForm() {
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-    
+
       parseData(file, setText)
         .then((extractedText) => {
           setText(extractedText);
@@ -469,8 +472,9 @@ function ApplyForm() {
         setTimeout(() => {
           setLoading(false);
         }, 1000);
-        updateApplyCount();
-        router.push("/jobs/search?applied=true");
+        // updateApplyCount();
+        dispatch(fetchAppliedJob(userDataGlobal?._id));
+        router.push("/jobs/candidate/AppliedJobs");
       })
       .catch((err) => {
         console.error(err);

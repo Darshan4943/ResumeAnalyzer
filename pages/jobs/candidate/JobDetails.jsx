@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Job_card from '../../../components/featured/candidate/jobs/JobCard';
 import Description from '../../../components/featured/candidate/jobs/Description';
 import MiniLoader from '../../../components/common/miniLoader';
@@ -16,9 +16,23 @@ function JobDetails() {
   const { id } = router.query;
   const [loading, setLoading] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
-   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [save, setSaved] = useState(false)
- 
+
+  const [similarJobsVisible, setSimilarJobsVisible] = useState(false);
+  const similarJobsRef = useRef(null);
+
+  useEffect(() => {
+    if (similarJobsRef.current) {
+      const offset = 60;
+      const elementPosition = similarJobsRef.current.offsetTop;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth',
+      });
+    }
+  }, [similarJobsVisible]);
+
 
   const getData = () => {
     axios
@@ -57,18 +71,22 @@ function JobDetails() {
       <div className='customMargins py-6 flex gap-5'>
 
         <div className='flex flex-col gap-4 ml:max-w-[700px] w-full'>
-          <Job_card jobData={jobData} setSaved={setSaved} save={save} />
+          <Job_card jobData={jobData} setSaved={setSaved} save={save} setSimilarJobsVisible={setSimilarJobsVisible} similarJobsVisible={similarJobsVisible} />
           <Description
 
             selectedJob={jobData[0]}
             setLimitPopup={setLimitPopup}
           />
-          <SimilarJobs/>
+          <div ref={similarJobsRef}>
+            <SimilarJobs />
+
+          </div>
+
         </div>
         <div className='w-[400px]  hidden ml:flex flex-col px-2 pt-3 bg-[#FFFFFF] rounded-[16px] gap-1 h-fit'>
-         
-           <RelevantJobs/>
-       
+
+          <RelevantJobs />
+
         </div>
 
       </div>
