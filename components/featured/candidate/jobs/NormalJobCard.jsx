@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CountPostingDays } from '../../../../utils/data'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -11,10 +11,11 @@ function NormalJobCard({ item }) {
     const isLogin = useSelector((state) => state.auth.isLogin);
     const router = useRouter();
     const appliedJobs = appliedJobData
-
+    const [isSaved, setIsSaved] = useState(false)
     const dispatch = useDispatch();
     const SaveJob = (e, id) => {
         // setLoading(false);
+        setIsSaved(true)
         e.stopPropagation();
         axios
             .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
@@ -183,7 +184,7 @@ function NormalJobCard({ item }) {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between items-center px-1 h-[24px]">
+            <div className="flex flex-row justify-between items-start px-1 h-[24px]">
                 {appliedJobs?.some(
                     (appliedJob) => appliedJob._id === item._id
                 ) ? (
@@ -222,21 +223,16 @@ function NormalJobCard({ item }) {
                 {isLogin && (
                     <div className=" cursor-pointer">
                         {savedJobIds?.find((data) => data == item._id) ? (
-                            <svg
-                                onClick={(e) => removeSavedJob(e, item._id)}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g mask="url(#mask0_4135_58652)">
-                                    <path
-                                        d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z"
-                                        fill="#333333"
-                                    />
+
+                            <svg className={` ${isSaved && "save-button"}`} onClick={(e) => removeSavedJob(e, item._id)} width="24" height="29" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                <g mask="url(#mask0_1_3)">
+                                    <path d="M5 25.2V6C5 5.34 5.19583 4.775 5.5875 4.305C5.97917 3.835 6.45 3.6 7 3.6H17C17.55 3.6 18.0208 3.835 18.4125 4.305C18.8042 4.775 19 5.34 19 6V25.2L12 21.6L5 25.2Z" fill="#646464" />
                                 </g>
                             </svg>
+
+
+
                         ) : (
                             <svg
                                 onClick={(e) => SaveJob(e, item._id)}
