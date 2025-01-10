@@ -207,6 +207,7 @@ function Services() {
             : "/myClients/ClientResume"
         );
         break;
+        
       case "Create New Cover Letter":
         handleNavigation(
           userDataGlobal?.role === "user"
