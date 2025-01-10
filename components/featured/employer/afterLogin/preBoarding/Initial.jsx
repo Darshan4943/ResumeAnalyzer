@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import StartPreboarding from "./StartPreboarding";
-import { applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import { applicantsMobile, } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
-const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
+const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
@@ -23,14 +24,6 @@ const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
     setPage(newPage);
   };
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
-    const selectedHeading = headings[index];
-    console.log(
-      `Heading changed: ${selectedHeading} - New Option: ${selectedOption}`
-    );
-  };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -44,30 +37,91 @@ const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
     "Actions",
   ];
 
-  const handleCheckboxChange = (index) => {
-    setCheckedApplicants((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
+
 
   const handleNavigation = () => {
     setToggle();
   };
+  const [filterJobs, setFilterJobs] = useState([]);
+  const [attributes, setAttributes] = useState([]);
+
+
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
+        );
+        const data = response.data;
+
+        setAttributes(data);
+
+        setHeadings((prevHeadings) =>
+          prevHeadings.map((item) => {
+            if (item.heading === "Job Role") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.jobTitles])],
+              };
+            } else if (item.heading === "Location") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.locations])],
+              };
+            } else if (item.heading === "Due Date") {
+              return {
+                ...item,
+                options: [...new Set([...item.options, ...data.deadLines])],
+              };
+            }
+            return item;
+          })
+        );
+      } catch (error) {
+        console.error("Error fetching job attributes:", error);
+      }
+    };
+
+    fetchAttributes();
+  }, []);
+
+  const handlePageChange = (event, newPage) => setPage(newPage);
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleHeadingChange = (heading, value) => {
+    console.log(`Sorting/Filtering by ${heading}:`, value);
+  };
+
+  const handleCheckboxChange = (job) => {
+    setCheckedJob((prevChecked) =>
+      prevChecked.includes(job)
+        ? prevChecked.filter((item) => item !== job)
+        : [...prevChecked, job]
+    );
+  };
+  const handleSearch = () => {
+    console.log("Filters applied:", filterData);
+  };
+
+  console.log("filterJobs", filterJobs)
+  console.log("headings", headings)
 
   return (
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
-            {headings.map((headingObj, index) => (
+            {headings.map((items, index) => (
               <>
                 <select
                   className=" w-[19.87%] bg-whites outline-none"
-                  onChange={(e) => handleHeadingChange(e, headingObj.heading)}
+                  onChange={(e) => handleHeadingChange(e, items.heading)}
                 >
-                  <option value=""> {headingObj.heading}</option>
-                  {headingObj.options.map((option, optIndex) => (
+                  <option value=""> {items.heading}</option>
+                  {items.options.map((option, optIndex) => (
                     <option key={optIndex} value={option}>
                       {option}
                     </option>
@@ -101,9 +155,8 @@ const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
               .map((job, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${
-                      checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                      }`}
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
@@ -145,33 +198,31 @@ const Initial = ({ jobs, fetchPreboardings, setToggle }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                            checkedjob[index]
-                              ? "bg-[#FFFFFF]"
-                              : job.status === "Interview"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : job.status === "Interview"
                               ? "bg-[#26A4FF1A]"
                               : job.status === "Hired"
-                              ? "bg-[#56CDAD1A]"
-                              : job.status === "Shortlisted"
-                              ? "bg-[#4640DE1A]"
-                              : job.status === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : job.status === "In Review"
-                              ? "bg-[#EB85331A]"
-                              : ""
-                          } ${
-                            job.status === "Interview"
+                                ? "bg-[#56CDAD1A]"
+                                : job.status === "Shortlisted"
+                                  ? "bg-[#4640DE1A]"
+                                  : job.status === "Rejected"
+                                    ? "bg-[#FF65501A]"
+                                    : job.status === "In Review"
+                                      ? "bg-[#EB85331A]"
+                                      : ""
+                            } ${job.status === "Interview"
                               ? "text-[#26A4FF]"
                               : job.status === "Hired"
-                              ? "text-[#56CDAD]"
-                              : job.status === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : job.status === "Rejected"
-                              ? "text-[#FF6550]"
-                              : job.status === "In Review"
-                              ? "text-[#FFB836]"
-                              : "text-[#333333]"
-                          }`}
+                                ? "text-[#56CDAD]"
+                                : job.status === "Shortlisted"
+                                  ? "text-[#4640DE]"
+                                  : job.status === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : job.status === "In Review"
+                                      ? "text-[#FFB836]"
+                                      : "text-[#333333]"
+                            }`}
                         >
                           {job.status}
                         </div>

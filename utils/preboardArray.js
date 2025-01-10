@@ -31,24 +31,26 @@ export const preboarding = [
   },
 ];
 
-export const headings = [
-  {
-    heading: "Job Role",
-    options: ["Assistant Manager", "Assistant Manager", "Assistant Manager"],
-  },
-  {
-    heading: "Due Date",
-    options: ["13 Jan 2024", "14 Jan 2024", "15 Jan 2024"],
-  },
-  {
-    heading: "Recruiter",
-    options: ["Pending", "Approved"],
-  },
-  {
-    heading: "Preboarding status",
-    options: ["Yes", "No"],
-  },
-];
+// export const headings = [
+//   {
+//     heading: "Job Role",
+//     options: ["Assistant Manager", "Assistant Manager", "Assistant Manager"],
+//   },
+//   {
+//     heading: "Due Date",
+//     options: ["13 Jan 2024", "14 Jan 2024", "15 Jan 2024"],
+//   },
+//   {
+//     heading: "Recruiter",
+//     options: ["Pending", "Approved"],
+//   },
+//   {
+//     heading: "Preboarding status",
+//     options: ["Yes", "No"],
+//   },
+// ];
+
+
 
 export const labels = [
   "Name of Candidate",
