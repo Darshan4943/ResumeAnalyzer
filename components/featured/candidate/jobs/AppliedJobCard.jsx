@@ -162,7 +162,7 @@ function AppliedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit,
                                                     </g>
                                                 </svg>
                                                 <div className="text-[#262626] text-[12px] font-[400]">
-                                                    {item?.country?.join(", ")} || {item?.location?.join(", ")}
+                                                    {item?.country?.join(", ")} {item?.country && "||"} {item?.location?.join(", ")}
                                                 </div>
                                             </div>
                                         )}
