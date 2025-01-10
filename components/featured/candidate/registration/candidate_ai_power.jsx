@@ -317,9 +317,9 @@ const CandidateAiPower = ({
 
       {tabindex == 1 && (
         <>
-          <div className="flex justify-center items-center  relative pb-8 ">
+          <div className="flex justify-center items-center relative pb-8 ">
             <div
-              className="flex flex-col gap-[36px] p-[16px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -327,17 +327,17 @@ const CandidateAiPower = ({
               }}
             >
               <div className="flex flex-col gap-4">
-                <p className="text-center font-semibold text-black-600 text-3xl">
+                <p className="text-center font-[600] text-[26px] text-[#333333]">
                   AI Powered profile creation
                 </p>
-                <p className=" text-center font-medium text-lg not-italic	">
+                <p className=" text-center font-[500] text-[18px] text-[#333333] not-italic	">
                   Easy process to create your profile
                 </p>
                 <div className="flex flex-col gap-2">
-                  <p className="text-center font-medium text-sm	not-italic">
+                  <p className="text-center font-[500] text-[14px] text-[#333333]	not-italic">
                     1. Upload your CV/Resume.
                   </p>
-                  <p className="text-center font-medium	text-sm	not-italic	">
+                  <p className="text-center font-[500] text-[14px] text-[#333333]	not-italic	">
                     2. Let the system scan it and make your profile ready.
                   </p>
                 </div>
@@ -445,10 +445,10 @@ const CandidateAiPower = ({
 
               <div className="flex flex-row gap-[24px]">
                 <button
-                  className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
+                  className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] text-[14px] text-[#333333] font-[600] rounded-[30px]"
                   id="button"
                   onClick={() => {
-                    router.push("/home/BuildResume");
+                    router.push("/createResume/BuildResume");
                   }}
                 >
                   Cancel
@@ -458,7 +458,7 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${file && !loading
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[30px] text-[14px] text-[#FFFFFF] font-[600] ${file && !loading
                     ? "opacity-100 btn_hover_effect"
                     : "opacity-50"
                     } `}
