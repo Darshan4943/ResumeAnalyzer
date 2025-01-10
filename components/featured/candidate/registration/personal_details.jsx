@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-useMediaQuery;
+
 import { motion } from "framer-motion";
 
 import { toast } from "react-toastify";
 
-import "react-phone-input-2/lib/bootstrap.css";
+
 
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@react-hook/media-query";
-import { Visibility_off, Visibility_on } from "../../../../utils/svg";
-import ImageContainer from "../../../common/image";
+
 import { telCode } from "../../../../utils/data";
 import ReactSelect from "react-select";
 
@@ -199,7 +198,7 @@ const PersonalDetails = ({
         <div className={" pb-8  "}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
-              <form className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page ">
+              <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page ">
                 <>
                   <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
                     <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
@@ -469,7 +468,7 @@ const PersonalDetails = ({
                   
                       onClick={() => {
                        
-                        router.push("/createResume/BuildResume")
+                        router.back("/createResume/BuildResume/")
                       }  
                       }
                     >
@@ -484,7 +483,7 @@ const PersonalDetails = ({
                     </button>
                   </div>
                 </>
-              </form>
+              </div>
             </motion.div>
           </div>
         </div>

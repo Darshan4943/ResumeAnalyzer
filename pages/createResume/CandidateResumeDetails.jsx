@@ -3,15 +3,15 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import EducationDetails from "../../components/featured/candidate/registration/education_details";
-import ProfessionalDetails from "../../components/featured/candidate/registration/professional_details";
 
 import { SkillList, telCode } from "../../utils/data";
 import { camelCase } from "../../utils/middleware";
-import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
-
 import Stepper from "../../components/featured/candidate/registration/stepper";
 import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
+import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
+import EducationDetails from "../../components/featured/candidate/registration/education_details";
+import ProfessionalDetails from "../../components/featured/candidate/registration/professional_details";
+
 
 function CandidateResumeDetails() {
   const router = useRouter();
@@ -19,9 +19,10 @@ function CandidateResumeDetails() {
   const [tabindex, setTabIndex] = useState(2);
   const [selectedItem, setSelectedItem] = useState();
   const { isResume } = router.query;
-  console.log(isResume);
+
   useEffect(() => {
     if (isResume) {
+      console.log("object");
       setTabIndex(1);
     }
   }, [isResume]);
@@ -80,7 +81,7 @@ function CandidateResumeDetails() {
     <>
       <div className=" relative !important ">
         <div className="register_head  w-[100%] z-50   gap-12">
-          {tabindex !== 1 &&
+          {/* {tabindex !== 1 && */}
             <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px]">
               <div className="register_text_parent">
                 <div className="register_heding text-center">
@@ -93,7 +94,7 @@ function CandidateResumeDetails() {
                 </div>
               </div>
             </div>
-          }
+          {/* } */}
           {tabindex == 1 ? null : <Stepper tabindex={tabindex} data={data} />}
         </div>
         <CandidateAiPower
