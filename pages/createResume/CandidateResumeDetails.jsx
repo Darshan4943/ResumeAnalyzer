@@ -9,19 +9,22 @@ import ProfessionalDetails from "../../components/featured/candidate/registratio
 import { SkillList, telCode } from "../../utils/data";
 import { camelCase } from "../../utils/middleware";
 import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
-import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
+
 import Stepper from "../../components/featured/candidate/registration/stepper";
+import CandidateAiPower from "./candidate_ai_power";
 function CandidateResumeDetails() {
   const router = useRouter();
   const clientId = router.query.clientId;
   const [tabindex, setTabIndex] = useState(2);
   const [selectedItem, setSelectedItem] = useState();
   const { isResume } = router.query;
+  console.log(isResume);
   useEffect(() => {
     if (isResume) {
       setTabIndex(1);
     }
   }, [isResume]);
+
   const [file, setfile] = useState();
   const [skills, setSkills] = useState([...SkillList]);
   const [certificate, setCertificate] = useState();
@@ -38,13 +41,13 @@ function CandidateResumeDetails() {
     stream: "",
     university: "",
     institute: "",
-    educationDuration:"",
+    educationDuration: "",
     workStatus: "Experienced",
     workExperiance: "",
     companyName: "",
     jobTitle: "",
     jobLocation: "",
-    jobDuration:"",
+    jobDuration: "",
     keySkills: "",
     currentCTC: "",
     noticePeriod: "15 days or less",
@@ -76,18 +79,20 @@ function CandidateResumeDetails() {
     <>
       <div className=" relative !important ">
         <div className="register_head  w-[100%] z-50   gap-12">
-          <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px]">
-            <div className="register_text_parent">
-              <div className="register_heding text-center">
-                <p className="ml:text-[30px] text-[24px] font-semibold text-white">
-                  Enter Details to Build your Professional Resume
-                </p>
-                <p className="register_heding_desc">
-                  Create your Resume with Skilotech
-                </p>
+          {tabindex !== 1 &&
+            <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px]">
+              <div className="register_text_parent">
+                <div className="register_heding text-center">
+                  <p className="ml:text-[30px] text-[24px] font-semibold text-white">
+                    Enter Details to Build your Professional Resume
+                  </p>
+                  <p className="register_heding_desc">
+                    Create your Resume with Skilotech
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          }
           {tabindex == 1 ? null : <Stepper tabindex={tabindex} data={data} />}
         </div>
         <CandidateAiPower

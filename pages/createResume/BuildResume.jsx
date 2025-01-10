@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useRouter } from "next/router";
-import ALink from "../../components/alink";
+
 const ArrowLeft = ({ index }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ const ArrowLeft = ({ index }) => (
 function BuildResume() {
   const router = useRouter();
   const clientId = router.query.clientId;
- 
+
   return (
     <>
       <div className="flex justify-center  w-full py-[3rem] ">
@@ -40,10 +40,9 @@ function BuildResume() {
           </div>
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
-              <ALink
-                // href={`/createResume/createResume?clientId=${clientId}`}
-                href={`/createResume/CandidateResumeDetails?clientId=${clientId}`}
-                onClick={() => localStorage.removeItem("parsedResume")}
+              <div
+
+                onClick={() => { localStorage.removeItem("parsedResume"); router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`) }}
               >
                 <div className="scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
@@ -79,9 +78,9 @@ function BuildResume() {
                   </div>
                   <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
-              </ALink>
-              <ALink
-                href={`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`}
+              </div>
+              <div
+               onClick={() => router.push(`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`)}
               >
                 <div className="scr540:px-[16px] px-2 py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2  relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
@@ -116,7 +115,7 @@ function BuildResume() {
                   </div>
                   <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
-              </ALink>
+              </div>
             </div>
           </div>
         </div>
