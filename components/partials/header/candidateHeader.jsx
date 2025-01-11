@@ -67,15 +67,25 @@ function CandidateHeader() {
       .catch((err) => console.error(err));
   }, []);
 
+
   const sortedExperiences = (experinceData || [])
-    .filter(Boolean)
-    .sort((a, b) => {
-      const getYears = (str) => {
-        const match = str?.match(/\d+/g);
-        return match ? parseInt(match[0]) : Infinity;
+  .filter(Boolean)
+  .sort((a, b) => {
+      const getYearsRange = (str) => {
+          const match = str?.match(/\d+/g);
+          return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
       };
-      return getYears(a) - getYears(b);
-    });
+
+      const [aStart, aEnd] = getYearsRange(a);
+      const [bStart, bEnd] = getYearsRange(b);
+
+
+      if (aStart !== bStart) return aStart - bStart;
+
+
+      return aEnd - bEnd;
+  });
+
 
 
   const handleOutsideClick = (event) => {
@@ -296,7 +306,7 @@ function CandidateHeader() {
               )}
             </div>
             {userDataGlobal?.role == "user" &&
-              <div onClick={() => setIsSearch(true)} className="flex justify-between pl-[10px] gap-4 items-center border border-[#E1E3E3] rounded-[30px] pr-1 py-1 min-w-[258px]">
+              <div onClick={() => setIsSearch(true)} className="flex justify-between pl-[10px] gap-4 items-center border border-[#E1E3E3] rounded-[30px] pr-1 py-1 min-w-[258px] cursor-pointer">
                 <div className="text-[14px] font-medium text-[#889FBA]">
                   UX  Designer
                 </div>
@@ -511,34 +521,44 @@ function CandidateHeader() {
                     <input
                       type="text"
                       placeholder="Enter Job title"
-                      className="text-[14px]  font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px]"
+                      className="text-[14px]  font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px]  placeholder:text-[#889FBA]"
                       value={jobTitle}
                       onChange={(e) => setJobTitle(e.target.value)}
                     />
                     <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
                     <select
-                      className="text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px]"
+                      className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"
+                        }`}
                       value={experience}
                       onChange={(e) => setExperience(e.target.value)}
                     >
-                      <option className="text-[14px] font-[500]  ">
+                      <option
+                        value=""
+                        disabled
+                        className="text-[#889FBA]"
+                      >
                         Select Experience
                       </option>
                       {sortedExperiences
                         .filter((exp) => exp)
                         .map((exp, index) => (
-                          <option key={index} value={exp} className="text-[14px] font-[500] ">
+                          <option
+                            key={index}
+                            value={exp}
+                            className="text-[#333333]"
+                          >
                             {exp}
                           </option>
                         ))}
                     </select>
 
 
+
                     <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
                     <input
                       type="text"
                       placeholder=" Enter Location"
-                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[110px] min-w-[80px]"
+                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[110px] min-w-[80px]  placeholder:text-[#889FBA]"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     />

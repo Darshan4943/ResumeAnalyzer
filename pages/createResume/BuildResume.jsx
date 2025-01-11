@@ -25,23 +25,27 @@ function BuildResume() {
   const clientId = router.query.clientId;
 
   return (
-    <>
-      <div className="flex justify-center  w-full py-[3rem] ">
+    <div className="flex gap-12 customMargins pt-12">
+      <img
+        src="/images/withoutLogin/resumeCreateOption.png"
+        alt=""
+        className="h-[330px] w-[320px]  object-cover "
+
+      />
+      <div className="flex justify-center  w-full  ">
         <div className="w-full flex flex-col gap-[36px] pb-[10px]  items-center">
-          <div className="ml:w-[55%] sm:w-[80%] w-[95%] flex flex-col gap-3 ">
-            <div className="text-[#333] text-center scr540:text-[36px] text-[24px] ms:text-[40px] font-[600] leading-tight">
+          <div className="ml:w-[66%] sm:w-[80%] w-[95%] flex flex-col gap-3 ">
+            <div className="text-[#333] text-center  text-[18px]  font-[600] leading-tight">
               How would you like to create your resume?
             </div>
-            <div className="text-[#646464] text-center text-[12px] scr540:text-[16px] font-[500]">
-              Craft your resume manually or upload for easy restructuring.
-              Choose what works for you to highlight your professional journey
-              effortlessly.
+            <div className="text-[#646464] text-center text-[12px] scr540:text-[14px] font-[500]">
+            Craft resume manually or upload for easy restructuring. Choose what works for client.
             </div>
           </div>
-          <div className="flex justify-center item-center">
-            <div className="flex flex-col gap-[24px] px-[8px]">
+          <div className="flex justify-center item-center w-full">
+            <div className="flex flex-col gap-[24px]  w-[66%]">
               <div
-// localStorage.removeItem("parsedResume");
+                // localStorage.removeItem("parsedResume");
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}
               >
                 <div className="scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
@@ -64,10 +68,10 @@ function BuildResume() {
                       </svg>
 
                       <div>
-                        <div className="scr540:text-[20px] text-[16px] font-[500] sign_ip_text leading-tight">
+                        <div className=" text-[16px] font-[500] sign_ip_text leading-tight">
                           Create New Resume
                         </div>
-                        <div className="scr540:text-[14px] text-[13px] font-[500] text-[#646464] sign_ip_text leading-tight">
+                        <div className=" text-[12px] font-[500] text-[#646464] sign_ip_text leading-tight">
                           Enter your details manually
                         </div>
                       </div>
@@ -80,7 +84,7 @@ function BuildResume() {
                 </div>
               </div>
               <div
-               onClick={() => router.push(`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`)}
+                onClick={() => router.push(`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`)}
               >
                 <div className="scr540:px-[16px] px-2 py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2  relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
@@ -101,10 +105,10 @@ function BuildResume() {
                       </svg>
 
                       <div>
-                        <div className="scr540:text-[20px] text-[16px] font-[500] leading-tight ">
+                        <div className=" text-[16px] font-[500] leading-tight ">
                           Already Have a Resume
                         </div>
-                        <div className="scr540:text-[14px] text-[13px] font-[500] text-[#646464] leading-tight ">
+                        <div className=" text-[12px] font-[500] text-[#646464] leading-tight ">
                           Upload your resume
                         </div>
                       </div>
@@ -120,7 +124,7 @@ function BuildResume() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,13 +1,43 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function HeroSection() {
-    const router=useRouter()
+    const router = useRouter()
 
     const [jobTitle, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
-    const [experinece, setExperience] = useState("");
+    const [experience, setExperience] = useState("");
 
+    const [experinceData, setExperinceData] = useState([]);
+    useEffect(() => {
+        axios
+            .get("http://localhost:2000/api/jobs/getJobAttributes")
+            .then((res) => {
+                const { experiences } = res.data;
+                setExperinceData(experiences);
+
+            })
+            .catch((err) => console.error(err));
+    }, []);
+
+    const sortedExperiences = (experinceData || [])
+        .filter(Boolean)
+        .sort((a, b) => {
+            const getYearsRange = (str) => {
+                const match = str?.match(/\d+/g);
+                return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
+            };
+
+            const [aStart, aEnd] = getYearsRange(a);
+            const [bStart, bEnd] = getYearsRange(b);
+
+
+            if (aStart !== bStart) return aStart - bStart;
+
+
+            return aEnd - bEnd;
+        });
 
     return (
         <div className='bg-[#EBF9FF] py-[30px] relative'>
@@ -28,7 +58,7 @@ function HeroSection() {
                             Search, apply, and land your dream job.
                         </p>
                     </text>
-                    <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%] ms:w-[87%] md:w-[70%] w-full max-w-[620px] ">
+                    <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%] ms:w-[87%] md:w-[70%] w-full max-w-[643px] ">
 
                         <div className="flex ms:flex-row flex-col justify-between scr1100:h-[62px] ms:h-[48px] ms:items-center  lg:gap-2 ms:gap-1 gap-2 items-start    scr1100:px-3 ms:px-2 px-4 scr1100:py-[10px] ms:py-2 py-4 border border-[#E1E3E3] ms:rounded-[30px] rounded-[12px] bg-white w-[100%]   ">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='min-w-[24px] ms:block hidden'>
@@ -41,26 +71,45 @@ function HeroSection() {
                             <input
                                 type="text"
                                 placeholder="Enter skill / Designation"
-                                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[400] font-Montserrat scr1100:max-w-[170px] ms:max-w-[145px]"
+                                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[170px] ms:max-w-[145px] placeholder:text-[#889FBA]"
                                 value={jobTitle}
                                 onChange={(e) => setJobTitle(e.target.value)}
                             />
 
 
                             <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
-                            <input
-                                type="text"
-                                placeholder="Enter Experience"
-                                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]    font-[400]  font-Montserrat scr1100:max-w-[122px] ms:max-w-[104px]"
-                                value={experinece}
+                            <select
+                                className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"
+                                    }`}
+                                value={experience}
                                 onChange={(e) => setExperience(e.target.value)}
-                            />
+                            >
+                                <option
+                                    value=""
+                                    disabled
+                                    className="text-[#889FBA]"
+                                >
+                                    Select Experience
+                                </option>
+                                {sortedExperiences
+                                    .filter((exp) => exp)
+                                    .map((exp, index) => (
+                                        <option
+                                            key={index}
+                                            value={exp}
+                                            className="text-[#333333]"
+                                        >
+                                            {exp}
+                                        </option>
+                                    ))}
+                            </select>
+
 
                             <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
                             <input
                                 type="text"
                                 placeholder="Enter Location"
-                                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]   font-[400]  font-Montserrat scr1100:max-w-[105px] ms:max-w-[90px]"
+                                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]   font-[500]  font-Montserrat scr1100:max-w-[105px] ms:max-w-[90px] placeholder:text-[#889FBA]"
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                             />
@@ -68,7 +117,7 @@ function HeroSection() {
                             <div className=' flex items-center ms:justify-end justify-center scr1100:w-[122px] ms:w-[76px] w-full'>
                                 <button
                                     onClick={() => {
-                                        router.push(`/jobs/candidate?search=${true}&loc=${location}&jobTit=${jobTitle}`);
+                                        router.push(`/jobs/candidate?search=${true}&loc=${location}&exp=${experience}&jobTit=${jobTitle}`);
 
                                     }}
                                     className="ms:block hidden scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] w-[76px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
