@@ -358,7 +358,7 @@ function CreateNewClient() {
         />
       )}
       <div className="flex justify-center">
-        <div className="flex flex-col  gap-4 sm:p-6 p-2   w-[100%] ">
+        <div className="flex flex-col  gap-4   w-[100%] ">
           <p className="text-[24px] font-semibold">
             {isUpdate ? "Update" : "Create New"} Candidate
           </p>

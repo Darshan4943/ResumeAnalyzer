@@ -37,7 +37,7 @@ function Files({
     } else {
       localStorage.setItem("previousPage", window.location.href);
       router.push({
-        pathname: "/collection",
+        pathname: "/myCollection",
         query: { ...query, name, parentId },
       });
     }
@@ -49,7 +49,7 @@ function Files({
     } else {
       localStorage.setItem("previousPage", window.location.href);
       router.push({
-        pathname: "/collection",
+        pathname: "/myCollection",
         query: { ...query, clients: true, name, clientId },
       });
     }

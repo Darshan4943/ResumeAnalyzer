@@ -70,7 +70,7 @@ function RoleSelect({ signin, signup }) {
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
 
-              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className="flex items-center">
                     <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
@@ -143,7 +143,7 @@ function RoleSelect({ signin, signup }) {
                 <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
               </div>
 
-              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=recruiter") : router.push("/auth/Sign_up?role=recruiter") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=recruiter") : router.push("/auth/Sign_up?role=recruiter") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center  sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
 
@@ -173,7 +173,7 @@ function RoleSelect({ signin, signup }) {
                 <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
               </div>
 
-              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=employer") : router.push("/auth/Sign_up?role=employer") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow">
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=employer") : router.push("/auth/Sign_up?role=employer") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
                     <svg  className="svg_classs" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

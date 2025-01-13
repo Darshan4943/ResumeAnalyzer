@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import CreateNewJob from "../../components/featured/employer/CreateNewJob";
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
+import CustomPagination from "../../components/common/CustomPagination";
 
 function JobPosting() {
   const router = useRouter();
@@ -16,10 +17,12 @@ function JobPosting() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+   const [totalPages, setTotalpages] = useState(0);
+      const [limit, setLimit] = useState(5);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [attributes, setAttributes] = useState([]);
-
+ const [miniLoading, setMiniloading] = useState(true);
   useEffect(() => {
     if (query.content === "CreateNewJob") {
       setToggle(1);
@@ -111,6 +114,7 @@ function JobPosting() {
 
   useEffect(() => {
     setLoading(true);
+    setMiniloading(true);
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
@@ -118,19 +122,22 @@ function JobPosting() {
           {
             params: {
               ...filterData,
-              page: page + 1,
-              limit: rowsPerPage,
+              page,
+              limit
             },
           }
         );
         setRequisitions(response.data.data);
         setTimeout(() => {
+          setMiniloading(false)
           setLoading(false);
         }, 500);
         setTotalCount(response.data.pagination.totalCount);
+        setTotalpages(response.data.pagination.totalPages)
       } catch (error) {
         setError("Failed to fetch requisitions");
         setTimeout(() => {
+          setMiniloading(false)
           setLoading(false);
         }, 500);
         console.error("Error fetching requisitions:", error);
@@ -138,7 +145,7 @@ function JobPosting() {
     };
 
     fetchRequisitions();
-  }, [filterData, page, rowsPerPage]);
+  }, [filterData, page, limit]);
 
   const handleChangePage = (event, newPage) => {
     console.log("New Page:", newPage);
@@ -155,16 +162,16 @@ function JobPosting() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: 'none', 
-      boxShadow: 'none', 
+      border: 'none',
+      boxShadow: 'none',
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0, 
+      padding: 0,
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: 'none', 
+      display: 'none',
     }),
   };
 
@@ -202,9 +209,9 @@ function JobPosting() {
                           value={
                             filterData[headingObj.heading]
                               ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                label: filterData[headingObj.heading],
+                                value: filterData[headingObj.heading],
+                              }
                               : null
                           }
                           placeholder={headingObj.heading}
@@ -248,9 +255,8 @@ function JobPosting() {
                         requisitions.map((requisition, index) => (
                           <div
                             key={index}
-                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
-                              index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                            }  `}
+                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                              }  `}
                           >
                             <div className=" w-[14%]">
                               <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -485,14 +491,16 @@ function JobPosting() {
             )}
           </div>
 
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 15]} // Options for rows per page
-            component="div" // Optional, specify the container type
-            count={totalCount} // Total number of rows (not pages)
-            rowsPerPage={rowsPerPage} // Current rows per page
-            page={page} // Current zero-based page
-            onPageChange={(event, newPage) => handleChangePage(event, newPage)} // Handles page changes
-            onRowsPerPageChange={handleChangeRowsPerPage} // Handles rows-per-page changes
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"Jobs"}
+            setLimit={setLimit}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+
           />
         </div>
       )}

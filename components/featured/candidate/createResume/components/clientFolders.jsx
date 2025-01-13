@@ -92,7 +92,7 @@ function ClientFolders({
                             index,
                             item._id,
                             clientId
-                              ?<>{item.fileName.length > 15
+                              ? <>{item.fileName.length > 15
                                 ? `${item.fileName.slice(0, 14)}...`
                                 : item.fileName}</>
                               : item.firstName + " " + item.lastName,
@@ -118,7 +118,7 @@ function ClientFolders({
                       <span className="text-[12px]">
                         {" "}
                         {clientId
-                          ?<>{item.fileName.length > 15
+                          ? <>{item.fileName.length > 15
                             ? `${item.fileName.slice(0, 14)}...`
                             : item.fileName}</>
                           : item.firstName + " " + item.lastName}
@@ -135,11 +135,14 @@ function ClientFolders({
                 <table className="w-[100%] text-[12px] sm:text-[16px]">
                   <thead>
                     <tr>
-                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF]">
+                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[50%] text-left border-r border-[#FFF] font-medium">
                         Name
                       </th>
-                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left border-r border-[#FFF]  rounded-r-[12px]">
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF] font-medium ">
                         Date Modified
+                      </th>
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[20%] text-left border-r border-[#FFF]  rounded-r-[12px] font-medium">
+                        Action
                       </th>
                       {/* <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
                         Size
@@ -163,8 +166,9 @@ function ClientFolders({
                         }
                         className="cursor-pointer"
                       >
-                        <td className="sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
-                          
+
+                        <td className=" w-[50%] sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
+
                           {select && (
 
                             <input
@@ -183,12 +187,23 @@ function ClientFolders({
                             ? item.fileName
                             : item.firstName + " " + item.lastName}
                         </td>
-                        <td className="sm:px-4 px-2 py-2 text-[#858585]">
+                        <td className=" w-[30%] sm:px-4 px-2 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}
                         </td>
                         {/* <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {convertBytes(item.size)}
                         </td> */}
+
+                        <td className="sm:px-4 px-2 py-2 text-[#858585] w-[20%]">
+                          {item?.role !== "client" &&
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                              <g mask="url(#mask0_6706_99235)">
+                                <path d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                              </g>
+                            </svg>
+                          }
+                        </td>
                       </tr>
                     ))}
                   </tbody>

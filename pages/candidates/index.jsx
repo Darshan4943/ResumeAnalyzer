@@ -145,7 +145,7 @@ function MyClients() {
   }, [selectedIndexes]);
 
   return (
-    <div className="flex justify-center  py-6">
+    <div className="flex justify-center ">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">Candidates</div>
