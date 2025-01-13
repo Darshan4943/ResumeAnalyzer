@@ -21,7 +21,7 @@ function MiddleSection() {
         {
             title: "Craft a Winning CV in Minutes with AI",
             description: "Don't let a subpar CV hold you back. Our AI-powered CV builder creates professional, impactful CVs that land you interviews.",
-            path: "/home",
+            path: "/coverLetter",
             img: "/images/jobs/posters/poster1.png",
             isBgImg: false,
 
@@ -34,7 +34,7 @@ function MiddleSection() {
         {
             title: "Skill Assessment",
             description: "Uncover Your Potential with Effortless Skill Assessment. Elevate Your Abilities, Elevate Your Success!",
-            path: "/about",
+            path: "/candidate/SkillAssessment",
             img: "/images/jobs/posters/poster2.png",
             background: " linear-gradient(178.88deg, #FFFFFF -24.19%, #FFDF9B 131.8%)",
             backgroundImg: "/images/jobs/posters/bg1.png",
@@ -92,7 +92,7 @@ function MiddleSection() {
                         </p>
                         <p className='text-[10px] font-[500] sm:text-start text-center'> {posters[0]?.description}</p>
                     </div>
-                    <button className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
+                    <button onClick={()=>router.push(posters[0].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
                         Know More
                     </button>
                 </div>
@@ -126,7 +126,7 @@ function MiddleSection() {
                         </p>
                         <p className='text-[10px] font-[500] sm:text-start text-center'> {posters[1]?.description}</p>
                     </div>
-                    <button className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
+                    <button onClick={()=>router.push(posters[1].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
                         Know More
                     </button>
                 </div>

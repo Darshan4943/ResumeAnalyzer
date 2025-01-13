@@ -5,8 +5,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
+import { useRouter } from "next/router";
  
 const TopCompanies = () => {
+  const router = useRouter()
   const jobData = [
     {
       companyName: "Aven",
@@ -53,7 +55,7 @@ const TopCompanies = () => {
             <div className="text-[16px] font-[600]">Top Companies Hiring</div>
             <div className="text-[14px] font-[500]">Find Your Dream Job</div>
           </div>
-          <div className="text-[14px] font-[600] text-[#06A9EF]">View All</div>
+          <div onClick={()=>router.push("/candidate/topCompanies")} className="text-[14px] font-[600] text-[#06A9EF] cursor-pointer">View All</div>
         </div>
  
       

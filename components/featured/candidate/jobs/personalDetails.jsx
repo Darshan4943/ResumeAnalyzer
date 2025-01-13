@@ -60,7 +60,7 @@ const PersonalDetails = ({ data, handleInputChange, formError, setFormData,setSe
         <div className="  flex flex-col gap-4">
             <div className='flex flex-row gap-4 items-center'>
 
-                <h2 className=" text-[18px]  font-[600] min-w-[190px]">Professional Details</h2>
+                <p className=" text-[18px]  font-[600] min-w-[190px]">Personal Details</p>
                 <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
             </div>
             <form className="space-y-4">
