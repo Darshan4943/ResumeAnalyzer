@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 function ResumeComp() {
+    const router = useRouter()
     return (
         <div className='customMargins'>
             <div style={{
@@ -12,7 +14,7 @@ function ResumeComp() {
                         Craft Your Perfect Resume in Minutes
                     </p>
                     <p className='text-[14px] font-[500] ms:text-start text-center'>Uncover Your Potential with Effortless Skill Assessment.<br className='ml:block hidden'/> Elevate Your Abilities, Elevate Your Success!</p>
-                    <button className='leading-tight py-3 px-9 text-[#FFFFFF] bg-blue text-[14px] font-[600] rounded-[30px] h-[42px] w-[155px]'>
+                    <button onClick={()=>router.push("/auth?signin=true")} className='leading-tight py-3 px-9 text-[#FFFFFF] bg-blue text-[14px] font-[600] rounded-[30px] h-[42px] w-[155px]'>
                         Get Started
                     </button>
                 </div>

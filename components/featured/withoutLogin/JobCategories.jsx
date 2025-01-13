@@ -33,7 +33,7 @@ function JobCategories() {
                         key={index}
                         style={{ boxShadow: "0px 3px 8px 0px #C9C8C840" }}
                      
-                   onClick={()=>router.push("./jobs/search")}
+                   onClick={()=>router.push("/jobs/candidate")}
 
                         className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center'
                     >
