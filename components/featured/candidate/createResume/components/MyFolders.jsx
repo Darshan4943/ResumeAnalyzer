@@ -28,7 +28,7 @@ function MyFolders({
       return a.type === "folder" ? -1 : 1;
     });
   }
-  console.log(data)
+ 
   return (
     <div className="h-[calc(85vh-250px)] overflow-y-auto">
       {tabIndex === 0 && (
