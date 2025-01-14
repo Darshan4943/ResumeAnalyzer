@@ -493,7 +493,7 @@ function Folders({
               )}
             </div>
             <div className=" ml:w-[65%] w-[100%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
-              <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
+              <div className="rounded-[30px] py-2 px-3 flex gap-2  w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%] border border-[#DEDEDE]  ">
                 <svg
                   width="24"
                   height="24"
@@ -512,7 +512,7 @@ function Folders({
 
                 <input
                   onChange={(e) => changeHandler(e.target.value)}
-                  className="w-full bg-[#E9EEF6] text-[#333333]"
+                  className="w-full  text-[#333333]"
                   type="text"
                   placeholder="Search File"
                 />
@@ -637,7 +637,7 @@ function Folders({
 
           >
             <div
-              className="flex gap-1 items-center upload-btn-wrapper text-[14px] font-semibold text-[#06A9EF]"
+              className="flex gap-1 items-center upload-btn-wrapper text-[14px] font-semibold text-[#06A9EF] cursor-pointer"
               onClick={(e) => {
                 setIsFile(true);
                 setIsCreateFolder(true);
@@ -673,7 +673,7 @@ function Folders({
                 setIsFile(false);
                 setIsCreateFolder(true);
               }}
-              className="flex gap-1  items-center h-[30] text-[14px] font-semibold text-[#06A9EF]"
+              className="flex gap-1  items-center h-[30] text-[14px] font-semibold text-[#06A9EF] cursor-pointer"
             >
               <svg
                 width="30"
@@ -722,9 +722,9 @@ function Folders({
 
         {showDelete && (
           <>
-            <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+            <div className="opacity-25 fixed inset-0 z-[1200] bg-black"></div>
 
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none ">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[1300] outline-none focus:outline-none ">
               <div className="delete_modal_container pt-[16px] scr420:w-[360px] w-[300px] px-[16px] scr420:px-[36px]">
                 <div className="flex items-center gap-3">
                   <img

@@ -145,7 +145,7 @@ function MyClients() {
   }, [selectedIndexes]);
 
   return (
-    <div className="flex justify-center  py-6">
+    <div className="flex justify-center ">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">Candidates</div>
@@ -380,43 +380,42 @@ function MyClients() {
                 />
               ) : (
                 <div
-                  // onClick={() => {
-                  //   if (clientCount >= clientCountLimit) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   if (!planAvailable) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  onClick={() => {
+            // onClick={() => {
+            //   if (clientCount >= clientCountLimit) {
+            //     setLimitPopUp(true);
+            //   } else {
+            //     router.push("/myClients/CreateNewClient");
+            //   }
+            // }}
+            // onClick={() => {
+            //   if (!planAvailable) {
+            //     setLimitPopUp(true);
+            //   } else {
+            //     router.push("/myClients/CreateNewClient");
+            //   }
+            // }}
+            onClick={() => {
 
-                    router.push("/candidates/CreateNewClient");
+              router.push("/candidates/CreateNewClient");
 
-                  }}
-                  style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
-                >
-                  <svg
-                    width="27"
-                    height="27"
-                    viewBox="0 0 27 27"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                      fill="white"
-                    />
-                  </svg>
+            }}
+            className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] h-[332px] p-4 cursor-pointer"
+          >
+            <svg
+              width="27"
+              height="27"
+              viewBox="0 0 27 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                fill="#333333"
+              />
+            </svg>
 
-                  <p>Create New Candidate</p>
-                </div>
+            <p>Create New Client</p>
+          </div >
               )}
               {limitPopUp && (
                 <LimitUsedModal

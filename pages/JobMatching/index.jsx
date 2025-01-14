@@ -230,8 +230,9 @@ const JobMatching = () => {
       "http://localhost:2000/api/external/jobMatching/",
 
       {
-        jd: jd,
-        ids: ids,
+        jd,
+        ids,
+        resumeCount
       }
     );
 

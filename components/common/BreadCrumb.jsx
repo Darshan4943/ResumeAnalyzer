@@ -12,6 +12,13 @@ const Breadcrumb = () => {
     dashboard: 'Home',
     JobPosting: 'Job Posting',
     'JobPosting?content=CreateNewJob': 'Create New Job',
+    'ClientDetail': 'Candidate Details',
+    "CreateNewClient":"Create New Candidate",
+    "CandidateResumeDetails":"Create Resume",
+    "BuildResume":"Create Resume",
+    "createResume":"Create Resume",
+    "myCollection":"My Collection",
+    "JobMatching":"Job Matching",
     'Requisition?content=CreateNewRequisition': 'Create New Requisition',
     'Hiring?content=ApplicantDetails': 'Applicant Details',
     'BulkUploads?content=ApplicantDetails': 'Applicant Details',
@@ -28,6 +35,12 @@ const Breadcrumb = () => {
     if (segment === 'JobPost' && queryParams.get('id')) {
       return {
         label: 'Job Post',
+        path: fullPath,
+      };
+    }
+    if (segment === 'CreateNewClient' && queryParams.get('id')) {
+      return {
+        label: 'Update Candidate',
         path: fullPath,
       };
     }

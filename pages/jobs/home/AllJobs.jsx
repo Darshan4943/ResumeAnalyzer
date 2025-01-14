@@ -25,7 +25,8 @@ function AllJobs({
   setMiniloading,
   miniLoading,
 }) {
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const [isDescription, setIsDescription] = useState(false);
@@ -70,9 +71,8 @@ function AllJobs({
               {!isDescription && (
                 <div
                   onClick={() => setIsDescription(true)}
-                  className={`mobile1024 ml:mt-4  ${
-                    isViewportBelow600 ? "col-span-12" : "col-span-12"
-                  }`}
+                  className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                    }`}
                 >
                   <AllJobCard
                     miniLoading={miniLoading}
@@ -128,9 +128,8 @@ function AllJobs({
 
               {isDescription && (
                 <div
-                  className={`mobile1024 ${
-                    isViewportBelow600 ? "col-span-12" : "col-span-12"
-                  } flex flex-col gap-3 ml:mt-4 `}
+                  className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                    } flex flex-col gap-3 ml:mt-4 `}
                 >
                   <div
                     onClick={() => setIsDescription(false)}

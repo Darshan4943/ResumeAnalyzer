@@ -135,9 +135,11 @@ function ClientDetail({ tabIndex }) {
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
           borderRadius: "6px",
           overflow: "hidden",
+         
         }}
+      
       >
-        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document className="resumes3" file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={1} />
         </Document>
       </div>
@@ -150,7 +152,7 @@ function ClientDetail({ tabIndex }) {
     return (
       <div
         style={{
-          width: "750px",
+          width: "750px",   
           height: "500px",
 
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
@@ -166,7 +168,7 @@ function ClientDetail({ tabIndex }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-6 ">
+    <div className="flex flex-col gap-4  ">
       <div className="flex justify-between ">
         <div className="flex text-[18px] font-semibold gap-4 items-center">
           <svg
@@ -534,7 +536,7 @@ function ClientDetail({ tabIndex }) {
             <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
               <div
                 onClick={() =>
-                  router.push(`/home/BuildResume?clientId=${clientId}`)
+                  router.push(`/createResume/BuildResume?clientId=${clientId}`)
                 }
                 style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                 className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
@@ -562,7 +564,7 @@ function ClientDetail({ tabIndex }) {
                       className="flex flex-col h-[300px] items-center justify-between group relative resumes"
                     >
                       <PdfViewer pdfUrl={item?.resumeUrl} />
-                      <div className="text-[14px] text-[#333333] font-500">
+                      <div className="text-[14px] text-[#333333] font-500 ">
                         {item?.fileName?.length > 17
                           ? `${item?.fileName?.slice(0, 16)}...`
                           : item?.fileName}

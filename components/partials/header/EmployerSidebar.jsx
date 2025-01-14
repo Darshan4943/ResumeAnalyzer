@@ -18,7 +18,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/',
+      route: '/dashboard',
     },
     {
       img: '/images/employer/sidebar/companies.png',
@@ -48,7 +48,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/myCollection.png',
       img1: '/images/employer/sidebar/myCollection1.png',
       title: 'My Collection',
-      route: '/myCollection',
+      route: '/myCollection?folder=true',
     },
     {
       img: '/images/employer/sidebar/jdMatching.png',

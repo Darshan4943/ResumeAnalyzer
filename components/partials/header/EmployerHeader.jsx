@@ -68,7 +68,7 @@ function EmployerHeader() {
                 className="min-w-[30px] h-[30px] object-contain"
               />
             </div>
-            <div onClick={() => router.push("/employer/EmployerHome")} className="flex  items-center  ">
+            <div onClick={() => router.push("/dashboard")} className="flex  items-center  ">
               <img
                 className="min-w-[104px] h-[36.317px] object-contain"
                 src="/images/logo_skilotech.png"

@@ -165,6 +165,15 @@ html {
     height: 372px !important;
   }
 }
+
+.resumes3 {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+  width: 192px !important;
+    height: 272px !important;
+  }
+}
 .resumes2 {
   .react-pdf__Page__canvas {
     display: block !important;
