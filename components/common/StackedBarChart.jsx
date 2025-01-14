@@ -2,13 +2,13 @@ import { AgChartsReact } from "ag-charts-react";
 import { useState } from "react";
 
 
-const StackedBarChart = ({ data, title,  }) => {
+const StackedBarChart = ({ data, title, }) => {
     const [options, setOptions] = useState({
         data,
         title: {
             text: title,
         },
-      
+
         series: [
             {
                 type: "donut",

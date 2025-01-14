@@ -791,9 +791,8 @@ function Dashboard({ toggleContentt }) {
               .map((applicants, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${
-                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                      }`}
                     key={applicants._id}
                   >
                     <div className="  gap-[24px]  w-full justify-between flex items-center">
@@ -827,33 +826,31 @@ function Dashboard({ toggleContentt }) {
                       </div>
                       <div className="w-[20%]">
                         <button
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                            checkedApplicants[index]
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
                               ? "bg-[#FFFFFF]"
                               : applicants.status === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicants.status === "Hired"
-                              ? "bg-[#56CDAD1A]"
-                              : applicants.status === "Shortlisted"
-                              ? "bg-[#4640DE1A]"
-                              : applicants.status === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : applicants.status === "In Review"
-                              ? "bg-[#EB85331A]"
-                              : ""
-                          } ${
-                            applicants.status === "Interview"
+                                ? "bg-[#26A4FF1A]"
+                                : applicants.status === "Hired"
+                                  ? "bg-[#56CDAD1A]"
+                                  : applicants.status === "Shortlisted"
+                                    ? "bg-[#4640DE1A]"
+                                    : applicants.status === "Rejected"
+                                      ? "bg-[#FF65501A]"
+                                      : applicants.status === "In Review"
+                                        ? "bg-[#EB85331A]"
+                                        : ""
+                            } ${applicants.status === "Interview"
                               ? "text-[#26A4FF]"
                               : applicants.status === "Hired"
-                              ? "text-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : applicants.status === "Rejected"
-                              ? "text-[#FF6550]"
-                              : applicants.status === "In Review"
-                              ? "text-[#FFB836]"
-                              : "text-[#333333]"
-                          }`}
+                                ? "text-[#56CDAD]"
+                                : applicants.status === "Shortlisted"
+                                  ? "text-[#4640DE]"
+                                  : applicants.status === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : applicants.status === "In Review"
+                                      ? "text-[#FFB836]"
+                                      : "text-[#333333]"
+                            }`}
                         >
                           {applicants.status}
                         </button>

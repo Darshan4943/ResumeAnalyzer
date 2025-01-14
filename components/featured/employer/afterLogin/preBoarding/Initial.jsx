@@ -117,16 +117,16 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
             {headings.map((items, index) => (
               <>
                 <select
-                  className=" w-[19.87%] bg-whites outline-none"
+                  className=" w-[19.87%] bg-whites outline-none text-[#646464] text-[14px] font-[500]"
                   onChange={(e) => handleHeadingChange(e, items.heading)}
                 >
-                  <option value=""> {items.heading}</option>
+                  <option value="" className="text-[#646464] text-[14px] font-[500]"> {items.heading}</option>
                   {items.options.map((option, optIndex) => (
                     <option key={optIndex} value={option}>
                       {option}
                     </option>
                   ))}
-                </select>
+                </select> 
                 <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
               </>
             ))}
@@ -140,7 +140,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
             {labels.map((req, index) => (
               <div
                 key={index}
-                className="flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center bg-[#EFFAFF] justify-between w-full"
+                className="flex p-4 text-[14px] font-[600] font-Montserrat text-[#333] items-center bg-[#EFFAFF] justify-between w-full"
               >
                 <p>{req}</p>
               </div>
@@ -162,7 +162,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
                           <input
-                            className="w-[24px] h-[24px]"
+                            className="w-[16px] h-[16px]"
                             type="checkbox"
                             checked={!!checkedjob[index]}
                             onChange={() => handleCheckboxChange(index)}
@@ -185,13 +185,13 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
+                        <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
                           {/* {applicants.role} */}
                           Software Developer
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
+                        <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
                           {/* {applicants.Recruiting} */}
                           Nikhil Patil
                         </p>
