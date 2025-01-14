@@ -188,7 +188,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
             </div>
             <div className='h-[1px] bg-[#D6DDEB]'></div>
             <div className='flex flex-col gap-4'>
-                <div className='flex justify-between ms:flex-row flex-col gap-4 text-[18px] font-semibold'>
+                <div className='flex justify-between ms:flex-row flex-col gap-4 text-[14px] font-semibold'>
                     <div className="flex gap-[8px] items-center  ">
                         <input
                             type="radio"

@@ -439,7 +439,7 @@ function CandidateHeader() {
             </div>
             {userDataGlobal?.role == "user" &&
               <div
-                onClick={() => router.push("/myWebsite")}
+                onClick={() => router.push("/candidate/myWebsite")}
                 className=" flex gap-3 py-2 px-3  items-center"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

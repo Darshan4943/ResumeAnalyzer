@@ -35,7 +35,7 @@ function HiringProgress() {
                         <p className='min-w-[60px]'>Level 1</p>
                         <div className='h-[1px] w-[90%] bg-[#D6DDEB]'></div>
                     </div>
-                    <p className='text-[24px] font-medium'>Application Profile</p>
+                    <p className='text-[18px] font-semibold'>Application Profile</p>
                     <div className='flex scr1150:flex-row flex-col justify-between gap-4 w-[80%]'>
                         <div className='flex  flex-col gap-1'>
                             <div className='flex gap-4 text-[16px] font-medium'>
@@ -48,7 +48,7 @@ function HiringProgress() {
                                 </div>
 
                             </div>
-                            <p className='text-[#0C8A0A] text-[16px] font-medium'>Verified</p>
+                            <p className='text-[#0C8A0A] text-[14px] font-medium'>Verified</p>
                         </div>
                         <div className='flex  flex-col gap-1'>
                             <div className='flex gap-4 text-[16px] font-medium'>
@@ -61,10 +61,10 @@ function HiringProgress() {
                                 </div>
 
                             </div>
-                            <p className='text-[#0C8A0A] text-[16px] font-medium'>Verified</p>
+                            <p className='text-[#0C8A0A] text-[14px] font-medium'>Verified</p>
                         </div>
                     </div>
-                    <button onClick={() => setOpenTaskModel(true)} className='px-9 py-3 bg-[#06A9EF] rounded-[12px] min-w-[240px] w-[30%] text-[16px] font-semibold text-white'>Move to Next Stage</button>
+                    <button onClick={() => setOpenTaskModel(true)} className='px-9 py-3 bg-[#06A9EF] rounded-[30px] min-w-[240px] w-[30%] text-[16px] font-semibold text-white'>Move to Next Stage</button>
 
                 </div>
             </div>

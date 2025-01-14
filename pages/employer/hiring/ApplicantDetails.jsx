@@ -329,7 +329,7 @@ function ApplicantDetails({ setTogglee }) {
                             activeOption === "ApplicantProfile"
                               ? "text-[#333]"
                               : "text-[#646464]"
-                          } cursor-pointer`}
+                          } cursor-pointer `}
                           onClick={() => handleOptionClick("ApplicantProfile")}
                         >
                           Applicant Profile
