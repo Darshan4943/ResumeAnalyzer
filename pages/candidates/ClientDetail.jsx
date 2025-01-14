@@ -135,9 +135,11 @@ function ClientDetail({ tabIndex }) {
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
           borderRadius: "6px",
           overflow: "hidden",
+         
         }}
+      
       >
-        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document className="resumes3" file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={1} />
         </Document>
       </div>
@@ -150,7 +152,7 @@ function ClientDetail({ tabIndex }) {
     return (
       <div
         style={{
-          width: "750px",
+          width: "750px",   
           height: "500px",
 
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
@@ -562,7 +564,7 @@ function ClientDetail({ tabIndex }) {
                       className="flex flex-col h-[300px] items-center justify-between group relative resumes"
                     >
                       <PdfViewer pdfUrl={item?.resumeUrl} />
-                      <div className="text-[14px] text-[#333333] font-500">
+                      <div className="text-[14px] text-[#333333] font-500 ">
                         {item?.fileName?.length > 17
                           ? `${item?.fileName?.slice(0, 16)}...`
                           : item?.fileName}

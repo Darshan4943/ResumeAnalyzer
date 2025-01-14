@@ -239,7 +239,7 @@ function Hiring() {
       setWidth(getResponsiveWidth());
     }, 300),
     []
-  ); 
+  );
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -254,7 +254,7 @@ function Hiring() {
       ...provided,
       border: "none",
       boxShadow: "none",
-      width: width, 
+      // width: width,
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
@@ -266,11 +266,11 @@ function Hiring() {
     }),
     menu: (provided) => ({
       ...provided,
-      width: width, 
+      // width: width,
     }),
     option: (provided) => ({
       ...provided,
-      width: width, 
+      // width: width,
     }),
   };
 
@@ -359,49 +359,68 @@ function Hiring() {
               )}
             </div>
           </div>
-          <div className="hidden ml:flex  max-w-fit  rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
-            {headings.map((filter, index) => (
-              <>
-                <Select
-                  key={index}
-                  className="bg-whites"
-                  options={filter.options.map((option) => ({
-                    value: option,
-                    label: option,
-                  }))}
-                  onChange={(selectedOption) =>
-                    handleFilterChange(
-                      filter.heading,
-                      selectedOption ? selectedOption.value : ""
-                    )
-                  }
-                  value={
-                    filter.value
-                      ? {
+          <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
+            <div className="w-[75%] flex justify-between items-center">
+              {headings.map((filter, index) => (
+                <>
+                  <Select
+                    key={index}
+                    className="scr1067:w-[25%] w-[30%] overflow-visible"
+                    options={filter.options.map((option) => ({
+                      value: option,
+                      label: option,
+                    }))}
+                    onChange={(selectedOption) =>
+                      handleFilterChange(
+                        filter.heading,
+                        selectedOption ? selectedOption.value : ""
+                      )
+                    }
+                    value={
+                      filter.value
+                        ? {
                           label: filter.value,
                           value: filter.value,
                         }
-                      : null
-                  }
-                  placeholder={filter.heading}
-                  isSearchable={true}
-                  noOptionsMessage={() => "No options available"}
-                  styles={customStyles}
-                />
-              </>
-            ))}
-            <button
-              onClick={handleFilterChange}
-              className="px-[36px] py-[12px] rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
-            >
-              Search
-            </button>
-            <button
-              onClick={handelclear}
-              className="px-[36px] py-[12px] rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
-            >
-              Clear
-            </button>
+                        : null
+                    }
+                    placeholder={filter.heading}
+                    isSearchable={true}
+                    noOptionsMessage={() => "No options available"}
+                    menuPortalTarget={document.body}
+                    menuPosition="absolute"
+                    styles={{
+                      ...customStyles,
+                      menu: (base) => ({
+                        ...base,
+                        width: '200%',
+                        zIndex: 9999,
+                      }),
+                      menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999,
+                      }),
+                    }}
+                  />
+                  <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
+                </>
+              ))}
+
+            </div>
+            <div className="scr1067:w-[25%] w-[20%] flex justify-end gap-3">
+              <button
+                onClick={handleFilterChange}
+                className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
+              >
+                Search
+              </button>
+              <button
+                onClick={handelclear}
+                className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
+              >
+                Clear
+              </button>
+            </div>
           </div>
 
           {loading ? (
