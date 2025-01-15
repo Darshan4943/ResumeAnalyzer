@@ -3,7 +3,7 @@ import React from "react";
 
 function JobDetails({ jobDetails }) {
   const router = useRouter();
-   const { id } = router.query;
+  const { id } = router.query;
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
@@ -21,11 +21,11 @@ function JobDetails({ jobDetails }) {
                   {jobDetails.companyName}
                 </p>
                 <div className="flex items-center gap-1">
-                  <img
+                  {jobDetails.location ? <img
                     src="/images/jobs/lo.png"
                     alt=""
                     className="w-[14px] h-[14px]"
-                  />
+                  /> : ""}
                   <p className="text-[#333] font-Montserrat text-[14px] font-[400px]">
                     {jobDetails.location.join(", ")}
                   </p>
@@ -40,21 +40,21 @@ function JobDetails({ jobDetails }) {
                   Job Details
                 </p>
                 <div className="flex gap-1 items-center">
-                  <img
+                  {jobDetails.jobType ? <img
                     src="/images/jobs/work.png"
                     className="w-[15px] h-[14px]"
                     alt=""
-                  />
+                  /> : ""}
                   <p className="text-[#333] font-Montserrat text-[14px] font-medium leading-normal">
                     {jobDetails.jobType}
                   </p>
                 </div>
                 <div className="flex gap-1 items-center">
-                  <img
+                  {jobDetails.jobMode ? <img
                     src="/images/jobs/work.png"
                     className="w-[15px] h-[14px]"
                     alt=""
-                  />
+                  /> : ""}
                   <p className="text-[#333] font-Montserrat text-[14px] font-medium">
                     {jobDetails.jobMode}
                   </p>
@@ -137,7 +137,7 @@ function JobDetails({ jobDetails }) {
                           100
                         )}%`,
                       }}
-                    ></div>{" "}
+                    ></div>
                   </div>
                 </div>
                 <div className="flex justify-between items-start self-stretch">
