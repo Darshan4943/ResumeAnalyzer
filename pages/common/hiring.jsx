@@ -440,7 +440,7 @@ function Hiring() {
                   key={index}
                   // onClick={() => toggleContent(job)}
                   onClick={() =>
-                    router.push(`/employer/hiring/JobPost?id=${job._id}`)
+                    router.push(`/common/hiring/JobPost?id=${job._id}`)
                   }
                   className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
                 >
