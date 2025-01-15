@@ -111,6 +111,18 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
 
   return (
     <>
+     {startPreboarding && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
+            <StartPreboarding
+              applicant={applicant}
+              jobs={jobs}
+              setStartPreboarding={setStartPreboarding}
+            />
+          </div>
+        </>
+      )}
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
@@ -477,18 +489,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
           className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
         />
       </div>
-      {startPreboarding && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
-            <StartPreboarding
-              applicant={applicant}
-              jobs={jobs}
-              setStartPreboarding={setStartPreboarding}
-            />
-          </div>
-        </>
-      )}
+     
     </>
   );
 };
