@@ -20,7 +20,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [shortlist, setShortlist] = useState();
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectAll , setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false)
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && inputValue.trim()) {
@@ -782,12 +782,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 </div>
                                                 {shortlist.details?.personal
                                                   ?.firstName.length == 0 &&
-                                                shortlist?.details?.personal
-                                                  ?.lastName.length == 0 ? (
+                                                  shortlist?.details?.personal
+                                                    ?.lastName.length == 0 ? (
                                                   ""
                                                 ) : (
                                                   <div className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center">
-                                               
+
                                                     <div className="group relative">
                                                       <div className="text-[14px] font-[600]">
                                                         {shortlist.details
@@ -836,7 +836,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                   CC
                                                 </div>
                                                 <div className=" p-[4px] flex rounded-[26px]  gap-[10px] items-start">
-                                             
+
                                                   <div className="flex flex-wrap gap-[10px]">
                                                     {tags.map((tag, index) => (
                                                       <div

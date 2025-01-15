@@ -15,7 +15,6 @@ function RecommendedJobs() {
                     <p className='text-[14px] font-medium'>
                         Discover Personalized Job Recommendations
                     </p>
-
                 </div>
                 <div
                     onClick={() => {
