@@ -12,7 +12,7 @@ function Requisition() {
   const [toggle, setToggle] = useState(0);
   const [openSort, setOpenSort] = useState(false);
   const [filterData, setFilterData] = useState({});
-  
+
   useEffect(() => {
     if (query.content === "CreateNewRequisition") {
       setToggle(1);
@@ -20,7 +20,7 @@ function Requisition() {
       setToggle(0);
     }
   }, [router.query]);
-  
+
 
   const toggleContent = () => {
     const CreateNewRequisition = toggle ? "" : "CreateNewRequisition";
@@ -385,7 +385,7 @@ function Requisition() {
               All Requisition Requests
               <button
                 // onClick={toggleContent}
-                onClick={()=>router.push("/employer/requisition/CreateNewRequisition")}
+                onClick={() => router.push("/employer/requisition/CreateNewRequisition")}
                 className="px-[36px] py-[12px] bg-[#06A9EF] text-[#FFFFFF] text-[14px] font-[600] rounded-[36px] flex gap-[2px] items-center"
               >
                 <svg

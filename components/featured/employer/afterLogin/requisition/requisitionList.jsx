@@ -139,7 +139,7 @@ function RequisitionList({ filterData }) {
                 {requisition.location}
               </div>
               <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                ${requisition.budgetFrom}-{requisition.budgetTo}
+                {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
               </div>
               <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
                 {requisition.positions} positions
