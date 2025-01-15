@@ -20,6 +20,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [shortlist, setShortlist] = useState();
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [selectAll , setSelectAll] = useState(false)
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && inputValue.trim()) {
