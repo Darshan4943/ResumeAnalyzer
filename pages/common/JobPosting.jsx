@@ -123,21 +123,21 @@ function JobPosting() {
             params: {
               ...filterData,
               page,
-              limit,
+              limit
             },
           }
         );
         setRequisitions(response.data.data);
         setTimeout(() => {
-          setMiniloading(false);
+          setMiniloading(false)
           setLoading(false);
         }, 500);
         setTotalCount(response.data.pagination.totalCount);
-        setTotalpages(response.data.pagination.totalPages);
+        setTotalpages(response.data.pagination.totalPages)
       } catch (error) {
         setError("Failed to fetch requisitions");
         setTimeout(() => {
-          setMiniloading(false);
+          setMiniloading(false)
           setLoading(false);
         }, 500);
         console.error("Error fetching requisitions:", error);
@@ -162,8 +162,8 @@ function JobPosting() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: "none",
-      boxShadow: "none",
+      border: 'none',
+      boxShadow: 'none',
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
@@ -171,7 +171,7 @@ function JobPosting() {
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: "none",
+      display: 'none',
     }),
   };
 
@@ -209,9 +209,9 @@ function JobPosting() {
                           value={
                             filterData[headingObj.heading]
                               ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                label: filterData[headingObj.heading],
+                                value: filterData[headingObj.heading],
+                              }
                               : null
                           }
                           placeholder={headingObj.heading}
@@ -255,9 +255,7 @@ function JobPosting() {
                         requisitions.map((requisition, index) => (
                           <div
                             key={index}
-                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${
-                              index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                            }  `}
+                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"}  `}
                           >
                             <div className=" w-[14%]">
                               <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -274,7 +272,7 @@ function JobPosting() {
                               {requisition.location}
                             </p>
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                              ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
+                            {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
                             </p>
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
                               {requisition.requested_by}
@@ -282,7 +280,6 @@ function JobPosting() {
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
                               {requisition.hiring_period}
                             </p>
-
                             <button
                               onClick={toggleContent}
                               className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
@@ -501,6 +498,7 @@ function JobPosting() {
             totalPages={totalPages}
             limit={limit}
             page={page}
+
           />
         </div>
       )}

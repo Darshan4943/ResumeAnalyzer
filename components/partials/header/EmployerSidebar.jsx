@@ -30,13 +30,13 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/jobPosting.png',
       img1: '/images/employer/sidebar/jobPosting1.png',
       title: 'Job Posting',
-      route: '/employer/JobPosting',
+      route: '/common/JobPosting?content=CreateNewJob',
     },
     {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/hiring',
+      route: '/common/hiring',
     },
     {
       img: '/images/employer/sidebar/candidate.png',
@@ -76,13 +76,13 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/jobPosting.png',
       img1: '/images/employer/sidebar/jobPosting1.png',
       title: 'Job Posting',
-      route: '/employer/JobPosting',
+      route: '/common/JobPosting',
     },
     {
       img: '/images/employer/sidebar/hiring.png',
       img1: '/images/employer/sidebar/hiring1.png',
       title: 'Hiring',
-      route: '/employer/hiring',
+      route: '/common/hiring',
     },
     {
       img: '/images/employer/sidebar/preboarding.png',
@@ -110,7 +110,7 @@ function EmployerSidebar() {
     <div className="flex flex-col bg-white w-[120px] pt-[86px] h-full">
       {menuList.map((item, index) => {
         const isActive =
-          item.route === '/' ? selectedPage === item.route : selectedPage.startsWith(item.route);
+          item.route === '/' ? selectedPage === item.route : selectedPage.startsWith(item.route.split('?')[0]);
         return (
           <ALink href={item.route} key={index}>
             <div className="p-2">

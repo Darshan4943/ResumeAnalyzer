@@ -12,6 +12,7 @@ function NormalJobCard({ item }) {
     const router = useRouter();
     const appliedJobs = appliedJobData
     const [isSaved, setIsSaved] = useState(false)
+    const [isUnSaved, setUnIsSaved] = useState(false)
     const dispatch = useDispatch();
     const SaveJob = (e, id) => {
         // setLoading(false);
@@ -33,6 +34,7 @@ function NormalJobCard({ item }) {
 
     const removeSavedJob = (e, id) => {
         e.stopPropagation();
+        setUnIsSaved(true)
         axios
             .post(
                 `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
@@ -223,18 +225,14 @@ function NormalJobCard({ item }) {
                 {isLogin && (
                     <div className=" cursor-pointer">
                         {savedJobIds?.find((data) => data == item._id) ? (
-
                             <svg className={` ${isSaved && "save-button"}`} onClick={(e) => removeSavedJob(e, item._id)} width="24" height="29" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-
                                 <g mask="url(#mask0_1_3)">
                                     <path d="M5 25.2V6C5 5.34 5.19583 4.775 5.5875 4.305C5.97917 3.835 6.45 3.6 7 3.6H17C17.55 3.6 18.0208 3.835 18.4125 4.305C18.8042 4.775 19 5.34 19 6V25.2L12 21.6L5 25.2Z" fill="#646464" />
                                 </g>
                             </svg>
-
-
-
                         ) : (
                             <svg
+                                className={`${isUnSaved && "unsave_button"}`}
                                 onClick={(e) => SaveJob(e, item._id)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"

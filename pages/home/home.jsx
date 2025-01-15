@@ -1,6 +1,6 @@
 import React from 'react';
 import CandidateHome from '../candidate';
-import EmployerHome from '../employer/EmployerHome';
+import EmployerHome from '../common/EmployerHome';
 import { useSelector } from 'react-redux';
 import Dashboard from '../dashboard';
 
