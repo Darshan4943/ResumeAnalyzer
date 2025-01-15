@@ -131,7 +131,7 @@ function Hiring() {
       );
 
       const { jobs, pagination } = response.data;
-      console.log(response.data);
+      // console.log(response.data);
       setData(jobs);
       setTimeout(() => {
         setLoading(false);

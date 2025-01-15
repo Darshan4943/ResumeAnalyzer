@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { TablePagination } from "@mui/material";
 import axios from "axios";
 import MiniLoader from "../../../../common/miniLoader";
+import CustomPagination from "../../../../common/CustomPagination";
 
 function RequisitionList({ filterData }) {
   const router = useRouter();
@@ -11,32 +12,48 @@ function RequisitionList({ filterData }) {
   const [error, setError] = useState(null);
   const [toggle, setToggle] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [miniLoading, setMiniloading] = useState(true);
+  const [totalPages, setTotalpages] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [limit, setLimit] = useState(5);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
+    setLoading(true);
+    setMiniloading(true);
     const fetchRequisitions = async () => {
-      setLoading(true);
       try {
         const response = await axios.get(
           "http://localhost:2000/api/getrequisitions",
           {
-            params: filterData,
+            params: {
+              ...filterData,
+              page,
+              limit,
+            },
           }
         );
+        setRequisitions(response.data.data);
+        console.log(response.data.data);
         setTimeout(() => {
+          setMiniloading(false);
           setLoading(false);
         }, 500);
-        setRequisitions(response.data.data);
+        setTotalCount(response.data.pagination.totalCount);
+        setTotalpages(response.data.pagination.totalPages);
       } catch (error) {
         setError("Failed to fetch requisitions");
-        console.error("Error fetching requisitions:", error);
         setTimeout(() => {
+          setMiniloading(false);
           setLoading(false);
         }, 500);
+        console.error("Error fetching requisitions:", error);
       }
     };
 
     fetchRequisitions();
-  }, [filterData]);
+  }, [filterData, page, limit]);
 
   useEffect(() => {
     if (query.content === "CreateNewRequisition") {
@@ -45,9 +62,6 @@ function RequisitionList({ filterData }) {
       setToggle(0);
     }
   }, [router.query]);
-
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,11 +81,6 @@ function RequisitionList({ filterData }) {
     "Open Position",
     "Status",
   ];
-
-  const paginatedRequisitions = requisitions.slice(
-    page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
-  );
 
   return (
     <div className=" w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
@@ -97,8 +106,8 @@ function RequisitionList({ filterData }) {
           />
         </div>
       ) : (
-        <div className="overflow-scroll h-[66%]">
-          {paginatedRequisitions.map((requisition) => (
+        <div className="">
+          {requisitions.map((requisition) => (
             <div
               className="w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]"
               key={requisition.id}
@@ -142,16 +151,15 @@ function RequisitionList({ filterData }) {
           ))}
         </div>
       )}
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 15]}
-        component="div"
-        className="h-[80px] rounded-b-[12px] flex items-center justify-end py-[12px] px-[16px] border-t bg-white sticky bottom-0 w-[100%]"
-        count={requisitions.length}
-        rowsPerPage={rowsPerPage}
+      <CustomPagination
+        setMiniloading={setMiniloading}
+        miniLoading={miniLoading}
+        setPage={setPage}
+        title={"RequisitionList"}
+        setLimit={setLimit}
+        totalPages={totalPages}
+        limit={limit}
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </div>
   );
