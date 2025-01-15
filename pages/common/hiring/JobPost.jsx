@@ -709,7 +709,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 className="cursor-pointer"
                                 onClick={() =>
                                   router.push(
-                                    `/employer/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails._id}`
+                                    `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails._id}`
                                   )
                                 }
                               >
