@@ -65,7 +65,7 @@ function Details() {
   };
   
   return (
-    <div className=" flex flex-col gap-9">
+    <div className=" flex flex-col  gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
         <div className=" font-semibold text-[30px] text-white leading-tight">
           Purchase

@@ -128,13 +128,13 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("In Preboarding");
                     }}
-                    className={` ${activeOption === "In Preboarding" ? "" : "text-[#646464]"
-                      } ml:text-[16px] text-[14px]   font-[600]`}
+                    className={` ${activeOption === "In Preboarding" ? "text-[#333333]" : "text-[#646464]"
+                      } ml:text-[16px] text-[14px] font-[600]`}
                   >
                     In Preboarding
                   </p>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg"  
                     width="89"
                     height="4"
                     viewBox="0 0 89 4"
@@ -204,7 +204,7 @@ function Preboarding() {
                         <div
                           onClick={() => setToggle(index)}
                           key={index}
-                          className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                          className={`flex p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
                             }`}
                           style={{
                             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -222,7 +222,7 @@ function Preboarding() {
                             </p>
                           </div>
                         </div>
-                        <div>{e.line}</div>
+                        <div >{e.line}</div>
                       </>
                     ))}
                   </div>
@@ -246,35 +246,93 @@ function Preboarding() {
                   )}
 
                   {toggle === 1 && (
-                    <Documention setToggle={setToggle} />
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Documention setToggle={setToggle} />
+                      )}
+                    </>
                   )}
 
                   {toggle === 2 && (
-                    <Verification setToggle={setToggle} />
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Verification setToggle={setToggle} />
+                      )}
+                    </>
                   )}
 
+
                   {toggle === 3 && (
-                    <Offer
-                      setToggle={setToggle}
-                      setEditTemplate={setEditTemplate}
-                    />
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Offer
+                          setToggle={setToggle}
+                          setEditTemplate={setEditTemplate}
+                        />
+                      )}
+                    </>
                   )}
 
                   {toggle === 4 && (
-                    <Acceptance setToggle={setToggle} />
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Acceptance setToggle={setToggle} />
+                      )}
+                    </>
                   )}
 
                   {toggle === 5 && (
-                    <Hire setPreview={setPreview} setToggle={setToggle} />
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Hire setPreview={setPreview} setToggle={setToggle} />
+                      )}
+                    </>
                   )}
+
                 </>
               )}
 
               {activeOption === "Joined" && (
-                <Joined setPreview={setPreview} />
+                <>
+                  {loading ? (
+                    <div className=" justify-center items-center w-full">
+                      <MiniLoader />
+                    </div>
+                  ) : (
+                    <Joined setPreview={setPreview} />
+                  )}
+                </>
               )}
               {activeOption === "Declined" && (
-                <Declined setPreview={setPreview} />
+                <>
+                  {loading ? (
+                    <div className=" justify-center items-center w-full">
+                      <MiniLoader />
+                    </div>
+                  ) : (
+                    <Declined setPreview={setPreview} />
+                  )}
+                </>
               )}
             </div>
           )}
