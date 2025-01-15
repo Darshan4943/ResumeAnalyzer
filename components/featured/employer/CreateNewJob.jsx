@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
-import CreateProfileFields from "../../../pages/employer/CreateProfileFields";
+import CreateProfileFields from "../../../pages/common/CreateProfileFields";
 import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
