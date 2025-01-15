@@ -17,12 +17,12 @@ function JobPosting() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
-   const [totalPages, setTotalpages] = useState(0);
-      const [limit, setLimit] = useState(5);
+  const [totalPages, setTotalpages] = useState(0);
+  const [limit, setLimit] = useState(5);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [attributes, setAttributes] = useState([]);
- const [miniLoading, setMiniloading] = useState(true);
+  const [miniLoading, setMiniloading] = useState(true);
   useEffect(() => {
     if (query.content === "CreateNewJob") {
       setToggle(1);
@@ -255,8 +255,7 @@ function JobPosting() {
                         requisitions.map((requisition, index) => (
                           <div
                             key={index}
-                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                              }  `}
+                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"}  `}
                           >
                             <div className=" w-[14%]">
                               <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -273,7 +272,7 @@ function JobPosting() {
                               {requisition.location}
                             </p>
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                              ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
+                            {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
                             </p>
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
                               {requisition.requested_by}
@@ -281,7 +280,6 @@ function JobPosting() {
                             <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
                               {requisition.hiring_period}
                             </p>
-
                             <button
                               onClick={toggleContent}
                               className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
