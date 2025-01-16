@@ -22,7 +22,7 @@ function CreateNewJob({ setToggle }) {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
-  const { id } = router.query;
+  const { id ,companyId} = router.query;
   const [jobPost, setJobPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loactionText, setLoactionText] = useState("");
@@ -200,7 +200,7 @@ function CreateNewJob({ setToggle }) {
       );
     }
   };
-
+console.log(id);
   const getData = () => {
     setLoading(true);
     axios
@@ -375,7 +375,7 @@ function CreateNewJob({ setToggle }) {
   };
 
   const handleClick = () => {
-    router.push("/employer/JobPosting");
+    router.push("/recruiter/jobPosting");
   };
 
   const fileRef = useRef();

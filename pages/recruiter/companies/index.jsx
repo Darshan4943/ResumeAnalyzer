@@ -49,8 +49,8 @@ function Index() {
         <div className='flex w-full flex-wrap gap-[18px]'>
           {companyData.length > 0 ? (
             companyData.map((item, index) => (
-              <div className='bg-[#FFFFFF] p-5 rounded-[12px] flex flex-col items-center gap-1 w-full ms:w-[48%] scr1024:w-[30.75%]'>
-                <img src={item.companyLogo} alt="Company logo" className='h-[60px] w-[144px]' />
+              <div key={index} className='bg-[#FFFFFF] p-5 rounded-[12px] flex flex-col items-center gap-1 w-full ms:w-[48%] scr1024:w-[30.75%]'>
+                <img src={item.companyLogo} alt="Company logo" className='h-[60px]  object-contain' />
                 <div className='flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]'>
                   {item.companyName}
                   <div className=' w-full text-[12px] font-[400] text-[#646464] text-center'>
