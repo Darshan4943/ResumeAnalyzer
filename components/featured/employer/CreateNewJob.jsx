@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import ReactSelect from "react-select";
-import { SkillList } from "../../../utils/data";
+import { currencyMap, SkillList } from "../../../utils/data";
 import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
@@ -17,6 +17,7 @@ import dynamic from "next/dynamic";
 import debounce from "lodash.debounce";
 import NormalJobCard from "../candidate/jobs/NormalJobCard";
 import { Close_svg } from "../../../utils/svg";
+import { Select } from "@mui/material";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -24,7 +25,7 @@ function CreateNewJob({ setToggle }) {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
-  const { id ,companyId} = router.query;
+  const { id, companyId } = router.query;
   const [jobPost, setJobPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loactionText, setLoactionText] = useState("");
@@ -36,9 +37,11 @@ function CreateNewJob({ setToggle }) {
   const [isCreate, setIsCreate] = useState(false);
   const [isSetting, setIsSetting] = useState(false);
   const taskRef = useRef(null);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
+
   const [data, setData] = useState({
-    companyName: "",
     jobTitle: "",
+    companyName: "",
     Keywords: [],
     jobLink: "",
     jobType: "",
@@ -61,17 +64,18 @@ function CreateNewJob({ setToggle }) {
     mustSkills: [],
     goodSkills: [],
     qualificationType: [],
-    status: "Live",
+    status: "",
     logo: "",
   });
+
   useEffect(() => {
     setData({ ...data, logo: croppedImage?.blob });
   }, [croppedImage]);
 
-  const handleSubmit = async (e) => {
-    console.log("object");
-    e.preventDefault();
+  const validateFormData = (data) => {
+    console.log("Validating form data...");
     const newFormError = {};
+
     const isValidString = (value) =>
       typeof value === "string" && value.trim() !== "";
     const isValidArray = (value) => Array.isArray(value) && value.length > 0;
@@ -80,82 +84,66 @@ function CreateNewJob({ setToggle }) {
       return !isNaN(date.getTime());
     };
 
-    if (!data.jobTitle || !isValidString(data.jobTitle)) {
+    if (!isValidString(data.jobTitle)) {
       newFormError.jobTitle = "Job Title is required";
+      return newFormError;
     }
 
-    if (!data.companyName || !isValidString(data.companyName)) {
+    if (!isValidString(data.companyName)) {
       newFormError.companyName = "Company Name is required";
-    }
-    if (!data.country || !isValidString(data.country)) {
-      newFormError.country = "Country Name is required";
+      return newFormError;
     }
 
-    if (
-      !data.location ||
-      (Array.isArray(data.location) && data.location.length === 0)
-    ) {
+    if (!data.location || !isValidArray(data.location)) {
       newFormError.location = "Location is required";
-    } else if (Array.isArray(data.location)) {
+      return newFormError;
+    } else {
       data.location.forEach((item, index) => {
         if (!isValidString(item)) {
           newFormError.location = `Location item ${index + 1} is required`;
+          return newFormError;
         }
       });
-    } else if (!isValidString(data.location)) {
-      newFormError.location = "Location is required";
     }
 
-    if (!data.description || !isValidString(data.description)) {
-      newFormError.description = "Job Description Is Required";
+    if (!isValidString(data.description)) {
+      newFormError.description = "Job Description is required";
+      return newFormError;
     }
 
-    if (!data.jobType || !isValidString(data.jobType)) {
+    if (!isValidString(data.jobType)) {
       newFormError.jobType = "Job Type is required";
+      return newFormError;
     }
 
-    if (!data.mustSkills || !isValidArray(data.mustSkills)) {
+    if (!isValidArray(data.mustSkills)) {
       newFormError.mustSkills = "Must have Skills are required";
+      return newFormError;
     }
 
-    if (!data.deadLine || !isValidDate(data.deadLine)) {
+    if (!isValidDate(data.deadLine)) {
       newFormError.deadLine = "Valid Deadline is required";
+      return newFormError;
     } else {
-      const currentDate = new Date();
-      const inputDate = new Date(data.deadLine);
-      const currentDateOnly = new Date(currentDate.setHours(0, 0, 0, 0));
-      const inputDateOnly = new Date(inputDate.setHours(0, 0, 0, 0));
+      const currentDate = new Date().setHours(0, 0, 0, 0);
+      const inputDate = new Date(data.deadLine).setHours(0, 0, 0, 0);
 
-      if (inputDateOnly < currentDateOnly) {
+      if (inputDate < currentDate) {
         newFormError.deadLine = "Deadline cannot be earlier than today's date";
+        return newFormError;
       }
     }
 
-    const requiredFields = [
-      "jobTitle",
-      "companyName",
-      "country",
-      "location",
-      "description",
-      "jobType",
-      "mustSkills",
-      "deadLine",
-    ];
+    return newFormError;
+  };
 
-    const emptyFields = requiredFields.filter(
-      (field) =>
-        !data[field] ||
-        (Array.isArray(data[field])
-          ? data[field].length === 0
-          : data[field].trim() === "")
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (emptyFields.length > 0) {
-      toast.error("Please fill all required fields.");
-    }
-
-    if (Object.keys(newFormError).length > 0) {
-      setFormError(newFormError);
+    const formErrors = await validateFormData(data);
+    console.log("formErrors", formErrors);
+    if (Object.keys(formErrors).length > 0) {
+      setFormError(formErrors);
       return;
     }
 
@@ -176,6 +164,7 @@ function CreateNewJob({ setToggle }) {
 
     formData.append("createdBy", userDataGlobal?._id);
 
+    console.log("formData", formData);
     try {
       const response = await axios.post(
         `http://localhost:2000/api/job/add/${id}`,
@@ -186,9 +175,7 @@ function CreateNewJob({ setToggle }) {
           },
         }
       );
-
       console.log("Success:", response.data);
-      // router.push("/employer/JobPosting");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -196,11 +183,11 @@ function CreateNewJob({ setToggle }) {
       console.error("Error:", error);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
-console.log(id);
+
   const getData = () => {
     setLoading(true);
     axios
@@ -281,53 +268,21 @@ console.log(id);
     }
   }, [id]);
 
-  const validateInput = (fieldName, value) => {
-    const errors = { ...formError };
-
-    switch (fieldName) {
-      case "companyName":
-        if (!value.trim()) {
-          errors.companyName = "Company Name is required";
-        } else if (!isNaN(value)) {
-          errors.companyName = "Company Name cannot be a number";
-        } else if (/\d/.test(value)) {
-          errors.companyName = "Company Name cannot contain numbers";
-        } else {
-          delete errors.companyName;
-        }
-        break;
-
-      case "jobTitle":
-        if (!value || value.length === 0) {
-          errors.jobTitle = "Job Title is required";
-        } else {
-          delete errors.jobTitle;
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    setFormError(errors);
-
-    return errors;
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
 
-  // const handleChange1 = (value) => {
-  //   setData((prevData) => ({
-  //     ...prevData,
-  //     description: value,
-  //   }));
-  // };
+    if (value.trim() !== "") {
+      setFormError((prevError) => {
+        const { [name]: removedError, ...rest } = prevError;
+        return rest;
+      });
+    }
+  };
   const handleChange1 = useCallback(
     debounce((value) => {
       const plainText = value.replace(/<[^>]*>/g, "");
@@ -338,7 +293,6 @@ console.log(id);
     }, 500),
     []
   );
-
   const resetFormData = () => {
     setData({
       companyName: "",
@@ -367,11 +321,6 @@ console.log(id);
       qualificationType: [],
       status: "Live",
     });
-  };
-
-  const toggleModal = () => {
-    console.log("object");
-    openModel(!model);
   };
 
   const handleClick = () => {
@@ -421,6 +370,14 @@ console.log(id);
 
   const handleNavigate = () => {
     router.push("/employer/CreateProfileFields");
+  };
+  const currencyOptions = currencyMap.map((item) => ({
+    value: item.currency,
+    label: item.currency,
+  }));
+
+  const handleItemClick = (selectedOption) => {
+    setSelectedCurrency(selectedOption);
   };
 
   return (
@@ -490,10 +447,11 @@ console.log(id);
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -514,9 +472,9 @@ console.log(id);
                             value={
                               data.Keywords
                                 ? data.Keywords.map((keyword) => ({
-                                  value: keyword,
-                                  label: keyword,
-                                }))
+                                    value: keyword,
+                                    label: keyword,
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -524,8 +482,8 @@ console.log(id);
                                 ...data,
                                 Keywords: selectedOptions
                                   ? selectedOptions.map(
-                                    (option) => option.value
-                                  )
+                                      (option) => option.value
+                                    )
                                   : [],
                               });
                             }}
@@ -721,10 +679,11 @@ console.log(id);
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                  formError.companyName
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -756,9 +715,9 @@ console.log(id);
                                 value={
                                   data.location
                                     ? data.location.map((location) => ({
-                                      value: location,
-                                      label: location,
-                                    }))
+                                        value: location,
+                                        label: location,
+                                      }))
                                     : []
                                 }
                                 onChange={(selectedOptions) => {
@@ -812,28 +771,68 @@ console.log(id);
                               />
                             </div>
                           </div>
+
                           <div className="flex flex-col gap-[8px] w-full scr1024:w-[33.33%]">
                             <div className="text-[14px] font-[500]">
                               Country <span className="text-[red]">*</span>
                             </div>
-                            <select
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.country
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
-                              name="country"
-                              value={data.country}
-                              onChange={handleChange}
-                            >
-                              <option value="" disabled>
-                                Select Country
-                              </option>
-                              <option value="USA">United States</option>
-                              <option value="Canada">Canada</option>
-                              <option value="India">India</option>
-                              <option value="Australia">Australia</option>
-                              <option value="UK">United Kingdom</option>
-                            </select>
+
+                            <CreatableSelect
+                              isClearable
+                              isMulti
+                              className="w-full min-w-[150px] rounded-[8px] text-[14px] font-montserrat font-small text-black leading-tight"
+                              placeholder="Job country, tags etc"
+                              value={
+                                data.country
+                                  ? data.country.map((country) => ({
+                                      value: country,
+                                      label: country,
+                                    }))
+                                  : []
+                              }
+                              onChange={(selectedOptions) => {
+                                setData({
+                                  ...data,
+                                  country: selectedOptions
+                                    ? selectedOptions.map(
+                                        (option) => option.value
+                                      )
+                                    : [],
+                                });
+                              }}
+                              styles={{
+                                valueContainer: (provided) => ({
+                                  ...provided,
+                                  display: "flex",
+                                  flexWrap: "nowrap",
+                                  overflowX: "auto",
+                                  gap: "8px",
+                                  padding: "4px",
+                                  whiteSpace: "nowrap",
+                                  alignItems: "center",
+                                }),
+                                multiValue: (provided) => ({
+                                  ...provided,
+                                  backgroundColor: "#EFFAFF",
+                                  color: "#06A9EF",
+                                  marginRight: "12px",
+                                }),
+                                multiValueLabel: (provided) => ({
+                                  ...provided,
+                                  color: "#06A9EF",
+                                  overflowX: "scroll",
+                                }),
+                                multiValueRemove: (provided) => ({
+                                  ...provided,
+                                  color: "#06A9EF",
+                                }),
+                                menu: (provided) => ({
+                                  ...provided,
+                                  zIndex: 1,
+                                  position: "absolute",
+                                }),
+                              }}
+                            />
                           </div>
                         </div>
                         <div className="flex flex-col gap-[8px] w-full">
@@ -884,6 +883,46 @@ console.log(id);
                     <div className="p-4 gap-4 flex flex-col">
                       <div className="text-lg font-semibold">Salary</div>
                       <div className="flex flex-col md:flex-row w-full gap-5">
+                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+                          <label className="text-[#333333] text-[14px] font-medium">
+                            Currency
+                          </label>
+                          <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[42px]">
+                            <ReactSelect
+                              options={currencyOptions}
+                              className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[42px]"
+                              placeholder="Select Currency"
+                              value={
+                                currencyOptions.find(
+                                  (option) => option.value === data?.currency
+                                ) || null
+                              }
+                              onChange={(value) => {
+                                setData({ ...data, currency: value.value });
+                                setFormError({});
+                              }}
+                              styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  border: "none",
+                                  width: "100%",
+                                }),
+                                menu: (provided) => ({
+                                  ...provided,
+                                  zIndex: 1,
+                                  position: "absolute",
+                                }),
+                              }}
+                            />
+                          </div>
+                          <div className="flex flex-row items-start justify-start">
+                            {formError && (
+                              <p className="text-[12px] text-[red] font-[500] text-left">
+                                {formError.currency}
+                              </p>
+                            )}
+                          </div>
+                        </div>
                         <div className="flex flex-col gap-2 w-full">
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
@@ -900,6 +939,10 @@ console.log(id);
                               value={data.salaryType}
                               onChange={handleChange}
                             >
+                              <option value="" disabled selected>
+                                Select
+                              </option>
+                              <option value="Select">Select</option>
                               <option value="Annual">Annual</option>
                               <option value="Monthly">Monthly</option>
                               <option value="Weekly">Weekly</option>
@@ -911,10 +954,15 @@ console.log(id);
                           <div className="text-sm font-medium">Min Salary</div>
                           <input
                             className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
-                            type="number"
+                            type="text"
                             name="minSalary"
                             value={data.minSalary}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                handleChange(e);
+                              }
+                            }}
                             placeholder="Enter Min Salary"
                           />
                         </div>
@@ -923,10 +971,15 @@ console.log(id);
                           <div className="text-sm font-medium">Max Salary</div>
                           <input
                             className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
-                            type="number"
+                            type="text"
                             name="maxSalary"
                             value={data.maxSalary}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                handleChange(e);
+                              }
+                            }}
                             placeholder="Enter Max Salary"
                           />
                         </div>
@@ -958,6 +1011,10 @@ console.log(id);
                               value={data.openPositions}
                               onChange={handleChange}
                             >
+                              {" "}
+                              <option value="" disabled selected>
+                                Select
+                              </option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -980,6 +1037,9 @@ console.log(id);
                               value={data.jobSector}
                               onChange={handleChange}
                             >
+                              <option value="" disabled selected>
+                                Select
+                              </option>
                               <option value="Accounting">Accounting</option>
                               <option value="Finance">Finance</option>
                               <option value="HR">HR</option>
@@ -1006,9 +1066,13 @@ console.log(id);
                               value={data.jobType}
                               onChange={handleChange}
                             >
+                              <option value="" disabled selected>
+                                Select
+                              </option>
                               <option value="Full Time">Full Time</option>
                               <option value="Part Time">Part Time</option>
                               <option value="Contract">Contract</option>
+                              <option value="Internships">Internships</option>
                             </select>
                           </div>
                           <div className="flex flex-col gap-2 w-full ">
@@ -1026,9 +1090,18 @@ console.log(id);
                               value={data.workFrom}
                               onChange={handleChange}
                             >
-                              <option value="Office">Office</option>
-                              <option value="Hybrid">Hybrid</option>
+                              <option value="" disabled selected>
+                                Select
+                              </option>
+                              <option value="On-Site">On-Site</option>
                               <option value="Remote">Remote</option>
+                              <option value="Hybrid">Hybrid</option>
+                              <option value="International">
+                                International
+                              </option>
+                              <option value="Jobs for Women">
+                                Jobs for Women
+                              </option>
                             </select>
                           </div>
                         </div>
@@ -1052,14 +1125,42 @@ console.log(id);
                             value={data.requiredQualification}
                             onChange={handleChange}
                           >
+                            {" "}
+                            <option value="" disabled selected>
+                              Select
+                            </option>
                             <option value="Bachelor's">Bachelors</option>
                             <option value="Master's">Masters</option>
                             <option value="PhD">PhD</option>
                           </select>
                         </div>
+
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">
-                            Required Skills{" "}
+                            Application Deadline{" "}
+                            <span className="text-[red]">*</span>
+                          </div>
+                          <input
+                            type="date"
+                            style={{
+                              width: "100%",
+                              height: "40px",
+                              border: formError.deadLine
+                                ? "1px solid red"
+                                : "1px solid #DEDEDE",
+                              borderRadius: "8px",
+                              padding: "5px",
+                            }}
+                            name="deadLine"
+                            value={data.deadLine}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex flex-col scr540:flex-row  gap-[16px]">
+                        <div className="flex flex-col gap-2 w-full ">
+                          <div className="text-sm font-medium">
+                            Must have Skills
                             <span className="text-[red]">*</span>
                           </div>
                           <ReactSelect
@@ -1080,16 +1181,17 @@ console.log(id);
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1113,31 +1215,96 @@ console.log(id);
                             }}
                           />
                         </div>
-                      </div>
-                      <div className="flex flex-col scr540:flex-row  gap-[16px]">
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">
-                            Application Deadline{" "}
+                            Good to have Skills{" "}
                             <span className="text-[red]">*</span>
                           </div>
-                          <input
-                            type="date"
+                          <ReactSelect
+                            isMulti
+                            onInputChange={(data) => {
+                              if (data.trim()) {
+                                setSkills((prevSkills) => [
+                                  data,
+                                  ...prevSkills.filter(
+                                    (skill) => skill.trim() !== ""
+                                  ),
+                                ]);
+                              }
+                            }}
+                            options={skills
+                              .filter((item) => item.trim() !== "")
+                              .map((item) => ({
+                                value: item,
+                                label: camelCase(item),
+                              }))}
+                            className={`w-full ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
+                            value={
+                              data.goodSkills
+                                ? data.goodSkills.map((skill) => ({
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
+                                : []
+                            }
+                            onChange={(selectedOptions) => {
+                              if (selectedOptions) {
+                                setData({
+                                  ...data,
+                                  goodSkills: selectedOptions.map(
+                                    (option) => option.value
+                                  ),
+                                });
+                              }
+                            }}
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                borderColor: formError.mustSkills
+                                  ? "red"
+                                  : "#DEDEDE",
+                                borderRadius: "8px",
+                              }),
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 w-full ">
+                          <div className="text-sm font-medium">
+                            Total Experience
+                          </div>
+                          <select
                             style={{
                               width: "100%",
                               height: "40px",
-                              border: formError.deadLine
-                                ? "1px solid red"
-                                : "1px solid #DEDEDE",
+                              border: "1px solid #DEDEDE",
                               borderRadius: "8px",
                               padding: "5px",
                             }}
-                            name="deadLine"
-                            value={data.deadLine}
+                            name="experience"
+                            value={data.experience}
                             onChange={handleChange}
-                          />
+                          >
+                            <option value="" disabled selected>
+                              Select
+                            </option>
+                            <option value="0-2 years">0-2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10-20 years">10-20 years</option>
+                            <option value="20 +">20 +</option>
+                          </select>
                         </div>
                         <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">Experience</div>
+                          <div className="text-sm font-medium">
+                            {" "}
+                            Relevant Experience
+                          </div>
                           <select
                             style={{
                               width: "100%",
@@ -1150,15 +1317,21 @@ console.log(id);
                             value={data.revalentExp}
                             onChange={handleChange}
                           >
-                            <option value="0-2 `Years">0-2 Years</option>
-                            <option value="3-5 Years">3-5 Years</option>
-                            <option value="5+ Years">5+ Years</option>
+                            {" "}
+                            <option value="" disabled selected>
+                              Select
+                            </option>
+                            <option value="0-2 years">0-2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10-20 years">10-20 years</option>
+                            <option value="20 +">20 +</option>
                           </select>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
+                    {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
                       <div className="flex gap-4">
                         <button className="scr700:hidden text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
                           Create Basic Profile Form
@@ -1174,7 +1347,9 @@ console.log(id);
                             Create Basic Profile Form
                           </button>
                           <div
-                            onClick={() => { openModel(true) }}
+                            onClick={() => {
+                              openModel(true);
+                            }}
                             className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
                           >
                             Preview
@@ -1194,6 +1369,38 @@ console.log(id);
                             </button>
                           </div>
                         </div>
+                      </div>
+                    </div> */}
+                    <div className="flex justify-between p-4">
+                      <div>
+                        <button
+                          onClick={handleClick}
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                      <div className="flex gap-[14px]">
+                        <button
+                          onClick={resetFormData}
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          onClick={() => {
+                            openModel(true);
+                          }}
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                        >
+                          Preview
+                        </button>
+                        <button
+                          onClick={handleSubmit}
+                          className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
+                        >
+                          Post Job
+                        </button>
                       </div>
                     </div>
                   </div>
