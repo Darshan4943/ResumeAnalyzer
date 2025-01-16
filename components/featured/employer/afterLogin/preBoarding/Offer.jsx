@@ -113,7 +113,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
               .map((applicants, index) => (
                 <>
                   <div
-                    className="flex w-[100%] py-[16px] bg-[#FFFFFF] justify-between items-center"
+                    className="flex w-[100%] py-[16px]  border-b border-[#D4D4D480] bg-[#FFFFFF] justify-between items-center"
                   >
                     <div className="grid grid-cols-7 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
