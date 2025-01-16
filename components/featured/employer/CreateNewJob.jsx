@@ -433,9 +433,9 @@ function CreateNewJob({ setToggle }) {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
                 <div className="ml:w-[612px] w-full flex flex-col gap-6 p-5 rounded-[12px] bg-white">
                   <div className="w-full flex justify-end">
-                  <Close_svg/>
+                    <Close_svg />
                   </div>
-                
+
                   <NormalJobCard item={data} />
                   <Description
                     selectedJob={data}
