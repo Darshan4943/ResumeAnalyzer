@@ -10,7 +10,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [openSort, setOpenSort] = useState(false);
-  const [checkedjob, setCheckedApplicants] = useState({});
+  const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
   const [setOpenThreeDts] = useState(false);
   const router = useRouter();
@@ -167,7 +167,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
               .map((job, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
                       }`}
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">

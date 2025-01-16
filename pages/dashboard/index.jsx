@@ -18,11 +18,11 @@ import RecentApplications from "../../components/featured/dashboard/RecentApplic
 function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  
-  
+
+
   const [error, setError] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
- 
+
   const router = useRouter();
 
 
@@ -118,8 +118,8 @@ function Dashboard({ toggleContentt }) {
     }
   }
 
- 
-  
+
+
 
   const handleNavigate = (applicantId, jobId) => {
     router.push(
@@ -225,7 +225,7 @@ function Dashboard({ toggleContentt }) {
                 </svg>
                 <div className="flex justify-between items-center w-[100%]">
                   <p className="text-[#646464] text-[16px] font-semibold">
-                    Hired
+                    Shortlisted
                   </p>
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
@@ -259,7 +259,7 @@ function Dashboard({ toggleContentt }) {
                 </svg>
                 <div className="flex justify-between items-center w-[100%]">
                   <p className="text-[#646464] text-[16px] font-semibold">
-                    Declined
+                    Rejected
                   </p>
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
