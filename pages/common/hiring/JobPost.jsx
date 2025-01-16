@@ -4,23 +4,28 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import JobDetails from "./JobDetails";
 import Analytics from "../../../components/featured/employer/Analytics";
+import CustomPagination from "../../../components/common/CustomPagination";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [activeOption, setActiveOption] = useState("applicant");
   const router = useRouter();
   const { id } = router.query;
-  const [jobDetails, setJobDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [checkedApplicants, setCheckedApplicants] = useState({});
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState();
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectAll, setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [jobDetails, setJobDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [miniloading, setMiniloading] = useState(false);
+  const [error, setError] = useState(null);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && inputValue.trim()) {
@@ -39,30 +44,36 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
 
   useEffect(() => {
-    if (id) {
-      const fetchJobDetails = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch(
-            `http://localhost:2000/api/job/getById/${id}`
-          );
-          if (!response.ok) {
-            throw new Error(
-              `Error fetching job details: ${response.statusText}`
-            );
-          }
-          const data = await response.json();
-          setJobDetails(data);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
-      };
+    const fetchJobDetails = async () => {
+      setLoading(true);
+      setMiniloading(true);
+      setError(null);
 
+      try {
+        const response = await fetch(
+          `http://localhost:2000/api/job/getByIdApplication/${id}?page=${page}&limit=${limit}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error fetching job details: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setJobDetails(data);
+        setTotalCount(data.pagination.totalCount);
+        setTotalPages(data.pagination.totalPages);
+      } catch (err) {
+        console.error("Error fetching job details:", err);
+        setError(err.message);
+      } finally {
+        setMiniloading(false);
+        setLoading(false);
+      }
+    };
+
+    if (id) {
       fetchJobDetails();
     }
-  }, [id]);
+  }, [id, page, limit]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -278,6 +289,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       score: "3.0",
       profile: "87%",
       status: "Interview",
+
       date: "13 July, 2021",
     },
     {
@@ -300,6 +312,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       score: "4.0",
       profile: "87%",
       status: "Rejected",
+
       date: "13 July, 2021",
     },
   ];
@@ -316,7 +329,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const handleSelectAll = () => {
     const newSelectAll = !selectAll;
     setSelectAll(newSelectAll);
-    const updatedCheckedApplicants = Array(jobDetails?.applications?.length).fill(newSelectAll);
+    const updatedCheckedApplicants = Array(jobDetails?.length).fill(
+      newSelectAll
+    );
     setCheckedApplicants(updatedCheckedApplicants);
   };
 
@@ -343,24 +358,24 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </svg>
                   </div>
                   <div className="text-[16px] text-[#333333] font-[600]">
-                    {jobDetails.jobTitle}
+                    {jobDetails?.data?.jobDetails?.jobTitle}
                   </div>
                   <div className="flex justify-center items-center gap-[4px]">
-                    {jobDetails.status === "Live" ? (
+                    {jobDetails?.data?.jobDetails?.status === "Live" ? (
                       <>
                         <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
                         <div className="text-[12px] font-[500] text-[#0C8A0A]">
                           Active
                         </div>
                       </>
-                    ) : jobDetails.status === "Hold" ? (
+                    ) : jobDetails?.data?.jobDetails?.status === "Hold" ? (
                       <>
                         <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                         <div className="text-[12px] font-[500] text-[#ddda40]">
                           On Hold
                         </div>
                       </>
-                    ) : jobDetails.status === "Closed" ? (
+                    ) : jobDetails?.data?.jobDetails?.status === "Closed" ? (
                       <>
                         <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#B3261E] rounded-[90px]"></div>
                         <div className="text-[12px] font-[500] text-[#B3261E]">
@@ -389,59 +404,56 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
               <div className="flex flex-col scr1024:flex-row justify-between">
                 <div className="flex gap-[10px]  justify-start">
                   <div className="flex gap-[4px] items-center">
-                    {jobDetails.revalentExp ?
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1.33073 11.7474C1.0099 11.7474 0.735243 11.6332 0.506771 11.4047C0.278299 11.1762 0.164062 10.9016 0.164062 10.5807V4.16406C0.164062 3.84323 0.278299 3.56858 0.506771 3.3401C0.735243 3.11163 1.0099 2.9974 1.33073 2.9974H3.66406V1.83073C3.66406 1.5099 3.7783 1.23524 4.00677 1.00677C4.23524 0.778299 4.5099 0.664062 4.83073 0.664062H7.16406C7.48489 0.664062 7.75955 0.778299 7.98802 1.00677C8.21649 1.23524 8.33073 1.5099 8.33073 1.83073V2.9974H10.6641C10.9849 2.9974 11.2595 3.11163 11.488 3.3401C11.7165 3.56858 11.8307 3.84323 11.8307 4.16406V10.5807C11.8307 10.9016 11.7165 11.1762 11.488 11.4047C11.2595 11.6332 10.9849 11.7474 10.6641 11.7474H1.33073ZM1.33073 10.5807H10.6641V4.16406H1.33073V10.5807ZM4.83073 2.9974H7.16406V1.83073H4.83073V2.9974Z"
-                          fill="#646464"
-                        />
-                      </svg> : ""}
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.33073 11.7474C1.0099 11.7474 0.735243 11.6332 0.506771 11.4047C0.278299 11.1762 0.164062 10.9016 0.164062 10.5807V4.16406C0.164062 3.84323 0.278299 3.56858 0.506771 3.3401C0.735243 3.11163 1.0099 2.9974 1.33073 2.9974H3.66406V1.83073C3.66406 1.5099 3.7783 1.23524 4.00677 1.00677C4.23524 0.778299 4.5099 0.664062 4.83073 0.664062H7.16406C7.48489 0.664062 7.75955 0.778299 7.98802 1.00677C8.21649 1.23524 8.33073 1.5099 8.33073 1.83073V2.9974H10.6641C10.9849 2.9974 11.2595 3.11163 11.488 3.3401C11.7165 3.56858 11.8307 3.84323 11.8307 4.16406V10.5807C11.8307 10.9016 11.7165 11.1762 11.488 11.4047C11.2595 11.6332 10.9849 11.7474 10.6641 11.7474H1.33073ZM1.33073 10.5807H10.6641V4.16406H1.33073V10.5807ZM4.83073 2.9974H7.16406V1.83073H4.83073V2.9974Z"
+                        fill="#646464"
+                      />
+                    </svg>
                     <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobDetails.revalentExp}
+                      {jobDetails?.data?.jobDetails?.revalentExp}
                     </div>
                   </div>
-                  {jobDetails.revalentExp ? <div className="border-[1px] border-[#AFAFAF]"></div> : ""}
+                  <div className="border-[1px] border-[#AFAFAF]"></div>
                   <div className="flex gap-[4px] items-center">
-                    {jobDetails.jobType ?
-                      <svg
-                        width="10"
-                        height="13"
-                        viewBox="0 0 10 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.66927 11.1641H7.33594V9.41406C7.33594 8.7724 7.10746 8.22309 6.65052 7.76615C6.19358 7.3092 5.64427 7.08073 5.0026 7.08073C4.36094 7.08073 3.81163 7.3092 3.35469 7.76615C2.89774 8.22309 2.66927 8.7724 2.66927 9.41406V11.1641ZM5.0026 5.91406C5.64427 5.91406 6.19358 5.68559 6.65052 5.22865C7.10746 4.7717 7.33594 4.2224 7.33594 3.58073V1.83073H2.66927V3.58073C2.66927 4.2224 2.89774 4.7717 3.35469 5.22865C3.81163 5.68559 4.36094 5.91406 5.0026 5.91406ZM0.335938 12.3307V11.1641H1.5026V9.41406C1.5026 8.82101 1.64115 8.26441 1.91823 7.74427C2.19531 7.22413 2.58177 6.80851 3.0776 6.4974C2.58177 6.18629 2.19531 5.77066 1.91823 5.25052C1.64115 4.73038 1.5026 4.17378 1.5026 3.58073V1.83073H0.335938V0.664062H9.66927V1.83073H8.5026V3.58073C8.5026 4.17378 8.36406 4.73038 8.08698 5.25052C7.8099 5.77066 7.42344 6.18629 6.9276 6.4974C7.42344 6.80851 7.8099 7.22413 8.08698 7.74427C8.36406 8.26441 8.5026 8.82101 8.5026 9.41406V11.1641H9.66927V12.3307H0.335938Z"
-                          fill="#646464"
-                        />
-                      </svg> : ""}
+                    <svg
+                      width="10"
+                      height="13"
+                      viewBox="0 0 10 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.66927 11.1641H7.33594V9.41406C7.33594 8.7724 7.10746 8.22309 6.65052 7.76615C6.19358 7.3092 5.64427 7.08073 5.0026 7.08073C4.36094 7.08073 3.81163 7.3092 3.35469 7.76615C2.89774 8.22309 2.66927 8.7724 2.66927 9.41406V11.1641ZM5.0026 5.91406C5.64427 5.91406 6.19358 5.68559 6.65052 5.22865C7.10746 4.7717 7.33594 4.2224 7.33594 3.58073V1.83073H2.66927V3.58073C2.66927 4.2224 2.89774 4.7717 3.35469 5.22865C3.81163 5.68559 4.36094 5.91406 5.0026 5.91406ZM0.335938 12.3307V11.1641H1.5026V9.41406C1.5026 8.82101 1.64115 8.26441 1.91823 7.74427C2.19531 7.22413 2.58177 6.80851 3.0776 6.4974C2.58177 6.18629 2.19531 5.77066 1.91823 5.25052C1.64115 4.73038 1.5026 4.17378 1.5026 3.58073V1.83073H0.335938V0.664062H9.66927V1.83073H8.5026V3.58073C8.5026 4.17378 8.36406 4.73038 8.08698 5.25052C7.8099 5.77066 7.42344 6.18629 6.9276 6.4974C7.42344 6.80851 7.8099 7.22413 8.08698 7.74427C8.36406 8.26441 8.5026 8.82101 8.5026 9.41406V11.1641H9.66927V12.3307H0.335938Z"
+                        fill="#646464"
+                      />
+                    </svg>
                     <div className="text-[12px] txet-[#262626] font-[500]">
-                      {jobDetails.jobType}
+                      {jobDetails?.data?.jobDetails?.jobType}
                     </div>
                   </div>
-                  {jobDetails.jobType ? <div className="border-[1px] border-[#AFAFAF]"></div> : ""}
+                  <div className="border-[1px] border-[#AFAFAF]"></div>
                   <div className="flex gap-[4px] items-center">
-                    {jobDetails.location ?
-                      <svg
-                        width="10"
-                        height="13"
-                        viewBox="0 0 10 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
-                          fill="#646464"
-                        />
-                      </svg> : ""}
+                    <svg
+                      width="10"
+                      height="13"
+                      viewBox="0 0 10 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.0026 6.4974C5.32344 6.4974 5.59809 6.38316 5.82656 6.15469C6.05503 5.92622 6.16927 5.65156 6.16927 5.33073C6.16927 5.0099 6.05503 4.73524 5.82656 4.50677C5.59809 4.2783 5.32344 4.16406 5.0026 4.16406C4.68177 4.16406 4.40712 4.2783 4.17865 4.50677C3.95017 4.73524 3.83594 5.0099 3.83594 5.33073C3.83594 5.65156 3.95017 5.92622 4.17865 6.15469C4.40712 6.38316 4.68177 6.4974 5.0026 6.4974ZM5.0026 10.7849C6.18871 9.69601 7.06858 8.70677 7.64219 7.81719C8.2158 6.9276 8.5026 6.13767 8.5026 5.4474C8.5026 4.38767 8.16476 3.51997 7.48906 2.84427C6.81337 2.16858 5.98455 1.83073 5.0026 1.83073C4.02066 1.83073 3.19184 2.16858 2.51615 2.84427C1.84045 3.51997 1.5026 4.38767 1.5026 5.4474C1.5026 6.13767 1.78941 6.9276 2.36302 7.81719C2.93663 8.70677 3.81649 9.69601 5.0026 10.7849ZM5.0026 12.3307C3.43733 10.9988 2.26823 9.76163 1.49531 8.61927C0.722396 7.47691 0.335938 6.41962 0.335938 5.4474C0.335938 3.98906 0.805035 2.82726 1.74323 1.96198C2.68142 1.0967 3.76788 0.664062 5.0026 0.664062C6.23733 0.664062 7.32378 1.0967 8.26198 1.96198C9.20017 2.82726 9.66927 3.98906 9.66927 5.4474C9.66927 6.41962 9.28281 7.47691 8.5099 8.61927C7.73698 9.76163 6.56788 10.9988 5.0026 12.3307Z"
+                        fill="#646464"
+                      />
+                    </svg>
                     <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobDetails.location.join(", ")}
+                      {jobDetails?.data?.jobDetails?.location?.join(", ")}
                     </div>
                   </div>
                 </div>
@@ -450,7 +462,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {jobDetails.applications?.length}
+                    {jobDetails?.pagination?.length}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center">
@@ -479,14 +491,13 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     <circle cx="2" cy="2.5" r="2" fill="#333333" />
                   </svg>
                   <div className="text-[14px] font-[600] text-[#333333]">
-                    {new Date(jobDetails.createdAt).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
+                    {new Date(
+                      jobDetails?.data?.jobDetails?.createdAt
+                    ).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </div>
                 </div>
               </div>
@@ -499,8 +510,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
-                      } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${
+                      activeOption === "applicant" ? "" : "text-[#646464]"
+                    } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -522,8 +534,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "JobDetails" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -545,8 +558,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
                     }}
-                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "Analytics" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Analytics
                   </p>
@@ -604,7 +618,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             </div>
             <div className="web">
               <div className="flex p-[16px] items-center   gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
-                <input className="w-[16px] h-[16px]" type="checkbox" checked={selectAll} onChange={handleSelectAll} />
+                <input
+                  className="w-[16px] h-[16px]"
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                />
                 {applicant_head.map((applicant_head, index) => (
                   <div
                     key={index}
@@ -624,15 +643,16 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
               </div>
 
               <div className="flex flex-col gap-[16px] items-start bg-[#fff]  overflow-y-auto">
-                {!jobDetails?.applications.length == 0 ? (
+                {!jobDetails?.data.applications.length == 0 ? (
                   <>
-                    {jobDetails?.applications.map((applicant, index) => (
+                    {jobDetails?.data?.applications.map((applicant, index) => (
                       <>
                         <div
-                          className={`flex w-[100%] p-[16px] justify-between items-center ${checkedApplicants[index]
-                            ? "bg-[#D3F1FF]"
-                            : "bg-[#FFFFFF]"
-                            }`}
+                          className={`flex w-[100%] p-[16px] justify-between items-center ${
+                            checkedApplicants[index]
+                              ? "bg-[#D3F1FF]"
+                              : "bg-[#FFFFFF]"
+                          }`}
                           key={applicant._id}
                         >
                           <div className="  gap-[24px]  w-full justify-between flex items-center">
@@ -665,31 +685,33 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             </div>
                             <div className="w-[20%]">
                               <div
-                                className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
-                                  ? "bg-[#FFFFFF]"
-                                  : applicant.status === "Interview"
+                                className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                                  checkedApplicants[index]
+                                    ? "bg-[#FFFFFF]"
+                                    : applicant.status === "Interview"
                                     ? "bg-[#26A4FF1A]"
                                     : applicant.status === "Hired"
-                                      ? "bg-[#56CDAD1A]"
-                                      : applicant.status === "Shortlisted"
-                                        ? "bg-[#4640DE1A]"
-                                        : applicant.status === "Rejected"
-                                          ? "bg-[#FF65501A]"
-                                          : applicant.status === "In Review"
-                                            ? "bg-[#EB85331A]"
-                                            : ""
-                                  } ${applicant.status === "Interview"
+                                    ? "bg-[#56CDAD1A]"
+                                    : applicant.status === "Shortlisted"
+                                    ? "bg-[#4640DE1A]"
+                                    : applicant.status === "Rejected"
+                                    ? "bg-[#FF65501A]"
+                                    : applicant.status === "In Review"
+                                    ? "bg-[#EB85331A]"
+                                    : ""
+                                } ${
+                                  applicant.status === "Interview"
                                     ? "text-[#26A4FF]"
                                     : applicant.status === "Hired"
-                                      ? "text-[#56CDAD]"
-                                      : applicant.status === "Shortlisted"
-                                        ? "text-[#4640DE]"
-                                        : applicant.status === "Rejected"
-                                          ? "text-[#FF6550]"
-                                          : applicant.status === "In Review"
-                                            ? "text-[#FFB836]"
-                                            : "text-[#333333]"
-                                  }`}
+                                    ? "text-[#56CDAD]"
+                                    : applicant.status === "Shortlisted"
+                                    ? "text-[#4640DE]"
+                                    : applicant.status === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : applicant.status === "In Review"
+                                    ? "text-[#FFB836]"
+                                    : "text-[#333333]"
+                                }`}
                               >
                                 {applicant.status}
                               </div>
@@ -710,7 +732,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                 className="cursor-pointer"
                                 onClick={() =>
                                   router.push(
-                                    `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails._id}`
+                                    `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails.data.jobDetails._id}`
                                   )
                                 }
                               >
@@ -783,12 +805,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 </div>
                                                 {shortlist.details?.personal
                                                   ?.firstName.length == 0 &&
-                                                  shortlist?.details?.personal
-                                                    ?.lastName.length == 0 ? (
+                                                shortlist?.details?.personal
+                                                  ?.lastName.length == 0 ? (
                                                   ""
                                                 ) : (
                                                   <div className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center">
-
                                                     <div className="group relative">
                                                       <div className="text-[14px] font-[600]">
                                                         {shortlist.details
@@ -837,7 +858,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                   CC
                                                 </div>
                                                 <div className=" p-[4px] flex rounded-[26px]  gap-[10px] items-start">
-
                                                   <div className="flex flex-wrap gap-[10px]">
                                                     {tags.map((tag, index) => (
                                                       <div
@@ -1146,149 +1166,151 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <div className="mobile">
               <div className="flex flex-col items-start gap-4 self-stretch w-full">
                 <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-                  {!jobDetails?.applications.length == 0 ? (
+                  {!jobDetails?.data?.applications?.length == 0 ? (
                     <>
-                      {jobDetails?.applications.map((applicant, index) => (
-                        <>
-                          <div
-                            className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
-                          // style={{
-                          //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
-                          // }}
-                          >
-                            <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                              <div className="flex justify-between items-center self-stretch">
-                                <div className="flex items-center gap-2">
-                                  <img
-                                    className="w-[40px] h-[40px]"
-                                    src="/images/profile/john_doe.png"
-                                    alt=""
-                                  />
-                                  <p className="text-[14px] text-[#333] font-[600]">
-                                    {applicant.details?.personal?.firstName}
-                                  </p>
-                                </div>
-                                <div className="flex justify-end items-center gap-4 relative">
+                      {jobDetails?.data?.applications?.map(
+                        (applicant, index) => (
+                          <>
+                            <div
+                              className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
+                              // style={{
+                              //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                              // }}
+                            >
+                              <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                                <div className="flex justify-between items-center self-stretch">
                                   <div className="flex items-center gap-2">
-                                    {applicant.img_star1}
-                                    <p className="text-[14px] font-[600]">
-                                      {applicant.score}
+                                    <img
+                                      className="w-[40px] h-[40px]"
+                                      src="/images/profile/john_doe.png"
+                                      alt=""
+                                    />
+                                    <p className="text-[14px] text-[#333] font-[600]">
+                                      {applicant.details?.personal?.firstName}
                                     </p>
                                   </div>
-                                  <img
-                                    onClick={() => handleDotClick(index)}
-                                    className="w-[24px] cursor-pointer"
-                                    src="/images/employer/three-dot1.png"
-                                    alt=""
-                                  />
-                                  <AnimatePresence>
-                                    {moreOption &&
-                                      selectedDotIndex === index && (
-                                        <motion.div
-                                          initial={{ x: "100%" }}
-                                          animate={{ x: 0 }}
-                                          exit={{ x: "100%" }}
-                                          transition={{ duration: 0.5 }}
-                                          ref={taskRef}
-                                          className="absolute flex flex-col  rounded-[8px]  z-10 top-[100%] w-[230px] border-l border-r border-b border-[#06A9EF] p-2 bg-white"
-                                          style={{
-                                            boxShadow:
-                                              "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                                          }}
-                                        >
-                                          <div className="flex gap-[8px]  p-2 items-center flex-row">
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="24"
-                                              height="24"
-                                              viewBox="0 0 24 24"
-                                              fill="none"
-                                            >
-                                              <g mask="url(#mask0_6622_123448)">
-                                                <path
-                                                  d="M17.25 21.7501V18.7501H14.25V17.2501H17.25V14.2501H18.75V17.2501H21.75V18.7501H18.75V21.7501L17.25 21.7501ZM5.3077 19.5001C4.80257 19.5001 4.375 19.3251 4.025 18.9751C3.675 18.6251 3.5 18.1975 3.5 17.6924V6.30784C3.5 5.80271 3.675 5.37514 4.025 5.02514C4.375 4.67514 4.80257 4.50014 5.3077 4.50014H6.69233V2.38477H8.23075V4.50014H13.8077V2.38477H15.3076V4.50014H16.6922C17.1974 4.50014 17.625 4.67514 17.975 5.02514C18.325 5.37514 18.5 5.80271 18.5 6.30784V12.2155C18.25 12.1847 18 12.1694 17.75 12.1694C17.5 12.1694 17.25 12.1847 17 12.2155V10.3078H4.99997V17.6924C4.99997 17.7693 5.03202 17.8398 5.09612 17.904C5.16024 17.9681 5.23077 18.0001 5.3077 18.0001H12.1442C12.1442 18.2501 12.1596 18.5001 12.1904 18.7501C12.2211 19.0001 12.2776 19.2501 12.3596 19.5001H5.3077ZM4.99997 8.80787H17V6.30784C17 6.23091 16.9679 6.16038 16.9038 6.09627C16.8397 6.03217 16.7692 6.00012 16.6922 6.00012H5.3077C5.23077 6.00012 5.16024 6.03217 5.09612 6.09627C5.03202 6.16038 4.99997 6.23091 4.99997 6.30784V8.80787Z"
-                                                  fill="#333333"
-                                                />
-                                              </g>
-                                            </svg>
-                                            <div className="block py-1 justify-start text-[14px]">
-                                              Schedule Interview
+                                  <div className="flex justify-end items-center gap-4 relative">
+                                    <div className="flex items-center gap-2">
+                                      {applicant.img_star1}
+                                      <p className="text-[14px] font-[600]">
+                                        {applicant.score}
+                                      </p>
+                                    </div>
+                                    <img
+                                      onClick={() => handleDotClick(index)}
+                                      className="w-[24px] cursor-pointer"
+                                      src="/images/employer/three-dot1.png"
+                                      alt=""
+                                    />
+                                    <AnimatePresence>
+                                      {moreOption &&
+                                        selectedDotIndex === index && (
+                                          <motion.div
+                                            initial={{ x: "100%" }}
+                                            animate={{ x: 0 }}
+                                            exit={{ x: "100%" }}
+                                            transition={{ duration: 0.5 }}
+                                            ref={taskRef}
+                                            className="absolute flex flex-col  rounded-[8px]  z-10 top-[100%] w-[230px] border-l border-r border-b border-[#06A9EF] p-2 bg-white"
+                                            style={{
+                                              boxShadow:
+                                                "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                            }}
+                                          >
+                                            <div className="flex gap-[8px]  p-2 items-center flex-row">
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                              >
+                                                <g mask="url(#mask0_6622_123448)">
+                                                  <path
+                                                    d="M17.25 21.7501V18.7501H14.25V17.2501H17.25V14.2501H18.75V17.2501H21.75V18.7501H18.75V21.7501L17.25 21.7501ZM5.3077 19.5001C4.80257 19.5001 4.375 19.3251 4.025 18.9751C3.675 18.6251 3.5 18.1975 3.5 17.6924V6.30784C3.5 5.80271 3.675 5.37514 4.025 5.02514C4.375 4.67514 4.80257 4.50014 5.3077 4.50014H6.69233V2.38477H8.23075V4.50014H13.8077V2.38477H15.3076V4.50014H16.6922C17.1974 4.50014 17.625 4.67514 17.975 5.02514C18.325 5.37514 18.5 5.80271 18.5 6.30784V12.2155C18.25 12.1847 18 12.1694 17.75 12.1694C17.5 12.1694 17.25 12.1847 17 12.2155V10.3078H4.99997V17.6924C4.99997 17.7693 5.03202 17.8398 5.09612 17.904C5.16024 17.9681 5.23077 18.0001 5.3077 18.0001H12.1442C12.1442 18.2501 12.1596 18.5001 12.1904 18.7501C12.2211 19.0001 12.2776 19.2501 12.3596 19.5001H5.3077ZM4.99997 8.80787H17V6.30784C17 6.23091 16.9679 6.16038 16.9038 6.09627C16.8397 6.03217 16.7692 6.00012 16.6922 6.00012H5.3077C5.23077 6.00012 5.16024 6.03217 5.09612 6.09627C5.03202 6.16038 4.99997 6.23091 4.99997 6.30784V8.80787Z"
+                                                    fill="#333333"
+                                                  />
+                                                </g>
+                                              </svg>
+                                              <div className="block py-1 justify-start text-[14px]">
+                                                Schedule Interview
+                                              </div>
                                             </div>
-                                          </div>
-                                          <div className="flex gap-[8px] p-2 items-center flex-row">
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="24"
-                                              height="24"
-                                              viewBox="0 0 24 24"
-                                              fill="none"
-                                            >
-                                              <g mask="url(#mask0_6622_123454)">
-                                                <path
-                                                  d="M9.3077 18.7503V17.2504H20.5V18.7503H9.3077ZM9.3077 12.7503V11.2504H20.5V12.7503H9.3077ZM9.3077 6.75031V5.25036H20.5V6.75031H9.3077ZM5.16345 19.6638C4.706 19.6638 4.3144 19.5009 3.98865 19.1751C3.66288 18.8494 3.5 18.4578 3.5 18.0003C3.5 17.5429 3.66288 17.1513 3.98865 16.8255C4.3144 16.4998 4.706 16.3369 5.16345 16.3369C5.6209 16.3369 6.0125 16.4998 6.33825 16.8255C6.664 17.1513 6.82687 17.5429 6.82687 18.0003C6.82687 18.4578 6.664 18.8494 6.33825 19.1751C6.0125 19.5009 5.6209 19.6638 5.16345 19.6638ZM5.16345 13.6638C4.706 13.6638 4.3144 13.5009 3.98865 13.1751C3.66288 12.8494 3.5 12.4578 3.5 12.0003C3.5 11.5429 3.66288 11.1513 3.98865 10.8255C4.3144 10.4998 4.706 10.3369 5.16345 10.3369C5.6209 10.3369 6.0125 10.4998 6.33825 10.8255C6.664 11.1513 6.82687 11.5429 6.82687 12.0003C6.82687 12.4578 6.664 12.8494 6.33825 13.1751C6.0125 13.5009 5.6209 13.6638 5.16345 13.6638ZM5.16345 7.66376C4.706 7.66376 4.3144 7.50089 3.98865 7.17514C3.66288 6.84939 3.5 6.45779 3.5 6.00034C3.5 5.54289 3.66288 5.15129 3.98865 4.82554C4.3144 4.49979 4.706 4.33691 5.16345 4.33691C5.6209 4.33691 6.0125 4.49979 6.33825 4.82554C6.664 5.15129 6.82687 5.54289 6.82687 6.00034C6.82687 6.45779 6.664 6.84939 6.33825 7.17514C6.0125 7.50089 5.6209 7.66376 5.16345 7.66376Z"
-                                                  fill="#333333"
-                                                />
-                                              </g>
-                                            </svg>
-                                            <div className="block py-1 justify-start break-words">
-                                              Send Assessment
+                                            <div className="flex gap-[8px] p-2 items-center flex-row">
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                              >
+                                                <g mask="url(#mask0_6622_123454)">
+                                                  <path
+                                                    d="M9.3077 18.7503V17.2504H20.5V18.7503H9.3077ZM9.3077 12.7503V11.2504H20.5V12.7503H9.3077ZM9.3077 6.75031V5.25036H20.5V6.75031H9.3077ZM5.16345 19.6638C4.706 19.6638 4.3144 19.5009 3.98865 19.1751C3.66288 18.8494 3.5 18.4578 3.5 18.0003C3.5 17.5429 3.66288 17.1513 3.98865 16.8255C4.3144 16.4998 4.706 16.3369 5.16345 16.3369C5.6209 16.3369 6.0125 16.4998 6.33825 16.8255C6.664 17.1513 6.82687 17.5429 6.82687 18.0003C6.82687 18.4578 6.664 18.8494 6.33825 19.1751C6.0125 19.5009 5.6209 19.6638 5.16345 19.6638ZM5.16345 13.6638C4.706 13.6638 4.3144 13.5009 3.98865 13.1751C3.66288 12.8494 3.5 12.4578 3.5 12.0003C3.5 11.5429 3.66288 11.1513 3.98865 10.8255C4.3144 10.4998 4.706 10.3369 5.16345 10.3369C5.6209 10.3369 6.0125 10.4998 6.33825 10.8255C6.664 11.1513 6.82687 11.5429 6.82687 12.0003C6.82687 12.4578 6.664 12.8494 6.33825 13.1751C6.0125 13.5009 5.6209 13.6638 5.16345 13.6638ZM5.16345 7.66376C4.706 7.66376 4.3144 7.50089 3.98865 7.17514C3.66288 6.84939 3.5 6.45779 3.5 6.00034C3.5 5.54289 3.66288 5.15129 3.98865 4.82554C4.3144 4.49979 4.706 4.33691 5.16345 4.33691C5.6209 4.33691 6.0125 4.49979 6.33825 4.82554C6.664 5.15129 6.82687 5.54289 6.82687 6.00034C6.82687 6.45779 6.664 6.84939 6.33825 7.17514C6.0125 7.50089 5.6209 7.66376 5.16345 7.66376Z"
+                                                    fill="#333333"
+                                                  />
+                                                </g>
+                                              </svg>
+                                              <div className="block py-1 justify-start break-words">
+                                                Send Assessment
+                                              </div>
                                             </div>
-                                          </div>
-                                          <div className="flex gap-[8px] p-2 items-center flex-row">
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="24"
-                                              height="24"
-                                              viewBox="0 0 24 24"
-                                              fill="none"
-                                            >
-                                              <g mask="url(#mask0_6622_123460)">
-                                                <path
-                                                  d="M17.4 12.6539L16.3461 11.6L18.4307 9.50003L16.3461 7.42503L17.4 6.35583L19.5 8.45583L21.575 6.35583L22.6442 7.42503L20.5538 9.50003L22.6442 11.6L21.575 12.6539L19.5 10.5789L17.4 12.6539ZM8.99995 11.6923C8.03747 11.6923 7.21352 11.3496 6.5281 10.6642C5.84268 9.97879 5.49997 9.15484 5.49997 8.19236C5.49997 7.22986 5.84268 6.40591 6.5281 5.72051C7.21352 5.03509 8.03747 4.69238 8.99995 4.69238C9.96243 4.69238 10.7864 5.03509 11.4718 5.72051C12.1572 6.40591 12.4999 7.22986 12.4999 8.19236C12.4999 9.15484 12.1572 9.97879 11.4718 10.6642C10.7864 11.3496 9.96243 11.6923 8.99995 11.6923ZM1.5 19.3077V17.0846C1.5 16.5949 1.633 16.1414 1.899 15.7241C2.16503 15.3068 2.52048 14.986 2.96535 14.7616C3.95382 14.277 4.95093 13.9135 5.9567 13.6712C6.96247 13.4289 7.97688 13.3078 8.99995 13.3078C10.023 13.3078 11.0374 13.4289 12.0432 13.6712C13.049 13.9135 14.0461 14.277 15.0345 14.7616C15.4794 14.986 15.8349 15.3068 16.1009 15.7241C16.3669 16.1414 16.4999 16.5949 16.4999 17.0846V19.3077H1.5ZM2.99995 17.8077H15V17.0846C15 16.8821 14.9413 16.6946 14.824 16.5221C14.7067 16.3497 14.5474 16.209 14.3461 16.1C13.4846 15.6757 12.6061 15.3542 11.7107 15.1356C10.8152 14.917 9.91165 14.8077 8.99995 14.8077C8.08825 14.8077 7.18468 14.917 6.28925 15.1356C5.39382 15.3542 4.51533 15.6757 3.6538 16.1C3.45252 16.209 3.29323 16.3497 3.17593 16.5221C3.05861 16.6946 2.99995 16.8821 2.99995 17.0846V17.8077ZM8.99995 10.1924C9.54995 10.1924 10.0208 9.99653 10.4124 9.60486C10.8041 9.21319 11 8.74236 11 8.19236C11 7.64236 10.8041 7.17153 10.4124 6.77986C10.0208 6.38819 9.54995 6.19236 8.99995 6.19236C8.44995 6.19236 7.97912 6.38819 7.58745 6.77986C7.19578 7.17153 6.99995 7.64236 6.99995 8.19236C6.99995 8.74236 7.19578 9.21319 7.58745 9.60486C7.97912 9.99653 8.44995 10.1924 8.99995 10.1924Z"
-                                                  fill="#C00000"
-                                                />
-                                              </g>
-                                            </svg>
+                                            <div className="flex gap-[8px] p-2 items-center flex-row">
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                              >
+                                                <g mask="url(#mask0_6622_123460)">
+                                                  <path
+                                                    d="M17.4 12.6539L16.3461 11.6L18.4307 9.50003L16.3461 7.42503L17.4 6.35583L19.5 8.45583L21.575 6.35583L22.6442 7.42503L20.5538 9.50003L22.6442 11.6L21.575 12.6539L19.5 10.5789L17.4 12.6539ZM8.99995 11.6923C8.03747 11.6923 7.21352 11.3496 6.5281 10.6642C5.84268 9.97879 5.49997 9.15484 5.49997 8.19236C5.49997 7.22986 5.84268 6.40591 6.5281 5.72051C7.21352 5.03509 8.03747 4.69238 8.99995 4.69238C9.96243 4.69238 10.7864 5.03509 11.4718 5.72051C12.1572 6.40591 12.4999 7.22986 12.4999 8.19236C12.4999 9.15484 12.1572 9.97879 11.4718 10.6642C10.7864 11.3496 9.96243 11.6923 8.99995 11.6923ZM1.5 19.3077V17.0846C1.5 16.5949 1.633 16.1414 1.899 15.7241C2.16503 15.3068 2.52048 14.986 2.96535 14.7616C3.95382 14.277 4.95093 13.9135 5.9567 13.6712C6.96247 13.4289 7.97688 13.3078 8.99995 13.3078C10.023 13.3078 11.0374 13.4289 12.0432 13.6712C13.049 13.9135 14.0461 14.277 15.0345 14.7616C15.4794 14.986 15.8349 15.3068 16.1009 15.7241C16.3669 16.1414 16.4999 16.5949 16.4999 17.0846V19.3077H1.5ZM2.99995 17.8077H15V17.0846C15 16.8821 14.9413 16.6946 14.824 16.5221C14.7067 16.3497 14.5474 16.209 14.3461 16.1C13.4846 15.6757 12.6061 15.3542 11.7107 15.1356C10.8152 14.917 9.91165 14.8077 8.99995 14.8077C8.08825 14.8077 7.18468 14.917 6.28925 15.1356C5.39382 15.3542 4.51533 15.6757 3.6538 16.1C3.45252 16.209 3.29323 16.3497 3.17593 16.5221C3.05861 16.6946 2.99995 16.8821 2.99995 17.0846V17.8077ZM8.99995 10.1924C9.54995 10.1924 10.0208 9.99653 10.4124 9.60486C10.8041 9.21319 11 8.74236 11 8.19236C11 7.64236 10.8041 7.17153 10.4124 6.77986C10.0208 6.38819 9.54995 6.19236 8.99995 6.19236C8.44995 6.19236 7.97912 6.38819 7.58745 6.77986C7.19578 7.17153 6.99995 7.64236 6.99995 8.19236C6.99995 8.74236 7.19578 9.21319 7.58745 9.60486C7.97912 9.99653 8.44995 10.1924 8.99995 10.1924Z"
+                                                    fill="#C00000"
+                                                  />
+                                                </g>
+                                              </svg>
 
-                                            <a className="block py-1 text-[#C00000]">
-                                              Reject Candidate
-                                            </a>
-                                          </div>
-                                        </motion.div>
-                                      )}
-                                  </AnimatePresence>
+                                              <a className="block py-1 text-[#C00000]">
+                                                Reject Candidate
+                                              </a>
+                                            </div>
+                                          </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div className="flex justify-between items-center self-stretch">
-                                <p className="text-[14px] text-[#333] font-[600]">
-                                  20 Nov, 2023{" "}
-                                </p>
-                                <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                                  <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                                    In Review
+                                <div className="flex justify-between items-center self-stretch">
+                                  <p className="text-[14px] text-[#333] font-[600]">
+                                    20 Nov, 2023{" "}
                                   </p>
+                                  <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
+                                    <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
+                                      In Review
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="flex justify-center w-[100%]">
-                                <div
-                                  onClick={toggleContentt}
-                                  className="flex px-6 py-3 min-w-[257px] justify-center items-center gap-[10px] bg-[#E7F8FF]"
-                                  style={{
-                                    borderRadius: "8px",
-                                    border:
-                                      " 1px solid var(--primary, #06A9EF)",
-                                  }}
-                                >
-                                  <p className="text-[14px]  text-[#333] font-[600] font-Montserrat">
-                                    See Application
-                                  </p>
+                                <div className="flex justify-center w-[100%]">
+                                  <div
+                                    onClick={toggleContentt}
+                                    className="flex px-6 py-3 min-w-[257px] justify-center items-center gap-[10px] bg-[#E7F8FF]"
+                                    style={{
+                                      borderRadius: "8px",
+                                      border:
+                                        " 1px solid var(--primary, #06A9EF)",
+                                    }}
+                                  >
+                                    <p className="text-[14px]  text-[#333] font-[600] font-Montserrat">
+                                      See Application
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </>
-                      ))}
+                          </>
+                        )
+                      )}
                     </>
                   ) : (
                     <div className="p-3 w-full flex items-center justify-center">
@@ -1303,15 +1325,18 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             </div>
 
             <div>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 15]}
-                component="div"
-                className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
-                count={applicant.length}
-                rowsPerPage={rowsPerPage}
+              <CustomPagination
+                setMiniloading={setMiniloading}
+                miniloading={miniloading}
+                setPage={setPage}
+                title={"Applicant"}
+                setLimit={setLimit}
+                totalPages={Math.max(
+                  1,
+                  Math.ceil(jobDetails?.pagination?.length / limit)
+                )}
+                limit={limit}
                 page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </div>
           </>
