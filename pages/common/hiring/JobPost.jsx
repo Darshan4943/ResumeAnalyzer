@@ -120,7 +120,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       check: <input className="w-[24px] h-[24px]" type="checkbox" />,
     },
     {
-      name: "Rating",
+      name: "Source",
       check: "",
     },
     {
@@ -518,9 +518,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${
-                      activeOption === "applicant" ? "" : "text-[#646464]"
-                    } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
+                      } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -542,9 +541,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${
-                      activeOption === "JobDetails" ? "" : "text-[#646464]"
-                    } cursor-pointer font-[600]`}
+                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -566,9 +564,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
                     }}
-                    className={` ${
-                      activeOption === "Analytics" ? "" : "text-[#646464]"
-                    } cursor-pointer font-[600]`}
+                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
                   >
                     Analytics
                   </p>
@@ -650,14 +647,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         className="flex items-center w-full text-[#333333] gap-[8px]"
                         style={{ width: widths[index] }}
                       >
-                        <p className="text-[14px] font-[600]">
+                        <p className={`text-[14px] w-full font-[600] ${index == 5 ? "text-end" : "text-start"}`}>
                           {applicant_head.name}
                         </p>
-                        <img
-                          className="w-[24px]"
-                          src="/images/employer/expand_more.png"
-                          alt=""
-                        />
                       </div>
                     ))}
                   </div>
@@ -669,11 +661,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           (applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] p-[16px] justify-between items-center ${
-                                  checkedApplicants[index]
-                                    ? "bg-[#D3F1FF]"
-                                    : "bg-[#FFFFFF]"
-                                }`}
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
+                                  ? "bg-[#D3F1FF]"
+                                  : "bg-[#FFFFFF]"
+                                  }`}
                                 key={applicant._id}
                               >
                                 <div className="  gap-[24px]  w-full justify-between flex items-center">
@@ -708,33 +699,31 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className="w-[20%]">
                                     <div
-                                      className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                                        checkedApplicants[index]
-                                          ? "bg-[#FFFFFF]"
-                                          : applicant.status === "Interview"
+                                      className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedApplicants[index]
+                                        ? "bg-[#FFFFFF]"
+                                        : applicant.status === "Interview"
                                           ? "bg-[#26A4FF1A]"
                                           : applicant.status === "Hired"
-                                          ? "bg-[#56CDAD1A]"
-                                          : applicant.status === "Shortlisted"
-                                          ? "bg-[#4640DE1A]"
-                                          : applicant.status === "Rejected"
-                                          ? "bg-[#FF65501A]"
-                                          : applicant.status === "In Review"
-                                          ? "bg-[#EB85331A]"
-                                          : ""
-                                      } ${
-                                        applicant.status === "Interview"
+                                            ? "bg-[#56CDAD1A]"
+                                            : applicant.status === "Shortlisted"
+                                              ? "bg-[#4640DE1A]"
+                                              : applicant.status === "Rejected"
+                                                ? "bg-[#FF65501A]"
+                                                : applicant.status === "In Review"
+                                                  ? "bg-[#EB85331A]"
+                                                  : ""
+                                        } ${applicant.status === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant.status === "Hired"
-                                          ? "text-[#56CDAD]"
-                                          : applicant.status === "Shortlisted"
-                                          ? "text-[#4640DE]"
-                                          : applicant.status === "Rejected"
-                                          ? "text-[#FF6550]"
-                                          : applicant.status === "In Review"
-                                          ? "text-[#FFB836]"
-                                          : "text-[#333333]"
-                                      }`}
+                                            ? "text-[#56CDAD]"
+                                            : applicant.status === "Shortlisted"
+                                              ? "text-[#4640DE]"
+                                              : applicant.status === "Rejected"
+                                                ? "text-[#FF6550]"
+                                                : applicant.status === "In Review"
+                                                  ? "text-[#FFB836]"
+                                                  : "text-[#333333]"
+                                        }`}
                                     >
                                       {applicant.status}
                                     </div>
@@ -750,7 +739,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         .replace(",", "")}
                                     </p>
                                   </div>
-                                  <div className="flex  w-[20%] items-center gap-[16px] relative">
+                                  <div className="flex justify-end  w-[20%] items-center gap-[16px] relative">
                                     <div
                                       className="cursor-pointer"
                                       onClick={() =>
@@ -829,9 +818,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                       {shortlist.details
                                                         ?.personal?.firstName
                                                         .length == 0 &&
-                                                      shortlist?.details
-                                                        ?.personal?.lastName
-                                                        .length == 0 ? (
+                                                        shortlist?.details
+                                                          ?.personal?.lastName
+                                                          .length == 0 ? (
                                                         ""
                                                       ) : (
                                                         <div className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center">
@@ -1102,7 +1091,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           </div>
                                         </div>
                                       )}
-                                    </>
+                                    </                                                                                                  >
 
                                     <button className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E]  text-[#B3261E]">
                                       Reject
@@ -1212,9 +1201,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               <>
                                 <div
                                   className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
-                                  // style={{
-                                  //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
-                                  // }}
+                                // style={{
+                                //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                                // }}
                                 >
                                   <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
                                     <div className="flex justify-between items-center self-stretch">

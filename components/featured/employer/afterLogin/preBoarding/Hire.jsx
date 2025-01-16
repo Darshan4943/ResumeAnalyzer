@@ -99,7 +99,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
               .map((applicants, index) => (
                 <>
                   <div
-                    className="flex w-[100%] bg-[#FFFFFF] py-[16px] justify-between items-center"
+                    className="flex w-[100%] border-b border-[#D4D4D480] bg-[#FFFFFF] py-[16px] justify-between items-center"
                   >
                     <div className="grid grid-cols-7 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">

@@ -111,7 +111,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
 
   return (
     <>
-     {startPreboarding && (
+      {startPreboarding && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed  z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
@@ -138,7 +138,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
                       {option}
                     </option>
                   ))}
-                </select> 
+                </select>
                 <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
               </>
             ))}
@@ -167,7 +167,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
               .map((job, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                    className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
                       }`}
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
@@ -489,7 +489,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
           className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
         />
       </div>
-     
+
     </>
   );
 };
