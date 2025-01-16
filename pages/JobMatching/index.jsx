@@ -325,6 +325,8 @@ const JobMatching = () => {
     };
   }, []);
 
+  console.log(userDetails);
+
 
 
   const updateJobMatchLimit = async () => {
@@ -527,7 +529,7 @@ const JobMatching = () => {
         </>
       }
         {tab === 2 &&
-        <ApplicantDetails userDetails={userDetails} setTab={setTab} />
+        <ApplicantDetails userDetails={userDetails} setTab={setTab}  />
 
 }
     </>

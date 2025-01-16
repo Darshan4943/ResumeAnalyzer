@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
     const router = useRouter();
-    console.log(resumeList);
+   
     const downloadResume = (resumeUrl) => {
         if (resumeUrl) {
           const link = document.createElement('a');

@@ -104,9 +104,10 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
       </div>
     );
   };
+  console.log(userDetails);
 
   return (
-    <div> 
+    <div>
 
       <div className="flex flex-col gap-6 relative ">
         <div className=" flex w-full gap-3 justify-between rounded-[16px] items-center">
@@ -166,7 +167,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                     <p className=" text-[16px] font-medium">  Profile Match Score</p>
 
 
-                    <p className="text-[20px] font-medium">  {userDetails.matching_percentage}</p>
+                    <p className="text-[20px] font-medium">  {userDetails?.matching_percentage}</p>
                   </div>
                   <button className="border border-[#06A9EF] bg-blue rounded-[30px] px-9 py-3 gap-2 flex justify-center items-center text-[14px] font-semibold text-white ">
                     Move to Hiring
@@ -381,19 +382,21 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                           <p className="text-[14px]  font-medium">Experience in Years</p>
                           <p className="text-[12px] font-normal">4 Years</p>
                         </div>
-                        <div className="flex flex-col gap-2">
-                          <p className=" font-medium">Skills</p>
-                          <div className="flex flex-wrap gap-2">
-                            {userDetails?.skills?.slice(0, 5)?.map((item, index) => (
-                              <div key={index} className="flex gap-2 font-medium flex-wrap">
-                                <p className="border text-[12px] font-medium border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3">
-                                  {item}
-                                </p>
+                        {userDetails?.skills &&
+                          <div className="flex flex-col gap-2">
+                            <p className=" font-medium">Skills</p>
+                            <div className="flex flex-wrap gap-2">
+                              {userDetails?.skills?.slice(0, 5)?.map((item, index) => (
+                                <div key={index} className="flex gap-2 font-medium flex-wrap">
+                                  <p className="border text-[12px] font-medium border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3">
+                                    {item}
+                                  </p>
 
-                              </div>
-                            ))}
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
+                        }
                       </div>
                     </div>
                   </div>
