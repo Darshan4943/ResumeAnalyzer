@@ -6,6 +6,7 @@ import { fetchSavedJobIds } from '../../../../Redux/slices/jobSlice';
 import axios from 'axios';
 
 function NormalJobCard({ item }) {
+    console.log(item)
     const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const isLogin = useSelector((state) => state.auth.isLogin);

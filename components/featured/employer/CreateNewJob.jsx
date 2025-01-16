@@ -15,6 +15,8 @@ import Description from "../candidate/jobs/Description";
 import ImageCropper from "../candidate/createResume/components/imageCropper";
 import dynamic from "next/dynamic";
 import debounce from "lodash.debounce";
+import NormalJobCard from "../candidate/jobs/NormalJobCard";
+import { Close_svg } from "../../../utils/svg";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -70,7 +72,6 @@ function CreateNewJob({ setToggle }) {
     console.log("object");
     e.preventDefault();
     const newFormError = {};
-
     const isValidString = (value) =>
       typeof value === "string" && value.trim() !== "";
     const isValidArray = (value) => Array.isArray(value) && value.length > 0;
@@ -188,7 +189,6 @@ function CreateNewJob({ setToggle }) {
 
       console.log("Success:", response.data);
       // router.push("/employer/JobPosting");
-      openModel(true);
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -196,7 +196,7 @@ function CreateNewJob({ setToggle }) {
       console.error("Error:", error);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -428,11 +428,23 @@ function CreateNewJob({ setToggle }) {
       {!isCreate && (
         <div>
           {model && (
-            <Description
-              selectedJob={data}
-              openModel={openModel}
-              isPreview={true}
-            />
+            <>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+                <div className="ml:w-[612px] w-full flex flex-col gap-6 p-5 rounded-[12px] bg-white">
+                  <div className="w-full flex justify-end">
+                  <Close_svg/>
+                  </div>
+                
+                  <NormalJobCard item={data} />
+                  <Description
+                    selectedJob={data}
+                    openModel={openModel}
+                    isPreview={true}
+                  />
+                </div>
+              </div>
+            </>
           )}
           {modelView && (
             <ImageCropper
@@ -478,11 +490,10 @@ function CreateNewJob({ setToggle }) {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -503,9 +514,9 @@ function CreateNewJob({ setToggle }) {
                             value={
                               data.Keywords
                                 ? data.Keywords.map((keyword) => ({
-                                    value: keyword,
-                                    label: keyword,
-                                  }))
+                                  value: keyword,
+                                  label: keyword,
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -513,8 +524,8 @@ function CreateNewJob({ setToggle }) {
                                 ...data,
                                 Keywords: selectedOptions
                                   ? selectedOptions.map(
-                                      (option) => option.value
-                                    )
+                                    (option) => option.value
+                                  )
                                   : [],
                               });
                             }}
@@ -710,11 +721,10 @@ function CreateNewJob({ setToggle }) {
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                                  formError.companyName
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                                  }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -746,9 +756,9 @@ function CreateNewJob({ setToggle }) {
                                 value={
                                   data.location
                                     ? data.location.map((location) => ({
-                                        value: location,
-                                        label: location,
-                                      }))
+                                      value: location,
+                                      label: location,
+                                    }))
                                     : []
                                 }
                                 onChange={(selectedOptions) => {
@@ -807,11 +817,10 @@ function CreateNewJob({ setToggle }) {
                               Country <span className="text-[red]">*</span>
                             </div>
                             <select
-                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                                formError.country
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.country
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                               name="country"
                               value={data.country}
                               onChange={handleChange}
@@ -1071,17 +1080,16 @@ function CreateNewJob({ setToggle }) {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1165,6 +1173,12 @@ function CreateNewJob({ setToggle }) {
                           >
                             Create Basic Profile Form
                           </button>
+                          <div
+                            onClick={() => { openModel(true) }}
+                            className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
+                          >
+                            Preview
+                          </div>
                           <div className="flex w-full justify-between gap-3">
                             <div
                               onClick={handleClick}
