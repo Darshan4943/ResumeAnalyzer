@@ -17,6 +17,7 @@ import dynamic from "next/dynamic";
 import debounce from "lodash.debounce";
 import NormalJobCard from "../candidate/jobs/NormalJobCard";
 import { Close_svg } from "../../../utils/svg";
+import { borderRadius, width } from "@mui/system";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CreateNewJob() {
@@ -54,6 +55,7 @@ function CreateNewJob() {
     minSalary: "",
     maxSalary: "",
     openPositions: "",
+    totalExperience: "",
     jobSector: "",
     currency: "",
     requiredQualification: "",
@@ -94,6 +96,16 @@ function CreateNewJob() {
       return newFormError;
     }
 
+    if (data.country < 1) {
+      newFormError.country = "country Name is required";
+      return newFormError;
+    }
+
+    if (!isValidString(data.country)) {
+      newFormError.country = "country is required";
+      return newFormError;
+    }
+
     if (!data.location || !isValidArray(data.location)) {
       newFormError.location = "Location is required";
       return newFormError;
@@ -120,22 +132,28 @@ function CreateNewJob() {
       newFormError.mustSkills = "Must have Skills are required";
       return newFormError;
     }
+    if (!isValidArray(data.goodSkills)) {
+      newFormError.goodSkills = "Must have Skills are required";
+      return newFormError;
+    }
 
     if (!isValidDate(data.deadLine)) {
       newFormError.deadLine = "Valid Deadline is required";
       return newFormError;
-    } else {
-      const currentDate = new Date().setHours(0, 0, 0, 0);
-      const inputDate = new Date(data.deadLine).setHours(0, 0, 0, 0);
+    }
 
-      if (inputDate < currentDate) {
-        newFormError.deadLine = "Deadline cannot be earlier than today's date";
-        return newFormError;
-      }
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const inputDate = new Date(data.deadLine).setHours(0, 0, 0, 0);
+
+    if (inputDate < currentDate) {
+      newFormError.deadLine = "Deadline cannot be earlier than today's date";
+      return newFormError;
     }
 
     return newFormError;
   };
+
+  // console.log("newFormError", newFormError)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,7 +182,6 @@ function CreateNewJob() {
 
     formData.append("createdBy", userDataGlobal?._id);
 
-    console.log("formData", formData);
     try {
       const response = await axios.post(
         `http://localhost:2000/api/job/add/${id}`,
@@ -175,7 +192,7 @@ function CreateNewJob() {
           },
         }
       );
-      console.log("Success:", response.data);
+      router.push("/recruiter/jobPosting");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -188,6 +205,7 @@ function CreateNewJob() {
     }
   };
 
+  console.log("getingdata", data);
   const getData = () => {
     setLoading(true);
     axios
@@ -208,6 +226,8 @@ function CreateNewJob() {
           location,
           country,
           description,
+          jobSector,
+          openPositions,
           salaryType,
           minSalary,
           maxSalary,
@@ -219,6 +239,7 @@ function CreateNewJob() {
           goodSkills,
           currency,
           revalentExp,
+          totalExperience,
           status,
           qualificationType,
           logo,
@@ -230,6 +251,8 @@ function CreateNewJob() {
           Keywords,
           jobLink,
           jobType,
+          jobSector,
+          openPositions,
           aboutOrganization,
           workFrom: jobMode,
           country,
@@ -247,6 +270,7 @@ function CreateNewJob() {
           goodSkills,
           currency,
           revalentExp,
+          totalExperience,
           status,
           logo,
           qualificationType,
@@ -352,6 +376,7 @@ function CreateNewJob() {
       deadLine: "",
       experience: "",
       revalentExp: "",
+      totalExperience: "",
       mustSkills: [],
       goodSkills: [],
       qualificationType: [],
@@ -411,7 +436,7 @@ function CreateNewJob() {
   const handleItemClick = (selectedOption) => {
     setSelectedCurrency(selectedOption);
   };
-
+  console.log("formError", formError);
   return (
     <>
       {!isCreate && (
@@ -475,7 +500,7 @@ function CreateNewJob() {
                     <div className="flex flex-col  ms:flex ms:flex-row   gap-[16px] p-[16px] w-full">
                       <div className="flex flex-col gap-[8px] w-full  ">
                         <div className="text-[14px] font-[500]">
-                          Job Title <span className="text-[red]">*</span>
+                          Job Title <span className="text-[#ff0000]">*</span>
                         </div>
                         <div>
                           <input
@@ -742,7 +767,11 @@ function CreateNewJob() {
                                   { value: "Boston", label: "Boston" },
                                 ]}
                                 isMulti
-                                className="w-full rounded-[8px] text-[14px] font-montserrat font-small text-black "
+                                className={`w-full rounded-[8px] text-[14px] font-montserrat font-small text-black  ${
+                                  formError.location
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 placeholder="Select locations"
                                 value={
                                   data.location
@@ -774,7 +803,7 @@ function CreateNewJob() {
                                   control: (provided) => ({
                                     ...provided,
                                     border: formError.location
-                                      ? "1px solid red"
+                                      ? "1px solid #ff0000"
                                       : "1px solid #DEDEDE",
                                     borderRadius: "8px",
                                     padding: "0 12px",
@@ -812,7 +841,8 @@ function CreateNewJob() {
                             <CreatableSelect
                               isClearable
                               isMulti
-                              className="w-full min-w-[150px] rounded-[8px] text-[14px] font-montserrat font-small text-black leading-tight"
+                              // className={`w-full min-w-[150px] rounded-[8px] text-[14px] font-montserrat font-small text-black leading-tight border-red`}
+
                               placeholder="Job country, tags etc"
                               value={
                                 data.country
@@ -833,6 +863,22 @@ function CreateNewJob() {
                                 });
                               }}
                               styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderColor: formError.country
+                                    ? "red"
+                                    : "#DEDEDE", 
+                                  borderWidth: "1px",
+                                  borderRadius: "8px",
+                                  boxShadow: state.isFocused
+                                    ? "0 0 0 2px rgba(0,123,255,0.25)"
+                                    : "none", 
+                                  "&:hover": {
+                                    borderColor: formError.country
+                                      ? "red"
+                                      : "#B0B0B0", 
+                                  },
+                                }),
                                 valueContainer: (provided) => ({
                                   ...provided,
                                   display: "flex",
@@ -882,6 +928,7 @@ function CreateNewJob() {
                           >
                             {showEditor && (
                               <ReactQuill
+                                name="description"
                                 value={data.description}
                                 onChange={handleChange1}
                                 readOnly={false}
@@ -898,8 +945,12 @@ function CreateNewJob() {
                                     ["link", "image"],
                                   ],
                                 }}
+                                className={`${
+                                  formError.description
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 style={{
-                                  border: `1px #DEDEDE`,
                                   height: "238px",
                                   borderRadius: "20px",
                                 }}
@@ -1318,8 +1369,8 @@ function CreateNewJob() {
                               borderRadius: "8px",
                               padding: "5px",
                             }}
-                            name="experience"
-                            value={data.experience}
+                            name="totalExperience"
+                            value={data.totalExperience}
                             onChange={handleChange}
                           >
                             <option value="" disabled selected>
@@ -1431,7 +1482,7 @@ function CreateNewJob() {
                           onClick={handleSubmit}
                           className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
                         >
-                          Post Job
+                          {id ? "Update Job" : "Post Job"}
                         </button>
                       </div>
                     </div>
