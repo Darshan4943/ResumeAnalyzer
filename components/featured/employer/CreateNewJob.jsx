@@ -17,18 +17,14 @@ import dynamic from "next/dynamic";
 import debounce from "lodash.debounce";
 import NormalJobCard from "../candidate/jobs/NormalJobCard";
 import { Close_svg } from "../../../utils/svg";
-import { Select } from "@mui/material";
-
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-function CreateNewJob({ setToggle }) {
+function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
   const { id, companyId } = router.query;
-  const [jobPost, setJobPost] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loactionText, setLoactionText] = useState("");
   const [skills, setSkills] = useState(SkillList);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [formError, setFormError] = useState({});
@@ -38,6 +34,10 @@ function CreateNewJob({ setToggle }) {
   const [isSetting, setIsSetting] = useState(false);
   const taskRef = useRef(null);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [companies, setCompanies] = useState([]);
+  const [error, setError] = useState(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const fileRef = useRef();
 
   const [data, setData] = useState({
     jobTitle: "",
@@ -260,13 +260,49 @@ function CreateNewJob({ setToggle }) {
         console.log(err);
       });
   };
+
   useEffect(() => {
     if (id) {
-      getData();
+      getData(id);
+    } else if (companyId) {
+      getcompaniesdetails(companyId);
     } else {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, companyId]);
+
+  const getcompaniesdetails = (id) => {
+    setLoading(true);
+
+    axios
+      .get(`http://localhost:2000/api/company/getCompaniesById/${id}`)
+      .then((res) => {
+        setLoading(false);
+
+        const {
+          companyName,
+          companyLogo: logo,
+          companyDescription: aboutOrganization,
+          createdBy,
+          createdAt,
+          updatedAt,
+        } = res.data;
+
+        setData({
+          companyName,
+          logo,
+          aboutOrganization,
+          createdBy,
+          createdAt,
+          updatedAt,
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Error fetching company details");
+        console.error(err);
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -327,8 +363,6 @@ function CreateNewJob({ setToggle }) {
     router.push("/recruiter/jobPosting");
   };
 
-  const fileRef = useRef();
-
   const handleButtonClick = () => {
     fileRef.current?.click();
   };
@@ -345,9 +379,6 @@ function CreateNewJob({ setToggle }) {
       }
     }
   };
-
-  const borderColor = formError.description ? "red" : "#DEDEDE";
-  const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -371,6 +402,7 @@ function CreateNewJob({ setToggle }) {
   const handleNavigate = () => {
     router.push("/employer/CreateProfileFields");
   };
+
   const currencyOptions = currencyMap.map((item) => ({
     value: item.currency,
     label: item.currency,
