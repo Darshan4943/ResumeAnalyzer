@@ -351,10 +351,12 @@ function Sign_up({ }) {
     let errors = { ...formError };
 
     requiredFields.forEach((field) => {
-      if (!data[field.key]?.trim()) {
+      const value = data[field.key];
+      if (!value || (typeof value === "string" && !value.trim())) {
         errors[field.key] = field.error;
       }
     });
+    
 
     setFormError(errors);
     return Object.keys(errors).length === 0; // Return true if no errors
