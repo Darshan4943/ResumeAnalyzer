@@ -203,9 +203,6 @@ function Hiring() {
     }
   }, [query.content]);
 
-  useEffect(() => {
-    fetchJobs(1, pagination?.limit, filters);
-  }, [filters, pagination?.limit]);
 
   const handelclear = () => {
     setFilters("");

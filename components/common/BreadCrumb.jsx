@@ -11,6 +11,7 @@ const Breadcrumb = () => {
   const breadcrumbMapping = {
     dashboard: 'Home',
     JobPosting: 'Job Posting',
+    jobPosting: 'Job Posting',
     'JobPosting?content=CreateNewJob': 'Create New Job',
     'ClientDetail': 'Candidate Details',
     "CreateNewClient":"Create New Candidate",
