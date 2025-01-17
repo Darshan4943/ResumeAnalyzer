@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../components/common/mini-loader';
 
-function ShortlistMail({ shortlist, setPopupVisible }) {
+function ShortlistMail({ shortlist, setPopupVisible,id }) {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false)
@@ -28,10 +28,13 @@ function ShortlistMail({ shortlist, setPopupVisible }) {
     const handleSend = async () => {
         setLoading(true)
         const emailDetails = {
-            to: shortlist.details?.personal?.email || "",
+            to: shortlist?.details?.personal?.email || "",
             cc: tags,
             subject,
             content,
+            applicantId:shortlist?.applicantId,
+            jobId:id,
+            newHiringStage:"Shortlisted"
         };
 
         try {
@@ -51,7 +54,7 @@ function ShortlistMail({ shortlist, setPopupVisible }) {
     return (
         <>
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
-                <div className="bg-white p-8 rounded-lg shadow-lg w-[996px] h-[80vh]">
+                <div className="bg-white p-8 rounded-lg shadow-lg w-[996px] h-[80vh] overflow-y-auto max-h-[560px]">
                     <div className="mb-4 flex items-center">
                         <div className="flex flex-col">
                             <div onClick={() => setPopupVisible(false)} className="flex w-full justify-end">
@@ -139,18 +142,29 @@ function ShortlistMail({ shortlist, setPopupVisible }) {
                     <div className="flex justify-end mt-4">
                         <button
                             onClick={handleSend}
-                            className="bg-blue flex justify-center items-center w-[120px] text-white py-2 px-4 rounded-[30px] hover:bg-blue-600"
+                            className="bg-blue flex gap-1 justify-center items-center w-[120px] text-white py-2 px-4 rounded-[30px] hover:bg-blue-600 text-[14px] font-semibold"
                         >
                             {loading ?
                                 <MiniLoader />
                                 :
 
-                                "Send"
+
+                                <>
+                                    Send
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                        <g mask="url(#mask0_7942_77032)">
+                                            <path d="M14.85 9.69513L3.3 14.5701C3.05 14.6701 2.8125 14.6483 2.5875 14.5045C2.3625 14.3608 2.25 14.1514 2.25 13.8764V4.12638C2.25 3.85138 2.3625 3.64201 2.5875 3.49826C2.8125 3.35451 3.05 3.33263 3.3 3.43263L14.85 8.30763C15.1625 8.44513 15.3188 8.67638 15.3188 9.00138C15.3188 9.32638 15.1625 9.55763 14.85 9.69513ZM3.75 12.7514L12.6375 9.00138L3.75 5.25138V7.87638L8.25 9.00138L3.75 10.1264V12.7514Z" fill="white" />
+                                        </g>
+                                    </svg>
+
+                                </>
+
                             }
                         </button>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

@@ -66,14 +66,14 @@ function Dashboard({ toggleContentt }) {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/home/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
       case "Create New Cover Letter":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/coverLetter"
             : `/myClients/ClientResume?cover=true`
         );
@@ -101,7 +101,7 @@ function Dashboard({ toggleContentt }) {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+          userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection"
         );
         break;
       case "Skill Assessments & Certification":
@@ -110,7 +110,7 @@ function Dashboard({ toggleContentt }) {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/search" : "/jobs/list"
         );
         break;
       default:
@@ -203,7 +203,7 @@ function Dashboard({ toggleContentt }) {
               </div>
             </div>
           </div>
-          {userDataGlobal.role == "employer" ?
+          {userDataGlobal?.role == "employer" ?
             <div
               className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
               style={{

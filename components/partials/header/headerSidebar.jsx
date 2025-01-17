@@ -45,9 +45,9 @@ function HeaderSidebar({
   };
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
     } else return boforeLoginList;
   };
@@ -81,7 +81,7 @@ function HeaderSidebar({
     setIsLogin(false);
     localStorage.clear();
 
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       router.push("/");
     } else {
       router.push("/recruiter");
@@ -195,7 +195,7 @@ function HeaderSidebar({
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Create New Cover Letter" && {
-                  ...getListItemStyles(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`),
+                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`),
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "My Resumes" && {
@@ -211,7 +211,7 @@ function HeaderSidebar({
                   transition: "transform 1s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
-                  ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"),
+                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Skill Assessments & Certification" && {
@@ -257,12 +257,12 @@ function HeaderSidebar({
                     handleNavigation("/myClients");
                     break;
                   case "Create New Resume":
-                    handleNavigation(userDataGlobal.role === "user"
+                    handleNavigation(userDataGlobal?.role === "user"
                       ? "/home/BuildResume"
                       : "/myClients/ClientResume");
                     break;
                   case "Create New Cover Letter":
-                    handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
+                    handleNavigation(userDataGlobal?.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
                     break;
                   case "My Resumes":
                     handleNavigation("/home/MyCollection");
@@ -284,7 +284,7 @@ function HeaderSidebar({
                     handleNavigation("/myWebsite");
                     break;
                   case "My Collection":
-                    handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
+                    handleNavigation(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection");
                     break;
                   case "Skill Assessments & Certification":
                     handleNavigation("/home/SkillAssessment");

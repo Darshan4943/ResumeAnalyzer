@@ -497,7 +497,7 @@ function AccountDetails({
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
             <div className=" absolute rounded-[16px] bg-white shadow-lg  p-6 flex flex-col gap-4 w-[22%] sm:min-w-[366px]  min-w-[260px] justify-center  items-center ">
-              {userDataGlobal.role == "admin" ? (
+              {userDataGlobal?.role == "admin" ? (
                 <div className="flex items-center justify-center h-[80px] w-[80px] bg-[#0C8A0A] rounded-[50%]">
                   <svg
                     width="45"
@@ -531,7 +531,7 @@ function AccountDetails({
 
               <div className="flex flex-col gap-2 text-center">
                 <text className="text-[24px] font-medium">
-                  {userDataGlobal.role == "admin"
+                  {userDataGlobal?.role == "admin"
                     ? "Plan Activated Successfully"
                     : "Our Team Will Reach Out To You Shortly"}
                 </text>
@@ -539,7 +539,7 @@ function AccountDetails({
               <button
                 onClick={() =>
                   router.push(
-                    userDataGlobal.role == "admin"
+                    userDataGlobal?.role == "admin"
                       ? role == "user"
                         ? "/dashboard/Candidates"
                         : "/dashboard/Recruiters"

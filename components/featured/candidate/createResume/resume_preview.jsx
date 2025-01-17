@@ -102,7 +102,7 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
         .get(`http://localhost:2000/api/resume/${id}`)
@@ -401,9 +401,9 @@ const ResumePreview = ({
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
 
-        if (userDataGlobal.role === "user") {
+        if (userDataGlobal?.role === "user") {
           formData.append("UserId", userDataGlobal?._id);
-        } else if (userDataGlobal.role === "recruiter") {
+        } else if (userDataGlobal?.role === "recruiter") {
           formData.append("UserId", userDataGlobal?._id);
 
         }
@@ -467,9 +467,9 @@ const ResumePreview = ({
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
 
-        if (userDataGlobal.role === "user") {
+        if (userDataGlobal?.role === "user") {
           formData.append("userId", userDataGlobal?._id);
-        } else if (userDataGlobal.role === "recruiter") {
+        } else if (userDataGlobal?.role === "recruiter") {
           formData.append("userId", data.clientId);
           formData.append("recruiterId", userDataGlobal?._id);
         }

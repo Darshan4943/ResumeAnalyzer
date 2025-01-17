@@ -104,7 +104,7 @@ function EmployerSidebar() {
     },
   ];
 
-  const menuList = userDataGlobal.role === 'recruiter' ? recruiterList : employerList;
+  const menuList = userDataGlobal?.role === 'recruiter' ? recruiterList : employerList;
 
   return (
     <div className="flex flex-col bg-white w-[120px] pt-[86px] h-full">

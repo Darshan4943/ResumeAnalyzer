@@ -342,7 +342,7 @@ function MyPurchase() {
                             </button>
                           ) : (
                             <>
-                              {userDataGlobal.role === "user" && (
+                              {userDataGlobal?.role === "user" && (
                                 <button
                                   onClick={() => router.push("/purchase/plans")}
                                   disabled={
@@ -393,7 +393,7 @@ function MyPurchase() {
                                     : "Purchase"}
                                 </button>
                               )}
-                              {userDataGlobal.role === "recruiter" && (
+                              {userDataGlobal?.role === "recruiter" && (
                                 <button
                                   onClick={() => router.push("/purchase/plans")}
                                   disabled={

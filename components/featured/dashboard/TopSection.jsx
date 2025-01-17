@@ -6,7 +6,7 @@ function TopSection() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   console.log("response", userDataGlobal)
   return (
-    <div className={`lg:flex flex lg:flex-row flex-col flex-wrap items-start ${userDataGlobal.role == "employer" ? "lg:justify-between" : "justify-start"} gap-3`}>
+    <div className={`lg:flex flex lg:flex-row flex-col flex-wrap items-start ${userDataGlobal?.role == "employer" ? "lg:justify-between" : "justify-start"} gap-3`}>
       <div
         className="flex flex-col gap-6 p-4 rounded-[16px] w-full lg:w-[32%] scr1067:w-[24%] "
         style={{
@@ -90,7 +90,7 @@ function TopSection() {
         </div>
       </div>
 
-      {userDataGlobal.role == "employer" ?
+      {userDataGlobal?.role == "employer" ?
        <div
         className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
         style={{
@@ -144,7 +144,7 @@ function TopSection() {
         </div>
       </div> : ""}
 
-      {userDataGlobal.role == "employer" ? <div
+      {userDataGlobal?.role == "employer" ? <div
         className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
         style={{
           borderRadius: "12px",

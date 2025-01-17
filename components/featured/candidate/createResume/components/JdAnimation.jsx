@@ -100,7 +100,7 @@ function JdAnimation({ details, count }) {
     }, [three]);
     return (
         <div className="flex flex-col gap-6 w-[100%] items-center ">
-            {userDataGlobal.role === "user" ?
+            {userDataGlobal?.role === "user" ?
                 <>
                     {count == 0 &&
                         <div className="flex flex-col gap-4 items-center">

@@ -18,7 +18,7 @@ function Index() {
         mobileNo: userDataGlobal.mobileNo ? String(userDataGlobal.mobileNo) : '',
         email: userDataGlobal.email || '',
         dial_code: userDataGlobal.dial_code || '',
-        role: userDataGlobal.role || '',
+        role: userDataGlobal?.role || '',
     });
 
     const [filteredTelCode, setFilteredTelCode] = useState([]);

@@ -232,7 +232,7 @@ function Services() {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/candidate/MyCollection" : "/collection"
+          userDataGlobal?.role === "user" ? "/candidate/MyCollection" : "/collection"
         );
         break;
       case "Skill Assessments & Certification":
@@ -247,7 +247,7 @@ function Services() {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/candidate" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/candidate" : "/jobs/list"
         );
         break;
       default:

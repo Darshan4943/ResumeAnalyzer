@@ -11,7 +11,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const [activeOption, setActiveOption] = useState("applicant");
   const router = useRouter();
   const { id } = router.query;
@@ -770,14 +770,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     </div>
                                     <button
                                       onClick={() => togglePopup(applicant)}
-                                      className="text-[10px] text-white font-[500] py-[4px] px-[8px] rounded-[30px] bg-[#06A9EF]"
+                                      className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[6px] px-[8px] rounded-[30px] bg-[#06A9EF]"
                                     >
                                       Shortlist
                                     </button>
 
                                     <>
                                       {isPopupVisible && (
-                                       <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} />
+                                       <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} />
                                       )}
                                     </                                                                                                  >
 
