@@ -304,7 +304,7 @@ const JobMatching = () => {
     const intervals = [
       { text: "Analyzing Data", duration: 10000 },
       { text: "Finding Results", duration: 20000 },
-      { text: "Almost There", duration: 2 }, // This duration will be ignored
+      { text: "Almost There", duration: 2 }, 
     ];
 
     let currentInterval = 0;
