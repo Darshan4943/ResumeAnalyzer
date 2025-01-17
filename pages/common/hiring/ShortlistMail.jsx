@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function ShortlistMail({shortlist}) {
+function ShortlistMail({shortlist,setPopupVisible}) {
 
      const [tags, setTags] = useState([]);
       const [inputValue, setInputValue] = useState("");

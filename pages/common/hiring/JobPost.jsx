@@ -777,7 +777,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
                                     <>
                                       {isPopupVisible && (
-                                       <ShortlistMail shortlist={shortlist} />
+                                       <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} />
                                       )}
                                     </                                                                                                  >
 
