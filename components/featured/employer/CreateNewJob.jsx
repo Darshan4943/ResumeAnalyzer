@@ -304,8 +304,6 @@ function CreateNewJob() {
       });
   };
 
-  console.log(1212, data);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
