@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../components/common/mini-loader';
 
-function ShortlistMail({ shortlist, setPopupVisible,id }) {
+function ShortlistMail({ shortlist, setPopupVisible,id,setStatusChange,statusChange }) {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false)
@@ -42,6 +42,7 @@ function ShortlistMail({ shortlist, setPopupVisible,id }) {
 
             toast.success("Email sent successfully!");
             setLoading(false)
+            setStatusChange(!statusChange)
         } catch (error) {
             setLoading(false)
             console.error("Error sending email details:", error.response?.data || error.message);
