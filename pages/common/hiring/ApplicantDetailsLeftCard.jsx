@@ -5,16 +5,16 @@ import ShortlistMail from './ShortlistMail';
 function ApplicantDetailsLeftCard({ jobDetails, id }) {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
-    const [shortlist, setShortlist] = useState();
+    const [shortlist, setShortlist] = useState([]);
     const togglePopup = (applicant) => {
         setPopupVisible(!isPopupVisible);
-        setShortlist(applicant);
+        setShortlist([applicant]);
     }
     return (
         <>
 
             {isPopupVisible && (
-                <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} />
+               <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id}  applicantIds={[shortlist.applicantId]} />
             )}
             <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
                 {jobDetails?.details && (
@@ -93,8 +93,16 @@ function ApplicantDetailsLeftCard({ jobDetails, id }) {
                                 {jobDetails?.hiringStage === "Shortlisted" ?
 
                                     <button disabled  className="flex gap-2">
-                                        <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                                        <div onClick={() => togglePopup(jobDetails)} className="px-4 w-full items-center flex justify-center py-3  text-[16px] rounded-[30px] font-medium text-[#4640DE] bg-[#4640DE1A] ">
                                             Shortlisted
+                                        </div>
+
+                                    </button> :
+                                    jobDetails?.hiringStage === "Rejected" ?
+
+                                    <button disabled  className="flex gap-2">
+                                        <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
+                                        Rejected
                                         </div>
 
                                     </button>

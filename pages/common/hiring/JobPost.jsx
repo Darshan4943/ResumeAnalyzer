@@ -18,9 +18,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [activeOption, setActiveOption] = useState("applicant");
   const router = useRouter();
   const { id } = router.query;
-  const [checkedApplicants, setCheckedApplicants] = useState({});
+  const [checkedApplicants, setCheckedApplicants] = useState([]);
+  const [selectedApplicants, setSelectedApplicants] = useState([]);
+
   const [isPopupVisible, setPopupVisible] = useState(false);
-  const [shortlist, setShortlist] = useState();
+  const [shortlist, setShortlist] = useState([]);
 
   const [selectAll, setSelectAll] = useState(false);
   const [limit, setLimit] = useState(5);
@@ -30,23 +32,62 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [loadingg, setLoadingg] = useState(false);
-const [statusChange,setStatusChange]= useState(false)
-
+  const [loadingg, setLoadingg] = useState({ isLoading: false, applicantId: null });
+  const [statusChange, setStatusChange] = useState(false)
+  const [loadinggg, setLoadinggg] = useState(false);
+  const [applicantIds, setApplicantIds] = useState()
+  const [allShortlist, setAllShortlist] = useState(false);
+  const [allReject, setAllReject] = useState(false)
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
-    setShortlist(applicant);
+    setShortlist([applicant]);
+    setApplicantIds([applicant.applicantId])
+  };
+
+  const handleCheckboxChange = (index, applicant) => {
+    if (applicant.hiringStage === "Rejected") {
+      return;
+    }
+
+    setCheckedApplicants((prev) => {
+      const updated = [...prev];
+
+      if (updated[index]) {
+        return updated.filter((_, i) => i !== index);
+      } else {
+        updated[index] = applicant;
+        return updated;
+      }
+    });
   };
 
 
+  console.log(checkedApplicants);
+
+  const handleReject = async () => {
+    setAllReject(true);
+  };
+
+  useEffect(() => {
+    if (allReject) {
+      handleSend();
+    }
+  }, [allReject]);
+
+
   const handleSend = async (applicant) => {
-    setLoadingg(true)
+    if (!allReject) {
+      setLoadingg({ isLoading: true, applicantId: applicant.applicantId });
+    }else{
+      setLoadinggg(true)
+    }
+
     const emailDetails = {
-      to: applicant?.details?.personal?.email || "",
+      to: allReject ? checkedApplicants?.map((item) => item?.details?.personal?.email) : [applicant?.details?.personal?.email],
       cc: "",
       subject: "Unfortunately, Your Application has been Rejected",
       content: "<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been Rejected .</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>",
-      applicantId: applicant?.applicantId,
+      applicantId: allReject ? checkedApplicants?.map((item) => item?.applicantId) : [applicant?.applicantId],
       jobId: id,
       newHiringStage: "Rejected"
     };
@@ -56,9 +97,14 @@ const [statusChange,setStatusChange]= useState(false)
 
       toast.success("Email sent successfully!");
       setStatusChange(!statusChange)
-      setLoadingg(false)
+      setCheckedApplicants([])
+      setLoadingg({ isLoading: false, applicantId: null })
+      setLoadinggg(false)
+      setAllReject(false)
     } catch (error) {
-      setLoadingg(false)
+      setLoadingg({ isLoading: false, applicantId: null })
+      setAllReject(false)
+      setLoadinggg(false)
       console.error("Error sending email details:", error.response?.data || error.message);
       toast.error("Failed to send email details. Please try again.");
     }
@@ -100,7 +146,7 @@ const [statusChange,setStatusChange]= useState(false)
     if (id) {
       fetchJobDetails();
     }
-  }, [id, page, limit,statusChange]);
+  }, [id, page, limit, statusChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -164,22 +210,8 @@ const [statusChange,setStatusChange]= useState(false)
 
   const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
   const texts = ["start", "start", "center", "center", "start", "end"];
-  const handleCheckboxChange = (index) => {
-    const updatedCheckedApplicants = [...checkedApplicants];
-    updatedCheckedApplicants[index] = !checkedApplicants[index];
-    setCheckedApplicants(updatedCheckedApplicants);
-    const allChecked = updatedCheckedApplicants.every((item) => item);
-    setSelectAll(allChecked);
-  };
 
-  const handleSelectAll = () => {
-    const newSelectAll = !selectAll;
-    setSelectAll(newSelectAll);
-    const updatedCheckedApplicants = Array(jobDetails?.length).fill(
-      newSelectAll
-    );
-    setCheckedApplicants(updatedCheckedApplicants);
-  };
+
 
   return (
     <div className=" mb-4 ">
@@ -463,21 +495,25 @@ const [statusChange,setStatusChange]= useState(false)
                     </div>
                   </div>
                   <div className="flex gap-[8px]">
-                    <div className="text-[14px] font-[600] text-[#FFFFFF] bg-[#06A9EF] rounded-[30px] py-[12px] px-[36px]">
+                    <button disabled={checkedApplicants.length === 0} style={{ opacity: checkedApplicants.length === 0 ? 0.5 : 1 }} onClick={() => setAllShortlist(true)} className="text-[14px] font-[600] text-[#FFFFFF] bg-[#06A9EF] rounded-[30px] py-[12px] px-[36px] leading-tight h-[42px]">
                       Shortlist
-                    </div>
-                    <div className="text-[14px] font-[600] text-[#B3261E] border-[1px] border-[#B3261E] rounded-[30px] py-[12px] px-[36px]">
+                    </button>
+                    <button disabled={(checkedApplicants.length === 0 || loadinggg)} style={{ opacity: (checkedApplicants.length === 0 || loadinggg) ? 0.5 : 1 }} onClick={() => handleReject()} className="text-[14px] font-[600] text-[#B3261E] border-[1px] border-[#B3261E] rounded-[30px] py-[12px] px-[36px] leading-tight h-[42px]">
                       Reject
-                    </div>
+                    </button>
                   </div>
                 </div>
+
+                {allShortlist && (
+                  <ShortlistMail shortlist={checkedApplicants} setPopupVisible={setAllShortlist} id={id} statusChange={statusChange} setStatusChange={setStatusChange} applicantIds={applicantIds} />
+                )}
                 <div className="web">
                   <div className="flex p-[16px] items-center   gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
                     <input
                       className="w-[16px] h-[16px]"
                       type="checkbox"
-                      checked={selectAll}
-                      onChange={handleSelectAll}
+                      // checked={selectAll}
+                      // onChange={handleSelectAll}
                     />
                     {applicant_head.map((applicant_head, index) => (
                       <div
@@ -485,7 +521,7 @@ const [statusChange,setStatusChange]= useState(false)
                         className="flex items-center w-full text-[#333333] gap-[8px]"
                         style={{ width: widths[index] }}
                       >
-                        <p  style={{ textAlign:texts[index] }} className={`text-[14px] w-full font-[600] `}>
+                        <p style={{ textAlign: texts[index] }} className={`text-[14px] w-full font-[600] `}>
                           {applicant_head.name}
                         </p>
                       </div>
@@ -510,9 +546,7 @@ const [statusChange,setStatusChange]= useState(false)
                                     className="w-[16px] h-[16px]"
                                     type="checkbox"
                                     checked={!!checkedApplicants[index]}
-                                    onChange={() =>
-                                      handleCheckboxChange(index)
-                                    }
+                                    onChange={() => handleCheckboxChange(index, applicant)}
                                   />
                                   <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
 
@@ -621,6 +655,9 @@ const [statusChange,setStatusChange]= useState(false)
                                       </svg>
                                     </div>
                                     <button
+                                      disabled={applicant?.hiringStage === "Rejected" || applicant?.hiringStage === "Shortlisted"}
+                                      style={{ opacity: (applicant?.hiringStage === "Rejected" || applicant?.hiringStage === "Shortlisted") ? 0.5 : 1 }}
+
                                       onClick={() => togglePopup(applicant)}
                                       className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[6px] px-[8px] rounded-[30px] bg-[#06A9EF]"
                                     >
@@ -629,17 +666,26 @@ const [statusChange,setStatusChange]= useState(false)
 
                                     <>
                                       {isPopupVisible && (
-                                        <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} statusChange={statusChange} setStatusChange={setStatusChange} />
+                                        <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} statusChange={statusChange} setStatusChange={setStatusChange} applicantIds={applicantIds} />
                                       )}
                                     </                                                                                                  >
-                                    {loadingg ?
-
-                                      <MiniLoaderr />
-                                      :
-                                      <button onClick={() => handleSend(applicant)} className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E]  text-[#B3261E]">
+                                    {loadingg.isLoading && loadingg.applicantId === applicant.applicantId ? (
+                                      <div className="w-[49.81px] flex justify-center items-center">
+                                        <MiniLoaderr />
+                                      </div>
+                                    ) : (
+                                      <button
+                                        disabled={applicant?.hiringStage === "Rejected"}
+                                        style={{
+                                          opacity: applicant?.hiringStage === "Rejected" ? 0.5 : 1,
+                                        }}
+                                        onClick={() => handleSend(applicant)}
+                                        className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
+                                      >
                                         Reject
                                       </button>
-                                    }
+                                    )}
+
                                     <AnimatePresence>
                                       {moreOption &&
                                         selectedDotIndex === index && (

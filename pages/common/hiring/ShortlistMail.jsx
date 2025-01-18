@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../components/common/mini-loader';
 
-function ShortlistMail({ shortlist, setPopupVisible,id,setStatusChange,statusChange }) {
+function ShortlistMail({ shortlist, setPopupVisible, id, setStatusChange, statusChange, applicantIds }) {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false)
@@ -28,13 +28,13 @@ function ShortlistMail({ shortlist, setPopupVisible,id,setStatusChange,statusCha
     const handleSend = async () => {
         setLoading(true)
         const emailDetails = {
-            to: shortlist?.details?.personal?.email || "",
+            to: shortlist?.map((item) => item?.details?.personal?.email) || "",
             cc: tags,
             subject,
             content,
-            applicantId:shortlist?.applicantId,
-            jobId:id,
-            newHiringStage:"Shortlisted"
+            applicantId: shortlist?.map((item) => item?.applicantId),
+            jobId: id,
+            newHiringStage: "Shortlisted"
         };
 
         try {
@@ -45,8 +45,13 @@ function ShortlistMail({ shortlist, setPopupVisible,id,setStatusChange,statusCha
             setStatusChange(!statusChange)
         } catch (error) {
             setLoading(false)
-            console.error("Error sending email details:", error.response?.data || error.message);
-            toast.error("Failed to send email details. Please try again.");
+            console.log("Error sending email details:", error.response?.data.message);
+            if (error.response?.data.message == "No applicants need updating") {
+                toast.error("Already ShortListed");
+            } else {
+                toast.error("Failed to send email details. Please try again.")
+            }
+
         } finally {
             setPopupVisible(false);
         }
@@ -72,18 +77,24 @@ function ShortlistMail({ shortlist, setPopupVisible,id,setStatusChange,statusCha
                                         {shortlist.details?.personal?.firstName.length === 0 && shortlist?.details?.personal?.lastName.length === 0 ? (
                                             ""
                                         ) : (
-                                            <div className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center">
-                                                <div className="group relative">
-                                                    <div className="text-[14px] font-[600]">
-                                                        {shortlist.details?.personal?.firstName + " " + shortlist.details?.personal?.lastName}
-                                                    </div>
-                                                    <div>
-                                                        <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                                                            {shortlist.details?.personal?.email}
+                                            <>
+                                                {shortlist?.map((item, index) => (
+
+                                                    <div key={index} className="border-[1px] border-[#D6DDEB] p-[6px] rounded-[26px] flex gap-[10px] items-center">
+                                                        <div className="group relative">
+                                                            <div className="text-[14px] font-[600]">
+                                                                {item.details?.personal?.firstName + " " + item.details?.personal?.lastName}
+                                                            </div>
+                                                            <div>
+                                                                <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                                                                    {item.details?.personal?.email}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+
+                                                ))}
+                                            </>
                                         )}
                                     </div>
                                     <div className="border-[1px] border-[#D4D4D480] w-full"></div>
