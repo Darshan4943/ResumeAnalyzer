@@ -112,7 +112,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["Live", "Hold", "Closed"],
+      options: ["All","Live", "Hold", "Closed"],
     },
   ]);
 

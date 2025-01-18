@@ -21,7 +21,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [checkedApplicants, setCheckedApplicants] = useState({});
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState();
-
   const [selectAll, setSelectAll] = useState(false);
   const [limit, setLimit] = useState(5);
   const [jobDetails, setJobDetails] = useState(null);
@@ -31,35 +30,40 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [loadingg, setLoadingg] = useState(false);
-const [statusChange,setStatusChange]= useState(false)
-
+  const [statusChange, setStatusChange] = useState(false);
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist(applicant);
   };
 
-
   const handleSend = async (applicant) => {
-    setLoadingg(true)
+    setLoadingg(true);
     const emailDetails = {
       to: applicant?.details?.personal?.email || "",
       cc: "",
       subject: "Unfortunately, Your Application has been Rejected",
-      content: "<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been Rejected .</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>",
+      content:
+        "<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been Rejected .</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>",
       applicantId: applicant?.applicantId,
       jobId: id,
-      newHiringStage: "Rejected"
+      newHiringStage: "Rejected",
     };
 
     try {
-      const response = await axios.post("http://localhost:2000/api/hiring/shortlistCandidate", emailDetails);
+      const response = await axios.post(
+        "http://localhost:2000/api/hiring/shortlistCandidate",
+        emailDetails
+      );
 
       toast.success("Email sent successfully!");
-      setStatusChange(!statusChange)
-      setLoadingg(false)
+      setStatusChange(!statusChange);
+      setLoadingg(false);
     } catch (error) {
-      setLoadingg(false)
-      console.error("Error sending email details:", error.response?.data || error.message);
+      setLoadingg(false);
+      console.error(
+        "Error sending email details:",
+        error.response?.data || error.message
+      );
       toast.error("Failed to send email details. Please try again.");
     }
   };
@@ -100,7 +104,7 @@ const [statusChange,setStatusChange]= useState(false)
     if (id) {
       fetchJobDetails();
     }
-  }, [id, page, limit,statusChange]);
+  }, [id, page, limit, statusChange]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -159,8 +163,6 @@ const [statusChange,setStatusChange]= useState(false)
       check: "",
     },
   ];
-
-
 
   const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
   const texts = ["start", "start", "center", "center", "start", "end"];
@@ -356,8 +358,9 @@ const [statusChange,setStatusChange]= useState(false)
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
-                      } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${
+                      activeOption === "applicant" ? "" : "text-[#646464]"
+                    } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -379,8 +382,9 @@ const [statusChange,setStatusChange]= useState(false)
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "JobDetails" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -402,8 +406,9 @@ const [statusChange,setStatusChange]= useState(false)
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
                     }}
-                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "Analytics" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Analytics
                   </p>
@@ -485,7 +490,10 @@ const [statusChange,setStatusChange]= useState(false)
                         className="flex items-center w-full text-[#333333] gap-[8px]"
                         style={{ width: widths[index] }}
                       >
-                        <p  style={{ textAlign:texts[index] }} className={`text-[14px] w-full font-[600] `}>
+                        <p
+                          style={{ textAlign: texts[index] }}
+                          className={`text-[14px] w-full font-[600] `}
+                        >
                           {applicant_head.name}
                         </p>
                       </div>
@@ -499,10 +507,11 @@ const [statusChange,setStatusChange]= useState(false)
                           (applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
-                                  ? "bg-[#D3F1FF]"
-                                  : "bg-[#FFFFFF]"
-                                  }`}
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
+                                  checkedApplicants[index]
+                                    ? "bg-[#D3F1FF]"
+                                    : "bg-[#FFFFFF]"
+                                }`}
                                 key={applicant._id}
                               >
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -510,12 +519,9 @@ const [statusChange,setStatusChange]= useState(false)
                                     className="w-[16px] h-[16px]"
                                     type="checkbox"
                                     checked={!!checkedApplicants[index]}
-                                    onChange={() =>
-                                      handleCheckboxChange(index)
-                                    }
+                                    onChange={() => handleCheckboxChange(index)}
                                   />
                                   <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
-
                                     <img
                                       className="w-[40px]"
                                       src="/images/employer/profile_icon.png"
@@ -538,35 +544,42 @@ const [statusChange,setStatusChange]= useState(false)
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                        ? "bg-[#FFFFFF]"
-                                        : applicant.hiringStage === "Interview"
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                        checkedApplicants[index]
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant.hiringStage ===
+                                            "Interview"
                                           ? "bg-[#26A4FF1A]"
                                           : applicant.hiringStage === "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant.hiringStage === "Hired"
-                                              ? "bg-[#56CDAD1A]"
-                                              : applicant.hiringStage === "Shortlisted"
-                                                ? "bg-[#4640DE1A]"
-                                                : applicant.hiringStage === "Rejected"
-                                                  ? "bg-[#FF65501A]"
-                                                  : applicant.hiringStage === "In Review"
-                                                    ? "bg-[#EB85331A]"
-                                                    : ""
-                                        } ${applicant.hiringStage === "Interview"
+                                          ? "bg-[#FFF9ED]"
+                                          : applicant.hiringStage === "Hired"
+                                          ? "bg-[#56CDAD1A]"
+                                          : applicant.hiringStage ===
+                                            "Shortlisted"
+                                          ? "bg-[#4640DE1A]"
+                                          : applicant.hiringStage === "Rejected"
+                                          ? "bg-[#FF65501A]"
+                                          : applicant.hiringStage ===
+                                            "In Review"
+                                          ? "bg-[#EB85331A]"
+                                          : ""
+                                      } ${
+                                        applicant.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant.hiringStage === "Pending"
-                                            ? "text-[#FFB836]"
-                                            : applicant.hiringStage === "Hired"
-                                              ? "text-[#56CDAD]"
-                                              : applicant.hiringStage === "Shortlisted"
-                                                ? "text-[#4640DE]"
-                                                : applicant.hiringStage === "Rejected"
-                                                  ? "text-[#FF6550]"
-                                                  : applicant.hiringStage === "In Review"
-                                                    ? "text-[#FFB836]"
-                                                    : "text-[#333333]"
-                                        }`}
+                                          ? "text-[#FFB836]"
+                                          : applicant.hiringStage === "Hired"
+                                          ? "text-[#56CDAD]"
+                                          : applicant.hiringStage ===
+                                            "Shortlisted"
+                                          ? "text-[#4640DE]"
+                                          : applicant.hiringStage === "Rejected"
+                                          ? "text-[#FF6550]"
+                                          : applicant.hiringStage ===
+                                            "In Review"
+                                          ? "text-[#FFB836]"
+                                          : "text-[#333333]"
+                                      }`}
                                     >
                                       {applicant.hiringStage}
                                     </div>
@@ -629,17 +642,25 @@ const [statusChange,setStatusChange]= useState(false)
 
                                     <>
                                       {isPopupVisible && (
-                                        <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} statusChange={statusChange} setStatusChange={setStatusChange} />
+                                        <ShortlistMail
+                                          shortlist={shortlist}
+                                          setPopupVisible={setPopupVisible}
+                                          id={id}
+                                          statusChange={statusChange}
+                                          setStatusChange={setStatusChange}
+                                        />
                                       )}
-                                    </                                                                                                  >
-                                    {loadingg ?
-
+                                    </>
+                                    {loadingg ? (
                                       <MiniLoaderr />
-                                      :
-                                      <button onClick={() => handleSend(applicant)} className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E]  text-[#B3261E]">
+                                    ) : (
+                                      <button
+                                        onClick={() => handleSend(applicant)}
+                                        className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E]  text-[#B3261E]"
+                                      >
                                         Reject
                                       </button>
-                                    }
+                                    )}
                                     <AnimatePresence>
                                       {moreOption &&
                                         selectedDotIndex === index && (
@@ -744,9 +765,9 @@ const [statusChange,setStatusChange]= useState(false)
                               <>
                                 <div
                                   className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
-                                // style={{
-                                //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
-                                // }}
+                                  // style={{
+                                  //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                                  // }}
                                 >
                                   <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
                                     <div className="flex justify-between items-center self-stretch">
