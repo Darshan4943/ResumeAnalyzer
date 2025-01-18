@@ -39,6 +39,8 @@ function Hiring() {
     }
   }, [router.query]);
 
+
+  
   const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
     const jobId = job._id ? job._id : query._id;

@@ -15,19 +15,19 @@ function JobDetails({ jobDetails }) {
             <div className="flex flex-col items-start gap-4  self-stretch">
               <div className="flex flex-col md:gap-2 gap-1 self-stretch">
                 <p className="text-[#333] md:text-[20px] text-[18px] font-medium">
-                  {jobDetails.jobTitle}
+                  {jobDetails?.jobTitle}
                 </p>
                 <p className="text-[#333] font-Montserrat  text-[12px] font-[400px]">
-                  {jobDetails.companyName}
+                  {jobDetails?.companyName}
                 </p>
                 <div className="flex items-center gap-1">
-                  {jobDetails.location ? <img
+                  {jobDetails?.location ? <img
                     src="/images/jobs/lo.png"
                     alt=""
                     className="w-[14px] h-[14px]"
                   /> : ""}
                   <p className="text-[#333] font-Montserrat text-[14px] font-[400px]">
-                    {jobDetails.location.join(", ")}
+                    {jobDetails?.location?.join(", ")}
                   </p>
                 </div>
               </div>
