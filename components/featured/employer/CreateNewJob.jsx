@@ -10,15 +10,15 @@ import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
 import { useSelector } from "react-redux";
-import "react-quill/dist/quill.snow.css";
 import Description from "../candidate/jobs/Description";
 import ImageCropper from "../candidate/createResume/components/imageCropper";
-import dynamic from "next/dynamic";
 import debounce from "lodash.debounce";
 import NormalJobCard from "../candidate/jobs/NormalJobCard";
 import { Close_svg } from "../../../utils/svg";
-import { borderRadius, width } from "@mui/system";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 function CreateNewJob() {
   const [file, setFile] = useState(null);
@@ -66,7 +66,7 @@ function CreateNewJob() {
     mustSkills: [],
     goodSkills: [],
     qualificationType: [],
-    status: "",
+    status: "Live",
     logo: "",
   });
 
@@ -96,16 +96,6 @@ function CreateNewJob() {
       return newFormError;
     }
 
-    if (data.country < 1) {
-      newFormError.country = "country Name is required";
-      return newFormError;
-    }
-
-    if (!isValidString(data.country)) {
-      newFormError.country = "country is required";
-      return newFormError;
-    }
-
     if (!data.location || !isValidArray(data.location)) {
       newFormError.location = "Location is required";
       return newFormError;
@@ -118,6 +108,18 @@ function CreateNewJob() {
       });
     }
 
+    if (!data.country || !isValidArray(data.country)) {
+      newFormError.country = "Country is required";
+      return newFormError;
+    } else {
+      data.country.forEach((item, index) => {
+        if (!isValidString(item)) {
+          newFormError.country = `Country item ${index + 1} is required`;
+          return newFormError;
+        }
+      });
+    }
+
     if (!isValidString(data.description)) {
       newFormError.description = "Job Description is required";
       return newFormError;
@@ -125,15 +127,6 @@ function CreateNewJob() {
 
     if (!isValidString(data.jobType)) {
       newFormError.jobType = "Job Type is required";
-      return newFormError;
-    }
-
-    if (!isValidArray(data.mustSkills)) {
-      newFormError.mustSkills = "Must have Skills are required";
-      return newFormError;
-    }
-    if (!isValidArray(data.goodSkills)) {
-      newFormError.goodSkills = "Must have Skills are required";
       return newFormError;
     }
 
@@ -150,10 +143,17 @@ function CreateNewJob() {
       return newFormError;
     }
 
+    if (!isValidArray(data.mustSkills)) {
+      newFormError.mustSkills = "Must have Skills are required";
+      return newFormError;
+    }
+    if (!isValidArray(data.goodSkills)) {
+      newFormError.goodSkills = "Must have Skills are required";
+      return newFormError;
+    }
+
     return newFormError;
   };
-
-  // console.log("newFormError", newFormError)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -205,7 +205,6 @@ function CreateNewJob() {
     }
   };
 
-  console.log("getingdata", data);
   const getData = () => {
     setLoading(true);
     axios
@@ -307,7 +306,6 @@ function CreateNewJob() {
           companyName,
           companyLogo: logo,
           companyDescription: aboutOrganization,
-          createdBy,
           createdAt,
           updatedAt,
         } = res.data;
@@ -316,7 +314,6 @@ function CreateNewJob() {
           companyName,
           logo,
           aboutOrganization,
-          createdBy,
           createdAt,
           updatedAt,
         });
@@ -343,16 +340,25 @@ function CreateNewJob() {
       });
     }
   };
+
   const handleChange1 = useCallback(
     debounce((value) => {
       const plainText = value.replace(/<[^>]*>/g, "");
+
+      if (plainText.length > data?.description?.length) {
+        setFormError((prevErrors) => ({
+          ...prevErrors,
+          description: "",
+        }));
+      }
       setData((prevData) => ({
         ...prevData,
         description: plainText,
       }));
     }, 500),
-    []
+    [data.description]
   );
+
   const resetFormData = () => {
     setData({
       companyName: "",
@@ -498,6 +504,36 @@ function CreateNewJob() {
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
                     <div className="flex flex-col  ms:flex ms:flex-row   gap-[16px] p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] w-full  ">
+                        <div className="text-[14px] font-[500]">
+                          Job Status <span className="text-[#ff0000]">*</span>
+                        </div>
+                        <div>
+                          <select
+                            style={{
+                              WebkitAppearance: "none",
+                              MozAppearance: "none",
+                              appearance: "none",
+                              position: "relative",
+                            }}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.status
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
+                            value={data?.status}
+                            onChange={(e) => {
+                              setData({ ...data, status: e.target.value });
+                            }}
+                          >
+                            <option value="Select">Select</option>
+                            <option value="Live">Live</option>
+                            <option value="Hold">Hold</option>
+                            {id && <option value="Closed">Closed</option>}
+                          </select>
+                        </div>
+                      </div>
+
                       <div className="flex flex-col gap-[8px] w-full  ">
                         <div className="text-[14px] font-[500]">
                           Job Title <span className="text-[#ff0000]">*</span>
@@ -841,8 +877,6 @@ function CreateNewJob() {
                             <CreatableSelect
                               isClearable
                               isMulti
-                              // className={`w-full min-w-[150px] rounded-[8px] text-[14px] font-montserrat font-small text-black leading-tight border-red`}
-
                               placeholder="Job country, tags etc"
                               value={
                                 data.country
@@ -853,13 +887,25 @@ function CreateNewJob() {
                                   : []
                               }
                               onChange={(selectedOptions) => {
+                                const newCountryValues = selectedOptions
+                                  ? selectedOptions.map(
+                                      (option) => option.value
+                                    )
+                                  : [];
+
+                                if (
+                                  newCountryValues.length >
+                                  data?.country?.length
+                                ) {
+                                  setFormError((prevErrors) => ({
+                                    ...prevErrors,
+                                    country: "",
+                                  }));
+                                }
+
                                 setData({
                                   ...data,
-                                  country: selectedOptions
-                                    ? selectedOptions.map(
-                                        (option) => option.value
-                                      )
-                                    : [],
+                                  country: newCountryValues,
                                 });
                               }}
                               styles={{
@@ -867,16 +913,16 @@ function CreateNewJob() {
                                   ...provided,
                                   borderColor: formError.country
                                     ? "red"
-                                    : "#DEDEDE", 
+                                    : "#DEDEDE",
                                   borderWidth: "1px",
                                   borderRadius: "8px",
                                   boxShadow: state.isFocused
-                                    ? "0 0 0 2px rgba(0,123,255,0.25)"
-                                    : "none", 
+                                    ? "0 0 0 2px rgba(0, 123, 255, 0.25)"
+                                    : "none",
                                   "&:hover": {
                                     borderColor: formError.country
                                       ? "red"
-                                      : "#B0B0B0", 
+                                      : "#B0B0B0",
                                   },
                                 }),
                                 valueContainer: (provided) => ({
@@ -927,32 +973,17 @@ function CreateNewJob() {
                             }}
                           >
                             {showEditor && (
-                              <ReactQuill
-                                name="description"
+                              <Editor
                                 value={data.description}
-                                onChange={handleChange1}
-                                readOnly={false}
-                                modules={{
-                                  toolbar: [
-                                    [
-                                      { header: "1" },
-                                      { header: "2" },
-                                      { font: [] },
-                                    ],
-                                    [{ list: "ordered" }, { list: "bullet" }],
-                                    ["bold", "italic", "underline", "strike"],
-                                    [{ align: [] }],
-                                    ["link", "image"],
-                                  ],
-                                }}
-                                className={`${
-                                  formError.description
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                onTextChange={(e) => handleChange1(e.htmlValue)}
                                 style={{
-                                  height: "238px",
-                                  borderRadius: "20px",
+                                  border: formError.description
+                                    ? "2px solid red"
+                                    : "2px solid #dedede",
+                                  fontSize: "16px",
+                                  color: "#333",
+                                  padding: "10px",
+                                  minHeight: "196px",
                                 }}
                               />
                             )}
@@ -1236,7 +1267,11 @@ function CreateNewJob() {
                             }}
                             name="deadLine"
                             value={data.deadLine}
+                            min={new Date().toISOString().split("T")[0]}
                             onChange={handleChange}
+                            onClick={(e) =>
+                              e.target.showPicker && e.target.showPicker()
+                            }
                           />
                         </div>
                       </div>
@@ -1278,14 +1313,23 @@ function CreateNewJob() {
                                 : []
                             }
                             onChange={(selectedOptions) => {
-                              if (selectedOptions) {
-                                setData({
-                                  ...data,
-                                  mustSkills: selectedOptions.map(
-                                    (option) => option.value
-                                  ),
-                                });
+                              const newMustSkills = selectedOptions
+                                ? selectedOptions.map((option) => option.value)
+                                : [];
+
+                              if (
+                                newMustSkills.length > data?.mustSkills?.length
+                              ) {
+                                setFormError((prevErrors) => ({
+                                  ...prevErrors,
+                                  mustSkills: "",
+                                }));
                               }
+
+                              setData({
+                                ...data,
+                                mustSkills: newMustSkills,
+                              });
                             }}
                             styles={{
                               control: (base) => ({
@@ -1335,19 +1379,28 @@ function CreateNewJob() {
                                 : []
                             }
                             onChange={(selectedOptions) => {
-                              if (selectedOptions) {
-                                setData({
-                                  ...data,
-                                  goodSkills: selectedOptions.map(
-                                    (option) => option.value
-                                  ),
-                                });
+                              const newGoodSkills = selectedOptions
+                                ? selectedOptions.map((option) => option.value)
+                                : [];
+
+                              if (
+                                newGoodSkills.length > data?.goodSkills?.length
+                              ) {
+                                setFormError((prevErrors) => ({
+                                  ...prevErrors,
+                                  goodSkills: "",
+                                }));
                               }
+
+                              setData({
+                                ...data,
+                                goodSkills: newGoodSkills,
+                              });
                             }}
                             styles={{
                               control: (base) => ({
                                 ...base,
-                                borderColor: formError.mustSkills
+                                borderColor: formError.goodSkills
                                   ? "red"
                                   : "#DEDEDE",
                                 borderRadius: "8px",
