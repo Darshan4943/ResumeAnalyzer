@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 import MiniLoader from '../../../components/common/mini-loader';
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 function ShortlistMail({ shortlist, setPopupVisible, id, setStatusChange, statusChange, applicantIds }) {
     const [tags, setTags] = useState([]);
@@ -140,11 +142,18 @@ function ShortlistMail({ shortlist, setPopupVisible, id, setStatusChange, status
 
                                 <div className="flex flex-col mt-[20px]">
                                     <div className="text-[16px] font-[600] mb-[8px]">Content</div>
-                                    <ReactQuill
-                                        theme="snow"
+                                    <Editor
                                         value={content}
-                                        onChange={setContent}
-                                        className="h-[200px]"
+                                        onTextChange={(e) => setContent(e.htmlValue)}
+                                        style={{
+                                            border: formError.description
+                                                ? "2px solid red"
+                                                : "2px solid #dedede",
+                                            fontSize: "16px",
+                                            color: "#333",
+                                            padding: "10px",
+                                            minHeight: "196px",
+                                        }}
                                     />
                                 </div>
                             </div>
