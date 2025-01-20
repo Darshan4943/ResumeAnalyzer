@@ -73,12 +73,12 @@ const UserResumes = ({
 
   useEffect(() => {
     if (userDataGlobal) {
-      if (userDataGlobal.role == "recruiter") {
+      if (userDataGlobal?.role == "recruiter") {
        
         setData(resumeList);
         setAllData(resumeList);
         // setSelect(resumeList[0]);
-      } else if (userDataGlobal.role == "user") {
+      } else if (userDataGlobal?.role == "user") {
         axios
           .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
           .then((response) => {

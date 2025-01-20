@@ -87,9 +87,9 @@ function Dashboard() {
     router.push(page);
   };
   const toggle = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       router.push("/home/BuildResume");
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       router.push("/myClients/ClientResume");
     }
   };
@@ -166,9 +166,9 @@ function Dashboard() {
   ];
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
     } else return loginListRecruiter;
   };
@@ -177,13 +177,13 @@ function Dashboard() {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/home/BuildResume"
             : "/myClients/ClientResume"
         );
         break;
       case "Create New Cover Letter":
-        handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
+        handleNavigation(userDataGlobal?.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
         break;
       case "My Clients":
         handleNavigation("/myClients");
@@ -207,7 +207,7 @@ function Dashboard() {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection");
+        handleNavigation(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection");
         break;
       case "Skill Assessments & Certification":
         handleNavigation("/home/SkillAssessment");
@@ -215,7 +215,7 @@ function Dashboard() {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/search" : "/jobs/list"
         );
         break;
       default:
@@ -626,7 +626,7 @@ function Dashboard() {
                 <button
                   onClick={() => {
                     setIsSuccessful(false);
-                    if ((signIn !== "true") && (userDataGlobal.role === "user")) {
+                    if ((signIn !== "true") && (userDataGlobal?.role === "user")) {
                       setEditProfilePopUp(true);
                     }
                   }}
@@ -740,7 +740,7 @@ function Dashboard() {
         ))}
       </div>
 
-      {userDataGlobal.role === "user" &&
+      {userDataGlobal?.role === "user" &&
         data !== undefined &&
         (
           <div className="ms:flex gap-[24px] flex-wrap flex-col sm:items-start items-center hidden ">

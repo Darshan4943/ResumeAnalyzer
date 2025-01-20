@@ -166,7 +166,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <p className="text-[12px] font-medium">
                           Your Plan Validity is {selectedPlan?.days} Days
                         </p>
-                        {userDataGlobal.role === "user" && (
+                        {userDataGlobal?.role === "user" && (
                           <>
                             {(limits.used.coverStored >=
                               limits.total.coverStoredLimit ||
@@ -187,7 +187,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             )}
                           </>
                         )}
-                        {userDataGlobal.role === "recruiter" && (
+                        {userDataGlobal?.role === "recruiter" && (
                           <>
                             {(limits.used.coverStored >=
                               limits.total.coverStoredLimit ||
@@ -309,7 +309,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 </div>
 
-                {userDataGlobal.role === "user" && (
+                {userDataGlobal?.role === "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -350,7 +350,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 )}
-                {userDataGlobal.role === "user" && (
+                {userDataGlobal?.role === "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -432,7 +432,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 </div>
-                {userDataGlobal.role === "recruiter" && (
+                {userDataGlobal?.role === "recruiter" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -475,7 +475,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 )}
 
-                {userDataGlobal.role === "recruiter" && (
+                {userDataGlobal?.role === "recruiter" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}

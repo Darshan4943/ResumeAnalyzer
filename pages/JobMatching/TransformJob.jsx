@@ -72,7 +72,7 @@ function TransformJob() {
   };
 
   useEffect(() => {
-    if (userDataGlobal.role == "recruiter") {
+    if (userDataGlobal?.role == "recruiter") {
       axios
         .get(
           `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
@@ -106,7 +106,7 @@ function TransformJob() {
   }, [userDataGlobal]);
 
   const selectHandler = (data) => {
-    if (userDataGlobal.role == "recruiter") {
+    if (userDataGlobal?.role == "recruiter") {
       setSelectedClient(data);
       axios
         .get("http://localhost:2000/api/resume/" + data.value)
@@ -133,7 +133,7 @@ function TransformJob() {
           <div className="flex flex-col gap-4 ">
             {details?.length > 0 && (
               <>
-                {userDataGlobal.role !== "user" && (
+                {userDataGlobal?.role !== "user" && (
                   <div className="w-full ">
                     <div className="text-[16px] font-medium">Select Client</div>
                     <ReactSelect
@@ -160,7 +160,7 @@ function TransformJob() {
               </>
             )}
             <div className="text-[16px] font-medium text-[#333333]">
-              {userDataGlobal.role == "recruiter"
+              {userDataGlobal?.role == "recruiter"
                 ? "Select Resume"
                 : "Select Resume from My Resumes"}
             </div>

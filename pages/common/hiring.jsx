@@ -40,6 +40,8 @@ function Hiring() {
     }
   }, [router.query]);
 
+
+  
   const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
     const jobId = job._id ? job._id : query._id;
@@ -111,7 +113,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["Live", "Hold", "Closed"],
+      options: ["All","Live", "Hold", "Closed"],
     },
   ]);
 
@@ -132,6 +134,7 @@ function Hiring() {
       );
 
       const { jobs, pagination } = response.data;
+
       setData(jobs);
       setTimeout(() => {
         setLoading(false);
@@ -204,7 +207,6 @@ function Hiring() {
     }
   }, [query.content]);
 
-
   const handelclear = () => {
     setFilters("");
   };
@@ -212,7 +214,6 @@ function Hiring() {
     setFilters("");
     setOpenSort(false);
   };
-
 
   const getResponsiveWidth = () => {
     const width = window.innerWidth;
@@ -376,9 +377,9 @@ function Hiring() {
                     value={
                       filter.value
                         ? {
-                          label: filter.value,
-                          value: filter.value,
-                        }
+                            label: filter.value,
+                            value: filter.value,
+                          }
                         : null
                     }
                     placeholder={filter.heading}
@@ -390,7 +391,7 @@ function Hiring() {
                       ...customStyles,
                       menu: (base) => ({
                         ...base,
-                        width: '200%',
+                        width: "200%",
                         zIndex: 9999,
                       }),
                       menuPortal: (base) => ({
@@ -402,7 +403,6 @@ function Hiring() {
                   <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
                 </>
               ))}
-
             </div>
             <div className="scr1067:w-[25%] w-[20%] flex justify-end gap-3">
               <button
@@ -425,6 +425,5 @@ function Hiring() {
     </div>
   );
 }
-
 
 export default Hiring;

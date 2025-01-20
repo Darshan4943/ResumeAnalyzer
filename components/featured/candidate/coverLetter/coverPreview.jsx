@@ -142,7 +142,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       formData.append("pdfBlob", pdfBlob);
       formData.append(
         "userId",
-        userDataGlobal.role === "user" ? userDataGlobal?._id : clientId
+        userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId
       );
       formData.append("fileName", name);
 
@@ -173,7 +173,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   };
 
   const callData = () => {
-    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
         .get("http://localhost:2000/api/cover/get/" + id)

@@ -182,7 +182,7 @@ const ChatBox = ({
         .post("http://localhost:2000/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
-          userType: userDataGlobal.role,
+          userType: userDataGlobal?.role,
           userId: userDataGlobal?._id
         })
         .then((res) => {
@@ -516,7 +516,7 @@ const ChatBox = ({
           <div className="w-[90%] gap-3 flex flex-col items-start sticky">
             {limitPopup && (
               <div className="text-[14px] text-red pl-2">
-                {`You have reached your ${userDataGlobal.role==="user"? "monthly":"daily"} limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per ${userDataGlobal.role==="user"? "month":"day"}) with your current plan.`}
+                {`You have reached your ${userDataGlobal?.role==="user"? "monthly":"daily"} limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per ${userDataGlobal?.role==="user"? "month":"day"}) with your current plan.`}
               </div>
             )}
             <form

@@ -155,7 +155,7 @@ function Services() {
   const list = () => {
     if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
     } else if(candidate){
       return loginListCandidate;
@@ -230,7 +230,7 @@ function Services() {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+          userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection"
         );
         break;
       case "Skill Assessments & Certification":
@@ -245,7 +245,7 @@ function Services() {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/search" : "/jobs/list"
         );
         break;
       default:

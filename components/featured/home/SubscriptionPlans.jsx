@@ -32,7 +32,7 @@ function SubscriptionPlans({ fromMain }) {
 
     setexchangeRate(exchangeRate);
     seticon(icon);
-    // if (userDataGlobal.role == "recruiter" || fromMain) {
+    // if (userDataGlobal?.role == "recruiter" || fromMain) {
     //   setIsUser(false);
     //   setPlans(plans.slice(3));
     // } else {
@@ -85,7 +85,7 @@ function SubscriptionPlans({ fromMain }) {
 
         const allPlan = res.data.data
 
-        // if (userDataGlobal.role == "recruiter" || fromMain) {
+        // if (userDataGlobal?.role == "recruiter" || fromMain) {
         //   setIsUser(false);
         //   if (isFree) {
         //     setAllPlans([allPlan[4], allPlan[5]]);
@@ -102,7 +102,7 @@ function SubscriptionPlans({ fromMain }) {
         //   }
 
         // }
-        if (userDataGlobal.role === "recruiter" || fromMain) {
+        if (userDataGlobal?.role === "recruiter" || fromMain) {
           setIsUser(false);
 
           setAllPlans(
