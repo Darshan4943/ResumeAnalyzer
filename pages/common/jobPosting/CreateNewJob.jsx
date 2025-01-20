@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
-import CreateProfileFields from "../../../pages/common/CreateProfileFields";
+import CreateProfileFields from "../CreateProfileFields";
 import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
@@ -10,10 +10,10 @@ import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
 import { useSelector } from "react-redux";
-import Description from "../candidate/jobs/Description";
-import ImageCropper from "../candidate/createResume/components/imageCropper";
+import Description from "../../../components/featured/candidate/jobs/Description";
+import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
 import debounce from "lodash.debounce";
-import NormalJobCard from "../candidate/jobs/NormalJobCard";
+import NormalJobCard from "../../../components/featured/candidate/jobs/NormalJobCard";
 import { Close_svg } from "../../../utils/svg";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -390,9 +390,9 @@ function CreateNewJob() {
     });
   };
 
-  const handleClick = () => {
-    router.push("/recruiter/jobPosting");
-  };
+  // const handleClick = () => {
+  //   router.push("/recruiter/jobPosting");
+  // };
 
   const handleButtonClick = () => {
     fileRef.current?.click();
@@ -481,7 +481,7 @@ function CreateNewJob() {
             <>
               <div className=" flex w-full flex-col gap-[16px]">
                 <div
-                  onClick={handleClick}
+                  onClick={()=>router.back()}
                   className="gap-[12px] flex cursor-pointer  "
                 >
                   <svg
@@ -1507,15 +1507,15 @@ function CreateNewJob() {
                         </div>
                       </div>
                     </div> */}
-                    <div className="flex justify-between p-4">
-                      <div>
+                    <div className="flex justify-end p-4 w-full">
+                      {/* <div>
                         <button
                           onClick={handleClick}
                           className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
                         >
                           Cancel
                         </button>
-                      </div>
+                      </div> */}
                       <div className="flex gap-[14px]">
                         <button
                           onClick={resetFormData}

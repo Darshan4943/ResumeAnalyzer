@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import MiniLoader from '../../components/common/miniLoader';
-import JobCard from '../common/hiring/jobCard';
+import MiniLoader from '../../../components/common/miniLoader';
+import JobCard from '../hiring/jobCard';
 
 function JobPosting() {
     const router = useRouter();
@@ -38,7 +38,7 @@ function JobPosting() {
     const handleCompanyChange = (event) => {
         const selectedId = event.target.value;
 
-        router.push(`/common/JobPosting?content=CreateNewJob&companyId=${selectedId}`)
+        router.push(`/common/jobPosting/CreateNewJob?companyId=${selectedId}`)
     };
 
     return (
@@ -89,7 +89,7 @@ function JobPosting() {
                                     and requirements.
                                 </p>
                                 <div className="flex gap-2 items-end">
-                                    <button onClick={() => router.push(`/common/JobPosting?content=CreateNewJob`)} className='w-[212px] rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[42px] items-center justify-center'>
+                                    <button onClick={() => router.push(`/common/jobPosting/CreateNewJob`)} className='w-[212px] rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[42px] items-center justify-center'>
                                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                                             <g mask="url(#mask0_6706_94226)">

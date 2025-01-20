@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import Select from "react-select";
 import { useRouter } from "next/router";
-import CreateNewJob from "../../components/featured/employer/CreateNewJob";
+import CreateNewJob from "./CreateNewJob";
 import axios from "axios";
-import MiniLoader from "../../components/common/miniLoader";
-import CustomPagination from "../../components/common/CustomPagination";
+import MiniLoader from "../../../components/common/miniLoader";
+import CustomPagination from "../../../components/common/CustomPagination";
 
 function JobPosting() {
   const router = useRouter();

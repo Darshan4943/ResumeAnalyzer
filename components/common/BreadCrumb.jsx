@@ -12,6 +12,7 @@ const Breadcrumb = () => {
     dashboard: 'Home',
     JobPosting: 'Job Posting',
     jobPosting: 'Job Posting',
+    CreateNewJob:"Create New Job",
     'JobPosting?content=CreateNewJob': 'Create New Job',
     'ClientDetail': 'Candidate Details',
     "CreateNewClient":"Create New Candidate",
