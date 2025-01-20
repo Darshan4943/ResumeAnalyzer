@@ -419,7 +419,7 @@ function Hiring() {
               </button>
             </div>
           </div>
-          <JobCard />
+          <JobCard filters={filters} setFilters={setFilters} />
         </div>
       )}
     </div>

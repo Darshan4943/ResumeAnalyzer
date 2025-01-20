@@ -4,10 +4,11 @@ import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
 import debounce from 'lodash.debounce';
-
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -290,23 +291,17 @@ const CreateNewRequisition = ({ setToggle }) => {
 
           <div className="text-[14px]  font-medium">
             <p>Job Description</p>
-            <ReactQuill
+            <Editor
               value={data.description}
-              onChange={handleChange1}
-              readOnly={false}
-              modules={{
-                toolbar: [
-                  [{ header: "1" }, { header: "2" }, { font: [] }],
-                  [{ list: "ordered" }, { list: "bullet" }],
-                  ["bold", "italic", "underline", "strike"],
-                  [{ align: [] }],
-                  ["link", "image"],
-                ],
-              }}
+              onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{
-                border: `1px #DEDEDE`,
-                height: "238px",
-                borderRadius: "20px",
+                border: formError.description
+                  ? "2px solid red"
+                  : "2px solid #dedede",
+                fontSize: "16px",
+                color: "#333",
+                padding: "10px",
+                minHeight: "196px",
               }}
             />
           </div>

@@ -76,7 +76,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/jobPosting.png',
       img1: '/images/employer/sidebar/jobPosting1.png',
       title: 'Job Posting',
-      route: '/common/JobPosting',
+      route: '/common/jobPosting/JobPosting',
     },
     {
       img: '/images/employer/sidebar/hiring.png',

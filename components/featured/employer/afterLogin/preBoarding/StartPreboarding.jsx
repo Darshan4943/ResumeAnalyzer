@@ -2,16 +2,17 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
 import React, { useCallback, useEffect, useState } from "react";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 function StartPreboarding({ setStartPreboarding, applicant }) {
-  const [openReactQuill, setOpenReactQuill] = useState(false);
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -130,8 +131,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
       toast.success("Preboarding created successfully.");
     } catch (error) {
       toast.error(
-        `Error creating Preboarding: ${
-          error.response?.data?.message || error.message
+        `Error creating Preboarding: ${error.response?.data?.message || error.message
         }`
       );
     } finally {
@@ -176,9 +176,8 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
           </p>
           <div className="flex ml:flex-row flex-col items-start gap-2 self-stretch">
             <div
-              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${
-                data.isCollecting ? "bg-[#BCEBFF]" : "bg-white"
-              }`}
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${data.isCollecting ? "bg-[#BCEBFF]" : "bg-white"
+                }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
@@ -200,9 +199,8 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               </div>
             </div>
             <div
-              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${
-                data.isNotCollecting ? "bg-[#BCEBFF]" : "bg-white"
-              }`}
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${data.isNotCollecting ? "bg-[#BCEBFF]" : "bg-white"
+                }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
@@ -398,7 +396,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
         </div>
         <div
           onClick={() => {
-            setOpenReactQuill(true);
+            setShowEditor(true);
           }}
           className="flex items-center"
         >
@@ -420,32 +418,24 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
             Add Note for Candidate
           </p>
         </div>
-        {openReactQuill && (
-          <ReactQuill
-            readOnly={data.isNotCollecting}
+        {showEditor && (
+          <Editor
             value={data.note}
-            onChange={handleChange1}
-            modules={{
-              toolbar: [
-                [{ header: "1" }, { header: "2" }, { font: [] }],
-                [{ list: "ordered" }, { list: "bullet" }],
-                ["bold", "italic", "underline", "strike"],
-                [{ align: [] }],
-                ["link", "image"],
-              ],
-            }}
+            onTextChange={(e) => handleChange1(e.htmlValue)}
             style={{
-              width: "100%",
-              border: `1px #DEDEDE`,
-              height: "238px",
-              borderRadius: "20px",
+              border: formError.description
+                ? "2px solid red"
+                : "2px solid #dedede",
+              fontSize: "16px",
+              color: "#333",
+              padding: "10px",
+              minHeight: "196px",
             }}
           />
         )}
         <div
-          className={`flex justify-end gap-4 self-stretch items-start ${
-            openReactQuill && "pt-[32px]"
-          }`}
+          className={`flex justify-end gap-4 self-stretch items-start ${showEditor && "pt-[32px]"
+            }`}
         >
           <button
             onClick={() => setStartPreboarding(false)}

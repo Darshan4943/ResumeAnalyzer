@@ -42,13 +42,14 @@ function JobPosting() {
     };
 
     return (
-        <>
+        <>{loading ?
+            <div className='w-full justify-center'>
+                <MiniLoader />
+            </div>
+              :
             <div className='flex flex-col gap-[24px]'>
-                {loading ?
-                    <div className='w-full justify-center'>
-                        <MiniLoader />
-                    </div>
-                    :
+                
+                  
                     <div className="flex flex-col gap-6">
                         <div className="flex gap-6">
                             <div className="flex flex-col bg-white rounded-[16px] p-4">
@@ -109,10 +110,10 @@ function JobPosting() {
                             </div>
                         </div>
                     </div>
-                }
-                <JobCard /> 
+             
+                <JobCard  />
             </div>
-
+   }
         </>
 
     );

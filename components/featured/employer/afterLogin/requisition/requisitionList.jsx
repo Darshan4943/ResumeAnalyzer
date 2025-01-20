@@ -15,7 +15,7 @@ function RequisitionList({ filterData }) {
   const [miniLoading, setMiniloading] = useState(true);
   const [totalPages, setTotalpages] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+ 
   const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -63,14 +63,7 @@ function RequisitionList({ filterData }) {
     }
   }, [router.query]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const labels = [
     "Requisition for",
