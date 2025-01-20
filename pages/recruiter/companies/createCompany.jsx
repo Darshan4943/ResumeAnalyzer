@@ -1,15 +1,17 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 import debounce from "lodash.debounce";
-import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
+
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import ImageCropperResume from "../../../components/featured/candidate/createResume/components/imgCropperResume";
 import ImageContainer from "../../../components/common/image";
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CreateCompany() {
     const [id, setId] = useState("")
@@ -213,21 +215,15 @@ function CreateCompany() {
                 </div>
                 <div className="flex flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     About Company
-                    <ReactQuill
+                    <Editor
                         value={companyDescription}
-                        onChange={handleCompanyDescriptionChange}
-                        readOnly={false}
-                        modules={{
-                            toolbar: [
-                                [{ header: "1" }, { header: "2" }, { font: [] }],
-                                [{ list: "ordered" }, { list: "bullet" }],
-                                ["bold", "italic", "underline", "strike"],
-                                [{ align: [] }],
-                                ["link", "image"],
-                            ],
-                        }}
+                        onTextChange={(e) => handleCompanyDescriptionChange(e.htmlValue)}
                         style={{
-                            height: "238px",
+                            border: "2px solid #dedede",
+                            fontSize: "16px",
+                            color: "#333",
+                            padding: "10px",
+                            minHeight: "196px",
                         }}
                     />
                     <div className="text-[12px] text-gray-500">
