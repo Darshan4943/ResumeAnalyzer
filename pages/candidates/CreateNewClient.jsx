@@ -504,7 +504,7 @@ function CreateNewClient() {
                           </div>
                         </div>
                         <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
-                          <div className="personal_single_input ml:w-[50%] w-[100%]">
+                          <div className="personal_single_input ml:w-[50%] w-[100%] gap-2">
                             <p className="form_text_heading">
                               Contact Number <span className="star">*</span>
                             </p>

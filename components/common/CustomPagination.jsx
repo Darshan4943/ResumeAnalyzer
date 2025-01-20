@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MiniLoader from './mini-loader';
 
-function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading, miniLoading,title }) {
+function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground }) {
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -30,11 +30,16 @@ function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading
 
     return (
         <div style={{
-            boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-            borderBottomLeftRadius: "16px",
-            borderBottomRightRadius: "16px",
-
-        }} className="sm:px-[16px] px-0 w-full justify-between flex  bg-white py-4 border-t border-[#D3D3D3]">
+            ...(isBackground && {
+              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+              borderBottomLeftRadius: "16px",
+              borderBottomRightRadius: "16px",
+              borderTop: "1px solid #D3D3D3",
+              backgroundColor: "white",
+            }),
+          }}
+          
+           className="sm:px-[16px] px-0 w-full justify-between flex  py-4 ">
             <div className="flex items-center sm:gap-4 gap-2">
                 <p className="text-[14px] text-[#646464] font-600">View</p>
                 <div className="flex gap-[8px] items-center">

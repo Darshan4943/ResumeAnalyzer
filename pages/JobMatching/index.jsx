@@ -325,7 +325,7 @@ const JobMatching = () => {
     };
   }, []);
 
-  console.log(userDetails);
+  console.log(222,resumeList);
 
 
 

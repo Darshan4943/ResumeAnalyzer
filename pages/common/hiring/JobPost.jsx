@@ -27,7 +27,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [selectAll, setSelectAll] = useState(false);
 
   const [jobDetails, setJobDetails] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [miniloading, setMiniloading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -119,8 +119,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
 
   const fetchJobDetails = async () => {
-    setLoading(true);
-    setMiniloading(true);
+
     setError(null);
 
     try {
@@ -151,9 +150,19 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
   useEffect(() => {
     if (id) {
+      setLoading(true);
+      
       fetchJobDetails();
     }
-  }, [id, page, limit]);
+  }, [id,statusChange]);
+
+
+  useEffect(() => {
+    if (id) {
+      setMiniloading(true);
+      fetchJobDetails();
+    }
+  }, [ page, limit]);
 
 
 
@@ -953,6 +962,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     totalPages={totalPages}
                     limit={limit}
                     page={page}
+                    isBackground={true}
                   />
                 </div>
               </>

@@ -498,7 +498,7 @@ function JobPosting() {
             totalPages={totalPages}
             limit={limit}
             page={page}
-
+            isBackground={true}
           />
         </div>
       )}

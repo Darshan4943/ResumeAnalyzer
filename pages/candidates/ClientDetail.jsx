@@ -7,7 +7,7 @@ import ResumePreview from "../../components/common/ResumePreview";
 
 import { toast } from "react-toastify";
 import DeleteModal from "../../components/common/deleteModal";
-import MiniLoader from "../../components/common/mini-loader";
+import MiniLoader from "../../components/common/miniLoader";
 import { motion } from "framer-motion";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
