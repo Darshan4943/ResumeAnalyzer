@@ -4,8 +4,9 @@ import MiniLoader from '../../../components/common/miniLoader';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
-const JobCard = () => {
+const JobCard = ({filters, setFilters}) => {
     const [data, setData] = useState([]);
+    console.log(data);
     const [loading, setLoading] = useState(false);
     const [id, setId] = useState();
     const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -17,7 +18,7 @@ const JobCard = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
     const [totalCount, setTotalCount] = useState(0);
-    const [filters, setFilters] = useState({});
+    
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(5);
     const router = useRouter()
