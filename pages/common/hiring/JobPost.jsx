@@ -13,7 +13,7 @@ import axios from "axios";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
-  const [page, setPage] = useState(1);
+
 
   const [activeOption, setActiveOption] = useState("applicant");
   const router = useRouter();
@@ -25,13 +25,17 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [shortlist, setShortlist] = useState([]);
 
   const [selectAll, setSelectAll] = useState(false);
-  const [limit, setLimit] = useState(5);
+
   const [jobDetails, setJobDetails] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [miniloading, setMiniloading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [totalPages, setTotalpages] = useState(0);
+  const [page, setPage] = useState(0);
+
+  const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [loadingg, setLoadingg] = useState({ isLoading: false, applicantId: null });
   const [statusChange, setStatusChange] = useState(false)
   const [loadinggg, setLoadinggg] = useState(false);
@@ -62,7 +66,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
 
 
-  console.log(checkedApplicants);
+  console.log(page);
 
   const handleReject = async () => {
     setAllReject(true);
@@ -78,7 +82,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const handleSend = async (applicant) => {
     if (!allReject) {
       setLoadingg({ isLoading: true, applicantId: applicant.applicantId });
-    }else{
+    } else {
       setLoadinggg(true)
     }
 
@@ -112,53 +116,55 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       toast.error("Failed to send email details. Please try again.");
     }
   };
-  useEffect(() => {
-    setLoading(true);
-    const fetchJobDetails = async () => {
-      setLoading(true);
-      setMiniloading(true);
-      setError(null);
 
-      try {
-        const response = await fetch(
-          `http://localhost:2000/api/job/getByIdApplication/${id}?page=${page}&limit=${limit}`
-        );
 
-        if (!response.ok) {
-          throw new Error(`Error fetching job details: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-        setJobDetails(data);
-        setTotalCount(data.pagination.totalCount);
-        setTotalPages(data.pagination.totalPages);
-      } catch (err) {
-        console.error("Error fetching job details:", err);
-        setError(err.message);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-        setMiniloading(false);
-        setLoading(false);
+  const fetchJobDetails = async () => {
+
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:2000/api/job/getByIdApplication/${id}?page=${page}&limit=${limit}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error fetching job details: ${response.statusText}`);
       }
-    };
-
+      const data = await response.json();
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+      setJobDetails(data);
+      setTotalCount(data.pagination.totalCount);
+      setTotalpages(data.pagination.totalPages);
+    } catch (err) {
+      console.error("Error fetching job details:", err);
+      setError(err.message);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+      setMiniloading(false);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     if (id) {
+      setLoading(true);
+      
       fetchJobDetails();
     }
-  }, [id, page, limit, statusChange]);
+  }, [id,statusChange]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  useEffect(() => {
+    if (id) {
+      setMiniloading(true);
+      fetchJobDetails();
+    }
+  }, [ page, limit]);
+
+
 
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
 
@@ -221,23 +227,22 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
-                <div className="flex gap-[20px] justify-center  items-center">
+                <div className="flex gap-[20px] justify-center  items-start">
                   <div onClick={router.back}>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.371 8.7481L8.54025 13.9174C8.68892 14.066 8.76233 14.24 8.7605 14.4394C8.7585 14.6387 8.68 14.8159 8.525 14.9711C8.36983 15.1159 8.19417 15.1909 7.998 15.1961C7.80183 15.2013 7.62617 15.1263 7.471 14.9711L1.13075 8.63085C1.03708 8.53718 0.971083 8.43843 0.93275 8.3346C0.89425 8.23077 0.875 8.1186 0.875 7.9981C0.875 7.8776 0.89425 7.76543 0.93275 7.6616C0.971083 7.55777 1.03708 7.45902 1.13075 7.36535L7.471 1.0251C7.6095 0.886602 7.781 0.815768 7.9855 0.812602C8.19 0.809435 8.36983 0.880268 8.525 1.0251C8.68 1.18027 8.7575 1.35844 8.7575 1.5596C8.7575 1.76094 8.68 1.93918 8.525 2.09435L3.371 7.2481H14.748C14.9608 7.2481 15.139 7.31993 15.2825 7.4636C15.4262 7.6071 15.498 7.78527 15.498 7.9981C15.498 8.21093 15.4262 8.3891 15.2825 8.5326C15.139 8.67627 14.9608 8.7481 14.748 8.7481H3.371Z"
-                        fill="#333333"
-                      />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_6706_101277)">
+                        <path d="M7.371 12.7481L12.5402 17.9174C12.6889 18.066 12.7623 18.24 12.7605 18.4394C12.7585 18.6387 12.68 18.8159 12.525 18.9711C12.3698 19.1159 12.1942 19.1909 11.998 19.1961C11.8018 19.2013 11.6262 19.1263 11.471 18.9711L5.13075 12.6309C5.03708 12.5372 4.97108 12.4384 4.93275 12.3346C4.89425 12.2308 4.875 12.1186 4.875 11.9981C4.875 11.8776 4.89425 11.7654 4.93275 11.6616C4.97108 11.5578 5.03708 11.459 5.13075 11.3654L11.471 5.0251C11.6095 4.8866 11.781 4.81577 11.9855 4.8126C12.19 4.80943 12.3698 4.88027 12.525 5.0251C12.68 5.18027 12.7575 5.35844 12.7575 5.5596C12.7575 5.76094 12.68 5.93918 12.525 6.09435L7.371 11.2481H18.748C18.9608 11.2481 19.139 11.3199 19.2825 11.4636C19.4262 11.6071 19.498 11.7853 19.498 11.9981C19.498 12.2109 19.4262 12.3891 19.2825 12.5326C19.139 12.6763 18.9608 12.7481 18.748 12.7481H7.371Z" fill="#333333" />
+                      </g>
                     </svg>
+
                   </div>
-                  <div className="text-[16px] text-[#333333] font-[600]">
-                    {jobDetails?.data?.jobDetails?.jobTitle}
+                  <div className=" flex flex-col ">
+                    <p className="text-[18px] text-[#333333] font-[600] leading-tight">  {jobDetails?.data?.jobDetails?.jobTitle}</p>
+
+                    <p className="text-[14px] font-[500] text-[#333333] leading-tight">
+                      Customer Support
+                    </p>
                   </div>
                   <div className="flex justify-center items-center gap-[4px]">
                     {jobDetails?.data?.jobDetails?.status === "Live" ? (
@@ -337,27 +342,25 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center">
-                  <div className="text-[14px] font-[600] text-[#333333]">
+                  <div className="text-[14px] font-[600] text-[#646464]">
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {jobDetails?.pagination?.length}
+                    {totalCount}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center">
-                  <div className="text-[14px] font-[600] text-[#333333]">
-                    Customer Support
-                  </div>
-                  <div className="text-[16px] font-[600] text-[#333333]">
+
+                  {/* <div className="text-[16px] font-[600] text-[#333333]">
                     4 /{" "}
                     <span className="text-[16px] font-[600] text-[#646464]">
                       {" "}
-                      11 Hired
+                      11 Shortlisted
                     </span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex gap-[4px] items-center">
-                  <div className="text-[12px] font-[500] text-[#646464]">
+                  <div className="text-[14px] font-[600] text-[#646464]">
                     Date posted
                   </div>
                   <svg
@@ -389,9 +392,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${
-                      activeOption === "applicant" ? "" : "text-[#646464]"
-                    } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
+                      } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -413,9 +415,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${
-                      activeOption === "JobDetails" ? "" : "text-[#646464]"
-                    } cursor-pointer font-[600]`}
+                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -437,9 +438,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
                     }}
-                    className={` ${
-                      activeOption === "Analytics" ? "" : "text-[#646464]"
-                    } cursor-pointer font-[600]`}
+                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
                   >
                     Analytics
                   </p>
@@ -516,8 +516,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     <input
                       className="w-[16px] h-[16px]"
                       type="checkbox"
-                      // checked={selectAll}
-                      // onChange={handleSelectAll}
+                    // checked={selectAll}
+                    // onChange={handleSelectAll}
                     />
                     {applicant_head.map((applicant_head, index) => (
                       <div
@@ -539,11 +539,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           (applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
-                                  checkedApplicants[index]
-                                    ? "bg-[#D3F1FF]"
-                                    : "bg-[#FFFFFF]"
-                                }`}
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
+                                  ? "bg-[#D3F1FF]"
+                                  : "bg-[#FFFFFF]"
+                                  }`}
                                 key={applicant._id}
                               >
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -576,42 +575,40 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                        checkedApplicants[index]
-                                          ? "bg-[#FFFFFF]"
-                                          : applicant.hiringStage ===
-                                            "Interview"
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                                        ? "bg-[#FFFFFF]"
+                                        : applicant.hiringStage ===
+                                          "Interview"
                                           ? "bg-[#26A4FF1A]"
                                           : applicant.hiringStage === "Pending"
-                                          ? "bg-[#FFF9ED]"
-                                          : applicant.hiringStage === "Hired"
-                                          ? "bg-[#56CDAD1A]"
-                                          : applicant.hiringStage ===
-                                            "Shortlisted"
-                                          ? "bg-[#4640DE1A]"
-                                          : applicant.hiringStage === "Rejected"
-                                          ? "bg-[#FF65501A]"
-                                          : applicant.hiringStage ===
-                                            "In Review"
-                                          ? "bg-[#EB85331A]"
-                                          : ""
-                                      } ${
-                                        applicant.hiringStage === "Interview"
+                                            ? "bg-[#FFF9ED]"
+                                            : applicant.hiringStage === "Hired"
+                                              ? "bg-[#56CDAD1A]"
+                                              : applicant.hiringStage ===
+                                                "Shortlisted"
+                                                ? "bg-[#4640DE1A]"
+                                                : applicant.hiringStage === "Rejected"
+                                                  ? "bg-[#FF65501A]"
+                                                  : applicant.hiringStage ===
+                                                    "In Review"
+                                                    ? "bg-[#EB85331A]"
+                                                    : ""
+                                        } ${applicant.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant.hiringStage === "Pending"
-                                          ? "text-[#FFB836]"
-                                          : applicant.hiringStage === "Hired"
-                                          ? "text-[#56CDAD]"
-                                          : applicant.hiringStage ===
-                                            "Shortlisted"
-                                          ? "text-[#4640DE]"
-                                          : applicant.hiringStage === "Rejected"
-                                          ? "text-[#FF6550]"
-                                          : applicant.hiringStage ===
-                                            "In Review"
-                                          ? "text-[#FFB836]"
-                                          : "text-[#333333]"
-                                      }`}
+                                            ? "text-[#FFB836]"
+                                            : applicant.hiringStage === "Hired"
+                                              ? "text-[#56CDAD]"
+                                              : applicant.hiringStage ===
+                                                "Shortlisted"
+                                                ? "text-[#4640DE]"
+                                                : applicant.hiringStage === "Rejected"
+                                                  ? "text-[#FF6550]"
+                                                  : applicant.hiringStage ===
+                                                    "In Review"
+                                                    ? "text-[#FFB836]"
+                                                    : "text-[#333333]"
+                                        }`}
                                     >
                                       {applicant.hiringStage}
                                     </div>
@@ -801,9 +798,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               <>
                                 <div
                                   className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
-                                  // style={{
-                                  //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
-                                  // }}
+                                // style={{
+                                //   background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                                // }}
                                 >
                                   <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
                                     <div className="flex justify-between items-center self-stretch">
@@ -958,16 +955,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 <div>
                   <CustomPagination
                     setMiniloading={setMiniloading}
-                    miniloading={miniloading}
+                    miniLoading={miniloading}
                     setPage={setPage}
                     title={"Applicant"}
                     setLimit={setLimit}
-                    totalPages={Math.max(
-                      1,
-                      Math.ceil(jobDetails?.pagination?.length / limit)
-                    )}
+                    totalPages={totalPages}
                     limit={limit}
                     page={page}
+                    isBackground={true}
                   />
                 </div>
               </>
