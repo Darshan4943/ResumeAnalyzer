@@ -15,15 +15,19 @@ import "primeicons/primeicons.css";
 
 function CreateCompany() {
     const [id, setId] = useState("")
-    const [isCreate, setIsCreate] = useState(false)
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [file, setFile] = useState(null);
     const [modelView, setModelView] = useState(false);
     const [croppedImage, setCroppedImage] = useState(null);
-    console.log("object", croppedImage)
-
-    const [selectedImg, setSelectedImg] = useState("device")
     const router = useRouter();
+    const { companyId } = router.query;
+    const [companyDescription, setcompanyDescription] = useState("");
+    const [data, setData] = useState({
+        companyName: "",
+        companyLogo: "",
+        companyDescription: "",
+    });
+    const fileRef = useRef(null);
 
     useEffect(() => {
         if (userDataGlobal && userDataGlobal.id) {
@@ -31,13 +35,33 @@ function CreateCompany() {
         }
     }, [userDataGlobal]);
 
-    const [data, setData] = useState({
-        companyName: "",
-        companyLogo: "",
-        companyDescription: "",
-    });
 
-    const [companyDescription, setcompanyDescription] = useState("");
+    useEffect(() => {
+        if (!companyId) return;
+
+        const fetchCompanyDetails = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`
+                );
+                console.log("Response Data:", response.data);
+
+                if (response.data) {
+                    setData({
+                        companyName: response.data.companyName,
+                        companyLogo: response.data.companyLogo,
+                        companyDescription: response.data.companyDescription,
+                    });
+                } else {
+                    console.error("No data received.");
+                }
+            } catch (error) {
+                console.error("Error fetching company details:", error);
+            }
+        };
+
+        fetchCompanyDetails();
+    }, [companyId]);
 
     const debounceUpdate = useCallback(
         debounce((value) => {
@@ -56,17 +80,6 @@ function CreateCompany() {
         } else {
             setcompanyDescription(value);
             debounceUpdate(plainText);
-        }
-    };
-
-    const handleLogoChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setData((prev) => ({ ...prev, companyLogo: reader.result }));
-            };
-            reader.readAsDataURL(file);
         }
     };
 
@@ -117,17 +130,10 @@ function CreateCompany() {
         }
     };
 
-
-
-    const fileRef = useRef(null);
-
     const handleFileChange = (event) => {
         event.preventDefault();
-
-
         const selectedFile = event.target.files[0];
         if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
-            // 3 MB limit
             if (selectedFile.type.includes("image")) {
                 setFile(selectedFile);
                 setModelView(true);
@@ -140,13 +146,47 @@ function CreateCompany() {
         }
     };
 
-    const handleDragOver = (event) => {
-        event.preventDefault();
-    };
-
     const previousPage = () => {
         router.push("/recruiter/companies")
     }
+
+    const handleUpdate = async () => {
+        try {
+            const formData = new FormData();
+
+            formData.append("companyName", data.companyName);
+            formData.append("companyDescription", data.companyDescription);
+
+            if (croppedImage) {
+                const response = await fetch(croppedImage.url);
+                const blob = await response.blob();
+                const file = new File([blob], "companyLogo.jpg", { type: "image/jpeg" });
+                formData.append("croppedImage", file);
+            }
+
+            const response = await axios.put(
+                `http://localhost:2000/api/company/updateCompanyDetails/${companyId}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            if (response.data.success) {
+                toast.success(response.data.message);
+                router.push('/recruiter/companies'); 
+            } else {
+                toast.error(response.data.message || "Failed to update company.");
+            }
+        } catch (error) {
+            console.error("Error updating company:", error);
+            toast.error("An error occurred. Please try again.");
+        }
+    };
+
+
     return (
         <div className="w-full relative flex flex-col gap-5">
             <div className="flex gap-3 text-[18px] font-[500] text-[#333333] items-center">
@@ -183,13 +223,15 @@ function CreateCompany() {
                                 </div>
                             </div>
                             <div className="scr1024:w-[70.04%] w-full flex flex-col scr800:flex-row gap-2 items-center justify-between">
-                                {croppedImage && (
+                                {(croppedImage || data?.companyLogo) && (
                                     <ImageContainer
-                                        src={croppedImage.url}
+                                        value={data?.companyLogo}
+                                        src={croppedImage?.url || data?.companyLogo}
                                         alt="Selected File"
                                         className="w-[32.95%] h-[60px]"
                                     />
                                 )}
+
                                 <input
                                     type="file"
                                     ref={fileRef}
@@ -216,7 +258,7 @@ function CreateCompany() {
                 <div className="flex flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     About Company
                     <Editor
-                        value={companyDescription}
+                        value={data.companyDescription}
                         onTextChange={(e) => handleCompanyDescriptionChange(e.htmlValue)}
                         style={{
                             border: "2px solid #dedede",
@@ -245,11 +287,12 @@ function CreateCompany() {
                             Reset
                         </button>
                         <button
-                            onClick={handleSubmit}
+                            onClick={() => (companyId ? handleUpdate() : handleSubmit())}
                             className="rounded-[30px] border-[1px] border-[#06A9EF] bg-[#06A9EF] border-solid px-3 ms:px-9 py-1 ms:py-3 text-[14px] font-[600] text-[#FFFFFF]"
                         >
-                            Save Details
+                            {companyId ? "Update Details" : "Save Details"}
                         </button>
+
                     </div>
                 </div>
             </div>

@@ -311,7 +311,6 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
       <div
         className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-    
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
