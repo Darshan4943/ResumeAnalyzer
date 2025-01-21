@@ -14,46 +14,40 @@ import "primeicons/primeicons.css";
 
 
 function CreateCompany() {
-    const [id, setId] = useState("")
+    const [id, setId] = useState("");
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [file, setFile] = useState(null);
     const [modelView, setModelView] = useState(false);
     const [croppedImage, setCroppedImage] = useState(null);
     const router = useRouter();
     const { companyId } = router.query;
-    const [companyDescription, setcompanyDescription] = useState("");
+    const [companyDescription, setCompanyDescription] = useState("");
+    const [errors, setErrors] = useState({});
     const [data, setData] = useState({
         companyName: "",
         companyLogo: "",
         companyDescription: "",
     });
+
     const fileRef = useRef(null);
 
     useEffect(() => {
-        if (userDataGlobal && userDataGlobal.id) {
-            setId(userDataGlobal?._id);
+        if (userDataGlobal?.id) {
+            setId(userDataGlobal._id);
         }
     }, [userDataGlobal]);
 
-
     useEffect(() => {
         if (!companyId) return;
-
         const fetchCompanyDetails = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`
-                );
-                console.log("Response Data:", response.data);
-
+                const response = await axios.get(`http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`);
                 if (response.data) {
                     setData({
                         companyName: response.data.companyName,
                         companyLogo: response.data.companyLogo,
                         companyDescription: response.data.companyDescription,
                     });
-                } else {
-                    console.error("No data received.");
                 }
             } catch (error) {
                 console.error("Error fetching company details:", error);
@@ -74,11 +68,10 @@ function CreateCompany() {
     const handleCompanyDescriptionChange = (value) => {
         const plainText = value?.replace(/<[^>]*>/g, "");
         if (plainText?.length > 200) {
-            const truncatedText = plainText.slice(0, 200);
-            setcompanyDescription(truncatedText);
-            debounceUpdate(truncatedText);
+            setCompanyDescription(plainText.slice(0, 200));
+            debounceUpdate(plainText.slice(0, 200));
         } else {
-            setcompanyDescription(value);
+            setCompanyDescription(value);
             debounceUpdate(plainText);
         }
     };
@@ -86,17 +79,55 @@ function CreateCompany() {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!data.companyName.trim()) {
+            newErrors.companyName = "Company name is required.";
+            toast.error("Company name is required.");
+        }
+
+        if (!companyDescription?.replace(/<[^>]*>/g, "").trim()) {
+            newErrors.companyDescription = "Company description is required.";
+            toast.error("Company description is required.");
+        }
+
+        if (!data.companyLogo && !croppedImage) {
+            newErrors.companyLogo = "Company logo is required.";
+            toast.error("Company logo is required.");
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
     const handleReset = () => {
         setData({ companyName: "", companyLogo: "", companyDescription: "" });
-        setcompanyDescription("");
+        setCompanyDescription("");
+        setErrors({});
+    };
+
+    const handleFileChange = (event) => {
+        event.preventDefault();
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            if (selectedFile.size <= 3 * 1024 * 1024 && selectedFile.type.includes("image")) {
+                setFile(selectedFile);
+                setModelView(true);
+                setErrors((prev) => ({ ...prev, companyLogo: "" }));
+            } else {
+                toast.error("Only image files up to 3MB are allowed.");
+            }
+            event.target.value = "";
+        }
     };
 
     const handleSubmit = async () => {
+        if (!validateForm()) return;
         try {
             const formData = new FormData();
-
             formData.append("companyName", data.companyName);
             formData.append("companyDescription", data.companyDescription);
 
@@ -104,18 +135,13 @@ function CreateCompany() {
                 const response = await fetch(croppedImage.url);
                 const blob = await response.blob();
                 const file = new File([blob], "companyLogo.jpg", { type: "image/jpeg" });
-
                 formData.append("croppedImage", file);
             }
 
             const response = await axios.post(
                 `http://localhost:2000/api/company/addCompany/${id}`,
                 formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
 
             if (response.data.success) {
@@ -130,30 +156,10 @@ function CreateCompany() {
         }
     };
 
-    const handleFileChange = (event) => {
-        event.preventDefault();
-        const selectedFile = event.target.files[0];
-        if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
-            if (selectedFile.type.includes("image")) {
-                setFile(selectedFile);
-                setModelView(true);
-                event.target.value = "";
-            } else {
-                toast.error("Only Image files are allowed");
-            }
-        } else {
-            toast.error("Please select a file that is  3 MB.");
-        }
-    };
-
-    const previousPage = () => {
-        router.push("/recruiter/companies")
-    }
-
     const handleUpdate = async () => {
+        if (!validateForm()) return;
         try {
             const formData = new FormData();
-
             formData.append("companyName", data.companyName);
             formData.append("companyDescription", data.companyDescription);
 
@@ -167,16 +173,12 @@ function CreateCompany() {
             const response = await axios.put(
                 `http://localhost:2000/api/company/updateCompanyDetails/${companyId}`,
                 formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
 
             if (response.data.success) {
                 toast.success(response.data.message);
-                router.push('/recruiter/companies'); 
+                router.push('/recruiter/companies');
             } else {
                 toast.error(response.data.message || "Failed to update company.");
             }
@@ -186,7 +188,7 @@ function CreateCompany() {
         }
     };
 
-
+    const previousPage = () => router.push("/recruiter/companies");
     return (
         <div className="w-full relative flex flex-col gap-5">
             <div className="flex gap-3 text-[18px] font-[500] text-[#333333] items-center">
