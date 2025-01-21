@@ -108,8 +108,8 @@ function CreateCompany() {
                 formData.append("croppedImage", file);
             }
 
-            const response = await axios.put(
-                `http://localhost:2000/api/company/updateCompanyDetails/${companyId}`,
+            const response = await axios.post(
+                `http://localhost:2000/api/company/addCompany/${id}`,
                 formData,
                 {
                     headers: {
@@ -122,7 +122,7 @@ function CreateCompany() {
                 toast.success(response.data.message);
                 router.push('/recruiter/companies');
             } else {
-                toast.error("Failed to update company.");
+                toast.error("Failed to add company.");
             }
         } catch (error) {
             console.error(error);
