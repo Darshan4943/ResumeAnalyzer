@@ -65,15 +65,15 @@ function CreateCompany() {
 
     const debounceUpdate = useCallback(
         debounce((value) => {
-            const plainText = value.replace(/<[^>]*>/g, "");
+            const plainText = value?.replace(/<[^>]*>/g, "");
             setData((prev) => ({ ...prev, companyDescription: plainText }));
         }, 500),
         []
     );
 
     const handleCompanyDescriptionChange = (value) => {
-        const plainText = value.replace(/<[^>]*>/g, "");
-        if (plainText.length > 200) {
+        const plainText = value?.replace(/<[^>]*>/g, "");
+        if (plainText?.length > 200) {
             const truncatedText = plainText.slice(0, 200);
             setcompanyDescription(truncatedText);
             debounceUpdate(truncatedText);
@@ -269,7 +269,7 @@ function CreateCompany() {
                         }}
                     />
                     <div className="text-[12px] text-gray-500">
-                        {companyDescription.replace(/<[^>]*>/g, "").length} / 200 characters
+                        {companyDescription?.replace(/<[^>]*>/g, "").length} / 200 characters
                     </div>
                 </div>
                 <div className="w-full flex justify-between pt-5">
