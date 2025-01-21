@@ -186,16 +186,17 @@ const JobMatching = () => {
   }, [tab]);
 
   
+  
 
-  useEffect(() => {
-    if (count > 3) {
-      setLoading(false);
-      toast.error("Something went wrong, please try again");
-      setCount(0);
-    } else if (count == 1 || count == 2 || count == 3) {
-      jobMatching();
-    }
-  }, [count]);
+  // useEffect(() => {
+  //   if (count > 3) {
+  //     setLoading(false);
+  //     toast.error("Something went wrong, please try again");
+  //     setCount(0);
+  //   } else if (count == 1 || count == 2 || count == 3) {
+  //     jobMatching();
+  //   }
+  // }, [count]);
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {

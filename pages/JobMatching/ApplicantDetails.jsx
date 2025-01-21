@@ -12,11 +12,11 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
-  const [loadingg, setLoadingg] = useState(false);
+  const [loadingg, setLoadingg] = useState(true);
 
 
 
-  console.log(userDetails);
+
   // useEffect(() => {
   //   console.log("Fetching applicant details...");
   //   if (id && applicantId) {
@@ -61,18 +61,19 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
   const handleOptionClick = (option) => {
     setActiveOption(option);
     setToggle(option);
+    setLoadingg(true)
   };
 
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
   const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
     const [numPages, setNumPages] = useState(null);
-
+    console.log(loadingg);
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
       setTimeout(() => {
         setLoadingg(false);
-      }, 2000);
+      }, 1000);
     };
 
     return (
@@ -82,29 +83,34 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
         border: "1px solid #06A9EF",
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         borderRadius: "10px",
-        overflow: "hidden",
+        // overflow: "hidden",
+        width:"600px",
+        height:"800px"
       }}
       >
         {loadingg && (
-          <div className="skeleton-loader">
-            <div className="skeleton-image"></div>
-            <div className="skeleton-text">
-              <div className="skeleton-title"></div>
-              <div className="skeleton-subtitle"></div>
-              <div className="skeleton-line"></div>
-              <div className="skeleton-line short"></div>
-              <div className="skeleton-line shorter"></div>
+          <div className="skeleton-loader1  ">
+            <div className="skeleton-image1"></div>
+            <div className="skeleton-text1">
+              <div className="skeleton-title1"></div>
+              <div className="skeleton-subtitle1"></div>
+              <div className="skeleton-line1"></div>
+              <div className="skeleton-line1 short"></div>
+              <div className="skeleton-line1 shorter"></div>
             </div>
           </div>
         )}
 
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={1} />
+          {!loadingg &&
+            Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
         </Document>
       </div>
     );
   };
-  console.log(userDetails);
+
 
   return (
     <div>
@@ -131,9 +137,8 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                     className="max-w-[96px] max-h-[96px] rounded-full  p-1 object-cover"
 
                     src={
-                      userDetails?.profilePicture
-                        ? userDetails?.profilePicture
-                        : "/images/profile/profileNew.png"
+
+                      "/images/profile/profileNew.png"
                     }
                     alt=""
                   />
@@ -144,7 +149,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                     <p className="text-[14px]   text-start text-[#646464]   font-normal  ">
                       {userDetails?.designation}
                     </p>
-                    <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -157,8 +162,8 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                           fill="#FFB836"
                         />
                       </svg>
-                      <p className="text-[16px]    font-normal ">4.0</p>
-                    </div>
+                      <p className="text-[16px]    font-normal ">{userDetails?.totalExperience}</p>
+                    </div> */}
                   </div>
                 </div>
 
@@ -346,10 +351,10 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                           <p className="text-[12px] font-normal">{userDetails?.gender}</p>
                         </div>
                       }
-                      <div>
+                      {/* <div>
                         <p className="text-[14px]  font-medium">Language</p>
                         <p className="text-[12px] font-normal">English, French, Bahasa</p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="h-[1px] w-full bg-[#D6DDEB]"></div>
@@ -359,7 +364,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                       <p className=" font-medium text-[14px] ">About Me</p>
                       <div className="flex flex-col gap-4 text-[12px] font-normal">
                         <p>
-                          {userDetails.about}
+                          {userDetails?.about}
                         </p>
 
                       </div>
@@ -368,19 +373,19 @@ function ApplicantDetails({ setTogglee, userDetails, setTab }) {
                       <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
                         <div>
                           <p className=" text-[14px]  font-medium">Current Job</p>
-                          <p className="text-[12px] font-normal">Product Designer</p>
+                          <p className="text-[12px] font-normal">{userDetails?.currentJob}</p>
                         </div>
                         <div>
                           <p className=" text-[14px]  font-medium">
                             Highest Qualification
                           </p>
-                          <p className="text-[12px] font-normal">Bachelors in Engineering</p>
+                          <p className="text-[12px] font-normal">{userDetails?.highestQualification}</p>
                         </div>
                       </div>
                       <div className="flex flex-col gap-4 ml:w-[70%] w-[100%]">
                         <div>
                           <p className="text-[14px]  font-medium">Experience in Years</p>
-                          <p className="text-[12px] font-normal">4 Years</p>
+                          <p className="text-[12px] font-normal">{userDetails?.totalExperience}</p>
                         </div>
                         {userDetails?.skills &&
                           <div className="flex flex-col gap-2">
