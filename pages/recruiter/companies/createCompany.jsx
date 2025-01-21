@@ -53,7 +53,6 @@ function CreateCompany() {
                 console.error("Error fetching company details:", error);
             }
         };
-
         fetchCompanyDetails();
     }, [companyId]);
 
@@ -84,31 +83,28 @@ function CreateCompany() {
 
     const validateForm = () => {
         const newErrors = {};
-
         if (!data.companyName.trim()) {
             newErrors.companyName = "Company name is required.";
             toast.error("Company name is required.");
         }
-
         if (!companyDescription?.replace(/<[^>]*>/g, "").trim()) {
             newErrors.companyDescription = "Company description is required.";
             toast.error("Company description is required.");
         }
-
         if (!data.companyLogo && !croppedImage) {
             newErrors.companyLogo = "Company logo is required.";
             toast.error("Company logo is required.");
         }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+
     const handleReset = () => {
         setData({ companyName: "", companyLogo: "", companyDescription: "" });
         setCompanyDescription("");
         setErrors({});
     };
-
+    
     const handleFileChange = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
@@ -130,20 +126,17 @@ function CreateCompany() {
             const formData = new FormData();
             formData.append("companyName", data.companyName);
             formData.append("companyDescription", data.companyDescription);
-
             if (croppedImage) {
                 const response = await fetch(croppedImage.url);
                 const blob = await response.blob();
                 const file = new File([blob], "companyLogo.jpg", { type: "image/jpeg" });
                 formData.append("croppedImage", file);
             }
-
             const response = await axios.post(
                 `http://localhost:2000/api/company/addCompany/${id}`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
-
             if (response.data.success) {
                 toast.success(response.data.message);
                 router.push('/recruiter/companies');
@@ -162,20 +155,17 @@ function CreateCompany() {
             const formData = new FormData();
             formData.append("companyName", data.companyName);
             formData.append("companyDescription", data.companyDescription);
-
             if (croppedImage) {
                 const response = await fetch(croppedImage.url);
                 const blob = await response.blob();
                 const file = new File([blob], "companyLogo.jpg", { type: "image/jpeg" });
                 formData.append("croppedImage", file);
             }
-
             const response = await axios.put(
                 `http://localhost:2000/api/company/updateCompanyDetails/${companyId}`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
-
             if (response.data.success) {
                 toast.success(response.data.message);
                 router.push('/recruiter/companies');
