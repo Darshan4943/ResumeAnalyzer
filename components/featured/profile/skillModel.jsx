@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-
-
 import { useDispatch, useSelector } from "react-redux";
-
 import axios from "axios";
 import ReactSelect from "react-select";
-
 import { Close_svg } from "../../../utils/svg";
 import { camelCase } from "../../../utils/middleware";
 import { SkillList } from "../../../utils/data";
@@ -13,13 +9,25 @@ import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
 
 const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
-  const [skil, setSkil] = useState(userData?.skills);
+  const [skil, setSkil] = useState(userData?.skills || []);
   const [skills, setSkills] = useState([...SkillList]);
- const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
-  // console.log(skil);
+
+  const validateForm = () => {
+    if (skil.length === 0) {
+      setError(true);
+      return false;
+    }
+    setError(false);
+    return true;
+  };
 
   const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
     axios
       .put(
         "http://localhost:2000/api/candidate/updateSkills/" +
@@ -29,9 +37,9 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
       )
 
       .then((res) => {
-        dispatch(fetchUserData())
+        dispatch(fetchUserData());
         toast.success("Skill added successfully");
-  
+
         handleImageClick(false);
         setSkil(inputValue);
       })
@@ -42,36 +50,39 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     setSkil(skil.filter((item) => item.value !== value));
   };
 
-
   return (
     <>
       <div id="demo-modal" class="modal ">
         <div class="modal__content ms:w-[56%] gap-4 flex flex-col p-6 rounded-xl max-h-[80vh] ">
           <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-4 self-stretch w-full">
-            <div className=" text-[#25324B] font-Montserrat  text-[16px] font-[600] leading-160 min-w-[80px]">
-              Edit Skill
+            <div className="flex items-center gap-4 self-stretch w-full">
+              <div className=" text-[#25324B] font-Montserrat  text-[16px] font-[600] leading-160 min-w-[80px]">
+                Edit Skill
+              </div>
+              <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
+              <div onClick={() => handleImageClick(false)}>
+                <Close_svg />
+              </div>
             </div>
-            <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-            <div onClick={() => handleImageClick(false)}>
-              <Close_svg />
+            <div className="text-[#646464] font-montserrat text-[12px] font-normal leading-20">
+              <p>
+                Communicate your expertise and reputation to recruiters, such as
+                your knowledge of Java, Oracle, and direct marketing. Based on
+                these abilities, well provide you recommendations for jobs.{" "}
+              </p>
             </div>
           </div>
-          <div className="text-[#646464] font-montserrat text-[12px] font-normal leading-20">
-            <p>
-              Communicate your expertise and reputation to recruiters, such as
-              your knowledge of Java, Oracle, and direct marketing. Based on
-              these abilities, well provide you recommendations for jobs.{" "}
-            </p>
-          </div>
-          </div>
-          
+
           <p className="text-[#333] font-montserrat text-[16px] font-medium">
             Skills
           </p>
           <div className="skill_buttons">
-            {skil?.map((item,index) => (
-              <div key={index}s className="skill_button text-[14px] font-[500] gap-1 ">
+            {skil?.map((item, index) => (
+              <div
+                key={index}
+                s
+                className="skill_button text-[14px] font-[500] gap-1 "
+              >
                 {item.label}
                 <div onClick={() => deleteHandler(item.value)}>
                   <Close_svg className="" height={20} width={20} />
@@ -79,25 +90,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
               </div>
             ))}
           </div>
-          <div className="flex justify-between items-start  ">
-            {/* <input
-              type="text"
-              placeholder="Type in your area of specialization or expertise."
-              className="w-[86.42%] flex items-center px-4 py-2 rounded-md border border-text-secondary bg-white text-[#646464] font-montserrat text-[14px] font-normal leading-normal"
-              // onChange={(e) => setSkil(e.target.value)}
-              onChange={saveSkill}
-              value={skil}
-              
-            /> */}
-            {/* <ReactSelect
-              options={skills.map((item) => ({
-                value: item,
-                label: camelCase(item),
-              }))}
-              className="w-[100%]"
-              onChange={(data) => setSkil([...skil, data])}
-            /> */}
-
+          <div className="flex justify-between items-start flex-col ">
             <ReactSelect
               options={skills.map((item) => ({
                 value: item,
@@ -111,13 +104,17 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
 
                 if (!isAlreadySelected) {
                   setSkil([...skil, data]);
+                  setError(false);
                 }
               }}
             />
+            {error && (
+              <div className="text-red text-sm mt-2">
+                Please select at least one skill.
+              </div>
+            )}
           </div>
-          {/* <p className="text-[#333] font-montserrat text-[14px] md:text-[16px] font-medium">
-            Suggested skills
-          </p> */}
+
           <div className="w-full flex items-end gap-3 justify-end self-stretch">
             <button
               className="flex items-center justify-center px-4 py-2 font-Montserrat text-[14px] md:text-16 md:px-9 md:py-2  font-medium leading-normal rounded-[30px] border border-[#06A9EF]  bg-white "
