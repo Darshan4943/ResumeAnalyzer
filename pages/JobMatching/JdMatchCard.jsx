@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-toastify';
+import MiniLoader from '../../components/common/mini-loader';
 
-function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
+function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addApplicant, hiringLoading, jobData,jdApplicantFileNames }) {
     const router = useRouter();
-
+  
     const downloadResume = (resumeUrl) => {
         if (resumeUrl) {
             const link = document.createElement('a');
@@ -29,7 +30,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                 <div key={index} className="  justify-between p-4 rounded-[16px] gap-4 bg-white flex items-start " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
 
                     <div className="flex flex-col gap-4 w-[380px]">
-                        <div className="flex items-start gap-[22px]">
+                        <div className="flex items-center gap-[22px]">
 
                             <img
                                 className="max-w-[96px] max-h-[96px] rounded-full  p-1 object-cover"
@@ -41,9 +42,9 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                                 alt=""
                             />
 
-                            <div className="h-[96px] min-w-[124px] flex flex-col gap-[12px]">
-                                <div className="text-[16px] font-[600]">{user?.name}</div>
-                                <div className="text-[14px] font-[400]">{user?.designation}</div>
+                            <div className="h-[96px] min-w-[124px] flex flex-col gap-[12px] justify-center">
+                                <div className="text-[16px] font-[600]">{user?.parsedData?.first_name} {user?.parsedData?.last_name}</div>
+                                <div className="text-[14px] font-[400]">{user?.parsedData?.designation}</div>
                                 {/* {user?.rating &&
                                     <div className="flex items-center  gap-[8px]">
                                         <svg
@@ -67,9 +68,9 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                                 } */}
                             </div>
                         </div>
-                        <div className="flex flex-col  gap-[8px] w-[380px]">
+                        <div className="flex flex-col  gap-[8px] w-[380px] ">
                             <div className="text-[16px] font-[600]">Contact</div>
-                            {user?.email &&
+                            {user?.parsedData?.email &&
                                 <div className="flex items-center gap-[8px]">
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -80,11 +81,11 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
 
 
                                     <div className="text-[14px] font-[400]">
-                                        {user?.email}
+                                        {user?.parsedData?.email}
                                     </div>
                                 </div>
                             }
-                            {user?.Mobile &&
+                            {user?.parsedData?.mobileNo &&
                                 <div className="flex items-center gap-[8px]">
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -93,10 +94,10 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                                         </g>
                                     </svg>
 
-                                    <div className="text-[14px] font-[400]">{user?.Mobile}</div>
+                                    <div className="text-[14px] font-[400]">{user?.parsedData?.mobileNo}</div>
                                 </div>
                             }
-                            {user.location &&
+                            {user?.parsedData?.address &&
                                 <div className="flex items-center gap-[8px]">
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -107,11 +108,11 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
 
 
                                     <div className="text-[14px] font-[400]">
-                                        {user?.location}
+                                        {user?.parsedData?.address}
                                     </div>
                                 </div>
                             }
-                            {user?.totalExperience &&
+                            {user?.parsedData?.years_of_experience &&
                                 <div className="flex items-center gap-[8px]">
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -120,7 +121,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                                         </g>
                                     </svg>
 
-                                    <div className="text-[14px] font-[400]">{user?.totalExperience}</div>
+                                    <div className="text-[14px] font-[400]">{user?.parsedData?.years_of_experience} Years</div>
                                 </div>
                             }
                         </div>
@@ -151,7 +152,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                                         {item.title}{" "}
                                         {item.matching_points == "N/A"
                                             ? null
-                                            : "/ " + item.matching_points}
+                                            : ": " + item.matching_points}
 
                                     </div>
                                 ))}
@@ -165,21 +166,21 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                             <div className="text-[18px] font-[500] justify-center">
                                 Profile Match Score
                             </div>
-                            <div className="text-[26px] font-[500]">{user.matching_percentage}</div>
+                            <div className="text-[26px] font-[500]">{user?.matching_percentage}</div>
                         </div>
                         <div
                             onClick={() => downloadResume(user?.file)}
-                            className="w-[386px] h-[89px] rounde-[12px] flex  "
+                            className="w-[386px] h-[89px] rounde-[12px] flex  cursor-pointer  "
                         >
                             <div className="w-[51px] flex h-[89px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
                                 <span className="flex items-center justify-center text-[14px] font-[600] text-[#FFFFFF]">
                                     PDF
                                 </span>
                             </div>
-                            <div className="w-[334px] justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] ">
+                            <div className="w-[334px] justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px]">
                                 <div className="p-[16px]  flex flex-col ">
                                     <div className="text-[14px] font-[500]">
-                                        {user.fileName} <br />
+                                        {user?.fileName} <br />
                                         (Default)
                                     </div>
                                     {/* <div className="text-[12px] font-[400]">190 Kb</div> */}
@@ -188,15 +189,32 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails }) {
                         </div>
 
                         <div className="flex gap-[16px] items-center">
-                            <div className=" py-[12px] px-[36px] border-[1px] border-[#06A9EF] rounded-[30px]">
-                                <button onClick={() => { setTab(2); setUserDetails(user) }} className="text-[14px] font-[600]">
+                            <div onClick={() => { setTab(1); setUserDetails(user) }} className=" cursor-pointer py-[12px] px-[36px] border-[1px] border-[#06A9EF] rounded-[30px]">
+                                <button className="text-[14px] font-[600]">
                                     See Application
                                 </button>
                             </div>
-                            <div className=" py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] ">
-                                <button className="text-[14px] font-[600] text-white ">
-                                    Move to Hiring
-                                </button>
+                            <div className="   ">
+                                {
+                                    (jobData?.applications?.some((item) => item?.fileName === user?.fileName) || jdApplicantFileNames?.includes(user?.fileName)) ? (
+                                        <p className='text-[14px] font-semibold text-[#0C8A0A]'>Moved to Hiring</p>
+
+                                    ) : (
+                                        hiringLoading ? (
+                                            <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                                            >
+                                                <MiniLoader />
+                                            </div>
+                                        ) :
+                                            <button
+                                                onClick={() => addApplicant(user)}
+                                                className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                                            >
+                                                Move to Hiring
+                                            </button>
+                                    )
+                                }
+
                             </div>
 
                         </div>

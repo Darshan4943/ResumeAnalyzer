@@ -21,6 +21,7 @@ const Breadcrumb = () => {
     "createResume":"Create Resume",
     "myCollection":"My Collection",
     "JobMatching":"Job Matching",
+    "SelectJob":"Job Matching",
     'Requisition?content=CreateNewRequisition': 'Create New Requisition',
     'Hiring?content=ApplicantDetails': 'Applicant Details',
     'BulkUploads?content=ApplicantDetails': 'Applicant Details',

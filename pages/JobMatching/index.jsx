@@ -39,7 +39,7 @@ const JobMatching = () => {
   const [loadingg, setLoadingg] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
   const [files, setFiles] = useState([]);
-  const { clientId, parentId } = router.query;
+  const { clientId, selectedJob } = router.query;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
@@ -62,10 +62,31 @@ const JobMatching = () => {
   const [activePlan, setActivePlan] = useState(0)
   const [limitPopup, setLimitPopup] = useState(false);
   const [tab, setTab] = useState(0)
-  const [selectedJob, setSelectedJob] = useState()
+  const [update, setUpdate] = useState()
   const [isMatched, setIsMatched] = useState(false)
-
+  const [parentId, setParentId] = useState()
+  const [fileName, setFileName] = useState()
   const [userDetails, setUserDetails] = useState()
+  const [isOpen, setIsOpen] = useState(false)
+  const [hiringLoading, setHiringLoading] = useState("");
+  const [jdApplicantFileNames, setJdApplicantFilename] = useState([])
+  const [jobData, setJobData] = useState()
+
+  localStorage.setItem("selectedIndexes", "");
+  localStorage.setItem("selectedIndexesFileType", "");
+
+  useEffect(() => {
+    const parentid = localStorage.getItem("parentId");
+    const filename = localStorage.getItem("fileName");
+    setParentId(parentid)
+    setFileName(filename)
+  }, [isOpen])
+
+  useEffect(() => {
+    const existingFilenames = JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
+    setJdApplicantFilename(existingFilenames)
+  }, [update])
+
   const getLimits = () => {
     const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
     setJdCountMonthly(jdCountMonthly)
@@ -80,19 +101,21 @@ const JobMatching = () => {
     getLimits()
   }, [])
 
+
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsCollection(false);
     }
   };
-  
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [taskRef]);
-  
+
 
 
   useEffect(() => {
@@ -169,8 +192,9 @@ const JobMatching = () => {
         .get("http://localhost:2000/api/job/getById/" + selectedJob)
         .then((res) => {
           setLoading(false);
-          setExtractedData(res.data);
-
+          const { applications, ...restData } = res.data;
+          setExtractedData(restData);
+          setJobData(res.data)
 
         })
         .catch((err) => {
@@ -185,8 +209,8 @@ const JobMatching = () => {
 
   }, [tab]);
 
-  
-  
+
+
 
   // useEffect(() => {
   //   if (count > 3) {
@@ -292,6 +316,7 @@ const JobMatching = () => {
       setResumeList(dataArray);
       setIsMatched(true)
       setSelectedIndexes([])
+      setCollection("")
       setSelectedIndexesFilesType([])
       setButtonToggle(false);
       // setLoadingg(false);
@@ -301,11 +326,39 @@ const JobMatching = () => {
     }
   };
 
+
+
+  const addApplicant = async (applicantData) => {
+    setHiringLoading(true)
+    try {
+      const response = await axios.put(`http://localhost:2000/api/job/moveToHiring/${selectedJob}`, applicantData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      toast.success("Move to Hiring Successfully")
+
+      const existingFilenames = JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
+
+      const updatedFilenames = [...existingFilenames, applicantData?.fileName];
+      localStorage.setItem("jdApplicantFilenames", JSON.stringify(updatedFilenames))
+      setUpdate(!update)
+      setHiringLoading(false)
+      return response.data;
+    } catch (error) {
+      setHiringLoading(false)
+      console.log(error);
+      toast.error(` ${error.response?.data?.message || error.message}`);
+
+    }
+  };
+
+
   useEffect(() => {
     const intervals = [
       { text: "Analyzing Data", duration: 10000 },
       { text: "Finding Results", duration: 20000 },
-      { text: "Almost There", duration: 2 }, 
+      { text: "Almost There", duration: 2 },
     ];
 
     let currentInterval = 0;
@@ -326,9 +379,9 @@ const JobMatching = () => {
     };
   }, []);
 
-  console.log(222,resumeList);
 
 
+console.log(333,resumeList);
 
   const updateJobMatchLimit = async () => {
     let resumeCount = selectedIndexesFileTypes.length;
@@ -359,17 +412,12 @@ const JobMatching = () => {
       return { success: false, message: 'Something went wrong', error };
     }
   };
-
+  console.log(tab);
   return (
     <>
+
+
       {tab === 0 &&
-        <div>
-          <SelectPost setTab={setTab} setSelectedJob={setSelectedJob} />
-        </div>
-      }
-
-
-      {tab === 1 &&
         <>
           {limitPopup && (
             <div className="z-[200000]">
@@ -433,20 +481,24 @@ const JobMatching = () => {
             )}
             <div ref={taskRef}   >
               {isCollection && (
-              
-                 
-                    <JdFiles
-                      details={details}
-                      query={router.query}
-                      setSelectedIndexes={setSelectedIndexes}
-                      selectedIndexes={selectedIndexes}
-                      loading={loading}
-                      selectedIndexesFileTypes={selectedIndexesFileTypes}
-                      setSelectedIndexesFilesType={setSelectedIndexesFilesType}
-                      setIsCollection={setIsCollection}
-                    />
-                  
-              
+
+
+                <JdFiles
+                  details={details}
+                  fileName={fileName}
+                  setSelectedIndexes={setSelectedIndexes}
+                  selectedIndexes={selectedIndexes}
+                  loading={loading}
+                  selectedIndexesFileTypes={selectedIndexesFileTypes}
+                  setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+                  setIsCollection={setIsCollection}
+                  setCollection={setCollection}
+                  setTab={setTab}
+                  setIsOpen={setIsOpen}
+                  isOpen={isOpen}
+                />
+
+
               )}
             </div>
 
@@ -462,7 +514,7 @@ const JobMatching = () => {
               <div className="flex flex-col gap-2 w-full">
 
                 <div className="w-full flex gap-4 text-[14px] font-montserrat items-center font-medium">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center font-semibold text-[14px] text-[#646464]">
                     <input
                       type="radio"
                       className="h-4 w-4 custom-radio"
@@ -475,7 +527,7 @@ const JobMatching = () => {
                     />
                     <label>My Collection</label>
                   </div>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center font-semibold text-[14px] text-[#646464]">
                     <input
                       // disabled={!isChecked}
                       type="radio"
@@ -491,6 +543,11 @@ const JobMatching = () => {
                   </div>
                 </div>
               </div>
+              {selectedIndexes.length > 0 &&
+                <div className="font-medium text-[16px] ">
+                  Selected Resumes : <span className="text-[16px] font-semibold"> {selectedIndexesFileTypes?.length}</span>
+                </div>
+              }
               <div className="flex flex-row gap-4 items-center">
                 <span className=" text-[14px] font-[500] text-[#333333]">
                   Set Filter Limit{" "}
@@ -506,8 +563,12 @@ const JobMatching = () => {
                   placeholder="Ex. 5"
                   className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
                 />
+                <button disabled={!selectedIndexes.length > 0} onClick={() => MatchJob()} style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
+                  className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
+                  Find Match
+                </button>
               </div>
-              <div onClick={() => MatchJob()} className="bg-blue text-white px-4 py-2 rounded-[12px] font-medium w-[130px]">Find Match</div>
+
 
             </div>
             <div className="flex flex-col gap-6 h-full  ">
@@ -519,7 +580,7 @@ const JobMatching = () => {
 
               {isMatched &&
                 <div className="ml:w-[56%] w-full">
-                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails}/>
+                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails} addApplicant={addApplicant} hiringLoading={hiringLoading} jobData={jobData} jdApplicantFileNames={jdApplicantFileNames} />
                 </div>
               }
             </div>
@@ -529,10 +590,10 @@ const JobMatching = () => {
           </div>
         </>
       }
-        {tab === 2 &&
-        <ApplicantDetails userDetails={userDetails} setTab={setTab}  />
+      {tab === 1 &&
+        <ApplicantDetails userDetails={userDetails} setTab={setTab} jobData={jobData} addApplicant={addApplicant} hiringLoading={hiringLoading} jdApplicantFileNames={jdApplicantFileNames} />
 
-}
+      }
     </>
   );
 };
