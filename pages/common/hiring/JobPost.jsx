@@ -45,11 +45,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
-    setApplicantIds([applicant.applicantId])
+    setApplicantIds([applicant?.applicantId])
   };
 
   const handleCheckboxChange = (index, applicant) => {
-    if (applicant.hiringStage === "Rejected") {
+    if (applicant?.hiringStage === "Rejected") {
       return;
     }
 
@@ -81,7 +81,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   const handleSend = async (applicant) => {
     if (!allReject) {
-      setLoadingg({ isLoading: true, applicantId: applicant.applicantId });
+      setLoadingg({ isLoading: true, applicantId: applicant?.applicantId });
     } else {
       setLoadinggg(true)
     }
@@ -543,7 +543,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   ? "bg-[#D3F1FF]"
                                   : "bg-[#FFFFFF]"
                                   }`}
-                                key={applicant._id}
+                                key={applicant?._id}
                               >
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
                                   <input
@@ -559,63 +559,63 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       alt=""
                                     />
                                     <p className="text-[14px] font-[600]">
-                                      {applicant.details?.personal?.firstName}
+                                      {applicant?.details?.personal?.firstName}
                                     </p>
                                   </div>
                                   <div className="flex w-[10%] items-center justify-start   gap-[8px]">
                                     <p className="text-[14px] font-[600]">
-                                      {applicant.source}
+                                      {applicant?.source}
                                     </p>
                                   </div>
 
                                   <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                                     <p className="text-[14px] font-[600]">
-                                      {applicant.matchingPercentage} %
+                                      {applicant?.matchingPercentage} %
                                     </p>
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
                                       className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
                                         ? "bg-[#FFFFFF]"
-                                        : applicant.hiringStage ===
+                                        : applicant?.hiringStage ===
                                           "Interview"
                                           ? "bg-[#26A4FF1A]"
-                                          : applicant.hiringStage === "Pending"
+                                          : applicant?.hiringStage === "Pending"
                                             ? "bg-[#FFF9ED]"
-                                            : applicant.hiringStage === "Hired"
+                                            : applicant?.hiringStage === "Hired"
                                               ? "bg-[#56CDAD1A]"
-                                              : applicant.hiringStage ===
+                                              : applicant?.hiringStage ===
                                                 "Shortlisted"
                                                 ? "bg-[#4640DE1A]"
-                                                : applicant.hiringStage === "Rejected"
+                                                : applicant?.hiringStage === "Rejected"
                                                   ? "bg-[#FF65501A]"
-                                                  : applicant.hiringStage ===
+                                                  : applicant?.hiringStage ===
                                                     "In Review"
                                                     ? "bg-[#EB85331A]"
                                                     : ""
-                                        } ${applicant.hiringStage === "Interview"
+                                        } ${applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
-                                          : applicant.hiringStage === "Pending"
+                                          : applicant?.hiringStage === "Pending"
                                             ? "text-[#FFB836]"
-                                            : applicant.hiringStage === "Hired"
+                                            : applicant?.hiringStage === "Hired"
                                               ? "text-[#56CDAD]"
-                                              : applicant.hiringStage ===
+                                              : applicant?.hiringStage ===
                                                 "Shortlisted"
                                                 ? "text-[#4640DE]"
-                                                : applicant.hiringStage === "Rejected"
+                                                : applicant?.hiringStage === "Rejected"
                                                   ? "text-[#FF6550]"
-                                                  : applicant.hiringStage ===
+                                                  : applicant?.hiringStage ===
                                                     "In Review"
                                                     ? "text-[#FFB836]"
                                                     : "text-[#333333]"
                                         }`}
                                     >
-                                      {applicant.hiringStage}
+                                      {applicant?.hiringStage}
                                     </div>
                                   </div>
                                   <div className=" flex text-[14px] w-[15%]  font-[600]">
                                     <p>
-                                      {new Date(applicant.appliedOn)
+                                      {new Date(applicant?.appliedOn)
                                         .toLocaleDateString("en-GB", {
                                           day: "2-digit",
                                           month: "short",
@@ -629,7 +629,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       className="cursor-pointer"
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails.data.jobDetails._id}`
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${jobDetails.data.jobDetails._id}`
                                         )
                                       }
                                     >
@@ -677,7 +677,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} statusChange={statusChange} setStatusChange={setStatusChange} applicantIds={applicantIds} />
                                       )}
                                     </                                                                                                  >
-                                    {loadingg.isLoading && loadingg.applicantId === applicant.applicantId ? (
+                                    {loadingg.isLoading && loadingg.applicantId === applicant?.applicantId ? (
                                       <div className="w-[49.81px] flex justify-center items-center">
                                         <MiniLoaderr />
                                       </div>
@@ -812,16 +812,16 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         />
                                         <p className="text-[14px] text-[#333] font-[600]">
                                           {
-                                            applicant.details?.personal
+                                            applicant?.details?.personal
                                               ?.firstName
                                           }
                                         </p>
                                       </div>
                                       <div className="flex justify-end items-center gap-4 relative">
                                         <div className="flex items-center gap-2">
-                                          {applicant.img_star1}
+                                          {applicant?.img_star1}
                                           <p className="text-[14px] font-[600]">
-                                            {applicant.score}
+                                            {applicant?.score}
                                           </p>
                                         </div>
                                         <img

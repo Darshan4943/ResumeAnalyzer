@@ -9,22 +9,26 @@ function JdFiles({
   setIsCollection,
   files,
   details,
-  query,
+  fileName,
   selectedIndexes,
   setSelectedIndexes,
   loading,
   setSelectedIndexesFilesType,
   selectedIndexesFileTypes,
+  setCollection,
+  setTab,
+  setIsOpen,
+  isOpen
 }) {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
-  const { clientId, name } = query;
+
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {
     function sortFoldersAndFiles(data) {
-      return data.sort((a, b) => {
+      return data?.sort((a, b) => {
         if (a.type === b.type) {
           return 0;
         }
@@ -35,17 +39,79 @@ function JdFiles({
     setData(details);
     setAllData(details);
   }, [details]);
-  const openFolder = (index, parentId, name, item) => {
-    if (item?.type == "file") {
-      window.location.href = item.file;
-    } else {
-      localStorage.setItem("previousPage", window.location.href);
-      router.push({
-        pathname: "/transform/JobMatching",
-        query: { ...query, name, parentId },
+
+
+//   const openFolder = (index, parentId, name, item) => {
+//   if (item?.type === "file") {
+//     window.location.href = item.file;
+//   } else {
+//     const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+//     const currentParentId = localStorage.getItem("parentId");
+//     const currentFileName = localStorage.getItem("fileName");
+
+//     if (currentParentId !== null && currentFileName !== null) {
+//       historyStack.push({
+//         parentId: currentParentId,
+//         fileName: currentFileName,
+//       });
+//       localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+//     }
+
+//     localStorage.setItem("parentId", parentId);
+//     localStorage.setItem("fileName", name);
+//     setIsOpen(!isOpen);
+//   }
+// };
+
+// const handleBack = () => {
+//   const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+
+//   if (historyStack.length > 0) {
+//     const lastFolder = historyStack.pop();
+//     localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+//     localStorage.setItem("parentId", lastFolder.parentId);
+//     localStorage.setItem("fileName", lastFolder.fileName);
+//     setIsOpen(!isOpen);
+//   }
+// };
+
+const openFolder = (index, parentId, name, item) => {
+  if (item?.type === "file") {
+    window.location.href = item.file;
+  } else {
+    const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+    const currentParentId = localStorage.getItem("parentId");
+    const currentFileName = localStorage.getItem("fileName");
+
+    if (currentParentId !== null && currentFileName !== null) {
+      historyStack.push({
+        parentId: currentParentId,
+        fileName: currentFileName,
       });
+      localStorage.setItem("folderHistory", JSON.stringify(historyStack));
     }
-  };
+
+    localStorage.setItem("parentId", parentId || ""); 
+    localStorage.setItem("fileName", name || ""); 
+    setIsOpen(!isOpen);
+  }
+};
+
+const handleBack = () => {
+  const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+
+  if (historyStack.length > 0) {
+    const lastFolder = historyStack.pop();
+    localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+    localStorage.setItem("parentId", lastFolder.parentId);
+    localStorage.setItem("fileName", lastFolder.fileName);
+    setIsOpen(!isOpen);
+  } else {
+    localStorage.setItem("parentId", "");
+    localStorage.setItem("fileName", "");
+  }
+};
+
 
   const fileIconSeter = (data) => {
     if (
@@ -229,18 +295,31 @@ function JdFiles({
     }
   };
 
+
+  // useEffect(() => {
+  //   // Check if the query parameter exists in localStorage
+  //   const isFiles = localStorage.getItem("isFiles");
+  //   if (isFiles) {
+  //     localStorage.removeItem("isFiles"); // Clear it once used
+  //     router.replace({
+  //       pathname: router.pathname,
+  //       query: { ...router.query, isFiles },
+  //     });
+  //   }
+  // }, [router]);
+
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
         <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit w-[60%] ">
           <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] relative ">
-            
+
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
-              {name && (
+              {fileName && (
                 <svg
                   className="min-w-[32px]"
-                  onClick={() => router.back()}
+                  onClick={handleBack}
                   width="32"
                   height="32"
                   viewBox="0 0 32 32"
@@ -255,12 +334,12 @@ function JdFiles({
                   </g>
                 </svg>
               )}
-              {/* {name && (
-            <span className="text-[14px] text-[#333333] font-normal">
-              {name}
-            </span>
-          )} */}
-              <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
+              {fileName && (
+                <span className="text-[16px] text-[#333333] font-medium  min-w-fit">
+                  {fileName}
+                </span>
+              )}
+              <div className="flex ml-4 flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
                 <SearchIcon />
 
                 <input
@@ -307,7 +386,7 @@ function JdFiles({
                   <div
                     key={index}
                     onClick={() => openFolder(index, item._id, item.fileName, item)}
-                    className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] rounded-[8px] cursor-pointer "
+                    className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] max-h-[100px] rounded-[8px] cursor-pointer "
                   >
                     <div className="relative">
                       {fileIconSeter(item)}
@@ -345,8 +424,8 @@ function JdFiles({
             )}
           </div>
           <div className="flex justify-end gap-4">
-            <button onClick={()=>setIsCollection(false)} className="border border-blue px-6 py-2 text-[14px] font-medium rounded-[30px]"> Cancel</button>
-            <button onClick={()=>setIsCollection(false)} className="border border-blue bg-blue px-6 py-2 text-[14px] text-white font-medium rounded-[30px]"> Done</button>
+            <button onClick={() => { setIsCollection(false); setCollection("") }} className="border border-blue px-6 py-2 text-[14px] font-medium rounded-[30px]"> Cancel</button>
+            <button onClick={() => setIsCollection(false)} className="border border-blue bg-blue px-6 py-2 text-[14px] text-white font-medium rounded-[30px]"> Done</button>
           </div>
         </div>
       </div>

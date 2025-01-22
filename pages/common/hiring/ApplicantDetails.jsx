@@ -6,6 +6,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import MiniLoader from "../../../components/common/miniLoader";
 import ApplicantProfile from "./ApplicantProfile";
 import ApplicantDetailsLeftCard from "./ApplicantDetailsLeftCard";
+import { useSelector } from "react-redux";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -16,6 +17,7 @@ function ApplicantDetails({ setTogglee }) {
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
   const { id, applicantId } = router.query;
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const getData = async () => {
     try {
@@ -64,33 +66,46 @@ function ApplicantDetails({ setTogglee }) {
   };
 
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
   const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
     const [numPages, setNumPages] = useState(null);
-
+    console.log(loadingg);
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
       setTimeout(() => {
         setLoadingg(false);
-      }, 2000);
+      }, 1000);
     };
 
     return (
-      <div className="ms:h-[729px] ms:w-[520px] scr420:h-[465px] scr420:w-[350px] h-[400px] w-[300px] rounded-[3px]">
+      <div style={{
+        // width: "168px",
+        // height: "192px",
+        border: "1px solid #06A9EF",
+        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        borderRadius: "10px",
+        // overflow: "hidden",
+        width:"600px",
+        height:"772px"
+      }}
+      >
         {loadingg && (
-          <div className="skeleton-loader">
-            <div className="skeleton-image"></div>
-            <div className="skeleton-text">
-              <div className="skeleton-title"></div>
-              <div className="skeleton-subtitle"></div>
-              <div className="skeleton-line"></div>
-              <div className="skeleton-line short"></div>
-              <div className="skeleton-line shorter"></div>
+          <div className="skeleton-loader1  ">
+            <div className="skeleton-image1"></div>
+            <div className="skeleton-text1">
+              <div className="skeleton-title1"></div>
+              <div className="skeleton-subtitle1"></div>
+              <div className="skeleton-line1"></div>
+              <div className="skeleton-line1 short"></div>
+              <div className="skeleton-line1 shorter"></div>
             </div>
           </div>
         )}
+
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={1} />
+          {!loadingg &&
+            Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
         </Document>
       </div>
     );
@@ -116,13 +131,13 @@ function ApplicantDetails({ setTogglee }) {
             </p>
           </div>
           <div className="flex ml:flex-row flex-col gap-5   mb-4 ">
-           <ApplicantDetailsLeftCard jobDetails={jobDetails} id={id} />
+            <ApplicantDetailsLeftCard jobDetails={jobDetails} id={id} />
             {jobDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
                     <div
-                      className={`flex justify-between ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
+                      className={`flex justify-start gap-12 ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
                     >
                       <div>
                         <p
@@ -176,47 +191,50 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      <div>
-                        <p
-                          className={`${activeOption === "HiringProgress"
-                            ? "text-[#333]"
-                            : "text-[#646464]"
-                            } cursor-pointer`}
-                          onClick={() => handleOptionClick("HiringProgress")}
-                        >
-                          Hiring Progress
-                        </p>
-                        <svg
-                          className=" ml:w-[128px] sm:w-[115px] w-[95px]"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="4"
-                          viewBox="0 0 138 4"
-                          fill="none"
-                        >
-                          <path
-                            d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
-                            fill={
-                              activeOption === "HiringProgress"
-                                ? "#06A9EF"
-                                : "white"
-                            }
-                          />
-                        </svg>
-                      </div>
+                      {userDataGlobal?.role === "employer" &&
+                        <div>
+                          <p
+                            className={`${activeOption === "HiringProgress"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                              } cursor-pointer`}
+                            onClick={() => handleOptionClick("HiringProgress")}
+                          >
+                            Hiring Progress
+                          </p>
+                          <svg
+                            className=" ml:w-[128px] sm:w-[115px] w-[95px]"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="4"
+                            viewBox="0 0 138 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
+                              fill={
+                                activeOption === "HiringProgress"
+                                  ? "#06A9EF"
+                                  : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
+                      }
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
                 </div>
                 {toggle === "ApplicantProfile" && (
-                 <ApplicantProfile jobDetails={jobDetails} />
+                  <ApplicantProfile jobDetails={jobDetails} />
                 )}
                 {toggle === "Resume" && (
-                  <div className=" flex justify-center overflow-y-auto  px-6">
+                     <div className=" flex items-center justify-center py-[16px] resumes2">
                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
+                    
                   </div>
                 )}
                 {toggle === "HiringProgress" && <HiringProgress />}

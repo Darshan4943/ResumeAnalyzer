@@ -48,13 +48,13 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/myCollection.png',
       img1: '/images/employer/sidebar/myCollection1.png',
       title: 'My Collection',
-      route: '/myCollection?folder=true',
+      route: '/myCollection?folders=true',
     },
     {
       img: '/images/employer/sidebar/jdMatching.png',
       img1: '/images/employer/sidebar/jdMatching1.png',
       title: 'JD Matching',
-      route: '/JobMatching',
+      route: '/JobMatching/SelectJob',
     },
   ];
   

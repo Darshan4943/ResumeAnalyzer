@@ -61,11 +61,12 @@ function ShortlistMail({ shortlist, setPopupVisible, id, setStatusChange, status
 
     return (
         <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[2000]">
-                <div className="bg-white p-8 rounded-lg shadow-lg w-[996px] h-[80vh] overflow-y-auto max-h-[560px]">
+           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-20"></div>
+           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+                <div className="bg-white p-8 rounded-lg  w-[996px] h-[80vh] overflow-y-auto max-h-[560px]">
                     <div className="mb-4 flex items-center">
                         <div className="flex flex-col">
-                            <div onClick={() => setPopupVisible(false)} className="flex w-full justify-end">
+                            <div onClick={() => setPopupVisible(false)} className="flex w-full justify-end cursor-pointer">
                                 <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.99735 11.1232L3.50485 17.6152C3.21518 17.9052 2.86402 18.0469 2.45135 18.0402C2.03835 18.0339 1.68702 17.8859 1.39735 17.5962C1.10768 17.3065 0.96285 16.952 0.96285 16.5327C0.96285 16.1134 1.10768 15.7589 1.39735 15.4692L7.87035 8.99619L1.37835 2.55369C1.08835 2.26402 0.946683 1.90952 0.95335 1.49019C0.959683 1.07119 1.10768 0.716855 1.39735 0.427188C1.68702 0.137188 2.04152 -0.0078125 2.46085 -0.0078125C2.88018 -0.0078125 3.23468 0.137188 3.52435 0.427188L9.99735 6.91919L16.4398 0.427188C16.7295 0.137188 17.0807 -0.0078125 17.4933 -0.0078125C17.9063 -0.0078125 18.2577 0.137188 18.5473 0.427188C18.8577 0.737188 19.0128 1.09669 19.0128 1.50569C19.0128 1.91469 18.8577 2.26402 18.5473 2.55369L12.0743 8.99619L18.5663 15.4887C18.8563 15.7784 19.0013 16.1295 19.0013 16.5422C19.0013 16.9552 18.8563 17.3065 18.5663 17.5962C18.2563 17.9065 17.8968 18.0617 17.4878 18.0617C17.0788 18.0617 16.7295 17.9065 16.4398 17.5962L9.99735 11.1232Z" fill="#333333" />
                                 </svg>
@@ -145,15 +146,15 @@ function ShortlistMail({ shortlist, setPopupVisible, id, setStatusChange, status
                                     <Editor
                                         value={content}
                                         onTextChange={(e) => setContent(e.htmlValue)}
-                                        style={{
-                                            border: formError.description
-                                                ? "2px solid red"
-                                                : "2px solid #dedede",
-                                            fontSize: "16px",
-                                            color: "#333",
-                                            padding: "10px",
-                                            minHeight: "196px",
-                                        }}
+                                        // style={{
+                                        //     border: formError.description
+                                        //         ? "2px solid red"
+                                        //         : "2px solid #dedede",
+                                        //     fontSize: "16px",
+                                        //     color: "#333",
+                                        //     padding: "10px",
+                                        //     minHeight: "196px",
+                                        // }}
                                     />
                                 </div>
                             </div>

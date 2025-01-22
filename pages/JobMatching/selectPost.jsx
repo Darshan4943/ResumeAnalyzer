@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/miniLoader";
 import { dateSeter } from "../../utils/middleware";
 
-const SelectPost = ({setTab,setSelectedJob}) => {
+const SelectPost = () => {
   const router = useRouter();
    const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filterStatus, setFilterStatus] = useState("All");
@@ -123,7 +123,7 @@ const SelectPost = ({setTab,setSelectedJob}) => {
                       key={index}
                       className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px] relative bg-white"
                       onClick={() =>{
-                       setTab(1);setSelectedJob(item._id)}
+                      router.push(`/JobMatching?selectedJob=${item?._id}`)}
                       }
                     >
                       <div className="px-[16px] flex flex-row justify-between ">
