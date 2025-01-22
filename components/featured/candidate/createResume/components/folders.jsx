@@ -722,9 +722,9 @@ function Folders({
 
         {showDelete && (
           <>
-            <div className="opacity-25 fixed inset-0 z-[1200] bg-black"></div>
+            <div className="opacity-25 fixed inset-0 z-[2200] bg-black"></div>
 
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[1300] outline-none focus:outline-none ">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[2300] outline-none focus:outline-none ">
               <div className="delete_modal_container pt-[16px] scr420:w-[360px] w-[300px] px-[16px] scr420:px-[36px]">
                 <div className="flex items-center gap-3">
                   <img
