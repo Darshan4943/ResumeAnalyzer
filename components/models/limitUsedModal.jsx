@@ -29,7 +29,7 @@ const LimitUsedModal = ({ setVisible, visible }) => {
                       : "/images/resumeBuilder/required.png"
                   }
                   alt=""
-                  className="h-[166px] object-contain"
+                  className="h-[166px] object-contain" 
                 />
                 {!planAvailable && (
                   <span className="text-[22px] ml:text-[30px] text-[#C00000] font-semibold text-center">

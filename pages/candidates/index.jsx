@@ -91,11 +91,11 @@ function MyClients() {
         data: { ids },
       })
       .then((response) => {
-
-        ;
         toast.success("Candidate Deleted successfully");
+        callData()
         setSelectedIndexes([]);
         setSelect(false);
+      
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -284,9 +284,7 @@ function MyClients() {
                       //   }
                       // }}
                       onClick={() => {
-
                         router.push("/candidates/CreateNewClient");
-
                       }}
                       className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[51px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                       type="button"
@@ -324,11 +322,9 @@ function MyClients() {
                     //   }
                     // }}
                     onClick={() => {
-
                       router.push("/candidates/CreateNewClient");
-
                     }}
-                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-[36px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[30px] text-white"
+                    className=" ml:flex w-[285.09px] hidden text-[16px] font-semibold py-3 px-[36px] min-w-[224px]  ml:min-w-[285.09px] gap-1 bg-[#06A9EF] rounded-[30px] text-white"
                     type="button"
                   >
                     <svg
@@ -380,42 +376,41 @@ function MyClients() {
                 />
               ) : (
                 <div
-            // onClick={() => {
-            //   if (clientCount >= clientCountLimit) {
-            //     setLimitPopUp(true);
-            //   } else {
-            //     router.push("/myClients/CreateNewClient");
-            //   }
-            // }}
-            // onClick={() => {
-            //   if (!planAvailable) {
-            //     setLimitPopUp(true);
-            //   } else {
-            //     router.push("/myClients/CreateNewClient");
-            //   }
-            // }}
-            onClick={() => {
+                  // onClick={() => {
+                  //   if (clientCount >= clientCountLimit) {
+                  //     setLimitPopUp(true);
+                  //   } else {
+                  //     router.push("/myClients/CreateNewClient");
+                  //   }
+                  // }}
+                  // onClick={() => {
+                  //   if (!planAvailable) {
+                  //     setLimitPopUp(true);
+                  //   } else {
+                  //     router.push("/myClients/CreateNewClient");
+                  //   }
+                  // }}
+                  onClick={() => {
 
-              router.push("/candidates/CreateNewClient");
+                    router.push("/candidates/CreateNewClient");
 
-            }}
-            className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] h-[332px] p-4 cursor-pointer"
-          >
-            <svg
-              width="27"
-              height="27"
-              viewBox="0 0 27 27"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                fill="#333333"
-              />
-            </svg>
-
-            <p>Create New Client</p>
-          </div >
+                  }}
+                  className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] h-[332px] p-4 cursor-pointer"
+                >
+                  <svg
+                    width="27"
+                    height="27"
+                    viewBox="0 0 27 27"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                      fill="#333333"
+                    />
+                  </svg>
+                  <p>Create New Client</p>
+                </div >
               )}
               {limitPopUp && (
                 <LimitUsedModal
