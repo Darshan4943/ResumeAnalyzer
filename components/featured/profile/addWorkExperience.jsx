@@ -29,6 +29,7 @@ function AddWorkExperience({
     organisation: false,
     designation: false,
     location: false,
+    duration: false,
   });
 
   const [experienceData, setExperienceData] = useState(() => ({
@@ -73,7 +74,7 @@ function AddWorkExperience({
       const { name, value } = event.target;
       setErrorObj((prev) => ({
         ...prev,
-        [name]: false, 
+        [name]: false,
       }));
       setExperienceData((prevData) => ({
         ...prevData,
@@ -84,49 +85,91 @@ function AddWorkExperience({
   };
 
   const validateField = (fieldName, value) => {
-    let updatedErrorObj = { ...errorObj }; 
+    let updatedErrorObj = { ...errorObj };
+
     switch (fieldName) {
       case "jobType":
-        updatedErrorObj.jobType = !value; 
+        updatedErrorObj.jobType = !value;
         setErrorMessage(updatedErrorObj.jobType ? "Job Type is required" : "");
         break;
       case "jobMode":
-        updatedErrorObj.jobMode = !value; 
+        updatedErrorObj.jobMode = !value;
         setErrorMessage(updatedErrorObj.jobMode ? "Job Mode is required" : "");
         break;
       case "organisation":
-        updatedErrorObj.organisation = !value; 
-        setErrorMessage(updatedErrorObj.organisation ? "Organisation is required" : "");
+        updatedErrorObj.organisation = !value;
+        setErrorMessage(
+          updatedErrorObj.organisation ? "Organisation is required" : ""
+        );
         break;
       case "designation":
-        updatedErrorObj.designation = !value; 
-        setErrorMessage(updatedErrorObj.designation ? "Designation is required" : "");
+        updatedErrorObj.designation = !value;
+        setErrorMessage(
+          updatedErrorObj.designation ? "Designation is required" : ""
+        );
         break;
       case "location":
-        updatedErrorObj.location = !value; 
+        updatedErrorObj.location = !value;
         setErrorMessage(updatedErrorObj.location ? "Location is required" : "");
+        break;
+      case "duration":
+        const isInvalidDuration =
+          value.start.year === "Year" ||
+          value.start.month === "Month" ||
+          value.end.year === "Year" ||
+          value.end.month === "Month";
+        updatedErrorObj.duration = isInvalidDuration;
+        setErrorMessage(isInvalidDuration ? "Duration is required" : "");
         break;
       default:
         break;
     }
-  
     setErrorObj(updatedErrorObj);
   };
-  
 
   const validateForm = () => {
     let updatedErrorObj = { ...errorObj };
-    Object.keys(updatedErrorObj).forEach((key) => {
-      if (!experienceData[key]) {
-        updatedErrorObj[key] = true;
-      }
-    });
-  
+    updatedErrorObj.jobType = !experienceData.jobType;
+    updatedErrorObj.jobMode = !experienceData.jobMode;
+    updatedErrorObj.organisation = !experienceData.organisation;
+    updatedErrorObj.designation = !experienceData.designation;
+    updatedErrorObj.location = !experienceData.location;
+    if (experienceData.currentlyWorking) {
+      const isInvalidStartDate =
+        experienceData.duration.start.year === "Year" ||
+        experienceData.duration.start.month === "Month";
+      updatedErrorObj.duration = isInvalidStartDate;
+    } else {
+      const isInvalidDuration =
+        experienceData.duration.start.year === "Year" ||
+        experienceData.duration.start.month === "Month" ||
+        experienceData.duration.end.year === "Year" ||
+        experienceData.duration.end.month === "Month";
+      updatedErrorObj.duration = isInvalidDuration;
+    }
     setErrorObj(updatedErrorObj);
-    if (Object.values(updatedErrorObj).includes(true)) {
+    const hasErrors = Object.values(updatedErrorObj).includes(true);
+  
+    if (hasErrors) {
+      setErrorMessage("Please fill in all required fields.");
+
+      if (updatedErrorObj.duration) {
+        toast.error(
+          experienceData.currentlyWorking
+            ? "Please select start date only."
+            : "Please select both start and end dates.",
+          {
+         
+            autoClose: 3000,
+          }
+        );
+      }
+  
+
       return false;
     }
-    setErrorMessage(""); 
+  
+    setErrorMessage("");
     return true;
   };
   
@@ -247,7 +290,7 @@ function AddWorkExperience({
                   errorObj.jobType === true ? "border-red" : "border-[#9D9D9D]"
                 }`}
                 name="jobType"
-                value={experienceData.jobType} // Prefill jobType
+                value={experienceData.jobType} 
                 onChange={handleInputChange}
               >
                 <option value="" disabled>
@@ -269,7 +312,7 @@ function AddWorkExperience({
                   errorObj.jobMode === true ? "border-red" : "border-[#9D9D9D]"
                 }`}
                 name="jobMode"
-                value={experienceData.jobMode} // Prefill jobMode
+                value={experienceData.jobMode} 
                 onChange={handleInputChange}
               >
                 <option value="" disabled>
@@ -342,13 +385,14 @@ function AddWorkExperience({
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="flex flex-col gap-[10px]">
           <DateSelector
             isRow={true}
             idPrefix="workExperience"
             data={experienceData}
             dataSeter={setExperienceData}
           />
+        
         </div>
 
         <div className="flex flex-col gap-2 ">
@@ -359,7 +403,7 @@ function AddWorkExperience({
             <select
               className="scr700:w-[46.51%] w-full  text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
               name="noticePeriod"
-              value={experienceData.noticePeriod} // Prefill noticePeriod
+              value={experienceData.noticePeriod} 
               onChange={handleInputChange}
             >
               <option value="" disabled>
