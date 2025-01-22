@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import MiniLoader from '../../../components/common/miniLoader';
 import JobCard from '../hiring/jobCard';
+import { useSelector } from 'react-redux';
 
 function JobPosting() {
     const router = useRouter();
@@ -10,16 +11,16 @@ function JobPosting() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedCompany, setSelectedCompany] = useState(null);
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
 
     useEffect(() => {
         const fetchCompanyData = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get(
-                    "http://localhost:2000/api/company/getCompanies"
+                    `http://localhost:2000/api/company/getCompaniesById/${userDataGlobal?._id}`
                 );
-                setCompanyData(response.data);
-
+                setCompanyData(response.data.companies);
                 setTimeout(() => {
                     setLoading(false);
                 }, 500);
@@ -68,7 +69,7 @@ function JobPosting() {
                                         className="border border-[#DEDEDE] rounded-[8px] p-2 text-[12px]  font-normal w-[204px]"
                                     >
                                         <option value="">Select a company</option>
-                                        {companyData.map((company) => (
+                                        {companyData?.map((company) => (
                                             <option key={company._id} value={company._id}>
                                                 {company.companyName}
                                             </option>

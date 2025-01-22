@@ -5,15 +5,12 @@ import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
 import DateSelector from "../../common/dateSelector";
 
-
-
 function AddCertificate({ setAddCertificate, editCourseData, Course }) {
-
-
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [cerficateData, setcertificateData] = useState({
     certificateName: "",
     certificateProvider: "",
@@ -23,7 +20,6 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
       start: { year: "Year", month: "Month" },
       end: { year: "Year", month: "Month" },
     },
-
     ...(editCourseData && {
       certificateName: Course?.name,
       certificateProvider: Course?.organization,
@@ -40,17 +36,45 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
         },
       },
     }),
-
-
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setcertificateData({
-      ...cerficateData,
-      [name]: value,
-    });
+    setcertificateData({ ...cerficateData, [name]: value });
+
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
+
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!cerficateData.certificateName.trim()) {
+      newErrors.certificateName = "Certificate name is required.";
+    }
+    if (!cerficateData.certificateProvider.trim()) {
+      newErrors.certificateProvider = "Certificate provider is required.";
+    }
+    if (!cerficateData.certificateId.trim()) {
+      newErrors.certificateId = "Certificate ID is required.";
+    }
+    if (!cerficateData.certificateUrl.trim()) {
+      newErrors.certificateUrl = "Certificate URL is required.";
+    }
+    if (
+      cerficateData.duration.start.year === "Year" ||
+      cerficateData.duration.start.month === "Month" ||
+      cerficateData.duration.end.year === "Year" ||
+      cerficateData.duration.end.month === "Month"
+    ) {
+      newErrors.duration = "Please select both start and end dates.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   function getYear() {
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 100;
@@ -63,19 +87,19 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     return years;
   }
 
-
-
-
-
-  const isEditing = !!editCourseData
+  const isEditing = !!editCourseData;
 
   const postData = () => {
+    if (!validateFields()) {
+      toast.error("Please fill in all the required fields correctly.");
+      return;
+    }
     setLoading(true);
 
     const obj = {
-      name:cerficateData.certificateName,
+      name: cerficateData.certificateName,
       organization: cerficateData.certificateProvider,
-      certificateId:cerficateData.certificateId,
+      certificateId: cerficateData.certificateId,
       duration: {
         startDate: {
           year: cerficateData.duration?.start.year,
@@ -86,15 +110,8 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
           month: cerficateData.duration?.end.month,
         },
       },
-      certificateurl:cerficateData.certificateUrl
+      certificateurl: cerficateData.certificateUrl,
     };
-   
-
-   
-
-   
-
-
 
     if (isEditing) {
       axios
@@ -109,13 +126,13 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
           toast.success("Course updated successfully");
         })
         .catch((err) => {
-
           console.error(err);
         });
     } else {
       axios
         .post(
-          "http://localhost:2000/api/candidate/addCourse/" + userDataGlobal?._id,
+          "http://localhost:2000/api/candidate/addCourse/" +
+            userDataGlobal?._id,
           obj
         )
         .then((res) => {
@@ -136,186 +153,18 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
           setLoading(false);
         });
     }
-
-
   };
 
-  const DatePicker = () => (
-    <div className="md:flex m:flex-row flex flex-col gap-[12px] w-full justify-between ">
-      <div className="flex flex-col gap-2 w-[50%]">
-        <div>
-          <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
-            Issued On
-          </label>
-        </div>
-        <div className="flex gap-4 md:w-full w-[15rem]">
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small w-[50%]">
-            <select
-              value={cerficateData.issuedOn.month}
-              onChange={(e) =>
-                setcertificateData({
-                  ...cerficateData,
-                  issuedOn: {
-                    ...cerficateData.issuedOn,
-                    month: e.target.value,
-                  },
-                })
-              }
-              className="w-full  outline-none"
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-            >
-              <option value="Month" disabled hidden className="px-4 py-2">
-                Month
-              </option>
-
-              {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
-                  {new Date(0, month - 1).toLocaleString("en", {
-                    month: "long",
-                  })}
-                </option>
-              ))}
-            </select>
-
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
-          </div>
-
-          <div className="flex p-2  items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
-            <select
-              value={cerficateData.issuedOn.year}
-              onChange={(e) =>
-                setcertificateData({
-                  ...cerficateData,
-                  issuedOn: {
-                    ...cerficateData.issuedOn,
-                    year: e.target.value,
-                  },
-                })
-              }
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-              className="w-full outline-none"
-            >
-              <option value="Year" disabled hidden>
-                Year
-              </option>
-              {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 px-4 py-2">
-                  {year}
-                </option>
-              ))}
-            </select>
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2 w-[50%]">
-        <div>
-          <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
-            Expiry on
-          </label>
-        </div>
-        <div className="flex gap-4  md:w-full w-[15rem] ">
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small w-[50%]">
-            <select
-              value={cerficateData.expiryOn.month}
-              onChange={(e) =>
-                setcertificateData({
-                  ...cerficateData,
-                  expiryOn: {
-                    ...cerficateData.expiryOn,
-                    month: e.target.value,
-                  },
-                })
-              }
-              className="w-full outline-none"
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-            >
-              <option value="Month" disabled hidden>
-                Month
-              </option>
-              {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
-                  {new Date(0, month - 1).toLocaleString("en", {
-                    month: "long",
-                  })}
-                </option>
-              ))}
-            </select>
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
-          </div>
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px] font-montserrat font-small w-[50%]">
-            <select
-              value={cerficateData.expiryOn.year}
-              onChange={(e) =>
-                setcertificateData({
-                  ...cerficateData,
-                  expiryOn: {
-                    ...cerficateData.expiryOn,
-                    year: e.target.value,
-                  },
-                })
-              }
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-              }}
-              className="w-full outline-none"
-            >
-              <option value="Year" disabled hidden>
-                Year
-              </option>
-              {getYear().map((year) => (
-                <option key={year} value={year} className="px-4 py-2">
-                  {year}
-                </option>
-              ))}
-            </select>
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
-    <div className="bg-white rounded-[16px] py-3 "
-    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-      <div
-        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-      >
+    <div
+      className="bg-white rounded-[16px] py-3 "
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
+      <div className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto ">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
             <p className="text-[#25324B] text-[18px]  font-[600] min-w-[160px] leading-[160%]">
-              {isEditing ? "Edit Certification": "Add Certification"}
+              {isEditing ? "Edit Certification" : "Add Certification"}
             </p>
 
             <div className="h-[1px] bg-[#DEDEDE] flex items-center w-full"></div>
@@ -349,7 +198,9 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateName}
             name={"certificateName"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
+            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid w-[100%] text-[12px] text-[#646464] ${
+              errors.certificateName ? "border-red" : "border-[#DEDEDE]"
+            } `}
             placeholder="Enter certification name here"
           />
         </div>
@@ -363,7 +214,9 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateProvider}
             name={"certificateProvider"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
+            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]  ${
+              errors.certificateProvider ? "border-red" : "border-[#DEDEDE]"
+            } `}
             placeholder="Enter your certification provider"
           />
         </div>
@@ -377,7 +230,9 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateId}
             name={"certificateId"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
+            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]  ${
+              errors.certificateId ? "border-red" : "border-[#DEDEDE]"
+            }  `}
             placeholder="Enter your course completion ID"
           />
         </div>
@@ -391,16 +246,28 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateUrl}
             name={"certificateUrl"}
             onChange={handleInputChange}
-            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
+            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]  ${
+              errors.certificateUrl ? "border-red" : "border-[#DEDEDE]"
+            }  `}
             placeholder="Enter your certification URL"
           />
         </div>
-        <DateSelector
-          idPrefix="addCourse"
-          data={cerficateData}
-          dataSeter={setcertificateData}
-          isRow={true}
-        />
+        <div
+          className={`relative ${
+            errors.duration ? "border-red-500" : "border-[#DEDEDE]"
+          }`}
+        >
+          <DateSelector
+            idPrefix="addCourse"
+            data={cerficateData}
+            dataSeter={setcertificateData}
+            isRow={true}
+          />
+          {errors.duration && (
+            <p className="text-red text-[12px] mt-1">{errors.duration}</p>
+          )}
+        </div>
+
         <div className="flex justify-end items-start self-stretch gap-[12px]">
           <button
             className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px]    text-[14px] font-[500] border-[1px] border-solid border-[#06A9EF]"
@@ -433,9 +300,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
                 <span class="sr-only">Loading...</span>
               </>
             ) : (
-              <>
-              {isEditing ? "Save Changes" :"Add Certificate"}
-              </>
+              <>{isEditing ? "Save Changes" : "Add Certificate"}</>
             )}
           </button>
         </div>
