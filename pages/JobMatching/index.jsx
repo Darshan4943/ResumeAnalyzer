@@ -545,7 +545,7 @@ console.log(333,resumeList);
               </div>
               {selectedIndexes.length > 0 &&
                 <div className="font-medium text-[16px] ">
-                  Selected Resumes : <span className="text-[16px] font-semibold"> {selectedIndexesFileTypes?.length}</span>
+                  Resumes Selected  : <span className="text-[16px] font-semibold"> {selectedIndexesFileTypes?.length}</span>
                 </div>
               }
               <div className="flex flex-row gap-4 items-center">

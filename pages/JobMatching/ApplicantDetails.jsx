@@ -9,7 +9,7 @@ import MiniLoader from "../../components/common/mini-loader";
 function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
-  console.log(666, userDetails);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -84,7 +84,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
         border: "1px solid #06A9EF",
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         borderRadius: "10px",
-        // overflow: "hidden",
+        overflow: "scroll",
         width: "600px",
         height: "800px"
       }}
@@ -133,7 +133,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
             {userDetails && (
               <div className="flex flex-col overflow-y-auto gap-6 px-6 py-4">
 
-                <div className=" flex  gap-6 items-center">
+                <div className=" flex  gap-6">
                   <img
                     className="max-w-[96px] max-h-[96px] rounded-full  p-1 object-cover"
 
@@ -143,14 +143,28 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                     }
                     alt=""
                   />
-                  <div className="w-[65%] flex flex-col gap-1">
+                  <div className="w-[65%] flex flex-col gap-1 justify-center">
                     <p className="text-[16px]   text-start font-semibold  ">
-                      {userDetails?.parsedData?.first_name}  {userDetails?.parsedData?.first_name}
+                      {userDetails?.name}{" "}
                     </p>
                     <p className="text-[14px]   text-start text-[#646464]   font-normal  ">
-                      {userDetails?.parsedData?.designation}
+                      {userDetails?.designation}
                     </p>
-
+                    {/* <div className="flex gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M21.2831 8.27584L15.3323 7.411L12.6722 2.01803C12.5995 1.87037 12.48 1.75084 12.3323 1.67818C11.962 1.49537 11.512 1.64771 11.3268 2.01803L8.66668 7.411L2.7159 8.27584C2.55184 8.29928 2.40184 8.37662 2.28699 8.49381C2.14815 8.63651 2.07165 8.8285 2.07428 9.02758C2.07692 9.22666 2.15849 9.41655 2.30106 9.55553L6.60653 13.7532L5.58934 19.6805C5.56549 19.8184 5.58074 19.9602 5.63338 20.0899C5.68602 20.2195 5.77394 20.3318 5.88716 20.4141C6.00038 20.4963 6.13437 20.5452 6.27395 20.5551C6.41352 20.5651 6.5531 20.5357 6.67684 20.4704L11.9995 17.6719L17.3222 20.4704C17.4675 20.5477 17.6362 20.5735 17.7979 20.5454C18.2057 20.4751 18.48 20.0883 18.4097 19.6805L17.3925 13.7532L21.6979 9.55553C21.8151 9.44068 21.8925 9.29068 21.9159 9.12662C21.9792 8.71646 21.6932 8.33678 21.2831 8.27584Z"
+                          fill="#FFB836"
+                        />
+                      </svg>
+                      <p className="text-[16px]    font-normal ">{userDetails?.totalExperience}</p>
+                    </div> */}
                   </div>
                 </div>
 
@@ -187,7 +201,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                 <div className="min-h-[1px] bg-[#D6DDEB]"></div>
                 <div className="flex flex-col  gap-[8px] w-[380px]">
                   <div className="text-[16px] font-[600]">Contact</div>
-                  {userDetails?.parsedData?.email &&
+                  {userDetails?.email &&
                     <div className="flex items-center gap-[8px]">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -198,11 +212,11 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
 
                       <div className="text-[14px] font-[400]">
-                        {userDetails?.parsedData?.email}
+                        {userDetails?.email}
                       </div>
                     </div>
                   }
-                  {userDetails?.parsedData?.mobileNo &&
+                  {userDetails?.Mobile &&
                     <div className="flex items-center gap-[8px]">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -211,10 +225,10 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                         </g>
                       </svg>
 
-                      <div className="text-[14px] font-[400]">{userDetails?.parsedData?.mobileNo}</div>
+                      <div className="text-[14px] font-[400]">{userDetails?.Mobile}</div>
                     </div>
                   }
-                  {userDetails?.parsedData?.address &&
+                  {userDetails?.location &&
                     <div className="flex items-center gap-[8px]">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -225,11 +239,11 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
 
                       <div className="text-[14px] font-[400]">
-                        {userDetails?.parsedData?.address}
+                        {userDetails?.location}
                       </div>
                     </div>
                   }
-                  {userDetails?.parsedData?.years_of_experience &&
+                  {userDetails?.totalExperience &&
                     <div className="flex items-center gap-[8px]">
                       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -238,7 +252,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                         </g>
                       </svg>
 
-                      <div className="text-[14px] font-[400]">{userDetails?.parsedData?.years_of_experience} Years</div>
+                      <div className="text-[14px] font-[400]">{userDetails?.totalExperience}</div>
                     </div>
                   }
                 </div>
@@ -318,22 +332,22 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                         <p className="text-[14px]  font-medium">Full Name</p>
                         <p className="text-[12px] font-normal">
                           {" "}
-                          {userDetails?.parsedData?.first_name}  {userDetails?.parsedData?.last_name}
+                          {userDetails?.name}
 
                         </p>
                       </div>
                       <div>
                         <p className=" text-[14px] font-medium">Address</p>
                         <p className="text-[12px] font-normal">
-                          {userDetails?.parsedData?.address}
+                          {userDetails?.location}
                         </p>
                       </div>
                     </div>
                     <div className="flex flex-col gap-4 w-[50%] ">
-                      {userDetails?.parsedData?.gender &&
+                      {userDetails?.gender &&
                         <div>
                           <p className="text-[14px]  font-medium">Gender</p>
-                          <p className="text-[12px] font-normal">{userDetails?.parsedData?.gender}</p>
+                          <p className="text-[12px] font-normal">{userDetails?.gender}</p>
                         </div>
                       }
                       {/* <div>
@@ -349,7 +363,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                       <p className=" font-medium text-[14px] ">About Me</p>
                       <div className="flex flex-col gap-4 text-[12px] font-normal">
                         <p>
-                          {userDetails?.parsedData?.summary}
+                          {userDetails?.about}
                         </p>
 
                       </div>
@@ -370,13 +384,13 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                       <div className="flex flex-col gap-4 ml:w-[70%] w-[100%]">
                         <div>
                           <p className="text-[14px]  font-medium">Experience in Years</p>
-                          <p className="text-[12px] font-normal">{userDetails?.parsedData?.years_of_experience} Years</p>
+                          <p className="text-[12px] font-normal">{userDetails?.totalExperience}</p>
                         </div>
-                        {userDetails?.parsedData?.skills &&
+                        {userDetails?.skills &&
                           <div className="flex flex-col gap-2">
                             <p className=" font-medium">Skills</p>
                             <div className="flex flex-wrap gap-2">
-                              {userDetails?.parsedData?.skills?.slice(0, 5)?.map((item, index) => (
+                              {userDetails?.skills?.slice(0, 5)?.map((item, index) => (
                                 <div key={index} className="flex gap-2 font-medium flex-wrap">
                                   <p className="border text-[12px] font-medium border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3">
                                     {item}
