@@ -19,7 +19,7 @@ function CreateCompany() {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [file, setFile] = useState(null);
     const [modelView, setModelView] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [croppedImage, setCroppedImage] = useState(null);
     const router = useRouter();
     const { companyId } = router.query;
@@ -36,13 +36,14 @@ function CreateCompany() {
 
     useEffect(() => {
         if (userDataGlobal?.id) {
-            setId(userDataGlobal._id);
+            setId(userDataGlobal?._id);
         }
     }, [userDataGlobal]);
 
     useEffect(() => {
         if (!companyId) return;
         const fetchCompanyDetails = async () => {
+            setLoading(true)
             try {
                 const response = await axios.get(`http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`);
                 if (response.data) {
