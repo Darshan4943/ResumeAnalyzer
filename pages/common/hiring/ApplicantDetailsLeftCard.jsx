@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import ShortlistMail from './ShortlistMail';
 
-function ApplicantDetailsLeftCard({ jobDetails, id }) {
+function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange }) {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [shortlist, setShortlist] = useState([]);
@@ -14,7 +14,9 @@ function ApplicantDetailsLeftCard({ jobDetails, id }) {
         <>
 
             {isPopupVisible && (
-               <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id}  applicantIds={[shortlist.applicantId]} />
+
+
+               <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id}  applicantIds={[shortlist.applicantId]} statusChange={statusChange} setStatusChange={setStatusChange} />
             )}
             <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
                 {jobDetails?.details && (

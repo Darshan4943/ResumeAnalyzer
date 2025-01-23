@@ -200,14 +200,15 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                                         <p className='text-[14px] font-semibold text-[#0C8A0A]'>Moved to Hiring</p>
 
                                     ) : (
-                                        hiringLoading ? (
-                                            <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
-                                            >
-                                                <MiniLoader />
-                                            </div>
-                                        ) :
+                                        // hiringLoading ? (
+                                        //     <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                                        //     >
+                                        //         <MiniLoader />
+                                        //     </div>
+                                        // ) :
                                             <button
                                                 onClick={() => addApplicant(user)}
+                                                disabled={hiringLoading}
                                                 className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
                                             >
                                                 Move to Hiring
