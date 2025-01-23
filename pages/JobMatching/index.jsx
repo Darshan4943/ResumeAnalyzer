@@ -45,7 +45,7 @@ const JobMatching = () => {
   const [count, setCount] = useState(0);
   const [collection, setCollection] = useState()
   const [isCollection, setIsCollection] = useState()
-  //sideBar implimentation
+  const [isSkilotechCollection, setIsSkilotechCollection] = useState()
   const [showMatchingSidebar, setShowsideBar] = useState(false);
   const [extratctedData, setExtractedData] = useState(null);
   const [btnToggle, setButtonToggle] = useState(false);
@@ -74,8 +74,8 @@ const JobMatching = () => {
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
- 
- 
+  console.log(333, extratctedData);
+  console.log(222, collection);
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
@@ -212,6 +212,54 @@ const JobMatching = () => {
   }, [tab]);
 
 
+  const JobMatchforSkilotechCollection = async () => {
+    const outputData=[]
+    setMatchLoader(true);
+    const response = await axios.post(
+      "http://localhost:2000/api/skiloCollection/jobMatching/",
+
+      {
+        jd: extratctedData,
+        resumeCount
+      }
+    );
+
+
+    if (Array.isArray(response.data)) {
+      outputData.push(...response.data);
+    } else {
+      outputData.push(response.data);
+      // outputData.push([response.data]);
+    }
+
+    const dataArray = outputData
+    .filter((item) => item.matching_percentage)
+    .sort((a, b) => {
+      const parsePercentage = (percentage) => {
+        return parseInt(
+          isNaN(percentage) ? percentage.slice(0, 2) : percentage
+        );
+      };
+      return (
+        parsePercentage(b.matching_percentage) -
+        parsePercentage(a.matching_percentage)
+      );
+    })
+    .slice(0, resumeCount);
+
+  setResumeList(dataArray);
+  setIsMatched(true)
+
+  setCollection("")
+ 
+  setButtonToggle(false);
+
+  setMatchLoader(false);
+
+
+  };
+
+
 
 
   // useEffect(() => {
@@ -276,7 +324,7 @@ const JobMatching = () => {
 
   const MatchJob = async () => {
     // setLoadingg(true);
-     
+
     setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
@@ -384,7 +432,7 @@ const JobMatching = () => {
 
 
 
-console.log(333,resumeList);
+
 
   const updateJobMatchLimit = async () => {
     let resumeCount = selectedIndexesFileTypes.length;
@@ -415,7 +463,7 @@ console.log(333,resumeList);
       return { success: false, message: 'Something went wrong', error };
     }
   };
-  console.log(tab);
+
   return (
     <>
 
@@ -539,7 +587,7 @@ console.log(333,resumeList);
                       checked={collection == "SkilotechCollection"}
                       onChange={() => {
                         setCollection("SkilotechCollection");
-                        setIsCollection(true)
+
                       }}
                     />
                     <label>Skilotech Collection</label>
@@ -566,10 +614,17 @@ console.log(333,resumeList);
                   placeholder="Ex. 5"
                   className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
                 />
-                <button disabled={!selectedIndexes.length > 0} onClick={() => MatchJob()} style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
-                  className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
-                  Find Match
-                </button>
+                {collection === "SkilotechCollection" ?
+                  <button  onClick={() => JobMatchforSkilotechCollection()} 
+                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
+                    Find Match
+                  </button>
+                  :
+                  <button disabled={!selectedIndexes.length > 0} onClick={() => MatchJob()} style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
+                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
+                    Find Match
+                  </button>
+                }
               </div>
 
 
