@@ -298,7 +298,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`http://localhost:2000/api/company/getCompaniesById/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
