@@ -56,20 +56,6 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     if (!cerficateData.certificateProvider.trim()) {
       newErrors.certificateProvider = "Certificate provider is required.";
     }
-    if (!cerficateData.certificateId.trim()) {
-      newErrors.certificateId = "Certificate ID is required.";
-    }
-    if (!cerficateData.certificateUrl.trim()) {
-      newErrors.certificateUrl = "Certificate URL is required.";
-    }
-    if (
-      cerficateData.duration.start.year === "Year" ||
-      cerficateData.duration.start.month === "Month" ||
-      cerficateData.duration.end.year === "Year" ||
-      cerficateData.duration.end.month === "Month"
-    ) {
-      newErrors.duration = "Please select both start and end dates.";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -207,7 +193,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
 
         <div className="flex flex-col gap-2 items-start">
           <p className="text-[#333] text-[14px] font-[500] ">
-            Certification Provider
+            Certification Provider<span className="text-[#C00000]">*</span>
           </p>
           <input
             type="text"
@@ -230,9 +216,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateId}
             name={"certificateId"}
             onChange={handleInputChange}
-            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]  ${
-              errors.certificateId ? "border-red" : "border-[#DEDEDE]"
-            }  `}
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid w-[100%] text-[12px] text-[#646464] border-[#DEDEDE]  "
             placeholder="Enter your course completion ID"
           />
         </div>
@@ -246,26 +230,17 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             value={cerficateData.certificateUrl}
             name={"certificateUrl"}
             onChange={handleInputChange}
-            className={`flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]  ${
-              errors.certificateUrl ? "border-red" : "border-[#DEDEDE]"
-            }  `}
+            className="flex py-[8px] px-[16px] items-center rounded-[8px] bg-[#fff] border-[1px] border-solid border-[#DEDEDE] w-[100%] text-[12px] text-[#646464]"
             placeholder="Enter your certification URL"
           />
         </div>
-        <div
-          className={`relative ${
-            errors.duration ? "border-red-500" : "border-[#DEDEDE]"
-          }`}
-        >
+        <div className="w-full">
           <DateSelector
             idPrefix="addCourse"
             data={cerficateData}
             dataSeter={setcertificateData}
             isRow={true}
           />
-          {errors.duration && (
-            <p className="text-red text-[12px] mt-1">{errors.duration}</p>
-          )}
         </div>
 
         <div className="flex justify-end items-start self-stretch gap-[12px]">
