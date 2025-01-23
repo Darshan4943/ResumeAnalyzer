@@ -74,6 +74,8 @@ const JobMatching = () => {
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
+ 
+ 
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
@@ -274,6 +276,7 @@ const JobMatching = () => {
 
   const MatchJob = async () => {
     // setLoadingg(true);
+     
     setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
@@ -572,10 +575,6 @@ console.log(333,resumeList);
 
             </div>
             <div className="flex flex-col gap-6 h-full  ">
-
-
-
-
 
 
               {isMatched &&

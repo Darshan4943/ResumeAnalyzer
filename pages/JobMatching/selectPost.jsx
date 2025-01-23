@@ -16,6 +16,7 @@ const SelectPost = () => {
   const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
+  localStorage.setItem("jdApplicantFilenames", JSON.stringify(""))
   const getData = () => {
     setLoading(true);
     axios
