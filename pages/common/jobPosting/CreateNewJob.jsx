@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import ReactSelect from "react-select";
-import { currencyMap, SkillList } from "../../../utils/data";
+import { currencyMap, SkillList, telCode } from "../../../utils/data";
 import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
@@ -19,7 +19,7 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-
+import Select from "react-select";
 function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -69,6 +69,39 @@ function CreateNewJob() {
     status: "Live",
     logo: "",
   });
+
+
+  const countryOptions = telCode.map((country) => ({
+    value: country.name,
+    label: country.name,
+  }));
+
+  const handleCountryChange = (selectedCountries) => {
+    setFormError((prevErrors) => ({
+      ...prevErrors,
+      country: "",
+    }));
+    setData({
+      ...data,
+      country: selectedCountries
+        ? selectedCountries.map((country) => country.value)
+        : [],
+    });
+  };
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      border: "1px solid #DEDEDE",
+      padding: 2,
+      boxShadow: "none",
+      "&:hover": {
+        border: "1px solid #DEDEDE",
+      },
+    }),
+  };
+
+
 
   useEffect(() => {
     setData({ ...data, logo: croppedImage?.blob });
@@ -192,7 +225,7 @@ function CreateNewJob() {
           },
         }
       );
-      router.push("/recruiter/jobPosting");
+      router.push("/commmon/jobPosting");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -874,89 +907,19 @@ function CreateNewJob() {
                               Country <span className="text-[red]">*</span>
                             </div>
 
-                            <CreatableSelect
-                              isClearable
-                              isMulti
-                              placeholder="Job country, tags etc"
-                              value={
-                                data.country
-                                  ? data.country.map((country) => ({
-                                      value: country,
-                                      label: country,
-                                    }))
-                                  : []
-                              }
-                              onChange={(selectedOptions) => {
-                                const newCountryValues = selectedOptions
-                                  ? selectedOptions.map(
-                                      (option) => option.value
-                                    )
-                                  : [];
+                            <Select
+            isMulti
+            options={countryOptions}
+            onChange={handleCountryChange}
+            value={countryOptions.filter((country) =>
+              data.country.includes(country.value)
+            )}
+            // className="input"
+            classNamePrefix="select"
+            placeholder="Select countries..."
+            styles={customStyles}
+          />
 
-                                if (
-                                  newCountryValues.length >
-                                  data?.country?.length
-                                ) {
-                                  setFormError((prevErrors) => ({
-                                    ...prevErrors,
-                                    country: "",
-                                  }));
-                                }
-
-                                setData({
-                                  ...data,
-                                  country: newCountryValues,
-                                });
-                              }}
-                              styles={{
-                                control: (provided, state) => ({
-                                  ...provided,
-                                  borderColor: formError.country
-                                    ? "red"
-                                    : "#DEDEDE",
-                                  borderWidth: "1px",
-                                  borderRadius: "8px",
-                                  boxShadow: state.isFocused
-                                    ? "0 0 0 2px rgba(0, 123, 255, 0.25)"
-                                    : "none",
-                                  "&:hover": {
-                                    borderColor: formError.country
-                                      ? "red"
-                                      : "#B0B0B0",
-                                  },
-                                }),
-                                valueContainer: (provided) => ({
-                                  ...provided,
-                                  display: "flex",
-                                  flexWrap: "nowrap",
-                                  overflowX: "auto",
-                                  gap: "8px",
-                                  padding: "4px",
-                                  whiteSpace: "nowrap",
-                                  alignItems: "center",
-                                }),
-                                multiValue: (provided) => ({
-                                  ...provided,
-                                  backgroundColor: "#EFFAFF",
-                                  color: "#06A9EF",
-                                  marginRight: "12px",
-                                }),
-                                multiValueLabel: (provided) => ({
-                                  ...provided,
-                                  color: "#06A9EF",
-                                  overflowX: "scroll",
-                                }),
-                                multiValueRemove: (provided) => ({
-                                  ...provided,
-                                  color: "#06A9EF",
-                                }),
-                                menu: (provided) => ({
-                                  ...provided,
-                                  zIndex: 1,
-                                  position: "absolute",
-                                }),
-                              }}
-                            />
                           </div>
                         </div>
                         <div className="flex flex-col gap-[8px] w-full">

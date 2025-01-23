@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-function JobDetails({ jobDetails }) {
+function JobDetails({ jobDetails ,totalCount}) {
   const router = useRouter();
   const { id } = router.query;
+  console.log(jobDetails);
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
@@ -125,7 +126,7 @@ function JobDetails({ jobDetails }) {
                 </p>
                 <div className="flex flex-col p-4 gap-2 self-stretch items-start bg-[#F8F8FD]">
                   <p className="text-[16px] font-semibold font-Montserrat text-[#333]">
-                    {jobDetails?.data?.applications?.length} applied{" "}
+                    {totalCount} applied{" "}
                     <span className="text-[16px] font-medium font-Montserrat text-[#646464]">
                       of 10 capacity
                     </span>
