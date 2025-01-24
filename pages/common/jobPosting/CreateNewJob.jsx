@@ -377,23 +377,44 @@ function CreateNewJob() {
     }
   };
 
-  const handleChange1 = useCallback(
-    debounce((value) => {
-      const plainText = value?.replace(/<[^>]*>/g, "");
+  // const handleChange1 = useCallback(
+  //   debounce((value) => {
+  //     const plainText = value?.replace(/<[^>]*>/g, "");
 
-      if (plainText?.length > data?.description?.length) {
-        setFormError((prevErrors) => ({
-          ...prevErrors,
-          description: "",
-        }));
+  //     if (plainText?.length > data?.description?.length) {
+  //       setFormError((prevErrors) => ({
+  //         ...prevErrors,
+  //         description: "",
+  //       }));
+  //     }
+  //     setData((prevData) => ({
+  //       ...prevData,
+  //       description: plainText,
+  //     }));
+  //   }, 500),
+  //   [data.description]
+  // );
+
+
+  const debounceUpdate = useCallback(
+      debounce((value) => {
+        //   const plainText = value?.replace(/<[^>]*>/g, "");
+        setData((prev) => ({ ...prev, description: value }));
+      }, 500),
+      []
+    );
+  
+  
+    const handleChange1 = (value) => {
+      // const plainText = value?.replace(/<[^>]*>/g, "");
+      if (value?.length < 200) {
+        setData({ ...data, description: value.slice(0, 200) });
+        debounceUpdate(value.slice(0, 200));
+      } else {
+        setData({ ...data, description: value });
+        debounceUpdate(value);
       }
-      setData((prevData) => ({
-        ...prevData,
-        description: plainText,
-      }));
-    }, 500),
-    [data.description]
-  );
+    };
 
   const resetFormData = () => {
     setData({

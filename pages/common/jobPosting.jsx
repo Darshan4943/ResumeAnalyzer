@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import MiniLoader from '../../../components/common/miniLoader';
-import JobCard from '../hiring/jobCard';
+import MiniLoader from '../../components/common/miniLoader';
+import JobCard from './hiring/jobCard';
 import { useSelector } from 'react-redux';
 
 function JobPosting() {

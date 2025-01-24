@@ -83,7 +83,7 @@ function CreateCompany() {
     []
   );
 
-  console.log(data);
+
   const handleCompanyDescriptionChange = (value) => {
     // const plainText = value?.replace(/<[^>]*>/g, "");
     if (value?.length < 200) {
