@@ -101,29 +101,36 @@ function CreateCompany() {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+  const camelCaseToWords = (str) => {
+    return str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (char) => char.toUpperCase());
+  };
+  
   const validateForm = () => {
     const newErrors = {};
     let initialErrorShown = false;
+  
     if (!data?.companyName?.trim()) {
       newErrors.companyName = "Company name is required.";
     }
     if (!data?.companyDescription?.replace(/<[^>]*>/g, "").trim()) {
       newErrors.companyDescription = "Company description is required.";
     }
+  
     if (Object.keys(newErrors).length > 0) {
       if (!initialErrorShown && Object.keys(newErrors).length > 1) {
         toast.error("All fields are required.");
         initialErrorShown = true;
       } else if (Object.keys(newErrors).length === 1) {
         const field = Object.keys(newErrors)[0];
-        toast.error(`${field} is required.`);
+        toast.error(`${camelCaseToWords(field)} is required.`);
       }
     }
+  
     setErrors(newErrors);
-    setButtonLoading(false);
+    setButtonLoading(false); 
     return Object.keys(newErrors).length === 0;
   };
-
+  
   const handleReset = () => {
     setData({ companyName: "", companyLogo: "", companyDescription: "" });
     setCroppedImage(null);
@@ -189,8 +196,8 @@ function CreateCompany() {
     if (!validateForm()) return;
     try {
       const formData = new FormData();
-      formData.append("companyName", data.companyName);
-      formData.append("companyDescription", data.companyDescription);
+      formData.append("company Name", data.companyName);
+      formData.append("company Description", data.companyDescription);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();

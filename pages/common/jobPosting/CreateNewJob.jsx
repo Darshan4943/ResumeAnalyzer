@@ -868,7 +868,7 @@ function CreateNewJob() {
                               options={countryOptions}
                               onChange={handleCountryChange}
                               value={countryOptions.filter((country) =>
-                                data.country.includes(country.value)
+                                data.country?.includes(country.value)
                               )}
                               // className="input"
                               classNamePrefix="select"

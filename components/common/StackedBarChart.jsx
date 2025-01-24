@@ -20,7 +20,6 @@ const StackedBarChart = ({ analytics, labels }) => {
             },
         ],
     };
-
     const options = {
         responsive: true,
         plugins: {
