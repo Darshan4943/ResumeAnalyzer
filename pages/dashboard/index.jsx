@@ -19,12 +19,12 @@ function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
-
   const [error, setError] = useState(null);
-  const [selectedId, setSelectedId] = useState(null);
+  const [statistics, setStatistics] = useState([]);
+  const [data, setData] = useState([]);
+  const [selected, setSelected] = useState("Daily");
 
   const router = useRouter();
-
 
   const handleNavigation = (page) => {
     router.push(page);
@@ -53,7 +53,6 @@ function Dashboard({ toggleContentt }) {
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
-
   const list = () => {
     if (userDataGlobal?.role === "user") {
       return loginListCandidate;
@@ -61,7 +60,6 @@ function Dashboard({ toggleContentt }) {
       return loginListRecruiter;
     } else return loginListRecruiter;
   };
-
   function handleItemClick(itemName) {
     switch (itemName) {
       case "Create New Resume":
@@ -117,22 +115,51 @@ function Dashboard({ toggleContentt }) {
         break;
     }
   }
-
-
-
-
   const handleNavigate = (applicantId, jobId) => {
     router.push(
       `/employer/hiring/ApplicantDetails?applicantId=${applicantId}&id=${jobId}`
     );
   };
 
+
+  const fetchJobStatistics = async () => {
+    try {
+      const response = await axios.get(`http://localhost:2000/api/job/getJobStatistics/${userDataGlobal._id}`);
+      setStatistics(response.data);
+    } catch (err) {
+      setError('Failed to fetch job statistics');
+    }
+  };
+
+  const fetchJobAnalytics = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getJobAnalytics/${userDataGlobal._id}`,
+        { params: { selected } }
+      );
+      setData(response.data)
+    } catch (error) {
+      console.error("Error fetching job statistics:", error.response?.data || error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobStatistics();
+  }, [userDataGlobal?._id]);
+
+  useEffect(() => {
+    if (userDataGlobal?._id && selected) fetchJobAnalytics();
+  }, [userDataGlobal?._id, selected]);
+
+
+  console.log("111data", data)
+
   return (
     <div
       className=" ml:h-[calc(100vh-100px)]  w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
-      <TopSection />
+      <TopSection statistics={statistics} />
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
         <div className=" pt-6 lg:pt-0 lg:w-[31.26%]  w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
           <div
@@ -162,7 +189,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      25
+                      {statistics.totalJobs}
                     </p>
                   </div>
                 </div>
@@ -196,7 +223,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      654
+                      {statistics.totalApplications}
                     </p>
                   </div>
                 </div>
@@ -231,7 +258,7 @@ function Dashboard({ toggleContentt }) {
 
                     <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                       <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        10
+                        {statistics.shortlisted}
                       </p>
                     </div>
                   </div>
@@ -266,7 +293,7 @@ function Dashboard({ toggleContentt }) {
 
                     <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                       <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        10
+                        {statistics.shortlisted}
                       </p>
                     </div>
                   </div>
@@ -301,7 +328,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      148
+                      {statistics.rejected}
                     </p>
                   </div>
                 </div>
@@ -310,7 +337,7 @@ function Dashboard({ toggleContentt }) {
           </div>
 
         </div>
-        <JobStatistics />
+        <JobStatistics statistics={statistics} setSelected={setSelected} selected={selected} data={data} />
       </div>
 
       <RecentApplications />

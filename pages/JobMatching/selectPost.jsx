@@ -12,7 +12,7 @@ import { dateSeter } from "../../utils/middleware";
 
 const SelectPost = () => {
   const router = useRouter();
-   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filterStatus, setFilterStatus] = useState("All");
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
@@ -21,10 +21,10 @@ const SelectPost = () => {
     axios
       .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
       .then((res) => {
-       
+
         setJobPost(res.data);
         setLoading(false);
-        
+
       })
       .catch((err) => {
         setLoading(false);
@@ -57,7 +57,7 @@ const SelectPost = () => {
     });
 
 
- 
+
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
     var date2 = new Date();
@@ -77,14 +77,14 @@ const SelectPost = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
 
- 
+
   return (
 
 
-    <div className="   flex flex-col gap-[16px]  ">
+    <div className=" flex flex-col gap-[16px]  ">
       <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
-         Select Job 
+          Select Job
         </span>
 
         {/* <button
@@ -93,19 +93,19 @@ const SelectPost = () => {
         >
           <AddIcon color={"#fff"} /> Create New Job
         </button> */}
-       
+
         <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
-        <select
-          className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer"
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-        >
-          <option value="All">All</option>
-          <option value="Live">Live</option>
-          <option value="Closed">Closed</option>
-          <option value="Hold">Hold</option>
-        </select>
-         
+          <select
+            className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="All">All</option>
+            <option value="Live">Live</option>
+            <option value="Closed">Closed</option>
+            <option value="Hold">Hold</option>
+          </select>
+
         </div>
       </div>
       <div>
@@ -122,8 +122,9 @@ const SelectPost = () => {
                     <div
                       key={index}
                       className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px] relative bg-white"
-                      onClick={() =>{
-                      router.push(`/JobMatching?selectedJob=${item?._id}`)}
+                      onClick={() => {
+                        router.push(`/JobMatching?selectedJob=${item?._id}`)
+                      }
                       }
                     >
                       <div className="px-[16px] flex flex-row justify-between ">

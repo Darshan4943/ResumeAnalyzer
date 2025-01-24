@@ -28,7 +28,7 @@ function Layout({ children }) {
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
-
+  // console.log("3233223",userDataGlobal)
 
   const Temp = () => (
     <>
