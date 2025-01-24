@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +5,10 @@ import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
 
 function Edit_personal_Dtls({ setaddWebsites }) {
-  const { userDataGlobal,profileData } = useSelector((state) => state.user.userData);
- 
+  const { userDataGlobal, profileData } = useSelector(
+    (state) => state.user.userData
+  );
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const [Data, setData] = useState({
     firstName: "",
@@ -29,9 +29,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     isSpecialyAbled: false,
     specialyAbledDescription: "",
   });
-  
 
-  console.log(profileData)
   useEffect(() => {
     if (profileData) {
       const {
@@ -49,9 +47,12 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         isCareerBreak = false,
         isCareerBreakReason = "",
         workPermit: { haveWorkPermit = false, workPermitDescription = "" } = {},
-        specialyAbled: { isSpecialyAbled = false, specialyAbledDescription = "" } = {},
+        specialyAbled: {
+          isSpecialyAbled = false,
+          specialyAbledDescription = "",
+        } = {},
       } = profileData.basics;
-  
+
       setData({
         firstName,
         lastName,
@@ -73,8 +74,31 @@ function Edit_personal_Dtls({ setaddWebsites }) {
       });
     }
   }, [profileData]);
-  
 
+  const validateForm = () => {
+    let validationErrors = {};
+
+    if (!Data.dob) {
+      validationErrors.dob = "Date of birth is required.";
+    }
+
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
+  const handleDateChange = (e) => {
+    const { value } = e.target;
+    setData((prev) => ({
+      ...prev,
+      dob: value,
+    }));
+    if (value) {
+      setErrors((prev) => ({
+        ...prev,
+        dob: "",
+      }));
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,6 +108,10 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     });
   };
   const handleSubmit = () => {
+    if (!validateForm()) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
     const obj = {
       ...Data,
     };
@@ -91,12 +119,11 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     axios
       .put(
         "http://localhost:2000/api/candidate/updateProfileDetails/" +
-        userDataGlobal?._id,
+          userDataGlobal?._id,
         obj
       )
       .then((res) => {
         if (res) {
-         
           toast.success("Personal details edit successfully");
           dispatch(fetchUserData());
           setaddWebsites(false);
@@ -106,12 +133,11 @@ function Edit_personal_Dtls({ setaddWebsites }) {
   };
 
   return (
-    <div className="bg-white rounded-[16px] py-3 "
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-      <div
-        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-
-      >
+    <div
+      className="bg-white rounded-[16px] py-3 "
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
+      <div className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto ">
         <div className="flex flex-col gap-[4px] w-full">
           <div className="flex gap-[16px]  items-center">
             <div className=" text-[18px] font-[600] text-[#25324B] min-w-[200px] ">
@@ -194,9 +220,11 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               Date of Birth <span className="text-[#C00000]">*</span>
             </div>
             <input
-              onChange={(e) => setData({ ...Data, dob: e.target.value })}
+              onChange={handleDateChange}
               value={Data.dob}
-              className="px-[16px] py-[12px] rounded-[8px] border-[1px] border-[solid] border-[#DEDEDE] text-[12px] font-[400] text-[#646464] h-[44px]"
+              className={`px-[16px] py-[12px] rounded-[8px] border-[1px] border-[solid]  text-[12px] font-[400] text-[#646464] h-[44px] ${
+                errors.dob ? "border-red" : "border-[#DEDEDE]"
+              }`}
               type="date"
               name=""
               id=""
@@ -205,7 +233,6 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           <div className="flex flex-col gap-[8px] w-[100%] md:w-[50%]">
             <div className="text-[14px]  font-[500] flex items-center">
               What is your Marital status?{" "}
-              <span className="text-[#C00000]">*</span>
             </div>
             <select
               onChange={(e) =>
@@ -246,7 +273,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.isCareerBreak ? true : false}
 
-                // checked={Data.isCareerBreak === false?"blue":"white"}
+                  // checked={Data.isCareerBreak === false?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   yes
@@ -262,7 +289,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.isCareerBreak ? false : true}
 
-                // checked={Data.isCareerBreak === true?"blue":"white"}
+                  // checked={Data.isCareerBreak === true?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   no
@@ -304,7 +331,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.haveWorkPermit ? true : false}
 
-                // checked={Data.haveWorkPermit === true?"blue":"white"}
+                  // checked={Data.haveWorkPermit === true?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   yes
@@ -320,7 +347,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.haveWorkPermit ? false : true}
 
-                // checked={Data.haveWorkPermit === false?"blue":"white"}
+                  // checked={Data.haveWorkPermit === false?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   no
@@ -364,7 +391,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.isSpecialyAbled ? true : false}
 
-                // checked={Data.isSpecialyAbled === true?"blue":"white"}
+                  // checked={Data.isSpecialyAbled === true?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   yes
@@ -380,7 +407,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                   id=""
                   checked={Data.isSpecialyAbled ? false : true}
 
-                // checked={Data.isSpecialyAbled === false?"blue":"white"}
+                  // checked={Data.isSpecialyAbled === false?"blue":"white"}
                 />
                 <label htmlFor="" className="text-[12px] font-[500]">
                   no

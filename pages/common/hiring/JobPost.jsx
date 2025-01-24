@@ -66,7 +66,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
 
 
-  console.log(page);
+  
 
   const handleReject = async () => {
     setAllReject(true);
@@ -972,7 +972,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
         {option === 1 && (
           <div className="mb-6">
-            <JobDetails jobDetails={jobDetails} />
+            <JobDetails jobDetails={jobDetails} totalCount={totalCount}/>
           </div>
         )}
         {option === 2 && <Analytics />}

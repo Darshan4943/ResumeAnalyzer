@@ -18,6 +18,7 @@ function ApplicantDetails({ setTogglee }) {
   const [loadingg, setLoadingg] = useState(true);
   const { id, applicantId } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [statusChange, setStatusChange] = useState(false)
 
   const getData = async () => {
     try {
@@ -58,7 +59,7 @@ function ApplicantDetails({ setTogglee }) {
     if (id && applicantId) {
       getData();
     }
-  }, []);
+  }, [statusChange]);
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
@@ -84,8 +85,8 @@ function ApplicantDetails({ setTogglee }) {
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         borderRadius: "10px",
         // overflow: "hidden",
-        width:"600px",
-        height:"772px"
+        width: "600px",
+        height: "772px"
       }}
       >
         {loadingg && (
@@ -131,7 +132,7 @@ function ApplicantDetails({ setTogglee }) {
             </p>
           </div>
           <div className="flex ml:flex-row flex-col gap-5   mb-4 ">
-            <ApplicantDetailsLeftCard jobDetails={jobDetails} id={id} />
+            <ApplicantDetailsLeftCard jobDetails={jobDetails} id={id} statusChange={statusChange} setStatusChange={setStatusChange} />
             {jobDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
@@ -228,13 +229,13 @@ function ApplicantDetails({ setTogglee }) {
                   <ApplicantProfile jobDetails={jobDetails} />
                 )}
                 {toggle === "Resume" && (
-                     <div className=" flex items-center justify-center py-[16px] resumes2">
+                  <div className=" flex items-center justify-center py-[16px] resumes2">
                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
-                    
+
                   </div>
                 )}
                 {toggle === "HiringProgress" && <HiringProgress />}

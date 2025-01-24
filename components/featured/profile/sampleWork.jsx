@@ -1,16 +1,15 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useState } from "react";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import DateSelector from '../../common/dateSelector';
-import { fetchUserData } from '../../../Redux/slices/userSlice';
-
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import DateSelector from "../../common/dateSelector";
+import { fetchUserData } from "../../../Redux/slices/userSlice";
 
 function SampleWork({ setaddSampleWork, Project, editProject }) {
   const dispatch = useDispatch();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     title: "",
     url: "",
@@ -37,18 +36,52 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
       },
       description: Project?.description,
     }),
-  })
+  });
 
-  console.log(333,data)
+  const validateForm = () => {
+    let validationErrors = {};
+    if (!data.title.trim()) {
+      validationErrors.title = "Title is required.";
+    }
+    if (!data.url.trim()) {
+      validationErrors.url = "URL is required.";
+    } else if (!/^(https?:\/\/)?([\w.-]+)+[:\d]*([\/?#].*)?$/i.test(data.url)) {
+      validationErrors.url = "Please enter a valid URL.";
+    }
+    // if (
+    //   data.duration.start.year === "Year" ||
+    //   data.duration.start.month === "Month"
+    // ) {
+    //   validationErrors.durationStart = "Please select a valid start date.";
+    // }
+
+    // if (!data.currentlyWorking) {
+    //   if (
+    //     data.duration.end.year === "Year" ||
+    //     data.duration.end.month === "Month"
+    //   ) {
+    //     validationErrors.durationEnd = "Please select a valid end date.";
+    //   }
+    // }
+    // if (!data.description.trim()) {
+    //   validationErrors.description = "Description is required.";
+    // }
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const isEditing = !!editProject;
 
   const handleSubmit = () => {
-    const projectData =
-    {
+    if (!validateForm()) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+    const projectData = {
       title: data.title,
       url: data.url,
       isCurrentlyWorking: data.currentlyWorking,
-     
+
       duration: {
         startDate: {
           year: data.duration?.start.year,
@@ -60,9 +93,7 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
         },
       },
       description: data.description,
-    }
-
-
+    };
 
     if (isEditing) {
       axios
@@ -71,29 +102,29 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
           projectData
         )
         .then((res) => {
-
           dispatch(fetchUserData());
           setaddSampleWork(false);
           toast.success("Project updated successfully");
         })
         .catch((err) => {
-
           console.error(err);
         });
     } else {
       axios
-        .post(`http://localhost:2000/api/candidate/addProject/${userDataGlobal?._id}`, projectData)
+        .post(
+          `http://localhost:2000/api/candidate/addProject/${userDataGlobal?._id}`,
+          projectData
+        )
         .then((res) => {
           dispatch(fetchUserData());
 
-          setaddSampleWork(false)
+          setaddSampleWork(false);
           toast.success("Projects Added successfully");
         })
         .catch((err) => {
           console.log(err);
         });
     }
-
   };
 
   const handleInputChange = (event) => {
@@ -104,18 +135,17 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
     }));
   };
 
-
   return (
-    <div className="bg-white rounded-[16px] py-3 "
-    style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-      <div
-        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-    
-      >
-        <div className='flex flex-col gap-1 text-[12px] font-normal'>
+    <div
+      className="bg-white rounded-[16px] py-3 "
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
+      <div className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto ">
+        <div className="flex flex-col gap-1 text-[12px] font-normal">
           <div className="flex gap-[4px] w-full items-center">
-
-            <div className="text-[18px] font-[600] text-[#25324B] min-w-[180px]">Add Sample Work</div>
+            <div className="text-[18px] font-[600] text-[#25324B] min-w-[180px]">
+              Add Sample Work
+            </div>
             <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
             <svg
               className="hover:cursor-pointer"
@@ -134,24 +164,35 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
                 />
               </g>
             </svg>
-
-
           </div>
           Add link to your projects (e.g. Github links etc.)
         </div>
-
 
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[14px] font-[500]">
             Work title <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className={`text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid  w-full flex items-center justify-between py-[8px] px-[16px] ${
+              errors.title ? "border-red" : "border-[#DEDEDE]"
+            }`}
             placeholder="Enter work title"
             type="text"
             name="title"
             value={data.title}
-            onChange={(e) => setData({ ...data, title: e.target.value })}
+            onChange={(e) => {
+              const { value } = e.target;
+              setData((prev) => ({
+                ...prev,
+                title: value,
+              }));
+              if (value.trim() !== "") {
+                setErrors((prev) => ({
+                  ...prev,
+                  title: "",
+                }));
+              }
+            }}
           />
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
@@ -159,13 +200,27 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
             URL <span className="text-[#C00000]">*</span>
           </div>
           <input
-            className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+            className={`text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid  w-full flex items-center justify-between py-[8px] px-[16px] ${
+              errors.url ? "border-red" : "border-[#DEDEDE]"
+            }`}
             placeholder="Enter your social Profile URL"
             type="text"
             name="url"
             value={data.url}
-            onChange={(e) => setData({ ...data, url: e.target.value })}
-          />
+            onChange={(e) => {
+              const { value } = e.target;
+              setData((prev) => ({
+                ...prev,
+                url: value,
+              }));
+              if (value.trim() !== "") {
+                setErrors((prev) => ({
+                  ...prev,
+                  url: "", 
+                }));
+              }
+            }}
+                      />
         </div>
         <div className="flex flex-col gap-[16px]">
           <div className="w-[50%] flex flex-col gap-[12px] text-[14px] font-[500] ">
@@ -194,7 +249,12 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
             </div>
           </div>
         </div>
-        <DateSelector idPrefix='projects' data={data} dataSeter={setData} isRow={true} />
+        <DateSelector
+          idPrefix="projects"
+          data={data}
+          dataSeter={setData}
+          isRow={true}
+        />
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[14px] font-[500]">Description</div>
           <textarea
@@ -204,7 +264,6 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
             value={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}
           />
-
         </div>
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
@@ -227,4 +286,4 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
   );
 }
 
-export default SampleWork
+export default SampleWork;

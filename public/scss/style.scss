@@ -403,8 +403,7 @@ html {
   }
 }
 
-ul,
-ol {
+ul {
   list-style: unset !important;
 }
 
@@ -437,4 +436,8 @@ ol {
 }
 .css-b62m3t-container{
   padding: 0 !important;
+}
+
+ol {
+  list-style-type: decimal; /* Use decimal numbers */
 }
