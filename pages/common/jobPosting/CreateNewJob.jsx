@@ -14,7 +14,7 @@ import Description from "../../../components/featured/candidate/jobs/Description
 import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
 import debounce from "lodash.debounce";
 import NormalJobCard from "../../../components/featured/candidate/jobs/NormalJobCard";
-import { Close_svg } from "../../../utils/svg";
+import { Close_svg, PlusAddLogo } from "../../../utils/svg";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -39,6 +39,8 @@ function CreateNewJob() {
   const [error, setError] = useState(null);
   const [showEditor, setShowEditor] = useState(false);
   const fileRef = useRef();
+  const [loactionText, setLoactionText] = useState("");
+  const [KeywordsText, setKeywordsText] = useState("");
 
   const [data, setData] = useState({
     jobTitle: "",
@@ -195,6 +197,7 @@ function CreateNewJob() {
     console.log("formErrors", formErrors);
     if (Object.keys(formErrors).length > 0) {
       setFormError(formErrors);
+      toast.error("All fields are Required")
       return;
     }
 
@@ -225,7 +228,7 @@ function CreateNewJob() {
           },
         }
       );
-      router.push("/commmon/jobPosting");
+      router.push("/common/jobPosting");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
@@ -233,7 +236,7 @@ function CreateNewJob() {
       console.error("Error:", error);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -475,7 +478,7 @@ function CreateNewJob() {
   const handleItemClick = (selectedOption) => {
     setSelectedCurrency(selectedOption);
   };
-  console.log("formError", formError);
+  console.log("data", data);
   return (
     <>
       {!isCreate && (
@@ -514,7 +517,7 @@ function CreateNewJob() {
             <>
               <div className=" flex w-full flex-col gap-[16px]">
                 <div
-                  onClick={()=>router.back()}
+                  onClick={() => router.back()}
                   className="gap-[12px] flex cursor-pointer  "
                 >
                   <svg
@@ -549,11 +552,10 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.status
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -573,11 +575,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -587,67 +588,10 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col gap-[8px] w-full  ">
-                        <div className="text-[14px] font-[500]">Keywords</div>
-                        <div>
-                          <CreatableSelect
-                            isClearable
-                            isMulti
-                            className="w-full min-w-[150px] rounded-[8px] text-[14px] font-montserrat font-small text-black leading-tight"
-                            placeholder="Job keyword, tags etc"
-                            value={
-                              data.Keywords
-                                ? data.Keywords.map((keyword) => ({
-                                    value: keyword,
-                                    label: keyword,
-                                  }))
-                                : []
-                            }
-                            onChange={(selectedOptions) => {
-                              setData({
-                                ...data,
-                                Keywords: selectedOptions
-                                  ? selectedOptions.map(
-                                      (option) => option.value
-                                    )
-                                  : [],
-                              });
-                            }}
-                            styles={{
-                              valueContainer: (provided) => ({
-                                ...provided,
-                                display: "flex",
-                                flexWrap: "nowrap",
-                                overflowX: "auto",
-                                gap: "8px",
-                                padding: "4px",
-                                whiteSpace: "nowrap",
-                                alignItems: "center",
-                              }),
-                              multiValue: (provided) => ({
-                                ...provided,
-                                backgroundColor: "#EFFAFF",
-                                color: "#06A9EF",
-                                marginRight: "12px",
-                              }),
-                              multiValueLabel: (provided) => ({
-                                ...provided,
-                                color: "#06A9EF",
-                                overflowX: "scroll",
-                              }),
-                              multiValueRemove: (provided) => ({
-                                ...provided,
-                                color: "#06A9EF",
-                              }),
-                              menu: (provided) => ({
-                                ...provided,
-                                zIndex: 1,
-                                position: "absolute",
-                              }),
-                            }}
-                          />
-                        </div>
-                      </div>
+                   
+                       
+                      
+                     
 
                       <div className="flex flex-col gap-[8px] w-full">
                         <div className="text-[14px] font-[500]">Job Link</div>
@@ -798,18 +742,17 @@ function CreateNewJob() {
 
                       <div className="w-full max-w-full flex flex-col">
                         <div className="flex flex-col scr1024:flex-row gap-[16px] w-full">
-                          <div className="flex w-full flex-col md:flex-row scr1024:w-[66.66%] gap-[16px]">
-                            <div className="flex flex-col gap-[8px] w-full">
+                          <div className="flex w-full flex-col md:flex-row  gap-[16px]">
+                            <div className="flex flex-col gap-[8px] w-[50%]">
                               <div className="text-[14px] font-[500]">
                                 Company Name{" "}
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                                  formError.companyName
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                                  }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -817,108 +760,178 @@ function CreateNewJob() {
                                 onChange={handleChange}
                               />
                             </div>
-                            <div className="flex flex-col gap-[8px]  w-full ">
-                              <div className="text-[14px] font-[500]">
-                                Location <span className="text-[red]">*</span>
+
+                            <div className="flex flex-col gap-[8px]  w-[50%] ">
+                            <div className="text-[14px] font-[500]">
+                              Keywords <span className="text-[red]">*</span>
+                            </div>
+                            <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}>
+                              <div className="flex flex-row flex-wrap gap-3">
+                                {data?.Keywords?.map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                  >
+                                    <span> {item}</span>
+                                    <span
+                                      className="text-[14px]  cursor-pointer font-medium "
+                                      onClick={() =>
+                                        setData({
+                                          ...data,
+                                          Keywords: data.Keywords.filter((data) => data != item),
+                                        })
+                                      }
+                                    >
+                                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
+                                      </svg>
+
+                                    </span>
+                                  </div>
+                                ))}
                               </div>
-                              <ReactSelect
-                                options={[
-                                  { value: "New York", label: "New York" },
-                                  {
-                                    value: "Los Angeles",
-                                    label: "Los Angeles",
-                                  },
-                                  { value: "Chicago", label: "Chicago" },
-                                  {
-                                    value: "San Francisco",
-                                    label: "San Francisco",
-                                  },
-                                  { value: "Boston", label: "Boston" },
-                                ]}
-                                isMulti
-                                className={`w-full rounded-[8px] text-[14px] font-montserrat font-small text-black  ${
-                                  formError.location
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
-                                placeholder="Select locations"
-                                value={
-                                  data.location
-                                    ? data.location.map((location) => ({
-                                        value: location,
-                                        label: location,
-                                      }))
-                                    : []
-                                }
-                                onChange={(selectedOptions) => {
-                                  setData({
-                                    ...data,
-                                    location: selectedOptions.map(
-                                      (option) => option.value
-                                    ),
-                                  });
-                                }}
-                                styles={{
-                                  valueContainer: (provided) => ({
-                                    ...provided,
-                                    display: "flex",
-                                    flexWrap: "nowrap",
-                                    overflowX: "auto",
-                                    gap: "8px",
-                                    padding: "4px",
-                                    whiteSpace: "nowrap",
-                                    alignItems: "center",
-                                  }),
-                                  control: (provided) => ({
-                                    ...provided,
-                                    border: formError.location
-                                      ? "1px solid #ff0000"
-                                      : "1px solid #DEDEDE",
-                                    borderRadius: "8px",
-                                    padding: "0 12px",
-                                  }),
-                                  multiValue: (provided) => ({
-                                    ...provided,
-                                    backgroundColor: "#EFFAFF",
-                                    color: "#06A9EF",
-                                    marginRight: "12px",
-                                  }),
-                                  multiValueLabel: (provided) => ({
-                                    ...provided,
-                                    color: "#06A9EF",
-                                    overflowX: "scroll",
-                                  }),
-                                  multiValueRemove: (provided) => ({
-                                    ...provided,
-                                    color: "#06A9EF",
-                                  }),
-                                  menu: (provided) => ({
-                                    ...provided,
-                                    zIndex: 1,
-                                    position: "absolute",
-                                  }),
+                              <input
+                                type="text"
+                                placeholder="Keywords"
+                                className="input w-[100px]"
+
+                                value={KeywordsText}
+                                onChange={(e) => {
+                                  setKeywordsText(e.target.value);
                                 }}
                               />
+                              <button
+                                className=" absolute right-3 top-[8px] "
+                                disabled={KeywordsText?.length == 0}
+                                onClick={() => {
+                                  setData({
+                                    ...data,
+                                    Keywords: [...data.Keywords, KeywordsText],
+                                  });
+                                  setKeywordsText("");
+
+                                  // setFormError(formError => {
+                                  //   delete formError.location;
+                                  //   return formError;
+                                  // });
+                                  setFormError((prevErrors) => ({
+                                    ...prevErrors,
+                                    Keywords: "",
+                                  }));
+                                }}
+                              >
+                                <PlusAddLogo
+                                  color={KeywordsText?.length > 0 ? "#646464" : "#bebebe"}
+                                />
+                              </button>
                             </div>
+
+
+
+
                           </div>
 
-                          <div className="flex flex-col gap-[8px] w-full scr1024:w-[33.33%]">
+                          </div>
+
+
+                        </div>
+                        <div className="flex gap-4 pt-4 ">
+                          <div className="flex flex-col gap-[8px] w-full scr1024:w-[50%]">
                             <div className="text-[14px] font-[500]">
                               Country <span className="text-[red]">*</span>
                             </div>
 
                             <Select
-            isMulti
-            options={countryOptions}
-            onChange={handleCountryChange}
-            value={countryOptions.filter((country) =>
-              data.country.includes(country.value)
-            )}
-            // className="input"
-            classNamePrefix="select"
-            placeholder="Select countries..."
-            styles={customStyles}
-          />
+                              isMulti
+                              options={countryOptions}
+                              onChange={handleCountryChange}
+                              value={countryOptions.filter((country) =>
+                                data.country.includes(country.value)
+                              )}
+                              // className="input"
+                              classNamePrefix="select"
+                              placeholder="Select countries..."
+                              styles={customStyles}
+                              className={` border rounded-[5px] ${formError.country
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
+                            />
+
+                          </div>
+                          <div className="flex flex-col gap-[8px]  w-[50%] ">
+                            <div className="text-[14px] font-[500]">
+                              Location <span className="text-[red]">*</span>
+                            </div>
+                            <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}>
+                              <div className="flex flex-row flex-wrap gap-3">
+                                {data?.location?.map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                  >
+                                    <span> {item}</span>
+                                    <span
+                                      className="text-[14px]  cursor-pointer font-medium "
+                                      onClick={() =>
+                                        setData({
+                                          ...data,
+                                          location: data.location.filter((data) => data != item),
+                                        })
+                                      }
+                                    >
+                                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
+                                      </svg>
+
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                              <input
+                                type="text"
+                                placeholder="Location"
+                                className="input w-[100px]"
+
+                                value={loactionText}
+                                onChange={(e) => {
+                                  setLoactionText(e.target.value);
+                                }}
+                              />
+                              <button
+                                className=" absolute right-3 top-[8px] "
+                                disabled={loactionText?.length == 0}
+                                onClick={() => {
+                                  setData({
+                                    ...data,
+                                    location: [...data.location, loactionText],
+                                  });
+                                  setLoactionText("");
+
+                                  // setFormError(formError => {
+                                  //   delete formError.location;
+                                  //   return formError;
+                                  // });
+                                  setFormError((prevErrors) => ({
+                                    ...prevErrors,
+                                    location: "",
+                                  }));
+                                }}
+                              >
+                                <PlusAddLogo
+                                  color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
+                                />
+                              </button>
+                            </div>
+
+
+
 
                           </div>
                         </div>
@@ -1262,17 +1275,16 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1328,17 +1340,16 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1507,8 +1518,9 @@ function CreateNewJob() {
               </div>
             </>
           )}
-        </div>
-      )}
+        </div >
+      )
+      }
       {isCreate && <CreateProfileFields />}
     </>
   );
