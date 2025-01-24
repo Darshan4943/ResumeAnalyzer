@@ -2,8 +2,7 @@
   min-height: 90vh;
   padding-top: 16px !important;
   padding-bottom: 16px !important;
-  
- 
+
   @media (min-width: 1480px) {
     .job-card {
       //   height: 205px;
@@ -41,42 +40,41 @@
     90deg,
     rgba(6, 169, 239, 1) 0%,
     rgba(92, 195, 240, 1) 11%,
-    rgba(122, 207, 244, 1) 24%,
-    rgba(255, 255, 255, 1) 71%
+    rgba(122, 207, 244, 1) 22%,
+    rgb(243, 243, 243, 1) 90%
   );
 
   border-radius: 6px;
 }
 .header1 {
-
-  
-
-  background: linear-gradient(90deg, #06A9EF 20.77%, rgba(255, 255, 255, 0) 100%);
-
+  background: linear-gradient(
+    90deg,
+    #06a9ef 20.77%,
+    rgba(255, 255, 255, 0) 100%
+  );
 
   border-radius: 6px 0px 0px 6px;
-
 }
 
 .dashboard {
-background: #F9F9F9;
-  &:hover{ 
-    background: linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%);
-color: white;
+  background: #f9f9f9;
+  &:hover {
+    background: linear-gradient(31.62deg, #06a9ef 14.94%, #a2e3ff 99.61%);
+    color: white;
   }
 }
-.post-job{
-  .form-group{
+.post-job {
+  .form-group {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    .input{
+    .input {
       width: 100%;
-      border: 1px solid #DEDEDE;
+      border: 1px solid #dedede;
       border-radius: 6px;
       padding: 8px 16px;
-      &:focus-visible{
+      &:focus-visible {
         outline: none;
       }
     }
