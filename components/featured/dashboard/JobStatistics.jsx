@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarChart from '../../common/StackedBarChart';
+import CountUp from 'react-countup';
 
 function JobStatistics({ setSelected, selected, data }) {
 
@@ -182,7 +183,7 @@ function JobStatistics({ setSelected, selected, data }) {
             </div>
             <div className="flex flex-col items-start gap-[2px]">
               <p className="text-[#333] flex items font-Montserrat font-semibold text-[20px] ml:text-[36px]">
-                {data.total}
+              <CountUp end={data.total} />
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-[#646464] text-[12px] ml:text-[18px] font-Montserrat font-Medium">
@@ -190,7 +191,7 @@ function JobStatistics({ setSelected, selected, data }) {
                 </p>
                 <div className="flex text-center">
                   <p className={`${percentageChange?.change > 0 ? "text-[#06A9EF]" : percentageChange?.change == 0 ? "text-[#333333]" : "text-[#C00000]"} items-center ml:text-[18px] text-[10px] font-medium leading-5`}>
-                  {Math.abs(percentageChange.change)}%
+                    {Math.abs(percentageChange?.change)}%
                   </p>
                   {percentageChange?.change < 0 &&
                     <svg

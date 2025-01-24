@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { camelCase } from '../../../utils/middleware';
+import CountUp from 'react-countup';
 
 function TopSection({ statistics }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -50,7 +51,7 @@ function TopSection({ statistics }) {
       >
         <div className="flex items-center justify-between self-stretch">
           <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px]  font-semibold leading-normal">
-            {statistics.pending}
+            <CountUp end={statistics.pending} />
           </p>
           <div className="w-[69%]">
             <p className=" text-[16px] leading-4 font-medium font-montserrat ">
