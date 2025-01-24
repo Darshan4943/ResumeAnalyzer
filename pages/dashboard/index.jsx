@@ -14,6 +14,7 @@ import { AnimatePresence } from "framer-motion";
 import TopSection from "../../components/featured/dashboard/TopSection";
 import JobStatistics from "../../components/featured/dashboard/JobStatistics";
 import RecentApplications from "../../components/featured/dashboard/RecentApplications";
+import CountUp from "react-countup";
 
 function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -130,6 +131,11 @@ function Dashboard({ toggleContentt }) {
     }
   };
 
+  useEffect(() => {
+    fetchJobStatistics();
+  }, [userDataGlobal?._id]);
+
+
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
@@ -143,14 +149,10 @@ function Dashboard({ toggleContentt }) {
   };
 
   useEffect(() => {
-    fetchJobStatistics();
-  }, [userDataGlobal?._id]);
-
-  useEffect(() => {
     if (userDataGlobal?._id && selected) fetchJobAnalytics();
   }, [userDataGlobal?._id, selected]);
 
-
+  console.log(12, data)
 
   return (
     <div
@@ -187,7 +189,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      {statistics.totalJobs}
+                      <CountUp end={statistics.totalJobs} />
                     </p>
                   </div>
                 </div>
@@ -221,7 +223,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      {statistics.totalApplications}
+                      <CountUp end={statistics.totalApplications} />
                     </p>
                   </div>
                 </div>
@@ -256,7 +258,7 @@ function Dashboard({ toggleContentt }) {
 
                     <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                       <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        {statistics.shortlisted}
+                        <CountUp end={statistics.shortlisted} />
                       </p>
                     </div>
                   </div>
@@ -291,7 +293,7 @@ function Dashboard({ toggleContentt }) {
 
                     <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                       <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        {statistics.shortlisted}
+                        <CountUp end={statistics.shortlisted} />
                       </p>
                     </div>
                   </div>
@@ -326,7 +328,7 @@ function Dashboard({ toggleContentt }) {
 
                   <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                     <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                      {statistics.rejected}
+                      <CountUp end={statistics.rejected} />
                     </p>
                   </div>
                 </div>
