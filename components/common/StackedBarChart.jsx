@@ -6,25 +6,21 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 const StackedBarChart = ({ analytics, labels }) => {
     const chartRef = useRef(null);
-
-    // Clean the data: Remove null values from analytics and labels
     const cleanedAnalytics = analytics?.filter((item) => item !== null);
     const cleanedLabels = labels?.filter((item) => item !== null);
 
-    // Data structure for the chart
     const data1 = {
-        labels: cleanedLabels, // Cleaned labels
+        labels: cleanedLabels,
         datasets: [
             {
 
-                data: cleanedAnalytics, // Cleaned analytics data
-                backgroundColor: "rgba(62, 107, 126, 1)", // Color for the bars
+                data: cleanedAnalytics,
+                backgroundColor: "rgba(62, 107, 126, 1)",
                 label: "Job Applied",
             },
         ],
     };
 
-    // Chart options
     const options = {
         responsive: true,
         plugins: {
