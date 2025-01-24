@@ -121,7 +121,6 @@ function Dashboard({ toggleContentt }) {
     );
   };
 
-
   const fetchJobStatistics = async () => {
     try {
       const response = await axios.get(`http://localhost:2000/api/job/getJobStatistics/${userDataGlobal._id}`);
@@ -152,7 +151,6 @@ function Dashboard({ toggleContentt }) {
   }, [userDataGlobal?._id, selected]);
 
 
-  console.log("111data", data)
 
   return (
     <div

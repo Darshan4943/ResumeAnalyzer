@@ -156,7 +156,7 @@ function JobStatistics({ setSelected, selected, data }) {
             </div>
             <div className="flex flex-col items-start gap-[2px]">
               <p className="text-[#333] flex items font-Montserrat font-semibold text-[20px] ml:text-[36px]">
-                654
+                {data.total}
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-[#646464] text-[12px] ml:text-[18px] font-Montserrat font-Medium">

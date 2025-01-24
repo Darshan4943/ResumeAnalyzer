@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 import { camelCase } from '../../../utils/middleware';
 
 function TopSection({ statistics }) {
-  console.log("statistics", statistics)
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  console.log("response", userDataGlobal)
   return (
     <div className={`lg:flex flex lg:flex-row flex-col flex-wrap items-start ${userDataGlobal?.role == "employer" ? "lg:justify-between" : "justify-start"} gap-3`}>
       <div
