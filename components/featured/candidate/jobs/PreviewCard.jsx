@@ -1,70 +1,20 @@
-import React, { useState } from 'react'
-import { CountPostingDays } from '../../../../utils/data'
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { fetchSavedJobIds } from '../../../../Redux/slices/jobSlice';
-import axios from 'axios';
+import React from 'react'
 
-function NormalJobCard({ item }) {
- 
-    const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
-    const { userDataGlobal } = useSelector((state) => state.user.userData);
-    const isLogin = useSelector((state) => state.auth.isLogin);
-    const router = useRouter();
-    const appliedJobs = appliedJobData
-    const [isSaved, setIsSaved] = useState(false)
-    const [isUnSaved, setUnIsSaved] = useState(false)
-    const dispatch = useDispatch();
-    const SaveJob = (e, id) => {
-        // setLoading(false);
-        setIsSaved(true)
-        e.stopPropagation();
-        axios
-            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
-            .then((res) => {
-                dispatch(fetchSavedJobIds(userDataGlobal?._id));
-
-                // toast.success("Job Saved Successfully");
-                // getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
-
-    const removeSavedJob = (e, id) => {
-        e.stopPropagation();
-        setUnIsSaved(true)
-        axios
-            .post(
-                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
-            )
-            .then((res) => {
-                dispatch(fetchSavedJobIds(userDataGlobal?._id));
-
-                // toast.success("Job Removed Successfully");
-                // getData();
-            })
-            .catch((err) => {
-                console.log(err);
-                // setLoading(false);
-            });
-    };
-
+function PreviewCard({ item,openModel }) {
     return (
-        <div
-            onClick={() => {
-                router.push(`/jobs/candidate/JobDetails?id=${item._id}`)
-            }}
-            className={`sm:px-4 sm:py-4 px-2 py-3 flex flex-col gap-[8px] relative justify-between  rounded-[12px]  min-h-[169px] bg-[#FFFFFF] z-0 w-full `}
-            style={{
-                boxShadow: "0px 0px 14px 0px #00000005"
+        <div className='flex flex-col gap-4 px-5 py-3'>
+            <div className='w-full flex justify-end'>
+                <svg className=' cursor-pointer' onClick={()=>openModel(false)} width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-            }}
+                    <g mask="url(#mask0_6706_94001)">
+                        <path d="M23.9973 26.1271L17.5048 32.6191C17.2152 32.9091 16.864 33.0508 16.4513 33.0441C16.0383 33.0378 15.687 32.8898 15.3973 32.6001C15.1077 32.3104 14.9628 31.9559 14.9628 31.5366C14.9628 31.1173 15.1077 30.7628 15.3973 30.4731L21.8703 24.0001L15.3783 17.5576C15.0883 17.2679 14.9467 16.9134 14.9533 16.4941C14.9597 16.0751 15.1077 15.7208 15.3973 15.4311C15.687 15.1411 16.0415 14.9961 16.4608 14.9961C16.8802 14.9961 17.2347 15.1411 17.5244 15.4311L23.9973 21.9231L30.4398 15.4311C30.7295 15.1411 31.0807 14.9961 31.4933 14.9961C31.9063 14.9961 32.2577 15.1411 32.5473 15.4311C32.8577 15.7411 33.0128 16.1006 33.0128 16.5096C33.0128 16.9186 32.8577 17.2679 32.5473 17.5576L26.0743 24.0001L32.5663 30.4926C32.8563 30.7823 33.0013 31.1334 33.0013 31.5461C33.0013 31.9591 32.8563 32.3104 32.5663 32.6001C32.2563 32.9104 31.8968 33.0656 31.4878 33.0656C31.0788 33.0656 30.7295 32.9104 30.4398 32.6001L23.9973 26.1271Z" fill="#333333" />
+                    </g>
+                </svg>
 
-        >
-            <div className=" flex flex-col gap-[8px] ">
+            </div>
+            <div className='flex flex-col gap-3 px-4'>
+
+            <div className=" flex flex-col gap-[8px]  ">
                 <div className="flex flex-row">
                     <div className="flex flex-col gap-[4px] w-full">
                         <div className="xxsm:text-[16px] sm:text-[16px] font-[600]">
@@ -194,72 +144,115 @@ function NormalJobCard({ item }) {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between items-start px-1 h-[24px]">
-                {appliedJobs?.some(
-                    (appliedJob) => appliedJob._id === item._id
-                ) ? (
-                    <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+            <div className="w-full h-[1px] bg-[#DEDEDE] "> </div>
+
+            <div>
+                {item && (
+                    <>
+                        <div
+                            onWheel={(e) => e.stopPropagation()}
+                            className="  bg-[#fff] rounded-[12px] flex flex-col gap-[16px]   overflow-y-scroll py-4 "
                         >
-                            <g mask="url(#mask0_5716_127442)">
-                                <path
-                                    d="M7.22917 18.5L5.66667 15.9167L2.72917 15.25L3 12.25L1 10L3 7.75L2.72917 4.75L5.66667 4.08333L7.22917 1.5L10 2.6875L12.7708 1.5L14.3333 4.08333L17.2708 4.75L17 7.75L19 10L17 12.25L17.2708 15.25L14.3333 15.9167L12.7708 18.5L10 17.3125L7.22917 18.5ZM7.83333 16.6042L10 15.6875L12.1667 16.6042L13.375 14.5833L15.6667 14.0625L15.4583 11.75L17 10L15.4583 8.25L15.6667 5.9375L13.375 5.41667L12.1667 3.39583L10 4.3125L7.83333 3.39583L6.625 5.41667L4.33333 5.91667L4.54167 8.25L3 10L4.5625 11.75L4.33333 14.0833L6.625 14.6042L7.83333 16.6042ZM8.9375 13L13.8958 8.0625L12.8333 7L8.9375 10.875L7.16667 9.125L6.10417 10.1875L8.9375 13Z"
-                                    fill="#0C8A0A"
-                                />
-                            </g>
-                        </svg>
-                        Applied{" "}
+                            {item?.description?.length > 0 && (
+                                <div className="flex flex-col gap-[8px]">
+                                    <div className="text-[16px] font-[600]">
+                                        Full job Description
+                                    </div>
+                                    <div className="text-[14px] font-[400] gap-[8px] flex flex-col">
 
+                                        <div className="px-4"
+                                            dangerouslySetInnerHTML={{
+                                                __html: item.description,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                            {item.requiredQualification && (
+                                <div className="flex flex-col gap-[10px] pb-[6px]">
+                                    <div className="text-[16px] font-[600]">
+                                        Qualifications :
+                                    </div>
 
-                        {CountPostingDays(
-                            appliedJobs
-                                ?.find((job) => job._id === item._id)
-                                ?.applications?.find((application) => application?.applicantId === userDataGlobal?._id)
-                                ?.appliedOn
-                        )}
+                                    <div className="text-[14px] font-[400]">
+                                        {item.requiredQualification} <br />
+                                        {item.experience &&
+                                            <>
+                                                Total Experience {item.experience} (Required){" "}
+                                            </>
+                                        }
+                                        <br />
+                                        {item.mustSkills}
+                                    </div>
+                                </div>
+                            )}
 
-                    </div>
-                ) : (
-                    <div className="text-[12px] text-[#333333] font-[500] font-Montserrat">
-                        Posted {CountPostingDays(item.createdAt)}
-                    </div>
-                )}
+                            <div className="pb-[12px]  flex flex-col gap-2">
+                                <div className="flex flex-col gap-[16px] text-[12px] text-[#333] font-[500]">
+                                    <div className="text-[14px] font-[600] ">
+                                        Job Type :{" "}
+                                        <span className="text-[14px] font-[500]">
+                                            {" "}
+                                            {item.jobType}
+                                        </span>
+                                    </div>
+                                    {(item.minSalary > 0 ||
+                                        item.maxSalary > 0) && (
+                                            <div className="text-[14px] font-[600] flex">
+                                                Salary :
+                                                {(() => {
+                                                    const icon = currenciesWithIcons?.find(
+                                                        (item) =>
+                                                            item?.icon?.toLowerCase() ===
+                                                            item?.currency?.toLowerCase()
+                                                    );
 
-                {isLogin && (
-                    <div className=" cursor-pointer">
-                        {savedJobIds?.find((data) => data == item._id) ? (
-                            <svg className={` ${isSaved && "save-button"}`} onClick={(e) => removeSavedJob(e, item._id)} width="24" height="29" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g mask="url(#mask0_1_3)">
-                                    <path d="M5 25.2V6C5 5.34 5.19583 4.775 5.5875 4.305C5.97917 3.835 6.45 3.6 7 3.6H17C17.55 3.6 18.0208 3.835 18.4125 4.305C18.8042 4.775 19 5.34 19 6V25.2L12 21.6L5 25.2Z" fill="#646464" />
-                                </g>
-                            </svg>
-                        ) : (
-                            <svg
-                                className={`${isUnSaved && "unsave_button"}`}
-                                onClick={(e) => SaveJob(e, item._id)}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                            >
-                                <g mask="url(#mask0_4135_57938)">
-                                    <path
-                                        d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                        fill={"#646464"}
-                                    />
-                                </g>
-                            </svg>
-                        )}
-                    </div>
+                                                    return (
+                                                        <div className="text-[14px] font-[500]">
+                                                            {icon ? icon.symbol : item?.currency}{" "}
+                                                            {item.minSalary}{" "}
+                                                            {item.minSalary &&
+                                                                item.maxSalary &&
+                                                                "-"}{" "}
+                                                            {icon ? icon.symbol : item?.currency}{" "}
+                                                            {item.maxSalary}{" "}
+                                                            {item.salaryType === "Annual"
+                                                                ? "per annum"
+                                                                : "per month"}
+                                                        </div>
+                                                    );
+                                                })()}
+                                            </div>
+                                        )}
+                                    {item.qualificationType && (
+                                        <div className="text-[14px] font-[600] ">
+                                            Education :{" "}
+                                            <span className="text-[14px] font-[500]">
+                                                {item.requiredQualification} (Preferred)
+                                            </span>
+                                        </div>
+                                    )}
+                                    {item.experience && (
+                                        <div className="text-[14px] font-[600] ">
+                                            Experience :{" "}
+                                            <span className="text-[14px] font-[500]">
+                                                Total Work :{" "}
+                                                {item.experience} (Required)
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                    </>
                 )}
             </div>
+            </div>
         </div>
+
     )
 }
 
-export default NormalJobCard
+export default PreviewCard

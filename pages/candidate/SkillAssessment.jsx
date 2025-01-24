@@ -23,6 +23,7 @@ function SkillAssessment() {
   const resumeRef2 = useRef();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { profileData } = useSelector((state) => state.profile.profileData);
+  console.log(userDataGlobal);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const router = useRouter();
   const query = router.query;
@@ -667,7 +668,7 @@ function SkillAssessment() {
               <button
                 onClick={() => {
                   setEditProfilePopUp(false);
-                  router.push("/auth/recruiter-signup?isUpdate=true");
+                  router.push("/profile");
                 }}
                 style={{ borderColor: "#06a9ef" }}
                 className={`w-[200px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] text-white font-[500] bg-blue hover:bg-[#06a9ef] 

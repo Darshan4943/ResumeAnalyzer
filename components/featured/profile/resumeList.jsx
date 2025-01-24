@@ -103,7 +103,7 @@ const ResumeList = ({ setResumeCount }) => {
                 <div className="flex flex-col gap-2">
                   <p className="text-[14px] font-[500]">{resume?.fileName}</p>
                   <p className="resume_text_small">
-                    Last updated {timeAgo(new Date(resume?.createdAt))}
+                    Last updated {timeAgo(new Date(resume?.updatedAt))}
                   </p>
                   {!resume?.isDefault &&
                     <div className="flex gap-2 text-[12px] font-[500]">

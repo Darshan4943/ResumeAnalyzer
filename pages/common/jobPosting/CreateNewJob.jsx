@@ -4,6 +4,7 @@ import CreateProfileFields from "../CreateProfileFields";
 import { useRouter } from "next/router";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
+import MiniLoader1 from "../../../components/common/mini-loader";
 import ReactSelect from "react-select";
 import { currencyMap, SkillList, telCode } from "../../../utils/data";
 import { camelCase } from "../../../utils/middleware";
@@ -20,12 +21,14 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import Select from "react-select";
+import PreviewCard from "../../../components/featured/candidate/jobs/PreviewCard";
 function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
   const { id, companyId } = router.query;
   const [loading, setLoading] = useState(true);
+  const [loadingg, setLoadingg] = useState(false);
   const [skills, setSkills] = useState(SkillList);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [formError, setFormError] = useState({});
@@ -192,7 +195,7 @@ function CreateNewJob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoadingg(true)
     const formErrors = await validateFormData(data);
     console.log("formErrors", formErrors);
     if (Object.keys(formErrors).length > 0) {
@@ -232,8 +235,10 @@ function CreateNewJob() {
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
+      setLoadingg(false)
     } catch (error) {
       console.error("Error:", error);
+      setLoadingg(false)
       toast.error(
         error.response?.data?.message ||
         "An error occurred while adding the job."
@@ -287,7 +292,7 @@ function CreateNewJob() {
           jobLink,
           jobType,
           jobSector,
-          openPositions,
+          openPositions: openPositions === null ? "" : openPositions,
           aboutOrganization,
           workFrom: jobMode,
           country,
@@ -397,24 +402,24 @@ function CreateNewJob() {
 
 
   const debounceUpdate = useCallback(
-      debounce((value) => {
-        //   const plainText = value?.replace(/<[^>]*>/g, "");
-        setData((prev) => ({ ...prev, description: value }));
-      }, 500),
-      []
-    );
-  
-  
-    const handleChange1 = (value) => {
-      // const plainText = value?.replace(/<[^>]*>/g, "");
-      if (value?.length < 200) {
-        setData({ ...data, description: value.slice(0, 200) });
-        debounceUpdate(value.slice(0, 200));
-      } else {
-        setData({ ...data, description: value });
-        debounceUpdate(value);
-      }
-    };
+    debounce((value) => {
+      //   const plainText = value?.replace(/<[^>]*>/g, "");
+      setData((prev) => ({ ...prev, description: value }));
+    }, 500),
+    []
+  );
+
+
+  const handleChange1 = (value) => {
+    // const plainText = value?.replace(/<[^>]*>/g, "");
+    if (value?.length < 200) {
+      setData({ ...data, description: value.slice(0, 200) });
+      debounceUpdate(value.slice(0, 200));
+    } else {
+      setData({ ...data, description: value });
+      debounceUpdate(value);
+    }
+  };
 
   const resetFormData = () => {
     setData({
@@ -527,17 +532,11 @@ function CreateNewJob() {
             <>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-                <div className="ml:w-[612px] w-full flex flex-col gap-6 p-5 rounded-[12px] bg-white">
-                  <div className="w-full flex justify-end">
-                    <Close_svg />
-                  </div>
+                <div className="ml:w-[612px] w-full flex flex-col gap-3 rounded-[12px] bg-white">
+                  
 
-                  <NormalJobCard item={data} />
-                  <Description
-                    selectedJob={data}
-                    openModel={openModel}
-                    isPreview={true}
-                  />
+                  <PreviewCard item={data} openModel={openModel}/>
+                 
                 </div>
               </div>
             </>
@@ -1063,7 +1062,7 @@ function CreateNewJob() {
                                 borderRadius: "8px",
                                 padding: "5px",
                               }}
-                              className="w-full"
+                              className="w-full text-[12px] font-[400]"
                               type="text"
                               name="salaryType"
                               value={data.salaryType}
@@ -1083,7 +1082,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">Min Salary</div>
                           <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
+                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
                             type="text"
                             name="minSalary"
                             value={data.minSalary}
@@ -1100,7 +1099,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-2 w-full ">
                           <div className="text-sm font-medium">Max Salary</div>
                           <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
+                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
                             type="text"
                             name="maxSalary"
                             value={data.maxSalary}
@@ -1129,18 +1128,18 @@ function CreateNewJob() {
                               Open Positions
                             </div>
                             <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
-                            type="text"
-                            name="openPositions"
-                            value={data.openPositions}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              if (/^\d*$/.test(value)) {
-                                handleChange(e);
-                              }
-                            }}
-                            placeholder="Open Positions"
-                          />
+                              className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
+                              type="text"
+                              name="openPositions"
+                              value={data.openPositions}
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^\d*$/.test(value)) {
+                                  handleChange(e);
+                                }
+                              }}
+                              placeholder="Open Positions"
+                            />
                           </div>
                           <div className="flex flex-col gap-2 w-full ">
                             <div className="text-sm font-medium">
@@ -1234,27 +1233,17 @@ function CreateNewJob() {
                           <div className="text-sm font-medium">
                             Required Qualification
                           </div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
-                            }}
+                          <input
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
+                            placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
                             value={data.requiredQualification}
                             onChange={handleChange}
-                          >
-                            {" "}
-                            <option value="" disabled selected>
-                              Select
-                            </option>
-                            <option value="Bachelor's">Bachelors</option>
-                            <option value="Master's">Masters</option>
-                            <option value="PhD">PhD</option>
-                          </select>
+                          />
                         </div>
 
                         <div className="flex flex-col gap-2 w-full ">
@@ -1565,12 +1554,22 @@ function CreateNewJob() {
                         >
                           Preview
                         </button>
-                        <button
-                          onClick={handleSubmit}
-                          className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
-                        >
-                          {id ? "Update Job" : "Post Job"}
-                        </button>
+                        {loadingg ?
+                          <div
+
+                            className="flex justify-center items-center text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 w-[158.25px]"
+                          >
+                            <MiniLoader1 />
+                          </div>
+                          :
+
+                          <button
+                            onClick={handleSubmit}
+                            className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
+                          >
+                            {id ? "Update Job" : "Post Job"}
+                          </button>
+                        }
                       </div>
                     </div>
                   </div>

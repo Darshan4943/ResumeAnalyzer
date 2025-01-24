@@ -290,7 +290,7 @@ function MyPurchase() {
                         : "border-[#C00000]"
                     } `}
                   >
-                    <div className="flex scr1100:flex-row flex-col scr1200:gap-12 gap-4 w-[100%] justify-center ">
+                    <div className="flex scr1100:flex-row flex-col scr1200:gap-6 gap-4 w-[100%] justify-center ">
                       <div className="flex md:flex-row flex-col gap-6  scr1100:w-[60%] w-[100%] items-center justify-between ">
                         <div className="flex flex-col gap-6  md:w-[40%] w-[100%] items-center justify-between">
                           <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
@@ -337,7 +337,7 @@ function MyPurchase() {
                             </p>
                           </div>
                           {subscription?.inReview ? (
-                            <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
+                            <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[70%] min-w-[160px]">
                               In Review
                             </button>
                           ) : (
@@ -448,7 +448,7 @@ function MyPurchase() {
                           )}
                         </div>
 
-                        <div className="flex flex-col gap-6  md:w-[60%] w-[100%]  ml:pl-4">
+                        <div className="flex flex-col gap-6  md:w-[70%] w-[100%]  ml:pl-4">
                           <div className="text-[18px] font-[600]">
                             Plan summary
                           </div>
@@ -518,12 +518,12 @@ function MyPurchase() {
                         </div>
                       </div>
                       <div className="bg-[#DEDEDE] w-[1px] h-[100%]"></div>
-                      <div className="flex gap-3 flex-col text-left">
+                      <div className="flex gap-3 flex-col text-left w-[30%]">
                         <div className="text-[18px] font-[600]">
                           Available Services
                         </div>
                         {plan?.features?.map((feature, index) => (
-                          <div key={index} className="flex gap-4 items-center ">
+                          <div key={index} className="flex gap-4 items-start ">
                             <svg
                               className="min-w-[20px]"
                               width="20"

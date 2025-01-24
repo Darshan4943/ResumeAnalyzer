@@ -12,7 +12,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const [appliedJobs, setAppliedJobs] = useState();
   // const [limitPopup, setLimitPopup] = useState(false)
 
-   const isLogin = useSelector((state) => state.auth.isLogin);
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const isPlanActive = JSON.parse(localStorage.getItem("planActive"));
 
@@ -43,7 +43,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   // }, [userDataGlobal]);
 
 
-
+  console.log(222, selectedJob);
   return (
     <>
 
@@ -76,8 +76,12 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                   </div>
 
                   <div className="text-[14px] font-[400]">
-                    {selectedJob.requiredQualification} <br /> Total Work
-                    Total Experience {selectedJob.experience} (Required){" "}
+                    {selectedJob.requiredQualification} <br />
+                    {selectedJob.experience &&
+                      <>
+                        Total Experience {selectedJob.experience} (Required){" "}
+                      </>
+                    }
                     <br />
                     {selectedJob.mustSkills}
                   </div>
@@ -125,7 +129,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <div className="text-[14px] font-[600] ">
                       Education :{" "}
                       <span className="text-[14px] font-[500]">
-                        {selectedJob.qualificationType} (Preferred)
+                        {selectedJob.requiredQualification} (Preferred)
                       </span>
                     </div>
                   )}
@@ -133,7 +137,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <div className="text-[14px] font-[600] ">
                       Experience :{" "}
                       <span className="text-[14px] font-[500]">
-                        Total Work
+                        Total Work :{" "}
                         {selectedJob.experience} (Required)
                       </span>
                     </div>
@@ -151,7 +155,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     if (isLogin) {
                       if (jobApplyCount > 0) {
                         if (
-                          !selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
+                          selectedJob?.matchedApplication?.applicantId !== userDataGlobal?._id
                         ) {
                           router.push(
                             `/jobs/candidate/ApplyForm?id=${selectedJob._id}`

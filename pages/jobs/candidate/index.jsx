@@ -209,12 +209,16 @@ function Index() {
             title: "Job Mode",
             img: "/images/jobs/arw.png",
             child: (jobtypeData?.jobModes || []).filter(
-                (item) => item !== '' && !(typeof item === "object" && Object.keys(item).length === 0)
-              ),
-              
-        },
+                (item) =>
+                    item !== '' && 
+                    item !== null && 
+                    !(typeof item === "object" && Object.keys(item || {}).length === 0)
+            ),
+        }
+        
     ];
 
+    console.log(jobtypeData);
     const filteredInputData = inputData.filter(
         (item) =>
             item.child &&
@@ -372,7 +376,7 @@ function Index() {
                                     country={country}
                                     page={page}
                                     filters={filters}
-                                     loading={loading}
+                                    loading={loading}
                                     userSkills={userSkills}
                                     setLoading={setLoading}
                                     className="text-[14px] font-medium flex items-center w-auto bg-white "
@@ -446,9 +450,9 @@ function Index() {
                             )}
                         </AnimatePresence>
                         {loading ?
-                        <div className='w-full max-w-[548px]'>
+                            <div className='w-full max-w-[548px]'>
 
-                            <MiniLoader />
+                                <MiniLoader />
                             </div>
                             :
                             <AllJobCard

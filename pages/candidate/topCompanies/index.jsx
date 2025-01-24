@@ -61,7 +61,7 @@ function Index() {
   ]
   return (
     <>
-      <div className='customMargins h-[80vh] w-full flex flex-col gap-5 pt-6 pb-6'>
+      <div className='customMargins  w-full flex flex-col gap-5 pt-6 pb-6'>
         <span className='text-[18px] font-[500] text-[#000000]'>Top Companies</span>
         <div className='flex gap-6 w-full'>
           <div className='flex w-full justify-between gap-y-5 flex-wrap'>

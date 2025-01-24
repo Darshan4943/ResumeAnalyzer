@@ -73,10 +73,10 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                   {item?.companyName}
                 </div>
               </div>
-              {item.logo && (
+              {item?.logo && (
                 <div className="flex flex-row  items-end">
                   <img
-                    src={item.logo}
+                    src={item?.logo}
                     alt=""
                     style={{
                       height: "56px",
@@ -181,11 +181,11 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
               <div className="text-[#262626] font-[400] text-[12px] h-[36px] overflow-hidden">
                 {item?.description?.length > 100
                   ? <>
-                    <div className="px-4"
+                    <div className=""
                       dangerouslySetInnerHTML={{ __html: item.description.slice(0, 100) }} />
                     <span>...</span>
                   </>
-                  : <div className="px-4"
+                  : <div className=""
                     dangerouslySetInnerHTML={{ __html: item.description }} />
                 }
 
@@ -252,7 +252,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                 Applicants : {jobData[0]?.totalApplicationCount}
               </div>
               <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                Openings: {1}
+                Openings: {jobData[0]?.openPositions}
               </div>
             </div>
 

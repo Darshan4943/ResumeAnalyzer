@@ -192,9 +192,9 @@ const MyCollection = () => {
         ) : (
           <>
             {isResumes === "resumes" ? (
-              <div className="flex flex-row scr540:justify-start justify-center flex-wrap  gap-x-[24px] gap-y-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+              <div className="flex flex-row scr540:justify-start justify-center flex-wrap  gap-x-[24px] gap-y-[48px] py-[24px]  rounded-[12px]  ">
                 <div
-                  onClick={() => router.push(`/home/BuildResume`)}
+                  onClick={() => router.push(`/createResume/BuildResume`)}
                   style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
 
                   className="rounded-[8px] text-center  justify-center flex scr540:flex-col flex-row text-[14px] items-center gap-2 font-semibold  scr540:w-[234px] w-[312px]  scr540:h-[330px] h-[135px] p-6 cursor-pointer"
@@ -248,7 +248,7 @@ const MyCollection = () => {
                             <div
                               onClick={() => {
                                 router.push({
-                                  pathname: "/home/createResume",
+                                  pathname: "/createResume",
                                   query: {
                                     data: JSON.stringify(item),
                                     isEdit: true,

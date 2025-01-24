@@ -25,7 +25,7 @@ function BuildResume() {
   const clientId = router.query.clientId;
 
   return (
-    <div className="flex gap-12 customMargins pt-12">
+    <div className="flex gap-12 customMargins py-12">
       <img
         src="/images/withoutLogin/resumeCreateOption.png"
         alt=""
