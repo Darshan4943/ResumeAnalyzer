@@ -130,6 +130,11 @@ function Dashboard({ toggleContentt }) {
     }
   };
 
+  useEffect(() => {
+    fetchJobStatistics();
+  }, [userDataGlobal?._id]);
+
+
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
@@ -143,14 +148,10 @@ function Dashboard({ toggleContentt }) {
   };
 
   useEffect(() => {
-    fetchJobStatistics();
-  }, [userDataGlobal?._id]);
-
-  useEffect(() => {
     if (userDataGlobal?._id && selected) fetchJobAnalytics();
   }, [userDataGlobal?._id, selected]);
 
-
+  console.log(12, data)
 
   return (
     <div

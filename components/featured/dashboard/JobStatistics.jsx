@@ -3,6 +3,32 @@ import StackedBarChart from '../../common/StackedBarChart';
 
 function JobStatistics({ setSelected, selected, data }) {
 
+  const calculatePercentageChange = () => {
+    const { analytics, labels } = data;
+    if (analytics?.length >= 2) {
+      const lastValue = analytics[analytics.length - 1];
+      const secondLastValue = analytics[analytics.length - 2];
+
+      const percentageChange =
+        secondLastValue !== 0
+          ? ((lastValue - secondLastValue) / secondLastValue) * 100
+          : lastValue !== 0
+            ? 100
+            : 0;
+
+      return {
+        change: percentageChange.toFixed(2),
+        from: labels[labels.length - 2],
+        to: labels[labels.length - 1],
+      };
+    }
+    return null;
+  };
+
+  const percentageChange = calculatePercentageChange();
+  useEffect(() => {
+    console.log("Selected view type:", selected);
+  }, [selected]);
   return (
     <div
       className="lg:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:p-4 p-2"
@@ -160,40 +186,71 @@ function JobStatistics({ setSelected, selected, data }) {
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-[#646464] text-[12px] ml:text-[18px] font-Montserrat font-Medium">
-                  This Week{" "}
+                  {selected === "Daily" ? "Today" : selected === "Weekly" ? "This Week" : "This Month"}
                 </p>
                 <div className="flex text-center">
-                  <p className="text-[#C00000] items-center ml:text-[18px] text-[10px] font-medium leading-5">
-                    0.5%
+                  <p className={`${percentageChange?.change > 0 ? "text-[#06A9EF]" : percentageChange?.change == 0 ? "text-[#333333]" : "text-[#C00000]"} items-center ml:text-[18px] text-[10px] font-medium leading-5`}>
+                  {Math.abs(percentageChange.change)}%
                   </p>
-                  <svg
-                    xlgns="http://www.w3.org/2000/svg"
-                    width="21"
-                    height="21"
-                    viewBox="0 0 21 21"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_6622_117282)">
-                      <path
-                        d="M5.73438 8L10.7344 13L15.7344 8L5.73438 8Z"
-                        fill="#C00000"
-                        stroke="#C00000"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_6622_117282">
-                        <rect
-                          width="20"
-                          height="20"
-                          fill="white"
-                          transform="matrix(-1 0 0 -1 20.7344 20.5)"
+                  {percentageChange?.change < 0 &&
+                    <svg
+                      xlgns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      viewBox="0 0 21 21"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_6622_117282)">
+                        <path
+                          d="M5.73438 8L10.7344 13L15.7344 8L5.73438 8Z"
+                          fill="#C00000"
+                          stroke="#C00000"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_6622_117282">
+                          <rect
+                            width="20"
+                            height="20"
+                            fill="white"
+                            transform="matrix(-1 0 0 -1 20.7344 20.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  }
+                  {percentageChange?.change > 0 &&
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      viewBox="0 0 21 21"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_6622_117270)">
+                        <path
+                          d="M15.7344 13L10.7344 8L5.73438 13H15.7344Z"
+                          fill="#06A9EF"
+                          stroke="#06A9EF"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_6622_117270">
+                          <rect
+                            width="20"
+                            height="20"
+                            fill="white"
+                            transform="translate(0.734375 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>}
                 </div>
               </div>
             </div>
