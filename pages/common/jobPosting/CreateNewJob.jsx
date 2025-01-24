@@ -379,9 +379,9 @@ function CreateNewJob() {
 
   const handleChange1 = useCallback(
     debounce((value) => {
-      const plainText = value.replace(/<[^>]*>/g, "");
+      const plainText = value?.replace(/<[^>]*>/g, "");
 
-      if (plainText.length > data?.description?.length) {
+      if (plainText?.length > data?.description?.length) {
         setFormError((prevErrors) => ({
           ...prevErrors,
           description: "",
@@ -478,6 +478,25 @@ function CreateNewJob() {
   const handleItemClick = (selectedOption) => {
     setSelectedCurrency(selectedOption);
   };
+
+  const experienceOptions = [
+    { value: "", label: "Select" },
+    { value: "0-2 years", label: "0-2 years" },
+    { value: "2-5 years", label: "2-5 years" },
+    { value: "5-10 years", label: "5-10 years" },
+    { value: "10-20 years", label: "10-20 years" },
+    { value: "20 +", label: "20 +" },
+  ];
+
+  const experienceIndices = experienceOptions.map((option) => option.value);
+
+  const isRelevantAllowed = (totalExpIndex, relevantExpIndex) => {
+    return relevantExpIndex <= totalExpIndex;
+  };
+
+
+
+
   console.log("data", data);
   return (
     <>
@@ -588,10 +607,10 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                   
-                       
-                      
-                     
+
+
+
+
 
                       <div className="flex flex-col gap-[8px] w-full">
                         <div className="text-[14px] font-[500]">Job Link</div>
@@ -762,77 +781,77 @@ function CreateNewJob() {
                             </div>
 
                             <div className="flex flex-col gap-[8px]  w-[50%] ">
-                            <div className="text-[14px] font-[500]">
-                              Keywords <span className="text-[red]">*</span>
-                            </div>
-                            <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}>
-                              <div className="flex flex-row flex-wrap gap-3">
-                                {data?.Keywords?.map((item, index) => (
-                                  <div
-                                    key={index}
-                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
-                                  >
-                                    <span> {item}</span>
-                                    <span
-                                      className="text-[14px]  cursor-pointer font-medium "
-                                      onClick={() =>
-                                        setData({
-                                          ...data,
-                                          Keywords: data.Keywords.filter((data) => data != item),
-                                        })
-                                      }
-                                    >
-                                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
-                                      </svg>
-
-                                    </span>
-                                  </div>
-                                ))}
+                              <div className="text-[14px] font-[500]">
+                                Keywords <span className="text-[red]">*</span>
                               </div>
-                              <input
-                                type="text"
-                                placeholder="Keywords"
-                                className="input w-[100px]"
+                              <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}>
+                                <div className="flex flex-row flex-wrap gap-3">
+                                  {data?.Keywords?.map((item, index) => (
+                                    <div
+                                      key={index}
+                                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                    >
+                                      <span> {item}</span>
+                                      <span
+                                        className="text-[14px]  cursor-pointer font-medium "
+                                        onClick={() =>
+                                          setData({
+                                            ...data,
+                                            Keywords: data.Keywords.filter((data) => data != item),
+                                          })
+                                        }
+                                      >
+                                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
+                                        </svg>
 
-                                value={KeywordsText}
-                                onChange={(e) => {
-                                  setKeywordsText(e.target.value);
-                                }}
-                              />
-                              <button
-                                className=" absolute right-3 top-[8px] "
-                                disabled={KeywordsText?.length == 0}
-                                onClick={() => {
-                                  setData({
-                                    ...data,
-                                    Keywords: [...data.Keywords, KeywordsText],
-                                  });
-                                  setKeywordsText("");
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                                <input
+                                  type="text"
+                                  placeholder="Keywords"
+                                  className="input w-[100px]"
 
-                                  // setFormError(formError => {
-                                  //   delete formError.location;
-                                  //   return formError;
-                                  // });
-                                  setFormError((prevErrors) => ({
-                                    ...prevErrors,
-                                    Keywords: "",
-                                  }));
-                                }}
-                              >
-                                <PlusAddLogo
-                                  color={KeywordsText?.length > 0 ? "#646464" : "#bebebe"}
+                                  value={KeywordsText}
+                                  onChange={(e) => {
+                                    setKeywordsText(e.target.value);
+                                  }}
                                 />
-                              </button>
+                                <button
+                                  className=" absolute right-3 top-[8px] "
+                                  disabled={KeywordsText?.length == 0}
+                                  onClick={() => {
+                                    setData({
+                                      ...data,
+                                      Keywords: [...data.Keywords, KeywordsText],
+                                    });
+                                    setKeywordsText("");
+
+                                    // setFormError(formError => {
+                                    //   delete formError.location;
+                                    //   return formError;
+                                    // });
+                                    setFormError((prevErrors) => ({
+                                      ...prevErrors,
+                                      Keywords: "",
+                                    }));
+                                  }}
+                                >
+                                  <PlusAddLogo
+                                    color={KeywordsText?.length > 0 ? "#646464" : "#bebebe"}
+                                  />
+                                </button>
+                              </div>
+
+
+
+
                             </div>
-
-
-
-
-                          </div>
 
                           </div>
 
@@ -973,7 +992,7 @@ function CreateNewJob() {
                     <div className="p-4 gap-4 flex flex-col">
                       <div className="text-lg font-semibold">Salary</div>
                       <div className="flex flex-col md:flex-row w-full gap-5">
-                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+                        <div className="sm:w-[50%] w-full flex flex-col gap-[6px]">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Currency
                           </label>
@@ -1088,27 +1107,19 @@ function CreateNewJob() {
                             <div className="text-sm font-medium">
                               Open Positions
                             </div>
-                            <select
-                              style={{
-                                width: "109px",
-                                height: "40px",
-                                border: "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "5px",
-                              }}
-                              type="number"
-                              name="openPositions"
-                              value={data.openPositions}
-                              onChange={handleChange}
-                            >
-                              {" "}
-                              <option value="" disabled selected>
-                                Select
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                            </select>
+                            <input
+                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2"
+                            type="text"
+                            name="openPositions"
+                            value={data.openPositions}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                handleChange(e);
+                              }
+                            }}
+                            placeholder="Open Positions"
+                          />
                           </div>
                           <div className="flex flex-col gap-2 w-full ">
                             <div className="text-sm font-medium">
@@ -1383,62 +1394,90 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">
+                      <div className="flex sm:flex-row flex-col gap-4 w-[100%] justify-between">
+                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+                          <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience
+                          </label>
+                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+                            <select
+                              style={{
+                                WebkitAppearance: "none",
+                                MozAppearance: "none",
+                                appearance: "none",
+                                position: "relative",
+                                background: "transparent",
+                              }}
+                              value={data?.experience}
+                              onChange={(e) => {
+                                const newExperience = e.target.value;
+                                setData({ ...data, experience: newExperience });
+                              }}
+                              className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+                            >
+                              {experienceOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                  {option.label}
+                                </option>
+                              ))}
+                            </select>
+                            <img
+                              src="/images/down_arrow.png"
+                              className="h-[20px] w-[20px] absolute right-[4px]"
+                              alt=""
+                            />
                           </div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
-                            }}
-                            name="totalExperience"
-                            value={data.totalExperience}
-                            onChange={handleChange}
-                          >
-                            <option value="" disabled selected>
-                              Select
-                            </option>
-                            <option value="0-2 years">0-2 years</option>
-                            <option value="2-5 years">2-5 years</option>
-                            <option value="5-10 years">5-10 years</option>
-                            <option value="10-20 years">10-20 years</option>
-                            <option value="20 +">20 +</option>
-                          </select>
                         </div>
-                        <div className="flex flex-col gap-2 w-full ">
-                          <div className="text-sm font-medium">
-                            {" "}
+
+                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+                          <label className="text-[#333333] text-[14px] font-medium">
                             Relevant Experience
+                          </label>
+                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+                            <select
+                              style={{
+                                WebkitAppearance: "none",
+                                MozAppearance: "none",
+                                appearance: "none",
+                                position: "relative",
+                                background: "transparent",
+                              }}
+                              value={data?.revalentExp}
+                              onChange={(e) => {
+                                const newRelevantExp = e.target.value;
+
+                                const totalExpIndex = experienceIndices.indexOf(
+                                  data?.experience
+                                );
+                                const relevantExpIndex =
+                                  experienceIndices.indexOf(newRelevantExp);
+
+                                // Allow selection only if the relevant experience index is less than or equal to the total experience index
+                                if (isRelevantAllowed(totalExpIndex, relevantExpIndex)) {
+                                  setData({ ...data, revalentExp: newRelevantExp });
+                                } else {
+                                  toast.error(" Cannot be greater than total experience.");
+                                  setData((prevData) => ({ ...prevData, revalentExp: "" })); // Reset relevant experience
+                                }
+                              }}
+                              className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+                            >
+                              {experienceOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                  {option.label}
+                                </option>
+                              ))}
+                            </select>
+                            <img
+                              src="/images/down_arrow.png"
+                              className="h-[20px] w-[20px] absolute right-[4px]"
+                              alt=""
+                            />
                           </div>
-                          <select
-                            style={{
-                              width: "100%",
-                              height: "40px",
-                              border: "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
-                            }}
-                            name="revalentExp"
-                            value={data.revalentExp}
-                            onChange={handleChange}
-                          >
-                            {" "}
-                            <option value="" disabled selected>
-                              Select
-                            </option>
-                            <option value="0-2 years">0-2 years</option>
-                            <option value="2-5 years">2-5 years</option>
-                            <option value="5-10 years">5-10 years</option>
-                            <option value="10-20 years">10-20 years</option>
-                            <option value="20 +">20 +</option>
-                          </select>
                         </div>
                       </div>
+
+
                     </div>
 
                     {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
