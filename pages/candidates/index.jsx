@@ -409,7 +409,7 @@ function MyClients() {
                       fill="#333333"
                     />
                   </svg>
-                  <p>Create New Client</p>
+                  <p>Create New Candidate</p>
                 </div >
               )}
               {limitPopUp && (

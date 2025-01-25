@@ -595,7 +595,7 @@ function ClientDetail({ tabIndex }) {
                           <div
                             onClick={() => {
                               router.push({
-                                pathname: "/home/createResume",
+                                pathname: "/createResume/BuildResume",
                                 query: {
                                   data: JSON.stringify(item),
                                   isEdit: true,

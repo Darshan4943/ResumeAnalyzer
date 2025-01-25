@@ -13,6 +13,7 @@ const Breadcrumb = () => {
     JobPosting: 'Job Posting',
     jobPosting: 'Job Posting',
     CreateNewJob:"Create New Job",
+    createCompany:"Create Company",
     'JobPosting?content=CreateNewJob': 'Create New Job',
     'ClientDetail': 'Candidate Details',
     "CreateNewClient":"Create New Candidate",
@@ -26,6 +27,10 @@ const Breadcrumb = () => {
     'Hiring?content=ApplicantDetails': 'Applicant Details',
     'BulkUploads?content=ApplicantDetails': 'Applicant Details',
     BulkUploads: 'Bulk Uploads',
+    ClientResume:"Select Candidate",
+    MyPurchase:"My Purchase",
+    details:"Purchase Plan"
+
   };
 
  

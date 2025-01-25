@@ -93,6 +93,46 @@ function CreateNewJob() {
         : [],
     });
   };
+  const jobSectorOptions = [
+    "Information Technology",
+    "Healthcare",
+    "Education",
+    "Finance",
+    "Manufacturing",
+    "Construction",
+    "Retail",
+    "Hospitality",
+    "Transportation",
+    "Energy",
+    "Government",
+    "Entertainment",
+    "Real Estate",
+    "Agriculture",
+    "Telecommunications",
+    "Marketing and Advertising",
+    "Legal Services",
+    "Non-Profit",
+    "Science and Research",
+    "Aerospace"
+  ];
+
+  const jobSectors = jobSectorOptions.map((sector) => ({
+    value: sector,
+    label: sector,
+  }));
+
+
+  const handleSectorChange = (selectedJobSector) => {
+    
+    setFormError((prevErrors) => ({
+      ...prevErrors,
+      jobSector: "",
+    }));
+    setData({
+      ...data,
+      jobSector: selectedJobSector ? selectedJobSector.value : null,
+    });
+  };
 
   const customStyles = {
     control: (provided, state) => ({
@@ -201,6 +241,7 @@ function CreateNewJob() {
     if (Object.keys(formErrors).length > 0) {
       setFormError(formErrors);
       toast.error("All fields are Required")
+      setLoadingg(false)
       return;
     }
 
@@ -533,10 +574,10 @@ function CreateNewJob() {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
                 <div className="ml:w-[612px] w-full flex flex-col gap-3 rounded-[12px] bg-white">
-                  
 
-                  <PreviewCard item={data} openModel={openModel}/>
-                 
+
+                  <PreviewCard item={data} openModel={openModel} />
+
                 </div>
               </div>
             </>
@@ -869,8 +910,6 @@ function CreateNewJob() {
                               </div>
 
 
-
-
                             </div>
 
                           </div>
@@ -888,7 +927,7 @@ function CreateNewJob() {
                               options={countryOptions}
                               onChange={handleCountryChange}
                               value={countryOptions.filter((country) =>
-                                data.country?.includes(country.value)
+                                data?.country?.includes(country.value)
                               )}
                               // className="input"
                               classNamePrefix="select"
@@ -1145,26 +1184,17 @@ function CreateNewJob() {
                             <div className="text-sm font-medium">
                               Job Sector
                             </div>
-                            <select
-                              style={{
-                                width: "100%",
-                                height: "40px",
-                                border: "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "5px",
-                              }}
-                              type="number"
-                              name="jobSector"
-                              value={data.jobSector}
-                              onChange={handleChange}
-                            >
-                              <option value="" disabled selected>
-                                Select
-                              </option>
-                              <option value="Accounting">Accounting</option>
-                              <option value="Finance">Finance</option>
-                              <option value="HR">HR</option>
-                            </select>
+                            <Select
+                              options={jobSectors}
+                              onChange={handleSectorChange}
+                              value={jobSectors.find((jobSector) => jobSector.value === data?.jobSector)}
+                              classNamePrefix="select"
+                              placeholder="Select Job Sector"
+                              styles={customStyles}
+                              className={`border rounded-[5px] ${formError.jobSector ? "border-red" : "border-[#DEDEDE]"
+                                }`}
+                            />
+
                           </div>
                         </div>
                         <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[60%] gap-[20px]">

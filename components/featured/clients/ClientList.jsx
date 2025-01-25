@@ -65,7 +65,7 @@ function ClientList({
     <>
       <div className="rounded-[16px]  flex flex-col gap-4 w-[100%] break-all">
         <div className="text-[16px] font-medium">
-          Total Clients ({details?.length})
+          Total Candidates ({details?.length})
         </div>
 
         <div className="flex  gap-4 flex-wrap scr700:justify-start justify-center  ">
@@ -89,7 +89,7 @@ function ClientList({
               router.push("/candidates/CreateNewClient");
 
             }}
-            className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] p-4 cursor-pointer"
+            className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] p-4 cursor-pointer "
           >
             <svg
               width="27"
@@ -104,7 +104,7 @@ function ClientList({
               />
             </svg>
 
-            <p>Create New Client</p>
+            <p className=" break-words">Create New <br/> Candidate</p>
           </div >
           {details?.map((detail, index) => (
             <div
@@ -167,7 +167,7 @@ function ClientList({
                       onClick={() => toggleDetails(detail)}
                       className="text-[14px] font-medium"
                     >
-                      View Client
+                      View Candidates
                     </p>
 
                     <p

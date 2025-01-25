@@ -65,7 +65,7 @@ function Details() {
   };
   
   return (
-    <div className=" flex flex-col  gap-9">
+    <div className=" flex flex-col  gap-9 ">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
         <div className=" font-semibold text-[30px] text-white leading-tight">
           Purchase
@@ -96,7 +96,7 @@ function Details() {
         <div className="flex items-center justify-center pb-12  px-2 customMargins ">
           <div
             style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
-            className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px]"
+            className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px] bg-white"
           >
             <div className="flex flex-col gap-4  plan-container">
               <div className="text-[16px] font-[600]">Subscription Plan</div>

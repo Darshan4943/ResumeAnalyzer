@@ -74,9 +74,9 @@ function ClientResume() {
     }
   };
   return (
-    <div className="flex justify-center customMargins">
-      <div className="flex flex-col gap-4 sm:py-6 py-2 w-[100%]">
-        <div className="text-[24px] font-semibold">Select Candidate</div>
+    <div className="flex justify-center ">
+      <div className="flex flex-col gap-4  pb-2 w-[100%]">
+        <div className="text-[20px] font-semibold">Select Candidate</div>
         <div
           // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
           className="flex flex-col gap-4  rounded-[24px]"
@@ -84,7 +84,7 @@ function ClientResume() {
           <div className="flex ml:flex-row flex-col gap-4  justify-end ml:items-center items-end ">
             <div
               style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-              className="flex gap-4 justify-between rounded-[50px] px-4 py-3  w-[100%] items-center "
+              className="flex gap-4 justify-between rounded-[50px] px-4 py-3  w-[100%] items-center bg-white "
             >
               <div className="flex gap-4  w-[100%] items-center ">
                 <svg
@@ -122,7 +122,7 @@ function ClientResume() {
           <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
             {details?.length > 0 && (
               <div className="text-[20px] font-medium">
-                Total Clients ({details?.length})
+                Total Candidates ({details?.length})
               </div>
             )}
 
@@ -149,7 +149,7 @@ function ClientResume() {
 
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer"
+                  className="rounded-[24px] text-center text-white justify-center flex sm:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer"
                 >
                   <svg
                     width="27"
@@ -164,7 +164,7 @@ function ClientResume() {
                     />
                   </svg>
 
-                  <p>Create New Client</p>
+                  <p>Create New Candidate</p>
                 </div>
               )}
               {details?.length > 0 ? (
@@ -172,10 +172,10 @@ function ClientResume() {
                   {details?.map((detail, index) => (
                     <div
                       onClick={() =>
-                        router.push(cover ? `/coverLetter?clientId=${detail._id}` : `/home/BuildResume?clientId=${detail._id}`)
+                        router.push(cover ? `/coverLetter?clientId=${detail._id}` : `/createResume/BuildResume?clientId=${detail._id}`)
                       }
                       key={index}
-                      className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px] sm:min-w-[224px] min-w-[218px] max-w-[224px] break-all"
+                      className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px] sm:min-w-[224px] min-w-[218px] max-w-[224px] break-all bg-white"
                       style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">
@@ -307,7 +307,7 @@ function ClientResume() {
 
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer scr540:h-[329px]"
                 >
                   <svg
                     width="27"
@@ -322,7 +322,7 @@ function ClientResume() {
                     />
                   </svg>
 
-                  <p>Create New Client</p>
+                  <p>Create New Candidate</p>
                 </div>
               )}
             </div>

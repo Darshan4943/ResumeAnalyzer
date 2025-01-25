@@ -27,9 +27,7 @@ function JobStatistics({ setSelected, selected, data }) {
   };
 
   const percentageChange = calculatePercentageChange();
-  useEffect(() => {
-    console.log("Selected view type:", selected);
-  }, [selected]);
+ 
   return (
     <div
       className="lg:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:p-4 p-2"
@@ -186,8 +184,8 @@ function JobStatistics({ setSelected, selected, data }) {
               <CountUp end={data.total} />
               </p>
               <div className="flex gap-2 items-center">
-                <p className="text-[#646464] text-[12px] ml:text-[18px] font-Montserrat font-Medium">
-                  {selected === "Daily" ? "Today" : selected === "Weekly" ? "This Week" : "This Month"}
+                <p className="text-[#646464] text-[12px] ml:text-[16px] font-Montserrat font-Medium">
+                  {selected === "Daily" ? "This Week" : selected === "Weekly" ? "This Month" : "This Year"}
                 </p>
                 <div className="flex text-center">
                   <p className={`${percentageChange?.change > 0 ? "text-[#06A9EF]" : percentageChange?.change == 0 ? "text-[#333333]" : "text-[#C00000]"} items-center ml:text-[18px] text-[10px] font-medium leading-5`}>

@@ -39,7 +39,7 @@ function Dashboard({ toggleContentt }) {
       name: "Create New Cover Letter",
       imgSrc: "/images/resumeBuilder/cover.png",
     },
-    { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
+    { name: "My Candidates", imgSrc: "/images/resumeBuilder/my_clients.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Job Description Matching",
@@ -67,18 +67,18 @@ function Dashboard({ toggleContentt }) {
         handleNavigation(
           userDataGlobal?.role === "user"
             ? "/home/BuildResume"
-            : "/myClients/ClientResume"
+            : "/candidates/ClientResume"
         );
         break;
       case "Create New Cover Letter":
         handleNavigation(
           userDataGlobal?.role === "user"
             ? "/coverLetter"
-            : `/myClients/ClientResume?cover=true`
+            : `/candidates/ClientResume?cover=true`
         );
         break;
-      case "My Clients":
-        handleNavigation("/myClients");
+      case "My Candidates":
+        handleNavigation("/candidates");
         break;
       case "Resume":
         handleNavigation("/home/MyCollection");
@@ -100,7 +100,7 @@ function Dashboard({ toggleContentt }) {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection"
+          userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection?folders=true"
         );
         break;
       case "Skill Assessments & Certification":
@@ -109,7 +109,7 @@ function Dashboard({ toggleContentt }) {
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal?.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/search" : "/common/jobPosting"
         );
         break;
       default:

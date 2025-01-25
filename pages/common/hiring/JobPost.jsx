@@ -10,6 +10,7 @@ import MiniLoaderr from "../../../components/common/mini-loader";
 import ShortlistMail from "./ShortlistMail";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { DownSvg, UpSvg } from "../../../utils/svg";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
@@ -33,7 +34,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   const [totalPages, setTotalpages] = useState(0);
   const [page, setPage] = useState(0);
-
+  const [filterType, setfilterType] = useState()
   const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
   const [loadingg, setLoadingg] = useState({ isLoading: false, applicantId: null });
@@ -47,6 +48,27 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setShortlist([applicant]);
     setApplicantIds([applicant?.applicantId])
   };
+
+
+  const [selectedFilters, setSelectedFilters] = useState([]); // Track selected filters
+
+  const handleCheckboxChangeFilter = (e, filter, applicantHeadName) => {
+    const updatedFilters = { ...selectedFilters };
+
+    if (!updatedFilters[applicantHeadName]) {
+      updatedFilters[applicantHeadName] = [];
+    }
+
+    if (e.target.checked) {
+      updatedFilters[applicantHeadName] = [...updatedFilters[applicantHeadName], filter];
+    } else {
+      updatedFilters[applicantHeadName] = updatedFilters[applicantHeadName].filter((item) => item !== filter);
+    }
+
+    setSelectedFilters(updatedFilters);
+  };
+
+  console.log(selectedFilters);
 
   const handleCheckboxChange = (index, applicant) => {
     if (applicant?.hiringStage === "Rejected") {
@@ -66,7 +88,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
 
 
-  
+
 
   const handleReject = async () => {
     setAllReject(true);
@@ -123,38 +145,46 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:2000/api/job/getByIdApplication/${id}?page=${page}&limit=${limit}`
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getByIdApplication/${id}`,
+        {
+          params: {
+            page: page,
+            limit: limit,
+            selectedFilters: JSON.stringify(selectedFilters),
+          },
+        }
       );
 
-      if (!response.ok) {
-        throw new Error(`Error fetching job details: ${response.statusText}`);
-      }
-      const data = await response.json();
+     
+      const data = await response.data;
       setTimeout(() => {
         setLoading(false);
       }, 500);
       setJobDetails(data);
       setTotalCount(data.pagination.totalCount);
       setTotalpages(data.pagination.totalPages);
+      setfilterType(false)
     } catch (err) {
       console.error("Error fetching job details:", err);
       setError(err.message);
+      setfilterType(false)
     } finally {
       setTimeout(() => {
         setLoading(false);
       }, 500);
       setMiniloading(false);
       setLoading(false);
+      setfilterType(false)
     }
   };
   useEffect(() => {
     if (id) {
       setLoading(true);
-      
+
       fetchJobDetails();
     }
-  }, [id,statusChange]);
+  }, [id, statusChange, selectedFilters]);
 
 
   useEffect(() => {
@@ -162,7 +192,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       setMiniloading(true);
       fetchJobDetails();
     }
-  }, [ page, limit]);
+  }, [page, limit]);
 
 
 
@@ -196,14 +226,20 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     {
       name: "Source",
       check: "",
+      isFilter: true,
+      filters: ["Jd Matching", "Applied"]
     },
     {
       name: "Profile Match",
       check: "",
+      isFilter: true,
+      filters: ["90", "75", "50"]
     },
     {
       name: "Hiring stage",
       check: "",
+      isFilter: true,
+      filters: ["Shortlisted", "Pending", "Rejected"]
     },
     {
       name: "Applied Date",
@@ -228,7 +264,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
                 <div className="flex gap-[20px] justify-center  items-start">
-                  <div onClick={router.back}>
+                  <div className=" cursor-pointer" onClick={router.back}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                       <g mask="url(#mask0_6706_101277)">
@@ -286,25 +322,31 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
               </div>
 
               <div className="flex flex-col scr1024:flex-row justify-between">
-                <div className="flex gap-[10px]  justify-start">
-                  <div className="flex gap-[4px] items-center">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1.33073 11.7474C1.0099 11.7474 0.735243 11.6332 0.506771 11.4047C0.278299 11.1762 0.164062 10.9016 0.164062 10.5807V4.16406C0.164062 3.84323 0.278299 3.56858 0.506771 3.3401C0.735243 3.11163 1.0099 2.9974 1.33073 2.9974H3.66406V1.83073C3.66406 1.5099 3.7783 1.23524 4.00677 1.00677C4.23524 0.778299 4.5099 0.664062 4.83073 0.664062H7.16406C7.48489 0.664062 7.75955 0.778299 7.98802 1.00677C8.21649 1.23524 8.33073 1.5099 8.33073 1.83073V2.9974H10.6641C10.9849 2.9974 11.2595 3.11163 11.488 3.3401C11.7165 3.56858 11.8307 3.84323 11.8307 4.16406V10.5807C11.8307 10.9016 11.7165 11.1762 11.488 11.4047C11.2595 11.6332 10.9849 11.7474 10.6641 11.7474H1.33073ZM1.33073 10.5807H10.6641V4.16406H1.33073V10.5807ZM4.83073 2.9974H7.16406V1.83073H4.83073V2.9974Z"
-                        fill="#646464"
-                      />
-                    </svg>
-                    <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobDetails?.data?.jobDetails?.revalentExp}
+                <div className="flex gap-[10px]  justify-start items-center">
+                  {jobDetails?.data?.jobDetails?.revalentExp &&
+                    <div className="flex gap-[4px] items-center">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.33073 11.7474C1.0099 11.7474 0.735243 11.6332 0.506771 11.4047C0.278299 11.1762 0.164062 10.9016 0.164062 10.5807V4.16406C0.164062 3.84323 0.278299 3.56858 0.506771 3.3401C0.735243 3.11163 1.0099 2.9974 1.33073 2.9974H3.66406V1.83073C3.66406 1.5099 3.7783 1.23524 4.00677 1.00677C4.23524 0.778299 4.5099 0.664062 4.83073 0.664062H7.16406C7.48489 0.664062 7.75955 0.778299 7.98802 1.00677C8.21649 1.23524 8.33073 1.5099 8.33073 1.83073V2.9974H10.6641C10.9849 2.9974 11.2595 3.11163 11.488 3.3401C11.7165 3.56858 11.8307 3.84323 11.8307 4.16406V10.5807C11.8307 10.9016 11.7165 11.1762 11.488 11.4047C11.2595 11.6332 10.9849 11.7474 10.6641 11.7474H1.33073ZM1.33073 10.5807H10.6641V4.16406H1.33073V10.5807ZM4.83073 2.9974H7.16406V1.83073H4.83073V2.9974Z"
+                          fill="#646464"
+                        />
+                      </svg>
+                      <div className="text-[12px] text-[#262626] font-[500]">
+                        {jobDetails?.data?.jobDetails?.revalentExp}
+                      </div>
                     </div>
-                  </div>
-                  <div className="border-[1px] border-[#AFAFAF]"></div>
+                  }
+
+                  {jobDetails?.data?.jobDetails?.revalentExp &&
+
+                    <div className="border-[1px] border-[#AFAFAF] h-[20px]"></div>
+                  }
                   <div className="flex gap-[4px] items-center">
                     <svg
                       width="10"
@@ -322,7 +364,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       {jobDetails?.data?.jobDetails?.jobType}
                     </div>
                   </div>
-                  <div className="border-[1px] border-[#AFAFAF]"></div>
+                  <div className="border-[1px] border-[#AFAFAF]  h-[20px]"></div>
                   <div className="flex gap-[4px] items-center">
                     <svg
                       width="10"
@@ -433,7 +475,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     />
                   </svg>
                 </div>
-                <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                {/* <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
                   <p
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
@@ -455,7 +497,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       fill={activeOption === "Analytics" ? "#06A9EF" : "white"}
                     />
                   </svg>
-                </div>
+                </div> */}
               </div>
               <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
             </div>
@@ -489,14 +531,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         className="sm:w-full w-[100px]"
                       />
                     </div>
-                    <div className="flex py-[12px] px-[16px] justify-center gap-[8px]">
+                    {/* <div className="flex py-[12px] px-[16px] justify-center gap-[8px]">
                       <img
                         className="w-[24px]"
                         src="/images/employer/Icon_filter.png"
                         alt=""
                       />
                       <p className="font-[600]">Filter</p>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="flex gap-[8px]">
                     <button disabled={checkedApplicants.length === 0} style={{ opacity: checkedApplicants.length === 0 ? 0.5 : 1 }} onClick={() => setAllShortlist(true)} className="text-[14px] font-[600] text-[#FFFFFF] bg-[#06A9EF] rounded-[30px] py-[12px] px-[36px] leading-tight h-[42px]">
@@ -512,7 +554,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   <ShortlistMail shortlist={checkedApplicants} setPopupVisible={setAllShortlist} id={id} statusChange={statusChange} setStatusChange={setStatusChange} applicantIds={applicantIds} />
                 )}
                 <div className="web">
-                  <div className="flex p-[16px] items-center   gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
+                  <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
                     <input
                       className="w-[16px] h-[16px]"
                       type="checkbox"
@@ -522,18 +564,48 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     {applicant_head.map((applicant_head, index) => (
                       <div
                         key={index}
-                        className="flex items-center w-full text-[#333333] gap-[8px]"
+                        className="flex items-center w-full text-[#333333] gap-[8px] relative"
                         style={{ width: widths[index] }}
                       >
-                        <p style={{ textAlign: texts[index] }} className={`text-[14px] w-full font-[600] `}>
+                        <p style={{ textAlign: texts[index] }} className={`text-[14px] w-full font-[600] ml-5`}>
                           {applicant_head.name}
                         </p>
+
+                        {applicant_head?.isFilter && (
+                          filterType === applicant_head.name ? (
+                            <div className=" cursor-pointer" onClick={() => setfilterType("")}>
+                              <UpSvg />
+                            </div>
+                          ) : (
+                            <div className=" cursor-pointer"  onClick={() => setfilterType(applicant_head.name)}>
+                              <DownSvg />
+                            </div>
+                          )
+                        )}
+
+                        {filterType === applicant_head.name && (
+                          <div className="absolute h-fit w-[150px] bg-white rounded-[16px] top-8 left-12 shadow-md p-4 flex flex-col gap-2">
+                            {applicant_head?.filters.map((filter, index) => (
+                              <div key={index} className="flex items-center gap-2 text-[14px] font-medium">
+                                <input
+                                  type="checkbox"
+                                  id={`filter-${index}`}
+                                  value={filter}
+                                  checked={selectedFilters[applicant_head.name]?.includes(filter)}
+                                  onChange={(e) => handleCheckboxChangeFilter(e, filter, applicant_head.name)}
+                                />
+
+                                <label htmlFor={`filter-${index}`}>{filter}</label>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
 
                   <div className="flex flex-col gap-[16px] items-start bg-[#fff]  overflow-y-auto">
-                    {!jobDetails?.data.applications.length == 0 ? (
+                    {!jobDetails?.data?.applications.length == 0 ? (
                       <>
                         {jobDetails?.data?.applications.map(
                           (applicant, index) => (
@@ -559,7 +631,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       alt=""
                                     />
                                     <p className="text-[14px] font-[600]">
-                                      {applicant?.details?.personal?.firstName}
+                                      {applicant?.details?.personal?.firstName} {applicant?.details?.personal?.lastName}
                                     </p>
                                   </div>
                                   <div className="flex w-[10%] items-center justify-start   gap-[8px]">
@@ -972,7 +1044,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
         {option === 1 && (
           <div className="mb-6">
-            <JobDetails jobDetails={jobDetails} totalCount={totalCount}/>
+            <JobDetails jobDetails={jobDetails} totalCount={totalCount} />
           </div>
         )}
         {option === 2 && <Analytics />}

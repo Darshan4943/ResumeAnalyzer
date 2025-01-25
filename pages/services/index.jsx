@@ -204,7 +204,7 @@ function Services() {
         handleNavigation(
           userDataGlobal?.role === "user"
             ? "/createResume/BuildResume"
-            : "/myClients/ClientResume"
+            : "/candidates/ClientResume"
         );
         break;
         

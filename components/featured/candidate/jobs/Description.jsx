@@ -43,7 +43,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   // }, [userDataGlobal]);
 
 
-  console.log(222, selectedJob);
+ 
   return (
     <>
 

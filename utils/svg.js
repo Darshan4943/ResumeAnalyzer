@@ -550,6 +550,51 @@ export const PNGICON1 = () => (
   <img src="/images/Document.png" className="h-full w-full object-contain" />
 );
 
+export const UpSvg = () => (
+  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_6706_94625)">
+  <path d="M15.8672 13L10.8672 8L5.86719 13H15.8672Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <defs>
+  <clipPath id="clip0_6706_94625">
+  <rect width="20" height="20" fill="white" transform="translate(0.867188 0.5)"/>
+  </clipPath>
+  </defs>
+  </svg>
+  
+)
+export const DownSvg = () => (
+  <svg
+                          
+  width="21"
+  height="21"
+  viewBox="0 0 21 21"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clipPath="url(#clip0_6706_94637)">
+    <path
+      d="M5.86719 8L10.8672 13L15.8672 8L5.86719 8Z"
+      fill="#000000"
+      stroke="#000000"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_6706_94637">
+      <rect
+        width="20"
+        height="20"
+        fill="white"
+        transform="matrix(-1 0 0 -1 20.8672 20.5)"
+      />
+    </clipPath>
+  </defs>
+</svg>
+  
+)
 export const ServiceCross = () => (
   <svg
     width="20"

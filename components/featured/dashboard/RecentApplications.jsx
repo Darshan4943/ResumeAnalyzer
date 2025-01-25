@@ -9,9 +9,11 @@ import Pagination from '../../common/CustomPagination';
 import CustomPagination from '../../common/CustomPagination';
 import ShortlistMail from '../../../pages/common/hiring/ShortlistMail';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 function RecentApplications() {
 
     const [id, setId] = useState("");
+    const router= useRouter()
     const [page, setPage] = useState(0);
     const [moreOption, setMoreOption] = useState(false);
     const [totalPages, setTotalpages] = useState(0);
@@ -33,6 +35,7 @@ function RecentApplications() {
         setShortlist([applicant]);
         setApplicantIds([applicant.applicantId])
     };
+    console.log(applicants);
 
     useEffect(() => {
         if (userDataGlobal && userDataGlobal?._id) {
@@ -49,7 +52,7 @@ function RecentApplications() {
         setMiniloading(true);
         try {
             const response = await axios.get(
-                `http://localhost:2000/api/job/getAllApplication/${id}`, {
+                `http://localhost:2000/api/job/getAllApplication/${userDataGlobal._id}`, {
                 params: { page, limit },
             }
             );
@@ -74,7 +77,8 @@ function RecentApplications() {
 
     useEffect(() => {
         fetchJobs()
-    }, [id, page, limit, statusChange]);
+    }, [userDataGlobal._id, page, limit, statusChange]);
+
     const handleSend = async (applicant) => {
 
         setLoadingg({ isLoading: true, applicantId: applicant.applicantId });
@@ -190,12 +194,12 @@ function RecentApplications() {
 
             <div className="web">
                 <div className="flex p-[16px] items-center   gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB] ">
-                    <input
+                    {/* <input
                         className="w-[16px] h-[16px]"
                         type="checkbox"
                     //   checked={selectAll}
                     //   onChange={handleSelectAll}
-                    />
+                    /> */}
                     {applicant_head.map((applicant_head, index) => (
                         <div
                             key={index}
@@ -223,12 +227,12 @@ function RecentApplications() {
                                             key={applicant._id}
                                         >
                                             <div className="  gap-[20px]  w-full justify-between flex items-center">
-                                                <input
+                                                {/* <input
                                                     className="w-[16px] h-[16px]"
                                                     type="checkbox"
                                                     checked={!!checkedApplicants[index]}
                                                     onChange={() => handleCheckboxChange(index, applicant)}
-                                                />
+                                                /> */}
                                                 <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
 
                                                     <img
@@ -302,7 +306,7 @@ function RecentApplications() {
                                                         className="cursor-pointer"
                                                         onClick={() =>
                                                             router.push(
-                                                                `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${jobDetails.data.jobDetails._id}`
+                                                                `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
                                                             )
                                                         }
                                                     >
