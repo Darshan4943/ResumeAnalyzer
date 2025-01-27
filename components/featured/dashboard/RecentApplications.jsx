@@ -58,7 +58,8 @@ function RecentApplications() {
         }
       );
       setApplicants(response);
-      setTotalCount(response.data.pagination.totalApplications);
+      
+      setTotalCount(response.data.pagination.totalCount);
       setTotalpages(response.data.pagination.totalPages);
       toast.dismiss();
     } catch (err) {
