@@ -23,11 +23,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAppliedJob, fetchSavedJobIds } from "./slices/jobSlice";
 import { fetchProfileData } from "./slices/profileSlice";
 import { setLoginState } from "./slices/loginSlice";
+import { useRouter } from "next/router";
 
 
 
 export const Api = ({ }) => {
 
+
+ 
+ 
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -35,12 +39,24 @@ export const Api = ({ }) => {
   
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
-
+  const router = useRouter();
 
   const [allPlans, setAllPlans] = useState([]);
 
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    const handleRouteChange = () => {
+      localStorage.setItem("viewed", JSON.stringify(false));
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
 
   useEffect(() => {
     dispatch(fetchUserData());

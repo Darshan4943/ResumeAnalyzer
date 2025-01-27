@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
-function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsVisible }) {
+function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsVisible, getData }) {
   const [limitPopup, setLimitPopup] = useState(false)
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -19,7 +19,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
     e.stopPropagation();
     try {
       await axios.post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`);
-
+      getData()
       setSaved((prevState) => !prevState);
       //  dispatch(fetchUserData());
       // setTimeout(() => {
@@ -40,6 +40,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
+      getData()
       //  dispatch(fetchUserData());
 
       // setTimeout(() => {
@@ -251,9 +252,11 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
               <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                 Applicants : {jobData[0]?.totalApplicationCount}
               </div>
-              <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                Openings: {jobData[0]?.openPositions}
-              </div>
+              {jobData[0]?.openPositions &&
+                <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                  Openings: {jobData[0]?.openPositions}
+                </div>
+              }
             </div>
 
 
