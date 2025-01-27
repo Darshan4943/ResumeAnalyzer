@@ -229,12 +229,6 @@ function RecentApplications() {
                     key={applicant._id}
                   >
                     <div className="  gap-[20px]  w-full justify-between flex items-center">
-                      {/* <input
-                                                    className="w-[16px] h-[16px]"
-                                                    type="checkbox"
-                                                    checked={!!checkedApplicants[index]}
-                                                    onChange={() => handleCheckboxChange(index, applicant)}
-                                                /> */}
                       <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
                         <img
                           className="w-[40px]"
