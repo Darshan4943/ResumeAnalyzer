@@ -18,6 +18,27 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
 
 
+  const addJobView = async () => {
+ 
+    try {
+      const response = await axios.post(`http://localhost:2000/api/jobs/views/${selectedJob?._id}`);
+      localStorage.setItem("viewed", JSON.stringify(true))
+      return response.data;
+    } catch (error) {
+      console.error('Error adding view:', error.response?.data || error.message);
+
+    }
+  };
+
+
+  useEffect(() => {
+    const isViewed = localStorage.getItem("viewed")
+    console.log(isViewed);
+    if (isViewed==="false") {
+
+      addJobView()
+    }
+  }, []);
 
 
   // const getData = () => {
@@ -43,7 +64,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   // }, [userDataGlobal]);
 
 
- 
+
   return (
     <>
 

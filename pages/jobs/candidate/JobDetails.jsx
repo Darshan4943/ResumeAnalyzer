@@ -59,9 +59,7 @@ function JobDetails() {
   useEffect(() => {
 
     getData()
-  }, [save]);
-
-
+  }, []);
 
 
   return (
@@ -71,7 +69,7 @@ function JobDetails() {
       <div className='customMargins py-6 flex gap-5'>
 
         <div className='flex flex-col gap-4 ml:max-w-[700px] w-full'>
-          <Job_card jobData={jobData} setSaved={setSaved} save={save} setSimilarJobsVisible={setSimilarJobsVisible} similarJobsVisible={similarJobsVisible} />
+          <Job_card jobData={jobData} getData={getData} setSaved={setSaved} save={save} setSimilarJobsVisible={setSimilarJobsVisible} similarJobsVisible={similarJobsVisible} />
           <Description
 
             selectedJob={jobData[0]}
