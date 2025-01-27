@@ -75,7 +75,6 @@ function CreateNewJob() {
     logo: "",
   });
 
-
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
@@ -113,7 +112,7 @@ function CreateNewJob() {
     "Legal Services",
     "Non-Profit",
     "Science and Research",
-    "Aerospace"
+    "Aerospace",
   ];
 
   const jobSectors = jobSectorOptions.map((sector) => ({
@@ -121,9 +120,7 @@ function CreateNewJob() {
     label: sector,
   }));
 
-
   const handleSectorChange = (selectedJobSector) => {
-    
     setFormError((prevErrors) => ({
       ...prevErrors,
       jobSector: "",
@@ -145,8 +142,6 @@ function CreateNewJob() {
       },
     }),
   };
-
-
 
   useEffect(() => {
     setData({ ...data, logo: croppedImage?.blob });
@@ -235,13 +230,13 @@ function CreateNewJob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoadingg(true)
+    setLoadingg(true);
     const formErrors = await validateFormData(data);
     console.log("formErrors", formErrors);
     if (Object.keys(formErrors).length > 0) {
       setFormError(formErrors);
-      toast.error("All fields are Required")
-      setLoadingg(false)
+      toast.error("All fields are Required");
+      setLoadingg(false);
       return;
     }
 
@@ -276,13 +271,13 @@ function CreateNewJob() {
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
-      setLoadingg(false)
+      setLoadingg(false);
     } catch (error) {
       console.error("Error:", error);
-      setLoadingg(false)
+      setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -441,7 +436,6 @@ function CreateNewJob() {
   //   [data.description]
   // );
 
-
   const debounceUpdate = useCallback(
     debounce((value) => {
       //   const plainText = value?.replace(/<[^>]*>/g, "");
@@ -449,7 +443,6 @@ function CreateNewJob() {
     }, 500),
     []
   );
-
 
   const handleChange1 = (value) => {
     // const plainText = value?.replace(/<[^>]*>/g, "");
@@ -561,9 +554,6 @@ function CreateNewJob() {
     return relevantExpIndex <= totalExpIndex;
   };
 
-
-
-
   console.log("data", data);
   return (
     <>
@@ -574,10 +564,7 @@ function CreateNewJob() {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
                 <div className="ml:w-[612px] w-full flex flex-col gap-3 rounded-[12px] bg-white">
-
-
                   <PreviewCard item={data} openModel={openModel} />
-
                 </div>
               </div>
             </>
@@ -632,10 +619,11 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.status
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -655,10 +643,11 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -667,11 +656,6 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-
-
-
-
-
 
                       <div className="flex flex-col gap-[8px] w-full">
                         <div className="text-[14px] font-[500]">Job Link</div>
@@ -695,14 +679,32 @@ function CreateNewJob() {
                             <div className="text-[14px] font-[500]">
                               About Company
                             </div>
-                            <input
-                              className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px]"
-                              placeholder=" Brief description for your company. URLs are hyperlinked."
-                              type="text"
-                              name="aboutOrganization"
-                              value={data.aboutOrganization}
-                              onChange={handleChange}
-                            />
+
+                            {companyId ? (
+                              <div
+                                className="border-[1px] border-[#DEDEDE]
+                              text-[12px] font-[400] py-[12px] px-[16px]
+                              rounded-[8px]"
+                                style={{ whiteSpace: "pre-wrap" }}
+                              >
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html:
+                                      data.aboutOrganization ||
+                                      "<p>No description available.</p>",
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <input
+                                className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px]"
+                                placeholder="Brief description for your company. URLs are hyperlinked."
+                                type="text"
+                                name="aboutOrganization"
+                                value={data.aboutOrganization}
+                                onChange={handleChange}
+                              />
+                            )}
                           </div>
                           <div className="flex flex-col gap-[8px]">
                             <div className="text-[14px] font-[500]">
@@ -829,10 +831,11 @@ function CreateNewJob() {
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                  formError.companyName
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -845,10 +848,13 @@ function CreateNewJob() {
                               <div className="text-[14px] font-[500]">
                                 Keywords <span className="text-[red]">*</span>
                               </div>
-                              <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}>
+                              <div
+                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
+                                  formError.Keywords
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
+                              >
                                 <div className="flex flex-row flex-wrap gap-3">
                                   {data?.Keywords?.map((item, index) => (
                                     <div
@@ -861,14 +867,26 @@ function CreateNewJob() {
                                         onClick={() =>
                                           setData({
                                             ...data,
-                                            Keywords: data.Keywords.filter((data) => data != item),
+                                            Keywords: data.Keywords.filter(
+                                              (data) => data != item
+                                            ),
                                           })
                                         }
                                       >
-                                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
+                                        <svg
+                                          width="12"
+                                          height="12"
+                                          viewBox="0 0 16 16"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                            fill="#000000"
+                                          />
                                         </svg>
-
                                       </span>
                                     </div>
                                   ))}
@@ -877,7 +895,6 @@ function CreateNewJob() {
                                   type="text"
                                   placeholder="Keywords"
                                   className="input w-[100px]"
-
                                   value={KeywordsText}
                                   onChange={(e) => {
                                     setKeywordsText(e.target.value);
@@ -889,7 +906,10 @@ function CreateNewJob() {
                                   onClick={() => {
                                     setData({
                                       ...data,
-                                      Keywords: [...data.Keywords, KeywordsText],
+                                      Keywords: [
+                                        ...data.Keywords,
+                                        KeywordsText,
+                                      ],
                                     });
                                     setKeywordsText("");
 
@@ -904,17 +924,16 @@ function CreateNewJob() {
                                   }}
                                 >
                                   <PlusAddLogo
-                                    color={KeywordsText?.length > 0 ? "#646464" : "#bebebe"}
+                                    color={
+                                      KeywordsText?.length > 0
+                                        ? "#646464"
+                                        : "#bebebe"
+                                    }
                                   />
                                 </button>
                               </div>
-
-
                             </div>
-
                           </div>
-
-
                         </div>
                         <div className="flex gap-4 pt-4 ">
                           <div className="flex flex-col gap-[8px] w-full scr1024:w-[50%]">
@@ -933,21 +952,24 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select countries..."
                               styles={customStyles}
-                              className={` border rounded-[5px] ${formError.country
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
+                              className={` border rounded-[5px] ${
+                                formError.country
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                             />
-
                           </div>
                           <div className="flex flex-col gap-[8px]  w-[50%] ">
                             <div className="text-[14px] font-[500]">
                               Location <span className="text-[red]">*</span>
                             </div>
-                            <div className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}>
+                            <div
+                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
+                                formError.location
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
+                            >
                               <div className="flex flex-row flex-wrap gap-3">
                                 {data?.location?.map((item, index) => (
                                   <div
@@ -960,14 +982,26 @@ function CreateNewJob() {
                                       onClick={() =>
                                         setData({
                                           ...data,
-                                          location: data.location.filter((data) => data != item),
+                                          location: data.location.filter(
+                                            (data) => data != item
+                                          ),
                                         })
                                       }
                                     >
-                                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z" fill="#000000" />
+                                      <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          clip-rule="evenodd"
+                                          d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                          fill="#000000"
+                                        />
                                       </svg>
-
                                     </span>
                                   </div>
                                 ))}
@@ -976,7 +1010,6 @@ function CreateNewJob() {
                                 type="text"
                                 placeholder="Location"
                                 className="input w-[100px]"
-
                                 value={loactionText}
                                 onChange={(e) => {
                                   setLoactionText(e.target.value);
@@ -1003,14 +1036,14 @@ function CreateNewJob() {
                                 }}
                               >
                                 <PlusAddLogo
-                                  color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
+                                  color={
+                                    loactionText?.length > 0
+                                      ? "#646464"
+                                      : "#bebebe"
+                                  }
                                 />
                               </button>
                             </div>
-
-
-
-
                           </div>
                         </div>
                         <div className="flex flex-col gap-[8px] w-full">
@@ -1187,14 +1220,19 @@ function CreateNewJob() {
                             <Select
                               options={jobSectors}
                               onChange={handleSectorChange}
-                              value={jobSectors.find((jobSector) => jobSector.value === data?.jobSector)}
+                              value={jobSectors.find(
+                                (jobSector) =>
+                                  jobSector.value === data?.jobSector
+                              )}
                               classNamePrefix="select"
                               placeholder="Select Job Sector"
                               styles={customStyles}
-                              className={`border rounded-[5px] ${formError.jobSector ? "border-red" : "border-[#DEDEDE]"
-                                }`}
+                              className={`border rounded-[5px] ${
+                                formError.jobSector
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                             />
-
                           </div>
                         </div>
                         <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[60%] gap-[20px]">
@@ -1264,10 +1302,11 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.requiredQualification
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1326,16 +1365,17 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1391,16 +1431,17 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.goodSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1493,11 +1534,24 @@ function CreateNewJob() {
                                   experienceIndices.indexOf(newRelevantExp);
 
                                 // Allow selection only if the relevant experience index is less than or equal to the total experience index
-                                if (isRelevantAllowed(totalExpIndex, relevantExpIndex)) {
-                                  setData({ ...data, revalentExp: newRelevantExp });
+                                if (
+                                  isRelevantAllowed(
+                                    totalExpIndex,
+                                    relevantExpIndex
+                                  )
+                                ) {
+                                  setData({
+                                    ...data,
+                                    revalentExp: newRelevantExp,
+                                  });
                                 } else {
-                                  toast.error(" Cannot be greater than total experience.");
-                                  setData((prevData) => ({ ...prevData, revalentExp: "" })); // Reset relevant experience
+                                  toast.error(
+                                    " Cannot be greater than total experience."
+                                  );
+                                  setData((prevData) => ({
+                                    ...prevData,
+                                    revalentExp: "",
+                                  })); // Reset relevant experience
                                 }
                               }}
                               className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
@@ -1516,8 +1570,6 @@ function CreateNewJob() {
                           </div>
                         </div>
                       </div>
-
-
                     </div>
 
                     {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
@@ -1584,22 +1636,18 @@ function CreateNewJob() {
                         >
                           Preview
                         </button>
-                        {loadingg ?
-                          <div
-
-                            className="flex justify-center items-center text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 w-[158.25px]"
-                          >
+                        {loadingg ? (
+                          <div className="flex justify-center items-center text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 w-[158.25px]">
                             <MiniLoader1 />
                           </div>
-                          :
-
+                        ) : (
                           <button
                             onClick={handleSubmit}
                             className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
                           >
                             {id ? "Update Job" : "Post Job"}
                           </button>
-                        }
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1607,9 +1655,8 @@ function CreateNewJob() {
               </div>
             </>
           )}
-        </div >
-      )
-      }
+        </div>
+      )}
       {isCreate && <CreateProfileFields />}
     </>
   );
