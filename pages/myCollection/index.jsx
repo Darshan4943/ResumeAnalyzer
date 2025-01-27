@@ -981,7 +981,7 @@ function Collection() {
                 My Collection
               </p>
               
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] p-4 ml:min-h-[560px]  ">
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  py-2  px-0 ml:min-h-[560px]  ">
                 
                 <button
                   onClick={() => {
@@ -989,7 +989,7 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/myCollection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
                     }  `}
                 >
                   <svg
@@ -1012,7 +1012,7 @@ function Collection() {
                   onClick={() => {
                     router.push("/myCollection?clients=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
                     }   `}
                 >
                   <svg
@@ -1035,7 +1035,7 @@ function Collection() {
                   onClick={() => {
                     router.push("/myCollection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
                     }  `}
                 >
                   <svg

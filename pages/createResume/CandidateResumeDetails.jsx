@@ -82,10 +82,10 @@ function CandidateResumeDetails() {
       <div className=" relative !important ">
         <div className="register_head  w-[100%] z-50   gap-12">
           {/* {tabindex !== 1 && */}
-            <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px]">
+            <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px] ">
               <div className="register_text_parent">
                 <div className="register_heding text-center">
-                  <p className="ml:text-[30px] text-[24px] font-semibold text-white">
+                  <p className="ml:text-[30px] scr420:text-[24px] text-[20px] font-semibold text-white">
                     Enter Details to Build your Professional Resume
                   </p>
                   <p className="register_heding_desc">

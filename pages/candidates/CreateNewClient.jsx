@@ -359,11 +359,11 @@ function CreateNewClient() {
       )}
       <div className="flex justify-center">
         <div className="flex flex-col  gap-4   w-[100%] ">
-          <p className="text-[24px] font-semibold">
+          <p className="text-[18px] font-semibold">
             {isUpdate ? "Update" : "Create New"} Candidate
           </p>
           <div
-            className="flex flex-col gap-9 rounded-[16px] p-6 bg-white"
+            className="flex flex-col gap-9 rounded-[16px] scr420:p-6 p-3 bg-white"
             // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
@@ -692,12 +692,12 @@ function CreateNewClient() {
                               e.preventDefault();
                               router.back();
                             }}
-                            className="buttons border border-blue"
+                            className="buttons border border-blue rounded-[30px]"
                           >
                             Back
                           </button>
                           <button
-                            className={`buttons font-[500] bg-[#06A9EF] text-white `}
+                            className={`buttons font-[500] bg-[#06A9EF] text-white rounded-[30px] `}
                             id="border_button"
                             onClick={submitHandler}
                           >

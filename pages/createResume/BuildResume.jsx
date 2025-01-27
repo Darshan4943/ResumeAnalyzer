@@ -29,7 +29,7 @@ function BuildResume() {
       <img
         src="/images/withoutLogin/resumeCreateOption.png"
         alt=""
-        className="h-[330px] w-[320px]  object-cover "
+        className="h-[330px] w-[320px]  object-cover scr1024:block hidden "
 
       />
       <div className="flex justify-center  w-full  ">
@@ -43,7 +43,7 @@ function BuildResume() {
             </div>
           </div>
           <div className="flex justify-center item-center w-full">
-            <div className="flex flex-col gap-[24px]  w-[66%]">
+            <div className="flex flex-col gap-[24px]  scr500w-[66%]">
               <div
                 // localStorage.removeItem("parsedResume");
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}

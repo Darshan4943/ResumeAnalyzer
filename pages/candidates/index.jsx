@@ -150,7 +150,7 @@ function MyClients() {
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">Candidates</div>
           {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
-          <div className="rounded-[16px] p-4 bg-white"
+          <div className="rounded-[16px] scr360:p-4 p-2 bg-white"
           >
             <div className="flex flex-col gap-4  py-3 rounded-[24px]"
             >
@@ -178,7 +178,7 @@ function MyClients() {
                     <input
                       className="w-full h-[24px] scr420:text-[16px] sm:text-[14px] sm:placeholder:text-[16px] placeholder:text-[14px]"
                       type="text"
-                      placeholder="Search Candidate name or keyword"
+                      placeholder={`Search Candidate name`}
                       onChange={(e) => changeHandler(e.target.value)}
                     />
                   </div>
@@ -286,11 +286,11 @@ function MyClients() {
                       onClick={() => {
                         router.push("/candidates/CreateNewClient");
                       }}
-                      className="ml:hidden  items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[51px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                      className="ml:hidden  items-center scr480:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr480:px-6 px-2 py-2 scr480:h-[51px]  scr480:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[30px] text-white"
                       type="button"
                     >
                       <svg
-                        className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
+                        className="scr480:w-[27px] scr480:h-[27px] w-[22px] h-[22px]"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

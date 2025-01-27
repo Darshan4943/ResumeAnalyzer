@@ -74,8 +74,7 @@ const JobMatching = () => {
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
-  console.log(333, extratctedData);
-  console.log(222, collection);
+ 
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
@@ -564,7 +563,7 @@ const JobMatching = () => {
               </div>
               <div className="flex flex-col gap-2 w-full">
 
-                <div className="w-full flex gap-4 text-[14px] font-montserrat items-center font-medium">
+                <div className="w-full flex scr420:flex-row flex-col gap-4 text-[14px] font-montserrat scr420:items-center items-start font-medium">
                   <div className="flex gap-2 items-center font-semibold text-[14px] text-[#646464]">
                     <input
                       type="radio"
@@ -599,7 +598,8 @@ const JobMatching = () => {
                   Resumes Selected  : <span className="text-[16px] font-semibold"> {selectedIndexesFileTypes?.length}</span>
                 </div>
               }
-              <div className="flex flex-row gap-4 items-center">
+              <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start">
+                <div className="flex flex-row  gap-4 items-center">
                 <span className=" text-[14px] font-[500] text-[#333333]">
                   Set Filter Limit{" "}
                 </span>
@@ -614,6 +614,7 @@ const JobMatching = () => {
                   placeholder="Ex. 5"
                   className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
                 />
+                </div>
                 {collection === "SkilotechCollection" ?
                   <button  onClick={() => JobMatchforSkilotechCollection()} 
                     className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">

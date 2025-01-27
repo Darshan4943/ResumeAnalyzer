@@ -312,7 +312,7 @@ const handleBack = () => {
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
-        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit w-[60%] ">
+        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit ml:w-[60%] w-[90%] ">
           <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] relative ">
 
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">

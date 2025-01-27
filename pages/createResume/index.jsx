@@ -747,7 +747,7 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
-              onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+              onClick={() => router.push(`/createResume/BuildResume?clientId=${clientId}`)}
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >

@@ -168,7 +168,7 @@ function ClientDetail({ tabIndex }) {
   };
 
   return (
-    <div className="flex flex-col gap-4  ">
+    <div className="flex flex-col gap-4 py-2 ">
       <div className="flex justify-between ">
         <div className="flex text-[18px] font-semibold gap-4 items-center">
           <svg
@@ -202,7 +202,7 @@ function ClientDetail({ tabIndex }) {
           })
         }
           style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-          className="p-4 rounded-[16px] block scr700:hidden  w-fit h-fit "
+          className="scr700:p-4 p-2 scr700:rounded-[16px] rounded-[8px] block scr700:hidden  w-fit h-fit "
         >
           <svg
             width="24"
@@ -533,7 +533,7 @@ function ClientDetail({ tabIndex }) {
       ) : (
         <>
           {isResumes === "resumes" ? (
-            <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+            <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px] scr500:justify-start justify-center ">
               <div
                 onClick={() =>
                   router.push(`/createResume/BuildResume?clientId=${clientId}`)

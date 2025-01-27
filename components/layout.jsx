@@ -67,7 +67,7 @@ function Layout({ children }) {
           style={{ scrollbarWidth: "none" }}
         >
           {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}
-            <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-6 px-6 ">
+            <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-6 px-2 ">
               <Breadcrumb />
             </div>
           {/* } */}
