@@ -77,7 +77,7 @@ function CreateCompany() {
 
   const debounceUpdate = useCallback(
     debounce((value) => {
-   
+
       setData((prev) => ({ ...prev, companyDescription: value }));
     }, 500),
     []
@@ -85,7 +85,7 @@ function CreateCompany() {
 
 
   const handleCompanyDescriptionChange = (value) => {
-    
+
     if (value?.length < 200) {
       setData({ ...data, companyDescription: value.slice(0, 200) });
       debounceUpdate(value.slice(0, 200));
@@ -104,18 +104,18 @@ function CreateCompany() {
   const camelCaseToWords = (str) => {
     return str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (char) => char.toUpperCase());
   };
-  
+
   const validateForm = () => {
     const newErrors = {};
     let initialErrorShown = false;
-  
+
     if (!data?.companyName?.trim()) {
       newErrors.companyName = "Company name is required.";
     }
     if (!data?.companyDescription?.replace(/<[^>]*>/g, "").trim()) {
       newErrors.companyDescription = "Company description is required.";
     }
-  
+
     if (Object.keys(newErrors).length > 0) {
       if (!initialErrorShown && Object.keys(newErrors).length > 1) {
         toast.error("All fields are required.");
@@ -125,12 +125,12 @@ function CreateCompany() {
         toast.error(`${camelCaseToWords(field)} is required.`);
       }
     }
-  
+
     setErrors(newErrors);
-    setButtonLoading(false); 
+    setButtonLoading(false);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   const handleReset = () => {
     setData({ companyName: "", companyLogo: "", companyDescription: "" });
     setCroppedImage(null);
@@ -226,7 +226,7 @@ function CreateCompany() {
     }
   };
 
-  const previousPage = () => router.back(c);
+  const previousPage = () => router.back();
   return (
     <div className="w-full relative flex flex-col gap-5">
       <div className="flex gap-3 text-[18px] font-[600] text-[#333333] items-center">
