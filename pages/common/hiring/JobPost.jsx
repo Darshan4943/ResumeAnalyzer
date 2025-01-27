@@ -394,7 +394,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {totalCount}
+                    {jobDetails?.pagination?.totalApplications}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center"></div>
