@@ -92,58 +92,63 @@ function JobDetails({ jobDetails, totalCount }) {
               <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
             </div>
             <div className="flex flex-col gap-[8px]">
-              <div className="text-[16px] font-[500]">
-                Full job Description
-              </div>
+              <div className="text-[16px] font-[500]">Full job Description</div>
               <div className="text-[14px] text-[400] gap-[8px] flex flex-col">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: jobDetails?.data?.jobDetails?.description,
                   }}
                 />
-
                 <span className="text-[14px] font-[500] text-[#333]">
                   {" "}
                   Job Type : {jobDetails?.data?.jobDetails?.jobType}
                 </span>{" "}
-                
                 {(jobDetails?.data?.jobDetails?.minSalary > 0 ||
                   jobDetails?.data?.jobDetails?.maxSalary > 0) && (
-                    <div className="text-[14px] font-[500] flex text-[#333]">
-                      Salary :
-                      {(() => {
-                        const icon = currenciesWithIcons?.find(
-                          (item) =>
-                            item?.icon?.toLowerCase() ===
-                            jobDetails?.data?.jobDetails?.currency?.toLowerCase()
-                        );
+                  <div className="text-[14px] font-[500] flex text-[#333]">
+                    Salary :
+                    {(() => {
+                      const icon = currenciesWithIcons?.find(
+                        (item) =>
+                          item?.icon?.toLowerCase() ===
+                          jobDetails?.data?.jobDetails?.currency?.toLowerCase()
+                      );
 
-                        return (
-                          <div className="text-[14px] font-[500] text-[#333]">
-                            {icon ? icon.symbol : jobDetails?.data?.jobDetails?.currency}{" "}
-                            {jobDetails?.data?.jobDetails.minSalary}{" "}
-                            {jobDetails?.data?.jobDetails.minSalary &&
-                              jobDetails?.data?.jobDetails.maxSalary &&
-                              "-"}{" "}
-                            {icon ? icon.symbol : jobDetails?.data?.jobDetails?.currency}{" "}
-                            {jobDetails?.data?.jobDetails.maxSalary}{" "}
-                            {jobDetails?.data?.jobDetails.salaryType === "Annual"
-                              ? "per annum"
-                              : "per month"}
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  )}
+                      return (
+                        <div className="text-[14px] font-[500] text-[#333]">
+                          {icon
+                            ? icon.symbol
+                            : jobDetails?.data?.jobDetails?.currency}{" "}
+                          {jobDetails?.data?.jobDetails.minSalary}{" "}
+                          {jobDetails?.data?.jobDetails.minSalary &&
+                            jobDetails?.data?.jobDetails.maxSalary &&
+                            "-"}{" "}
+                          {icon
+                            ? icon.symbol
+                            : jobDetails?.data?.jobDetails?.currency}{" "}
+                          {jobDetails?.data?.jobDetails.maxSalary}{" "}
+                          {jobDetails?.data?.jobDetails.salaryType === "Annual"
+                            ? "per annum"
+                            : jobDetails?.data?.jobDetails.salaryType ===
+                              "Monthly"
+                            ? "per month"
+                            : "per week"}
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
                 {/* <span className="text-[14px] font-[500] text-[#333]">
                   Schedule : Day shift{" "}
                 </span>{" "} */}
                 <span className="text-[14px] font-[500] text-[#333]">
-                  Education : {jobDetails?.data?.jobDetails?.requiredQualification}{" "}
+                  Education :{" "}
+                  {jobDetails?.data?.jobDetails?.requiredQualification}{" "}
                   (Preferred){" "}
                 </span>{" "}
                 <span className="text-[14px] font-[500] text-[#333]">
-                  Experience : {jobDetails?.data?.jobDetails?.experience} (Required)
+                  Experience : {jobDetails?.data?.jobDetails?.experience}{" "}
+                  (Required)
                 </span>
               </div>
             </div>
@@ -166,7 +171,9 @@ function JobDetails({ jobDetails, totalCount }) {
                       className="bg-[#56CDAD] h-[8px] rounded-[6px]"
                       style={{
                         width: `${Math.min(
-                          ((totalCount || 0) / jobDetails?.data?.jobDetails?.openPositions) * 100,
+                          ((totalCount || 0) /
+                            jobDetails?.data?.jobDetails?.openPositions) *
+                            100,
                           100
                         )}%`,
                       }}
@@ -201,7 +208,7 @@ function JobDetails({ jobDetails, totalCount }) {
                     })}
                   </p>
                 </div>
-                {jobDetails?.data?.jobDetails?.jobType &&
+                {jobDetails?.data?.jobDetails?.jobType && (
                   <div className="flex justify-between items-start self-stretch">
                     <p className="text-[16px] text-[#646464] font-medium font-Montserrat">
                       Job Type
@@ -210,42 +217,46 @@ function JobDetails({ jobDetails, totalCount }) {
                       {jobDetails?.data?.jobDetails?.jobType}
                     </p>
                   </div>
-                }
-                {jobDetails?.data?.jobDetails?.minSalary &&
+                )}
+                {jobDetails?.data?.jobDetails?.minSalary && (
                   <div className="flex justify-between items-start self-stretch">
                     <p className="text-[16px] text-[#646464] font-medium font-Montserrat">
                       Salary
                     </p>
                     {(jobDetails?.data?.jobDetails?.minSalary > 0 ||
-                  jobDetails?.data?.jobDetails?.maxSalary > 0) && (
-                    <div className="text-[16px] font-[600] flex text-[#333]">
-                    
-                      {(() => {
-                        const icon = currenciesWithIcons?.find(
-                          (item) =>
-                            item?.icon?.toLowerCase() ===
-                            jobDetails?.data?.jobDetails?.currency?.toLowerCase()
-                        );
+                      jobDetails?.data?.jobDetails?.maxSalary > 0) && (
+                      <div className="text-[16px] font-[600] flex text-[#333]">
+                        {(() => {
+                          const icon = currenciesWithIcons?.find(
+                            (item) =>
+                              item?.icon?.toLowerCase() ===
+                              jobDetails?.data?.jobDetails?.currency?.toLowerCase()
+                          );
 
-                        return (
-                          <div className="text-[16px] font-[600] text-[#333]">
-                            {icon ? icon.symbol : jobDetails?.data?.jobDetails?.currency}{" "}
-                            {jobDetails?.data?.jobDetails.minSalary}{" "}
-                            {jobDetails?.data?.jobDetails.minSalary &&
-                              jobDetails?.data?.jobDetails.maxSalary &&
-                              "-"}{" "}
-                            {icon ? icon.symbol : jobDetails?.data?.jobDetails?.currency}{" "}
-                            {jobDetails?.data?.jobDetails.maxSalary}{" "}
-                            {jobDetails?.data?.jobDetails.salaryType === "Annual"
-                              ? "per annum"
-                              : "per month"}
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  )}
+                          return (
+                            <div className="text-[16px] font-[600] text-[#333]">
+                              {icon
+                                ? icon.symbol
+                                : jobDetails?.data?.jobDetails?.currency}{" "}
+                              {jobDetails?.data?.jobDetails.minSalary}{" "}
+                              {jobDetails?.data?.jobDetails.minSalary &&
+                                jobDetails?.data?.jobDetails.maxSalary &&
+                                "-"}{" "}
+                              {icon
+                                ? icon.symbol
+                                : jobDetails?.data?.jobDetails?.currency}{" "}
+                              {jobDetails?.data?.jobDetails.maxSalary}{" "}
+                              {jobDetails?.data?.jobDetails.salaryType ===
+                              "Annual"
+                                ? "per annum"
+                                : "per month"}
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    )}
                   </div>
-                }
+                )}
 
                 <div className="w-full bg-[#9F9F9F] h-[1px]"></div>
                 <div className="flex flex-col gap-4 items-start w-full">
