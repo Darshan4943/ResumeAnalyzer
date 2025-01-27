@@ -290,7 +290,7 @@ function JobStatistics({ setSelected, selected, data }) {
             </div>
           </div>
         </div>
-        <div className="w-[100%]  flex py-2 ">
+        <div className="w-full h-full flex py-2 ">
           <StackedBarChart data={data} />
         </div>
       </div>

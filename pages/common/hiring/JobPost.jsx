@@ -260,8 +260,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
-                <div className="flex gap-[20px] justify-center  items-start">
-                  <div className=" cursor-pointer" onClick={router.back}>
+                <div className="flex gap-[20px] justify-between md:justify-center items-start">
+                  <div className="hidden md:block cursor-pointer" onClick={router.back}>
                     <svg
                       width="24"
                       height="24"
@@ -394,7 +394,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {totalCount}
+                    {jobDetails?.pagination?.totalApplications}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center"></div>
@@ -431,9 +431,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${
-                      activeOption === "applicant" ? "" : "text-[#646464]"
-                    } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
+                      } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -455,9 +454,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${
-                      activeOption === "JobDetails" ? "" : "text-[#646464]"
-                    } cursor-pointer font-[600]`}
+                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -619,11 +617,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           (applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
-                                  checkedApplicants[index]
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
                                     ? "bg-[#D3F1FF]"
                                     : "bg-[#FFFFFF]"
-                                }`}
+                                  }`}
                                 key={applicant?._id}
                               >
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -659,44 +656,42 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                        checkedApplicants[index]
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
                                           ? "bg-[#FFFFFF]"
                                           : applicant?.hiringStage ===
                                             "Interview"
-                                          ? "bg-[#26A4FF1A]"
-                                          : applicant?.hiringStage === "Pending"
-                                          ? "bg-[#FFF9ED]"
-                                          : applicant?.hiringStage === "Hired"
-                                          ? "bg-[#56CDAD1A]"
-                                          : applicant?.hiringStage ===
-                                            "Shortlisted"
-                                          ? "bg-[#4640DE1A]"
-                                          : applicant?.hiringStage ===
-                                            "Rejected"
-                                          ? "bg-[#FF65501A]"
-                                          : applicant?.hiringStage ===
-                                            "In Review"
-                                          ? "bg-[#EB85331A]"
-                                          : ""
-                                      } ${
-                                        applicant?.hiringStage === "Interview"
+                                            ? "bg-[#26A4FF1A]"
+                                            : applicant?.hiringStage === "Pending"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant?.hiringStage === "Hired"
+                                                ? "bg-[#56CDAD1A]"
+                                                : applicant?.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? "bg-[#4640DE1A]"
+                                                  : applicant?.hiringStage ===
+                                                    "Rejected"
+                                                    ? "bg-[#FF65501A]"
+                                                    : applicant?.hiringStage ===
+                                                      "In Review"
+                                                      ? "bg-[#EB85331A]"
+                                                      : ""
+                                        } ${applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Pending"
-                                          ? "text-[#FFB836]"
-                                          : applicant?.hiringStage === "Hired"
-                                          ? "text-[#56CDAD]"
-                                          : applicant?.hiringStage ===
-                                            "Shortlisted"
-                                          ? "text-[#4640DE]"
-                                          : applicant?.hiringStage ===
-                                            "Rejected"
-                                          ? "text-[#FF6550]"
-                                          : applicant?.hiringStage ===
-                                            "In Review"
-                                          ? "text-[#FFB836]"
-                                          : "text-[#333333]"
-                                      }`}
+                                            ? "text-[#FFB836]"
+                                            : applicant?.hiringStage === "Hired"
+                                              ? "text-[#56CDAD]"
+                                              : applicant?.hiringStage ===
+                                                "Shortlisted"
+                                                ? "text-[#4640DE]"
+                                                : applicant?.hiringStage ===
+                                                  "Rejected"
+                                                  ? "text-[#FF6550]"
+                                                  : applicant?.hiringStage ===
+                                                    "In Review"
+                                                    ? "text-[#FFB836]"
+                                                    : "text-[#333333]"
+                                        }`}
                                     >
                                       {applicant?.hiringStage}
                                     </div>
@@ -759,7 +754,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         opacity:
                                           applicant?.hiringStage ===
                                             "Rejected" ||
-                                          applicant?.hiringStage ===
+                                            applicant?.hiringStage ===
                                             "Shortlisted"
                                             ? 0.5
                                             : 1,
@@ -783,7 +778,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       )}
                                     </>
                                     {loadingg.isLoading &&
-                                    loadingg.applicantId ===
+                                      loadingg.applicantId ===
                                       applicant?.applicantId ? (
                                       <div className="w-[49.81px] flex justify-center items-center">
                                         <MiniLoaderr />
@@ -796,7 +791,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         style={{
                                           opacity:
                                             applicant?.hiringStage ===
-                                            "Rejected"
+                                              "Rejected"
                                               ? 0.5
                                               : 1,
                                         }}

@@ -49,10 +49,8 @@ function JobPosting() {
             </div>
             :
             <div className='flex flex-col gap-[24px]'>
-
-
                 <div className="flex flex-col gap-6">
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 flex-col  md:flex-row">
                         <div className="flex flex-col bg-white rounded-[16px] p-4">
                             <p className="text-[16px] font-medium">
                                 Select an existing company <br />
@@ -111,12 +109,10 @@ function JobPosting() {
                         </div>
                     </div>
                 </div>
-
                 <JobCard />
             </div>
         }
         </>
-
     );
 }
 
