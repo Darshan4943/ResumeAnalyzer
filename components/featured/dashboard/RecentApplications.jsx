@@ -10,7 +10,7 @@ import CustomPagination from "../../common/CustomPagination";
 import ShortlistMail from "../../../pages/common/hiring/ShortlistMail";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-function RecentApplications() {
+function RecentApplications({isPending}) {
   const [id, setId] = useState("");
   const router = useRouter();
   const [page, setPage] = useState(0);
@@ -32,12 +32,17 @@ function RecentApplications() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [allReject, setAllReject] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+ 
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
     setApplicantIds([applicant.applicantId]);
   };
   const [searchQuery, setSearchQuery] = useState("");
+  useEffect(()=>{
+    setSearchQuery(isPending)
+  },[isPending])
+ 
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -485,6 +490,7 @@ function RecentApplications() {
               <>
                 {applicants?.data?.applications.map((applicant, index) => (
                   <div
+                  key={index}
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
                     style={{
                       background: index % 2 == 0 ? "#EFFAFF" : "#fff",

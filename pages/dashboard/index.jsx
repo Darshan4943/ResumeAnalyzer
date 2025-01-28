@@ -24,22 +24,26 @@ function Dashboard({ toggleContentt }) {
   const [statistics, setStatistics] = useState([]);
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState("Daily");
-
+  const [isPending, setIsPending] = useState("")
   const router = useRouter();
 
   const [pendingJobs, setPendingJobs] = useState(false);
   const pendingJobsRef = useRef(null);
 
-  useEffect(() => {
+  const scrollToPendingJobs = () => {
     if (pendingJobsRef.current) {
       const offset = 64;
       const elementPosition = pendingJobsRef.current.offsetTop;
+      setIsPending("Pending");
       window.scrollTo({
         top: elementPosition - offset,
         behavior: 'smooth',
       });
     }
-  }, [pendingJobs]);
+  };
+  
+
+   
 
   const handleNavigation = (page) => {
     router.push(page);
@@ -172,7 +176,7 @@ function Dashboard({ toggleContentt }) {
       className="   w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
-      <TopSection statistics={statistics} setPendingJobs={setPendingJobs} pendingJobs={pendingJobs} />
+      <TopSection statistics={statistics} scrollToPendingJobs={scrollToPendingJobs} />
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
         <div className=" pt-6 lg:pt-0 lg:w-[31.26%] pb-[16px] w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
           <div
@@ -353,7 +357,7 @@ function Dashboard({ toggleContentt }) {
         <JobStatistics statistics={statistics} setSelected={setSelected} selected={selected} data={data} />
       </div>
       <div ref={pendingJobsRef}>
-        <RecentApplications />
+        <RecentApplications isPending={isPending} />
       </div>
 
       <div className="py-6 px-1 flex flex-col gap-6 ">
