@@ -24,7 +24,6 @@ function JobPosting() {
           }
         );
         setCompanyData(response.data.companies);
-        console.log(2929, response.data.companies);
         setTimeout(() => {
           setLoading(false);
         }, 500);
