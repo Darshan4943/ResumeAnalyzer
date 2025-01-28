@@ -881,7 +881,7 @@ function CreateNewJob() {
                                         onClick={() =>
                                           setData({
                                             ...data,
-                                            Keywords: data.Keywords.filter(
+                                            Keywords: data?.Keywords.filter(
                                               (data) => data != item
                                             ),
                                           })
