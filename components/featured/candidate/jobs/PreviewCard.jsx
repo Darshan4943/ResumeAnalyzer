@@ -3,7 +3,7 @@ import { currenciesWithIcons } from "../../../../utils/data";
 
 function PreviewCard({ item, openModel }) {
   return (
-    <div className="flex flex-col gap-4 px-5 py-3">
+    <div className="flex flex-col gap-4 px-5 py-3 h-[640px] overflow-auto">
       <div className="w-full flex justify-end">
         <svg
           className=" cursor-pointer"

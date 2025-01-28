@@ -179,13 +179,14 @@ function Index() {
               </div>
             ))
           ) : (
-            <div className="p-3  flex items-center justify-center">
+            <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center">
               {" "}
               <img
-                className="w-[40%]"
-                src="/images/employer/OBJECTS.png"
+                className="w-[20%]"
+                src="/images/employer/NOCom.png"
                 alt="No data available"
               />
+              <div>No Companies Available</div>
             </div>
           )}
           <CustomPagination

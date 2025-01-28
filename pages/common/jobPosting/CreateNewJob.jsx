@@ -44,7 +44,7 @@ function CreateNewJob() {
   const fileRef = useRef();
   const [loactionText, setLoactionText] = useState("");
   const [KeywordsText, setKeywordsText] = useState("");
-
+  const [dragging, setDragging] = useState(false);
   const [data, setData] = useState({
     jobTitle: "",
     companyName: "",
@@ -388,6 +388,7 @@ function CreateNewJob() {
         } = res.data;
 
         setData({
+          ...data,
           companyName,
           logo,
           aboutOrganization,
@@ -417,24 +418,6 @@ function CreateNewJob() {
       });
     }
   };
-
-  // const handleChange1 = useCallback(
-  //   debounce((value) => {
-  //     const plainText = value?.replace(/<[^>]*>/g, "");
-
-  //     if (plainText?.length > data?.description?.length) {
-  //       setFormError((prevErrors) => ({
-  //         ...prevErrors,
-  //         description: "",
-  //       }));
-  //     }
-  //     setData((prevData) => ({
-  //       ...prevData,
-  //       description: plainText,
-  //     }));
-  //   }, 500),
-  //   [data.description]
-  // );
 
   const debounceUpdate = useCallback(
     debounce((value) => {
@@ -484,7 +467,11 @@ function CreateNewJob() {
       qualificationType: [],
       status: "Live",
     });
+    
+    setCroppedImage(null);
+    setFile(null);
   };
+  
 
   // const handleClick = () => {
   //   router.push("/recruiter/jobPosting");
@@ -496,9 +483,16 @@ function CreateNewJob() {
 
   const handleFileChange = (event) => {
     event.preventDefault();
-    const selectedFile = event.target.files[0];
+    let selectedFile;
+  
+    if (event.dataTransfer) {
+      selectedFile = event.dataTransfer.files[0];
+    } else {
+      selectedFile = event.target.files[0];
+    }
+  
     if (selectedFile) {
-      if (selectedFile?.type.includes("image")) {
+      if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
         setModelView(true);
       } else {
@@ -506,6 +500,22 @@ function CreateNewJob() {
       }
     }
   };
+  
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setDragging(false);
+    handleFileChange(event); 
+  };
+  
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+  
+  const handleDragLeave = () => {
+    setDragging(false);
+  };
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -554,7 +564,7 @@ function CreateNewJob() {
     return relevantExpIndex <= totalExpIndex;
   };
 
-  console.log("data", data);
+
   return (
     <>
       {!isCreate && (
@@ -716,7 +726,12 @@ function CreateNewJob() {
                           </div>
                         </div>
                         <div className="flex w-full flex-col pt-[16px] gap-[8px] items-center">
-                          <div className="w-[144px] max-h-[60px] ">
+                          <div
+                            onDrop={handleDrop}
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLeave}
+                            className="w-[144px] max-h-[60px] "
+                          >
                             {croppedImage ? (
                               <img
                                 className="w-[144px] max-h-[60px] "
@@ -867,7 +882,7 @@ function CreateNewJob() {
                                         onClick={() =>
                                           setData({
                                             ...data,
-                                            Keywords: data.Keywords.filter(
+                                            Keywords: data?.Keywords.filter(
                                               (data) => data != item
                                             ),
                                           })
@@ -1551,7 +1566,7 @@ function CreateNewJob() {
                                   setData((prevData) => ({
                                     ...prevData,
                                     revalentExp: "",
-                                  })); // Reset relevant experience
+                                  }));
                                 }
                               }}
                               className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"

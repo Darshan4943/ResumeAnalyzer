@@ -51,7 +51,7 @@ function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading
                         onChange={(e) => handleChange(e)}
                         className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
                     >
-                        <option value="5">{defaultLimit ? defaultLimit : "5"}</option>
+                        <option value={defaultLimit ? defaultLimit : "5"}>{defaultLimit ? defaultLimit : "5"}</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
