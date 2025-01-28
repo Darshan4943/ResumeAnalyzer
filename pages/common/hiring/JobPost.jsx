@@ -254,8 +254,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const texts = ["start", "start", "center", "center", "start", "end"];
 
   return (
-    <div className=" mb-4 ">
-      <div className="w-[100%] ml:max-h-[78vh] flex flex-col  relative   ">
+    <div className=" mb-4">
+      <div className="w-[100%] flex flex-col relative ">
         {jobDetails && (
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
@@ -1101,7 +1101,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <JobDetails jobDetails={jobDetails} totalCount={totalCount} />
           </div>
         )}
-        {option === 2 && <Analytics />}
+        {option === 2 &&
+          <Analytics  jobDetails={jobDetails}
+          />}
       </div>
     </div>
   );
