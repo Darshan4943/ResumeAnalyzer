@@ -166,7 +166,6 @@ function Dashboard({ toggleContentt }) {
     if (userDataGlobal?._id && selected) fetchJobAnalytics();
   }, [userDataGlobal?._id, selected]);
 
-  console.log(12, data)
 
   return (
     <div
@@ -175,7 +174,7 @@ function Dashboard({ toggleContentt }) {
     >
       <TopSection statistics={statistics} setPendingJobs={setPendingJobs} pendingJobs={pendingJobs} />
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
-        <div className=" pt-6 lg:pt-0 lg:w-[31.26%]  w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
+        <div className=" pt-6 lg:pt-0 lg:w-[31.26%] pb-[16px] w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
           <div
             className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
             style={{

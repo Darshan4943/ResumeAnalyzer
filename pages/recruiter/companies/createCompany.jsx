@@ -30,7 +30,7 @@ function CreateCompany() {
     companyLogo: "",
     companyDescription: "",
   });
-
+  const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -77,15 +77,12 @@ function CreateCompany() {
 
   const debounceUpdate = useCallback(
     debounce((value) => {
-
       setData((prev) => ({ ...prev, companyDescription: value }));
     }, 500),
     []
   );
 
-
   const handleCompanyDescriptionChange = (value) => {
-
     if (value?.length < 200) {
       setData({ ...data, companyDescription: value.slice(0, 200) });
       debounceUpdate(value.slice(0, 200));
@@ -102,7 +99,9 @@ function CreateCompany() {
   };
 
   const camelCaseToWords = (str) => {
-    return str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (char) => char.toUpperCase());
+    return str
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/^./, (char) => char.toUpperCase());
   };
 
   const validateForm = () => {
@@ -139,8 +138,10 @@ function CreateCompany() {
   };
 
   const handleFileChange = (event) => {
-    event.preventDefault();
-    const selectedFile = event.target.files[0];
+    event?.preventDefault();
+    const selectedFile = event.target.files
+      ? event.target.files[0]
+      : event.dataTransfer.files[0];
     if (selectedFile) {
       if (
         selectedFile.size <= 3 * 1024 * 1024 &&
@@ -154,6 +155,20 @@ function CreateCompany() {
       }
       event.target.value = "";
     }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setDragging(false);
+    handleFileChange(event);
+  };
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setDragging(false);
   };
 
   const handleSubmit = async () => {
@@ -194,10 +209,11 @@ function CreateCompany() {
   const handleUpdate = async () => {
     setButtonLoading(true);
     if (!validateForm()) return;
+
     try {
       const formData = new FormData();
-      formData.append("company Name", data.companyName);
-      formData.append("company Description", data.companyDescription);
+      formData.append("companyName", data.companyName);
+      formData.append("companyDescription", data.companyDescription);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -206,11 +222,13 @@ function CreateCompany() {
         });
         formData.append("croppedImage", file);
       }
+
       const response = await axios.put(
         `http://localhost:2000/api/company/updateCompanyDetails/${companyId}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+
       if (response.data.success) {
         setButtonLoading(false);
         toast.success(response.data.message);
@@ -227,6 +245,45 @@ function CreateCompany() {
   };
 
   const previousPage = () => router.back();
+
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button
+          className="ql-align"
+          value="left"
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+
+  const header = renderHeader();
+
   return (
     <div className="w-full relative flex flex-col gap-5">
       <div className="flex gap-3 text-[18px] font-[600] text-[#333333] items-center">
@@ -266,7 +323,7 @@ function CreateCompany() {
                   name="companyName"
                   value={data.companyName}
                   onChange={handleInputChange}
-                  placeholder="Enter Company name"
+                  placeholder="Enter Company Name"
                   className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
                 />
               </div>
@@ -277,7 +334,12 @@ function CreateCompany() {
                     This image will be shown publicly as company logo.
                   </div>
                 </div>
-                <div className="scr1024:w-[70.04%] w-full flex flex-col scr800:flex-row gap-2 items-center justify-between">
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  className="scr1024:w-[70.04%] w-full flex flex-col scr800:flex-row gap-2 items-center justify-between"
+                >
                   {(croppedImage || data?.companyLogo) && (
                     <ImageContainer
                       value={data?.companyLogo}
@@ -316,11 +378,10 @@ function CreateCompany() {
               About Company <span className="text-red">*</span>
             </div>
             <Editor
+              headerTemplate={header}
               value={data.companyDescription}
-              onTextChange={(e) => {
-                handleCompanyDescriptionChange(e.htmlValue);
-              }}
-              maxLength={200}
+              onTextChange={(e) => handleCompanyDescriptionChange(e.htmlValue)}
+              maxLength={199}
               style={{
                 border: "2px solid #dedede",
                 fontSize: "16px",

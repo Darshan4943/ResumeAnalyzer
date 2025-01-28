@@ -58,8 +58,7 @@ function RecentApplications() {
         }
       );
       setApplicants(response);
-      
-      setTotalCount(response.data.pagination.totalCount);
+      setTotalCount(response.data.pagination.totalApplications);
       setTotalpages(response.data.pagination.totalPages);
       toast.dismiss();
     } catch (err) {
@@ -479,116 +478,184 @@ function RecentApplications() {
         </div>
       </div>
 
-      {/* <div className="mobile">
-                <div className="flex flex-col items-start gap-4 self-stretch w-full">
-                    <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-                        {applicants?.map((applicants, index) => (
-                            <>
-                                <div
-                                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
-                                    style={{
-                                        background: index % 2 == 0 ? "#EFFAFF" : "#fff",
-                                        border: "1px solid #DEDEDE",
-                                    }}
-                                >
-                                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                                        <div className="flex justify-between items-center self-stretch">
-                                            <div className="flex items-center gap-2">
-                                                <img
-                                                    className="w-[40px] h-[40px]"
-                                                    src="/images/profile/john_doe.png"
-                                                    alt=""
-                                                />
-                                                <p className="text-[14px] text-[#333] font-[600]">
-                                                    {applicants.name}
-                                                </p>
-                                            </div>
-                                            <div className="flex justify-end items-center gap-4">
-                                                <div className="flex items-center gap-2">
-                                                    <img
-                                                        className="w-[24px] h-[24px]"
-                                                        src="/images/employer/st.png"
-                                                        alt=""
-                                                    />
-                                                    <p className="text-[14px] font-semibold text-[#333]">
-                                                        0.0
-                                                    </p>
-                                                    {applicants.img_star2}
-                                                </div>
-                                                <svg
-                                                    xlgns="http://www.w3.org/2000/svg"
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                >
-                                                    <g clip-path="url(#clip0_7540_117410)">
-                                                        <path
-                                                            d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                                            stroke="#333333"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                                            stroke="#333333"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                                            stroke="#333333"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_7540_117410">
-                                                            <rect
-                                                                width="24"
-                                                                height="24"
-                                                                fill="white"
-                                                                transform="matrix(0 1 -1 0 24 0)"
-                                                            />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </div>
-                                        </div>
+      <div className="mobile">
+        <div className="flex flex-col items-start gap-4 self-stretch w-full">
+          <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
+            {!applicants?.data?.applications.length == 0 ? (
+              <>
+                {applicants?.data?.applications.map((applicant, index) => (
+                  <div
+                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
+                    style={{
+                      background: index % 2 == 0 ? "#EFFAFF" : "#fff",
+                      border: "1px solid #DEDEDE",
+                    }}
+                  >
+                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                      <div className="flex justify-between items-center self-stretch">
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="w-[40px] h-[40px]"
+                            src="/images/profile/john_doe.png"
+                            alt=""
+                          />
+                          <p className="text-[14px] text-[#333] font-[600]">
+                            {applicant.details?.personal?.firstName}
+                          </p>
+                        </div>
+                        <div className="flex justify-end items-center gap-4">
+                          <svg
+                            xlgns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g clip-path="url(#clip0_7540_117410)">
+                              <path
+                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
+                                stroke="#333333"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
+                                stroke="#333333"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
+                                stroke="#333333"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_7540_117410">
+                                <rect
+                                  width="24"
+                                  height="24"
+                                  fill="white"
+                                  transform="matrix(0 1 -1 0 24 0)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      </div>
 
-                                        <div className="flex justify-between items-center self-stretch">
-                                            <p className="text-[14px] text-[#333] font-[600]">
-                                                20 Nov, 2023{" "}
-                                            </p>
-                                            <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                                                <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                                                    In Review
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center w-[100%]">
-                                            <div
-                                                className="flex px-6 py-3 justify-center items-center gap-[10px] bg-[#E7F8FF]"
-                                                style={{
-                                                    borderRadius: "8px",
-                                                    border: " 1px solid var(--primary, #06A9EF)",
-                                                }}
-                                            >
-                                                <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                                                    See Application
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
-                        ))}
+                      <div className="flex justify-between items-center self-stretch">
+                        <p className="text-[14px] text-[#333] font-[600]">
+                          <p>
+                            {new Date(applicant.appliedOn)
+                              .toLocaleDateString("en-GB", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              })
+                              .replace(",", "")}
+                          </p>
+                        </p>
+                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
+                          <p
+                            className={`text-[#FF7A00] font-Montserrat font-semibold text-[14px] ${
+                              checkedApplicants[index]
+                                ? "bg-[#FFFFFF]"
+                                : applicant.hiringStage === "Interview"
+                                ? "bg-[#26A4FF1A]"
+                                : applicant.hiringStage === "Pending"
+                                ? "bg-[#FFF9ED]"
+                                : applicant.hiringStage === "Hired"
+                                ? "bg-[#56CDAD1A]"
+                                : applicant.hiringStage === "Shortlisted"
+                                ? "bg-[#4640DE1A]"
+                                : applicant.hiringStage === "Rejected"
+                                ? "bg-[#FF65501A]"
+                                : applicant.hiringStage === "In Review"
+                                ? "bg-[#EB85331A]"
+                                : ""
+                            } ${
+                              applicant.hiringStage === "Interview"
+                                ? "text-[#26A4FF]"
+                                : applicant.hiringStage === "Pending"
+                                ? "text-[#FFB836]"
+                                : applicant.hiringStage === "Hired"
+                                ? "text-[#56CDAD]"
+                                : applicant.hiringStage === "Shortlisted"
+                                ? "text-[#4640DE]"
+                                : applicant.hiringStage === "Rejected"
+                                ? "text-[#FF6550]"
+                                : applicant.hiringStage === "In Review"
+                                ? "text-[#FFB836]"
+                                : "text-[#333333]"
+                            }`}
+                          >
+                            {applicant.hiringStage}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex justify-center gap-[10px] w-[100%]">
+                        <button
+                          disabled={
+                            applicant?.hiringStage === "Rejected" ||
+                            applicant?.hiringStage === "Shortlisted"
+                          }
+                          style={{
+                            opacity:
+                              applicant?.hiringStage === "Rejected" ||
+                              applicant?.hiringStage === "Shortlisted"
+                                ? 0.5
+                                : 1,
+                          }}
+                          onClick={() => togglePopup(applicant)}
+                          className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
+                        >
+                          Shortlist
+                        </button>
+                        <>
+                          {isPopupVisible && (
+                            <ShortlistMail
+                              shortlist={shortlist}
+                              setPopupVisible={setPopupVisible}
+                              id={applicant?.jobId}
+                              statusChange={statusChange}
+                              setStatusChange={setStatusChange}
+                              applicantIds={applicantIds}
+                            />
+                          )}
+                        </>
+                        <button
+                          disabled={applicant?.hiringStage === "Rejected"}
+                          style={{
+                            opacity:
+                              applicant?.hiringStage === "Rejected" ? 0.5 : 1,
+                          }}
+                          onClick={() => handleSend(applicant)}
+                          className="text-[10px] font-[500] py-[8px] px-[10px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
+                        >
+                          Reject
+                        </button>
+                      </div>
                     </div>
-                </div>
-            </div> */}
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[200px] w-[300px]"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
       {totalCount > 5 && (
         <CustomPagination

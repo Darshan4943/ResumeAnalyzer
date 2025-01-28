@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MiniLoader from './mini-loader';
 
-function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground }) {
+function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading, miniLoading,title,isBackground,defaultLimit }) {
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -51,7 +51,7 @@ function CustomPagination({ setPage, setLimit, totalPages, limit, setMiniloading
                         onChange={(e) => handleChange(e)}
                         className="text-[14px] px-[16px] py-[10px] border-[1px] border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] text-[#333] font-600"
                     >
-                        <option value="5">5</option>
+                        <option value="5">{defaultLimit ? defaultLimit : "5"}</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>

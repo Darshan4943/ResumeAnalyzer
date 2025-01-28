@@ -14,7 +14,7 @@ function Index() {
   const [id, setId] = useState("");
   const [page, setPage] = useState(1);
   const [miniloading, setMiniloading] = useState(false);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(6);
   const [totalPages, setTotalPages] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
@@ -76,6 +76,9 @@ function Index() {
       if (response.data.success) {
         toast.success("Company deleted successfully!");
         fetchCompanyData();
+        setCompanyData((prevData) =>
+          prevData.filter((company) => company._id !== companyId)
+        );
       } else {
         toast.error(response.data.message || "Failed to delete company.");
       }
@@ -86,6 +89,7 @@ function Index() {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <button
@@ -113,12 +117,12 @@ function Index() {
           <MiniLoader />
         </div>
       ) : (
-        <div className="flex w-full flex-wrap gap-[18px]">
+        <div className="flex w-full flex-wrap gap-[18px] md:justify-start justify-center">
           {companyData.length > 0 ? (
             companyData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#FFFFFF] p-5 rounded-[12px] flex flex-col items-center justify-between gap-1 w-full ms:w-[48%] scr1024:w-[30.75%]"
+                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between gap-1 w-[340px]"
               >
                 <div className="gap-1 flex flex-col">
                   <img
@@ -128,7 +132,7 @@ function Index() {
                   />
                   <div className="flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]">
                     {item.companyName}
-                    <div className=" w-full text-[12px] font-[400] text-[#646464] text-center">
+                    <div className="w-full text-[12px] font-[400] text-[#646464] text-center line-clamp-2">
                       <div
                         dangerouslySetInnerHTML={{
                           __html: item.companyDescription,
@@ -172,11 +176,17 @@ function Index() {
                     </svg>
                   </button>
                 </div>
-
               </div>
             ))
           ) : (
-            <div>No companies found.</div>
+            <div className="p-3  flex items-center justify-center">
+              {" "}
+              <img
+                className="w-[40%]"
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+              />
+            </div>
           )}
           <CustomPagination
             setMiniloading={setMiniloading}
@@ -186,6 +196,7 @@ function Index() {
             setLimit={setLimit}
             totalPages={totalPages}
             limit={limit}
+            defaultLimit={6}
             page={page}
           />
         </div>
