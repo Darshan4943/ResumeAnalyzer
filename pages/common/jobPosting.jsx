@@ -55,36 +55,38 @@ function JobPosting() {
         <div className="flex flex-col gap-[24px]">
           <div className="flex flex-col gap-6">
             <div className="flex gap-6 flex-col  md:flex-row">
-              <div className="flex flex-col bg-white rounded-[16px] p-4">
-                <p className="text-[16px] font-medium">
-                  Select an existing company <br />
-                  from your list.
-                </p>
-                <div className="flex gap-2 items-end">
-                  {loading ? (
-                    <p>Loading...</p>
-                  ) : error ? (
-                    <p className="text-red-500">{error}</p>
-                  ) : (
-                    <select
-                      onChange={handleCompanyChange}
-                      className="border border-[#DEDEDE] rounded-[8px] p-2 text-[12px]  font-normal w-[204px]"
-                    >
-                      <option value="">Select a company</option>
-                      {companyData?.map((company) => (
-                        <option key={company._id} value={company._id}>
-                          {company.companyName}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  <img
-                    className="max-w-[92px] max-h-[78px] object-cover"
-                    src={"/images/company.png"}
-                    alt=""
-                  />
+              {companyData?.length > 0 && (
+                <div className="flex flex-col bg-white rounded-[16px] p-4">
+                  <p className="text-[16px] font-medium">
+                    Select an existing company <br />
+                    from your list.
+                  </p>
+                  <div className="flex gap-2 items-end">
+                    {loading ? (
+                      <p>Loading...</p>
+                    ) : error ? (
+                      <p className="text-red-500">{error}</p>
+                    ) : (
+                      <select
+                        onChange={handleCompanyChange}
+                        className="border border-[#DEDEDE] rounded-[8px] p-2 text-[12px]  font-normal w-[204px]"
+                      >
+                        <option value="">Select a company</option>
+                        {companyData?.map((company) => (
+                          <option key={company._id} value={company._id}>
+                            {company.companyName}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    <img
+                      className="max-w-[92px] max-h-[78px] object-cover"
+                      src={"/images/company.png"}
+                      alt=""
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="flex flex-col bg-white rounded-[16px] p-4">
                 <p className="text-[16px] font-medium">
                   Add detailed job descriptions <br />

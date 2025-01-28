@@ -75,6 +75,7 @@ function Index() {
       );
       if (response.data.success) {
         toast.success("Company deleted successfully!");
+        fetchCompanyData();
         setCompanyData((prevData) =>
           prevData.filter((company) => company._id !== companyId)
         );

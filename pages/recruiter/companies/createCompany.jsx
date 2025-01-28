@@ -323,7 +323,7 @@ function CreateCompany() {
                   name="companyName"
                   value={data.companyName}
                   onChange={handleInputChange}
-                  placeholder="Enter Company name"
+                  placeholder="Enter Company Name"
                   className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
                 />
               </div>
