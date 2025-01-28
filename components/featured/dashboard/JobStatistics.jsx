@@ -3,7 +3,7 @@ import StackedBarChart from '../../common/StackedBarChart';
 import CountUp from 'react-countup';
 
 function JobStatistics({ setSelected, selected, data }) {
-  console.log(222, data);
+
 
   const calculatePercentageChange = (analytics) => {
     if (analytics?.length >= 2) {

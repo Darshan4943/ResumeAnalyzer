@@ -634,7 +634,7 @@ const JobMatching = () => {
 
 
               {isMatched &&
-                <div className="ml:w-[56%] w-full">
+                <div className=" w-full">
                   <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails} addApplicant={addApplicant} hiringLoading={hiringLoading} jobData={jobData} jdApplicantFileNames={jdApplicantFileNames} />
                 </div>
               }

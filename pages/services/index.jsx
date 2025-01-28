@@ -103,7 +103,7 @@ function Services() {
       color: "#9747FF",
     },
     {
-      name: "My Clients",
+      name: "Candidates",
       imgSrc: "/images/resumeBuilder/my_clients.png",
       desc: "Business empowerment through customized care & strategy.",
       color: "#FE7701",
@@ -115,7 +115,7 @@ function Services() {
     //   color: "#428FF5",
     // },
     {
-      name: "Job Description Matching",
+      name: "JD Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
       desc: "Check eligibility level of multiple resumes with a job description.",
       color: "#B847FF",
@@ -126,13 +126,13 @@ function Services() {
       desc: "Save multiple resumes & cover letters in cloud storage",
       color: "#45ABA0",
     },
-    {
-      name: "Ask Krut",
-      imgSrc: "/images/resumeBuilder/bot1.png",
-      desc: "Save multiple resumes with multiple clients in cloud storage.",
-      color: "#7994D8",
-      new: "New",
-    },
+    // {
+    //   name: "Ask Krut",
+    //   imgSrc: "/images/resumeBuilder/bot1.png",
+    //   desc: "Save multiple resumes with multiple clients in cloud storage.",
+    //   color: "#7994D8",
+    //   new: "New",
+    // },
     // {
     //   name: "My Purchases",
     //   imgSrc: "/images/resumeBuilder/my_purchases.png",
@@ -140,7 +140,7 @@ function Services() {
     //   color: "#8901FF",
     // },
     {
-      name: "Post Jobs",
+      name: "Job Posting",
       imgSrc: "/images/resumeBuilder/job.png",
       desc: "Post new job openings to connect with more candidates.",
       color: "#6441A5",
@@ -171,13 +171,13 @@ function Services() {
         return "createResume";
       case "Create New Cover Letter":
         return "createCover";
-      case "My Clients":
-        return "myClinet";
+      case "Candidates":
+        return "candidates";
       case "My Resumes":
         return "MyResume";
       case "Transform CV":
         return "TransFormCV";
-      case "Job Description Matching":
+      case "JD Matching":
         return "JobDes";
       case "My Collection":
         return "MyCollection";
@@ -187,7 +187,7 @@ function Services() {
         return "MyPurchase";
       case "Search Jobs":
         return "searchJobs";
-      case "Post Jobs":
+      case "Job Posting":
         return "postJobs";
       case "Ask Krut":
         return "chatBot";
@@ -215,8 +215,8 @@ function Services() {
             : `/myClients/ClientResume?cover=true`
         );
         break;
-      case "My Clients":
-        handleNavigation("/myClients");
+      case "Candidates":
+        handleNavigation("/candidates");
         break;
       case "My Resumes":
         handleNavigation("/candidate/MyCollection");
@@ -256,16 +256,16 @@ function Services() {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[71px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
+    <div className="fixed z-[2000]  top-[59px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${isMove
+          className={`scr420:px-4 px-2 flex scr700:flex-row flex-col scr700:gap-9 gap-6 justify-center w-full transform transition-transform   ease-in-out ${isMove
             ? "translate-y-0  opacity-100"
             : "translate-y-[30px] opacity-0 move"
             }`}
           style={{ transition: " all .2s linear" }}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-row scr700:flex-col gap-4">
             {(userDataGlobal?.role === "user"  || !isLogin) &&
               <button onClick={() => setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px] font-medium">
                 Candidate
@@ -279,7 +279,7 @@ function Services() {
               </button>
             }
           </div>
-          <div className="flex flex-col gap-6 w-[800px]  ">
+          <div className="flex flex-col gap-6 scr700:w-[800px]  ">
             <div className="header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] ">
               Services
             </div>
@@ -296,18 +296,18 @@ function Services() {
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] px-4 py-3  ${visible !== index
+                    className={`flex items-start gap-[20px] scr420:px-4 px-2 scr420:py-3 py-2  ${visible !== index
                       ? "border border-[#DEDEDE]"
                       : "border border-[#FFF]"
-                      } rounded-[8px]  w-[370px] h-[66px] ${isLogin ? "cursor-pointer" :"cursor-default"}`}
+                      } rounded-[8px]  scr420:w-[370px] h-[66px] ${isLogin ? "cursor-pointer" :"cursor-default"}`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center scr420:gap-3 gap-2">
                       <img
                         src={item.imgSrc}
                         alt=""
                         className="w-[30px] h-[30px]"
                       />
-                      <div className="w-[270px] flex flex-col gap-1 h-[43px]  ">
+                      <div className="scr420:w-[270px] w-full flex flex-col gap-1 h-[43px]  ">
                         <div className="flex gap-3 items-center">
                           <span className="text-[12px] font-medium leading-tight">
                             {item.name}

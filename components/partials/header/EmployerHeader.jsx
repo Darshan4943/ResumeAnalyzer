@@ -5,6 +5,7 @@ import EmployerMobileHeader from "./EmployerMobileHeader";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { camelCase } from "../../../utils/middleware";
+import HeaderSidebar from "./headerSidebar";
 
 function EmployerHeader() {
   const router = useRouter();
@@ -15,7 +16,7 @@ function EmployerHeader() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [login, setlogin] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+ const isLogin = useSelector((state) => state.auth.isLogin);
   const [isSidebar, setIsSidebar] = useState(false);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ function EmployerHeader() {
 
   const handleLogOut = () => {
     setlogin(false);
-    setIsLogin(false);
+ 
 
     toggleDropdown();
     localStorage.clear();
@@ -59,7 +60,7 @@ function EmployerHeader() {
         className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]"
       // style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}
       >
-        <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]">
+        <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between w-[30%] ">
           <div className="flex gap-1 items-center">
             <div className="mobile" onClick={() => setIsSidebar(true)}>
               <img
@@ -76,7 +77,7 @@ function EmployerHeader() {
               />
             </div>
           </div>
-          <div className=" flex items-center border-[0.5px] border-[#646464]  justify-between w-[25%] ms:min-w-[200px] scr420:min-w-[140px] min-w-[120px] rounded-[30px] px-3 py-1">
+          {/* <div className=" flex items-center border-[0.5px] border-[#646464]  justify-between w-[25%] ms:min-w-[200px] scr420:min-w-[140px] min-w-[120px] rounded-[30px] px-3 py-1">
             <input
               type="text"
               className="text-black font-small ms:text-[14px] text-[12px] w-[70%]"
@@ -98,9 +99,9 @@ function EmployerHeader() {
                 />
               </g>
             </svg>
-          </div>
+          </div> */}
         </div>
-        <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 ms:w-[40%] w-[10%] ">
+        <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 w-[60%]  ">
           <div className="flex items-center gap-5">
             <svg
             className=" cursor-pointer"
@@ -118,10 +119,10 @@ function EmployerHeader() {
             </svg>
 
             <div className="flex items-center gap-2">
-              <div className=" h-[36px] w-[36px]">
+              <div className=" h-[36px] w-[36px] min-w-[36px]">
                 {profileData?.profilePicture?.img ? (
                   <img
-                    className=" rounded-full object-cover h-[36px] w-[36px]"
+                    className=" rounded-full object-cover h-[36px] w-[36px] min-w-[36px]"
                     src={
                       profileData?.profilePicture?.img ||
                       "/images/profile/profileNew.png"
@@ -140,7 +141,7 @@ function EmployerHeader() {
 
               <div onClick={() => setIsLogout(!isLogout)} className=" flex items-center cursor-pointer text-[14px] font-semibold">
                 {profileData?.basics?.firstName && (
-                  <div className=" text-[14px] font-semibold xxlg:block hidden">
+                  <div className=" text-[14px] font-semibold scr540:block hidden">
                     {camelCase(profileData?.basics?.firstName)}{" "}
                     {camelCase(profileData?.basics?.lastName)}
                   </div>
@@ -283,10 +284,8 @@ function EmployerHeader() {
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ duration: 0.5 }}
-              ref={taskRef}
-              className="absolute z-[2000] w-full mt-[-4rem]  "
-              onWheel={(e) => e.stopPropagation()}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="fixed z-[300000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
                 boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
@@ -295,12 +294,16 @@ function EmployerHeader() {
                   !navigator.userAgent.includes("Chrome") && {
                   WebkitBackdropFilter: "blur(10px)",
                 }),
+                willChange: "transform",
+                // opacity: isSidebar ? 1 : 0,
+                // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",
               }}
             >
-              <EmployerMobileHeader
+              <HeaderSidebar
                 selectedPage={selectedPage}
                 setIsSidebar={setIsSidebar}
-                setIsLogin={setIsLogin}
+                isSidebar={isSidebar}
+                // setIsLogin={setIsLogin}
                 isLogin={isLogin}
               />
             </motion.div>
