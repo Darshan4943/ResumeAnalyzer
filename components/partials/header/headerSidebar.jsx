@@ -9,7 +9,7 @@ function HeaderSidebar({
   isLogin,
   isSidebar,
 }) {
-  const boforeLoginList = ["Candidate", "Recruiter", "Jobs"];
+  const boforeLoginList = ["Home", "Jobs","Services"];
   const loginListCandidate = [
     "Home",
     "Create New Resume",
@@ -25,19 +25,19 @@ function HeaderSidebar({
   ];
   const loginListRecruiter = [
     "Home",
-    "Create New Resume",
-    "Create New Cover Letter",
-    "My Clients",
-    // "Transform CV",
-    "Job Description Matching",
+    "Companies",
+    "Job Posting",
+    "Hiring",
+    "Candidates",
+
     "My Collection",
-    "Post Jobs",
-    "Ask Krut",
-    "My Purchases",
+
+    "JD Matching",
+   
   ];
   const router = useRouter();
   const [visible, setvisible] = useState(false);
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const handleNavigation = (page) => {
     setIsSidebar(false);
@@ -78,13 +78,13 @@ function HeaderSidebar({
   };
 
   const handleLogOut = () => {
-    setIsLogin(false);
+    // setIsLogin(false);
     localStorage.clear();
 
     if (userDataGlobal?.role === "user") {
       router.push("/");
     } else {
-      router.push("/recruiter");
+      router.push("/");
     }
     window.location.href = "/";
   };
@@ -178,16 +178,20 @@ function HeaderSidebar({
                   ...getListItemStyles("/recruiter"),
                   transition: "transform 0.8s ease-in-out",
                 }),
+                ...(item === "Services" && {
+                  ...getListItemStyles("/services"),
+                  transition: "transform 0.8s ease-in-out",
+                }),
                 ...(item === "Jobs" && {
-                  ...getListItemStyles("/jobs/search"),
+                  ...getListItemStyles("/jobs/candidate"),
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Home" && {
                   ...getListItemStyles("/home"),
                   transition: "transform 0.7s ease-in-out",
                 }),
-                ...(item === "My Clients" && {
-                  ...getListItemStyles("/myClients"),
+                ...(item === "Candidates" && {
+                  ...getListItemStyles("/candidates"),
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Create New Resume" && {
@@ -206,12 +210,12 @@ function HeaderSidebar({
                   ...getListItemStyles("/transform/TransformJob"),
                   transition: "transform 0.9s ease-in-out",
                 }),
-                ...(item === "Job Description Matching" && {
-                  ...getListItemStyles("/transform/JobMatching"),
+                ...(item === "JD Matching" && {
+                  ...getListItemStyles("/JobMatching"),
                   transition: "transform 1s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
-                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection"),
+                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Skill Assessments & Certification" && {
@@ -222,8 +226,8 @@ function HeaderSidebar({
                   ...getListItemStyles("/jobs/search"),
                   transition: "transform 1.1s ease-in-out",
                 }),
-                ...(item === "Post Jobs" && {
-                  ...getListItemStyles("/jobs/list"),
+                ...(item === "Job Posting" && {
+                  ...getListItemStyles("/common/jobPosting"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Ask Krut" && {
@@ -238,6 +242,15 @@ function HeaderSidebar({
                   ...getListItemStyles("/purchase/MyPurchase"),
                   transition: "transform 1.2s ease-in-out",
                 }),
+                ...(item === "Hiring" && {
+                  ...getListItemStyles("/common/hiring"),
+                  transition: "transform 1.2s ease-in-out",
+                }),
+                ...(item === "Companies" && {
+                  ...getListItemStyles("/recruiter/companies"),
+                  transition: "transform 1.2s ease-in-out",
+                }),
+               
               }}
               onClick={() => {
                 switch (item) {
@@ -248,13 +261,19 @@ function HeaderSidebar({
                     handleNavigation("/recruiter");
                     break;
                   case "Jobs":
-                    handleNavigation("/jobs/search");
+                    handleNavigation("/jobs/candidate");
                     break;
+                    case "Services":
+                      handleNavigation("/services");
+                      break;
                   case "Home":
                     handleNavigation("/home");
                     break;
-                  case "My Clients":
-                    handleNavigation("/myClients");
+                    case "Companies":
+                    handleNavigation("/recruiter/companies");
+                    break;
+                  case "Candidates":
+                    handleNavigation("/candidates");
                     break;
                   case "Create New Resume":
                     handleNavigation(userDataGlobal?.role === "user"
@@ -270,9 +289,12 @@ function HeaderSidebar({
                   case "Transform CV":
                     handleNavigation("/transform/TransformJob");
                     break;
-                  case "Job Description Matching":
-                    handleNavigation("/transform/JobMatching");
+                  case "JD Matching":
+                    handleNavigation("/JobMatching");
                     break;
+                    case "Hiring":
+                      handleNavigation("/common/hiring");
+                      break;
 
                   case "My Purchases":
                     handleNavigation("/purchase/MyPurchase");
@@ -284,13 +306,13 @@ function HeaderSidebar({
                     handleNavigation("/myWebsite");
                     break;
                   case "My Collection":
-                    handleNavigation(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/collection");
+                    handleNavigation(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection?folders=true");
                     break;
                   case "Skill Assessments & Certification":
                     handleNavigation("/home/SkillAssessment");
                     break;
-                  case "Post Jobs":
-                    handleNavigation("/jobs/list");
+                  case "Job Posting":
+                    handleNavigation("/common/jobPosting");
                     break;
                   case "Search Jobs":
                     handleNavigation("/jobs/search");

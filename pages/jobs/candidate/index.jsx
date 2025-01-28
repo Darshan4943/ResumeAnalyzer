@@ -218,7 +218,7 @@ function Index() {
         
     ];
 
-    console.log(jobtypeData);
+    
     const filteredInputData = inputData.filter(
         (item) =>
             item.child &&
