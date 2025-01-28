@@ -472,6 +472,29 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     />
                   </svg>
                 </div>
+                <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                  <p
+                    onClick={() => {
+                      setOption(2), setActiveOption("Analytics");
+                    }}
+                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                      } cursor-pointer font-[600]`}
+                  >
+                    Analytics
+                  </p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="89"
+                    height="4"
+                    viewBox="0 0 89 4"
+                    fill="none"
+                  >
+                    <path
+                      d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z"
+                      fill={activeOption === "Analytics" ? "#06A9EF" : "white"}
+                    />
+                  </svg>
+                </div>
               </div>
               <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
             </div>
@@ -618,8 +641,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             <>
                               <div
                                 className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
-                                    ? "bg-[#D3F1FF]"
-                                    : "bg-[#FFFFFF]"
+                                  ? "bg-[#D3F1FF]"
+                                  : "bg-[#FFFFFF]"
                                   }`}
                                 key={applicant?._id}
                               >
@@ -657,24 +680,24 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   <div className=" flex justify-center w-[20%]">
                                     <div
                                       className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                          ? "bg-[#FFFFFF]"
-                                          : applicant?.hiringStage ===
-                                            "Interview"
-                                            ? "bg-[#26A4FF1A]"
-                                            : applicant?.hiringStage === "Pending"
-                                              ? "bg-[#FFF9ED]"
-                                              : applicant?.hiringStage === "Hired"
-                                                ? "bg-[#56CDAD1A]"
+                                        ? "bg-[#FFFFFF]"
+                                        : applicant?.hiringStage ===
+                                          "Interview"
+                                          ? "bg-[#26A4FF1A]"
+                                          : applicant?.hiringStage === "Pending"
+                                            ? "bg-[#FFF9ED]"
+                                            : applicant?.hiringStage === "Hired"
+                                              ? "bg-[#56CDAD1A]"
+                                              : applicant?.hiringStage ===
+                                                "Shortlisted"
+                                                ? "bg-[#4640DE1A]"
                                                 : applicant?.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? "bg-[#4640DE1A]"
+                                                  "Rejected"
+                                                  ? "bg-[#FF65501A]"
                                                   : applicant?.hiringStage ===
-                                                    "Rejected"
-                                                    ? "bg-[#FF65501A]"
-                                                    : applicant?.hiringStage ===
-                                                      "In Review"
-                                                      ? "bg-[#EB85331A]"
-                                                      : ""
+                                                    "In Review"
+                                                    ? "bg-[#EB85331A]"
+                                                    : ""
                                         } ${applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Pending"

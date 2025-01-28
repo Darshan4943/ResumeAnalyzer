@@ -29,7 +29,7 @@ const Breadcrumb = () => {
     BulkUploads: 'Bulk Uploads',
     ClientResume:"Select Candidate",
     MyPurchase:"My Purchase",
-    details:"Purchase Plan"
+    details:"Purchase Plan "
 
   };
 
