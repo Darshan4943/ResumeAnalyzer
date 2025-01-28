@@ -388,6 +388,7 @@ function CreateNewJob() {
         } = res.data;
 
         setData({
+          ...data,
           companyName,
           logo,
           aboutOrganization,
