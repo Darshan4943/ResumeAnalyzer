@@ -381,7 +381,7 @@ function CreateCompany() {
               headerTemplate={header}
               value={data.companyDescription}
               onTextChange={(e) => handleCompanyDescriptionChange(e.htmlValue)}
-              maxLength={199}
+              maxLength={200}
               style={{
                 border: "2px solid #dedede",
                 fontSize: "16px",
@@ -391,8 +391,10 @@ function CreateCompany() {
               }}
             />
             <div className="text-[12px] text-gray-500">
-              {data.companyDescription?.replace(/<[^>]*>/g, "").length} / 200
-              characters
+              {data.companyDescription
+                ? data.companyDescription.replace(/<[^>]*>/g, "").length >200 ? 200 : data.companyDescription.replace(/<[^>]*>/g, "").length
+                : 0}{" "}
+              / 200 characters
             </div>
           </div>
           <div className="w-full flex justify-between pt-5">
