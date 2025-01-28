@@ -59,11 +59,12 @@ function Layout({ children }) {
         <EmployerHeader />
       </div>
 
-      <div className="flex bg-[#f3f3f3]  ">
-        <div className="web">
+      <div className="flex bg-[#f3f3f3] relative  ">
+      <div className=" ml:max-h-[100vh] min-h-[100vh] overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
+          style={{ scrollbarWidth: "none" }}>
           <EmployerSidebar />
         </div>
-        <div className=" ml:max-h-[100vh] min-h-[100vh] overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative "
+        <div className="  overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative "
           style={{ scrollbarWidth: "none" }}
         >
           {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}

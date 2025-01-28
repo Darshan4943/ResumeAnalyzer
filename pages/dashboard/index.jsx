@@ -3,7 +3,7 @@
 // import ChartComponent, { Bars } from "@/components/common/Bars";
 // import StackedBarChart from "@/components/common/StackedBarChart";
 import { TablePagination } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import StackedBarChart from "../../components/common/StackedBarChart";
 import { useSelector } from "react-redux";
 import { camelCase } from "../../utils/middleware";
@@ -27,6 +27,20 @@ function Dashboard({ toggleContentt }) {
 
   const router = useRouter();
 
+  const [pendingJobs, setPendingJobs] = useState(false);
+  const pendingJobsRef = useRef(null);
+
+  useEffect(() => {
+    if (pendingJobsRef.current) {
+      const offset = 64;
+      const elementPosition = pendingJobsRef.current.offsetTop;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth',
+      });
+    }
+  }, [pendingJobs]);
+
   const handleNavigation = (page) => {
     router.push(page);
   };
@@ -39,10 +53,10 @@ function Dashboard({ toggleContentt }) {
       name: "Create New Cover Letter",
       imgSrc: "/images/resumeBuilder/cover.png",
     },
-    { name: "My Candidates", imgSrc: "/images/resumeBuilder/my_clients.png" },
+    { name: "Candidates", imgSrc: "/images/resumeBuilder/my_clients.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
-      name: "Job Description Matching",
+      name: "JD Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
     {
@@ -50,8 +64,8 @@ function Dashboard({ toggleContentt }) {
 
       imgSrc: "/images/resumeBuilder/collection.png",
     },
-    { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
+    // { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "Job Posting", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
   const list = () => {
@@ -77,7 +91,7 @@ function Dashboard({ toggleContentt }) {
             : `/candidates/ClientResume?cover=true`
         );
         break;
-      case "My Candidates":
+      case "Candidates":
         handleNavigation("/candidates");
         break;
       case "Resume":
@@ -86,7 +100,7 @@ function Dashboard({ toggleContentt }) {
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
         break;
-      case "Job Description Matching":
+      case "JD Matching":
         handleNavigation("/JobMatching");
         break;
       case "My Purchases":
@@ -107,7 +121,7 @@ function Dashboard({ toggleContentt }) {
         handleNavigation("/home/SkillAssessment");
         break;
       case "Search Jobs":
-      case "Post Jobs":
+      case "Job Posting":
         handleNavigation(
           userDataGlobal?.role === "user" ? "/jobs/search" : "/common/jobPosting"
         );
@@ -155,10 +169,10 @@ function Dashboard({ toggleContentt }) {
 
   return (
     <div
-      className=" ml:h-[calc(100vh-100px)]  w-[100%]  overflow-y-auto "
+      className="   w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
-      <TopSection statistics={statistics} />
+      <TopSection statistics={statistics} setPendingJobs={setPendingJobs} pendingJobs={pendingJobs} />
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
         <div className=" pt-6 lg:pt-0 lg:w-[31.26%] pb-[16px] w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
           <div
@@ -338,8 +352,10 @@ function Dashboard({ toggleContentt }) {
         </div>
         <JobStatistics statistics={statistics} setSelected={setSelected} selected={selected} data={data} />
       </div>
+      <div ref={pendingJobsRef}>
+        <RecentApplications />
+      </div>
 
-      <RecentApplications />
       <div className="py-6 px-1 flex flex-col gap-6 ">
         <p className="text-[20px] font-semibold text-[#333333]">Services</p>
         <div

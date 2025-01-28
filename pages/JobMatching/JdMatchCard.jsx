@@ -20,16 +20,16 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
     };
     return (
 
-        <div className="w-[1272px] flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] p-4 ">
+        <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 ">
 
             <div className="text-[18px] font-[500]">
                 {resumeList.length} results found for {extratctedData?.jobTitle}
             </div>
 
             {resumeList && resumeList?.map((user, index) => (
-                <div key={index} className="  justify-between p-4 rounded-[16px] gap-4 bg-white flex items-start " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+                <div key={index} className="  justify-between scr390:p-4  p-3 rounded-[16px] gap-4 bg-white flex scr1024:flex-row flex-col items-start " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
 
-                    <div className="flex flex-col gap-4 w-[380px]">
+                    <div className="flex flex-col gap-4 scr1300:w-[380px]">
                         <div className="flex items-start gap-[22px]">
 
                             <img
@@ -68,7 +68,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                                 } */}
                             </div>
                         </div>
-                        <div className="flex flex-col  gap-[8px] w-[380px]">
+                        <div className="flex flex-col  gap-[8px] scr1300:w-[380px]">
                             <div className="text-[16px] font-[600]">Contact</div>
                             {user?.email &&
                                 <div className="flex items-center gap-[8px]">
@@ -145,7 +145,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                                             viewBox="0 0 10 10"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            className='mt-[6px]'
+                                            className='mt-[6px] min-w-[10px]'
                                         >
                                             <circle cx="5" cy="5" r="5" fill="#D9D9D9" />
                                         </svg>
@@ -161,8 +161,8 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                     )}
 
 
-                    <div className="flex flex-col gap-[20px] ">
-                        <div className=" flex items-center h-[80px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px]">
+                    <div className="flex flex-col gap-[20px] scr1300:min-w-[386px] scr390:min-w-[300px] ">
+                        <div className=" flex items-center h-[80px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
                             <div className="text-[18px] font-[500] justify-center">
                                 Profile Match Score
                             </div>
@@ -170,14 +170,14 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                         </div>
                         <div
                             onClick={() => downloadResume(user?.file)}
-                            className="w-[386px] h-[89px] rounde-[12px] flex  "
+                            className=" h-[89px] rounded-[12px] w-full flex  "
                         >
                             <div className="w-[51px] flex h-[89px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
                                 <span className="flex items-center justify-center text-[14px] font-[600] text-[#FFFFFF]">
                                     PDF
                                 </span>
                             </div>
-                            <div className="w-[334px] justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] ">
+                            <div className="scr1300:w-[334px]  justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] w-full">
                                 <div className="p-[16px]  flex flex-col ">
                                     <div className="text-[14px] font-[500]">
                                         {user.fileName} <br />
@@ -188,13 +188,13 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                             </div>
                         </div>
 
-                        <div className="flex gap-[16px] items-center">
-                            <div onClick={() => { setTab(1); setUserDetails(user) }} className=" cursor-pointer py-[12px] px-[36px] border-[1px] border-[#06A9EF] rounded-[30px]">
-                                <button className="text-[14px] font-[600]">
+                        <div className="flex scr390:flex-row flex-col gap-[16px] items-center">
+                            <div onClick={() => { setTab(1); setUserDetails(user) }} className="flex justify-center scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]">
+                                <button className="text-[14px] font-[600] ">
                                     See Application
                                 </button>
                             </div>
-                            <div className="   ">
+                            <div className="  w-full ">
                                 {
                                     (jobData?.applications?.some((item) => item?.fileName === user?.fileName) || jdApplicantFileNames?.includes(user?.fileName)) ? (
                                         <p className='text-[14px] font-semibold text-[#0C8A0A]'>Moved to Hiring</p>
@@ -209,7 +209,7 @@ function JdMatchCard({ resumeList, extratctedData, setTab, setUserDetails, addAp
                                             <button
                                                 onClick={() => addApplicant(user)}
                                                 disabled={hiringLoading}
-                                                className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                                                className="text-[14px] font-[600] text-white py-[12px] scr1300:px-[36px] px-4 bg-[#06A9EF] rounded-[30px] flex justify-center items-center scr1300:w-[177.8px] scr390:w-[140px] w-full"
                                             >
                                                 Move to Hiring
                                             </button>

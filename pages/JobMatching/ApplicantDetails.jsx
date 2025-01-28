@@ -86,7 +86,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
         borderRadius: "10px",
         overflow: "scroll",
         width: "600px",
-        height: "800px"
+        // height: "800px"
       }}
       >
         {loadingg && (
@@ -131,7 +131,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
         <div className="flex ml:flex-row flex-col gap-5   mb-4 ">
           <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
             {userDetails && (
-              <div className="flex flex-col overflow-y-auto gap-6 px-6 py-4">
+              <div className="flex flex-col gap-6 scr420:px-6 px-3 scr420:py-4 py-3">
 
                 <div className=" flex  gap-6">
                   <img
@@ -169,7 +169,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <div className="border border-[#06A9EF] rounded-[12px] px-9 py-3 gap-2 flex justify-center items-center">
+                  <div className="border border-[#06A9EF] rounded-[12px] scr420:px-9 px-4 py-3 gap-2 flex justify-center items-center">
                     <p className=" text-[16px] font-medium">  Profile Match Score</p>
 
 
@@ -408,7 +408,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
               )}
               {toggle === "Resume" && (
 
-                <div className=" flex items-center justify-center py-[16px] resumes2">
+                <div className=" flex items-center justify-center py-[16px] px-2 resumes2">
 
                   <PdfViewer
                     pdfUrl={userDetails?.file}
