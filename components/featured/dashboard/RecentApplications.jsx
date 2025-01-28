@@ -58,8 +58,7 @@ function RecentApplications() {
         }
       );
       setApplicants(response);
-
-      setTotalCount(response.data.pagination.totalCount);
+      setTotalCount(response.data.pagination.totalApplications);
       setTotalpages(response.data.pagination.totalPages);
       toast.dismiss();
     } catch (err) {
@@ -644,7 +643,6 @@ function RecentApplications() {
                     </div>
                   </div>
                 ))}
-    
               </>
             ) : (
               <div className="p-10 w-full flex items-center justify-center">
