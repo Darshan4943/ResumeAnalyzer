@@ -284,7 +284,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </p>
 
                     <p className="text-[14px] font-[500] text-[#333333] leading-tight">
-                      Customer Support
+                    {jobDetails?.data?.jobDetails?.jobSector && jobDetails?.data?.jobDetails?.jobSector}
                     </p>
                   </div>
                   <div className="flex justify-center items-center gap-[4px]">
