@@ -7,7 +7,7 @@ import { fetchAppliedJob, fetchSavedJobIds } from '../../../../Redux/slices/jobS
 
 function MiddleSection() {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
-    const { appliedJobData,savedJobIds} = useSelector((state) => state.job.jobData);
+    const { appliedJobData, savedJobIds } = useSelector((state) => state.job.jobData);
 
     const dispatch = useDispatch();
 
@@ -92,7 +92,7 @@ function MiddleSection() {
                         </p>
                         <p className='text-[10px] font-[500] sm:text-start text-center'> {posters[0]?.description}</p>
                     </div>
-                    <button onClick={()=>router.push(posters[0].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
+                    <button onClick={() => router.push(posters[0].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
                         Know More
                     </button>
                 </div>
@@ -126,7 +126,7 @@ function MiddleSection() {
                         </p>
                         <p className='text-[10px] font-[500] sm:text-start text-center'> {posters[1]?.description}</p>
                     </div>
-                    <button onClick={()=>router.push(posters[1].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
+                    <button onClick={() => router.push(posters[1].path)} className='scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]'>
                         Know More
                     </button>
                 </div>
