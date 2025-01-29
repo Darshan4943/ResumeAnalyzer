@@ -16,7 +16,7 @@ const JobCard = ({ filters, setFilters }) => {
   const [totalCount, setTotalCount] = useState(0);
   const [miniloading, setMiniloading] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(9);
   const router = useRouter();
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -102,7 +102,7 @@ const JobCard = ({ filters, setFilters }) => {
                   onClick={() =>
                     router.push(`/common/hiring/JobPost?id=${job._id}`)
                   }
-                  className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-6"
+                  className="flex py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div className="flex justify-between w-[100%]">
                     <div className="flex justify-between gap-[20px] ">
@@ -307,7 +307,7 @@ const JobCard = ({ filters, setFilters }) => {
                   setPage={setPage}
                   title={"Jobs"}
                   setLimit={setLimit}
-                  defaultLimit={6}
+                  defaultLimit={9}
                   totalPages={totalPages}
                   limit={limit}
                   page={page}

@@ -1,4 +1,4 @@
- import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -33,7 +33,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [totalPages, setTotalpages] = useState(0);
   const [page, setPage] = useState(0);
   const [filterType, setfilterType] = useState();
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const [statusChange, setStatusChange] = useState(false);
   const [loadinggg, setLoadinggg] = useState(false);
@@ -49,6 +49,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     isLoading: false,
     applicantId: null,
   });
+  const [jobData, setJobData] = useState(null);
 
   const handleCheckboxChangeFilter = (e, filter, applicantHeadName) => {
     const updatedFilters = { ...selectedFilters };
@@ -144,6 +145,22 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   };
 
+  const fetchJobDetailsHeder = async (id, setJobData) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getByIdApplicationHeder/${id}`
+      );
+      setJobData(response.data);
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    }
+  };
+  useEffect(() => {
+    if (id) {
+      fetchJobDetailsHeder(id, setJobData);
+    }
+  }, [id]);
+
   const fetchJobDetails = async () => {
     setError(null);
     try {
@@ -164,7 +181,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         setLoading(false);
       }, 500);
       setJobDetails(data);
-      setTotalCount(data.pagination.totalCount);
+      console.log(53555656,data)
+      setTotalCount(data.pagination.totalApplications);
       setTotalpages(data.pagination.totalPages);
       setfilterType(false);
     } catch (err) {
@@ -256,12 +274,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   return (
     <div className=" mb-4">
       <div className="w-[100%] flex flex-col relative ">
-        {jobDetails && (
+        {jobData && (
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
                 <div className="flex gap-[20px] justify-between md:justify-center items-start">
-                  <div className="hidden md:block cursor-pointer" onClick={router.back}>
+                  <div
+                    className="hidden md:block cursor-pointer"
+                    onClick={router.back}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -280,29 +301,30 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   <div className=" flex flex-col ">
                     <p className="text-[18px] text-[#333333] font-[600] leading-tight">
                       {" "}
-                      {jobDetails?.data?.jobDetails?.jobTitle}
+                      {jobData?.jobTitle}
                     </p>
 
                     <p className="text-[14px] font-[500] text-[#333333] leading-tight">
-                    {jobDetails?.data?.jobDetails?.jobSector && jobDetails?.data?.jobDetails?.jobSector}
+                      {jobData?.jobSector &&
+                        jobData?.jobSector}
                     </p>
                   </div>
                   <div className="flex justify-center items-center gap-[4px]">
-                    {jobDetails?.data?.jobDetails?.status === "Live" ? (
+                    {jobData?.status === "Live" ? (
                       <>
                         <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
                         <div className="text-[12px] font-[500] text-[#0C8A0A]">
                           Active
                         </div>
                       </>
-                    ) : jobDetails?.data?.jobDetails?.status === "Hold" ? (
+                    ) : jobData?.status === "Hold" ? (
                       <>
                         <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                         <div className="text-[12px] font-[500] text-[#ddda40]">
                           On Hold
                         </div>
                       </>
-                    ) : jobDetails?.data?.jobDetails?.status === "Closed" ? (
+                    ) : jobData?.status === "Closed" ? (
                       <>
                         <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#B3261E] rounded-[90px]"></div>
                         <div className="text-[12px] font-[500] text-[#B3261E]">
@@ -330,7 +352,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
               <div className="flex flex-col scr1024:flex-row justify-between">
                 <div className="flex gap-[10px]  justify-start items-center">
-                  {jobDetails?.data?.jobDetails?.revalentExp && (
+                  {jobData?.revalentExp && (
                     <div className="flex gap-[4px] items-center">
                       <svg
                         width="12"
@@ -345,12 +367,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         />
                       </svg>
                       <div className="text-[12px] text-[#262626] font-[500]">
-                        {jobDetails?.data?.jobDetails?.revalentExp}
+                        {jobData?.revalentExp}
                       </div>
                     </div>
                   )}
 
-                  {jobDetails?.data?.jobDetails?.revalentExp && (
+                  {jobData?.revalentExp && (
                     <div className="border-[1px] border-[#AFAFAF] h-[20px]"></div>
                   )}
                   <div className="flex gap-[4px] items-center">
@@ -367,7 +389,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                     <div className="text-[12px] txet-[#262626] font-[500]">
-                      {jobDetails?.data?.jobDetails?.jobType}
+                      {jobData?.jobType}
                     </div>
                   </div>
                   <div className="border-[1px] border-[#AFAFAF]  h-[20px]"></div>
@@ -385,7 +407,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                     <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobDetails?.data?.jobDetails?.location?.join(", ")}
+                      {jobData?.location?.join(", ")}
                     </div>
                   </div>
                 </div>
@@ -394,7 +416,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {jobDetails?.data?.summary?.totalApplications}
+                    {jobData?.totalApplications}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center"></div>
@@ -413,7 +435,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   </svg>
                   <div className="text-[14px] font-[600] text-[#333333]">
                     {new Date(
-                      jobDetails?.data?.jobDetails?.createdAt
+                      jobData?.createdAt
                     ).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "short",
@@ -431,8 +453,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(0), setActiveOption("applicant");
                     }}
-                    className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
-                      } cursor-pointer text-[16px] font-[600]`}
+                    className={` ${
+                      activeOption === "applicant" ? "" : "text-[#646464]"
+                    } cursor-pointer text-[16px] font-[600]`}
                   >
                     Applicant
                   </p>
@@ -454,8 +477,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(1), setActiveOption("JobDetails");
                     }}
-                    className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "JobDetails" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Job Details
                   </p>
@@ -477,8 +501,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     onClick={() => {
                       setOption(2), setActiveOption("Analytics");
                     }}
-                    className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                    className={` ${
+                      activeOption === "Analytics" ? "" : "text-[#646464]"
+                    } cursor-pointer font-[600]`}
                   >
                     Analytics
                   </p>
@@ -500,6 +525,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             </div>
           </div>
         )}
+
+        
         {option === 0 && (
           <div>
             {loading ? (
@@ -633,17 +660,18 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     ))}
                   </div>
 
-                  <div className="flex flex-col gap-[16px] items-start bg-[#fff]  overflow-y-auto">
+                  <div className="flex flex-col items-start bg-[#fff]  overflow-y-auto">
                     {!jobDetails?.data?.applications.length == 0 ? (
                       <>
                         {jobDetails?.data?.applications.map(
                           (applicant, index) => (
                             <>
                               <div
-                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
-                                  ? "bg-[#D3F1FF]"
-                                  : "bg-[#FFFFFF]"
-                                  }`}
+                                className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
+                                  checkedApplicants[index]
+                                    ? "bg-[#D3F1FF]"
+                                    : "bg-[#FFFFFF]"
+                                }`}
                                 key={applicant?._id}
                               >
                                 <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -679,42 +707,44 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   </div>
                                   <div className=" flex justify-center w-[20%]">
                                     <div
-                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
-                                        ? "bg-[#FFFFFF]"
-                                        : applicant?.hiringStage ===
-                                          "Interview"
+                                      className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
+                                        checkedApplicants[index]
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant?.hiringStage ===
+                                            "Interview"
                                           ? "bg-[#26A4FF1A]"
                                           : applicant?.hiringStage === "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant?.hiringStage === "Hired"
-                                              ? "bg-[#56CDAD1A]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                                ? "bg-[#4640DE1A]"
-                                                : applicant?.hiringStage ===
-                                                  "Rejected"
-                                                  ? "bg-[#FF65501A]"
-                                                  : applicant?.hiringStage ===
-                                                    "In Review"
-                                                    ? "bg-[#EB85331A]"
-                                                    : ""
-                                        } ${applicant?.hiringStage === "Interview"
+                                          ? "bg-[#FFF9ED]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "bg-[#56CDAD1A]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "bg-[#4640DE1A]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "bg-[#FF65501A]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "bg-[#EB85331A]"
+                                          : ""
+                                      } ${
+                                        applicant?.hiringStage === "Interview"
                                           ? "text-[#26A4FF]"
                                           : applicant?.hiringStage === "Pending"
-                                            ? "text-[#FFB836]"
-                                            : applicant?.hiringStage === "Hired"
-                                              ? "text-[#56CDAD]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                                ? "text-[#4640DE]"
-                                                : applicant?.hiringStage ===
-                                                  "Rejected"
-                                                  ? "text-[#FF6550]"
-                                                  : applicant?.hiringStage ===
-                                                    "In Review"
-                                                    ? "text-[#FFB836]"
-                                                    : "text-[#333333]"
-                                        }`}
+                                          ? "text-[#FFB836]"
+                                          : applicant?.hiringStage === "Hired"
+                                          ? "text-[#56CDAD]"
+                                          : applicant?.hiringStage ===
+                                            "Shortlisted"
+                                          ? "text-[#4640DE]"
+                                          : applicant?.hiringStage ===
+                                            "Rejected"
+                                          ? "text-[#FF6550]"
+                                          : applicant?.hiringStage ===
+                                            "In Review"
+                                          ? "text-[#FFB836]"
+                                          : "text-[#333333]"
+                                      }`}
                                     >
                                       {applicant?.hiringStage}
                                     </div>
@@ -735,7 +765,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       className="cursor-pointer"
                                       onClick={() =>
                                         router.push(
-                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${jobDetails.data.jobDetails._id}`
+                                          `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
                                         )
                                       }
                                     >
@@ -777,7 +807,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         opacity:
                                           applicant?.hiringStage ===
                                             "Rejected" ||
-                                            applicant?.hiringStage ===
+                                          applicant?.hiringStage ===
                                             "Shortlisted"
                                             ? 0.5
                                             : 1,
@@ -801,7 +831,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       )}
                                     </>
                                     {loadingg.isLoading &&
-                                      loadingg.applicantId ===
+                                    loadingg.applicantId ===
                                       applicant?.applicantId ? (
                                       <div className="w-[49.81px] flex justify-center items-center">
                                         <MiniLoaderr />
@@ -814,7 +844,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         style={{
                                           opacity:
                                             applicant?.hiringStage ===
-                                              "Rejected"
+                                            "Rejected"
                                               ? 0.5
                                               : 1,
                                         }}
@@ -1084,6 +1114,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     miniLoading={miniloading}
                     setPage={setPage}
                     title={"Applicant"}
+                    defaultLimit={10}
                     setLimit={setLimit}
                     totalPages={totalPages}
                     limit={limit}
@@ -1101,9 +1132,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <JobDetails jobDetails={jobDetails} totalCount={totalCount} />
           </div>
         )}
-        {option === 2 &&
-          <Analytics  jobDetails={jobDetails}
-          />}
+        {option === 2 && <Analytics jobDetails={jobDetails} />}
       </div>
     </div>
   );

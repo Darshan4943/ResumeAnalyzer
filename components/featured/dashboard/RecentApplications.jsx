@@ -16,7 +16,7 @@ function RecentApplications({isPending}) {
   const [page, setPage] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [applicantIds, setApplicantIds] = useState();
@@ -222,7 +222,7 @@ function RecentApplications({isPending}) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-[16px] items-start bg-[#fff]  overflow-y-auto">
+        <div className="flex flex-col  items-start bg-[#fff]  overflow-y-auto">
           {!applicants?.data?.applications.length == 0 ? (
             <>
               {applicants?.data?.applications.map((applicant, index) => (
@@ -670,6 +670,7 @@ function RecentApplications({isPending}) {
           setPage={setPage}
           title={"Applications"}
           setLimit={setLimit}
+          defaultLimit={10}
           totalPages={totalPages}
           limit={limit}
           page={page}

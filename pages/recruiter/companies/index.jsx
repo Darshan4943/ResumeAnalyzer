@@ -14,7 +14,7 @@ function Index() {
   const [id, setId] = useState("");
   const [page, setPage] = useState(1);
   const [miniloading, setMiniloading] = useState(false);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
@@ -117,12 +117,12 @@ function Index() {
           <MiniLoader />
         </div>
       ) : (
-        <div className="flex w-full flex-wrap gap-[18px] md:justify-start justify-center">
+        <div className="flex w-full flex-wrap gap-[24px] md:justify-start justify-center">
           {companyData.length > 0 ? (
             companyData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between gap-1 w-[340px]"
+                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between gap-1 w-[300px]"
               >
                 <div className="gap-1 flex flex-col">
                   <img
@@ -197,7 +197,7 @@ function Index() {
             setLimit={setLimit}
             totalPages={totalPages}
             limit={limit}
-            defaultLimit={6}
+            defaultLimit={10}
             page={page}
           />
         </div>
