@@ -30,10 +30,6 @@ function AppliedJobs({ setLimitPopup, }) {
       })
       .then((res) => {
 
-        // const sortedJobs = res.data.data.sort((a, b) =>
-        //   new Date(b.applications[0].appliedOn) - new Date(a.applications[0].appliedOn)
-        // );
-
         setAppliedJobs(res.data.data);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);

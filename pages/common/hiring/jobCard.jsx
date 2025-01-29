@@ -134,6 +134,9 @@ const JobCard = ({ filters, setFilters }) => {
                     </div>
                     <div className="flex gap-[6px] cursor-pointer">
                       <svg
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
                         width="20"
                         height="20"
                         viewBox="0 0 20 20"
