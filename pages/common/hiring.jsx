@@ -123,37 +123,37 @@ function Hiring() {
     }
   }, [userDataGlobal]);
 
-  const fetchJobs = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:2000/api/job/getAllJobDetails/${id}`,
-        {
-          params: { page, limit, ...filters },
-        }
-      );
+  // const fetchJobs = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:2000/api/job/getAllJobDetails/${id}`,
+  //       {
+  //         params: { page, limit, ...filters },
+  //       }
+  //     );
 
-      const { jobs, pagination } = response.data;
+  //     const { jobs, pagination } = response.data;
 
-      setData(jobs);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-      setTotalCount(pagination.totalCount);
-      setTotalPages(pagination.totalPages);
-    } catch (error) {
-      console.error("Error fetching jobs:", error.message || error);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }
-  };
+  //     setData(jobs);
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 500);
+  //     setTotalCount(pagination.totalCount);
+  //     setTotalPages(pagination.totalPages);
+  //   } catch (error) {
+  //     console.error("Error fetching jobs:", error.message || error);
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 500);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (id) {
-      fetchJobs();
-    }
-  }, [id, filters, limit, page]);
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchJobs();
+  //   }
+  // }, [id, filters, limit, page]);
 
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
