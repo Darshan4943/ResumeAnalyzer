@@ -24,18 +24,26 @@ function FrequentAskQue() {
             que: "How can I connect with recruiters on the platform?",
             ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
         },
+        {
+            que: "How can I post a job on the platform?",
+            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        },
+        {
+            que: "How can I connect with recruiters on the platform?",
+            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+        },
     ];
 
     return (
         <div className="customMargins flex flex-col scr460:gap-[42px] gap-6 pb-[100px] w-full">
             <p className="scr460:text-[30px] text-[18px] font-[600] text-center">Frequently Asked Questions</p>
-            <div className="flex gap-[10px]">
+            <div className="flex gap-[10px] ">
                 <img
                     src="/images/withoutLogin/freqAsk.png"
                     alt=""
-                    className="h-[344px] min-w-[327px] object-cover ml:block hidden"
+                    className="h-[344px] min-w-[327px] object-cover ml:block hidden mt-[40px]"
                 />
-                <div className="flex flex-col gap-7 p-[10px] w-full">
+                <div className="flex flex-col gap-1 px-[10px] w-full ">
                     {questions.map((que, index) => (
                         <div
                             key={index}
