@@ -57,7 +57,7 @@ function RecentApplications({isPending}) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getAllApplication/${userDataGlobal._id}`,
+        `http://localhost:2000/api/job/getAllApplication/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
