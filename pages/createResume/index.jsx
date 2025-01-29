@@ -210,7 +210,6 @@ function CreateResume() {
     },
   ];
 
-
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -231,118 +230,6 @@ function CreateResume() {
       setDataFromLocal(storedData);
     }
   }, []);
-  // const [data, setData] = useState({
-  //   profilePhoto: null,
-  //   designation: dataFromLocal?.designation ? dataFromLocal?.designation : "",
-  //   firstName: dataFromLocal?.firstName ? dataFromLocal?.firstName : "",
-  //   lastName: dataFromLocal?.lastName ? dataFromLocal?.lastName : "",
-  //   mobileNumber: dataFromLocal?.mobileNumber
-  //     ? dataFromLocal?.mobileNumber
-  //     : "",
-  //   email: dataFromLocal?.email ? dataFromLocal?.email : "",
-  //   location: dataFromLocal?.location ? dataFromLocal?.location : "",
-  //   summary: dataFromLocal?.summary ? dataFromLocal?.summary : "",
-  //   showSummary: true,
-  //   education: dataFromLocal?.education ? dataFromLocal?.education : [],
-  //   showEducation: true,
-  //   experience: dataFromLocal?.experience ? dataFromLocal?.experience : [],
-  //   showExperience: true,
-  //   course: dataFromLocal?.course ? dataFromLocal?.course : [],
-  //   showCourse: true,
-  //   skills: dataFromLocal?.skills ? dataFromLocal?.skills : [],
-  //   achievement: dataFromLocal?.achievement ? dataFromLocal?.achievement : [],
-  //   sociaLinks: dataFromLocal?.sociaLinks ? dataFromLocal?.sociaLinks : [],
-  //   hobbies: dataFromLocal?.hobbies ? dataFromLocal?.hobbies : [],
-  //   languages: dataFromLocal?.languages ? dataFromLocal?.languages : [],
-  //   // internship:[],
-  //   // reference:[],
-  //   section: dataFromLocal?.section ? dataFromLocal?.section : [],
-  // });
-
-  // const [data, setData] = useState(() => {
-  //   // Check if data exists in localStorage, if not, initialize it with the default state
-  //   // const storedData = localStorage.getItem("userData");
-  //   // return storedData
-  //   //   ? JSON.parse(storedData)
-  //   //   : {
-  //   //       profilePhoto: null,
-  //   //       designation: "",
-  //   //       firstName: "",
-  //   //       lastName: "",
-  //   //       mobileNumber: "",
-  //   //       email: "",
-  //   //       location: "",
-  //   //       summary: "",
-  //   //       showSummary: true,
-  //   //       education: [],
-  //   //       showEducation: true,
-  //   //       experience: [],
-  //   //       showExperience: true,
-  //   //       course: [],
-  //   //       showCourse: true,
-  //   //       skills: [],
-  //   //       achievement: [],
-  //   //       sociaLinks: [],
-  //   //       hobbies: [],
-  //   //       languages: [],
-  //   //       section: [],
-  //   //     };
-
-  //   if (typeof window !== "undefined") {
-  //     // Check if data exists in localStorage, if not, initialize it with the default state
-  //     // console.log(274, "i am in");
-  //     const storedData = localStorage.getItem("userData");
-  //     return storedData
-  //       ? JSON.parse(storedData)
-  //       : {
-  //           profilePhoto: null,
-  //           designation: "",
-  //           firstName: "",
-  //           lastName: "",
-  //           mobileNumber: "",
-  //           email: "",
-  //           location: "",
-  //           summary: "",
-  //           showSummary: true,
-  //           education: [],
-  //           showEducation: true,
-  //           experience: [],
-  //           showExperience: true,
-  //           course: [],
-  //           showCourse: true,
-  //           skills: [],
-  //           achievement: [],
-  //           sociaLinks: [],
-  //           hobbies: [],
-  //           languages: [],
-  //           section: [],
-  //         };
-  //   } else {
-  //     return {
-  //       profilePhoto: null,
-  //       designation: "",
-  //       firstName: "",
-  //       lastName: "",
-  //       mobileNumber: "",
-  //       email: "",
-  //       location: "",
-  //       summary: "",
-  //       showSummary: true,
-  //       education: [],
-  //       showEducation: true,
-  //       experience: [],
-  //       showExperience: true,
-  //       course: [],
-  //       showCourse: true,
-  //       skills: [],
-  //       achievement: [],
-  //       sociaLinks: [],
-  //       hobbies: [],
-  //       languages: [],
-  //       section: [],
-  //     };
-  //   }
-  // });
 
   const defaultState = {
     showSkills: true,
@@ -391,7 +278,7 @@ function CreateResume() {
   const [data, setData] = useState(defaultState);
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
-  console.log(data)
+  console.log(data);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -457,8 +344,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
+        ? parsedData.work_experience
+        : [];
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
@@ -493,19 +380,25 @@ function CreateResume() {
         designation: designation,
         summery: summary,
         location: address,
-        skills: skills?.length > 0 ? skills?.map((item) => ({
-          skill: item,
-          rating: [5, 5, 5, 5, 5],
-        })) : [],
-        hobbies: hobbies?.length > 0 ? hobbies?.map((item) => ({
-          title: item,
-        })) : [],
+        skills:
+          skills?.length > 0
+            ? skills?.map((item) => ({
+                skill: item,
+                rating: [5, 5, 5, 5, 5],
+              }))
+            : [],
+        hobbies:
+          hobbies?.length > 0
+            ? hobbies?.map((item) => ({
+                title: item,
+              }))
+            : [],
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
-              languages: item,
-              rating: [3, 3, 3],
-            }))
+                languages: item,
+                rating: [3, 3, 3],
+              }))
             : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
@@ -515,11 +408,15 @@ function CreateResume() {
           location: "",
           duration: {
             start: {
-              year: item["Passing Year"].startDate?.year ? item["Passing Year"].startDate?.year : "Year",
+              year: item["Passing Year"].startDate?.year
+                ? item["Passing Year"].startDate?.year
+                : "Year",
               month: null,
             },
             end: {
-              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year : "Year",
+              year: item["Passing Year"].endDate?.year
+                ? item["Passing Year"].endDate?.year
+                : "Year",
               month: null,
             },
           },
@@ -531,9 +428,16 @@ function CreateResume() {
           currentlyWorking: false,
           location: item.location,
           duration: {
-            start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
+            start: {
+              year: item.start_date?.year ? item.start_date?.year : "Year",
+              month: null,
+            },
             end: {
-              year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
+              year: item.is_current
+                ? currentYear
+                : item.end_date?.year
+                ? item.end_date?.year
+                : "Year",
               month: null,
             },
           },
@@ -541,91 +445,100 @@ function CreateResume() {
         project:
           project?.length > 0
             ? project?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
-                  month: null,
+                duration: {
+                  start: {
+                    year: item.start_date?.year
+                      ? item.start_date?.year
+                      : "Year",
+                    month: null,
+                  },
+                  end: {
+                    year: item.is_current
+                      ? currentYear
+                      : item.end_date?.year
+                      ? item.end_date?.year
+                      : "Year",
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         internship:
           internship?.length > 0
             ? internship?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         extraCaricularData:
           extraCaricularActivity?.length > 0
             ? extraCaricularActivity?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: true,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: true,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         socialLinks:
           socialLinks?.length > 0
             ? socialLinks?.map((item) => ({
-              platform: item.platform,
-              link: item.link,
-            }))
+                platform: item.platform,
+                link: item.link,
+              }))
             : [],
         reference:
           references?.length > 0
             ? references?.map((item) => ({
-              referantName: item.referantName,
-              designation: item.designation,
-              "Organization Name": item["Organization Name"],
-              email: item.name,
-            }))
+                referantName: item.referantName,
+                designation: item.designation,
+                "Organization Name": item["Organization Name"],
+                email: item.name,
+              }))
             : [],
         achievements:
           achievements?.length > 0
             ? achievements?.map((item) => ({
-              title: item.title,
-            }))
+                title: item.title,
+              }))
             : [],
       });
     } else if (preResumeData) {
@@ -639,50 +552,69 @@ function CreateResume() {
         dial_code: preResumeData?.dial_code,
         mobileNumber: preResumeData?.mobileNo,
         location: preResumeData?.currentLocation,
-        skills: preResumeData?.keySkills
-          ?.length > 0 ? preResumeData?.keySkills
-            ?.map((item) => ({
-              skill: item.value,
-              rating: [5, 5, 5, 5, 5],
-            })) : [],
+        skills:
+          preResumeData?.keySkills?.length > 0
+            ? preResumeData?.keySkills?.map((item) => ({
+                skill: item.value,
+                rating: [5, 5, 5, 5, 5],
+              }))
+            : [],
 
-        education: [{
-          qualification: preResumeData?.stream,
-          specialization: preResumeData?.specialization,
-          instituteName: preResumeData?.university,
-          type: "full-time",
-          location: "",
-          duration: {
-            start: {
-              year: preResumeData?.educationDuration.start?.year ? preResumeData?.educationDuration.start?.year : "Year",
-              month: preResumeData?.educationDuration.start?.month ? preResumeData?.educationDuration.start?.month : "Month",
-            },
-            end: {
-              year: preResumeData?.educationDuration.end?.year ? preResumeData?.educationDuration.end?.year : "Year",
-              month: preResumeData?.educationDuration.end?.month ? preResumeData?.educationDuration.end?.month : "Month",
+        education: [
+          {
+            qualification: preResumeData?.stream,
+            specialization: preResumeData?.specialization,
+            instituteName: preResumeData?.university,
+            type: "full-time",
+            location: "",
+            duration: {
+              start: {
+                year: preResumeData?.educationDuration.start?.year
+                  ? preResumeData?.educationDuration.start?.year
+                  : "Year",
+                month: preResumeData?.educationDuration.start?.month
+                  ? preResumeData?.educationDuration.start?.month
+                  : "Month",
+              },
+              end: {
+                year: preResumeData?.educationDuration.end?.year
+                  ? preResumeData?.educationDuration.end?.year
+                  : "Year",
+                month: preResumeData?.educationDuration.end?.month
+                  ? preResumeData?.educationDuration.end?.month
+                  : "Month",
+              },
             },
           },
-        }],
-        experience: [{
-          designation: preResumeData?.jobTitle,
-          organization: preResumeData?.companyName,
-          description: "",
-          currentlyWorking: false,
-          location: preResumeData?.jobLocation,
-          duration: {
-            start: {
-              year: preResumeData?.jobDuration.start?.year ? preResumeData?.jobDuration.start?.year : "Year",
-              month: preResumeData?.jobDuration.start?.month ? preResumeData?.jobDuration.start?.month : "Month",
-            },
-            end: {
-              year: preResumeData?.jobDuration.end?.year ? preResumeData?.jobDuration.end?.year : "Year",
-              month: preResumeData?.jobDuration.end?.month ? preResumeData?.jobDuration.end?.month : "Month",
+        ],
+        experience: [
+          {
+            designation: preResumeData?.jobTitle,
+            organization: preResumeData?.companyName,
+            description: "",
+            currentlyWorking: false,
+            location: preResumeData?.jobLocation,
+            duration: {
+              start: {
+                year: preResumeData?.jobDuration.start?.year
+                  ? preResumeData?.jobDuration.start?.year
+                  : "Year",
+                month: preResumeData?.jobDuration.start?.month
+                  ? preResumeData?.jobDuration.start?.month
+                  : "Month",
+              },
+              end: {
+                year: preResumeData?.jobDuration.end?.year
+                  ? preResumeData?.jobDuration.end?.year
+                  : "Year",
+                month: preResumeData?.jobDuration.end?.month
+                  ? preResumeData?.jobDuration.end?.month
+                  : "Month",
+              },
             },
           },
-        }],
-
+        ],
       });
-
     } else if (clientId) {
       axios
         .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
@@ -715,9 +647,9 @@ function CreateResume() {
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
       } else if (continueEdit) {
-
-
-        const selectedTemplate = templates.find(template => template.index === allData?.selectedResumeIndex);
+        const selectedTemplate = templates.find(
+          (template) => template.index === allData?.selectedResumeIndex
+        );
 
         if (selectedTemplate) {
           setSelectedColor(selectedTemplate.themeColor);
@@ -743,17 +675,22 @@ function CreateResume() {
 
   return (
     <div className="">
-      <div className="  pt-2 customMargins ">
+      <div
+        className={`pt-2 ${
+          userDataGlobal?.role === "user" ? "customMargins" : ""
+        }`}
+      >
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
-              onClick={() => router.push(`/createResume/BuildResume?clientId=${clientId}`)}
+              onClick={() =>
+                router.push(`/createResume/BuildResume?clientId=${clientId}`)
+              }
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >
               <svg
                 className=" cursor-pointer"
-
                 width="24"
                 height="24"
                 viewBox="0 0 40 40"
