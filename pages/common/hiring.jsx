@@ -4,7 +4,7 @@ import Select from "react-select";
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
 import { useSelector } from "react-redux";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 import JobCard from "./hiring/jobCard";
 
 function Hiring() {
@@ -18,7 +18,11 @@ function Hiring() {
   });
   const [toggle, setToggle] = useState(0);
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    Department: "",
+    Location: "",
+    Status: "",
+  });
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,8 +44,6 @@ function Hiring() {
     }
   }, [router.query]);
 
-
-  
   const toggleContent = (job, applicantId) => {
     const JobPost = toggle ? "ApplicantDetails" : "JobPost";
     const jobId = job._id ? job._id : query._id;
@@ -65,35 +67,36 @@ function Hiring() {
     setToggle((prevToggle) => !prevToggle);
   };
 
-  useEffect(() => {
-    const fetchAttributes = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
-        );
-        const data = response.data;
-        setAttributes(data);
-        setHeadings((prevHeadings) =>
-          prevHeadings.map((item) => {
-            if (item.heading === "Department") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.jobTitles])],
-              };
-            } else if (item.heading === "Location") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.locations])],
-              };
-            }
-            return item;
-          })
-        );
-      } catch (error) {
-        console.error("Error fetching job attributes:", error);
-      }
-    };
 
+  const fetchAttributes = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+      );
+      const data = response.data;
+      setAttributes(data);
+      setHeadings((prevHeadings) =>
+        prevHeadings.map((item) => {
+          if (item.heading === "Department") {
+            return {
+              ...item,
+              options: [...new Set([...item.options, ...data.jobTitles])],
+            };
+          } else if (item.heading === "Location") {
+            return {
+              ...item,
+              options: [...new Set([...item.options, ...data.locations])],
+            };
+          }
+          return item;
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching job attributes:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchAttributes();
   }, []);
 
@@ -113,7 +116,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["All","Live", "Hold", "Closed"],
+      options: ["All", "Live", "Hold", "Closed"],
     },
   ]);
 
@@ -123,37 +126,37 @@ function Hiring() {
     }
   }, [userDataGlobal]);
 
-  const fetchJobs = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:2000/api/job/getAllJobDetails/${id}`,
-        {
-          params: { page, limit, ...filters },
-        }
-      );
+  // const fetchJobs = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:2000/api/job/getAllJobDetails/${id}`,
+  //       {
+  //         params: { page, limit, ...filters },
+  //       }
+  //     );
 
-      const { jobs, pagination } = response.data;
+  //     const { jobs, pagination } = response.data;
 
-      setData(jobs);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-      setTotalCount(pagination.totalCount);
-      setTotalPages(pagination.totalPages);
-    } catch (error) {
-      console.error("Error fetching jobs:", error.message || error);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }
-  };
+  //     setData(jobs);
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 500);
+  //     setTotalCount(pagination.totalCount);
+  //     setTotalPages(pagination.totalPages);
+  //   } catch (error) {
+  //     console.error("Error fetching jobs:", error.message || error);
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 500);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (id) {
-      fetchJobs();
-    }
-  }, [id, filters, limit, page]);
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchJobs();
+  //   }
+  // }, [id, filters, limit, page]);
 
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
@@ -206,10 +209,15 @@ function Hiring() {
       setToggle(0);
     }
   }, [query.content]);
-
+  
   const handelclear = () => {
-    setFilters("");
+    setFilters({
+      Department: "",
+      Location: "",
+      Status: "",
+    });
   };
+
   const handelclearmobile = () => {
     setFilters("");
     setOpenSort(false);
@@ -374,14 +382,8 @@ function Hiring() {
                         selectedOption ? selectedOption.value : ""
                       )
                     }
-                    value={
-                      filter.value
-                        ? {
-                            label: filter.value,
-                            value: filter.value,
-                          }
-                        : null
-                    }
+                    value={filters[filter.heading] ? 
+                      { value: filters[filter.heading], label: filters[filter.heading] } : ""} 
                     placeholder={filter.heading}
                     isSearchable={true}
                     noOptionsMessage={() => "No options available"}

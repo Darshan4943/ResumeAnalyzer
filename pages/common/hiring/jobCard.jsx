@@ -8,17 +8,15 @@ import { toast } from "react-toastify";
 
 const JobCard = ({ filters, setFilters }) => {
   const [data, setData] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
   const [miniloading, setMiniloading] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(6);
   const router = useRouter();
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -36,7 +34,6 @@ const JobCard = ({ filters, setFilters }) => {
       );
       const { jobs, pagination } = response.data;
       setData(jobs);
-      console.log(pagination);
       setTimeout(() => {
         setLoading(false);
         setMiniloading(false);
@@ -102,7 +99,6 @@ const JobCard = ({ filters, setFilters }) => {
               {data?.map((job, index) => (
                 <div
                   key={index}
-                  // onClick={() => toggleContent(job)}
                   onClick={() =>
                     router.push(`/common/hiring/JobPost?id=${job._id}`)
                   }
@@ -308,6 +304,7 @@ const JobCard = ({ filters, setFilters }) => {
                   setPage={setPage}
                   title={"Jobs"}
                   setLimit={setLimit}
+                  defaultLimit={6}
                   totalPages={totalPages}
                   limit={limit}
                   page={page}

@@ -284,7 +284,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </p>
 
                     <p className="text-[14px] font-[500] text-[#333333] leading-tight">
-                      Customer Support
+                    {jobDetails?.data?.jobDetails?.jobSector && jobDetails?.data?.jobDetails?.jobSector}
                     </p>
                   </div>
                   <div className="flex justify-center items-center gap-[4px]">
@@ -394,7 +394,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     Total Applications
                   </div>
                   <div className="text-[24px] font-[600] text-[#333333]">
-                    {jobDetails?.pagination?.totalApplications}
+                    {jobDetails?.data?.summary?.totalApplications}
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center"></div>
