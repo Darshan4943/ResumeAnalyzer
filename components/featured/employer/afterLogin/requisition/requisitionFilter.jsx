@@ -22,7 +22,7 @@ function RequisitionFilter({ filterData, setFilterData }) {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations"
+          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
         );
         const data = response.data;
         setAttributes(data);

@@ -8,11 +8,9 @@ import { toast } from "react-toastify";
 
 const JobCard = ({ filters, setFilters }) => {
   const [data, setData] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
@@ -101,7 +99,6 @@ const JobCard = ({ filters, setFilters }) => {
               {data?.map((job, index) => (
                 <div
                   key={index}
-                  // onClick={() => toggleContent(job)}
                   onClick={() =>
                     router.push(`/common/hiring/JobPost?id=${job._id}`)
                   }
