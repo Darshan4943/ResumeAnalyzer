@@ -107,10 +107,10 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
     return (
         <div className='sm:p-6 p-2 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='flex gap-4 justify-between items-center  '>
-                <p className='text-[24px] font-medium min-w-[80px]'>Level 1</p>
-                <div className='h-[1px] w-[81%] bg-[#D6DDEB]'></div>
+                <p className='text-[16px] font-medium min-w-[80px]'>Level 1</p>
+                <div className='h-[1px] w-full bg-[#D6DDEB]'></div>
             </div>
-            <p className='text-[24px] font-medium'>Technical Round-II</p>
+            <p className='text-[18px] font-semibold'>Technical Round-II</p>
             <div className='flex ms:flex-row flex-col gap-4 justify-between'>
                 <div className='flex flex-col gap-4'>
                     <div>

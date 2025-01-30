@@ -29,7 +29,9 @@ function HiringProgress() {
     return (
         <>
             <div className='flex gap-4 overflow-y-auto scr1024:px-6 px-2 '>
-                <div className='w-[24px]'> </div>
+                <div className='w-[24px]'>
+                    
+                     </div>
                 <div className='flex flex-col gap-4 w-full'>
                     <div className='flex gap-4 justify-between items-center  '>
                         <p className='min-w-[60px]'>Level 1</p>
