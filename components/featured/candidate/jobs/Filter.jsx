@@ -71,7 +71,7 @@ function Filter({
             </div>
           }
         
-          <div className="flex flex-col items-start justify-center gap-2 max-h-[140px] overflow-y-auto ">
+          <div className="flex flex-col items-start  gap-2 max-h-[140px] overflow-y-auto  ">
             {childrenToDisplay.map((itemValue, index) => {
               const isObject = typeof itemValue === "object";
               return (
