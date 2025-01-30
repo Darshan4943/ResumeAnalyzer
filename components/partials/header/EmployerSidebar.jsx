@@ -100,7 +100,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/jdMatching.png',
       img1: '/images/employer/sidebar/jdMatching1.png',
       title: 'JD Matching',
-      route: '/JobMatching',
+      route: '/JobMatching/SelectJob',
     },
   ];
 
