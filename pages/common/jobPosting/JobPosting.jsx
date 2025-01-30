@@ -281,7 +281,7 @@ function JobPosting() {
                               {requisition.hiring_period}
                             </p>
                             <button
-                              onClick={toggleContent}
+                              onClick={()=>router.push(`/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`)}
                               className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
                             >
                               <svg
