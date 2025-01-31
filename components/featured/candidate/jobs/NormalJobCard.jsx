@@ -15,6 +15,7 @@ function NormalJobCard({ item }) {
     const [isSaved, setIsSaved] = useState(false)
     const [isUnSaved, setUnIsSaved] = useState(false)
     const dispatch = useDispatch();
+    console.log(777,appliedJobs);
     const SaveJob = (e, id) => {
         // setLoading(false);
         setIsSaved(true)

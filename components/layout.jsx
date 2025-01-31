@@ -60,7 +60,7 @@ function Layout({ children }) {
       </div>
 
       <div className="flex bg-[#f3f3f3] relative  ">
-      <div className=" ml:max-h-[100vh] min-h-[100vh] overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
+      <div className=" ml:max-h-[100vh] min-h-[100vh] ml:block hidden overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
           style={{ scrollbarWidth: "none" }}>
           <EmployerSidebar />
         </div>

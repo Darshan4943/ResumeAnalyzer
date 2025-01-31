@@ -196,9 +196,15 @@ function SavedJobCard({ setSelectedJob, selectedJob, appliedJobs, setLimit, limi
                                             </svg>
                                         </div>
                                         <div className="text-[#262626] font-[400] text-[12px]">
-                                            {item?.description?.length > 80
-                                                ? `${item.description.slice(0, 80)}...`
-                                                : item.description}
+
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        item?.description?.length > 80
+                                                            ? `${item.description.slice(0, 80)}...`
+                                                            : item.description,
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 </div>

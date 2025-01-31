@@ -11,7 +11,10 @@ import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 function SavedJobs({ setLimitPopup,
 }) {
   const [selectedJob, setSelectedJob] = useState();
-
+  const { savedJobIds } = useSelector(
+    (state) => state.job.jobData
+  );
+  console.log(savedJobIds);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal, profileData,appliedJobData } = useSelector((state) => state.user.userData);
   const [totalPages, setTotalpages] = useState(0);
