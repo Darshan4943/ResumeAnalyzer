@@ -55,14 +55,14 @@ function JobPosting() {
         const response = await axios.get(
           `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
-        const data = response.data;  
+        const data = response.data;
         if (data && Array.isArray(data)) {
           const departments = data.map((item) => item.jobTitle);
           const locations = [...new Set(data.map((item) => item.location))];
           const priorities = data
             .map((item) => (item.isPriority ? "Yes" : "No"))
             .filter((value, index, self) => self.indexOf(value) === index);
-  
+
           setHeadings((prevHeadings) => [
             {
               ...prevHeadings[0],
@@ -74,7 +74,7 @@ function JobPosting() {
             },
             {
               ...prevHeadings[2],
-              options: ["Pending", "Approved"], 
+              options: ["Pending", "Approved"],
             },
             {
               ...prevHeadings[3],
@@ -86,7 +86,7 @@ function JobPosting() {
         console.error("Error fetching job attributes:", error);
       }
     };
-  
+
     if (userDataGlobal?._id) {
       fetchAttributes();
     }
@@ -137,21 +137,21 @@ function JobPosting() {
             params: {
               ...filterData,
               page,
-              limit
+              limit,
             },
           }
         );
         setRequisitions(response.data.data);
         setTimeout(() => {
-          setMiniloading(false)
+          setMiniloading(false);
           setLoading(false);
         }, 500);
         setTotalCount(response.data.pagination.totalCount);
-        setTotalpages(response.data.pagination.totalPages)
+        setTotalpages(response.data.pagination.totalPages);
       } catch (error) {
         setError("Failed to fetch requisitions");
         setTimeout(() => {
-          setMiniloading(false)
+          setMiniloading(false);
           setLoading(false);
         }, 500);
         console.error("Error fetching requisitions:", error);
@@ -176,8 +176,8 @@ function JobPosting() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: 'none',
-      boxShadow: 'none',
+      border: "none",
+      boxShadow: "none",
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
@@ -185,7 +185,7 @@ function JobPosting() {
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: 'none',
+      display: "none",
     }),
   };
 
@@ -223,9 +223,9 @@ function JobPosting() {
                           value={
                             filterData[headingObj.heading]
                               ? {
-                                label: filterData[headingObj.heading],
-                                value: filterData[headingObj.heading],
-                              }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                               : null
                           }
                           placeholder={headingObj.heading}
@@ -244,23 +244,22 @@ function JobPosting() {
                 </div>
 
                 <div>
-                  <div className=" bg-[#E0F6FF] flex flex-row p-[16px]  gap-4   ">
+                  <div className="bg-[#E0F6FF] flex flex-row p-[16px] gap-4 justify-center items-center">
                     {headings.map((req, index) => (
                       <div
                         key={index}
-                        className=" w-[14%] text-[16px] font-[600]"
+                        className="w-[14%] text-[16px] font-[600] text-center"
                       >
                         {req}
                       </div>
                     ))}
-                    <div className="min-w-[115px] text-[16px] font-[600]">
-                      {" "}
+                    <div className="min-w-[115px] text-[16px] font-[600] text-center">
                       <p>Action</p>
                     </div>
                   </div>
 
                   {loading ? (
-                    <div className=" min-h-[360px] ">
+                    <div className="min-h-[360px] flex justify-center items-center">
                       <MiniLoader />
                     </div>
                   ) : (
@@ -269,9 +268,11 @@ function JobPosting() {
                         requisitions.map((requisition, index) => (
                           <div
                             key={index}
-                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px]  border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"}  `}
+                            className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
+                              index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                            }`}
                           >
-                            <div className=" w-[14%]">
+                            <div className="w-[14%] text-center">
                               <p className="text-[14px] font-[500] text-[#06A9EF]">
                                 {requisition.requisitionType}
                               </p>
@@ -279,29 +280,37 @@ function JobPosting() {
                                 {requisition.jobTitle}
                               </p>
                             </div>
-                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {requisition.positions}
                             </p>
-                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {requisition.location}
                             </p>
-                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
-                            {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
+                              {!requisition.budgetFrom && !requisition.budgetTo
+                                ? ""
+                                : `$${requisition.budgetFrom || 0} - ${
+                                    requisition.budgetTo || ""
+                                  }`}
                             </p>
-                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {requisition.requested_by}
                             </p>
-                            <p className="text-[14px] w-[14%] font-[500] text-[#333333]">
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {requisition.hiring_period}
                             </p>
                             <button
-                              onClick={()=>router.push(`/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`)}
-                              className=" bg-white px-[16px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[30px] text-[14px] font-[600] "
+                              onClick={() =>
+                                router.push(
+                                  `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
+                                )
+                              }
+                              className="bg-white px-[14px] py-[6px] flex justify-center items-center min-w-[90px] gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[20px] text-[12px] font-[600]"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
+                                width="18"
+                                height="18"
                                 viewBox="0 0 24 24"
                                 fill="none"
                               >
@@ -317,7 +326,7 @@ function JobPosting() {
                           </div>
                         ))
                       ) : (
-                        <div className="p-3  flex items-center justify-center">
+                        <div className="p-3 flex items-center justify-center">
                           <img
                             className="w-[50%]"
                             src="/images/employer/OBJECTS.png"
