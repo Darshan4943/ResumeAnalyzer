@@ -8,6 +8,7 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { useSelector } from "react-redux";
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [approvalChoice, setApprovalChoice] = useState("no");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [data, setData] = useState({
     jobTitle: "",
     positions: "",
@@ -65,9 +67,9 @@ const CreateNewRequisition = ({ setToggle }) => {
     setErrors({});
   };
 
-  const nevigate = ()=>{
+  const nevigate = () => {
     router.push("/employer/requisition");
-  }
+  };
 
   const validateFields = () => {
     let newErrors = {};
@@ -106,8 +108,8 @@ const CreateNewRequisition = ({ setToggle }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/creatrequasetion",
-        data
+        `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
+        { ...data, createdBy: userDataGlobal?._id } 
       );
 
       setSuccessfull(true);

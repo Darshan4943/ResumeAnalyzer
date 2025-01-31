@@ -5,6 +5,7 @@ import axios from "axios";
 import MiniLoader from "../../../../common/miniLoader";
 import CustomPagination from "../../../../common/CustomPagination";
 import RequisitionPreview from "../../../../../pages/employer/requisitionPreview";
+import { useSelector } from "react-redux";
 
 function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionId, setRequisitionId }) {
   const router = useRouter();
@@ -16,10 +17,9 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
   const [miniLoading, setMiniloading] = useState(true);
   const [totalPages, setTotalpages] = useState(0);
   const [page, setPage] = useState(0);
-
-
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +27,7 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:2000/api/getrequisitions",
+          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,
@@ -37,7 +37,6 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
           }
         );
         setRequisitions(response.data.data);
-        console.log(response.data.data);
         setTimeout(() => {
           setMiniloading(false);
           setLoading(false);
@@ -75,7 +74,6 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
     "Open Position",
     "Status",
   ];
-  console.log(1234, requisitions._id)
 
   const openPreviewModel = () => {
     setRequisitionId(requisitions._id);

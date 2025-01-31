@@ -6,6 +6,7 @@ import CreateNewJob from "./CreateNewJob";
 import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import CustomPagination from "../../../components/common/CustomPagination";
+import { useSelector } from "react-redux";
 
 function JobPosting() {
   const router = useRouter();
@@ -18,11 +19,13 @@ function JobPosting() {
   const [requisitions, setRequisitions] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [attributes, setAttributes] = useState([]);
   const [miniLoading, setMiniloading] = useState(true);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
   useEffect(() => {
     if (query.content === "CreateNewJob") {
       setToggle(1);
@@ -50,33 +53,44 @@ function JobPosting() {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+          `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
-        const data = response.data;
-        setAttributes(data);
-        setHeadings((prevHeadings) =>
-          prevHeadings.map((item) => {
-            if (item.heading === "Department") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.jobTitles])],
-              };
-            } else if (item.heading === "Location") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.locations])],
-              };
-            }
-            return item;
-          })
-        );
+        const data = response.data;  
+        if (data && Array.isArray(data)) {
+          const departments = data.map((item) => item.jobTitle);
+          const locations = [...new Set(data.map((item) => item.location))];
+          const priorities = data
+            .map((item) => (item.isPriority ? "Yes" : "No"))
+            .filter((value, index, self) => self.indexOf(value) === index);
+  
+          setHeadings((prevHeadings) => [
+            {
+              ...prevHeadings[0],
+              options: departments,
+            },
+            {
+              ...prevHeadings[1],
+              options: locations,
+            },
+            {
+              ...prevHeadings[2],
+              options: ["Pending", "Approved"], 
+            },
+            {
+              ...prevHeadings[3],
+              options: priorities,
+            },
+          ]);
+        }
       } catch (error) {
         console.error("Error fetching job attributes:", error);
       }
     };
-
-    fetchAttributes();
-  }, []);
+  
+    if (userDataGlobal?._id) {
+      fetchAttributes();
+    }
+  }, [userDataGlobal?._id]);
 
   const [search, setHeadings] = useState([
     {
@@ -118,7 +132,7 @@ function JobPosting() {
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:2000/api/getrequisitions",
+          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,
