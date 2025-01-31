@@ -9,15 +9,14 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
-
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
   const [successfull, setSuccessfull] = useState(false);
   const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
   const [showApprovalChain, setShowApprovalChain] = useState(false);
-  const [approvalChoice, setApprovalChoice] = useState(null);
+  const [approvalChoice, setApprovalChoice] = useState("no");
   const [loading, setLoading] = useState(false);
-
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     jobTitle: "",
     positions: "",
@@ -40,10 +39,70 @@ const CreateNewRequisition = ({ setToggle }) => {
       },
     ],
   });
+  const handleClear = () => {
+    setData({
+      jobTitle: "",
+      positions: "",
+      isPriority: false,
+      budgetFrom: "",
+      budgetTo: "",
+      experience: "",
+      requisitionType: "",
+      location: "",
+      department: "",
+      hiringDate: "",
+      jobType: "",
+      comments: "",
+      description: "",
+      RequisitionLevel: [
+        {
+          id: 1,
+          name: "",
+          email: "",
+        },
+      ],
+    });
+    setErrors({});
+  };
+
+  const nevigate = ()=>{
+    router.push("/employer/requisition");
+  }
+
+  const validateFields = () => {
+    let newErrors = {};
+
+    if (!data.jobTitle) newErrors.jobTitle = "Job Title is required.";
+    if (!data.positions)
+      newErrors.positions = "Number of Positions is required.";
+    if (!data.budgetFrom) newErrors.budgetFrom = "Budget From is required.";
+    if (!data.budgetTo) newErrors.budgetTo = "Budget To is required.";
+    if (!data.experience) newErrors.experience = "Experience is required.";
+    if (!data.requisitionType)
+      newErrors.requisitionType = "Requisition Type is required.";
+    if (!data.location) newErrors.location = "Location is required.";
+    if (!data.description)
+      newErrors.description = "Job Description is required.";
+    if (approvalChoice === "yes") {
+      data.RequisitionLevel.forEach((level, index) => {
+        if (!level.name)
+          newErrors[`name_${index}`] = "Role / Employee is required.";
+        if (!level.email) newErrors[`email_${index}`] = "Email is required.";
+      });
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!validateFields()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post(
@@ -55,12 +114,15 @@ const CreateNewRequisition = ({ setToggle }) => {
       toast.success("Requisition created successfully", response.data);
     } catch (error) {
       setLoading(false);
-      toast.error(`Error creating requisition: ${error.response?.data?.message || error.message}`);
+      toast.error(
+        `Error creating requisition: ${
+          error.response?.data?.message || error.message
+        }`
+      );
     } finally {
       setLoading(false);
     }
   };
-
 
   const handleChange = (e, name) => {
     const { value, type, checked } = e.target;
@@ -68,12 +130,21 @@ const CreateNewRequisition = ({ setToggle }) => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
   const handleChange1 = (value) => {
     setData((prevData) => ({
       ...prevData,
       description: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      description: "",
     }));
   };
 
@@ -91,6 +162,11 @@ const CreateNewRequisition = ({ setToggle }) => {
         ...prevState,
         RequisitionLevel: updatedLevels,
       };
+    });
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      delete newErrors[`${field}_${index}`];
+      return newErrors;
     });
   };
 
@@ -140,23 +216,31 @@ const CreateNewRequisition = ({ setToggle }) => {
 
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
-              <p className="text-[14px]  font-medium">Job Title</p>
+              <p className="text-[14px]  font-medium">
+                Job Title <span className="text-red">*</span>
+              </p>
               <input
                 type="text"
                 value={data.jobTitle}
                 onChange={(e) => handleChange(e, "jobTitle")}
                 placeholder="Eg: Product Manager"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid 
+                  ${errors.jobTitle ? "border-red" : "border-[#DEDEDE]"} 
+                  rounded-[6px] placeholder:text-[14px] font-[400]`}
               />
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
-              <p className="  text-[14px]  font-medium">Number of Positions</p>
+              <p className="  text-[14px]  font-medium">
+                Number of Positions <span className="text-red">*</span>{" "}
+              </p>
               <input
                 type="text"
                 value={data.positions}
                 onChange={(e) => handleChange(e, "positions")}
                 placeholder="Enter Number"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${
+                  errors.positions ? "border-red" : "border-[#DEDEDE]"
+                }  `}
               />
             </div>
           </div>
@@ -172,59 +256,89 @@ const CreateNewRequisition = ({ setToggle }) => {
           </div>
 
           <div className="flex flex-col gap-[8px] justify-between w-full">
-            <p className="text-[14px]  font-medium">Budget</p>
+            <p className="text-[14px]  font-medium">
+              Budget <span className="text-red">*</span>
+            </p>
             <div className="flex sm:flex-row flex-col gap-4 ">
               <input
                 type="text"
                 value={data.budgetFrom}
                 onChange={(e) => handleChange(e, "budgetFrom")}
                 placeholder="From (INR)"
-                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
+                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${
+                  errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                }  `}
               />
               <input
                 type="text"
                 value={data.budgetTo}
                 onChange={(e) => handleChange(e, "budgetTo")}
                 placeholder="To (INR)"
-                className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
+                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${
+                  errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
+                }  `}
               />
             </div>
           </div>
 
           <div className="flex sm:flex-row flex-col gap-4">
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
-              <p className=" text-[14px]  font-medium">Experience</p>
+              <p className=" text-[14px]  font-medium">
+                Experience <span className="text-red">*</span>
+              </p>
               <input
                 type="text"
                 value={data.experience}
                 onChange={(e) => handleChange(e, "experience")}
                 placeholder="Ex: 2 Yrs"
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${
+                  errors.experience ? "border-red" : "border-[#DEDEDE]"
+                } `}
               />
             </div>
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
-              <p className="text-[14px]  font-medium">Requisition Type</p>
+              <p className="text-[14px]  font-medium">
+                Requisition Type <span className="text-red">*</span>
+              </p>
               <select
                 value={data.requisitionType}
                 onChange={(e) => handleChange(e, "requisitionType")}
-                className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]"
+                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]  ${
+                  errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
+                } `}
               >
-                <option value="" disabled selected className="">
-                  Select{" "}
+                <option value="" disabled selected>
+                  Select
                 </option>
                 <option value="product manager">Product Manager</option>
                 <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+                <option value="marketing specialist">
+                  Marketing Specialist
+                </option>
+                <option value="hr manager">HR Manager</option>
+                <option value="sales representative">
+                  Sales Representative
+                </option>
+                <option value="business analyst">Business Analyst</option>
+                <option value="customer support">Customer Support</option>
+                <option value="data scientist">Data Scientist</option>
+                <option value="project manager">Project Manager</option>
               </select>
             </div>
           </div>
 
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
-              <p className="text-[14px]  font-medium ">Location</p>
+              <p className="text-[14px]  font-medium ">
+                Location <span className="text-red">*</span>
+              </p>
               <select
                 value={data.location}
                 onChange={(e) => handleChange(e, "location")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]  ${
+                  errors.location ? "border-red" : "border-[#DEDEDE]"
+                } `}
               >
                 <option value="" disabled selected>
                   Select{" "}
@@ -233,6 +347,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 <option value="Mumbai">Mumbai</option>
               </select>
             </div>
+
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className=" text-[14px]  font-medium">Department</p>
               <select
@@ -286,12 +401,14 @@ const CreateNewRequisition = ({ setToggle }) => {
           </div>
 
           <div className="text-[14px]  font-medium">
-            <p>Job Description</p>
+            <p>
+              Job Description <span className="text-red">*</span>
+            </p>
             <Editor
               value={data.description}
               onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{
-                border: formError.description
+                border: errors.description
                   ? "2px solid red"
                   : "2px solid #dedede",
                 fontSize: "16px",
@@ -320,14 +437,17 @@ const CreateNewRequisition = ({ setToggle }) => {
               name="approvalChoice"
               value="yes"
               className="h-[20px] w-[20px] custom-radio"
+              checked={approvalChoice === "yes"}
               onChange={(e) => handleApprovalChoice(e.target.value)}
             />
             <label className="text-[14px] font-medium">Yes</label>
+
             <input
               type="radio"
               name="approvalChoice"
               value="no"
               className="h-[20px] w-[20px] custom-radio"
+              checked={approvalChoice === "no"}
               onChange={(e) => handleApprovalChoice(e.target.value)}
             />
             <label className="text-[14px] font-medium">No</label>
@@ -408,14 +528,22 @@ const CreateNewRequisition = ({ setToggle }) => {
                         value={level.name || ""}
                         onChange={(e) => handleChange2(e, index, "name")}
                         placeholder="Role / Employee"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px] font-[400]"
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${
+                          errors[`name_${index}`]
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                        }`}
                       />
                       <input
                         type="text"
                         value={level.email || ""}
                         onChange={(e) => handleChange2(e, index, "email")}
                         placeholder="Enter Email"
-                        className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px] font-[400]"
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${
+                          errors[`name_${index}`]
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                        }`}
                       />
                     </div>
                   ))}
@@ -433,7 +561,7 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
               <button
-                onClick={() => setToggle(0)}
+                onClick={() => handleClear()}
                 className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 "
               >
                 Cancel
@@ -491,7 +619,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 </div>
                 <div className="flex justify-center">
                   <button
-                    onClick={() => setToggle(0)}
+                    onClick={() => nevigate()}
                     className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                   >
                     Done
