@@ -11,6 +11,7 @@ import SimilarJobs from '../../../components/featured/candidate/jobs/SimilarJobs
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
+  console.log(jobData);
   const router = useRouter();
   const [limitPopup, setLimitPopup] = useState(false);
   const { id } = router.query;
@@ -39,7 +40,7 @@ function JobDetails() {
       .get(`http://localhost:2000/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
 
-        setJobData([res.data]);
+        setJobData([res.data.data]);
         setTimeout(() => {
           setLoading(false)
         }, 500);
