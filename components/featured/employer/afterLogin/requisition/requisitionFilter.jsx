@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Select from "react-select";
+import { useSelector } from "react-redux";
 
 function RequisitionFilter({ filterData, setFilterData }) {
-  const [attributes, setAttributes] = useState([]);
-
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const query = router.query;
   const [toggle, setToggle] = useState(0);
@@ -18,52 +18,20 @@ function RequisitionFilter({ filterData, setFilterData }) {
     }
   }, [query.content]);
 
-  useEffect(() => {
-    const fetchAttributes = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
-        );
-        const data = response.data;
-        setAttributes(data);
-        setHeadings((prevHeadings) =>
-          prevHeadings.map((item) => {
-            if (item.heading === "Department") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.jobTitles])],
-              };
-            } else if (item.heading === "Location") {
-              return {
-                ...item,
-                options: [...new Set([...item.options, ...data.locations])],
-              };
-            }
-            return item;
-          })
-        );
-      } catch (error) {
-        console.error("Error fetching job attributes:", error);
-      }
-    };
-
-    fetchAttributes();
-  }, []);
-
   const [headings, setHeadings] = useState([
     {
       heading: "Department",
       options: [
         "Assistant Manager",
         "Product Manager",
-        "Devlopment",
-        "It",
+        "Development",
+        "IT",
         "Developer",
       ],
     },
     {
       heading: "Location",
-      options: ["Mumbai", "Pune", "Bangalore"],
+      options: ["Mumbai"],
     },
     {
       heading: "Status",
@@ -75,12 +43,56 @@ function RequisitionFilter({ filterData, setFilterData }) {
     },
   ]);
 
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
+        );
+        const data = response.data;
+
+        if (data && Array.isArray(data)) {
+          const departments = data.map((item) => item.jobTitle);
+          const locations = [...new Set(data.map((item) => item.location))];
+          const priorities = data
+            .map((item) => (item.isPriority ? "Yes" : "No"))
+            .filter((value, index, self) => self.indexOf(value) === index);
+
+          setHeadings((prevHeadings) => [
+            {
+              ...prevHeadings[0],
+              options: departments,
+            },
+            {
+              ...prevHeadings[1],
+              options: locations,
+            },
+            {
+              ...prevHeadings[2],
+              options: ["Pending", "Approved"],
+            },
+            {
+              ...prevHeadings[3],
+              options: priorities,
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error("Error fetching job attributes:", error);
+      }
+    };
+
+    if (userDataGlobal?._id) {
+      fetchAttributes();
+    }
+  }, [userDataGlobal?._id]);
+
   const handleHeadingChange = (selectedOption, index) => {
     const selectedHeading = headings[index].heading;
 
     setFilterData((prev) => ({
       ...prev,
-      [selectedHeading]: selectedOption.value, 
+      [selectedHeading]: selectedOption.value,
     }));
   };
 
@@ -91,16 +103,16 @@ function RequisitionFilter({ filterData, setFilterData }) {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      border: 'none', 
-      boxShadow: 'none', 
+      border: "none",
+      boxShadow: "none",
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      padding: 0, 
+      padding: 0,
     }),
     indicatorSeparator: (provided) => ({
       ...provided,
-      display: 'none', 
+      display: "none",
     }),
   };
 
@@ -120,12 +132,15 @@ function RequisitionFilter({ filterData, setFilterData }) {
               }
               value={
                 filterData[headingObj.heading]
-                  ? { label: filterData[headingObj.heading], value: filterData[headingObj.heading] }
+                  ? {
+                      label: filterData[headingObj.heading],
+                      value: filterData[headingObj.heading],
+                    }
                   : null
               }
               placeholder={headingObj.heading}
-              isSearchable={true} 
-              noOptionsMessage={() => "No options available"} 
+              isSearchable={true}
+              noOptionsMessage={() => "No options available"}
               styles={customStyles}
             />
             {index < headings.length - 1 && (

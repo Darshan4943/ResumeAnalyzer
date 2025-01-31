@@ -26,7 +26,7 @@ function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
-  const { id, companyId } = router.query;
+  const { id, companyId, reqId } = router.query;
   const [loading, setLoading] = useState(true);
   const [loadingg, setLoadingg] = useState(false);
   const [skills, setSkills] = useState(SkillList);
@@ -366,10 +366,12 @@ function CreateNewJob() {
       getData(id);
     } else if (companyId) {
       getcompaniesdetails(companyId);
+    } else if (reqId) {
+      getJobDetails(reqId);
     } else {
       setLoading(false);
     }
-  }, [id, companyId]);
+  }, [id, companyId, reqId]);
 
   const getcompaniesdetails = (id) => {
     setLoading(true);
@@ -485,11 +487,13 @@ function CreateNewJob() {
     event.preventDefault();
     let selectedFile;
 
+
     if (event.dataTransfer) {
       selectedFile = event.dataTransfer.files[0];
     } else {
       selectedFile = event.target.files[0];
     }
+
 
     if (selectedFile) {
       if (selectedFile.type.includes("image")) {
@@ -564,6 +568,34 @@ function CreateNewJob() {
     return relevantExpIndex <= totalExpIndex;
   };
 
+  const getJobDetails = async (reqId) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
+      );
+      const fetchedData = response.data.data;
+  
+      setData({
+        ...data,
+        jobTitle: fetchedData.jobTitle || "",
+        minSalary: fetchedData.budgetFrom || "",
+        maxSalary: fetchedData.budgetTo || "",
+        jobSector: fetchedData.department || "",
+        experience: fetchedData.experience || "",
+        jobType: fetchedData.jobType || "",
+        location: fetchedData.location ? [fetchedData.location] : [],
+        openPositions: fetchedData.positions || "",
+        description: fetchedData.description || "",
+        deadLine: fetchedData.hiringDate ? new Date(fetchedData.hiringDate).toISOString().split('T')[0] : "",
+      });
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <>
