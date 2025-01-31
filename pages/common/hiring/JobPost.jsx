@@ -11,6 +11,7 @@ import ShortlistMail from "./ShortlistMail";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { DownSvg, UpSvg } from "../../../utils/svg";
+import { useSelector } from "react-redux";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
@@ -18,6 +19,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const [activeOption, setActiveOption] = useState("applicant");
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const { id } = router.query;
   const taskRef = useRef(null);
@@ -527,7 +529,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         )}
 
         
-        {option === 0 && (
+        {option === 0 &&  (
           <div>
             {loading ? (
               <MiniLoader />
@@ -558,6 +560,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </div>
                   </div>
+                  {userDataGlobal?.role==="recruiter" &&
                   <div className="flex gap-[8px]">
                     <button
                       disabled={checkedApplicants.length === 0}
@@ -581,6 +584,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       Reject
                     </button>
                   </div>
+}
                 </div>
 
                 {allShortlist && (
@@ -798,6 +802,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         />
                                       </svg>
                                     </div>
+                                    {userDataGlobal?.role==="recruiter" &&
+                                    <>
                                     <button
                                       disabled={
                                         applicant?.hiringStage === "Rejected" ||
@@ -854,7 +860,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         Reject
                                       </button>
                                     )}
-
+                                    </>
+                                  }
                                     <AnimatePresence>
                                       {moreOption &&
                                         selectedDotIndex === index && (
