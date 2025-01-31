@@ -5,6 +5,7 @@ import CreateNewRequisition from "../../components/featured/employer/CreateNewRe
 import RequisitionFilter from "../../components/featured/employer/afterLogin/requisition/requisitionFilter";
 import RequisitionList from "../../components/featured/employer/afterLogin/requisition/requisitionList";
 import axios from "axios";
+import RequisitionPreview from "./requisitionPreview";
 
 function Requisition() {
   const router = useRouter();
@@ -12,6 +13,8 @@ function Requisition() {
   const [toggle, setToggle] = useState(0);
   const [openSort, setOpenSort] = useState(false);
   const [filterData, setFilterData] = useState({});
+  const [openPreview, setOpenPreview] = useState(false);
+  const [requisitionId, setRequisitionId] = useState(null);
 
   useEffect(() => {
     if (query.content === "CreateNewRequisition") {
@@ -412,7 +415,20 @@ function Requisition() {
             <RequisitionList
               filterData={filterData}
               setFilterData={setFilterData}
+              openPreview={openPreview}
+              setOpenPreview={setOpenPreview}
+              requisitionId={requisitionId}
+              setRequisitionId={setRequisitionId}
             />
+            {openPreview &&
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                  < RequisitionPreview setOpenPreview={setOpenPreview} requisitionId={requisitionId} />
+                </div>
+              </>
+
+            }
           </div>
         </>
       )}

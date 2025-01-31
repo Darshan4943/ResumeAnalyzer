@@ -4,8 +4,9 @@ import { TablePagination } from "@mui/material";
 import axios from "axios";
 import MiniLoader from "../../../../common/miniLoader";
 import CustomPagination from "../../../../common/CustomPagination";
+import RequisitionPreview from "../../../../../pages/employer/requisitionPreview";
 
-function RequisitionList({ filterData }) {
+function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionId, setRequisitionId }) {
   const router = useRouter();
   const query = router.query;
   const [requisitions, setRequisitions] = useState([]);
@@ -15,7 +16,8 @@ function RequisitionList({ filterData }) {
   const [miniLoading, setMiniloading] = useState(true);
   const [totalPages, setTotalpages] = useState(0);
   const [page, setPage] = useState(0);
- 
+
+
   const [limit, setLimit] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -64,7 +66,6 @@ function RequisitionList({ filterData }) {
   }, [router.query]);
 
 
-
   const labels = [
     "Requisition for",
     "Requested by",
@@ -74,87 +75,100 @@ function RequisitionList({ filterData }) {
     "Open Position",
     "Status",
   ];
+  console.log(1234, requisitions._id)
+
+  const openPreviewModel = () => {
+    setRequisitionId(requisitions._id);
+    setOpenPreview(true);
+  };
 
   return (
-    <div className=" w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
-      <div className="w-full bg-[#E0F6FF] p-[16px] flex justify-between items-center">
-        {labels.map((req, index) => (
-          <div
-            key={index}
-            className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600]"
-          >
-            {req}
-          </div>
-        ))}
-      </div>
-
-      {loading ? (
-        <MiniLoader />
-      ) : requisitions.length === 0 ? (
-        <div className="p-3 flex items-center justify-center">
-          <img
-            className="w-[40%]"
-            src="/images/employer/OBJECTS.png"
-            alt="No data available"
-          />
-        </div>
-      ) : (
-        <div className="">
-          {requisitions.map((requisition) => (
+    <>
+      <div className=" w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
+        <div className="w-full bg-[#E0F6FF] p-[16px] flex justify-between items-center">
+          {labels.map((req, index) => (
             <div
-              className="w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]"
-              key={requisition.id}
+              key={index}
+              className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600]"
             >
-              <div className="w-[12.84%] text-[#333333] text-[16px] font-[600] flex flex-col gap-[6px]">
-                <div className="text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.requisitionType}
-                </div>
-                <div className="text-[#646464] text-center text-[12px] font-[500]">
-                  {requisition.jobTitle}
-                </div>
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600] flex flex-col gap-[6px]">
-                <div className="text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.Requestedby}
-                </div>
-                <div className="text-[#646464] text-center text-[12px] font-[500]">
-                  {new Date(requisition.createdAt).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </div>
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                {requisition.isPriority ? "Priority" : "Not Priority"}{" "}
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                {requisition.location}
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                {requisition.positions} positions
-              </div>
-              <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                {requisition.Status}
-              </div>
+              {req}
             </div>
           ))}
         </div>
-      )}
-      <CustomPagination
-        setMiniloading={setMiniloading}
-        miniLoading={miniLoading}
-        setPage={setPage}
-        title={"RequisitionList"}
-        setLimit={setLimit}
-        totalPages={totalPages}
-        limit={limit}
-        page={page}
-      />
-    </div>
+
+        {loading ? (
+          <MiniLoader />
+        ) : requisitions.length === 0 ? (
+          <div className="p-3 flex items-center justify-center">
+            <img
+              className="w-[40%]"
+              src="/images/employer/OBJECTS.png"
+              alt="No data available"
+            />
+          </div>
+        ) : (
+          <div className="">
+            {requisitions.map((requisition) => (
+              <div
+                onClick={() => {
+                  setRequisitionId(requisition?._id);
+                  setOpenPreview(true);
+                }}
+                className="w-full bg-[#FFFFFF] hover:bg-[#DFF4FD] cursor-pointer p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]"
+                key={requisition.id}
+              >
+                <div className="w-[12.84%] text-[#333333] text-[16px] font-[600] flex flex-col gap-[6px]">
+                  <div className="text-[#333333] text-center text-[14px] font-[500]">
+                    {requisition.requisitionType}
+                  </div>
+                  <div className="text-[#646464] text-center text-[12px] font-[500]">
+                    {requisition.jobTitle}
+                  </div>
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600] flex flex-col gap-[6px]">
+                  <div className="text-[#333333] text-center text-[14px] font-[500]">
+                    {requisition.Requestedby}
+                  </div>
+                  <div className="text-[#646464] text-center text-[12px] font-[500]">
+                    {new Date(requisition.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </div>
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {requisition.isPriority ? "Priority" : "Not Priority"}{" "}
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {requisition.location}
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {requisition.positions} positions
+                </div>
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {requisition.Status}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <CustomPagination
+          setMiniloading={setMiniloading}
+          miniLoading={miniLoading}
+          setPage={setPage}
+          title={"RequisitionList"}
+          setLimit={setLimit}
+          totalPages={totalPages}
+          limit={limit}
+          page={page}
+        />
+      </div>
+
+    </>
   );
 }
 
