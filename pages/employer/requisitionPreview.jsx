@@ -26,7 +26,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const ApprovalLevel = [
 
   ]
-
+  console.log(111, requisition.positions)
   return (
     <div className='bg-[#FFFFFF] max-w-[718px]  min-w-[718px] h-[85vh] overflow-scroll scrollbar-hide rounded-[16px] p-4 pb-6 flex flex-col gap-4'>
       <div className='flex w-full justify-end '>
@@ -54,7 +54,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
             <span className='text-[#646464] text-[12px] font-[500]'>Job Title</span>
             <span className='text-[#333333] text-[12px] font-[500]'>{requisition.jobTitle}</span>
           </div>}
-        {requisition?.positions?.length === 0 ? "" :
+        {requisition?.positions !== null &&
           <div className='w-[46.58%] flex flex-col gap-2'>
             <span className='text-[#646464] text-[12px] font-[500]'>Number of Positions</span>
             <span className='text-[#333333] text-[12px] font-[500]'>{requisition.positions}</span>
@@ -66,7 +66,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
             <span className='text-[#646464] text-[12px] font-[500]'>Mark as Priority</span>
             <span className='text-[#333333] text-[12px] font-[500]'>{requisition.isPriority ? "Yes" : "No"}</span>
           </div>}
-        {(requisition?.budgetFrom?.length == 0) && (requisition?.budgetTo?.length === 0) ? "" :
+        {requisition?.budgetFrom !== null &&
           <div className='w-[46.58%] flex flex-col gap-2'>
             <span className='text-[#646464] text-[12px] font-[500]'>Budget</span>
             <span className='text-[#333333] text-[12px] font-[500]'>${requisition.budgetFrom}-${requisition.budgetTo}</span>
@@ -96,7 +96,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
             <span className='text-[#333333] text-[12px] font-[500]'>{requisition.jobType}</span>
           </div>}
       </div>
-      {requisition?.hiringDate?.length === 0 ? "" :
+      {requisition?.hiringDate !== null &&
         <div className='w-full flex flex-col gap-2'>
           <span className='text-[#646464] text-[12px] font-[500]'>Target Hiring Date</span>
           <span className='text-[#333333] text-[12px] font-[500]'>{requisition.hiringDate}</span>
@@ -120,7 +120,13 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
       {requisition?.description?.length === 0 ? "" :
         <div className='flex flex-col gap-2'>
           <span className='text-[#333333] text-[14px] font-[500]'>Job Description</span>
-          <span className='text-[#333333] text-[12px] font-[400]'>{requisition?.description}</span>
+          <span className='text-[#333333] text-[12px] font-[400]'>
+            <div className=""
+              dangerouslySetInnerHTML={{
+                __html: requisition.description,
+              }}
+            />
+          </span>
         </div>}
     </div>
   )
