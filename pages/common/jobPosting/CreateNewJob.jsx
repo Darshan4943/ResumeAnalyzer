@@ -26,7 +26,7 @@ function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
-  const { id, companyId } = router.query;
+  const { id, companyId, reqId } = router.query;
   const [loading, setLoading] = useState(true);
   const [loadingg, setLoadingg] = useState(false);
   const [skills, setSkills] = useState(SkillList);
@@ -277,7 +277,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -366,10 +366,12 @@ function CreateNewJob() {
       getData(id);
     } else if (companyId) {
       getcompaniesdetails(companyId);
+    } else if (reqId) {
+      getJobDetails(reqId);
     } else {
       setLoading(false);
     }
-  }, [id, companyId]);
+  }, [id, companyId, reqId]);
 
   const getcompaniesdetails = (id) => {
     setLoading(true);
@@ -467,11 +469,11 @@ function CreateNewJob() {
       qualificationType: [],
       status: "Live",
     });
-    
+
     setCroppedImage(null);
     setFile(null);
   };
-  
+
 
   // const handleClick = () => {
   //   router.push("/recruiter/jobPosting");
@@ -484,13 +486,15 @@ function CreateNewJob() {
   const handleFileChange = (event) => {
     event.preventDefault();
     let selectedFile;
-  
+
+
     if (event.dataTransfer) {
       selectedFile = event.dataTransfer.files[0];
     } else {
       selectedFile = event.target.files[0];
     }
-  
+
+
     if (selectedFile) {
       if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
@@ -500,22 +504,22 @@ function CreateNewJob() {
       }
     }
   };
-  
+
   const handleDrop = (event) => {
     event.preventDefault();
     setDragging(false);
-    handleFileChange(event); 
+    handleFileChange(event);
   };
-  
+
   const handleDragOver = (event) => {
     event.preventDefault();
     setDragging(true);
   };
-  
+
   const handleDragLeave = () => {
     setDragging(false);
   };
-  
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -564,6 +568,34 @@ function CreateNewJob() {
     return relevantExpIndex <= totalExpIndex;
   };
 
+  const getJobDetails = async (reqId) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
+      );
+      const fetchedData = response.data.data;
+  
+      setData({
+        ...data,
+        jobTitle: fetchedData.jobTitle || "",
+        minSalary: fetchedData.budgetFrom || "",
+        maxSalary: fetchedData.budgetTo || "",
+        jobSector: fetchedData.department || "",
+        experience: fetchedData.experience || "",
+        jobType: fetchedData.jobType || "",
+        location: fetchedData.location ? [fetchedData.location] : [],
+        openPositions: fetchedData.positions || "",
+        description: fetchedData.description || "",
+        deadLine: fetchedData.hiringDate ? new Date(fetchedData.hiringDate).toISOString().split('T')[0] : "",
+      });
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <>
@@ -616,7 +648,7 @@ function CreateNewJob() {
 
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
-                    <div className="flex flex-col  ms:flex ms:flex-row   gap-[16px] p-[16px] w-full">
+                    <div className="flex flex-col  ms:flex ms:flex-row   gap-[16px] p-[10px] md:p-[16px] w-full">
                       <div className="flex flex-col gap-[8px] w-full  ">
                         <div className="text-[14px] font-[500]">
                           Job Status <span className="text-[#ff0000]">*</span>
@@ -629,11 +661,10 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.status
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -653,11 +684,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -682,7 +712,7 @@ function CreateNewJob() {
                       </div>
                     </div>
 
-                    <div className="p-4 flex flex-col gap-4 md:flex-row">
+                    <div className="p-[10px] md:p-4 flex flex-col gap-4 md:flex-row">
                       <div className=" w-full  md:w-[266px]  flex  flex-col items-center">
                         <div className="flex w-full flex-col gap-[8px]">
                           <div className="flex flex-col gap-[8px]">
@@ -840,17 +870,16 @@ function CreateNewJob() {
                       <div className="w-full max-w-full flex flex-col">
                         <div className="flex flex-col scr1024:flex-row gap-[16px] w-full">
                           <div className="flex w-full flex-col md:flex-row  gap-[16px]">
-                            <div className="flex flex-col gap-[8px] w-[50%]">
+                            <div className="flex flex-col gap-[8px] w-full md:w-[50%]">
                               <div className="text-[14px] font-[500]">
                                 Company Name{" "}
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                                  formError.companyName
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                                  }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -859,16 +888,15 @@ function CreateNewJob() {
                               />
                             </div>
 
-                            <div className="flex flex-col gap-[8px]  w-[50%] ">
+                            <div className="flex flex-col gap-[8px] w-full md:w-[50%] ">
                               <div className="text-[14px] font-[500]">
                                 Keywords <span className="text-[red]">*</span>
                               </div>
                               <div
-                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                                  formError.Keywords
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                                  }`}
                               >
                                 <div className="flex flex-row flex-wrap gap-3">
                                   {data?.Keywords?.map((item, index) => (
@@ -950,8 +978,8 @@ function CreateNewJob() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex gap-4 pt-4 ">
-                          <div className="flex flex-col gap-[8px] w-full scr1024:w-[50%]">
+                        <div className="flex gap-4 pt-4 scr1168:flex-row flex-col">
+                          <div className="flex flex-col gap-[8px] w-full scr1168:w-[50%]">
                             <div className="text-[14px] font-[500]">
                               Country <span className="text-[red]">*</span>
                             </div>
@@ -967,31 +995,29 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select countries..."
                               styles={customStyles}
-                              className={` border rounded-[5px] ${
-                                formError.country
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={` border rounded-[5px] ${formError.country
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             />
                           </div>
-                          <div className="flex flex-col gap-[8px]  w-[50%] ">
+                          <div className="flex flex-col gap-[8px]  w-full scr1168:w-[50%] ">
                             <div className="text-[14px] font-[500]">
                               Location <span className="text-[red]">*</span>
                             </div>
                             <div
-                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                                formError.location
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             >
-                              <div className="flex flex-row flex-wrap gap-3">
+                              <div className="flex flex-row overflow-x-auto gap-2 ">
                                 {data?.location?.map((item, index) => (
                                   <div
                                     key={index}
                                     className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
                                   >
-                                    <span> {item}</span>
+                                    <span>{item}</span>
                                     <span
                                       className="text-[14px]  cursor-pointer font-medium "
                                       onClick={() =>
@@ -1056,7 +1082,7 @@ function CreateNewJob() {
                               </button>
                             </div>
                           </div>
-                        </div>
+                        </div>  
                         <div className="flex flex-col gap-[8px] w-full">
                           <div className="text-[14px] pt-[16px] font-[500]">
                             Job Description{" "}
@@ -1092,7 +1118,7 @@ function CreateNewJob() {
                   </div>
 
                   <div>
-                    <div className="p-4 gap-4 flex flex-col">
+                    <div className="p-[10px] md:p-4 gap-4 flex flex-col">
                       <div className="text-lg font-semibold">Salary</div>
                       <div className="flex flex-col md:flex-row w-full gap-5">
                         <div className="sm:w-[50%] w-full flex flex-col gap-[6px]">
@@ -1200,7 +1226,7 @@ function CreateNewJob() {
                   </div>
 
                   <div>
-                    <div className="flex flex-col gap-4 p-4">
+                    <div className="flex flex-col gap-4 p-[10px] md:p-4">
                       <div className="text-lg font-semibold">
                         Job Information
                       </div>
@@ -1238,11 +1264,10 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select Job Sector"
                               styles={customStyles}
-                              className={`border rounded-[5px] ${
-                                formError.jobSector
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={`border rounded-[5px] ${formError.jobSector
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             />
                           </div>
                         </div>
@@ -1313,11 +1338,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1376,17 +1400,16 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1442,17 +1465,16 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1623,7 +1645,7 @@ function CreateNewJob() {
                         </div>
                       </div>
                     </div> */}
-                    <div className="flex justify-end p-4 w-full">
+                    <div className="flex justify-end p-[10px] md:p-4 w-full">
                       {/* <div>
                         <button
                           onClick={handleClick}
@@ -1632,10 +1654,10 @@ function CreateNewJob() {
                           Cancel
                         </button>
                       </div> */}
-                      <div className="flex gap-[14px]">
+                      <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Reset
                         </button>
@@ -1643,7 +1665,7 @@ function CreateNewJob() {
                           onClick={() => {
                             openModel(true);
                           }}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-sm cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Preview
                         </button>
@@ -1654,7 +1676,7 @@ function CreateNewJob() {
                         ) : (
                           <button
                             onClick={handleSubmit}
-                            className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
+                            className="text-[10px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
                           >
                             {id ? "Update Job" : "Post Job"}
                           </button>

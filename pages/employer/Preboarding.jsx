@@ -60,7 +60,7 @@ function Preboarding() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:2000/api/job/getjobapplicantstatus/${id}`

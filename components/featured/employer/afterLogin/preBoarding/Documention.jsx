@@ -150,7 +150,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             applicants.docStatus == "Submitted" ?
                               <button
                                 onClick={() => setToggle(2)}
-                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"
+                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"
                                   }`}
                               >
                                 {applicants.Next}
