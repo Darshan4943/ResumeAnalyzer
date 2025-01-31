@@ -5,25 +5,25 @@ import { currenciesWithIcons } from "../../../utils/data";
 function JobDetails({ jobDetails, totalCount }) {
   const router = useRouter();
   const { id } = router.query;
-  console.log(jobDetails);
+ 
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
       style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
     >
-      {jobDetails?.data?.jobDetails && (
+      {jobDetails && (
         <>
           <div className="flex flex-col items-start gap-4 self-stretch ">
             <div className="flex flex-col items-start gap-4  self-stretch">
               <div className="flex flex-col md:gap-2 gap-1 self-stretch">
                 <p className="text-[#333]  text-[16px] font-[600]">
-                  {jobDetails?.data?.jobDetails?.jobTitle}
+                  {jobDetails?.jobTitle}
                 </p>
                 <p className="text-[#333] font-Montserrat  text-[12px] font-[400px]">
-                  {jobDetails?.data?.jobDetails?.companyName}
+                  {jobDetails?.companyName}
                 </p>
                 <div className="flex items-center gap-1 text-[14px] font-[400px]">
-                  {jobDetails?.data?.jobDetails?.location ? (
+                  {jobDetails?.location ? (
                     <img
                       src="/images/jobs/lo.png"
                       alt=""
@@ -33,7 +33,7 @@ function JobDetails({ jobDetails, totalCount }) {
                     ""
                   )}
                   <p className="text-[#333] font-Montserrat text-[14px] font-[400px]">
-                    {jobDetails?.data?.jobDetails?.location?.join(", ")}
+                    {jobDetails?.location?.join(", ")}
                   </p>
                 </div>
               </div>
@@ -46,7 +46,7 @@ function JobDetails({ jobDetails, totalCount }) {
                   Job Details
                 </p>
                 <div className="flex gap-1 items-center">
-                  {jobDetails?.data?.jobDetails?.jobType ? (
+                  {jobDetails?.jobType ? (
                     <img
                       src="/images/jobs/work.png"
                       className="w-[15px] h-[14px]"
@@ -56,11 +56,11 @@ function JobDetails({ jobDetails, totalCount }) {
                     ""
                   )}
                   <p className="text-[#333] font-Montserrat text-[14px] font-medium leading-normal">
-                    {jobDetails?.data?.jobDetails?.jobType}
+                    {jobDetails?.jobType}
                   </p>
                 </div>
                 <div className="flex gap-1 items-center text-[14px] font-medium">
-                  {jobDetails?.data?.jobDetails?.jobMode ? (
+                  {jobDetails?.jobMode ? (
                     <img
                       src="/images/jobs/work.png"
                       className="w-[15px] h-[14px]"
@@ -70,7 +70,7 @@ function JobDetails({ jobDetails, totalCount }) {
                     ""
                   )}
                   <p className="text-[#333] font-Montserrat text-[14px] font-medium">
-                    {jobDetails?.data?.jobDetails?.jobMode}
+                    {jobDetails?.jobMode}
                   </p>
                 </div>
                 <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
@@ -82,11 +82,11 @@ function JobDetails({ jobDetails, totalCount }) {
                   Qualifications
                 </p>
                 <p className="text-[#333] font-Montserrat  text-[14px] font-medium">
-                  {jobDetails?.data?.jobDetails?.requiredQualification ||
+                  {jobDetails?.requiredQualification ||
                     "No qualification available"}
                   <br />
                   Total Work Experience{" "}
-                  {jobDetails?.data?.jobDetails?.experience} (Required)
+                  {jobDetails?.experience} (Required)
                 </p>
               </div>
               <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
@@ -96,40 +96,40 @@ function JobDetails({ jobDetails, totalCount }) {
               <div className="text-[14px] text-[400] gap-[8px] flex flex-col">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: jobDetails?.data?.jobDetails?.description,
+                    __html: jobDetails?.description,
                   }}
                 />
                 <span className="text-[14px] font-[500] text-[#333]">
                   {" "}
-                  Job Type : {jobDetails?.data?.jobDetails?.jobType}
+                  Job Type : {jobDetails?.jobType}
                 </span>{" "}
-                {(jobDetails?.data?.jobDetails?.minSalary > 0 ||
-                  jobDetails?.data?.jobDetails?.maxSalary > 0) && (
+                {(jobDetails?.minSalary > 0 ||
+                  jobDetails?.maxSalary > 0) && (
                   <div className="text-[14px] font-[500] flex text-[#333]">
                     Salary :
                     {(() => {
                       const icon = currenciesWithIcons?.find(
                         (item) =>
                           item?.icon?.toLowerCase() ===
-                          jobDetails?.data?.jobDetails?.currency?.toLowerCase()
+                          jobDetails?.currency?.toLowerCase()
                       );
 
                       return (
                         <div className="text-[14px] font-[500] text-[#333]">
                           {icon
                             ? icon.symbol
-                            : jobDetails?.data?.jobDetails?.currency}{" "}
-                          {jobDetails?.data?.jobDetails.minSalary}{" "}
-                          {jobDetails?.data?.jobDetails.minSalary &&
-                            jobDetails?.data?.jobDetails.maxSalary &&
+                            : jobDetails?.currency}{" "}
+                          {jobDetails?.minSalary}{" "}
+                          {jobDetails?.minSalary &&
+                            jobDetails?.maxSalary &&
                             "-"}{" "}
                           {icon
                             ? icon.symbol
-                            : jobDetails?.data?.jobDetails?.currency}{" "}
-                          {jobDetails?.data?.jobDetails.maxSalary}{" "}
-                          {jobDetails?.data?.jobDetails.salaryType === "Annual"
+                            : jobDetails?.currency}{" "}
+                          {jobDetails?.maxSalary}{" "}
+                          {jobDetails?.salaryType === "Annual"
                             ? "per annum"
-                            : jobDetails?.data?.jobDetails.salaryType ===
+                            : jobDetails?.salaryType ===
                               "Monthly"
                             ? "per month"
                             : "per week"}
@@ -143,11 +143,11 @@ function JobDetails({ jobDetails, totalCount }) {
                 </span>{" "} */}
                 <span className="text-[14px] font-[500] text-[#333]">
                   Education :{" "}
-                  {jobDetails?.data?.jobDetails?.requiredQualification}{" "}
+                  {jobDetails?.requiredQualification}{" "}
                   (Preferred){" "}
                 </span>{" "}
                 <span className="text-[14px] font-[500] text-[#333]">
-                  Experience : {jobDetails?.data?.jobDetails?.experience}{" "}
+                  Experience : {jobDetails?.experience}{" "}
                   (Required)
                 </span>
               </div>
@@ -163,7 +163,7 @@ function JobDetails({ jobDetails, totalCount }) {
                   <p className="text-[16px] font-semibold font-Montserrat text-[#333]">
                     {totalCount} applied{" "}
                     <span className="text-[16px] font-medium font-Montserrat text-[#646464]">
-                      of {jobDetails?.data?.jobDetails?.openPositions} capacity
+                      of {jobDetails?.openPositions} capacity
                     </span>
                   </p>
                   <div className="w-[100%] bg-[#D6DDEB] rounded-[6px] ">
@@ -172,7 +172,7 @@ function JobDetails({ jobDetails, totalCount }) {
                       style={{
                         width: `${Math.min(
                           ((totalCount || 0) /
-                            jobDetails?.data?.jobDetails?.openPositions) *
+                            jobDetails?.openPositions) *
                             100,
                           100
                         )}%`,
@@ -186,7 +186,7 @@ function JobDetails({ jobDetails, totalCount }) {
                   </p>
                   <p className="text-[16px] text-[#333] font-semibold font-Montserrat">
                     {new Date(
-                      jobDetails?.data?.jobDetails?.deadLine
+                      jobDetails?.deadLine
                     ).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
@@ -200,7 +200,7 @@ function JobDetails({ jobDetails, totalCount }) {
                   </p>
                   <p className="text-[16px] text-[#333] font-semibold font-Montserrat">
                     {new Date(
-                      jobDetails?.data?.jobDetails?.createdAt
+                      jobDetails?.createdAt
                     ).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
@@ -208,45 +208,45 @@ function JobDetails({ jobDetails, totalCount }) {
                     })}
                   </p>
                 </div>
-                {jobDetails?.data?.jobDetails?.jobType && (
+                {jobDetails?.jobType && (
                   <div className="flex justify-between items-start self-stretch">
                     <p className="text-[16px] text-[#646464] font-medium font-Montserrat">
                       Job Type
                     </p>
                     <p className="text-[16px] text-[#333] font-semibold font-Montserrat">
-                      {jobDetails?.data?.jobDetails?.jobType}
+                      {jobDetails?.jobType}
                     </p>
                   </div>
                 )}
-                {jobDetails?.data?.jobDetails?.minSalary && (
+                {jobDetails?.minSalary && (
                   <div className="flex justify-between items-start self-stretch">
                     <p className="text-[16px] text-[#646464] font-medium font-Montserrat">
                       Salary
                     </p>
-                    {(jobDetails?.data?.jobDetails?.minSalary > 0 ||
-                      jobDetails?.data?.jobDetails?.maxSalary > 0) && (
+                    {(jobDetails?.minSalary > 0 ||
+                      jobDetails?.maxSalary > 0) && (
                       <div className="text-[16px] font-[600] flex text-[#333]">
                         {(() => {
                           const icon = currenciesWithIcons?.find(
                             (item) =>
                               item?.icon?.toLowerCase() ===
-                              jobDetails?.data?.jobDetails?.currency?.toLowerCase()
+                              jobDetails?.currency?.toLowerCase()
                           );
 
                           return (
                             <div className="text-[16px] font-[600] text-[#333]">
                               {icon
                                 ? icon.symbol
-                                : jobDetails?.data?.jobDetails?.currency}{" "}
-                              {jobDetails?.data?.jobDetails.minSalary}{" "}
-                              {jobDetails?.data?.jobDetails.minSalary &&
-                                jobDetails?.data?.jobDetails.maxSalary &&
+                                : jobDetails?.currency}{" "}
+                              {jobDetails?.minSalary}{" "}
+                              {jobDetails?.minSalary &&
+                                jobDetails?.maxSalary &&
                                 "-"}{" "}
                               {icon
                                 ? icon.symbol
-                                : jobDetails?.data?.jobDetails?.currency}{" "}
-                              {jobDetails?.data?.jobDetails.maxSalary}{" "}
-                              {jobDetails?.data?.jobDetails.salaryType ===
+                                : jobDetails?.currency}{" "}
+                              {jobDetails?.maxSalary}{" "}
+                              {jobDetails?.salaryType ===
                               "Annual"
                                 ? "per annum"
                                 : "per month"}
@@ -265,7 +265,7 @@ function JobDetails({ jobDetails, totalCount }) {
                   </p>
                   <div className="flex items-center gap-2 flex-wrap">
                     <div className="flex gap-2 flex-wrap">
-                      {jobDetails?.data?.jobDetails?.mustSkills?.map(
+                      {jobDetails?.mustSkills?.map(
                         (skill, index) => (
                           <button
                             key={index}

@@ -150,7 +150,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const fetchJobDetailsHeder = async (id, setJobData) => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getByIdApplicationHeder/${id}`
+        `http://localhost:2000/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
     } catch (error) {
@@ -183,7 +183,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         setLoading(false);
       }, 500);
       setJobDetails(data);
-      console.log(53555656,data)
+      
       setTotalCount(data.pagination.totalApplications);
       setTotalpages(data.pagination.totalPages);
       setfilterType(false);
@@ -281,7 +281,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
             <div className="flex flex-col w-[100%] scr700:px-[32px] px-[16px] py-[24px] justify-between rounded-[12px] gap-[17px] bg-[#fff] ">
               <div className="flex justify-between w-[100%] items-center">
                 <div className="flex gap-[20px] justify-between md:justify-center items-start">
-                  <div
+                  {/* <div
                     className="hidden md:block cursor-pointer"
                     onClick={router.back}
                   >
@@ -299,7 +299,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         />
                       </g>
                     </svg>
-                  </div>
+                  </div> */}
                   <div className=" flex flex-col ">
                     <p className="text-[18px] text-[#333333] font-[600] leading-tight">
                       {" "}
@@ -311,7 +311,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         jobData?.jobSector}
                     </p>
                   </div>
-                  <div className="flex justify-center items-center gap-[4px]">
+                  <div className="flex justify-center items-center gap-[4px] mt-1">
                     {jobData?.status === "Live" ? (
                       <>
                         <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
@@ -698,7 +698,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       {applicant?.details?.personal?.lastName}
                                     </p>
                                   </div>
-                                  <div className="flex w-[10%] items-center justify-start   gap-[8px]">
+                                  <div className="flex w-[10%] items-center justify-start pl-6  gap-[8px]">
                                     <p className="text-[14px] font-[600]">
                                       {applicant?.source}
                                     </p>
@@ -753,7 +753,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       {applicant?.hiringStage}
                                     </div>
                                   </div>
-                                  <div className=" flex text-[14px] w-[15%]  font-[600]">
+                                  <div className=" flex text-[14px] w-[15%] pl-6 font-[600]">
                                     <p>
                                       {new Date(applicant?.appliedOn)
                                         .toLocaleDateString("en-GB", {
@@ -1136,7 +1136,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
         {option === 1 && (
           <div className="mb-6">
-            <JobDetails jobDetails={jobDetails} totalCount={totalCount} />
+            <JobDetails jobDetails={jobData} totalCount={totalCount} />
           </div>
         )}
         {option === 2 && <Analytics jobDetails={jobDetails} />}

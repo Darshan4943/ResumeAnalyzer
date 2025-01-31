@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import ShortlistMail from './ShortlistMail';
+import { CountPostingDays } from '../../../utils/data';
 
-function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange }) {
+function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange }) {
+    console.log(999, jobDetails);
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [shortlist, setShortlist] = useState([]);
@@ -16,7 +18,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange 
             {isPopupVisible && (
 
 
-               <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id}  applicantIds={[shortlist.applicantId]} statusChange={statusChange} setStatusChange={setStatusChange} />
+                <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} applicantIds={[shortlist.applicantId]} statusChange={statusChange} setStatusChange={setStatusChange} />
             )}
             <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
                 {jobDetails?.details && (
@@ -30,25 +32,13 @@ function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange 
                             />
                             <div className="w-[65%] flex flex-col gap-1">
                                 <p className="text-[24px]   text-start   font font-medium  ">
-                                    {jobDetails?.details?.personal?.firstName}{" "}
+                                    {jobDetails?.details?.personal?.firstName}   {jobDetails?.details?.personal?.lastName}
                                 </p>
                                 <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
                                     {/* {jobDetails?.jobTitle} */}
                                 </p>
-                                <div className="flex gap-2">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                    >
-                                        <path
-                                            d="M21.2831 8.27584L15.3323 7.411L12.6722 2.01803C12.5995 1.87037 12.48 1.75084 12.3323 1.67818C11.962 1.49537 11.512 1.64771 11.3268 2.01803L8.66668 7.411L2.7159 8.27584C2.55184 8.29928 2.40184 8.37662 2.28699 8.49381C2.14815 8.63651 2.07165 8.8285 2.07428 9.02758C2.07692 9.22666 2.15849 9.41655 2.30106 9.55553L6.60653 13.7532L5.58934 19.6805C5.56549 19.8184 5.58074 19.9602 5.63338 20.0899C5.68602 20.2195 5.77394 20.3318 5.88716 20.4141C6.00038 20.4963 6.13437 20.5452 6.27395 20.5551C6.41352 20.5651 6.5531 20.5357 6.67684 20.4704L11.9995 17.6719L17.3222 20.4704C17.4675 20.5477 17.6362 20.5735 17.7979 20.5454C18.2057 20.4751 18.48 20.0883 18.4097 19.6805L17.3925 13.7532L21.6979 9.55553C21.8151 9.44068 21.8925 9.29068 21.9159 9.12662C21.9792 8.71646 21.6932 8.33678 21.2831 8.27584Z"
-                                            fill="#FFB836"
-                                        />
-                                    </svg>
-                                    <p className="text-[16px]    font-normal ">4.0</p>
+                                <div className="flex gap-2 text-[16px] font-medium items-center">
+                                 Profile Match :<span className='text-[16px] font-semibold'> {jobDetails?.matchingPercentage} %</span> 
                                 </div>
                             </div>
                         </div>
@@ -56,7 +46,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange 
                             <div className="flex justify-between">
                                 <p className="text-[16px] font-[600]">Job Applied</p>
                                 <p className="text-[16px] font-normal text-[#646464]">
-                                    2 days ago
+                                    {CountPostingDays(jobDetails?.appliedOn)}
                                 </p>
                             </div>
                             <div className="h-[1px] bg-[#D6DDEB]"></div>
@@ -94,7 +84,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange 
                             <>
                                 {jobDetails?.hiringStage === "Shortlisted" ?
 
-                                    <button disabled  className="flex gap-2">
+                                    <button disabled className="flex gap-2">
                                         <div onClick={() => togglePopup(jobDetails)} className="px-4 w-full items-center flex justify-center py-3  text-[16px] rounded-[30px] font-medium text-[#4640DE] bg-[#4640DE1A] ">
                                             Shortlisted
                                         </div>
@@ -102,19 +92,19 @@ function ApplicantDetailsLeftCard({ jobDetails, id,setStatusChange,statusChange 
                                     </button> :
                                     jobDetails?.hiringStage === "Rejected" ?
 
-                                    <button disabled  className="flex gap-2">
-                                        <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
-                                        Rejected
-                                        </div>
+                                        <button disabled className="flex gap-2">
+                                            <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
+                                                Rejected
+                                            </div>
 
-                                    </button>
-                                    :
-                                    <button onClick={() => togglePopup(jobDetails)} className="flex gap-2">
-                                        <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
-                                            Shortlist Candidate
-                                        </div>
+                                        </button>
+                                        :
+                                        <button onClick={() => togglePopup(jobDetails)} className="flex gap-2">
+                                            <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                                                Shortlist Candidate
+                                            </div>
 
-                                    </button>
+                                        </button>
                                 }
                             </>
                             :
