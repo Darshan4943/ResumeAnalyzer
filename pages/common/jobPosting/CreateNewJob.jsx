@@ -1040,10 +1040,6 @@ function CreateNewJob() {
                                   });
                                   setLoactionText("");
 
-                                  // setFormError(formError => {
-                                  //   delete formError.location;
-                                  //   return formError;
-                                  // });
                                   setFormError((prevErrors) => ({
                                     ...prevErrors,
                                     location: "",

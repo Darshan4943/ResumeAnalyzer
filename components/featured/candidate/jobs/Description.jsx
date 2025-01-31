@@ -103,8 +103,19 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         Total Experience {selectedJob.experience} (Required){" "}
                       </>
                     }
-                    <br />
-                    {selectedJob.mustSkills}
+                  
+                  </div>
+                </div>
+              )}
+              {selectedJob.mustSkills && (
+                <div className="flex flex-col gap-[10px] pb-[6px]">
+                  <div className="text-[16px] font-[600]">
+                    Skills :
+                  </div>
+
+                  <div className="text-[14px] font-[400]">
+                    
+                  {selectedJob.mustSkills.join(", ")}
                   </div>
                 </div>
               )}

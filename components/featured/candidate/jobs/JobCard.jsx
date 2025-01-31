@@ -210,7 +210,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
           <div className="bg-[#AFAFAF99] h-[1px] w-full my-1"></div>
 
           <div className="flex flex-row justify-between items-center px-1 ">
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-center">
               {jobData?.some(
                 (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
               ) && isLogin ? (
