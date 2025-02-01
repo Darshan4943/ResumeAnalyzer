@@ -1,7 +1,7 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 import { Editor } from "primereact/editor";
@@ -9,6 +9,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { useSelector } from "react-redux";
+import { PlusAddLogo } from "../../../utils/svg";
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -19,6 +20,8 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [loactionText, setLoactionText] = useState("");
+
   const [data, setData] = useState({
     jobTitle: "",
     positions: "",
@@ -27,7 +30,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     budgetTo: "",
     experience: "",
     requisitionType: "",
-    location: "",
+    location: [],
     department: "",
     hiringDate: "",
     jobType: "",
@@ -109,7 +112,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     try {
       const response = await axios.post(
         `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
-        { ...data, createdBy: userDataGlobal?._id } 
+        { ...data, createdBy: userDataGlobal?._id }
       );
 
       setSuccessfull(true);
@@ -199,6 +202,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     setApprovalChoice(value);
     setShowApprovalChain(value === "yes");
   };
+  const dateInputRef = useRef(null);
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
       <div
@@ -335,19 +339,77 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className="text-[14px]  font-medium ">
                 Location <span className="text-red">*</span>
               </p>
-              <select
-                value={data.location}
-                onChange={(e) => handleChange(e, "location")}
-                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]  ${
+              <div
+                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
                   errors.location ? "border-red" : "border-[#DEDEDE]"
-                } `}
+                }`}
               >
-                <option value="" disabled selected>
-                  Select{" "}
-                </option>
-                <option value="Pune">Pune</option>
-                <option value="Mumbai">Mumbai</option>
-              </select>
+                <div className="flex flex-row overflow-x-auto gap-2 ">
+                  {data?.location?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                    >
+                      <span>{item}</span>
+                      <span
+                        className="text-[14px]  cursor-pointer font-medium "
+                        onClick={() =>
+                          setData({
+                            ...data,
+                            location: data.location.filter(
+                              (data) => data != item
+                            ),
+                          })
+                        }
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                            fill="#000000"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  placeholder="Location"
+                  className="input w-[100px]"
+                  value={loactionText}
+                  onChange={(e) => {
+                    setLoactionText(e.target.value);
+                  }}
+                />
+                <button
+                  className=" absolute right-3 top-[8px] "
+                  disabled={loactionText?.length == 0}
+                  onClick={() => {
+                    setData({
+                      ...data,
+                      location: [...data.location, loactionText],
+                    });
+                    setLoactionText("");
+
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      location: "",
+                    }));
+                  }}
+                >
+                  <PlusAddLogo
+                    color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
+                  />
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
@@ -367,14 +429,18 @@ const CreateNewRequisition = ({ setToggle }) => {
           </div>
 
           <div className="flex sm:flex-row flex-col gap-4  ">
-            <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
+            <div
+              onClick={() => dateInputRef.current?.focus()}
+              className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]"
+            >
               <p className=" text-[14px]  font-medium">Target Hiring Date</p>
               <input
                 type="date"
                 value={data.hiringDate}
                 onChange={(e) => handleChange(e, "hiringDate")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
-              ></input>
+                min={new Date().toISOString().split("T")[0]}
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px] font-[400]"
+              />
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">Job Type</p>

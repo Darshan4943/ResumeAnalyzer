@@ -277,7 +277,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -474,7 +474,6 @@ function CreateNewJob() {
     setFile(null);
   };
 
-
   // const handleClick = () => {
   //   router.push("/recruiter/jobPosting");
   // };
@@ -487,13 +486,11 @@ function CreateNewJob() {
     event.preventDefault();
     let selectedFile;
 
-
     if (event.dataTransfer) {
       selectedFile = event.dataTransfer.files[0];
     } else {
       selectedFile = event.target.files[0];
     }
-
 
     if (selectedFile) {
       if (selectedFile.type.includes("image")) {
@@ -519,7 +516,6 @@ function CreateNewJob() {
   const handleDragLeave = () => {
     setDragging(false);
   };
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -575,7 +571,6 @@ function CreateNewJob() {
         `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
-  
       setData({
         ...data,
         jobTitle: fetchedData.jobTitle || "",
@@ -584,10 +579,12 @@ function CreateNewJob() {
         jobSector: fetchedData.department || "",
         experience: fetchedData.experience || "",
         jobType: fetchedData.jobType || "",
-        location: fetchedData.location ? [fetchedData.location] : [],
+        location: fetchedData.location || [],
         openPositions: fetchedData.positions || "",
         description: fetchedData.description || "",
-        deadLine: fetchedData.hiringDate ? new Date(fetchedData.hiringDate).toISOString().split('T')[0] : "",
+        deadLine: fetchedData.hiringDate
+          ? new Date(fetchedData.hiringDate).toISOString().split("T")[0]
+          : "",
       });
     } catch (error) {
       console.error("Error fetching job details:", error);
@@ -595,7 +592,6 @@ function CreateNewJob() {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -661,10 +657,11 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.status
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -684,10 +681,11 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -876,10 +874,11 @@ function CreateNewJob() {
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                                  formError.companyName
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -893,10 +892,11 @@ function CreateNewJob() {
                                 Keywords <span className="text-[red]">*</span>
                               </div>
                               <div
-                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.Keywords
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
+                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
+                                  formError.Keywords
+                                    ? "border-red"
+                                    : "border-[#DEDEDE]"
+                                }`}
                               >
                                 <div className="flex flex-row flex-wrap gap-3">
                                   {data?.Keywords?.map((item, index) => (
@@ -995,10 +995,11 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select countries..."
                               styles={customStyles}
-                              className={` border rounded-[5px] ${formError.country
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
+                              className={` border rounded-[5px] ${
+                                formError.country
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                             />
                           </div>
                           <div className="flex flex-col gap-[8px]  w-full scr1168:w-[50%] ">
@@ -1006,10 +1007,11 @@ function CreateNewJob() {
                               Location <span className="text-[red]">*</span>
                             </div>
                             <div
-                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
+                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
+                                formError.location
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                             >
                               <div className="flex flex-row overflow-x-auto gap-2 ">
                                 {data?.location?.map((item, index) => (
@@ -1082,7 +1084,7 @@ function CreateNewJob() {
                               </button>
                             </div>
                           </div>
-                        </div>  
+                        </div>
                         <div className="flex flex-col gap-[8px] w-full">
                           <div className="text-[14px] pt-[16px] font-[500]">
                             Job Description{" "}
@@ -1177,10 +1179,10 @@ function CreateNewJob() {
                               value={data.salaryType}
                               onChange={handleChange}
                             >
-                              <option value="" disabled selected>
+                              <option value="Select" disabled selected>
                                 Select
                               </option>
-                              <option value="Select">Select</option>
+
                               <option value="Annual">Annual</option>
                               <option value="Monthly">Monthly</option>
                               <option value="Weekly">Weekly</option>
@@ -1264,10 +1266,11 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select Job Sector"
                               styles={customStyles}
-                              className={`border rounded-[5px] ${formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
+                              className={`border rounded-[5px] ${
+                                formError.jobSector
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                              }`}
                             />
                           </div>
                         </div>
@@ -1338,10 +1341,11 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
+                              formError.requiredQualification
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1400,16 +1404,17 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1465,16 +1470,17 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.goodSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
