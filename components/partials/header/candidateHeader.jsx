@@ -7,6 +7,7 @@ import { Service, ServiceCross } from "../../../utils/svg";
 import { camelCase } from "../../../utils/middleware";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
+
 function CandidateHeader() {
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -69,11 +70,11 @@ function CandidateHeader() {
 
 
   const sortedExperiences = (experinceData || [])
-  .filter(Boolean)
-  .sort((a, b) => {
+    .filter(Boolean)
+    .sort((a, b) => {
       const getYearsRange = (str) => {
-          const match = str?.match(/\d+/g);
-          return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
+        const match = str?.match(/\d+/g);
+        return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
       };
 
       const [aStart, aEnd] = getYearsRange(a);
@@ -84,7 +85,7 @@ function CandidateHeader() {
 
 
       return aEnd - bEnd;
-  });
+    });
 
 
 
@@ -116,7 +117,7 @@ function CandidateHeader() {
 
   return (
     <>
-      <div className="flex justify-center items-center list-none  scr1600:gap-9 xxlg:gap-4 gap-0 ">
+      <div className="flex   list-none  scr1600:gap-9 xxlg:gap-4 gap-0  bg-white">
         <Link href="/">
           {" "}
           <img
@@ -305,7 +306,7 @@ function CandidateHeader() {
                 />
               )}
             </div>
-            {userDataGlobal?.role == "user" &&
+            {/* {userDataGlobal?.role == "user" &&
               <div onClick={() => setIsSearch(true)} className="flex justify-between pl-[10px] gap-4 items-center border border-[#E1E3E3] rounded-[30px] pr-1 py-1 min-w-[258px] cursor-pointer">
                 <div className="text-[14px] font-medium text-[#889FBA]">
                   UX  Designer
@@ -320,7 +321,103 @@ function CandidateHeader() {
 
                 </div>
               </div>
-            }
+            } */}
+            <div className=" relative">
+              <motion.div
+
+                className={`absolute  left-1/2 transform -translate-x-1/2  flex justify-between items-center  ${isSearch ? "" : ""}  `}
+                initial={{ width: "258px", height: "46px" }}
+                animate={{
+                  width: isSearch ? "648px" : "258px",
+                  height: isSearch ? "62px" : "46px",
+                  y: isSearch ? 80 : 0,
+                  x: isSearch ? -80 : 0,
+
+                }}
+                exit={{ width: "80px", height: "50px" }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                {isSearch ?
+                  <motion.div
+                    initial={{ scaleX: 0, scaleY: 0 }}
+                    animate={{
+                      width: isSearch ? "648px" : "258px",
+                      height: isSearch ? "62px" : "46px",
+                      scaleX: isSearch ? 1 : 0,
+                      scaleY: isSearch ? 1 : 0,
+                    }}
+                    exit={{ scaleX: 0, scaleY: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between w-full border border-[#E1E3E3] rounded-[30px] px-3 py-[10px]">
+                    <input
+                      type="text"
+                      placeholder="Enter Job title"
+                      className="text-[14px] font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px] placeholder:text-[#889FBA]"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                    />
+                    <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+
+                    <select
+                      className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"}`}
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                    >
+                      <option value="" disabled className="text-[#889FBA]">
+                        Select Experience
+                      </option>
+                      {sortedExperiences
+                        .filter((exp) => exp)
+                        .map((exp, index) => (
+                          <option key={index} value={exp} className="text-[#333333]">
+                            {exp}
+                          </option>
+                        ))}
+                    </select>
+
+                    <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+
+                    <input
+                      type="text"
+                      placeholder="Enter Location"
+                      className="text-[14px] font-[500] w-full font-Montserrat max-w-[110px] min-w-[80px] placeholder:text-[#889FBA]"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+
+                    <button
+                      onClick={() => {
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+                      }}
+                      className="px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
+                    >
+                      Search
+                    </button>
+                  </motion.div>
+                  :
+                  <div
+                    onClick={() => setIsSearch(true)}
+                    className={` flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-1 py-1`}
+                  >
+                    <div className="text-[14px] font-medium text-[#889FBA]">
+                      UX Designer
+                    </div>
+                    <div className="bg-blue rounded-[50%] h-[38px] w-[38px] flex justify-center items-center">
+                      <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                        <g mask="url(#mask0_8338_107109)">
+                          <path d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z" fill="white" />
+                        </g>
+                      </svg>
+
+                    </div>
+                  </div>
+                }
+
+
+              </motion.div>
+
+            </div>
 
           </>
         )}
@@ -482,7 +579,7 @@ function CandidateHeader() {
           </div>
         )}
       </div>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isSearch &&
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
@@ -587,7 +684,7 @@ function CandidateHeader() {
             </motion.div>
           </>
         }
-      </AnimatePresence>
+      </AnimatePresence> */}
     </>
   );
 }

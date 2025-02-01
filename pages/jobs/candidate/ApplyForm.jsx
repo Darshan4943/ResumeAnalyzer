@@ -33,6 +33,7 @@ function ApplyForm() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [resumeIdd, setResumeIdd] = useState();
   const [selectedItem, setSelectedItem] = useState();
+  
   const [professionalSec, setProfessionalSec] = useState({
     education: "",
     skills: [],

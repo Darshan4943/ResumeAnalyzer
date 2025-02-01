@@ -70,9 +70,9 @@ function Analytics({ jobDetails }) {
     }
   }, [jobDetails]);
   const summaryData = [
-    { label: "Pending", value: jobDetails.data.summary?.totalPending || 0, color: "#FFB836" },
-    { label: "Shortlisted", value: jobDetails.data.summary?.totalShortlisted || 0, color: "#7B61FF" },
-    { label: "Rejected", value: jobDetails.data.summary?.totalRejected || 0, color: "#FF6550" },
+    { label: "Pending", value: jobDetails?.data?.summary?.totalPending || 0, color: "#FFB836" },
+    { label: "Shortlisted", value: jobDetails?.data?.summary?.totalShortlisted || 0, color: "#7B61FF" },
+    { label: "Rejected", value: jobDetails?.data?.summary?.totalRejected || 0, color: "#FF6550" },
   ];
 
   const toggleDropdown = () => {
