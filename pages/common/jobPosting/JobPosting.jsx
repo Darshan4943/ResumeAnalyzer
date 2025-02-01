@@ -283,9 +283,12 @@ function JobPosting() {
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {requisition.positions}
                             </p>
-                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.location}
+                            <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
+                              {Array.isArray(requisition.location)
+                                ? requisition.location.join(", ")
+                                : requisition.location}
                             </p>
+
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                               {!requisition.budgetFrom && !requisition.budgetTo
                                 ? ""
