@@ -20,6 +20,7 @@ function ApplicantDetails({ setTogglee }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false)
 
+
   const getData = async () => {
     try {
       setLoading(true);
@@ -37,7 +38,7 @@ function ApplicantDetails({ setTogglee }) {
         }
       );
 
-      console.log("API Response:", response.data.data);
+     
 
       if (response.data) {
         setJobDetails(response.data.data);
@@ -238,7 +239,7 @@ function ApplicantDetails({ setTogglee }) {
 
                   </div>
                 )}
-                {toggle === "HiringProgress" && <HiringProgress />}
+                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel}/>}
               </div>
             )}
           </div>

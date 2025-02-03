@@ -4,7 +4,7 @@ import ShortlistMail from './ShortlistMail';
 import { CountPostingDays } from '../../../utils/data';
 
 function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange }) {
-    console.log(999, jobDetails);
+    
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [shortlist, setShortlist] = useState([]);
