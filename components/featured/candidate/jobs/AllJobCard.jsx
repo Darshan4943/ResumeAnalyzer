@@ -13,8 +13,7 @@ import NoJobs from "./noJobs";
 
 function AllJobCard({
   totalCount,
-  savedJobList,
-  getAllData,
+ 
   setLimit,
   limit,
 
@@ -22,7 +21,7 @@ function AllJobCard({
   page,
   setPage,
 
-  appliedJobs,
+
   jobData,
 
   miniLoading,

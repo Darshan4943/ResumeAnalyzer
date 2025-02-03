@@ -86,7 +86,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
         borderRadius: "10px",
         overflow: "scroll",
         width: "600px",
-        // height: "800px"
+        minHeight: "700px"
       }}
       >
         {loadingg && (
@@ -260,7 +260,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
             )}
           </div>
           {userDetails && (
-            <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
+            <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white min-h-[800px]">
               <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                 <div className="flex flex-col ">
                   <div
@@ -408,7 +408,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
               )}
               {toggle === "Resume" && (
 
-                <div className=" flex items-center justify-center py-[16px] px-2 resumes2">
+                <div className=" flex items-center justify-center py-[16px] px-2 resumes2 ">
 
                   <PdfViewer
                     pdfUrl={userDetails?.file}
