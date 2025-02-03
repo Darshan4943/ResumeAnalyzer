@@ -35,21 +35,7 @@ function AllJobs({
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const [savedJobList, setSavedJobList] = useState([]);
 
-  const getData = () => {
-    axios
-      .post("http://localhost:2000/api/job/byIds", {
-        ids: userDataGlobal?.savedJobs
-          ?.map((item) => item.id)
-          .filter((item) => item != "undefined"),
-      })
-      .then((res) => {
-        setSavedJobList(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+ 
   useEffect(() => {
     if (userDataGlobal?._id) {
       getData();
@@ -79,8 +65,8 @@ function AllJobs({
                     selectedJob={selectedJob}
                     setIsDescription={setIsDescription}
                     setSelectedJob={setSelectedJob}
-                    savedJobList={savedJobList}
-                    setSavedJobList={setSavedJobList}
+                 
+                   
                     setCurrentPage={setPage}
                     isLogin={isLogin}
                     appliedJobs={appliedJobs}
@@ -101,8 +87,8 @@ function AllJobs({
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
                   setSelectedJob={setSelectedJob}
-                  savedJobList={savedJobList}
-                  setSavedJobList={setSavedJobList}
+                
+                 
                   setCurrentPage={setPage}
                   isLogin={isLogin}
                   appliedJobs={appliedJobs}

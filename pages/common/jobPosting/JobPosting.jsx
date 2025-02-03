@@ -56,12 +56,30 @@ function JobPosting() {
           `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
+
         if (data && Array.isArray(data)) {
-          const departments = data.map((item) => item.jobTitle);
-          const locations = [...new Set(data.map((item) => item.location))];
-          const priorities = data
-            .map((item) => (item.isPriority ? "Yes" : "No"))
-            .filter((value, index, self) => self.indexOf(value) === index);
+          const departments = [
+            ...new Map(
+              data.map((item) => [
+                item.jobTitle.trim().toLowerCase(),
+                item.jobTitle,
+              ])
+            ).values(),
+          ];
+
+          const locations = [
+            ...new Map(
+              data.flatMap((item) =>
+                item.location.map((loc) => [loc.trim().toLowerCase(), loc])
+              )
+            ).values(),
+          ];
+
+          const priorities = [
+            ...new Set(
+              data.map((item) => (item.isPriority ? "Yes" : "No").toLowerCase())
+            ),
+          ].map((priority) => (priority === "yes" ? "Yes" : "No"));
 
           setHeadings((prevHeadings) => [
             {
@@ -209,9 +227,9 @@ function JobPosting() {
 
               <div className=" flex flex-col gap-[16px] ">
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
-                  <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+                  <div className="w-full flex items-center gap-[10px] border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
                     {search.map((headingObj, index) => (
-                      <div className="" key={index}>
+                      <div className="w-full" key={index}>
                         <Select
                           options={headingObj.options.map((option) => ({
                             value: option,
@@ -281,12 +299,30 @@ function JobPosting() {
                               </p>
                             </div>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.positions}
+                              {requisition.positions
+                                ? `${requisition.positions} positions`
+                                : "-"}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
-                              {Array.isArray(requisition.location)
-                                ? requisition.location.join(", ")
-                                : requisition.location}
+                              {requisition.location &&
+                              requisition.location.length > 0 ? (
+                                requisition.location.length > 2 ? (
+                                  <div className="flex flex-col">
+                                    {requisition.location.map((loc, index) => (
+                                      <span key={index}>
+                                        {loc}
+                                        {index !==
+                                          requisition.location.length - 1 &&
+                                          ","}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  requisition.location.join(", ")
+                                )
+                              ) : (
+                                "-"
+                              )}
                             </p>
 
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
@@ -297,10 +333,16 @@ function JobPosting() {
                                   }`}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.requested_by}
+                              {userDataGlobal?.name || "-"}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.hiring_period}
+                              {new Date(
+                                requisition.hiringDate
+                              ).toLocaleDateString("en-GB", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
                             </p>
                             <button
                               onClick={() =>

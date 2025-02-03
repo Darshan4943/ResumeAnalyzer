@@ -7,7 +7,13 @@ import CustomPagination from "../../../../common/CustomPagination";
 import RequisitionPreview from "../../../../../pages/employer/requisitionPreview";
 import { useSelector } from "react-redux";
 
-function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionId, setRequisitionId }) {
+function RequisitionList({
+  filterData,
+  openPreview,
+  setOpenPreview,
+  requisitionId,
+  setRequisitionId,
+}) {
   const router = useRouter();
   const query = router.query;
   const [requisitions, setRequisitions] = useState([]);
@@ -20,7 +26,6 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   useEffect(() => {
     setLoading(true);
     setMiniloading(true);
@@ -63,7 +68,6 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
       setToggle(0);
     }
   }, [router.query]);
-
 
   const labels = [
     "Requisition for",
@@ -125,30 +129,58 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600] flex flex-col gap-[6px]">
                   <div className="text-[#333333] text-center text-[14px] font-[500]">
-                    {requisition.Requestedby}
+                    {userDataGlobal?.name || "-"}
                   </div>
                   <div className="text-[#646464] text-center text-[12px] font-[500]">
-                    {new Date(requisition.createdAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
+                    {new Date(requisition.createdAt).toLocaleDateString(
+                      "en-GB",
+                      {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      }
+                    )}
                   </div>
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.isPriority ? "Priority" : "Not Priority"}{" "}
+                  {requisition.isPriority ? "Yes" : "No"}{" "}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.location}
+                  {requisition.location && requisition.location.length > 0 ? (
+                    requisition.location.length > 2 ? (
+                      <div className="flex flex-col">
+                        {requisition.location.map((loc, index) => (
+                          <span key={index}>
+                            {loc}
+                            {index !== requisition.location.length - 1 && ","}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      requisition.location.join(", ")
+                    )
+                  ) : (
+                    "-" 
+                  )}
+                </div>
+
+                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                  {!requisition.budgetFrom && !requisition.budgetTo ? (
+                    "-"
+                  ) : (
+                    <>
+                      ${requisition.budgetFrom || 0} - $
+                      {requisition.budgetTo || ""}
+                    </>
+                  )}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {(!requisition.budgetFrom && !requisition.budgetTo) ? "" : <>${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""}</>}
+                  {requisition.positions
+                    ? `${requisition.positions} positions`
+                    : "-"}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.positions} positions
-                </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.Status}
+                  {requisition?.status || "-"}
                 </div>
               </div>
             ))}
@@ -165,7 +197,6 @@ function RequisitionList({ filterData, openPreview, setOpenPreview, requisitionI
           page={page}
         />
       </div>
-
     </>
   );
 }

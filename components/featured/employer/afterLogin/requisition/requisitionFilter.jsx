@@ -50,14 +50,22 @@ function RequisitionFilter({ filterData, setFilterData }) {
           `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
-
+ 
         if (data && Array.isArray(data)) {
-          const departments = data.map((item) => item.jobTitle);
-          const locations = [...new Set(data.map((item) => item.location))];
-          const priorities = data
-            .map((item) => (item.isPriority ? "Yes" : "No"))
-            .filter((value, index, self) => self.indexOf(value) === index);
-
+          const departments = [
+            ...new Set(data.map((item) => item.jobTitle.trim().toLowerCase())),
+          ].map((title) => data.find((item) => item.jobTitle.trim().toLowerCase() === title)?.jobTitle);
+  
+         const locations = [
+            ...new Set(
+              data.flatMap((item) => item.location.map((loc) => loc.trim().toLowerCase()))
+            ),
+          ].map((loc) => data.flatMap((item) => item.location).find((l) => l.trim().toLowerCase() === loc));
+  
+          const priorities = [
+            ...new Set(data.map((item) => (item.isPriority ? "Yes" : "No").toLowerCase())),
+          ].map((priority) => (priority === "yes" ? "Yes" : "No"));
+  
           setHeadings((prevHeadings) => [
             {
               ...prevHeadings[0],
@@ -81,11 +89,12 @@ function RequisitionFilter({ filterData, setFilterData }) {
         console.error("Error fetching job attributes:", error);
       }
     };
-
+  
     if (userDataGlobal?._id) {
       fetchAttributes();
     }
   }, [userDataGlobal?._id]);
+  
 
   const handleHeadingChange = (selectedOption, index) => {
     const selectedHeading = headings[index].heading;

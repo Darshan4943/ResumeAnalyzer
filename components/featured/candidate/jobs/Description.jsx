@@ -41,27 +41,6 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   }, []);
 
 
-  // const getData = () => {
-  //   axios
-  //     .get(
-  //       `http://localhost:2000/api/job/getAllAppliedJobs/${userDataGlobal?._id}`
-  //     )
-  //     .then((res) => {
-  //       setAppliedJobs(res.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       setLoading(false);
-  //     });
-  // };
-  // useEffect(() => {
-  //   if (userDataGlobal?._id) {
-  //     getData();
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // }, [userDataGlobal]);
 
 
 

@@ -14,7 +14,10 @@ import { PlusAddLogo } from "../../../utils/svg";
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
   const [successfull, setSuccessfull] = useState(false);
-  const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
+  const [levels, setLevels] = useState([
+    { id: 1, level: "Level 1", name: "", email: "" },
+  ]);
+
   const [showApprovalChain, setShowApprovalChain] = useState(false);
   const [approvalChoice, setApprovalChoice] = useState("no");
   const [loading, setLoading] = useState(false);
@@ -36,14 +39,17 @@ const CreateNewRequisition = ({ setToggle }) => {
     jobType: "",
     comments: "",
     description: "",
+    isApprovalchain: false,
     RequisitionLevel: [
       {
         id: 1,
         name: "",
         email: "",
+        level: "Level 1",
       },
     ],
   });
+
   const handleClear = () => {
     setData({
       jobTitle: "",
@@ -53,11 +59,10 @@ const CreateNewRequisition = ({ setToggle }) => {
       budgetTo: "",
       experience: "",
       requisitionType: "",
-      location: "",
+      location: [],
       department: "",
       hiringDate: "",
       jobType: "",
-      comments: "",
       description: "",
       RequisitionLevel: [
         {
@@ -177,10 +182,11 @@ const CreateNewRequisition = ({ setToggle }) => {
 
   const addLevel = () => {
     const newLevel = {
-      id: data.RequisitionLevel.length + 1,
-      name: "",
-      email: "",
+      id: levels.length + 1,
+      // name: `Level ${levels.length + 1}`,
+      level: `Level ${levels.length + 1}`,
     };
+    setLevels([...levels, newLevel]);
     setData({
       ...data,
       RequisitionLevel: [...data.RequisitionLevel, newLevel],
@@ -189,9 +195,8 @@ const CreateNewRequisition = ({ setToggle }) => {
 
   const deleteLevel = (id) => {
     if (id === 1) return;
-    const updatedLevels = data.RequisitionLevel.filter(
-      (level) => level.id !== id
-    );
+    const updatedLevels = levels.filter((level) => level.id !== id);
+    setLevels(updatedLevels);
     setData({
       ...data,
       RequisitionLevel: updatedLevels,
@@ -201,7 +206,13 @@ const CreateNewRequisition = ({ setToggle }) => {
   const handleApprovalChoice = (value) => {
     setApprovalChoice(value);
     setShowApprovalChain(value === "yes");
+
+    setData((prevData) => ({
+      ...prevData,
+      isApprovalchain: value === "yes",
+    }));
   };
+
   const dateInputRef = useRef(null);
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
@@ -212,7 +223,7 @@ const CreateNewRequisition = ({ setToggle }) => {
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
           <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
             <img
-              onClick={() => setToggle(0)}
+              onClick={router.back}
               className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer"
               src="/images/employer/Icon_left.png"
               alt=""
@@ -488,6 +499,7 @@ const CreateNewRequisition = ({ setToggle }) => {
           </div>
         </div>
       </div>
+
       <div
         className=" ml:w-[40%]  w-[100%] h-[100%] max-h-[80vh]  flex flex-col gap-4 py-2 rounded-[16px]  bg-white"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
@@ -563,7 +575,6 @@ const CreateNewRequisition = ({ setToggle }) => {
                     </div>
                   ))}
                 </div>
-
                 <div className="w-[91.5%] flex flex-col gap-4">
                   {data.RequisitionLevel.map((level, index) => (
                     <div
@@ -571,8 +582,8 @@ const CreateNewRequisition = ({ setToggle }) => {
                       key={level.id}
                     >
                       <div className="flex gap-2 justify-between">
-                        <p>{`Level ${level.id}`}</p>
-                        {level.id !== 1 && (
+                        <p>{level.level}</p>
+                        {index !== 0 && index === levels.length - 1 && (
                           <svg
                             className="delete-level"
                             xmlns="http://www.w3.org/2000/svg"
@@ -643,6 +654,7 @@ const CreateNewRequisition = ({ setToggle }) => {
             </div>
           </div>
         </div>
+
         {successfull && (
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>

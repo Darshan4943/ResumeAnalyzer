@@ -26,7 +26,6 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const ApprovalLevel = [
 
   ]
-  console.log(111, requisition.positions)
   return (
     <div className='bg-[#FFFFFF] max-w-[718px]  min-w-[718px] h-[85vh] overflow-scroll scrollbar-hide rounded-[16px] p-4 pb-6 flex flex-col gap-4'>
       <div className='flex w-full justify-end '>
