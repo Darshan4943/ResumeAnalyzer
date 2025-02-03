@@ -209,9 +209,9 @@ function JobPosting() {
 
               <div className=" flex flex-col gap-[16px] ">
                 <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px]">
-                  <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+                  <div className="w-full flex items-center gap-[10px] border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
                     {search.map((headingObj, index) => (
-                      <div className="" key={index}>
+                      <div className="w-full" key={index}>
                         <Select
                           options={headingObj.options.map((option) => ({
                             value: option,
