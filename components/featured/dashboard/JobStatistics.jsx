@@ -47,7 +47,7 @@ function JobStatistics({ setSelected, selected, data }) {
               Job statistics
             </p>
             <p className="text-[#646464] lg:text-[12px] text-[10px] font-medium">
-              Showing Job statistics Nov 19-25
+              Showing Job statistics {data.dateRange}
             </p>
           </div>
           <div className="flex items-end lg:gap-[6px] gap-1">

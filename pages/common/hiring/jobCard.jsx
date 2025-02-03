@@ -95,14 +95,14 @@ const JobCard = ({ filters, setFilters }) => {
               />
             </div>
           ) : (
-            <div className="grid md:grid-cols-12 grid-clos-6 gap-6 ">
+            <div className=" flex flex-wrap justify-center md:justify-start  gap-5">
               {data?.map((job, index) => (
                 <div
                   key={index}
                   onClick={() =>
                     router.push(`/common/hiring/JobPost?id=${job._id}`)
                   }
-                  className="flex min-w-[365px] py-[16px] px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
+                  className="flex w-full scr360:w-[340px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div className="flex justify-between w-[100%]">
                     <div className="flex justify-between gap-[20px] ">
