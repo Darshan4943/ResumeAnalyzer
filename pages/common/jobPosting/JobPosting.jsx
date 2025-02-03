@@ -56,12 +56,30 @@ function JobPosting() {
           `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
+
         if (data && Array.isArray(data)) {
-          const departments = data.map((item) => item.jobTitle);
-          const locations = [...new Set(data.map((item) => item.location))];
-          const priorities = data
-            .map((item) => (item.isPriority ? "Yes" : "No"))
-            .filter((value, index, self) => self.indexOf(value) === index);
+          const departments = [
+            ...new Map(
+              data.map((item) => [
+                item.jobTitle.trim().toLowerCase(),
+                item.jobTitle,
+              ])
+            ).values(),
+          ];
+
+          const locations = [
+            ...new Map(
+              data.flatMap((item) =>
+                item.location.map((loc) => [loc.trim().toLowerCase(), loc])
+              )
+            ).values(),
+          ];
+
+          const priorities = [
+            ...new Set(
+              data.map((item) => (item.isPriority ? "Yes" : "No").toLowerCase())
+            ),
+          ].map((priority) => (priority === "yes" ? "Yes" : "No"));
 
           setHeadings((prevHeadings) => [
             {
