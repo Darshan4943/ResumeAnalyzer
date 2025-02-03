@@ -284,9 +284,19 @@ function JobPosting() {
                               {requisition.positions}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
-                              {Array.isArray(requisition.location)
-                                ? requisition.location.join(", ")
-                                : requisition.location}
+                              {requisition.location?.length > 2 ? (
+                                <div className="flex flex-col">
+                                  {requisition.location.map((loc, index) => (
+                                    <span key={index}>
+                                      {loc}
+                                      {index !==
+                                        requisition.location.length - 1 && ","}
+                                    </span>
+                                  ))}
+                                </div>
+                              ) : (
+                                requisition.location?.join(", ")
+                              )}
                             </p>
 
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">

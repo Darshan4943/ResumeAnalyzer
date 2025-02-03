@@ -24,7 +24,6 @@ function Requisition() {
     }
   }, [router.query]);
 
-
   const toggleContent = () => {
     const CreateNewRequisition = toggle ? "" : "CreateNewRequisition";
     router.push(`Requisition/?content=${CreateNewRequisition}`);
@@ -77,130 +76,7 @@ function Requisition() {
     "Status",
   ];
 
-  const requisition = [
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-    {
-      tittle1: "Assistant Manager",
-      tittle2: "Customer Support",
-      Requestedby: "Customer",
-      date: "on 4 Dec, 2023",
-      Priority: "Yes",
-      Location: "Mumbai",
-      Budget: "Not Available",
-      OpenPosition: "1 Position",
-      Status: "Pending",
-    },
-  ];
+  const requisition = [];
 
   return (
     <div className="">
@@ -388,7 +264,9 @@ function Requisition() {
               All Requisition Requests
               <button
                 // onClick={toggleContent}
-                onClick={() => router.push("/employer/requisition/CreateNewRequisition")}
+                onClick={() =>
+                  router.push("/employer/requisition/CreateNewRequisition")
+                }
                 className="px-[36px] py-[12px] bg-[#06A9EF] text-[#FFFFFF] text-[14px] font-[600] rounded-[36px] flex gap-[2px] items-center"
               >
                 <svg
@@ -420,15 +298,17 @@ function Requisition() {
               requisitionId={requisitionId}
               setRequisitionId={setRequisitionId}
             />
-            {openPreview &&
+            {openPreview && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                  < RequisitionPreview setOpenPreview={setOpenPreview} requisitionId={requisitionId} />
+                  <RequisitionPreview
+                    setOpenPreview={setOpenPreview}
+                    requisitionId={requisitionId}
+                  />
                 </div>
               </>
-
-            }
+            )}
           </div>
         </>
       )}
