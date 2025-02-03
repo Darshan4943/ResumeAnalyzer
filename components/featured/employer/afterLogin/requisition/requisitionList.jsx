@@ -26,7 +26,6 @@ function RequisitionList({
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   useEffect(() => {
     setLoading(true);
     setMiniloading(true);
@@ -130,7 +129,7 @@ function RequisitionList({
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600] flex flex-col gap-[6px]">
                   <div className="text-[#333333] text-center text-[14px] font-[500]">
-                    {requisition.Requestedby}
+                    {userDataGlobal?.name || "-"}
                   </div>
                   <div className="text-[#646464] text-center text-[12px] font-[500]">
                     {new Date(requisition.createdAt).toLocaleDateString(
@@ -144,26 +143,30 @@ function RequisitionList({
                   </div>
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.isPriority ? "Priority" : "Not Priority"}{" "}
+                  {requisition.isPriority ? "Yes" : "No"}{" "}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.location?.length > 2 ? (
-                    <div className="flex flex-col">
-                      {requisition.location.map((loc, index) => (
-                        <span key={index}>
-                          {loc}
-                          {index !== requisition.location.length - 1 && ","}
-                        </span>
-                      ))}
-                    </div>
+                  {requisition.location && requisition.location.length > 0 ? (
+                    requisition.location.length > 2 ? (
+                      <div className="flex flex-col">
+                        {requisition.location.map((loc, index) => (
+                          <span key={index}>
+                            {loc}
+                            {index !== requisition.location.length - 1 && ","}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      requisition.location.join(", ")
+                    )
                   ) : (
-                    requisition.location?.join(", ")
+                    "-" 
                   )}
                 </div>
 
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
                   {!requisition.budgetFrom && !requisition.budgetTo ? (
-                    ""
+                    "-"
                   ) : (
                     <>
                       ${requisition.budgetFrom || 0} - $
@@ -172,10 +175,12 @@ function RequisitionList({
                   )}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.positions} positions
+                  {requisition.positions
+                    ? `${requisition.positions} positions`
+                    : "-"}
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition.Status}
+                  {requisition?.status || "-"}
                 </div>
               </div>
             ))}

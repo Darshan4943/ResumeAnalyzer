@@ -36,6 +36,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     jobType: "",
     comments: "",
     description: "",
+    isApprovalchain: false,
     RequisitionLevel: [
       {
         id: 1,
@@ -44,6 +45,7 @@ const CreateNewRequisition = ({ setToggle }) => {
       },
     ],
   });
+
   const handleClear = () => {
     setData({
       jobTitle: "",
@@ -57,7 +59,6 @@ const CreateNewRequisition = ({ setToggle }) => {
       department: "",
       hiringDate: "",
       jobType: "",
-      comments: "",
       description: "",
       RequisitionLevel: [
         {
@@ -201,7 +202,13 @@ const CreateNewRequisition = ({ setToggle }) => {
   const handleApprovalChoice = (value) => {
     setApprovalChoice(value);
     setShowApprovalChain(value === "yes");
+
+    setData((prevData) => ({
+      ...prevData,
+      isApprovalchain: value === "yes",
+    }));
   };
+
   const dateInputRef = useRef(null);
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
@@ -212,7 +219,7 @@ const CreateNewRequisition = ({ setToggle }) => {
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
           <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
             <img
-              onClick={() => setToggle(0)}
+              onClick={router.back}
               className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer"
               src="/images/employer/Icon_left.png"
               alt=""

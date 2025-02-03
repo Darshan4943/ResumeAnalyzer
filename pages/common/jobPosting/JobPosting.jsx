@@ -281,21 +281,29 @@ function JobPosting() {
                               </p>
                             </div>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.positions}
+                              {requisition.positions
+                                ? `${requisition.positions} positions`
+                                : "-"}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
-                              {requisition.location?.length > 2 ? (
-                                <div className="flex flex-col">
-                                  {requisition.location.map((loc, index) => (
-                                    <span key={index}>
-                                      {loc}
-                                      {index !==
-                                        requisition.location.length - 1 && ","}
-                                    </span>
-                                  ))}
-                                </div>
+                              {requisition.location &&
+                              requisition.location.length > 0 ? (
+                                requisition.location.length > 2 ? (
+                                  <div className="flex flex-col">
+                                    {requisition.location.map((loc, index) => (
+                                      <span key={index}>
+                                        {loc}
+                                        {index !==
+                                          requisition.location.length - 1 &&
+                                          ","}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  requisition.location.join(", ")
+                                )
                               ) : (
-                                requisition.location?.join(", ")
+                                "-"
                               )}
                             </p>
 
@@ -307,10 +315,16 @@ function JobPosting() {
                                   }`}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.requested_by}
+                              {userDataGlobal?.name || "-"}
                             </p>
                             <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
-                              {requisition.hiring_period}
+                              {new Date(
+                                requisition.hiringDate
+                              ).toLocaleDateString("en-GB", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
                             </p>
                             <button
                               onClick={() =>
