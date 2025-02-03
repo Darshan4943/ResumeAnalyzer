@@ -132,7 +132,6 @@ const JobPrefrenceModal = ({ setEditView }) => {
       .then((res) => {
         console.log(68, data);
         if (res) {
-          console.log(111, res);
           toast.success("Updated Job preferances successfully");
           dispatch(fetchUserData());
           setEditView(false)

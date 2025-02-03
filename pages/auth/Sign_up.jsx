@@ -48,7 +48,6 @@ function Sign_up({ }) {
   useEffect(() => {
     const parsedResume = JSON.parse(localStorage.getItem("parsedResume"));
     setParseData(parsedResume)
-    console.log(111, parsedResume)
   }, []);
   const [data, setData] = useState({
     firstName: "",
