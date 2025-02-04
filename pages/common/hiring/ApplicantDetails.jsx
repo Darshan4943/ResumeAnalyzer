@@ -239,7 +239,7 @@ function ApplicantDetails({ setTogglee }) {
 
                   </div>
                 )}
-                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel}/>}
+                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel} jobDetails={jobDetails}/>}
               </div>
             )}
           </div>

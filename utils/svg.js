@@ -552,48 +552,62 @@ export const PNGICON1 = () => (
 
 export const UpSvg = () => (
   <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g clip-path="url(#clip0_6706_94625)">
-  <path d="M15.8672 13L10.8672 8L5.86719 13H15.8672Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  <defs>
-  <clipPath id="clip0_6706_94625">
-  <rect width="20" height="20" fill="white" transform="translate(0.867188 0.5)"/>
-  </clipPath>
-  </defs>
+    <g clip-path="url(#clip0_6706_94625)">
+      <path d="M15.8672 13L10.8672 8L5.86719 13H15.8672Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_94625">
+        <rect width="20" height="20" fill="white" transform="translate(0.867188 0.5)" />
+      </clipPath>
+    </defs>
   </svg>
-  
+
 )
 export const DownSvg = () => (
   <svg
-                          
-  width="21"
-  height="21"
-  viewBox="0 0 21 21"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <g clipPath="url(#clip0_6706_94637)">
-    <path
-      d="M5.86719 8L10.8672 13L15.8672 8L5.86719 8Z"
-      fill="#000000"
-      stroke="#000000"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </g>
-  <defs>
-    <clipPath id="clip0_6706_94637">
-      <rect
-        width="20"
-        height="20"
-        fill="white"
-        transform="matrix(-1 0 0 -1 20.8672 20.5)"
+
+    width="21"
+    height="21"
+    viewBox="0 0 21 21"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clipPath="url(#clip0_6706_94637)">
+      <path
+        d="M5.86719 8L10.8672 13L15.8672 8L5.86719 8Z"
+        fill="#000000"
+        stroke="#000000"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-    </clipPath>
-  </defs>
-</svg>
-  
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_94637">
+        <rect
+          width="20"
+          height="20"
+          fill="white"
+          transform="matrix(-1 0 0 -1 20.8672 20.5)"
+        />
+      </clipPath>
+    </defs>
+  </svg>
+
+)
+export const DummyProfileSvg = () => (
+  <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8424_107234)">
+      <rect x="0.5" width="40" height="40" rx="3.63636" fill="#EDEDED" />
+      <path d="M36.8629 41.2478V42.7226C32.2667 46.4226 26.4158 48.6385 20.0445 48.6385C13.6737 48.6385 7.82211 46.4226 3.22656 42.7238V41.2478C3.22656 33.2801 9.71438 26.8203 17.7174 26.8203H22.3721C30.3751 26.8203 36.8629 33.2801 36.8629 41.2478Z" fill="#AEB6BA" />
+      <path d="M20.0426 22.2727C24.8123 22.2727 28.679 18.4061 28.679 13.6364C28.679 8.86663 24.8123 5 20.0426 5C15.2729 5 11.4062 8.86663 11.4062 13.6364C11.4062 18.4061 15.2729 22.2727 20.0426 22.2727Z" fill="#AEB6BA" />
+    </g>
+    <defs>
+      <clipPath id="clip0_8424_107234">
+        <rect x="0.5" width="40" height="40" rx="20" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
 )
 export const ServiceCross = () => (
   <svg

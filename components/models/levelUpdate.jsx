@@ -1,21 +1,69 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { motion, AnimatePresence } from 'framer-motion';
 import ScheduleTask from './ScheduleTask';
 import ScheduleInterview from './ScheduleInterview';
+import { DummyProfileSvg } from '../../utils/svg';
+import axios from 'axios';
 
 
-function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
+function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selectedLevel, setSelectedLevel,jobDetails }) {
+    console.log(jobDetails);
+
     const [isNextLevel, setIsNextLevel] = useState("nextLevel")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
     const [showAssignTask, setShowAssignTask] = useState(false);
+    const [levelData, setLevelData] = useState([]);
+    const handleStarClick = (starIndex) => {
+        setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
+    };
+    const [selectedValues, setSelectedValues] = useState({  });
+
+    
+
+    const submitDetails = async () => {
+        try {
+            const response = await axios.put(`http://localhost:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.applicantId}`, {
+                selectedValues: {
+                    assignTo: selectedValues.assignTo,
+                    duration: selectedValues.duration,
+                    interviewDate: selectedValues.interviewDate,
+                    interviewLocation: selectedValues.interviewLocation,
+                    isInterview: selectedValues.isInterview,
+                    isOnline: selectedValues.isOnline,
+                    meetingLink: selectedValues.meetingLink,
+                    startAmPm: selectedValues.startAmPm,
+                    startTime: selectedValues.startTime,
+                    status: selectedValues.status,
+                    title: selectedValues.title,
+                },
+                selectedLevel: {
+                    level: selectedLevel.level,
+                    status: selectedLevel.status,
+                    score: selectedLevel.score,
+                    comment: selectedLevel.comment,
+                }
+            });
+    
+            if (response.data.success) {
+                console.log('Details updated successfully');
+            }
+        } catch (error) {
+            console.error('Error updating application details:', error);
+        }
+    };
+    
+  
 
 
+   
     const handleRadioChange = (value) => {
         if (value === 'scheduleInterview') {
             setShowScheduleInterview(true);
+            setSelectedValues({...selectedValues,isInterview:true})
         } else {
+            setSelectedValues({...selectedValues,isTask:true})
             setShowAssignTask(true);
         }
     };
@@ -23,40 +71,10 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
         setIsNextLevel(value)
     };
 
-    const renderStars = () => {
-        const rating = 4
-        const fullStarsCount = Math.floor(rating);
-        const remainingStars = 5 - fullStarsCount;
 
 
-        const starImages = [];
 
-
-        for (let i = 0; i < fullStarsCount; i++) {
-            starImages.push(
-                <img
-                    key={`star_${i}`}
-                    src="/images/employer/Star.png"
-                    alt=""
-                    className="h-[30px] w-[30px]"
-                />
-            );
-        }
-
-        for (let j = 0; j < remainingStars; j++) {
-            starImages.push(
-                <img
-                    key={`empty_star_${j}`}
-                    src="/images/employer/Star1.png"
-                    alt=""
-                    className="h-[30px] w-[30px]"
-                />
-            );
-        }
-
-        return starImages;
-    };
-    const [levelData, setLevelData] = useState([]);
+ 
 
 
 
@@ -71,7 +89,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
         setSelectedValues({
             status: "",
             date: "",
-            levelTitle: "",
+            title: "",
 
 
 
@@ -83,11 +101,6 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
         closeTaskPopup()
     };
 
-    const [selectedValues, setSelectedValues] = useState({
-        status: "",
-        date: "",
-        levelTitle: "",
-    });
 
 
     const handleStatusChange = (value) => {
@@ -99,7 +112,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
     };
 
     const handleLevelTitleChange = (e) => {
-        setSelectedValues((prevValues) => ({ ...prevValues, levelTitle: e.target.value }));
+        setSelectedValues((prevValues) => ({ ...prevValues, title: e.target.value }));
     };
 
 
@@ -107,10 +120,11 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
     return (
         <div className='sm:p-6 p-2 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='flex gap-4 justify-between items-center  '>
-                <p className='text-[16px] font-medium min-w-[80px]'>Level 1</p>
+                <p className='text-[16px] font-medium min-w-[80px]'>Level {selectedLevel?.level}</p>
                 <div className='h-[1px] w-full bg-[#D6DDEB]'></div>
             </div>
-            <p className='text-[18px] font-semibold'>Technical Round-II</p>
+            <p className='text-[18px] font-semibold'>{selectedLevel?.title}</p>
+            {/* {selectedLevel?.level !==1 && */}
             <div className='flex ms:flex-row flex-col gap-4 justify-between'>
                 <div className='flex flex-col gap-4'>
                     <div>
@@ -120,12 +134,13 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
 
                     <select
                         className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px]  font-[400]"
-                        value={selectedValues.status}
+                        value={selectedValues?.status}
                         onChange={(e) => handleStatusChange(e.target.value)}
                     >
                         <option value="" disabled selected>Select </option>
-                        <option value="product_manager">In Progress</option>
-                        <option value="developer">Conducted</option>
+                        <option value="Pending">In Progress</option>
+                        <option value="Conducted">Conducted</option>
+                        <option value="Cancelled">Cancelled</option>
 
                     </select>
                 </div>
@@ -134,56 +149,68 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
                         <p className='text-[20px] font-medium'>Interview Date</p>
                         <p className='text-[12px] font-normal'>Select date of Interview conducted</p>
                     </div>
-                    <input
-                        type="date"
-                        placeholder='Select Date'
-                        class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                        value={selectedValues.date}
-                        onChange={(e) => handleDateChange(e)}
-                    />
+                    <div>{selectedLevel?.interviewDate}</div>
 
                 </div>
 
             </div>
+            {/* } */}
+            {/* {selectedLevel?.level !== 1 && */}
             <div className='flex ms:flex-row flex-col gap-4 justify-between'>
-                <div className='flex flex-col gap-2'>
+                {selectedLevel?.assignTo?.length > 0 &&
+                    < div className='flex flex-col gap-2'>
 
-                    <p className='text-[20px] font-medium'>Conducted By</p>
-                    <div className='flex gap-2'>
-                        <img src="/images/employer/profileNew.png" alt="" className="h-[40px] w-[40px]" />
-                        <div>
-                            <p className='text-[14px] font-medium'>Kathryn Murphy</p>
-                            <p className='text-[12px] font-normal text-[#646464]'>Manager</p>
+                        <p className='text-[20px] font-medium'>Conducted By</p>
+                        <div className='flex  gap-2 flex-wrap'>
+                            {selectedLevel?.assignTo?.map((person, index) => (
+                                <div key={index} className='flex gap-2'>
+                                    <DummyProfileSvg />
+                                    <div>
+                                        <p className='text-[14px] font-medium'>{person.name}</p>
+                                        <p className='text-[12px] font-normal text-[#646464]'>{person.role}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-
                     </div>
-
-                </div>
+                }
                 <div className='flex flex-col gap-2'>
                     <div>
                         <p className='text-[20px] font-medium'>Interview Score</p>
                         <p className='text-[12px] font-normal'>rate candidate from scale of 1 to 5</p>
                     </div>
                     <div style={{ display: 'flex' }}>
-                        {renderStars().map((star, index) => (
-                            <React.Fragment key={index}>{star}</React.Fragment>
+                        {[...Array(5)].map((_, index) => (
+                            <img
+                                key={index}
+                                src={
+                                    index < selectedLevel?.score
+                                        ? "/images/services/Star.png"
+                                        : "/images/services/Star1.png"
+                                }
+                                alt=""
+                                className="h-[30px] w-[30px] cursor-pointer"
+                                onClick={() => handleStarClick(index)}
+                            />
                         ))}
                     </div>
 
                 </div>
 
             </div>
+            {/* } */}
             <div className='flex flex-col w-full gap-2'>
                 <p className='text-[20px] font-medium'>Add Comment</p>
                 <div>
                     {/* <TextEditor /> */}
                     <input
-                        type="input"
-                        placeholder='Add Comment'
-                        class=" px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                        value=""
-
+                        type="text"
+                        placeholder="Add Comment"
+                        className="px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                        value={selectedLevel?.comment || ""} 
+                        onChange={(e) => setSelectedLevel({ ...selectedLevel, comment: e.target.value })} 
                     />
+
                 </div>
             </div>
             <div className='h-[1px] bg-[#D6DDEB]'></div>
@@ -233,7 +260,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
                                 type="text"
                                 placeholder="Eg: Technical Round-I"
                                 className="px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px]  font-[400]"
-                                value={selectedValues.levelTitle}
+                                value={selectedValues.title}
                                 onChange={(e) => handleLevelTitleChange(e)}
                             />
 
@@ -289,7 +316,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
                             // ref={taskRef}
                             className='absolute z-[2500] right-0 w-[100%] top-[0]'
                         >
-                            <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} />
+                            <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} />
                         </motion.div>
                     </div>
                 )}
@@ -315,7 +342,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull }) {
             </AnimatePresence>
 
 
-        </div>
+        </div >
     )
 }
 

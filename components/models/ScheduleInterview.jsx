@@ -1,22 +1,119 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
-function ScheduleInterview({ setShowScheduleInterview, setSuccessfull }) {
-    const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }]);
+function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues }) {
+    console.log(selectedValues);
+    const [levels, setLevels] = useState([
+
+    ]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
+    const router = useRouter()
+
+    const handleInputChangee = (field, value) => {
+        if (field === 'meetingLink') {
+           
+            setSelectedValues({
+                ...selectedValues,
+                meetingLink: value,
+                interviewLocation:""
+                
+            });
+            
+           
+        } else if (field === 'interviewLocation') {
+       
+            setSelectedValues({
+                ...selectedValues,
+                interviewLocation: value,
+                meetingLink:""
+            });
+           
+        }
+    };
+    const handleChange = (event) => {
+        const value = event.target.value === "yes";
+
+        setSelectedValues((prev) => ({ ...prev, isOnline: value }));
+    };
+
+    const handleDateChange = (e) => {
+        const { value } = e.target;
+
+        // Update the selectedValues state with the new interview date
+        setSelectedValues(prevState => ({
+            ...prevState,
+            interviewDate: value // Add the selected date to interviewDate
+        }));
+    };
+
+    const handleStartTimeChange = (e) => {
+        const { value } = e.target;
+
+        // Update the selectedValues state with the new start time
+        setSelectedValues(prevState => ({
+            ...prevState,
+            startTime: value // Add the selected start time to startTime
+        }));
+    };
+
+    const handleAmPmChange = (amPm) => {
+        // Update the selectedValues state with the new AM/PM selection
+        setSelectedValues(prevState => ({
+            ...prevState,
+            startAmPm: amPm
+        }));
+    };
+
 
     const addLevel = () => {
-        const newLevel = { id: levels.length + 1, name: `Interviewer ${levels.length + 1}` };
+        const newLevel = {
+            id: levels.length + 1,
+            name: `Interviewer ${levels.length + 1}`,
+            assignTo: [{ name: '', role: '', email: '' }],
+        };
         setLevels([...levels, newLevel]);
     };
 
+    // Delete a level
     const deleteLevel = (id) => {
-        if (id === 1) return;
+        if (id === 1) return; // Prevent deletion of the first level
+
         const updatedLevels = levels.filter((level) => level.id !== id);
         setLevels(updatedLevels);
+
+        // Remove the corresponding assignTo data in selectedValues
+        const updatedAssignTo = selectedValues.assignTo.filter((_, index) => index !== id - 1);
+        setSelectedValues(prevState => ({
+            ...prevState,
+            assignTo: updatedAssignTo // Update the assignTo field by removing the deleted level's assignTo data
+        }));
+    }
+
+    // Handle changes in the input fields
+    const handleInputChange = (id, field, value) => {
+        const updatedLevels = levels.map(level => {
+            if (level.id === id) {
+                level.assignTo[0][field] = value; // Update the specific field for the selected level
+            }
+            return level;
+        });
+
+        setLevels(updatedLevels);
+
+        // Now update selectedValues with the latest assignTo data
+        const updatedSelectedValues = levels.map(level => ({
+            name: level.assignTo[0].name,
+            role: level.assignTo[0].role,
+            email: level.assignTo[0].email,
+        }));
+
+        setSelectedValues(prevState => ({
+            ...prevState,
+            assignTo: updatedSelectedValues // Update only the assignTo field of selectedValues
+        }));
     };
-    const router = useRouter()
+
 
     const [toggle, setToggle] = useState("ApplicantProfile")
     const [activeOption, setActiveOption] = useState('Candidate');
@@ -34,22 +131,25 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull }) {
                 <div className="flex gap-[8px] items-center">
                     <input
                         type="radio"
-                        name="approvalChoice"
+                        name="isOnline"
                         value="yes"
                         className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                        // onChange={(e) => handleApprovalChoice(e.target.value)}
-                        checked
+                        checked={selectedValues?.isOnline === true}
+                        onChange={handleChange}
                     />
                     <label className="text-[14px] font-medium">Online</label>
+
                     <input
                         type="radio"
-                        name="approvalChoice"
+                        name="isOnline"
                         value="no"
                         className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                    // onChange={(e) => handleApprovalChoice(e.target.value)}
+                        checked={selectedValues?.isOnline === false}
+                        onChange={handleChange}
                     />
                     <label className="text-[14px] font-medium">Offline</label>
                 </div>
+
             </div>
             <div className='flex flex-col gap-4'>
                 <p className='text-[20px] font-medium'>Assigned to</p>
@@ -101,13 +201,24 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull }) {
                                 </div>
                                 <input
                                     type="text"
-                                    placeholder="Role / Employee"
-                                    className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px]  font-[400]"
+                                    placeholder="Employee Name"
+                                    className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
+                                    value={level.assignTo[0].name}
+                                    onChange={(e) => handleInputChange(level.id, 'name', e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Employee Role"
+                                    className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
+                                    value={level.assignTo[0].role}
+                                    onChange={(e) => handleInputChange(level.id, 'role', e.target.value)}
                                 />
                                 <input
                                     type="text"
                                     placeholder="Enter Email"
-                                    className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px]  font-[400]"
+                                    className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
+                                    value={level.assignTo[0].email}
+                                    onChange={(e) => handleInputChange(level.id, 'email', e.target.value)}
                                 />
                             </div>
                         ))}
@@ -124,55 +235,92 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull }) {
                         <input
                             type="date"
                             placeholder='Select Date'
-                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                            value={selectedValues?.interviewDate}  // Bind input value to selectedValues.interviewDate
+                            onChange={handleDateChange}  // Handle input change
                         />
                     </div>
-                    <div className='flex flex-col gap-4  xl:w-[33%] w-[60%] min-w-[250px]'>
+                    <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
                         <p className='text-[20px] font-medium'>Start Time</p>
-                        <div className='flex  gap-4'>
+                        <div className='flex gap-4'>
                             <select
-                                className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px]  font-[400]"
-                                value=""
+                                className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                value={selectedValues.startTime}
+                                onChange={handleStartTimeChange}
                             >
-                                <option value="" disabled selected>Select </option>
-                                <option value="product_manager">In Progress</option>
-                                <option value="developer">Conducted</option>
+                                <option value="" disabled>Select</option>
+                                {/* Populate the options from 1 to 12 */}
+                                {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
+                                    <option key={hour} value={hour}>
+                                        {hour}
+                                    </option>
+                                ))}
                             </select>
-                            <div className=" flex gap-2 h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]">
-                                <p className='text-[14px] font-medium'>AM</p>
-                                <p className='text-[14px] font-medium'>PM</p>
+
+                            <div className="flex gap-2   text-[14px] font-[400]">
+                                <button
+                                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${selectedValues.startAmPm === 'AM' ? ' bg-blue text-white' : ''}`}
+                                    onClick={() => handleAmPmChange('AM')}
+                                >
+                                    AM
+                                </button>
+                                <button
+                                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${selectedValues.startAmPm === 'PM' ? 'text-white bg-blue' : ''}`}
+                                    onClick={() => handleAmPmChange('PM')}
+                                >
+                                    PM
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div className='flex flex-col gap-4  xl:w-[33%] w-[60%] min-w-[250px]'>
+                    <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
                         <p className='text-[20px] font-medium'>Duration</p>
                         <select
-                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px]  font-[400]"
-                            value=""
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400] max-h-[100px] overflow-y-scroll"
+                            value={selectedValues.duration}  // Bind the selected value to state
+                            onChange={(e) => setSelectedValues({ ...selectedValues, duration: e.target.value })}  // Update the state when value changes
                         >
-                            <option value="" disabled selected>Select </option>
-                            <option value="product_manager">In Progress</option>
-                            <option value="developer">Conducted</option>
+                            <option value="" disabled>Select</option>
+                            {/* Generate the options for durations */}
+                            {[
+                                "30 min", "45 min", "1 hr", "1 hr 30 min", "2 hr", "2 hr 30 min",
+                                "3 hr", "3 hr 30 min", "4 hr", "4 hr 30 min", "5 hr", "5 hr 30 min",
+                                "6 hr", "6 hr 30 min", "7 hr", "7 hr 30 min", "8 hr", "8 hr 30 min",
+                                "9 hr", "9 hr 30 min", "10 hr"
+                            ].map((duration, index) => (
+                                <option key={index} value={duration}>
+                                    {duration}
+                                </option>
+                            ))}
                         </select>
                     </div>
+                   
                 </div>
-                <div className='flex flex-col gap-4  w-[45%]'>
-                    <p className='text-[20px] font-medium'>Select platform</p>
-                    {/* <div className="  min-w-[300px] flex gap-2 justify-between px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
-                        value="">
-                        <div className=' text-white bg-[#06A9EF] rounded-[8px] border border-[#06A9EF] min-w-[127px] p-2'>
-                            Teams Meeting
+                {selectedValues?.isOnline ? (
+                        <div className='flex flex-col gap-2'>
+                            <label className="text-[14px] font-medium">Meeting Link</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Meeting Link"
+                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                value={selectedValues?.meetingLink}
+                                onChange={(e) => handleInputChangee('meetingLink', e.target.value)}
+                            />
                         </div>
-                        <div className='  p-2 rounded-[8px]  border border-[#06A9EF]   min-w-[127px] '>
-                            Teams Meeting
+                    ) : (
+                        <div className='flex flex-col gap-2'>
+                            <label className="text-[14px] font-medium">Add Interview Location</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Location"
+                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                value={selectedValues?.interviewLocation}
+                                onChange={(e) => handleInputChangee('interviewLocation', e.target.value)}
+                            />
                         </div>
-                    </div> */}
-                    <div className='flex gap-2'>
-                        <button className='bg-[#06A9EF] text-[#FFFFFF] rounded-[30px] px-4 py-[6px] text-[14px] font-[600]'>Teams Meeting</button>
-                        <button className='bg-[#FFFFFF] text-[#06A9EF] rounded-[30px] px-4 py-[6px] text-[14px] font-[600] border-[1px] border-solid border-[#06A9EF]'>Zoom Meeting</button>
-                    </div>
-                </div>
+                    )}
+
+
                 <div className='flex flex-col  gap-4  sm:px-[16px] px-2 py-[16px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] '>
                     <div>
                         <div className='flex justify-between sm:text-[16px] text-[12px] font-semibold'>
