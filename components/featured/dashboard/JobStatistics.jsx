@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import StackedBarChart from '../../common/StackedBarChart';
-import CountUp from 'react-countup';
+import React, { useEffect, useState } from "react";
+import StackedBarChart from "../../common/StackedBarChart";
+import CountUp from "react-countup";
 
 function JobStatistics({ setSelected, selected, data }) {
-
-
   const calculatePercentageChange = (analytics) => {
     if (analytics?.length >= 2) {
       const lastValue = analytics[analytics.length - 1];
@@ -14,8 +12,8 @@ function JobStatistics({ setSelected, selected, data }) {
         secondLastValue !== 0
           ? ((lastValue - secondLastValue) / secondLastValue) * 100
           : lastValue !== 0
-            ? 100
-            : 0;
+          ? 100
+          : 0;
 
       return percentageChange.toFixed(2);
     }
@@ -24,7 +22,6 @@ function JobStatistics({ setSelected, selected, data }) {
 
   const applicantChange = calculatePercentageChange(data?.applicantAnalytics);
   const viewsChange = calculatePercentageChange(data?.viewsAnalytics);
-
 
   return (
     <div
@@ -47,28 +44,66 @@ function JobStatistics({ setSelected, selected, data }) {
               Job statistics
             </p>
             <p className="text-[#646464] lg:text-[12px] text-[10px] font-medium">
-              Showing Job statistics {data.dateRange}
+              Showing Job statistics{" "}
+              {selected === "Monthly"
+                ? `Start: ${new Date(data?.dateRange?.start).toLocaleDateString(
+                    "en-GB",
+                    {
+                      year: "numeric",
+                      month: "short",
+                    }
+                  )}, End: ${new Date(data?.dateRange?.end).toLocaleDateString(
+                    "en-GB",
+                    {
+                      year: "numeric",
+                      month: "short",
+                    }
+                  )}`
+                : `Start: ${new Date(data?.dateRange?.start).toLocaleDateString(
+                    "en-GB",
+                    {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    }
+                  )}, End: ${new Date(data?.dateRange?.end).toLocaleDateString(
+                    "en-GB",
+                    {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    }
+                  )}`}
             </p>
           </div>
           <div className="flex items-end lg:gap-[6px] gap-1">
             <button
               onClick={() => setSelected("Daily")}
-              className={`px-2 p-1 border-[0.5px] border-solid ${selected === "Daily" ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]" : "border-[#DEDEDE] text-[#333333]"
-                } rounded-[6px] text-[12px] font-[500]`}
+              className={`px-2 p-1 border-[0.5px] border-solid ${
+                selected === "Daily"
+                  ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]"
+                  : "border-[#DEDEDE] text-[#333333]"
+              } rounded-[6px] text-[12px] font-[500]`}
             >
               Daily
             </button>
             <button
               onClick={() => setSelected("Weekly")}
-              className={`px-2 p-1 border-[0.5px] border-solid ${selected === "Weekly" ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]" : "border-[#DEDEDE] text-[#333333]"
-                } rounded-[6px] text-[12px] font-[500]`}
+              className={`px-2 p-1 border-[0.5px] border-solid ${
+                selected === "Weekly"
+                  ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]"
+                  : "border-[#DEDEDE] text-[#333333]"
+              } rounded-[6px] text-[12px] font-[500]`}
             >
               Weekly
             </button>
             <button
               onClick={() => setSelected("Monthly")}
-              className={`px-2 p-1 border-[0.5px] border-solid ${selected === "Monthly" ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]" : "border-[#DEDEDE] text-[#333333]"
-                } rounded-[6px] text-[12px] font-[500]`}
+              className={`px-2 p-1 border-[0.5px] border-solid ${
+                selected === "Monthly"
+                  ? "border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF]"
+                  : "border-[#DEDEDE] text-[#333333]"
+              } rounded-[6px] text-[12px] font-[500]`}
             >
               Monthly
             </button>
@@ -110,19 +145,29 @@ function JobStatistics({ setSelected, selected, data }) {
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-[#646464] text-[12px] ml:text-[16px] font-Montserrat font-Medium">
-                  {selected === "Daily" ? "This Week" : selected === "Weekly" ? "This Month" : "This Year"}
+                  {selected === "Daily"
+                    ? "This Week"
+                    : selected === "Weekly"
+                    ? "This Month"
+                    : "This Year"}
                 </p>
                 <div className="flex items-center">
                   <p className="text-[#06A9EF] items-center ml:text-[14px]  text-[10px] font-medium">
                     {viewsChange && (
-
-                      <p className={`${viewsChange > 0 ? "text-[#06A9EF]" : viewsChange == 0 ? "text-[#333333]" : "text-[#C00000]"} items-center ml:text-[18px] text-[10px] font-medium leading-5`}>
+                      <p
+                        className={`${
+                          viewsChange > 0
+                            ? "text-[#06A9EF]"
+                            : viewsChange == 0
+                            ? "text-[#333333]"
+                            : "text-[#C00000]"
+                        } items-center ml:text-[18px] text-[10px] font-medium leading-5`}
+                      >
                         {Math.abs(viewsChange)}%
                       </p>
-
                     )}
                   </p>
-                  {viewsChange < 0 &&
+                  {viewsChange < 0 && (
                     <svg
                       xlgns="http://www.w3.org/2000/svg"
                       width="21"
@@ -151,8 +196,8 @@ function JobStatistics({ setSelected, selected, data }) {
                         </clipPath>
                       </defs>
                     </svg>
-                  }
-                  {viewsChange > 0 &&
+                  )}
+                  {viewsChange > 0 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="21"
@@ -180,7 +225,8 @@ function JobStatistics({ setSelected, selected, data }) {
                           />
                         </clipPath>
                       </defs>
-                    </svg>}
+                    </svg>
+                  )}
                 </div>
               </div>
             </div>
@@ -220,13 +266,25 @@ function JobStatistics({ setSelected, selected, data }) {
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-[#646464] text-[12px] ml:text-[16px] font-Montserrat font-Medium">
-                  {selected === "Daily" ? "This Week" : selected === "Weekly" ? "This Month" : "This Year"}
+                  {selected === "Daily"
+                    ? "This Week"
+                    : selected === "Weekly"
+                    ? "This Month"
+                    : "This Year"}
                 </p>
                 <div className="flex text-center">
-                  <p className={`${applicantChange > 0 ? "text-[#06A9EF]" : applicantChange == 0 ? "text-[#333333]" : "text-[#C00000]"} items-center ml:text-[18px] text-[10px] font-medium leading-5`}>
+                  <p
+                    className={`${
+                      applicantChange > 0
+                        ? "text-[#06A9EF]"
+                        : applicantChange == 0
+                        ? "text-[#333333]"
+                        : "text-[#C00000]"
+                    } items-center ml:text-[18px] text-[10px] font-medium leading-5`}
+                  >
                     {Math.abs(applicantChange)}%
                   </p>
-                  {applicantChange < 0 &&
+                  {applicantChange < 0 && (
                     <svg
                       xlgns="http://www.w3.org/2000/svg"
                       width="21"
@@ -255,8 +313,8 @@ function JobStatistics({ setSelected, selected, data }) {
                         </clipPath>
                       </defs>
                     </svg>
-                  }
-                  {applicantChange > 0 &&
+                  )}
+                  {applicantChange > 0 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="21"
@@ -284,7 +342,8 @@ function JobStatistics({ setSelected, selected, data }) {
                           />
                         </clipPath>
                       </defs>
-                    </svg>}
+                    </svg>
+                  )}
                 </div>
               </div>
             </div>
@@ -299,8 +358,6 @@ function JobStatistics({ setSelected, selected, data }) {
 }
 
 export default JobStatistics;
-
-
 
 // import React from "react";
 // import StackedBarChart from "../../common/StackedBarChart";
