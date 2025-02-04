@@ -1388,16 +1388,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {
-                              if (data.trim()) {
-                                setSkills((prevSkills) => [
-                                  data,
-                                  ...prevSkills.filter(
-                                    (skill) => skill.trim() !== ""
-                                  ),
-                                ]);
-                              }
-                            }}
+                            onInputChange={(data) => {}}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
@@ -1436,6 +1427,23 @@ function CreateNewJob() {
                                 mustSkills: newMustSkills,
                               });
                             }}
+                            onKeyDown={(event) => {
+                              if (
+                                event.key === "Enter" &&
+                                event.target.value.trim()
+                              ) {
+                                const newSkill = event.target.value.trim();
+
+                                if (!skills.includes(newSkill)) {
+                                  setSkills((prevSkills) => [
+                                    ...prevSkills,
+                                    newSkill,
+                                  ]);
+                                }
+
+                                event.target.value = "";
+                              }
+                            }}
                             styles={{
                               control: (base) => ({
                                 ...base,
@@ -1454,22 +1462,17 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {
-                              if (data.trim()) {
-                                setSkills((prevSkills) => [
-                                  data,
-                                  ...prevSkills.filter(
-                                    (skill) => skill.trim() !== ""
-                                  ),
-                                ]);
-                              }
-                            }}
-                            options={skills
-                              .filter((item) => item.trim() !== "")
-                              .map((item) => ({
-                                value: item,
-                                label: camelCase(item),
-                              }))}
+                            onInputChange={(data) => {}}
+                            options={[
+                              ...new Set(
+                                skills
+                                  .map((item) => item.trim().toLowerCase())
+                                  .filter((item) => item !== "")
+                              ),
+                            ].map((item) => ({
+                              value: item,
+                              label: camelCase(item),
+                            }))}
                             className={`w-full ${
                               formError.goodSkills
                                 ? "border-red"
@@ -1501,6 +1504,19 @@ function CreateNewJob() {
                                 ...data,
                                 goodSkills: newGoodSkills,
                               });
+                            }}
+                            onKeyDown={(event) => {
+                              if (
+                                event.key === "Enter" &&
+                                event.target.value.trim()
+                              ) {
+                                const newSkill = event.target.value.trim();
+                                setSkills((prevSkills) => [
+                                  ...prevSkills,
+                                  newSkill,
+                                ]);
+                                event.target.value = "";
+                              }
                             }}
                             styles={{
                               control: (base) => ({
