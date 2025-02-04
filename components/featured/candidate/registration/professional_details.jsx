@@ -209,7 +209,7 @@ const ProfessionalDetails = ({
                         <>Role</>
                       ) : (
                         <>
-                          Job tittle <span className="star">*</span>
+                          Job Titel <span className="star">*</span>
                         </>
                       )}
                     </p>
@@ -220,7 +220,7 @@ const ProfessionalDetails = ({
                       placeholder={
                         data.workStatus == "Fresher"
                           ? "Enter Role"
-                          : "Enter job tittle"
+                          : "Enter job titel"
                       }
                       value={data.jobTitle}
                       onChange={(e) =>

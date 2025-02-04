@@ -10,7 +10,7 @@ import CustomPagination from "../../common/CustomPagination";
 import ShortlistMail from "../../../pages/common/hiring/ShortlistMail";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-function RecentApplications({isPending}) {
+function RecentApplications({ isPending }) {
   const [id, setId] = useState("");
   const router = useRouter();
   const [page, setPage] = useState(0);
@@ -32,17 +32,17 @@ function RecentApplications({isPending}) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [allReject, setAllReject] = useState(false);
   const [shortlist, setShortlist] = useState([]);
- 
+
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
     setApplicantIds([applicant.applicantId]);
   };
   const [searchQuery, setSearchQuery] = useState("");
-  useEffect(()=>{
+  useEffect(() => {
     setSearchQuery(isPending)
-  },[isPending])
- 
+  }, [isPending])
+
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -228,9 +228,8 @@ function RecentApplications({isPending}) {
               {applicants?.data?.applications.map((applicant, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
-                      checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
+                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
+                      }`}
                     key={applicant._id}
                   >
                     <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -257,37 +256,35 @@ function RecentApplications({isPending}) {
                       </div>
                       <div className=" flex justify-center w-[20%]">
                         <div
-                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                            checkedApplicants[index]
-                              ? "bg-[#FFFFFF]"
-                              : applicant.hiringStage === "Interview"
+                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicant.hiringStage === "Interview"
                               ? "bg-[#26A4FF1A]"
                               : applicant.hiringStage === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicant.hiringStage === "Hired"
-                              ? "bg-[#56CDAD1A]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "bg-[#4640DE1A]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : applicant.hiringStage === "In Review"
-                              ? "bg-[#EB85331A]"
-                              : ""
-                          } ${
-                            applicant.hiringStage === "Interview"
+                                ? "bg-[#FFF9ED]"
+                                : applicant.hiringStage === "Hired"
+                                  ? "bg-[#56CDAD1A]"
+                                  : applicant.hiringStage === "Shortlisted"
+                                    ? "bg-[#4640DE1A]"
+                                    : applicant.hiringStage === "Rejected"
+                                      ? "bg-[#FF65501A]"
+                                      : applicant.hiringStage === "In Review"
+                                        ? "bg-[#EB85331A]"
+                                        : ""
+                            } ${applicant.hiringStage === "Interview"
                               ? "text-[#26A4FF]"
                               : applicant.hiringStage === "Pending"
-                              ? "text-[#FFB836]"
-                              : applicant.hiringStage === "Hired"
-                              ? "text-[#56CDAD]"
-                              : applicant.hiringStage === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : applicant.hiringStage === "Rejected"
-                              ? "text-[#FF6550]"
-                              : applicant.hiringStage === "In Review"
-                              ? "text-[#FFB836]"
-                              : "text-[#333333]"
-                          }`}
+                                ? "text-[#FFB836]"
+                                : applicant.hiringStage === "Hired"
+                                  ? "text-[#56CDAD]"
+                                  : applicant.hiringStage === "Shortlisted"
+                                    ? "text-[#4640DE]"
+                                    : applicant.hiringStage === "Rejected"
+                                      ? "text-[#FF6550]"
+                                      : applicant.hiringStage === "In Review"
+                                        ? "text-[#FFB836]"
+                                        : "text-[#333333]"
+                            }`}
                         >
                           {applicant.hiringStage}
                         </div>
@@ -349,7 +346,7 @@ function RecentApplications({isPending}) {
                           style={{
                             opacity:
                               applicant?.hiringStage === "Rejected" ||
-                              applicant?.hiringStage === "Shortlisted"
+                                applicant?.hiringStage === "Shortlisted"
                                 ? 0.5
                                 : 1,
                           }}
@@ -372,7 +369,7 @@ function RecentApplications({isPending}) {
                           )}
                         </>
                         {loadingg.isLoading &&
-                        loadingg.applicantId === applicant.applicantId ? (
+                          loadingg.applicantId === applicant.applicantId ? (
                           <div className="w-[49.81px] flex justify-center items-center">
                             <MiniLoaderr />
                           </div>
@@ -457,7 +454,6 @@ function RecentApplications({isPending}) {
                                     />
                                   </g>
                                 </svg>
-
                                 <a className="block py-1 text-[#C00000]">
                                   Reject Candidate
                                 </a>
@@ -485,15 +481,19 @@ function RecentApplications({isPending}) {
 
       <div className="mobile">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
-          <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
+          <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-2  overflow-y-auto w-[100%]">
             {!applicants?.data?.applications.length == 0 ? (
               <>
                 {applicants?.data?.applications.map((applicant, index) => (
                   <div
-                  key={index}
-                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
+                    onClick={() =>
+                      router.push(
+                        `/common/hiring/ApplicantDetails?applicantId=${applicant.applicantId}&id=${applicant.jobId}`
+                      )
+                    }
+                    key={index}
+                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#FFFFFF]"
                     style={{
-                      background: index % 2 == 0 ? "#EFFAFF" : "#fff",
                       border: "1px solid #DEDEDE",
                     }}
                   >
@@ -501,7 +501,7 @@ function RecentApplications({isPending}) {
                       <div className="flex justify-between items-center self-stretch">
                         <div className="flex items-center gap-2">
                           <img
-                            className="w-[40px] h-[40px]"
+                            className="w-[30px] h-[30px]"
                             src="/images/profile/john_doe.png"
                             alt=""
                           />
@@ -509,49 +509,9 @@ function RecentApplications({isPending}) {
                             {applicant.details?.personal?.firstName}
                           </p>
                         </div>
-                        <div className="flex justify-end items-center gap-4">
-                          <svg
-                            xlgns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g clip-path="url(#clip0_7540_117410)">
-                              <path
-                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_7540_117410">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="matrix(0 1 -1 0 24 0)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </div>
+                        <p className="text-[14px] font-[600]">
+                          {applicant.matchingPercentage} %
+                        </p>
                       </div>
 
                       <div className="flex justify-between items-center self-stretch">
@@ -566,85 +526,85 @@ function RecentApplications({isPending}) {
                               .replace(",", "")}
                           </p>
                         </p>
-                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                          <p
-                            className={`text-[#FF7A00] font-Montserrat font-semibold text-[14px] ${
-                              checkedApplicants[index]
-                                ? "bg-[#FFFFFF]"
-                                : applicant.hiringStage === "Interview"
-                                ? "bg-[#26A4FF1A]"
-                                : applicant.hiringStage === "Pending"
+                        <div
+                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicant.hiringStage === "Interview"
+                              ? "bg-[#26A4FF1A]"
+                              : applicant.hiringStage === "Pending"
                                 ? "bg-[#FFF9ED]"
                                 : applicant.hiringStage === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicant.hiringStage === "Shortlisted"
-                                ? "bg-[#4640DE1A]"
-                                : applicant.hiringStage === "Rejected"
-                                ? "bg-[#FF65501A]"
-                                : applicant.hiringStage === "In Review"
-                                ? "bg-[#EB85331A]"
-                                : ""
-                            } ${
-                              applicant.hiringStage === "Interview"
-                                ? "text-[#26A4FF]"
-                                : applicant.hiringStage === "Pending"
+                                  ? "bg-[#56CDAD1A]"
+                                  : applicant.hiringStage === "Shortlisted"
+                                    ? "bg-[#4640DE1A]"
+                                    : applicant.hiringStage === "Rejected"
+                                      ? "bg-[#FF65501A]"
+                                      : applicant.hiringStage === "In Review"
+                                        ? "bg-[#EB85331A]"
+                                        : ""
+                            } ${applicant.hiringStage === "Interview"
+                              ? "text-[#26A4FF]"
+                              : applicant.hiringStage === "Pending"
                                 ? "text-[#FFB836]"
                                 : applicant.hiringStage === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicant.hiringStage === "Shortlisted"
-                                ? "text-[#4640DE]"
-                                : applicant.hiringStage === "Rejected"
-                                ? "text-[#FF6550]"
-                                : applicant.hiringStage === "In Review"
-                                ? "text-[#FFB836]"
-                                : "text-[#333333]"
+                                  ? "text-[#56CDAD]"
+                                  : applicant.hiringStage === "Shortlisted"
+                                    ? "text-[#4640DE]"
+                                    : applicant.hiringStage === "Rejected"
+                                      ? "text-[#FF6550]"
+                                      : applicant.hiringStage === "In Review"
+                                        ? "text-[#FFB836]"
+                                        : "text-[#333333]"
                             }`}
-                          >
-                            {applicant.hiringStage}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex justify-center gap-[10px] w-[100%]">
-                        <button
-                          disabled={
-                            applicant?.hiringStage === "Rejected" ||
-                            applicant?.hiringStage === "Shortlisted"
-                          }
-                          style={{
-                            opacity:
+                        >
+                          {applicant.hiringStage}
+                        </div>                      </div>
+                      <div className="flex justify-between items-center  w-[100%]">
+                        <p className="text-[14px] font-[600]">
+                          {applicant.source}
+                        </p>
+                        <div className="flex gap-[10px]">
+                          <button
+                            disabled={
                               applicant?.hiringStage === "Rejected" ||
                               applicant?.hiringStage === "Shortlisted"
-                                ? 0.5
-                                : 1,
-                          }}
-                          onClick={() => togglePopup(applicant)}
-                          className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
-                        >
-                          Shortlist
-                        </button>
-                        <>
-                          {isPopupVisible && (
-                            <ShortlistMail
-                              shortlist={shortlist}
-                              setPopupVisible={setPopupVisible}
-                              id={applicant?.jobId}
-                              statusChange={statusChange}
-                              setStatusChange={setStatusChange}
-                              applicantIds={applicantIds}
-                            />
-                          )}
-                        </>
-                        <button
-                          disabled={applicant?.hiringStage === "Rejected"}
-                          style={{
-                            opacity:
-                              applicant?.hiringStage === "Rejected" ? 0.5 : 1,
-                          }}
-                          onClick={() => handleSend(applicant)}
-                          className="text-[10px] font-[500] py-[8px] px-[10px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
-                        >
-                          Reject
-                        </button>
+                            }
+                            style={{
+                              opacity:
+                                applicant?.hiringStage === "Rejected" ||
+                                  applicant?.hiringStage === "Shortlisted"
+                                  ? 0.5
+                                  : 1,
+                            }}
+                            onClick={() => togglePopup(applicant)}
+                            className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
+                          >
+                            Shortlist
+                          </button>
+                          <>
+                            {isPopupVisible && (
+                              <ShortlistMail
+                                shortlist={shortlist}
+                                setPopupVisible={setPopupVisible}
+                                id={applicant?.jobId}
+                                statusChange={statusChange}
+                                setStatusChange={setStatusChange}
+                                applicantIds={applicantIds}
+                              />
+                            )}
+                          </>
+                          <button
+                            disabled={applicant?.hiringStage === "Rejected"}
+                            style={{
+                              opacity:
+                                applicant?.hiringStage === "Rejected" ? 0.5 : 1,
+                            }}
+                            onClick={() => handleSend(applicant)}
+                            className="text-[10px] font-[500] py-[8px] px-[10px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
+                          >
+                            Reject
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -8,25 +8,22 @@ import { telCode } from "../../../utils/data";
 import ReactSelect from "react-select";
 import MiniLoader from "../../common/mini-loader";
 function EditProfile({ setEditProfile }) {
- const { userDataGlobal } = useSelector((state) => state.user.userData);
-   const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
   const [loadingg, setLoadingg] = useState(false);
-
   const [timer, setTimer] = useState(30);
   const [resend, setResend] = useState(false);
   const [isSend, setIssend] = useState(false);
   const [verify, setVerify] = useState(false);
   const [isLogo, setIsLogo] = useState(false);
   const [otp, setOtp] = useState(new Array(4).fill(""));
-
   const [verified, setVerified] = useState(true);
   const [formError, setFormError] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -39,7 +36,7 @@ function EditProfile({ setEditProfile }) {
     currentLocation: "",
     password: "",
     confirmPassword: "",
-    country:""
+    country: "",
   });
 
   function validatePassword(password) {
@@ -48,10 +45,9 @@ function EditProfile({ setEditProfile }) {
     return strongPasswordRegex.test(password);
   }
 
-
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
-
+    console.log("fiel", fieldName);
     switch (fieldName) {
       case "firstName":
         if (!value.trim()) {
@@ -106,9 +102,7 @@ function EditProfile({ setEditProfile }) {
         }
         break;
 
-
       case "password":
-
         if (!value.trim() || value.trim().length < 6) {
           errors.password = "Password must be at least 6 characters long";
         } else {
@@ -125,10 +119,8 @@ function EditProfile({ setEditProfile }) {
           delete errors.confirmPassword;
         }
 
-
         break;
       case "confirmPassword":
-
         if (!value.trim() || value.trim() != data.password) {
           errors.confirmPassword = "Password do not match";
         } else {
@@ -153,7 +145,6 @@ function EditProfile({ setEditProfile }) {
     return errors;
   };
 
-
   const handleInputChange = (fieldName, value) => {
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
@@ -163,8 +154,7 @@ function EditProfile({ setEditProfile }) {
             ...prevErrors,
             mobileNo: "length must be 10",
           }));
-        }
-        else {
+        } else {
           setFormError((prevErrors) => {
             const updatedErrors = { ...prevErrors };
             delete updatedErrors.mobileNo;
@@ -172,8 +162,6 @@ function EditProfile({ setEditProfile }) {
           });
         }
       }
-
-
     } else {
       setData({ ...data, [fieldName]: value });
       validateInput(fieldName, value);
@@ -184,36 +172,39 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
 
     const errors = validateInput();
-
+    if (!data.dial_code) {
+      setFormError((prevErrors) => ({
+        ...prevErrors,
+        dial_code: "Please Select Country Code!",
+      }));
+      return;
+    }
     if (!data.currentLocation) {
-        setFormError((prevErrors) => ({
-          ...prevErrors,
-          currentLocation: "Enter Current Location",
-        }));
-        return;
-      }
+      setFormError((prevErrors) => ({
+        ...prevErrors,
+        currentLocation: "Enter Current Location",
+      }));
+      return;
+    }
 
     const hasErrors = Object.keys(errors).length > 0;
-
 
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    }
-    else if (!verified) {
+    } else if (!verified) {
       //  setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
-    }
-    else {
-      setLoading(true)
+    } else {
+      setLoading(true);
       const requestData = {
-        ...data,               
-        EmailChanged: isLogo 
+        ...data,
+        EmailChanged: isLogo,
       };
       axios
         .put(
           "http://localhost:2000/api/candidate/updateProfile/" +
-          userDataGlobal?._id,
+            userDataGlobal?._id,
           requestData
         )
 
@@ -221,12 +212,12 @@ function EditProfile({ setEditProfile }) {
           toast.success("profile edit successfully");
           dispatch(fetchUserData());
           setEditProfile(false);
-          setLoading(false)
+          setLoading(false);
         })
         .catch((err) => {
-          console.log(err)
-          setLoading(false)
-        })
+          console.log(err);
+          setLoading(false);
+        });
     }
   };
 
@@ -249,15 +240,15 @@ function EditProfile({ setEditProfile }) {
         currentLocation,
         mobileNo,
       });
-      const selectedItem = telCode.find((item) => item.dial_code === profileData.basics?.dial_code);
+      const selectedItem = telCode.find(
+        (item) => item.dial_code === profileData.basics?.dial_code
+      );
 
       if (selectedItem) {
         setSelectedItem(selectedItem);
       }
     }
   }, [profileData]);
-
-
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -269,6 +260,7 @@ function EditProfile({ setEditProfile }) {
       return updatedErrors;
     });
   };
+
   useEffect(() => {
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -276,7 +268,6 @@ function EditProfile({ setEditProfile }) {
     const filteredCodes = telCode.filter(filterLogic);
     const firstSixCodes = filteredCodes.slice(0, 6);
     const remainingCodes = filteredCodes.slice(6);
-
     const sortedRemainingCodes = remainingCodes.sort((a, b) => {
       const numA = parseInt(a.dial_code.replace("+", ""), 10);
       const numB = parseInt(b.dial_code.replace("+", ""), 10);
@@ -302,8 +293,8 @@ function EditProfile({ setEditProfile }) {
 
     axios
       .post("http://localhost:2000/api/otpMailProfile", {
-        userId: userDataGlobal?._id, userEmail: data.email
-
+        userId: userDataGlobal?._id,
+        userEmail: data.email,
       })
       .then((res) => {
         setLoadingg(false);
@@ -349,29 +340,25 @@ function EditProfile({ setEditProfile }) {
 
   const verifyOtp = (e) => {
     e.preventDefault();
-    const otpEntered = Number(otp.join(''));
+    const otpEntered = Number(otp.join(""));
     axios
       .post("http://localhost:2000/api/verifyOtpProfile", {
         userId: userDataGlobal?._id,
-        otpEntered
+        otpEntered,
       })
       .then((res) => {
-
         const result = res.data;
         if (result.success) {
-
-          setVerify(false)
+          setVerify(false);
           setVerified(true);
-          setIsLogo(true)
+          setIsLogo(true);
         } else {
           toast.error("OTP does not match");
         }
       })
       .catch((err) => {
         toast.error(err?.response?.data.message);
-
       });
-
   };
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -381,13 +368,11 @@ function EditProfile({ setEditProfile }) {
     ).padStart(2, "0")}`;
   };
 
-
   const handleChange = (value, index) => {
     if (!isNaN(value)) {
       const updatedOtp = [...otp];
       updatedOtp[index] = value;
       setOtp(updatedOtp);
-
 
       if (value && index < 3) {
         document.getElementById(`otp-input-${index + 1}`)?.focus();
@@ -403,11 +388,10 @@ function EditProfile({ setEditProfile }) {
 
   const handlePaste = (e) => {
     const pastedData = e.clipboardData.getData("text").split("").slice(0, 4);
-    if (pastedData.every(char => !isNaN(char))) {
+    if (pastedData.every((char) => !isNaN(char))) {
       setOtp(pastedData);
     }
   };
-
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -418,14 +402,14 @@ function EditProfile({ setEditProfile }) {
   const isEdge = () => {
     return /Edg/.test(navigator.userAgent);
   };
+  console.log("dail code", formError);
 
   return (
-    <div className="bg-white rounded-[16px] py-3 "
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-      <div
-        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-
-      >
+    <div
+      className="bg-white rounded-[16px] py-3 "
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
+      <div className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto ">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4 justify-between">
             <p className="text-[#25324B] text-[18px]  font-[600] leading-[160%] min-w-[180px]">
@@ -458,15 +442,14 @@ function EditProfile({ setEditProfile }) {
               </p>
               <input
                 type="text"
-
                 value={data.firstName}
                 name="firstName"
-                onChange={(e) =>
-                  handleInputChange("firstName", e.target.value)
-                }
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
                 // onChange={(e) => setData({ ...data, profile: e.target.value })}
                 placeholder="Enter first name"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.firstName ? "border-red" : "border-[#DEDEDE]"}`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
+                  formError.firstName ? "border-red" : "border-[#DEDEDE]"
+                }`}
               />
             </div>
             <div className="personal_name w-[50%]">
@@ -477,12 +460,11 @@ function EditProfile({ setEditProfile }) {
                 type="text"
                 value={data.lastName}
                 name="lastName"
-                onChange={(e) =>
-                  handleInputChange("lastName", e.target.value)
-                }
-
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
                 placeholder="Enter Last name"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.lastName ? "border-red" : "border-[#DEDEDE]"}`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
+                  formError.lastName ? "border-red" : "border-[#DEDEDE]"
+                }`}
               />
             </div>
           </div>
@@ -497,32 +479,31 @@ function EditProfile({ setEditProfile }) {
                 value={data.email}
                 name="email"
                 onChange={(e) => {
-                  handleInputChange("email", e.target.value); setVerify(false);
+                  handleInputChange("email", e.target.value);
+                  setVerify(false);
                   setVerified(false);
-                  setOtp(new Array(4).fill(""))
+                  setOtp(new Array(4).fill(""));
                 }}
-
                 placeholder="Enter Email"
-                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.email ? "border-red" : "border-[#DEDEDE]"}`}
+                className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
+                  formError.email ? "border-red" : "border-[#DEDEDE]"
+                }`}
               />
               {!verified && (
                 <>
                   {!verify ? (
-
                     <button
                       disabled={loadingg}
                       onClick={handleVerification}
                       className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] btn_hover_effect"
                     >
-                      {loadingg ? (
-                        <MiniLoader />
-                      ) : (
-                        <>Verify Email</>
-                      )}
+                      {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>
-
                   ) : (
-                    <button disabled={!resend} className=" min-w-[86px] text-[12px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
+                    <button
+                      disabled={!resend}
+                      className=" min-w-[86px] text-[12px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] "
+                    >
                       {loadingg ? (
                         <MiniLoader />
                       ) : (
@@ -530,9 +511,7 @@ function EditProfile({ setEditProfile }) {
                           {!resend ? (
                             <p>{formatTime(timer)}</p>
                           ) : (
-                            <p onClick={handleVerification}>
-                              Resend Code
-                            </p>
+                            <p onClick={handleVerification}>Resend Code</p>
                           )}
                         </>
                       )}
@@ -540,23 +519,35 @@ function EditProfile({ setEditProfile }) {
                   )}
                 </>
               )}
-              {(verified && isLogo) && (
+              {verified && isLogo && (
                 <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
-
-                  <svg className="zoom-rotate-animation" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="22" height="22" rx="11" fill="#34A853" />
-                    <path d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z" fill="white" />
+                  <svg
+                    className="zoom-rotate-animation"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="1"
+                      y="1"
+                      width="22"
+                      height="22"
+                      rx="11"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z"
+                      fill="white"
+                    />
                   </svg>
-
                 </div>
               )}
-
             </div>
-
           </div>
           {verify && (
             <div className="flex flex-col gap-2 font-medium w-full ">
-
               <div className="flex gap-6 h-[28px]  items-center   ">
                 <text className="text-[12px] font-[500] text-[#898989]">
                   Enter OTP sent to your Email
@@ -583,7 +574,6 @@ function EditProfile({ setEditProfile }) {
                     Verify
                   </button>
                 )}
-
               </div>
               {/* {resend &&
                 <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
@@ -591,12 +581,17 @@ function EditProfile({ setEditProfile }) {
             </div>
           )}
 
-
           <div className="personal_single_input w-full">
             <p className="form_text_heading text-[14px]  font-[500]">
-              Contact number <span className="star">*</span>
+              Contact Number <span className="star">*</span>
             </p>
-            <div className={`flex gap-4 border border-[#DEDEDE] rounded-[8px] ${(formError.mobileNo || formError.dial_code) ? "border-red" : "border-[#DEDEDE]"}`}>
+            <div
+              className={`flex gap-4 border border-[#DEDEDE] rounded-[8px] ${
+                formError.mobileNo || formError.dial_code
+                  ? "border-red"
+                  : "border-[#DEDEDE]"
+              }`}
+            >
               <div className="flex items-center  gap-1 cursor-pointer  ">
                 <ReactSelect
                   options={filteredTelCode}
@@ -606,7 +601,11 @@ function EditProfile({ setEditProfile }) {
                   value={selectedItem}
                   onChange={handleItemClick}
                   getOptionLabel={(option) => (
-                    <div className="flex items-center  ">
+                    <div
+                      className={`flex items-center ${
+                        formError.dial_code ? "border-red" : "border-[#DEDEDE]"
+                      }`}
+                    >
                       <img
                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                         width="20px"
@@ -642,16 +641,11 @@ function EditProfile({ setEditProfile }) {
                 type="text"
                 value={data.mobileNo}
                 name="mobileNo"
-                onChange={(e) =>
-                  handleInputChange("mobileNo", e.target.value)
-                }
-
+                onChange={(e) => handleInputChange("mobileNo", e.target.value)}
                 placeholder="Enter Contact number"
                 className="text-[12px]  font-[400]"
               />
             </div>
-
-
           </div>
 
           <div className="personal_single_input w-full">
@@ -665,9 +659,10 @@ function EditProfile({ setEditProfile }) {
               onChange={(e) =>
                 handleInputChange("currentLocation", e.target.value)
               }
-
               placeholder="Enter Current location"
-              className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${formError.currentLocation ? "border-red" : "border-[#DEDEDE]"}`}
+              className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
+                formError.currentLocation ? "border-red" : "border-[#DEDEDE]"
+              }`}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -676,9 +671,7 @@ function EditProfile({ setEditProfile }) {
             </p>
 
             <div className={`flex gap-2 w-[100%]  flex-col `}>
-
               <div className=" flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid border-[#DEDEDE] justify-between h-[40px]">
-
                 <input
                   type={showPassword ? "Text" : "Password"}
                   className="text-[12px] font-normal"
@@ -689,8 +682,8 @@ function EditProfile({ setEditProfile }) {
                   }
                 />
 
-                {!isEdge() && (
-                  showPassword ? (
+                {!isEdge() &&
+                  (showPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -723,7 +716,6 @@ function EditProfile({ setEditProfile }) {
                       </g>
                     </svg>
                   ))}
-
               </div>
               {formError && (
                 <p className="text-[10px] text-[red] font-[500]">
@@ -732,7 +724,6 @@ function EditProfile({ setEditProfile }) {
               )}
 
               <div className=" flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid border-[#DEDEDE] justify-between h-[40px]">
-
                 <input
                   type={showConfirmPassword ? "Text" : "Password"}
                   name=""
@@ -740,20 +731,16 @@ function EditProfile({ setEditProfile }) {
                   placeholder="Confirm New Password"
                   value={data.confirmPassword}
                   onChange={(e) =>
-                    handleInputChange(
-                      "confirmPassword",
-                      e.target.value
-                    )
+                    handleInputChange("confirmPassword", e.target.value)
                   }
                 />
-                {!isEdge() && (
-                  showConfirmPassword ? (
+                {!isEdge() &&
+                  (showConfirmPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
-
                       fill="none"
                       onClick={handleToggleConfirmPassword}
                       style={{ cursor: "pointer" }}
@@ -770,7 +757,6 @@ function EditProfile({ setEditProfile }) {
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
-
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -782,14 +768,12 @@ function EditProfile({ setEditProfile }) {
                       </g>
                     </svg>
                   ))}
-
               </div>
               {formError && (
                 <p className="text-[10px] text-[red] font-[500]">
                   {formError?.confirmPassword}
                 </p>
               )}
-
             </div>
           </div>
 
@@ -801,14 +785,11 @@ function EditProfile({ setEditProfile }) {
               Cancel
             </button>
             <button
-            disabled={loading}
+              disabled={loading}
               className=" w-[148px] flex py-[8px] px-[16px] justify-center items-center rounded-[8px] text-[#fff] text-[16px] font-[500] border-[1px] border-solid bg-[#06A9EF]"
               onClick={handleSubmit}
             >
-              {loading ? <MiniLoader />
-                :
-                "Save Changes"
-              }
+              {loading ? <MiniLoader /> : "Save Changes"}
             </button>
           </div>
         </div>

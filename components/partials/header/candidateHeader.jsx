@@ -359,7 +359,7 @@ function CandidateHeader() {
                     <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
 
                     <select
-                      className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"}`}
+                      className={`text-[14px] font-[500] outline-none border-none w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"}`}
                       value={experience}
                       onChange={(e) => setExperience(e.target.value)}
                     >
@@ -375,12 +375,13 @@ function CandidateHeader() {
                         ))}
                     </select>
 
+
                     <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
 
                     <input
                       type="text"
                       placeholder="Enter Location"
-                      className="text-[14px] font-[500] w-full font-Montserrat max-w-[110px] min-w-[80px] placeholder:text-[#889FBA]"
+                      className="text-[14px] outline-none border-none  font-[500] w-full font-Montserrat max-w-[110px] min-w-[80px] placeholder:text-[#889FBA]"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     />

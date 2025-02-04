@@ -48,7 +48,7 @@ function BuildResume() {
                 // localStorage.removeItem("parsedResume");
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}
               >
-                <div className="scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
+                <div className=" cursor-pointer scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center gap-2">
                       <svg
@@ -86,7 +86,7 @@ function BuildResume() {
               <div
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`)}
               >
-                <div className="scr540:px-[16px] px-2 py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2  relative sign_up_shadow">
+                <div className=" cursor-pointer scr540:px-[16px] px-2 py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2  relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center gap-2">
                       <svg
