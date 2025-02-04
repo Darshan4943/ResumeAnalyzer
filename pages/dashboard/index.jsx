@@ -170,7 +170,6 @@ function Dashboard({ toggleContentt }) {
     if (userDataGlobal?._id && selected) fetchJobAnalytics();
   }, [userDataGlobal?._id, selected]);
 
-  console.log("data", data)
   return (
     <div
       className="   w-[100%]  overflow-y-auto "
