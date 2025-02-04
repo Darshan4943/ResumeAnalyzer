@@ -1,7 +1,7 @@
 import React from 'react'
 
 function ApplicantProfile({jobDetails}) {
-  console.log(jobDetails);
+  
   return (
     <div className="flex flex-col gap-4 text-[16px] font-normal px-6 overflow-y-auto">
     <p className="font-semibold">Personal Info</p>
