@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -19,13 +18,14 @@ import Projects from "../../components/featured/profile/projects";
 import Achievements from "../../components/featured/profile/achievements";
 import JobPrefrence from "../../components/featured/profile/jobPreferences";
 import PersonalDetails from "../../components/featured/profile/personalDetails";
-
+import { toast } from "react-toastify";
+import MiniLoader from "../../components/common/mini-loader";
 
 function Profile() {
- 
   const { profileData } = useSelector((state) => state.profile.profileData);
-
-  const [resumeCount, setResumeCount] = useState(1)
+  const [resumeList, setResumeList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [resumeCount, setResumeCount] = useState(1);
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -52,8 +52,6 @@ function Profile() {
     });
   };
 
-
-
   useEffect(() => {
     setUserData(profileData);
   }, [profileData]);
@@ -75,7 +73,25 @@ function Profile() {
     setIsComponentOpen(!isComponentOpen);
   };
 
+  const handleDownload = () => {
+    setIsLoading(true);
   
+    setTimeout(() => {
+      const defaultResume = resumeList.find(
+        (resume) => resume.isDefault === true
+      );
+  
+      if (defaultResume && defaultResume.resumeUrl) {
+        const link = document.createElement("a");
+        link.href = defaultResume.resumeUrl;
+        link.download = defaultResume.fileName || "resume.pdf";
+        link.click();
+      } else {
+        toast.error("No default resume found");
+      }
+      setIsLoading(false);
+    }, 2000); 
+  };
 
   return (
     <div className="">
@@ -113,9 +129,9 @@ function Profile() {
             </div>
 
             <div className="profile_option heroBlock">
-              {arr.map((item,index) => (
+              {arr.map((item, index) => (
                 <ScrollLink
-                key={index}
+                  key={index}
                   to="home"
                   spy={true}
                   smooth={true}
@@ -124,8 +140,9 @@ function Profile() {
                   className="w-[100%]"
                 >
                   <div
-                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
-                      }`}
+                    className={`profile_option_menu  ${
+                      selectedTab == item && " profile_option_menu-selected"
+                    }`}
                   >
                     <p className="my_resume cursor-pointer">{item}</p>
                   </div>
@@ -139,27 +156,46 @@ function Profile() {
               <div className="build_ai_left  w-fit">
                 <div className="flex flex-row w-[100%] ">
                   <div className="w-[50%] md:w-fit">
-                    <img className="w-[152px] h-[152px]" src="./images/profile/Wavy_Bus.png" alt="" />
+                    <img
+                      className="w-[152px] h-[152px]"
+                      src="./images/profile/Wavy_Bus.png"
+                      alt=""
+                    />
                   </div>
                   <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
-                    <ALink href={"/candidate/create_resume"}>
+                    <ALink href={"/createResume/CandidateResumeDetails"}>
                       <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
                         Create New Resume
                       </button>
                     </ALink>
-                    <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
-                      Download Resume
+                    <button
+                      onClick={() => handleDownload()}
+                      className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]"
+                    >
+                      {isLoading ? (
+                      <div className=" justify-center items-center flex ">
+                      <MiniLoader/>
+                      </div>
+                    ) : (
+                      "Download Resume"
+                    )}
                     </button>
                   </div>
                 </div>
               </div>
 
               <div className="build_ai_right">
-                <p className=" text-[20px] font-[500]">Build AI Powered Resume</p>
+                <p className=" text-[20px] font-[500]">
+                  Build AI Powered Resume
+                </p>
                 <div className=" flex gap-3 items-center w-full ">
-                  <p className=" text-[12px] font-[500] ">Professional Templates</p>
+                  <p className=" text-[12px] font-[500] ">
+                    Professional Templates
+                  </p>
                   <div className="h-[12px] min-w-[1px] w-[1px] bg-[#AFAFAF] "></div>
-                  <p className=" text-center text-[12px] font-[500] ">AI suggestion</p>
+                  <p className=" text-center text-[12px] font-[500] ">
+                    AI suggestion
+                  </p>
                   <div className="h-[12px] min-w-[1px] w-[1px] bg-[#AFAFAF] "></div>
                   <p className="text-center text-[12px] font-[500]">Preview</p>
                 </div>
@@ -170,26 +206,45 @@ function Profile() {
                 </p>
 
                 <div className="build_ai_button_parent build_ai_none">
-                  <ALink href={"/candidate/create_resume"}>
+                  <ALink href={"/createResume/CandidateResumeDetails"}>
                     <button className="bg-blue text-[#FFFFFF] border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-semibold leading-tight">
                       Create New Resume
                     </button>
                   </ALink>
 
-                  <button className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight">Download Resume</button>
+                  <button
+                    onClick={() => handleDownload()}
+                    className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight"
+                  >
+                    {isLoading ? (
+                      <div className=" justify-center items-center flex w-[110px] p-[0px] h-[15px]">
+                      <MiniLoader/>
+                      </div>
+                    ) : (
+                      "Download Resume"
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
-            {resumeCount > 0 &&
+            {resumeCount > 0 && (
               <ScrollElement name="My Resume" className="section">
-                <ResumeList userData={userData} resumeCount={resumeCount} setResumeCount={setResumeCount} />
+                <ResumeList
+                  userData={userData}
+                  resumeCount={resumeCount}
+                  setResumeCount={setResumeCount}
+                  resumeList={resumeList}
+                  setResumeList={setResumeList}
+                />
               </ScrollElement>
-            }
+            )}
 
             <ScrollElement name="About me" className="section">
               <div className="build_ai ai2  ">
                 <div className="gap">
-                  <p className="page_headings text-[16px] font-semibold">About me</p>
+                  <p className="page_headings text-[16px] font-semibold">
+                    About me
+                  </p>
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"

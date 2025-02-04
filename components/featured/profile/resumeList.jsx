@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { timeAgo } from "../../../utils/middleware";
 import axios from "axios";
@@ -7,17 +6,14 @@ import { toast } from "react-toastify";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
 import DeleteModal from "../../common/deleteModal";
 
-const ResumeList = ({ setResumeCount }) => {
+const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(false);
   const [deleteData, setDeleteData] = useState({ view: false, ids: [] });
-  const [resumeList, setResumeList] = useState([]);
 
   const [isChecked, setIsChecked] = useState();
   const [isResumes, setIsResumes] = useState("resumes");
   const dispatch = useDispatch();
-
-
 
   const getData = () => {
     setLoading(true);
@@ -30,7 +26,7 @@ const ResumeList = ({ setResumeCount }) => {
         // resumes.sort((a, b) => (b.isDefault === true) - (a.isDefault === true));
         setResumeList(resumes);
 
-        setResumeCount(resumes.length)
+        setResumeCount(resumes.length);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -39,14 +35,12 @@ const ResumeList = ({ setResumeCount }) => {
         console.log(err);
         setLoading(false);
       });
-  }
+  };
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   const deleteHandler = () => {
-
-
     axios
       .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids: deleteData.ids },
@@ -54,9 +48,8 @@ const ResumeList = ({ setResumeCount }) => {
       .then((response) => {
         toast.success("Resume Deleted successfully");
         setDeleteData({ view: false, ids: "" });
-        getData()
+        getData();
         // dispatch(fetchUserData());
-
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -64,18 +57,16 @@ const ResumeList = ({ setResumeCount }) => {
   };
 
   const handleCheckboxChange = (resumeId) => {
-    setIsResumes(resumeId)
+    setIsResumes(resumeId);
     axios
       .put("http://localhost:2000/api/resume/updateIsDefaultResume/" + resumeId)
       .then((res) => {
-        getData()
+        getData();
         // toast.success("Resume Deleted successfully");
         // dispatch(fetchUserData());
-
       })
       .catch((err) => {
         console.log(err);
-
       });
   };
 
@@ -92,20 +83,28 @@ const ResumeList = ({ setResumeCount }) => {
           type={"Resume"}
         />
       )}
-      {resumeList?.length > 0 &&
-        <div style={{
-          boxShadow: "0px 0px 14px 0px #00000005"
-        }} className="flex flex-col gap-[18px] rounded-[16px] bg-[#FFFFFF] p-4">
+      {resumeList?.length > 0 && (
+        <div
+          style={{
+            boxShadow: "0px 0px 14px 0px #00000005",
+          }}
+          className="flex flex-col gap-[18px] rounded-[16px] bg-[#FFFFFF] p-4"
+        >
           <p className="text-[16px] font-[600]">My Resume</p>
           <div className="flex flex-col gap-4  ">
             {resumeList?.map((resume) => (
-              <div className={`border border-[#DEDEDE] p-3 rounded-[12px] flex justify-between items-center ${resume?.isDefault && "bg-[#E0F6FF]"}`} key={resume._id}>
+              <div
+                className={`border border-[#DEDEDE] p-3 rounded-[12px] flex justify-between items-center ${
+                  resume?.isDefault && "bg-[#E0F6FF]"
+                }`}
+                key={resume._id}
+              >
                 <div className="flex flex-col gap-2">
                   <p className="text-[14px] font-[500]">{resume?.fileName}</p>
                   <p className="resume_text_small">
                     Last updated {timeAgo(new Date(resume?.updatedAt))}
                   </p>
-                  {!resume?.isDefault &&
+                  {!resume?.isDefault && (
                     <div className="flex gap-2 text-[12px] font-[500]">
                       <input
                         type="checkbox"
@@ -115,20 +114,23 @@ const ResumeList = ({ setResumeCount }) => {
                       />
                       Set as Default
                     </div>
-                  }
+                  )}
                 </div>
 
                 <div className=" flex gap-3">
                   <a
                     className="resume_button"
                     href={resume.resumeUrl}
-                  // target="_blank"
+                    // target="_blank"
                   >
                     <img src="./images/profile/download.png" alt="" />
                   </a>
                   <div
-                    onClick={() => setDeleteData({ view: true, ids: [resume._id] })}
-                    className="resume_button cursor-pointer">
+                    onClick={() =>
+                      setDeleteData({ view: true, ids: [resume._id] })
+                    }
+                    className="resume_button cursor-pointer"
+                  >
                     <img src="./images/profile/delete.png" alt="" />
                   </div>
                 </div>
@@ -139,7 +141,7 @@ const ResumeList = ({ setResumeCount }) => {
         <button className="build_ai_button">Upload Resume</button>
       </div> */}
         </div>
-      }
+      )}
     </>
   );
 };
