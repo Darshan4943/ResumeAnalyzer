@@ -116,7 +116,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["All", "Live", "Hold", "Closed"],
+      options: ["All", "Active", "Hold", "Closed"],
     },
   ]);
 
@@ -161,14 +161,20 @@ function Hiring() {
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-      if (value) {
-        updatedFilters[heading] = value;
+  
+      // Convert "Actived" to "Live"
+      const newValue = value === "Active" ? "Live" : value;
+  
+      if (newValue) {
+        updatedFilters[heading] = newValue;
       } else {
         delete updatedFilters[heading];
       }
+  
       return updatedFilters;
     });
   };
+  
 
   const handleFilterChangemobile = (heading, value) => {
     setFilters(() => {
@@ -382,8 +388,15 @@ function Hiring() {
                         selectedOption ? selectedOption.value : ""
                       )
                     }
-                    value={filters[filter.heading] ? 
-                      { value: filters[filter.heading], label: filters[filter.heading] } : ""} 
+                    value={
+                      filters[filter.heading]
+                        ? {
+                            value: filters[filter.heading],
+                            label: filters[filter.heading] === "Live" ? "Active" : filters[filter.heading],
+                          }
+                        : ""
+                    }
+                    
                     placeholder={filter.heading}
                     isSearchable={true}
                     noOptionsMessage={() => "No options available"}

@@ -289,7 +289,9 @@ const JobCard = ({ filters, setFilters }) => {
                         </svg>
                       </div>
                       <div className="text-[12px] font-[400]">
-                        {job.location}
+                        {job.location.length > 1
+                          ? `${job.location[0]} ...`
+                          : job.location[0]}
                       </div>
                     </div>
                   </div>

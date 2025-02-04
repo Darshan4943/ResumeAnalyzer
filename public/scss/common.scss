@@ -660,3 +660,12 @@ a {
 .ql-container {
   height: calc(100% - 42.84px) !important;
 }
+/* Hide scrollbar and set its width to 0 */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* For IE10+ */
+  scrollbar-width: none; /* For Firefox */
+}

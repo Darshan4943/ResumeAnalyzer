@@ -13,11 +13,11 @@ function Index() {
     const [successModel, setSuccessModel] = useState(false)
     const router = useRouter();
     const [data, setData] = useState({
-        firstName: userDataGlobal.firstName || '',
-        lastName: userDataGlobal.lastName || '',
-        mobileNo: userDataGlobal.mobileNo ? String(userDataGlobal.mobileNo) : '',
-        email: userDataGlobal.email || '',
-        dial_code: userDataGlobal.dial_code || '',
+        firstName: userDataGlobal?.firstName || '',
+        lastName: userDataGlobal?.lastName || '',
+        mobileNo: userDataGlobal?.mobileNo ? String(userDataGlobal.mobileNo) : '',
+        email: userDataGlobal?.email || '',
+        dial_code: userDataGlobal?.dial_code || '',
         role: userDataGlobal?.role || '',
     });
 
