@@ -101,14 +101,33 @@ const CandidateAiPower = ({
 
   const handleFile = (selectedFile) => {
     if (selectedFile) {
-      if (selectedFile.type === "application/pdf" || "application/msword" || "application/docs") {
-        // Adjust file type checks as per your requirement
-        sendFile(selectedFile);
-      } else {
-        setDocFileError(true);
-      }
+      setLoading(true); 
+  
+      setTimeout(() => {
+        if (
+          selectedFile.type === "application/pdf" ||
+          selectedFile.type === "application/msword" ||
+          selectedFile.type ===
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          sendFile(selectedFile);
+        } else {
+          setDocFileError(true);
+          toast.error("Invalid file type! Please upload a PDF or DOC file.", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+        }
+        setLoading(false); 
+      }, 2000);
     }
   };
+  
 
   const sendFile = (file) => {
     setfile(file);
@@ -207,6 +226,7 @@ const CandidateAiPower = ({
             data: result,
           })
           .then((res) => {
+            setLoading(false)
             if (Object.keys(res.data.data[0]).length > 0) {
               localStorage.setItem(
                 "parsedResume",
