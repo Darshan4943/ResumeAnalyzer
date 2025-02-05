@@ -11,7 +11,6 @@ import SimilarJobs from '../../../components/featured/candidate/jobs/SimilarJobs
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
-  console.log(jobData);
   const router = useRouter();
   const [limitPopup, setLimitPopup] = useState(false);
   const { id } = router.query;

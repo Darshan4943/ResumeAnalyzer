@@ -50,15 +50,13 @@ const TopCompanies = () => {
   return (
     <div className="bg-white rounded-[16px] p-6  gap-[20px] ">
       <div className="gap-[20px] flex flex-col">
-        <div className="flex justify-between item-center w-[500px]">
-          <div className="flex flex-col gap-[6px] w-[436px]">
+        <div className="flex justify-between item-center ">
+          <div className="flex flex-col gap-[6px]">
             <div className="text-[16px] font-[600]">Top Companies Hiring</div>
             <div className="text-[14px] font-[500]">Find Your Dream Job</div>
           </div>
           <div onClick={() => router.push("/candidate/topCompanies")} className="text-[14px] font-[600] text-[#06A9EF] cursor-pointer">View All</div>
         </div>
-
-
         <div >
           <Swiper
             modules={[Navigation, Pagination]}

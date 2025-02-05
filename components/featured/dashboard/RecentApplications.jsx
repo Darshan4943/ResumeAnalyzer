@@ -154,7 +154,7 @@ function RecentApplications({ isPending }) {
     },
   ];
   return (
-    <div>
+    <>
       <div className="pt-6">
         <div
           className="flex py-6 px-4 flex-col bg-[#fff] items-center w-full"
@@ -167,7 +167,7 @@ function RecentApplications({ isPending }) {
           <div className="flex lg:flex-row flex-col  w-[100%] ml:px-[16px] gap-4 lg:justify-between items-start lg:items-center bg-[#fff]">
             <p className="font-[600] text-[16px]">Recent Applications</p>
 
-            <div className="flex gap-2 items-start justify-between sm:w-[430px]   ">
+            <div className="flex gap-2 items-start justify-end sm:w-[430px]   ">
               <div
                 className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
                 style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
@@ -185,7 +185,7 @@ function RecentApplications({ isPending }) {
                   className="w-full"
                 />
               </div>
-              <div
+              {/* <div
                 className="flex py-3 px-4 gap-2 justify-center items-center bg-white sm:w-[108px] w-[98px]"
                 style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
               >
@@ -198,7 +198,7 @@ function RecentApplications({ isPending }) {
                 <p className="font-Montserrat text-[14px] sm:text-base font-semibold leading-6 text-[#333]">
                   Filter
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -481,7 +481,7 @@ function RecentApplications({ isPending }) {
 
       <div className="mobile">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
-          <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-2  overflow-y-auto w-[100%]">
+          <div className="flex flex-col gap-[16px] items-start bg-[#fff] rounded-b-[16px] p-2 pb-3  overflow-y-auto w-[100%]">
             {!applicants?.data?.applications.length == 0 ? (
               <>
                 {applicants?.data?.applications.map((applicant, index) => (
@@ -636,7 +636,7 @@ function RecentApplications({ isPending }) {
           page={page}
         />
       )}
-    </div>
+    </>
   );
 }
 

@@ -68,11 +68,11 @@ function AppliedJobs({ setLimitPopup, }) {
       {!loading ?
         <>
           {appliedJobs?.length > 0 ?
-            <div className="grid grid-cols-12 gap-[24px] customMargins py-6">
+            <div className="flex flex-col gap-[24px] customMargins py-6">
               <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You&apos;ve Applied <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {totalCount} Jobs )</span></p>
               <div
                 onClick={() => setIsDescription(true)}
-                className="col-span-8"
+                className="w-full scr700:w-[75%]"
               >
                 <AppliedJobCard
                   selectedJob={selectedJob}

@@ -57,7 +57,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
       {jobData?.map((item, index) => (
         <div
 
-          className={`p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]   bg-[#FFFFFF]  `}
+          className={`p-2 scr700:p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]   bg-[#FFFFFF]  `}
           style={{
             boxShadow: "0px 0px 14px 0px #00000005"
 
@@ -205,16 +205,16 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
               Woman Candidate Preffered
             </div> */}
             <p onClick={() => setSimilarJobsVisible(!similarJobsVisible)} className="text-[14px] font-semibold text-[#06A9EF] cursor-pointer">Find similar jobs openings</p>
-
           </div>
+
           <div className="bg-[#AFAFAF99] h-[1px] w-full my-1"></div>
 
-          <div className="flex flex-row justify-between items-center px-1 ">
-            <div className="flex gap-3 items-center">
+          <div className="flex w-full  gap-2 flex-col scr700:flex-row justify-between items-center px-1 ">
+            <div className="flex w-full flex-col scr390:flex-row gap-[6px] scr700:gap-3 justify-between scr700:justify-start items-start">
               {jobData?.some(
                 (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
               ) && isLogin ? (
-                <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-2 items-center">
+                <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-1 scr700:gap-2 items-center">
                   <svg
                     width="20"
                     height="20"
@@ -229,55 +229,42 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                       />
                     </g>
                   </svg>
-                  Applied{" "}
-
-
-
+                  Applied
                   <div
-
                     className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
                   >
-
                     {CountPostingDays(jobData[0]?.matchedApplication?.appliedOn) || ""}
                   </div>
-
-
                 </div>
               ) : (
                 <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                   Posted : {CountPostingDays(item.createdAt)}
                 </div>
               )}
-
-              <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                Applicants : {jobData[0]?.totalApplicationCount}
-              </div>
-              {jobData[0]?.openPositions &&
+              <div className="flex gap-[6px] scr700:gap-3">
                 <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
-                  Openings: {jobData[0]?.openPositions}
+                  Applicants : {jobData[0]?.totalApplicationCount}
                 </div>
-              }
+                {jobData[0]?.openPositions &&
+                  <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
+                    Openings: {jobData[0]?.openPositions}
+                  </div>
+                }
+              </div>
             </div>
-
-
-            <div className="flex gap-2 h-[42px]">
+            <div className="flex w-full scr700:w-[250px] justify-end gap-2 h-[42px]">
               {isLogin &&
                 <div>
                   {item?.isSaved ?
                     <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
                       Saved
-
                     </button> :
-
                     <button onClick={(e) => SaveJob(e, item._id)} className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight">
                       Save
-
                     </button>
-
                   }
                 </div>
               }
-
               <button
                 disabled={
                   jobData?.some(
@@ -316,7 +303,6 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                   (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
                 ) && isLogin ? "Applied" : "Apply"}
               </button>
-
             </div>
           </div>
         </div>
