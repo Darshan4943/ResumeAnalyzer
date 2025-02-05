@@ -52,7 +52,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
           <>
             <div
               onWheel={(e) => e.stopPropagation()}
-              className="p-[16px]  bg-[#fff] rounded-[12px] flex flex-col gap-[16px]   overflow-y-scroll "
+              className="p-2 scr700:p-[16px]  bg-[#fff] rounded-[12px] flex flex-col gap-[16px]   overflow-y-scroll "
             >
               {selectedJob?.description?.length > 0 && (
                 <div className="flex flex-col gap-[8px]">
