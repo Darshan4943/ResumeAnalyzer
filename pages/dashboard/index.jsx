@@ -1,8 +1,4 @@
-// import StackedBarChart from "@/components/common/StackedBarChart";
-// import StackedBarChart from "@/components/common/Bars";
-// import ChartComponent, { Bars } from "@/components/common/Bars";
-// import StackedBarChart from "@/components/common/StackedBarChart";
-import { TablePagination } from "@mui/material";
+
 import React, { useEffect, useRef, useState } from "react";
 import StackedBarChart from "../../components/common/StackedBarChart";
 import { useSelector } from "react-redux";

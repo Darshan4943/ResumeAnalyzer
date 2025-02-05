@@ -12,10 +12,10 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [id, setId] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState();
   const [miniloading, setMiniloading] = useState(false);
   const [limit, setLimit] = useState(10);
-  const [totalPages, setTotalPages] = useState();
+  const [totalPages, setTotalPages] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   useEffect(() => {
