@@ -206,7 +206,7 @@ function Profile() {
                 </p>
 
                 <div className="build_ai_button_parent build_ai_none">
-                  <ALink href={"/createResume/CandidateResumeDetails"}>
+                  <ALink href={"/createResume/BuildResume"}>
                     <button className="bg-blue text-[#FFFFFF] border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-semibold leading-tight">
                       Create New Resume
                     </button>

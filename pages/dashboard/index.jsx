@@ -42,9 +42,6 @@ function Dashboard({ toggleContentt }) {
     }
   };
 
-
-
-
   const handleNavigation = (page) => {
     router.push(page);
   };
@@ -405,3 +402,4 @@ function Dashboard({ toggleContentt }) {
 }
 
 export default Dashboard;
+   
