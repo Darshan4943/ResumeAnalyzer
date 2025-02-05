@@ -45,7 +45,7 @@ function JobsForYou({ isRelevant,isSimilar }) {
                     jobTitle:  "",
                     country: country,
                     location: "",
-                    experience: (isRelevant || isSimilar) ? "" : profileData?.totalExperience?.years,
+                    experience: (isRelevant || isSimilar) ? "" : "",
                     isExperinceNo: true
                 },
                 {

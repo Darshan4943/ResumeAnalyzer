@@ -26,7 +26,7 @@ function MiddleSection() {
       title: "Craft a Winning CV in Minutes with AI",
       description:
         "Don't let a subpar CV hold you back. Our AI-powered CV builder creates professional, impactful CVs that land you interviews.",
-      path: "/createResume/CandidateResumeDetails",
+      path: "/createResume/BuildResume",
       img: "/images/jobs/posters/poster1.png",
       isBgImg: false,
 

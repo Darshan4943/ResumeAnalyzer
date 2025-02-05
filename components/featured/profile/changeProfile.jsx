@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,43 +16,35 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
   const [isImg, IsNotImg] = useState(null);
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
-
-  const [selectedImg, setSelectedImg] = useState("device")
+  const [selectedImg, setSelectedImg] = useState("device");
 
   useEffect(() => {
     if (userData?.profilePicture?.img) {
       setCroppedImage({ url: userData?.profilePicture?.img });
     }
-  }, [ userData?.profilePicture?.img]);
- 
+  }, [userData?.profilePicture?.img]);
 
-console.log(croppedImage)
+
   const imgSelect = (e) => {
-    setSelectedImg(e)
-   
-  }
+    setSelectedImg(e);
+  };
 
   const handleFileChange = async (event) => {
     event.preventDefault();
-  
-    // Get files from file input or drag-and-drop (check for both)
+
     const files = event.target.files || event.dataTransfer?.files;
-  
-    // Check if files are available
+
     if (files && files[0]) {
       const selectedFile = files[0];
-  
-      // Check if file size is less than 1MB
+
       if (selectedFile.size <= 1 * 1024 * 1024) {
-        // Check if file is an image
         if (selectedFile.type.includes("image")) {
           try {
             const pngBlob = await convertToPng(selectedFile);
             if (pngBlob.size <= 1 * 1024 * 1024) {
-              // Ensure PNG is also less than 1MB
               setFile(pngBlob);
               setModelView(true);
-              event.target.value = ""; // Clear the file input
+              event.target.value = ""; 
             } else {
               toast.error("Converted PNG file is larger than 1 MB.");
             }
@@ -71,7 +62,7 @@ console.log(croppedImage)
       toast.error("No file selected.");
     }
   };
-  
+
   const convertToPng = async (file) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -82,9 +73,8 @@ console.log(croppedImage)
       };
 
       img.onload = () => {
-        // Create a canvas and draw the image
         const canvas = document.createElement("canvas");
-        const maxDimension = 1000; // Resize max dimension
+        const maxDimension = 1000; 
         let { width, height } = img;
 
         if (width > maxDimension || height > maxDimension) {
@@ -102,7 +92,6 @@ console.log(croppedImage)
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert the canvas content to a PNG blob with compression
         canvas.toBlob(
           (blob) => {
             if (blob) {
@@ -113,7 +102,7 @@ console.log(croppedImage)
           },
           "image/png",
           0.8
-        ); // Compression quality
+        );
       };
 
       reader.readAsDataURL(file);
@@ -124,39 +113,35 @@ console.log(croppedImage)
   };
 
   const removeImgae = () => {
+ 
+    setSelectedImg("dummy")
     setCroppedImage({ url: "/images/services/profile.png" });
-  };
-  // const saveProfilePhoto = () => {
-  //   const formData = new FormData();
-  //   formData.append("croppedImage", croppedImage);
-  //   console.log(222,croppedImage.blob)
-  //   axios
-  //     .put(
-  //       "http://localhost:2000/api/candidate/updateProfileImage/" +
-  //       userDataGlobal?._id,
-  //       formData
-  //     )
-  //     .then((res) => {
-  //       dispatch(fetchUserData());
-  //       toast.success("Profile Picture Updated Successfully");
-
-  //       setIsChangeProfile(false);
-  //     })
-  //     .catch((err) => toast.error("Size should be less than 2 mb"));
-  // };
   
+
+  };
+
+  console.log(selectedImg)
   const saveProfilePhoto = async () => {
     const formData = new FormData();
 
     if (selectedImg === "device" && croppedImage?.blob) {
-
       formData.append("croppedImage", croppedImage.blob);
-    } else if (selectedImg === "man") {
-
-      formData.append("profilePicture", JSON.stringify({ img: "/images/profile/dummyMan.png" }));
+    }else if (selectedImg === "dummy") {
+      formData.append(
+        "profilePicture",
+        JSON.stringify({ img: "/images/services/profile.png" })
+      );
+    } 
+     else if (selectedImg === "man") {
+      formData.append(
+        "profilePicture",
+        JSON.stringify({ img: "/images/profile/dummyMan.png" })
+      );
     } else if (selectedImg === "girl") {
-
-      formData.append("profilePicture", JSON.stringify({ img: "/images/profile/dummyGirl.png" }));
+      formData.append(
+        "profilePicture",
+        JSON.stringify({ img: "/images/profile/dummyGirl.png" })
+      );
     }
 
     try {
@@ -169,23 +154,21 @@ console.log(croppedImage)
       setIsChangeProfile(false);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update profile picture. Ensure the file size is within the limit.");
+      toast.error(
+        "Failed to update profile picture. Ensure the file size is within the limit."
+      );
     }
   };
 
-
   return (
-    <div className="bg-white rounded-[16px] py-3 "
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-      <div
-        className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto "
-
-      >
+    <div
+      className="bg-white rounded-[16px] py-3 "
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
+      <div className="flex flex-col gap-4 rounded-[16px] max-h-[calc(100vh-140px)] py-3 px-6 overflow-y-auto ">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
-            <p
-              className="text-[#25324B] text-[18px] font-[600] min-w-[215px]  leading-[160%]"
-            >
+            <p className="text-[#25324B] text-[18px] font-[600] min-w-[215px]  leading-[160%]">
               Update Profile Picture
             </p>
 
@@ -212,30 +195,34 @@ console.log(croppedImage)
           </p>
         </div>
 
-        <div  onDragOver={handleDragOver}
-            ref={fileRef}
-            onDrop={handleFileChange} className="flex p-[24px] flex-col justify-center items-center gap-4 rounded-[12px] bg-[#fff] border-[1px] border-solid border-[#06A9EF]">
+        <div
+          onDragOver={handleDragOver}
+          ref={fileRef}
+          onDrop={handleFileChange}
+          className="flex p-[24px] flex-col justify-center items-center gap-4 rounded-[12px] bg-[#fff] border-[1px] border-solid border-[#06A9EF]"
+        >
           <div className="flex flex-col items-center gap-[36px]">
-
             <>
-
               <div className="flex gap-9">
-                <div onClick={(e) => imgSelect("man")} className=" cursor-pointer flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]">
-
-                  {selectedImg === "man" &&
+                <div
+                  onClick={(e) => imgSelect("man")}
+                  className=" cursor-pointer flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]"
+                >
+                  {selectedImg === "man" && (
                     <div className={"absolute top-0 left-1"}>
                       <ImageSelect />
                     </div>
-                  }
+                  )}
                   <img
-
                     src={"/images/profile/dummyMan.png"}
                     alt=""
                     className="min-h-[164px] max-w-[164px]  max-h-[164px] min-w-[164px]  rounded-[50%] object-contain"
                   />
-
                 </div>
-                <div onClick={(e) => imgSelect("device")} className="flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]">
+                <div
+                  onClick={(e) => imgSelect("device")}
+                  className="flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]"
+                >
                   {croppedImage ? (
                     <>
                       <ImageContainer
@@ -243,14 +230,9 @@ console.log(croppedImage)
                         alt="Selected File"
                         className="min-h-[164px] max-w-[164px]  max-h-[164px] min-w-[164px] rounded-[50%] object-contain"
                       />
-
-
                     </>
-
                   ) : (
-
                     <img
-
                       src={
                         userData?.profilePicture?.img
                           ? userData?.profilePicture?.img
@@ -259,27 +241,30 @@ console.log(croppedImage)
                       alt=""
                       className="min-h-[164px] max-w-[164px]  max-h-[164px] min-w-[164px]  rounded-[50%] object-contain "
                     />
-
                   )}
-                  {selectedImg === "device" &&
+                  {(selectedImg === "device" || selectedImg === "dummy") && (
                     <div className={"absolute -top-0.5 left-1"}>
                       <ImageSelect />
                     </div>
-                  }
-                  {selectedImg === "device" &&
-                    <div onClick={()=>removeImgae()} className={"absolute -bottom-0.5 right-1"}>
+                  )}
+                  {selectedImg === "device" && (
+                    <div
+                      onClick={(e) => {e.stopPropagation();removeImgae()}}
+                      className={"absolute -bottom-0.5 right-1"}
+                    >
                       <DeleteProfileImg />
                     </div>
-                  }
-
+                  )}
                 </div>
-                <div onClick={(e) => imgSelect("girl")} className=" cursor-pointer flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]">
-
-                  {selectedImg === "girl" &&
+                <div
+                  onClick={(e) => imgSelect("girl")}
+                  className=" cursor-pointer flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]"
+                >
+                  {selectedImg === "girl" && (
                     <div className={"absolute top-0 left-1"}>
                       <ImageSelect />
                     </div>
-                  }
+                  )}
 
                   <img
                     onClick={() => setSelectedImg("girl")}
@@ -288,17 +273,12 @@ console.log(croppedImage)
                     className="min-h-[164px] max-w-[164px]  max-h-[164px] min-w-[164px]  rounded-[50%] object-contain"
                   />
                 </div>
-
-
               </div>
               <div className="flex gap-4 justify-center items-start">
-
                 <button className=" cursor-pointer flex justify-center items-center px-[5px] ms:px-[36px] py-[8px] rounded-[30px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333]  text-[14px] font-[600] upload-btn-wrapper">
                   <input
-                   
                     type="file"
                     name="myfile"
-
                     onChange={handleFileChange}
                     className="h-full w-full cursor-pointer"
                   />
@@ -312,7 +292,6 @@ console.log(croppedImage)
                 </button>
               </div>
             </>
-
           </div>
           <p className="text-[#7C8493] text-[12px] ms:text-[16px] font-[400] leading-normal">
             Supported file format: png, jpg, jpeg, gif - upto 2MB
@@ -331,7 +310,6 @@ console.log(croppedImage)
           setCroppedImage={setCroppedImage}
         />
       )}
-
     </div>
   );
 }
