@@ -66,11 +66,11 @@ function MiddleSection() {
     },
   ];
   return (
-    <div className="flex flex-col gap-5 max-w-[548px]">
+    <div className="flex flex-col gap-5 w-full ml:max-w-[548px]">
       <div className="flex gap-4">
         <button
           onClick={() => router.push("/jobs/candidate/AppliedJobs")}
-          className="flex gap-2 rounded-[6px] px-4 py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[14px] font-semibold items-center leading-tight"
+          className="flex gap-1 rounded-[6px] px-2 py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[12px] font-semibold items-center leading-tight"
         >
           <svg
             width="24"
