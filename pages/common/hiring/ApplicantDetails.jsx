@@ -19,6 +19,8 @@ function ApplicantDetails({ setTogglee }) {
   const { id, applicantId } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false)
+const [successfull, setSuccessfull] = useState(false);
+const [taskSuccessfull, setTaskSuccessfull] = useState(false);
 
 
   const getData = async () => {
@@ -61,6 +63,18 @@ function ApplicantDetails({ setTogglee }) {
       getData();
     }
   }, [statusChange]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (taskSuccessfull) {
+        await getData();
+        setToggle("HiringProgress");
+      }
+    };
+  
+    fetchData();
+  }, [taskSuccessfull]);
+  
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
@@ -239,7 +253,7 @@ function ApplicantDetails({ setTogglee }) {
 
                   </div>
                 )}
-                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel} jobDetails={jobDetails}/>}
+                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel} jobDetails={jobDetails} successfull={successfull} setSuccessfull={setSuccessfull} taskSuccessfull={taskSuccessfull} setTaskSuccessfull={setTaskSuccessfull} />}
               </div>
             )}
           </div>

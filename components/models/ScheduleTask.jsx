@@ -29,7 +29,7 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull }) {
         setToggle(parseInt(e.target.value, 10));
     };
     return (
-        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='text-[24px] font-medium'>Assign Task</div>
 
             <div className='flex flex-col gap-4'>

@@ -1,11 +1,15 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues }) {
+function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues,submitDetails }) {
     console.log(selectedValues);
     const [levels, setLevels] = useState([
 
     ]);
+     useEffect(() => {
+        setSelectedValues({...selectedValues,isOnline:true})
+        }, [])
+        
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
     const router = useRouter()
@@ -75,26 +79,25 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
         setLevels([...levels, newLevel]);
     };
 
-    // Delete a level
-    const deleteLevel = (id) => {
-        if (id === 1) return; // Prevent deletion of the first level
 
-        const updatedLevels = levels.filter((level) => level.id !== id);
+    const deleteLevel = (id) => {
+        if (id === 1) return; 
+
+        const updatedLevels = levels?.filter((level) => level.id !== id);
         setLevels(updatedLevels);
 
-        // Remove the corresponding assignTo data in selectedValues
-        const updatedAssignTo = selectedValues.assignTo.filter((_, index) => index !== id - 1);
+        const updatedAssignTo = selectedValues?.assignTo?.filter((_, index) => index !== id - 1);
         setSelectedValues(prevState => ({
             ...prevState,
-            assignTo: updatedAssignTo // Update the assignTo field by removing the deleted level's assignTo data
+            assignTo: updatedAssignTo 
         }));
     }
 
-    // Handle changes in the input fields
+   
     const handleInputChange = (id, field, value) => {
         const updatedLevels = levels.map(level => {
             if (level.id === id) {
-                level.assignTo[0][field] = value; // Update the specific field for the selected level
+                level.assignTo[0][field] = value; 
             }
             return level;
         });
@@ -124,7 +127,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
     };
 
     return (
-        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='text-[24px] font-medium'>Schedule Interview</div>
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
                 <p>What will be the mode of Interview?</p>
@@ -376,7 +379,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
             </div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
                 <button onClick={() => setShowScheduleInterview(false)} className='ml:px-9 ml:py-3 px-2 py-2 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button onClick={() => setSuccessfull(true)} className='ml:px-9 ml:py-3 px-2 py-2 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                <button onClick={() => submitDetails()} className='ml:px-9 ml:py-3 px-2 py-2 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
             </div>
         </div>
     )

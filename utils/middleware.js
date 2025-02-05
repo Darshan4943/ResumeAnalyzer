@@ -169,6 +169,15 @@ export const dateFormatter = (date) => {
   return `${year}-${month}-${day}`;
 };
 
+export const formatInterviewDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+};
+
+
 export function timeAgo(date) {
   const currentDate = new Date();
   const timestamp = date.getTime();

@@ -2,8 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import LevelUpdate from '../../models/levelUpdate';
 import { DummyProfileSvg } from '../../../utils/svg';
+import { formatInterviewDate } from '../../../utils/middleware';
 
-function HiringProgress({ hiringData = [],jobDetails }) {
+function HiringProgress({ hiringData = [], jobDetails,successfull, setSuccessfull,taskSuccessfull, setTaskSuccessfull }) {
     console.log("Hiring Data:", hiringData);
 
     const [openTaskModel, setOpenTaskModel] = useState(false);
@@ -27,15 +28,16 @@ function HiringProgress({ hiringData = [],jobDetails }) {
         setOpenTaskModel(false);
     };
 
-    const [successfull, setSuccessfull] = useState(false);
-    const [taskSuccessfull, setTaskSuccessfull] = useState(false);
+    
+   
 
     return (
-        <div className='flex flex-col gap-6 overflow-y-auto scr1024:px-6 px-2'>
+        <div className='flex flex-col gap-6 overflow-y-auto scr1024:px-6 px-2 py-4'>
             {hiringData.length > 0 ? (
-                hiringData.map((level, index) => (
+                hiringData.slice().reverse().map((level, index) => (
+
                     <React.Fragment key={level._id}>
-                        {level.level === 1 ? (
+                        {level?.level === 1 ? (
                             // Design for Level 1
                             <div className='flex gap-4'>
                                 <div className='w-[24px]'></div>
@@ -60,15 +62,17 @@ function HiringProgress({ hiringData = [],jobDetails }) {
                                             <p className={`text-[14px] font-medium text-[#0C8A0A]`}>Verified</p>
                                         </div>
                                     </div>
-                                    <button
-                                        onClick={() => {
-                                            setSelectedLevel(level);
-                                            setOpenTaskModel(true);
-                                        }}
-                                        className='px-9 py-3 bg-[#06A9EF] rounded-[30px] min-w-[209px] w-[210px] text-[14px] font-semibold text-white'
-                                    >
-                                        Move to Next Level
-                                    </button>
+                                    {index === 0 &&
+                                        <button
+                                            onClick={() => {
+                                                setSelectedLevel(level);
+                                                setOpenTaskModel(true);
+                                            }}
+                                            className='px-9 py-3 bg-[#06A9EF] rounded-[30px] min-w-[209px] w-[210px] text-[14px] font-semibold text-white'
+                                        >
+                                            Move to Next Level
+                                        </button>
+                                    }
                                 </div>
                             </div>
                         ) : (
@@ -77,33 +81,53 @@ function HiringProgress({ hiringData = [],jobDetails }) {
                                 <div className='w-[24px]'></div>
                                 <div className='flex flex-col gap-4 w-full'>
                                     <div className='flex gap-4 justify-between items-center'>
-                                        <p className='min-w-[60px]'>Level {level.level}</p>
+                                        <p className='min-w-[60px] text-[16px] font-medium'>Level {level.level}</p>
                                         <div className='h-[1px] w-[90%] bg-[#D6DDEB]'></div>
                                     </div>
                                     <div className='flex gap-8 w-full'>
-                                        <div className='flex gap-4 flex-col w-[50%]'>
+                                        <div className='flex gap-4 flex-col w-[40%]'>
                                             <p className='text-[18px] font-semibold'>{level.title}</p>
                                             <div className='flex flex-col gap-2'>
                                                 <p className='text-[#646464] text-[14px] font-normal'>Interview Date</p>
-                                                <div>10 Dec 2023</div>
+                                                <div>{formatInterviewDate(level.interviewDate)}</div>
                                             </div>
                                             {!level.isOnline && (
                                                 <div className='flex flex-col gap-2'>
                                                     <p className='text-[#646464] text-[14px] font-normal'>Interview Location</p>
-                                                    <div>jsdjb jbhahbjds bhjahajjba hbjajh hbahj jjh hjash</div>
+                                                    <div>{level.interviewLocation}</div>
                                                 </div>
                                             )}
-                                            <button
-                                                onClick={() => {
-                                                    setSelectedLevel(level);
-                                                    setOpenTaskModel(true);
-                                                }}
-                                                className='px-9 py-3 bg-[#06A9EF] rounded-[30px] min-w-[209px] w-[210px] text-[14px] font-semibold text-white'
-                                            >
-                                                Move to Next Level
-                                            </button>
+
+                                            {level.status === "Conducted" && (
+                                                <div className='flex flex-col gap-2'>
+                                                    <p className='text-[#646464] text-[16px] font-normal'>Conducted by</p>
+                                                    <div className='flex gap-4 flex-wrap'>
+                                                        {level.assignTo.map((assignee, i) => (
+                                                            <div key={i} className='flex gap-2'>
+                                                                <DummyProfileSvg />
+                                                                <div className='flex flex-col'>
+                                                                    <p className='text-[14px] font-medium'>{assignee.name}</p>
+                                                                    <p className='text-[12px] font-normal text-[#646464]'>{assignee.role}</p>
+                                                                    <p className='text-[12px] font-normal text-[#646464]'>{assignee.email}</p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {index === 0 &&
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedLevel(level);
+                                                        setOpenTaskModel(true);
+                                                    }}
+                                                    className='px-9 py-3 bg-[#06A9EF] rounded-[30px] min-w-[209px] w-[210px] text-[14px] font-semibold text-white'
+                                                >
+                                                    Move to Next Level
+                                                </button>
+                                            }
                                         </div>
-                                        <div className='w-[50%] flex flex-col gap-4'>
+                                        <div className='w-[60%] flex flex-col gap-4'>
                                             <div className='flex flex-col gap-2'>
                                                 <p className='text-[#646464] text-[14px] font-normal'>Interview Status</p>
                                                 <div className={`px-[10px] py-[3px] rounded-[80px] w-fit ${level.status === "Pending" ? "text-[#FFB836] bg-[#EB85331A]" : level.status === "Conducted" ? "text-[#0C8A0A] bg-[#E2FFE1]" : "text-[#FF6550] bg-[#FF65501A]"}`}>
@@ -127,7 +151,20 @@ function HiringProgress({ hiringData = [],jobDetails }) {
                                                     </div>
                                                 </div>
                                             )}
+                                            {level?.score &&
+                                                <div className='flex flex-col gap-2'>
+                                                    <p className='text-[#646464] text-[14px] font-normal'>Interview Score</p>
+                                                    <div className="flex gap-2 items-center">
+                                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M14.6887 5.52032L10.7215 4.94376L8.9481 1.34844C8.89966 1.25001 8.81998 1.17032 8.72154 1.12188C8.47466 1.00001 8.17466 1.10157 8.05123 1.34844L6.27779 4.94376L2.3106 5.52032C2.20123 5.53594 2.10123 5.58751 2.02466 5.66563C1.9321 5.76077 1.8811 5.88876 1.88286 6.02148C1.88461 6.1542 1.93899 6.28079 2.03404 6.37344L4.90435 9.17188L4.22623 13.1234C4.21032 13.2154 4.2205 13.3099 4.25559 13.3963C4.29068 13.4828 4.34929 13.5576 4.42477 13.6125C4.50025 13.6673 4.58958 13.6999 4.68263 13.7065C4.77568 13.7131 4.86873 13.6936 4.95123 13.65L8.49966 11.7844L12.0481 13.65C12.145 13.7016 12.2575 13.7188 12.3653 13.7C12.6372 13.6531 12.82 13.3953 12.7731 13.1234L12.095 9.17188L14.9653 6.37344C15.0434 6.29688 15.095 6.19688 15.1106 6.08751C15.1528 5.81407 14.9622 5.56094 14.6887 5.52032Z" fill="#FFB836" />
+                                                        </svg>
+                                                        {level?.score}
+                                                    </div>
+                                                </div>
+                                            }
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +183,7 @@ function HiringProgress({ hiringData = [],jobDetails }) {
                         exit={{ x: '100%' }}
                         transition={{ duration: 0.5 }}
                         ref={taskRef}
-                        className='absolute z-10 right-[-1.5%] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] w-[100%]  ml:top-[-2%] ml:bottom-[0%]'
+                        className='fixed z-[10100] right-0 scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] w-[100%]  ml:top-0 ml:bottom-[0%]'
                     >
                         <LevelUpdate closeTaskPopup={closeTaskPopup} setSuccessfull={setSuccessfull} setTaskSuccessfull={setTaskSuccessfull} selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} jobDetails={jobDetails} />
                     </motion.div>
