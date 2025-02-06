@@ -74,7 +74,6 @@ const JobMatching = () => {
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
- console.log(77,jobData);
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
