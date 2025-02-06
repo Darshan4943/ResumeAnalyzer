@@ -114,7 +114,7 @@ const CandidateAiPower = ({
         } else {
           setDocFileError(true);
           toast.error("Invalid file type! Please upload a PDF or DOC file.", {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -208,10 +208,6 @@ const CandidateAiPower = ({
 
   const navigate = () => {
 
-    // if (uploadLimit <= 0) {
-    //   setLimitUsedModal(true);
-    //   return;
-    // }
     if (!planAvailable) {
       setLimitUsedModal(true);
       return;
@@ -239,7 +235,6 @@ const CandidateAiPower = ({
                 )
                 .then((res) => {
                   const result = res.data;
-                  console.log(result)
                   if (result.success) {
                     localStorage.setItem(
                       "uploadCount",
