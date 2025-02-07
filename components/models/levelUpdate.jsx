@@ -8,10 +8,11 @@ import { DummyProfileSvg } from '../../utils/svg';
 import axios from 'axios';
 import { formatInterviewDate } from '../../utils/middleware';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selectedLevel, setSelectedLevel, jobDetails }) {
-
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isNextLevel, setIsNextLevel] = useState("")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
     const [showAssignTask, setShowAssignTask] = useState(false);
@@ -21,7 +22,8 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
         setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
     };
     const [selectedValues, setSelectedValues] = useState({});
-
+    const [mailDetails, setMailDetails] = useState({candidate:{},interviewer:{}});
+console.log(selectedValues);
     useEffect(() => {
         setCurrenStatus(selectedLevel?.status)
     }, [])
@@ -51,7 +53,6 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 setError("Select Option")
                 return;
             }
-        }
         if (selectedValues?.isOnline) {
             if (!selectedValues?.interviewer) {
                 setError("Interviewer Details are Required")
@@ -73,6 +74,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
             }
         }
 
+    }
 
 
 
@@ -104,6 +106,8 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                         comment: selectedLevel?.comment,
                     },
                     isNextLevel,
+                    mailDetails,
+                    employer:userDataGlobal?.email
                 }
             );
 
@@ -356,7 +360,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             // ref={taskRef}
                             className='absolute z-[2500] right-0 w-[100%] top-[0]'
                         >
-                            <ScheduleInterview error={error} setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
+                            <ScheduleInterview mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
                         </motion.div>
                     </div>
                 )}

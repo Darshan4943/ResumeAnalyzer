@@ -1,15 +1,54 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import debounce from "lodash.debounce";
+import React, { useCallback, useEffect, useState } from 'react'
 
-function ScheduleInterview({error, setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues, submitDetails }) {
-    console.log(selectedValues);
+function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues, submitDetails,mailDetails, setMailDetails }) {
+    console.log(mailDetails);
     const [levels, setLevels] = useState([
 
     ]);
+      const [formError, setFormError] = useState({});
     useEffect(() => {
         setSelectedValues({ ...selectedValues, isOnline: true, startAmPm: "PM", startTime: "1", duration: "30 min", interviewDate: new Date().toISOString().split('T')[0] })
     }, [])
+    const debounceUpdate = useCallback(
+        debounce((value) => {
+          
+          setMailDetails((prev) => ({ ...prev,  candidate: {...prev.candidate,content: value }}));
+        }, 500),
+        []
+      );
+      const debounceUpdate1 = useCallback(
+        debounce((value) => {
+          
+          setMailDetails((prev) => ({ ...prev,  interviewer: {...prev.interviewer,content: value }}));
+        }, 500),
+        []
+      );
 
+    const handleChange1 = (value) => {
+      
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails,  candidate: {...mailDetails.candidate,content: value.slice(0, 200)} });
+          debounceUpdate(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails,  candidate: {...mailDetails.candidate,content: value } });
+          debounceUpdate(value);
+        }
+      };
+      const handleChange2 = (value) => {
+      
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails,  interviewer: {...mailDetails.interviewer,content: value.slice(0, 200)} });
+            debounceUpdate1(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails,  interviewer: {...mailDetails.interviewer,content: value } });
+            debounceUpdate1(value);
+        }
+      };
 
 
     const handleInputChangee = (field, value) => {
@@ -351,29 +390,94 @@ function ScheduleInterview({error, setShowScheduleInterview, setSuccessfull, set
                         </div>
                         <div className='h-[1px] bg-[#D6DDEB]'></div>
                     </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
-                        </div>
-                        <input
-                            type="input"
-                            placeholder='Skilotech-Online Interview-Interviewer 1'
-                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+                    {activeOption === 'Candidate' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Interview'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.candidate?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                          ...prev,
+                                          candidate: {
+                                            ...prev.candidate,
+                                            subject: e.target.value,
+                                          },
+                                        }))
+                                      }
+                                />
+                            </div>
 
-                        </div>
-                        <textarea
-                            type="input"
-                            placeholder='Insert Text here...'
-                            class="min-h-[100px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.candidate?.content}
+                                    onTextChange={(e) => handleChange1(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
+                     {activeOption === 'Interviewer' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Interview'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.interviewer?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                          ...prev,
+                                          interviewer: {
+                                            ...prev.interviewer,
+                                            subject: e.target.value,
+                                          },
+                                        }))
+                                      }
+                                />
+                            </div>
+
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.interviewer?.content}
+                                    onTextChange={(e) => handleChange2(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
             <div className='text-[14px] font-medium text-red w-full flex justify-end'>{error}</div>
