@@ -58,7 +58,6 @@ function EmployerHeader() {
     <>
       <div
         className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]"
-      // style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between w-[30%] ">
           <div className="flex gap-1 items-center">
@@ -120,23 +119,23 @@ function EmployerHeader() {
 
             <div className="flex items-center gap-2">
               <div className=" h-[36px] w-[36px] min-w-[36px]">
-                {profileData?.profilePicture?.img ? (
-                  <img
-                    className=" rounded-full object-cover h-[36px] w-[36px] min-w-[36px]"
-                    src={
-                      profileData?.profilePicture?.img ||
-                      "/images/profile/profileNew.png"
-                    }
-                  />
-                ) : (
-                  <div
-                    className="rounded-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold scr1250:text-[20px] text-[14px] h-full"
-                    style={{ textTransform: "capitalize" }}
-                    alt=""
-                  >
-                    {userDataGlobal?.email?.slice(0, 1)}
-                  </div>
-                )}
+              {userDataGlobal?.profilePicture ? (
+                <img
+                  className=" rounded-full object-cover h-[36px] w-[36px]"
+                  src={
+                    userDataGlobal?.profilePicture ||
+                    "/images/profile/profileNew.png"
+                  }
+                />
+              ) : (
+                <div
+                  className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
+                  style={{ textTransform: "capitalize" }}
+                  alt=""
+                >
+                  {userDataGlobal?.email?.slice(0, 1)}
+                </div>
+              )}
               </div>
 
               <div onClick={() => setIsLogout(!isLogout)} className=" flex items-center cursor-pointer text-[14px] font-semibold">

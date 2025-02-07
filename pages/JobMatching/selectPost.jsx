@@ -1,43 +1,72 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
-
-import { PencilLineIcon } from "lucide-react";
-import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/miniLoader";
 import { dateSeter } from "../../utils/middleware";
+import CustomPagination from "../../components/common/CustomPagination";
 
 const SelectPost = () => {
   const router = useRouter();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filterStatus, setFilterStatus] = useState("All");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [jobPost, setJobPost] = useState([]);
-  localStorage.setItem("jdApplicantFilenames", JSON.stringify(""))
-  const getData = () => {
-    setLoading(true);
-    axios
-      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
-      .then((res) => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [miniloading, setMiniloading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(9);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [delayedSearchTerm, setDelayedSearchTerm] = useState("");
+  const [select, setSelect] = useState(false);
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
 
-        setJobPost(res.data);
-        setLoading(false);
+  localStorage.setItem("jdApplicantFilenames", JSON.stringify(""));
 
-      })
-      .catch((err) => {
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        {
+          params: {
+            page,
+            limit,
+            search: delayedSearchTerm,
+            status: filterStatus !== "All" ? filterStatus : undefined,
+          },
+        }
+      );
+      setJobPost(data);
+      setTotalCount(data.totalCount);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error("Error fetching job posts:", error);
+    } finally {
+      setTimeout(() => {
         setLoading(false);
-        console.log(err);
-      });
+      }, 2000);
+    }
   };
+
+  const handleSearchChange = useCallback((e) => {
+    setSearchTerm(e.target.value);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelayedSearchTerm(searchTerm);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   useEffect(() => {
     if (userDataGlobal?._id) {
+      setLoading(true);
       getData();
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal, page, limit, delayedSearchTerm, filterStatus]);
 
   const statusPriority = {
     Live: 1,
@@ -45,19 +74,22 @@ const SelectPost = () => {
     Closed: 3,
   };
 
-  const sortedJobs = jobPost
-    .filter((job) => filterStatus === "All" ? true : job.status === filterStatus)
-    .sort((a, b) => {
-      const statusComparison = statusPriority[a.status] - statusPriority[b.status];
+  const sortedJobs = Array.isArray(jobPost?.jobs)
+    ? jobPost.jobs
+        .filter((job) =>
+          filterStatus === "All" ? true : job.status === filterStatus
+        )
+        .sort((a, b) => {
+          const statusComparison =
+            statusPriority[a.status] - statusPriority[b.status];
 
-      if (statusComparison === 0) {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      }
+          if (statusComparison !== 0) {
+            return statusComparison;
+          }
 
-      return statusComparison;
-    });
-
-
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+    : [];
 
   const isLive = (item) => {
     var date1 = new Date(item.deadLine);
@@ -73,27 +105,27 @@ const SelectPost = () => {
     }
   };
 
-  const [select, setSelect] = useState(false);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedIndexes, setSelectedIndexes] = useState([]);
-
-
-
   return (
-
-
     <div className=" flex flex-col gap-[16px]  ">
       <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
           Select Job
         </span>
 
-        {/* <button
-          className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] min-w-[190px] "
-          onClick={() => router.push("/jobs/create")}
-        >
-          <AddIcon color={"#fff"} /> Create New Job
-        </button> */}
+        <div className="flex items-center gap-2 border-[1px] bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
+          <input
+            type="text"
+            placeholder="Enter Job Titel"
+            className="bg-transparent text-black placeholder-black outline-none w-full text-[12px] font-medium"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <img
+            src="/images/employer/icon_search.png"
+            className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+            alt=""
+          />
+        </div>
 
         <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
           <select
@@ -106,9 +138,9 @@ const SelectPost = () => {
             <option value="Closed">Closed</option>
             <option value="Hold">Hold</option>
           </select>
-
         </div>
       </div>
+
       <div>
         <div className=" flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
           {loading ? (
@@ -124,11 +156,10 @@ const SelectPost = () => {
                       key={index}
                       className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px] relative bg-white"
                       onClick={() => {
-                        router.push(`/JobMatching?selectedJob=${item?._id}`)
-                      }
-                      }
+                        router.push(`/JobMatching?selectedJob=${item?._id}`);
+                      }}
                     >
-                      <div className="px-[16px] flex flex-row justify-between ">
+                      <div className="px-[16px] flex flex-row justify-between items-start ">
                         <div className="flex flex-row items-start  gap-2">
                           {select && (
                             <input
@@ -141,7 +172,7 @@ const SelectPost = () => {
                             />
                           )}
                           <div className="flex flex-col gap-[2px]">
-                            <span className="text-[16px] text-[#06A9EF] font-medium">
+                            <span className="text-[16px]  font-[600]">
                               {item?.jobTitle}
                             </span>
                             <span className="text-[12px] text-[#646464] font-medium">
@@ -156,39 +187,37 @@ const SelectPost = () => {
                           </div>
                         </div>
 
-                        <div className="flex flex-row gap-2">
-                          {item.status === "Live" &&
-                            <div className="border border-[#0C8A0A] text-[#0C8A0A] text-[12px] font-medium px-[16px] bg-[#E2FFE1] h-[24px] rounded-[6px] flex items-center justify-center">
-                              Live
-                            </div>
-                          }
-                          {item.status === "Closed" &&
-                            <div className="border border-[#C00000] text-[#C00000] text-[12px] font-medium px-[16px] bg-[#FFEBEB] h-[24px] rounded-[6px] flex items-center justify-center">
-                              Closed
-                            </div>
-                          }
-                          {item.status === "Hold" &&
-                            <div className="border border-[#FF9900] text-[#FF9900] text-[12px] font-medium px-[16px] bg-[#FFFFFF] h-[24px] rounded-[6px] flex items-center justify-center">
-                              Hold
-                            </div>
-                          }
-                          {/* <div
-                            className="cursor-pointer"
-                            onClick={(e) => {
-                              e.stopPropagation(); // prevent
-                              router.push("/jobs/create?id=" + item?._id);
-                            }}
-                          >
-                            <PencilLineIcon color="#646464" />
-                          </div> */}
+                        <div className="flex justify-center items-center flex-row gap-2">
+                          {item.status === "Live" ? (
+                            <>
+                              <div className="w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
+                              <div className="text-[12px] font-[500] text-[#0C8A0A]">
+                                Active
+                              </div>
+                            </>
+                          ) : item.status === "Hold" ? (
+                            <>
+                              <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
+                              <div className="text-[12px] font-[500] text-[#ddda40]">
+                                On Hold
+                              </div>
+                            </>
+                          ) : item.status === "Closed" ? (
+                            <>
+                              <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                              <div className="text-[12px] font-[500] text-[#B3261E]">
+                                Inactive
+                              </div>
+                            </>
+                          ) : null}
                         </div>
                       </div>
-                      <div className="px-[16px] flex flex-row justify-around bg-[#EFFAFF] items-center">
-                        <div className="text-[14px] font-semibold text-[#333333] w-[50%] text-left">
+                      <div className="px-[16px] flex flex-row justify-around  items-center">
+                        <div className="text-[18px] font-[600] text-[#333333] w-[50%] text-left">
                           Total Applications
                         </div>
                         <div className="text-[36px] font-semibold text-[#333333] w-[50%] text-center">
-                          {item?.applicationsLength}
+                          {item?.totalApplications}
                         </div>
                       </div>
                       <div className="px-[16px] flex flex-row justify-between items-center">
@@ -223,6 +252,25 @@ const SelectPost = () => {
             </>
           )}
         </div>
+        {totalCount > 9 ? (
+          <>
+            <div>
+              <CustomPagination
+                setMiniloading={setMiniloading}
+                miniLoading={miniloading}
+                setPage={setPage}
+                title={"Jobs"}
+                setLimit={setLimit}
+                defaultLimit={9}
+                totalPages={totalPages}
+                limit={limit}
+                page={page}
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
