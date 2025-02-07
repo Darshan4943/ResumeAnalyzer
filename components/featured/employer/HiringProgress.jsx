@@ -32,7 +32,7 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
 
 
     return (
-        <div className='flex flex-col gap-6 overflow-y-auto scr1024:px-6 px-2 py-4'>
+        <div className='flex flex-col gap-6 h-[calc(100vh-300px)] overflow-y-auto scr1024:px-6 px-2 py-4'>
             {hiringData?.length > 0 ? (
                 hiringData?.slice()?.reverse()?.map((level, index) => (
 

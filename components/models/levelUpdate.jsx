@@ -10,6 +10,7 @@ import { formatInterviewDate } from '../../utils/middleware';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import ShortlistMail from '../../pages/common/hiring/ShortlistMail';
+import MiniLoader from '../common/mini-loader';
 
 
 function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selectedLevel, setSelectedLevel, jobDetails }) {
@@ -19,9 +20,11 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
     const [showAssignTask, setShowAssignTask] = useState(false);
     const [error, setError] = useState();
     const [currenStatus, setCurrenStatus] = useState()
+    const [statusChange,setStatusChange]= useState(false);
     const handleStarClick = (starIndex) => {
         setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
     };
+    const [loading, setLoading] = useState(false)
     const [shortlist, setShortlist] = useState(false);
     const [selectedValues, setSelectedValues] = useState({});
     const [mailDetails, setMailDetails] = useState({ candidate: {}, interviewer: {} });
@@ -54,27 +57,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 setError("Select Option")
                 return;
             }
-            if (selectedValues?.isOnline) {
-                if (!selectedValues?.interviewer) {
-                    setError("Interviewer Details are Required")
-                    return;
-                }
-                if (!selectedValues.meetingLink) {
-                    setError("Meeting Link is Required")
-                }
-
-            }
-
-            if (!selectedValues?.isOnline) {
-                if (!selectedValues?.taskReviewer) {
-                    setError("Interviewer Details are Required")
-                    return;
-                }
-                if (!selectedValues.location) {
-                    setError("Location is Required")
-                }
-            }
-
+            
         }
         else {
             setShortlist(true)
@@ -90,31 +73,34 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
         }
 
         if (isNextLevel === "nextLevel") {
-            
-            if (selectedValues?.isOnline) {
+            if (selectedValues.isInterview) {
                 if (!selectedValues?.interviewer) {
                     setError("Interviewer Details are Required")
                     return;
+
                 }
-                if (!selectedValues.meetingLink) {
+
+                if (selectedValues?.isOnline && !selectedValues.meetingLink) {
                     setError("Meeting Link is Required")
-                }
-
-            }
-
-            if (!selectedValues?.isOnline) {
-                if (!selectedValues?.taskReviewer) {
-                    setError("Interviewer Details are Required")
                     return;
                 }
-                if (!selectedValues.location) {
+
+                if (!selectedValues?.isOnline && !selectedValues.location) {
                     setError("Location is Required")
+                    return;
                 }
             }
+            if (selectedValues.isTask && !selectedValues?.taskReviewer) {
+                setError("Reviewer Details are Required")
+                return;
+            }
+
+
 
         }
 
         try {
+            setLoading(true)
             const response = await axios.put(
                 `http://localhost:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
                 {
@@ -150,9 +136,11 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
             if (response.data.success) {
                 console.log("Details updated successfully");
                 setTaskSuccessfull(true);
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error updating application details:", error);
+            setLoading(false)
         }
     };
 
@@ -204,6 +192,8 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             isByEmployer={true}
                             submitDetails={submitDetails}
                             newHiringStage={isNextLevel}
+                            setStatusChange={setStatusChange}
+                            statusChange={statusChange}
 
 
                         />
@@ -395,7 +385,13 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 <div className='w-full flex justify-end text-red text-[14px] font-medium'>{error}</div>
                 <div className='flex gap-4 justify-end py-[1rem]'>
                     <button onClick={closeTaskPopup} className='w-[106px] h-[42px] border border-[#06A9EF] rounded-[30px] flex justify-center items-center  text-[16px] font-semibold' id='button'>Cancel</button>
-                    <button onClick={isNextLevel ? nextStage : submitDetails} className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>Save</button>
+                    {loading ?
+                        <div className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>
+                            <MiniLoader />
+                        </div>
+                        :
+                        <button onClick={isNextLevel ? nextStage : submitDetails} className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>Save</button>
+                    }
                 </div>
 
 
@@ -415,7 +411,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             // ref={taskRef}
                             className='absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] '
                         >
-                            <ScheduleInterview mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
+                            <ScheduleInterview setError={setError} loading={loading} mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
                         </motion.div>
                     </div>
                 )}
@@ -434,7 +430,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             // ref={taskRef}
                             className='absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] '
                         >
-                            <ScheduleTask setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
+                            <ScheduleTask setError={setError} loading={loading} mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
                         </motion.div>
                     </div>
                 )}
