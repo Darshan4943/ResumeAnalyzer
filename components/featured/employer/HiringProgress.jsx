@@ -55,7 +55,7 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                                                     <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M14.6887 5.52032L10.7215 4.94376L8.9481 1.34844C8.89966 1.25001 8.81998 1.17032 8.72154 1.12188C8.47466 1.00001 8.17466 1.10157 8.05123 1.34844L6.27779 4.94376L2.3106 5.52032C2.20123 5.53594 2.10123 5.58751 2.02466 5.66563C1.9321 5.76077 1.8811 5.88876 1.88286 6.02148C1.88461 6.1542 1.93899 6.28079 2.03404 6.37344L4.90435 9.17188L4.22623 13.1234C4.21032 13.2154 4.2205 13.3099 4.25559 13.3963C4.29068 13.4828 4.34929 13.5576 4.42477 13.6125C4.50025 13.6673 4.58958 13.6999 4.68263 13.7065C4.77568 13.7131 4.86873 13.6936 4.95123 13.65L8.49966 11.7844L12.0481 13.65C12.145 13.7016 12.2575 13.7188 12.3653 13.7C12.6372 13.6531 12.82 13.3953 12.7731 13.1234L12.095 9.17188L14.9653 6.37344C15.0434 6.29688 15.095 6.19688 15.1106 6.08751C15.1528 5.81407 14.9622 5.56094 14.6887 5.52032Z" fill="#FFB836" />
                                                     </svg>
-                                                    <p className='font-normal'>{jobDetails?.matchingPercentage/20}</p>
+                                                    <p className='font-normal'>{jobDetails?.matchingPercentage / 20}</p>
                                                 </div>
 
                                             </div>
@@ -99,7 +99,7 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                                                     <div>{level?.interviewLocation}</div>
                                                 </div>
                                             )}
-                                             {level?.assignOn && level?.isTask &&
+                                            {level?.assignOn && level?.isTask &&
                                                 <div className='flex flex-col gap-2'>
                                                     <p className='text-[#646464] text-[14px] font-normal'>Assign On</p>
                                                     <div>{formatInterviewDate(level?.assignOn)}</div>
@@ -124,7 +124,7 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                                                 </div>
                                             )}
 
-                                           
+
 
                                             {index === 0 &&
                                                 <button
@@ -186,19 +186,22 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
             ) : (
                 <p>No hiring data available</p>
             )}
-
+           
             <AnimatePresence>
                 {openTaskModel && selectedLevel && (
+                    <>
+                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                     <motion.div
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ duration: 0.5 }}
                         ref={taskRef}
-                        className='fixed z-[10100] right-0 scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] w-[100%]  ml:top-0 ml:bottom-[0%]'
+                        className='fixed z-[10100] right-0  w-[100%]  ml:top-0 ml:bottom-[0%]  flex justify-end'
                     >
                         <LevelUpdate closeTaskPopup={closeTaskPopup} setSuccessfull={setSuccessfull} setTaskSuccessfull={setTaskSuccessfull} selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} jobDetails={jobDetails} />
                     </motion.div>
+                    </>
                 )}
             </AnimatePresence>
 

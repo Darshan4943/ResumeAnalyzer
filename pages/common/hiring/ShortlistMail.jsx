@@ -14,15 +14,20 @@ function ShortlistMail({
   setStatusChange,
   statusChange,
   applicantIds,
+  submitDetails,
+  isByEmployer,
+  newHiringStage
+  
 }) {
+ 
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState(
-    "Congratulations! You have been shortlisted"
+    `Congratulations! You have been ${newHiringStage}`
   );
   const [content, setContent] = useState(
-    "<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been shortlisted for the next round of interviews at Skilotech.</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>"
+    `<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been ${newHiringStage} for the next round of interviews at Skilotech.</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>`
   );
 
   const handleKeyPress = (e) => {
@@ -45,7 +50,7 @@ function ShortlistMail({
       content,
       applicantId: shortlist?.map((item) => item?.applicantId),
       jobId: id,
-      newHiringStage: "Shortlisted",
+      newHiringStage
     };
 
     try {
@@ -56,6 +61,9 @@ function ShortlistMail({
 
       toast.success("Email sent successfully!");
       setLoading(false);
+      if(isByEmployer){
+        submitDetails()
+      }
       setStatusChange(!statusChange);
     } catch (error) {
       setLoading(false);
@@ -66,6 +74,7 @@ function ShortlistMail({
         toast.error("Failed to send email details. Please try again.");
       }
     } finally {
+      setLoading(false);
       setPopupVisible(false);
     }
   };
@@ -136,7 +145,7 @@ function ShortlistMail({
                 <div className="w-[100%] gap-[20px] flex flex-col">
                   <div className="flex items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">To</div>
-                    {shortlist.details?.personal?.firstName.length === 0 &&
+                    {shortlist?.details?.personal?.firstName.length === 0 &&
                     shortlist?.details?.personal?.lastName.length === 0 ? (
                       ""
                     ) : (
