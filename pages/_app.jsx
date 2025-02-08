@@ -14,8 +14,10 @@ import Head from "next/head.js";
 import EarthLoader from "../components/common/EarthLoader.jsx";
 import store from "../Redux/Store.js";
 import { Api } from "../Redux/Api.jsx";
+import { useRouter } from "next/router.js";
 const WrappedApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
+ 
 
   useEffect(() => {
     const getLocation = () => {

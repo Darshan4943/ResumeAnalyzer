@@ -36,7 +36,7 @@ function Sign_in({  setSignIn, setSignUp }) {
             axios
                 .post(
                     "http://localhost:2000/api/skiloteckuser/user/google/signup",
-                    userData
+                    {userData}
                 )
                 .then((res) => {
                     localStorage.setItem("authToken", JSON.stringify(res.data));

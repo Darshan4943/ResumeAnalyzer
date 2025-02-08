@@ -96,13 +96,14 @@ function Sign_up({ }) {
         email: user.email,
         userRole: role
       };
+     
       const sendToPurchase = localStorage.getItem("purchase");
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       let userRole = role
       axios
         .post(
           "http://localhost:2000/api/skiloteckuser/user/google/signup",
-          userData
+          {userData,parseData:JSON.stringify(parseData)}
         )
         .then((res) => {
           localStorage.setItem("authToken", JSON.stringify(res.data));
@@ -118,7 +119,7 @@ function Sign_up({ }) {
         .catch((err) => {
           setGoogleLoading(false);
           console.log(222, err);
-          toast.error(err.response.data.message);
+          toast.error(err?.response?.data?.message);
         });
     } catch (error) {
       if (error.code === "auth/cancelled-popup-request") {

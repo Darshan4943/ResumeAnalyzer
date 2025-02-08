@@ -24,6 +24,21 @@ function CreateResume() {
   const { clientId, continueEdit } = router.query;
   const currentYear = new Date().getFullYear();
   const allData = JSON.parse(localStorage.getItem("userData"));
+
+
+ 
+  useEffect(() => {
+   
+    const handleRouteChange = () => {
+      localStorage.removeItem("parsedResume");
+      localStorage.removeItem("preResumeData");
+    };
+   
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router]);
   const templates = [
     {
       title: "Template1",
