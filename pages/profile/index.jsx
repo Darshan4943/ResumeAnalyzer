@@ -75,12 +75,12 @@ function Profile() {
 
   const handleDownload = () => {
     setIsLoading(true);
-  
+
     setTimeout(() => {
       const defaultResume = resumeList.find(
         (resume) => resume.isDefault === true
       );
-  
+
       if (defaultResume && defaultResume.resumeUrl) {
         const link = document.createElement("a");
         link.href = defaultResume.resumeUrl;
@@ -90,7 +90,7 @@ function Profile() {
         toast.error("No default resume found");
       }
       setIsLoading(false);
-    }, 2000); 
+    }, 2000);
   };
 
   return (
@@ -162,23 +162,18 @@ function Profile() {
                       alt=""
                     />
                   </div>
-                  <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
-                    <ALink href={"/createResume/CandidateResumeDetails"}>
-                      <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
+                  <div className="flex flex-col items-center justify-center gap-[10px] w-[50%] build_ai_block">
+                    <ALink href="/createResume/BuildResume">
+                      <button className="build_ai_button bg-blue text-[#FFFFFF] text-[10px] px-[23px] py-[12px] w-full">
                         Create New Resume
                       </button>
                     </ALink>
+
                     <button
-                      onClick={() => handleDownload()}
-                      className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]"
+                      onClick={handleDownload}
+                      className="build_ai_button text-[10px] px-[23px] py-[12px] w-full flex items-center justify-center"
                     >
-                      {isLoading ? (
-                      <div className=" justify-center items-center flex ">
-                      <MiniLoader/>
-                      </div>
-                    ) : (
-                      "Download Resume"
-                    )}
+                      {isLoading ? <MiniLoader /> : "Download Resume"}
                     </button>
                   </div>
                 </div>
@@ -218,7 +213,7 @@ function Profile() {
                   >
                     {isLoading ? (
                       <div className=" justify-center items-center flex w-[110px] p-[0px] h-[15px]">
-                      <MiniLoader/>
+                        <MiniLoader />
                       </div>
                     ) : (
                       "Download Resume"
