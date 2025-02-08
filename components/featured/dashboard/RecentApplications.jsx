@@ -365,6 +365,7 @@ function RecentApplications({ isPending }) {
                               statusChange={statusChange}
                               setStatusChange={setStatusChange}
                               applicantIds={applicantIds}
+                              newHiringStage={"Shortlisted"}
                             />
                           )}
                         </>
@@ -590,6 +591,7 @@ function RecentApplications({ isPending }) {
                                 statusChange={statusChange}
                                 setStatusChange={setStatusChange}
                                 applicantIds={applicantIds}
+                                newHiringStage={"Shortlisted"}
                               />
                             )}
                           </>

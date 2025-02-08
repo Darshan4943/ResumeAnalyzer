@@ -20,7 +20,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
     const [showAssignTask, setShowAssignTask] = useState(false);
     const [error, setError] = useState();
     const [currenStatus, setCurrenStatus] = useState()
-    const [statusChange,setStatusChange]= useState(false);
+    const [statusChange, setStatusChange] = useState(false);
     const handleStarClick = (starIndex) => {
         setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
     };
@@ -28,7 +28,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
     const [shortlist, setShortlist] = useState(false);
     const [selectedValues, setSelectedValues] = useState({});
     const [mailDetails, setMailDetails] = useState({ candidate: {}, interviewer: {} });
-    console.log(isNextLevel);
+    console.log(selectedValues);
     useEffect(() => {
         setCurrenStatus(selectedLevel?.status)
     }, [])
@@ -57,7 +57,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 setError("Select Option")
                 return;
             }
-            
+
         }
         else {
             setShortlist(true)
@@ -74,11 +74,20 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
 
         if (isNextLevel === "nextLevel") {
             if (selectedValues.isInterview) {
-                if (!selectedValues?.interviewer) {
-                    setError("Interviewer Details are Required")
+                if (!selectedValues?.interviewer || selectedValues.interviewer.length === 0) {
+                    setError("Interviewer Details are Required");
                     return;
-
                 }
+
+                const invalidInterviewers = selectedValues.interviewer.some(
+                    (interviewer) => !interviewer.email || interviewer.email.trim() === ""
+                );
+
+                if (invalidInterviewers) {
+                    setError("Email is required for every Interviewer");
+                    return;
+                }
+
 
                 if (selectedValues?.isOnline && !selectedValues.meetingLink) {
                     setError("Meeting Link is Required")
@@ -90,9 +99,19 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                     return;
                 }
             }
-            if (selectedValues.isTask && !selectedValues?.taskReviewer) {
-                setError("Reviewer Details are Required")
-                return;
+            if (selectedValues.isTask) {
+                if (!selectedValues?.taskReviewer || selectedValues.taskReviewer.length === 0) {
+                    setError("Reviewer Details are Required")
+                    return;
+                }
+                const invalidTaskReviewer = selectedValues.taskReviewer.some(
+                    (taskReviewer) => !taskReviewer.email || taskReviewer.email.trim() === ""
+                );
+
+                if (invalidTaskReviewer) {
+                    setError("Email is required for every Reviewer");
+                    return;
+                }
             }
 
 

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,7 @@ import { fetchUserData } from "../../../Redux/slices/userSlice";
 
 const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const [text, setText] = useState(userData?.summary);
- const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState({
@@ -82,7 +81,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
 
-            <Close_svg  handleImageClick={handleImageClick} />
+            <Close_svg handleImageClick={handleImageClick} />
           </div>
           <div className="flex w-full  px-4 py-3 rounded-md border border-gray-300 bg-white">
             <textarea
@@ -96,7 +95,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               value={text}
             ></textarea>
           </div>
-          <div className="w-full flex justify-between items-start self-stretch">
+          <div className="w-full flex scr460:flex-row flex-col justify-between  items-center ">
             <div
               className=" flex px-4 py-3 justify-center items-center gap-2 rounded-[8px] border border-blue bg-white  cursor-pointer"
               onClick={generateText}
@@ -121,17 +120,16 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               {400 - text?.length} characters left
             </p>
           </div>
-          <div className="w-full flex items-end justify-end self-stretch gap-3">
+          <div className="w-full flex items-center justify-end gap-3 xxsm:items-center">
             <button
-              className="flex items-center justify-center px-9 py-[10px] font-Montserrat text-[14px] md:text-16 font-medium leading-normal rounded-[30px] border border-[#06A9EF]  bg-white "
-              onClick={() => {
-                handleImageClick(false);
-              }}
+              className="flex items-center justify-center px-6 xxsm:px-4 py-2 font-Montserrat text-[14px] xxsm:text-[12px] md:text-[16px] font-medium leading-normal rounded-[30px] border border-[#06A9EF] bg-white w-full max-w-[180px] xxsm:max-w-[140px]"
+              onClick={() => handleImageClick(false)}
             >
               Cancel
             </button>
+
             <button
-              className="flex items-center justify-center px-9 py-[10px] font-Montserrat text-[14px] md:text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-[30px] border border-border-color bg-primary"
+              className="flex items-center justify-center px-6 xxsm:px-4 py-2 font-Montserrat text-[14px] scr340:text-[12px] xxsm:text-[10px] md:text-[14px] font-medium leading-normal text-white bg-[#06A9EF] rounded-[30px] border border-[#06A9EF] w-full max-w-[180px] xxsm:max-w-[140px]"
               onClick={handleSubmit}
             >
               Save Changes
