@@ -222,9 +222,9 @@ function ScheduleInterview({setError, error, loading, setShowScheduleInterview, 
                             <div className="flex flex-col gap-[8px] sm:w-[75%] w-[95%] level" key={level?.id}>
                                 <div className="flex gap-2 justify-between">
                                     <p>{level?.name}</p>
-                                    {level?.id !== 1 && (
+                                    {(level?.id === levels.length && level?.id !== 1 ) && (
                                         <svg
-                                            className="delete-level"
+                                            className="delete-level cursor-pointer"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="20"
                                             height="20"
