@@ -19,11 +19,9 @@ function Filter({
     return value.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
-
   const childrenToDisplay = isExpanded
     ? filteredChildren
     : filteredChildren.slice(0, 3);
-
   return (
     <div className="flex flex-col col-span-3 rounded-[8px] gap-3">
       <div className="flex justify-between items-start text-[16px] font-[600]">

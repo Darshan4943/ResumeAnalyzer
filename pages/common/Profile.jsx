@@ -8,17 +8,16 @@ import Skills from "../../components/featured/employer/afterLogin/Skills";
 import { telCode } from "../../utils/data";
 
 function Profile() {
-
   const router = useRouter();
 
-  const [toggle,setToggle] = useState(0)
+  const [toggle, setToggle] = useState(0);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
   const taskRef = useRef(null);
   const [dropdown, setDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showInput, setShowInput] = useState(false); 
+  const [showInput, setShowInput] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -32,9 +31,9 @@ function Profile() {
     setSelectedItem(item);
     setSearchTerm("");
     setDropdown(false);
-    setShowInput(false); 
+    setShowInput(false);
   };
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -43,7 +42,7 @@ function Profile() {
   const handleInputClick = () => {
     setDropdown(true);
     setSearchTerm("");
-    setShowInput(true); 
+    setShowInput(true);
     window.scrollTo({
       top: 300,
       behavior: "smooth",
@@ -51,10 +50,8 @@ function Profile() {
   };
 
   const [filteredTelCode, setFilteredTelCode] = useState([]);
-  
 
   useEffect(() => {
-
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
@@ -63,11 +60,10 @@ function Profile() {
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
 
-
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
@@ -79,7 +75,7 @@ function Profile() {
           style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         >
           <p className="text-[18px] scr420:text-[24px]  w-[100%] text-start flex justify-start font font-medium  ">
-         { toggle === 0 ?  'Profile' :  " Edit Profile"}
+            {toggle === 0 ? "Profile" : " Edit Profile"}
           </p>
         </div>
 
@@ -122,13 +118,21 @@ function Profile() {
                 </div>
                 <div className="w-[20px] h-[20px]">
                   <svg
-                  onClick={() =>setToggle(1)}
-                  xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-  <g mask="url(#mask0_7804_61798)">
-    <path d="M5.83298 22.1663H7.30476L19.2474 10.2236L17.7757 8.75186L5.83298 20.6945V22.1663ZM4.08301 23.9163V19.9676L19.4718 4.58558C19.6482 4.42534 19.843 4.30151 20.0562 4.21411C20.2694 4.12671 20.4929 4.08301 20.7268 4.08301C20.9607 4.08301 21.1873 4.12452 21.4066 4.20755C21.6259 4.29056 21.82 4.42255 21.989 4.60352L23.4137 6.04613C23.5947 6.21514 23.7237 6.40962 23.8007 6.62958C23.8778 6.84952 23.9163 7.06945 23.9163 7.28939C23.9163 7.52399 23.8762 7.74787 23.7961 7.96104C23.716 8.17423 23.5885 8.36903 23.4137 8.54545L8.03168 23.9163H4.08301ZM18.4986 9.50066L17.7757 8.75186L19.2474 10.2236L18.4986 9.50066Z" fill="#333333"/>
-  </g>
-</svg>
-</div>
+                    onClick={() => setToggle(1)}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="28"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                  >
+                    <g mask="url(#mask0_7804_61798)">
+                      <path
+                        d="M5.83298 22.1663H7.30476L19.2474 10.2236L17.7757 8.75186L5.83298 20.6945V22.1663ZM4.08301 23.9163V19.9676L19.4718 4.58558C19.6482 4.42534 19.843 4.30151 20.0562 4.21411C20.2694 4.12671 20.4929 4.08301 20.7268 4.08301C20.9607 4.08301 21.1873 4.12452 21.4066 4.20755C21.6259 4.29056 21.82 4.42255 21.989 4.60352L23.4137 6.04613C23.5947 6.21514 23.7237 6.40962 23.8007 6.62958C23.8778 6.84952 23.9163 7.06945 23.9163 7.28939C23.9163 7.52399 23.8762 7.74787 23.7961 7.96104C23.716 8.17423 23.5885 8.36903 23.4137 8.54545L8.03168 23.9163H4.08301ZM18.4986 9.50066L17.7757 8.75186L19.2474 10.2236L18.4986 9.50066Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+                </div>
               </div>
 
               <div className="flex flex-col bg-frm items-start justify-center gap-2 rounded-[12px] bg-[#06A9EF] p-[13px] text-[#fff]">
@@ -310,363 +314,403 @@ function Profile() {
             className=" rounded-[16px] py-2 flex flex-col w-[100%] ml:w-[66.17%] bg-white "
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
           >
-{  toggle === 0 &&
-            <div className="flex flex-col gap-4 text-[16px] font-normal px-6 overflow-y-auto">
-              <p className="font-[500] text-[24px]">Personal Info</p>
-              <div className="flex gap-6">
-                <div className="flex flex-col gap-4 w-[50%]">
-                  <div>
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Full Name
-                    </p>
-                    <p className="scr420:text-[16px] text-[14px]">John Doe</p>
-                  </div>
-                  <div>
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Address
-                    </p>
-                    <p className="scr420:text-[16px] text-[14px]">
-                      4517 Washington Ave. Manchester, Kentucky 39495
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 w-[50%]">
-                  <div>
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Gender
-                    </p>
-                    <p className="scr420:text-[16px] text-[14px]">Male</p>
-                  </div>
-                  <div>
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                     Location
-                    </p>
-                    <p className="scr420:text-[16px] text-[14px]">
-                      English, French, Bahasa
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="h-[1px] bg-[#D6DDEB]"></div>
-
-              <div className="flex flex-col gap-4">
-                <p className="font-[500] text-[24px]">
-                  Professional Info
-                </p>
-                <div className="flex flex-col break-words gap-2 w-[100%]">
-                  <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    About Me
-                  </p>
-                  <div className="flex flex-col gap-4">
-                    <p className="scr420:text-[14px] text-[12px]">
-                      I’m a product designer + filmmaker currently working
-                      remotely at Twitter from beautiful Manchester, United
-                      Kingdom. I’m passionate about designing digital products
-                      that have a positive impact on the world.
-                    </p>
-                    <p className="scr420:text-[14px] text-[12px]">
-                      For 10 years, I’ve specialised in interface, experience &
-                      interaction design as well as working in user research and
-                      product strategy for product agencies, big tech companies
-                      & start-ups.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="ml:flex ml:flex-row  flex flex-col justify-between">
-                  <div className="flex flex-col gap-4 w-[30%] ">
+            {toggle === 0 && (
+              <div className="flex flex-col gap-4 text-[16px] font-normal px-6 overflow-y-auto">
+                <p className="font-[500] text-[24px]">Personal Info</p>
+                <div className="flex gap-6">
+                  <div className="flex flex-col gap-4 w-[50%]">
                     <div>
                       <p className=" font-medium scr420:text-[16px] text-[14px]">
-                        Current Position
+                        Full Name
+                      </p>
+                      <p className="scr420:text-[16px] text-[14px]">John Doe</p>
+                    </div>
+                    <div>
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Address
+                      </p>
+                      <p className="scr420:text-[16px] text-[14px]">
+                        4517 Washington Ave. Manchester, Kentucky 39495
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-4 w-[50%]">
+                    <div>
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Gender
+                      </p>
+                      <p className="scr420:text-[16px] text-[14px]">Male</p>
+                    </div>
+                    <div>
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Location
+                      </p>
+                      <p className="scr420:text-[16px] text-[14px]">
+                        English, French, Bahasa
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-[1px] bg-[#D6DDEB]"></div>
+
+                <div className="flex flex-col gap-4">
+                  <p className="font-[500] text-[24px]">Professional Info</p>
+                  <div className="flex flex-col break-words gap-2 w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      About Me
+                    </p>
+                    <div className="flex flex-col gap-4">
+                      <p className="scr420:text-[14px] text-[12px]">
+                        I’m a product designer + filmmaker currently working
+                        remotely at Twitter from beautiful Manchester, United
+                        Kingdom. I’m passionate about designing digital products
+                        that have a positive impact on the world.
                       </p>
                       <p className="scr420:text-[14px] text-[12px]">
-                        Product Designer
-                      </p>
-                    </div>
-                    <div>
-                      <p className=" font-medium scr420:text-[16px] text-[14px]">
-                        Highest Qualification
-                      </p>
-                      <p className="scr420:text-[14px] text-[12px]">
-                        Bachelors in Engineering
+                        For 10 years, I’ve specialised in interface, experience
+                        & interaction design as well as working in user research
+                        and product strategy for product agencies, big tech
+                        companies & start-ups.
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4 w-[70%]">
-                    <div>
-                      <p className=" font-medium scr420:text-[16px] text-[14px]">
-                        Experience in Years
-                      </p>
-                      <p className="scr420:text-[14px] text-[12px]">4 Years</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <p className=" font-medium scr420:text-[16px] text-[14px]">
-                        Skills
-                      </p>
-                      <div className="flex gap-2 font-medium ">
-                        <ul className="text-[14px] font-[400] text-[#333]" style={{ listStyleType: 'disc' }}>
-                       <li> Talent Acquisition and Recruitment</li>
-                       <li> Employee Engagement and Retention</li>
-                       <li> Performance Management</li>
-                       <li> HR Policy Development and Implementation</li>
-                       <li> Training and Development</li>
 
-                       </ul>
+                  <div className="ml:flex ml:flex-row  flex flex-col justify-between">
+                    <div className="flex flex-col gap-4 w-[30%] ">
+                      <div>
+                        <p className=" font-medium scr420:text-[16px] text-[14px]">
+                          Current Position
+                        </p>
+                        <p className="scr420:text-[14px] text-[12px]">
+                          Product Designer
+                        </p>
+                      </div>
+                      <div>
+                        <p className=" font-medium scr420:text-[16px] text-[14px]">
+                          Highest Qualification
+                        </p>
+                        <p className="scr420:text-[14px] text-[12px]">
+                          Bachelors in Engineering
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            }
-
-{  toggle === 1 &&
-            <div className="flex flex-col gap-4 text-[16px] font-normal px-6 w-[100%] overflow-y-auto">
-              <p className="font-[500] text-[24px]">Personal Info</p>
-              <div className="flex flex-col gap-6 w-[100%]">
-                <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Full Name
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="Ronnie kooper"
-                    />
-                  </div>
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Email
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="roniekooper111@gmail.com"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Address
-                    </p>
-                    <textarea className="flex py-[8px] text-[14px] font-[400] px-[16px] items-start min-h-[80px] w-[100%] rounded-[6px] border-[1px] border-[#646464]">
-                      679 Willow St., Kwanobuhle, Eastern Cape, South
-                      Africa-6242
-                    </textarea>
-                  </div>
-                </div>
-
-                <div className="flex flex-col ml:flex scr1150:flex-row  gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                     Gender
-                    </p>
-                    <div className="flex flex-row justify-between w-[100%] ">
-                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Male</div>
-                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Female</div>
-                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Others</div>
-          </div>
-                  </div>
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Contact Number
-                    </p>
-                    <div className="flex w-[100%] items-start   gap-[16px] " id="single_input">
-                      <div className={`relative "w-[30%]  items-center`}>
-                        <div
-                          className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
-                          onClick={handleInputClick}
-                        >
-
-                          <div className="flex items-center justify-center gap-2 cursor-pointer ">
-                           
-                            <div className="flex items-center  gap-1 cursor-pointer  " onClick={handleInputClick}>
-                              {showInput ? (
-                                <input
-                                  className="w-[100%]  border flex justify-center items-center border-hidden py-1 px-3 rounded-[8px] "
-                                  type="text"
-                                  name=""
-                                  placeholder="Search"
-                                  value={searchTerm}
-                                  onChange={handleSearch}
-                                />
-                              ) : (
-                                <>
-                                  <img
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
-                                    width="20px"
-                                  />
-                                  <div className={`  text-[16px] whitespace-nowrap`}>
-                                    {selectedItem.code} {selectedItem.dial_code}
-                                  </div>
-                                  <img className="w-[20px] h-[20px]" src="/images/down_arrow.png" alt="" />
-                                </>
-                              )}
-                            </div>
-                           
-
-                          </div>
-
-
-                        </div>
-
-
-                        {dropdown && (
-                          <div ref={taskRef}
-                            className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
-                            name=""
-                            id=""
+                    <div className="flex flex-col gap-4 w-[70%]">
+                      <div>
+                        <p className=" font-medium scr420:text-[16px] text-[14px]">
+                          Experience in Years
+                        </p>
+                        <p className="scr420:text-[14px] text-[12px]">
+                          4 Years
+                        </p>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <p className=" font-medium scr420:text-[16px] text-[14px]">
+                          Skills
+                        </p>
+                        <div className="flex gap-2 font-medium ">
+                          <ul
+                            className="text-[14px] font-[400] text-[#333]"
+                            style={{ listStyleType: "disc" }}
                           >
-                            {filteredTelCode.map((item, index) => (
-                              <p
-                                className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${selectedItem === item ? "bg-gray-200" : ""
-                                  }`}
-                                key={index}
-                                onClick={() => handleItemClick(item)}
-                              >
-                                <img
-                                  src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
-                                  width="20px"
-                                />
-                                {item.code} {item.dial_code}
-                              </p>
-                            ))}
-                          </div>
-                        )}
+                            <li> Talent Acquisition and Recruitment</li>
+                            <li> Employee Engagement and Retention</li>
+                            <li> Performance Management</li>
+                            <li> HR Policy Development and Implementation</li>
+                            <li> Training and Development</li>
+                          </ul>
+                        </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
+            {toggle === 1 && (
+              <div className="flex flex-col gap-4 text-[16px] font-normal px-6 w-[100%] overflow-y-auto">
+                <p className="font-[500] text-[24px]">Personal Info</p>
+                <div className="flex flex-col gap-6 w-[100%]">
+                  <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Full Name
+                      </p>
                       <input
-                        className=" mobileNo w-[50%]"
-                        type="text"
-                        name=""
-                        // id="single_input"
-                        placeholder= {`${ isViewportBelow850 ? "Enter Number " : "Enter Contact Number " }`}
-                        value={inputValue}
-                        onChange={handleInputChange}
-              
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="Ronnie kooper"
+                      />
+                    </div>
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Email
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="roniekooper111@gmail.com"
                       />
                     </div>
                   </div>
-                </div>
-
-                <div className="flex flex-col gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Language
-                    </p>
-                   <div className="flex gap-4 justify-end w-[100%]">
-                   <ReactSelect
-                  // options={skills}
-                  // isMulti
-                  className="w-[80%]"
-                  // onChange={(data) => handleInputChange("keySkills", data)}
-                  // onChange={(data) => {
-                  //   setData({ ...data, keySkills: data });
-                  // }}
-                  // value={data.keySkills}
-                />
-                  <button
-                  className="buttons w-[20%] py-[8px] px-[16px] rounded-[8px] whitespace-nowrap text-[12px] sm:text-[16px] text-[#fff] bg-[#06A9EF]"
-                  id="border_button" 
-                >
-                + Add
-                </button>
-                   </div>
+                  <div className="flex flex-col gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Address
+                      </p>
+                      <textarea className="flex py-[8px] text-[14px] font-[400] px-[16px] items-start min-h-[80px] w-[100%] rounded-[6px] border-[1px] border-[#646464]">
+                        679 Willow St., Kwanobuhle, Eastern Cape, South
+                        Africa-6242
+                      </textarea>
+                    </div>
                   </div>
-                </div>
 
-              <div className="w-[100%] h-[1px] bg-[#D6DDEB]"></div>
-
-              <div className='flex flex-col gap-4'>
-                                <p className='font-semibold scr420:text-[16px] text-[14px]'>Professional Info</p>
-                                <div className='flex flex-col gap-2 w-[100%] '>
-                                    <p className=' font-[500] scr420:text-[16px] text-[14px] leading-[160%]'>About Me</p>
-                                    <div className='flex flex-col gap-4 py-[12px] px-[16px] items-center rounded-[6px] border-[1px] border-[#646464] bg-[#fff]'>
-                                        <p className='scr420:text-[16px] text-[14px]'>4 years of experience in human resources, having honed expertise in talent acquisition, employee relations, performance management, and organizational development. Their journey in HR has been marked by a commitment to creating environments where employees thrive and businesses flourish.</p>
+                  <div className="flex flex-col ml:flex scr1150:flex-row  gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Gender
+                      </p>
+                      <div className="flex flex-row justify-between w-[100%] ">
+                        <div className="flex gap-1">
+                          {" "}
+                          <input
+                            type="radio"
+                            className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "
+                          />
+                          Male
+                        </div>
+                        <div className="flex gap-1">
+                          {" "}
+                          <input
+                            type="radio"
+                            className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "
+                          />
+                          Female
+                        </div>
+                        <div className="flex gap-1">
+                          {" "}
+                          <input
+                            type="radio"
+                            className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "
+                          />
+                          Others
+                        </div>
+                      </div>
+                    </div>
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Contact Number
+                      </p>
+                      <div
+                        className="flex w-[100%] items-start   gap-[16px] "
+                        id="single_input"
+                      >
+                        <div className={`relative "w-[30%]  items-center`}>
+                          <div
+                            className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                            onClick={handleInputClick}
+                          >
+                            <div className="flex items-center justify-center gap-2 cursor-pointer ">
+                              <div
+                                className="flex items-center  gap-1 cursor-pointer  "
+                                onClick={handleInputClick}
+                              >
+                                {showInput ? (
+                                  <input
+                                    className="w-[100%]  border flex justify-center items-center border-hidden py-1 px-3 rounded-[8px] "
+                                    type="text"
+                                    name=""
+                                    placeholder="Search"
+                                    value={searchTerm}
+                                    onChange={handleSearch}
+                                  />
+                                ) : (
+                                  <>
+                                    <img
+                                      src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                      width="20px"
+                                    />
+                                    <div
+                                      className={`  text-[16px] whitespace-nowrap`}
+                                    >
+                                      {selectedItem.code}{" "}
+                                      {selectedItem.dial_code}
                                     </div>
-                                </div>
-
+                                    <img
+                                      className="w-[20px] h-[20px]"
+                                      src="/images/down_arrow.png"
+                                      alt=""
+                                    />
+                                  </>
+                                )}
+                              </div>
                             </div>
+                          </div>
 
-                            <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    Current Position
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="HR Manager"
-                    />
-                  </div>
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    Experience in Years
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="4 Years"
-                    />
-                  </div>
-                </div>
+                          {dropdown && (
+                            <div
+                              ref={taskRef}
+                              className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
+                              name=""
+                              id=""
+                            >
+                              {filteredTelCode.map((item, index) => (
+                                <p
+                                  className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${
+                                    selectedItem === item ? "bg-gray-200" : ""
+                                  }`}
+                                  key={index}
+                                  onClick={() => handleItemClick(item)}
+                                >
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  {item.code} {item.dial_code}
+                                </p>
+                              ))}
+                            </div>
+                          )}
+                        </div>
 
-                <div className="flex flex-row gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    Company Name
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="Skilotech Job Portal"
-                    />
+                        <input
+                          className=" mobileNo w-[50%]"
+                          type="text"
+                          name=""
+                          // id="single_input"
+                          placeholder={`${
+                            isViewportBelow850
+                              ? "Enter Number "
+                              : "Enter Contact Number "
+                          }`}
+                          value={inputValue}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    </div>
                   </div>
-                 
-                </div>
 
-                <div className="flex flex-row gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    Highest Qualification
-                    </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="Master of Business Administration (MBA)"
-                    />
+                  <div className="flex flex-col gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Language
+                      </p>
+                      <div className="flex gap-4 justify-end w-[100%]">
+                        <ReactSelect
+                          // options={skills}
+                          // isMulti
+                          className="w-[80%]"
+                          // onChange={(data) => handleInputChange("keySkills", data)}
+                          // onChange={(data) => {
+                          //   setData({ ...data, keySkills: data });
+                          // }}
+                          // value={data.keySkills}
+                        />
+                        <button
+                          className="buttons w-[20%] py-[8px] px-[16px] rounded-[8px] whitespace-nowrap text-[12px] sm:text-[16px] text-[#fff] bg-[#06A9EF]"
+                          id="border_button"
+                        >
+                          + Add
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                 
-                </div>
 
-                <div className="flex flex-row gap-4 w-[100%]">
-                  <div className="gap-1 flex flex-col w-[100%]">
-                    <p className=" font-medium scr420:text-[16px] text-[14px]">
-                    Social Profile Link
+                  <div className="w-[100%] h-[1px] bg-[#D6DDEB]"></div>
+
+                  <div className="flex flex-col gap-4">
+                    <p className="font-semibold scr420:text-[16px] text-[14px]">
+                      Professional Info
                     </p>
-                    <input
-                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
-                      placeholder="www.linkedin.com/in/kshitijw"
-                    />
+                    <div className="flex flex-col gap-2 w-[100%] ">
+                      <p className=" font-[500] scr420:text-[16px] text-[14px] leading-[160%]">
+                        About Me
+                      </p>
+                      <div className="flex flex-col gap-4 py-[12px] px-[16px] items-center rounded-[6px] border-[1px] border-[#646464] bg-[#fff]">
+                        <p className="scr420:text-[16px] text-[14px]">
+                          4 years of experience in human resources, having honed
+                          expertise in talent acquisition, employee relations,
+                          performance management, and organizational
+                          development. Their journey in HR has been marked by a
+                          commitment to creating environments where employees
+                          thrive and businesses flourish.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                 
-                </div>
+
+                  <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Current Position
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="HR Manager"
+                      />
+                    </div>
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Experience in Years
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="4 Years"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Company Name
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="Skilotech Job Portal"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Highest Qualification
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="Master of Business Administration (MBA)"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row gap-4 w-[100%]">
+                    <div className="gap-1 flex flex-col w-[100%]">
+                      <p className=" font-medium scr420:text-[16px] text-[14px]">
+                        Social Profile Link
+                      </p>
+                      <input
+                        className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                        placeholder="www.linkedin.com/in/kshitijw"
+                      />
+                    </div>
+                  </div>
 
                   <div>
-                    <Skills/>
+                    <Skills />
                   </div>
- 
-                  <div className="w-full gap-3 justify-end flex  items-center">
-        <button
-        onClick={()=>setToggle(0)}
-        className="text-[16px] font-[500] text-[#333] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#fff]">
-           Cancel
-        </button>
-        <button className="text-[16px] font-[500] text-[#fff] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#06A9EF]">
-           Save Changes
-        </button>
-        </div>
-                
-              </div>
-            </div>
-}
 
+                  <div className="w-full gap-3 justify-end flex  items-center">
+                    <button
+                      onClick={() => setToggle(0)}
+                      className="text-[16px] font-[500] text-[#333] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#fff]"
+                    >
+                      Cancel
+                    </button>
+                    <button className="text-[16px] font-[500] text-[#fff] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#06A9EF]">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

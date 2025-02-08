@@ -105,6 +105,7 @@ const Index = () => {
           );
 
           if (response.status === 200) {
+            console.log(22222,response.data)
             const updatedCandidate = response.data;
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)

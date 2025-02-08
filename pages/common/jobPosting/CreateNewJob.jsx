@@ -74,7 +74,7 @@ function CreateNewJob() {
     status: "Live",
     logo: "",
   });
-
+console.log(2222,data)
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
@@ -602,7 +602,7 @@ function CreateNewJob() {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
                 <div className="ml:w-[612px] w-full flex flex-col gap-3 rounded-[12px] bg-white">
-                  <PreviewCard item={data} openModel={openModel} />
+                  <PreviewCard croppedImage={croppedImage} item={data} openModel={openModel} />
                 </div>
               </div>
             </>
