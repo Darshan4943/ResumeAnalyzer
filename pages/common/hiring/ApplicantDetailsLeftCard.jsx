@@ -18,7 +18,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
             {isPopupVisible && (
 
 
-                <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} applicantIds={[shortlist.applicantId]} statusChange={statusChange} setStatusChange={setStatusChange} />
+                <ShortlistMail shortlist={shortlist} setPopupVisible={setPopupVisible} id={id} applicantIds={[shortlist.applicantId]} statusChange={statusChange} setStatusChange={setStatusChange} newHiringStage={"Shortlisted"} />
             )}
             <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
                 {jobDetails?.details && (

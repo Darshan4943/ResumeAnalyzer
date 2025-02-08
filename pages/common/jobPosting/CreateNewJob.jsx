@@ -276,7 +276,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -656,11 +656,10 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.status
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -680,11 +679,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -710,7 +708,7 @@ function CreateNewJob() {
                     </div>
 
                     <div className="p-[10px] md:p-4 flex flex-col gap-4 md:flex-row">
-                      <div className=" w-full  md:w-[266px]  flex  flex-col items-center">
+                      <div className=" w-full md:w-[34.91%] lg:w-[30.91%] scr1100:w-[26.91%] scr1250:w-[20.91%]  flex  flex-col items-center">
                         <div className="flex w-full flex-col gap-[8px]">
                           <div className="flex flex-col gap-[8px]">
                             <div className="text-[14px] font-[500]">
@@ -779,92 +777,88 @@ function CreateNewJob() {
                               </>
                             )}
                           </div>
-                          <>
-                            <div
-                              ref={fileRef}
-                              onDrop={handleFileChange}
-                              className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-[266px] justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
-                            >
-                              <input
-                                type="file"
-                                name="myfile"
-                                onChange={handleFileChange}
-                                multiple
-                                accept="image/png, image/jpeg, image/jpg"
-                              />
-
-                              <div className="  flex  flex-col  items-center">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="40"
-                                  height="40"
-                                  viewBox="0 0 40 40"
-                                  fill="none"
-                                  onClick={handleButtonClick}
-                                >
-                                  <g clipPath="url(#clip0_4121_52475)">
-                                    <path
-                                      d="M25 13.3333H25.0167"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
+                          <div
+                            ref={fileRef}
+                            onDrop={handleFileChange}
+                            className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                          >
+                            <input
+                              type="file"
+                              name="myfile"
+                              onChange={handleFileChange}
+                              multiple
+                              accept="image/png, image/jpeg, image/jpg"
+                            />
+                            <div className="  flex  flex-col  items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="40"
+                                height="40"
+                                viewBox="0 0 40 40"
+                                fill="none"
+                                onClick={handleButtonClick}
+                              >
+                                <g clipPath="url(#clip0_4121_52475)">
+                                  <path
+                                    d="M25 13.3333H25.0167"
+                                    stroke="#06A9EF"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
+                                    stroke="#06A9EF"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
+                                    stroke="#06A9EF"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
+                                    stroke="#06A9EF"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_4121_52475">
+                                    <rect
+                                      width="40"
+                                      height="40"
+                                      fill="white"
                                     />
-                                    <path
-                                      d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </g>
-                                  <defs>
-                                    <clipPath id="clip0_4121_52475">
-                                      <rect
-                                        width="40"
-                                        height="40"
-                                        fill="white"
-                                      />
-                                    </clipPath>
-                                  </defs>
-                                </svg>
-                                <div className="flex flex-col	font-[400]	">
-                                  <div className="flex gap-[2px]">
-                                    <span
-                                      onClick={handleButtonClick}
-                                      className="text-[#06A9EF] text-[12px]"
-                                    >
-                                      Click to replace
-                                    </span>
-                                    <div className="text-[12px] font-[400]">
-                                      or drag and drop
-                                    </div>
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <div className="flex flex-col	font-[400]	">
+                                <div className="flex gap-[2px]">
+                                  <span
+                                    onClick={handleButtonClick}
+                                    className="text-[#06A9EF] text-[12px]"
+                                  >
+                                    Click to replace
+                                  </span>
+                                  <div className="text-[12px] font-[400]">
+                                    or drag and drop
                                   </div>
-                                  <p className="text-center text-[10px] font-[400] text-[#333333]">
-                                    SVG, PNG, JPG or GIF (max. 400 x 400px)
-                                  </p>
                                 </div>
+                                <p className="text-center text-[10px] font-[400] text-[#333333]">
+                                  SVG, PNG, JPG or GIF (max. 400 x 400px)
+                                </p>
                               </div>
                             </div>
-                          </>
+                          </div>
                         </div>
                       </div>
-
-                      <div className="w-full max-w-full flex flex-col">
+                      <div className="w-full md:w-[62.09%] lg:w-[68.09%] scr1100:w-[72.09%] scr1250:w-[78.09%] flex flex-col">
                         <div className="flex flex-col scr1024:flex-row gap-[16px] w-full">
                           <div className="flex w-full flex-col md:flex-row  gap-[16px]">
                             <div className="flex flex-col gap-[8px] w-full md:w-[50%]">
@@ -873,11 +867,10 @@ function CreateNewJob() {
                                 <span className="text-[red]">*</span>
                               </div>
                               <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                                  formError.companyName
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
+                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                                  ? "border-red"
+                                  : "border-[#DEDEDE]"
+                                  }`}
                                 placeholder="Enter Company name"
                                 type="text"
                                 name="companyName"
@@ -890,60 +883,51 @@ function CreateNewJob() {
                               <div className="text-[14px] font-[500]">
                                 Keywords <span className="text-[red]">*</span>
                               </div>
-                              <div
-                                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                                  formError.Keywords
-                                    ? "border-red"
-                                    : "border-[#DEDEDE]"
-                                }`}
-                              >
-                                <div className="flex flex-row flex-wrap gap-3">
-                                  {data?.Keywords?.map((item, index) => (
-                                    <div
-                                      key={index}
-                                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
-                                    >
-                                      <span> {item}</span>
-                                      <span
-                                        className="text-[14px]  cursor-pointer font-medium "
-                                        onClick={() =>
-                                          setData({
-                                            ...data,
-                                            Keywords: data?.Keywords.filter(
-                                              (data) => data != item
-                                            ),
-                                          })
-                                        }
-                                      >
-                                        <svg
-                                          width="12"
-                                          height="12"
-                                          viewBox="0 0 16 16"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                            d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                            fill="#000000"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </div>
-                                  ))}
+                              <div className={`w-full flex ${data?.Keywords ? "justify-between" : ""} gap-2 border rounded-[8px] px-2 py-[8px]  ${formError.Keywords
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}>
+                                <div className="flex gap-4 w-[90%]">
+                                  {data?.Keywords.length > 0 &&
+                                    <div id="scroll" className="overflow-x-auto  flex gap-2 ">
+                                      {data?.Keywords?.map((item, index) => (
+                                        <div key={index} className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]">
+                                          <span>{item}</span>
+                                          <svg
+                                            className="text-[14px]  cursor-pointer font-medium "
+                                            onClick={() =>
+                                              setData({
+                                                ...data,
+                                                Keywords: data?.Keywords.filter(
+                                                  (data) => data != item
+                                                ),
+                                              })
+                                            }
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 16 16"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              fill-rule="evenodd"
+                                              clip-rule="evenodd"
+                                              d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                              fill="#000000"
+                                            />
+                                          </svg>
+                                        </div>
+                                      ))}
+                                    </div>}
+                                  <input type="text" name="" id=""
+                                    placeholder="Enter Keywords"
+                                    className="input w-[130px]"
+                                    value={KeywordsText}
+                                    onChange={(e) => {
+                                      setKeywordsText(e.target.value);
+                                    }} />
                                 </div>
-                                <input
-                                  type="text"
-                                  placeholder="Keywords"
-                                  className="input w-[100px]"
-                                  value={KeywordsText}
-                                  onChange={(e) => {
-                                    setKeywordsText(e.target.value);
-                                  }}
-                                />
                                 <button
-                                  className=" absolute right-3 top-[8px] "
                                   disabled={KeywordsText?.length == 0}
                                   onClick={() => {
                                     setData({
@@ -959,12 +943,17 @@ function CreateNewJob() {
                                     //   delete formError.location;
                                     //   return formError;
                                     // });
+                                    setTimeout(() => {
+                                      const scrollDiv = document.getElementById("scroll");
+                                      if (scrollDiv) {
+                                        scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                                      }
+                                    }, 100);
                                     setFormError((prevErrors) => ({
                                       ...prevErrors,
                                       Keywords: "",
                                     }));
-                                  }}
-                                >
+                                  }}>
                                   <PlusAddLogo
                                     color={
                                       KeywordsText?.length > 0
@@ -994,11 +983,10 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select countries..."
                               styles={customStyles}
-                              className={` border rounded-[5px] ${
-                                formError.country
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={` border rounded-[5px] ${formError.country
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             />
                           </div>
                           <div className="flex flex-col gap-[8px]  w-full scr1168:w-[50%] ">
@@ -1006,59 +994,60 @@ function CreateNewJob() {
                               Location <span className="text-[red]">*</span>
                             </div>
                             <div
-                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                                formError.location
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             >
-                              <div className="flex flex-row overflow-x-auto gap-2 ">
-                                {data?.location?.map((item, index) => (
-                                  <div
-                                    key={index}
-                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
-                                  >
-                                    <span>{item}</span>
-                                    <span
-                                      className="text-[14px]  cursor-pointer font-medium "
-                                      onClick={() =>
-                                        setData({
-                                          ...data,
-                                          location: data.location.filter(
-                                            (data) => data != item
-                                          ),
-                                        })
-                                      }
+                              <div className="flex gap-4 w-[90%]">
+                                {data?.location.length > 0 && <div id="scroll1" className="flex flex-row  overflow-x-auto gap-2 ">
+                                  {data?.location?.map((item, index) => (
+                                    <div
+                                      key={index}
+                                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
                                     >
-                                      <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 16 16"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
+                                      <span>{item}</span>
+                                      <span
+                                        className="text-[14px]  cursor-pointer font-medium "
+                                        onClick={() =>
+                                          setData({
+                                            ...data,
+                                            location: data.location.filter(
+                                              (data) => data != item
+                                            ),
+                                          })
+                                        }
                                       >
-                                        <path
-                                          fill-rule="evenodd"
-                                          clip-rule="evenodd"
-                                          d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                          fill="#000000"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                ))}
+                                        <svg
+                                          width="12"
+                                          height="12"
+                                          viewBox="0 0 16 16"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                            fill="#000000"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>}
+                                <input
+                                  type="text"
+                                  placeholder="Location"
+                                  className="input w-[100px]"
+                                  value={loactionText}
+                                  onChange={(e) => {
+                                    setLoactionText(e.target.value);
+                                  }}
+                                />
                               </div>
-                              <input
-                                type="text"
-                                placeholder="Location"
-                                className="input w-[100px]"
-                                value={loactionText}
-                                onChange={(e) => {
-                                  setLoactionText(e.target.value);
-                                }}
-                              />
                               <button
-                                className=" absolute right-3 top-[8px] "
+                                className=" absolute bg-[#FFFFFF] right-2 top-[8px] "
                                 disabled={loactionText?.length == 0}
                                 onClick={() => {
                                   setData({
@@ -1066,7 +1055,12 @@ function CreateNewJob() {
                                     location: [...data.location, loactionText],
                                   });
                                   setLoactionText("");
-
+                                  setTimeout(() => {
+                                    const scrollDiv = document.getElementById("scroll1");
+                                    if (scrollDiv) {
+                                      scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                                    }
+                                  }, 100);
                                   setFormError((prevErrors) => ({
                                     ...prevErrors,
                                     location: "",
@@ -1265,11 +1259,10 @@ function CreateNewJob() {
                               classNamePrefix="select"
                               placeholder="Select Job Sector"
                               styles={customStyles}
-                              className={`border rounded-[5px] ${
-                                formError.jobSector
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                              }`}
+                              className={`border rounded-[5px] ${formError.jobSector
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                                }`}
                             />
                           </div>
                         </div>
@@ -1340,11 +1333,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1387,24 +1379,23 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1461,7 +1452,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -1472,17 +1463,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1709,8 +1699,9 @@ function CreateNewJob() {
               </div>
             </>
           )}
-        </div>
-      )}
+        </div >
+      )
+      }
       {isCreate && <CreateProfileFields />}
     </>
   );

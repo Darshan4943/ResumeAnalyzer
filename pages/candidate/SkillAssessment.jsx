@@ -836,7 +836,7 @@ function SkillAssessment() {
                   {showSecondDiv && (
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
-                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
+                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${!resultType 
                           ? "bg-blue text-white btn_hover_effect"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                           }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
@@ -845,7 +845,7 @@ function SkillAssessment() {
                         Quick Assesment Result
                       </button>
                       <button
-                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
+                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${resultType
                           ? "bg-blue text-white btn_hover_effect"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                           }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
@@ -1123,7 +1123,7 @@ function SkillAssessment() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                                  <div className=" w-full overflow-auto ">
                                     {assessmentList
                                       ?.filter(
                                         (data) => data.isCertification !== true
@@ -1187,7 +1187,7 @@ function SkillAssessment() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                                  <div className="w-full overflow-auto ">
                                     {assessmentList
                                       ?.filter(
                                         (data) => data.isCertification === true

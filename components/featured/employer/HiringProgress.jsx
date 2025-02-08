@@ -40,8 +40,14 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                         {level?.level === 1 ? (
                             // Design for Level 1
                             <div className='flex gap-4'>
-                                <div className='w-[24px]'></div>
-                                <div className='flex flex-col gap-4 w-full'>
+                                <div className='w-[24px] '>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none" style={{ animationDelay: '1s' }} className="level">
+                                        <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
+                                        <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
+                                    </svg>
+
+                                </div>
+                                <div className='flex flex-col gap-4 w-full  -mt-1'>
                                     <div className='flex gap-4 justify-between items-center'>
                                         <p className='min-w-[70px] text-[16px] font-medium'>Level {level?.level}</p>
                                         <div className='h-[1px] w-[90%] bg-[#D6DDEB]'></div>
@@ -77,9 +83,30 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                             </div>
                         ) : (
                             // Design for other levels
-                            <div className='flex gap-4'>
-                                <div className='w-[24px]'></div>
-                                <div className='flex flex-col gap-4 w-full'>
+                            <div className='flex gap-4 '>
+                                <div className='w-[24px]  '>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none" style={{ animationDelay: '1s' }} className="level">
+                                        <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
+                                        <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
+                                    </svg>
+                                    {index !== hiringData.length - 1 && (
+                                        <>
+
+                                            {level.status !== "Pending" ?
+                                                <div className="h-[calc(100%+10px)] mt-[-1.5px] bg-blue w-[3px] ml-[0.44rem] ">
+                                                    
+                                                </div>
+                                                :
+                                                <div className="h-[calc(100%+10px)] mt-[-1.5px] bg-[#C7C7C7] w-[3px] ml-[0.44rem] ">
+                                                    
+                                                </div>
+                                            }
+                                        </>
+
+
+                                    )}
+                                </div>
+                                <div className='flex flex-col gap-4 w-full  -mt-1'>
                                     <div className='flex gap-4 justify-between items-center'>
                                         <p className='min-w-[80px] text-[16px] font-medium'>Level {level?.level}</p>
                                         <div className='h-[1px] w-[90%] bg-[#D6DDEB]'></div>
@@ -185,50 +212,53 @@ function HiringProgress({ hiringData = [], jobDetails, successfull, setSuccessfu
                 ))
             ) : (
                 <p>No hiring data available</p>
-            )}
-           
+            )
+            }
+
             <AnimatePresence>
                 {openTaskModel && selectedLevel && (
                     <>
-                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ duration: 0.5 }}
-                        ref={taskRef}
-                        className='fixed z-[10100] right-0  w-[100%]  ml:top-0 ml:bottom-[0%]  flex justify-end'
-                    >
-                        <LevelUpdate closeTaskPopup={closeTaskPopup} setSuccessfull={setSuccessfull} setTaskSuccessfull={setTaskSuccessfull} selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} jobDetails={jobDetails} />
-                    </motion.div>
+                        <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ duration: 0.5 }}
+                            ref={taskRef}
+                            className='fixed z-[10100] right-0  w-[100%]  ml:top-0 ml:bottom-[0%]  flex justify-end'
+                        >
+                            <LevelUpdate closeTaskPopup={closeTaskPopup} setSuccessfull={setSuccessfull} setTaskSuccessfull={setTaskSuccessfull} selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} jobDetails={jobDetails} />
+                        </motion.div>
                     </>
                 )}
             </AnimatePresence>
 
 
-            {(successfull || taskSuccessfull) && (
-                <>
-                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-                    <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-                        <div className="w-[330px] relative rounded-[16px] px-[16px] pt-[60px] pb-[16px] flex flex-col gap-[16px] bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                            <div className="text-center">
-                                <div className="text-[24px] font-[500] text-[#333]">
-                                    {successfull ? "Interview" : "Task"} Scheduled Successfully
+            {
+                (successfull || taskSuccessfull) && (
+                    <>
+                        <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                        <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+                            <div className="w-[330px] relative rounded-[16px] px-[16px] pt-[60px] pb-[16px] flex flex-col gap-[16px] bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+                                <div className="text-center">
+                                    <div className="text-[24px] font-[500] text-[#333]">
+                                        {successfull ? "Interview" : "Task"} Scheduled Successfully
+                                    </div>
+                                </div>
+                                <div className="flex justify-center">
+                                    <button
+                                        onClick={() => { setSuccessfull(false); setTaskSuccessfull(false); }}
+                                        className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                                    >
+                                        Done
+                                    </button>
                                 </div>
                             </div>
-                            <div className="flex justify-center">
-                                <button
-                                    onClick={() => { setSuccessfull(false); setTaskSuccessfull(false); }}
-                                    className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
-                                >
-                                    Done
-                                </button>
-                            </div>
                         </div>
-                    </div>
-                </>
-            )}
-        </div>
+                    </>
+                )
+            }
+        </div >
     );
 }
 

@@ -302,8 +302,6 @@
   }
 }
 
-
-
 .candidate_text {
   display: flex;
   gap: 10px;
@@ -345,26 +343,17 @@
 }
 
 .circle10 {
-
   background-color: rgba(161, 227, 255, 0.36);
-  box-shadow:
-    0px 0px 5px rgba(6, 169, 239, 0.9),
-    /* Outer shadow */
-    inset 0px 0px 5px rgba(6, 169, 239, 0.7);
+  box-shadow: 0px 0px 5px rgba(6, 169, 239, 0.9),
+    /* Outer shadow */ inset 0px 0px 5px rgba(6, 169, 239, 0.7);
   /* Inner shadow */
 }
 
-
 .circle11 {
-
   background-color: rgba(255, 218, 29, 0.1);
-  box-shadow:
-    0px 0px 5px rgba(255, 198, 92, 0.9),
-    /* Outer shadow */
-    inset 0px 0px 5px rgba(255, 198, 92, 0.8);
+  box-shadow: 0px 0px 5px rgba(255, 198, 92, 0.9),
+    /* Outer shadow */ inset 0px 0px 5px rgba(255, 198, 92, 0.8);
   /* Inner shadow */
-
-
 }
 
 .create_account {
@@ -383,7 +372,6 @@
 
 .create_account:nth-child(2) {
   left: 30%;
-
 }
 
 .create_account:nth-child(3) {
@@ -393,9 +381,6 @@
 .create_account:nth-child(4) {
   right: 74px;
 }
-
-
-
 
 @keyframes pulseOpacity {
   0% {
@@ -410,7 +395,6 @@
 .pulse-animation {
   animation: pulseOpacity 1.5s infinite alternate;
   background: rgba(6, 169, 239, 0.1);
-
 }
 
 @keyframes pulseOpacity1 {
@@ -426,7 +410,6 @@
 .pulse-animation1 {
   animation: pulseOpacity1 1.5s infinite alternate;
   background: rgba(255, 218, 29, 0.1);
-
 }
 
 @keyframes slide {
@@ -439,11 +422,9 @@
   }
 }
 
-
 .animate-slide {
   animation: slide 10s linear infinite;
 }
-
 
 .trusted-images {
   display: flex;
@@ -456,7 +437,7 @@
 }
 
 .custom-swiper .swiper-pagination-bullet {
-  background-color: #ABABAB;
+  background-color: #ababab;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -465,47 +446,37 @@
 }
 
 .custom-swiper .swiper-pagination-bullet-active {
-  background-color: #06A9EF;
+  background-color: #06a9ef;
   width: 28px;
   height: 10px;
   border-radius: 12px;
-
 }
 
 .swiper-slide-card {
-
   height: 236px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0.6
+  opacity: 0.6;
 }
 
-
 .swiper-slide-card.swiper-slide-active {
-
   box-shadow: 0px 4px 20px 0px #91929340;
   opacity: 1;
-  // transform: scale(1.05); 
+  // transform: scale(1.05);
   height: 236px;
   max-width: 470px !important;
-
 }
 
 .swiper-slide-card1 {
-
   height: 236px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0.6
+  opacity: 0.6;
 }
 
-
 .swiper-slide-card1.swiper-slide-active {
-
-
   opacity: 1;
-  // transform: scale(1.05); 
+  // transform: scale(1.05);
   height: 236px;
   max-width: 440px !important;
-
 }
 
 @media (max-width: 1024px) {
@@ -515,21 +486,16 @@
 }
 
 .swiper-slide-card2 {
-
   height: 200px;
   // transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 1
+  opacity: 1;
 }
 
-
 .swiper-slide-card2.swiper-slide-active {
-
-
   opacity: 1;
-  // transform: scale(1.05); 
+  // transform: scale(1.05);
   height: 200px;
   max-width: 178px !important;
-
 }
 
 .swiper-slide-card2.swiper-slide-next {
@@ -541,7 +507,6 @@
   width: 178px !important;
   height: 200px;
 }
-
 
 .custom-swiper2 .swiper-pagination-bullet {
   background-color: #0f64b8;
@@ -557,20 +522,22 @@
   width: 44px;
   height: 44px;
   border-radius: 44px;
-
 }
 
 .swiper-wrapper {
-  gap: 16px !important;
-  height: 220px !important
+  height: 220px !important;
+  .topCompaniesSlide {
+    gap: 16px !important;
+  }
 }
 
 .swiper-pagination {
   display: none;
 }
 
-.swiper-button-prev,.swiper-button-next {
-  background-color: #F3F4F5 !important;
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #f3f4f5 !important;
   height: 44px !important;
   width: 44px !important;
   border-radius: 44px !important;
@@ -578,19 +545,19 @@
   color: #333333 !important;
 }
 
-
-
-
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  font-size: 12px !important; 
+  font-size: 12px !important;
   color: #333333 !important;
   font-weight: 900 !important;
 }
-.swiper-button-prev.swiper-button-disabled,.swiper-button-prev.swiper-button-disabled{
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
   opacity: 1 !important;
 }
-.swiper-slide{
-  width: 140px !important;
+.swiper-slide {
   height: 130px !important;
+  .topCompaniesSlide {
+    width: 140px !important;
+  }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { SkillList, telCode } from "../../utils/data";
 import { camelCase } from "../../utils/middleware";
@@ -31,46 +31,41 @@ function CandidateResumeDetails() {
   const [skills, setSkills] = useState([...SkillList]);
   const [certificate, setCertificate] = useState();
   const dispatch = useDispatch();
-
+  const { profileData } = useSelector((state) => state.profile.profileData);
+ 
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    mobileNo: "",
-    email: "",
-    dob: "",
-    gender: "male",
-    currentLocation: "",
-    stream: "",
-    university: "",
-    institute: "",
-    educationDuration: "",
-    workStatus: "Experienced",
-    workExperiance: "",
-    companyName: "",
-    jobTitle: "",
-    jobLocation: "",
-    jobDuration: "",
-    keySkills: "",
-    currentCTC: "",
-    noticePeriod: "15 days or less",
+    firstName: profileData?.basics?.firstName || "",
+    lastName: profileData?.basics?.lastName || "",
+    mobileNo: profileData?.basics?.mobileNo || "",
+    email: profileData?.basics?.email || "",
+    dob: profileData?.basics?.dob || "",
+    gender: profileData?.basics?.gender || "male",
+    currentLocation: profileData?.basics?.currentLocation || "",
+    stream: profileData?.education?.[0]?.stream || "",
+    university: profileData?.education?.[0]?.university || "",
+    institute: profileData?.education?.[0]?.institute || "",
+    educationDuration: profileData?.education?.[0]?.duration || "",
+    workStatus:  "Experienced",
+    workExperiance: profileData?.totalExperience?.years || 0,
+    companyName: profileData?.workExperiance?.[0]?.companyName || "",
+    jobTitle: profileData?.workExperiance?.[0]?.jobTitle || "",
+    jobLocation: profileData?.workExperiance?.[0]?.jobLocation || "",
+    jobDuration: profileData?.workExperiance?.[0]?.jobDuration || "",
+    keySkills: profileData?.skills || [],
+    currentCTC: profileData?.workExperiance?.[0]?.currentCTC || "",
+    noticePeriod: profileData?.workExperiance?.[0]?.noticePeriod || "15 days or less",
     employmentStatus: "employed",
     clientId: clientId,
   });
 
-
   useEffect(() => {
-    const preResumeData = JSON.parse(localStorage.getItem("preResumeData"));
-    if (preResumeData) {
-      setData((prevData) => ({
-        ...prevData,
-        ...preResumeData,
-      }));
-      const selectedItem = telCode.find((item) => item.dial_code === preResumeData?.dial_code);
+   
+      const selectedItem = telCode.find((item) => item.dial_code === profileData?.basics?.dial_code);
 
       if (selectedItem) {
         setSelectedItem(selectedItem);
       }
-    }
+    
   }, []);
   const [error, setError] = useState({
     firstName: { message: "Please Enter Valid First Name", view: null },
