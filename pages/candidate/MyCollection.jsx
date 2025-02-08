@@ -86,7 +86,7 @@ const MyCollection = () => {
 
         setView(false);
         setDeleted(!deleted);
-      
+
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ const MyCollection = () => {
         toast.success("Cover Letter Deleted successfully");
         setView(false);
         setDeleted(!deleted);
-  
+
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -152,7 +152,7 @@ const MyCollection = () => {
           width: "234px",
           height: "330px",
           boxShadow: " 0px 2px 10px 1px rgba(0, 0, 0, 0.25)",
-          // borderRadius: "6px",
+          borderRadius: "8px",
           overflow: "hidden",
         }}
       >
@@ -192,7 +192,7 @@ const MyCollection = () => {
         ) : (
           <>
             {isResumes === "resumes" ? (
-              <div className="flex flex-row scr540:justify-start justify-center flex-wrap  gap-x-[24px] gap-y-[48px] py-[24px]  rounded-[12px]  ">
+              <div className="flex flex-row scr540:justify-start justify-center flex-wrap  gap-x-[24px] gap-y-[48px] py-[24px]  rounded-[8px]  ">
                 <div
                   onClick={() => router.push(`/createResume/BuildResume`)}
                   style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
@@ -214,7 +214,7 @@ const MyCollection = () => {
                     <>
                       <div
                         key={index}
-                        className="flex flex-col h-[360px] items-center justify-between group relative resumes"
+                        className="flex flex-col h-[360px] items-center justify-between group relative  resumes rounded-[8px]"
                       >
                         <PdfViewer pdfUrl={item?.resumeUrl} />
                         <div className="text-[14px] text-[#333333] font-[500]">
@@ -223,8 +223,8 @@ const MyCollection = () => {
                             : item?.fileName}
                         </div>
 
-                        <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
-                          <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                        <div className="bg-[#00000099] rounded-[8px] overflow-hidden absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                          <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]   border border-gray-200 gap-[12px] bg-[#333333CC]">
                             <div
                               className="items-center flex-col cursor-pointer hidden md:flex"
                               style={{
@@ -315,10 +315,10 @@ const MyCollection = () => {
                 </>
               </div>
             ) : (
-              <div className="flex flex-row flex-wrap gap-y-[48px] gap-x-[24px] p-[24px] bg-[#F9F9F9] rounded-[12px] scr540:justify-start justify-center  ">
+              <div className="flex flex-row flex-wrap gap-y-[48px] gap-x-[24px] p-[24px] bg-[#F9F9F9] rounded-[8px] scr540:justify-start justify-center  ">
                 <div
                   onClick={() => router.push(`/coverLetter`)}
-                  style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+                  style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
                   className="rounded-[8px] text-center  justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[234px] w-[312px]  scr540:h-[330px] h-[135px]  p-6 cursor-pointer"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -335,7 +335,8 @@ const MyCollection = () => {
                     <>
                       <div
                         key={index}
-                        className="flex flex-col h-[360px] items-center justify-between group relative resumes"
+                        style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
+                        className="flex flex-col h-[360px] items-center overflow-hidden justify-between group relative resumes"
                       >
                         <PdfViewer pdfUrl={item?.resumeUrl} />
                         <div className="text-[14px] text-[#333333] font-500">
@@ -344,8 +345,8 @@ const MyCollection = () => {
                             : item?.fileName}
                         </div>
 
-                        <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
-                          <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                        <div className="bg-[#00000099] rounded-[8px]  absolute top-[0px] left-[0px] h-[330px] w-full  opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                          <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-[8px] border border-gray-200 gap-[12px] bg-[#333333CC]">
                             <div
                               className="items-center flex-col cursor-pointer hidden md:flex"
                               style={{

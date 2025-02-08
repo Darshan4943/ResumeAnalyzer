@@ -101,7 +101,9 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
         borderRadius: "10px",
         // overflow: "hidden",
         width: "600px",
-        height: "772px"
+        height: "772px",
+        overflowY:"auto",
+        scrollbarWidth:"none",
       }}
       >
         {loadingg && (
@@ -142,7 +144,7 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
               src="/images/employer/Icon_left.png"
               alt=""
             />
-            <p className="text-[18px]  w-[100%] text-start flex justify-start font font-semibold  ">
+            <p className="text-[18px]  w-[100%] text-start flex justify-start  font-semibold  ">
               Applicant Details
             </p>
           </div>
@@ -244,7 +246,7 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                   <ApplicantProfile jobDetails={jobDetails} />
                 )}
                 {toggle === "Resume" && (
-                  <div className=" flex items-center justify-center py-[16px] resumes2">
+                  <div className=" flex items-center justify-center py-[16px] resumes2 ">
                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
                       loadingg={loadingg}

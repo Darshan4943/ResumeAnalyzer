@@ -117,7 +117,7 @@ function Analytics({ jobDetails }) {
             <div className="flex flex-col items-start gap-[2px]">
               <div className="flex gap-2 items-center">
                 <p className="  text-[#333] flex items font-Montserrat font-semibold sm:text-[26px] text-[18px] ml:text-[36px]">
-                  <CountUp end={jobDetails.data.summary.views?.length} />
+                  <CountUp end={jobDetails?.data?.summary?.views?.length} />
                 </p>
                 <div className="flex text-center items-center">
                   <p className={`${percentageChangeViews > 0 ? "text-[#56CDAD]" : percentageChangeViews < 0 ? "text-[#FF6550]" : ""} items-center text-[18px] font-medium`}>

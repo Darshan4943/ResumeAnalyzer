@@ -250,10 +250,10 @@ function CoverForm({
 
   return (
     <div
-      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white p-4"
+      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white px-4 pb-4"
       style={{ scrollbarWidth: "none" }}
     >
-      <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2  ">
+      <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2 pt-2 ">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
           style={{}}

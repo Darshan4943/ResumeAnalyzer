@@ -1,15 +1,53 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
-import { Delete_icon, PlusAddLogo } from '../../utils/svg';
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import debounce from "lodash.debounce";
+import React, { useCallback, useState } from 'react'
+import MiniLoader from "../common/mini-loader";
 
-function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues, selectedValues,submitDetails}) {
-   const [levels, setLevels] = useState([
-   
-       ]);
 
+function ScheduleTask({setError,error, loading, setShowAssignTask, setTaskSuccessfull, setSelectedValues, selectedValues, submitDetails, mailDetails, setMailDetails }) {
+    const [levels, setLevels] = useState([{id:1, name:"Reviewer 1",taskReviewer: [{ name: '', role: '', email: '' }]}]);
+    console.log(mailDetails);
+    const [formError, setFormError] = useState({});
+    const debounceUpdate = useCallback(
+        debounce((value) => {
 
-   
-       const addLevel = () => {
+            setMailDetails((prev) => ({ ...prev, candidate: { ...prev.candidate, content: value } }));
+        }, 500),
+        []
+    );
+    const debounceUpdate1 = useCallback(
+        debounce((value) => {
+
+            setMailDetails((prev) => ({ ...prev, interviewer: { ...prev.interviewer, content: value } }));
+        }, 500),
+        []
+    );
+
+    const handleChange1 = (value) => {
+
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value.slice(0, 200) } });
+            debounceUpdate(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value } });
+            debounceUpdate(value);
+        }
+    };
+    const handleChange2 = (value) => {
+        
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value.slice(0, 200) } });
+            debounceUpdate1(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value } });
+            debounceUpdate1(value);
+        }
+    };
+
+    const addLevel = () => {
         const newLevel = {
             id: levels.length + 1,
             name: `Reviewer ${levels.length + 1}`,
@@ -20,7 +58,7 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
 
 
     const deleteLevel = (id) => {
-        if (id === 1) return; 
+        if (id === 1) return;
 
         const updatedLevels = levels?.filter((level) => level?.id !== id);
         setLevels(updatedLevels);
@@ -28,22 +66,23 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
         const updatedAssignTo = selectedValues?.taskReviewer?.filter((_, index) => index !== id - 1);
         setSelectedValues(prevState => ({
             ...prevState,
-            taskReviewer: updatedAssignTo 
+            taskReviewer: updatedAssignTo
         }));
     }
 
-   
+
     const handleInputChange = (id, field, value) => {
+        setError("")
         const updatedLevels = levels.map(level => {
             if (level?.id === id) {
-                level.taskReviewer[0][field] = value; 
+                level.taskReviewer[0][field] = value;
             }
             return level;
         });
 
         setLevels(updatedLevels);
 
-       
+
         const updatedSelectedValues = levels.map(level => ({
             name: level?.taskReviewer[0].name,
             role: level?.taskReviewer[0].role,
@@ -52,7 +91,7 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
 
         setSelectedValues(prevState => ({
             ...prevState,
-            taskReviewer: updatedSelectedValues 
+            taskReviewer: updatedSelectedValues
         }));
     };
 
@@ -72,8 +111,8 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
             <div className='text-[18px] font-medium'>Assign Task</div>
 
             <div className='flex flex-col gap-4'>
-                <p className='text-[18px] font-medium'>Reviewer Details</p>
-               
+                <p className='text-[18px] font-medium'>Reviewer Details <span className='text-red'>*</span></p>
+
                 <div className="flex gap-4  w-full">
                     <div className=" mt-1">
                         {levels.map((level, index) => (
@@ -144,7 +183,7 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
                             </div>
                         ))}
                         <p className="add-level text-[#06A9EF] text-[14px] font-semibold cursor-pointer" onClick={addLevel}>
-                            + Add New Interviewer
+                            + Add New Reviewer
                         </p>
                     </div>
                 </div>
@@ -165,10 +204,10 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <p
-                                      className={` cursor-pointer ${activeOption === 'Interviewer' ? "text-[#333333]" : "text-[#646464]"} `}
+                                    className={` cursor-pointer ${activeOption === 'Interviewer' ? "text-[#333333]" : "text-[#646464]"} `}
                                     onClick={() => handleOptionClick('Interviewer')}
                                 >
-                                    Email to Interviewer
+                                    Email to Reviewer
                                 </p>
                                 <svg className='sm:w-[170px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
@@ -177,35 +216,108 @@ function ScheduleTask({ setShowAssignTask,setTaskSuccessfull ,setSelectedValues,
                         </div>
                         <div className='h-[1px] bg-[#D6DDEB]'></div>
                     </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
-                        </div>
-                        <input
-                            type="input"
-                            placeholder='Skilotech-Online Interview-Interviewer 1'
-                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+                    {activeOption === 'Candidate' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Task'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.candidate?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                            ...prev,
+                                            candidate: {
+                                                ...prev.candidate,
+                                                subject: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
 
-                        </div>
-                        <textarea
-                            type="input"
-                            placeholder='Insert Text here...'
-                            class="min-h-[100px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.candidate?.content}
+                                    onTextChange={(e) => handleChange1(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
+                    {activeOption === 'Interviewer' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Interview'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.interviewer?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                            ...prev,
+                                            interviewer: {
+                                                ...prev.interviewer,
+                                                subject: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
+
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.interviewer?.content}
+                                    onTextChange={(e) => handleChange2(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
+            <div className='text-[14px] font-medium text-red w-full flex justify-end'>{error}</div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
                 <button onClick={() => setShowAssignTask(false)} className='ml:px-9  px-2 py-2 border border-[#06A9EF] rounded-[30px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button  onClick={() => submitDetails()}  className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>Create Assignment</button>
-            </div>
+                {loading ?
+                    <div className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>
+
+                        <MiniLoader />
+                    </div>
+                    :
+                <button onClick={() => submitDetails()} className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>Create Assignment</button>
+                }
+                </div>
         </div>
     )
 }

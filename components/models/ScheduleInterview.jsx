@@ -4,56 +4,55 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import debounce from "lodash.debounce";
 import React, { useCallback, useEffect, useState } from 'react'
+import MiniLoader from "../common/mini-loader";
 
-function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues, submitDetails,mailDetails, setMailDetails }) {
-    console.log(mailDetails);
-    const [levels, setLevels] = useState([
-
-    ]);
-      const [formError, setFormError] = useState({});
+function ScheduleInterview({setError, error, loading, setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues, submitDetails, mailDetails, setMailDetails }) {
+  
+   const [levels, setLevels] = useState([{id:1, name:"Interviewer 1",interviewer: [{ name: '', role: '', email: '' }]}]);
+    const [formError, setFormError] = useState({});
     useEffect(() => {
         setSelectedValues({ ...selectedValues, isOnline: true, startAmPm: "PM", startTime: "1", duration: "30 min", interviewDate: new Date().toISOString().split('T')[0] })
     }, [])
     const debounceUpdate = useCallback(
         debounce((value) => {
-          
-          setMailDetails((prev) => ({ ...prev,  candidate: {...prev.candidate,content: value }}));
+
+            setMailDetails((prev) => ({ ...prev, candidate: { ...prev.candidate, content: value } }));
         }, 500),
         []
-      );
-      const debounceUpdate1 = useCallback(
+    );
+    const debounceUpdate1 = useCallback(
         debounce((value) => {
-          
-          setMailDetails((prev) => ({ ...prev,  interviewer: {...prev.interviewer,content: value }}));
+
+            setMailDetails((prev) => ({ ...prev, interviewer: { ...prev.interviewer, content: value } }));
         }, 500),
         []
-      );
+    );
 
     const handleChange1 = (value) => {
-      
+
         if (value?.length < 200) {
-            setMailDetails({ ...mailDetails,  candidate: {...mailDetails.candidate,content: value.slice(0, 200)} });
-          debounceUpdate(value.slice(0, 200));
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value.slice(0, 200) } });
+            debounceUpdate(value.slice(0, 200));
         } else {
-            setMailDetails({ ...mailDetails,  candidate: {...mailDetails.candidate,content: value } });
-          debounceUpdate(value);
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value } });
+            debounceUpdate(value);
         }
-      };
-      const handleChange2 = (value) => {
-      
+    };
+    const handleChange2 = (value) => {
+
         if (value?.length < 200) {
-            setMailDetails({ ...mailDetails,  interviewer: {...mailDetails.interviewer,content: value.slice(0, 200)} });
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value.slice(0, 200) } });
             debounceUpdate1(value.slice(0, 200));
         } else {
-            setMailDetails({ ...mailDetails,  interviewer: {...mailDetails.interviewer,content: value } });
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value } });
             debounceUpdate1(value);
         }
-      };
+    };
 
 
     const handleInputChangee = (field, value) => {
         if (field === 'meetingLink') {
-
+            setError("")
             setSelectedValues({
                 ...selectedValues,
                 meetingLink: value,
@@ -63,7 +62,7 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
 
 
         } else if (field === 'interviewLocation') {
-
+            setError("")
             setSelectedValues({
                 ...selectedValues,
                 interviewLocation: value,
@@ -81,25 +80,24 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
     const handleDateChange = (e) => {
         const { value } = e.target;
 
-        // Update the selectedValues state with the new interview date
+        
         setSelectedValues(prevState => ({
             ...prevState,
-            interviewDate: value // Add the selected date to interviewDate
+            interviewDate: value 
         }));
     };
 
     const handleStartTimeChange = (e) => {
         const { value } = e.target;
 
-        // Update the selectedValues state with the new start time
         setSelectedValues(prevState => ({
             ...prevState,
-            startTime: value // Add the selected start time to startTime
+            startTime: value 
         }));
     };
 
     const handleAmPmChange = (amPm) => {
-        // Update the selectedValues state with the new AM/PM selection
+        
         setSelectedValues(prevState => ({
             ...prevState,
             startAmPm: amPm
@@ -132,6 +130,7 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
 
 
     const handleInputChange = (id, field, value) => {
+        setError("")
         const updatedLevels = levels.map(level => {
             if (level?.id === id) {
                 level.interviewer[0][field] = value;
@@ -141,7 +140,7 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
 
         setLevels(updatedLevels);
 
-        // Now update selectedValues with the latest interviewer data
+       
         const updatedSelectedValues = levels.map(level => ({
             name: level?.interviewer[0].name,
             role: level?.interviewer[0].role,
@@ -150,7 +149,7 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
 
         setSelectedValues(prevState => ({
             ...prevState,
-            interviewer: updatedSelectedValues // Update only the interviewer field of selectedValues
+            interviewer: updatedSelectedValues 
         }));
     };
 
@@ -403,13 +402,13 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
                                     value={mailDetails?.candidate?.subject}
                                     onChange={(e) =>
                                         setMailDetails((prev) => ({
-                                          ...prev,
-                                          candidate: {
-                                            ...prev.candidate,
-                                            subject: e.target.value,
-                                          },
+                                            ...prev,
+                                            candidate: {
+                                                ...prev.candidate,
+                                                subject: e.target.value,
+                                            },
                                         }))
-                                      }
+                                    }
                                 />
                             </div>
 
@@ -434,7 +433,7 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
                             </div>
                         </>
                     }
-                     {activeOption === 'Interviewer' &&
+                    {activeOption === 'Interviewer' &&
                         <>
                             <div className='flex flex-col gap-2 w-full'>
                                 <div>
@@ -447,13 +446,13 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
                                     value={mailDetails?.interviewer?.subject}
                                     onChange={(e) =>
                                         setMailDetails((prev) => ({
-                                          ...prev,
-                                          interviewer: {
-                                            ...prev.interviewer,
-                                            subject: e.target.value,
-                                          },
+                                            ...prev,
+                                            interviewer: {
+                                                ...prev.interviewer,
+                                                subject: e.target.value,
+                                            },
                                         }))
-                                      }
+                                    }
                                 />
                             </div>
 
@@ -483,7 +482,14 @@ function ScheduleInterview({ error, setShowScheduleInterview, setSuccessfull, se
             <div className='text-[14px] font-medium text-red w-full flex justify-end'>{error}</div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
                 <button onClick={() => setShowScheduleInterview(false)} className='ml:px-9  px-2 py-2 border border-[#06A9EF] rounded-[30px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button onClick={() => submitDetails()} className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                {loading ?
+                    <div className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>
+
+                        <MiniLoader />
+                    </div>
+                    :
+                    <button onClick={() => submitDetails()} className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                }
             </div>
         </div>
     )
