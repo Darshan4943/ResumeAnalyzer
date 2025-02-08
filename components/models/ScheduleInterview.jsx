@@ -1,38 +1,74 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import debounce from "lodash.debounce";
+import React, { useCallback, useEffect, useState } from 'react'
+import MiniLoader from "../common/mini-loader";
 
-function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues,submitDetails }) {
-    console.log(selectedValues);
-    const [levels, setLevels] = useState([
+function ScheduleInterview({setError, error, loading, setShowScheduleInterview, setSuccessfull, setSelectedValues, selectedValues, submitDetails, mailDetails, setMailDetails }) {
+  
+   const [levels, setLevels] = useState([{id:1, name:"Interviewer 1",interviewer: [{ name: '', role: '', email: '' }]}]);
+    const [formError, setFormError] = useState({});
+    useEffect(() => {
+        setSelectedValues({ ...selectedValues, isOnline: true, startAmPm: "PM", startTime: "1", duration: "30 min", interviewDate: new Date().toISOString().split('T')[0] })
+    }, [])
+    const debounceUpdate = useCallback(
+        debounce((value) => {
 
-    ]);
-     useEffect(() => {
-        setSelectedValues({...selectedValues,isOnline:true})
-        }, [])
-        
-    const [showApprovalChain, setShowApprovalChain] = useState(false);
-    const [approvalChoice, setApprovalChoice] = useState(null);
-    const router = useRouter()
+            setMailDetails((prev) => ({ ...prev, candidate: { ...prev.candidate, content: value } }));
+        }, 500),
+        []
+    );
+    const debounceUpdate1 = useCallback(
+        debounce((value) => {
+
+            setMailDetails((prev) => ({ ...prev, interviewer: { ...prev.interviewer, content: value } }));
+        }, 500),
+        []
+    );
+
+    const handleChange1 = (value) => {
+
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value.slice(0, 200) } });
+            debounceUpdate(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails, candidate: { ...mailDetails.candidate, content: value } });
+            debounceUpdate(value);
+        }
+    };
+    const handleChange2 = (value) => {
+
+        if (value?.length < 200) {
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value.slice(0, 200) } });
+            debounceUpdate1(value.slice(0, 200));
+        } else {
+            setMailDetails({ ...mailDetails, interviewer: { ...mailDetails.interviewer, content: value } });
+            debounceUpdate1(value);
+        }
+    };
+
 
     const handleInputChangee = (field, value) => {
         if (field === 'meetingLink') {
-           
+            setError("")
             setSelectedValues({
                 ...selectedValues,
                 meetingLink: value,
-                interviewLocation:""
-                
+                interviewLocation: ""
+
             });
-            
-           
+
+
         } else if (field === 'interviewLocation') {
-       
+            setError("")
             setSelectedValues({
                 ...selectedValues,
                 interviewLocation: value,
-                meetingLink:""
+                meetingLink: ""
             });
-           
+
         }
     };
     const handleChange = (event) => {
@@ -44,25 +80,24 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
     const handleDateChange = (e) => {
         const { value } = e.target;
 
-        // Update the selectedValues state with the new interview date
+        
         setSelectedValues(prevState => ({
             ...prevState,
-            interviewDate: value // Add the selected date to interviewDate
+            interviewDate: value 
         }));
     };
 
     const handleStartTimeChange = (e) => {
         const { value } = e.target;
 
-        // Update the selectedValues state with the new start time
         setSelectedValues(prevState => ({
             ...prevState,
-            startTime: value // Add the selected start time to startTime
+            startTime: value 
         }));
     };
 
     const handleAmPmChange = (amPm) => {
-        // Update the selectedValues state with the new AM/PM selection
+        
         setSelectedValues(prevState => ({
             ...prevState,
             startAmPm: amPm
@@ -74,46 +109,47 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
         const newLevel = {
             id: levels.length + 1,
             name: `Interviewer ${levels.length + 1}`,
-            assignTo: [{ name: '', role: '', email: '' }],
+            interviewer: [{ name: '', role: '', email: '' }],
         };
         setLevels([...levels, newLevel]);
     };
 
 
     const deleteLevel = (id) => {
-        if (id === 1) return; 
+        if (id === 1) return;
 
-        const updatedLevels = levels?.filter((level) => level.id !== id);
+        const updatedLevels = levels?.filter((level) => level?.id !== id);
         setLevels(updatedLevels);
 
-        const updatedAssignTo = selectedValues?.assignTo?.filter((_, index) => index !== id - 1);
+        const updatedAssignTo = selectedValues?.interviewer?.filter((_, index) => index !== id - 1);
         setSelectedValues(prevState => ({
             ...prevState,
-            assignTo: updatedAssignTo 
+            interviewer: updatedAssignTo
         }));
     }
 
-   
+
     const handleInputChange = (id, field, value) => {
+        setError("")
         const updatedLevels = levels.map(level => {
-            if (level.id === id) {
-                level.assignTo[0][field] = value; 
+            if (level?.id === id) {
+                level.interviewer[0][field] = value;
             }
             return level;
         });
 
         setLevels(updatedLevels);
 
-        // Now update selectedValues with the latest assignTo data
+       
         const updatedSelectedValues = levels.map(level => ({
-            name: level.assignTo[0].name,
-            role: level.assignTo[0].role,
-            email: level.assignTo[0].email,
+            name: level?.interviewer[0].name,
+            role: level?.interviewer[0].role,
+            email: level?.interviewer[0].email,
         }));
 
         setSelectedValues(prevState => ({
             ...prevState,
-            assignTo: updatedSelectedValues // Update only the assignTo field of selectedValues
+            interviewer: updatedSelectedValues 
         }));
     };
 
@@ -128,9 +164,9 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
 
     return (
         <div className='sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-            <div className='text-[24px] font-medium'>Schedule Interview</div>
+            <div className='text-[18px] font-medium'>Schedule Interview</div>
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
-                <p>What will be the mode of Interview?</p>
+                <p className='text-[12px] font-medium'>What will be the mode of Interview?</p>
                 <div className="flex gap-[8px] items-center">
                     <input
                         type="radio"
@@ -155,11 +191,11 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
 
             </div>
             <div className='flex flex-col gap-4'>
-                <p className='text-[20px] font-medium'>Assigned to</p>
+                <p className='text-[18px] font-medium'>Assigned to <span className='text-red'>*</span></p>
                 <div className="flex gap-4  w-full">
                     <div className=" mt-1">
                         {levels.map((level, index) => (
-                            <div key={level.id}>
+                            <div key={level?.id}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none" style={{ animationDelay: '1s' }} className="level">
                                     <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
                                     <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
@@ -183,10 +219,10 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                     </div>
                     <div className="w-[91.5%] flex flex-col gap-4">
                         {levels.map((level) => (
-                            <div className="flex flex-col gap-[8px] sm:w-[75%] w-[95%] level" key={level.id}>
+                            <div className="flex flex-col gap-[8px] sm:w-[75%] w-[95%] level" key={level?.id}>
                                 <div className="flex gap-2 justify-between">
-                                    <p>{level.name}</p>
-                                    {level.id !== 1 && (
+                                    <p>{level?.name}</p>
+                                    {level?.id !== 1 && (
                                         <svg
                                             className="delete-level"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +230,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                                             height="20"
                                             viewBox="0 0 20 20"
                                             fill="none"
-                                            onClick={() => deleteLevel(level.id)}
+                                            onClick={() => deleteLevel(level?.id)}
                                         >
                                             <g mask="url(#mask0_4754_63716)">
                                                 <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#333333" />
@@ -206,22 +242,22 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                                     type="text"
                                     placeholder="Employee Name"
                                     className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
-                                    value={level.assignTo[0].name}
-                                    onChange={(e) => handleInputChange(level.id, 'name', e.target.value)}
+                                    value={level?.interviewer[0].name}
+                                    onChange={(e) => handleInputChange(level?.id, 'name', e.target.value)}
                                 />
                                 <input
                                     type="text"
                                     placeholder="Employee Role"
                                     className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
-                                    value={level.assignTo[0].role}
-                                    onChange={(e) => handleInputChange(level.id, 'role', e.target.value)}
+                                    value={level?.interviewer[0].role}
+                                    onChange={(e) => handleInputChange(level?.id, 'role', e.target.value)}
                                 />
                                 <input
                                     type="text"
                                     placeholder="Enter Email"
                                     className="h-[38px] border-[1px] py-[16px] px-[8px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px] font-[400]"
-                                    value={level.assignTo[0].email}
-                                    onChange={(e) => handleInputChange(level.id, 'email', e.target.value)}
+                                    value={level?.interviewer[0].email}
+                                    onChange={(e) => handleInputChange(level?.id, 'email', e.target.value)}
                                 />
                             </div>
                         ))}
@@ -233,7 +269,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                 <div className='flex xl:flex-row flex-col gap-4 w-full'>
                     <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
                         <div>
-                            <p className='text-[20px] font-medium'>Interview Date</p>
+                            <p className='text-[14px] font-medium'>Interview Date <span className='text-red'>*</span></p>
                         </div>
                         <input
                             type="date"
@@ -244,7 +280,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                         />
                     </div>
                     <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
-                        <p className='text-[20px] font-medium'>Start Time</p>
+                        <p className='text-[14px] font-medium'>Start Time <span className='text-red'>*</span></p>
                         <div className='flex gap-4'>
                             <select
                                 className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
@@ -252,12 +288,13 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                                 onChange={handleStartTimeChange}
                             >
                                 <option value="" disabled>Select</option>
-                                {/* Populate the options from 1 to 12 */}
+
                                 {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
                                     <option key={hour} value={hour}>
-                                        {hour}
+                                        {String(hour).padStart(2, "0")}:00
                                     </option>
                                 ))}
+
                             </select>
 
                             <div className="flex gap-2   text-[14px] font-[400]">
@@ -277,7 +314,7 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                         </div>
                     </div>
                     <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
-                        <p className='text-[20px] font-medium'>Duration</p>
+                        <p className='text-[14px] font-medium'>Duration <span className='text-red'>*</span></p>
                         <select
                             className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400] max-h-[100px] overflow-y-scroll"
                             value={selectedValues.duration}  // Bind the selected value to state
@@ -297,89 +334,162 @@ function ScheduleInterview({ setShowScheduleInterview, setSuccessfull, setSelect
                             ))}
                         </select>
                     </div>
-                   
+
                 </div>
                 {selectedValues?.isOnline ? (
-                        <div className='flex flex-col gap-2'>
-                            <label className="text-[14px] font-medium">Meeting Link</label>
-                            <input
-                                type="text"
-                                placeholder="Enter Meeting Link"
-                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                                value={selectedValues?.meetingLink}
-                                onChange={(e) => handleInputChangee('meetingLink', e.target.value)}
-                            />
-                        </div>
-                    ) : (
-                        <div className='flex flex-col gap-2'>
-                            <label className="text-[14px] font-medium">Add Interview Location</label>
-                            <input
-                                type="text"
-                                placeholder="Enter Location"
-                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                                value={selectedValues?.interviewLocation}
-                                onChange={(e) => handleInputChangee('interviewLocation', e.target.value)}
-                            />
-                        </div>
-                    )}
+                    <div className='flex flex-col gap-2'>
+                        <label className="text-[14px] font-medium">Meeting Link <span className='text-red'>*</span></label>
+                        <input
+                            type="text"
+                            placeholder="Enter Meeting Link"
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                            value={selectedValues?.meetingLink}
+                            onChange={(e) => handleInputChangee('meetingLink', e.target.value)}
+                        />
+                    </div>
+                ) : (
+                    <div className='flex flex-col gap-2'>
+                        <label className="text-[14px] font-medium">Add Interview Location <span className='text-red'>*</span></label>
+                        <input
+                            type="text"
+                            placeholder="Enter Location"
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                            value={selectedValues?.interviewLocation}
+                            onChange={(e) => handleInputChangee('interviewLocation', e.target.value)}
+                        />
+                    </div>
+                )}
 
 
-                <div className='flex flex-col  gap-4  sm:px-[16px] px-2 py-[16px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] '>
+                <div className='flex flex-col  gap-4    py-[16px] '>
                     <div>
-                        <div className='flex justify-between sm:text-[16px] text-[12px] font-semibold'>
+                        <div className='flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4'>
                             <div className='flex flex-col gap-2'>
                                 <p
-                                    className=" cursor-pointer"
+                                    className={` cursor-pointer ${activeOption === 'Candidate' ? "text-[#333333]" : "text-[#646464]"} `}
                                     onClick={() => handleOptionClick('Candidate')}
                                 >
                                     Email to Candidate
                                 </p>
-                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
+                                <svg className='sm:w-[170px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Candidate' ? '#06A9EF' : 'white'} />
                                 </svg>
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <p
-                                    className="cursor-pointer"
+                                    className={` cursor-pointer ${activeOption === 'Interviewer' ? "text-[#333333]" : "text-[#646464]"} `}
                                     onClick={() => handleOptionClick('Interviewer')}
                                 >
                                     Email to Interviewer
                                 </p>
-                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
+                                <svg className='sm:w-[170px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
                                 </svg>
                             </div>
                         </div>
                         <div className='h-[1px] bg-[#D6DDEB]'></div>
                     </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[20px] font-medium'>Subject</p>
-                        </div>
-                        <input
-                            type="input"
-                            placeholder='Skilotech-Online Interview-Interviewer 1'
-                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
-                    <div className='flex flex-col gap-2 w-full'>
-                        <div>
-                            <p className='text-[20px] font-medium'>Body</p>
+                    {activeOption === 'Candidate' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Interview'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.candidate?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                            ...prev,
+                                            candidate: {
+                                                ...prev.candidate,
+                                                subject: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
 
-                        </div>
-                        <textarea
-                            type="input"
-                            placeholder='Insert Text here...'
-                            class="min-h-[100px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                            value=""
-                        />
-                    </div>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.candidate?.content}
+                                    onTextChange={(e) => handleChange1(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
+                    {activeOption === 'Interviewer' &&
+                        <>
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Subject</p>
+                                </div>
+                                <input
+                                    type="input"
+                                    placeholder='Skilotech-Online Interview'
+                                    class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                                    value={mailDetails?.interviewer?.subject}
+                                    onChange={(e) =>
+                                        setMailDetails((prev) => ({
+                                            ...prev,
+                                            interviewer: {
+                                                ...prev.interviewer,
+                                                subject: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
+
+                            <div className='flex flex-col gap-2 w-full'>
+                                <div>
+                                    <p className='text-[16px] font-medium text-[#646464]'>Body</p>
+
+                                </div>
+                                <Editor
+                                    value={mailDetails?.interviewer?.content}
+                                    onTextChange={(e) => handleChange2(e.htmlValue)}
+                                    style={{
+                                        border: formError.content
+                                            ? "2px solid red"
+                                            : "2px solid #dedede",
+                                        fontSize: "16px",
+                                        color: "#333",
+                                        padding: "10px",
+                                        minHeight: "196px",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
+            <div className='text-[14px] font-medium text-red w-full flex justify-end'>{error}</div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
-                <button onClick={() => setShowScheduleInterview(false)} className='ml:px-9 ml:py-3 px-2 py-2 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button onClick={() => submitDetails()} className='ml:px-9 ml:py-3 px-2 py-2 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                <button onClick={() => setShowScheduleInterview(false)} className='ml:px-9  px-2 py-2 border border-[#06A9EF] rounded-[30px]  text-[16px] font-semibold' id='button'>Cancel</button>
+                {loading ?
+                    <div className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>
+
+                        <MiniLoader />
+                    </div>
+                    :
+                    <button onClick={() => submitDetails()} className='ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                }
             </div>
         </div>
     )

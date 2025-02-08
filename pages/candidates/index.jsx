@@ -21,7 +21,7 @@ function MyClients() {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [clientCount, setClientCount] = useState(0);
-  const [clientCountLimit, setClientCountLimit] = useState(0)
+  const [clientCountLimit, setClientCountLimit] = useState(0);
   const [limitPopUp, setLimitPopUp] = useState(false);
   const dispatch = useDispatch();
 
@@ -38,15 +38,13 @@ function MyClients() {
   const getLimits = () => {
     const clientCount = localStorage.getItem("clientCount");
     const clientCountLimit = localStorage.getItem("clientCountLimit");
-    setClientCountLimit(parseInt(clientCountLimit))
+    setClientCountLimit(parseInt(clientCountLimit));
     setClientCount(parseInt(clientCount));
-
   };
 
   useEffect(() => {
     getLimits();
   }, []);
-
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -92,10 +90,9 @@ function MyClients() {
       })
       .then((response) => {
         toast.success("Candidate Deleted successfully");
-        callData()
+        callData();
         setSelectedIndexes([]);
         setSelect(false);
-      
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -150,13 +147,10 @@ function MyClients() {
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">Candidates</div>
           {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
-          <div className="rounded-[16px] scr360:p-4 p-2 bg-white"
-          >
-            <div className="flex flex-col gap-4  py-3 rounded-[24px]"
-            >
+          <div className="rounded-[16px] scr360:p-4 p-2 bg-white">
+            <div className="flex flex-col gap-4  py-3 rounded-[24px]">
               <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
-                <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]"
-                >
+                <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]">
                   <div className="flex gap-4  w-full items-center ">
                     <svg
                       className="min-w-[24px]"
@@ -206,8 +200,9 @@ function MyClients() {
                     </div>
                   )}
                   <div
-                    className={` ${select ? "flex" : "hidden"
-                      } gap-12  items-center w-[100%]  `}
+                    className={` ${
+                      select ? "flex" : "hidden"
+                    } gap-12  items-center w-[100%]  `}
                   >
                     {select && (
                       <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[280px]  scr420:h-[48px] h-[40px]  ">
@@ -269,20 +264,6 @@ function MyClients() {
                   </div>
                   {!select && (
                     <button
-                      // onClick={() => {
-                      //   if (clientCount >= clientCountLimit) {
-                      //     setLimitPopUp(true);
-                      //   } else {
-                      //     router.push("/myClients/CreateNewClient");
-                      //   }
-                      // }}
-                      // onClick={() => {
-                      //   if (!planAvailable) {
-                      //     setLimitPopUp(true);
-                      //   } else {
-                      //     router.push("/myClients/CreateNewClient");
-                      //   }
-                      // }}
                       onClick={() => {
                         router.push("/candidates/CreateNewClient");
                       }}
@@ -307,20 +288,6 @@ function MyClients() {
                   )}
 
                   <button
-                    // onClick={() => {
-                    //   if (clientCount >= clientCountLimit) {
-                    //     setLimitPopUp(true);
-                    //   } else {
-                    //     router.push("/myClients/CreateNewClient");
-                    //   }
-                    // }}
-                    // onClick={() => {
-                    //   if (!planAvailable) {
-                    //     setLimitPopUp(true);
-                    //   } else {
-                    //     router.push("/myClients/CreateNewClient");
-                    //   }
-                    // }}
                     onClick={() => {
                       router.push("/candidates/CreateNewClient");
                     }}
@@ -343,22 +310,6 @@ function MyClients() {
                     </svg>
                     Create New Candidate
                   </button>
-
-                  {/* {isOptions && (
-                  <div
-                    ref={taskRef}
-                    className="absolute right-5 top-16 bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
-                    style={{
-                      boxShadow: "0px 1px 2px 0px #00000040",
-                    }}
-                  >
-                    <p className="text-[14px] font-medium">Select All</p>
-
-                    <p className="text-[14px] text-red font-medium">
-                      Delete All
-                    </p>
-                  </div>
-                )} */}
                 </div>
               </div>
               {details?.length > 0 ? (
@@ -376,26 +327,10 @@ function MyClients() {
                 />
               ) : (
                 <div
-                  // onClick={() => {
-                  //   if (clientCount >= clientCountLimit) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   if (!planAvailable) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
                   onClick={() => {
-
                     router.push("/candidates/CreateNewClient");
-
                   }}
-                  className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] h-[332px] p-4 cursor-pointer"
+                  className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] p-6 cursor-pointer"
                 >
                   <svg
                     width="27"
@@ -410,7 +345,7 @@ function MyClients() {
                     />
                   </svg>
                   <p>Create New Candidate</p>
-                </div >
+                </div>
               )}
               {limitPopUp && (
                 <LimitUsedModal

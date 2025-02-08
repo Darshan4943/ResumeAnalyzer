@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import ShortlistMail from './ShortlistMail';
 import { CountPostingDays } from '../../../utils/data';
 
-function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange }) {
+function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange ,setToggle,setActiveOption}) {
     
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
@@ -108,7 +108,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
                                 }
                             </>
                             :
-                            <div className="flex gap-2">
+                            <div onClick={()=>{setToggle("HiringProgress");setActiveOption("HiringProgress")}} className="flex gap-2 cursor-pointer">
                                 <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
                                     Schedule Interview
                                 </div>

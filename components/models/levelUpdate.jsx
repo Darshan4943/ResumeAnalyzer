@@ -8,40 +8,48 @@ import { DummyProfileSvg } from '../../utils/svg';
 import axios from 'axios';
 import { formatInterviewDate } from '../../utils/middleware';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import ShortlistMail from '../../pages/common/hiring/ShortlistMail';
+import MiniLoader from '../common/mini-loader';
 
 
 function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selectedLevel, setSelectedLevel, jobDetails }) {
-
+    const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isNextLevel, setIsNextLevel] = useState("")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
     const [showAssignTask, setShowAssignTask] = useState(false);
     const [error, setError] = useState();
     const [currenStatus, setCurrenStatus] = useState()
+    const [statusChange,setStatusChange]= useState(false);
     const handleStarClick = (starIndex) => {
         setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
     };
+    const [loading, setLoading] = useState(false)
+    const [shortlist, setShortlist] = useState(false);
     const [selectedValues, setSelectedValues] = useState({});
+    const [mailDetails, setMailDetails] = useState({ candidate: {}, interviewer: {} });
+    console.log(isNextLevel);
     useEffect(() => {
-        setCurrenStatus(selectedLevel.status)
+        setCurrenStatus(selectedLevel?.status)
     }, [])
-    
-    const submitDetails = async () => {
-        if (selectedLevel.status === currenStatus) {
+
+    const nextStage = () => {
+        if ((selectedLevel?.status === currenStatus && selectedLevel?.level !== 1) && (selectedLevel.status !== "Conducted" && selectedLevel.status !== "Completed")) {
             setError("Status Should Be Changed")
             return;
         }
-
         if (isNextLevel === "nextLevel") {
-            if (!selectedValues.title) {
-                setError("Title is Reuired")
+            if (!selectedValues?.title) {
+                setError("Title is Required")
                 return;
             }
-            if (selectedValues.isInterview && !showScheduleInterview) {
+
+            if (selectedValues?.isInterview && !showScheduleInterview) {
                 setShowScheduleInterview(true);
                 return;
             }
 
-            if (selectedValues.isTask && !showAssignTask) {
+            if (selectedValues?.isTask && !showAssignTask) {
                 setShowAssignTask(true);
                 return;
             }
@@ -49,46 +57,90 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 setError("Select Option")
                 return;
             }
+            
+        }
+        else {
+            setShortlist(true)
         }
 
+    }
+
+
+    const submitDetails = async () => {
+        if ((selectedLevel?.status === currenStatus && selectedLevel?.level !== 1) && (selectedLevel.status !== "Conducted" && selectedLevel.status !== "Completed")) {
+            setError("Status Should Be Changed")
+            return;
+        }
+
+        if (isNextLevel === "nextLevel") {
+            if (selectedValues.isInterview) {
+                if (!selectedValues?.interviewer) {
+                    setError("Interviewer Details are Required")
+                    return;
+
+                }
+
+                if (selectedValues?.isOnline && !selectedValues.meetingLink) {
+                    setError("Meeting Link is Required")
+                    return;
+                }
+
+                if (!selectedValues?.isOnline && !selectedValues.location) {
+                    setError("Location is Required")
+                    return;
+                }
+            }
+            if (selectedValues.isTask && !selectedValues?.taskReviewer) {
+                setError("Reviewer Details are Required")
+                return;
+            }
 
 
 
+        }
 
         try {
+            setLoading(true)
             const response = await axios.put(
                 `http://localhost:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
                 {
                     selectedValues: {
-                        level: selectedLevel.level + 1,
-                        assignTo: selectedValues.assignTo,
-                        duration: selectedValues.duration,
-                        interviewDate: selectedValues.interviewDate,
-                        interviewLocation: selectedValues.interviewLocation,
-                        isInterview: selectedValues.isInterview,
-                        isOnline: selectedValues.isOnline,
-                        meetingLink: selectedValues.meetingLink,
-                        startAmPm: selectedValues.startAmPm,
-                        startTime: selectedValues.startTime,
-                        status: selectedValues.status,
-                        title: selectedValues.title,
+                        level: selectedLevel?.level + 1,
+                        interviewer: selectedValues?.interviewer,
+                        taskReviewer: selectedValues?.taskReviewer,
+                        duration: selectedValues?.duration,
+                        interviewDate: selectedValues?.interviewDate,
+                        interviewLocation: selectedValues?.interviewLocation,
+                        isInterview: selectedValues?.isInterview,
+                        isTask: selectedValues?.isTask,
+                        isOnline: selectedValues?.isOnline,
+                        meetingLink: selectedValues?.meetingLink,
+                        startAmPm: selectedValues?.startAmPm,
+                        startTime: selectedValues?.startTime,
+                        status: selectedValues?.status,
+                        title: selectedValues?.title,
                     },
                     selectedLevel: {
-                        level: selectedLevel.level,
-                        status: selectedLevel.status,
-                        score: selectedLevel.score,
-                        comment: selectedLevel.comment,
+                        level: selectedLevel?.level,
+                        status: selectedLevel?.status,
+                        score: selectedLevel?.score,
+                        comment: selectedLevel?.comment,
                     },
                     isNextLevel,
+                    mailDetails,
+                    employer: userDataGlobal?.email,
+
                 }
             );
 
             if (response.data.success) {
                 console.log("Details updated successfully");
                 setTaskSuccessfull(true);
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error updating application details:", error);
+            setLoading(false)
         }
     };
 
@@ -111,7 +163,7 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
 
     const handleStatusChange = (value) => {
         setError("")
-       
+
         setSelectedLevel((prevValues) => ({ ...prevValues, status: value }));
     };
 
@@ -127,9 +179,30 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
 
 
     return (
-        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+
+            {shortlist && (
+                <>
+                    <div className="fixed z-[12000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                    <div className="fixed z-[12000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+                        <ShortlistMail
+                            shortlist={[jobDetails]}
+                            setPopupVisible={setShortlist}
+                            id={jobDetails?.jobId}
+                            isByEmployer={true}
+                            submitDetails={submitDetails}
+                            newHiringStage={isNextLevel}
+                            setStatusChange={setStatusChange}
+                            statusChange={statusChange}
+
+
+                        />
+
+                    </div>
+                </>
+            )}
             <div className='flex gap-4 justify-between items-center w-full  '>
-                <p className='text-[24px] font-medium min-w-[100px]'>Level {selectedLevel?.level}</p>
+                <p className='text-[24px] font-medium min-w-[110px]'>Level {selectedLevel?.level}</p>
                 <div className='h-[1px] w-full bg-[#D6DDEB]'></div>
             </div>
             <p className='text-[24px] font-medium'>{selectedLevel?.title}</p>
@@ -143,16 +216,20 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                         </div>
 
                         <select
-                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px]  font-[400]"
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                             value={selectedLevel?.status}
                             onChange={(e) => handleStatusChange(e.target.value)}
                         >
-                            <option value="" disabled selected>Select </option>
+                            <option value="" disabled>Select</option>
                             <option value="Pending">In Progress</option>
-                            <option value="Conducted">Conducted</option>
+                            {selectedLevel?.isTask ? (
+                                <option value="Completed">Completed</option>
+                            ) : (
+                                <option value="Conducted">Conducted</option>
+                            )}
                             <option value="Cancelled">Cancelled</option>
-
                         </select>
+
                     </div>
                     <div className='flex flex-col gap-2 w-[30%]'>
 
@@ -167,12 +244,12 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
             }
             {selectedLevel?.level !== 1 &&
                 <div className='flex ms:flex-row flex-col gap-4 justify-between'>
-                    {selectedLevel?.assignTo?.length > 0 &&
+                    {selectedLevel?.interviewer?.length > 0 &&
                         < div className='flex flex-col gap-2'>
 
                             <p className='text-[20px] font-medium'>Conducted By</p>
                             <div className='flex  gap-2 flex-wrap'>
-                                {selectedLevel?.assignTo?.map((person, index) => (
+                                {selectedLevel?.interviewer?.map((person, index) => (
                                     <div key={index} className='flex gap-2'>
                                         <DummyProfileSvg />
                                         <div>
@@ -242,10 +319,10 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                         <input
                             type="radio"
                             name="approvalChoice"
-                            value="shotListed"
+                            value="Shortlisted"
                             className="h-[20px] w-[20px] custom-radio cursor-pointer "
                             onChange={(e) => handleIsNextLevel(e.target.value)}
-                            checked={isNextLevel === "shotListed"}
+                            checked={isNextLevel === "Shortlisted"}
                         />
                         <label className="text-[#0C8A0A] ">Shortlist Candidate</label>
                     </div>
@@ -253,10 +330,10 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                         <input
                             type="radio"
                             name="approvalChoice"
-                            value="rejected"
+                            value="Rejected"
                             className="h-[20px] w-[20px] custom-radio cursor-pointer "
                             onChange={(e) => handleIsNextLevel(e.target.value)}
-                            checked={isNextLevel === "rejected"}
+                            checked={isNextLevel === "Rejected"}
                         />
                         <label className="text-[#C00000]">Reject Candidate</label>
                     </div>
@@ -265,12 +342,12 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 {isNextLevel === "nextLevel" &&
                     <>
                         <div className='flex flex-col gap-2'>
-                            <p className='text-[16px] font-medium'  >Level Title</p>
+                            <p className='text-[16px] font-medium'  >Level Title <span className='text-red'>*</span></p>
                             <input
                                 type="text"
                                 placeholder="Eg: Technical Round-I"
                                 className="px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] placeholder:text-[14px]  font-[400]"
-                                value={selectedValues.title}
+                                value={selectedValues?.title}
                                 onChange={(e) => handleLevelTitleChange(e)}
                             />
 
@@ -308,7 +385,13 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                 <div className='w-full flex justify-end text-red text-[14px] font-medium'>{error}</div>
                 <div className='flex gap-4 justify-end py-[1rem]'>
                     <button onClick={closeTaskPopup} className='w-[106px] h-[42px] border border-[#06A9EF] rounded-[30px] flex justify-center items-center  text-[16px] font-semibold' id='button'>Cancel</button>
-                    <button onClick={submitDetails} className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>Save</button>
+                    {loading ?
+                        <div className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>
+                            <MiniLoader />
+                        </div>
+                        :
+                        <button onClick={isNextLevel ? nextStage : submitDetails} className='h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white'>Save</button>
+                    }
                 </div>
 
 
@@ -326,9 +409,9 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             exit={{ x: '100%' }}
                             transition={{ duration: 0.5 }}
                             // ref={taskRef}
-                            className='absolute z-[2500] right-0 w-[100%] top-[0]'
+                            className='absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] '
                         >
-                            <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
+                            <ScheduleInterview setError={setError} loading={loading} mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
                         </motion.div>
                     </div>
                 )}
@@ -345,9 +428,9 @@ function LevelUpdate({ closeTaskPopup, setSuccessfull, setTaskSuccessfull, selec
                             exit={{ x: '100%' }}
                             transition={{ duration: 0.5 }}
                             // ref={taskRef}
-                            className='absolute z-[2500] right-0 w-[100%] top-[0]'
+                            className='absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] '
                         >
-                            <ScheduleTask setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} />
+                            <ScheduleTask setError={setError} loading={loading} mailDetails={mailDetails} setMailDetails={setMailDetails} error={error} setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} selectedValues={selectedValues} setSelectedValues={setSelectedValues} submitDetails={submitDetails} />
                         </motion.div>
                     </div>
                 )}

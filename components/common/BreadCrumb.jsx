@@ -69,34 +69,40 @@ const Breadcrumb = () => {
   
   
   return (
-    <nav className=" py-6">
-      <ol className="flex gap-2 items-center">
-        <li className="breadcrumb-item text-[#333333]">
-          Skilotech
-        </li>
-        {breadcrumbItems.map((item, index) => (
-          
-          <li key={index} className={`breadcrumb-item  text-[#333333] ${
+    <nav className="py-6">
+    <ol className="flex gap-2 items-center text-sm sm:text-base">
+      <li className="breadcrumb-item text-[#333333]">Skilotech</li>
+      {breadcrumbItems.map((item, index) => (
+        <li
+          key={index}
+          className={`breadcrumb-item text-[#333333] ${
             index === breadcrumbItems?.length - 1 ? "font-semibold" : "font-medium"
-          }`}>
-            <ALink href={item.path}>
-              {/* <span>{item.label}</span> */}
-              <span class="breadcrumb-separator leading-4">
-               
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                  <g mask="url(#mask0_6706_81040)">
-                    <path d="M10.4646 7.78125L6.46458 11.7812L5.53125 10.8479L8.59792 7.78125L5.53125 4.71458L6.46458 3.78125L10.4646 7.78125Z" fill="#495057" />
-                  </g>
-                </svg>
-                {item.label}
-              </span>
-
-            </ALink>
-          </li>
-        ))}
-      </ol>
-    </nav>
+          } text-xs sm:text-base`} // Small font size for screens <460px
+        >
+          <ALink href={item.path}>
+            <span className="breadcrumb-separator leading-4">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_6706_81040)">
+                  <path
+                    d="M10.4646 7.78125L6.46458 11.7812L5.53125 10.8479L8.59792 7.78125L5.53125 4.71458L6.46458 3.78125L10.4646 7.78125Z"
+                    fill="#495057"
+                  />
+                </g>
+              </svg>
+              {item.label}
+            </span>
+          </ALink>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  
   );
 };
 

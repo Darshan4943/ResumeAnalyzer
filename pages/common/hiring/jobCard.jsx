@@ -300,7 +300,7 @@ const JobCard = ({ filters, setFilters }) => {
             </div>
           )}
 
-          {totalCount > 5 ? (
+          {totalCount > 9 ? (
             <>
               <div>
                 <CustomPagination

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import MiniLoader from "../../components/common/miniLoader";
@@ -67,25 +67,39 @@ function Hiring() {
     setToggle((prevToggle) => !prevToggle);
   };
 
-
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
         `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
-      const data = response.data;
+
+      const data = {
+        jobTitles: [
+          ...new Set(response.data.jobTitles.map((title) => title.trim())),
+        ],
+        locations: [
+          ...new Set(
+            response.data.locations.map((location) =>
+              location.trim().toLowerCase()
+            )
+          ),
+        ],
+        deadLines: [...new Set(response.data.deadLines)],
+      };
+
       setAttributes(data);
+
       setHeadings((prevHeadings) =>
         prevHeadings.map((item) => {
           if (item.heading === "Department") {
             return {
               ...item,
-              options: [...new Set([...item.options, ...data.jobTitles])],
+              options: data.jobTitles,
             };
           } else if (item.heading === "Location") {
             return {
               ...item,
-              options: [...new Set([...item.options, ...data.locations])],
+              options: data.locations,
             };
           }
           return item;
@@ -103,16 +117,11 @@ function Hiring() {
   const [headings, setHeadings] = useState([
     {
       heading: "Department",
-      options: [
-        "software development",
-        "Backend Developer",
-        "React Js Developer",
-        "Secretary",
-      ],
+      options: [],
     },
     {
       heading: "Location",
-      options: ["Los Angeles", "New York", "San Francisco"],
+      options: [],
     },
     {
       heading: "Status",
@@ -126,55 +135,21 @@ function Hiring() {
     }
   }, [userDataGlobal]);
 
-  // const fetchJobs = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:2000/api/job/getAllJobDetails/${id}`,
-  //       {
-  //         params: { page, limit, ...filters },
-  //       }
-  //     );
-
-  //     const { jobs, pagination } = response.data;
-
-  //     setData(jobs);
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 500);
-  //     setTotalCount(pagination.totalCount);
-  //     setTotalPages(pagination.totalPages);
-  //   } catch (error) {
-  //     console.error("Error fetching jobs:", error.message || error);
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 500);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchJobs();
-  //   }
-  // }, [id, filters, limit, page]);
-
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-  
-      // Convert "Actived" to "Live"
+
       const newValue = value === "Active" ? "Live" : value;
-  
+
       if (newValue) {
         updatedFilters[heading] = newValue;
       } else {
         delete updatedFilters[heading];
       }
-  
+
       return updatedFilters;
     });
   };
-  
 
   const handleFilterChangemobile = (heading, value) => {
     setFilters(() => {
@@ -215,7 +190,7 @@ function Hiring() {
       setToggle(0);
     }
   }, [query.content]);
-  
+
   const handelclear = () => {
     setFilters({
       Department: "",
@@ -266,7 +241,6 @@ function Hiring() {
       ...provided,
       border: "none",
       boxShadow: "none",
-      // width: width,
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
@@ -278,23 +252,34 @@ function Hiring() {
     }),
     menu: (provided) => ({
       ...provided,
-      // width: width,
     }),
     option: (provided) => ({
       ...provided,
-      // width: width,
     }),
   };
+  const sortRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sortRef.current && !sortRef.current.contains(event.target)) {
+        setOpenSort(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div>
       {toggle === 0 && (
         <div className="flex flex-col gap-[16px] w-[100%] pb-[24px]  relative ">
           <div className=" mobile">
-            <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+            <div ref={sortRef} className="flex relative  ">
               <div
                 onClick={() => setOpenSort(true)}
-                className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]"
+                className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[10px] items-center bg-[#fff] justify-end"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -337,12 +322,12 @@ function Hiring() {
               {openSort && (
                 <div
                   style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                  className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                  className="absolute top-[48px] right-[5px] flex flex-col gap-[14px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
                 >
                   {headings.map((filter, index) => (
                     <select
                       key={index}
-                      className=" bg-whites"
+                      className=" bg-whites py-[4px]"
                       onChange={(e) =>
                         handleFilterChange(filter.heading, e.target.value)
                       }
@@ -355,22 +340,25 @@ function Hiring() {
                       ))}
                     </select>
                   ))}
-                  <button
-                    onClick={handelclearmobile}
-                    className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
-                  >
-                    Clear
-                  </button>
-                  <button
-                    onClick={handleFilterChangemobile}
-                    className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
-                  >
-                    Search
-                  </button>
+                  <div className="flex justify-between ">
+                    <button
+                      onClick={handelclearmobile}
+                      className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      onClick={handleFilterChangemobile}
+                      className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                    >
+                      Search
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
           </div>
+
           <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
             <div className="w-[75%] flex justify-between items-center">
               {headings.map((filter, index) => (
@@ -392,11 +380,13 @@ function Hiring() {
                       filters[filter.heading]
                         ? {
                             value: filters[filter.heading],
-                            label: filters[filter.heading] === "Live" ? "Active" : filters[filter.heading],
+                            label:
+                              filters[filter.heading] === "Live"
+                                ? "Active"
+                                : filters[filter.heading],
                           }
                         : ""
                     }
-                    
                     placeholder={filter.heading}
                     isSearchable={true}
                     noOptionsMessage={() => "No options available"}

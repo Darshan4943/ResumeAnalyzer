@@ -1679,7 +1679,7 @@ function CreateNewJob() {
                       <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Reset
                         </button>
@@ -1687,7 +1687,7 @@ function CreateNewJob() {
                           onClick={() => {
                             openModel(true);
                           }}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Preview
                         </button>
@@ -1698,7 +1698,7 @@ function CreateNewJob() {
                         ) : (
                           <button
                             onClick={handleSubmit}
-                            className="text-[10px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
+                            className="text-[12px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
                           >
                             {id ? "Update Job" : "Post Job"}
                           </button>
