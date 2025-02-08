@@ -147,23 +147,25 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
               Add Sample Work
             </div>
             <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-full"></div>
-            <svg
-              className="hover:cursor-pointer"
-              onClick={() => setaddSampleWork(false)}
-              xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-            >
-              <g mask="url(#mask0_5716_141042)">
-                <path
-                  d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
-                  fill="#646464"
-                  className="hover:cursor-pointer"
-                />
-              </g>
-            </svg>
+            <div>
+              <svg
+                className="hover:cursor-pointer"
+                onClick={() => setaddSampleWork(false)}
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 40 40"
+                fill="none"
+              >
+                <g mask="url(#mask0_5716_141042)">
+                  <path
+                    d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
+                    fill="#646464"
+                    className="hover:cursor-pointer"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
           Add link to your projects (e.g. Github links etc.)
         </div>
@@ -216,11 +218,11 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
               if (value.trim() !== "") {
                 setErrors((prev) => ({
                   ...prev,
-                  url: "", 
+                  url: "",
                 }));
               }
             }}
-                      />
+          />
         </div>
         <div className="flex flex-col gap-[16px]">
           <div className="w-[50%] flex flex-col gap-[12px] text-[14px] font-[500] ">
