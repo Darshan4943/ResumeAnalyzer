@@ -593,7 +593,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     statusChange={statusChange}
                     setStatusChange={setStatusChange}
                     applicantIds={applicantIds}
-                    newHiringStage={"Shotlisted"}
+                    newHiringStage={"Shortlisted"}
                   />
                 )}
                 <div className="web">
@@ -834,7 +834,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                               statusChange={statusChange}
                                               setStatusChange={setStatusChange}
                                               applicantIds={applicantIds}
-                                              newHiringStage={"Shotlisted"}
+                                              newHiringStage={"Shortlisted"}
                                             />
                                           )}
                                         </>
@@ -1086,7 +1086,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             statusChange={statusChange}
                                             setStatusChange={setStatusChange}
                                             applicantIds={applicantIds}
-                                            newHiringStage={"Shotlisted"}
+                                            newHiringStage={"Shortlisted"}
                                           />
                                         )}
                                       </>
