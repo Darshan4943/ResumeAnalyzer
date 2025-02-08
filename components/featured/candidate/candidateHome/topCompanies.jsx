@@ -65,11 +65,12 @@ const TopCompanies = () => {
             spaceBetween={0}
             slidesPerView={1}
             breakpoints={{
+              320: { slidesPerView: 2 },
               640: { slidesPerView: 2 },
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
-            className=" swiper-wrapper "
+            className=" swiper-wrapper topCompaniesSlide "
           >
             {jobData.map((job) => (
               <SwiperSlide key={job.id} >
