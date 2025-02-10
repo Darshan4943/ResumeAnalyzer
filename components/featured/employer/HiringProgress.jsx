@@ -133,7 +133,7 @@ function HiringProgress({
                       </>
                     )}
                   </div>
-                  <div className="flex flex-col gap-4 w-full  -mt-1">
+                  <div className="flex flex-col gap-4 w-full mt-1">
                     <div className="flex gap-4 justify-between items-center">
                       <p className="min-w-[80px] text-[16px] font-medium">
                         Level {level?.level}

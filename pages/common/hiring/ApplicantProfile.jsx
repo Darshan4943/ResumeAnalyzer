@@ -9,8 +9,7 @@ function ApplicantProfile({ jobDetails }) {
           <div>
             <p className="text-[14px]  font-medium">Full Name</p>
             <p className="text-[12px] font-normal">
-              {" "}
-              {jobDetails?.details?.personal?.firstName}{" "}
+              {jobDetails?.details?.personal?.firstName}
               {jobDetails?.details?.personal?.lastName}
             </p>
           </div>

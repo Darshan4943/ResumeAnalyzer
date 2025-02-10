@@ -355,7 +355,7 @@ function LevelUpdate({
               checked={isNextLevel === "nextLevel"}
             />
 
-            <label className=" ">Move to next Level</label>
+            <label>Move to next Level</label>
           </div>
           <div className="flex gap-[8px] items-center  ">
             <input
@@ -405,7 +405,7 @@ function LevelUpdate({
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
 
-                <label className=" ">Schedule Interview</label>
+                <label>Schedule Interview</label>
               </div>
               <div className="flex gap-[8px] items-center ">
                 <input

@@ -205,7 +205,7 @@ function ScheduleInterview({
             type="radio"
             name="isOnline"
             value="yes"
-            className="h-[20px] w-[20px] custom-radio cursor-pointer"
+            className="h-[20px] w-[20px] custom-radio cursor-pointer "
             checked={selectedValues?.isOnline === true}
             onChange={handleChange}
           />
@@ -348,7 +348,7 @@ function ScheduleInterview({
                 value={selectedValues.startTime}
                 onChange={handleStartTimeChange}
               >
-                <option value="" disabled>
+                <option  disabled>
                   Select
                 </option>
 
