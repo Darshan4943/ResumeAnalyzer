@@ -8,7 +8,7 @@ import ApplicantProfile from "./ApplicantProfile";
 import ApplicantDetailsLeftCard from "./ApplicantDetailsLeftCard";
 import { useSelector } from "react-redux";
 
-function ApplicantDetails({ setTogglee }) {
+function ApplicantDetails() {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
   const [jobDetails, setJobDetails] = useState(null);
@@ -18,10 +18,9 @@ function ApplicantDetails({ setTogglee }) {
   const [loadingg, setLoadingg] = useState(true);
   const { id, applicantId } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [statusChange, setStatusChange] = useState(false)
-const [successfull, setSuccessfull] = useState(false);
-const [taskSuccessfull, setTaskSuccessfull] = useState(false);
-
+  const [statusChange, setStatusChange] = useState(false);
+  const [successfull, setSuccessfull] = useState(false);
+  const [taskSuccessfull, setTaskSuccessfull] = useState(false);
 
   const getData = async () => {
     try {
@@ -40,13 +39,11 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
         }
       );
 
-     
-
       if (response.data) {
         setJobDetails(response.data.data);
         setTimeout(() => {
-          setLoading(false)
-        }, 3000)
+          setLoading(false);
+        }, 3000);
       } else {
         setError("Applicant not found");
       }
@@ -71,10 +68,9 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
         setToggle("HiringProgress");
       }
     };
-  
+
     fetchData();
   }, [taskSuccessfull]);
-  
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
@@ -84,7 +80,6 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
   const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
     const [numPages, setNumPages] = useState(null);
-    console.log(loadingg);
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
       setTimeout(() => {
@@ -93,18 +88,19 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
     };
 
     return (
-      <div style={{
-        // width: "168px",
-        // height: "192px",
-        border: "1px solid #06A9EF",
-        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
-        borderRadius: "10px",
-        // overflow: "hidden",
-        width: "600px",
-        height: "772px",
-        overflowY:"auto",
-        scrollbarWidth:"none",
-      }}
+      <div
+        style={{
+          // width: "168px",
+          // height: "192px",
+          border: "1px solid #06A9EF",
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "10px",
+          // overflow: "hidden",
+          width: "600px",
+          height: "772px",
+          overflowY: "auto",
+          scrollbarWidth: "none",
+        }}
       >
         {loadingg && (
           <div className="skeleton-loader1  ">
@@ -149,7 +145,14 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
             </p>
           </div>
           <div className="flex ml:flex-row flex-col gap-5   mb-4 ">
-            <ApplicantDetailsLeftCard setActiveOption={setActiveOption} setToggle={setToggle} jobDetails={jobDetails} id={id} statusChange={statusChange} setStatusChange={setStatusChange} />
+            <ApplicantDetailsLeftCard
+              setActiveOption={setActiveOption}
+              setToggle={setToggle}
+              jobDetails={jobDetails}
+              id={id}
+              statusChange={statusChange}
+              setStatusChange={setStatusChange}
+            />
             {jobDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
@@ -159,10 +162,11 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                     >
                       <div>
                         <p
-                          className={`${activeOption === "ApplicantProfile"
-                            ? "text-[#333]"
-                            : "text-[#646464]"
-                            } cursor-pointer `}
+                          className={`${
+                            activeOption === "ApplicantProfile"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                          } cursor-pointer `}
                           onClick={() => handleOptionClick("ApplicantProfile")}
                         >
                           Applicant Profile
@@ -186,10 +190,11 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                       </div>
                       <div>
                         <p
-                          className={`${activeOption === "Resume"
-                            ? "text-[#333]"
-                            : "text-[#646464]"
-                            } cursor-pointer`}
+                          className={`${
+                            activeOption === "Resume"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                          } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -209,13 +214,14 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                           />
                         </svg>
                       </div>
-                      {userDataGlobal?.role === "employer" &&
+                      {userDataGlobal?.role === "employer" && (
                         <div>
                           <p
-                            className={`${activeOption === "HiringProgress"
-                              ? "text-[#333]"
-                              : "text-[#646464]"
-                              } cursor-pointer`}
+                            className={`${
+                              activeOption === "HiringProgress"
+                                ? "text-[#333]"
+                                : "text-[#646464]"
+                            } cursor-pointer`}
                             onClick={() => handleOptionClick("HiringProgress")}
                           >
                             Hiring Progress
@@ -237,7 +243,7 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                             />
                           </svg>
                         </div>
-                      }
+                      )}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
@@ -252,10 +258,18 @@ const [taskSuccessfull, setTaskSuccessfull] = useState(false);
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
-
                   </div>
                 )}
-                {toggle === "HiringProgress" && <HiringProgress hiringData={jobDetails?.hiringLevel} jobDetails={jobDetails} successfull={successfull} setSuccessfull={setSuccessfull} taskSuccessfull={taskSuccessfull} setTaskSuccessfull={setTaskSuccessfull} />}
+                {toggle === "HiringProgress" && (
+                  <HiringProgress
+                    hiringData={jobDetails?.hiringLevel}
+                    jobDetails={jobDetails}
+                    successfull={successfull}
+                    setSuccessfull={setSuccessfull}
+                    taskSuccessfull={taskSuccessfull}
+                    setTaskSuccessfull={setTaskSuccessfull}
+                  />
+                )}
               </div>
             )}
           </div>
