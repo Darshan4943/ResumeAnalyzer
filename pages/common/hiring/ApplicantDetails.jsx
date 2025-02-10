@@ -243,10 +243,10 @@ function ApplicantDetails() {
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
                 </div>
-                {/* {toggle === "ApplicantProfile" && (
+                {toggle === "ApplicantProfile" && (
                   <ApplicantProfile jobDetails={jobDetails} />
-                )} */}
-                {toggle === "Resume" && (
+                )}
+                {/* {toggle === "Resume" && (
                   <div className=" flex items-center justify-center py-[16px] resumes2 ">
                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
@@ -254,7 +254,7 @@ function ApplicantDetails() {
                       setLoadingg={setLoadingg}
                     />
                   </div>
-                )}
+                )} */}
                 {toggle === "HiringProgress" && (
                   <HiringProgress
                     hiringData={jobDetails?.hiringLevel}
