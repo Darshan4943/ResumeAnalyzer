@@ -56,7 +56,7 @@ const Achievements = ({userData}) => {
             <div className="build_ai ai2" style={{ gap: "16px" }}>
                 <div className="page_headings flex justify-between w-full text-[16px] font-semibold">
                     Achievements{" "}
-                    <div onClick={() => { setAddAchivements(true), setEditfalseAchievement(false) }}>
+                    <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => { setAddAchivements(true), setEditfalseAchievement(false) }}>
                         <AddIcon />
                     </div>
                 </div>
@@ -66,11 +66,11 @@ const Achievements = ({userData}) => {
                             <p className="heading_first  text-[14px] font-[600]">{achive.title}</p>
                             
                             <div className="flex gap-3">
-                                <div onClick={() => editHandler(achive)}>
+                                <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => editHandler(achive)}>
                                     <Edit_icon />
                                 </div>
 
-                                <div onClick={() => setDeleteData({ view: true, id: achive._id })}>
+                                <div className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => setDeleteData({ view: true, id: achive._id })}>
                                     <Delete_icon />
                                 </div>
                             </div>

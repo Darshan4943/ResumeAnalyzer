@@ -14,7 +14,7 @@ const JobPrefrence = ({ userData }) => {
         }}>
         <div className="flex justify-between w-full">
           <p className="page_headings text-[16px] font-[600]">Job Preferences</p>
-          <div onClick={() => setEditView(true)}>
+          <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => setEditView(true)}>
             <Edit_icon />
           </div>
         </div>

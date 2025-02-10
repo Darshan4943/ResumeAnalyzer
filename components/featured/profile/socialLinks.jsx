@@ -72,7 +72,7 @@ function Social_links_ndWebsites({ userData }) {
         <div className="flex gap-[16px] text-[16px] font-[600] text-[#333] items-center justify-between">
           Website & Social Links
 
-          <div onClick={() => {setaddWebsites(true),setEditSocial(false)}}>
+          <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => {setaddWebsites(true),setEditSocial(false)}}>
             <AddIcon />
           </div>
         </div>
@@ -82,10 +82,11 @@ function Social_links_ndWebsites({ userData }) {
               {item.profile}
               <div className="flex gap-[8px]">
 
-              <div onClick={() => editHandler(item)}>
+              <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => editHandler(item)}>
                   <Edit_icon/>
                 </div>
                 <div
+                className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer"
                   onClick={() => setDeleteData({ view: true, id: item._id })}
                 >
                   <Delete_icon />

@@ -66,7 +66,7 @@ function Projects({ userData }) {
 
         <div className="page_headings flex justify-between w-full text-[16px] font-[600]">
           Projects{" "}
-          <div onClick={() => { setaddSampleWork(true), setEditProject(false) }}>
+          <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => { setaddSampleWork(true), setEditProject(false) }}>
             <AddIcon />
           </div>
         </div>
@@ -75,10 +75,10 @@ function Projects({ userData }) {
             <div className=" flex gap-4">
               <p className="heading_first">{SampleWark.title}</p>
 
-              <div onClick={() => editHandler(SampleWark)}>
+              <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => editHandler(SampleWark)}>
                 <Edit_icon />
               </div>
-              <div onClick={() => setDeleteData({ view: true, id: SampleWark._id })}>
+              <div className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => setDeleteData({ view: true, id: SampleWark._id })}>
                 <Delete_icon />
               </div>
             </div>

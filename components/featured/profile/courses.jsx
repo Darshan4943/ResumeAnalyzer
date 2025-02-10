@@ -67,7 +67,7 @@ const Courses = ({ userData }) => {
       <div className="build_ai ai2">
         <div className="gap">
           <p className="page_headings text-[16px] font-[600] ">Certifications</p>
-          <div className="add_delete">
+          <div className="add_delete p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer">
             <img
               style={{ width: "24px" }}
               src="./images/profile/add.png"
@@ -89,10 +89,11 @@ const Courses = ({ userData }) => {
                   <p className="heading_first flex gap-2 items-center">
                     {item.name}{" "}
 
-                    <div onClick={() => handleEditCourse(item)}>
+                    <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => handleEditCourse(item)}>
                       <Edit_icon/>
                     </div>
                     <div
+                    className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer"
                       onClick={() =>
                         setDeleteData({ view: true, id: item._id })
                       }
