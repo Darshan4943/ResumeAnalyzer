@@ -32,10 +32,12 @@ function RecentApplications({ isPending }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [allReject, setAllReject] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+  const [shortlistJobId, setShortlistJobId] = useState([]);
 
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
+    setShortlistJobId(applicant?.jobId)
     setApplicantIds([applicant.applicantId]);
   };
   const [searchQuery, setSearchQuery] = useState("");
@@ -361,7 +363,7 @@ function RecentApplications({ isPending }) {
                             <ShortlistMail
                               shortlist={shortlist}
                               setPopupVisible={setPopupVisible}
-                              id={applicant?.jobId}
+                              id={shortlistJobId}
                               statusChange={statusChange}
                               setStatusChange={setStatusChange}
                               applicantIds={applicantIds}
@@ -559,7 +561,8 @@ function RecentApplications({ isPending }) {
                             }`}
                         >
                           {applicant.hiringStage}
-                        </div>                      </div>
+                        </div>
+                      </div>
                       <div className="flex justify-between items-center  w-[100%]">
                         <p className="text-[14px] font-[600]">
                           {applicant.source}
@@ -587,7 +590,7 @@ function RecentApplications({ isPending }) {
                               <ShortlistMail
                                 shortlist={shortlist}
                                 setPopupVisible={setPopupVisible}
-                                id={applicant?.jobId}
+                                id={shortlistJobId}
                                 statusChange={statusChange}
                                 setStatusChange={setStatusChange}
                                 applicantIds={applicantIds}

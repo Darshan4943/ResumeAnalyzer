@@ -19,7 +19,7 @@ function ShortlistMail({
   newHiringStage
   
 }) {
- 
+ console.log(id);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
