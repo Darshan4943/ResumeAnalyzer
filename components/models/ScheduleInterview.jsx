@@ -198,7 +198,7 @@ function ScheduleInterview({
       <div className="text-[18px] font-medium">Schedule Interview</div>
       <div className="flex flex-col gap-2 text-[14px] font-medium ">
         <p className="text-[12px] font-medium">
-          What will be the mode of Interview?
+          What will be the mode of Interview ?
         </p>
         <div className="flex gap-[8px] items-center">
           <input

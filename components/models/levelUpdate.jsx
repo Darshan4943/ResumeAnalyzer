@@ -415,7 +415,7 @@ function LevelUpdate({
                   className="h-[20px] w-[20px] custom-radio cursor-pointer "
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
-                <label className=" ">Assign Task</label>
+                <label>Assign Task</label>
               </div>
             </div>
             <div className="h-[1px] bg-[#D6DDEB]"></div>
