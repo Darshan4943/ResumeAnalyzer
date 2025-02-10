@@ -5,16 +5,40 @@ import axios from "axios";
 
 function EmployerNotification() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [notifications, setNotifications] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const notification = [
+  const [notifications, setNotifications] = useState([]);
+
+  const notificationFilters = [
     "Today (3)",
     "2 days Ago",
     "Application Status (2)",
     "Offer (1)",
     "Views on profile",
   ];
+  
+  const fetchNotifications = async (filter) => {
+    try {
+      const response = await fetch(
+        `http://localhost:2000/api/getnotification/${userDataGlobal._id}?filter=${encodeURIComponent(filter)}`
+      );
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch notifications");
+      }
+  
+      const data = await response.json();
+      setNotifications(data.notifications);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+  
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchNotifications(notificationFilters[selectedIndex] || "");
+    }
+  }, [userDataGlobal._id, selectedIndex]);
 
   const handleNotificationClick = async () => {
     try {
@@ -36,7 +60,7 @@ function EmployerNotification() {
       const response = await axios.post(
         `http://localhost:2000/api/deletnotification/${id}`
       );
-      
+
       alert(response.data.message);
       fetchNotifications();
     } catch (error) {
@@ -45,23 +69,6 @@ function EmployerNotification() {
     }
   };
 
-  const fetchNotifications = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:2000/api/getnotification/${userDataGlobal._id}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch notifications");
-      }
-
-      const data = await response.json();
-
-      setNotifications(data.notifications);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-  };
 
   const handleSelectId = () => {
     if (notifications.length > 0) {
@@ -70,19 +77,13 @@ function EmployerNotification() {
     }
   };
 
-  useEffect(() => {
-    if (userDataGlobal?._id) {
-      fetchNotifications();
-    }
-  }, [userDataGlobal._id]);
-
   return (
     <div className="flex flex-col w-[100%] items-center gap-4  overflow-hidden">
       <div className="flex flex-col gap-4 p-4 w-full items-start bg-white rounded-lg shadow-md">
         <p className="text-[20px] text-[#333] font-medium">My Notifications</p>
 
         <div className="pb-1 flex items-start gap-3 overflow-x-auto w-full scrollbar-hide">
-          {notification.map((e, index) => (
+          {notificationFilters.map((e, index) => (
             <button
               key={index}
               onClick={() => setSelectedIndex(index)}
@@ -94,6 +95,7 @@ function EmployerNotification() {
               style={{ whiteSpace: "nowrap" }}
             >
               {e}
+              {/* ({notifications.length}) */}
             </button>
           ))}
         </div>
