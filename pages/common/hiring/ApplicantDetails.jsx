@@ -98,7 +98,7 @@ function ApplicantDetails() {
         }}
       >
         {loadingg && (
-          <div className="skeleton-loader1  ">
+          <div className="skeleton-loader1">
             <div className="skeleton-image1"></div>
             <div className="skeleton-text1">
               <div className="skeleton-title1"></div>
@@ -153,7 +153,7 @@ function ApplicantDetails() {
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
                     <div
-                      className={`flex justify-start gap-12 ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
+                      className="flex justify-start gap-12 ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold"
                     >
                       <div>
                         <p
