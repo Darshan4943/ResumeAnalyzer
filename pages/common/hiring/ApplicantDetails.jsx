@@ -25,12 +25,7 @@ function ApplicantDetails() {
   const getData = async () => {
     try {
       setLoading(true);
-      console.log(
-        "Requesting applicant details with id:",
-        id,
-        "applicantId:",
-        applicantId
-      );
+     
 
       const response = await axios.get(
         "http://localhost:2000/api/applicantdetails",
@@ -43,7 +38,7 @@ function ApplicantDetails() {
         setJobDetails(response.data.data);
         setTimeout(() => {
           setLoading(false);
-        }, 3000);
+        }, 1000);
       } else {
         setError("Applicant not found");
       }
@@ -144,7 +139,7 @@ function ApplicantDetails() {
               Applicant Details
             </p>
           </div>
-          <div className="flex ml:flex-row flex-col gap-5   mb-4 ">
+          <div className="flex ml:flex-row flex-col gap-5  mb-4 ">
             <ApplicantDetailsLeftCard
               setActiveOption={setActiveOption}
               setToggle={setToggle}
