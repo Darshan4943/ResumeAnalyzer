@@ -12,7 +12,7 @@ const PersonalDetails = ({ userData }) => {
       <div className="build_ai ai2" style={{ gap: "16px" }}>
         <div className="page_headings flex items-center justify-between w-full text-[16px] font-[600]">
           Personal details
-          <div onClick={() => setaddEditPop(true)}>
+          <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => setaddEditPop(true)}>
             <Edit_icon />
           </div>
         </div>

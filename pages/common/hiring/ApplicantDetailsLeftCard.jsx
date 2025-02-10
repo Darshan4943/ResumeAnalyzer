@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import ShortlistMail from './ShortlistMail';
 import { CountPostingDays } from '../../../utils/data';
 
-function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange ,setToggle,setActiveOption}) {
-    
+function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChange, setToggle, setActiveOption }) {
+
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [shortlist, setShortlist] = useState([]);
@@ -38,7 +38,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
                                     {/* {jobDetails?.jobTitle} */}
                                 </p>
                                 <div className="flex gap-2 text-[16px] font-medium items-center">
-                                 Profile Match :<span className='text-[16px] font-semibold'> {jobDetails?.matchingPercentage} %</span> 
+                                    Profile Match :<span className='text-[16px] font-semibold'> {jobDetails?.matchingPercentage} %</span>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
                                 }
                             </>
                             :
-                            <div onClick={()=>{setToggle("HiringProgress");setActiveOption("HiringProgress")}} className="flex gap-2 cursor-pointer">
+                            <div onClick={() => { setToggle("HiringProgress"); setActiveOption("HiringProgress") }} className="flex gap-2 cursor-pointer">
                                 <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
                                     Schedule Interview
                                 </div>
@@ -173,7 +173,6 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
                                     <p>{jobDetails?.details?.personal?.currentLocation}</p>
                                 </div>
                             }
-
                             {jobDetails?.details?.professional?.totalExperience &&
                                 <div className="flex gap-2">
                                     <svg
@@ -190,12 +189,10 @@ function ApplicantDetailsLeftCard({ jobDetails, id, setStatusChange, statusChang
                                             />
                                         </g>
                                     </svg>
-
                                     <p>
                                         {jobDetails?.details?.professional?.totalExperience}{" "}
                                         years
                                     </p>
-
                                 </div>
                             }
                         </div>

@@ -140,9 +140,8 @@ function Profile() {
                   className="w-[100%]"
                 >
                   <div
-                    className={`profile_option_menu  ${
-                      selectedTab == item && " profile_option_menu-selected"
-                    }`}
+                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
+                      }`}
                   >
                     <p className="my_resume cursor-pointer">{item}</p>
                   </div>
@@ -240,14 +239,16 @@ function Profile() {
                   <p className="page_headings text-[16px] font-semibold">
                     About me
                   </p>
-                  <img
-                    style={{ width: "24px" }}
-                    src="./images/profile/edit.png"
-                    alt=""
-                    onClick={handleImageClick}
-                    data-modal-target="default-modal"
-                    data-modal-toggle="default-modal"
-                  />
+                  <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer">
+                    <img
+                      style={{ width: "24px" }}
+                      src="./images/profile/edit.png"
+                      alt=""
+                      onClick={handleImageClick}
+                      data-modal-target="default-modal"
+                      data-modal-toggle="default-modal"
+                    />
+                  </div>
                 </div>
 
                 <p className="content_text break-words">{userData?.summary}</p>

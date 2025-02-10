@@ -17,9 +17,9 @@ function ShortlistMail({
   submitDetails,
   isByEmployer,
   newHiringStage
-  
+
 }) {
- 
+
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ function ShortlistMail({
 
       toast.success("Email sent successfully!");
       setLoading(false);
-      if(isByEmployer){
+      if (isByEmployer) {
         submitDetails()
       }
       setStatusChange(!statusChange);
@@ -146,7 +146,7 @@ function ShortlistMail({
                   <div className="flex items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">To</div>
                     {shortlist?.details?.personal?.firstName.length === 0 &&
-                    shortlist?.details?.personal?.lastName.length === 0 ? (
+                      shortlist?.details?.personal?.lastName.length === 0 ? (
                       ""
                     ) : (
                       <>
@@ -176,45 +176,47 @@ function ShortlistMail({
                 </div>
 
                 <div className="max-w-[1100px] gap-[20px] flex flex-col">
-                  <div className="flex items-center gap-[20px]">
+                  <div className="flex w-full items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">CC</div>
-                    <div className="p-[4px] flex flex-wrap ml:flex-nowrap  rounded-[26px] gap-[10px] items-start">
-                      <div className="flex flex-wrap gap-[10px]">
-                        {tags.map((tag, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center border-[1px] border-[#D6DDEB] p-[6px] px-2 rounded-[26px]"
-                          >
-                            <span className="text-[14px] font-[600] mr-[8px]">
-                              {tag}
-                            </span>
+                    <div className="p-[4px] w-full flex flex-wrap ml:flex-nowrap  rounded-[26px] gap-[10px] items-start">
+                      {tags.length > 0 &&
+                        <div className="flex flex-wrap gap-[10px]">
+                          {tags.map((tag, index) => (
                             <div
-                              onClick={() => removeTag(index)}
-                              className="cursor-pointer"
+                              key={index}
+                              className="flex items-center border-[1px] border-[#D6DDEB] p-[6px] px-2 rounded-[26px]"
                             >
-                              <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                              <span className="text-[14px] font-[600] mr-[8px]">
+                                {tag}
+                              </span>
+                              <div
+                                onClick={() => removeTag(index)}
+                                className="cursor-pointer"
                               >
-                                <path
-                                  d="M13.0655 11.9987L16.3115 8.75242C16.4565 8.60759 16.5273 8.43201 16.524 8.22567C16.5208 8.01917 16.4468 7.84351 16.302 7.69867C16.1572 7.55384 15.9799 7.48142 15.7703 7.48142C15.5606 7.48142 15.3833 7.55384 15.2385 7.69867L12.002 10.9352L8.78075 7.68917C8.63592 7.54417 8.45867 7.47334 8.249 7.47667C8.0395 7.47984 7.86233 7.55384 7.7175 7.69867C7.5725 7.84351 7.5 8.02076 7.5 8.23042C7.5 8.44009 7.5725 8.61734 7.7175 8.76218L10.9635 11.9987L7.7175 15.2199C7.5725 15.3648 7.5 15.5403 7.5 15.7467C7.5 15.9532 7.5725 16.1288 7.7175 16.2737C7.8725 16.4288 8.05225 16.5064 8.25675 16.5064C8.46125 16.5064 8.63592 16.4288 8.78075 16.2737L12.002 13.0372L15.2483 16.2832C15.3931 16.4282 15.5687 16.5007 15.775 16.5007C15.9815 16.5007 16.1572 16.4282 16.302 16.2832C16.4572 16.1282 16.5348 15.9484 16.5348 15.7439C16.5348 15.5394 16.4572 15.3648 16.302 15.2199L13.0655 11.9987Z"
-                                  fill="#333333"
-                                />
-                              </svg>
+                                <svg
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M13.0655 11.9987L16.3115 8.75242C16.4565 8.60759 16.5273 8.43201 16.524 8.22567C16.5208 8.01917 16.4468 7.84351 16.302 7.69867C16.1572 7.55384 15.9799 7.48142 15.7703 7.48142C15.5606 7.48142 15.3833 7.55384 15.2385 7.69867L12.002 10.9352L8.78075 7.68917C8.63592 7.54417 8.45867 7.47334 8.249 7.47667C8.0395 7.47984 7.86233 7.55384 7.7175 7.69867C7.5725 7.84351 7.5 8.02076 7.5 8.23042C7.5 8.44009 7.5725 8.61734 7.7175 8.76218L10.9635 11.9987L7.7175 15.2199C7.5725 15.3648 7.5 15.5403 7.5 15.7467C7.5 15.9532 7.5725 16.1288 7.7175 16.2737C7.8725 16.4288 8.05225 16.5064 8.25675 16.5064C8.46125 16.5064 8.63592 16.4288 8.78075 16.2737L12.002 13.0372L15.2483 16.2832C15.3931 16.4282 15.5687 16.5007 15.775 16.5007C15.9815 16.5007 16.1572 16.4282 16.302 16.2832C16.4572 16.1282 16.5348 15.9484 16.5348 15.7439C16.5348 15.5394 16.4572 15.3648 16.302 15.2199L13.0655 11.9987Z"
+                                    fill="#333333"
+                                  />
+                                </svg>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-[10px]">
+                          ))}
+                        </div>
+                      }
+                      <div className="flex items-center min-w-[500px] gap-[10px]">
                         <input
                           type="text"
                           value={inputValue}
                           onChange={(e) => setInputValue(e.target.value)}
                           onKeyPress={handleKeyPress}
-                          className="p-[4px] rounded-[26px]"
+                          className="p-[4px] rounded-[26px] w-full"
                           placeholder="Enter Email"
                         />
                       </div>
