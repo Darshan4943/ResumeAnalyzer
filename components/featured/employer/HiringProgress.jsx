@@ -89,7 +89,7 @@ function HiringProgress({
                             </p>
                           </div>
                         </div>
-                        <p className={`text-[14px] font-medium text-[#0C8A0A]`}>
+                        <p className="text-[14px] font-medium text-[#0C8A0A]">
                           Verified
                         </p>
                       </div>
