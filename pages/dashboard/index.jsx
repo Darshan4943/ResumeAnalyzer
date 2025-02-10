@@ -22,7 +22,6 @@ function Dashboard({ toggleContentt }) {
   const [selected, setSelected] = useState("Daily");
   const [isPending, setIsPending] = useState("")
   const router = useRouter();
-console.log(3422,data)
   const [pendingJobs, setPendingJobs] = useState(false);
   const pendingJobsRef = useRef(null);
 

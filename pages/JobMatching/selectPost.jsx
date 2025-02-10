@@ -115,8 +115,8 @@ const SelectPost = () => {
         <div className="flex items-center gap-2 border-[1px] bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
           <input
             type="text"
-            placeholder="Enter Job Titel"
-            className="bg-transparent text-black placeholder-black outline-none w-full text-[12px] font-medium"
+            placeholder="Enter Job Title"
+            className="bg-transparent text-black placeholder-[200] outline-none w-full text-[12px] font-medium"
             value={searchTerm}
             onChange={handleSearchChange}
           />

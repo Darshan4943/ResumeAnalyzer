@@ -76,6 +76,7 @@ const WorkExperiance = ({ userData }) => {
               onClick={() => {
                 setOpenAddExperience(true), setEditExperience(false);
               }}
+              className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer"
             >
               {" "}
               <AddIcon />
@@ -96,15 +97,16 @@ const WorkExperiance = ({ userData }) => {
 
               <div className="logo_disc gap-[6px]">
                 <div className="flex flex-col gap-2">
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 items-center">
                     <p className="heading_first leading-tight">
                       {job?.companyName}
                     </p>
                     <div className="flex gap-2">
-                      <div onClick={() => editHandler(job)}>
+                      <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => editHandler(job)}>
                         <Edit_icon />
                       </div>
                       <div
+                      className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer"
                         onClick={() =>
                           setDeleteData({ view: true, id: job._id })
                         }

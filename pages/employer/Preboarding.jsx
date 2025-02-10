@@ -20,12 +20,15 @@ function Preboarding() {
   const [editTemplate, setEditTemplate] = useState(false);
   const router = useRouter();
   const query = router.query;
-  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [toggle, setToggle] = useState(0);
   const [preview, setPreview] = useState(false);
   const [activeOption, setActiveOption] = useState("In Preboarding");
   const [id, setId] = useState("");
   const [jobs, setJobs] = useState([]);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [totalPages, setTotalpages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [headings, setHeadings] = useState([
@@ -58,28 +61,30 @@ function Preboarding() {
     }
   }, [userDataGlobal]);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      // setLoading(true);
-      try {
-        const response = await axios.get(
-          `http://localhost:2000/api/job/getjobapplicantstatus/${id}`
-        );
-        setJobs(response.data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      } catch (err) {
-        console.error("Error fetching jobs:", err);
-        setError("Failed to fetch jobs.");
-      }
-    };
+  // useEffect(() => {
+  //   const fetchJobs = async () => {
+  //     // setLoading(true);
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:2000/api/getShortlistedCandidates/${id}`
+  //       );
+  //       setJobs(response.data.applications);
+  //       setTotalCount(response.data.pagination.totalApplications);
+  //       setTotalpages(response.data.pagination.totalPages);
+  //       console.log(2233433, response.data);
+  //       setTimeout(() => {
+  //         setLoading(false);
+  //       }, 500);
+  //     } catch (err) {
+  //       console.error("Error fetching jobs:", err);
+  //       setError("Failed to fetch jobs.");
+  //     }
+  //   };
 
-    if (id) {
-      fetchJobs();
-    }
-  }, [id]);
-
+  //   if (id) {
+  //     fetchJobs();
+  //   }
+  // }, [id]);
 
   const fetchPreboardings = async (id) => {
     setLoading(true);
@@ -87,9 +92,8 @@ function Preboarding() {
       const response = await axios.get(
         `http://localhost:2000/api/getPreboardings/${id}`,
         {
-          params: { headings }
+          params: { headings },
         }
-
       );
       setDataState({
         preboardings: response.data.data,
@@ -110,7 +114,6 @@ function Preboarding() {
     }
   };
 
-
   return (
     <>
       {!editTemplate && (
@@ -128,13 +131,16 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("In Preboarding");
                     }}
-                    className={` ${activeOption === "In Preboarding" ? "text-[#333333]" : "text-[#646464]"
-                      } ml:text-[16px] text-[14px] font-[600]`}
+                    className={` ${
+                      activeOption === "In Preboarding"
+                        ? "text-[#333333]"
+                        : "text-[#646464]"
+                    } ml:text-[16px] text-[14px] font-[600]`}
                   >
                     In Preboarding
                   </p>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"  
+                    xmlns="http://www.w3.org/2000/svg"
                     width="89"
                     height="4"
                     viewBox="0 0 89 4"
@@ -153,8 +159,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Joined");
                     }}
-                    className={` ${activeOption === "Joined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Joined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Joined
                   </p>
@@ -176,8 +183,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Declined");
                     }}
-                    className={` ${activeOption === "Declined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Declined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Declined
                   </p>
@@ -204,15 +212,17 @@ function Preboarding() {
                         <div
                           onClick={() => setToggle(index)}
                           key={index}
-                          className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                            }`}
+                          className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${
+                            toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                          }`}
                           style={{
                             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                           }}
                         >
                           <p
-                            className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
-                              }`}
+                            className={`text-[14px] text-[#333] leading-[160%]  ${
+                              toggle === index ? "text-white" : " "
+                            }`}
                           >
                             {e.name}
                           </p>
@@ -222,7 +232,7 @@ function Preboarding() {
                             </p>
                           </div>
                         </div>
-                        <div >{e.line}</div>
+                        <div>{e.line}</div>
                       </>
                     ))}
                   </div>
@@ -238,6 +248,10 @@ function Preboarding() {
                           jobs={jobs}
                           fetchPreboardings={fetchPreboardings}
                           setToggle={setToggle}
+                          setTotalpages={setTotalpages}
+                          totalPages={totalPages}
+                          totalCount={totalCount}
+                          setTotalCount={setTotalCount}
                           headings={headings}
                           setHeadings={setHeadings}
                         />
@@ -268,7 +282,6 @@ function Preboarding() {
                       )}
                     </>
                   )}
-
 
                   {toggle === 3 && (
                     <>
@@ -308,7 +321,6 @@ function Preboarding() {
                       )}
                     </>
                   )}
-
                 </>
               )}
 

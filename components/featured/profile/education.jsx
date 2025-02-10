@@ -63,7 +63,7 @@ const Education = ({ userData }) => {
                 <div className="gap">
                     <p className="page_headings text-[16px] font-[600]">Education</p>
 
-                    <div onClick={() => { setOpenAddEducation(true); setEditEducation(false) }}>
+                    <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => { setOpenAddEducation(true); setEditEducation(false) }}>
                         {" "}
                         <AddIcon />
                     </div>
@@ -96,10 +96,11 @@ const Education = ({ userData }) => {
                     <Edit_icon />
 
                   </div> */}
-                                    <div onClick={() => editHandler(elem)}>
+                                    <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer" onClick={() => editHandler(elem)}>
                                         <Edit_icon />
                                     </div>
                                     <div
+                                    className="p-[2px] hover:border-red border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer"
                                         onClick={() => setDeleteData({ view: true, id: elem._id })}
                                     >
                                         <Delete_icon />

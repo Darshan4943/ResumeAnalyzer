@@ -1,19 +1,72 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import StartPreboarding from "./StartPreboarding";
-import { applicantsMobile, } from "../../../../../utils/preboardArray";
+import { applicantsMobile } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import CustomPagination from "../../../../common/CustomPagination";
+import { toast } from "react-toastify";
 
-const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) => {
+const Initial = ({ setToggle, setHeadings, headings }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [startPreboarding, setStartPreboarding] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
   const [setOpenThreeDts] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
+  const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchJobs = useCallback(async () => {
+    if (!userDataGlobal?._id) return;
+
+    setMiniloading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getShortlistedCandidates/${userDataGlobal._id}`,
+        {
+          params: {
+            page: page,
+            limit: rowsPerPage,
+            search: searchQuery.trim(),
+          },
+        }
+      );
+
+      setJobs(response.data.applications || []);
+      setTotalCount(response.data.pagination?.totalApplications || 0);
+      setTotalPages(response.data.pagination?.totalPages || 0);
+      console.log(1221122, response.data);
+      toast.dismiss();
+    } catch (err) {
+      console.error("Error fetching job applications:", err);
+      toast.error("Failed to fetch job applications. Please try again later.");
+    } finally {
+      setMiniloading(false);
+    }
+  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery]);
+
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchJobs();
+    }
+  }, [fetchJobs]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   useEffect(() => {
     if (applicant?.applicantId) {
       fetchPreboardings(applicant.applicantId);
@@ -37,14 +90,11 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
     "Actions",
   ];
 
-
-
   const handleNavigation = () => {
     setToggle();
   };
   const [filterJobs, setFilterJobs] = useState([]);
   const [attributes, setAttributes] = useState([]);
-
 
   useEffect(() => {
     const fetchAttributes = async () => {
@@ -85,7 +135,6 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
     fetchAttributes();
   }, []);
 
-  const handlePageChange = (event, newPage) => setPage(newPage);
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -102,12 +151,7 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
         : [...prevChecked, job]
     );
   };
-  const handleSearch = () => {
-    console.log("Filters applied:", filterData);
-  };
-
-  console.log("filterJobs", filterJobs)
-  console.log("headings", headings)
+  const handleSearch = () => {};
 
   return (
     <>
@@ -125,26 +169,24 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
       )}
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-          <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
-            {headings.map((items, index) => (
-              <>
-                <select
-                  className=" w-[19.87%] bg-whites outline-none text-[#646464] text-[14px] font-[500]"
-                  onChange={(e) => handleHeadingChange(e, items.heading)}
-                >
-                  <option value="" className="text-[#646464] text-[14px] font-[500]"> {items.heading}</option>
-                  {items.options.map((option, optIndex) => (
-                    <option key={optIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
-              </>
-            ))}
-            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
-              Search
-            </button>
+          <div className="w-full flex items-center justify-between  border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+            <div
+              className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+              style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+            >
+              <img
+                src="/images/employer/icon_search.png"
+                className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+                alt=""
+              />
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                placeholder="Search"
+                className="w-full"
+              />
+            </div>
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
@@ -167,8 +209,11 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
               .map((job, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${checkedjob[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
-                      }`}
+                    className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
+                      checkedjob[index]
+                        ? "bg-[#D3F1FF]"
+                        : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                    }`}
                   >
                     <div className="grid grid-cols-5 w-full px-4 py-2">
                       <div className="flex items-center justify-start col-span-1">
@@ -198,43 +243,41 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
-                          {/* {applicants.role} */}
-                          Software Developer
+                          {job.jobTitle}
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
-                          {/* {applicants.Recruiting} */}
-                          Nikhil Patil
-                        </p>
+                        <p className="text-[12px] font-[500] text-[#333333] font-Montserrat"></p>
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : job.status === "Interview"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : job.status === "Interview"
                               ? "bg-[#26A4FF1A]"
                               : job.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : job.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : job.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : job.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${job.status === "Interview"
+                              ? "bg-[#56CDAD1A]"
+                              : job.status === "Shortlisted"
+                              ? "bg-[#4640DE1A]"
+                              : job.status === "Rejected"
+                              ? "bg-[#FF65501A]"
+                              : job.status === "In Review"
+                              ? "bg-[#EB85331A]"
+                              : ""
+                          } ${
+                            job.status === "Interview"
                               ? "text-[#26A4FF]"
                               : job.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : job.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : job.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : job.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
+                              ? "text-[#56CDAD]"
+                              : job.status === "Shortlisted"
+                              ? "text-[#4640DE]"
+                              : job.status === "Rejected"
+                              ? "text-[#FF6550]"
+                              : job.status === "In Review"
+                              ? "text-[#FFB836]"
+                              : "text-[#333333]"
+                          }`}
                         >
                           {job.status}
                         </div>
@@ -478,18 +521,20 @@ const Initial = ({ jobs, fetchPreboardings, setToggle, setHeadings, headings }) 
           </div>
         </div>
 
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 15]}
-          component="div"
-          count={jobs.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-        />
+        {totalCount > 5 && (
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"preboarding"}
+            setLimit={setLimit}
+            defaultLimit={10}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        )}
       </div>
-
     </>
   );
 };
