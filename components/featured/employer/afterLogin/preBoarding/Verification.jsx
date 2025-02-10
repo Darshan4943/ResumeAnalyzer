@@ -1,13 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { formatInterviewDate } from "../../../../../utils/middleware";
 
 
 const Verification = ({ toggleContentt, setToggle }) => {
   const [documentation, setDocumentation] = useState(false);
   const [option, setOption] = useState(0);
+  const [isRemind, setIsRemind] = useState(false);
   const [page, setPage] = useState(0);
+  const [openSort, setOpenSort] = useState(false);
+  const [checkedjob, setCheckedJob] = useState({});
+  const [applicant, selectedApplicant] = useState();
+  const [openThreeDots, setOpenThreeDts] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [miniLoading, setMiniloading] = useState(true);
+  const router = useRouter();
+  const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const fetchJobs = useCallback(async () => {
+    if (!userDataGlobal?._id) return;
+
+    setMiniloading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        {
+          params: {
+            page: page,
+            limit: rowsPerPage,
+            search: searchQuery.trim(),
+            level: "verification",
+          },
+
+        }
+      );
+
+      setJobs(response.data.applications || []);
+      setTotalCount(response.data.pagination?.totalApplications || 0);
+      setTotalPages(response.data.pagination?.totalPages || 0);
+      console.log(1221122, response.data);
+      toast.dismiss();
+    } catch (err) {
+      console.error("Error fetching job applications:", err);
+      toast.error("Failed to fetch job applications. Please try again later.");
+    } finally {
+      setMiniloading(false);
+    }
+  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery, isUpdate]);
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchJobs();
+    }
+  }, [fetchJobs]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -117,114 +173,110 @@ const Verification = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="grid grid-rows-1 w-full">
           <div className="grid grid-cols-1 w-full">
-            {applicants
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicants, index) => (
-                <>
-                  <div
-                    className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center"
-                  >
-                    <div className="grid grid-cols-7 w-full px-4 py-2">
-                      <div className="flex items-center justify-start col-span-1">
-                        <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                          <input
-                            className="w-[16px] h-[16px]"
-                            type="checkbox"
-                          />
-                          <img
-                            className="w-[40px] rounded-[50%]"
-                            src="/images/employer/profile_icon.png"
-                            alt=""
-                          />
-                          <p className="text-[14px] font-[600]">
-                            {applicants.name}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.role}
+            {jobs.map((applicants, index) => (
+              <>
+                <div
+                  className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center"
+                >
+                  <div className="grid grid-cols-7 w-full px-4 py-2">
+                    <div className="flex items-center justify-start col-span-1">
+                      <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
+                        <input
+                          className="w-[16px] h-[16px]"
+                          type="checkbox"
+                        />
+                        <img
+                          className="w-[40px] rounded-[50%]"
+                          src="/images/employer/profile_icon.png"
+                          alt=""
+                        />
+                        <p className="text-[14px] font-[600]">
+                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex items-center justify-start col-span-1">
-                        <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.dueDate}
-                        </p>
-                      </div>
+                    </div>
+                    <div className="flex items-center justify-start col-span-1">
+                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                        {applicants?.jobTitle}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-start col-span-1">
+                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                        {formatInterviewDate(applicants?.jobDeadLine)}
+                      </p>
+                    </div>
+                    <div
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus === "Submitted"
+                        ? "text-[#0C8A0A]"
+                        : "text-[#333]"
+                        } `}
+                    >
+                      {applicants?.preboardingDetails?.documentStatus}
+                    </div>
+                    <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
+                      {applicants.role}
+                    </div>
+                    <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.docStatus === "Submitted"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
-                          } `}
-                      >
-                        {applicants.docStatus}
-                      </div>
-                      <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
-                        {applicants.role}
-                      </div>
-                      <div className="flex items-center justify-center col-span-1 ">
-                        <div
-                          className={`flex py-[6px]  justify-center px-[10px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px]  ${applicants.status === "Interview"
-                            ? "bg-[#FFFFFF]"
-                            : applicants.status === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicants.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicants.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : applicants.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${applicants.status === "Interview"
-                              ? "text-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
-                        >
-                          {applicants.status}
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-start col-span-1">
-                        <div className="flex   items-center w-full  justify-between">
-                          {applicants.docStatus == "Submitted" ? (
-                            <button
-                              onClick={() => setDocumentation(true)}
-                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.verify === "View & Verify"
-                                ? "text-[#fff] bg-[#06A9EF]"
-                                : "text-[#333] bg-[#fff]"
-                                }`}
-                            >
-                              {applicants.verify}
-                            </button>
-                          ) : (
-                            <button
-                              onClick={toggleContentt}
-                              className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
-                            >
-                              Moved forward
-                            </button>
-                          )}
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                                ? "bg-[#4640DE1A]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
 
-                          <img
-                            className="w-[24px]"
-                            src="/images/employer/three-dot.png"
-                            alt=""
-                          />
-                        </div>
+                                  : ""
+                          } ${applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                                ? "text-[#4640DE]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "text-[#FF6550]"
+
+                                  : "text-[#333333]"
+                          }`}
+                      >
+                        {applicants?.preboardingDetails?.preboardingStatus}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-start col-span-1">
+                      <div className="flex   items-center w-full  justify-between">
+                        {applicants.docStatus == "Submitted" ? (
+                          <button
+                            onClick={() => setDocumentation(true)}
+                            className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.verify === "View & Verify"
+                              ? "text-[#fff] bg-[#06A9EF]"
+                              : "text-[#333] bg-[#fff]"
+                              }`}
+                          >
+                            {applicants.verify}
+                          </button>
+                        ) : (
+                          <button
+                            onClick={toggleContentt}
+                            className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
+                          >
+                            Moved forward
+                          </button>
+                        )}
+
+                        <img
+                          className="w-[24px]"
+                          src="/images/employer/three-dot.png"
+                          alt=""
+                        />
                       </div>
                     </div>
                   </div>
-                </>
-              ))}
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </div>

@@ -8,17 +8,35 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-function StartPreboarding({ setStartPreboarding, applicant }) {
+function StartPreboarding({ setStartPreboarding, applicant ,isUpdate,setIsUpdate}) {
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [showEditor, setShowEditor] = useState(false);
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
       setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
+
+  const [data, setData] = useState({
+    createdBy: "",
+    applicantId: "",
+    isDocumentCollecting: true,
+    isPhotoId: false,
+    isAddress: false,
+    isPayroll: false,
+    isAcademic: false,
+    isDegrees: false,
+    isCertifications: false,
+    isExperience: false,
+    note: "",
+
+  });
+
+  console.log(data);
 
   useEffect(() => {
     if (id) {
@@ -33,26 +51,12 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
     if (applicant?.applicantId) {
       setData((prevState) => ({
         ...prevState,
-        applicantId: applicant.applicantId,
+        applicantId: applicant.applicantId, jobId: applicant.jobId
       }));
     }
   }, [applicant]);
 
-  const [data, setData] = useState({
-    createdBy: "",
-    applicantId: "",
-    isCollecting: false,
-    isNotCollecting: false,
-    isPhotoId: false,
-    isAddress: false,
-    isPayroll: false,
-    isAcademic: false,
-    isDegrees: false,
-    isCertifications: false,
-    isExperience: false,
-    note: "",
-    isSuccess: true,
-  });
+
 
   const handleChange1 = useCallback(
     debounce((value) => {
@@ -89,14 +93,13 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
     }
   };
 
-  const handleRadioChange = (name) => {
-    if (name === "isNotCollecting") {
-      setData((prevData) => ({
-        ...prevData,
-        createdBy: prevData.createdBy,
-        applicantId: prevData.applicantId,
-        isCollecting: false,
-        isNotCollecting: true,
+  const handleRadioChange = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      createdBy: prevData.createdBy,
+      applicantId: prevData.applicantId,
+      isDocumentCollecting: value,
+      ...(value === false && {
         isPhotoId: false,
         isAddress: false,
         isPayroll: false,
@@ -105,17 +108,10 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
         isCertifications: false,
         isExperience: false,
         note: "",
-      }));
-    } else {
-      setData((prevData) => ({
-        ...prevData,
-        createdBy: prevData.createdBy,
-        applicantId: prevData.applicantId,
-        isCollecting: true,
-        isNotCollecting: false,
-      }));
-    }
+      }),
+    }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,6 +125,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
 
       setStartPreboarding(false);
       toast.success("Preboarding created successfully.");
+      setIsUpdate(!isUpdate)
     } catch (error) {
       toast.error(
         `Error creating Preboarding: ${error.response?.data?.message || error.message
@@ -176,18 +173,19 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
           </p>
           <div className="flex ml:flex-row flex-col items-start gap-2 self-stretch">
             <div
-              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${data.isCollecting ? "bg-[#BCEBFF]" : "bg-white"
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${data.isDocumentCollecting ? "bg-[#BCEBFF]" : "bg-white"
                 }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
                 <input
                   type="radio"
-                  name="isCollecting"
+                  name="isDocumentCollecting"
                   className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                  checked={data.isCollecting}
-                  onChange={(e) => handleRadioChange("isCollecting")}
+                  checked={data.isDocumentCollecting === true}
+                  onChange={() => handleRadioChange(true)}
                 />
+
                 <div className="flex flex-col justify-center items-start gap-1">
                   <p className="text-[14px] ml:text-[16px] font-Montserrat font-medium text-[#333]">
                     Start by collecting documents
@@ -199,17 +197,17 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               </div>
             </div>
             <div
-              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${data.isNotCollecting ? "bg-[#BCEBFF]" : "bg-white"
+              className={`flex p-3 gap-3 flex-col self-stretch rounded-xl ${!data.isDocumentCollecting ? "bg-[#BCEBFF]" : "bg-white"
                 }`}
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               <div className="flex items-start gap-1 self-stretch leading-[20px]">
                 <input
                   type="radio"
-                  name="isNotCollecting"
+                  name="isDocumentCollecting"
                   className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                  checked={data.isNotCollecting}
-                  onChange={(e) => handleRadioChange("isNotCollecting")}
+                  checked={data.isDocumentCollecting === false}
+                  onChange={() => handleRadioChange(false)}
                 />
                 <div className="flex flex-col justify-center items-start gap-1">
                   <p className="text-[14px] ml:text-[16px] font-Montserrat font-medium text-[#333]">
@@ -240,7 +238,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isPhotoId"
               checked={data.isPhotoId}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isPhotoId")}
               style={{
                 borderRadius: "5px",
@@ -264,7 +262,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isAddress"
               checked={data.isAddress}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isAddress")}
               style={{
                 borderRadius: "5px",
@@ -287,7 +285,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
             <input
               type="checkbox"
               name="isPayroll"
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               checked={data.isPayroll}
               onChange={(e) => handleChange(e, "isPayroll")}
               style={{
@@ -317,7 +315,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isAcademic"
               checked={data.isAcademic}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isAcademic")}
               style={{
                 borderRadius: "5px",
@@ -336,7 +334,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isDegrees"
               checked={data.isDegrees}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isDegrees")}
               style={{
                 borderRadius: "5px",
@@ -355,7 +353,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isCertifications"
               checked={data.isCertifications}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isCertifications")}
               style={{
                 borderRadius: "5px",
@@ -379,7 +377,7 @@ function StartPreboarding({ setStartPreboarding, applicant }) {
               type="checkbox"
               name="isExperience"
               checked={data.isExperience}
-              disabled={data.isNotCollecting}
+              disabled={!data.isDocumentCollecting}
               onChange={(e) => handleChange(e, "isExperience")}
               style={{
                 borderRadius: "5px",

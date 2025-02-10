@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 
 
@@ -7,17 +7,71 @@ import { useRouter } from "next/router";
 import GenerateOffer from "./GenerateOffer";
 import EditOfferTemplate from "./EditOfferTemplate";
 import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { formatInterviewDate } from "../../../../../utils/middleware";
 
 const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
 
   const [generateOffer, setGenerateOffer] = useState(false)
-  const router = useRouter()
+  
   const [option, setOption] = useState(0);
+  const [isRemind, setIsRemind] = useState(false);
   const [page, setPage] = useState(0);
+  const [openSort, setOpenSort] = useState(false);
+  const [checkedjob, setCheckedJob] = useState({});
+  const [applicant, selectedApplicant] = useState();
+  const [openThreeDots, setOpenThreeDts] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [miniLoading, setMiniloading] = useState(true);
+  const router = useRouter();
+  const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
   const [popup, setPopup] = useState(false)
   const [successfull, setSuccessfull] = useState(false)
+  const fetchJobs = useCallback(async () => {
+    if (!userDataGlobal?._id) return;
+
+    setMiniloading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        {
+          params: {
+            page: page,
+            limit: rowsPerPage,
+            search: searchQuery.trim(),
+            level: "offerRelease",
+          },
+
+        }
+      );
+
+      setJobs(response.data.applications || []);
+      setTotalCount(response.data.pagination?.totalApplications || 0);
+      setTotalPages(response.data.pagination?.totalPages || 0);
+      console.log(1221122, response.data);
+      toast.dismiss();
+    } catch (err) {
+      console.error("Error fetching job applications:", err);
+      toast.error("Failed to fetch job applications. Please try again later.");
+    } finally {
+      setMiniloading(false);
+    }
+  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery, isUpdate]);
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchJobs();
+    }
+  }, [fetchJobs]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -108,9 +162,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
 
         <div className="grid grid-rows-1 w-full">
           <div className="grid grid-cols-1 w-full">
-            {applicants
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicants, index) => (
+            {jobs?.map((applicants, index) => (
                 <>
                   <div
                     className="flex w-[100%] py-[16px]  border-b border-[#D4D4D480] bg-[#FFFFFF] justify-between items-center"
@@ -125,61 +177,59 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                             alt=""
                           />
                           <p className="text-[14px] font-[600]">
-                            {applicants.name}
+                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.role}
+                        {applicants?.jobTitle}
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.dueDate}
+                        {formatInterviewDate(applicants?.jobDeadLine)}
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.verifyStatus === "Verified"
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus === "Verified"
                           ? "text-[#0C8A0A]"
                           : "text-[#333]"
                           } `}
                       >
-                        {applicants.verifyStatus}
+                            {applicants?.preboardingDetails?.documentStatus}
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
                         {applicants.role}
                       </div>
                       <div className="flex items-center justify-center col-span-1 ">
-                        <div
-                          className={`flex py-[6px]  justify-center px-[10px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] ${applicants.status === "Interview"
-                            ? "bg-[#FFFFFF]"
-                            : applicants.status === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicants.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicants.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : applicants.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${applicants.status === "Interview"
-                              ? "text-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
-                        >
-                          {applicants.status}
-                        </div>
+                      <div
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                                ? "bg-[#4640DE1A]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
+
+                                  : ""
+                          } ${applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                                ? "text-[#4640DE]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "text-[#FF6550]"
+
+                                  : "text-[#333333]"
+                          }`}
+                      >
+                        {applicants?.preboardingDetails?.preboardingStatus}
+                      </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex items-center justify-start col-span-1">

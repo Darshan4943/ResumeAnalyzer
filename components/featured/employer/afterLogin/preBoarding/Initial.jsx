@@ -14,7 +14,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [openSort, setOpenSort] = useState(false);
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
-  const [setOpenThreeDts] = useState(false);
+  const [openThreeDots,setOpenThreeDts] = useState(false);
   const [limit, setLimit] = useState(5);
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
@@ -25,6 +25,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -32,7 +33,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/getShortlistedCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -45,7 +46,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
       setJobs(response.data.applications || []);
       setTotalCount(response.data.pagination?.totalApplications || 0);
       setTotalPages(response.data.pagination?.totalPages || 0);
-      console.log(1221122, response.data);
+     
       toast.dismiss();
     } catch (err) {
       console.error("Error fetching job applications:", err);
@@ -53,7 +54,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery]);
+  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery,isUpdate]);
 
   useEffect(() => {
     if (userDataGlobal?._id) {
@@ -67,11 +68,11 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     }
   };
 
-  useEffect(() => {
-    if (applicant?.applicantId) {
-      fetchPreboardings(applicant.applicantId);
-    }
-  }, [applicant]);
+  // useEffect(() => {
+  //   if (applicant?.applicantId) {
+  //     fetchPreboardings(applicant.applicantId);
+  //   }
+  // }, [applicant]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -163,6 +164,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
               applicant={applicant}
               jobs={jobs}
               setStartPreboarding={setStartPreboarding}
+              setIsUpdate={setIsUpdate}
+              isUpdate={isUpdate}
             />
           </div>
         </>
@@ -254,41 +257,39 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                           className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
                             checkedjob[index]
                               ? "bg-[#FFFFFF]"
-                              : job.status === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : job.status === "Hired"
-                              ? "bg-[#56CDAD1A]"
-                              : job.status === "Shortlisted"
+                              : job?.preboardingDetails?.preboardingStatus === "Pending"
+                              ? "bg-[#FFF9ED]"
+                              : job?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : job?.preboardingDetails?.preboardingStatus === "Shortlisted"
                               ? "bg-[#4640DE1A]"
-                              : job.status === "Rejected"
-                              ? "bg-[#FF65501A]"
-                              : job.status === "In Review"
-                              ? "bg-[#EB85331A]"
+                              : job?.preboardingDetails?.preboardingStatus === "Rejected"
+                              ? "bg-[#FFE6E2]"
+                            
                               : ""
                           } ${
-                            job.status === "Interview"
-                              ? "text-[#26A4FF]"
-                              : job.status === "Hired"
-                              ? "text-[#56CDAD]"
-                              : job.status === "Shortlisted"
-                              ? "text-[#4640DE]"
-                              : job.status === "Rejected"
-                              ? "text-[#FF6550]"
-                              : job.status === "In Review"
+                            job?.preboardingDetails?.preboardingStatus === "Pending"
                               ? "text-[#FFB836]"
+                              : job?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : job?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                              ? "text-[#4640DE]"
+                              : job?.preboardingDetails?.preboardingStatus === "Rejected"
+                              ? "text-[#FF6550]"
+                           
                               : "text-[#333333]"
                           }`}
                         >
-                          {job.status}
+                          {job?.preboardingDetails?.preboardingStatus}
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1 ">
                         <div className="flex   items-center w-full  justify-between">
                           <div key={index}>
-                            {job?.isPreboarding ? (
-                              <button className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
-                                Intied
-                              </button>
+                            {job?.preboardingDetails?.preboardingStatus ==="Initiated" ? (
+                              <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                Initiated
+                              </div>
                             ) : (
                               <button
                                 onClick={() => {
