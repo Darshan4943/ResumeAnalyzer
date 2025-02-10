@@ -5,7 +5,7 @@ import { currenciesWithIcons } from "../../../utils/data";
 function JobDetails({ jobDetails, totalCount }) {
   const router = useRouter();
   const { id } = router.query;
-
+ 
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
@@ -85,7 +85,8 @@ function JobDetails({ jobDetails, totalCount }) {
                   {jobDetails?.requiredQualification ||
                     "No qualification available"}
                   <br />
-                  Total Work Experience {jobDetails?.experience} (Required)
+                  Total Work Experience{" "}
+                  {jobDetails?.experience} (Required)
                 </p>
               </div>
               <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
@@ -93,16 +94,17 @@ function JobDetails({ jobDetails, totalCount }) {
             <div className="flex flex-col gap-[8px]">
               <div className="text-[16px] font-[500]">Full job Description</div>
               <div className="text-[14px] text-[400] gap-[8px] flex flex-col">
-                {/* <div
+                <div
                   dangerouslySetInnerHTML={{
-                    __html: jobDetails?.description.replace(/'/g, "&apos;"),
+                    __html: jobDetails?.description,
                   }}
-                /> */}
+                />
                 <span className="text-[14px] font-[500] text-[#333]">
                   {" "}
                   Job Type : {jobDetails?.jobType}
                 </span>{" "}
-                {(jobDetails?.minSalary > 0 || jobDetails?.maxSalary > 0) && (
+                {(jobDetails?.minSalary > 0 ||
+                  jobDetails?.maxSalary > 0) && (
                   <div className="text-[14px] font-[500] flex text-[#333]">
                     Salary :
                     {(() => {
@@ -114,16 +116,21 @@ function JobDetails({ jobDetails, totalCount }) {
 
                       return (
                         <div className="text-[14px] font-[500] text-[#333]">
-                          {icon ? icon.symbol : jobDetails?.currency}{" "}
+                          {icon
+                            ? icon.symbol
+                            : jobDetails?.currency}{" "}
                           {jobDetails?.minSalary}{" "}
                           {jobDetails?.minSalary &&
                             jobDetails?.maxSalary &&
                             "-"}{" "}
-                          {icon ? icon.symbol : jobDetails?.currency}{" "}
+                          {icon
+                            ? icon.symbol
+                            : jobDetails?.currency}{" "}
                           {jobDetails?.maxSalary}{" "}
                           {jobDetails?.salaryType === "Annual"
                             ? "per annum"
-                            : jobDetails?.salaryType === "Monthly"
+                            : jobDetails?.salaryType ===
+                              "Monthly"
                             ? "per month"
                             : "per week"}
                         </div>
@@ -135,10 +142,13 @@ function JobDetails({ jobDetails, totalCount }) {
                   Schedule : Day shift{" "}
                 </span>{" "} */}
                 <span className="text-[14px] font-[500] text-[#333]">
-                  Education : {jobDetails?.requiredQualification} (Preferred){" "}
+                  Education :{" "}
+                  {jobDetails?.requiredQualification}{" "}
+                  (Preferred){" "}
                 </span>{" "}
                 <span className="text-[14px] font-[500] text-[#333]">
-                  Experience : {jobDetails?.experience} (Required)
+                  Experience : {jobDetails?.experience}{" "}
+                  (Required)
                 </span>
               </div>
             </div>
@@ -161,7 +171,9 @@ function JobDetails({ jobDetails, totalCount }) {
                       className="bg-[#56CDAD] h-[8px] rounded-[6px]"
                       style={{
                         width: `${Math.min(
-                          ((totalCount || 0) / jobDetails?.openPositions) * 100,
+                          ((totalCount || 0) /
+                            jobDetails?.openPositions) *
+                            100,
                           100
                         )}%`,
                       }}
@@ -173,14 +185,13 @@ function JobDetails({ jobDetails, totalCount }) {
                     Apply Before
                   </p>
                   <p className="text-[16px] text-[#333] font-semibold font-Montserrat">
-                    {new Date(jobDetails?.deadLine).toLocaleDateString(
-                      "en-US",
-                      {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      }
-                    )}
+                    {new Date(
+                      jobDetails?.deadLine
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </p>
                 </div>
                 <div className="flex justify-between items-start self-stretch">
@@ -188,14 +199,13 @@ function JobDetails({ jobDetails, totalCount }) {
                     Job Posted On
                   </p>
                   <p className="text-[16px] text-[#333] font-semibold font-Montserrat">
-                    {new Date(jobDetails?.createdAt).toLocaleDateString(
-                      "en-US",
-                      {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      }
-                    )}
+                    {new Date(
+                      jobDetails?.createdAt
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </p>
                 </div>
                 {jobDetails?.jobType && (
@@ -225,14 +235,19 @@ function JobDetails({ jobDetails, totalCount }) {
 
                           return (
                             <div className="text-[16px] font-[600] text-[#333]">
-                              {icon ? icon.symbol : jobDetails?.currency}{" "}
+                              {icon
+                                ? icon.symbol
+                                : jobDetails?.currency}{" "}
                               {jobDetails?.minSalary}{" "}
                               {jobDetails?.minSalary &&
                                 jobDetails?.maxSalary &&
                                 "-"}{" "}
-                              {icon ? icon.symbol : jobDetails?.currency}{" "}
+                              {icon
+                                ? icon.symbol
+                                : jobDetails?.currency}{" "}
                               {jobDetails?.maxSalary}{" "}
-                              {jobDetails?.salaryType === "Annual"
+                              {jobDetails?.salaryType ===
+                              "Annual"
                                 ? "per annum"
                                 : "per month"}
                             </div>
@@ -250,18 +265,20 @@ function JobDetails({ jobDetails, totalCount }) {
                   </p>
                   <div className="flex items-center gap-2 flex-wrap">
                     <div className="flex gap-2 flex-wrap">
-                      {jobDetails?.mustSkills?.map((skill, index) => (
-                        <button
-                          key={index}
-                          className="flex items-center px-4 py-2 rounded-[25px] font-medium text-[#333] text-[14px]  bg-[#fff]"
-                          style={{
-                            border: "1px solid var(--primary, #06A9EF)",
-                            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                          }}
-                        >
-                          {skill}
-                        </button>
-                      ))}
+                      {jobDetails?.mustSkills?.map(
+                        (skill, index) => (
+                          <button
+                            key={index}
+                            className="flex items-center px-4 py-2 rounded-[25px] font-medium text-[#333] text-[14px]  bg-[#fff]"
+                            style={{
+                              border: "1px solid var(--primary, #06A9EF)",
+                              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                            }}
+                          >
+                            {skill}
+                          </button>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
