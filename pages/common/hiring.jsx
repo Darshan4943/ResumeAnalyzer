@@ -125,7 +125,7 @@ function Hiring() {
     },
     {
       heading: "Status",
-      options: ["All", "Active", "Hold", "Closed"],
+      options: ["All", "Active", "Hold", "Inactive"],
     },
   ]);
 
@@ -139,7 +139,7 @@ function Hiring() {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
 
-      const newValue = value === "Active" ? "Live" : value;
+      const newValue = value === "Active" ? "Live" :  value === "Inactive" ? "Closed" : value;
 
       if (newValue) {
         updatedFilters[heading] = newValue;
@@ -383,7 +383,7 @@ function Hiring() {
                             label:
                               filters[filter.heading] === "Live"
                                 ? "Active"
-                                : filters[filter.heading],
+                                : filters[filter.heading] === "Closed"   ? "Inactive" : filters[filter.heading],
                           }
                         : ""
                     }

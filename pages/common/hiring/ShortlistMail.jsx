@@ -16,10 +16,8 @@ function ShortlistMail({
   applicantIds,
   submitDetails,
   isByEmployer,
-  newHiringStage
-
+  newHiringStage,
 }) {
-
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,7 +48,7 @@ function ShortlistMail({
       content,
       applicantId: shortlist?.map((item) => item?.applicantId),
       jobId: id,
-      newHiringStage
+      newHiringStage,
     };
 
     try {
@@ -62,7 +60,7 @@ function ShortlistMail({
       toast.success("Email sent successfully!");
       setLoading(false);
       if (isByEmployer) {
-        submitDetails()
+        submitDetails();
       }
       setStatusChange(!statusChange);
     } catch (error) {

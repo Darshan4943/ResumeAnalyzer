@@ -204,7 +204,7 @@ function Preboarding() {
                         <div
                           onClick={() => setToggle(index)}
                           key={index}
-                          className={`flex p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                          className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
                             }`}
                           style={{
                             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",

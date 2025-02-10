@@ -38,7 +38,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   const deleteHandler = () => {
     axios
