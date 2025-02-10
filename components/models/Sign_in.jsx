@@ -35,7 +35,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       document.removeEventListener("mousedown", handleOutsideClick);
       localStorage.setItem("purchase", false);
     };
-  }, []);
+  });
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);

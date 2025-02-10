@@ -35,15 +35,14 @@ function ScheduleInterview({
       duration: "30 min",
       interviewDate: new Date().toISOString().split("T")[0],
     });
-  }, []);
+  });
   const debounceUpdate = useCallback(
     debounce((value) => {
       setMailDetails((prev) => ({
         ...prev,
         candidate: { ...prev.candidate, content: value },
       }));
-    }, 500),
-    []
+    }, 500)
   );
   const debounceUpdate1 = useCallback(
     debounce((value) => {
@@ -51,8 +50,7 @@ function ScheduleInterview({
         ...prev,
         interviewer: { ...prev.interviewer, content: value },
       }));
-    }, 500),
-    []
+    }, 500)
   );
 
   const handleChange1 = (value) => {

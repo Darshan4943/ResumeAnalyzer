@@ -32,8 +32,7 @@ function ScheduleTask({
         ...prev,
         candidate: { ...prev.candidate, content: value },
       }));
-    }, 500),
-    []
+    }, 500)
   );
   const debounceUpdate1 = useCallback(
     debounce((value) => {
@@ -41,8 +40,7 @@ function ScheduleTask({
         ...prev,
         interviewer: { ...prev.interviewer, content: value },
       }));
-    }, 500),
-    []
+    }, 500)
   );
 
   const handleChange1 = (value) => {

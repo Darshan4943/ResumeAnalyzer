@@ -38,7 +38,7 @@ function LevelUpdate({
   });
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);
-  }, []);
+  });
 
   const nextStage = () => {
     if (
