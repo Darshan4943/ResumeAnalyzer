@@ -54,7 +54,7 @@ function RoleSelect({ signin, signup }) {
 
           />
         </div>
-        <div className="flex flex-col sm:gap-[24px] gap-4  scr1024:p-6 p-3 border border-[#DEDEDE] rounded-[12px] max-w-[400px] scr1024:min-w-[400px]">
+        <div className="flex flex-col sm:gap-[24px] gap-4  scr1024:p-6 p-3  rounded-[12px] max-w-[400px] scr1024:min-w-[400px]">
           <div className="text-[18px]  sm:text-[20px] font-semibold text-center">
             {signin ? "Sign In" : "Sign Up"}
 

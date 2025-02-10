@@ -104,7 +104,7 @@ function EmployerHeader() {
           <div className="flex items-center gap-5">
             <svg
             className=" cursor-pointer"
-              onClick={() => router.push("/common/EmployerNotification")}
+              onClick={() => router.push("/common/notification")}
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="26"
