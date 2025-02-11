@@ -124,6 +124,7 @@ function AdminDashboard({ toggleContentt }) {
   };
 
   return (
+    <>
     <div className=" flex flex-col gap-12 w-[100%] customMargins ">
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
         <div
@@ -365,6 +366,7 @@ function AdminDashboard({ toggleContentt }) {
         )}
       </>
     </div>
+    </>
   );
 }
 

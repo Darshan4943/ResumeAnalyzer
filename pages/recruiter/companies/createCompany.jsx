@@ -200,9 +200,16 @@ function CreateCompany() {
         toast.error("Failed to add company.");
       }
     } catch (error) {
-      setButtonLoading(false);
-      console.error(error);
-      toast.error("An error occurred. Please try again.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setButtonLoading(false);
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -238,9 +245,16 @@ function CreateCompany() {
         toast.error(response.data.message || "Failed to update company.");
       }
     } catch (error) {
-      setButtonLoading(false);
-      console.error("Error updating company:", error);
-      toast.error("An error occurred. Please try again.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setButtonLoading(false);
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
