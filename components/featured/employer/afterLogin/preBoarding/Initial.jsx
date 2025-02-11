@@ -15,18 +15,17 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
   const [openThreeDots, setOpenThreeDts] = useState(false);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+ 
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
-
+console.log(888,jobs)
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
 
@@ -62,26 +61,9 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     }
   }, [fetchJobs, limit, page]);
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
+ 
+  
 
-  // useEffect(() => {
-  //   if (applicant?.applicantId) {
-  //     fetchPreboardings(applicant.applicantId);
-  //   }
-  // }, [applicant]);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const labels = [
     "Name of Candidate",
@@ -136,10 +118,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     fetchAttributes();
   }, []);
 
-  const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+
 
   const handleHeadingChange = (heading, value) => {
     console.log(`Sorting/Filtering by ${heading}:`, value);
@@ -207,9 +186,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
 
         <div className="grid grid-rows-1 w-full">
           <div className="grid grid-cols-1 w-full">
-            {jobs
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((job, index) => (
+            {jobs.map((job, index) => (
                 <>
                   <div
                     className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
@@ -264,8 +241,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                                 "Initiated"
                               ? "bg-[#E7F8FF]"
                               : job?.preboardingDetails?.preboardingStatus ===
-                                "Shortlisted"
-                              ? "bg-[#4640DE1A]"
+                                "Hired"
+                              ? "bg-[#E8FFE8]"
                               : job?.preboardingDetails?.preboardingStatus ===
                                 "Rejected"
                               ? "bg-[#FFE6E2]"
@@ -278,8 +255,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                                 "Initiated"
                               ? "text-[#06A9EF]"
                               : job?.preboardingDetails?.preboardingStatus ===
-                                "Shortlisted"
-                              ? "text-[#4640DE]"
+                                "Hired"
+                              ? "text-[#0C8A0A]"
                               : job?.preboardingDetails?.preboardingStatus ===
                                 "Rejected"
                               ? "text-[#FF6550]"
@@ -296,6 +273,12 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                             "Initiated" ? (
                               <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
                                 Initiated
+                              </div>
+                            ) :
+                            job?.preboardingDetails?.preboardingStatus ===
+                            "Hired" ? (
+                              <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                Hired
                               </div>
                             ) : (
                               <button
@@ -333,7 +316,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
             setPage={setPage}
             title={"preboarding"}
             setLimit={setLimit}
-            defaultLimit={10}
+            defaultLimit={2}
             totalPages={totalPages}
             limit={limit}
             page={page}
@@ -418,9 +401,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {jobs
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((job, index) => (
+            {jobs.map((job, index) => (
                 <>
                   <div
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"

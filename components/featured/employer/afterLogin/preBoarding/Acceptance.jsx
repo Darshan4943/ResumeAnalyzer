@@ -1,21 +1,91 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import CustomPagination from "../../../../common/CustomPagination";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { formatInterviewDate } from "../../../../../utils/middleware";
+import { toast } from "react-toastify";
 const Acceptance = ({ toggleContentt, setToggle }) => {
   const [hired, setHired] = useState(false);
   const [hiredStates, setHiredStates] = useState(Array(applicants.length).fill(false));
   const [hiredIndex, setHiredIndex] = useState(null);
   const [option, setOption] = useState(0);
+  const [isRemind, setIsRemind] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [openSort, setOpenSort] = useState(false);
+  const [checkedjob, setCheckedJob] = useState({});
+  const [applicant, selectedApplicant] = useState();
+  const [openThreeDots, setOpenThreeDts] = useState(false);
+  const [limit, setLimit] = useState(10);
+  const [miniLoading, setMiniloading] = useState(true);
+  const router = useRouter();
+  const [jobs, setJobs] = useState([]);
+ 
+  
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
 
 
+  const fetchJobs = useCallback(async () => {
+    if (!userDataGlobal?._id) return;
 
-  const handleHired = (index) => {
-    setHired(true);
-    setHiredIndex(index);
+    setMiniloading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        {
+          params: {
+            page: page,
+            limit: limit,
+            search: searchQuery.trim(),
+            level: "offerAcceptance",
+          },
+
+        }
+      );
+
+      setJobs(response.data.applications || []);
+      setTotalCount(response.data.pagination?.totalApplications || 0);
+      setTotalPages(response.data.pagination?.totalPages || 0);
+
+      toast.dismiss();
+    } catch (err) {
+      console.error("Error fetching job applications:", err);
+      toast.error("Failed to fetch job applications. Please try again later.");
+    } finally {
+      setMiniloading(false);
+    }
+  }, [userDataGlobal?._id, searchQuery, isUpdate,page,limit]);
+
+ 
+
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchJobs();
+
+    }
+  }, [fetchJobs]);
+
+
+  const hiredCandidate = async (applicantId, jobId) => {
+    try {
+      const response = await axios.put(`http://localhost:2000/api/preboarding/hiredCandidate/${applicantId}/${jobId}`);
+
+      if (response.status === 200) {
+        toast.success("Candidate Hired successfully");
+        fetchJobs();
+        return response.data;
+      }
+    } catch (error) {
+      toast.error("Error while hiring candidate");
+    }
   };
 
   const handleChangePage = (event, newPage) => {
@@ -57,9 +127,9 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     "Name of Candidate",
     "Job Role",
     "Due Date",
-    "Department",
+    "Doc Status",
     "Recruiter",
-    "Preboarding Status",
+    "Offer Acceptance",
     "Actions",
   ];
   return (
@@ -102,9 +172,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="grid grid-rows-1 w-full">
           <div className="grid grid-cols-1 w-full">
-            {applicants
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicants, index) => (
+            {jobs.map((applicants, index) => (
                 <>
                   <div
                     className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center"
@@ -119,79 +187,77 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                             alt=""
                           />
                           <p className="text-[14px] font-[600]">
-                            {applicants.name}
+                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.role}
+                        {applicants?.jobTitle}
                         </p>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                          {applicants.dueDate}
+                          {formatInterviewDate(applicants?.jobDeadLine)}
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.Department === "IT"
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus === "Verified"
                           ? "text-[#0C8A0A]"
                           : "text-[#333]"
                           } `}
                       >
-                        {applicants.Department}
+                        {applicants?.preboardingDetails?.documentStatus === "notRequired" ? "Not Required" : applicants?.preboardingDetails?.documentStatus}
                       </div>
                       <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
                         {applicants.role}
                       </div>
                       <div className="flex items-center justify-center col-span-1 ">
-                        <div
-                          className={`flex py-[6px]  justify-center px-[10px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px]  ${applicants.status === "Interview"
-                            ? "bg-[#FFFFFF]"
-                            : applicants.status === "Interview"
-                              ? "bg-[#26A4FF1A]"
-                              : applicants.status === "Hired"
-                                ? "bg-[#56CDAD1A]"
-                                : applicants.status === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants.status === "Rejected"
-                                    ? "bg-[#FF65501A]"
-                                    : applicants.status === "In Review"
-                                      ? "bg-[#EB85331A]"
-                                      : ""
-                            } ${applicants.status === "Interview"
-                              ? "text-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836]"
-                                      : "text-[#333333]"
-                            }`}
-                        >
-                          {applicants.status}
-                        </div>
+                      <div
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
+                                ? "bg-[#E8FFE8]"
+                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
+
+                                  : ""
+                          } ${applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
+                                ? "text-[#0C8A0A]"
+                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
+                                  ? "text-[#FF6550]"
+
+                                  : "text-[#333333]"
+                          }`}
+                      >
+                        {applicants?.preboardingDetails?.offerAcceptanceStatus}
+                      </div>
                       </div>
                       <div className="flex items-center justify-between col-span-1">
                         <div className="flex items-center justify-between w-full col-span-1">
                           <div className="flex  items-center w-full  justify-between relative">
-                            {hired && hiredIndex === index ? (
+                            {applicants?.preboardingDetails?.preboardingStatus ==="Hired" ? (
 
-                              <button
-                                className="flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center text-[#333] items-center  bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat  "
+                              <div
+                                className="flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center text-[#ABABAB] border border-[#ABABAB] items-center   rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat  "
                               >
                                 Hired
-                              </button>
+                              </div>
                             ) : (
 
                               <button
-                                onClick={() => handleHired(index)}
-                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Hire === "Hire Applicant" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"} `}
+                                onClick={() => hiredCandidate(applicants.applicantId,applicants.jobId)}
+                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]`}
                               >
-                                {applicants.Hire}
+                               Hire Applicant
                               </button>
                             )}
 
@@ -310,9 +376,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicantsMobile, index) => (
+            {applicantsMobile.map((applicantsMobile, index) => (
                 <>
                   <div
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
@@ -445,16 +509,19 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
 
 
 
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 15]}
-        component="div"
-        className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-        count={applicants.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      {totalCount > 1 && (
+          <CustomPagination 
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"preboarding"}
+            setLimit={setLimit}
+            defaultLimit={10}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        )}
 
 
     </>

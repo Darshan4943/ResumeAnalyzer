@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { formatInterviewDate } from "../../../../../utils/middleware";
+import MiniLoader from "../../../../common/mini-loader";
+import CustomPagination from "../../../../common/CustomPagination";
 
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
@@ -15,17 +17,106 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
   const [openThreeDots, setOpenThreeDts] = useState(false);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+ 
+  
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
+  const [jobData, setJobData] = useState({});
+
+  const [emailDetails, setEmailDetails] = useState()
+
+
+  const reminder = async (applicants) => {
+    await setJobData(applicants);
+  
+    let requiredDocs = [];
+    if (applicants?.preboardingDetails?.documentList) {
+      requiredDocs = Object.entries(applicants.preboardingDetails.documentList)
+        .filter(([key, value]) => documentLabels[key] && value)
+        .map(([key]) => `<li>${documentLabels[key]}</li>`);
+        
+      
+    }
+  
+   await setEmailDetails((prev) => ({
+      ...prev,
+      to: applicants?.details?.personal?.email || "", 
+      cc: "",
+      subject: subject,
+      content: `<p>Dear Candidate,</p>\n
+        <p>We are pleased to inform you that you have been selected for the next round of interviews at Skilotech.</p>\n
+        ${requiredDocs.length > 0
+          ? `<p>To proceed further, please submit the following documents for verification:</p>\n
+            <ul>${requiredDocs.join("\n")}</ul>\n`
+          : ""
+        }
+        ${applicants?.note
+          ? `<p>Additional Note: ${applicants?.note}</p>\n`
+          : ""
+        }
+        <p>Please upload these documents at your earliest convenience.</p>\n
+        <p>Best regards,<br />The Skilotech Team</p>`,
+    }));
+  
+  };
+
+  useEffect(() => {
+    if (emailDetails?.to) {
+      handleSend();
+    }
+  }, [emailDetails]);
+  
+  const documentLabels = {
+    isPhotoId: "Photo ID",
+    isAddress: "Address Proof",
+    isPayroll: "Payroll Documents",
+    isAcademic: "Academic Records",
+    isDegrees: "Degree Certificates",
+    isCertifications: "Professional Certifications",
+    isExperience: "Experience Letters",
+  };
+
+  const [tags, setTags] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [subject, setSubject] = useState(
+    `Reminder for Document Submission `
+  );
+
+
+
+
+
+
+  const handleSend = async () => {
+
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:2000/api/preboarding/documentReminder",
+        emailDetails
+      );
+
+      console.log("Email sent successfully:", response.data);
+      setIsRemind(true)
+      setLoading(false);
+      return response.data;
+    } catch (error) {
+      setLoading(false);
+      console.error("Error sending document reminder email:", error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+
+
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -37,7 +128,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
         {
           params: {
             page: page,
-            limit: rowsPerPage,
+            limit: limit,
             search: searchQuery.trim(),
             level: "documentation",
           },
@@ -48,7 +139,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       setJobs(response.data.applications || []);
       setTotalCount(response.data.pagination?.totalApplications || 0);
       setTotalPages(response.data.pagination?.totalPages || 0);
-     
+
       toast.dismiss();
     } catch (err) {
       console.error("Error fetching job applications:", err);
@@ -56,26 +147,38 @@ const Documention = ({ toggleContentt, setToggle }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery, isUpdate]);
+  }, [userDataGlobal?._id, searchQuery, isUpdate,page,limit]);
+
+ 
+
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
+
     }
   }, [fetchJobs]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const moveToVerification = async (applicantId, jobId) => {
+    try {
+      const response = await axios.put(`http://localhost:2000/api/preboarding/moveToVerification/${applicantId}/${jobId}`);
+
+      if (response.status === 200) {
+        toast.success("Moved to verification successfully");
+        fetchJobs();
+        return response.data;
+      }
+    } catch (error) {
+      toast.error("Error moving to verification");
+    }
   };
+
+
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+ 
   const labels = [
     "Name of Candidate",
     "Job Role",
@@ -156,7 +259,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus === "Submitted"
+                      className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus === "Submitted" || applicants?.preboardingDetails?.documentStatus === "Verified"
                         ? "text-[#0C8A0A]"
                         : "text-[#333]"
                         } `}
@@ -169,17 +272,17 @@ const Documention = ({ toggleContentt, setToggle }) => {
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
                         className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants?.preboardingDetails?.preboardingStatus === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
-                                  ? "bg-[#4640DE1A]"
-                                  : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                                ? "bg-[#4640DE1A]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
 
-                                    : ""
+                                  : ""
                           } ${applicants?.preboardingDetails?.preboardingStatus === "Pending"
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
@@ -198,21 +301,32 @@ const Documention = ({ toggleContentt, setToggle }) => {
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex   items-center w-full  justify-between">
                         {
-                          applicants.docStatus == "Submitted" ?
+                          applicants?.preboardingDetails?.documentStatus == "Submitted" || applicants?.preboardingDetails?.documentStatus == "Verified" ?
                             <button
-                              onClick={() => setToggle(2)}
-                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"
+                            disabled={applicants?.preboardingDetails?.isMovedToVerification}
+                              onClick={() => moveToVerification(applicants.applicantId, applicants.jobId)}
+                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${!applicants?.preboardingDetails?.isMovedToVerification ? "text-[#fff] bg-[#06A9EF]" : "text-[#ABABAB] border-[#ABABAB]"}
                                 }`}
                             >
-                              {applicants.Next}
+                              {applicants?.preboardingDetails?.isMovedToVerification ? "Moved " : "Move to Next"}
                             </button>
                             :
-                            <button
-                              onClick={() => setIsRemind(true)}
-                              className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] "
-                            >
-                              Remind
-                            </button>
+                            <>
+                              {loading ?
+
+                                <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] "
+                                >
+                                  <MiniLoader />
+                                </div>
+                                :
+                                <button
+                                  onClick={() => reminder(applicants)}
+                                  className="w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] "
+                                >
+                                  Remind
+                                </button>
+                              }
+                            </>
                         }
 
                         <img
@@ -228,7 +342,19 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
-
+        {totalCount > 9 && (
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"preboarding"}
+            setLimit={setLimit}
+            defaultLimit={10}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        )}
 
       </div>
 
@@ -300,9 +426,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((applicantsMobile, index) => (
+            {applicantsMobile.map((applicantsMobile, index) => (
                 <>
                   <div
                     className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
@@ -460,17 +584,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       </div>
 
 
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 15]}
-        component="div"
-        className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-        count={applicants.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-
+      
 
       {isRemind && (
         <>

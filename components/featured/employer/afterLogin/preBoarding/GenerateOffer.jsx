@@ -86,7 +86,7 @@ function GenerateOffer({ setGenerateOffer, setPopup, setSuccessfull ,setEditTemp
 
                 </div>
 
-                <div className="flex flex-col gap-[8px] items-start w-full">
+                {/* <div className="flex flex-col gap-[8px] items-start w-full">
                   <p className="text-[20px] text-[#333] font-[500] ">
                     Select Template
                   </p>
@@ -155,7 +155,7 @@ function GenerateOffer({ setGenerateOffer, setPopup, setSuccessfull ,setEditTemp
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col gap-[8px] items-start w-full">
                   <p className="text-[20px] text-[#333] font-[500] ">
