@@ -9,7 +9,8 @@ import { auth } from "../../utils/firebase";
 import MiniLoader from "../../components/common/mini-loader";
 
 function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [verify, setVerify] = useState(false);
   const [otp, setOtp] = useState(null);
   const [otpEntered, setOtpEntered] = useState(null);
@@ -211,7 +212,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         try {
           if (response?.success) {
             localStorage.setItem("authToken", JSON.stringify(response));
-      
+
             toast.success("Sign up Successfully");
             if (sendToPurchase && sendToPurchase?.status) {
               setLoading(false);
@@ -368,7 +369,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 </div>
               </div>
               {resend &&
-              <p className="text-[12px] text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
+                <p className="text-[12px] text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
               }
             </div>
           )}
