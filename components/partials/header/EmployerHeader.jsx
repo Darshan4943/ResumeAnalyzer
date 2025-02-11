@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-
 import EmployerMobileHeader from "./EmployerMobileHeader";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,9 +13,9 @@ function EmployerHeader() {
   const [isLogout, setIsLogout] = useState(false);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+  const [notifications, setNotifications] = useState([]);
   const [login, setlogin] = useState(false);
- const isLogin = useSelector((state) => state.auth.isLogin);
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [isSidebar, setIsSidebar] = useState(false);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ function EmployerHeader() {
 
   const handleLogOut = () => {
     setlogin(false);
- 
 
     toggleDropdown();
     localStorage.clear();
@@ -52,13 +50,32 @@ function EmployerHeader() {
     window.location.href = "/";
   };
 
+  const fetchNotifications = async (filter) => {
+    try {
+      const response = await fetch(
+        `http://localhost:2000/api/getNotificationLength/${userDataGlobal._id}`
+      );
 
+      if (!response.ok) {
+        throw new Error("Failed to fetch notifications");
+      }
+
+     const data = await response.json();
+      setNotifications(data.notifications);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      fetchNotifications();
+    }
+  }, [userDataGlobal._id]);
 
   return (
     <>
-      <div
-        className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]"
-      >
+      <div className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]">
         <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between w-[30%] ">
           <div className="flex gap-1 items-center">
             <div className="mobile" onClick={() => setIsSidebar(true)}>
@@ -68,7 +85,10 @@ function EmployerHeader() {
                 className="min-w-[30px] h-[30px] object-contain"
               />
             </div>
-            <div onClick={() => router.push("/dashboard")} className="flex  items-center  ">
+            <div
+              onClick={() => router.push("/dashboard")}
+              className="flex  items-center  "
+            >
               <img
                 className="min-w-[104px] h-[36.317px] object-contain"
                 src="/images/logo_skilotech.png"
@@ -103,7 +123,7 @@ function EmployerHeader() {
         <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 w-[60%]  ">
           <div className="flex items-center gap-5">
             <svg
-            className=" cursor-pointer"
+              className="relative cursor-pointer"
               onClick={() => router.push("/common/notification")}
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -116,29 +136,37 @@ function EmployerHeader() {
                 fill="#333333"
               />
             </svg>
+            {notifications > 0 && (
+              <span className="absolute flex pt-[2px] items-center justify-center w-4 h-4 text-[10px] font-[400] text-white bg-[#06A9EF] rounded-full transform translate-x-1/2 -translate-y-1/2">
+                {notifications}
+              </span>
+            )}
 
             <div className="flex items-center gap-2">
               <div className=" h-[36px] w-[36px] min-w-[36px]">
-              {userDataGlobal?.profilePicture ? (
-                <img
-                  className=" rounded-full object-cover h-[36px] w-[36px]"
-                  src={
-                    userDataGlobal?.profilePicture ||
-                    "/images/profile/profileNew.png"
-                  }
-                />
-              ) : (
-                <div
-                  className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
-                  style={{ textTransform: "capitalize" }}
-                  alt=""
-                >
-                  {userDataGlobal?.email?.slice(0, 1)}
-                </div>
-              )}
+                {userDataGlobal?.profilePicture ? (
+                  <img
+                    className=" rounded-full object-cover h-[36px] w-[36px]"
+                    src={
+                      userDataGlobal?.profilePicture ||
+                      "/images/profile/profileNew.png"
+                    }
+                  />
+                ) : (
+                  <div
+                    className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
+                    style={{ textTransform: "capitalize" }}
+                    alt=""
+                  >
+                    {userDataGlobal?.email?.slice(0, 1)}
+                  </div>
+                )}
               </div>
 
-              <div onClick={() => setIsLogout(!isLogout)} className=" flex items-center cursor-pointer text-[14px] font-semibold">
+              <div
+                onClick={() => setIsLogout(!isLogout)}
+                className=" flex items-center cursor-pointer text-[14px] font-semibold"
+              >
                 {profileData?.basics?.firstName && (
                   <div className=" text-[14px] font-semibold scr540:block hidden">
                     {camelCase(profileData?.basics?.firstName)}{" "}
@@ -162,7 +190,6 @@ function EmployerHeader() {
                       className="h-4 w-4 ml-1 cursor-pointer "
                       alt=""
                     />
-
                   </div>
                 </div>
               </div>
@@ -226,27 +253,60 @@ function EmployerHeader() {
                     </svg>
                     My Purchase
                   </div>
-                  {userDataGlobal?.role == "user" &&
+                  {userDataGlobal?.role == "user" && (
                     <div
                       onClick={() => router.push("/myWebsite")}
                       className=" flex gap-3 py-2 px-3  items-center"
                     >
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 6.6C7 6.26863 7.26863 6 7.6 6H8.4C8.73137 6 9 6.26863 9 6.6C9 6.93137 8.73137 7.2 8.4 7.2H7.6C7.26863 7.2 7 6.93137 7 6.6Z" fill="#333333" />
-                        <path d="M4 6.6C4 6.26863 4.26863 6 4.6 6H5.4C5.73137 6 6 6.26863 6 6.6C6 6.93137 5.73137 7.2 5.4 7.2H4.6C4.26863 7.2 4 6.93137 4 6.6Z" fill="#333333" />
-                        <path d="M16 6.6C16 6.26863 16.2686 6 16.6 6C16.9314 6 17.2 6.26863 17.2 6.6C17.2 6.93137 16.9314 7.2 16.6 7.2C16.2686 7.2 16 6.93137 16 6.6Z" fill="#333333" />
-                        <path d="M17.7002 6.6C17.7002 6.26863 17.9688 6 18.3002 6C18.6316 6 18.9002 6.26863 18.9002 6.6C18.9002 6.93137 18.6316 7.2 18.3002 7.2C17.9688 7.2 17.7002 6.93137 17.7002 6.6Z" fill="#333333" />
-                        <path d="M19.3999 6.6C19.3999 6.26863 19.6685 6 19.9999 6C20.3313 6 20.5999 6.26863 20.5999 6.6C20.5999 6.93137 20.3313 7.2 19.9999 7.2C19.6685 7.2 19.3999 6.93137 19.3999 6.6Z" fill="#333333" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.0998 5.49999H20.8998C21.2312 5.49999 21.4998 5.76862 21.4998 6.09999V8H2.5L2.4998 6.09999C2.4998 5.76862 2.76843 5.49999 3.0998 5.49999ZM2.49998 9L2.4998 17.9C2.4998 18.2314 2.76843 18.5 3.0998 18.5H20.8998C21.2312 18.5 21.4998 18.2314 21.4998 17.9V9H2.49998ZM1.2998 6.09999C1.2998 5.10588 2.10569 4.29999 3.0998 4.29999H20.8998C21.8939 4.29999 22.6998 5.10588 22.6998 6.09999V17.9C22.6998 18.8941 21.8939 19.7 20.8998 19.7H3.0998C2.10569 19.7 1.2998 18.8941 1.2998 17.9V6.09999Z" fill="#333333" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.07419 18.689C9.0742 18.6889 9.07422 18.6887 9.07423 18.6886C9.15106 17.9667 9.49204 17.2987 10.0316 16.8131C10.5713 16.3273 11.2715 16.0582 11.9976 16.0577C12.7237 16.0571 13.4244 16.325 13.9649 16.8098C14.5051 17.2944 14.8471 17.9616 14.9253 18.683C14.9253 18.6834 14.9254 18.6838 14.9254 18.6842L15.977 18.5707C15.9329 18.1626 15.8268 17.7674 15.665 17.3974C15.4376 16.8775 15.1004 16.4077 14.6712 16.0226C13.9364 15.3634 12.9839 14.9992 11.9968 15C11.0097 15.0008 10.0577 15.3666 9.32405 16.027C8.89542 16.4128 8.55897 16.8832 8.3325 17.4034C8.17132 17.7737 8.06584 18.1691 8.02246 18.5772L9.07419 18.689Z" fill="#333333" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 13.5C12.856 13.5 13.55 12.8061 13.55 11.95C13.55 11.094 12.856 10.4 12 10.4C11.144 10.4 10.45 11.094 10.45 11.95C10.45 12.8061 11.144 13.5 12 13.5ZM12 14.7C13.5188 14.7 14.75 13.4688 14.75 11.95C14.75 10.4312 13.5188 9.20001 12 9.20001C10.4812 9.20001 9.25 10.4312 9.25 11.95C9.25 13.4688 10.4812 14.7 12 14.7Z" fill="#333333" />
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M7 6.6C7 6.26863 7.26863 6 7.6 6H8.4C8.73137 6 9 6.26863 9 6.6C9 6.93137 8.73137 7.2 8.4 7.2H7.6C7.26863 7.2 7 6.93137 7 6.6Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M4 6.6C4 6.26863 4.26863 6 4.6 6H5.4C5.73137 6 6 6.26863 6 6.6C6 6.93137 5.73137 7.2 5.4 7.2H4.6C4.26863 7.2 4 6.93137 4 6.6Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M16 6.6C16 6.26863 16.2686 6 16.6 6C16.9314 6 17.2 6.26863 17.2 6.6C17.2 6.93137 16.9314 7.2 16.6 7.2C16.2686 7.2 16 6.93137 16 6.6Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M17.7002 6.6C17.7002 6.26863 17.9688 6 18.3002 6C18.6316 6 18.9002 6.26863 18.9002 6.6C18.9002 6.93137 18.6316 7.2 18.3002 7.2C17.9688 7.2 17.7002 6.93137 17.7002 6.6Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M19.3999 6.6C19.3999 6.26863 19.6685 6 19.9999 6C20.3313 6 20.5999 6.26863 20.5999 6.6C20.5999 6.93137 20.3313 7.2 19.9999 7.2C19.6685 7.2 19.3999 6.93137 19.3999 6.6Z"
+                          fill="#333333"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M3.0998 5.49999H20.8998C21.2312 5.49999 21.4998 5.76862 21.4998 6.09999V8H2.5L2.4998 6.09999C2.4998 5.76862 2.76843 5.49999 3.0998 5.49999ZM2.49998 9L2.4998 17.9C2.4998 18.2314 2.76843 18.5 3.0998 18.5H20.8998C21.2312 18.5 21.4998 18.2314 21.4998 17.9V9H2.49998ZM1.2998 6.09999C1.2998 5.10588 2.10569 4.29999 3.0998 4.29999H20.8998C21.8939 4.29999 22.6998 5.10588 22.6998 6.09999V17.9C22.6998 18.8941 21.8939 19.7 20.8998 19.7H3.0998C2.10569 19.7 1.2998 18.8941 1.2998 17.9V6.09999Z"
+                          fill="#333333"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M9.07419 18.689C9.0742 18.6889 9.07422 18.6887 9.07423 18.6886C9.15106 17.9667 9.49204 17.2987 10.0316 16.8131C10.5713 16.3273 11.2715 16.0582 11.9976 16.0577C12.7237 16.0571 13.4244 16.325 13.9649 16.8098C14.5051 17.2944 14.8471 17.9616 14.9253 18.683C14.9253 18.6834 14.9254 18.6838 14.9254 18.6842L15.977 18.5707C15.9329 18.1626 15.8268 17.7674 15.665 17.3974C15.4376 16.8775 15.1004 16.4077 14.6712 16.0226C13.9364 15.3634 12.9839 14.9992 11.9968 15C11.0097 15.0008 10.0577 15.3666 9.32405 16.027C8.89542 16.4128 8.55897 16.8832 8.3325 17.4034C8.17132 17.7737 8.06584 18.1691 8.02246 18.5772L9.07419 18.689Z"
+                          fill="#333333"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 13.5C12.856 13.5 13.55 12.8061 13.55 11.95C13.55 11.094 12.856 10.4 12 10.4C11.144 10.4 10.45 11.094 10.45 11.95C10.45 12.8061 11.144 13.5 12 13.5ZM12 14.7C13.5188 14.7 14.75 13.4688 14.75 11.95C14.75 10.4312 13.5188 9.20001 12 9.20001C10.4812 9.20001 9.25 10.4312 9.25 11.95C9.25 13.4688 10.4812 14.7 12 14.7Z"
+                          fill="#333333"
+                        />
                       </svg>
-
-
-
                       My Website
                     </div>
-                  }
+                  )}
                   <div
                     onClick={handleLogOut}
                     className=" flex gap-3 py-2 px-3 text-[#C00000] items-center"
@@ -267,11 +327,9 @@ function EmployerHeader() {
                     </svg>
                     Log Out
                   </div>
-
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>
@@ -291,8 +349,8 @@ function EmployerHeader() {
                 backdropFilter: "blur(10px)",
                 ...(navigator.userAgent.includes("Safari") &&
                   !navigator.userAgent.includes("Chrome") && {
-                  WebkitBackdropFilter: "blur(10px)",
-                }),
+                    WebkitBackdropFilter: "blur(10px)",
+                  }),
                 willChange: "transform",
                 // opacity: isSidebar ? 1 : 0,
                 // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",

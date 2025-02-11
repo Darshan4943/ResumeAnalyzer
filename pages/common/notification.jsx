@@ -33,7 +33,6 @@ function EmployerNotification() {
       }
 
       const data = await response.json();
-      console.log(11, data);
       setNotifications(data.notifications);
     } catch (error) {
       console.error("Error fetching notifications:", error);
