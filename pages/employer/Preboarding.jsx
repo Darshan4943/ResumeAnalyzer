@@ -8,11 +8,10 @@ import Acceptance from "../../components/featured/employer/afterLogin/preBoardin
 import Hire from "../../components/featured/employer/afterLogin/preBoarding/Hire";
 import Joined from "../../components/featured/employer/afterLogin/preBoarding/Joined";
 import Declined from "../../components/featured/employer/afterLogin/preBoarding/Declined";
-import ApplicantPreview from "../../components/featured/employer/afterLogin/preBoarding/ApplicantPreview";
+import ApplicantPreview from "./ApplicantPreview";
 import EditOfferTemplate from "../../components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { preboarding } from "../../utils/preboardArray";
 import MiniLoader from "../../components/common/miniLoader";
 
 function Preboarding() {
@@ -29,6 +28,9 @@ function Preboarding() {
   const [totalPages, setTotalpages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(0);
+  const [preboardingData, setPreboardingData] = useState([]);
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
@@ -48,10 +50,8 @@ function Preboarding() {
       options: ["Yes", "No"],
     },
   ]);
-  const [dataState, setDataState] = useState({
-    preboardings: [],
-    error: null,
-  });
+
+
 
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -59,58 +59,57 @@ function Preboarding() {
     }
   }, [userDataGlobal]);
 
-  // useEffect(() => {
-  //   const fetchJobs = async () => {
-  //     // setLoading(true);
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:2000/api/getShortlistedCandidates/${id}`
-  //       );
-  //       setJobs(response.data.applications);
-  //       setTotalCount(response.data.pagination.totalApplications);
-  //       setTotalpages(response.data.pagination.totalPages);
-  //       console.log(2233433, response.data);
-  //       setTimeout(() => {
-  //         setLoading(false);
-  //       }, 500);
-  //     } catch (err) {
-  //       console.error("Error fetching jobs:", err);
-  //       setError("Failed to fetch jobs.");
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+          {
+            params: {
+              page: page,
+              limit: limit,
+              search: "",
+            },
+          }
+        );
+        const applications = response.data.applications;
 
-  //   if (id) {
-  //     fetchJobs();
-  //   }
-  // }, [id]);
+        setJobs(applications);
+        setTotalCount(response.data.pagination.totalApplications);
+        setTotalpages(response.data.pagination.totalPages);
 
-  const fetchPreboardings = async (id) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:2000/api/getPreboardings/${id}`,
-        {
-          params: { headings },
-        }
-      );
-      setDataState({
-        preboardings: response.data.data,
-        error: null,
-      });
-      setTimeout(() => {
+
+        const initialCount = applications.length;
+        const documentationCount = applications.filter(app => app.preboardingDetails.isMovedToDocumentation).length;
+        const verificationCount = applications.filter(app => app.preboardingDetails.isMovedToVerification).length;
+        const releaseOfferCount = applications.filter(app => app.preboardingDetails.isMovedToReleaseOffer).length;
+        const offerAcceptanceCount = applications.filter(app => app.preboardingDetails.offerAcceptanceStatus === "Accepted").length;
+        const hiredCount = applications.filter(app => app.preboardingDetails.preboardingStatus === "Hired").length;
+
+
+        setPreboardingData([
+          { name: "Initial", num: initialCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Documentation", num: documentationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Verification", num: verificationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Release Offer", num: releaseOfferCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Offer Acceptance", num: offerAcceptanceCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Hired", num: hiredCount, line: "" },
+        ]);
         setLoading(false);
-      }, 500);
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+        setLoading(false);
 
-      console.log("Preboardings data:", response.data.data);
-    } catch (err) {
-      console.error("Error:", err);
 
-      setDataState({
-        preboardings: [],
-        error: err.response?.data?.message || err.message,
-      });
+      }
+    };
+
+    if (id) {
+      fetchJobs();
     }
-  };
+  }, [id]);
+
 
   return (
     <>
@@ -129,11 +128,10 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("In Preboarding");
                     }}
-                    className={` ${
-                      activeOption === "In Preboarding"
-                        ? "text-[#333333]"
-                        : "text-[#646464]"
-                    } ml:text-[16px] text-[14px] font-[600]`}
+                    className={` ${activeOption === "In Preboarding"
+                      ? "text-[#333333]"
+                      : "text-[#646464]"
+                      } ml:text-[16px] text-[14px] font-[600]`}
                   >
                     In Preboarding
                   </p>
@@ -157,9 +155,8 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Joined");
                     }}
-                    className={` ${
-                      activeOption === "Joined" ? "" : "text-[#646464]"
-                    }  font-[600]`}
+                    className={` ${activeOption === "Joined" ? "" : "text-[#646464]"
+                      }  font-[600]`}
                   >
                     Joined
                   </p>
@@ -181,9 +178,8 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Declined");
                     }}
-                    className={` ${
-                      activeOption === "Declined" ? "" : "text-[#646464]"
-                    }  font-[600]`}
+                    className={` ${activeOption === "Declined" ? "" : "text-[#646464]"
+                      }  font-[600]`}
                   >
                     Declined
                   </p>
@@ -201,152 +197,119 @@ function Preboarding() {
                   </svg>
                 </div>
               </div>
+              {loading ?
+                <div className="w-full flex justify-center items-center">
+                  <MiniLoader />
+                </div>
 
-              {activeOption === "In Preboarding" && (
+                :
                 <>
-                  <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
-                    {preboarding.map((e, index) => (
-                      <>
-                        <div
-                          onClick={() => setToggle(index)}
-                          key={index}
-                          className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${
-                            toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                          }`}
-                          style={{
-                            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                          }}
-                        >
-                          <p
-                            className={`text-[14px] text-[#333] leading-[160%]  ${
-                              toggle === index ? "text-white" : " "
-                            }`}
-                          >
-                            {e.name}
-                          </p>
-                          <div className=" flex ">
-                            <p className="bg-[#E9EBFD]  p-1 rounded-[8px] w-[30px] flex justify-center items-center">
-                              {e.num}
-                            </p>
-                          </div>
-                        </div>
-                        <div>{e.line}</div>
-                      </>
-                    ))}
-                  </div>
-
-                  {toggle === 0 && (
+                  {activeOption === "In Preboarding" && (
                     <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
+                        {preboardingData.map((e, index) => (
+                          <>
+                            <div
+                              onClick={() => setToggle(index)}
+                              key={index}
+                              className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                                }`}
+                              style={{
+                                boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
+                            >
+                              <p
+                                className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
+                                  }`}
+                              >
+                                {e.name}
+                              </p>
+                              <div className=" flex ">
+                                <p className="bg-[#E9EBFD]  p-1 rounded-[8px] w-[30px] flex justify-center items-center">
+                                  {e.num}
+                                </p>
+                              </div>
+                            </div>
+                            <div>{e.line}</div>
+                          </>
+                        ))}
+                      </div>
+
+                      {toggle === 0 && (
+
                         <Initial
                           jobs={jobs}
-                          fetchPreboardings={fetchPreboardings}
+
                           setToggle={setToggle}
-                          setTotalpages={setTotalpages}
-                          totalPages={totalPages}
-                          totalCount={totalCount}
-                          setTotalCount={setTotalCount}
+
                           headings={headings}
                           setHeadings={setHeadings}
                         />
-                      )}
-                    </>
-                  )}
 
-                  {toggle === 1 && (
-                    <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      )}
+
+                      {toggle === 1 && (
+
                         <Documention setToggle={setToggle} />
-                      )}
-                    </>
-                  )}
 
-                  {toggle === 2 && (
-                    <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      )}
+
+                      {toggle === 2 && (
+
                         <Verification setToggle={setToggle} />
-                      )}
-                    </>
-                  )}
 
-                  {toggle === 3 && (
-                    <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      )}
+
+                      {toggle === 3 && (
+
                         <Offer
                           setToggle={setToggle}
                           setEditTemplate={setEditTemplate}
                         />
-                      )}
-                    </>
-                  )}
 
-                  {toggle === 4 && (
-                    <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      )}
+
+                      {toggle === 4 && (
+
                         <Acceptance setToggle={setToggle} />
-                      )}
-                    </>
-                  )}
 
-                  {toggle === 5 && (
-                    <>
-                      {loading ? (
-                        <div className=" justify-center items-center w-full">
-                          <MiniLoader />
-                        </div>
-                      ) : (
+                      )}
+
+                      {toggle === 5 && (
+
                         <Hire setPreview={setPreview} setToggle={setToggle} />
                       )}
+
+                    </>
+                  )}
+
+                  {activeOption === "Joined" && (
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Joined setPreview={setPreview} />
+                      )}
+                    </>
+                  )}
+                  {activeOption === "Declined" && (
+                    <>
+                      {loading ? (
+                        <div className=" justify-center items-center w-full">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        <Declined setPreview={setPreview} />
+                      )}
                     </>
                   )}
                 </>
-              )}
-
-              {activeOption === "Joined" && (
-                <>
-                  {loading ? (
-                    <div className=" justify-center items-center w-full">
-                      <MiniLoader />
-                    </div>
-                  ) : (
-                    <Joined setPreview={setPreview} />
-                  )}
-                </>
-              )}
-              {activeOption === "Declined" && (
-                <>
-                  {loading ? (
-                    <div className=" justify-center items-center w-full">
-                      <MiniLoader />
-                    </div>
-                  ) : (
-                    <Declined setPreview={setPreview} />
-                  )}
-                </>
-              )}
+              }
             </div>
           )}
-          {preview && <ApplicantPreview setPreview={setPreview} />}
+
         </>
       )}
       {editTemplate && <EditOfferTemplate setEditTemplate={setEditTemplate} />}

@@ -277,8 +277,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             ? "bg-[#FFF9ED]"
                             : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
                               ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
-                                ? "bg-[#4640DE1A]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Hired"
+                                ? "bg-[#E8FFE8]"
                                 : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
                                   ? "bg-[#FFE6E2]"
 
@@ -287,8 +287,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
                               ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails?.preboardingStatus === "Shortlisted"
-                                ? "text-[#4640DE]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Hired"
+                                ? "text-[#0C8A0A]"
                                 : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
                                   ? "text-[#FF6550]"
 
