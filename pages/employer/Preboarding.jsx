@@ -29,7 +29,6 @@ function Preboarding() {
   const [totalPages, setTotalpages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
