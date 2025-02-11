@@ -14,7 +14,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [openSort, setOpenSort] = useState(false);
   const [checkedjob, setCheckedJob] = useState({});
   const [applicant, selectedApplicant] = useState();
-  const [openThreeDots,setOpenThreeDts] = useState(false);
+  const [openThreeDots, setOpenThreeDts] = useState(false);
   const [limit, setLimit] = useState(5);
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
@@ -37,7 +37,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         {
           params: {
             page: page,
-            limit: rowsPerPage,
+            limit: limit, 
             search: searchQuery.trim(),
           },
         }
@@ -46,7 +46,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
       setJobs(response.data.applications || []);
       setTotalCount(response.data.pagination?.totalApplications || 0);
       setTotalPages(response.data.pagination?.totalPages || 0);
-     
+
       toast.dismiss();
     } catch (err) {
       console.error("Error fetching job applications:", err);
@@ -54,13 +54,13 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, currentPage, rowsPerPage, searchQuery,isUpdate]);
+  }, [userDataGlobal?._id, page, limit, searchQuery, isUpdate]);
 
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, limit, page]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -257,26 +257,32 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                           className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
                             checkedjob[index]
                               ? "bg-[#FFFFFF]"
-                              : job?.preboardingDetails?.preboardingStatus === "Pending"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Pending"
                               ? "bg-[#FFF9ED]"
-                              : job?.preboardingDetails?.preboardingStatus === "Initiated"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Initiated"
                               ? "bg-[#E7F8FF]"
-                              : job?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Shortlisted"
                               ? "bg-[#4640DE1A]"
-                              : job?.preboardingDetails?.preboardingStatus === "Rejected"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
                               ? "bg-[#FFE6E2]"
-                            
                               : ""
                           } ${
-                            job?.preboardingDetails?.preboardingStatus === "Pending"
+                            job?.preboardingDetails?.preboardingStatus ===
+                            "Pending"
                               ? "text-[#FFB836]"
-                              : job?.preboardingDetails?.preboardingStatus === "Initiated"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Initiated"
                               ? "text-[#06A9EF]"
-                              : job?.preboardingDetails?.preboardingStatus === "Shortlisted"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Shortlisted"
                               ? "text-[#4640DE]"
-                              : job?.preboardingDetails?.preboardingStatus === "Rejected"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
                               ? "text-[#FF6550]"
-                           
                               : "text-[#333333]"
                           }`}
                         >
@@ -286,7 +292,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       <div className="flex items-center justify-start col-span-1 ">
                         <div className="flex   items-center w-full  justify-between">
                           <div key={index}>
-                            {job?.preboardingDetails?.preboardingStatus ==="Initiated" ? (
+                            {job?.preboardingDetails?.preboardingStatus ===
+                            "Initiated" ? (
                               <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
                                 Initiated
                               </div>
@@ -319,17 +326,22 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
               ))}
           </div>
         </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 15]}
-          component="div"
-          className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-          count={jobs.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        {totalCount > 9 && (
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"preboarding"}
+            setLimit={setLimit}
+            defaultLimit={10}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        )}
       </div>
+
+
       <div className="mobile relative overflow-y-scroll  w-full">
         <div className="sticky top-0">
           <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
@@ -522,19 +534,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
           </div>
         </div>
 
-        {totalCount > 5 && (
-          <CustomPagination
-            setMiniloading={setMiniloading}
-            miniLoading={miniLoading}
-            setPage={setPage}
-            title={"preboarding"}
-            setLimit={setLimit}
-            defaultLimit={10}
-            totalPages={totalPages}
-            limit={limit}
-            page={page}
-          />
-        )}
+      
       </div>
     </>
   );
