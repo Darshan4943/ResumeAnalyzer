@@ -27,7 +27,6 @@ function Preboarding() {
   const [jobs, setJobs] = useState([]);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [totalPages, setTotalpages] = useState(0);
-  const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
