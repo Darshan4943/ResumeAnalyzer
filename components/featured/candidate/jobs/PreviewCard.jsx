@@ -31,7 +31,7 @@ function PreviewCard({ item, openModel ,croppedImage }) {
               </div>
               <div className="text-[12px] font-medium">{item?.companyName}</div>
             </div>
-            {croppedImage.url && (
+            {croppedImage?.url && (
               <div className="flex flex-row  items-end">
                 <img
                   src={croppedImage.url}

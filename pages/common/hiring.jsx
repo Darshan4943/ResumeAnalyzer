@@ -139,7 +139,8 @@ function Hiring() {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
 
-      const newValue = value === "Active" ? "Live" :  value === "Inactive" ? "Closed" : value;
+      const newValue =
+        value === "Active" ? "Live" : value === "Inactive" ? "Closed" : value;
 
       if (newValue) {
         updatedFilters[heading] = newValue;
@@ -272,162 +273,166 @@ function Hiring() {
     };
   }, []);
   return (
-    <div>
-      {toggle === 0 && (
-        <div className="flex flex-col gap-[16px] w-[100%] pb-[24px]  relative ">
-          <div className=" mobile">
-            <div ref={sortRef} className="flex relative  ">
-              <div
-                onClick={() => setOpenSort(true)}
-                className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[10px] items-center bg-[#fff] justify-end"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <g clip-path="url(#clip0_7540_118191)">
-                    <path
-                      d="M3.33203 5H16.6654"
-                      stroke="#333333"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M5 10H15"
-                      stroke="#333333"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M6.66797 15H13.3346"
-                      stroke="#333333"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_7540_118191">
-                      <rect width="20" height="20" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <div>Sort</div>
-              </div>
-              {openSort && (
+    <>
+      <div>
+        {toggle === 0 && (
+          <div className="flex flex-col gap-[16px] w-[100%] pb-[24px]  relative ">
+            <div className=" mobile">
+              <div ref={sortRef} className="flex relative  ">
                 <div
-                  style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                  className="absolute top-[48px] right-[5px] flex flex-col gap-[14px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                  onClick={() => setOpenSort(true)}
+                  className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[10px] items-center bg-[#fff] justify-end"
                 >
-                  {headings.map((filter, index) => (
-                    <select
-                      key={index}
-                      className=" bg-whites py-[4px]"
-                      onChange={(e) =>
-                        handleFilterChange(filter.heading, e.target.value)
-                      }
-                    >
-                      <option value=""> {filter.heading}</option>
-                      {filter.options.map((option, optIndex) => (
-                        <option key={optIndex} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  ))}
-                  <div className="flex justify-between ">
-                    <button
-                      onClick={handelclearmobile}
-                      className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
-                    >
-                      Clear
-                    </button>
-                    <button
-                      onClick={handleFilterChangemobile}
-                      className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
-                    >
-                      Search
-                    </button>
-                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_7540_118191)">
+                      <path
+                        d="M3.33203 5H16.6654"
+                        stroke="#333333"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M5 10H15"
+                        stroke="#333333"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M6.66797 15H13.3346"
+                        stroke="#333333"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_7540_118191">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <div>Sort</div>
                 </div>
-              )}
+                {openSort && (
+                  <div
+                    style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                    className="absolute top-[48px] right-[5px] flex flex-col gap-[14px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                  >
+                    {headings.map((filter, index) => (
+                      <select
+                        key={index}
+                        className=" bg-whites py-[4px]"
+                        onChange={(e) =>
+                          handleFilterChange(filter.heading, e.target.value)
+                        }
+                      >
+                        <option value=""> {filter.heading}</option>
+                        {filter.options.map((option, optIndex) => (
+                          <option key={optIndex} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    ))}
+                    <div className="flex justify-between ">
+                      <button
+                        onClick={handelclearmobile}
+                        className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                      >
+                        Clear
+                      </button>
+                      <button
+                        onClick={handleFilterChangemobile}
+                        className="bg-[#06A9EF] px-[16px] py-[8px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
-            <div className="w-[75%] flex justify-between items-center">
-              {headings.map((filter, index) => (
-                <>
-                  <Select
-                    key={index}
-                    className="scr1067:w-[25%] w-[30%] overflow-visible"
-                    options={filter.options.map((option) => ({
-                      value: option,
-                      label: option,
-                    }))}
-                    onChange={(selectedOption) =>
-                      handleFilterChange(
-                        filter.heading,
-                        selectedOption ? selectedOption.value : ""
-                      )
-                    }
-                    value={
-                      filters[filter.heading]
-                        ? {
-                            value: filters[filter.heading],
-                            label:
-                              filters[filter.heading] === "Live"
-                                ? "Active"
-                                : filters[filter.heading] === "Closed"   ? "Inactive" : filters[filter.heading],
-                          }
-                        : ""
-                    }
-                    placeholder={filter.heading}
-                    isSearchable={true}
-                    noOptionsMessage={() => "No options available"}
-                    menuPortalTarget={document.body}
-                    menuPosition="absolute"
-                    styles={{
-                      ...customStyles,
-                      menu: (base) => ({
-                        ...base,
-                        width: "200%",
-                        zIndex: 9999,
-                      }),
-                      menuPortal: (base) => ({
-                        ...base,
-                        zIndex: 9999,
-                      }),
-                    }}
-                  />
-                  <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
-                </>
-              ))}
+            <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
+              <div className="w-[75%] flex justify-between items-center">
+                {headings.map((filter, index) => (
+                  <>
+                    <Select
+                      key={index}
+                      className="scr1067:w-[25%] w-[30%] overflow-visible"
+                      options={filter.options.map((option) => ({
+                        value: option,
+                        label: option,
+                      }))}
+                      onChange={(selectedOption) =>
+                        handleFilterChange(
+                          filter.heading,
+                          selectedOption ? selectedOption.value : ""
+                        )
+                      }
+                      value={
+                        filters[filter.heading]
+                          ? {
+                              value: filters[filter.heading],
+                              label:
+                                filters[filter.heading] === "Live"
+                                  ? "Active"
+                                  : filters[filter.heading] === "Closed"
+                                  ? "Inactive"
+                                  : filters[filter.heading],
+                            }
+                          : ""
+                      }
+                      placeholder={filter.heading}
+                      isSearchable={true}
+                      noOptionsMessage={() => "No options available"}
+                      menuPortalTarget={document.body}
+                      menuPosition="absolute"
+                      styles={{
+                        ...customStyles,
+                        menu: (base) => ({
+                          ...base,
+                          width: "200%",
+                          zIndex: 9999,
+                        }),
+                        menuPortal: (base) => ({
+                          ...base,
+                          zIndex: 9999,
+                        }),
+                      }}
+                    />
+                    <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
+                  </>
+                ))}
+              </div>
+              <div className="scr1067:w-[25%] w-[20%] flex justify-end gap-3">
+                <button
+                  onClick={handleFilterChange}
+                  className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
+                >
+                  Search
+                </button>
+                <button
+                  onClick={handelclear}
+                  className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
-            <div className="scr1067:w-[25%] w-[20%] flex justify-end gap-3">
-              <button
-                onClick={handleFilterChange}
-                className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
-              >
-                Search
-              </button>
-              <button
-                onClick={handelclear}
-                className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
-              >
-                Clear
-              </button>
-            </div>
+            <JobCard filters={filters} setFilters={setFilters} />
           </div>
-          <JobCard filters={filters} setFilters={setFilters} />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 

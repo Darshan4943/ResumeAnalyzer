@@ -20,6 +20,8 @@ const Breadcrumb = () => {
     "CandidateResumeDetails":"Create Resume",
     "BuildResume":"Create Resume",
     "createResume":"Create Resume",
+    "Form":"Update Profile",
+    "coverLetter":"Cover Letter",
     "myCollection":"My Collection",
     "JobMatching":"Job Matching",
     "SelectJob":"Job Matching",

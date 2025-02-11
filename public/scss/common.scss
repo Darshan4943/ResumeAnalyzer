@@ -669,3 +669,8 @@ a {
   -ms-overflow-style: none; /* For IE10+ */
   scrollbar-width: none; /* For Firefox */
 }
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
