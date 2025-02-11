@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { CountPostingDays } from "../../utils/data";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 function EmployerNotification() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -32,7 +33,7 @@ function EmployerNotification() {
       }
 
       const data = await response.json();
-      console.log(11,data)
+      console.log(11, data);
       setNotifications(data.notifications);
     } catch (error) {
       console.error("Error fetching notifications:", error);
@@ -66,11 +67,11 @@ function EmployerNotification() {
         `http://localhost:2000/api/deletnotification/${id}`
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
       fetchNotifications();
     } catch (error) {
       console.error("Error deleting notification:", error);
-      alert("Failed to delete notification");
+      toast.error("Failed to delete notification");
     }
   };
 
@@ -123,7 +124,9 @@ function EmployerNotification() {
             onClick={() => {
               setSelectedIds([e._id]);
               router.push(
-                `/common/hiring/ApplicantDetails?applicantId=${[e.applicantId]}&id=${e.jobId}`
+                `/common/hiring/ApplicantDetails?applicantId=${[
+                  e.applicantId,
+                ]}&id=${e.jobId}`
               );
             }}
           >
@@ -153,7 +156,10 @@ function EmployerNotification() {
 
               <div className="flex items-center gap-3">
                 <svg
-                  onClick={() => deleteNotification(e._id)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    deleteNotification(e._id);
+                  }}
                   width="16"
                   height="18"
                   viewBox="0 0 16 18"
