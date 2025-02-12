@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const GenerateOffer = ({ setGenerateOffer, setPopup, offerData }) => {
+const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
   const [data, setData] = useState({
     subject: "",
     to: "",
@@ -71,6 +71,7 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData }) => {
       );
 
       setSuccessfull(true);
+      fetchJobs()
     } catch (error) {
       console.error(
         "Error sending offer:",

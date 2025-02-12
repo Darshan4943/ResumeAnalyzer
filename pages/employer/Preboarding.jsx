@@ -31,6 +31,7 @@ function Preboarding() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [preboardingData, setPreboardingData] = useState([]);
+  console.log(preboardingData.length)
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
@@ -70,6 +71,7 @@ function Preboarding() {
               page: page,
               limit: limit,
               search: "",
+              isAll:true
             },
           }
         );
@@ -78,23 +80,18 @@ function Preboarding() {
         setJobs(applications);
         setTotalCount(response.data.pagination.totalApplications);
         setTotalpages(response.data.pagination.totalPages);
+        const preboardingCounts = response.data.preboardingCounts;
 
 
-        const initialCount = applications.length;
-        const documentationCount = applications.filter(app => app.preboardingDetails.isMovedToDocumentation).length;
-        const verificationCount = applications.filter(app => app.preboardingDetails.isMovedToVerification).length;
-        const releaseOfferCount = applications.filter(app => app.preboardingDetails.isMovedToReleaseOffer).length;
-        const offerAcceptanceCount = applications.filter(app => app.preboardingDetails.offerAcceptanceStatus === "Accepted").length;
-        const hiredCount = applications.filter(app => app.preboardingDetails.preboardingStatus === "Hired").length;
-
+    
 
         setPreboardingData([
-          { name: "Initial", num: initialCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Documentation", num: documentationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Verification", num: verificationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Release Offer", num: releaseOfferCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Offer Acceptance", num: offerAcceptanceCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Hired", num: hiredCount, line: "" },
+          { name: "Initial", num: preboardingCounts.initialCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Documentation", num: preboardingCounts.documentationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Verification", num: preboardingCounts.verificationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Release Offer", num: preboardingCounts.releaseOfferCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Offer Acceptance", num: preboardingCounts.offerAcceptanceCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          { name: "Hired", num: preboardingCounts.hiredCount, line: "" },
         ]);
         setLoading(false);
       } catch (err) {
