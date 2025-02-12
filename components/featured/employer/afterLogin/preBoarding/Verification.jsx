@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { formatInterviewDate } from "../../../../../utils/middleware";
+import { camelCase, formatInterviewDate } from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
 
 const Verification = ({ toggleContentt, setToggle }) => {
@@ -30,6 +30,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [VerifyApplicant, setVerifyApplicant] = useState();
+  console.log(VerifyApplicant)
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -60,6 +62,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
       setMiniloading(false);
     }
   }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
+  }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
@@ -82,10 +85,19 @@ const Verification = ({ toggleContentt, setToggle }) => {
     }
   };
 
+
+
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
   };
+
+  const verify = async (applicant) => {
+    await setVerifyApplicant(applicant)
+    setDocumentation(true)
+
+  }
+
 
   const labels = [
     "Name of Candidate",
@@ -96,50 +108,16 @@ const Verification = ({ toggleContentt, setToggle }) => {
     "Preboarding Status",
     "Actions",
   ];
+  const documentCategories = {
+    "Personal ID Proof": ["photoId", "address"],
+    "": ["payroll"],
+    Degrees: ["academicCertification", "degreeCertification"],
+    Certification: ["OtherCertifications"],
+    "Previous Work Experience": ["experienceLetter"],
+  };
 
-  const id = [
-    {
-      tittle: "Photo ID & Address Proof",
-      img: <img src="/images/aadhaar-card.png" className="" alt="" />,
-    },
-    {
-      tittle: "Aadhar card.pdf",
-      img: <img src="/images/pan.png" className="" alt="" />,
-    },
 
-    {
-      tittle: "DL.pdf",
-      img: <img src="/images/e_pan.png" className="" alt="" />,
-    },
-    {
-      tittle: "Passport.pdf",
-      img: <img src="/images/passport.png" className="" alt="" />,
-    },
-  ];
 
-  const Payroll = [
-    {
-      tittle: "Bank Statement.pdf",
-      img: <img src="/images/passport.png" className="" alt="" />,
-    },
-    {
-      tittle: "PAN card.pdf",
-      img: <img src="/images/pan.png" className="" alt="" />,
-    },
-  ];
-
-  const degree = [
-    {
-      tittle: "Academic degree",
-      education: "MBA degree.pdf",
-      img: <img src="/images/degree.png" className="" alt="" />,
-    },
-    {
-      tittle: "Degree Certificate",
-      education: "BE degree.pdf",
-      img: <img src="/images/degree.png" className="" alt="" />,
-    },
-  ];
 
   return (
     <>
@@ -246,19 +224,15 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           applicants?.preboardingDetails?.preboardingStatus ===
                           "Pending"
                             ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Initiated"
-                            ? "text-[#06A9EF]"
-                            : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Approved" ||
-                              applicants?.preboardingDetails
-                                ?.preboardingStatus === "Hired"
-                            ? "text-[#0C8A0A]"
-                            : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Rejected"
-                            ? "text-[#FF6550]"
-                            : "text-[#333333]"
-                        }`}
+                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
+                                ? "text-[#0C8A0A]"
+                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
+                                  ? "text-[#FF6550]"
+
+                                  : "text-[#333333]"
+                          }`}
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
@@ -268,7 +242,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails
                           ?.isMovedToReleaseOffer ? (
                           <div
-                            onClick={toggleContentt}
+
                             className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
                           >
                             Moved forward
@@ -278,7 +252,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                             {applicants?.preboardingDetails?.documentStatus ==
                             "Submitted" ? (
                               <button
-                                onClick={() => setDocumentation(true)}
+                                onClick={() => verify(applicants)}
                                 className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
                              
                               `}
@@ -563,6 +537,18 @@ const Verification = ({ toggleContentt, setToggle }) => {
           page={page}
         />
       )}
+        <CustomPagination
+          setMiniloading={setMiniloading}
+          miniLoading={miniLoading}
+          setPage={setPage}
+          title={"preboarding"}
+          setLimit={setLimit}
+          defaultLimit={10}
+          totalPages={totalPages}
+          limit={limit}
+          page={page}
+        />
+      )}
 
       {documentation && (
         <>
@@ -594,106 +580,77 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   </svg>
                 </div>
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Personal ID Proof
-                  </p>
+                <div className="flex flex-col items-start gap-[16px]">
+                  {Object.entries(documentCategories).map(([category, docKeys]) => {
 
-                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
-                    Photo ID & Address Proof
-                  </p>
-                  <div className="flex flex-start flex-wrap gap-4">
-                    {id.map((e, index) => (
-                      <>
-                        <div
-                          key={index}
-                          className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]"
-                        >
-                          <p className="text-[12px] font-[400] text-[#333]">
-                            {e.tittle}
-                          </p>
-                          {e.img}
-                        </div>
-                      </>
-                    ))}
-                  </div>
-                </div>
+                    const categoryDocs = Object.entries(VerifyApplicant?.preboardingDetails?.uploadedDocuments || {})
+                      .filter(([key]) => docKeys.includes(key));
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
-                    Payroll
-                  </p>
-                  <div className="flex flex-start flex-wrap gap-4">
-                    {Payroll.map((e, index) => (
-                      <>
-                        <div
-                          key={index}
-                          className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]"
-                        >
-                          <p className="text-[12px] font-[400] text-[#333]">
-                            {e.tittle}
-                          </p>
-                          {e.img}
-                        </div>
-                      </>
-                    ))}
-                  </div>
-                </div>
+                    if (categoryDocs.length === 0) return null;
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Degrees
-                  </p>
-                  <div className="flex gap-4  flex-wrap flex-row">
-                    {degree.map((e, index) => (
-                      <div key={index} className="flex gap-1 flex-col">
-                        <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
-                          {e.education}
+                    return (
+                      <div key={category} className="w-full flex flex-col gap-2">
+                        <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
+                          {camelCase(category)}
                         </p>
-                        <div className="flex flex-start gap-4">
-                          <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                            <p className="text-[12px] font-[400] text-[#333]">
-                              {e.tittle}
-                            </p>
-                            {e.img}
-                          </div>
+
+                        <div className="flex flex-start flex-wrap gap-4 px-[5%] scr420:px-[0%]">
+                          {categoryDocs.map(([key, value], index) => {
+
+                            const fileExtension = value.file.split(".").pop().toLowerCase();
+                            const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+                            const isPDF = fileExtension === "pdf";
+                            const isDoc = ["doc", "docx"].includes(fileExtension);
+
+                            return (
+                              <div key={index} className="flex flex-col gap-2">
+                                {key==="OtherCertifications" || key==="experienceLetter" ? "" :
+                                  <p className="text-[14px] font-[500] text-[#333]">
+
+                                    {camelCase(key.replace(/([A-Z])/g, " $1").trim())}
+
+                                  </p>
+                                }
+                                <p className="text-[12px] font-[400] text-[#333]">
+                                  {camelCase(value.fileName)}
+                                </p>
+
+                                {isImage ? (
+                                  <img
+                                    src={value.file}
+                                    alt="Uploaded Document"
+                                    style={{
+                                      height: "100px",
+                                      width: "180px",
+                                      objectFit: "cover",
+                                      borderRadius: "8px"
+                                    }}
+                                  />
+                                ) : (
+                                  <a
+                                    href={value.file}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center bg-gray-200 rounded-lg w-[180px] h-[100px] text-center text-sm font-medium text-[#333]"
+                                    style={{
+                                      border: "1px solid #ccc"
+                                    }}
+                                  >
+                                    {isPDF ? "📄 PDF File" : isDoc ? "📑 DOC File" : "📂 File"}
+                                  </a>
+                                )}
+                              </div>
+                            );
+                          })}
+
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Certification
-                  </p>
-                  <div className="flex gap-4 flex-wrap flex-row">
-                    <div className="flex flex-start gap-4">
-                      <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                        <p className="text-[12px] font-[400] text-[#333]">
-                          XYZ certificate.pdf
-                        </p>
-                        <img src="/images/degree.png" className="" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Previous Work Experience
-                  </p>
-                  <div className="flex gap-4  flex-row">
-                    <div className="flex flex-start gap-4">
-                      <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                        <p className="text-[12px] font-[400] text-[#333]">
-                          experience letter.pdf
-                        </p>
-                        <img src="/images/degree.png" className="" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
 
                 <div className="w-full justify-end gap-4 flex ">
                   <button
