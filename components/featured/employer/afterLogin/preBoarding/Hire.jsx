@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import {
+  applicants,
+  applicantsMobile,
+  headings,
+} from "../../../../../utils/preboardArray";
 import CustomPagination from "../../../../common/CustomPagination";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -10,7 +14,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 import ApplicantPreview from "../../../../../pages/employer/ApplicantPreview";
-const Hire = ({ }) => {
+const Hire = ({}) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [openSort, setOpenSort] = useState(false);
@@ -22,15 +26,12 @@ const Hire = ({ }) => {
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
   const [preview, setPreview] = useState(false);
-
-console.log(999,jobs)
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
-
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -46,7 +47,6 @@ console.log(999,jobs)
             search: searchQuery.trim(),
             level: "hired",
           },
-
         }
       );
 
@@ -63,15 +63,11 @@ console.log(999,jobs)
     }
   }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
 
-
-
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
-
     }
   }, [fetchJobs]);
-
 
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
@@ -80,11 +76,9 @@ console.log(999,jobs)
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
 
   const handleDotClick = (index) => {
-
     setMoreOption((prev) => !prev);
     setSelectedDotIndex(index);
   };
-
 
   const taskRef = useRef(null);
 
@@ -95,9 +89,9 @@ console.log(999,jobs)
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
   const labels = [
@@ -113,26 +107,22 @@ console.log(999,jobs)
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-          <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
-            {headings.map((items, index) => (
-              <>
-                <select
-                  className=" w-[19.87%] bg-whites outline-none"
-                  onChange={(e) => handleHeadingChange(e, items.heading)}
-                >
-                  <option value=""> {items.heading}</option>
-                  {items.options.map((option, optIndex) => (
-                    <option key={optIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
-              </>
-            ))}
-            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
-              Search
-            </button>
+          <div
+            className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+            style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+          >
+            <img
+              src="/images/employer/icon_search.png"
+              className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+              alt=""
+            />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              type="text"
+              placeholder="Search"
+              className="w-full"
+            />
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
@@ -153,23 +143,21 @@ console.log(999,jobs)
             {jobs.map((applicants, index) => (
               <>
                 <div
-                key={index}
+                  key={index}
                   className="flex w-[100%] border-b border-[#D4D4D480] bg-[#FFFFFF] py-[16px] justify-between items-center"
                 >
                   <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                        <input
-                          className="w-[16px] h-[16px]"
-                          type="checkbox"
-                        />
+                        <input className="w-[16px] h-[16px]" type="checkbox" />
                         <img
                           className="w-[40px]  rounded-[50%]"
                           src="/images/employer/profile_icon.png"
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
                         </p>
                       </div>
                     </div>
@@ -184,41 +172,54 @@ console.log(999,jobs)
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus === "Verified"
-                        ? "text-[#0C8A0A]"
-                        : "text-[#333]"
-                        } `}
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants.preboardingDetails?.documentStatus ===
+                        "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                      } `}
                     >
-                      {applicants?.preboardingDetails?.documentStatus === "notRequired" ? "Not Required" : applicants?.preboardingDetails?.documentStatus}
+                      {applicants?.preboardingDetails?.documentStatus ===
+                      "notRequired"
+                        ? "Not Required"
+                        : applicants?.preboardingDetails?.documentStatus}
                     </div>
                     <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
                       {applicants.role}
                     </div>
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Pending"
                             ? "bg-[#FFF9ED]"
-                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-
-                                  : ""
-                          } ${applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails
+                            ?.offerAcceptanceStatus === "Pending"
                             ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-
-                                  : "text-[#333333]"
-                          }`}
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
                       >
                         {applicants?.preboardingDetails?.offerAcceptanceStatus}
                       </div>
@@ -239,13 +240,17 @@ console.log(999,jobs)
                             />
                           </svg>
                           <button
-                            onClick={() => router.push(`/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`)}
+                            onClick={() =>
+                              router.push(
+                                `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
+                              )
+                            }
                             className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
                           >
                             Preview Application
                           </button>
                         </div>
-                       
+
                         <img
                           onClick={() => handleDotClick(index)}
                           className="w-[24px]"
@@ -255,28 +260,22 @@ console.log(999,jobs)
                         <AnimatePresence>
                           {moreOption && selectedDotIndex === index && (
                             <motion.div
-                              initial={{ x: '100%' }}
+                              initial={{ x: "100%" }}
                               animate={{ x: 0 }}
-                              exit={{ x: '100%' }}
+                              exit={{ x: "100%" }}
                               transition={{ duration: 0.5 }}
                               ref={taskRef}
-                              className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                              className="absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
                             >
-
-                              <div >
-                                View Offer
-
-                              </div>
-                              <div className="text-[#C00000]" >
-                                Cancel Offer
-
-                              </div>
-
-
+                              <div>View Offer</div>
+                              <div className="text-[#C00000]">Cancel Offer</div>
                             </motion.div>
                           )}
                         </AnimatePresence>
-
                       </div>
                     </div>
                   </div>
@@ -383,24 +382,19 @@ console.log(999,jobs)
                         <AnimatePresence>
                           {moreOption && selectedDotIndex === index && (
                             <motion.div
-                              initial={{ x: '100%' }}
+                              initial={{ x: "100%" }}
                               animate={{ x: 0 }}
-                              exit={{ x: '100%' }}
+                              exit={{ x: "100%" }}
                               transition={{ duration: 0.5 }}
                               ref={taskRef}
-                              className='absolute flex flex-col text-[14px] rounded-[8px] w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                              className="absolute flex flex-col text-[14px] rounded-[8px] w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
                             >
-
-                              <div >
-                                View Offer
-
-                              </div>
-                              <div className="text-[#C00000]" >
-                                Cancel Offer
-
-                              </div>
-
-
+                              <div>View Offer</div>
+                              <div className="text-[#C00000]">Cancel Offer</div>
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -428,10 +422,11 @@ console.log(999,jobs)
                         Doc Status
                       </p>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.Department === "IT"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
-                          } `}
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                          applicantsMobile.Department === "IT"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
+                        } `}
                       >
                         {applicantsMobile.Department}
                       </div>
@@ -504,8 +499,6 @@ console.log(999,jobs)
           page={page}
         />
       )}
-
-
     </>
   );
 };
