@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { formatInterviewDate } from "../../../../../utils/middleware";
+import { camelCase, formatInterviewDate } from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
 
 
@@ -22,12 +22,14 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
-  
+
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
+  const [VerifyApplicant, setVerifyApplicant] = useState();
+  console.log(VerifyApplicant)
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -58,7 +60,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, searchQuery, isUpdate,page,limit]);
+  }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
@@ -80,11 +82,17 @@ const Verification = ({ toggleContentt, setToggle }) => {
   };
 
 
-  
+
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
   };
+
+  const verify = async (applicant) => {
+    await setVerifyApplicant(applicant)
+    setDocumentation(true)
+
+  }
 
 
   const labels = [
@@ -96,50 +104,16 @@ const Verification = ({ toggleContentt, setToggle }) => {
     "Preboarding Status",
     "Actions",
   ];
+  const documentCategories = {
+    "Personal ID Proof": ["photoId", "address"],
+    "": ["payroll"],
+    Degrees: ["academicCertification", "degreeCertification"],
+    Certification: ["OtherCertifications"],
+    "Previous Work Experience": ["experienceLetter"],
+  };
 
-  const id = [
-    {
-      tittle: "Photo ID & Address Proof",
-      img: <img src="/images/aadhaar-card.png" className="" alt="" />,
-    },
-    {
-      tittle: "Aadhar card.pdf",
-      img: <img src="/images/pan.png" className="" alt="" />,
-    },
 
-    {
-      tittle: "DL.pdf",
-      img: <img src="/images/e_pan.png" className="" alt="" />,
-    },
-    {
-      tittle: "Passport.pdf",
-      img: <img src="/images/passport.png" className="" alt="" />,
-    },
-  ];
 
-  const Payroll = [
-    {
-      tittle: "Bank Statement.pdf",
-      img: <img src="/images/passport.png" className="" alt="" />,
-    },
-    {
-      tittle: "PAN card.pdf",
-      img: <img src="/images/pan.png" className="" alt="" />,
-    },
-  ];
-
-  const degree = [
-    {
-      tittle: "Academic degree",
-      education: "MBA degree.pdf",
-      img: <img src="/images/degree.png" className="" alt="" />,
-    },
-    {
-      tittle: "Degree Certificate",
-      education: "BE degree.pdf",
-      img: <img src="/images/degree.png" className="" alt="" />,
-    },
-  ];
 
   return (
     <>
@@ -243,7 +217,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
                               ? "text-[#06A9EF]"
-                                                      : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
+                              : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
                                 ? "text-[#0C8A0A]"
                                 : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
                                   ? "text-[#FF6550]"
@@ -258,7 +232,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       <div className="flex   items-center w-full  justify-between">
                         {applicants?.preboardingDetails?.isMovedToReleaseOffer ? (
                           <div
-                            onClick={toggleContentt}
+
                             className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
                           >
                             Moved forward
@@ -267,7 +241,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           <>
                             {applicants?.preboardingDetails?.documentStatus == "Submitted" ? (
                               <button
-                                onClick={() => setDocumentation(true)}
+                                onClick={() => verify(applicants)}
                                 className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
                              
                               `}
@@ -372,151 +346,151 @@ const Verification = ({ toggleContentt, setToggle }) => {
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {applicantsMobile.map((applicantsMobile, index) => (
-                <>
-                  <div
-                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
-                    style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                  >
-                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                      <div className="flex justify-between items-center self-stretch">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-[40px] h-[40px]"
-                            src="/images/profile/john_doe.png"
-                            alt=""
-                          />
-                          <p className="text-[14px] text-[#333] font-[600]">
-                            {applicantsMobile.name}
-                          </p>
-                        </div>
-                        <div className="flex justify-end items-center gap-4">
-                          <svg
-                            xlgns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g clip-path="url(#clip0_7540_117410)">
-                              <path
-                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_7540_117410">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="matrix(0 1 -1 0 24 0)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Job Role
-                        </p>
-                        <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                          {applicantsMobile.role}
+              <>
+                <div
+                  className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
+                  style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                >
+                  <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                    <div className="flex justify-between items-center self-stretch">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-[40px] h-[40px]"
+                          src="/images/profile/john_doe.png"
+                          alt=""
+                        />
+                        <p className="text-[14px] text-[#333] font-[600]">
+                          {applicantsMobile.name}
                         </p>
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Due Date
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.dueDate}
-                        </p>
-                      </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Doc Status
-                        </p>
-                        <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
-                            } `}
+                      <div className="flex justify-end items-center gap-4">
+                        <svg
+                          xlgns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
                         >
-                          {applicantsMobile.verifyStatus}
-                        </div>
+                          <g clip-path="url(#clip0_7540_117410)">
+                            <path
+                              d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_7540_117410">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="matrix(0 1 -1 0 24 0)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Recruiter
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.Recruiting}
-                        </p>
-                      </div>
+                    </div>
 
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          {applicantsMobile.proboard}
-                        </p>
-                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                          <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                            In Review
-                          </p>
-                        </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Job Role
+                      </p>
+                      <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
+                        {applicantsMobile.role}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Due Date
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicantsMobile.dueDate}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Doc Status
+                      </p>
+                      <div
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                          } `}
+                      >
+                        {applicantsMobile.verifyStatus}
                       </div>
-                      <div className="flex justify-center w-[100%]">
-                        <div
-                          onClick={() => setDocumentation(true)}
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] max-w-[260px] bg-[#06A9EF]"
-                          style={{
-                            borderRadius: "8px",
-                            border: " 1px solid var(--primary, #06A9EF)",
-                          }}
-                        >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-                            {applicantsMobile.verify}
-                          </p>
-                        </div>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Recruiter
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicantsMobile.Recruiting}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        {applicantsMobile.proboard}
+                      </p>
+                      <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
+                        <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
+                          In Review
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-center w-[100%]">
+                      <div
+                        onClick={() => setDocumentation(true)}
+                        className="flex w-full px-6 py-3 justify-center items-center gap-[10px] max-w-[260px] bg-[#06A9EF]"
+                        style={{
+                          borderRadius: "8px",
+                          border: " 1px solid var(--primary, #06A9EF)",
+                        }}
+                      >
+                        <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          {applicantsMobile.verify}
+                        </p>
                       </div>
                     </div>
                   </div>
-                </>
-              ))}
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </div>
 
       {totalCount > 9 && (
-          <CustomPagination
-            setMiniloading={setMiniloading}
-            miniLoading={miniLoading}
-            setPage={setPage}
-            title={"preboarding"}
-            setLimit={setLimit}
-            defaultLimit={10}
-            totalPages={totalPages}
-            limit={limit}
-            page={page}
-          />
-        )}
+        <CustomPagination
+          setMiniloading={setMiniloading}
+          miniLoading={miniLoading}
+          setPage={setPage}
+          title={"preboarding"}
+          setLimit={setLimit}
+          defaultLimit={10}
+          totalPages={totalPages}
+          limit={limit}
+          page={page}
+        />
+      )}
 
       {documentation && (
         <>
@@ -548,94 +522,77 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   </svg>
                 </div>
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Personal ID Proof
-                  </p>
+                <div className="flex flex-col items-start gap-[16px]">
+                  {Object.entries(documentCategories).map(([category, docKeys]) => {
 
-                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
-                    Photo ID & Address Proof
-                  </p>
-                  <div className="flex flex-start flex-wrap gap-4">
-                    {id.map((e, index) => (
-                      <>
-                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                          <p className="text-[12px] font-[400] text-[#333]">
-                            {e.tittle}
-                          </p>
-                          {e.img}
-                        </div>
-                      </>
-                    ))}
-                  </div>
-                </div>
+                    const categoryDocs = Object.entries(VerifyApplicant?.preboardingDetails?.uploadedDocuments || {})
+                      .filter(([key]) => docKeys.includes(key));
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">Payroll</p>
-                  <div className="flex flex-start flex-wrap gap-4">
-                    {Payroll.map((e, index) => (
-                      <>
-                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                          <p className="text-[12px] font-[400] text-[#333]">
-                            {e.tittle}
-                          </p>
-                          {e.img}
-                        </div>
-                      </>
-                    ))}
-                  </div>
-                </div>
+                    if (categoryDocs.length === 0) return null;
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">Degrees</p>
-                  <div className="flex gap-4  flex-wrap flex-row">
-                    {degree.map((e, index) => (
-                      <div key={index} className="flex gap-1 flex-col">
-                        <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">{e.education}</p>
-                        <div className="flex flex-start gap-4">
-                          <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                            <p className="text-[12px] font-[400] text-[#333]">
-                              {e.tittle}
-                            </p>
-                            {e.img}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Certification
-                  </p>
-                  <div className="flex gap-4 flex-wrap flex-row">
-                    <div className="flex flex-start gap-4">
-                      <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                        <p className="text-[12px] font-[400] text-[#333]">
-                          XYZ certificate.pdf
+                    return (
+                      <div key={category} className="w-full flex flex-col gap-2">
+                        <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
+                          {camelCase(category)}
                         </p>
-                        <img src="/images/degree.png" className="" alt="" />
+
+                        <div className="flex flex-start flex-wrap gap-4 px-[5%] scr420:px-[0%]">
+                          {categoryDocs.map(([key, value], index) => {
+
+                            const fileExtension = value.file.split(".").pop().toLowerCase();
+                            const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+                            const isPDF = fileExtension === "pdf";
+                            const isDoc = ["doc", "docx"].includes(fileExtension);
+
+                            return (
+                              <div key={index} className="flex flex-col gap-2">
+                                {key==="OtherCertifications" || key==="experienceLetter" ? "" :
+                                  <p className="text-[14px] font-[500] text-[#333]">
+
+                                    {camelCase(key.replace(/([A-Z])/g, " $1").trim())}
+
+                                  </p>
+                                }
+                                <p className="text-[12px] font-[400] text-[#333]">
+                                  {camelCase(value.fileName)}
+                                </p>
+
+                                {isImage ? (
+                                  <img
+                                    src={value.file}
+                                    alt="Uploaded Document"
+                                    style={{
+                                      height: "100px",
+                                      width: "180px",
+                                      objectFit: "cover",
+                                      borderRadius: "8px"
+                                    }}
+                                  />
+                                ) : (
+                                  <a
+                                    href={value.file}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center bg-gray-200 rounded-lg w-[180px] h-[100px] text-center text-sm font-medium text-[#333]"
+                                    style={{
+                                      border: "1px solid #ccc"
+                                    }}
+                                  >
+                                    {isPDF ? "📄 PDF File" : isDoc ? "📑 DOC File" : "📂 File"}
+                                  </a>
+                                )}
+                              </div>
+                            );
+                          })}
+
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
 
-                <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                    Previous Work Experience
-                  </p>
-                  <div className="flex gap-4  flex-row">
-                    <div className="flex flex-start gap-4">
-                      <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
-                        <p className="text-[12px] font-[400] text-[#333]">
-                          experience letter.pdf
-                        </p>
-                        <img src="/images/degree.png" className="" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+
 
                 <div className="w-full justify-end gap-4 flex ">
                   <button
