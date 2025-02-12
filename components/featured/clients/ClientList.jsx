@@ -21,6 +21,7 @@ function ClientList({
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
   const [planAvailable, setplanAvailable] = useState(false);
+  
 
   useEffect(() => {
     const planavailable =
