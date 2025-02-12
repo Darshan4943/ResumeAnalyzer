@@ -23,6 +23,7 @@ function AppliedJobs({ setLimitPopup, }) {
   const dispatch = useDispatch();
   
 
+
   const getAppliedData = () => {
     setMiniloading(true)
     axios
