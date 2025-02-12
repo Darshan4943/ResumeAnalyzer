@@ -369,73 +369,29 @@ const Documention = ({ toggleContentt, setToggle }) => {
 
       <div className="mobile relative overflow-y-scroll  w-full ">
         <div className="sticky top-0">
-          <div className="flex bg-[#06A9EF] gap-[1px] p-4 w-[100%]">
-            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                  stroke="#646464"
-                  stroke-width="2.02783"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <input
-                className="w-[100%] text-[#646464]"
-                type="text"
-                placeholder="search"
+          <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
+            <div
+              className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+              style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+            >
+              <img
+                src="/images/employer/icon_search.png"
+                className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+                alt=""
               />
-            </div>
-            <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <g clip-path="url(#clip0_7540_118191)">
-                  <path
-                    d="M3.33203 5H16.6654"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M5 10H15"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6.66797 15H13.3346"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_7540_118191">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <div>Filter</div>
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                placeholder="Search"
+                className="w-full"
+              />
             </div>
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile.map((applicantsMobile, index) => (
+            {jobs?.map((applicants, index) => (
               <>
                 <div
                   className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
@@ -450,7 +406,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           alt=""
                         />
                         <p className="text-[14px] text-[#333] font-[600]">
-                          {applicantsMobile.name}
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
                         </p>
                       </div>
                       <div className="flex justify-end items-center gap-4">
@@ -503,7 +460,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         Job Role
                       </p>
                       <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                        {applicantsMobile.role}
+                        {applicants?.jobTitle}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -511,7 +468,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         Due Date
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicantsMobile.dueDate}
+                        {formatInterviewDate(applicants?.jobDeadLine)}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -520,12 +477,15 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       </p>
                       <p
                         className={`text-[14px]  font-[600] font-Montserrat ${
-                          applicantsMobile.docStatus === "Submitted"
+                          applicants?.preboardingDetails?.documentStatus ===
+                            "Submitted" ||
+                          applicants?.preboardingDetails?.documentStatus ===
+                            "Verified"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                        }`}
+                        } `}
                       >
-                        {applicantsMobile.docStatus}
+                        {applicants?.preboardingDetails?.documentStatus}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -533,52 +493,94 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         Recruiter
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicantsMobile.Recruiting}
+                        {applicants?.role}
                       </p>
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                        {applicantsMobile.proboard}
+                        {applicants?.preboardingDetails?.preboardingStatus}
                       </p>
 
                       <div
                         className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                          applicantsMobile.status === "Interview"
-                            ? "text-[#26A4FF] border-[#26A4FF]"
-                            : applicantsMobile.status === "Hired"
-                            ? "text-[#56CDAD] border-[#56CDAD]"
-                            : applicantsMobile.status === "Shortlisted"
-                            ? "text-[#4640DE] border-[#4640DE]"
-                            : applicantsMobile.status === "Rejected"
-                            ? "text-[#FF6550] border-[#FF6550]"
-                            : applicantsMobile.status === "In Review"
-                            ? "text-[#FFB836] border-[#FFB836]"
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
                             : ""
+                        } ${
+                          applicants?.preboardingDetails?.preboardingStatus ===
+                          "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
                         }`}
                       >
-                        {applicantsMobile.status}
+                        {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
                     </div>
-                    <div className="flex justify-center w-[100%]">
-                      {applicantsMobile.docStatus == "Submitted" ? (
+                    <div className="flex justify-center w-full">
+                      {applicants?.preboardingDetails?.documentStatus ==
+                        "Submitted" ||
+                      applicants?.preboardingDetails?.documentStatus ==
+                        "Verified" ? (
                         <button
-                          onClick={() => setToggle(2)}
-                          className={`flex w-full px-6 py-3 justify-center items-center gap-[10px] font-semibold rounded-[8px] max-w-[250px] ${
-                            applicantsMobile.Next === "Move to Next"
+                          disabled={
+                            applicants?.preboardingDetails
+                              ?.isMovedToVerification
+                          }
+                          onClick={() =>
+                            moveToVerification(
+                              applicants.applicantId,
+                              applicants.jobId
+                            )
+                          }
+                          className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${
+                            !applicants?.preboardingDetails
+                              ?.isMovedToVerification
                               ? "text-[#fff] bg-[#06A9EF]"
-                              : "text-[#333] bg-[#fff]"
-                          }`}
+                              : "text-[#ABABAB] border-[#ABABAB]"
+                          }
+                                }`}
                         >
-                          {applicantsMobile.Next}
+                          {applicants?.preboardingDetails?.isMovedToVerification
+                            ? "Moved "
+                            : "Move to Next"}
                         </button>
                       ) : (
-                        <button
-                          onClick={() => setIsRemind(true)}
-                          className="flex w-full px-6 py-3 text-black justify-center items-center gap-[10px] font-semibold rounded-[8px] max-w-[250px] border border-[#06A9EF]  "
-                        >
-                          Remind
-                        </button>
+                        <>
+                          {loading ? (
+                            <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
+                              <MiniLoader />
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => reminder(applicants)}
+                              className="flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF] text-black font-semibold text-[14px] "
+                            >
+                              Remind
+                            </button>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
@@ -587,6 +589,19 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
+        {totalCount > 9 && (
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"preboarding"}
+            setLimit={setLimit}
+            defaultLimit={10}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        )}
       </div>
 
       {isRemind && (
