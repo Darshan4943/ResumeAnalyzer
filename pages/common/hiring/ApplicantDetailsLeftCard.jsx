@@ -94,7 +94,7 @@ function ApplicantDetailsLeftCard({
                       <div className="h-[11px] w-[25%] rounded-[6px] bg-[#D6DDEB]"></div>
                     </div>
                   </div> */}
-            {userDataGlobal?.role === "recruiter" ? (
+            {/* {userDataGlobal?.role === "recruiter" ? (
               <>
                 {jobDetails?.hiringStage === "Shortlisted" ? (
                   <button disabled className="flex gap-2">
@@ -134,7 +134,7 @@ function ApplicantDetailsLeftCard({
                   Schedule Interview
                 </div>
               </div>
-            )}
+            )} */}
             <div className="min-h-[1px] bg-[#D6DDEB]"></div>
             <div className="flex flex-col gap-4 text-[16px] font-normal">
               <p className="font-[600] text-[16px] text-[#333333]">Contact</p>
