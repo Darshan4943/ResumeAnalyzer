@@ -204,7 +204,7 @@ function EmployerNotification() {
                 No Notifications Available
               </p>
               <p className="text-sm text-gray-500">
-                You're all caught up! Check back later for new updates.
+                You&apos;re all caught up! Check back later for new updates.
               </p>
             </div>
           </div>

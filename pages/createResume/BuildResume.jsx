@@ -45,7 +45,7 @@ function BuildResume() {
           <div className="flex justify-center item-center w-full">
             <div className="flex flex-col gap-[24px]  scr500w-[66%]">
               <div
-                // localStorage.removeItem("parsedResume");
+               
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}
               >
                 <div className=" cursor-pointer scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">

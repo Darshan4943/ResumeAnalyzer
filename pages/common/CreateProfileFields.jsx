@@ -249,7 +249,7 @@ function CreateProfileFields() {
             </div>
           </div>
           <div className="flex w-full gap-4 flex-col text-[12px] scr500:text-[14px] font-[500] text-[#333333]">
-            Are you comfortable commuting to this job's location?
+            Are you comfortable commuting to this job&apos;s location?
             <div className="w-full flex gap-6 items-center">
               <div className="flex gap-2 text-[14px] font-[500] text-[#333333]">
                 <input type="radio" name="" id="" />
