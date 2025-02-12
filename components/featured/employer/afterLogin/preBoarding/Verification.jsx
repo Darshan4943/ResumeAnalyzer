@@ -22,11 +22,10 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
-  
+  const [searchQuery, setSearchQuery] = useState("");
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
 
   const fetchJobs = useCallback(async () => {
@@ -145,26 +144,22 @@ const Verification = ({ toggleContentt, setToggle }) => {
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-          <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
-            {headings.map((items, index) => (
-              <>
-                <select
-                  className=" w-[19.87%] bg-whites outline-none"
-                  onChange={(e) => handleHeadingChange(e, items.heading)}
-                >
-                  <option value=""> {items.heading}</option>
-                  {items.options.map((option, optIndex) => (
-                    <option key={optIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <div className="w-[1px] bg-[#E0E0E0] h-[24px]"></div>
-              </>
-            ))}
-            <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
-              Search
-            </button>
+        <div
+            className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+            style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+          >
+            <img
+              src="/images/employer/icon_search.png"
+              className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+              alt=""
+            />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              type="text"
+              placeholder="Search"
+              className="w-full"
+            />
           </div>
         </div>
 

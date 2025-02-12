@@ -19,13 +19,11 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
- 
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
-console.log(888,jobs)
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
 
