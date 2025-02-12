@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
-import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import {
+  applicants,
+  applicantsMobile,
+  headings,
+} from "../../../../../utils/preboardArray";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
-
 
 const Verification = ({ toggleContentt, setToggle }) => {
   const [documentation, setDocumentation] = useState(false);
@@ -42,7 +45,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
             search: searchQuery.trim(),
             level: "verification",
           },
-
         }
       );
 
@@ -57,7 +59,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, searchQuery, isUpdate,page,limit]);
+  }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
@@ -66,7 +68,9 @@ const Verification = ({ toggleContentt, setToggle }) => {
 
   const moveToReleaseOffer = async (applicantId, jobId) => {
     try {
-      const response = await axios.put(`http://localhost:2000/api/preboarding/moveToReleaseOffer/${applicantId}/${jobId}`);
+      const response = await axios.put(
+        `http://localhost:2000/api/preboarding/moveToReleaseOffer/${applicantId}/${jobId}`
+      );
 
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
@@ -78,13 +82,10 @@ const Verification = ({ toggleContentt, setToggle }) => {
     }
   };
 
-
-  
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
   };
-
 
   const labels = [
     "Name of Candidate",
@@ -144,7 +145,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-        <div
+          <div
             className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
             style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
           >
@@ -179,23 +180,19 @@ const Verification = ({ toggleContentt, setToggle }) => {
           <div className="grid grid-cols-1 w-full">
             {jobs.map((applicants, index) => (
               <>
-                <div
-                  className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center"
-                >
+                <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
                   <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                        <input
-                          className="w-[16px] h-[16px]"
-                          type="checkbox"
-                        />
+                        <input className="w-[16px] h-[16px]" type="checkbox" />
                         <img
                           className="w-[40px] rounded-[50%]"
                           src="/images/employer/profile_icon.png"
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
                         </p>
                       </div>
                     </div>
@@ -210,10 +207,15 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus === "Submitted"
-                        ? "text-[#0C8A0A]"
-                        : applicants?.preboardingDetails?.documentStatus === "Verified" ? "text-[#0C8A0A]" : "text-[#333]"
-                        } `}
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants?.preboardingDetails?.documentStatus ===
+                        "Submitted"
+                          ? "text-[#0C8A0A]"
+                          : applicants?.preboardingDetails?.documentStatus ===
+                            "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                      } `}
                     >
                       {applicants?.preboardingDetails?.documentStatus}
                     </div>
@@ -222,45 +224,59 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     </div>
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Pending"
                             ? "bg-[#FFF9ED]"
-                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-
-                                  : ""
-                          } ${applicants?.preboardingDetails?.preboardingStatus === "Pending"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Approved" ||
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails?.preboardingStatus ===
+                          "Pending"
                             ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                                                      : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-
-                                  : "text-[#333333]"
-                          }`}
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Approved" ||
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
                     </div>
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex   items-center w-full  justify-between">
-                        {applicants?.preboardingDetails?.isMovedToReleaseOffer ? (
+                        {applicants?.preboardingDetails
+                          ?.isMovedToReleaseOffer ? (
                           <div
                             onClick={toggleContentt}
                             className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
                           >
                             Moved forward
                           </div>
-                        ) :
+                        ) : (
                           <>
-                            {applicants?.preboardingDetails?.documentStatus == "Submitted" ? (
+                            {applicants?.preboardingDetails?.documentStatus ==
+                            "Submitted" ? (
                               <button
                                 onClick={() => setDocumentation(true)}
                                 className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
@@ -269,19 +285,26 @@ const Verification = ({ toggleContentt, setToggle }) => {
                               >
                                 View & Verify
                               </button>
-                            ) : applicants?.preboardingDetails?.documentStatus == "Verified" ? (
+                            ) : applicants?.preboardingDetails
+                                ?.documentStatus == "Verified" ? (
                               <button
-                                onClick={() => moveToReleaseOffer(applicants?.applicantId, applicants?.jobId)}
+                                onClick={() =>
+                                  moveToReleaseOffer(
+                                    applicants?.applicantId,
+                                    applicants?.jobId
+                                  )
+                                }
                                 className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
                               `}
                               >
                                 Move to Next
                               </button>
-                            ) :
-                              ("")}
+                            ) : (
+                              ""
+                            )}
                           </>
-                        }
+                        )}
 
                         <img
                           className="w-[24px]"
@@ -300,218 +323,246 @@ const Verification = ({ toggleContentt, setToggle }) => {
 
       <div className="mobile relative overflow-y-scroll  w-full ">
         <div className="sticky top-0">
-          <div className="flex bg-[#06A9EF] gap-[1px] p-4 w-[100%]">
-            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                  stroke="#646464"
-                  stroke-width="2.02783"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <input
-                className="w-[100%] text-[#646464]"
-                type="text"
-                placeholder="search"
+          <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
+            <div
+              className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+              style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+            >
+              <img
+                src="/images/employer/icon_search.png"
+                className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+                alt=""
               />
-            </div>
-            <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <g clip-path="url(#clip0_7540_118191)">
-                  <path
-                    d="M3.33203 5H16.6654"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M5 10H15"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6.66797 15H13.3346"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_7540_118191">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <div>Filter</div>
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                placeholder="Search"
+                className="w-full"
+              />
             </div>
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {applicantsMobile.map((applicantsMobile, index) => (
-                <>
-                  <div
-                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
-                    style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                  >
-                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                      <div className="flex justify-between items-center self-stretch">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-[40px] h-[40px]"
-                            src="/images/profile/john_doe.png"
-                            alt=""
-                          />
-                          <p className="text-[14px] text-[#333] font-[600]">
-                            {applicantsMobile.name}
-                          </p>
-                        </div>
-                        <div className="flex justify-end items-center gap-4">
-                          <svg
-                            xlgns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g clip-path="url(#clip0_7540_117410)">
-                              <path
-                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_7540_117410">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="matrix(0 1 -1 0 24 0)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </div>
+            {jobs.map((applicants, index) => (
+              <>
+                <div
+                  className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
+                  style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                >
+                  <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                    <div className="flex justify-between items-center self-stretch">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-[40px] h-[40px]"
+                          src="/images/profile/john_doe.png"
+                          alt=""
+                        />
+                        <p className="text-[14px] text-[#333] font-[600]">
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
+                        </p>
                       </div>
+                      <div className="flex justify-end items-center gap-4">
+                        <svg
+                          xlgns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <g clip-path="url(#clip0_7540_117410)">
+                            <path
+                              d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
+                              stroke="#333333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_7540_117410">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="matrix(0 1 -1 0 24 0)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
 
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Job Role
-                        </p>
-                        <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                          {applicantsMobile.role}
-                        </p>
-                      </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Due Date
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.dueDate}
-                        </p>
-                      </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Doc Status
-                        </p>
-                        <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Job Role
+                      </p>
+                      <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
+                        {applicants?.jobTitle}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Due Date
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {formatInterviewDate(applicants?.jobDeadLine)}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Doc Status
+                      </p>
+                      <div
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                          applicants?.preboardingDetails?.documentStatus ===
+                          "Submitted"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails?.documentStatus ===
+                              "Verified"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                            } `}
-                        >
-                          {applicantsMobile.verifyStatus}
-                        </div>
+                        } `}
+                      >
+                        {applicants?.preboardingDetails?.documentStatus}
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Recruiter
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.Recruiting}
-                        </p>
-                      </div>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Recruiter
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicants.role}
+                      </p>
+                    </div>
 
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          {applicantsMobile.proboard}
-                        </p>
-                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                          <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                            In Review
-                          </p>
-                        </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        {applicants?.preboardingDetails?.preboardingStatus}
+                      </p>
+                      <div className="flex items-center justify-center col-span-1 ">
+                      <div
+                        className={`flex py-[10px] justify-center px-[14px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Approved" ||
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails?.preboardingStatus ===
+                          "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Approved" ||
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
+                      >
+                        {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
-                      <div className="flex justify-center w-[100%]">
-                        <div
-                          onClick={() => setDocumentation(true)}
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] max-w-[260px] bg-[#06A9EF]"
-                          style={{
-                            borderRadius: "8px",
-                            border: " 1px solid var(--primary, #06A9EF)",
-                          }}
-                        >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-                            {applicantsMobile.verify}
-                          </p>
-                        </div>
+                    </div>
+                    </div>
+                    <div className="flex justify-center w-[100%]">
+                      <div className="flex justify-center w-full">
+                        {applicants?.preboardingDetails
+                          ?.isMovedToReleaseOffer ? (
+                          <div
+                            onClick={toggleContentt}
+                            className="flex w-[120px] h-[40px] justify-center items-center rounded-[30px] border border-[#DEDEDE] text-[#DEDEDE] font-semibold text-[14px]"
+                          >
+                            Moved forward
+                          </div>
+                        ) : (
+                          <>
+                            {applicants?.preboardingDetails?.documentStatus ==
+                            "Submitted" ? (
+                              <button
+                                onClick={() => setDocumentation(true)}
+                                className={`flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF]  font-semibold text-[#fff] bg-[#06A9EF]
+                             
+                              `}
+                              >
+                                View & Verify
+                              </button>
+                            ) : applicants?.preboardingDetails
+                                ?.documentStatus == "Verified" ? (
+                              <button
+                                onClick={() =>
+                                  moveToReleaseOffer(
+                                    applicants?.applicantId,
+                                    applicants?.jobId
+                                  )
+                                }
+                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                             
+                              `}
+                              >
+                                Move to Next
+                              </button>
+                            ) : (
+                              ""
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
-                </>
-              ))}
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </div>
 
       {totalCount > 9 && (
-          <CustomPagination
-            setMiniloading={setMiniloading}
-            miniLoading={miniLoading}
-            setPage={setPage}
-            title={"preboarding"}
-            setLimit={setLimit}
-            defaultLimit={10}
-            totalPages={totalPages}
-            limit={limit}
-            page={page}
-          />
-        )}
+        <CustomPagination
+          setMiniloading={setMiniloading}
+          miniLoading={miniLoading}
+          setPage={setPage}
+          title={"preboarding"}
+          setLimit={setLimit}
+          defaultLimit={10}
+          totalPages={totalPages}
+          limit={limit}
+          page={page}
+        />
+      )}
 
       {documentation && (
         <>
@@ -554,7 +605,10 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   <div className="flex flex-start flex-wrap gap-4">
                     {id.map((e, index) => (
                       <>
-                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
+                        <div
+                          key={index}
+                          className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]"
+                        >
                           <p className="text-[12px] font-[400] text-[#333]">
                             {e.tittle}
                           </p>
@@ -566,11 +620,16 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 </div>
 
                 <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">Payroll</p>
+                  <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
+                    Payroll
+                  </p>
                   <div className="flex flex-start flex-wrap gap-4">
                     {Payroll.map((e, index) => (
                       <>
-                        <div key={index} className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
+                        <div
+                          key={index}
+                          className="flex flex-col gap-1 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]"
+                        >
                           <p className="text-[12px] font-[400] text-[#333]">
                             {e.tittle}
                           </p>
@@ -582,11 +641,15 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 </div>
 
                 <div className="flex flex-col items-start gap-[4px]">
-                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">Degrees</p>
+                  <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
+                    Degrees
+                  </p>
                   <div className="flex gap-4  flex-wrap flex-row">
                     {degree.map((e, index) => (
                       <div key={index} className="flex gap-1 flex-col">
-                        <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">{e.education}</p>
+                        <p className="text-[14px] px-[5%] scr420:px-[0%] font-[400]">
+                          {e.education}
+                        </p>
                         <div className="flex flex-start gap-4">
                           <div className="flex flex-col gap-2 w-[100%] px-[5%] scr420:px-[0%] scr420:w-[180px]">
                             <p className="text-[12px] font-[400] text-[#333]">

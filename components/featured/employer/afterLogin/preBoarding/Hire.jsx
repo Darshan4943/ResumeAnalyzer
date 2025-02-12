@@ -287,74 +287,28 @@ const Hire = ({}) => {
       </div>
 
       <div className="mobile relative overflow-y-scroll  w-full ">
-        <div className="sticky top-0">
-          <div className="flex bg-[#06A9EF] gap-[1px] p-4 w-[100%]">
-            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
-                  stroke="#646464"
-                  stroke-width="2.02783"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <input
-                className="w-[100%] text-[#646464]"
-                type="text"
-                placeholder="search"
-              />
-            </div>
-            <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <g clip-path="url(#clip0_7540_118191)">
-                  <path
-                    d="M3.33203 5H16.6654"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M5 10H15"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6.66797 15H13.3346"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_7540_118191">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <div>Filter</div>
-            </div>
+        <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
+          <div
+            className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+            style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+          >
+            <img
+              src="/images/employer/icon_search.png"
+              className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+              alt=""
+            />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              type="text"
+              placeholder="Search"
+              className="w-full"
+            />
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {jobs.map((applicantsMobile, index) => (
+            {jobs.map((applicants, index) => (
               <>
                 <div
                   className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
@@ -369,7 +323,8 @@ const Hire = ({}) => {
                           alt=""
                         />
                         <p className="text-[14px] text-[#333] font-[600]">
-                          {applicantsMobile.name}
+                        {applicants.details?.personal?.firstName}{" "}
+                        {applicants.details?.personal?.lastName}
                         </p>
                       </div>
                       <div className="flex justify-end items-center gap-4 relative">
@@ -406,7 +361,7 @@ const Hire = ({}) => {
                         Job Role
                       </p>
                       <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                        {applicantsMobile.role}
+                      {applicants?.jobTitle}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -414,7 +369,7 @@ const Hire = ({}) => {
                         Due Date
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicantsMobile.dueDate}
+                      {formatInterviewDate(applicants?.jobDeadLine)}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -423,12 +378,16 @@ const Hire = ({}) => {
                       </p>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
-                          applicantsMobile.Department === "IT"
+                          applicants.preboardingDetails?.documentStatus ===
+                          "Verified"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
                         } `}
                       >
-                        {applicantsMobile.Department}
+                        {applicants?.preboardingDetails?.documentStatus ===
+                        "notRequired"
+                          ? "Not Required"
+                          : applicants?.preboardingDetails?.documentStatus}
                       </div>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -436,18 +395,48 @@ const Hire = ({}) => {
                         Recruiter
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicantsMobile.Recruiting}
+                      {applicants.role}
                       </p>
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                        {applicantsMobile.proboard}
+                      Offer Acceptance
                       </p>
-                      <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                        <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                          In Review
-                        </p>
+                      <div
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails
+                            ?.offerAcceptanceStatus === "Pending"
+                            ? "text-[#FFB836]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
+                      >
+                        {applicants?.preboardingDetails?.offerAcceptanceStatus}
                       </div>
                     </div>
                     <div className="flex justify-center w-[100%]">
@@ -471,12 +460,16 @@ const Hire = ({}) => {
                           />
                         </svg>
 
-                        <p
-                          onClick={() => setPreview(true)}
-                          className="text-[14px] text-[#fff] font-[600] font-Montserrat"
-                        >
-                          {applicantsMobile.Preview}
-                        </p>
+                        <button
+                            onClick={() =>
+                              router.push(
+                                `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
+                              )
+                            }
+                            className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
+                          >
+                            Preview Application
+                          </button>
                       </div>
                     </div>
                   </div>
