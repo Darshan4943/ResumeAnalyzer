@@ -26,7 +26,7 @@ const FileError = ({ setError }) => {
             </div>
             <div className="flex flex-wrap w-full text-center justify-center items-center text-[#333333] font-[500] text-[14px]">
               Not able to read file, Please check the file content and try
-              to upload again.
+              to upload again.
             </div>
             <div className="flex w-full justify-center items-center">
               <button
