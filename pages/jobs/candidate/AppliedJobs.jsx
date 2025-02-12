@@ -21,6 +21,7 @@ function AppliedJobs({ setLimitPopup, }) {
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const dispatch = useDispatch();
+  
 
   const getAppliedData = () => {
     setMiniloading(true)
