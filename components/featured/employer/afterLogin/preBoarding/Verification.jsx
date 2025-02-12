@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { camelCase, formatInterviewDate } from "../../../../../utils/middleware";
+import {
+  camelCase,
+  formatInterviewDate,
+} from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
 import { Document, Page, pdfjs } from "react-pdf";
 import InlineSVG from "../../../../common/InlineSvg";
@@ -67,6 +70,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     }
   }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
 
+
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
@@ -121,11 +125,9 @@ const Verification = ({ toggleContentt, setToggle }) => {
   };
 
   const verify = async (applicant) => {
-    await setVerifyApplicant(applicant)
-    setDocumentation(true)
-
-  }
-
+    await setVerifyApplicant(applicant);
+    setDocumentation(true);
+  };
 
   const labels = [
     "Name of Candidate",
@@ -144,7 +146,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
     "Previous Work Experience": ["experienceLetter"],
   };
 
-
   const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();
 
@@ -160,11 +161,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
           boxShadow: " 0px 2px 10px 1px rgba(0, 0, 0, 0.25)",
           borderRadius: "8px",
           overflow: "scroll",
-          scrollbarWidth: "none"
-
-
-
-
+          scrollbarWidth: "none",
         }}
       >
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
@@ -217,7 +214,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                        <input className="w-[16px] h-[16px]" type="checkbox" />
+                        {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
                         <img
                           className="w-[40px] rounded-[50%]"
                           src="/images/employer/profile_icon.png"
@@ -276,15 +273,19 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           } ${applicants?.preboardingDetails?.preboardingStatus ===
                             "Pending"
                             ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails?.preboardingStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails?.preboardingStatus === "Approved" || applicants?.preboardingDetails?.preboardingStatus === "Hired"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails?.preboardingStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-
-                                  : "text-[#333333]"
-                          }`}
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Approved" ||
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
@@ -293,10 +294,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       <div className="flex   items-center w-full  justify-between">
                         {applicants?.preboardingDetails
                           ?.isMovedToReleaseOffer ? (
-                          <div
-
-                            className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]"
-                          >
+                          <div className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]">
                             Moved forward
                           </div>
                         ) : (
@@ -652,18 +650,23 @@ const Verification = ({ toggleContentt, setToggle }) => {
                 </div>
 
                 <div className="flex flex-col items-start gap-[16px]">
-                  {Object.entries(documentCategories).map(([category, docKeys]) => {
+                  {Object.entries(documentCategories).map(
+                    ([category, docKeys]) => {
+                      const categoryDocs = Object.entries(
+                        VerifyApplicant?.preboardingDetails
+                          ?.uploadedDocuments || {}
+                      ).filter(([key]) => docKeys.includes(key));
 
-                    const categoryDocs = Object.entries(VerifyApplicant?.preboardingDetails?.uploadedDocuments || {})
-                      .filter(([key]) => docKeys.includes(key));
+                      if (categoryDocs.length === 0) return null;
 
-                    if (categoryDocs.length === 0) return null;
-
-                    return (
-                      <div key={category} className="w-full flex flex-col gap-2">
-                        <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
-                          {camelCase(category)}
-                        </p>
+                      return (
+                        <div
+                          key={category}
+                          className="w-full flex flex-col gap-2"
+                        >
+                          <p className="text-[16px] px-[5%] scr420:px-[0%] text-[#333] font-[600]">
+                            {camelCase(category)}
+                          </p>
 
                         <div className="flex flex-start flex-wrap gap-4 px-[5%] scr420:px-[0%]">
                           {categoryDocs.map(([key, value], index) => {
@@ -673,18 +676,24 @@ const Verification = ({ toggleContentt, setToggle }) => {
                             const isPDF = fileExtension === "pdf";
                             const isDoc = ["doc", "docx"].includes(fileExtension);
 
-                            return (
-                              <div key={index} className="flex flex-col gap-2">
-                                {key === "OtherCertifications" || key === "experienceLetter" ? "" :
-                                  <p className="text-[14px] font-[500] text-[#333]">
-
-                                    {camelCase(key.replace(/([A-Z])/g, " $1").trim())}
-
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex flex-col gap-2"
+                                >
+                                  {key === "OtherCertifications" ||
+                                  key === "experienceLetter" ? (
+                                    ""
+                                  ) : (
+                                    <p className="text-[14px] font-[500] text-[#333]">
+                                      {camelCase(
+                                        key.replace(/([A-Z])/g, " $1").trim()
+                                      )}
+                                    </p>
+                                  )}
+                                  <p className="text-[12px] font-[400] text-[#333]">
+                                    {camelCase(value.fileName)}
                                   </p>
-                                }
-                                <p className="text-[12px] font-[400] text-[#333]">
-                                  {camelCase(value.fileName)}
-                                </p>
 
                                 {isImage ? (
                                   <div className=" cursor-pointer"
@@ -720,18 +729,18 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                           width: "180px",
                                           objectFit: "contain",
                                           borderRadius: "8px",
-                                          boxShadow: "0px 0px 4.9px 0px #00000040",
+                                          boxShadow:
+                                            "0px 0px 4.9px 0px #00000040",
                                           overflow: "hidden",
                                           cursor: "pointer",
                                         }}
                                       >
                                         <iframe
-                                          src={`https://docs.google.com/gview?url=${encodeURIComponent(value.file)}&embedded=true`}
-
+                                          src={`https://docs.google.com/gview?url=${encodeURIComponent(
+                                            value.file
+                                          )}&embedded=true`}
                                         />
                                       </div>
-
-
                                     </>
                                     :
                                     <div onClick={() => { setSelectedFile(value.file); setIsOpen(true) }} style={{
@@ -764,9 +773,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     );
                   })}
                 </div>
-
-
-
 
                 <div className="w-full justify-end gap-4 flex ">
                   <button

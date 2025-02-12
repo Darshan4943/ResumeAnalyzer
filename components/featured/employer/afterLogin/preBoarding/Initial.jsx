@@ -189,12 +189,12 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                   <div className="grid grid-cols-5 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
-                        <input
+                        {/* <input
                           className="w-[16px] h-[16px]"
                           type="checkbox"
                           checked={!!checkedjob[index]}
                           onChange={() => handleCheckboxChange(index)}
-                        />
+                        /> */}
                         <img
                           className="w-[40px]  rounded-[50%]"
                           src="/images/employer/profile_icon.png"
