@@ -131,7 +131,6 @@ console.log(888,jobs)
         : [...prevChecked, job]
     );
   };
-  const handleSearch = () => {};
 
   return (
     <>
