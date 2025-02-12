@@ -173,7 +173,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                   <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                        <input className="w-[16px] h-[16px]" type="checkbox" />
+                        {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
                         <img
                           className="w-[40px] rounded-[50%]"
                           src="/images/employer/profile_icon.png"
