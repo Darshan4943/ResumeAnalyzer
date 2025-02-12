@@ -54,23 +54,27 @@ function Layout({ children }) {
 
   const Temp2 = () => (
     <div className="">
-
-      <div>
-        <EmployerHeader />
-      </div>
-
-      <div className="flex bg-[#f3f3f3] relative  ">
-      <div className=" ml:max-h-[100vh] min-h-[100vh] ml:block hidden overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
-          style={{ scrollbarWidth: "none" }}>
-          <EmployerSidebar />
+      {!pageOpened &&
+        <div>
+          <EmployerHeader />
         </div>
+      }
+      <div className="flex bg-[#f3f3f3] relative min-h-[100vh]  ">
+        {!pageOpened &&
+          <div className=" ml:max-h-[100vh] min-h-[100vh] ml:block hidden overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
+            style={{ scrollbarWidth: "none" }}>
+            <EmployerSidebar />
+          </div>
+        }
         <div className="  overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative "
           style={{ scrollbarWidth: "none" }}
         >
           {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}
+          {!pageOpened &&
             <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-6 px-2 ">
               <Breadcrumb />
             </div>
+          }
           {/* } */}
           <div className="ml:px-6 px-2  pb-4">
             {children}
@@ -81,7 +85,7 @@ function Layout({ children }) {
   );
   return (
     <>
-      {( userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> : <Temp />}
+      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

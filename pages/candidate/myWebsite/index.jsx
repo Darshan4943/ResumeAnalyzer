@@ -105,12 +105,12 @@ const Index = () => {
           );
 
           if (response.status === 200) {
-            console.log(22222,response.data)
+          
             const updatedCandidate = response.data;
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `http://localhost:3000/${userDataGlobal.id}/${userDataGlobal.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);

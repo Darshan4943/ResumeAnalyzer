@@ -375,7 +375,7 @@ console.log(444,applicant);
                 }}
               />
               <p className="text-[14px] font-Montserrat font-medium text-[#333]">
-                Certifications
+                Other Certifications
               </p>
             </div>
           </div>
