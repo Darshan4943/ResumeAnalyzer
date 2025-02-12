@@ -7,7 +7,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { camelCase, formatInterviewDate } from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
-
+import { Document, Page, pdfjs } from "react-pdf";
+import InlineSVG from "../../../../common/InlineSvg";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Verification = ({ toggleContentt, setToggle }) => {
   const [documentation, setDocumentation] = useState(false);
@@ -28,7 +30,10 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isUpdate, setIsUpdate] = useState(false);
   const [VerifyApplicant, setVerifyApplicant] = useState();
-  console.log(VerifyApplicant)
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -112,13 +117,40 @@ const Verification = ({ toggleContentt, setToggle }) => {
   };
 
 
+  const PdfViewer = ({ pdfUrl }) => {
+    const [numPages, setNumPages] = useState();
 
+    function onDocumentLoadSuccess(numPages) {
+      setNumPages(numPages);
+    }
+
+    return (
+      <div
+        style={{
+          width: "180px",
+          height: "100px",
+          boxShadow: " 0px 2px 10px 1px rgba(0, 0, 0, 0.25)",
+          borderRadius: "8px",
+          overflow: "scroll",
+          scrollbarWidth: "none"
+
+
+
+
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
 
   return (
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-        <div
+          <div
             className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
             style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
           >
@@ -541,7 +573,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
 
                             return (
                               <div key={index} className="flex flex-col gap-2">
-                                {key==="OtherCertifications" || key==="experienceLetter" ? "" :
+                                {key === "OtherCertifications" || key === "experienceLetter" ? "" :
                                   <p className="text-[14px] font-[500] text-[#333]">
 
                                     {camelCase(key.replace(/([A-Z])/g, " $1").trim())}
@@ -559,28 +591,74 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                     style={{
                                       height: "100px",
                                       width: "180px",
-                                      objectFit: "cover",
-                                      borderRadius: "8px"
+                                      objectFit: "contain",
+                                      borderRadius: "8px",
+                                      boxShadow: "0px 0px 4.9px 0px #00000040"
+
+
                                     }}
                                   />
-                                ) : (
-                                  <a
-                                    href={value.file}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center bg-gray-200 rounded-lg w-[180px] h-[100px] text-center text-sm font-medium text-[#333]"
-                                    style={{
-                                      border: "1px solid #ccc"
-                                    }}
-                                  >
-                                    {isPDF ? "📄 PDF File" : isDoc ? "📑 DOC File" : "📂 File"}
-                                  </a>
-                                )}
+                                ) : isPDF ? (
+                                  <div className="docs ">
+                                    <PdfViewer pdfUrl={value?.file} />
+                                  </div>
+
+                                ) :
+                                  isDoc ?
+
+                                    <>
+                                      <div
+                                        onClick={openModal}
+                                        style={{
+                                          height: "100px",
+                                          width: "180px",
+                                          objectFit: "contain",
+                                          borderRadius: "8px",
+                                          boxShadow: "0px 0px 4.9px 0px #00000040",
+                                          overflow: "hidden",
+                                          cursor: "pointer",
+                                        }}
+                                      >
+                                        <iframe
+                                          src={`https://docs.google.com/gview?url=${encodeURIComponent(value.file)}&embedded=true`}
+
+                                        />
+                                      </div>
+
+
+                                    </>
+                                    :
+                                    <div style={{
+                                      height: "100px",
+                                      width: "180px",
+                                      objectFit: "contain",
+                                      borderRadius: "8px",
+                                      boxShadow: "0px 0px 4.9px 0px #00000040",
+                                      overflow: "hidden",
+
+
+                                    }}>
+                                      <InlineSVG imageUrl={value?.file} />
+                                    </div>
+                                }
                               </div>
                             );
                           })}
 
                         </div>
+                        {isOpen && (
+                          <div
+                            className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 z-5000"
+                            onClick={closeModal}
+                          >
+                            <div className="bg-white p-4 rounded-lg shadow-lg w-[90%] h-[90%] flex items-center justify-center">
+                              <iframe
+                                src={`https://docs.google.com/gview?url=${encodeURIComponent(value.file)}&embedded=true`}
+                                className="w-full h-full"
+                              />
+                            </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}

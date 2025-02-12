@@ -170,6 +170,7 @@ function UploadDocuments() {
                                                     ref={(el) => (fileRefs.current[key] = el)}
                                                     style={{ display: "none" }}
                                                     onChange={(e) => handleFileChange(e, key)}
+                                                    accept=".pdf,.jpg,.jpeg,.png,"
 
                                                 />
 
@@ -191,26 +192,22 @@ function UploadDocuments() {
                                                 ) : (
                                                     <div className="w-full">
                                                         <div className="flex flex-col items-center">
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="40"
-                                                                height="40"
-                                                                viewBox="0 0 40 40"
-                                                                fill="none"
-                                                                onClick={() => fileRefs.current[key]?.click()}
-                                                                style={{ cursor: "pointer" }}
-                                                            >
-                                                                <g clipPath="url(#clip0_4121_52475)">
-                                                                    <path d="M25 13.3333H25.0167" stroke="#06A9EF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                                    <path
-                                                                        d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
-                                                                        stroke="#06A9EF"
-                                                                        strokeWidth="2"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    />
+                                                          
+                                                            <svg onClick={() => fileRefs.current[key]?.click()}
+                                                                style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g clip-path="url(#clip0_6706_107586)">
+                                                                    <path d="M15.5 8H15.51" stroke="#06A9EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M17.5 4H7.5C5.84315 4 4.5 5.34315 4.5 7V17C4.5 18.6569 5.84315 20 7.5 20H17.5C19.1569 20 20.5 18.6569 20.5 17V7C20.5 5.34315 19.1569 4 17.5 4Z" stroke="#06A9EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M4.5 15L8.5 11C8.95606 10.5611 9.47339 10.3301 10 10.3301C10.5266 10.3301 11.0439 10.5611 11.5 11L16.5 16" stroke="#06A9EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M14.5 14L15.5 13C15.9561 12.5611 16.4734 12.3301 17 12.3301C17.5266 12.3301 18.0439 12.5611 18.5 13L20.5 15" stroke="#06A9EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                                 </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_6706_107586">
+                                                                        <rect width="24" height="24" fill="white" transform="translate(0.5)" />
+                                                                    </clipPath>
+                                                                </defs>
                                                             </svg>
+
                                                         </div>
 
                                                         <div className="flex flex-col gap-[4px] font-normal">
@@ -221,7 +218,7 @@ function UploadDocuments() {
                                                                 </span>
                                                                 &nbsp;to upload
                                                             </div>
-                                                            <p className="text-center text-[12px] font-normal text-[#7C8493]">PDF or DOCS</p>
+                                                            {/* <p className="text-center text-[12px] font-normal text-[#7C8493]">PDF, JPG, JPEG, PNG</p> */}
                                                         </div>
                                                     </div>
                                                 )}

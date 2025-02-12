@@ -147,6 +147,14 @@ html {
     height: 330px !important;
   }
 }
+.docs {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 170px !important;
+    height: 260px !important;
+  }
+}
 
 // @media (max-width: 460px) {
 //   .resumes {
