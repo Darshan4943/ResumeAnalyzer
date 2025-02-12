@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 
-
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import GenerateOffer from "./GenerateOffer";
 import EditOfferTemplate from "./EditOfferTemplate";
-import { applicants, applicantsMobile, headings } from "../../../../../utils/preboardArray";
+import {
+  applicants,
+  applicantsMobile,
+  headings,
+} from "../../../../../utils/preboardArray";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -14,8 +17,7 @@ import { formatInterviewDate } from "../../../../../utils/middleware";
 import CustomPagination from "../../../../common/CustomPagination";
 
 const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
-
-  const [generateOffer, setGenerateOffer] = useState(false)
+  const [generateOffer, setGenerateOffer] = useState(false);
 
   const [option, setOption] = useState(0);
   const [isRemind, setIsRemind] = useState(false);
@@ -28,15 +30,23 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
   const [miniLoading, setMiniloading] = useState(true);
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
- 
+  const [offerData, setOfferData] = useState({
+    applicantId: null,
+    jobId: null,
+    jobTitle: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
-  const [popup, setPopup] = useState(false)
-  const [successfull, setSuccessfull] = useState(false)
+  const [popup, setPopup] = useState(false);
+  const [successfull, setSuccessfull] = useState(false);
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
 
@@ -51,14 +61,12 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
             search: searchQuery.trim(),
             level: "offerRelease",
           },
-
         }
       );
 
       setJobs(response.data.applications || []);
       setTotalCount(response.data.pagination?.totalApplications || 0);
       setTotalPages(response.data.pagination?.totalPages || 0);
-      console.log(1221122, response.data);
       toast.dismiss();
     } catch (err) {
       console.error("Error fetching job applications:", err);
@@ -66,29 +74,24 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     } finally {
       setMiniloading(false);
     }
-  }, [userDataGlobal?._id, searchQuery, isUpdate,page,limit]);
+  }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
     }
   }, [fetchJobs]);
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+ 
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
     const selectedHeading = headings[index];
   };
 
-  
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
 
   const handleDotClick = (index) => {
-
     setMoreOption((prev) => !prev);
     setSelectedDotIndex(index);
   };
-
 
   const taskRef = useRef(null);
 
@@ -99,12 +102,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
 
   const labels = [
     "Name of Candidate",
@@ -115,12 +117,22 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     "Offer Acceptance",
     "Actions",
   ];
+
+  const handleGenerateOffer = async(applicants) => {
+   await setOfferData({
+      applicantId: applicants.applicantId,
+      jobId: applicants.jobId,
+      jobTitle: applicants.jobTitle,
+      firstName: applicants?.details?.personal?.firstName,
+      lastName: applicants?.details?.personal?.lastName,
+      email:applicants?.details?.personal?.email
+    });
+    setGenerateOffer(true);
+  };
+
   return (
-
-
     <>
       <div className="web w-full">
-
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div className="w-full flex items-center justify-between border-[1px] border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
             {headings.map((items, index) => (
@@ -161,9 +173,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
           <div className="grid grid-cols-1 w-full">
             {jobs?.map((applicants, index) => (
               <>
-                <div
-                  className="flex w-[100%] py-[16px]  border-b border-[#D4D4D480] bg-[#FFFFFF] justify-between items-center"
-                >
+                <div className="flex w-[100%] py-[16px]  border-b border-[#D4D4D480] bg-[#FFFFFF] justify-between items-center">
                   <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
@@ -174,7 +184,8 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicants.details?.personal?.firstName}  {applicants.details?.personal?.lastName}
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
                         </p>
                       </div>
                     </div>
@@ -189,41 +200,54 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus === "Verified"
-                        ? "text-[#0C8A0A]"
-                        : "text-[#333]"
-                        } `}
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants.preboardingDetails?.documentStatus ===
+                        "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                      } `}
                     >
-                      {applicants?.preboardingDetails?.documentStatus === "notRequired" ? "Not Required" : applicants?.preboardingDetails?.documentStatus}
+                      {applicants?.preboardingDetails?.documentStatus ===
+                      "notRequired"
+                        ? "Not Required"
+                        : applicants?.preboardingDetails?.documentStatus}
                     </div>
                     <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
                       {applicants.role}
                     </div>
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Pending"
                             ? "bg-[#FFF9ED]"
-                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-
-                                  : ""
-                          } ${applicants?.preboardingDetails?.offerAcceptanceStatus === "Pending"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails
+                            ?.offerAcceptanceStatus === "Pending"
                             ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails?.offerAcceptanceStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails?.offerAcceptanceStatus === "Accepted"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails?.offerAcceptanceStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-
-                                  : "text-[#333333]"
-                          }`}
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
                       >
                         {applicants?.preboardingDetails?.offerAcceptanceStatus}
                       </div>
@@ -231,32 +255,33 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex   items-center w-full  justify-between relative">
-                          {applicants?.preboardingDetails?.isOfferRelease ?
+                          {applicants?.preboardingDetails?.isOfferRelease ? (
                             <div
-                             
                               className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-[#ABABAB]  text-[#ABABAB]`}
                             >
                               Offer Released
-                            </div> :
+                            </div>
+                          ) : (
                             <>
-                              {
-                                applicants?.preboardingDetails?.isOfferGenerated ?
-                                  <button
-                                  
-                                    className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}
-                                  >
-                                    Release Offer
-                                  </button> : <button
-                                  onClick={() => setGenerateOffer(true)}
-                                    className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center items-center text-[#fff] bg-[#06A9EF] rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
-
-
-                                  >
-                                    Generate Offer
-                                  </button>
-                              }
+                              {applicants?.preboardingDetails
+                                ?.isOfferGenerated ? (
+                                <button
+                                  className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}
+                                >
+                                  Release Offer
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    handleGenerateOffer(applicants)
+                                  }
+                                  className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center items-center text-[#fff] bg-[#06A9EF] rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
+                                >
+                                  Generate Offer
+                                </button>
+                              )}
                             </>
-                          }
+                          )}
 
                           <img
                             onClick={() => handleDotClick(index)}
@@ -267,32 +292,23 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                           <AnimatePresence>
                             {moreOption && selectedDotIndex === index && (
                               <motion.div
-                                initial={{ x: '100%' }}
+                                initial={{ x: "100%" }}
                                 animate={{ x: 0 }}
-                                exit={{ x: '100%' }}
+                                exit={{ x: "100%" }}
                                 transition={{ duration: 0.5 }}
                                 ref={taskRef}
-                                className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                                className="absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                                style={{
+                                  boxShadow:
+                                    "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                }}
                               >
-
-                                <div >
-                                  View Offer
-
-                                </div>
-                                <div >
-                                  Edit Offer
-
-                                </div>
-                                <div >
-                                  Release Offer
-
-                                </div>
-                                <div className="text-[#C00000]" >
+                                <div>View Offer</div>
+                                <div>Edit Offer</div>
+                                <div>Release Offer</div>
+                                <div className="text-[#C00000]">
                                   Cancel Offer
-
                                 </div>
-
-
                               </motion.div>
                             )}
                           </AnimatePresence>
@@ -376,167 +392,150 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {applicantsMobile.map((applicantsMobile, index) => (
-                <>
-                  <div
-                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
-                    style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                  >
-                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                      <div className="flex justify-between items-center self-stretch">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-[40px] h-[40px]"
-                            src="/images/profile/john_doe.png"
-                            alt=""
-                          />
-                          <p className="text-[14px] text-[#333] font-[600]">
-                            {applicantsMobile.name}
-                          </p>
-                        </div>
-                        <div className="flex justify-end items-center gap-4 relative">
-                          <img
-                            onClick={() => handleDotClick(index)}
-                            className="w-[24px]"
-                            src="/images/employer/three-dot1.png"
-                            alt=""
-                          />
-
-                          <AnimatePresence>
-                            {moreOption && selectedDotIndex === index && (
-                              <motion.div
-                                initial={{ x: '100%' }}
-                                animate={{ x: 0 }}
-                                exit={{ x: '100%' }}
-                                transition={{ duration: 0.5 }}
-                                ref={taskRef}
-                                className='absolute flex flex-col text-[14px] rounded-[8px]  w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                              >
-
-                                <div >
-                                  View Offer
-
-                                </div>
-                                <div >
-                                  Edit Offer
-
-                                </div>
-                                <div >
-                                  Release Offer
-
-                                </div>
-                                <div className="text-[#C00000]" >
-                                  Cancel Offer
-
-                                </div>
-
-
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Job Role
-                        </p>
-                        <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                          {applicantsMobile.role}
+              <>
+                <div
+                  className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
+                  style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                >
+                  <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                    <div className="flex justify-between items-center self-stretch">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-[40px] h-[40px]"
+                          src="/images/profile/john_doe.png"
+                          alt=""
+                        />
+                        <p className="text-[14px] text-[#333] font-[600]">
+                          {applicantsMobile.name}
                         </p>
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Due Date
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.dueDate}
-                        </p>
+                      <div className="flex justify-end items-center gap-4 relative">
+                        <img
+                          onClick={() => handleDotClick(index)}
+                          className="w-[24px]"
+                          src="/images/employer/three-dot1.png"
+                          alt=""
+                        />
+
+                        <AnimatePresence>
+                          {moreOption && selectedDotIndex === index && (
+                            <motion.div
+                              initial={{ x: "100%" }}
+                              animate={{ x: 0 }}
+                              exit={{ x: "100%" }}
+                              transition={{ duration: 0.5 }}
+                              ref={taskRef}
+                              className="absolute flex flex-col text-[14px] rounded-[8px]  w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
+                            >
+                              <div>View Offer</div>
+                              <div>Edit Offer</div>
+                              <div>Release Offer</div>
+                              <div className="text-[#C00000]">Cancel Offer</div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Doc Status
-                        </p>
-                        <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
+                    </div>
+
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Job Role
+                      </p>
+                      <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
+                        {applicantsMobile.role}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Due Date
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicantsMobile.dueDate}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Doc Status
+                      </p>
+                      <div
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                          applicantsMobile.verifyStatus === "Verified"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                            } `}
-                        >
-                          {applicantsMobile.verifyStatus}
-                        </div>
-
+                        } `}
+                      >
+                        {applicantsMobile.verifyStatus}
                       </div>
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          Recruiter
-                        </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                          {applicantsMobile.Recruiting}
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        Recruiter
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicantsMobile.Recruiting}
+                      </p>
+                    </div>
 
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                        {applicantsMobile.proboard}
+                      </p>
+                      <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
+                        <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
+                          In Review
                         </p>
                       </div>
-
-                      <div className="flex justify-between items-center self-stretch">
-                        <p className="text-[14px] text-[#646464] font-[500]">
-                          {applicantsMobile.proboard}
+                    </div>
+                    <div className="flex justify-center w-[100%]">
+                      <div
+                        onClick={() => setGenerateOffer(true)}
+                        className="flex w-[260px] px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
+                        style={{
+                          borderRadius: "8px",
+                          border: " 1px solid var(--primary, #06A9EF)",
+                        }}
+                      >
+                        <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          {applicantsMobile.offer}
                         </p>
-                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                          <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                            In Review
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex justify-center w-[100%]">
-                        <div
-                          onClick={() => setGenerateOffer(true)}
-                          className="flex w-[260px] px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
-                          style={{
-                            borderRadius: "8px",
-                            border: " 1px solid var(--primary, #06A9EF)",
-                          }}
-                        >
-                          <p
-
-
-                            className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-
-                            {applicantsMobile.offer}
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </div>
-                </>
-              ))}
-
-
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </div>
 
-
       {totalCount > 9 && (
-          <CustomPagination
-            setMiniloading={setMiniloading}
-            miniLoading={miniLoading}
-            setPage={setPage}
-            title={"preboarding"}
-            setLimit={setLimit}
-            defaultLimit={10}
-            totalPages={totalPages}
-            limit={limit}
-            page={page}
-          />
-        )}
-      {
-        generateOffer &&
-        <GenerateOffer setGenerateOffer={setGenerateOffer} setPopup={setPopup} setSuccessfull={setSuccessfull} setEditTemplate={setEditTemplate} />
-      }
+        <CustomPagination
+          setMiniloading={setMiniloading}
+          miniLoading={miniLoading}
+          setPage={setPage}
+          title={"preboarding"}
+          setLimit={setLimit}
+          defaultLimit={10}
+          totalPages={totalPages}
+          limit={limit}
+          page={page}
+        />
+      )}
+      {generateOffer && (
+        <GenerateOffer
+          setGenerateOffer={setGenerateOffer}
+          setPopup={setPopup}
+          setSuccessfull={setSuccessfull}
+          setEditTemplate={setEditTemplate}
+          offerData={offerData}
+        />
+      )}
 
-
-      {
-        popup &&
-
+      {popup && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
@@ -569,7 +568,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                   <p className="text-[20px] text-[#333] font-[500] ">
                     Job title
                   </p>
-                  <input type="text" className="w-full flex py-[8px] px-[16px] items-center gap-[8px] rounded-[6px] border-[1px] border-[#646464] text-[14px] text-[#646464] font-[600] leading-[16px]" placeholder="it will be Prefilled" />
+                  <input
+                    type="text"
+                    className="w-full flex py-[8px] px-[16px] items-center gap-[8px] rounded-[6px] border-[1px] border-[#646464] text-[14px] text-[#646464] font-[600] leading-[16px]"
+                    placeholder="it will be Prefilled"
+                  />
                 </div>
 
                 <div className="ms:flex ms:flex-row flex flex-col gap-[24px] w-full  items-start">
@@ -577,13 +580,23 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                     <p className="text-[20px] text-[#333] font-[500] ">
                       Date of Joining
                     </p>
-                    <input type="date" placeholder="Select Date" className="border-[1px] border-[#646464] rounded-[6px] py-[8px] px-[16px]" id="" />
+                    <input
+                      type="date"
+                      placeholder="Select Date"
+                      className="border-[1px] border-[#646464] rounded-[6px] py-[8px] px-[16px]"
+                      id=""
+                    />
                   </div>
                   <div className="flex flex-col gap-[8px] w-full ms:w-[300px] ">
                     <p className="text-[20px] text-[#333] font-[500] ">
                       Offer end Date
                     </p>
-                    <input type="date" placeholder="Select Date" className="border-[1px] border-[#646464] rounded-[6px] py-[8px] px-[16px]" id="" />
+                    <input
+                      type="date"
+                      placeholder="Select Date"
+                      className="border-[1px] border-[#646464] rounded-[6px] py-[8px] px-[16px]"
+                      id=""
+                    />
                   </div>
                 </div>
 
@@ -591,27 +604,32 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                   <p className="text-[20px] text-[#333] font-[500] ">
                     Annual Salary
                   </p>
-                  <input type="text" className="w-full flex py-[8px] px-[16px] items-center gap-[8px] rounded-[6px] border-[1px] border-[#646464] text-[14px] text-[#646464] font-[600] leading-[16px]" placeholder="it will be Prefilled" />
+                  <input
+                    type="text"
+                    className="w-full flex py-[8px] px-[16px] items-center gap-[8px] rounded-[6px] border-[1px] border-[#646464] text-[14px] text-[#646464] font-[600] leading-[16px]"
+                    placeholder="it will be Prefilled"
+                  />
                 </div>
 
                 <div className="w-full justify-end gap-4 flex ">
                   <button
                     onClick={() => setPopup(false)}
-                    className="flex items-center justify-center py-[8px] px-[24px] rounded-[12px] font-[600] border-[1px] text-[#333] border-[#06A9EF] bg-[#fff]">
+                    className="flex items-center justify-center py-[8px] px-[24px] rounded-[12px] font-[600] border-[1px] text-[#333] border-[#06A9EF] bg-[#fff]"
+                  >
                     Back
                   </button>
                   <button
                     onClick={() => setSuccessfull(true)}
-                    className="flex items-center justify-center py-[8px] px-[24px] rounded-[12px] font-[600] border-[1px] text-[#fff] border-[#06A9EF] bg-[#06A9EF]">
+                    className="flex items-center justify-center py-[8px] px-[24px] rounded-[12px] font-[600] border-[1px] text-[#fff] border-[#06A9EF] bg-[#06A9EF]"
+                  >
                     Generate Offer
                   </button>
                 </div>
-
               </div>
             </div>
           </div>
         </>
-      }
+      )}
       {successfull && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -653,7 +671,9 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
               </div>
               <div className="flex justify-center">
                 <button
-                  onClick={() => { setPopup(false), setSuccessfull(false) }}
+                  onClick={() => {
+                    setPopup(false), setSuccessfull(false);
+                  }}
                   className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                 >
                   Done
@@ -663,13 +683,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
           </div>
         </>
       )}
-
-
     </>
-
-
-
-
   );
 };
 
