@@ -355,27 +355,29 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               </div>
             </div>
           </div>
-          <div className=" w-full flex flex-col gap-[8px]">
-            <div className="text-[14px] font-[500]">If Yes, Select one</div>
-            <div className="md:w-[50%] w-[100%]">
-              <select
-                onChange={(e) =>
-                  setData({ ...Data, workPermitDescription: e.target.value })
-                }
-                value={Data.workPermitDescription}
-                className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
-                placeholder="Select your work permit"
-                type="text"
-                name="url"
-                id=""
-              >
-                <option value="a">a</option>
-                <option value="b">b</option>
-                <option value="c">c</option>
-                <option value="d">d</option>
-              </select>
+          {Data.haveWorkPermit && (
+            <div className=" w-full flex flex-col gap-[8px]">
+              <div className="text-[14px] font-[500]">If Yes, Select one</div>
+              <div className="md:w-[50%] w-[100%]">
+                <select
+                  onChange={(e) =>
+                    setData({ ...Data, workPermitDescription: e.target.value })
+                  }
+                  value={Data.workPermitDescription}
+                  className=" text-[12px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+                  placeholder="Select your work permit"
+                  type="text"
+                  name="url"
+                  id=""
+                >
+                  <option value="a">a</option>
+                  <option value="b">b</option>
+                  <option value="c">c</option>
+                  <option value="d">d</option>
+                </select>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="flex flex-col gap-[16px]">
           <div className="w-[50%] flex flex-col gap-[12px] text-[14px]  font-[500] ">

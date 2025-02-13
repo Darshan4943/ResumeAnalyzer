@@ -734,7 +734,7 @@ function Folders({
                   />
                   {trash ? (
                     <p className="scr420:text-[20px] text-[18px] font-[500] text-[#C00000] text-center">
-                      Delete Permanantly?
+                      Delete Permanently?
                     </p>
                   ) : (
                     <p className="text-[20px] font-[500] text-[#C00000] text-center">

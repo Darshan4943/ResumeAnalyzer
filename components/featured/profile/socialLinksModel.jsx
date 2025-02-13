@@ -22,7 +22,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "description") {
+    if (name === "discription") {
       if (value.length <= 400) {
         setData({
           ...data,
@@ -35,6 +35,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
         [name]: value,
       });
     }
+
     if (value.trim() !== "") {
       setErrors({ ...errors, [name]: "" });
     }
@@ -191,16 +192,14 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[14px] font-[500]">Description</div>
           <textarea
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
+            className="border border-[#DEDEDE] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
             name="discription"
             value={data.discription}
             onChange={handleInputChange}
-          >
-            {data.discription}
-          </textarea>
+          ></textarea>
           <div className="text-[12px] font-[400] text-[#646464] flex justify-end">
-            {400 - data.discription.length} characters left
+            {Math.max(0, 400 - data.discription.length)} characters left
           </div>
         </div>
         <div className="w-full flex justify-end">
