@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
 import LineChartt from "../../common/LineChart";
 import CountUp from "react-countup";
 import moment from "moment";
