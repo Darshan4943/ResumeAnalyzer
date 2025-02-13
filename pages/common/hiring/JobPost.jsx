@@ -53,6 +53,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     applicantId: null,
   });
   const [jobData, setJobData] = useState(null);
+  
 
   const handleCheckboxChangeFilter = (e, filter, applicantHeadName) => {
     const updatedFilters = { ...selectedFilters };
