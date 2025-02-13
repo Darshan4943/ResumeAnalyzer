@@ -219,7 +219,8 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                     </div>
                     <div
                       className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                          "Verified"
+                          "Verified" || applicants.preboardingDetails?.documentStatus ===
+                            "Submitted"
                           ? "text-[#0C8A0A]"
                           : "text-[#333]"
                         } `}
@@ -444,7 +445,8 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                       </p>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                            "Verified"
+                            "Verified" || applicants.preboardingDetails?.documentStatus ===
+                            "Submitted"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
                           } `}
