@@ -1,11 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 import debounce from "lodash.debounce";
-
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import ImageCropperResume from "../../../components/featured/candidate/createResume/components/imgCropperResume";
 import ImageContainer from "../../../components/common/image";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -13,6 +11,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import MiniLoader from "../../../components/common/miniLoader";
 import MiniLoader1 from "../../../components/common/mini-loader";
+import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
 
 function CreateCompany() {
   const [id, setId] = useState("");
@@ -443,7 +442,7 @@ function CreateCompany() {
         </div>
       )}
       {modelView && (
-        <ImageCropperResume
+        <ImageCropper
           setModelView={setModelView}
           file={file}
           setCroppedImage={setCroppedImage}

@@ -96,14 +96,14 @@ function Sign_up({ }) {
         email: user.email,
         userRole: role
       };
-     
+
       const sendToPurchase = localStorage.getItem("purchase");
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       let userRole = role
       axios
         .post(
           "http://localhost:2000/api/skiloteckuser/user/google/signup",
-          {userData,parseData:JSON.stringify(parseData)}
+          { userData, parseData: JSON.stringify(parseData) }
         )
         .then((res) => {
           localStorage.setItem("authToken", JSON.stringify(res.data));
@@ -214,7 +214,6 @@ function Sign_up({ }) {
   //     setSelectedItem(selectedItem);
   //   }
   // }, []);
-  console.log(formError);
   function validatePassword(password) {
     const strongPasswordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{6,}$/;
@@ -356,7 +355,7 @@ function Sign_up({ }) {
         errors[field.key] = field.error;
       }
     });
-    
+
 
     setFormError(errors);
     return Object.keys(errors).length === 0; // Return true if no errors
