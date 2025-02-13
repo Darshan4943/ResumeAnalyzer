@@ -53,7 +53,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     applicantId: null,
   });
   const [jobData, setJobData] = useState(null);
-  
 
   const handleCheckboxChangeFilter = (e, filter, applicantHeadName) => {
     const updatedFilters = { ...selectedFilters };
@@ -84,13 +83,26 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setCheckedApplicants((prev) => {
       const updated = [...prev];
 
-      if (updated[index]) {
-        return updated.filter((_, i) => i !== index);
+      if (updated.some((a) => a === applicant)) {
+        return updated.filter((a) => a !== applicant);
       } else {
-        updated[index] = applicant;
+        updated.push(applicant);
         return updated;
       }
     });
+  };
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setCheckedApplicants([]);
+    } else {
+      setCheckedApplicants(
+        jobDetails?.data?.applications.filter(
+          (app) => app.hiringStage !== "Rejected"
+        )
+      );
+    }
+    setSelectAll(!selectAll);
   };
 
   const handleReject = async () => {
@@ -608,9 +620,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       newHiringStage={"Shortlisted"}
                     />
                   )}
+
                   <div className="web">
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
-                      <input className="w-[16px] h-[16px]" type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={handleSelectAll}
+                      />
                       {applicant_head.map((applicant_head, index) => (
                         <div
                           key={index}
