@@ -208,7 +208,7 @@ function ShortlistMail({
                           ))}
                         </div>
                       }
-                      <div className="flex items-center min-w-[500px] gap-[10px]">
+                      <div className="flex items-center ml:min-w-[500px] gap-[10px]">
                         <input
                           type="text"
                           value={inputValue}

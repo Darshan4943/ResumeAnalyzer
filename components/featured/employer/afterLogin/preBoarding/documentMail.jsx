@@ -9,7 +9,7 @@ import "primeicons/primeicons.css";
 import MiniLoader from "../../../../common/mini-loader";
 
 function DocumentMail({
-    data, handleSubmit,setData,setSendMail
+    data, handleSubmit,setData,setSendMail,loading, setLoading
 
 }) {
    
@@ -26,7 +26,7 @@ function DocumentMail({
       
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const [loading, setLoading] = useState(false);
+    
     const [subject, setSubject] = useState(
         `Document Submission `
     );

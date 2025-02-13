@@ -22,7 +22,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
       setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
-console.log(444,applicant);
+
   const [data, setData] = useState({
     employerEmail: "",
     applicantId: "",
@@ -145,7 +145,7 @@ console.log(444,applicant);
     <>
 
       {sendMail &&
-        <DocumentMail data={data} handleSubmit={handleSubmit} setData={setData}  setSendMail={setSendMail}/>
+        <DocumentMail data={data} handleSubmit={handleSubmit} setData={setData}  setSendMail={setSendMail} loading={loading} setLoading={setLoading}/>
       }
 
       <div
@@ -448,14 +448,14 @@ console.log(444,applicant);
           >
             <button
               onClick={() => setStartPreboarding(false)}
-              className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
+              className="text-[16px] py-2 px-4 justify-center items-center rounded-[30px] bg-white font-Montserrat font-medium text-[#333]"
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               Cancel
             </button>
             <button
               onClick={() => setSendMail(true)}
-              className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
+              className="text-[16px] py-2 px-4 justify-center items-center rounded-[30px] bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
               Send

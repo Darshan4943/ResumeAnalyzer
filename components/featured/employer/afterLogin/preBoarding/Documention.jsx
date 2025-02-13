@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 import MiniLoader from "../../../../common/mini-loader";
 import CustomPagination from "../../../../common/CustomPagination";
+import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
 
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
@@ -33,8 +34,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const [jobData, setJobData] = useState({});
   const [emailDetails, setEmailDetails] = useState();
   const [loadingApplicantId, setLoadingApplicantId] = useState(null);
-
-
+  const [reject, setReject] = useState(false);
+  const [statusChange, setStatusChange] = useState(false);
   const reminder = async (applicants) => {
     setLoadingApplicantId(applicants.applicantId);
     await setJobData(applicants);
@@ -53,7 +54,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       subject: subject,
       jobId: applicants.jobId,
       applicantId: applicants.applicantId,
-      isPhotoId:applicants.preboardingDetails.documentList.isPhotoId,
+      isPhotoId: applicants.preboardingDetails.documentList.isPhotoId,
       isAddress: applicants.preboardingDetails.documentList.isAddress,
       isPayroll: applicants.preboardingDetails.documentList.isPayroll,
       isAcademic: applicants.preboardingDetails.documentList.isAcademic,
@@ -98,7 +99,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const [subject, setSubject] = useState(`Reminder for Document Submission `);
 
   const handleSend = async () => {
-    
+
     try {
       const response = await axios.post(
         "http://localhost:2000/api/preboarding/documentReminder",
@@ -153,7 +154,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
     if (userDataGlobal?._id) {
       fetchJobs();
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, statusChange]);
 
   const moveToVerification = async (applicantId, jobId) => {
     try {
@@ -181,7 +182,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-    "Recruiter",
+
     "Preboarding Status",
     "Actions",
   ];
@@ -209,7 +210,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
         </div>
 
         <div className="grid grid-rows-1 w-full ">
-          <div className="grid grid-cols-7 w-full grid-flow-col">
+          <div className="grid grid-cols-6 w-full grid-flow-col">
             {labels.map((req, index) => (
               <div
                 key={index}
@@ -225,7 +226,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
             {jobs?.map((applicants, index) => (
               <>
                 <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
-                  <div className="grid grid-cols-7 w-full px-4 py-2">
+                  <div className="grid grid-cols-6 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                         {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -252,35 +253,33 @@ const Documention = ({ toggleContentt, setToggle }) => {
                     </div>
                     <div
                       className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus ===
-                          "Submitted" ||
-                          applicants?.preboardingDetails?.documentStatus ===
-                          "Verified"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
+                        "Submitted" ||
+                        applicants?.preboardingDetails?.documentStatus ===
+                        "Verified"
+                        ? "text-[#0C8A0A]"
+                        : "text-[#333]"
                         } `}
                     >
                       {applicants?.preboardingDetails?.documentStatus}
                     </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
-                      {applicants?.role}
-                    </div>
+
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
                         className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails
+                            ?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
                             : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Pending"
-                              ? "bg-[#FFF9ED]"
+                              ?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
+                                ?.preboardingStatus === "Hired"
+                                ? "bg-[#E8FFE8]"
                                 : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Hired"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
+                                  ?.preboardingStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
+                                  : ""
                           } ${applicants?.preboardingDetails?.preboardingStatus ===
                             "Pending"
                             ? "text-[#FFB836]"
@@ -317,9 +316,9 @@ const Documention = ({ toggleContentt, setToggle }) => {
                               )
                             }
                             className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${!applicants?.preboardingDetails
-                                ?.isMovedToVerification
-                                ? "text-[#fff] bg-[#06A9EF]"
-                                : "text-[#ABABAB] border-[#ABABAB]"
+                              ?.isMovedToVerification
+                              ? "text-[#fff] bg-[#06A9EF]"
+                              : "text-[#ABABAB] border-[#ABABAB]"
                               }
                                 }`}
                           >
@@ -330,7 +329,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           </button>
                         ) : (
                           <>
-                             {loadingApplicantId === applicants.applicantId ? (
+                            {loadingApplicantId === applicants.applicantId ? (
                               <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
                                 <MiniLoader />
                               </div>
@@ -345,11 +344,22 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           </>
                         )}
 
-                        <img
-                          className="w-[24px]"
-                          src="/images/employer/three-dot.png"
-                          alt=""
-                        />
+                        <button
+                          disabled={applicants?.preboardingDetails?.preboardingStatus ===
+                            "Rejected"}
+                          onClick={() => {
+
+                            setReject(true);
+                            selectedApplicant(applicants);
+                          }}
+                          style={{
+                            opacity: applicants?.preboardingDetails?.preboardingStatus ===
+                              "Rejected" ? 0.5 : 1
+                          }}
+                          className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
+                        >
+                          Reject
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -416,49 +426,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4">
-                        <svg
-                          xlgns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <g clip-path="url(#clip0_7540_117410)">
-                            <path
-                              d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_7540_117410">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="matrix(0 1 -1 0 24 0)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
+                    
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -483,11 +451,11 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       </p>
                       <p
                         className={`text-[14px]  font-[600] font-Montserrat ${applicants?.preboardingDetails?.documentStatus ===
-                            "Submitted" ||
-                            applicants?.preboardingDetails?.documentStatus ===
-                            "Verified"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          "Submitted" ||
+                          applicants?.preboardingDetails?.documentStatus ===
+                          "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus}
@@ -509,20 +477,20 @@ const Documention = ({ toggleContentt, setToggle }) => {
 
                       <div
                         className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
+                          ? "bg-[#FFFFFF]"
+                          : applicants?.preboardingDetails
+                            ?.preboardingStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
                             : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Pending"
-                              ? "bg-[#FFF9ED]"
+                              ?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
+                                ?.preboardingStatus === "Hired"
+                                ? "bg-[#E8FFE8]"
                                 : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Hired"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
+                                  ?.preboardingStatus === "Rejected"
+                                  ? "bg-[#FFE6E2]"
+                                  : ""
                           } ${applicants?.preboardingDetails?.preboardingStatus ===
                             "Pending"
                             ? "text-[#FFB836]"
@@ -558,9 +526,9 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             )
                           }
                           className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${!applicants?.preboardingDetails
-                              ?.isMovedToVerification
-                              ? "text-[#fff] bg-[#06A9EF]"
-                              : "text-[#ABABAB] border-[#ABABAB]"
+                            ?.isMovedToVerification
+                            ? "text-[#fff] bg-[#06A9EF]"
+                            : "text-[#ABABAB] border-[#ABABAB] border"
                             }
                                 }`}
                         >
@@ -569,8 +537,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             : "Move to Next"}
                         </button>
                       ) : (
-                        <>
-                         {loadingApplicantId === applicants.applicantId ? (
+                        <div className="flex gap-4">
+                          {loadingApplicantId === applicants.applicantId ? (
                             <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
                               <MiniLoader />
                             </div>
@@ -582,7 +550,26 @@ const Documention = ({ toggleContentt, setToggle }) => {
                               Remind
                             </button>
                           )}
-                        </>
+                          {applicants?.preboardingDetails?.preboardingStatus !==
+                            "Rejected" &&
+                            <button
+                              disabled={applicants?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"}
+                              onClick={() => {
+
+                                setReject(true);
+                                selectedApplicant(applicants);
+                              }}
+                              style={{
+                                opacity: applicants?.preboardingDetails?.preboardingStatus ===
+                                  "Rejected" ? 0.5 : 1
+                              }}
+                              className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                            >
+                              Reject
+                            </button>
+                          }
+                        </div>
                       )}
                     </div>
                   </div>
@@ -657,6 +644,18 @@ const Documention = ({ toggleContentt, setToggle }) => {
           </div>
         </>
       )}
+      {reject &&
+        <ShortlistMail
+          shortlist={[applicant]}
+          setPopupVisible={setReject}
+          id={applicant?.jobId}
+
+
+          newHiringStage={"Rejected"}
+          setStatusChange={setStatusChange}
+          statusChange={statusChange}
+        />
+      }
     </>
   );
 };
