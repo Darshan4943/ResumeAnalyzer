@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import JobDetails from "./JobDetails";
-import Analytics from "../../../components/featured/employer/Analytics";
+
 import CustomPagination from "../../../components/common/CustomPagination";
 import MiniLoader from "../../../components/common/miniLoader";
 import MiniLoaderr from "../../../components/common/mini-loader";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { DownSvg, UpSvg } from "../../../utils/svg";
 import { useSelector } from "react-redux";
+import Analytics from "../../../components/featured/employer/Analytics";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const [moreOption, setMoreOption] = useState(false);
