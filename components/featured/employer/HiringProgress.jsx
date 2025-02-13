@@ -109,7 +109,7 @@ function HiringProgress({
                 </div>
               ) : (
                 <>
-                  {level?.status === "Shortlisted" || level?.status === "Rejected" ?
+                  {level?.status === "Shortlisted" || level?.status === "Rejected" || level?.status === "Hired" ?
                     <div className="flex gap-4 w-full ">
                       <div className="w-[24px]  ">
                         <svg
@@ -153,7 +153,7 @@ function HiringProgress({
                             </div>
                           )}
                           <div
-                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${level?.status === "Shortlisted" ? " text-[#0C8A0A] bg-[#E2FFE1]" : level?.status === "Rejected" ? " text-[#FF6550] bg-[#FFE6E2]":"" }  }`}
+                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${level?.status === "Hired" ? " text-[#0C8A0A] bg-[#E2FFE1]" : level?.status === "Shortlisted" ? " text-[#4640DE] bg-[#4640DE1A]" : level?.status === "Rejected" ? " text-[#FF6550] bg-[#FFE6E2]" : ""}  }`}
                           >
 
                             {level?.status}
@@ -381,17 +381,33 @@ function HiringProgress({
         )}
       </AnimatePresence>
 
-      {(successfull || taskSuccessfull) && (
+      {taskSuccessfull && (
         <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+          <div className="fixed z-[15000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[15000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
             <div
-              className="w-[330px] relative rounded-[16px] px-[16px] pt-[60px] pb-[16px] flex flex-col gap-[16px] bg-white"
+              className="w-[330px] relative rounded-[16px] p-4 flex flex-col gap-[16px] bg-white items-center"
+
               style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
             >
+              <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6706_89699)">
+                  <rect width="66" height="66" rx="33" fill="#0C8A0A" />
+
+                  <g mask="url(#mask0_6706_89699)">
+                    <path d="M26.7859 45.1778L15.6484 34.0403L18.7058 30.983L26.7859 39.0631L46.5131 19.3359L49.5705 22.3933L26.7859 45.1778Z" fill="white" />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6706_89699">
+                    <rect width="66" height="66" rx="33" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
               <div className="text-center">
                 <div className="text-[24px] font-[500] text-[#333]">
-                  {successfull ? "Interview" : "Task"} Scheduled Successfully
+                  {successfull === "Interview" ? "Interview Scheduled" : successfull === "Task" ? "Task Assigned" : successfull === "Shortlisted" ? "Shortlisted" : "Rejected"}  Successfully
                 </div>
               </div>
               <div className="flex justify-center">
@@ -400,7 +416,7 @@ function HiringProgress({
                     setSuccessfull(false);
                     setTaskSuccessfull(false);
                   }}
-                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                  className="py-[10px] px-[36px] rounded-[30px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500] h-[42px] flex items-center justify-center"
                 >
                   Done
                 </button>

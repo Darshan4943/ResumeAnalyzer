@@ -13,7 +13,7 @@ function JobPosting() {
   const query = router.query;
   const [openSort, setOpenSort] = useState(false);
   const [toggle, setToggle] = useState(0);
-  const [filterData, setFilterData] = useState({});
+  const [filterData, setFilterData] = useState({Status: 'Approved'});
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
@@ -25,6 +25,14 @@ function JobPosting() {
   const [attributes, setAttributes] = useState([]);
   const [miniLoading, setMiniloading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+
+console.log(filterData)
+  // useEffect(() => {
+  //   setFilterData((prev) => ({
+  //     ...prev,
+  //     ["Status"]: "Approved",
+  //   }));
+  // }, []);
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
@@ -92,7 +100,7 @@ function JobPosting() {
             },
             {
               ...prevHeadings[2],
-              options: ["Pending", "Approved"],
+              options: ["Approved"],
             },
             {
               ...prevHeadings[3],
@@ -127,7 +135,7 @@ function JobPosting() {
     },
     {
       heading: "Status",
-      options: ["Pending", "Approved"],
+      options: ["Approved"],
     },
     {
       heading: "Priority",
@@ -156,6 +164,7 @@ function JobPosting() {
               ...filterData,
               page,
               limit,
+
             },
           }
         );
@@ -178,6 +187,7 @@ function JobPosting() {
 
     fetchRequisitions();
   }, [filterData, page, limit]);
+
 
   const handleChangePage = (event, newPage) => {
     console.log("New Page:", newPage);
@@ -242,9 +252,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                    label: filterData[headingObj.heading],
-                                    value: filterData[headingObj.heading],
-                                  }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -287,9 +297,8 @@ function JobPosting() {
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
-                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                              }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                                }`}
                             >
                               <div className="w-[14%] text-center">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -306,7 +315,7 @@ function JobPosting() {
                               </p>
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                requisition.location.length > 0 ? (
+                                  requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -330,11 +339,10 @@ function JobPosting() {
 
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                                 {!requisition.budgetFrom &&
-                                !requisition.budgetTo
+                                  !requisition.budgetTo
                                   ? ""
-                                  : `$${requisition.budgetFrom || 0} - ${
-                                      requisition.budgetTo || ""
-                                    }`}
+                                  : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""
+                                  }`}
                               </p>
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                                 {userDataGlobal?.name || "-"}

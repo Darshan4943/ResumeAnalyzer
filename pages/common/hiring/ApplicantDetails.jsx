@@ -19,7 +19,7 @@ function ApplicantDetails({ setTogglee }) {
   const { id, applicantId } = router.query;
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [statusChange, setStatusChange] = useState(false);
-  const [successfull, setSuccessfull] = useState(false);
+  const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
 
   const getData = async () => {
@@ -63,7 +63,7 @@ function ApplicantDetails({ setTogglee }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (taskSuccessfull) {
+      if ( taskSuccessfull ) {
         await getData();
         setToggle("HiringProgress");
       }

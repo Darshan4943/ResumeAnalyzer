@@ -345,12 +345,14 @@ function RecentApplications({ isPending }) {
                         <button
                           disabled={
                             applicant?.hiringStage === "Rejected" ||
-                            applicant?.hiringStage === "Shortlisted"
+                            applicant?.hiringStage === "Shortlisted"  ||
+                            applicant?.hiringStage === "Hired" 
                           }
                           style={{
                             opacity:
                               applicant?.hiringStage === "Rejected" ||
-                              applicant?.hiringStage === "Shortlisted"
+                              applicant?.hiringStage === "Shortlisted"  ||
+                              applicant?.hiringStage === "Hired" 
                                 ? 0.5
                                 : 1,
                           }}

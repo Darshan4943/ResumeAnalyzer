@@ -25,6 +25,16 @@ const CreateNewRequisition = ({ setToggle }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loactionText, setLoactionText] = useState("");
 
+  const experienceOptions = [
+    { value: "", label: "Select" },
+    { value: "0-2 years", label: "0-2 years" },
+    { value: "2-5 years", label: "2-5 years" },
+    { value: "5-10 years", label: "5-10 years" },
+    { value: "10-20 years", label: "10-20 years" },
+    { value: "20 +", label: "20 +" },
+  ];
+
+
   const [data, setData] = useState({
     jobTitle: "",
     positions: "",
@@ -117,7 +127,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     try {
       const response = await axios.post(
         `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
-        { ...data, createdBy: userDataGlobal?._id }
+        { ...data, createdBy: userDataGlobal?._id, createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
       );
 
       setSuccessfull(true);
@@ -125,8 +135,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     } catch (error) {
       setLoading(false);
       toast.error(
-        `Error creating requisition: ${
-          error.response?.data?.message || error.message
+        `Error creating requisition: ${error.response?.data?.message || error.message
         }`
       );
     } finally {
@@ -255,9 +264,8 @@ const CreateNewRequisition = ({ setToggle }) => {
                 value={data.positions}
                 onChange={(e) => handleChange(e, "positions")}
                 placeholder="Enter Number"
-                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${
-                  errors.positions ? "border-red" : "border-[#DEDEDE]"
-                }  `}
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${errors.positions ? "border-red" : "border-[#DEDEDE]"
+                  }  `}
               />
             </div>
           </div>
@@ -282,18 +290,16 @@ const CreateNewRequisition = ({ setToggle }) => {
                 value={data.budgetFrom}
                 onChange={(e) => handleChange(e, "budgetFrom")}
                 placeholder="From (INR)"
-                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${
-                  errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
-                }  `}
+                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                  }  `}
               />
               <input
                 type="text"
                 value={data.budgetTo}
                 onChange={(e) => handleChange(e, "budgetTo")}
                 placeholder="To (INR)"
-                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${
-                  errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
-                }  `}
+                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
+                  }  `}
               />
             </div>
           </div>
@@ -303,15 +309,35 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className=" text-[14px]  font-medium">
                 Experience <span className="text-red">*</span>
               </p>
-              <input
-                type="text"
-                value={data.experience}
-                onChange={(e) => handleChange(e, "experience")}
-                placeholder="Ex: 2 Yrs"
-                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${
-                  errors.experience ? "border-red" : "border-[#DEDEDE]"
-                } `}
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[40px]">
+
+              <select
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  position: "relative",
+                  background: "transparent",
+                }}
+                value={data?.experience}
+                onChange={(e) => {
+                  const newExperience = e.target.value;
+                  setData({ ...data, experience: newExperience });
+                }}
+                className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+              >
+                {experienceOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <img
+                src="/images/down_arrow.png"
+                className="h-[20px] w-[20px] absolute right-[4px]"
+                alt=""
               />
+                </div>
             </div>
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">
@@ -320,9 +346,8 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.requisitionType}
                 onChange={(e) => handleChange(e, "requisitionType")}
-                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]  ${
-                  errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
-                } `}
+                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]  ${errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
+                  } `}
               >
                 <option value="" disabled selected>
                   Select
@@ -351,9 +376,8 @@ const CreateNewRequisition = ({ setToggle }) => {
                 Location <span className="text-red">*</span>
               </p>
               <div
-                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                  errors.location ? "border-red" : "border-[#DEDEDE]"
-                }`}
+                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${errors.location ? "border-red" : "border-[#DEDEDE]"
+                  }`}
               >
                 <div className="flex flex-row overflow-x-auto gap-2 ">
                   {data?.location?.map((item, index) => (
@@ -607,22 +631,20 @@ const CreateNewRequisition = ({ setToggle }) => {
                         value={level.name || ""}
                         onChange={(e) => handleChange2(e, index, "name")}
                         placeholder="Role / Employee"
-                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${
-                          errors[`name_${index}`]
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${errors[`name_${index}`]
                             ? "border-red"
                             : "border-[#DEDEDE]"
-                        }`}
+                          }`}
                       />
                       <input
                         type="text"
                         value={level.email || ""}
                         onChange={(e) => handleChange2(e, index, "email")}
                         placeholder="Enter Email"
-                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${
-                          errors[`name_${index}`]
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${errors[`name_${index}`]
                             ? "border-red"
                             : "border-[#DEDEDE]"
-                        }`}
+                          }`}
                       />
                     </div>
                   ))}

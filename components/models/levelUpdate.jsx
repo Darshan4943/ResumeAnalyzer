@@ -169,7 +169,25 @@ function LevelUpdate({
 
       if (response.data.success) {
         console.log("Details updated successfully");
-        setTaskSuccessfull(true);
+        if (selectedValues?.isTask) {
+          
+          setSuccessfull("Task")
+          setTaskSuccessfull(true)
+
+        }
+        if (selectedValues?.isInterview) {
+          setSuccessfull("Interview")
+          setTaskSuccessfull(true)
+        }
+        if (isNextLevel ==="Shortlisted") {
+          setSuccessfull("Shortlisted")
+          setTaskSuccessfull(true)
+        }
+        if (isNextLevel ==="Rejected") {
+          setSuccessfull("Rejected")
+          setTaskSuccessfull(true)
+        }
+
         setLoading(false);
       }
     } catch (error) {
