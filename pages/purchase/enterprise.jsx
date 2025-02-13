@@ -149,7 +149,7 @@ function Index() {
 
         try {
             const response = await axios.post(
-                "http://localhost:2000/api/planEnquiry/create",
+                "https://dev.api.skilotech.com/api/planEnquiry/create",
                 data
             );
             // toast.success("Contacted Successfully");
