@@ -124,7 +124,7 @@ console.log(444,applicant);
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/preboarding",
+        "http://localhost:2000/api/preboarding",
         data
       );
 

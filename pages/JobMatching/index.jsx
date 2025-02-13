@@ -141,7 +141,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://dev.api.skilotech.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -163,7 +163,7 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://dev.api.skilotech.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
 
@@ -189,7 +189,7 @@ const JobMatching = () => {
     setLoading(true);
     if (selectedJob) {
       await axios
-        .get("https://dev.api.skilotech.com/api/job/getById/" + selectedJob)
+        .get("http://localhost:2000/api/job/getById/" + selectedJob)
         .then((res) => {
           setLoading(false);
           const { applications, ...restData } = res.data;
@@ -215,7 +215,7 @@ const JobMatching = () => {
     const outputData=[]
     setMatchLoader(true);
     const response = await axios.post(
-      "https://dev.api.skilotech.com/api/skiloCollection/jobMatching/",
+      "http://localhost:2000/api/skiloCollection/jobMatching/",
 
       {
         jd: extratctedData,
@@ -301,7 +301,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://dev.api.skilotech.com/api/external/jobMatching/",
+      "http://localhost:2000/api/external/jobMatching/",
 
       {
         jd,
@@ -381,7 +381,7 @@ const JobMatching = () => {
   const addApplicant = async (applicantData) => {
     setHiringLoading(true)
     try {
-      const response = await axios.put(`https://dev.api.skilotech.com/api/job/moveToHiring/${selectedJob}`, applicantData, {
+      const response = await axios.put(`http://localhost:2000/api/job/moveToHiring/${selectedJob}`, applicantData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -437,14 +437,14 @@ const JobMatching = () => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
-      const updateJobMatchApiUrl = `https://dev.api.skilotech.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
 
       if (!updateJobMatchResponse.data.success) {
         console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
       }
 
-      const jdSubscriptionLimitUrl = `https://dev.api.skilotech.com/api/subscription/updateJdSubscriptionLimit/${userDataGlobal?._id}`;
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
 
       if (!jdSubscriptionResponse.data.success) {

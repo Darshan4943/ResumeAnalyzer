@@ -30,7 +30,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -77,7 +77,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
         );
         const data = response.data;
 

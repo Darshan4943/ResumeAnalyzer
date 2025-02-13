@@ -64,7 +64,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
     if (isEditing) {
       axios
         .put(
-          `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateSocialLinks/${Social._id}`,
+          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateSocialLinks/${Social._id}`,
           data
         )
         .then((res) => {
@@ -79,7 +79,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
     } else {
       axios
         .post(
-          "https://dev.api.skilotech.com/api/candidate/addSocialLinks/" +
+          "http://localhost:2000/api/candidate/addSocialLinks/" +
             userDataGlobal?._id,
           data
         )

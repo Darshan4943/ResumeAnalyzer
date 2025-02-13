@@ -55,7 +55,7 @@ function UploadDocuments() {
         });
 
         try {
-            const response = await axios.post(`https://dev.api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
+            const response = await axios.post(`http://localhost:2000/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

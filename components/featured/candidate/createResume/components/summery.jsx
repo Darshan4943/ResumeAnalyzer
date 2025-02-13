@@ -60,7 +60,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 

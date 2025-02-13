@@ -21,7 +21,7 @@ function NormalJobCard({ item }) {
         setIsSaved(true)
         e.stopPropagation();
         axios
-            .post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+            .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
             .then((res) => {
                 dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
@@ -39,7 +39,7 @@ function NormalJobCard({ item }) {
         setUnIsSaved(true)
         axios
             .post(
-                `https://dev.api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+                `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
             )
             .then((res) => {
                 dispatch(fetchSavedJobIds(userDataGlobal?._id));
