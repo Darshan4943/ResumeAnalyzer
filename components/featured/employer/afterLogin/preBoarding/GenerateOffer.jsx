@@ -1,7 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
+const GenerateOffer = ({
+  setGenerateOffer,
+  setPopup,
+  offerData,
+  fetchJobs,
+}) => {
   const [data, setData] = useState({
     subject: "",
     to: "",
@@ -10,6 +15,15 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
     selectedFile: null,
   });
   const [successfull, setSuccessfull] = useState(false);
+  const [errors, setErrors] = useState(false);
+  const validate = () => {
+    let tempErrors = {};
+    if (!data.selectedFile) tempErrors.selectedFile = "File is required";
+    if (!data.subject.trim()) tempErrors.subject = "Subject is required";
+    if (!data.body.trim()) tempErrors.body = "Body is required";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
   useEffect(() => {
     if (offerData) {
@@ -41,18 +55,20 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
       alert("File size must be under 2MB.");
       return;
     }
-
+    setErrors((prevErrors) => ({ ...prevErrors, selectedFile: false }));
     setData((prevData) => ({ ...prevData, selectedFile: file }));
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: false }));
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (!validate()) return;
       const formdata = new FormData();
       formdata.append("subject", data.subject);
       formdata.append("to", data.to);
@@ -71,7 +87,7 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
       );
 
       setSuccessfull(true);
-      fetchJobs()
+      fetchJobs();
     } catch (error) {
       console.error(
         "Error sending offer:",
@@ -143,6 +159,10 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
                 Upload File
               </label>
 
+              {errors.selectedFile && (
+                <span style={{ color: "red" }}>{errors.selectedFile}</span>
+              )}
+
               {data.selectedFile && (
                 <div className="relative w-48 h-12 flex items-center justify-between bg-gray-100 rounded-lg shadow-md border border-gray-300 px-3">
                   <span className="text-sm text-black truncate">
@@ -179,20 +199,34 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
               <div key={index} className="flex flex-col gap-2 w-full">
                 <p className="text-lg font-medium text-[#333]">{label}</p>
                 {label === "Body" ? (
-                  <textarea
-                    className="w-full h-40 px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400"
-                    name={label.toLowerCase()}
-                    value={data[label.toLowerCase()]}
-                    onChange={handleChange}
-                  ></textarea>
+                  <>
+                    <textarea
+                      className="w-full h-40 px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400"
+                      name={label.toLowerCase()}
+                      value={data[label.toLowerCase()]}
+                      onChange={handleChange}
+                    ></textarea>
+                    {errors[label.toLowerCase()] && (
+                      <span style={{ color: "red" }}>
+                        {errors[label.toLowerCase()]}
+                      </span>
+                    )}
+                  </>
                 ) : (
-                  <input
-                    className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400"
-                    name={label.toLowerCase()}
-                    value={data[label.toLowerCase()]}
-                    onChange={handleChange}
-                    disabled={label === "To"}
-                  />
+                  <>
+                    <input
+                      className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400"
+                      name={label.toLowerCase()}
+                      value={data[label.toLowerCase()]}
+                      onChange={handleChange}
+                      disabled={label === "To"}
+                    />
+                    {errors[label.toLowerCase()] && (
+                      <span style={{ color: "red" }}>
+                        {errors[label.toLowerCase()]}
+                      </span>
+                    )}
+                  </>
                 )}
               </div>
             ))}
@@ -209,7 +243,7 @@ const GenerateOffer = ({ setGenerateOffer, setPopup, offerData ,fetchJobs}) => {
                 }}
                 className="px-6 py-2 text-white border border-[#06A9EF] rounded-lg bg-[#06A9EF] font-semibold hover:bg-blue-700 transition"
               >
-                Genret Offer
+                Generate Offer
               </button>
             </div>
           </div>
