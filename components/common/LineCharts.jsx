@@ -14,7 +14,7 @@ import {
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
 
-const LineChartt = ({ data = [], selectedOption }) => {
+const LineCharts = ({ data = [], selectedOption }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
 
   useEffect(() => {
@@ -129,4 +129,4 @@ const LineChartt = ({ data = [], selectedOption }) => {
   return data?.length > 0 ? <Line data={chartData} /> : <p>No data available</p>;
 };
 
-export default LineChartt;
+export default LineCharts;

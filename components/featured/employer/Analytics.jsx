@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 
-import LineChartt from "../../common/LineChart";
+
 import CountUp from "react-countup";
 import moment from "moment";
+import LineCharts from "../../common/LineCharts";
+
 
 
 function Analytics({ jobDetails }) {
@@ -293,7 +295,7 @@ function Analytics({ jobDetails }) {
                 </div>
               </div>
               <div className="px-4">
-                <LineChartt data={view} selectedOption={selectedOption} />
+                <LineCharts data={view} selectedOption={selectedOption} />
               </div>
 
             </div>
