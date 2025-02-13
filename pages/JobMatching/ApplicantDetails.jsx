@@ -18,7 +18,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
 
 
-
+console.log(22233,userDetails)
   // useEffect(() => {
   //   console.log("Fetching applicant details...");
   //   if (id && applicantId) {

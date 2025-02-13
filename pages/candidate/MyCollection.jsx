@@ -163,6 +163,7 @@ const MyCollection = () => {
     );
   };
   return (
+    <>
     <div className="customMargins py-6 min-h-[80vh] ">
       <div className="flex flex-col gap-[16px]">
         <div className="bg-[#F9F9F9] w-[248px] flex rounded-[30px] text-[14px] font-semibold">
@@ -455,6 +456,7 @@ const MyCollection = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 

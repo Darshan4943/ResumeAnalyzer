@@ -23,7 +23,6 @@ import SelectPost from "./selectPost";
 import JdMatchCard from "./JdMatchCard";
 import ApplicantDetails from "./ApplicantDetails";
 
-
 const JobMatching = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -43,9 +42,9 @@ const JobMatching = () => {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
-  const [collection, setCollection] = useState()
-  const [isCollection, setIsCollection] = useState()
-  const [isSkilotechCollection, setIsSkilotechCollection] = useState()
+  const [collection, setCollection] = useState();
+  const [isCollection, setIsCollection] = useState();
+  const [isSkilotechCollection, setIsSkilotechCollection] = useState();
   const [showMatchingSidebar, setShowsideBar] = useState(false);
   const [extratctedData, setExtractedData] = useState(null);
   const [btnToggle, setButtonToggle] = useState(false);
@@ -57,20 +56,20 @@ const JobMatching = () => {
   const [mainMessage, setMainMessage] = useState("Analyzing Data");
   const [findMatchLoader, setMatchLoader] = useState(false);
   const taskRef = useRef(null);
-  const [jdCountMonthly, setJdCountMonthly] = useState(0)
-  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0)
-  const [activePlan, setActivePlan] = useState(0)
+  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
+  const [activePlan, setActivePlan] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
-  const [tab, setTab] = useState(0)
-  const [update, setUpdate] = useState()
-  const [isMatched, setIsMatched] = useState(false)
-  const [parentId, setParentId] = useState()
-  const [fileName, setFileName] = useState()
-  const [userDetails, setUserDetails] = useState()
-  const [isOpen, setIsOpen] = useState(false)
+  const [tab, setTab] = useState(0);
+  const [update, setUpdate] = useState();
+  const [isMatched, setIsMatched] = useState(false);
+  const [parentId, setParentId] = useState();
+  const [fileName, setFileName] = useState();
+  const [userDetails, setUserDetails] = useState();
+  const [isOpen, setIsOpen] = useState(false);
   const [hiringLoading, setHiringLoading] = useState("");
-  const [jdApplicantFileNames, setJdApplicantFilename] = useState([])
-  const [jobData, setJobData] = useState()
+  const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
+  const [jobData, setJobData] = useState();
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
@@ -78,30 +77,31 @@ const JobMatching = () => {
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
     const filename = localStorage.getItem("fileName");
-    setParentId(parentid)
-    setFileName(filename)
-  }, [isOpen])
+    setParentId(parentid);
+    setFileName(filename);
+  }, [isOpen]);
 
   useEffect(() => {
-    const existingFilenames = JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
-    setJdApplicantFilename(existingFilenames)
-  }, [update])
+    const existingFilenames =
+      JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
+    setJdApplicantFilename(existingFilenames);
+  }, [update]);
 
   const getLimits = () => {
     const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
-    setJdCountMonthly(jdCountMonthly)
+    setJdCountMonthly(jdCountMonthly);
 
-    const jdCountMonthlyLimit = JSON.parse(localStorage.getItem("jdCountMonthlyLimit"));
-    setJdCountMonthlyLimit(jdCountMonthlyLimit)
+    const jdCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("jdCountMonthlyLimit")
+    );
+    setJdCountMonthlyLimit(jdCountMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
 
-    setActivePlan(activePlan)
-  }
+    setActivePlan(activePlan);
+  };
   useEffect(() => {
-    getLimits()
-  }, [])
-
-
+    getLimits();
+  }, []);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -115,8 +115,6 @@ const JobMatching = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [taskRef]);
-
-
 
   useEffect(() => {
     if (parentId) {
@@ -166,7 +164,6 @@ const JobMatching = () => {
       .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-
           if (item.type == "file" && item.isSync === true) {
             return true;
           } else if (item.type == "folder") {
@@ -193,10 +190,9 @@ const JobMatching = () => {
         .then((res) => {
           setLoading(false);
           const { applications, ...restData } = res.data;
-          
-          setExtractedData(restData);
-          setJobData(res.data)
 
+          setExtractedData(restData);
+          setJobData(res.data);
         })
         .catch((err) => {
           setLoading(false);
@@ -207,22 +203,19 @@ const JobMatching = () => {
   };
   useEffect(() => {
     getData();
-
   }, [tab]);
 
-
   const JobMatchforSkilotechCollection = async () => {
-    const outputData=[]
+    const outputData = [];
     setMatchLoader(true);
     const response = await axios.post(
       "http://localhost:2000/api/skiloCollection/jobMatching",
 
       {
         jd: extratctedData,
-        resumeCount
+        resumeCount,
       }
     );
-
 
     if (Array.isArray(response.data)) {
       outputData.push(...response.data);
@@ -232,34 +225,29 @@ const JobMatching = () => {
     }
 
     const dataArray = outputData
-    .filter((item) => item.matching_percentage)
-    .sort((a, b) => {
-      const parsePercentage = (percentage) => {
-        return parseInt(
-          isNaN(percentage) ? percentage.slice(0, 2) : percentage
+      .filter((item) => item.matching_percentage)
+      .sort((a, b) => {
+        const parsePercentage = (percentage) => {
+          return parseInt(
+            isNaN(percentage) ? percentage.slice(0, 2) : percentage
+          );
+        };
+        return (
+          parsePercentage(b.matching_percentage) -
+          parsePercentage(a.matching_percentage)
         );
-      };
-      return (
-        parsePercentage(b.matching_percentage) -
-        parsePercentage(a.matching_percentage)
-      );
-    })
-    .slice(0, resumeCount);
+      })
+      .slice(0, resumeCount);
 
-  setResumeList(dataArray);
-  setIsMatched(true)
+    setResumeList(dataArray);
+    setIsMatched(true);
 
-  setCollection("")
- 
-  setButtonToggle(false);
+    setCollection("");
 
-  setMatchLoader(false);
+    setButtonToggle(false);
 
-
+    setMatchLoader(false);
   };
-
-
-
 
   // useEffect(() => {
   //   if (count > 3) {
@@ -306,10 +294,9 @@ const JobMatching = () => {
       {
         jd,
         ids,
-        resumeCount
+        resumeCount,
       }
     );
-
 
     if (Array.isArray(response.data)) {
       outputData.push(...response.data);
@@ -364,10 +351,10 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
-      setIsMatched(true)
-      setSelectedIndexes([])
-      setCollection("")
-      setSelectedIndexesFilesType([])
+      setIsMatched(true);
+      setSelectedIndexes([]);
+      setCollection("");
+      setSelectedIndexesFilesType([]);
       setButtonToggle(false);
       // setLoadingg(false);
       setMatchLoader(false);
@@ -376,33 +363,37 @@ const JobMatching = () => {
     }
   };
 
-
-
   const addApplicant = async (applicantData) => {
-    setHiringLoading(true)
+    setHiringLoading(true);
     try {
-      const response = await axios.put(`http://localhost:2000/api/job/moveToHiring/${selectedJob}`, applicantData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      toast.success("Move to Hiring Successfully")
+      const response = await axios.put(
+        `http://localhost:2000/api/job/moveToHiring/${selectedJob}`,
+        applicantData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("Move to Hiring Successfully");
 
-      const existingFilenames = JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
+      const existingFilenames =
+        JSON.parse(localStorage.getItem("jdApplicantFilenames")) || [];
 
       const updatedFilenames = [...existingFilenames, applicantData?.fileName];
-      localStorage.setItem("jdApplicantFilenames", JSON.stringify(updatedFilenames))
-      setUpdate(!update)
-      setHiringLoading(false)
+      localStorage.setItem(
+        "jdApplicantFilenames",
+        JSON.stringify(updatedFilenames)
+      );
+      setUpdate(!update);
+      setHiringLoading(false);
       return response.data;
     } catch (error) {
-      setHiringLoading(false)
+      setHiringLoading(false);
       console.log(error);
       toast.error(` ${error.response?.data?.message || error.message}`);
-
     }
   };
-
 
   useEffect(() => {
     const intervals = [
@@ -429,45 +420,47 @@ const JobMatching = () => {
     };
   }, []);
 
-
-
-
-
   const updateJobMatchLimit = async () => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
       const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
-      const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, { resumeCount });
+      const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
+        resumeCount,
+      });
 
       if (!updateJobMatchResponse.data.success) {
-        console.error('Error in updateJobMatchCount:', updateJobMatchResponse.data.message);
+        console.error(
+          "Error in updateJobMatchCount:",
+          updateJobMatchResponse.data.message
+        );
       }
 
       const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal?._id}`;
-      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, { resumeCount });
+      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
+        resumeCount,
+      });
 
       if (!jdSubscriptionResponse.data.success) {
-        console.error('Error in updateJdSubscriptionLimit:', jdSubscriptionResponse.data.message);
+        console.error(
+          "Error in updateJdSubscriptionLimit:",
+          jdSubscriptionResponse.data.message
+        );
       }
-
-      ;
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
         jdSubscriptionResponse: jdSubscriptionResponse.data,
       };
     } catch (error) {
-      console.error('Something went wrong:', error);
-      return { success: false, message: 'Something went wrong', error };
+      console.error("Something went wrong:", error);
+      return { success: false, message: "Something went wrong", error };
     }
   };
 
   return (
     <>
-
-
-      {tab === 0 &&
+      {tab === 0 && (
         <>
           {limitPopup && (
             <div className="z-[200000]">
@@ -529,10 +522,8 @@ const JobMatching = () => {
                 </div>
               </>
             )}
-            <div ref={taskRef}   >
+            <div ref={taskRef}>
               {isCollection && (
-
-
                 <JdFiles
                   details={details}
                   fileName={fileName}
@@ -547,22 +538,16 @@ const JobMatching = () => {
                   setIsOpen={setIsOpen}
                   isOpen={isOpen}
                 />
-
-
               )}
             </div>
-
 
             <div className="flex flex-col gap-4 p-4 bg-white rounded-[16px]">
               <div className=" flex flex-col gap-1">
                 <p className="text-[18px] font-medium">
                   JD Matching for {extratctedData?.jobTitle}
                 </p>
-
-
               </div>
               <div className="flex flex-col gap-2 w-full">
-
                 <div className="w-full flex scr420:flex-row flex-col gap-4 text-[14px] font-montserrat scr420:items-center items-start font-medium">
                   <div className="flex gap-2 items-center font-semibold text-[14px] text-[#646464]">
                     <input
@@ -572,7 +557,7 @@ const JobMatching = () => {
                       checked={collection == "MyCollection"}
                       onChange={() => {
                         setCollection("MyCollection");
-                        setIsCollection(true)
+                        setIsCollection(true);
                       }}
                     />
                     <label>My Collection</label>
@@ -586,69 +571,86 @@ const JobMatching = () => {
                       checked={collection == "SkilotechCollection"}
                       onChange={() => {
                         setCollection("SkilotechCollection");
-
                       }}
                     />
                     <label>Skilotech Collection</label>
                   </div>
                 </div>
               </div>
-              {selectedIndexes.length > 0 &&
+              {selectedIndexes.length > 0 && (
                 <div className="font-medium text-[16px] ">
-                  Resumes Selected  : <span className="text-[16px] font-semibold"> {selectedIndexesFileTypes?.length}</span>
+                  Resumes Selected :{" "}
+                  <span className="text-[16px] font-semibold">
+                    {" "}
+                    {selectedIndexesFileTypes?.length}
+                  </span>
                 </div>
-              }
+              )}
               <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start">
                 <div className="flex flex-row  gap-4 items-center">
-                <span className=" text-[14px] font-[500] text-[#333333]">
-                  Set Filter Limit{" "}
-                </span>
-                <input
-                  type="text"
-                  value={resumeCount}
-                  onChange={(e) => {
-                    setResumeCount(e.target.value);
-                  }}
-                  name=""
-                  id=""
-                  placeholder="Ex. 5"
-                  className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
-                />
+                  <span className=" text-[14px] font-[500] text-[#333333]">
+                    Set Filter Limit{" "}
+                  </span>
+                  <input
+                    type="text"
+                    value={resumeCount}
+                    onChange={(e) => {
+                      setResumeCount(e.target.value);
+                    }}
+                    name=""
+                    id=""
+                    placeholder="Ex. 5"
+                    className=" h-[40px]  w-[60px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-[12px]"
+                  />
                 </div>
-                {collection === "SkilotechCollection" ?
-                  <button  onClick={() => JobMatchforSkilotechCollection()} 
-                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
+                {collection === "SkilotechCollection" ? (
+                  <button
+                    onClick={() => JobMatchforSkilotechCollection()}
+                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]"
+                  >
                     Find Match
                   </button>
-                  :
-                  <button disabled={!selectedIndexes.length > 0} onClick={() => MatchJob()} style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
-                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]">
+                ) : (
+                  <button
+                    disabled={!selectedIndexes.length > 0}
+                    onClick={() => MatchJob()}
+                    style={{ opacity: selectedIndexes.length > 0 ? 1 : 0.5 }}
+                    className="bg-blue text-white px-4 py-2 rounded-[30px] font-medium w-[130px]"
+                  >
                     Find Match
                   </button>
-                }
+                )}
               </div>
-
-
             </div>
             <div className="flex flex-col gap-6 h-full  ">
-
-
-              {isMatched &&
+              {isMatched && (
                 <div className=" w-full">
-                  <JdMatchCard resumeList={resumeList} extratctedData={extratctedData} setTab={setTab} setUserDetails={setUserDetails} addApplicant={addApplicant} hiringLoading={hiringLoading} jobData={jobData} jdApplicantFileNames={jdApplicantFileNames} />
+                  <JdMatchCard
+                    resumeList={resumeList}
+                    extratctedData={extratctedData}
+                    setTab={setTab}
+                    setUserDetails={setUserDetails}
+                    addApplicant={addApplicant}
+                    hiringLoading={hiringLoading}
+                    jobData={jobData}
+                    jdApplicantFileNames={jdApplicantFileNames}
+                  />
                 </div>
-              }
+              )}
             </div>
-
-
-
           </div>
         </>
-      }
-      {tab === 1 &&
-        <ApplicantDetails userDetails={userDetails} setTab={setTab} jobData={jobData} addApplicant={addApplicant} hiringLoading={hiringLoading} jdApplicantFileNames={jdApplicantFileNames} />
-
-      }
+      )}
+      {tab === 1 && (
+        <ApplicantDetails
+          userDetails={userDetails}
+          setTab={setTab}
+          jobData={jobData}
+          addApplicant={addApplicant}
+          hiringLoading={hiringLoading}
+          jdApplicantFileNames={jdApplicantFileNames}
+        />
+      )}
     </>
   );
 };
