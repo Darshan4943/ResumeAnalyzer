@@ -584,7 +584,10 @@ function RecentApplications({ isPending }) {
                                   ? 0.5
                                   : 1,
                             }}
-                            onClick={() => togglePopup(applicant)}
+                            onClick={(e) => {
+                              e.stopPropagation(); 
+                              togglePopup(applicant);
+                            }}
                             className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
                           >
                             Shortlist

@@ -134,8 +134,8 @@ const SelectPost = () => {
             onChange={(e) => setFilterStatus(e.target.value)}
           >
             <option value="All">All</option>
-            <option value="Live">Live</option>
-            <option value="Closed">Closed</option>
+            <option value="Live">Active</option>
+            <option value="Closed">Inactive</option>
             <option value="Hold">Hold</option>
           </select>
         </div>

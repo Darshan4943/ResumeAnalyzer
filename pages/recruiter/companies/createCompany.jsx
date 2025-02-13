@@ -138,24 +138,27 @@ function CreateCompany() {
   };
 
   const handleFileChange = (event) => {
-    event?.preventDefault();
-    const selectedFile = event.target.files
-      ? event.target.files[0]
-      : event.dataTransfer.files[0];
-    if (selectedFile) {
-      if (
-        selectedFile.size <= 3 * 1024 * 1024 &&
-        selectedFile.type.includes("image")
-      ) {
+    event.preventDefault();
+    setIsProfileImageRemoved(false);
+
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
+      // 3 MB limit
+      if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
         setModelView(true);
-        setErrors((prev) => ({ ...prev, companyLogo: "" }));
+        setError(false);
+        event.target.value = "";
       } else {
-        toast.error("Only image files up to 3MB are allowed.");
+        toast.error("Only Image files are allowed");
       }
-      event.target.value = "";
+    } else {
+      toast.error("Please select a file that is  3 MB.");
     }
   };
+    useEffect(() => {
+      setData({ ...data, img: croppedImage?.blob });
+    }, [croppedImage]);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -350,7 +353,7 @@ function CreateCompany() {
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
-                  className="scr1024:w-[70.04%] w-full flex flex-col scr800:flex-row gap-2 items-center justify-between"
+                  className=" object-contain flex flex-col scr800:flex-row gap-2 items-center justify-between"
                 >
                   {(croppedImage || data?.companyLogo) && (
                     <ImageContainer

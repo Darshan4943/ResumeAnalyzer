@@ -197,7 +197,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               >
                 <option value="">Select Job Type</option>
                 {jobType.map((type) => (
-                  <option key={type} value={type}>
+                  <option className="p-8 flex" key={type} value={type}>
                     {camelCase(type)}
                   </option>
                 ))}

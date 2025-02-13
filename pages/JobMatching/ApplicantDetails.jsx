@@ -7,6 +7,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import MiniLoader from "../../components/common/mini-loader";
 
 function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames }) {
+  console.log(userDetails)
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
 
@@ -17,7 +18,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
 
 
-
+console.log(22233,userDetails)
   // useEffect(() => {
   //   console.log("Fetching applicant details...");
   //   if (id && applicantId) {
