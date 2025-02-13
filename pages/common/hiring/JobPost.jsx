@@ -624,6 +624,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   <div className="web">
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
                       <input
+                       className="w-[16px] h-[16px]"
                         type="checkbox"
                         checked={selectAll}
                         onChange={handleSelectAll}
