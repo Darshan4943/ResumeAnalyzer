@@ -23,6 +23,8 @@ const Breadcrumb = () => {
     "Form":"Update Profile",
     "coverLetter":"Cover Letter",
     "myCollection":"My Collection",
+    "PrivacyPolicy":"Privacy Policy",
+    "TermsAndConditions":"Terms And Conditions",
     "JobMatching":"Job Matching",
     "SelectJob":"Job Matching",
     'Requisition?content=CreateNewRequisition': 'Create New Requisition',
