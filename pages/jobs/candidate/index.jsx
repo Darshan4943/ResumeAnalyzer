@@ -217,7 +217,6 @@ function Index() {
       )
   );
   const getAllData = async () => {
-
     try {
       const res = await axios.post(
         "http://localhost:2000/api/job/getAll",
@@ -257,7 +256,7 @@ function Index() {
       setMiniloading(true);
       getAllData();
     }
-  }, [ limit, country, search, jobtypeData]);
+  }, [limit, country, search, jobtypeData]);
   useEffect(() => {
     if (isCountrySet) {
       getAllData();
@@ -441,27 +440,27 @@ function Index() {
                 </>
               )}
             </AnimatePresence>
-            
-              <AllJobCard
-                setMiniloading={setMiniloading}
-                getAllData={getAllData}
-                miniLoading={miniLoading}
-                loading={loading}
-                setLoading={setLoading}
-                setLimitPopup={setLimitPopup}
-                setCurrentPage={setPage}
-                isLogin={isLogin}
-                appliedJobs={appliedJobData}
-                setLimit={setLimit}
-                limit={limit}
-                setTotalpages={setTotalpages}
-                totalPages={totalPages}
-                page={page}
-                setPage={setPage}
-                jobData={jobData}
-                totalCount={totalCount}
-              />
-          
+
+            <AllJobCard
+              setMiniloading={setMiniloading}
+              getAllData={getAllData}
+              miniLoading={miniLoading}
+              loading={loading}
+              setLoading={setLoading}
+              setLimitPopup={setLimitPopup}
+              setCurrentPage={setPage}
+              isLogin={isLogin}
+              appliedJobs={appliedJobData}
+              setLimit={setLimit}
+              limit={limit}
+              setTotalpages={setTotalpages}
+              totalPages={totalPages}
+              page={page}
+              setPage={setPage}
+              jobData={jobData}
+              totalCount={totalCount}
+            />
+
             <div className=" flex-col gap-6 rounded-[12px] scr900:flex hidden">
               <img
                 src="/images/jobs/jobPoster1.png"
