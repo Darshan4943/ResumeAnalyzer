@@ -31,6 +31,7 @@ function ApplicantDetailsLeftCard({
     try {
       const response = await axios.put(`http://localhost:2000/api/hiring/moveToHiring/${applicantId}/${id}`)
       setLoading(false)
+      setStatusChange(true)
       toast.success("Successfully moved to Hiring")
       return response.data;
     } catch (error) {
