@@ -284,8 +284,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     },
   ];
 
-  const widths = ["20%", "10%", "15%", "20%", "15%", "20%"];
-  const texts = ["start", "start", "center", "center", "start", "end"];
+  const widths = ["25%", "10%", "15%", "20%", "15%", "15%"];
+  const texts = ["start", "start", "center", "center", "start", "center"];
 
   return (
     <>
@@ -623,12 +623,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
                   <div className="web">
                     <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
+                      {userDataGlobal?.role==="recruiter" &&
                       <input
                        className="w-[16px] h-[16px]"
                         type="checkbox"
                         checked={selectAll}
                         onChange={handleSelectAll}
                       />
+}
                       {applicant_head.map((applicant_head, index) => (
                         <div
                           key={index}
@@ -661,36 +663,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               </div>
                             ))}
 
-                          {filterType === applicant_head.name && (
-                            <div className="absolute h-fit w-[150px] bg-white rounded-[16px] top-8 left-12 shadow-md p-4 flex flex-col gap-2">
-                              {applicant_head?.filters.map((filter, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center gap-2 text-[14px] font-medium"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={`filter-${index}`}
-                                    value={filter}
-                                    checked={selectedFilters[
-                                      applicant_head.name
-                                    ]?.includes(filter)}
-                                    onChange={(e) =>
-                                      handleCheckboxChangeFilter(
-                                        e,
-                                        filter,
-                                        applicant_head.name
-                                      )
-                                    }
-                                  />
-
-                                  <label htmlFor={`filter-${index}`}>
-                                    {filter}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                          )}
+                         
                         </div>
                       ))}
                     </div>
@@ -710,6 +683,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                   key={applicant?._id}
                                 >
                                   <div className="  gap-[20px]  w-full justify-between flex items-center">
+                                  {userDataGlobal?.role==="recruiter" &&
                                     <input
                                       className="w-[16px] h-[16px]"
                                       type="checkbox"
@@ -718,7 +692,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         handleCheckboxChange(index, applicant)
                                       }
                                     />
-                                    <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
+}
+                                    <div className="flex  w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
                                       <img
                                         className="w-[40px]"
                                         src="/images/employer/profile_icon.png"
@@ -800,7 +775,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           .replace(",", "")}
                                       </p>
                                     </div>
-                                    <div className="flex justify-end  w-[20%] items-center gap-[16px] relative">
+                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative">
                                       <div
                                         className="cursor-pointer"
                                         onClick={() =>

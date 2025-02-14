@@ -134,7 +134,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-    "Recruiter",
+    
     "Preboarding Status",
     "Actions",
   ];
@@ -195,7 +195,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
         </div>
 
         <div className="grid grid-rows-1 w-full ">
-          <div className="grid grid-cols-7 w-full grid-flow-col">
+          <div className="grid grid-cols-6 w-full grid-flow-col">
             {labels.map((req, index) => (
               <div
                 key={index}
@@ -211,7 +211,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
             {jobs.map((applicants, index) => (
               <>
                 <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
-                  <div className="grid grid-cols-7 w-full px-4 py-2">
+                  <div className="grid grid-cols-6 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                         {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -248,10 +248,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     >
                       {applicants?.preboardingDetails?.documentStatus}
                     </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
-                      {applicants.role}
-                    </div>
-                    <div className="flex items-center justify-center col-span-1 ">
+                    
+                    <div className="flex items-center justify-start col-span-1 pl-5  ">
                       <div
                         className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
                           ? "bg-[#FFFFFF]"
@@ -294,7 +292,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       <div className="flex   items-center w-full  justify-between">
                         {applicants?.preboardingDetails
                           ?.isMovedToReleaseOffer ? (
-                          <div className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]">
+                          <div className="min-w-[128.63px]  flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center text-[#ABABAB] items-center bg-[#fff]  rounded-[30px]  lg:text-[12px] text-[10px]  font-[600] font-Montserrat border border-[#ABABAB]">
                             Moved forward
                           </div>
                         ) : (
@@ -303,7 +301,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                               "Submitted" ? (
                               <button
                                 onClick={() => verify(applicants)}
-                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
+                                className={` min-w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
                              
                               `}
                               >
@@ -314,7 +312,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                 <>
 
                                 {loadingApplicantId === applicants.applicantId ? (
-                                  <div  className={` w-[128.30px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                                  <div  className={` w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
                                     `}>
                                     <MiniLoader />
@@ -327,7 +325,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                     applicants?.jobId
                                   )
                                 }
-                                className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                                className={` min-w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
                               `}
                               >
@@ -399,49 +397,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4">
-                        <svg
-                          xlgns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <g clip-path="url(#clip0_7540_117410)">
-                            <path
-                              d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                              stroke="#333333"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_7540_117410">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="matrix(0 1 -1 0 24 0)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
+                     
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -477,18 +433,11 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails?.documentStatus}
                       </div>
                     </div>
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Recruiter
-                      </p>
-                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicants.role}
-                      </p>
-                    </div>
+                    
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                        {applicants?.preboardingDetails?.preboardingStatus}
+                        Preboarding Status
                       </p>
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
@@ -570,7 +519,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                         applicants?.jobId
                                       )
                                     }
-                                    className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                                    className={`min-w-[128.63px] flex lg:py-[6px] px-4  py-1 justify-center items-center  rounded-[30px]  text-[14px] font-[600] font-Montserrat border border-blue
                              
                               `}
                                   >
