@@ -772,7 +772,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       Verify Documents
                     </button>
                   )}
-                </div>
+a                </div>
               </div>
             </div>
           </div>
