@@ -401,10 +401,10 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
       </div>
 
       <div className="mobile relative overflow-y-scroll  w-full">
-        <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
+        <div className="w-full  bg-[#FFFFFF] rounded-[6px] mb-6">
           <div className="w-full flex items-center justify-between  border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
             <div
-              className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+              className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
               style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
             >
               <img
