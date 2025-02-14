@@ -740,7 +740,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             : applicant?.hiringStage ===
                                               "In Review"
                                             ? "bg-[#EB85331A]"
-                                            : ""
+                                            : applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "bg-[#26A4FF1A]" :""
                                         } ${
                                           applicant?.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
@@ -758,7 +760,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             : applicant?.hiringStage ===
                                               "In Review"
                                             ? "text-[#FFB836]"
-                                            : "text-[#333333]"
+                                            :applicant?.hiringStage ===
+                                            "Selected"
+                                          ? "text-[#26A4FF]" : "text-[#333333]"
                                         }`}
                                       >
                                         {applicant?.hiringStage}

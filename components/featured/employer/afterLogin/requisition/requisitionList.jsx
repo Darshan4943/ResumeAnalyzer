@@ -201,8 +201,9 @@ function RequisitionList({
       <div className="mobile  ">
         <div className=" flex flex-col gap-2   relative ">
           <div>
-            {requisitions.map((requisition) => (
+            {requisitions.map((requisition,index) => (
               <div
+              key={index}
               onClick={() => {
                 setRequisitionId(requisition?._id);
                 setOpenPreview(true);
