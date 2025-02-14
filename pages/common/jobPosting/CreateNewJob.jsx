@@ -889,10 +889,10 @@ function CreateNewJob() {
                                 }`}>
                                 <div className="flex gap-4 w-[90%]">
                                   {data?.Keywords.length > 0 &&
-                                    <div id="scroll" className="overflow-x-auto  flex gap-2 ">
+                                    <div style={{ scrollbarWidth: "none", msOverflowStyle: "none", }} id="scroll" className="overflow-x-auto flex gap-2 ">
                                       {data?.Keywords?.map((item, index) => (
                                         <div key={index} className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]">
-                                          <span>{item}</span>
+                                          <span className="flex  text-nowrap">{item}</span>
                                           <svg
                                             className="text-[14px]  cursor-pointer font-medium "
                                             onClick={() =>

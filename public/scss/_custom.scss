@@ -726,8 +726,14 @@ input:checked + .slider:before {
 }
 
 // .custom-editor .ql-toolbar.ql-snow {
-//   display: none !important; 
+//   display: none !important;
 // }
 // .custom-editor .ql-editor {
-//   padding: 0 !important; 
+//   padding: 0 !important;
 // }
+.css-1hb7zxy-IndicatorsContainer {
+  width: 25px;
+}
+.css-1dimb5e-singleValue{
+  width: 92px;
+}
