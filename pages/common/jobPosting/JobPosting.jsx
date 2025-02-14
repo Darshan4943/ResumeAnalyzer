@@ -13,7 +13,7 @@ function JobPosting() {
   const query = router.query;
   const [openSort, setOpenSort] = useState(false);
   const [toggle, setToggle] = useState(0);
-  const [filterData, setFilterData] = useState({Status: 'Approved'});
+  const [filterData, setFilterData] = useState({ Status: "Approved" });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [requisitions, setRequisitions] = useState([]);
@@ -26,7 +26,6 @@ function JobPosting() {
   const [miniLoading, setMiniloading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
-console.log(filterData)
   // useEffect(() => {
   //   setFilterData((prev) => ({
   //     ...prev,
@@ -144,7 +143,7 @@ console.log(filterData)
   ]);
 
   const handleHeadingChange = (selectedOption, index) => {
-    const selectedHeading = search[index].heading;
+    const selectedHeading = search[index]?.heading;
 
     setFilterData((prev) => ({
       ...prev,
@@ -164,7 +163,6 @@ console.log(filterData)
               ...filterData,
               page,
               limit,
-
             },
           }
         );
@@ -187,7 +185,6 @@ console.log(filterData)
 
     fetchRequisitions();
   }, [filterData, page, limit]);
-
 
   const handleChangePage = (event, newPage) => {
     console.log("New Page:", newPage);
@@ -252,9 +249,9 @@ console.log(filterData)
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -266,9 +263,9 @@ console.log(filterData)
                         </div>
                       ))}
 
-                      <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
+                      {/* <button className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[36px] text-[#FFFFFF] text-[14px] font-[600]">
                         Search
-                      </button>
+                      </button> */}
                     </div>
                   </div>
 
@@ -297,8 +294,9 @@ console.log(filterData)
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                                }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
+                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                              }`}
                             >
                               <div className="w-[14%] text-center">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -315,7 +313,7 @@ console.log(filterData)
                               </p>
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                  requisition.location.length > 0 ? (
+                                requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -339,10 +337,11 @@ console.log(filterData)
 
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                                 {!requisition.budgetFrom &&
-                                  !requisition.budgetTo
+                                !requisition.budgetTo
                                   ? ""
-                                  : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""
-                                  }`}
+                                  : `$${requisition.budgetFrom || 0} - ${
+                                      requisition.budgetTo || ""
+                                    }`}
                               </p>
                               <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
                                 {userDataGlobal?.name || "-"}
@@ -412,10 +411,10 @@ console.log(filterData)
                     + Create New Job
                   </button>
                 </div>
-                <div className="flex relative bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+                <div className="flex relative gap-[1px] pt-2 ml:w-[20%] w-full">
                   <div
                     onClick={() => setOpenSort(true)}
-                    className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] flex gap-[8px] items-center bg-[#fff]"
+                    className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] justify-end flex gap-[8px] items-center bg-[#fff]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -457,28 +456,38 @@ console.log(filterData)
                   </div>
                   {openSort && (
                     <div
-                      style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                      className="absolute top-[48px] right-[5px] flex flex-col gap-[10px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                      style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                      className="absolute top-[50px] right-0 flex flex-col gap-4 rounded-md bg-white p-4 z-50 w-64"
                     >
                       {search.map((headingObj, index) => (
-                        <select
-                          key={index}
-                          className="bg-whites outline-none"
-                          onChange={(e) =>
-                            handleHeadingChange(e, headingObj.heading)
-                          }
-                        >
-                          <option value=""> {headingObj.heading}</option>
-                          {headingObj.options.map((option, optIndex) => (
-                            <option key={optIndex} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="w-full" key={index}>
+                          <Select
+                            options={headingObj.options.map((option) => ({
+                              value: option,
+                              label: option,
+                            }))}
+                            onChange={(selectedOption) =>
+                              handleHeadingChange(selectedOption, index)
+                            }
+                            value={
+                              filterData[headingObj.heading]
+                                ? {
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
+                                : null
+                            }
+                            placeholder={headingObj.heading}
+                            isSearchable={true}
+                            noOptionsMessage={() => "No options available"}
+                            styles={customStyles}
+                          />
+                        </div>
                       ))}
+
                       <button
                         onClick={() => setOpenSort(false)}
-                        className="bg-[#06A9EF] px-[36px] py-[12px] rounded-[6px] text-[#FFFFFF] text-[14px] font-[600]"
+                        className="bg-[#06A9EF] px-6 py-3 rounded-md text-white text-sm font-semibold hover:bg-[#048ccf] transition"
                       >
                         Search
                       </button>
@@ -502,7 +511,24 @@ console.log(filterData)
                         </div>
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]">
-                        {requisition.location}
+                        {requisition.location &&
+                        requisition.location.length > 0 ? (
+                          requisition.location.length > 2 ? (
+                            <div className="flex flex-col">
+                              {requisition.location.map((loc, index) => (
+                                <span key={index}>
+                                  {loc}
+                                  {index !== requisition.location.length - 1 &&
+                                    ","}
+                                </span>
+                              ))}
+                            </div>
+                          ) : (
+                            requisition.location.join(", ")
+                          )
+                        ) : (
+                          "-"
+                        )}
                       </div>
                     </div>
                     <div className="flex justify-evenly">
@@ -511,7 +537,7 @@ console.log(filterData)
                           Requested by
                         </div>
                         <div className="text-[#333] text-[12px] font-[500]  ">
-                          {requisition.requested_by}
+                          {userDataGlobal?.name || "-"}
                           <div className="text-[#646464] text-[10px] font-[500]"></div>
                         </div>
                       </div>
@@ -520,7 +546,11 @@ console.log(filterData)
                           Budget
                         </div>
                         <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
-                          ${requisition.budgetFrom}-{requisition.budgetTo}{" "}
+                          {!requisition.budgetFrom && !requisition.budgetTo
+                            ? ""
+                            : `$${requisition.budgetFrom || 0} - ${
+                                requisition.budgetTo || ""
+                              }`}
                         </div>
                       </div>
                       <div className="text-center">
@@ -528,16 +558,29 @@ console.log(filterData)
                           Open Position
                         </div>
                         <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
-                          {requisition.positions}
+                          {requisition.positions
+                            ? `${requisition.positions} positions`
+                            : "-"}
                         </div>
                       </div>
                     </div>
                     <div className="flex justify-between">
                       <div className="flex items-center py-[6px] px-[12px] border-[1px] border-solid border-[#FF7A00] text-[14px] font-[600] text-[#FF7A00] rounded-[80px]">
-                        {requisition.hiring_period}
+                        {new Date(requisition.hiringDate).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}
                       </div>
                       <button
-                        onClick={toggleContent}
+                        onClick={() =>
+                          router.push(
+                            `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
+                          )
+                        }
                         className="px-[12px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[8px] text-[12px] text-[#333] font-[500] "
                       >
                         <svg
