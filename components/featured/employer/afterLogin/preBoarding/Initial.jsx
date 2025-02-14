@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import CustomPagination from "../../../../common/CustomPagination";
 import { toast } from "react-toastify";
 import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
+import { formatInterviewDate } from "../../../../../utils/middleware";
 
 const Initial = ({ setToggle, setHeadings, headings }) => {
   const [page, setPage] = useState(0);
@@ -65,7 +66,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const labels = [
     "Name of Candidate",
     "Job Role",
-
+    "Due Date",
     "Preboarding Status",
     "Actions",
   ];
@@ -145,9 +146,9 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
       )}
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-          <div className="w-full flex items-center justify-between  border-[#D3D3D3] border-solid px-[12px] py-[10px] rounded-[6px]">
+          <div className="w-full flex items-center justify-between  border-[#D3D3D3] border-solid  rounded-[6px]">
             <div
-              className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+              className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
               style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
             >
               <img
@@ -166,7 +167,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
-          <div className="grid grid-cols-4 w-full grid-flow-col">
+          <div className="grid grid-cols-5 w-full grid-flow-col">
             {labels.map((req, index) => (
               <div
                 key={index}
@@ -183,13 +184,12 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
             {jobs.map((job, index) => (
               <>
                 <div
-                  className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${
-                    checkedjob[index]
-                      ? "bg-[#D3F1FF]"
-                      : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
-                  }`}
+                  className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
+                    ? "bg-[#D3F1FF]"
+                    : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                    }`}
                 >
-                  <div className="grid grid-cols-4 w-full px-4 py-2">
+                  <div className="grid grid-cols-5 w-full ">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
                         {/* <input
@@ -220,40 +220,43 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                         {job.jobTitle}
                       </p>
                     </div>
+                    <div className="flex items-center justify-start col-span-1">
+                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                        {formatInterviewDate(job?.jobDeadLine)}
+                      </p>
+                    </div>
 
                     <div className="flex items-center justify-start col-span-1 pl-5">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                          checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Pending"
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                          ? "bg-[#FFFFFF]"
+                          : job?.preboardingDetails?.preboardingStatus ===
+                            "Pending"
                             ? "bg-[#FFF9ED]"
                             : job?.preboardingDetails?.preboardingStatus ===
                               "Initiated"
-                            ? "bg-[#E7F8FF]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Hired"
-                            ? "bg-[#E8FFE8]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Rejected"
-                            ? "bg-[#FFE6E2]"
-                            : ""
-                        } ${
-                          job?.preboardingDetails?.preboardingStatus ===
-                          "Pending"
+                              ? "bg-[#E7F8FF]"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Hired"
+                                ? "bg-[#E8FFE8]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Rejected"
+                                  ? "bg-[#FFE6E2]"
+                                  : ""
+                          } ${job?.preboardingDetails?.preboardingStatus ===
+                            "Pending"
                             ? "text-[#FFB836]"
                             : job?.preboardingDetails?.preboardingStatus ===
                               "Initiated"
-                            ? "text-[#06A9EF]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Hired"
-                            ? "text-[#0C8A0A]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Rejected"
-                            ? "text-[#FF6550]"
-                            : "text-[#333333]"
-                        }`}
+                              ? "text-[#06A9EF]"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Hired"
+                                ? "text-[#0C8A0A]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Rejected"
+                                  ? "text-[#FF6550]"
+                                  : "text-[#333333]"
+                          }`}
                       >
                         {job?.preboardingDetails?.preboardingStatus}
                       </div>
@@ -262,7 +265,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       <div className="flex   items-center w-full  justify-between">
                         <div key={index}>
                           {job?.preboardingDetails?.preboardingStatus ===
-                          "Initiated" ? (
+                            "Initiated" ? (
                             <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
                               Initiated
                             </div>
@@ -301,7 +304,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                           style={{
                             opacity:
                               job?.preboardingDetails?.preboardingStatus ===
-                              "Rejected"
+                                "Rejected"
                                 ? 0.5
                                 : 1,
                           }}
@@ -386,14 +389,15 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       {job.jobTitle}
                     </p>
                   </div>
-                  {/* <div className="flex justify-between items-center w-full">
+                 
+                  <div className="flex justify-between items-center w-full">
                     <p className="text-[14px] text-[#646464] font-[500]">
-                      Recruiter
+                      Job Role
                     </p>
                     <p className="text-[14px] text-[#333] font-semibold">
-                      {job.role}
+                    {formatInterviewDate(job?.jobDeadLine)}
                     </p>
-                  </div> */}
+                  </div>
 
                   <div className="flex justify-between items-center w-full">
                     <p className="text-[14px] text-[#646464] font-[500]">
@@ -404,21 +408,20 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                     </p>
                     <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00]">
                       <p
-                        className={`text-[#FF7A00] font-semibold text-[14px] ${
-                          job?.preboardingDetails?.preboardingStatus ===
+                        className={`text-[#FF7A00] font-semibold text-[14px] ${job?.preboardingDetails?.preboardingStatus ===
                           "Pending"
-                            ? "bg-[#FFF9ED] text-[#FFB836]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Initiated"
+                          ? "bg-[#FFF9ED] text-[#FFB836]"
+                          : job?.preboardingDetails?.preboardingStatus ===
+                            "Initiated"
                             ? " text-[#06A9EF]"
                             : job?.preboardingDetails?.preboardingStatus ===
                               "Hired"
-                            ? " text-[#0C8A0A]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Rejected"
-                            ? " text-[#FF6550]"
-                            : "text-[#333]"
-                        }`}
+                              ? " text-[#0C8A0A]"
+                              : job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                ? " text-[#FF6550]"
+                                : "text-[#333]"
+                          }`}
                       >
                         {job?.preboardingDetails?.preboardingStatus}
                       </p>
@@ -438,7 +441,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       style={{
                         opacity:
                           job?.preboardingDetails?.preboardingStatus ===
-                          "Rejected"
+                            "Rejected"
                             ? 0.5
                             : 1,
                       }}
@@ -449,27 +452,27 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
 
                     {job?.preboardingDetails?.preboardingStatus !==
                       "Rejected" && (
-                      <button
-                        disabled={
-                          job?.preboardingDetails?.preboardingStatus ===
-                          "Rejected"
-                        }
-                        onClick={() => {
-                          setReject(true);
-                          selectedApplicant(job);
-                        }}
-                        style={{
-                          opacity:
+                        <button
+                          disabled={
                             job?.preboardingDetails?.preboardingStatus ===
                             "Rejected"
-                              ? 0.5
-                              : 1,
-                        }}
-                        className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
-                      >
-                        Reject
-                      </button>
-                    )}
+                          }
+                          onClick={() => {
+                            setReject(true);
+                            selectedApplicant(job);
+                          }}
+                          style={{
+                            opacity:
+                              job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                ? 0.5
+                                : 1,
+                          }}
+                          className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                        >
+                          Reject
+                        </button>
+                      )}
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ import { currenciesWithIcons } from "../../../utils/data";
 function JobDetails({ jobDetails, totalCount }) {
   const router = useRouter();
   const { id } = router.query;
- 
+
   return (
     <div
       className="grid md:grid-cols-2 grid-cols-1items-start justify-center mb-[10px] gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
@@ -77,19 +77,21 @@ function JobDetails({ jobDetails, totalCount }) {
               </div>
             </div>
             <div className="flex flex-col items-start gap-4  self-stretch">
-              <div className="flex flex-col md:gap-2 gap-2 self-stretch">
-                <p className="text-[#333]   text-[16px] font-semibold">
-                  Qualifications
-                </p>
-                <p className="text-[#333] font-Montserrat  text-[14px] font-medium">
-                  {jobDetails?.requiredQualification ||
-                    "No qualification available"}
-                  <br />
-                  Total Work Experience{" "}
-                  {jobDetails?.experience} (Required)
-                </p>
-              </div>
-              <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
+
+              {jobDetails?.requiredQualification && <>
+                <div className="flex flex-col md:gap-2 gap-2 self-stretch">
+                  <p className="text-[#333]   text-[16px] font-semibold">
+                    Qualifications
+                  </p>
+                  <p className="text-[#333] font-Montserrat  text-[14px] font-medium">
+                    {jobDetails?.requiredQualification}
+                    <br />
+                    Total Work Experience{" "}
+                    {jobDetails?.experience} (Required)
+                  </p>
+                </div>
+                <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
+              </>}
             </div>
             <div className="flex flex-col gap-[8px]">
               <div className="text-[16px] font-[500]">Full job Description</div>
@@ -105,39 +107,39 @@ function JobDetails({ jobDetails, totalCount }) {
                 </span>{" "}
                 {(jobDetails?.minSalary > 0 ||
                   jobDetails?.maxSalary > 0) && (
-                  <div className="text-[14px] font-[500] flex text-[#333]">
-                    Salary :
-                    {(() => {
-                      const icon = currenciesWithIcons?.find(
-                        (item) =>
-                          item?.icon?.toLowerCase() ===
-                          jobDetails?.currency?.toLowerCase()
-                      );
+                    <div className="text-[14px] font-[500] flex text-[#333]">
+                      Salary :
+                      {(() => {
+                        const icon = currenciesWithIcons?.find(
+                          (item) =>
+                            item?.icon?.toLowerCase() ===
+                            jobDetails?.currency?.toLowerCase()
+                        );
 
-                      return (
-                        <div className="text-[14px] font-[500] text-[#333]">
-                          {icon
-                            ? icon.symbol
-                            : jobDetails?.currency}{" "}
-                          {jobDetails?.minSalary}{" "}
-                          {jobDetails?.minSalary &&
-                            jobDetails?.maxSalary &&
-                            "-"}{" "}
-                          {icon
-                            ? icon.symbol
-                            : jobDetails?.currency}{" "}
-                          {jobDetails?.maxSalary}{" "}
-                          {jobDetails?.salaryType === "Annual"
-                            ? "per annum"
-                            : jobDetails?.salaryType ===
-                              "Monthly"
-                            ? "per month"
-                            : "per week"}
-                        </div>
-                      );
-                    })()}
-                  </div>
-                )}
+                        return (
+                          <div className="text-[14px] font-[500] text-[#333]">
+                            {icon
+                              ? icon.symbol
+                              : jobDetails?.currency}{" "}
+                            {jobDetails?.minSalary}{" "}
+                            {jobDetails?.minSalary &&
+                              jobDetails?.maxSalary &&
+                              "-"}{" "}
+                            {icon
+                              ? icon.symbol
+                              : jobDetails?.currency}{" "}
+                            {jobDetails?.maxSalary}{" "}
+                            {jobDetails?.salaryType === "Annual"
+                              ? "per annum"
+                              : jobDetails?.salaryType ===
+                                "Monthly"
+                                ? "per month"
+                                : "per week"}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                 {/* <span className="text-[14px] font-[500] text-[#333]">
                   Schedule : Day shift{" "}
                 </span>{" "} */}
@@ -173,7 +175,7 @@ function JobDetails({ jobDetails, totalCount }) {
                         width: `${Math.min(
                           ((totalCount || 0) /
                             jobDetails?.openPositions) *
-                            100,
+                          100,
                           100
                         )}%`,
                       }}
@@ -225,36 +227,36 @@ function JobDetails({ jobDetails, totalCount }) {
                     </p>
                     {(jobDetails?.minSalary > 0 ||
                       jobDetails?.maxSalary > 0) && (
-                      <div className="text-[16px] font-[600] flex text-[#333]">
-                        {(() => {
-                          const icon = currenciesWithIcons?.find(
-                            (item) =>
-                              item?.icon?.toLowerCase() ===
-                              jobDetails?.currency?.toLowerCase()
-                          );
+                        <div className="text-[16px] font-[600] flex text-[#333]">
+                          {(() => {
+                            const icon = currenciesWithIcons?.find(
+                              (item) =>
+                                item?.icon?.toLowerCase() ===
+                                jobDetails?.currency?.toLowerCase()
+                            );
 
-                          return (
-                            <div className="text-[16px] font-[600] text-[#333]">
-                              {icon
-                                ? icon.symbol
-                                : jobDetails?.currency}{" "}
-                              {jobDetails?.minSalary}{" "}
-                              {jobDetails?.minSalary &&
-                                jobDetails?.maxSalary &&
-                                "-"}{" "}
-                              {icon
-                                ? icon.symbol
-                                : jobDetails?.currency}{" "}
-                              {jobDetails?.maxSalary}{" "}
-                              {jobDetails?.salaryType ===
-                              "Annual"
-                                ? "per annum"
-                                : "per month"}
-                            </div>
-                          );
-                        })()}
-                      </div>
-                    )}
+                            return (
+                              <div className="text-[16px] font-[600] text-[#333]">
+                                {icon
+                                  ? icon.symbol
+                                  : jobDetails?.currency}{" "}
+                                {jobDetails?.minSalary}{" "}
+                                {jobDetails?.minSalary &&
+                                  jobDetails?.maxSalary &&
+                                  "-"}{" "}
+                                {icon
+                                  ? icon.symbol
+                                  : jobDetails?.currency}{" "}
+                                {jobDetails?.maxSalary}{" "}
+                                {jobDetails?.salaryType ===
+                                  "Annual"
+                                  ? "per annum"
+                                  : "per month"}
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      )}
                   </div>
                 )}
 

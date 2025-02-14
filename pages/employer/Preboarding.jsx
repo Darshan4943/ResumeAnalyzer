@@ -217,7 +217,7 @@ function Preboarding() {
                 <>
                   {activeOption === "In Preboarding" && (
                     <>
-                      <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
+                      <div className="flex items-center flex-row pb-1 overflow-x-scroll w-full">
                         {preboardingData.map((e, index) => (
                           <>
                             <div

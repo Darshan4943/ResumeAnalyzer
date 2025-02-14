@@ -164,9 +164,17 @@ function ApplicantDetailsLeftCard({
               </div> :
               <>
                 {jobDetails?.hiringStage === "Selected" ?
-                  <button className="rounded-[30px] text-[14px] opacity-50 font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
-                    Moved to Hiring Process
-                  </button>
+                  <div
+                    onClick={() => {
+                      setToggle("HiringProgress");
+                      setActiveOption("HiringProgress");
+                    }}
+                    className="flex gap-2 cursor-pointer"
+                  >
+                    <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                      Schedule Interview
+                    </div>
+                  </div>
 
                   :
 
