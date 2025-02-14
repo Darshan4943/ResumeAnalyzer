@@ -166,11 +166,25 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
             <option disabled value="select">
               Select
             </option>
-            <option value="PHD">PHD</option>
-            <option value="Masters">Masters</option>
-            <option value="Bachelor">Bachelors</option>
-            <option value="12th">12th</option>
-            <option value="10th">10th</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Twitter">Twitter</option>
+            <option value="Instagram">Instagram</option>
+            <option value="YouTube">YouTube</option>
+              <option value="Reddit">Reddit</option>
+            <option value="Pinterest">Pinterest</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="GitHub">GitHub</option>
+            <option value="GitLab">GitLab</option>
+            <option value="Figma">Figma</option>
+            <option value="Dribbble">Dribbble</option>
+            <option value="Behance">Behance</option>
+            <option value="Discord">Discord</option>
+            <option value="Slack">Slack</option>
+            <option value="Twitch">Twitch</option>
+            <option value="Medium">Medium</option>
+            <option value="Quora">Quora</option>
+            <option value="Stack Overflow">Stack Overflow</option>
           </select>
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
