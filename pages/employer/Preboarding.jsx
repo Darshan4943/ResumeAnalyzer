@@ -141,7 +141,7 @@ function Preboarding() {
                       activeOption === "In Preboarding"
                         ? "text-[#333333]"
                         : "text-[#646464]"
-                    } ml:text-[16px] text-[14px] font-[600]`}
+                    } ml:text-[14px] text-[14px] font-[600]`}
                   >
                     In Preboarding
                   </p>
@@ -167,7 +167,7 @@ function Preboarding() {
                     }}
                     className={` ${
                       activeOption === "Joined" ? "" : "text-[#646464]"
-                    }  font-[600]`}
+                    }   ml:text-[14px] text-[14px] font-[600]`}
                   >
                     Joined
                   </p>
@@ -191,7 +191,7 @@ function Preboarding() {
                     }}
                     className={` ${
                       activeOption === "Declined" ? "" : "text-[#646464]"
-                    }  font-[600]`}
+                    }   ml:text-[14px] text-[14px] font-[600]`}
                   >
                     Declined
                   </p>
@@ -223,7 +223,7 @@ function Preboarding() {
                             <div
                               onClick={() => setToggle(index)}
                               key={index}
-                              className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${
+                              className={`flex cursor-pointer p-[8px] scr460:min-w-[12rem] min-w-[10rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${
                                 toggle === index
                                   ? "bg-[#06A9EF] "
                                   : "bg-[#fff] "
@@ -234,7 +234,7 @@ function Preboarding() {
                               }}
                             >
                               <p
-                                className={`text-[14px] text-[#333] leading-[160%]  ${
+                                className={`scr460:text-[14px] text-[12px] text-[#333] leading-[160%]  ${
                                   toggle === index ? "text-white" : " "
                                 }`}
                               >
