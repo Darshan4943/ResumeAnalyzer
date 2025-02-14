@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import StartPreboarding from "./StartPreboarding";
 import { applicantsMobile } from "../../../../../utils/preboardArray";
 import { TablePagination } from "@mui/material";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 
+import { AnimatePresence, motion } from "framer-motion";
 const Initial = ({ setToggle, setHeadings, headings }) => {
   const [page, setPage] = useState(0);
   const [startPreboarding, setStartPreboarding] = useState(false);
@@ -28,6 +29,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [reject, setReject] = useState(false);
   const [statusChange, setStatusChange] = useState(false);
+  const [moreOption, setMoreOption] = useState(false);
+  const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
 
@@ -119,6 +122,20 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
   const handleHeadingChange = (heading, value) => {
     console.log(`Sorting/Filtering by ${heading}:`, value);
   };
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setMoreOption(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const handleCheckboxChange = (job) => {
     setCheckedJob((prevChecked) =>
@@ -127,6 +144,11 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         : [...prevChecked, job]
     );
   };
+  const handleDotClick = (index) => {
+    setMoreOption((prev) => !prev);
+    setSelectedDotIndex(index);
+  };
+
 
   return (
     <>
@@ -215,12 +237,12 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center justify-start col-span-1">
+                    <div className="flex items-center justify-start col-span-1 pl-2">
                       <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
                         {job.jobTitle}
                       </p>
                     </div>
-                    <div className="flex items-center justify-start col-span-1">
+                    <div className="flex items-center justify-start col-span-1 pl-3">
                       <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
                         {formatInterviewDate(job?.jobDeadLine)}
                       </p>
@@ -261,8 +283,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                         {job?.preboardingDetails?.preboardingStatus}
                       </div>
                     </div>
-                    <div className="flex items-center justify-start col-span-1 ">
-                      <div className="flex   items-center w-full  justify-between">
+                    <div className="flex items-center justify-start col-span-1 pl-5">
+                      <div className="flex   items-center w-full  justify-between relative">
                         <div key={index}>
                           {job?.preboardingDetails?.preboardingStatus ===
                             "Initiated" ? (
@@ -291,8 +313,51 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                             </button>
                           )}
                         </div>
-
                         <button
+                          disabled={
+                            job?.preboardingDetails?.preboardingStatus ===
+                            "Rejected"
+                          }
+                          style={{
+                            opacity:
+                              job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                ? 0.5
+                                : 1,
+                          }}>
+
+                          <img
+                            onClick={() => handleDotClick(index)}
+                            className="min-w-[24px] max-w-[24px]"
+                            src="/images/employer/three-dot.png"
+                            alt=""
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {moreOption && selectedDotIndex === index && (
+                            <motion.div
+                              onClick={() => {
+                                setReject(true);
+                                selectedApplicant(job);
+                              }}
+                              initial={{ x: "100%" }}
+                              animate={{ x: 0 }}
+                              exit={{ x: "100%" }}
+                              transition={{ duration: 0.5 }}
+                              ref={taskRef}
+                              className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
+                            >
+
+                              <div className="text-[#C00000] font-medium cursor-pointer">Reject</div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* <button
                           disabled={
                             job?.preboardingDetails?.preboardingStatus ===
                             "Rejected"
@@ -311,7 +376,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                           className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
                         >
                           Reject
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
@@ -389,13 +454,13 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       {job.jobTitle}
                     </p>
                   </div>
-                 
+
                   <div className="flex justify-between items-center w-full">
                     <p className="text-[14px] text-[#646464] font-[500]">
                       Job Role
                     </p>
                     <p className="text-[14px] text-[#333] font-semibold">
-                    {formatInterviewDate(job?.jobDeadLine)}
+                      {formatInterviewDate(job?.jobDeadLine)}
                     </p>
                   </div>
 

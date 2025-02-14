@@ -251,7 +251,7 @@ const Hire = ({}) => {
                           </button>
                         </div>
 
-                        <img
+                        {/* <img
                           onClick={() => handleDotClick(index)}
                           className="w-[24px]"
                           src="/images/employer/three-dot.png"
@@ -275,7 +275,7 @@ const Hire = ({}) => {
                               <div className="text-[#C00000]">Cancel Offer</div>
                             </motion.div>
                           )}
-                        </AnimatePresence>
+                        </AnimatePresence> */}
                       </div>
                     </div>
                   </div>

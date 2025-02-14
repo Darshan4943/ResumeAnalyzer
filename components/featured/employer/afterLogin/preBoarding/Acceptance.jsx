@@ -287,7 +287,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                             </>
                           )}
 
-                          <img
+                          {/* <img
                             onClick={() => handleDotClick(index)}
                             className="w-[24px]"
                             src="/images/employer/three-dot.png"
@@ -315,7 +315,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                                 </div>
                               </motion.div>
                             )}
-                          </AnimatePresence>
+                          </AnimatePresence> */}
                         </div>
                       </div>
                     </div>
@@ -542,6 +542,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           page={page}
         />
       )}
+      
     </>
   );
 };
