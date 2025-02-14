@@ -6,6 +6,7 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { useSelector } from "react-redux";
 
 function ShortlistMail({
   shortlist,
@@ -18,6 +19,7 @@ function ShortlistMail({
   isByEmployer,
   newHiringStage,
 }) {
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,7 @@ function ShortlistMail({
       subject,
       content,
       applicantId: shortlist?.map((item) => item?.applicantId),
+      role: userDataGlobal?.role,
       jobId: id,
       newHiringStage,
     };

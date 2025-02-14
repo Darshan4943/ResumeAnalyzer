@@ -44,8 +44,7 @@ function LevelUpdate({
     if (
       selectedLevel?.status === currenStatus &&
       selectedLevel?.level !== 1 &&
-      selectedLevel.status !== "Conducted" &&
-      selectedLevel.status !== "Completed"
+      selectedLevel.status === "Pending" 
     ) {
       setError("Status Should Be Changed");
       return;
@@ -78,8 +77,7 @@ function LevelUpdate({
     if (
       selectedLevel?.status === currenStatus &&
       selectedLevel?.level !== 1 &&
-      selectedLevel.status !== "Conducted" &&
-      selectedLevel.status !== "Completed"
+      selectedLevel.status === "Pending" 
     ) {
       setError("Status Should Be Changed");
       return;

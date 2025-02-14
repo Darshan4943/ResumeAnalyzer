@@ -18,6 +18,7 @@ function ApplicantDetailsLeftCard({
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+  const [hiringStage, setHiringStage] = useState("");
   console.log(shortlist)
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
@@ -51,7 +52,7 @@ function ApplicantDetailsLeftCard({
           applicantIds={[shortlist.applicantId]}
           statusChange={statusChange}
           setStatusChange={setStatusChange}
-          newHiringStage={"Shortlisted"}
+          newHiringStage={hiringStage}
         />
       )}
       <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
@@ -72,7 +73,7 @@ function ApplicantDetailsLeftCard({
                   {/* {jobDetails?.jobTitle} */}
                 </p>
                 <div className="flex gap-2 text-[16px] font-medium items-center">
-                  Profile Match :
+                  Profile Match Score :
                   <span className="text-[16px] font-semibold">
                     {" "}
                     {jobDetails?.matchingPercentage} %
@@ -117,15 +118,15 @@ function ApplicantDetailsLeftCard({
                       <div className="h-[11px] w-[25%] rounded-[6px] bg-[#D6DDEB]"></div>
                     </div>
                   </div> */}
-            {/* {userDataGlobal?.role === "recruiter" ? (
+            {userDataGlobal?.role === "recruiter" ? (
               <>
                 {jobDetails?.hiringStage === "Shortlisted" ? (
-                  <button disabled className="flex gap-2">
+                  <button className="flex gap-2">
                     <div
-                      onClick={() => togglePopup(jobDetails)}
-                      className="px-4 w-full items-center flex justify-center py-3  text-[16px] rounded-[30px] font-medium text-[#4640DE] bg-[#4640DE1A] "
+                      onClick={() => { setHiringStage("Rejected"); togglePopup(jobDetails) }}
+                      className="px-4 w-full items-center flex justify-center py-3  text-[16px] rounded-[30px] font-medium text-[#FF6550] bg-[#FF65501A] "
                     >
-                      Shortlisted
+                      Reject Candidate
                     </div>
                   </button>
                 ) : jobDetails?.hiringStage === "Rejected" ? (
@@ -136,7 +137,7 @@ function ApplicantDetailsLeftCard({
                   </button>
                 ) : (
                   <button
-                    onClick={() => togglePopup(jobDetails)}
+                    onClick={() => { setHiringStage("Shortlisted"); togglePopup(jobDetails) }}
                     className="flex gap-2"
                   >
                     <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
@@ -146,44 +147,52 @@ function ApplicantDetailsLeftCard({
                 )}
               </>
             ) : (
-              <div
-                onClick={() => {
-                  setToggle("HiringProgress");
-                  setActiveOption("HiringProgress");
-                }}
-                className="flex gap-2 cursor-pointer"
-              >
-                <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
-                  Schedule Interview
-                </div>
-              </div>
-            )} */}
-            {loading ?
-              <div className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
-                <MiniLoader />
-              </div> :
               <>
-                {jobDetails?.hiringStage === "Selected" ?
-                  <div
-                    onClick={() => {
-                      setToggle("HiringProgress");
-                      setActiveOption("HiringProgress");
-                    }}
-                    className="flex gap-2 cursor-pointer"
-                  >
-                    <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
-                      Schedule Interview
-                    </div>
-                  </div>
+                {loading ?
+                  <div className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                    <MiniLoader />
+                  </div> :
+                  <>
+                    {jobDetails?.hiringStage === "Selected" ?
+                      <div
+                        onClick={() => {
+                          setToggle("HiringProgress");
+                          setActiveOption("HiringProgress");
+                        }}
+                        className="flex gap-2 cursor-pointer"
+                      >
+                        <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                          Schedule Interview
+                        </div>
+                      </div>
 
-                  :
+                      :
 
-                  <button onClick={moveToHiring} className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
-                    Move to Hiring Process
-                  </button>
+                      jobDetails?.hiringStage === "Shortlisted" ?
+                        <button disabled className="flex gap-2">
+                          <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#4640DE] bg-[#4640DE1A]">
+                            Shortlisted
+                          </div>
+                        </button>
+
+                        :
+                        jobDetails?.hiringStage === "Rejected" ?
+                          <button disabled className="flex gap-2">
+                            <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#FF6550] bg-[#FF65501A]">
+                              Rejected
+                            </div>
+                          </button>
+
+                          :
+                          <button onClick={moveToHiring} className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                            Move to Hiring Process
+                          </button>
+                    }
+                  </>
                 }
               </>
-            }
+            )}
+
             <div className="min-h-[1px] bg-[#D6DDEB]"></div>
             <div className="flex flex-col gap-4 text-[16px] font-normal">
               <p className="font-[600] text-[16px] text-[#333333]">Contact</p>

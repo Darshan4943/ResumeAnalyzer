@@ -7,50 +7,49 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import MiniLoader from "../../../../common/mini-loader";
+import { toast } from "react-toastify";
 
 function DocumentMail({
-    data, handleSubmit,setData,setSendMail,loading, setLoading
+    data, handleSubmit, setData, setSendMail, loading, setLoading
 
 }) {
-   
+
 
     const documentLabels = {
         isPhotoId: "Photo ID",
         isAddress: "Address Proof",
         isPayroll: "Payroll Documents",
-        isAcademic: "Academic Records",
+        isAcademic: "Academic Certificates",
         isDegrees: "Degree Certificates",
-        isCertifications: "Professional Certifications",
+        isCertifications: "Other Certifications",
         isExperience: "Experience Letters",
-      };
-      
+    };
+
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    
+
     const [subject, setSubject] = useState(
         `Document Submission `
     );
     const requiredDocs = Object.entries(data)
-    .filter(([key, value]) => documentLabels[key] && value) 
-    .map(([key]) => `<li>${documentLabels[key]}</li>`); 
-  
-  const [content, setContent] = useState(
-    `<p>Dear Candidate,</p>\n
-    <p>We are pleased to inform you that you have been selected for the next round of interviews at Skilotech.</p>\n
-    ${
-      data.isDocumentCollecting && requiredDocs.length > 0
-        ? `<p>To proceed further, please submit the following documents for verification:</p>\n
+        .filter(([key, value]) => documentLabels[key] && value)
+        .map(([key]) => `<li>${documentLabels[key]}</li>`);
+
+    const [content, setContent] = useState(
+        `<p>Dear Candidate,</p>\n
+    <p>We are pleased to inform you that you have been selected for the next round of interviews.</p>\n
+    ${data.isDocumentCollecting && requiredDocs.length > 0
+            ? `<p>To proceed further, please submit the following documents for verification:</p>\n
         <ul>${requiredDocs.join("\n")}</ul>\n`
-        : ""
-    }
-    ${
-      data.note
-        ? `<p>Additional Note: ${data.note}</p>\n`
-        : ""
-    }
+            : ""
+        }
+    ${data.note
+            ? `<p>Additional Note: ${data.note}</p>\n`
+            : ""
+        }
     <p>Please upload these documents at your earliest convenience.</p>\n
     <p>Best regards,<br />The Skilotech Team</p>`
-  );
+    );
 
 
     const handleKeyPress = (e) => {
@@ -64,6 +63,20 @@ function DocumentMail({
         setTags(tags.filter((_, i) => i !== index));
     };
 
+    const sendEmail = (e) => {
+
+        if (inputValue.trim()) {
+           
+
+            setTags([...tags, inputValue.trim()]);
+            setInputValue("");
+
+            return
+        }
+
+        handleSubmit(e)
+
+    }
 
 
     useEffect(() => {
@@ -72,14 +85,14 @@ function DocumentMail({
             ...prevState,
             emailDetails: {
                 to: data.applicantEmail,
-                cc: "",
+                cc: tags,
                 subject,
                 content,
                 employerEmail: data.employerEmail,
             }
         }));
 
-    }, [content,subject]);
+    }, [content, subject, tags]);
 
 
 
@@ -211,7 +224,7 @@ function DocumentMail({
                                                     ))}
                                                 </div>
                                             }
-                                            <div className="flex items-center min-w-[500px] gap-[10px]">
+                                            <div className="flex items-center min-w-[250px] gap-[10px]">
                                                 <input
                                                     type="text"
                                                     value={inputValue}
@@ -255,7 +268,7 @@ function DocumentMail({
                             </div>
                         ) : (
                             <button
-                                onClick={(e)=>handleSubmit(e)}
+                                onClick={(e) => sendEmail(e)}
                                 className="bg-blue flex gap-1 justify-center items-center w-[120px] text-white py-2 px-4 rounded-[30px] hover:bg-blue-600 text-[14px] font-semibold"
                             >
                                 Send

@@ -219,7 +219,7 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {(userDataGlobal?.role === "employer" && jobDetails?.hiringStage==="Selected") && (
+                      {(userDataGlobal?.role === "employer" && jobDetails?.hiringStage !=="Pending") && (
                         <div>
                           <p
                             className={`${

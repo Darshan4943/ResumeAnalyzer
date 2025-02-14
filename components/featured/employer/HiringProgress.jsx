@@ -52,8 +52,8 @@ function HiringProgress({
                       height="17"
                       viewBox="0 0 16 17"
                       fill="none"
-                      style={{ animationDelay: "1s" }}
-                      className="level"
+                      // style={{ animationDelay: "1s" }}
+                      // className="level"
                     >
                       <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
                       <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
@@ -118,8 +118,8 @@ function HiringProgress({
                           height="17"
                           viewBox="0 0 16 17"
                           fill="none"
-                          style={{ animationDelay: "1s" }}
-                          className="level"
+                          // style={{ animationDelay: "1s" }}
+                          // className="level"
                         >
                           <circle cx="8" cy="8.5" r="8" fill="#CBEFFF" />
                           <circle cx="8" cy="8.5" r="4" fill="#06A9EF" />
