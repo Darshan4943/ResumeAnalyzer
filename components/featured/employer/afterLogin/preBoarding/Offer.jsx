@@ -40,7 +40,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     lastName: "",
     email: "",
   });
-  console.log(loadingApplicantId)
+  console.log(loadingApplicantId);
 
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
@@ -112,7 +112,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
   }, []);
 
   const releaseOffer = async (applicantId, jobId) => {
-    setLoadingApplicantId(applicantId)
+    setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
         `http://localhost:2000/api/preboarding/releaseOffer/${applicantId}/${jobId}`
@@ -121,11 +121,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
         fetchJobs();
-        setLoadingApplicantId(null)
+        setLoadingApplicantId(null);
         return response.data;
       }
     } catch (error) {
-      setLoadingApplicantId(null)
+      setLoadingApplicantId(null);
       toast.error("Error moving to Release Offer");
     }
   };
@@ -218,15 +218,17 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                          "Verified" || applicants.preboardingDetails?.documentStatus ===
-                            "Submitted"
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants.preboardingDetails?.documentStatus ===
+                          "Verified" ||
+                        applicants.preboardingDetails?.documentStatus ===
+                          "Submitted"
                           ? "text-[#0C8A0A]"
                           : "text-[#333]"
-                        } `}
+                      } `}
                     >
                       {applicants?.preboardingDetails?.documentStatus ===
-                        "notRequired"
+                      "notRequired"
                         ? "Not Required"
                         : applicants?.preboardingDetails?.documentStatus}
                     </div>
@@ -235,35 +237,37 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                     </div>
                     <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
                             ? "bg-[#FFFFFF]"
                             : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails
                                 ?.offerAcceptanceStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Accepted"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                          } ${applicants?.preboardingDetails
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails
                             ?.offerAcceptanceStatus === "Pending"
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
                                 ?.offerAcceptanceStatus === "Accepted"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-                                  : "text-[#333333]"
-                          }`}
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
                       >
                         {applicants?.preboardingDetails?.offerAcceptanceStatus}
                       </div>
@@ -282,13 +286,21 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                               {applicants?.preboardingDetails
                                 ?.isOfferGenerated ? (
                                 <>
-                                  {loadingApplicantId === applicants.applicantId ? (
-                                    <div  className={` w-[116.24px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}>
+                                  {loadingApplicantId ===
+                                  applicants.applicantId ? (
+                                    <div
+                                      className={` w-[116.24px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}
+                                    >
                                       <MiniLoader />
                                     </div>
                                   ) : (
                                     <button
-                                      onClick={() => releaseOffer(applicants.applicantId, applicants.jobId)}
+                                      onClick={() =>
+                                        releaseOffer(
+                                          applicants.applicantId,
+                                          applicants.jobId
+                                        )
+                                      }
                                       className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}
                                     >
                                       Release Offer
@@ -444,15 +456,17 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                         Doc Status
                       </p>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                            "Verified" || applicants.preboardingDetails?.documentStatus ===
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                          applicants.preboardingDetails?.documentStatus ===
+                            "Verified" ||
+                          applicants.preboardingDetails?.documentStatus ===
                             "Submitted"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                          } `}
+                        } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus ===
-                          "notRequired"
+                        "notRequired"
                           ? "Not Required"
                           : applicants?.preboardingDetails?.documentStatus}
                       </div>
@@ -469,69 +483,69 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
                         Offer Acceptance
-
                       </p>
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                        className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${
+                          checkedjob[index]
                             ? "bg-[#FFFFFF]"
                             : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Pending"
-                              ? "bg-[#FFF9ED]"
-                              : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Pending"
+                            ? "bg-[#FFF9ED]"
+                            : applicants?.preboardingDetails
                                 ?.offerAcceptanceStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Accepted"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                          } ${applicants?.preboardingDetails
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Accepted"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails
                             ?.offerAcceptanceStatus === "Pending"
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Initiated"
+                            ? "text-[#06A9EF]"
+                            : applicants?.preboardingDetails
                                 ?.offerAcceptanceStatus === "Accepted"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-                                  : "text-[#333333]"
-                          }`}
-                      >{applicants?.preboardingDetails?.offerAcceptanceStatus}</div>
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails
+                                ?.offerAcceptanceStatus === "Rejected"
+                            ? "text-[#FF6550]"
+                            : "text-[#333333]"
+                        }`}
+                      >
+                        {applicants?.preboardingDetails?.offerAcceptanceStatus}
+                      </div>
                     </div>
                     <div className="flex justify-center w-[100%]">
-                      <div className="flex w-full justify-center relative">
+                      <div className="flex w-full justify-center relative gap-4">
                         {applicants?.preboardingDetails?.isOfferRelease ? (
-                          <div
-                            className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px] border font-semibold text-[14px] border-[#ABABAB]  text-[#ABABAB]`}
-                          >
+                          <div className="flex w-[140px] h-[40px] justify-center items-center rounded-[30px] border font-semibold text-[12px] border-[#ABABAB] text-[#ABABAB]">
                             Offer Released
                           </div>
                         ) : (
                           <>
                             {applicants?.preboardingDetails
                               ?.isOfferGenerated ? (
-                                <>
-                                {loadingApplicantId === applicants.applicantId ? (
-                                  <div  className={` w-[120px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}>
+                              <>
+                                {loadingApplicantId ===
+                                applicants.applicantId ? (
+                                  <div className="w-[140px] h-[40px] flex justify-center items-center rounded-[30px] border border-blue text-[12px] font-semibold">
                                     <MiniLoader />
                                   </div>
                                 ) : (
-                              <button
-                                className="border-[#06A9EF] bg-white text-black  rounded-[30px] w-[120px] h-[40px]   border"
-                              >
-                                Release Offer
-                              </button>
+                                  <button className="w-[140px] h-[40px] border border-[#06A9EF] bg-white text-black rounded-[30px] font-semibold text-[12px]">
+                                    Release Offer
+                                  </button>
                                 )}
                               </>
                             ) : (
                               <button
                                 onClick={() => handleGenerateOffer(applicants)}
-                                className="flex w-[140px] h-[40px] justify-center items-center gap-2 border rounded-[30px]  border-[#06A9EF] font-semibold text-[14px] text-[#fff] bg-[#06A9EF]  lg:text-[12px] font-Montserrat"
+                                className="flex w-[140px] h-[40px] justify-center items-center gap-2 border border-[#06A9EF] rounded-[30px] bg-[#06A9EF] text-white font-semibold text-[12px]"
                               >
                                 Generate Offer
                               </button>

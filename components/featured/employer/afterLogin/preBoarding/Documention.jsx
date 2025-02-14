@@ -501,6 +501,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
+                      
                     </div>
                     <div className="flex justify-center w-full">
                       {applicants?.preboardingDetails?.documentStatus ==

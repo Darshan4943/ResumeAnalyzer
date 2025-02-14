@@ -36,7 +36,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const [VerifyApplicant, setVerifyApplicant] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [loadingApplicantId, setLoadingApplicantId] = useState(null);
   const closeModal = () => setIsOpen(false);
 
@@ -70,7 +70,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
     }
   }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
 
-
   useEffect(() => {
     if (userDataGlobal?._id) {
       fetchJobs();
@@ -78,7 +77,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
   }, [fetchJobs]);
 
   const moveToReleaseOffer = async (applicantId, jobId) => {
-    setLoadingApplicantId(applicantId)
+    setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
         `http://localhost:2000/api/preboarding/moveToReleaseOffer/${applicantId}/${jobId}`
@@ -87,18 +86,17 @@ const Verification = ({ toggleContentt, setToggle }) => {
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
         fetchJobs();
-        setLoadingApplicantId(null)
+        setLoadingApplicantId(null);
         return response.data;
       }
     } catch (error) {
-      setLoadingApplicantId(null)
+      setLoadingApplicantId(null);
       toast.error("Error moving to Release Offer");
     }
   };
 
-
   const verifyDocuments = async (applicantId, jobId) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await axios.put(
         `http://localhost:2000/api/preboarding/verifyDocuments/${applicantId}/${jobId}`
@@ -107,17 +105,15 @@ const Verification = ({ toggleContentt, setToggle }) => {
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
         fetchJobs();
-        setDocumentation(false)
-        setLoading(false)
+        setDocumentation(false);
+        setLoading(false);
         return response.data;
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       toast.error("Error moving to Release Offer");
     }
   };
-
-
 
   const handleHeadingChange = (event, index) => {
     const selectedOption = event.target.value;
@@ -134,7 +130,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-    
+
     "Preboarding Status",
     "Actions",
   ];
@@ -237,39 +233,42 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       </p>
                     </div>
                     <div
-                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus ===
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants?.preboardingDetails?.documentStatus ===
                         "Submitted"
-                        ? "text-[#0C8A0A]"
-                        : applicants?.preboardingDetails?.documentStatus ===
-                          "Verified"
+                          ? "text-[#0C8A0A]"
+                          : applicants?.preboardingDetails?.documentStatus ===
+                            "Verified"
                           ? "text-[#0C8A0A]"
                           : "text-[#333]"
-                        } `}
+                      } `}
                     >
                       {applicants?.preboardingDetails?.documentStatus}
                     </div>
-                    
+
                     <div className="flex items-center justify-start col-span-1 pl-5  ">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails
-                            ?.preboardingStatus === "Pending"
+                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                          checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Pending"
                             ? "bg-[#FFF9ED]"
                             : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                            ? "bg-[#E7F8FF]"
+                            : applicants?.preboardingDetails
                                 ?.preboardingStatus === "Approved" ||
-                                applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Hired"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-                                  : ""
-                          } ${applicants?.preboardingDetails?.preboardingStatus ===
-                            "Pending"
+                              applicants?.preboardingDetails
+                                ?.preboardingStatus === "Hired"
+                            ? "bg-[#E8FFE8]"
+                            : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Rejected"
+                            ? "bg-[#FFE6E2]"
+                            : ""
+                        } ${
+                          applicants?.preboardingDetails?.preboardingStatus ===
+                          "Pending"
                             ? "text-[#FFB836]"
                             : applicants?.preboardingDetails
                                 ?.preboardingStatus === "Initiated"
@@ -298,7 +297,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         ) : (
                           <>
                             {applicants?.preboardingDetails?.documentStatus ==
-                              "Submitted" ? (
+                            "Submitted" ? (
                               <button
                                 onClick={() => verify(applicants)}
                                 className={` min-w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]
@@ -308,31 +307,33 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                 View & Verify
                               </button>
                             ) : applicants?.preboardingDetails
-                              ?.documentStatus == "Verified" ? (
-                                <>
-
-                                {loadingApplicantId === applicants.applicantId ? (
-                                  <div  className={` w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                                ?.documentStatus == "Verified" ? (
+                              <>
+                                {loadingApplicantId ===
+                                applicants.applicantId ? (
+                                  <div
+                                    className={` w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
-                                    `}>
+                                    `}
+                                  >
                                     <MiniLoader />
                                   </div>
                                 ) : (
-                              <button
-                                onClick={() =>
-                                  moveToReleaseOffer(
-                                    applicants?.applicantId,
-                                    applicants?.jobId
-                                  )
-                                }
-                                className={` min-w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
+                                  <button
+                                    onClick={() =>
+                                      moveToReleaseOffer(
+                                        applicants?.applicantId,
+                                        applicants?.jobId
+                                      )
+                                    }
+                                    className={` min-w-[128.63px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
                              
                               `}
-                              >
-                                Move to Next
-                              </button>
+                                  >
+                                    Move to Next
+                                  </button>
                                 )}
-                                </>
+                              </>
                             ) : (
                               ""
                             )}
@@ -397,7 +398,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                     
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -421,19 +421,19 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         Doc Status
                       </p>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus ===
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                          applicants?.preboardingDetails?.documentStatus ===
                           "Submitted"
-                          ? "text-[#0C8A0A]"
-                          : applicants?.preboardingDetails?.documentStatus ===
-                            "Verified"
+                            ? "text-[#0C8A0A]"
+                            : applicants?.preboardingDetails?.documentStatus ===
+                              "Verified"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                          } `}
+                        } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus}
                       </div>
                     </div>
-                    
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
@@ -441,74 +441,72 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       </p>
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
-                          className={`flex py-[10px] justify-center px-[14px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Pending"
+                          className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Approved" ||
-                                  applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Hired"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                            } ${applicants?.preboardingDetails?.preboardingStatus ===
-                              "Pending"
+                                applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Rejected"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
+                              ?.preboardingStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Initiated"
-                                ? "text-[#06A9EF]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Approved" ||
-                                  applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Hired"
-                                  ? "text-[#0C8A0A]"
-                                  : applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : "text-[#333333]"
-                            }`}
+                                applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Rejected"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
+                          }`}
                         >
                           {applicants?.preboardingDetails?.preboardingStatus}
                         </div>
                       </div>
                     </div>
                     <div className="flex justify-center w-[100%]">
-                      <div className="flex justify-center w-full">
+                      <div className="flex justify-center w-full gap-4">
                         {applicants?.preboardingDetails
                           ?.isMovedToReleaseOffer ? (
                           <div
                             onClick={toggleContentt}
-                            className="flex w-[120px] h-[40px] justify-center items-center rounded-[30px] border border-[#DEDEDE] text-[#DEDEDE] font-semibold text-[14px]"
+                            className="flex w-[140px] h-[40px] justify-center items-center rounded-[30px] border border-[#DEDEDE] text-[#DEDEDE] font-semibold text-[12px]"
                           >
-                            Moved forward
+                            Moved Forward
                           </div>
                         ) : (
                           <>
-                            {applicants?.preboardingDetails?.documentStatus ==
-                              "Submitted" ? (
+                            {applicants?.preboardingDetails?.documentStatus ===
+                            "Submitted" ? (
                               <button
                                 onClick={() => setDocumentation(true)}
-                                className={`flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF]  font-semibold text-[#fff] bg-[#06A9EF]
-                             
-                              `}
+                                className="flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-white font-semibold text-[12px]"
                               >
                                 View & Verify
                               </button>
                             ) : applicants?.preboardingDetails
-                              ?.documentStatus == "Verified" ? (
+                                ?.documentStatus === "Verified" ? (
                               <>
-
-                                {loadingApplicantId === applicants.applicantId ? (
-                                  <div  className={` w-[128.30px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-blue
-                             
-                                    `}>
+                                {loadingApplicantId ===
+                                applicants.applicantId ? (
+                                  <div className="w-[140px] h-[40px] flex justify-center items-center rounded-[30px] border border-blue text-[12px] font-semibold">
                                     <MiniLoader />
                                   </div>
                                 ) : (
@@ -519,9 +517,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                         applicants?.jobId
                                       )
                                     }
-                                    className={`min-w-[128.63px] flex lg:py-[6px] px-4  py-1 justify-center items-center  rounded-[30px]  text-[14px] font-[600] font-Montserrat border border-blue
-                             
-                              `}
+                                    className="w-[140px] h-[40px] flex justify-center items-center rounded-[30px] border border-blue text-[12px] font-semibold"
                                   >
                                     Move to Next
                                   </button>
@@ -566,7 +562,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
         limit={limit}
         page={page}
       />
-
 
       {documentation && (
         <>
@@ -617,13 +612,22 @@ const Verification = ({ toggleContentt, setToggle }) => {
                             {camelCase(category)}
                           </p>
 
-                        <div className="flex flex-start flex-wrap gap-4 px-[5%] scr420:px-[0%]">
-                          {categoryDocs.map(([key, value], index) => {
-
-                            const fileExtension = value?.file?.split(".").pop().toLowerCase();
-                            const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
-                            const isPDF = fileExtension === "pdf";
-                            const isDoc = ["doc", "docx"].includes(fileExtension);
+                          <div className="flex flex-start flex-wrap gap-4 px-[5%] scr420:px-[0%]">
+                            {categoryDocs.map(([key, value], index) => {
+                              const fileExtension = value?.file
+                                ?.split(".")
+                                .pop()
+                                .toLowerCase();
+                              const isImage = [
+                                "jpg",
+                                "jpeg",
+                                "png",
+                                "gif",
+                              ].includes(fileExtension);
+                              const isPDF = fileExtension === "pdf";
+                              const isDoc = ["doc", "docx"].includes(
+                                fileExtension
+                              );
 
                               return (
                                 <div
@@ -644,35 +648,44 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                     {camelCase(value.fileName)}
                                   </p>
 
-                                {isImage ? (
-                                  <div className=" cursor-pointer"
-                                    onClick={() => { setSelectedFile(value.file); setIsOpen(true) }}>
-                                    <img
-
-                                      src={value.file}
-                                      alt="Uploaded Document"
-                                      style={{
-                                        height: "100px",
-                                        width: "180px",
-                                        objectFit: "contain",
-                                        borderRadius: "8px",
-                                        boxShadow: "0px 0px 4.9px 0px #00000040"
-
-
+                                  {isImage ? (
+                                    <div
+                                      className=" cursor-pointer"
+                                      onClick={() => {
+                                        setSelectedFile(value.file);
+                                        setIsOpen(true);
                                       }}
-                                    />
-                                  </div>
-                                ) : isPDF ? (
-                                  <div onClick={() => { setSelectedFile(value.file); setIsOpen(true) }} className="docs ">
-                                    <PdfViewer pdfUrl={value?.file} />
-                                  </div>
-
-                                ) :
-                                  isDoc ?
-
+                                    >
+                                      <img
+                                        src={value.file}
+                                        alt="Uploaded Document"
+                                        style={{
+                                          height: "100px",
+                                          width: "180px",
+                                          objectFit: "contain",
+                                          borderRadius: "8px",
+                                          boxShadow:
+                                            "0px 0px 4.9px 0px #00000040",
+                                        }}
+                                      />
+                                    </div>
+                                  ) : isPDF ? (
+                                    <div
+                                      onClick={() => {
+                                        setSelectedFile(value.file);
+                                        setIsOpen(true);
+                                      }}
+                                      className="docs "
+                                    >
+                                      <PdfViewer pdfUrl={value?.file} />
+                                    </div>
+                                  ) : isDoc ? (
                                     <>
                                       <div
-                                        onClick={() => { setSelectedFile(value.file); setIsOpen(true) }}
+                                        onClick={() => {
+                                          setSelectedFile(value.file);
+                                          setIsOpen(true);
+                                        }}
                                         style={{
                                           height: "100px",
                                           width: "180px",
@@ -691,36 +704,48 @@ const Verification = ({ toggleContentt, setToggle }) => {
                                         />
                                       </div>
                                     </>
-                                    :
-                                    <div onClick={() => { setSelectedFile(value.file); setIsOpen(true) }} style={{
-                                      height: "100px",
-                                      width: "180px",
-                                      objectFit: "contain",
-                                      borderRadius: "8px",
-                                      boxShadow: "0px 0px 4.9px 0px #00000040",
-                                      overflow: "hidden",
-
-
-                                    }}>
+                                  ) : (
+                                    <div
+                                      onClick={() => {
+                                        setSelectedFile(value.file);
+                                        setIsOpen(true);
+                                      }}
+                                      style={{
+                                        height: "100px",
+                                        width: "180px",
+                                        objectFit: "contain",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0px 0px 4.9px 0px #00000040",
+                                        overflow: "hidden",
+                                      }}
+                                    >
                                       <InlineSVG imageUrl={value?.file} />
                                     </div>
-                                }
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                          {isOpen && (
+                            <>
+                              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-20"></div>
+                              <div
+                                onClick={() => setIsOpen(false)}
+                                className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center"
+                              >
+                                <DocumentModal
+                                  selectedFile={selectedFile}
+                                  isOpen={isOpen}
+                                  setIsOpen={setIsOpen}
+                                />
                               </div>
-                            );
-                          })}
-
+                            </>
+                          )}
                         </div>
-                        {isOpen && (
-                          <>
-                            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-20"></div>
-                            <div onClick={() => setIsOpen(false)} className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                              <DocumentModal selectedFile={selectedFile} isOpen={isOpen} setIsOpen={setIsOpen} />
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </div>
 
                 <div className="w-full justify-end gap-4 flex ">
@@ -730,15 +755,13 @@ const Verification = ({ toggleContentt, setToggle }) => {
                   >
                     Cancel
                   </button>
-                  {loading ?
-                    <div className=" w-[197.7px] flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px]  border-[#06A9EF] bg-[#06A9EF]"
-                    >
+                  {loading ? (
+                    <div className=" w-[197.7px] flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px]  border-[#06A9EF] bg-[#06A9EF]">
                       <MiniLoader />
                     </div>
-                    :
+                  ) : (
                     <button
                       onClick={() =>
-
                         verifyDocuments(
                           VerifyApplicant?.applicantId,
                           VerifyApplicant?.jobId
@@ -748,7 +771,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     >
                       Verify Documents
                     </button>
-                  }
+                  )}
                 </div>
               </div>
             </div>

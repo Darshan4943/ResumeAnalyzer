@@ -31,7 +31,7 @@ function Preboarding() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [preboardingData, setPreboardingData] = useState([]);
-  console.log(preboardingData.length)
+  console.log(preboardingData.length);
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
@@ -52,8 +52,6 @@ function Preboarding() {
     },
   ]);
 
-
-
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
       setId(userDataGlobal?._id);
@@ -71,7 +69,7 @@ function Preboarding() {
               page: page,
               limit: limit,
               search: "",
-              isAll:true
+              isAll: true,
             },
           }
         );
@@ -82,23 +80,38 @@ function Preboarding() {
         setTotalpages(response.data.pagination.totalPages);
         const preboardingCounts = response.data.preboardingCounts;
 
-
-    
-
         setPreboardingData([
-          { name: "Initial", num: preboardingCounts.initialCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Documentation", num: preboardingCounts.documentationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Verification", num: preboardingCounts.verificationCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Release Offer", num: preboardingCounts.releaseOfferCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
-          { name: "Offer Acceptance", num: preboardingCounts.offerAcceptanceCount, line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div> },
+          {
+            name: "Initial",
+            num: preboardingCounts.initialCount,
+            line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+          },
+          {
+            name: "Documentation",
+            num: preboardingCounts.documentationCount,
+            line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+          },
+          {
+            name: "Verification",
+            num: preboardingCounts.verificationCount,
+            line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+          },
+          {
+            name: "Release Offer",
+            num: preboardingCounts.releaseOfferCount,
+            line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+          },
+          {
+            name: "Offer Acceptance",
+            num: preboardingCounts.offerAcceptanceCount,
+            line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+          },
           { name: "Hired", num: preboardingCounts.hiredCount, line: "" },
         ]);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching jobs:", err);
         setLoading(false);
-
-
       }
     };
 
@@ -106,7 +119,6 @@ function Preboarding() {
       fetchJobs();
     }
   }, [id]);
-
 
   return (
     <>
@@ -125,10 +137,11 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("In Preboarding");
                     }}
-                    className={` ${activeOption === "In Preboarding"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
-                      } ml:text-[16px] text-[14px] font-[600]`}
+                    className={` ${
+                      activeOption === "In Preboarding"
+                        ? "text-[#333333]"
+                        : "text-[#646464]"
+                    } ml:text-[16px] text-[14px] font-[600]`}
                   >
                     In Preboarding
                   </p>
@@ -152,8 +165,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Joined");
                     }}
-                    className={` ${activeOption === "Joined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Joined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Joined
                   </p>
@@ -175,8 +189,9 @@ function Preboarding() {
                     onClick={() => {
                       setActiveOption("Declined");
                     }}
-                    className={` ${activeOption === "Declined" ? "" : "text-[#646464]"
-                      }  font-[600]`}
+                    className={` ${
+                      activeOption === "Declined" ? "" : "text-[#646464]"
+                    }  font-[600]`}
                   >
                     Declined
                   </p>
@@ -194,12 +209,11 @@ function Preboarding() {
                   </svg>
                 </div>
               </div>
-              {loading ?
+              {loading ? (
                 <div className="w-full flex justify-center items-center">
                   <MiniLoader />
                 </div>
-
-                :
+              ) : (
                 <>
                   {activeOption === "In Preboarding" && (
                     <>
@@ -209,15 +223,20 @@ function Preboarding() {
                             <div
                               onClick={() => setToggle(index)}
                               key={index}
-                              className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                                }`}
+                              className={`flex cursor-pointer p-[8px] min-w-[12rem] w-[15.35%]  justify-between   items-center rounded-[8px] ${
+                                toggle === index
+                                  ? "bg-[#06A9EF] "
+                                  : "bg-[#fff] "
+                              }`}
                               style={{
-                                boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                               }}
                             >
                               <p
-                                className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
-                                  }`}
+                                className={`text-[14px] text-[#333] leading-[160%]  ${
+                                  toggle === index ? "text-white" : " "
+                                }`}
                               >
                                 {e.name}
                               </p>
@@ -233,50 +252,30 @@ function Preboarding() {
                       </div>
 
                       {toggle === 0 && (
-
                         <Initial
                           jobs={jobs}
-
                           setToggle={setToggle}
-
                           headings={headings}
                           setHeadings={setHeadings}
                         />
-
                       )}
 
-                      {toggle === 1 && (
+                      {toggle === 1 && <Documention setToggle={setToggle} />}
 
-                        <Documention setToggle={setToggle} />
-
-                      )}
-
-                      {toggle === 2 && (
-
-                        <Verification setToggle={setToggle} />
-
-                      )}
+                      {toggle === 2 && <Verification setToggle={setToggle} />}
 
                       {toggle === 3 && (
-
                         <Offer
                           setToggle={setToggle}
                           setEditTemplate={setEditTemplate}
                         />
-
                       )}
 
-                      {toggle === 4 && (
-
-                        <Acceptance setToggle={setToggle} />
-
-                      )}
+                      {toggle === 4 && <Acceptance setToggle={setToggle} />}
 
                       {toggle === 5 && (
-
                         <Hire setPreview={setPreview} setToggle={setToggle} />
                       )}
-
                     </>
                   )}
 
@@ -303,10 +302,9 @@ function Preboarding() {
                     </>
                   )}
                 </>
-              }
+              )}
             </div>
           )}
-
         </>
       )}
       {editTemplate && <EditOfferTemplate setEditTemplate={setEditTemplate} />}
