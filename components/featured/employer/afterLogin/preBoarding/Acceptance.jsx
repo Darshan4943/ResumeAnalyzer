@@ -370,7 +370,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4 relative">
+                      {/* <div className="flex justify-end items-center gap-4 relative">
                         <img
                           onClick={() => handleDotClick(index)}
                           className="w-[24px]"
@@ -398,7 +398,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">

@@ -11,7 +11,7 @@ const ProfileHeader = ({ userData }) => {
   const latestEducation = [...(userData?.education || [])].sort((a, b) => {
     const aDate = a?.duration?.endDate;
     const bDate = b?.duration?.endDate;
-  
+
     if (aDate?.years !== bDate?.years) {
       return bDate?.years - aDate?.years;
     }
@@ -21,13 +21,13 @@ const ProfileHeader = ({ userData }) => {
   const [editProfile, setEditProfile] = useState(false);
 
   const [ischangeProfile, setIsChangeProfile] = useState(false);
-//   const imageSeter = () => {
-//     if (userData.profilePicture.img) {
-//       return userData?.profilePicture?.img;
-//     } else {
-//       return "/images/profile/john_doe.png";
-//     }
-//   };
+  //   const imageSeter = () => {
+  //     if (userData.profilePicture.img) {
+  //       return userData?.profilePicture?.img;
+  //     } else {
+  //       return "/images/profile/john_doe.png";
+  //     }
+  //   };
 
   return (
     <>
@@ -127,7 +127,7 @@ const ProfileHeader = ({ userData }) => {
                     )}
                   </div>
                   <div class="flex px-[16px] py-[0px] flex-col justify-between items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
-                    {userData?.education?.length >0 && (
+                    {(latestEducation?.specialization || (latestEducation?.stream && latestEducation?.stream > 0)) && (
                       <div class="flex items-center gap-[5px]">
                         <img
                           class="w-[20px] h-[20px]"
@@ -136,7 +136,7 @@ const ProfileHeader = ({ userData }) => {
                         />
                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
                           {latestEducation?.specialization} {latestEducation?.stream}
-                        
+
                         </p>
                       </div>
                     )}
@@ -159,7 +159,7 @@ const ProfileHeader = ({ userData }) => {
             <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
               <div className="bg-[#868383] h-[1px] w-[95%]"></div>
               <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
-                {userData?.education?.length >0 && (
+                {userData?.education?.length > 0 && (
                   <div class="flex items-center gap-[5px]">
                     <img
                       class="w-[20px] h-[20px]"
@@ -167,7 +167,7 @@ const ProfileHeader = ({ userData }) => {
                       alt=""
                     />
                     <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                    {latestEducation?.specialization} {latestEducation?.stream}
+                      {latestEducation?.specialization} {latestEducation?.stream}
                     </p>
                   </div>
                 )}
@@ -194,7 +194,7 @@ const ProfileHeader = ({ userData }) => {
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] w-full top-[100px]">
-              <ChangeProfile setIsChangeProfile={setIsChangeProfile}  userData={userData}/>
+              <ChangeProfile setIsChangeProfile={setIsChangeProfile} userData={userData} />
             </div>
           </div>
         </>

@@ -79,7 +79,7 @@ function HeroSection() {
 
                             <div className=" bg-[#E0E0E0] ms:w-[2px] ms:h-[22px] h-[1px] w-full"></div>
                             <select
-                                className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"
+                                className={`text-[14px] font-[500] w-full font-Montserrat border-none outline-none appearance-none max-w-[148px] p-2 min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"
                                     }`}
                                 value={experience}
                                 onChange={(e) => setExperience(e.target.value)}
