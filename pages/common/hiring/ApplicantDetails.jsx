@@ -22,6 +22,9 @@ function ApplicantDetails({ setTogglee }) {
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
 
+
+ 
+
   const getData = async () => {
     try {
       setLoading(true);
@@ -153,6 +156,7 @@ function ApplicantDetails({ setTogglee }) {
               id={id}
               statusChange={statusChange}
               setStatusChange={setStatusChange}
+              applicantId={applicantId}
             />
             {jobDetails?.details && (
               <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ">
@@ -215,7 +219,7 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {userDataGlobal?.role === "employer" && (
+                      {(userDataGlobal?.role === "employer" && jobDetails?.hiringStage==="Selected") && (
                         <div>
                           <p
                             className={`${
@@ -225,7 +229,7 @@ function ApplicantDetails({ setTogglee }) {
                             } cursor-pointer`}
                             onClick={() => handleOptionClick("HiringProgress")}
                           >
-                            Hiring Progress
+                            Hiring Process
                           </p>
                           <svg
                             className=" ml:w-[128px] sm:w-[115px] w-[95px]"

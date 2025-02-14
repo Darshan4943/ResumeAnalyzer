@@ -461,18 +461,11 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails?.documentStatus}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Recruiter
-                      </p>
-                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicants?.role}
-                      </p>
-                    </div>
+                   
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                        {applicants?.preboardingDetails?.preboardingStatus}
+                       Preboarding Status
                       </p>
 
                       <div
@@ -508,6 +501,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
+                      
                     </div>
                     <div className="flex justify-center w-full">
                       {applicants?.preboardingDetails?.documentStatus ==

@@ -323,11 +323,11 @@ const Hire = ({}) => {
                           alt=""
                         />
                         <p className="text-[14px] text-[#333] font-[600]">
-                        {applicants.details?.personal?.firstName}{" "}
-                        {applicants.details?.personal?.lastName}
+                          {applicants.details?.personal?.firstName}{" "}
+                          {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4 relative">
+                      {/* <div className="flex justify-end items-center gap-4 relative">
                         <img
                           onClick={() => handleDotClick(index)}
                           className="w-[24px]"
@@ -353,7 +353,7 @@ const Hire = ({}) => {
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -361,7 +361,7 @@ const Hire = ({}) => {
                         Job Role
                       </p>
                       <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                      {applicants?.jobTitle}
+                        {applicants?.jobTitle}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -369,7 +369,7 @@ const Hire = ({}) => {
                         Due Date
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                      {formatInterviewDate(applicants?.jobDeadLine)}
+                        {formatInterviewDate(applicants?.jobDeadLine)}
                       </p>
                     </div>
                     <div className="flex justify-between items-center self-stretch">
@@ -395,16 +395,16 @@ const Hire = ({}) => {
                         Recruiter
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                      {applicants.role}
+                        {applicants.role}
                       </p>
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                      Offer Acceptance
+                        Offer Acceptance
                       </p>
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                        className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${
                           checkedjob[index]
                             ? "bg-[#FFFFFF]"
                             : applicants?.preboardingDetails
@@ -440,12 +440,13 @@ const Hire = ({}) => {
                       </div>
                     </div>
                     <div className="flex justify-center w-[100%]">
-                      <div
-                        className="flex w-[260px] px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
-                        style={{
-                          borderRadius: "8px",
-                          border: " 1px solid var(--primary, #06A9EF)",
-                        }}
+                      <button
+                        onClick={() =>
+                          router.push(
+                            `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
+                          )
+                        }
+                        className="flex w-[260px] px-6 py-3 justify-center items-center gap-2 bg-[#06A9EF] text-white text-[12px] font-semibold font-Montserrat rounded-lg border border-[#06A9EF]"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -459,18 +460,8 @@ const Hire = ({}) => {
                             fill="white"
                           />
                         </svg>
-
-                        <button
-                            onClick={() =>
-                              router.push(
-                                `/employer/ApplicantPreview?id=${applicants?.jobId}&applicantId=${applicants?.applicantId}`
-                              )
-                            }
-                            className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
-                          >
-                            Preview Application
-                          </button>
-                      </div>
+                        Preview Application
+                      </button>
                     </div>
                   </div>
                 </div>

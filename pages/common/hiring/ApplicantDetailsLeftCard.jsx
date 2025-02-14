@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ShortlistMail from "./ShortlistMail";
 import { CountPostingDays } from "../../../utils/data";
+import MiniLoader from "../../../components/common/mini-loader";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 function ApplicantDetailsLeftCard({
   jobDetails,
@@ -10,14 +13,34 @@ function ApplicantDetailsLeftCard({
   statusChange,
   setToggle,
   setActiveOption,
+  applicantId
 }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+  console.log(shortlist)
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
   };
+  const [loading, setLoading] = useState(false)
+
+  const moveToHiring = async () => {
+
+    setLoading(true)
+    try {
+      const response = await axios.put(`http://localhost:2000/api/hiring/moveToHiring/${applicantId}/${id}`)
+      setLoading(false)
+      setStatusChange(true)
+      toast.success("Successfully moved to Hiring")
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      setLoading(false)
+      throw error;
+    }
+  };
+
   return (
     <>
       {isPopupVisible && (
@@ -135,6 +158,24 @@ function ApplicantDetailsLeftCard({
                 </div>
               </div>
             )} */}
+            {loading ?
+              <div className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                <MiniLoader />
+              </div> :
+              <>
+                {jobDetails?.hiringStage === "Selected" ?
+                  <button className="rounded-[30px] text-[14px] opacity-50 font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                    Moved to Hiring Process
+                  </button>
+
+                  :
+
+                  <button onClick={moveToHiring} className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                    Move to Hiring Process
+                  </button>
+                }
+              </>
+            }
             <div className="min-h-[1px] bg-[#D6DDEB]"></div>
             <div className="flex flex-col gap-4 text-[16px] font-normal">
               <p className="font-[600] text-[16px] text-[#333333]">Contact</p>
