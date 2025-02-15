@@ -287,7 +287,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                             </>
                           )}
 
-                          <img
+                          {/* <img
                             onClick={() => handleDotClick(index)}
                             className="w-[24px]"
                             src="/images/employer/three-dot.png"
@@ -315,7 +315,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                                 </div>
                               </motion.div>
                             )}
-                          </AnimatePresence>
+                          </AnimatePresence> */}
                         </div>
                       </div>
                     </div>
@@ -529,12 +529,12 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
         </div>
       </div>
 
-      {totalCount > 1 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}
@@ -542,6 +542,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           page={page}
         />
       )}
+      
     </>
   );
 };

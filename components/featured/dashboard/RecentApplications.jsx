@@ -33,6 +33,7 @@ function RecentApplications({ isPending }) {
   const [allReject, setAllReject] = useState(false);
   const [shortlist, setShortlist] = useState([]);
   const [shortlistJobId, setShortlistJobId] = useState([]);
+  const [hiringStage, setHiringStage] = useState("");
 
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
@@ -356,7 +357,7 @@ function RecentApplications({ isPending }) {
                                 ? 0.5
                                 : 1,
                           }}
-                          onClick={() => togglePopup(applicant)}
+                          onClick={() =>{setHiringStage("Shortlisted"); togglePopup(applicant)}}
                           className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[6px] px-[8px] rounded-[30px] bg-[#06A9EF]"
                         >
                           Shortlist
@@ -371,28 +372,28 @@ function RecentApplications({ isPending }) {
                               statusChange={statusChange}
                               setStatusChange={setStatusChange}
                               applicantIds={applicantIds}
-                              newHiringStage={"Shortlisted"}
+                              newHiringStage={hiringStage}
                             />
                           )}
                         </>
-                        {loadingg.isLoading &&
+                        {/* {loadingg.isLoading &&
                         loadingg.applicantId === applicant.applicantId ? (
                           <div className="w-[49.81px] flex justify-center items-center">
                             <MiniLoaderr />
                           </div>
-                        ) : (
+                        ) : ( */}
                           <button
                             disabled={applicant?.hiringStage === "Rejected"}
                             style={{
                               opacity:
                                 applicant?.hiringStage === "Rejected" ? 0.5 : 1,
                             }}
-                            onClick={() => handleSend(applicant)}
+                            onClick={() =>{setHiringStage("Rejected"); togglePopup(applicant)}}
                             className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
                           >
                             Reject
                           </button>
-                        )}
+                        {/* )} */}
 
                         <AnimatePresence>
                           {moreOption && selectedDotIndex === index && (

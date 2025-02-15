@@ -251,7 +251,7 @@ const Hire = ({}) => {
                           </button>
                         </div>
 
-                        <img
+                        {/* <img
                           onClick={() => handleDotClick(index)}
                           className="w-[24px]"
                           src="/images/employer/three-dot.png"
@@ -275,7 +275,7 @@ const Hire = ({}) => {
                               <div className="text-[#C00000]">Cancel Offer</div>
                             </motion.div>
                           )}
-                        </AnimatePresence>
+                        </AnimatePresence> */}
                       </div>
                     </div>
                   </div>
@@ -470,12 +470,12 @@ const Hire = ({}) => {
           </div>
         </div>
       </div>
-      {totalCount > 1 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}

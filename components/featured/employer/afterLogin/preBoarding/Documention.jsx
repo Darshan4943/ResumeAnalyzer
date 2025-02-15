@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 import {
   applicants,
@@ -13,7 +13,7 @@ import { formatInterviewDate } from "../../../../../utils/middleware";
 import MiniLoader from "../../../../common/mini-loader";
 import CustomPagination from "../../../../common/CustomPagination";
 import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
-
+import { AnimatePresence, motion } from "framer-motion";
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
   const [isRemind, setIsRemind] = useState(false);
@@ -36,6 +36,30 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const [loadingApplicantId, setLoadingApplicantId] = useState(null);
   const [reject, setReject] = useState(false);
   const [statusChange, setStatusChange] = useState(false);
+  const taskRef = useRef(null);
+  const [moreOption, setMoreOption] = useState(false);
+  const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setMoreOption(false);
+    }
+  };
+ 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handleDotClick = (index) => {
+    setMoreOption((prev) => !prev);
+    setSelectedDotIndex(index);
+  };
+
+
+
+
   const reminder = async (applicants) => {
     setLoadingApplicantId(applicants.applicantId);
     await setJobData(applicants);
@@ -186,12 +210,13 @@ const Documention = ({ toggleContentt, setToggle }) => {
     "Preboarding Status",
     "Actions",
   ];
+
   return (
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div
-            className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+            className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
             style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
           >
             <img
@@ -241,12 +266,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center justify-start col-span-1">
+                    <div className="flex items-center justify-start col-span-1 pl-2">
                       <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
                         {applicants?.jobTitle}
                       </p>
                     </div>
-                    <div className="flex items-center justify-start col-span-1">
+                    <div className="flex items-center justify-start col-span-1 pl-3">
                       <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
                         {formatInterviewDate(applicants?.jobDeadLine)}
                       </p>
@@ -263,7 +288,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       {applicants?.preboardingDetails?.documentStatus}
                     </div>
 
-                    <div className="flex items-center justify-center col-span-1 ">
+                    <div className="flex items-center justify-start col-span-1 pl-5">
                       <div
                         className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
                           ? "bg-[#FFFFFF]"
@@ -298,8 +323,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
                     </div>
-                    <div className="flex items-center justify-start col-span-1">
-                      <div className="flex   items-center w-full  justify-between">
+                    <div className="flex items-center justify-start col-span-1 pl-5">
+                      <div className="flex   items-center w-full  justify-between relative">
                         {applicants?.preboardingDetails?.documentStatus ==
                           "Submitted" ||
                           applicants?.preboardingDetails?.documentStatus ==
@@ -345,21 +370,49 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         )}
 
                         <button
-                          disabled={applicants?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"}
-                          onClick={() => {
-
-                            setReject(true);
-                            selectedApplicant(applicants);
-                          }}
+                          disabled={
+                            applicants?.preboardingDetails?.preboardingStatus ===
+                            "Rejected"
+                          }
                           style={{
-                            opacity: applicants?.preboardingDetails?.preboardingStatus ===
-                              "Rejected" ? 0.5 : 1
-                          }}
-                          className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
-                        >
-                          Reject
+                            opacity:
+                              applicants?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                ? 0.5
+                                : 1,
+                          }}>
+
+                          <img
+                            onClick={() => handleDotClick(index)}
+                            className="min-w-[24px] max-w-[24px]"
+                            src="/images/employer/three-dot.png"
+                            alt=""
+                          />
                         </button>
+                        <AnimatePresence>
+                          {moreOption && selectedDotIndex === index && (
+                            <motion.div
+                              onClick={() => {
+                                setReject(true);
+                                selectedApplicant(applicants);
+                              }}
+                              initial={{ x: "100%" }}
+                              animate={{ x: 0 }}
+                              exit={{ x: "100%" }}
+                              transition={{ duration: 0.5 }}
+                              ref={taskRef}
+                              className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              style={{
+                                boxShadow:
+                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                              }}
+                            >
+
+                              <div className="text-[#C00000] font-medium cursor-pointer">Reject</div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
                       </div>
                     </div>
                   </div>
@@ -368,12 +421,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
-        {totalCount > 9 && (
+        {totalCount > 10 && (
           <CustomPagination
             setMiniloading={setMiniloading}
             miniLoading={miniLoading}
             setPage={setPage}
-            title={"preboarding"}
+            title={"Applications"}
             setLimit={setLimit}
             defaultLimit={10}
             totalPages={totalPages}
@@ -426,7 +479,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                    
+
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -461,11 +514,11 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails?.documentStatus}
                       </p>
                     </div>
-                   
+
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                       Preboarding Status
+                        Preboarding Status
                       </p>
 
                       <div
@@ -501,7 +554,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       >
                         {applicants?.preboardingDetails?.preboardingStatus}
                       </div>
-                      
+
                     </div>
                     <div className="flex justify-center w-full">
                       {applicants?.preboardingDetails?.documentStatus ==
@@ -572,12 +625,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
-        {totalCount > 9 && (
+        {totalCount > 10 && (
           <CustomPagination
             setMiniloading={setMiniloading}
             miniLoading={miniLoading}
             setPage={setPage}
-            title={"preboarding"}
+            title={"Applications"}
             setLimit={setLimit}
             defaultLimit={10}
             totalPages={totalPages}

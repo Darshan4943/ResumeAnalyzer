@@ -6,6 +6,7 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { useSelector } from "react-redux";
 
 function ShortlistMail({
   shortlist,
@@ -18,14 +19,15 @@ function ShortlistMail({
   isByEmployer,
   newHiringStage,
 }) {
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState(
-    `Congratulations! You have been ${newHiringStage}`
+    
   );
   const [content, setContent] = useState(
-    `<p>Dear Candidate,</p>\n<p>We are pleased to inform you that you have been ${newHiringStage} for the next round of interviews at Skilotech.</p>\n<p>Please check your email for further details.</p>\n<p>Best regards,<br />The Skilotech Team</p>`
+    
   );
 
   const handleKeyPress = (e) => {
@@ -47,6 +49,7 @@ function ShortlistMail({
       subject,
       content,
       applicantId: shortlist?.map((item) => item?.applicantId),
+      role: userDataGlobal?.role,
       jobId: id,
       newHiringStage,
     };
@@ -236,6 +239,7 @@ function ShortlistMail({
                 <div className="flex flex-col mt-[20px]">
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
+                 style={{ minHeight: "120px" }}
                     value={content}
                     headerTemplate={header}
                     onTextChange={(e) => setContent(e.htmlValue)}
