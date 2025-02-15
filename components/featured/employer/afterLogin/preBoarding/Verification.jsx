@@ -596,12 +596,12 @@ const Verification = ({ toggleContentt, setToggle }) => {
         </div>
       </div>
 
-      {totalCount > 9 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}
@@ -609,17 +609,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
           page={page}
         />
       )}
-      <CustomPagination
-        setMiniloading={setMiniloading}
-        miniLoading={miniLoading}
-        setPage={setPage}
-        title={"preboarding"}
-        setLimit={setLimit}
-        defaultLimit={10}
-        totalPages={totalPages}
-        limit={limit}
-        page={page}
-      />
+    
 
       {documentation && (
         <>

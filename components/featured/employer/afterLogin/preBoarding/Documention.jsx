@@ -44,7 +44,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       setMoreOption(false);
     }
   };
-
+ 
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -421,12 +421,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
-        {totalCount > 9 && (
+        {totalCount > 10 && (
           <CustomPagination
             setMiniloading={setMiniloading}
             miniLoading={miniLoading}
             setPage={setPage}
-            title={"preboarding"}
+            title={"Applications"}
             setLimit={setLimit}
             defaultLimit={10}
             totalPages={totalPages}
@@ -625,12 +625,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
             ))}
           </div>
         </div>
-        {totalCount > 9 && (
+        {totalCount > 10 && (
           <CustomPagination
             setMiniloading={setMiniloading}
             miniLoading={miniLoading}
             setPage={setPage}
-            title={"preboarding"}
+            title={"Applications"}
             setLimit={setLimit}
             defaultLimit={10}
             totalPages={totalPages}

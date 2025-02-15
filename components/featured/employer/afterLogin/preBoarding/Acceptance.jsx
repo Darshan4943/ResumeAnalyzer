@@ -529,12 +529,12 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
         </div>
       </div>
 
-      {totalCount > 1 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}

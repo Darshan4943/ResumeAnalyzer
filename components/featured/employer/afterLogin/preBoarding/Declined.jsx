@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import CustomPagination from "../../../../common/CustomPagination";
+import { useRouter } from "next/router";
 // import { headings } from "@/utils/preboardArray";
 
 const Declined = ({ toggleContentt, setPreview }) => {
@@ -27,6 +28,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [searchQuery, setSearchQuery] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
+  const router = useRouter()
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -113,7 +115,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
             {labels.map((req, index) => (
               <div
                 key={index}
-                className="flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center bg-[#EFFAFF] justify-between w-full"
+                className={`flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center bg-[#EFFAFF] ${labels.length-1 ===index ? "justify-center": "justify-start"} w-full`}
               >
                 <p>{req}</p>
               </div>
@@ -232,7 +234,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
                       </div>
                     </div>
                     <div className="flex items-center justify-start col-span-1 ">
-                      <div className="flex   items-center w-full  justify-between">
+                      <div className="flex   items-center w-full  justify-end">
                         <button
                           onClick={() =>
                             router.push(
@@ -243,11 +245,11 @@ const Declined = ({ toggleContentt, setPreview }) => {
                         >
                           Preview Application
                         </button>
-                        <img
+                        {/* <img
                           className="w-[24px]"
                           src="/images/employer/three-dot.png"
                           alt=""
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>
@@ -300,7 +302,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4">
+                      {/* <div className="flex justify-end items-center gap-4">
                         <svg
                           xlgns="http://www.w3.org/2000/svg"
                           width="24"
@@ -342,7 +344,7 @@ const Declined = ({ toggleContentt, setPreview }) => {
                             </clipPath>
                           </defs>
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
