@@ -32,7 +32,7 @@ function RequisitionList({
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
+          `https://dev.api.skilotech.com/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,
