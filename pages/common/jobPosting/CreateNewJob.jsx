@@ -657,7 +657,7 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.status
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[#767676] text-[12px] font-[400] ${formError.status
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -679,7 +679,7 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.jobTitle
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -695,7 +695,7 @@ function CreateNewJob() {
                         <div className="text-[14px] font-[500]">Job Link</div>
                         <div>
                           <input
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px] w-full"
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px] w-full outline-none"
                             placeholder="Add Job Link"
                             type="text"
                             name="jobLink"
@@ -746,7 +746,7 @@ function CreateNewJob() {
                               </div>}
                             <input type="text" name="" id=""
                               placeholder="Enter Keywords"
-                              className="input w-[130px]"
+                              className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
                               value={KeywordsText}
                               onChange={(e) => {
                                 setKeywordsText(e.target.value);
@@ -799,27 +799,25 @@ function CreateNewJob() {
                         {companyId ? (
                           <div
                             className="border-[1px] border-[#DEDEDE]
-                              text-[12px] font-[400] py-[12px] px-[16px]
+                              text-[12px] font-[400] overflow-x-auto h-[43px] py-[12px] px-[16px]
                               rounded-[8px]"
                             style={{ whiteSpace: "pre-wrap" }}
                           >
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  data.aboutOrganization ||
-                                  "<p>No description available.</p>",
-                              }}
-                            />
+                            <div className="w-full" dangerouslySetInnerHTML={{
+                              __html:
+                                data.aboutOrganization ||
+                                "<p>No description available.</p>",
+                            }}></div>
                           </div>
                         ) : (
                           <input
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px]"
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] outline-none rounded-[8px]"
                             placeholder="Brief description for your company. URLs are hyperlinked."
                             type="text"
                             name="aboutOrganization"
                             value={data.aboutOrganization}
                             onChange={handleChange}
-                            
+
                           />
                         )}
                       </div>
@@ -829,7 +827,7 @@ function CreateNewJob() {
                           <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
                             ? "border-red"
                             : "border-[#DEDEDE]"
                             }`}
@@ -912,7 +910,7 @@ function CreateNewJob() {
                             <input
                               type="text"
                               placeholder="Location"
-                              className="input w-[100px]"
+                              className="input w-[100px] placeholder:text-[12px] placeholder:font-[400] outline-none"
                               value={loactionText}
                               onChange={(e) => {
                                 setLoactionText(e.target.value);
@@ -998,6 +996,7 @@ function CreateNewJob() {
                             className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                           >
                             <input
+                              className="outline-none placeholder:text-[12px] placeholder:font-[400]"
                               type="file"
                               name="myfile"
                               onChange={handleFileChange}
@@ -1119,7 +1118,7 @@ function CreateNewJob() {
                           <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[42px]">
                             <ReactSelect
                               options={currencyOptions}
-                              className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[14px] font-montserrat font-small text-black h-[42px]"
+                              className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[42px]"
                               placeholder="Select Currency"
                               value={
                                 currencyOptions.find(
@@ -1156,13 +1155,14 @@ function CreateNewJob() {
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
                             <select
+
                               style={{
                                 height: "40px",
                                 border: "1px solid #DEDEDE",
                                 borderRadius: "8px",
                                 padding: "5px",
                               }}
-                              className="w-full text-[12px] font-[400]"
+                              className="w-full text-[12px] text-[#767676] font-[400]"
                               type="text"
                               name="salaryType"
                               value={data.salaryType}
@@ -1181,7 +1181,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Min Salary</div>
                           <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
+                            className="border border-[#DEDEDE] outline-none placeholder:text-[12px] placeholder:font-[400] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
                             type="text"
                             name="minSalary"
                             value={data.minSalary}
@@ -1197,7 +1197,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Max Salary</div>
                           <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
+                            className="border border-[#DEDEDE] w-full h-10 outline-none placeholder:text-[12px] placeholder:font-[400] rounded-lg px-2 text-[12px] font-[400]"
                             type="text"
                             name="maxSalary"
                             value={data.maxSalary}
@@ -1226,7 +1226,7 @@ function CreateNewJob() {
                             Open Positions
                           </div>
                           <input
-                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
+                            className="border border-[#DEDEDE] w-full h-10 outline-none placeholder:text-[12px] placeholder:font-[400] rounded-lg px-2 text-[12px] font-[400]"
                             type="text"
                             name="openPositions"
                             value={data.openPositions}
@@ -1253,7 +1253,7 @@ function CreateNewJob() {
                             classNamePrefix="select"
                             placeholder="Select Job Sector"
                             styles={customStyles}
-                            className={`border rounded-[5px] ${formError.jobSector
+                            className={`border JobSectorPlaceHolder rounded-[5px] ${formError.jobSector
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -1264,6 +1264,7 @@ function CreateNewJob() {
                             Job Type <span className="text-[red]">*</span>
                           </div>
                           <select
+                            className="text-[12px] outline-none text-[#767676] font-[400]"
                             style={{
                               width: "100%",
                               height: "40px",
@@ -1290,6 +1291,7 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Work From</div>
                           <select
+                            className="text-[12px] outline-none text-[#767676] font-[400]"
                             style={{
                               width: "100%",
                               height: "40px",
@@ -1324,7 +1326,7 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.requiredQualification
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -1358,6 +1360,7 @@ function CreateNewJob() {
                             onClick={(e) =>
                               e.target.showPicker && e.target.showPicker()
                             }
+                            className="outline-none"
                           />
                         </div>
                       </div>
@@ -1530,7 +1533,7 @@ function CreateNewJob() {
                                 const newExperience = e.target.value;
                                 setData({ ...data, experience: newExperience });
                               }}
-                              className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+                              className="w-outline-none focus-visible:outline-none text-[12px] font-[400] text-[#767676] outline-none p-2 w-full h-[48px]"
                             >
                               {experienceOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -1549,7 +1552,7 @@ function CreateNewJob() {
                           <label className="text-[#333333] text-[14px] font-medium">
                             Relevant Experience
                           </label>
-                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
+                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[12px] font-[400] text-[#767676] outline-none font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
                             <select
                               style={{
                                 WebkitAppearance: "none",
