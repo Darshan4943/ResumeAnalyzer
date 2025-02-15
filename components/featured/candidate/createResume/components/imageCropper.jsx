@@ -104,7 +104,7 @@ const createImage = (url) => {
                 image={URL.createObjectURL(file)}
                 crop={crop}
                 zoom={zoom}
-                aspect={1}
+                aspect={1.4}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}

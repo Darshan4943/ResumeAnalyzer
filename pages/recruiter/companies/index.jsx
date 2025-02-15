@@ -17,6 +17,7 @@ function Index() {
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     setId(userDataGlobal?._id || "");
@@ -32,6 +33,8 @@ function Index() {
       );
       setCompanyData(response.data.companies || []);
       setTotalPages(response.data.totalPages || 1);
+      setTotalCount(response.data.totalCount || 0);
+
       setTimeout(() => {
         setMiniloading(false);
       }, 500);
@@ -179,7 +182,7 @@ function Index() {
               </div>
             ))
           ) : (
-            <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center">
+            <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center h-[60vh]">
               {" "}
               <img
                 className="w-[20%]"
@@ -189,17 +192,19 @@ function Index() {
               <div>No Companies Available</div>
             </div>
           )}
-          <CustomPagination
-            setMiniloading={setMiniloading}
-            miniLoading={miniloading}
-            setPage={setPage}
-            title={"Jobs"}
-            setLimit={setLimit}
-            totalPages={totalPages}
-            limit={limit}
-            defaultLimit={10}
-            page={page}
-          />
+          {totalCount > 10 && (
+            <CustomPagination
+              setMiniloading={setMiniloading}
+              miniLoading={miniloading}
+              setPage={setPage}
+              title={"Jobs"}
+              setLimit={setLimit}
+              totalPages={totalPages}
+              limit={limit}
+              defaultLimit={10}
+              page={page}
+            />
+          )}
         </div>
       )}
     </div>
