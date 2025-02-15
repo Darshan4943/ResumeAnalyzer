@@ -91,7 +91,7 @@ function RequisitionList({
           {labels.map((req, index) => (
             <div
               key={index}
-              className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600]"
+              className="w-[12.84%] text-[#333333] text-strat text-[16px] font-[600]"
             >
               {req}
             </div>
@@ -120,18 +120,18 @@ function RequisitionList({
                 key={requisition.id}
               >
                 <div className="w-[12.84%] text-[#333333] text-[16px] font-[600] flex flex-col gap-[6px]">
-                  <div className="text-[#333333] text-center text-[14px] font-[500]">
+                  <div className="text-[#333333] text-start text-[14px] font-[500]">
                     {requisition.requisitionType}
                   </div>
-                  <div className="text-[#646464] text-center text-[12px] font-[500]">
+                  <div className="text-[#646464] text-start text-[12px] font-[500]">
                     {requisition.jobTitle}
                   </div>
                 </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[16px] font-[600] flex flex-col gap-[6px]">
-                  <div className="text-[#333333] text-center text-[14px] font-[500]">
+                <div className="w-[12.84%] text-[#333333] text-start text-[16px] font-[600] flex flex-col gap-[6px]">
+                  <div className="text-[#333333] text-start text-[14px] font-[500]">
                     {userDataGlobal?.name || "-"}
                   </div>
-                  <div className="text-[#646464] text-center text-[12px] font-[500]">
+                  <div className="text-[#646464] text-start text-[12px] font-[500]">
                     {new Date(requisition.createdAt).toLocaleDateString(
                       "en-GB",
                       {
@@ -142,10 +142,10 @@ function RequisitionList({
                     )}
                   </div>
                 </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                <div className="w-[12.84%] text-[#333333] text-start text-[14px] font-[500]">
                   {requisition.isPriority ? "Yes" : "No"}{" "}
                 </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                <div className="w-[12.84%] text-[#333333] text-start text-[14px] font-[500]">
                   {requisition.location && requisition.location.length > 0 ? (
                     requisition.location.length > 2 ? (
                       <div className="flex flex-col">
@@ -160,13 +160,13 @@ function RequisitionList({
                       requisition.location.join(", ")
                     )
                   ) : (
-                    "-"
+                    "Not Available"
                   )}
                 </div>
 
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                <div className="w-[12.84%] text-[#333333] text-start text-[14px] font-[500]">
                   {!requisition.budgetFrom && !requisition.budgetTo ? (
-                    "-"
+                    "Not Available"
                   ) : (
                     <>
                       ${requisition.budgetFrom || 0} - $
@@ -174,13 +174,13 @@ function RequisitionList({
                     </>
                   )}
                 </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
+                <div className="w-[12.84%] text-[#333333] text-start text-[14px] font-[500]">
                   {requisition.positions
                     ? `${requisition.positions} positions`
-                    : "-"}
+                    : "Not Available"}
                 </div>
-                <div className="w-[12.84%] text-[#333333] text-center text-[14px] font-[500]">
-                  {requisition?.status || "-"}
+                <div className="w-[12.84%] text-[#333333] text-start text-[14px] font-[500]">
+                  {requisition?.status || "Not Available"}
                 </div>
               </div>
             ))}

@@ -38,7 +38,7 @@ function RecentApplications({ isPending }) {
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
-    setShortlistJobId(applicant?.jobId)
+    setShortlistJobId(applicant?.jobId);
     setApplicantIds([applicant.applicantId]);
   };
   const [searchQuery, setSearchQuery] = useState("");
@@ -243,7 +243,8 @@ function RecentApplications({ isPending }) {
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicant.details?.personal?.firstName}
+                          {applicant.details?.personal?.firstName} {""}{" "}
+                          {applicant.details?.personal?.lastName}
                         </p>
                       </div>
                       <div className="flex w-[10%] items-center justify-start   gap-[8px]">
@@ -346,18 +347,21 @@ function RecentApplications({ isPending }) {
                         <button
                           disabled={
                             applicant?.hiringStage === "Rejected" ||
-                            applicant?.hiringStage === "Shortlisted"  ||
-                            applicant?.hiringStage === "Hired" 
+                            applicant?.hiringStage === "Shortlisted" ||
+                            applicant?.hiringStage === "Hired"
                           }
                           style={{
                             opacity:
                               applicant?.hiringStage === "Rejected" ||
-                              applicant?.hiringStage === "Shortlisted"  ||
-                              applicant?.hiringStage === "Hired" 
+                              applicant?.hiringStage === "Shortlisted" ||
+                              applicant?.hiringStage === "Hired"
                                 ? 0.5
                                 : 1,
                           }}
-                          onClick={() =>{setHiringStage("Shortlisted"); togglePopup(applicant)}}
+                          onClick={() => {
+                            setHiringStage("Shortlisted");
+                            togglePopup(applicant);
+                          }}
                           className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[6px] px-[8px] rounded-[30px] bg-[#06A9EF]"
                         >
                           Shortlist
@@ -382,17 +386,20 @@ function RecentApplications({ isPending }) {
                             <MiniLoaderr />
                           </div>
                         ) : ( */}
-                          <button
-                            disabled={applicant?.hiringStage === "Rejected"}
-                            style={{
-                              opacity:
-                                applicant?.hiringStage === "Rejected" ? 0.5 : 1,
-                            }}
-                            onClick={() =>{setHiringStage("Rejected"); togglePopup(applicant)}}
-                            className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
-                          >
-                            Reject
-                          </button>
+                        <button
+                          disabled={applicant?.hiringStage === "Rejected"}
+                          style={{
+                            opacity:
+                              applicant?.hiringStage === "Rejected" ? 0.5 : 1,
+                          }}
+                          onClick={() => {
+                            setHiringStage("Rejected");
+                            togglePopup(applicant);
+                          }}
+                          className="text-[10px] font-[500] py-[4px] px-[8px] rounded-[30px] border-[1px] border-[#B3261E] text-[#B3261E]"
+                        >
+                          Reject
+                        </button>
                         {/* )} */}
 
                         <AnimatePresence>
@@ -588,7 +595,7 @@ function RecentApplications({ isPending }) {
                                   : 1,
                             }}
                             onClick={(e) => {
-                              e.stopPropagation(); 
+                              e.stopPropagation();
                               togglePopup(applicant);
                             }}
                             className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"

@@ -274,12 +274,12 @@ function JobPosting() {
                       {headings.map((req, index) => (
                         <div
                           key={index}
-                          className="w-[14%] text-[16px] font-[600] text-center"
+                          className="w-[14%] text-[16px] font-[600] text-start"
                         >
                           {req}
                         </div>
                       ))}
-                      <div className="min-w-[115px] text-[16px] font-[600] text-center">
+                      <div className="min-w-[115px] text-[16px] font-[600] text-end">
                         <p>Action</p>
                       </div>
                     </div>
@@ -298,7 +298,7 @@ function JobPosting() {
                                 index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
                               }`}
                             >
-                              <div className="w-[14%] text-center">
+                              <div className="w-[14%] text-start">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
                                   {requisition.requisitionType}
                                 </p>
@@ -306,12 +306,12 @@ function JobPosting() {
                                   {requisition.jobTitle}
                                 </p>
                               </div>
-                              <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
+                              <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {requisition.positions
                                   ? `${requisition.positions} positions`
                                   : "-"}
                               </p>
-                              <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333] flex flex-col">
+                              <p className="text-[14px] w-[14%] text-strat font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
                                 requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
@@ -331,11 +331,11 @@ function JobPosting() {
                                     requisition.location.join(", ")
                                   )
                                 ) : (
-                                  "-"
+                                  "Not Available"
                                 )}
                               </p>
 
-                              <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
+                              <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {!requisition.budgetFrom &&
                                 !requisition.budgetTo
                                   ? ""
@@ -343,10 +343,10 @@ function JobPosting() {
                                       requisition.budgetTo || ""
                                     }`}
                               </p>
-                              <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
+                              <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {userDataGlobal?.name || "-"}
                               </p>
-                              <p className="text-[14px] w-[14%] text-center font-[500] text-[#333333]">
+                              <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {new Date(
                                   requisition.hiringDate
                                 ).toLocaleDateString("en-GB", {
@@ -527,7 +527,7 @@ function JobPosting() {
                             requisition.location.join(", ")
                           )
                         ) : (
-                          "-"
+                          "Not Available"
                         )}
                       </div>
                     </div>
@@ -537,7 +537,7 @@ function JobPosting() {
                           Requested by
                         </div>
                         <div className="text-[#333] text-[12px] font-[500]  ">
-                          {userDataGlobal?.name || "-"}
+                          {userDataGlobal?.name || "Not Available"}
                           <div className="text-[#646464] text-[10px] font-[500]"></div>
                         </div>
                       </div>
@@ -549,7 +549,7 @@ function JobPosting() {
                           {!requisition.budgetFrom && !requisition.budgetTo
                             ? ""
                             : `$${requisition.budgetFrom || 0} - ${
-                                requisition.budgetTo || ""
+                                requisition.budgetTo || "Not Available"
                               }`}
                         </div>
                       </div>

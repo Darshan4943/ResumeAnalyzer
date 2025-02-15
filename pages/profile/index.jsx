@@ -100,7 +100,7 @@ function Profile() {
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
           <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px]">
-            <div className="score_all">
+            {/* <div className="score_all">
               <div className="profile_score">
                 <div class="circle-border" style={containerStyle}>
                   <div class="circle">
@@ -118,15 +118,15 @@ function Profile() {
                 {/* <p className="profile_percent">
                   {userData.profileScore?.toFixed(0)} %
                 </p> */}
-              </div>
+              {/* </div> */}
 
-              <div className="profile_right_section profile_align">
+              {/* <div className="profile_right_section profile_align">
                 <p className="profile_score_text">Profile Score</p>
                 <p className="improve_text">
                   Improve your profile score, to get more recruiter attention.
                 </p>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
             <div className="profile_option heroBlock">
               {arr.map((item, index) => (

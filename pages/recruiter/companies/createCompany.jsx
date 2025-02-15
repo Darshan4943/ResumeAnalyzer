@@ -294,7 +294,21 @@ function CreateCompany() {
       </span>
     );
   };
-
+    useEffect(() => {
+      const disablePaste = (event) => {
+        if (event.ctrlKey && event.key === "v") {
+          event.preventDefault();
+        }
+      };
+    
+      document.addEventListener("keydown", disablePaste);
+    
+      return () => {
+        document.removeEventListener("keydown", disablePaste);
+      };
+    }, []);
+    
+  
   const header = renderHeader();
 
   return (
@@ -356,7 +370,7 @@ function CreateCompany() {
                       value={data?.companyLogo}
                       src={croppedImage?.url || data?.companyLogo}
                       alt="Selected File"
-                      className="w-[32.95%] h-[60px]"
+                      className="w-[32.95%] h-[60px] object-contain"
                     />
                   )}
 
@@ -400,6 +414,7 @@ function CreateCompany() {
                 padding: "10px",
                 minHeight: "196px",
               }}
+              onPaste={(e) => e.preventDefault()}
             />
             <div className="text-[12px] text-gray-500">
               {data.companyDescription
