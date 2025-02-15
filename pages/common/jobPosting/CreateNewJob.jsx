@@ -136,8 +136,8 @@ function CreateNewJob() {
       border: "1px solid #DEDEDE",
       padding: 2,
       boxShadow: "none",
+      hight: "42px",
       "&:hover": {
-        border: "1px solid #DEDEDE",
       },
     }),
   };
@@ -643,8 +643,9 @@ function CreateNewJob() {
 
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
-                    <div className="flex flex-col  ms:flex ms:flex-row   gap-[16px] p-[10px] md:p-[16px] w-full">
-                      <div className="flex flex-col gap-[8px] w-full  ">
+
+                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
                         <div className="text-[14px] font-[500]">
                           Job Status <span className="text-[#ff0000]">*</span>
                         </div>
@@ -672,8 +673,7 @@ function CreateNewJob() {
                           </select>
                         </div>
                       </div>
-
-                      <div className="flex flex-col gap-[8px] w-full  ">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 ">
                         <div className="text-[14px] font-[500]">
                           Job Title <span className="text-[#ff0000]">*</span>
                         </div>
@@ -691,8 +691,7 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-
-                      <div className="flex flex-col gap-[8px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">Job Link</div>
                         <div>
                           <input
@@ -705,42 +704,258 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Keywords <span className="text-[red]">*</span>
+                        </div>
+                        <div className={`w-full flex ${data?.Keywords ? "justify-between" : ""} gap-2 border rounded-[8px] px-2 py-[8px]  ${formError.Keywords
+                          ? "border-red"
+                          : "border-[#DEDEDE]"
+                          }`}>
+                          <div className="flex gap-4 w-[90%]">
+                            {data?.Keywords.length > 0 &&
+                              <div style={{ scrollbarWidth: "none", msOverflowStyle: "none", }} id="scroll" className="overflow-x-auto flex gap-2 ">
+                                {data?.Keywords?.map((item, index) => (
+                                  <div key={index} className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]">
+                                    <span className="flex  text-nowrap">{item}</span>
+                                    <svg
+                                      className="text-[14px]  cursor-pointer font-medium "
+                                      onClick={() =>
+                                        setData({
+                                          ...data,
+                                          Keywords: data?.Keywords.filter(
+                                            (data) => data != item
+                                          ),
+                                        })
+                                      }
+                                      width="12"
+                                      height="12"
+                                      viewBox="0 0 16 16"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                        fill="#000000"
+                                      />
+                                    </svg>
+                                  </div>
+                                ))}
+                              </div>}
+                            <input type="text" name="" id=""
+                              placeholder="Enter Keywords"
+                              className="input w-[130px]"
+                              value={KeywordsText}
+                              onChange={(e) => {
+                                setKeywordsText(e.target.value);
+                              }} />
+                          </div>
+                          <button
+                            disabled={KeywordsText?.length == 0}
+                            onClick={() => {
+                              setData({
+                                ...data,
+                                Keywords: [
+                                  ...data.Keywords,
+                                  KeywordsText,
+                                ],
+                              });
+                              setKeywordsText("");
+
+                              // setFormError(formError => {
+                              //   delete formError.location;
+                              //   return formError;
+                              // });
+                              setTimeout(() => {
+                                const scrollDiv = document.getElementById("scroll");
+                                if (scrollDiv) {
+                                  scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                                }
+                              }, 100);
+                              setFormError((prevErrors) => ({
+                                ...prevErrors,
+                                Keywords: "",
+                              }));
+                            }}>
+                            <PlusAddLogo
+                              color={
+                                KeywordsText?.length > 0
+                                  ? "#646464"
+                                  : "#bebebe"
+                              }
+                            />
+                          </button>
+                        </div>
+                      </div>
                     </div>
+                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
+                        <div className="text-[14px] font-[500]">
+                          About Company
+                        </div>
+
+                        {companyId ? (
+                          <div
+                            className="border-[1px] border-[#DEDEDE]
+                              text-[12px] font-[400] py-[12px] px-[16px]
+                              rounded-[8px]"
+                            style={{ whiteSpace: "pre-wrap" }}
+                          >
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  data.aboutOrganization ||
+                                  "<p>No description available.</p>",
+                              }}
+                            />
+                          </div>
+                        ) : (
+                          <input
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px]"
+                            placeholder="Brief description for your company. URLs are hyperlinked."
+                            type="text"
+                            name="aboutOrganization"
+                            value={data.aboutOrganization}
+                            onChange={handleChange}
+                            
+                          />
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Company Name{" "}
+                          <span className="text-[red]">*</span>
+                        </div>
+                        <input
+                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
+                          placeholder="Enter Company name"
+                          type="text"
+                          name="companyName"
+                          value={data.companyName}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Country <span className="text-[red]">*</span>
+                        </div>
+
+                        <Select
+                          isMulti
+                          options={countryOptions}
+                          onChange={handleCountryChange}
+                          value={countryOptions.filter((country) =>
+                            data?.country?.includes(country.value)
+                          )}
+                          // className="input"
+                          classNamePrefix="select"
+                          placeholder="Select countries..."
+                          styles={customStyles}
+                          className={` border rounded-[8px] withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Location <span className="text-[red]">*</span>
+                        </div>
+                        <div
+                          className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
+                        >
+                          <div className="flex gap-4 w-[90%]">
+                            {data?.location.length > 0 && <div id="scroll1" className="flex flex-row  overflow-x-auto gap-2 ">
+                              {data?.location?.map((item, index) => (
+                                <div
+                                  key={index}
+                                  className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                >
+                                  <span>{item}</span>
+                                  <span
+                                    className="text-[14px]  cursor-pointer font-medium "
+                                    onClick={() =>
+                                      setData({
+                                        ...data,
+                                        location: data.location.filter(
+                                          (data) => data != item
+                                        ),
+                                      })
+                                    }
+                                  >
+                                    <svg
+                                      width="12"
+                                      height="12"
+                                      viewBox="0 0 16 16"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                        fill="#000000"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                              ))}
+                            </div>}
+                            <input
+                              type="text"
+                              placeholder="Location"
+                              className="input w-[100px]"
+                              value={loactionText}
+                              onChange={(e) => {
+                                setLoactionText(e.target.value);
+                              }}
+                            />
+                          </div>
+                          <button
+                            className=" absolute bg-[#FFFFFF] right-2 top-[8px] "
+                            disabled={loactionText?.length == 0}
+                            onClick={() => {
+                              setData({
+                                ...data,
+                                location: [...data.location, loactionText],
+                              });
+                              setLoactionText("");
+                              setTimeout(() => {
+                                const scrollDiv = document.getElementById("scroll1");
+                                if (scrollDiv) {
+                                  scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                                }
+                              }, 100);
+                              setFormError((prevErrors) => ({
+                                ...prevErrors,
+                                location: "",
+                              }));
+                            }}
+                          >
+                            <PlusAddLogo
+                              color={
+                                loactionText?.length > 0
+                                  ? "#646464"
+                                  : "#bebebe"
+                              }
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
 
                     <div className="p-[10px] md:p-4 flex flex-col gap-4 md:flex-row">
                       <div className=" w-full md:w-[34.91%] lg:w-[30.91%] scr1100:w-[26.91%] scr1250:w-[20.91%]  flex  flex-col items-center">
                         <div className="flex w-full flex-col gap-[8px]">
-                          <div className="flex flex-col gap-[8px]">
-                            <div className="text-[14px] font-[500]">
-                              About Company
-                            </div>
-
-                            {companyId ? (
-                              <div
-                                className="border-[1px] border-[#DEDEDE]
-                              text-[12px] font-[400] py-[12px] px-[16px]
-                              rounded-[8px]"
-                                style={{ whiteSpace: "pre-wrap" }}
-                              >
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      data.aboutOrganization ||
-                                      "<p>No description available.</p>",
-                                  }}
-                                />
-                              </div>
-                            ) : (
-                              <input
-                                className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] rounded-[8px]"
-                                placeholder="Brief description for your company. URLs are hyperlinked."
-                                type="text"
-                                name="aboutOrganization"
-                                value={data.aboutOrganization}
-                                onChange={handleChange}
-                              />
-                            )}
-                          </div>
                           <div className="flex flex-col gap-[8px]">
                             <div className="text-[14px] font-[500]">
                               Company logo
@@ -859,227 +1074,8 @@ function CreateNewJob() {
                         </div>
                       </div>
                       <div className="w-full md:w-[62.09%] lg:w-[68.09%] scr1100:w-[72.09%] scr1250:w-[78.09%] flex flex-col">
-                        <div className="flex flex-col scr1024:flex-row gap-[16px] w-full">
-                          <div className="flex w-full flex-col md:flex-row  gap-[16px]">
-                            <div className="flex flex-col gap-[8px] w-full md:w-[50%]">
-                              <div className="text-[14px] font-[500]">
-                                Company Name{" "}
-                                <span className="text-[red]">*</span>
-                              </div>
-                              <input
-                                className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] ${formError.companyName
-                                  ? "border-red"
-                                  : "border-[#DEDEDE]"
-                                  }`}
-                                placeholder="Enter Company name"
-                                type="text"
-                                name="companyName"
-                                value={data.companyName}
-                                onChange={handleChange}
-                              />
-                            </div>
-
-                            <div className="flex flex-col gap-[8px] w-full md:w-[50%] ">
-                              <div className="text-[14px] font-[500]">
-                                Keywords <span className="text-[red]">*</span>
-                              </div>
-                              <div className={`w-full flex ${data?.Keywords ? "justify-between" : ""} gap-2 border rounded-[8px] px-2 py-[8px]  ${formError.Keywords
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}>
-                                <div className="flex gap-4 w-[90%]">
-                                  {data?.Keywords.length > 0 &&
-                                    <div style={{ scrollbarWidth: "none", msOverflowStyle: "none", }} id="scroll" className="overflow-x-auto flex gap-2 ">
-                                      {data?.Keywords?.map((item, index) => (
-                                        <div key={index} className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]">
-                                          <span className="flex  text-nowrap">{item}</span>
-                                          <svg
-                                            className="text-[14px]  cursor-pointer font-medium "
-                                            onClick={() =>
-                                              setData({
-                                                ...data,
-                                                Keywords: data?.Keywords.filter(
-                                                  (data) => data != item
-                                                ),
-                                              })
-                                            }
-                                            width="12"
-                                            height="12"
-                                            viewBox="0 0 16 16"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              fill-rule="evenodd"
-                                              clip-rule="evenodd"
-                                              d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                              fill="#000000"
-                                            />
-                                          </svg>
-                                        </div>
-                                      ))}
-                                    </div>}
-                                  <input type="text" name="" id=""
-                                    placeholder="Enter Keywords"
-                                    className="input w-[130px]"
-                                    value={KeywordsText}
-                                    onChange={(e) => {
-                                      setKeywordsText(e.target.value);
-                                    }} />
-                                </div>
-                                <button
-                                  disabled={KeywordsText?.length == 0}
-                                  onClick={() => {
-                                    setData({
-                                      ...data,
-                                      Keywords: [
-                                        ...data.Keywords,
-                                        KeywordsText,
-                                      ],
-                                    });
-                                    setKeywordsText("");
-
-                                    // setFormError(formError => {
-                                    //   delete formError.location;
-                                    //   return formError;
-                                    // });
-                                    setTimeout(() => {
-                                      const scrollDiv = document.getElementById("scroll");
-                                      if (scrollDiv) {
-                                        scrollDiv.scrollLeft = scrollDiv.scrollWidth;
-                                      }
-                                    }, 100);
-                                    setFormError((prevErrors) => ({
-                                      ...prevErrors,
-                                      Keywords: "",
-                                    }));
-                                  }}>
-                                  <PlusAddLogo
-                                    color={
-                                      KeywordsText?.length > 0
-                                        ? "#646464"
-                                        : "#bebebe"
-                                    }
-                                  />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-4 pt-4 scr1168:flex-row flex-col">
-                          <div className="flex flex-col gap-[8px] w-full scr1168:w-[50%]">
-                            <div className="text-[14px] font-[500]">
-                              Country <span className="text-[red]">*</span>
-                            </div>
-
-                            <Select
-                              isMulti
-                              options={countryOptions}
-                              onChange={handleCountryChange}
-                              value={countryOptions.filter((country) =>
-                                data?.country?.includes(country.value)
-                              )}
-                              // className="input"
-                              classNamePrefix="select"
-                              placeholder="Select countries..."
-                              styles={customStyles}
-                              className={` border rounded-[5px] ${formError.country
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
-                            />
-                          </div>
-                          <div className="flex flex-col gap-[8px]  w-full scr1168:w-[50%] ">
-                            <div className="text-[14px] font-[500]">
-                              Location <span className="text-[red]">*</span>
-                            </div>
-                            <div
-                              className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
-                            >
-                              <div className="flex gap-4 w-[90%]">
-                                {data?.location.length > 0 && <div id="scroll1" className="flex flex-row  overflow-x-auto gap-2 ">
-                                  {data?.location?.map((item, index) => (
-                                    <div
-                                      key={index}
-                                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
-                                    >
-                                      <span>{item}</span>
-                                      <span
-                                        className="text-[14px]  cursor-pointer font-medium "
-                                        onClick={() =>
-                                          setData({
-                                            ...data,
-                                            location: data.location.filter(
-                                              (data) => data != item
-                                            ),
-                                          })
-                                        }
-                                      >
-                                        <svg
-                                          width="12"
-                                          height="12"
-                                          viewBox="0 0 16 16"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                            d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                            fill="#000000"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </div>
-                                  ))}
-                                </div>}
-                                <input
-                                  type="text"
-                                  placeholder="Location"
-                                  className="input w-[100px]"
-                                  value={loactionText}
-                                  onChange={(e) => {
-                                    setLoactionText(e.target.value);
-                                  }}
-                                />
-                              </div>
-                              <button
-                                className=" absolute bg-[#FFFFFF] right-2 top-[8px] "
-                                disabled={loactionText?.length == 0}
-                                onClick={() => {
-                                  setData({
-                                    ...data,
-                                    location: [...data.location, loactionText],
-                                  });
-                                  setLoactionText("");
-                                  setTimeout(() => {
-                                    const scrollDiv = document.getElementById("scroll1");
-                                    if (scrollDiv) {
-                                      scrollDiv.scrollLeft = scrollDiv.scrollWidth;
-                                    }
-                                  }, 100);
-                                  setFormError((prevErrors) => ({
-                                    ...prevErrors,
-                                    location: "",
-                                  }));
-                                }}
-                              >
-                                <PlusAddLogo
-                                  color={
-                                    loactionText?.length > 0
-                                      ? "#646464"
-                                      : "#bebebe"
-                                  }
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
                         <div className="flex flex-col gap-[8px] w-full">
-                          <div className="text-[14px] pt-[16px] font-[500]">
+                          <div className="text-[14px] font-[500]">
                             Job Description{" "}
                             <span className="text-[red]">*</span>
                           </div>
@@ -1115,8 +1111,8 @@ function CreateNewJob() {
                   <div>
                     <div className="p-[10px] md:p-4 gap-4 flex flex-col">
                       <div className="text-lg font-semibold">Salary</div>
-                      <div className="flex flex-col md:flex-row w-full gap-5">
-                        <div className="sm:w-[50%] w-full flex flex-col gap-[6px]">
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Currency
                           </label>
@@ -1156,7 +1152,7 @@ function CreateNewJob() {
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col gap-2 w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
                             <select
@@ -1182,8 +1178,7 @@ function CreateNewJob() {
                             </select>
                           </div>
                         </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Min Salary</div>
                           <input
                             className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
@@ -1199,8 +1194,7 @@ function CreateNewJob() {
                             placeholder="Enter Min Salary"
                           />
                         </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Max Salary</div>
                           <input
                             className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
@@ -1225,110 +1219,107 @@ function CreateNewJob() {
                       <div className="text-lg font-semibold">
                         Job Information
                       </div>
-                      <div className="flex flex-col scr700:flex-row w-full  gap-[20px]">
-                        <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[40%] gap-[20px]">
-                          <div className="flex flex-col gap-2">
-                            <div className="text-sm font-medium">
-                              Open Positions
-                            </div>
-                            <input
-                              className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
-                              type="text"
-                              name="openPositions"
-                              value={data.openPositions}
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                if (/^\d*$/.test(value)) {
-                                  handleChange(e);
-                                }
-                              }}
-                              placeholder="Open Positions"
-                            />
+
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
+                          <div className="text-sm font-medium">
+                            Open Positions
                           </div>
-                          <div className="flex flex-col gap-2 w-full ">
-                            <div className="text-sm font-medium">
-                              Job Sector
-                            </div>
-                            <Select
-                              options={jobSectors}
-                              onChange={handleSectorChange}
-                              value={jobSectors.find(
-                                (jobSector) =>
-                                  jobSector.value === data?.jobSector
-                              )}
-                              classNamePrefix="select"
-                              placeholder="Select Job Sector"
-                              styles={customStyles}
-                              className={`border rounded-[5px] ${formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                                }`}
-                            />
-                          </div>
+                          <input
+                            className="border border-[#DEDEDE] w-full h-10 rounded-lg px-2 text-[12px] font-[400]"
+                            type="text"
+                            name="openPositions"
+                            value={data.openPositions}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                handleChange(e);
+                              }
+                            }}
+                            placeholder="Open Positions"
+                          />
                         </div>
-                        <div className="flex flex-col scr540:flex-row w-full scr700:w-[50%] xxlg:w-[60%] gap-[20px]">
-                          <div className="flex flex-col gap-2 w-full ">
-                            <div className="text-sm font-medium">
-                              Job Type <span className="text-[red]">*</span>
-                            </div>
-                            <select
-                              style={{
-                                width: "100%",
-                                height: "40px",
-                                border: formError.jobType
-                                  ? "1px solid red"
-                                  : "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "5px",
-                              }}
-                              type="text"
-                              name="jobType"
-                              value={data.jobType}
-                              onChange={handleChange}
-                            >
-                              <option value="" disabled selected>
-                                Select
-                              </option>
-                              <option value="Full Time">Full Time</option>
-                              <option value="Part Time">Part Time</option>
-                              <option value="Contract">Contract</option>
-                              <option value="Internships">Internships</option>
-                            </select>
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">
+                            Job Sector
                           </div>
-                          <div className="flex flex-col gap-2 w-full ">
-                            <div className="text-sm font-medium">Work From</div>
-                            <select
-                              style={{
-                                width: "100%",
-                                height: "40px",
-                                border: "1px solid #ccc",
-                                borderRadius: "5px",
-                                padding: "5px",
-                              }}
-                              type="text"
-                              name="workFrom"
-                              value={data.workFrom}
-                              onChange={handleChange}
-                            >
-                              <option value="" disabled selected>
-                                Select
-                              </option>
-                              <option value="On-Site">On-Site</option>
-                              <option value="Remote">Remote</option>
-                              <option value="Hybrid">Hybrid</option>
-                              <option value="International">
-                                International
-                              </option>
-                              <option value="Jobs for Women">
-                                Jobs for Women
-                              </option>
-                            </select>
+                          <Select
+                            options={jobSectors}
+                            onChange={handleSectorChange}
+                            value={jobSectors.find(
+                              (jobSector) =>
+                                jobSector.value === data?.jobSector
+                            )}
+                            classNamePrefix="select"
+                            placeholder="Select Job Sector"
+                            styles={customStyles}
+                            className={`border rounded-[5px] ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">
+                            Job Type <span className="text-[red]">*</span>
                           </div>
+                          <select
+                            style={{
+                              width: "100%",
+                              height: "40px",
+                              border: formError.jobType
+                                ? "1px solid red"
+                                : "1px solid #ccc",
+                              borderRadius: "5px",
+                              padding: "5px",
+                            }}
+                            type="text"
+                            name="jobType"
+                            value={data.jobType}
+                            onChange={handleChange}
+                          >
+                            <option value="" disabled selected>
+                              Select
+                            </option>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Part Time">Part Time</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Internships">Internships</option>
+                          </select>
+                        </div>
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">Work From</div>
+                          <select
+                            style={{
+                              width: "100%",
+                              height: "40px",
+                              border: "1px solid #ccc",
+                              borderRadius: "5px",
+                              padding: "5px",
+                            }}
+                            type="text"
+                            name="workFrom"
+                            value={data.workFrom}
+                            onChange={handleChange}
+                          >
+                            <option value="" disabled selected>
+                              Select
+                            </option>
+                            <option value="On-Site">On-Site</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="International">
+                              International
+                            </option>
+                            <option value="Jobs for Women">
+                              Jobs for Women
+                            </option>
+                          </select>
                         </div>
                       </div>
 
-                      <div className="flex flex-col scr540:flex-row gap-[16px]">
-                        <div className="flex flex-col gap-2 w-full ">
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Required Qualification
                           </div>
@@ -1344,8 +1335,7 @@ function CreateNewJob() {
                             onChange={handleChange}
                           />
                         </div>
-
-                        <div className="flex flex-col gap-2 w-full ">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Application Deadline{" "}
                             <span className="text-[red]">*</span>
@@ -1371,8 +1361,9 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col scr540:flex-row  gap-[16px]">
-                        <div className="flex flex-col gap-2 w-full ">
+
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Must have Skills
                             <span className="text-[red]">*</span>
@@ -1386,7 +1377,7 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full ${formError.mustSkills
+                            className={`w-full withoutBorder ${formError.mustSkills
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -1445,7 +1436,7 @@ function CreateNewJob() {
                             }}
                           />
                         </div>
-                        <div className="flex flex-col gap-2 w-full ">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Good to have Skills{" "}
                             <span className="text-[red]">*</span>
@@ -1463,7 +1454,7 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full ${formError.goodSkills
+                            className={`w-full withoutBorder ${formError.goodSkills
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
@@ -1519,8 +1510,9 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-                      <div className="flex sm:flex-row flex-col gap-4 w-[100%] justify-between">
-                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience
                           </label>
@@ -1553,8 +1545,7 @@ function CreateNewJob() {
                             />
                           </div>
                         </div>
-
-                        <div className="sm:w-[50%] w-full flex flex-col gap-[8px]">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Relevant Experience
                           </label>
@@ -1698,7 +1689,8 @@ function CreateNewJob() {
                 </div>
               </div>
             </>
-          )}
+          )
+          }
         </div >
       )
       }

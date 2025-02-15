@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
 
-  // const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
   const [selectedColor, setSelectedColor] = useState();
   const [isEdit, setIsEdit] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const [contentSituation, setContentSituation] = useState("Experienced");
-
+  console.log(13, userDataGlobal)
   const { clientId } = router.query;
-
   const defaultState = {
     firstName: "",
     lastName: "",
@@ -160,7 +161,7 @@ function Index() {
   }, [contentSituation, isCoverEdit]);
 
   return (
-    <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">
+    <div className={`flex scr800:flex-row flex-col gap-4 py-6 ${userDataGlobal.role === "user" && "customMargins"} overflow-hidden relative`}>
       <div className="ml:w-[41%] scr1024:min-w-[486px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px]  ">
         <CoverForm
           selectedCoverIndex={selectedCoverIndex}
