@@ -178,7 +178,7 @@ html {
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
-  width: 192px !important;
+    width: 192px !important;
     height: 272px !important;
   }
 }
@@ -442,10 +442,34 @@ ul {
   cursor: pointer;
   // height: 40px !important;
 }
-.css-b62m3t-container{
+.css-b62m3t-container {
   padding: 0 !important;
 }
 
 ol {
   list-style-type: decimal; /* Use decimal numbers */
+}
+
+.withoutBorder {
+  .css-1l1it4t-control {
+    border: none !important;
+    border-radius: 8px;
+  }
+  .css-3w2yfm-ValueContainer {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .css-1p3m7a8-multiValue {
+    min-width: 100px;
+  }
+  .css-1jqq78o-placeholder {
+    font-weight: 400;
+    font-size: 12px;
+    color: #767676;
+  }
+  .css-qbdosj-Input{
+    min-width: 100px;
+  }
 }

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { camelCase } from '../../../utils/middleware';
 import CountUp from 'react-countup';
 
-function TopSection({ statistics,scrollToPendingJobs}) {
+function TopSection({ statistics, scrollToPendingJobs }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   console.log(statistics);
   const calculatePercentageChange = (statistics) => {
@@ -45,11 +45,11 @@ function TopSection({ statistics,scrollToPendingJobs}) {
             )}
           </div>
         </div>
-      </div> 
+      </div>
 
       <div
-      onClick={()=>scrollToPendingJobs()}
-        className=" cursor-pointer flex py-2 px-4 ml:p-4 flex-col justify-center items-start w-[100%] lg:w-[32%] scr1067:w-[24%] gap-[6px]  ml:gap-4 h-[130px]"
+        onClick={() => scrollToPendingJobs()}
+        className=" cursor-pointer flex py-2 px-4 ml:p-4 flex-col justify-center items-start w-[100%] lg:w-[32%] scr1067:w-[24%] gap-[6px]  ml:gap-4 h-[130px] relative group"
         style={{
           borderRadius: "12px",
           borderLeft: "4px solid #57697B",
@@ -68,7 +68,7 @@ function TopSection({ statistics,scrollToPendingJobs}) {
           </div>
           <img
             src="/images/afterLoginHome/arrow_forward_ios.png"
-            className="h-[24px] w-[24px]"
+            className="h-[24px] w-[24px] transition-transform duration-300 transform group-hover:translate-x-2"
             alt=""
           />
         </div>
@@ -84,12 +84,11 @@ function TopSection({ statistics,scrollToPendingJobs}) {
             </defs>
           </svg>
         </div>
-
       </div>
 
       {userDataGlobal?.role == "employer" ?
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #FFDA1D",
@@ -108,7 +107,7 @@ function TopSection({ statistics,scrollToPendingJobs}) {
             </div>
             <img
               src="/images/afterLoginHome/arrow_forward_ios.png"
-              className="h-[24px] w-[24px]"
+              className="h-[24px] w-[24px] transition-transform duration-300 transform group-hover:translate-x-2"
               alt=""
             />
           </div>
@@ -141,58 +140,59 @@ function TopSection({ statistics,scrollToPendingJobs}) {
           </div>
         </div> : ""}
 
-      {userDataGlobal?.role == "employer" ? <div
-        className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px]"
-        style={{
-          borderRadius: "12px",
-          borderLeft: "4px solid #06A9EF",
-          backgroundColor: "#fff",
-          boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-        }}
-      >
-        <div className="flex items-center justify-between self-stretch">
-          <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px]  font-semibold leading-normal">
-            04
-          </p>
-          <div className="w-[69%]">
-            <p className=" text-[16px] leading-4 font-medium font-montserrat ">
-              In Preboarding process
+      {userDataGlobal?.role == "employer" ?
+        <div
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
+          style={{
+            borderRadius: "12px",
+            borderLeft: "4px solid #06A9EF",
+            backgroundColor: "#fff",
+            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          <div className="flex items-center justify-between self-stretch">
+            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px]  font-semibold leading-normal">
+              04
+            </p>
+            <div className="w-[69%]">
+              <p className=" text-[16px] leading-4 font-medium font-montserrat ">
+                In Preboarding process
+              </p>
+            </div>
+            <img
+              src="/images/afterLoginHome/arrow_forward_ios.png"
+              className="h-[24px] w-[24px] transition-transform duration-300 transform group-hover:translate-x-2"
+              alt=""
+            />
+          </div>
+          <div className="flex items-center gap-[3px]">
+            <div
+              className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
+              style={{ backgroundColor: "rgba(0, 175, 18, 0.30)" }}
+            >
+              <svg
+                xlgns="http://www.w3.org/2000/svg"
+                width="20"
+                height="13"
+                viewBox="0 0 20 13"
+                fill="none"
+              >
+                <path
+                  d="M1.6597 12.248L0.333008 10.9068L7.34554 3.76967L11.1361 7.60169L16.0638 2.66796H13.6V0.751953H19.2858V6.49999H17.3905V4.00917L11.1361 10.332L7.34554 6.49999L1.6597 12.248Z"
+                  fill="#00AF12"
+                />
+              </svg>
+            </div>
+            <p className="text-[14px] font-Montserrat font-normal text-[#5B5B5B]">
+              {" "}
+              <span className="text-[12px] font-Montserrat font-normal text-[#00AF12]">
+                {" "}
+                1.6%
+              </span>{" "}
+              from last Week
             </p>
           </div>
-          <img
-            src="/images/afterLoginHome/arrow_forward_ios.png"
-            className="h-[24px] w-[24px]"
-            alt=""
-          />
-        </div>
-        <div className="flex items-center gap-[3px]">
-          <div
-            className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
-            style={{ backgroundColor: "rgba(0, 175, 18, 0.30)" }}
-          >
-            <svg
-              xlgns="http://www.w3.org/2000/svg"
-              width="20"
-              height="13"
-              viewBox="0 0 20 13"
-              fill="none"
-            >
-              <path
-                d="M1.6597 12.248L0.333008 10.9068L7.34554 3.76967L11.1361 7.60169L16.0638 2.66796H13.6V0.751953H19.2858V6.49999H17.3905V4.00917L11.1361 10.332L7.34554 6.49999L1.6597 12.248Z"
-                fill="#00AF12"
-              />
-            </svg>
-          </div>
-          <p className="text-[14px] font-Montserrat font-normal text-[#5B5B5B]">
-            {" "}
-            <span className="text-[12px] font-Montserrat font-normal text-[#00AF12]">
-              {" "}
-              1.6%
-            </span>{" "}
-            from last Week
-          </p>
-        </div>
-      </div> : ""}
+        </div> : ""}
 
     </div>
 
