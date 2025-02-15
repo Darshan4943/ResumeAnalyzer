@@ -819,11 +819,7 @@ function CreateNewJob() {
                             name="aboutOrganization"
                             value={data.aboutOrganization}
                             onChange={handleChange}
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                data.aboutOrganization ||
-                                "<p>No description available.</p>",
-                            }}
+                          
                           />
                         )}
                       </div>
