@@ -113,7 +113,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
             {labels.map((req, index) => (
               <div
                 key={index}
-                className="flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center bg-[#EFFAFF] w-full"
+                className={`flex p-4 text-[14px] font-medium font-Montserrat text-[#333] items-center  ${labels.length-1 ===index ? "justify-center": "justify-start"} bg-[#EFFAFF] w-full`}
               >
                 <p>{req}</p>
               </div>
@@ -231,7 +231,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                       </div>
                     </div>
                     <div className="flex items-center justify-start col-span-1 ">
-                      <div className="flex   items-center w-full  justify-between">
+                      <div className="flex   items-center w-full  justify-end">
                         <button
                           onClick={() =>
                             router.push(
@@ -242,11 +242,11 @@ const Joined = ({ toggleContentt, setPreview }) => {
                         >
                           Preview Application
                         </button>
-                        <img
+                        {/* <img
                           className="w-[24px]"
                           src="/images/employer/three-dot.png"
                           alt=""
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>
@@ -299,7 +299,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                           {applicants.details?.personal?.lastName}
                         </p>
                       </div>
-                      <div className="flex justify-end items-center gap-4">
+                      {/* <div className="flex justify-end items-center gap-4">
                         <svg
                           xlgns="http://www.w3.org/2000/svg"
                           width="24"
@@ -341,7 +341,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                             </clipPath>
                           </defs>
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="flex justify-between items-center self-stretch">
@@ -465,7 +465,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}

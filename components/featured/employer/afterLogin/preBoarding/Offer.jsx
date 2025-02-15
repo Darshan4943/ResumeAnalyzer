@@ -571,12 +571,12 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
         </div>
       </div>
 
-      {totalCount > 9 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"preboarding"}
+          title={"Applications"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}
