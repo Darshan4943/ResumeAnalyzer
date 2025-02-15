@@ -15,6 +15,7 @@ function ClientFolders({
   openClientFolder,
   query,
 }) {
+  console.log(clientData)
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date
@@ -52,7 +53,7 @@ function ClientFolders({
   }, [isList]);
 
   const fileIconSeter = (data) => {
-    if (data?.resumeUrl?.toLowerCase().includes("pdf")) {
+    if (data?.file?.toLowerCase().includes("pdf")) {
       return <PDFSvg />;
     } else {
       return (
@@ -85,17 +86,17 @@ function ClientFolders({
               {!isList ? (
                 clientData?.map((item, index) => (
                   <>
+                  
                     <div
                       onClick={() => {
                         !select &&
                           openClientFolder(
                             index,
                             item._id,
-                            clientId
-                              ? <>{item.fileName.length > 15
+                            item.fileName.length > 15
                                 ? `${item.fileName.slice(0, 14)}...`
-                                : item.fileName}</>
-                              : item.firstName + " " + item.lastName,
+                                : item.fileName,
+                             
                             item
                           );
                       }}
@@ -117,16 +118,15 @@ function ClientFolders({
                       </div>
                       <span className="text-[12px]">
                         {" "}
-                        {clientId
-                          ? <>{item.fileName.length > 15
+                        <>{item.fileName.length > 15
                             ? `${item.fileName.slice(0, 14)}...`
                             : item.fileName}</>
-                          : item.firstName + " " + item.lastName}
+                         
                       </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                        {clientId
-                          ? item.fileName
-                          : item.firstName + " " + item.lastName}
+                       
+                        { item.fileName}
+                          
                       </div>
                     </div>
                   </>
@@ -158,9 +158,9 @@ function ClientFolders({
                           openClientFolder(
                             index,
                             item._id,
-                            clientId
-                              ? item.fileName
-                              : item.firstName + " " + item.lastName,
+                           
+                               item.fileName,
+                             
                             item
                           )
                         }
@@ -183,9 +183,8 @@ function ClientFolders({
                           <div className="h-[24px] min-w-[24px]">
                             {fileIconSeter1(item)}
                           </div>
-                          {clientId
-                            ? item.fileName
-                            : item.firstName + " " + item.lastName}
+                        {  item.fileName}
+                           
                         </td>
                         <td className=" w-[30%] sm:px-4 px-2 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}
@@ -248,11 +247,10 @@ function ClientFolders({
                 {clientData.map((item, index) => (
                   <tr key={index} className="">
                     <td className="px-4 py-2 font-medium">
-                      {clientId
-                        ? <>{item.fileName.length > 15
+                     <>{item.fileName.length > 15
                           ? `${item.fileName.slice(0, 14)}...`
                           : item.fileName}</>
-                        : item.firstName + " " + item.lastName}
+                       
                     </td>
                     {/* <td className='px-4 py-2 text-[#858585]'>{item.dateModified}</td>
                             <td className='px-4 py-2 text-[#858585]'>{item.category}</td>

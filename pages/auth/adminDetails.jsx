@@ -43,6 +43,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
     const [otpError, setOtpError] = useState("");
     const [parseData, setParseData] = useState()
     const [formError, setFormError] = useState({});
+    console.log(formError)
 
 
     useEffect(() => {
@@ -373,7 +374,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
 
         const isValid = validateFields(); // Validate all fields
         if (!isValid) {
-            // toast.error("Please fill in all required fields correctly.");
+            toast.error("Please fill in all required fields correctly.");
             return;
         }
 
@@ -487,7 +488,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
         setTimer(30);
         setLoadingg(true);
         e.preventDefault();
-        let tempUser = role === "user" ? "tempUser" : "tempRecruiter"
+        let tempUser = "tempEmployer"
         axios
             .post("http://localhost:2000/api/otpMailSignup", {
                 userEmail: data.email,
@@ -583,8 +584,8 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
             <div style={{ boxShadow: "0px 1px 6px 0px #00000040" }} className={`${tog === 2 ? "flex" : "hidden"} bg-white w-[95%] md:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}>
                 <div className="w-full flex gap-[20px]">
                     <div className="flex w-full flex-col gap-1">
-                        <div className="text-[16px] font-[500] text-[#333333]">First Name<span className="text-red">*</span></div>
-                        <div className="rounded-[8px] py-[12px] px-4 border border-[#9D9D9D]">
+                        <div className="text-[14px] font-[500] text-[#333333]">First Name<span className="text-red">*</span></div>
+                        <div className="rounded-[8px] py-[8px] px-4 border border-[#9D9D9D]">
                             <input
                                 type="text"
                                 name=""
@@ -598,8 +599,8 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                         </div>
                     </div>
                     <div className="flex w-full flex-col gap-1">
-                        <div className="text-[16px] font-[500] text-[#333333]">Last Name<span className="text-red">*</span></div>
-                        <div className="rounded-[8px] py-[12px] px-4 border border-[#9D9D9D] flex">
+                        <div className="text-[14px] font-[500] text-[#333333]">Last Name<span className="text-red">*</span></div>
+                        <div className="rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex">
                             <input
                                 type="text"
                                 name=""
@@ -614,13 +615,13 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     </div>
                 </div>
                 <div className="w-full flex flex-col gap-1">
-                    <div className="w-full text-[16px] font-[500] text-[#333333]">Contact Number<span className="text-red">*</span></div>
+                    <div className="w-full text-[14px] font-[500] text-[#333333]">Contact Number<span className="text-red">*</span></div>
                     <div className="w-full flex  gap-[20px]">
-                        <div className="w-[30%] rounded-[8px]  px-4 border border-[#9D9D9D] flex">
+                        <div className={`w-[30%] rounded-[8px]  px-4 border ${( formError.dial_code) ? "border-red" : "border-[#9D9D9D]"} flex`}>
                             {/* <input type="text" name="" id="" placeholder="Country Code" className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]" /> */}
                             <ReactSelect
                                 options={filteredTelCode}
-                                className=" flex  items-center py-1 ml-[10px] text-[12px] font-normal  rounded-[8px]"
+                                className=" flex  items-center  ml-[10px] text-[12px] font-normal  rounded-[8px]"
                                 name=""
                                 placeholder="Select"
                                 value={selectedItem}
@@ -658,7 +659,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                 })}
                             />
                         </div>
-                        <div className="w-[70%] rounded-[8px] py-[12px] px-4 border border-[#9D9D9D] flex">
+                        <div className={`w-[70%] rounded-[8px] py-[8px] px-4 border ${(formError.mobileNo) ? "border-red" : "border-[#9D9D9D]"} flex`}>
                             <input
                                 type="text"
                                 name=""
@@ -676,9 +677,9 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     </div>
                 </div>
                 <div className="w-full flex flex-col gap-1">
-                    <div className="w-full text-[16px] font-[500] text-[#333333]">Email Address<span className="text-red">*</span></div>
+                    <div className="w-full text-[14px] font-[500] text-[#333333]">Email Address<span className="text-red">*</span></div>
                     <div className="w-full flex justify-between gap-[20px]">
-                        <div className="w-full rounded-[8px] py-[12px] px-4 border border-[#9D9D9D] flex">
+                        <div className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.email ? "border-red" : "border-[#9D9D9D]"}`}>
                             <input
                                 type="email"
                                 name=""
@@ -700,7 +701,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                     !isUpdate && (
                                         <button
                                             onClick={handleVerification}
-                                            className="py-2 md:py-[12px] w-[220px] px-4 md:px-[30px] border border-[#06A9EF] rounded-[8px] bg-blue md:rounded-[12px] text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+                                            className="py-2 md:py-[8px] w-[220px] px-4 md:px-[30px] border flec justify-center flex border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
                                         >
                                             {loadingg ? (
                                                 <MiniLoader />
@@ -710,8 +711,9 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                         </button>
                                     )
                                 ) : (
-                                    <div className=" min-w-[86px] text-[12px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
+                                    <div className=" min-w-[100px] text-[14px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
                                         {loadingg ? (
+
                                             <MiniLoader />
                                         ) : (
                                             <>
@@ -740,8 +742,8 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     </div>
                     {verify && (
                         <div className="flex flex-col gap-2 font-medium pt-2 w-full ">
-                            <div className="flex gap-2 h-[28px]  items-center  justify-between ">
-                                <text className="text-[10px] font-[500] text-[#898989]">
+                            <div className="flex gap-4 h-[28px]  items-center  justify-start ">
+                                <text className="text-[12px] font-[500] text-[#898989]">
                                     Enter OTP sent to your Email
                                 </text>
                                 <div className="flex gap-1" onPaste={handlePaste}>
@@ -754,14 +756,14 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                             value={digit}
                                             onChange={(e) => handleChange(e.target.value, index)}
                                             onKeyDown={(e) => handleKeyDown(e, index)}
-                                            className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-lg"
+                                            className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-md"
                                         />
                                     ))}
                                 </div>
                                 {!verified && (
                                     <button
                                         onClick={verifyOtp}
-                                        className="flex justify-center  items-center  px-2 text-[10px] font-[600] border border-blue  rounded-[30px] leading-tight btn_hover_effect h-[26px]"
+                                        className="flex justify-center  items-center  px-4 text-[12px] font-[600] bg-blue text-white  rounded-[30px] leading-tight btn_hover_effect h-[30px]"
                                     >
                                         Verify
                                     </button>
@@ -772,9 +774,9 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
 
                 </div>
                 <div className="w-full flex flex-col gap-1">
-                    <div className="w-full text-[16px] font-[500] text-[#333333]">Enter Password<span className="text-red">*</span></div>
-                    <div className="w-full flex justify-between gap-[20px]">
-                        <div className="w-full rounded-[8px] py-[12px] px-4 border border-[#9D9D9D] flex items-center">
+                    <div className="w-full text-[14px] font-[500] text-[#333333]">Enter Password<span className="text-red">*</span></div>
+                    <div className="w-full flex flex-col justify-between gap-2">
+                        <div className="w-full rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex items-center">
                             <input
                                 type={showPassword ? "Text" : "Password"}
                                 name=""
@@ -829,9 +831,9 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     </div>
                 </div>
                 <div className="w-full flex flex-col gap-1">
-                    <div className="w-full text-[16px] font-[500] text-[#333333]">Comfirm Password<span className="text-red">*</span></div>
-                    <div className="w-full flex justify-between gap-[20px]">
-                        <div className="w-full rounded-[8px] py-[12px] px-4 border border-[#9D9D9D] flex items-center">
+                    <div className="w-full text-[14px] font-[500] text-[#333333]">Comfirm Password<span className="text-red">*</span></div>
+                    <div className="w-full flex flex-col  justify-between gap-2">
+                        <div className="w-full rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex items-center">
                             <input
                                 type="text"
                                 name=""
@@ -883,11 +885,16 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                     </svg>
                                 ))}
                         </div>
+                        {formError.confirmPassword !== "Enter Confirm Password" && (
+                            <p className="text-[10px] text-[red] font-[500]">
+                                {formError?.confirmPassword}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="w-full flex justify-between">
-                    <button onClick={handleBack} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[8px] md:rounded-[12px] text-[12px] md:text-[16px] font-[500] text-[#333333]">Go Back</button>
-                    <button onClick={submitHandler} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[8px] bg-blue md:rounded-[12px] text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]">Continue</button>
+                    <button onClick={handleBack} className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-30px] md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]">Go Back</button>
+                    <button onClick={submitHandler} className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]">Continue</button>
                 </div>
             </div>
         </>

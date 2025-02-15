@@ -379,7 +379,8 @@ function Sign_in({  setSignIn, setSignUp }) {
                         <div
                             onClick={() => {
                                 role === "user" ?
-                                    router.push("/auth/Sign_up?role=user") : router.push("/auth/Sign_up?role=recruiter");
+                                    router.push("/auth/Sign_up?role=user") :  role === "recruiter" ?
+                                    router.push("/auth/Sign_up?role=recruiter") : router.push("/auth/EmployerSignUp");
                             }}
                             className="flex justify-center items-center text-[10px] font-[600] text-[#646464] cursor-pointer"
                         >

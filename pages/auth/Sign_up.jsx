@@ -481,7 +481,7 @@ function Sign_up({ }) {
     let tempUser = role === "user" ? "tempUser" : "tempRecruiter"
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
-        userEmail: data.email,
+        userEmail: data.email.toLowerCase(),
         tempUser
       })
       .then((res) => {

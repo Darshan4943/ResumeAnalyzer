@@ -176,7 +176,7 @@ console.log(12,formData)
         <div className="w-full relative flex items-center flex-col gap-[18px] pb-[62px]">
             <div className="sticky z-[100] w-full top-[47px] bg-[#F3F4F5] pt-[10px] md:pt-[24px]">
                 <div className="w-full bg-[#FFDA1D] flex items-center flex-col gap-2 py-[6px] ">
-                    <span className="text-[24px] md:text-[40px] font-[600] text-[#333333]">Register as Employer</span>
+                    <span className="text-[24px] md:text-[30px] font-[600] text-[#333333]">Register as Employer</span>
                     <span className="text-[12px] md:text-[16px] font-[500] text-[#333333]">Start your Search with Skilotech</span>
                 </div>
             </div>
@@ -258,8 +258,8 @@ console.log(12,formData)
                     </div>
                 ))}
                 <div className="w-full flex justify-between">
-                    <button onClick={() => { router.back() }} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[8px] md:rounded-[12px] text-[12px] md:text-[16px] font-[500] text-[#333333]">Go Back</button>
-                    <button onClick={handleSubmit} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[8px] bg-blue md:rounded-[12px] text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]">Continue</button>
+                    <button onClick={() => { router.back() }} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] md:rounded-[30px] text-[12px] md:text-[16px] font-[500] text-[#333333]">Go Back</button>
+                    <button onClick={handleSubmit} className="py-2 md:py-[12px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]">Continue</button>
                 </div>
             </div>
 
@@ -321,7 +321,7 @@ console.log(12,formData)
                     <button onClick={() => { router.push("/employer/afterLogin/EmployerHome") }} className="py-[12px] px-[36px] border border-[#06A9EF] bg-blue rounded-[12px] text-[16px] font-[500] text-[#FFFFFF]">Continue</button>
                 </div>
             </div>
-            <div className="text-[14px] font-[500] text-[#646464]">Already have an account? <span onClick={() => router.push()} className="text-[#06A9EF] cursor-pointer">Sign In</span></div>
+            <div className="text-[14px] font-[500] text-[#646464]">Already have an account? <span onClick={() => router.push("/auth/Sign_in?role=employer")} className="text-[#06A9EF] cursor-pointer">Sign In</span></div>
         </div >
     );
 };
