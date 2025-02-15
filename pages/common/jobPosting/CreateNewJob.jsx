@@ -790,7 +790,7 @@ function CreateNewJob() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col-reverse md:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
+                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
                         <div className="text-[14px] font-[500]">
                           About Company
@@ -819,7 +819,7 @@ function CreateNewJob() {
                             name="aboutOrganization"
                             value={data.aboutOrganization}
                             onChange={handleChange}
-                          
+                            
                           />
                         )}
                       </div>
