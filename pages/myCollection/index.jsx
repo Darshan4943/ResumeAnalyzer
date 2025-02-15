@@ -37,7 +37,7 @@ function Collection() {
   const [folderName, setFolderName] = useState("");
   const inputRef = useRef(null);
   const [tab, setTab] = useState(null);
-  console.log(tab);
+ 
   const [ParentId, setParentId] = useState(null);
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
