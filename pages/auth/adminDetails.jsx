@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
-import { plans, telCode } from "../../utils/data";
+
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
 import ReactSelect from "react-select";
@@ -13,14 +13,12 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 import MiniLoader from "../../components/common/mini-loader";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
+import { telCode } from "../../utils/data";
 
-function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsCompleted1, setProgress1 }) {
+function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsCompleted1, setProgress1 ,formData, setFormData}) {
     const router = useRouter();
-    const { byAdmin, isUpdate, role } = router.query;
-
-    const { profileData } = useSelector((state) => state.profile.profileData);
-    const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+    console.log(333,formData)
+  
     const dispatch = useDispatch();
     const [modelView, setModelView] = useState(false);
     const [selectedItem, setSelectedItem] = useState();
@@ -28,7 +26,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
     const [showPassword, setShowPassword] = useState(false);
     const [filteredTelCode, setFilteredTelCode] = useState([]);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState(plans[3]);
+   
     const [loading, setLoading] = useState(false);
     const [loadingg, setLoadingg] = useState(false);
     const [error, setError] = useState(false);
@@ -43,94 +41,9 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
     const [otpError, setOtpError] = useState("");
     const [parseData, setParseData] = useState()
     const [formError, setFormError] = useState({});
-    console.log(formError)
+    
 
 
-    useEffect(() => {
-        const parsedResume = JSON.parse(localStorage.getItem("parsedResume"));
-        setParseData(parsedResume)
-    }, []);
-    const [data, setData] = useState({
-        firstName: "",
-        lastName: "",
-        mobileNo: "",
-        email: "",
-
-        country: "",
-        dial_code: "",
-        img: null,
-    });
-
-    useEffect(() => {
-
-        if (parseData) {
-
-            setData({
-                ...data,
-                firstName: parseData?.first_name || "",
-                lastName: parseData?.last_name || "",
-                mobileNo: parseData?.mobileNo || "",
-                email: parseData?.email || "",
-                dial_code: parseData?.dial_code || "",
-            });
-
-            const selectedItem = telCode.find((item) => item.dial_code === parseData?.dial_code);
-
-            if (selectedItem) {
-                setSelectedItem(selectedItem);
-            }
-        }
-    }, [parseData]);
-
-
-    const [googleLoading, setGoogleLoading] = useState(false);
-    const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
-    const [file, setFile] = useState(null);
-    const handleGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            setGoogleLoading(true);
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            const userData = {
-                name: user.displayName,
-                email: user.email,
-                userRole: role
-            };
-
-            const sendToPurchase = localStorage.getItem("purchase");
-            const sendToPurchaseResult = JSON.parse(sendToPurchase);
-            let userRole = role
-            axios
-                .post(
-                    "http://localhost:2000/api/skiloteckuser/user/google/signup",
-                    { userData, parseData: JSON.stringify(parseData) }
-                )
-                .then((res) => {
-                    localStorage.setItem("authToken", JSON.stringify(res.data));
-                    if (sendToPurchaseResult?.status) {
-                        localStorage.removeItem("purchase");
-                        window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-                            }`;
-                    } else {
-                        setGoogleLoading(false);
-                        window.location.href = "/home?signIn=false";
-                    }
-                })
-                .catch((err) => {
-                    setGoogleLoading(false);
-                    console.log(222, err);
-                    toast.error(err?.response?.data?.message);
-                });
-        } catch (error) {
-            if (error.code === "auth/cancelled-popup-request") {
-                console.log("Sign-in with Google popup was cancelled by the user.");
-            } else {
-                console.error("Error signing in with Google:", error.message);
-            }
-            setGoogleLoading(false);
-        }
-    };
 
     const handleChange = (value, index) => {
         if (!isNaN(value)) {
@@ -159,62 +72,6 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
     };
 
 
-    const fileRef = useRef(null);
-    const handleFileChange = (event) => {
-        event.preventDefault();
-        setIsProfileImageRemoved(false);
-
-        const selectedFile = event.target.files[0];
-        if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
-
-            if (selectedFile.type.includes("image")) {
-                setFile(selectedFile);
-                setModelView(true);
-                setError(false);
-                event.target.value = "";
-            } else {
-                toast.error("Only Image files are allowed");
-            }
-        } else {
-            toast.error("Please select a file that is  3 MB.");
-        }
-    };
-    useEffect(() => {
-        setData({ ...data, img: croppedImage?.blob });
-    }, [croppedImage]);
-
-    // useEffect(() => {
-    //   const {
-    //     email,
-    //     mobileNo,
-    //     firstName,
-    //     lastName,
-    //     role,
-
-    //     country,
-    //     profilePicture,
-    //     dial_code
-    //   } = userDataGlobal;
-    //   setData({
-    //     ...data,
-    //     email,
-    //     mobileNo,
-    //     firstName,
-    //     lastName,
-    //     role,
-
-    //     country,
-    //     dial_code
-    //   });
-    //   if (profilePicture) {
-    //     setCroppedImage({ url: profilePicture });
-    //   }
-    //   const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
-
-    //   if (selectedItem) {
-    //     setSelectedItem(selectedItem);
-    //   }
-    // }, []);
     function validatePassword(password) {
         const strongPasswordRegex =
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{6,}$/;
@@ -274,11 +131,10 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                 break;
 
             case "password":
-                if (!isUpdate && (!value.trim() || value.trim().length < 6)) {
+                if ((!value.trim() || value.trim().length < 6)) {
                     errors.password = "Password must be at least 6 characters long";
                 } else if (
-                    !validatePassword(value) &&
-                    !isUpdate
+                    !validatePassword(value) 
                 ) {
                     errors.password =
                         "Password should include one uppercase letter, one lowercase letter, one number, and one special character.";
@@ -287,13 +143,13 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                 }
                 break;
             case "confirmPassword":
-                if (!isUpdate) {
-                    if (!value.trim() || value.trim() != data.password) {
+              
+                    if (!value.trim() || value.trim() != formData.password) {
                         errors.confirmPassword = "Password do not match";
                     } else {
                         delete errors.confirmPassword;
                     }
-                }
+                
                 break;
 
             case "dial_code":
@@ -316,7 +172,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
 
         if (fieldName == "mobileNo") {
             if (value.replace(/\D/g, "").length <= 10) {
-                setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
+                setFormData({ ...formData, [fieldName]: value.replace(/\D/g, "") });
                 if (value.replace(/\D/g, "").length < 10) {
                     setFormError((prevErrors) => ({
                         ...prevErrors,
@@ -333,7 +189,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
             }
         }
         else {
-            setData({ ...data, [fieldName]: value });
+            setFormData({ ...formData, [fieldName]: value });
             validateInput(fieldName, value);
         }
     }
@@ -351,7 +207,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
         let errors = { ...formError };
 
         requiredFields.forEach((field) => {
-            const value = data[field.key];
+            const value = formData[field.key];
             if (!value || (typeof value === "string" && !value.trim())) {
                 errors[field.key] = field.error;
             }
@@ -361,15 +217,10 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
         setFormError(errors);
         return Object.keys(errors).length === 0; // Return true if no errors
     };
-    const handleSubmitAdmin = (e) => {
-        updateTog(3);
-        setProgress1(100)
-        setTimeout(() => {
-            setIsCompleted1(true);
-        }, 2000);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+   
     const submitHandler = (e) => {
+     
+        
         e.preventDefault();
 
         const isValid = validateFields(); // Validate all fields
@@ -384,59 +235,12 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
             return;
         }
 
-        const url = "http://localhost:2000/api/skiloteckuser/signUp";
-        const formdata = new FormData();
-        Object.keys(data).forEach((key) => {
-            if (key === "email") {
-                formdata.append(key, data[key].toLowerCase());
-            } else if (key === "currentLocation") {
-                formdata.append("location", data[key]);
-            } else {
-                formdata.append(key, data[key]);
-            }
-        });
-        formdata.append("userRole", role);
-        formdata.append("parseData", JSON.stringify(parseData));
-
-        axios
-            .post(url, formdata)
-            .then((res) => {
-                const response = res.data;
-                try {
-                    if (response?.success) {
-
-                        localStorage.setItem("authToken", JSON.stringify(response));
-
-                        toast.success("Sign up Successfully");
-                        // if (sendToPurchase && sendToPurchase?.status) {
-                        //   window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                        //     }`;
-                        //   setLoading(false);
-                        // } else {
-                        handleSubmitAdmin
-                        window.location.href = `/home?signIn=false`;
-                        setLoading(false);
-                        // }
-
-                    } else {
-                        setLoading(false);
-                        if (response.message === "User already exists") {
-                            toast.error("User already exists");
-                        } else {
-                            toast.error("Something went wrong");
-                        }
-                    }
-                } catch (err) {
-                    setLoading(false);
-                    toast.error("Something went wrong");
-                    console.log(err);
-                }
-            })
-            .catch((err) => {
-                console.log(err.response);
-                toast.error("Something went wrong");
-                setLoading(false);
-            });
+        updateTog(3)
+        setProgress1(100)
+        setTimeout(() => {
+            setIsCompleted1(true);
+        }, 2000);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
 
     };
@@ -449,7 +253,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
     };
     const handleItemClick = (item) => {
         setSelectedItem(item);
-        setData({ ...data, dial_code: item.dial_code, country: item.name });
+        setFormData({ ...formData, dial_code: item.dial_code, country: item.name });
         setSearchTerm("");
         setFormError((prevErrors) => {
             const updatedErrors = { ...prevErrors };
@@ -484,14 +288,12 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
 
 
     const handleVerification = (e) => {
-        setResend(false);
-        setTimer(30);
         setLoadingg(true);
         e.preventDefault();
         let tempUser = "tempEmployer"
         axios
             .post("http://localhost:2000/api/otpMailSignup", {
-                userEmail: data.email,
+                userEmail: formData.email,
                 tempUser
             })
             .then((res) => {
@@ -504,9 +306,12 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                 } else {
                     toast.error("Something went wrong");
                 }
+                setResend(false);
+                setTimer(30);
+               
             })
             .catch((err) => {
-                toast.error(err?.response?.data.message);
+                toast.error(err?.response?.formData.message);
                 setLoadingg(false);
             });
     };
@@ -541,7 +346,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
         const otpEntered = Number(otp.join(''));
         axios
             .post("http://localhost:2000/api/verifyOtp", {
-                userEmail: data.email,
+                userEmail: formData.email,
                 otpEntered
             })
             .then((res) => {
@@ -556,7 +361,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                 }
             })
             .catch((err) => {
-                toast.error(err?.response?.data.message);
+                toast.error(err?.response?.formData.message);
 
             });
 
@@ -578,6 +383,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
         updateTog(1)
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+   
 
     return (
         <>
@@ -585,12 +391,13 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                 <div className="w-full flex gap-[20px]">
                     <div className="flex w-full flex-col gap-1">
                         <div className="text-[14px] font-[500] text-[#333333]">First Name<span className="text-red">*</span></div>
-                        <div className="rounded-[8px] py-[8px] px-4 border border-[#9D9D9D]">
+                        <div className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.firstName ? "border-red" : "border-[#9D9D9D]"}`}>
+
                             <input
                                 type="text"
                                 name=""
                                 id=""
-                                value={data.firstName}
+                                value={formData.firstName}
                                 onChange={(e) =>
                                     handleInputChange("firstName", e.target.value)
                                 }
@@ -600,12 +407,12 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     </div>
                     <div className="flex w-full flex-col gap-1">
                         <div className="text-[14px] font-[500] text-[#333333]">Last Name<span className="text-red">*</span></div>
-                        <div className="rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex">
+                        <div className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.lastName ? "border-red" : "border-[#9D9D9D]"}`}>
                             <input
                                 type="text"
                                 name=""
                                 id=""
-                                value={data.lastName}
+                                value={formData.lastName}
                                 onChange={(e) =>
                                     handleInputChange("lastName", e.target.value)
                                 }
@@ -668,7 +475,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                     ? "Enter Number "
                                     : "Enter Contact Number "
                                     }`}
-                                value={data.mobileNo}
+                                value={formData.mobileNo}
                                 onChange={(e) =>
                                     handleInputChange("mobileNo", e.target.value)
                                 }
@@ -684,7 +491,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                 type="email"
                                 name=""
                                 id=""
-                                value={data.email}
+                                value={formData.email}
                                 onChange={(e) => {
                                     handleInputChange("email", e.target.value);
                                     setVerify(false);
@@ -698,10 +505,10 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                         {!verified && (
                             <>
                                 {!verify ? (
-                                    !isUpdate && (
+                                    
                                         <button
                                             onClick={handleVerification}
-                                            className="py-2 md:py-[8px] w-[220px] px-4 md:px-[30px] border flec justify-center flex border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+                                            className="py-2 md:py-[8px] w-[220px] px-4 md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
                                         >
                                             {loadingg ? (
                                                 <MiniLoader />
@@ -709,7 +516,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                                 <>Verify Email</>
                                             )}
                                         </button>
-                                    )
+                                    
                                 ) : (
                                     <div className=" min-w-[100px] text-[14px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
                                         {loadingg ? (
@@ -781,7 +588,7 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                                 type={showPassword ? "Text" : "Password"}
                                 name=""
                                 id=""
-                                value={data.password}
+                                value={formData.password}
                                 onChange={(e) =>
                                     handleInputChange("password", e.target.value)
                                 }
@@ -835,10 +642,10 @@ function AdminDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComple
                     <div className="w-full flex flex-col  justify-between gap-2">
                         <div className="w-full rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex items-center">
                             <input
-                                type="text"
+                                type={showConfirmPassword ? "Text" : "Password"}
                                 name=""
                                 id=""
-                                value={data.confirmPassword}
+                                value={formData.confirmPassword}
                                 onChange={(e) =>
                                     handleInputChange(
                                         "confirmPassword",
