@@ -18,7 +18,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/home.png',
       img1: '/images/employer/sidebar/home1.png',
       title: 'Home',
-      route: '/dashboard',
+      route: '/',
     },
     {
       img: '/images/employer/sidebar/companies.png',

@@ -113,7 +113,7 @@ function Sign_up({ }) {
               }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home?signIn=false";
+            window.location.href = "/?signIn=false";
           }
         })
         .catch((err) => {
@@ -405,7 +405,7 @@ function Sign_up({ }) {
             //     }`;
             //   setLoading(false);
             // } else {
-            window.location.href = `/home?signIn=false`;
+            window.location.href = `/?signIn=false`;
             setLoading(false);
             // }
 

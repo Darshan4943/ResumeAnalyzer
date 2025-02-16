@@ -989,7 +989,7 @@ function Collection() {
                 My Collection
               </p>
               
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  py-2  px-0 ml:min-h-[560px]  ">
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px]  ">
                 
                 <button
                   onClick={() => {
@@ -997,10 +997,11 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/myCollection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 0 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${tab === 0 && "bg-[#C2E7FF]"
                     }  `}
                 >
                   <svg
+                  className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1024,6 +1025,7 @@ function Collection() {
                     }   `}
                 >
                   <svg
+                  className="min-w-[20px] scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1047,6 +1049,7 @@ function Collection() {
                     }  `}
                 >
                   <svg
+                  className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"

@@ -101,9 +101,9 @@ function RequisitionList({
         {loading ? (
           <MiniLoader />
         ) : requisitions.length === 0 ? (
-          <div className="p-3 flex items-center justify-center">
+          <div className="p-12 flex items-center justify-center">
             <img
-              className="w-[40%]"
+              className="w-[30%]"
               src="/images/employer/OBJECTS.png"
               alt="No data available"
             />
@@ -186,6 +186,7 @@ function RequisitionList({
             ))}
           </div>
         )}
+        {requisitions.length > 10 &&
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
@@ -196,6 +197,7 @@ function RequisitionList({
           limit={limit}
           page={page}
         />
+}
       </div>
 
       <div className="mobile  ">

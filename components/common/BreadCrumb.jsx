@@ -10,6 +10,7 @@ const Breadcrumb = () => {
 
   const breadcrumbMapping = {
     dashboard: 'Home',
+    Home: 'Home',
     JobPosting: 'Create Job Post',
     jobPosting: 'Job Posting',
     CreateNewJob:"Create New Job",
@@ -38,37 +39,26 @@ const Breadcrumb = () => {
   };
 
  
-  const breadcrumbItems = (pathSegments.length > 1 
-    ? pathSegments.slice(1) 
-    : pathSegments
-  ).map((segment, index) => {
-    const fullPath = `/${pathSegments.slice(0, pathSegments.length > 1 ? index + 2 : index + 1).join('/')}`;
-  
-    if (segment === 'JobPost' && queryParams.get('id')) {
-      return {
-        label: 'Job Post',
-        path: fullPath,
-      };
-    }
-    if (segment === 'CreateNewClient' && queryParams.get('id')) {
-      return {
-        label: 'Update Candidate',
-        path: fullPath,
-      };
-    }
-  
-    if (segment === 'ApplicantDetails' && queryParams.get('id')) {
-      return {
-        label: 'Applicant Details',
-        path: fullPath,
-      };
-    }
-  
-    return {
-      label: breadcrumbMapping[segment] || segment,
-      path: fullPath,
-    };
-  });
+  const breadcrumbItems = pathSegments.length
+  ? (pathSegments.length > 1 ? pathSegments.slice(1) : pathSegments).map((segment, index) => {
+      const fullPath = `/${pathSegments.slice(0, pathSegments.length > 1 ? index + 2 : index + 1).join('/')}`;
+
+      if (segment === 'JobPost' && queryParams.get('id')) {
+        return { label: 'Job Post', path: fullPath };
+      }
+
+      if (segment === 'CreateNewClient' && queryParams.get('id')) {
+        return { label: 'Update Candidate', path: fullPath };
+      }
+
+      if (segment === 'ApplicantDetails' && queryParams.get('id')) {
+        return { label: 'Applicant Details', path: fullPath };
+      }
+
+      return { label: breadcrumbMapping[segment] || segment, path: fullPath };
+    })
+  : [{ label: 'Home', path: '/' }]; // Default to Home when no path segments exist
+
   
   
   
