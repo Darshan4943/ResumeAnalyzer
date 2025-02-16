@@ -250,16 +250,16 @@ const Index = () => {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center text-[24px] font-medium ">
+            <div className="flex flex-col items-center justify-center text-[24px] font-medium gap-4">
               <img
                 className="w-[400px] h-[340px] "
                 src="/images/noFile.png"
                 alt=""
               />
-              <div className="flex flex-col gap-8 items-center">
+              <div className="flex flex-col gap-8 items-center scr420:text-[18px] text-[14px]">
                 No resumes available
                 <button
-                  onClick={() => router.push("/createResume/CandidateResumeDetails")}
+                  onClick={() => router.push("/createResume/BuildResume")}
                   className="bg-blue  px-4 py-2 text-white rounded-lg font-medium text-[16px] w-[180px] btn_hover_effect "
                 >
                   Create Resume

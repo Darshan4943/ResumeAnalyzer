@@ -66,7 +66,7 @@ function HeaderSidebar({
       ? "rgba(6, 169, 239, 0.50)"
       : "rgba(255, 255, 255, 0.50)";
     const textColor = isSelected ? "#FFF" : "#000";
-    const fontSize = isSelected ? "20px" : "18px";
+    const fontSize = isSelected ? "18px" : "16px";
     const fontWeight = isSelected ? "600" : "500";
     return {
       backgroundColor,
@@ -166,7 +166,7 @@ function HeaderSidebar({
           {list().map((item, index) => (
             <li
               key={index}
-              className="px-4 py-6 border-b-2 border-[#06A9EF] "
+              className="px-4 py-6 border-b-2 border-[#06A9EF] text-[16px] "
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateX(0)" : "translateX(-100%)",
@@ -187,7 +187,7 @@ function HeaderSidebar({
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Home" && {
-                  ...getListItemStyles("/home"),
+                  ...getListItemStyles("/"),
                   transition: "transform 0.7s ease-in-out",
                 }),
                 ...(item === "Candidates" && {
@@ -195,7 +195,7 @@ function HeaderSidebar({
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Create New Resume" && {
-                  ...getListItemStyles("/home/BuildResume"),
+                  ...getListItemStyles("/createResume/BuildResume"),
                   transition: "transform 0.8s ease-in-out",
                 }),
                 ...(item === "Create New Cover Letter" && {
@@ -215,15 +215,15 @@ function HeaderSidebar({
                   transition: "transform 1s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
-                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection"),
+                  ...getListItemStyles(userDataGlobal?.role === "user" ? "/candidate/MyCollection" : "/myCollection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Skill Assessments & Certification" && {
-                  ...getListItemStyles("/home/SkillAssessment"),
+                  ...getListItemStyles("/candidate/SkillAssessment"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Search Jobs" && {
-                  ...getListItemStyles("/jobs/search"),
+                  ...getListItemStyles("/jobs/candidate"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Job Posting" && {
@@ -235,7 +235,7 @@ function HeaderSidebar({
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "My Website" && {
-                  ...getListItemStyles("/myWebsite"),
+                  ...getListItemStyles("/candidate/myWebsite"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "My Purchases" && {
@@ -267,7 +267,7 @@ function HeaderSidebar({
                       handleNavigation("/services");
                       break;
                   case "Home":
-                    handleNavigation("/home");
+                    handleNavigation("/");
                     break;
                     case "Companies":
                     handleNavigation("/recruiter/companies");
@@ -277,7 +277,7 @@ function HeaderSidebar({
                     break;
                   case "Create New Resume":
                     handleNavigation(userDataGlobal?.role === "user"
-                      ? "/home/BuildResume"
+                      ? "/createResume/BuildResume"
                       : "/myClients/ClientResume");
                     break;
                   case "Create New Cover Letter":
@@ -303,19 +303,19 @@ function HeaderSidebar({
                     handleNavigation("/chatbot");
                     break;
                   case "My Website":
-                    handleNavigation("/myWebsite");
+                    handleNavigation("/candidate/myWebsite");
                     break;
                   case "My Collection":
-                    handleNavigation(userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection?folders=true");
+                    handleNavigation(userDataGlobal?.role === "user" ? "/candidate/MyCollection" : "/myCollection?folders=true");
                     break;
                   case "Skill Assessments & Certification":
-                    handleNavigation("/home/SkillAssessment");
+                    handleNavigation("/candidate/SkillAssessment");
                     break;
                   case "Job Posting":
                     handleNavigation("/common/jobPosting");
                     break;
                   case "Search Jobs":
-                    handleNavigation("/jobs/search");
+                    handleNavigation("/jobs/candidate");
                     break;
                   default:
                     break;

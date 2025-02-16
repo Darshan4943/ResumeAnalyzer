@@ -779,7 +779,7 @@ function Sign_up({ }) {
                     value={digit}
                     onChange={(e) => handleChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
-                    className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-lg"
+                    className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-md"
                   />
                 ))}
               </div>

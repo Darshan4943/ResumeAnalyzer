@@ -52,10 +52,20 @@ function DocumentDetails({
   
     const validateInput = (fieldName, value) => {
       const errors = { ...formError };
+      
   
+      const fieldNames = {
+        gstNo: "GST No",
+        panNo: "PAN No",
+        certificate: "Certificate",
+        panFile: "PAN File",
+        companyLogo: "Company Logo",
+      };
+      
       if (!value || (typeof value === "string" && !value.trim())) {
-        errors[fieldName] = "This field is required";
-      } else if (
+        errors[fieldName] = `${fieldNames[fieldName] || "This field"} is required`;
+      }
+      else if (
         (fieldName === "gstNo" && !/^\d{15}$/.test(value)) ||
         (fieldName === "panNo" && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value))
       ) {
@@ -74,13 +84,25 @@ function DocumentDetails({
   
     const handleSubmit = () => {
       const requiredFields = ["gstNo", "panNo", "certificate", "panFile", "companyLogo"];
+
+      const fieldNames = {
+        gstNo: "GST No",
+        panNo: "PAN No",
+        certificate: "Certificate",
+        panFile: "PAN File",
+        companyLogo: "Company Logo",
+      };
+      
       let errors = {};
-  
+      
       requiredFields.forEach((field) => {
         if (!formData[field]) {
-          errors[field] = "This field is required";
+          errors[field] = `${fieldNames[field]} is required`;
         }
       });
+      
+   
+      
   
       setFormError(errors);
   

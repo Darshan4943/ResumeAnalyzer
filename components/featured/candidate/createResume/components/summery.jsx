@@ -97,7 +97,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             <div className="flex flex-col gap-3 xxlg:w-[50%] w-full">
               <div className="flex flex-col ">
                 <div className="text-[14px] font-[500]">Credit balance</div>
-                <div className="flex scr420:flex-row flex-col scr1400:gap-[80px]  gap-12 items-center  ">
+                <div className="flex scr420:flex-row flex-col scr1400:gap-[80px]  scr420:gap-12 gap-6 items-center  ">
                   <div className="flex flex-col gap-4 ">
                     <div className="flex items-center justify-center">
                       <svg className="transform rotate-270 w-[160px] h-[160px]">
@@ -143,7 +143,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
 
-                  <div className=" min-w-[1px] bg-[#DEDEDE] h-[192px]"></div>
+                  <div className=" scr420:min-w-[1px] min-w-full bg-[#DEDEDE] scr420:h-[192px] h-[1px]"></div>
 
                   <div className="flex flex-col gap-4">
                     {isActive ? (
