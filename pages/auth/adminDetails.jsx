@@ -372,19 +372,17 @@ function AdminDetails({
     <>
       <div
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-        className={`${
-          tog === 2 ? "flex" : "hidden"
-        } bg-white w-[95%] md:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
+        className={`${tog === 2 ? "flex" : "hidden"
+          } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
       >
-        <div className="w-full flex gap-[20px]">
+        <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
           <div className="flex w-full flex-col gap-1">
             <div className="text-[14px] font-[500] text-[#333333]">
               First Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.firstName ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.firstName ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="text"
@@ -393,7 +391,7 @@ function AdminDetails({
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
                 placeholder="Enter Your First Name"
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
           </div>
@@ -402,9 +400,8 @@ function AdminDetails({
               Last Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.lastName ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.lastName ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="text"
@@ -413,7 +410,7 @@ function AdminDetails({
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
                 placeholder="Enter Your Last Name"
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
           </div>
@@ -422,16 +419,14 @@ function AdminDetails({
           <div className="w-full text-[14px] font-[500] text-[#333333]">
             Contact Number<span className="text-red">*</span>
           </div>
-          <div className="w-full flex  gap-[20px]">
+          <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
             <div
-              className={`w-[30%] rounded-[8px]  px-4 border ${
-                formError.dial_code ? "border-red" : "border-[#9D9D9D]"
-              } flex`}
+              className={` rounded-[8px] w-full  pr-4 border ${formError.dial_code ? "border-red" : "border-[#9D9D9D]"
+                } flex`}
             >
-              {/* <input type="text" name="" id="" placeholder="Country Code" className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]" /> */}
               <ReactSelect
                 options={filteredTelCode}
-                className=" flex  items-center  ml-[10px] text-[12px] font-normal  rounded-[8px]"
+                className=" flex  items-center  ml-[10px]  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464] font-normal  rounded-[8px]"
                 name=""
                 placeholder="Select"
                 value={selectedItem}
@@ -468,35 +463,32 @@ function AdminDetails({
                   },
                 })}
               />
-            </div>
-            <div
-              className={`w-[70%] rounded-[8px] py-[8px] px-4 border ${
-                formError.mobileNo ? "border-red" : "border-[#9D9D9D]"
-              } flex`}
-            >
               <input
                 type="text"
                 name=""
                 id=""
-                placeholder={`${
-                  isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
-                }`}
+                placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
+                  }`}
                 value={formData.mobileNo}
                 onChange={(e) => handleInputChange("mobileNo", e.target.value)}
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] pl-4 outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
+
+
+
+
+
           </div>
         </div>
         <div className="w-full flex flex-col gap-1">
           <div className="w-full text-[14px] font-[500] text-[#333333]">
             Email Address<span className="text-red">*</span>
           </div>
-          <div className="w-full flex justify-between gap-[20px]">
+          <div className="w-full flex flex-col scr540:flex-row justify-between gap-3 scr540:gap-[20px]">
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.email ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.email ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="email"
@@ -510,20 +502,45 @@ function AdminDetails({
                   setOtp(new Array(4).fill(""));
                 }}
                 placeholder="Enter Your Email Address"
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
+              {verified && (
+                <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
+                  <svg
+                    className="zoom-rotate-animation"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="1"
+                      y="1"
+                      width="22"
+                      height="22"
+                      rx="11"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+              )}
             </div>
             {!verified && (
               <>
                 {!verify ? (
                   <button
                     onClick={handleVerification}
-                    className="py-2 md:py-[8px] w-[220px] px-4 md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+                    className="py-2 md:py-[8px] w-full scr540:w-[220px] px-4 md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
                   >
                     {loadingg ? <MiniLoader /> : <>Verify Email</>}
                   </button>
                 ) : (
-                  <div className=" min-w-[100px] text-[14px] font-[600] flex justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
+                  <div className=" min-w-[100px] text-[14px] font-[600] scr540:flex hidden justify-end items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
                     {loadingg ? (
                       <MiniLoader />
                     ) : (
@@ -534,7 +551,7 @@ function AdminDetails({
                           </button>
                         ) : (
                           <p
-                            className=" cursor-pointer"
+                            className="text-end w-full cursor-pointer"
                             onClick={handleVerification}
                           >
                             Resend Code
@@ -546,60 +563,60 @@ function AdminDetails({
                 )}
               </>
             )}
-            {verified && (
-              <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
-                <svg
-                  className="zoom-rotate-animation"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="1"
-                    y="1"
-                    width="22"
-                    height="22"
-                    rx="11"
-                    fill="#34A853"
-                  />
-                  <path
-                    d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-            )}
+
           </div>
           {verify && (
-            <div className="flex flex-col gap-2 font-medium pt-2 w-full ">
-              <div className="flex gap-4 h-[28px]  items-center  justify-start ">
-                <text className="text-[12px] font-[500] text-[#898989]">
+            <div className="flex flex-col gap-2 font-medium w-full pt-2 ">
+              <div className="flex flex-col scr540:flex-row w-full gap-2 scr540:gap-4 scr540:h-[28px] justify-start scr540:items-center ">
+                <text className="text-[12px] font-[500] w-full  text-[#898989]">
                   Enter OTP sent to your Email
                 </text>
-                <div className="flex gap-1" onPaste={handlePaste}>
-                  {otp.map((digit, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      maxLength="1"
-                      id={`otp-input-${index}`}
-                      value={digit}
-                      onChange={(e) => handleChange(e.target.value, index)}
-                      onKeyDown={(e) => handleKeyDown(e, index)}
-                      className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-md"
-                    />
-                  ))}
+                <div className="flex gap-1">
+                  <div className="flex gap-2 w-full scr540:justify-end items-center">
+                    <div className="flex gap-1" onPaste={handlePaste}>
+                      {otp.map((digit, index) => (
+                        <input
+                          key={index}
+                          type="text"
+                          maxLength="1"
+                          id={`otp-input-${index}`}
+                          value={digit}
+                          onChange={(e) => handleChange(e.target.value, index)}
+                          onKeyDown={(e) => handleKeyDown(e, index)}
+                          className="border border-[#DEDEDE] rounded-[4px] scr390:rounded-[8px] scr390:w-[31px] scr390:h-[28px] h-[24px] w-[24px] text-center  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
+                        />
+                      ))}
+                    </div>
+                    {!verified && (
+                      <button
+                        onClick={verifyOtp}
+                        className="flex justify-center  items-center  px-4 text-[12px] font-[600] bg-blue text-white  rounded-[30px] leading-tight btn_hover_effect h-[30px]"
+                      >
+                        Verify
+                      </button>
+                    )}
+                  </div>
+                  <div className=" min-w-[100px] text-[14px] font-[600] flex scr540:hidden justify-center items-center  text-[#C00000]  py-3  leading-tight h-[34px] ">
+                    {loadingg ? (
+                      <MiniLoader />
+                    ) : (
+                      <>
+                        {!resend ? (
+                          <button disabled onClick={(e) => e.stopPropagation()}>
+                            {formatTime(timer)}
+                          </button>
+                        ) : (
+                          <p
+                            className="text-end w-full cursor-pointer"
+                            onClick={handleVerification}
+                          >
+                            Resend Code
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
-                {!verified && (
-                  <button
-                    onClick={verifyOtp}
-                    className="flex justify-center  items-center  px-4 text-[12px] font-[600] bg-blue text-white  rounded-[30px] leading-tight btn_hover_effect h-[30px]"
-                  >
-                    Verify
-                  </button>
-                )}
               </div>
             </div>
           )}
@@ -617,7 +634,7 @@ function AdminDetails({
                 value={formData.password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
                 placeholder="Create Your Password Here"
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&
                 (showPassword ? (
@@ -676,7 +693,7 @@ function AdminDetails({
                   handleInputChange("confirmPassword", e.target.value)
                 }
                 placeholder="Comfirm Your Password"
-                className="w-full bg-[transparent] outline-none placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&
                 (showConfirmPassword ? (
@@ -723,13 +740,13 @@ function AdminDetails({
         <div className="w-full flex justify-between">
           <button
             onClick={handleBack}
-            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-30px] md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
+            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
           >
             Go Back
           </button>
           <button
             onClick={submitHandler}
-            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] bg-blue rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
           >
             Continue
           </button>
