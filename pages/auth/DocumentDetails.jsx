@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { UploadSvg } from "../../utils/svg";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 
 function DocumentDetails({
   fileData,
@@ -13,6 +17,7 @@ function DocumentDetails({
   setFormData,
 }) {
   const [formError, setFormError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleBack1 = () => {
     setProgress1(0);
@@ -66,7 +71,8 @@ function DocumentDetails({
       errors[fieldName] = `${fieldNames[fieldName] || "This field"} is required`;
     }
     else if (
-      (fieldName === "gstNo" && !/^\d{15}$/.test(value)) ||
+      (fieldName === "gstNo" && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/.test(value))
+      ||
       (fieldName === "panNo" && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value))
     ) {
       errors[fieldName] = fieldName === "gstNo" ? "Invalid GST Number" : "Invalid PAN Number";
@@ -84,7 +90,7 @@ function DocumentDetails({
 
   const handleSubmit = () => {
     const requiredFields = ["gstNo", "panNo", "certificate", "panFile", "companyLogo"];
-
+  
     const fieldNames = {
       gstNo: "GST No",
       panNo: "PAN No",
@@ -92,25 +98,65 @@ function DocumentDetails({
       panFile: "PAN File",
       companyLogo: "Company Logo",
     };
-
+  
     let errors = {};
-
+  
     requiredFields.forEach((field) => {
       if (!formData[field]) {
         errors[field] = `${fieldNames[field]} is required`;
       }
     });
-
-
-
-
+  
     setFormError(errors);
-
-    if (Object.keys(errors).length === 0) {
-      console.log("Form submitted successfully!");
+  
+    if (Object.keys(errors).length > 0) {
+      return; // Stop submission if there are errors
     }
+  
+    // Convert to FormData
+    const formDataToSend = new FormData();
+    formDataToSend.append("gstNo", formData.gstNo);
+    formDataToSend.append("panNo", formData.panNo);
+    formDataToSend.append("certificate", formData.certificate); // File
+    formDataToSend.append("panFile", formData.panFile); // File
+    formDataToSend.append("companyLogo", formData.companyLogo); // File
+  
+    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
+  
+    axios
+      .post(url, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const response = res.data;
+        try {
+          if (response?.success) {
+            localStorage.setItem("authToken", JSON.stringify(response));
+            toast.success("Sign up Successfully");
+          } else {
+            setLoading(false);
+            if (response.message === "User already exists") {
+              toast.error("User already exists");
+            } else {
+              toast.error("Something went wrong");
+            }
+          }
+        } catch (err) {
+          toast.error("Something went wrong");
+          console.log(err);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response);
+        toast.error("Something went wrong");
+        setLoading(false);
+      });
   };
+  
 
+  console.log(formData)
   return (
     <div
       style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
@@ -155,7 +201,7 @@ function DocumentDetails({
           <label className="text-[16px] font-[500] text-[#333333]">
             Upload Certificate<span className="text-red">*</span>
           </label>
-          <div className="rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D]">
+          <div className="h-[39px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D] upload-btn-wrapper">
             <input
               type="file"
               id="certificateInput"
@@ -163,7 +209,15 @@ function DocumentDetails({
               onChange={handleFileChange}
               className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
             />
+            {formData.certificate ?
+            <p>{formData?.certificate?.name}</p>
+
+              :
+              <p className="text-[14px] text-[#646464]">Upload certificate</p>
+            }
+            <UploadSvg />
           </div>
+
           {formError.certificate && <span className="text-red text-sm">{formError.certificate}</span>}
         </div>
 
@@ -171,7 +225,7 @@ function DocumentDetails({
           <label className="text-[16px] font-[500] text-[#333333]">
             Upload PAN<span className="text-red">*</span>
           </label>
-          <div className="rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D]">
+          <div className="h-[39px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D] upload-btn-wrapper">
             <input
               type="file"
               id="panFileInput"
@@ -179,6 +233,13 @@ function DocumentDetails({
               onChange={handleFileChange}
               className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
             />
+             {formData.panFile ?
+            <p>{formData?.panFile?.name}</p>
+
+              :
+              <p className="text-[14px] text-[#646464]">Upload Pan</p>
+            }
+            <UploadSvg />
           </div>
           {formError.panFile && <span className="text-red text-sm">{formError.panFile}</span>}
         </div>
@@ -188,14 +249,22 @@ function DocumentDetails({
         <label className="text-[16px] font-[500] text-[#333333]">
           Company Logo<span className="text-red">*</span>
         </label>
-        <div className="rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D]">
+        <div className="h-[39px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer border-[#9D9D9D] upload-btn-wrapper">
           <input
             type="file"
             id="companyLogoInput"
             name="companyLogo"
             onChange={handleFileChange}
+              accept=".jpg,.jpeg,.png,"
             className="w-full cursor-pointer text-[14px] font-[400] text-[#646464] "
           />
+           {formData.companyLogo ?
+            <p>{formData?.companyLogo?.name}</p>
+
+              :
+              <p className="text-[14px] text-[#646464]">Upload Company Logo</p>
+            }
+            <UploadSvg />
         </div>
         {formError.companyLogo && <span className="text-red text-sm">{formError.companyLogo}</span>}
       </div>
