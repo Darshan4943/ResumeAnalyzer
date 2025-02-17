@@ -7,7 +7,7 @@ import CompanyDetails from "./CompanyDetails";
 import DocumentDetails from "./DocumentDetails";
 const EmployerSignUp = () => {
   const router = useRouter();
-  const [tog, setTog] = useState(1);
+  const [tog, setTog] = useState(3);
   const [visiblePass, setVisiblePass] = useState(false);
   const [formData, setFormData] = useState({});
   const [fileData, setFileData] = useState({

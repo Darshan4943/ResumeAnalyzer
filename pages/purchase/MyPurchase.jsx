@@ -518,7 +518,7 @@ function MyPurchase() {
                         </div>
                       </div>
                       <div className="bg-[#DEDEDE] w-[1px] h-[100%]"></div>
-                      <div className="flex gap-3 flex-col text-left w-[30%]">
+                      <div className="flex gap-3 flex-col text-left w-full ml:w-[30%]">
                         <div className="text-[18px] font-[600]">
                           Available Services
                         </div>

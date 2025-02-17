@@ -65,7 +65,7 @@ const TopCompanies = () => {
             spaceBetween={0}
             slidesPerView={1}
             breakpoints={{
-              320: { slidesPerView: 2 },
+              320: { slidesPerView: 1 },
               640: { slidesPerView: 2 },
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
