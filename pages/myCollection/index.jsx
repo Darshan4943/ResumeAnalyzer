@@ -54,6 +54,7 @@ function Collection() {
   const [count, setCount] = useState("");
   const [refresh, setRefresh] = useState(true)
   const [collectionCount, setCollectionCount] = useState(0)
+  const [error, setError] = useState("")
 
   const getLimits = () => {
     const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
@@ -242,6 +243,7 @@ function Collection() {
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
         getUnSyncFiles()
+        getData()
      
       }, 30000);
 
@@ -864,12 +866,23 @@ function Collection() {
                 </div>
               ) : (
                 <input
-                  className="border border-blue rounded-[8px] py-2 px-4"
-                  ref={inputRef}
-                  type="text"
-                  value={folderName}
-                  onChange={(e) => setFolderName(e.target.value)}
-                />
+                className="border border-blue rounded-[8px] py-2 px-4"
+                ref={inputRef}
+                type="text"
+                value={folderName}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  if (newValue === "Skilotech Collection") {
+                    setError(`${newValue} not allowed`)
+                    setFolderName(newValue);
+                  }else{
+                    setError("")
+                    setFolderName(newValue);
+                  }
+                  
+                }}
+              />
+
               )}
               {fileLoader && isFile && Object.values(files).length > 1 && (
                 <>
@@ -900,6 +913,10 @@ function Collection() {
                   </div>
                 </>
               )}
+                            {error &&
+                <p className="text-red font-[500] text-[12px]">{error}</p>
+              }
+              
               <div className="flex justify-between gap-6">
                 <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
                   {isFile &&
@@ -936,13 +953,13 @@ function Collection() {
                     <button
                       //  id="border_button"
                       disabled={
-                        fileLoader ||
+                        fileLoader || error ||
                         (isFile ? Object.values(files).length === 0 : !folderName)
                       }
                       style={{
                         minWidth: "80px",
                         opacity:
-                          fileLoader ||
+                          fileLoader || error ||
                             (isFile
                               ? Object.values(files).length === 0
                               : !folderName)

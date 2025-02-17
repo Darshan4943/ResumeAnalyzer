@@ -1,8 +1,14 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/common/mini-loader";
-
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Tesseract from "tesseract.js";
+import PizZip from "pizzip";
+import { pdfjs } from "react-pdf";
+import Docxtemplater from "docxtemplater";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function JdMatchCard({
   resumeList,
   extratctedData,
@@ -12,9 +18,12 @@ function JdMatchCard({
   hiringLoading,
   jobData,
   jdApplicantFileNames,
+  fromSkilotechCollection
 }) {
   const router = useRouter();
-console.log("object",setUserDetails)
+  const[parentId,setParentId] = useState()
+  console.log(parentId)
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const downloadResume = (resumeUrl) => {
     if (resumeUrl) {
       const link = document.createElement("a");
@@ -27,8 +36,138 @@ console.log("object",setUserDetails)
       toast.error("Resume URL is not available.");
     }
   };
+
+ 
+ const fetchFolder = async () => {
+  try {
+    const response = await axios.get(`http://localhost:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
+    setParentId(response?.data?._id);
+  } catch (error) {
+    console.error("Error fetching folder:", error);
+    throw error;
+  }
+};
+useEffect(()=>{
+
+  fetchFolder()
+
+},[resumeList])
+
+const fetchPDFFromURL = async (url) => {
+  try {
+    const response = await axios.get(url, {
+      responseType: 'blob', 
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching file:", error);
+    throw new Error("Failed to fetch the PDF file.");
+  }
+};
+ const fileToText = (file, pageNumber) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const typedarray = new Uint8Array(event.target.result);
+        pdfjs.getDocument(typedarray).promise.then(function (pdf) {
+          pdf.getPage(pageNumber).then(function (page) {
+            page.getTextContent().then(function (textContent) {
+              const textItems = textContent.items.map((item) => item.str);
+              resolve(textItems.join(" "));
+            });
+          });
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+const parseData = (file) => {
+  
+
+  return new Promise((resolve, reject) => {
+    if (file.type === "application/pdf") {
+      const textDataPromises = [];
+      const promise = fileToText(file, 1).then((text) => {
+        return { text };
+      });
+
+      textDataPromises.push(promise);
+
+      Promise.all(textDataPromises)
+        .then((results) => {
+          resolve(results.filter((result) => result.text.length > 0));
+        })
+        .catch(reject);
+    } else {
+      reject(new Error("The provided file is not a PDF."));
+    }
+  });
+};
+
+
+const parsePDFFileFromURL = async (url) => {
+  try {
+    const file = await fetchPDFFromURL(url);
+    const fileObject = new Blob([file], { type: 'application/pdf' });
+
+    const data = await parseData(fileObject);
+    console.log("Extracted Text:", data);
+
+    return data[0].text; 
+  } catch (error) {
+    console.error("Error processing the PDF:", error);
+    return null; 
+  }
+};
+
+
+const addData = async (file) => {
+  const extractedText = await parsePDFFileFromURL(file.file);
+  console.log(222, extractedText);
+
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const payload = {
+          fileName: file?.fileName,
+          type: "file",
+          userId: userDataGlobal?._id,
+          text: extractedText,
+          file: file?.file,
+          parentId: parentId || "",
+        };
+
+        const response = await axios.post(
+          "http://localhost:2000/api/folder/addFileToSkilotechCollection",
+          payload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.message === "This file is already Saved") {
+          toast.info("This file is already Saved");
+        } else {
+          toast.success("Successfully Saved to Skilotech Collection");
+        }
+
+        resolve(response.data);
+      } catch (e) {
+        console.error("Error adding file:", e);
+        toast.error("Failed to save file");
+        reject(e);
+      }
+    }, 200);
+  });
+};
+
+
+
+
   return (
-    <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 ">
+    <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 bg-white ">
       <div className="text-[18px] font-[500]">
         {resumeList.length} results found for {extratctedData?.jobTitle}
       </div>
@@ -196,7 +335,10 @@ console.log("object",setUserDetails)
             )}
 
             <div className="flex flex-col gap-[20px] scr1300:min-w-[386px] scr390:min-w-[300px] ">
-              <div className=" flex items-center h-[80px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
+              {fromSkilotechCollection && parentId &&
+                <p onClick={()=>addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to Skilotech Collection</p>
+              }
+              <div className=" flex items-center h-[70px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
                 <div className="text-[18px] font-[500] justify-center">
                   Profile Match Score
                 </div>
@@ -206,15 +348,15 @@ console.log("object",setUserDetails)
               </div>
               <div
                 onClick={() => downloadResume(user?.file)}
-                className=" h-[89px] rounded-[12px] w-full flex  "
+                className=" h-[66px] rounded-[12px] w-full flex  "
               >
-                <div className="w-[51px] flex h-[89px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
+                <div className="w-[51px] flex h-[66px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
                   <span className="flex items-center justify-center text-[14px] font-[600] text-[#FFFFFF]">
                     PDF
                   </span>
                 </div>
                 <div className="scr1300:w-[334px]  justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] w-full">
-                  <div className="p-[16px]  flex flex-col ">
+                  <div className="px-[16px]  flex flex-col ">
                     <div className="text-[14px] font-[500]">
                       {user.fileName.split(" ").slice(0, 4).join(" ")}
                       {user.fileName.split(" ").length > 4 ? "..." : ""}

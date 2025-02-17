@@ -94,7 +94,7 @@ function EmployerSidebar() {
       img: '/images/employer/sidebar/myCollection.png',
       img1: '/images/employer/sidebar/myCollection1.png',
       title: 'My Collection',
-      route: '/myCollection',
+      route: '/myCollection?folders=true',
     },
     {
       img: '/images/employer/sidebar/jdMatching.png',
