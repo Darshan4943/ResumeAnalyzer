@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 function CompanyDetails({ tog, updateTog, setIsCompleted, setProgress, setIsCompleted1, setProgress1, formData, setFormData }) {
     const [errors, setErrors] = useState({});
@@ -118,12 +120,30 @@ function CompanyDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComp
 
             return;
         }
-        updateTog(2);
-        setProgress(100);
-        setTimeout(() => {
-            setIsCompleted(true);
-        }, 2000);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        axios
+        .post("http://localhost:2000/api/skiloteckuser/companyCheck", {
+          companyEmail: formData.companyEmail,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            updateTog(2);
+            setProgress(100);
+            setTimeout(() => setIsCompleted(true), 2000);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        })
+        .catch((err) => {
+          if (err.response?.status === 409) {
+            toast.error("Company already exists");
+          } else {
+            console.error("API Error:", err.response?.data || err.message);
+            toast.error("Something went wrong. Please try again later.");
+          }
+        });
+      
+
+
 
     };
 
@@ -133,7 +153,7 @@ function CompanyDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComp
         updateTog(2)
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-    
+
     return (
         <div style={{ boxShadow: "0px 1px 6px 0px #00000040" }} className={`${tog === 1 ? "flex" : "hidden"} bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}>
             {companyFields.map((field, index) => (

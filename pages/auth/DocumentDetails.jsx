@@ -113,13 +113,14 @@ function DocumentDetails({
       return; // Stop submission if there are errors
     }
   
-    // Convert to FormData
+    
     const formDataToSend = new FormData();
-    formDataToSend.append("gstNo", formData.gstNo);
-    formDataToSend.append("panNo", formData.panNo);
-    formDataToSend.append("certificate", formData.certificate); // File
-    formDataToSend.append("panFile", formData.panFile); // File
-    formDataToSend.append("companyLogo", formData.companyLogo); // File
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        formDataToSend.append(key, value);
+      }
+    });
+    
   
     const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
   
@@ -134,6 +135,7 @@ function DocumentDetails({
         try {
           if (response?.success) {
             localStorage.setItem("authToken", JSON.stringify(response));
+            window.location.href = `/?signIn=false`;
             toast.success("Sign up Successfully");
           } else {
             setLoading(false);
