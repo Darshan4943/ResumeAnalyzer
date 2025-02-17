@@ -122,7 +122,7 @@ function CompanyDetails({ tog, updateTog, setIsCompleted, setProgress, setIsComp
         }
 
         axios
-        .post("http://localhost:2000/api/skiloteckuser/companyCheck", {
+        .post("https://dev.api.skilotech.com/api/skiloteckuser/companyCheck", {
           companyEmail: formData.companyEmail,
         })
         .then((res) => {
