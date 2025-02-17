@@ -249,9 +249,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                    label: filterData[headingObj.heading],
-                                    value: filterData[headingObj.heading],
-                                  }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -294,9 +294,8 @@ function JobPosting() {
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
-                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                              }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                                }`}
                             >
                               <div className="w-[14%] text-start">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -313,7 +312,7 @@ function JobPosting() {
                               </p>
                               <p className="text-[14px] w-[14%] text-strat font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                requisition.location.length > 0 ? (
+                                  requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -337,11 +336,10 @@ function JobPosting() {
 
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {!requisition.budgetFrom &&
-                                !requisition.budgetTo
+                                  !requisition.budgetTo
                                   ? ""
-                                  : `$${requisition.budgetFrom || 0} - ${
-                                      requisition.budgetTo || ""
-                                    }`}
+                                  : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""
+                                  }`}
                               </p>
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {userDataGlobal?.name || "-"}
@@ -382,9 +380,9 @@ function JobPosting() {
                             </div>
                           ))
                         ) : (
-                          <div className="p-3 flex items-center justify-center">
+                          <div className="p-12 flex items-center justify-center">
                             <img
-                              className="w-[50%]"
+                              className="w-[30%]"
                               src="/images/employer/OBJECTS.png"
                               alt="No data available"
                             />
@@ -472,9 +470,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                    label: filterData[headingObj.heading],
-                                    value: filterData[headingObj.heading],
-                                  }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -512,7 +510,7 @@ function JobPosting() {
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]">
                         {requisition.location &&
-                        requisition.location.length > 0 ? (
+                          requisition.location.length > 0 ? (
                           requisition.location.length > 2 ? (
                             <div className="flex flex-col">
                               {requisition.location.map((loc, index) => (
@@ -548,9 +546,8 @@ function JobPosting() {
                         <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
                           {!requisition.budgetFrom && !requisition.budgetTo
                             ? ""
-                            : `$${requisition.budgetFrom || 0} - ${
-                                requisition.budgetTo || "Not Available"
-                              }`}
+                            : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || "Not Available"
+                            }`}
                         </div>
                       </div>
                       <div className="text-center">
@@ -611,18 +608,20 @@ function JobPosting() {
                 </div>
               )}
             </div>
-
-            <CustomPagination
-              setMiniloading={setMiniloading}
-              miniLoading={miniLoading}
-              setPage={setPage}
-              title={"Jobs"}
-              setLimit={setLimit}
-              totalPages={totalPages}
-              limit={limit}
-              page={page}
-              isBackground={true}
-            />
+            {requisitions.length > 10 &&
+            
+              < CustomPagination
+                setMiniloading={setMiniloading}
+                miniLoading={miniLoading}
+                setPage={setPage}
+                title={"Jobs"}
+                setLimit={setLimit}
+                totalPages={totalPages}
+                limit={limit}
+                page={page}
+                isBackground={true}
+              />
+            }
           </div>
         )}
 

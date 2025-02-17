@@ -362,7 +362,7 @@ function Hiring() {
             </div>
 
             <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
-              <div className="w-[75%] flex justify-between items-center">
+              <div className="w-full flex justify-between items-center">
                 {headings.map((filter, index) => (
                   <>
                     <Select
@@ -413,13 +413,13 @@ function Hiring() {
                   </>
                 ))}
               </div>
-              <div className="scr1067:w-[25%] w-[20%] flex justify-end gap-3">
-                <button
+              <div className=" flex justify-end gap-3">
+                {/* <button
                   onClick={handleFilterChange}
                   className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
                 >
                   Search
-                </button>
+                </button> */}
                 <button
                   onClick={handelclear}
                   className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"

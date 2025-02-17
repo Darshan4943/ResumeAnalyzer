@@ -48,7 +48,7 @@ function MyFolders({
                   >
                     <div className=" relative">
                       {fileIconSeter(item)}
-                      {select && (
+                      {(select && item.fileName !=="My Clients" ) &&(
                         <input
                           type="checkbox"
                           className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
@@ -102,7 +102,7 @@ function MyFolders({
                       >
                         <td className="px-2  w-[50%] break-all scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center">
 
-                          {select && (
+                          {select &&(
                             <input
                               type="checkbox"
                               className="   rounded-[4.5px]  w-full outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"

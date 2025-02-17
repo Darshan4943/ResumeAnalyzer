@@ -100,7 +100,7 @@ function Header({ userData }) {
         borderBottom: "1.5px solid #DEDEDE",
       }}
     >
-      <div className="flex justify-center  z-[10000000] customMargins relative  ">
+      <div className="flex justify-center  z-[10000000] customMargins relative w-full ">
         <div
           className={`flex justify-between w-[100%] transition-all duration-500 ease-in-out bg-white`}
           style={{ height: isSearch ? "168px" : "70px" }}
@@ -109,16 +109,16 @@ function Header({ userData }) {
 
 
           <>
-            <div className="flex py-3 gap-9 list-none">
+            <div className="flex py-3 scr900:gap-9  gap-4 list-none w-full">
               <Link href="/">
                 <img
-                  className="object-contain h-[40px]"
+                  className=" object-contain min-h-[40px] h-[40px] min-w-[119px]"
                   src="/images/logo_skilotech.png"
                   alt=""
                 />
               </Link>
               {!isLogin ?
-                <div className=" flex items-center h-[40px] gap-9">
+                <div className=" flex items-center h-[40px] scr900:gap-9 gap-4 mt-1">
                   <div
                     onClick={() => {
                       router.push("/jobs/candidate");
@@ -243,16 +243,16 @@ function Header({ userData }) {
 
 
               {(selectedPage.startsWith('/jobs') || isLogin) &&
-                <div className=" relative">
+                <div className="relative  w-full flex justify-center ">
                   <motion.div
 
-                    className={`absolute  left-1/2 transform -translate-x-1/2  flex justify-between items-center  ${isSearch ? "" : ""}  `}
+                    className={`absolute   ${isSearch ? "" : ""}  `}
                     initial={{ width: "258px", height: "46px" }}
                     animate={{
                       width: isSearch ? "648px" : "258px",
                       height: isSearch ? "62px" : "46px",
                       y: isSearch ? 80 : 0,
-                      x: isSearch ? -80 : 0,
+                      x: isSearch ? 0 : 0,
 
                     }}
                     exit={{ width: "80px", height: "50px" }}
@@ -318,7 +318,7 @@ function Header({ userData }) {
                       :
                       <div
                         onClick={() => setIsSearch(true)}
-                        className={` flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-1 py-1`}
+                        className={` scr1067:ml-[-80px] flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-1 py-1`}
                       >
                         <div className="text-[14px] font-medium text-[#889FBA]">
                           UX Designer

@@ -23,7 +23,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 function Collection() {
   const router = useRouter();
-  const { clients, folders, clientId, parentId, trash } = router.query;
+  const { skilotechCollection, folders, clientId, parentId, trash } = router.query;
+  console.log(skilotechCollection)
   const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -100,9 +101,13 @@ function Collection() {
   const getData = () => {
 
     if (folders == "true") {
-      setTab(1);
+      setTab(0);
       setTabIndex(0);
-      if (parentId) {
+      if (clientId) {
+        getClientData(clientId);
+
+      }
+      else if(parentId) {
         setParentId(parentId);
         getParentData(parentId);
 
@@ -111,16 +116,16 @@ function Collection() {
         getFolderData();
 
       }
-    } else if (clients == "true") {
-      setTab(0);
+    } else if (skilotechCollection == "true") {
+      setTab(1);
       setTabIndex(0);
-      if (clientId) {
-        getClientData(clientId);
-
-      } else {
-        getClients();
-
+      if(!parentId){
+        getSkilotechCollectionData();
+      }else{
+        setParentId(parentId);
+        getParentData(parentId);
       }
+      
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
@@ -178,15 +183,18 @@ function Collection() {
         console.log(err);
       });
   };
-  const getClients = () => {
+  const getSkilotechCollectionData = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
+        `http://localhost:2000/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
       )
       .then((res) => {
 
-        setFolderList(res.data.data);
+        setFolderList(res.data.data[0].files);
+      
+        getParentData(res.data.data[0]._id);
+        setParentId(res.data.data[0]._id)
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -457,7 +465,7 @@ function Collection() {
 
   useEffect(() => {
     getData();
-  }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
+  }, [skilotechCollection, folders, clientId, parentId, userDataGlobal, recall]);
 
 
   const handleFileChange = async (e) => {
@@ -981,7 +989,7 @@ function Collection() {
                 My Collection
               </p>
               
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  py-2  px-0 ml:min-h-[560px]  ">
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px]  ">
                 
                 <button
                   onClick={() => {
@@ -989,10 +997,11 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/myCollection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${tab === 0 && "bg-[#C2E7FF]"
                     }  `}
                 >
                   <svg
+                  className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1010,12 +1019,13 @@ function Collection() {
                 </button>
                 <button
                   onClick={() => {
-                    router.push("/myCollection?clients=true");
+                    router.push("/myCollection?skilotechCollection=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 1 && "bg-[#C2E7FF]"
                     }   `}
                 >
                   <svg
+                  className="min-w-[20px] scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1029,7 +1039,7 @@ function Collection() {
                       />
                     </g>
                   </svg>
-                  Collection
+                 Skilotech Collection
                 </button>
                 <button
                   onClick={() => {
@@ -1039,6 +1049,7 @@ function Collection() {
                     }  `}
                 >
                   <svg
+                  className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"

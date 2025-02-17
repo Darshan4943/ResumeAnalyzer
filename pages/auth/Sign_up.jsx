@@ -113,7 +113,7 @@ function Sign_up({ }) {
               }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home?signIn=false";
+            window.location.href = "/?signIn=false";
           }
         })
         .catch((err) => {
@@ -405,7 +405,7 @@ function Sign_up({ }) {
             //     }`;
             //   setLoading(false);
             // } else {
-            window.location.href = `/home?signIn=false`;
+            window.location.href = `/?signIn=false`;
             setLoading(false);
             // }
 
@@ -481,7 +481,7 @@ function Sign_up({ }) {
     let tempUser = role === "user" ? "tempUser" : "tempRecruiter"
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
-        userEmail: data.email,
+        userEmail: data.email.toLowerCase(),
         tempUser
       })
       .then((res) => {
@@ -779,7 +779,7 @@ function Sign_up({ }) {
                     value={digit}
                     onChange={(e) => handleChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
-                    className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-lg"
+                    className="border border-[#DEDEDE] rounded-[8px] w-[31px] h-[28px] text-center text-md"
                   />
                 ))}
               </div>

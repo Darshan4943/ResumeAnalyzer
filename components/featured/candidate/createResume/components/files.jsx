@@ -32,6 +32,7 @@ function Files({
   const dispatch = useDispatch();
 
   const openFolder = (index, parentId, name, item) => {
+    console.log(name)
     if (item?.type == "file") {
       window.location.href = item.file;
     } else {
@@ -50,18 +51,20 @@ function Files({
       localStorage.setItem("previousPage", window.location.href);
       router.push({
         pathname: "/myCollection",
-        query: { ...query, clients: true, name, clientId },
+        query: { ...query, skilotechCollection: true, name, clientId },
       });
     }
   };
   const toggleSelect = (index) => {
-    if (selectedIndexes.includes(index)) {
-      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
-    } else {
-      setSelectedIndexes([...selectedIndexes, index]);
+    if (clientData[index]?.fileName === "My Clients") {
+      return; // Prevent selection for "My Clients"
     }
+  
+    setSelectedIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
-
+  
   useEffect(() => {
     if (clientId) {
       axios
@@ -83,7 +86,7 @@ function Files({
 
   return (
     <>
-      {(tab === 1 || tab === 2) && (
+      {(tab === 0 || tab === 2) && (
         <MyFolders
           isList={isList}
           selectedIndexes={selectedIndexes}
@@ -99,11 +102,11 @@ function Files({
           setFiles={setFiles}
           clientData={clientData}
           tab={tab}
-          openFolder={tab === 0 ? openClientFolder : openFolder}
+          openFolder={tab === 1 ? openClientFolder : openFolder}
           toggleSelect={toggleSelect}
         />
       )}
-      {tab === 0 && (
+      {tab === 1 && (
         <ClientFolders
           isList={isList}
           selectedIndexes={selectedIndexes}
@@ -119,7 +122,7 @@ function Files({
           setFiles={setFiles}
           clientData={clientData}
           tab={tab}
-          openClientFolder={openClientFolder}
+          openClientFolder={openFolder}
           toggleSelect={toggleSelect}
           query={query}
         />
