@@ -56,7 +56,7 @@ function ShortlistMail({
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 
