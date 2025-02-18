@@ -185,7 +185,7 @@ function Index() {
             <div className="p-3 w-full flex flex-col gap-[2px] items-center justify-center h-[60vh]">
               {" "}
               <img
-                className="w-[20%]"
+                className="w-[15%]"
                 src="/images/employer/NOCom.png"
                 alt="No data available"
               />

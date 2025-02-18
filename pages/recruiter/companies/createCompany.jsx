@@ -294,26 +294,25 @@ function CreateCompany() {
       </span>
     );
   };
-    useEffect(() => {
-      const disablePaste = (event) => {
-        if (event.ctrlKey && event.key === "v") {
-          event.preventDefault();
-        }
-      };
-    
-      document.addEventListener("keydown", disablePaste);
-    
-      return () => {
-        document.removeEventListener("keydown", disablePaste);
-      };
-    }, []);
-    
-  
+  useEffect(() => {
+    const disablePaste = (event) => {
+      if (event.ctrlKey && event.key === "v") {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("keydown", disablePaste);
+
+    return () => {
+      document.removeEventListener("keydown", disablePaste);
+    };
+  }, []);
+
   const header = renderHeader();
 
   return (
     <div className="w-full relative flex flex-col gap-5">
-      <div className="flex gap-3 scr340:text-[18px] text-[16px] font-[600] text-[#333333] items-center">
+      <div className="flex gap-3 scr340:text-[16px] text-[16px] font-[600] text-[#333333] items-center">
         <svg
           onClick={previousPage}
           viewBox="0 0 24 24"
@@ -365,10 +364,16 @@ function CreateCompany() {
                   onDragLeave={handleDragLeave}
                   className="scr1024:w-[70.04%] w-full flex flex-col scr800:flex-row gap-2 items-center justify-between"
                 >
-                  {(croppedImage || data?.companyLogo) && (
+                  {(croppedImage ||
+                    data?.companyLogo ||
+                    "/images/jobs/logo.png") && (
                     <ImageContainer
                       value={data?.companyLogo}
-                      src={croppedImage?.url || data?.companyLogo}
+                      src={
+                        croppedImage?.url ||
+                        data?.companyLogo ||
+                        "/images/jobs/logo.png"
+                      }
                       alt="Selected File"
                       className="w-[32.95%] h-[60px] object-contain"
                     />
@@ -412,8 +417,11 @@ function CreateCompany() {
                 fontSize: "16px",
                 color: "#333",
                 padding: "10px",
+                borderBottomLeftRadius: "8px",
+                borderBottomRightRadius: "8px",
                 minHeight: "196px",
               }}
+              className="editor-container"
               onPaste={(e) => e.preventDefault()}
             />
             <div className="text-[12px] text-gray-500">
@@ -460,6 +468,7 @@ function CreateCompany() {
         <ImageCropper
           setModelView={setModelView}
           file={file}
+          isLogo={true}
           setCroppedImage={setCroppedImage}
         />
       )}

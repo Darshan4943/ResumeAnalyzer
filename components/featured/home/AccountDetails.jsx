@@ -556,8 +556,8 @@ function AccountDetails({
       )}
       <div className="flex flex-col gap-6 w-[100%]">
         <div className=" flex flex-col gap-4 justify-center w-[100%] ">
-          <div className="text-[18px] font-[600] ">Account Details</div>
-          <div className="flex flex-col gap-6 w-[100%] text-[14px]">
+          <div className="text-[16px] font-[600] ">Account Details</div>
+          <div className="flex flex-col gap-4 w-[100%] text-[14px]">
             <div className="flex gap-5 w-[100%] ">
               <div className=" w-[50%]">
                 <p className="">
@@ -567,7 +567,7 @@ function AccountDetails({
                   type="text"
                   name=""
                   id="single_input"
-                  placeholder="Enter first name"
+                  placeholder="Enter First Name"
                   value={data.firstName}
                   onChange={(e) =>
                     handleInputChange("firstName", e.target.value)
@@ -588,7 +588,7 @@ function AccountDetails({
                   type="text"
                   name=""
                   id="single_input"
-                  placeholder="Enter Last name"
+                  placeholder="Enter Last Name"
                   value={data.lastName}
                   onChange={(e) =>
                     handleInputChange("lastName", e.target.value)

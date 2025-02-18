@@ -6,12 +6,18 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { currenciesWithIcons, currencyMap, plans, telCode } from "../../../utils/data";
+import {
+  currenciesWithIcons,
+  currencyMap,
+  plans,
+  telCode,
+} from "../../../utils/data";
 
 import axios from "axios";
 function SubscriptionPlans({ fromMain }) {
   const router = useRouter();
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   // const showPlan = useSelector((state) => state.showPlan.show);
 
   const [subPlans, setPlans] = useState([]);
@@ -22,7 +28,7 @@ function SubscriptionPlans({ fromMain }) {
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [showPlan, setShowPlans] = useState(false);
-  const [allPlans, setAllPlans] = useState([])
+  const [allPlans, setAllPlans] = useState([]);
   const [subscription, setSubscription] = useState(null);
   const [isFree, setIsFree] = useState(false);
 
@@ -40,7 +46,6 @@ function SubscriptionPlans({ fromMain }) {
     //   setPlans(plans.slice(0, 3));
     // }
 
-
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -51,19 +56,19 @@ function SubscriptionPlans({ fromMain }) {
     }
   }, [userDataGlobal, showPlan]);
 
-
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/checkForFreePlanByUserId/" + userDataGlobal?._id)
+      .get(
+        "http://localhost:2000/api/checkForFreePlanByUserId/" +
+          userDataGlobal?._id
+      )
       .then((res) => {
-
         setIsFree(res.data.success);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [userDataGlobal]);
-
 
   useEffect(() => {
     axios
@@ -76,14 +81,11 @@ function SubscriptionPlans({ fromMain }) {
       });
   }, [userDataGlobal, showPlan]);
 
-
-
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/plans/getAllPlans")
       .then((res) => {
-
-        const allPlan = res.data.data
+        const allPlan = res.data.data;
 
         // if (userDataGlobal?.role == "recruiter" || fromMain) {
         //   setIsUser(false);
@@ -107,7 +109,7 @@ function SubscriptionPlans({ fromMain }) {
 
           setAllPlans(
             allPlan
-              .filter(plan => plan.type === "recruiter")
+              .filter((plan) => plan.type === "recruiter")
               .sort((a, b) => a.amount - b.amount)
           );
         } else {
@@ -115,18 +117,14 @@ function SubscriptionPlans({ fromMain }) {
 
           setAllPlans(
             allPlan
-              .filter(plan => plan.type === "candidate")
+              .filter((plan) => plan.type === "candidate")
               .sort((a, b) => a.amount - b.amount)
           );
         }
-
-
       })
       .catch((err) => {
         console.log(err);
       });
-
-
   }, [userDataGlobal, isFree]);
 
   const clickHandler = (index) => {
@@ -149,7 +147,6 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   };
-
 
   return (
     <>
@@ -204,32 +201,41 @@ function SubscriptionPlans({ fromMain }) {
           {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
-                } `}
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
+                isUser ? "max-w-[21vw]" : "max-w-[21vw] "
+              } `}
               style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
-              
-
             >
               {index === 1 && (
-                <div className="absolute left-0 xxl:top-[-45px] xl:top-[-35px] scr1200:top-[-35px] top-[-28px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[50px] bg-[#06A9EF] text-white rounded-t-[16px]">
+                <div
+                  className="absolute left-0 top-[-28px] text-[12px] font-[600] px-4 pt-[4px] pb-[50px] 
+bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
+                >
                   Recommended
                 </div>
               )}
 
               <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                <div className="flex text-center flex-col gap-3 text-[#333333] ">
-                  <p className="text-[1.4vw] font-[600] xl:text-[20px]">
-                    {plan.type === "candidate" &&
+                <div className="flex text-center flex-col gap-[12px] text-[#333333] ">
+                  <p className="text-[16px] font-[600] xl:text-[16px]">
+                    {plan.type === "candidate" && (
                       <>
-                        <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                        <span className="text-[#06A9EF]">
+                          {plan?.days} Days
+                        </span>{" "}
                       </>
-                    }
+                    )}
 
-                    <span className={`${plan.type === "recruiter" && "text-[#06A9EF]"}`}> {plan?.name}</span>
+                    <span
+                      className={`${
+                        plan.type === "recruiter" && "text-[#06A9EF]"
+                      }`}
+                    >
+                      {" "}
+                      {plan?.name}
+                    </span>
 
-                    {plan.type === "recruiter" &&
-                      <span > Plan</span>
-                    }
+                    {plan.type === "recruiter" && <span> Plan</span>}
                   </p>
 
                   <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
@@ -245,19 +251,16 @@ function SubscriptionPlans({ fromMain }) {
                         Free
                       </p>
                     } */}
-                    {plan.isFree ?
-                      <p className="text-[2.5vw] font-[700] xl:text-[36px]">
-                        Free
-                      </p>
-                      :
+                    {plan.isFree ? (
+                      <p className="text-[26px] font-[700] ">Free</p>
+                    ) : (
                       <div className={`flex flex-row  gap-2  `}>
-
-                        <p className={` font-[700] text-[2.5vw] xl:text-[36px]`}>{icon}</p>
-                        <p className={` font-[700] text-[2.5vw] xl:text-[36px]`}>
+                        <p className={` font-[700] text-[26px] `}>{icon}</p>
+                        <p className={` font-[700] text-[26px]`}>
                           {Math.ceil(plan?.amount * exchangeRate)}
                         </p>
                       </div>
-                    }
+                    )}
                   </div>
 
                   {/* {plan.index === 1 &&
@@ -270,7 +273,7 @@ function SubscriptionPlans({ fromMain }) {
                   } */}
 
                   <p
-                    className="text-[1vw] font-[500] xl:text-[14px]"
+                    className="text-[14px] font-[500] xl:text-[14px]"
                     style={{ textTransform: "capitalize" }}
                   >
                     {plan?.description}
@@ -293,56 +296,51 @@ function SubscriptionPlans({ fromMain }) {
                           fill="#06A9EF"
                         />
                       </svg>
-                      <p className="text-[0.8vw] font-[500] xl:text-[12px]">
-                        {feature.includes('(') ? (
+                      <p className="text-[12px] font-[500] xl:text-[12px]">
+                        {feature.includes("(") ? (
                           <>
-                            {feature.split('(')[0]}
-                            <br />
-                            ({feature.split('(')[1]}
+                            {feature.split("(")[0]}
+                            <br />({feature.split("(")[1]}
                           </>
                         ) : (
                           feature
                         )}
                       </p>
-
                     </div>
                   ))}
                 </div>
-                {(isFree && (plan.isFree)) ?
+                {isFree && plan.isFree ? (
                   <button
                     disabled={true}
-                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
+                    className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                   >
                     Purchased
                   </button>
-                  :
+                ) : (
                   <button
-
                     onClick={() => clickHandler(plan.index)}
-                    className="px-6 py-3 bg-[#06A9EF] xl:text-[18px] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                    className="px-6 py-3 bg-[#06A9EF] xl:text-[16px] text-white rounded-[12px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                   >
                     Purchase Plan
                   </button>
-
-                }
-
+                )}
               </div>
-
             </div>
           ))}
 
           <div
-
-            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
-              } `}
-              style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
+            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${
+              isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+            } `}
+            style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
           >
             <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
               <p className="text-[1.4vw] font-[600] xl:text-[20px]">
-                <span className="text-[#06A9EF]">Enterprise </span>{" "}
-                Plan
+                <span className="text-[#06A9EF]">Enterprise </span> Plan
               </p>
-              <p className="text-[1vw] font-[500]  px-2">Tailored Solutions for {isUser ? "Candidates" : "Organizations"}</p>
+              <p className="text-[16px] font-[500]  px-2">
+                Tailored Solutions for {isUser ? "Candidates" : "Organizations"}
+              </p>
               <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
             </div>
             <div className="flex gap-3 flex-col text-center items-center w-[168px]">
@@ -357,9 +355,9 @@ function SubscriptionPlans({ fromMain }) {
             </div>
             <button
               // disabled={true}
-              onClick={() => router.push('/purchase/enterprise')}
-              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[18px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-            // style={{ opacity: 0.6 }}
+              onClick={() => router.push("/purchase/enterprise")}
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[16px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+              // style={{ opacity: 0.6 }}
             >
               Contact Us
             </button>
@@ -400,12 +398,15 @@ function SubscriptionPlans({ fromMain }) {
                       <p className="text-[18px] font-[600]">
                         {plan.type === "candidate" && (
                           <>
-                            <span className="text-[#06A9EF]">{plan?.days} Days</span>{" "}
+                            <span className="text-[#06A9EF]">
+                              {plan?.days} Days
+                            </span>{" "}
                           </>
                         )}
                         <span
-                          className={`${plan.type === "recruiter" && "text-[#06A9EF]"
-                            }`}
+                          className={`${
+                            plan.type === "recruiter" && "text-[#06A9EF]"
+                          }`}
                         >
                           {plan?.name}
                         </span>
@@ -425,7 +426,9 @@ function SubscriptionPlans({ fromMain }) {
                         )}
                       </div>
 
-                      <p className="text-[12px] font-[500]">{plan?.description}</p>
+                      <p className="text-[12px] font-[500]">
+                        {plan?.description}
+                      </p>
                       <div className="bg-[#DEDEDE] h-[2px]" />
                     </div>
                     <div className="flex gap-3 flex-col text-left">
@@ -449,30 +452,31 @@ function SubscriptionPlans({ fromMain }) {
                       ))}
                     </div>
 
-                    {(isFree && (plan.isFree)) ?
+                    {isFree && plan.isFree ? (
                       <button
                         disabled={true}
                         className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full opacity-50 "
                       >
                         Purchased
                       </button>
-                      :
+                    ) : (
                       <button
-
                         onClick={() => clickHandler(plan.index)}
                         className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full "
                       >
                         Purchase Plan
                       </button>
-
-                    }
+                    )}
                   </div>
                 </div>
               </SwiperSlide>
             ))}
 
             {/* Add the Enterprise Plan as a separate SwiperSlide */}
-            <SwiperSlide style={{ display: "flex" }} className="justify-center pt-6 gap-4">
+            <SwiperSlide
+              style={{ display: "flex" }}
+              className="justify-center pt-6 gap-4"
+            >
               <div
                 style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
                 className="p-4 z-20 bg-white rounded-[16px] flex flex-col items-center justify-center pt-6 gap-4 max-w-[300px] h-[440px]"
@@ -482,7 +486,8 @@ function SubscriptionPlans({ fromMain }) {
                     <span className="text-[#06A9EF]">Enterprise</span> Plan
                   </p>
                   <p className="text-[12px] font-[500] px-2">
-                    Tailored Solutions for {isUser ? "Candidates" : "Organizations"}
+                    Tailored Solutions for{" "}
+                    {isUser ? "Candidates" : "Organizations"}
                   </p>
                   <div className="bg-[#DEDEDE] h-[2px]" />
                 </div>
@@ -497,9 +502,7 @@ function SubscriptionPlans({ fromMain }) {
                   </span>
                 </div>
                 <button
-
-                  onClick={() => router.push('/purchase/enterprise')}
-
+                  onClick={() => router.push("/purchase/enterprise")}
                   className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                 >
                   Contact Us
@@ -508,9 +511,7 @@ function SubscriptionPlans({ fromMain }) {
             </SwiperSlide>
           </Swiper>
         </div>
-
       </div>
-
     </>
   );
 }

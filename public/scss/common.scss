@@ -674,3 +674,8 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.editor-container [data-pc-section="toolbar"] {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}

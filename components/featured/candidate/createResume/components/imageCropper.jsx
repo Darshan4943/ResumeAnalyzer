@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Cropper from "react-easy-crop";
 import MiniLoader from "../../../../common/mini-loader";
 
-const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
+const ImageCropper = ({ setModelView, file, setCroppedImage ,isLogo }) => {
   const [loading, setLoading] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -104,7 +104,7 @@ const createImage = (url) => {
                 image={URL.createObjectURL(file)}
                 crop={crop}
                 zoom={zoom}
-                aspect={1.4}
+                aspect={isLogo ? 1.8 : 1.4}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}

@@ -226,15 +226,19 @@ function ShortlistMail({
                   <div className="border-[1px] border-[#D4D4D480] w-full"></div>
                 </div>
 
-                <div className="flex flex-wrap ml:flex-nowrap gap-[24px]">
+                <div className="flex items-center ml:min-w-[500px] gap-[10px] pb-3">
                   <div className="text-[16px] font-[600]">Subject</div>
                   <input
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="  w-full"
+                    className=" p-[4px] w-full"
+                      placeholder="Enter Subject"
                   />
+                  
                 </div>
+                <div className="border-[1px] border-[#D4D4D480] w-full"></div>
+
 
                 <div className="flex flex-col mt-[20px]">
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>

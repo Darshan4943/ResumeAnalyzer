@@ -136,7 +136,7 @@ function ApplicantDetails({ setTogglee }) {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="flex flex-col gap-6 relative ">
+        <div className="flex flex-col gap-[8px] relative ">
           <div className=" flex w-full gap-2 justify-between rounded-[16px] items-center">
             <img
               onClick={() => router.back()}
@@ -144,7 +144,7 @@ function ApplicantDetails({ setTogglee }) {
               src="/images/employer/Icon_left.png"
               alt=""
             />
-            <p className="text-[18px]  w-[100%] text-start flex justify-start  font-semibold  ">
+            <p className="text-[16px]  w-[100%] text-start flex justify-start  font-semibold  ">
               Applicant Details
             </p>
           </div>

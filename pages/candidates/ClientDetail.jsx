@@ -73,7 +73,6 @@ function ClientDetail({ tabIndex }) {
 
   const deleteResume = () => {
     const ids = selectedIndexes.map((item) => resumeList[item]?._id);
-   
 
     if (ids.length === 0) {
       toast.error("Please select file to delete");
@@ -89,7 +88,6 @@ function ClientDetail({ tabIndex }) {
 
         setView(false);
         setDeleted(!deleted);
-     ;
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -108,12 +106,10 @@ function ClientDetail({ tabIndex }) {
     axios
       .delete(`http://localhost:2000/api/cover/delete/${ids}`)
       .then((response) => {
-      
         toast.success("Resume Deleted successfully");
 
         setView(false);
         setDeleted(!deleted);
-     ;
         setSelectedIndexes([]);
       })
       .catch((error) => {
@@ -135,15 +131,17 @@ function ClientDetail({ tabIndex }) {
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
           borderRadius: "6px",
           overflow: "hidden",
-         
         }}
-      
       >
-        <Document className="resumes3" file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document
+          className="resumes3"
+          file={pdfUrl}
+          onLoadSuccess={onDocumentLoadSuccess}
+        >
           <Page pageNumber={1} />
         </Document>
       </div>
-    );
+    );createResume
   };
 
   const coverPdfViewer = ({ pdfUrl }) => {
@@ -152,7 +150,7 @@ function ClientDetail({ tabIndex }) {
     return (
       <div
         style={{
-          width: "750px",   
+          width: "750px",
           height: "500px",
 
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
@@ -192,15 +190,15 @@ function ClientDetail({ tabIndex }) {
 
         {/* <div className=" "> */}
         <button
-         onClick={() =>
-          router.push({
-            pathname: `/candidates/CreateNewClient`,
-            query: {
-              id: clientId,
-              isUpdate: true,
-            },
-          })
-        }
+          onClick={() =>
+            router.push({
+              pathname: `/candidates/CreateNewClient`,
+              query: {
+                id: clientId,
+                isUpdate: true,
+              },
+            })
+          }
           style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           className="scr700:p-4 p-2 scr700:rounded-[16px] rounded-[8px] block scr700:hidden  w-fit h-fit "
         >
@@ -595,7 +593,7 @@ function ClientDetail({ tabIndex }) {
                           <div
                             onClick={() => {
                               router.push({
-                                pathname: "/createResume/BuildResume",
+                                pathname: "/createResume",
                                 query: {
                                   data: JSON.stringify(item),
                                   isEdit: true,

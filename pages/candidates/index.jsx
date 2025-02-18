@@ -145,7 +145,7 @@ function MyClients() {
     <div className="flex justify-center ">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
-          <div className="text-[20px] font-semibold">Candidates</div>
+          <div className="text-[16px] font-semibold">Candidates</div>
           {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
           <div className="rounded-[16px] scr360:p-4 p-2 bg-white">
             <div className="flex flex-col gap-4  py-3 rounded-[24px]">

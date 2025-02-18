@@ -137,8 +137,7 @@ function CreateNewJob() {
       padding: 2,
       boxShadow: "none",
       hight: "42px",
-      "&:hover": {
-      },
+      "&:hover": {},
     }),
   };
 
@@ -276,7 +275,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -601,7 +600,11 @@ function CreateNewJob() {
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
                 <div className="ml:w-[612px] w-full flex flex-col gap-3 rounded-[12px] bg-white">
-                  <PreviewCard croppedImage={croppedImage} item={data} openModel={openModel} />
+                  <PreviewCard
+                    croppedImage={croppedImage}
+                    item={data}
+                    openModel={openModel}
+                  />
                 </div>
               </div>
             </>
@@ -643,7 +646,6 @@ function CreateNewJob() {
 
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
-
                     <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
                         <div className="text-[14px] font-[500]">
@@ -657,10 +659,11 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[#767676] text-[12px] font-[400] ${formError.status
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[#767676] text-[12px] font-[400] ${
+                              formError.status
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -679,10 +682,11 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -708,16 +712,33 @@ function CreateNewJob() {
                         <div className="text-[14px] font-[500]">
                           Keywords <span className="text-[red]">*</span>
                         </div>
-                        <div className={`w-full flex ${data?.Keywords ? "justify-between" : ""} gap-2 border rounded-[8px] px-2 py-[8px]  ${formError.Keywords
-                          ? "border-red"
-                          : "border-[#DEDEDE]"
-                          }`}>
+                        <div
+                          className={`w-full flex ${
+                            data?.Keywords ? "justify-between" : ""
+                          } gap-2 border rounded-[8px] px-2 py-[8px]  ${
+                            formError.Keywords
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
+                        >
                           <div className="flex gap-4 w-[90%]">
-                            {data?.Keywords.length > 0 &&
-                              <div style={{ scrollbarWidth: "none", msOverflowStyle: "none", }} id="scroll" className="overflow-x-auto flex gap-2 ">
+                            {data?.Keywords.length > 0 && (
+                              <div
+                                style={{
+                                  scrollbarWidth: "none",
+                                  msOverflowStyle: "none",
+                                }}
+                                id="scroll"
+                                className="overflow-x-auto flex gap-2 "
+                              >
                                 {data?.Keywords?.map((item, index) => (
-                                  <div key={index} className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]">
-                                    <span className="flex  text-nowrap">{item}</span>
+                                  <div
+                                    key={index}
+                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]"
+                                  >
+                                    <span className="flex  text-nowrap">
+                                      {item}
+                                    </span>
                                     <svg
                                       className="text-[14px]  cursor-pointer font-medium "
                                       onClick={() =>
@@ -743,24 +764,26 @@ function CreateNewJob() {
                                     </svg>
                                   </div>
                                 ))}
-                              </div>}
-                            <input type="text" name="" id=""
+                              </div>
+                            )}
+                            <input
+                              type="text"
+                              name=""
+                              id=""
                               placeholder="Enter Keywords"
                               className="input w-[130px] placeholder:text-[12px] placeholder:font-[400] outline-none"
                               value={KeywordsText}
                               onChange={(e) => {
                                 setKeywordsText(e.target.value);
-                              }} />
+                              }}
+                            />
                           </div>
                           <button
                             disabled={KeywordsText?.length == 0}
                             onClick={() => {
                               setData({
                                 ...data,
-                                Keywords: [
-                                  ...data.Keywords,
-                                  KeywordsText,
-                                ],
+                                Keywords: [...data.Keywords, KeywordsText],
                               });
                               setKeywordsText("");
 
@@ -769,7 +792,8 @@ function CreateNewJob() {
                               //   return formError;
                               // });
                               setTimeout(() => {
-                                const scrollDiv = document.getElementById("scroll");
+                                const scrollDiv =
+                                  document.getElementById("scroll");
                                 if (scrollDiv) {
                                   scrollDiv.scrollLeft = scrollDiv.scrollWidth;
                                 }
@@ -778,12 +802,11 @@ function CreateNewJob() {
                                 ...prevErrors,
                                 Keywords: "",
                               }));
-                            }}>
+                            }}
+                          >
                             <PlusAddLogo
                               color={
-                                KeywordsText?.length > 0
-                                  ? "#646464"
-                                  : "#bebebe"
+                                KeywordsText?.length > 0 ? "#646464" : "#bebebe"
                               }
                             />
                           </button>
@@ -796,41 +819,29 @@ function CreateNewJob() {
                           About Company
                         </div>
 
-                        {companyId ? (
-                          <div
-                            className="border-[1px] border-[#DEDEDE]
-                              text-[12px] font-[400] overflow-x-auto h-[43px] py-[12px] px-[16px]
-                              rounded-[8px]"
-                            style={{ whiteSpace: "pre-wrap" }}
-                          >
-                            <div className="w-full" dangerouslySetInnerHTML={{
-                              __html:
-                                data.aboutOrganization ||
-                                "<p>No description available.</p>",
-                            }}></div>
-                          </div>
-                        ) : (
-                          <input
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] outline-none rounded-[8px]"
-                            placeholder="Brief description for your company. URLs are hyperlinked."
-                            type="text"
-                            name="aboutOrganization"
-                            value={data.aboutOrganization}
-                            onChange={handleChange}
-
-                          />
-                        )}
+                        <input
+                          className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] outline-none rounded-[8px]"
+                          placeholder="Brief description for your company."
+                          type="text"
+                          name="aboutOrganization"
+                          value={data.aboutOrganization.replace(
+                            /<[^>]*>?/gm,
+                            ""
+                          )}
+                          onChange={handleChange}
+                          disabled={!!companyId}
+                        />
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
-                          Company Name{" "}
-                          <span className="text-[red]">*</span>
+                          Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
+                            formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
@@ -854,10 +865,11 @@ function CreateNewJob() {
                           classNamePrefix="select"
                           placeholder="Select countries..."
                           styles={customStyles}
-                          className={` border rounded-[8px] withoutBorder ${formError.country
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={` border rounded-[8px] p-[6px] withoutBorder ${
+                            formError.country
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                         />
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -865,48 +877,54 @@ function CreateNewJob() {
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
+                            formError.location
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                         >
                           <div className="flex gap-4 w-[90%]">
-                            {data?.location.length > 0 && <div id="scroll1" className="flex flex-row  overflow-x-auto gap-2 ">
-                              {data?.location?.map((item, index) => (
-                                <div
-                                  key={index}
-                                  className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
-                                >
-                                  <span>{item}</span>
-                                  <span
-                                    className="text-[14px]  cursor-pointer font-medium "
-                                    onClick={() =>
-                                      setData({
-                                        ...data,
-                                        location: data.location.filter(
-                                          (data) => data != item
-                                        ),
-                                      })
-                                    }
+                            {data?.location.length > 0 && (
+                              <div
+                                id="scroll1"
+                                className="flex flex-row  overflow-x-auto gap-2 "
+                              >
+                                {data?.location?.map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
                                   >
-                                    <svg
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 16 16"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    <span>{item}</span>
+                                    <span
+                                      className="text-[14px]  cursor-pointer font-medium "
+                                      onClick={() =>
+                                        setData({
+                                          ...data,
+                                          location: data.location.filter(
+                                            (data) => data != item
+                                          ),
+                                        })
+                                      }
                                     >
-                                      <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                        fill="#000000"
-                                      />
-                                    </svg>
-                                  </span>
-                                </div>
-                              ))}
-                            </div>}
+                                      <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          clip-rule="evenodd"
+                                          d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
+                                          fill="#000000"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                             <input
                               type="text"
                               placeholder="Location"
@@ -927,7 +945,8 @@ function CreateNewJob() {
                               });
                               setLoactionText("");
                               setTimeout(() => {
-                                const scrollDiv = document.getElementById("scroll1");
+                                const scrollDiv =
+                                  document.getElementById("scroll1");
                                 if (scrollDiv) {
                                   scrollDiv.scrollLeft = scrollDiv.scrollWidth;
                                 }
@@ -940,16 +959,13 @@ function CreateNewJob() {
                           >
                             <PlusAddLogo
                               color={
-                                loactionText?.length > 0
-                                  ? "#646464"
-                                  : "#bebebe"
+                                loactionText?.length > 0 ? "#646464" : "#bebebe"
                               }
                             />
                           </button>
                         </div>
                       </div>
                     </div>
-
 
                     <div className="p-[10px] md:p-4 flex flex-col gap-4 md:flex-row">
                       <div className=" w-full md:w-[34.91%] lg:w-[30.91%] scr1100:w-[26.91%] scr1250:w-[20.91%]  flex  flex-col items-center">
@@ -1044,11 +1060,7 @@ function CreateNewJob() {
                                 </g>
                                 <defs>
                                   <clipPath id="clip0_4121_52475">
-                                    <rect
-                                      width="40"
-                                      height="40"
-                                      fill="white"
-                                    />
+                                    <rect width="40" height="40" fill="white" />
                                   </clipPath>
                                 </defs>
                               </svg>
@@ -1089,6 +1101,7 @@ function CreateNewJob() {
                             {showEditor && (
                               <Editor
                                 value={data.description}
+                                className="editor-container"
                                 onTextChange={(e) => handleChange1(e.htmlValue)}
                                 style={{
                                   border: formError.description
@@ -1098,6 +1111,8 @@ function CreateNewJob() {
                                   color: "#333",
                                   padding: "10px",
                                   minHeight: "196px",
+                                  borderBottomLeftRadius: "8px",
+                                  borderBottomRightRadius: "8px",
                                 }}
                               />
                             )}
@@ -1155,7 +1170,6 @@ function CreateNewJob() {
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
                             <select
-
                               style={{
                                 height: "40px",
                                 border: "1px solid #DEDEDE",
@@ -1239,24 +1253,44 @@ function CreateNewJob() {
                             placeholder="Open Positions"
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">
-                            Job Sector
-                          </div>
+                        <div className="flex flex-col gap-[6px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">Job Sector</div>
                           <Select
                             options={jobSectors}
                             onChange={handleSectorChange}
                             value={jobSectors.find(
-                              (jobSector) =>
-                                jobSector.value === data?.jobSector
+                              (jobSector) => jobSector.value === data?.jobSector
                             )}
                             classNamePrefix="select"
                             placeholder="Select Job Sector"
-                            styles={customStyles}
-                            className={`border JobSectorPlaceHolder rounded-[5px] ${formError.jobSector
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                border: `borderradius-[8px] ${
+                                  state.isFocused ? "#DEDEDE" : "#DEDEDE"
+                                }`,
+                                borderRadius: "8px",
+                                justifyContent: "space-between",
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 2px rgba(0, 0, 0, 0.1)"
+                                  : "none",
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "#999",
+                                fontSize: "12px",
+                              }),
+                              container: (provided) => ({
+                                ...provided,
+                                border: "none",
+                                margin: "3px",
+                              }),
+                            }}
+                            className={`border JobSectorPlaceHolder ${
+                              formError.jobSector
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1310,9 +1344,7 @@ function CreateNewJob() {
                             <option value="On-Site">On-Site</option>
                             <option value="Remote">Remote</option>
                             <option value="Hybrid">Hybrid</option>
-                            <option value="International">
-                              International
-                            </option>
+                            <option value="International">International</option>
                             <option value="Jobs for Women">
                               Jobs for Women
                             </option>
@@ -1326,10 +1358,11 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
+                              formError.requiredQualification
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1347,6 +1380,9 @@ function CreateNewJob() {
                             style={{
                               width: "100%",
                               height: "40px",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                              color: "#646464",
                               border: formError.deadLine
                                 ? "1px solid red"
                                 : "1px solid #DEDEDE",
@@ -1360,7 +1396,7 @@ function CreateNewJob() {
                             onClick={(e) =>
                               e.target.showPicker && e.target.showPicker()
                             }
-                            className="outline-none"
+                            className=" outline-none placeholder:text-[12px] placeholder:text-[#646464] placeholder:font-[400]"
                           />
                         </div>
                       </div>
@@ -1373,23 +1409,24 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1439,14 +1476,14 @@ function CreateNewJob() {
                             }}
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                        <div className="flex flex-col gap-[6px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Good to have Skills{" "}
                             <span className="text-[red]">*</span>
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={[
                               ...new Set(
                                 skills
@@ -1457,16 +1494,17 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${formError.goodSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1508,6 +1546,10 @@ function CreateNewJob() {
                                   ? "red"
                                   : "#DEDEDE",
                                 borderRadius: "8px",
+                              }),
+                              container: (base) => ({
+                                ...base,
+                              margin:"4px"
                               }),
                             }}
                           />
@@ -1692,11 +1734,9 @@ function CreateNewJob() {
                 </div>
               </div>
             </>
-          )
-          }
-        </div >
-      )
-      }
+          )}
+        </div>
+      )}
       {isCreate && <CreateProfileFields />}
     </>
   );
