@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
@@ -141,7 +141,7 @@ function ClientDetail({ tabIndex }) {
           <Page pageNumber={1} />
         </Document>
       </div>
-    );createResume
+    );
   };
 
   const coverPdfViewer = ({ pdfUrl }) => {
@@ -164,6 +164,20 @@ function ClientDetail({ tabIndex }) {
       </div>
     );
   };
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setPreview(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 py-2 ">
@@ -571,6 +585,7 @@ function ClientDetail({ tabIndex }) {
                       <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                         <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
                           <div
+                            ref={taskRef}
                             className="items-center flex-col cursor-pointer hidden md:flex"
                             style={{
                               borderBottom: "1px solid #646464",
@@ -647,6 +662,7 @@ function ClientDetail({ tabIndex }) {
                           </a>
                           {view && (
                             <DeleteModal
+                              type={"Resume"}
                               deleteHandler={deleteResume}
                               closeDeleteModal={closeDeleteModal}
                             />
@@ -773,6 +789,7 @@ function ClientDetail({ tabIndex }) {
                           </a>
                           {view && (
                             <DeleteModal
+                              type={"Cover Letter"}
                               deleteHandler={deleteCoverLetter}
                               closeDeleteModal={closeDeleteModal}
                             />
@@ -789,7 +806,7 @@ function ClientDetail({ tabIndex }) {
       )}
 
       {preview && (
-        <>
+        <div>
           <ResumePreview
             selectedResumeIndex={selected.resumeTemplateIndex}
             data={selected}
@@ -800,7 +817,7 @@ function ClientDetail({ tabIndex }) {
             isResumes={isResumes}
             coverPdfViewer={coverPdfViewer}
           />
-        </>
+        </div>
       )}
     </div>
   );

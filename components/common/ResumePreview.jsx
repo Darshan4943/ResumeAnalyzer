@@ -1,6 +1,5 @@
-import { BlobProvider, Document, PDFViewer } from "@react-pdf/renderer";
-import { Page, pdfjs } from "react-pdf";
-import React from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import React, { useEffect, useRef, useState } from "react";
 import { selectResumeTemplate } from "../../utils/middleware";
 import { ClosedIcon } from "../../utils/svg";
 import Fonts from "../../public/fonts/fonts";
@@ -16,34 +15,67 @@ const ResumePreview = ({
   preview,
   isResumes,
 }) => {
+  const [loadingg, setLoadingg] = useState(true);
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+  const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
+    const [numPages, setNumPages] = useState(null);
+    console.log(loadingg);
+    const onDocumentLoadSuccess = ({ numPages }) => {
+      setNumPages(numPages);
+      setTimeout(() => {
+        setLoadingg(false);
+      }, 1000);
+    };
+
+    return (
+      <div
+        style={{
+          // width: "168px",
+          // height: "192px",
+
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "10px",
+          // overflow: "hidden",
+          width: "600px",
+          height: "572px",
+          overflowY: "auto",
+          scrollbarWidth: "none",
+        }}
+      >
+        {loadingg && (
+          <div className="skeleton-loader1  ">
+            <div className="skeleton-image1"></div>
+            <div className="skeleton-text1">
+              <div className="skeleton-title1"></div>
+              <div className="skeleton-subtitle1"></div>
+              <div className="skeleton-line1"></div>
+              <div className="skeleton-line1 short"></div>
+              <div className="skeleton-line1 shorter"></div>
+            </div>
+          </div>
+        )}
+
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          {!loadingg &&
+            Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
+        </Document>
+      </div>
+    );
+  };
+ 
+
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-        <div className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg ml:h-[80vh]  flex flex-col gap-2 items-end w-[800px]">
-          <div className="flex gap-[16px]">
-            <button onClick={() => setPreview(false)}>
-              <ClosedIcon />
-            </button>
-          </div>
-
-          <div className="w-full  bg-[#525659] h-[80vh] flex items-center justify-center">
-            {isResumes == "covers" ? (
-              <CoverPdfViewer pdfUrl={data?.resumeUrl} />
-            ) : (
-              <PDFViewer width="750" height="95%" showToolbar={false}>
-                <Document>
-                  {selectResumeTemplate(
-                    selectedResumeIndex,
-                    data,
-                    selectedColor,
-                    selectedFont,
-                    preview
-                  )}
-                </Document>
-              </PDFViewer>
-            )}
-          </div>
+        <div className=" flex items-center justify-center py-[16px] resumes2  ">
+          <PdfViewer
+            pdfUrl={data?.resumeUrl}
+            loadingg={loadingg}
+            setLoadingg={setLoadingg}
+          />
         </div>
       </div>
     </>

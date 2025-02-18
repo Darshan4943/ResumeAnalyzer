@@ -20,12 +20,12 @@ const DeleteModal = ({ deleteHandler, closeDeleteModal, type }) => {
                 
             </p>
           </div>
-          <div className="w-full flex justify-between flex-row">
-            <button className="btn_filled_blue" onClick={closeDeleteModal}>
+          <div className="w-full flex  justify-between flex-row">
+            <button className="btn_filled_blue rounded-[30px]" onClick={closeDeleteModal}>
               {" "}
               No
             </button>
-            <button className="btn_filled_red" onClick={deleteHandler}>
+            <button className="btn_filled_red rounded-[30px]" onClick={deleteHandler}>
               Yes
             </button>
           </div>
