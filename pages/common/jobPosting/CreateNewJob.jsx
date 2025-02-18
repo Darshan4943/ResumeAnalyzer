@@ -719,7 +719,7 @@ function CreateNewJob() {
                               : "border-[#DEDEDE]"
                             }`}
                         >
-                          <div className="flex gap-4 w-[90%]">
+                          <div className="flex gap-4 w-[90%] items-center">
                             {data?.Keywords.length > 0 && (
                               <div
                                 style={{
@@ -732,7 +732,7 @@ function CreateNewJob() {
                                 {data?.Keywords?.map((item, index) => (
                                   <div
                                     key={index}
-                                    className="h-[38px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]"
+                                    className="h-[28px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]"
                                   >
                                     <span className="flex  text-nowrap">
                                       {item}
@@ -883,7 +883,7 @@ function CreateNewJob() {
                             : "border-[#DEDEDE]"
                             }`}
                         >
-                          <div className="flex gap-4 w-[90%]">
+                          <div className="flex gap-4 w-[90%] items-center">
                             {data?.location.length > 0 && (
                               <div
                                 id="scroll1"
@@ -892,7 +892,7 @@ function CreateNewJob() {
                                 {data?.location?.map((item, index) => (
                                   <div
                                     key={index}
-                                    className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                    className=" h-[28px] py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
                                   >
                                     <span>{item}</span>
                                     <span
