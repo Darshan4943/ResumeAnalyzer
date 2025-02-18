@@ -8,7 +8,9 @@ import { currenciesWithIcons } from "../../../../utils/data";
 
 function Description({ selectedJob, filter, setLimitPopup }) {
   const router = useRouter();
-  const { userDataGlobal, profileData } = useSelector((state) => state.user.userData);
+  const { userDataGlobal, profileData } = useSelector(
+    (state) => state.user.userData
+  );
   const [appliedJobs, setAppliedJobs] = useState();
   // const [limitPopup, setLimitPopup] = useState(false)
 
@@ -16,37 +18,45 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const isPlanActive = JSON.parse(localStorage.getItem("planActive"));
 
-
-
   const addJobView = async () => {
- 
     try {
-      const response = await axios.post(`http://localhost:2000/api/jobs/views/${selectedJob?._id}`);
-      localStorage.setItem("viewed", JSON.stringify(true))
+      const response = await axios.post(
+        `http://localhost:2000/api/jobs/views/${selectedJob?._id}`
+      );
+      localStorage.setItem("viewed", JSON.stringify(true));
       return response.data;
     } catch (error) {
-      console.error('Error adding view:', error.response?.data || error.message);
-
+      console.error(
+        "Error adding view:",
+        error.response?.data || error.message
+      );
     }
   };
 
-
   useEffect(() => {
-    const isViewed = localStorage.getItem("viewed")
+    const isViewed = localStorage.getItem("viewed");
     console.log(isViewed);
-    if (isViewed==="false") {
-
-      addJobView()
+    if (isViewed === "false") {
+      addJobView();
     }
   }, []);
+  const [showPopup, setShowPopup] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState("");
+  const [copied, setCopied] = useState(false);
 
+  const handleClick = (jobId) => {
+    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}`;
+    setCopied(false);
+    setGeneratedLink(link);
+    setShowPopup(true);
+  };
 
-
-
-
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedLink);
+    setCopied(true);
+  };
   return (
     <>
-
       <div>
         {selectedJob && (
           <>
@@ -60,8 +70,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     Full job Description
                   </div>
                   <div className="text-[14px] font-[400] gap-[8px] flex flex-col">
-
-                    <div className="px-4"
+                    <div
+                      className="px-4"
                       dangerouslySetInnerHTML={{
                         __html: selectedJob.description,
                       }}
@@ -71,30 +81,22 @@ function Description({ selectedJob, filter, setLimitPopup }) {
               )}
               {selectedJob.requiredQualification && (
                 <div className="flex flex-col gap-[10px] pb-[6px]">
-                  <div className="text-[16px] font-[600]">
-                    Qualifications :
-                  </div>
+                  <div className="text-[16px] font-[600]">Qualifications :</div>
 
                   <div className="text-[14px] font-[400]">
                     {selectedJob.requiredQualification} <br />
-                    {selectedJob.experience &&
-                      <>
-                        Total Experience {selectedJob.experience} (Required){" "}
-                      </>
-                    }
-                  
+                    {selectedJob.experience && (
+                      <>Total Experience {selectedJob.experience} (Required) </>
+                    )}
                   </div>
                 </div>
               )}
               {selectedJob.mustSkills && (
                 <div className="flex flex-col gap-[10px] pb-[6px]">
-                  <div className="text-[16px] font-[600]">
-                    Skills :
-                  </div>
+                  <div className="text-[16px] font-[600]">Skills :</div>
 
                   <div className="text-[14px] font-[400]">
-                    
-                  {selectedJob.mustSkills.join(", ")}
+                    {selectedJob.mustSkills.join(", ")}
                   </div>
                 </div>
               )}
@@ -108,34 +110,33 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                       {selectedJob.jobType}
                     </span>
                   </div>
-                  {(selectedJob.minSalary > 0 ||
-                    selectedJob.maxSalary > 0) && (
-                      <div className="text-[14px] font-[600] flex">
-                        Salary :
-                        {(() => {
-                          const icon = currenciesWithIcons?.find(
-                            (item) =>
-                              item?.icon?.toLowerCase() ===
-                              selectedJob?.currency?.toLowerCase()
-                          );
+                  {(selectedJob.minSalary > 0 || selectedJob.maxSalary > 0) && (
+                    <div className="text-[14px] font-[600] flex">
+                      Salary :
+                      {(() => {
+                        const icon = currenciesWithIcons?.find(
+                          (item) =>
+                            item?.icon?.toLowerCase() ===
+                            selectedJob?.currency?.toLowerCase()
+                        );
 
-                          return (
-                            <div className="text-[14px] font-[500]">
-                              {icon ? icon.symbol : selectedJob?.currency}{" "}
-                              {selectedJob.minSalary}{" "}
-                              {selectedJob.minSalary &&
-                                selectedJob.maxSalary &&
-                                "-"}{" "}
-                              {icon ? icon.symbol : selectedJob?.currency}{" "}
-                              {selectedJob.maxSalary}{" "}
-                              {selectedJob.salaryType === "Annual"
-                                ? "per annum"
-                                : "per month"}
-                            </div>
-                          );
-                        })()}
-                      </div>
-                    )}
+                        return (
+                          <div className="text-[14px] font-[500]">
+                            {icon ? icon.symbol : selectedJob?.currency}{" "}
+                            {selectedJob.minSalary}{" "}
+                            {selectedJob.minSalary &&
+                              selectedJob.maxSalary &&
+                              "-"}{" "}
+                            {icon ? icon.symbol : selectedJob?.currency}{" "}
+                            {selectedJob.maxSalary}{" "}
+                            {selectedJob.salaryType === "Annual"
+                              ? "per annum"
+                              : "per month"}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                   {selectedJob.qualificationType && (
                     <div className="text-[14px] font-[600] ">
                       Education :{" "}
@@ -148,8 +149,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     <div className="text-[14px] font-[600] ">
                       Experience :{" "}
                       <span className="text-[14px] font-[500]">
-                        Total Work :{" "}
-                        {selectedJob.experience} (Required)
+                        Total Work : {selectedJob.experience} (Required)
                       </span>
                     </div>
                   )}
@@ -159,14 +159,17 @@ function Description({ selectedJob, filter, setLimitPopup }) {
               <div className="flex gap-[24px]">
                 <button
                   disabled={
-                    (selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
+                    (selectedJob?.matchedApplication?.applicantId ===
+                      userDataGlobal?._id &&
+                      isLogin) ||
                     selectedJob.status === "Hold"
                   }
                   onClick={() => {
                     if (isLogin) {
                       if (jobApplyCount > 0) {
                         if (
-                          selectedJob?.matchedApplication?.applicantId !== userDataGlobal?._id
+                          selectedJob?.matchedApplication?.applicantId !==
+                          userDataGlobal?._id
                         ) {
                           router.push(
                             `/jobs/candidate/ApplyForm?id=${selectedJob._id}`
@@ -181,17 +184,27 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                       router.push(`/auth?signin=true&role=user`);
                     }
                   }}
-                  className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id && isLogin ||
+                  className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${
+                    (selectedJob?.matchedApplication?.applicantId ===
+                      userDataGlobal?._id &&
+                      isLogin) ||
                     selectedJob.status === "Hold"
-                    ? "cursor-not-allowed"
-                    : " cursor-pointer"
-                    }`}
+                      ? "cursor-not-allowed"
+                      : " cursor-pointer"
+                  }`}
                 >
-                  {selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id && isLogin
+                  {selectedJob?.matchedApplication?.applicantId ===
+                    userDataGlobal?._id && isLogin
                     ? "Applied"
                     : "Apply"}
                 </button>
-                <button className="text-[14px] font-[600] border-[1px] border-[#06A9EF] text-[#333333] flex items-center gap-[2px] py-[12px] px-[36px] rounded-[30px]">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick(selectedJob._id);
+                  }}
+                  className="text-[14px] font-[600] border-[1px] border-[#06A9EF] text-[#333333] flex items-center gap-[2px] py-[12px] px-[36px] rounded-[30px]"
+                >
                   Share
                   <svg
                     width="18"
@@ -210,8 +223,88 @@ function Description({ selectedJob, filter, setLimitPopup }) {
             </div>
           </>
         )}
-      </div>
+        {showPopup && (
+          <>
+            <div
+              onClick={() => setShowPopup(false)}
+              className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
+            ></div>
+            <div
+              onClick={() => setShowPopup(false)}
+              className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   "
+            >
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                  zIndex: 1000,
 
+                  height: "140px",
+                }}
+                className="sm:w-[400px] w-[300px]"
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="flex justify-between">
+                    <h3>Share Job Link</h3>
+                    <div className="flex gap-4 items-center">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopy();
+                        }}
+                        className="text-blue"
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {copied ? "Link Copied!" : "Copy Link"}
+                      </button>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => setShowPopup(false)}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 20 19"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.99735 11.1271L3.50485 17.6191C3.21518 17.9091 2.86402 18.0508 2.45135 18.0441C2.03835 18.0378 1.68702 17.8898 1.39735 17.6001C1.10768 17.3104 0.96285 16.9559 0.96285 16.5366C0.96285 16.1173 1.10768 15.7628 1.39735 15.4731L7.87035 9.0001L1.37835 2.5576C1.08835 2.26793 0.946683 1.91343 0.95335 1.4941C0.959683 1.0751 1.10768 0.720761 1.39735 0.431094C1.68702 0.141094 2.04152 -0.00390625 2.46085 -0.00390625C2.88018 -0.00390625 3.23468 0.141094 3.52435 0.431094L9.99735 6.9231L16.4398 0.431094C16.7295 0.141094 17.0807 -0.00390625 17.4933 -0.00390625C17.9063 -0.00390625 18.2577 0.141094 18.5473 0.431094C18.8577 0.741095 19.0128 1.10059 19.0128 1.5096C19.0128 1.9186 18.8577 2.26793 18.5473 2.5576L12.0743 9.0001L18.5663 15.4926C18.8563 15.7823 19.0013 16.1334 19.0013 16.5461C19.0013 16.9591 18.8563 17.3104 18.5663 17.6001C18.2563 17.9104 17.8968 18.0656 17.4878 18.0656C17.0788 18.0656 16.7295 17.9104 16.4398 17.6001L9.99735 11.1271Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      value={generatedLink}
+                      readOnly
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        border: "1px solid #ccc",
+                        marginBottom: "10px",
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }
