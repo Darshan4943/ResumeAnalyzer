@@ -282,7 +282,7 @@ function AdminDetails({
     let tempUser = "tempEmployer";
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
-        userEmail: formData.email,
+        userEmail: formData.email.toLowerCase(),
         tempUser,
       })
       .then((res) => {
@@ -299,7 +299,7 @@ function AdminDetails({
         setTimer(30);
       })
       .catch((err) => {
-        toast.error(err?.response?.formData.message);
+        toast.error(err?.response?.formData?.message);
         setLoadingg(false);
       });
   };
@@ -334,7 +334,7 @@ function AdminDetails({
     const otpEntered = Number(otp.join(""));
     axios
       .post("http://localhost:2000/api/verifyOtp", {
-        userEmail: formData.email,
+        userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
       .then((res) => {
@@ -347,7 +347,7 @@ function AdminDetails({
         }
       })
       .catch((err) => {
-        toast.error(err?.response?.formData.message);
+        toast.error(err.response?.data?.message || "Something went wrong");
       });
   };
   const formatTime = (seconds) => {

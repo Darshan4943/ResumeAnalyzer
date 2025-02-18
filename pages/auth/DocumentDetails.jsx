@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { UploadSvg } from "../../utils/svg";
 import axios from "axios";
 import { toast } from "react-toastify";
+import MiniLoader from "../../components/common/mini-loader";
 
 
 function DocumentDetails({
@@ -120,7 +121,7 @@ function DocumentDetails({
         formDataToSend.append(key, value);
       }
     });
-    
+    setLoading(true);
   
     const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
   
@@ -134,9 +135,12 @@ function DocumentDetails({
         const response = res.data;
         try {
           if (response?.success) {
+            
             localStorage.setItem("authToken", JSON.stringify(response));
             window.location.href = `/?signIn=false`;
+            setLoading(false);
             toast.success("Sign up Successfully");
+           
           } else {
             setLoading(false);
             if (response.message === "User already exists") {
@@ -158,7 +162,6 @@ function DocumentDetails({
   };
   
 
-  console.log(formData)
   return (
     <div
       style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
@@ -278,12 +281,21 @@ function DocumentDetails({
         >
           Go Back
         </button>
+        {loading ?
+          <div
+         
+          className="w-[148.34px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+        >
+          <MiniLoader/>
+        </div>
+        :
         <button
           onClick={handleSubmit}
           className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
         >
           Continue
         </button>
+}
       </div>
     </div>
   );
