@@ -252,6 +252,12 @@ function CreateNewJob() {
     if (croppedImage) {
       formData.append("fileName", file?.name);
     }
+    if(reqId){
+      formData.append("reqId",reqId);
+    }
+    if(userDataGlobal?.companyId){
+      formData.append("companyId",userDataGlobal?.companyId);
+    }
 
     formData.append("createdBy", userDataGlobal?._id);
 
@@ -1722,7 +1728,7 @@ function CreateNewJob() {
                         ) : (
                           <button
                             onClick={handleSubmit}
-                            className="text-[12px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
+                            className="text-[12px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9  bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 h-[48.2px]"
                           >
                             {id ? "Update Job" : "Post Job"}
                           </button>

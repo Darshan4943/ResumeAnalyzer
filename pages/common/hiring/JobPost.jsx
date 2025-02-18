@@ -897,12 +897,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             ? "bg-[#FFFFFF]"
                                             : applicant?.hiringStage ===
                                               "Interview"
-                                            ? "bg-[#26A4FF1A]"
+                                            ? "bg-[#26A4FF1A]":
+                                            applicant?.hiringStage ===
+                                              "Task"
+                                            ? "bg-[#EAF6FF]"
                                             : applicant?.hiringStage ===
                                               "Pending"
                                             ? "bg-[#FFF9ED]"
                                             : applicant?.hiringStage === "Hired"
-                                            ? "bg-[#56CDAD1A]"
+                                            ? "bg-[#4BD06F33]"
                                             : applicant?.hiringStage ===
                                               "Shortlisted"
                                             ? "bg-[#4640DE1A]"
@@ -914,16 +917,18 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             ? "bg-[#EB85331A]"
                                             : applicant?.hiringStage ===
                                               "Selected"
-                                            ? "bg-[#26A4FF1A]"
+                                            ? "bg-[#56CDAD1A]"
                                             : ""
                                         } ${
                                           applicant?.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
+                                            :  applicant?.hiringStage === "Task"
+                                            ? "text-[#0B4A78]"
                                             : applicant?.hiringStage ===
                                               "Pending"
                                             ? "text-[#FFB836]"
                                             : applicant?.hiringStage === "Hired"
-                                            ? "text-[#56CDAD]"
+                                            ? "text-[#1D9474]"
                                             : applicant?.hiringStage ===
                                               "Shortlisted"
                                             ? "text-[#4640DE]"
@@ -935,7 +940,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             ? "text-[#FFB836]"
                                             : applicant?.hiringStage ===
                                               "Selected"
-                                            ? "text-[#26A4FF]"
+                                            ? "text-[#56CDAD]"
                                             : "text-[#333333]"
                                         }`}
                                       >

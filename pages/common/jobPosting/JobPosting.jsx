@@ -97,10 +97,10 @@ function JobPosting() {
               ...prevHeadings[1],
               options: locations,
             },
-            {
-              ...prevHeadings[2],
-              options: ["Approved"],
-            },
+            // {
+            //   ...prevHeadings[2],
+            //   options: ["Approved"],
+            // },
             {
               ...prevHeadings[3],
               options: priorities,
@@ -342,41 +342,58 @@ function JobPosting() {
                                   }`}
                               </p>
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
-                                {userDataGlobal?.name || "-"}
+                                {requisition?.createdByName || "-"}
                               </p>
+
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
-                                {new Date(
-                                  requisition.hiringDate
-                                ).toLocaleDateString("en-GB", {
-                                  day: "numeric",
-                                  month: "short",
-                                  year: "numeric",
-                                })}
-                              </p>
-                              <button
-                                onClick={() =>
-                                  router.push(
-                                    `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
-                                  )
+                                {requisition.hiringDate ?
+                                  <>
+                                    {new Date(
+                                      requisition.hiringDate
+                                    ).toLocaleDateString("en-GB", {
+                                      day: "numeric",
+                                      month: "short",
+                                      year: "numeric",
+                                    })}
+                                  </>
+                                  :
+                                  <>
+                                    -</>
+
                                 }
-                                className="bg-white px-[14px] py-[6px] flex justify-center items-center min-w-[90px] gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[20px] text-[12px] font-[600]"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="18"
-                                  height="18"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
+                              </p>
+
+                              {requisition?.jobStatus ?
+
+                                <div className="rounded-[30px] border border-blue px-[26px] py-1 text-[14px] font-medium opacity-50">
+                                  Posted
+                                </div>
+                                :
+                                <button
+                                  onClick={() =>
+                                    router.push(
+                                      `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
+                                    )
+                                  }
+                                  className="bg-white px-[14px] py-[6px] flex justify-center items-center min-w-[90px] gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[20px] text-[12px] font-[600]"
                                 >
-                                  <g mask="url(#mask0_4754_60413)">
-                                    <path
-                                      d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
-                                      fill="#333333"
-                                    />
-                                  </g>
-                                </svg>
-                                Post Job
-                              </button>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                  >
+                                    <g mask="url(#mask0_4754_60413)">
+                                      <path
+                                        d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
+                                        fill="#333333"
+                                      />
+                                    </g>
+                                  </svg>
+                                  Post Job
+                                </button>
+                              }
                             </div>
                           ))
                         ) : (
@@ -535,7 +552,7 @@ function JobPosting() {
                           Requested by
                         </div>
                         <div className="text-[#333] text-[12px] font-[500]  ">
-                          {userDataGlobal?.name || "Not Available"}
+                          {requisition?.createdByName || "-"}
                           <div className="text-[#646464] text-[10px] font-[500]"></div>
                         </div>
                       </div>
@@ -572,30 +589,37 @@ function JobPosting() {
                           }
                         )}
                       </div>
-                      <button
-                        onClick={() =>
-                          router.push(
-                            `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
-                          )
-                        }
-                        className="px-[12px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[8px] text-[12px] text-[#333] font-[500] "
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
+                      {requisition?.jobStatus ?
+
+                        <div className="rounded-[30px] border border-blue">
+                          Posted
+                        </div>
+                        :
+                        <button
+                          onClick={() =>
+                            router.push(
+                              `/common/jobPosting/CreateNewJob?reqId=${requisition?._id}`
+                            )
+                          }
+                          className="px-[12px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[8px] text-[12px] text-[#333] font-[500] "
                         >
-                          <g mask="url(#mask0_4754_60413)">
-                            <path
-                              d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
-                              fill="#333333"
-                            />
-                          </g>
-                        </svg>
-                        Post Job
-                      </button>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g mask="url(#mask0_4754_60413)">
+                              <path
+                                d="M11.25 12.75H5.5V11.25H11.25V5.5H12.7499V11.25H18.5V12.75H12.7499V18.5H11.25V12.75Z"
+                                fill="#333333"
+                              />
+                            </g>
+                          </svg>
+                          Post Job
+                        </button>
+                      }
                     </div>
                   </div>
                 ))
@@ -610,7 +634,7 @@ function JobPosting() {
               )}
             </div>
             {requisitions.length > 10 &&
-            
+
               < CustomPagination
                 setMiniloading={setMiniloading}
                 miniLoading={miniLoading}
