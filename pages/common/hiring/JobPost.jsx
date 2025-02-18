@@ -319,6 +319,22 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const widths = ["25%", "10%", "15%", "20%", "15%", "15%"];
   const texts = ["start", "start", "center", "center", "start", "center"];
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleClick = (jobId) => {
+    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}`;
+    setCopied(false);
+    setGeneratedLink(link);
+    setShowPopup(true);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedLink);
+    setCopied(true);
+  };
+
   return (
     <>
       <div className=" mb-4">
@@ -363,8 +379,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       ) : null}
                     </div>
                   </div>
-                  <div>
+                  <div className=" cursor-pointer">
                     <svg
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClick(jobData._id);
+                      }}
                       width="18"
                       height="20"
                       viewBox="0 0 18 20"
@@ -378,6 +398,88 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </svg>
                   </div>
                 </div>
+
+                {showPopup && (
+                  <>
+                    <div
+                      onClick={() => setShowPopup(false)}
+                      className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
+                    ></div>
+                    <div
+                      onClick={() => setShowPopup(false)}
+                      className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   "
+                    >
+                      <div
+                        style={{
+                          position: "fixed",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          background: "white",
+                          padding: "20px",
+                          borderRadius: "10px",
+                          boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                          zIndex: 1000,
+
+                          height: "140px",
+                        }}
+                        className="sm:w-[400px] w-[300px]"
+                      >
+                        <div className="flex flex-col gap-4">
+                          <div className="flex justify-between">
+                            <h3>Share Job Link</h3>
+                            <div className="flex gap-4 items-center">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCopy();
+                                }}
+                                className="text-blue"
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {copied ? "Link Copied!" : "Copy Link"}
+                              </button>
+                              <div
+                                className="cursor-pointer"
+                                onClick={() => setShowPopup(false)}
+                              >
+                                <svg
+                                  width="12"
+                                  height="12"
+                                  viewBox="0 0 20 19"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M9.99735 11.1271L3.50485 17.6191C3.21518 17.9091 2.86402 18.0508 2.45135 18.0441C2.03835 18.0378 1.68702 17.8898 1.39735 17.6001C1.10768 17.3104 0.96285 16.9559 0.96285 16.5366C0.96285 16.1173 1.10768 15.7628 1.39735 15.4731L7.87035 9.0001L1.37835 2.5576C1.08835 2.26793 0.946683 1.91343 0.95335 1.4941C0.959683 1.0751 1.10768 0.720761 1.39735 0.431094C1.68702 0.141094 2.04152 -0.00390625 2.46085 -0.00390625C2.88018 -0.00390625 3.23468 0.141094 3.52435 0.431094L9.99735 6.9231L16.4398 0.431094C16.7295 0.141094 17.0807 -0.00390625 17.4933 -0.00390625C17.9063 -0.00390625 18.2577 0.141094 18.5473 0.431094C18.8577 0.741095 19.0128 1.10059 19.0128 1.5096C19.0128 1.9186 18.8577 2.26793 18.5473 2.5576L12.0743 9.0001L18.5663 15.4926C18.8563 15.7823 19.0013 16.1334 19.0013 16.5461C19.0013 16.9591 18.8563 17.3104 18.5663 17.6001C18.2563 17.9104 17.8968 18.0656 17.4878 18.0656C17.0788 18.0656 16.7295 17.9104 16.4398 17.6001L9.99735 11.1271Z"
+                                    fill="#333333"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <input
+                              type="text"
+                              value={generatedLink}
+                              readOnly
+                              style={{
+                                width: "100%",
+                                padding: "8px",
+                                borderRadius: "5px",
+                                border: "1px solid #ccc",
+                                marginBottom: "10px",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <div className="flex flex-col scr1024:flex-row justify-between">
                   <div className="flex gap-[10px]  justify-start items-center">
@@ -1256,7 +1358,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   </div>
 
                   <div>
-                  {totalCount > 10 && (
+                    {totalCount > 10 && (
                       <CustomPagination
                         setMiniloading={setMiniloading}
                         miniLoading={miniloading}
@@ -1300,22 +1402,22 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   <>
                     <div className="flex scr700:flex-row flex-col p-[16px] justify-end scr700:items-center gap-4  bg-[#fff]">
                       <div className="flex items-end gap-[8px]">
-                      <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
-                        <img
-                          className="w-[24px] h-[24px]"
-                          src="/images/employer/icon_search.png"
-                          alt=""
-                        />
-                        <input
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          type="text"
-                          placeholder="Search"
-                          className="sm:w-full w-[100px]"
-                        />
+                        <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
+                          <img
+                            className="w-[24px] h-[24px]"
+                            src="/images/employer/icon_search.png"
+                            alt=""
+                          />
+                          <input
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            type="text"
+                            placeholder="Search"
+                            className="sm:w-full w-[100px]"
+                          />
+                        </div>
                       </div>
-                      </div>
-                               </div>
+                    </div>
 
                     {allShortlist && (
                       <ShortlistMail
@@ -1780,20 +1882,20 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                     </div>
 
                     <div>
-                    {totalCount > 10 && (
-                      <CustomPagination
-                        setMiniloading={setMiniloading}
-                        miniLoading={miniloading}
-                        setPage={setPage}
-                        title={"Applicant"}
-                        defaultLimit={10}
-                        setLimit={setLimit}
-                        totalPages={totalPages}
-                        limit={limit}
-                        page={page}
-                        isBackground={true}
-                      />
-                    )}
+                      {totalCount > 10 && (
+                        <CustomPagination
+                          setMiniloading={setMiniloading}
+                          miniLoading={miniloading}
+                          setPage={setPage}
+                          title={"Applicant"}
+                          defaultLimit={10}
+                          setLimit={setLimit}
+                          totalPages={totalPages}
+                          limit={limit}
+                          page={page}
+                          isBackground={true}
+                        />
+                      )}
                     </div>
                   </>
                 )}

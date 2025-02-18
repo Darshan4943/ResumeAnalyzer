@@ -4,12 +4,14 @@ import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import ReactSelect from "react-select";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { useSelector } from "react-redux";
 import { PlusAddLogo } from "../../../utils/svg";
+import { currencyMap } from "../../../utils/data";
 
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
@@ -33,7 +35,6 @@ const CreateNewRequisition = ({ setToggle }) => {
     { value: "10-20 years", label: "10-20 years" },
     { value: "20 +", label: "20 +" },
   ];
-
 
   const [data, setData] = useState({
     jobTitle: "",
@@ -127,7 +128,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     try {
       const response = await axios.post(
         `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
-        { ...data, createdBy: userDataGlobal?._id, companyId:userDataGlobal?.companyId,createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
+        { ...data, createdBy: userDataGlobal?._id, companyId: userDataGlobal?.companyId, createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
       );
 
       setSuccessfull(true);
@@ -221,8 +222,13 @@ const CreateNewRequisition = ({ setToggle }) => {
       isApprovalchain: value === "yes",
     }));
   };
-
+  const currencyOptions = currencyMap.map((item) => ({
+    value: item.currency,
+    label: item.currency,
+  }));
   const dateInputRef = useRef(null);
+  console.log(122, data)
+
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
       <div
@@ -262,7 +268,13 @@ const CreateNewRequisition = ({ setToggle }) => {
               <input
                 type="text"
                 value={data.positions}
-                onChange={(e) => handleChange(e, "positions")}
+                // onChange={(e) => handleChange(e, "positions")}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    handleChange(e, "positions")
+                  }
+                }}
                 placeholder="Enter Number"
                 className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${errors.positions ? "border-red" : "border-[#DEDEDE]"
                   }  `}
@@ -284,20 +296,62 @@ const CreateNewRequisition = ({ setToggle }) => {
             <p className="text-[14px]  font-medium">
               Budget <span className="text-red">*</span>
             </p>
-            <div className="flex sm:flex-row flex-col gap-4 ">
-              <input
-                type="text"
-                value={data.budgetFrom}
-                onChange={(e) => handleChange(e, "budgetFrom")}
-                placeholder="From (INR)"
-                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
-                  }  `}
-              />
+            <div className="flex  sm:flex-row flex-col gap-4 ">
+              <div className="sm:w-[49.01%] flex justify-between w-[100%]">
+                <div className="border-[1px] w-[21.75%] h-[38px] border-solid border-[#DEDEDE] rounded-[6px]">
+                  <ReactSelect
+                    options={currencyOptions}
+                    className="w-[100%] flex outline-none items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[38px]"
+                    placeholder="Select Currency"
+                    value={
+                      currencyOptions.find(
+                        (option) => option.value === data?.currency
+                      ) || null
+                    }
+                    onChange={(value) => {
+                      setData({ ...data, currency: value.value });
+                      setErrors({});
+                    }}
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        border: "none",
+                        width: "100%",
+                      }),
+                      menu: (provided) => ({
+                        ...provided,
+                        zIndex: 1,
+                        position: "absolute",
+                      }),
+                    }}
+                  />
+                </div>
+                <input
+                  type="text"
+                  value={data.budgetFrom}
+                  // onChange={(e) => handleChange(e, "budgetFrom")}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      handleChange(e, "budgetFrom")
+                    }
+                  }}
+                  placeholder="From"
+                  className={`h-[38px] w-[74%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                    }  `}
+                />
+              </div>
               <input
                 type="text"
                 value={data.budgetTo}
-                onChange={(e) => handleChange(e, "budgetTo")}
-                placeholder="To (INR)"
+                // onChange={(e) => handleChange(e, "budgetTo")}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    handleChange(e, "budgetTo")
+                  }
+                }}
+                placeholder="To"
                 className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
                   }  `}
               />
@@ -311,33 +365,33 @@ const CreateNewRequisition = ({ setToggle }) => {
               </p>
               <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[40px]">
 
-              <select
-                style={{
-                  WebkitAppearance: "none",
-                  MozAppearance: "none",
-                  appearance: "none",
-                  position: "relative",
-                  background: "transparent",
-                }}
-                value={data?.experience}
-                onChange={(e) => {
-                  const newExperience = e.target.value;
-                  setData({ ...data, experience: newExperience });
-                }}
-                className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
-              >
-                {experienceOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <img
-                src="/images/down_arrow.png"
-                className="h-[20px] w-[20px] absolute right-[4px]"
-                alt=""
-              />
-                </div>
+                <select
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                    position: "relative",
+                    background: "transparent",
+                  }}
+                  value={data?.experience}
+                  onChange={(e) => {
+                    const newExperience = e.target.value;
+                    setData({ ...data, experience: newExperience });
+                  }}
+                  className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+                >
+                  {experienceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <img
+                  src="/images/down_arrow.png"
+                  className="h-[20px] w-[20px] absolute right-[4px]"
+                  alt=""
+                />
+              </div>
             </div>
             <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
               <p className="text-[14px]  font-medium">
@@ -632,8 +686,8 @@ const CreateNewRequisition = ({ setToggle }) => {
                         onChange={(e) => handleChange2(e, index, "name")}
                         placeholder="Role / Employee"
                         className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${errors[`name_${index}`]
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
+                          ? "border-red"
+                          : "border-[#DEDEDE]"
                           }`}
                       />
                       <input
@@ -642,8 +696,8 @@ const CreateNewRequisition = ({ setToggle }) => {
                         onChange={(e) => handleChange2(e, index, "email")}
                         placeholder="Enter Email"
                         className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${errors[`name_${index}`]
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
+                          ? "border-red"
+                          : "border-[#DEDEDE]"
                           }`}
                       />
                     </div>

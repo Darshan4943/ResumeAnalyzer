@@ -18,9 +18,9 @@ function EmployerNotification() {
   const notificationFilters = [
     "Today ",
     "2 days Ago",
-    "Application Status ",
-    "Offer",
-    "Views on profile",
+    // "Application Status ",
+    // "Offer",
+    // "Views on profile",
   ];
 
   const fetchNotifications = async (filter) => {
