@@ -22,6 +22,7 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import SelectPost from "./selectPost";
 import JdMatchCard from "./JdMatchCard";
 import ApplicantDetails from "./ApplicantDetails";
+import { setRecallData } from "../../Redux/slices/recallSlice";
 
 const JobMatching = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const JobMatching = () => {
   const fileRef = useRef(null);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const {recallData } = useSelector((state) => state.recall);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
   const [text, setText] = useState("");
@@ -57,6 +59,7 @@ const JobMatching = () => {
   const [findMatchLoader, setMatchLoader] = useState(false);
   const taskRef = useRef(null);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  console.log(jdCountMonthly)
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
@@ -207,6 +210,10 @@ const JobMatching = () => {
   }, [tab]);
 
   const JobMatchforSkilotechCollection = async () => {
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
     const outputData = [];
     setMatchLoader(true);
     const response = await axios.post(
@@ -242,7 +249,10 @@ const JobMatching = () => {
 
     setResumeList(dataArray);
     setIsMatched(true);
-
+    updateJobMatchLimit()
+    setTimeout(() => {
+      getLimits()
+    }, 5000);
     setCollection("");
 
     setButtonToggle(false);
@@ -311,7 +321,10 @@ const JobMatching = () => {
 
   const MatchJob = async () => {
     // setLoadingg(true);
-
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
     setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
@@ -355,6 +368,10 @@ const JobMatching = () => {
       setIsMatched(true);
       setSelectedIndexes([]);
       setCollection("");
+      updateJobMatchLimit()
+      setTimeout(() => {
+        getLimits()
+      }, 5000);
       setSelectedIndexesFilesType([]);
       setButtonToggle(false);
       // setLoadingg(false);
@@ -448,6 +465,7 @@ const JobMatching = () => {
           jdSubscriptionResponse.data.message
         );
       }
+      dispatch(setRecallData(!recallData));
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
