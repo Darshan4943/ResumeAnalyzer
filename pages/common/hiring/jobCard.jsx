@@ -89,13 +89,13 @@ const JobCard = ({ filters, setFilters }) => {
           {data?.length === 0 ? (
             <div className="p-12  flex items-center justify-center">
               <img
-                className="w-[30%]"
+                className="w-[20%]"
                 src="/images/employer/OBJECTS.png"
                 alt="No data available"
               />
             </div>
           ) : (
-            <div className=" flex flex-wrap justify-center md:justify-start  gap-5">
+            <div className=" flex flex-wrap justify-center md:justify-start cursor-pointer  gap-5">
               {data?.map((job, index) => (
                 <div
                   key={index}

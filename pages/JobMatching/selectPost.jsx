@@ -112,32 +112,34 @@ const SelectPost = () => {
           Select Job
         </span>
 
-        <div className="flex items-center gap-2 border-[1px] bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
-          <input
-            type="text"
-            placeholder="Enter Job Title"
-            className="bg-transparent text-black placeholder-[200] outline-none w-full text-[12px] font-medium"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-          <img
-            src="/images/employer/icon_search.png"
-            className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
-            alt=""
-          />
-        </div>
+        <div className="flex gap-3">
+          <div className="flex items-center gap-2 border-[1px] bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
+            <input
+              type="text"
+              placeholder="Enter Job Title"
+              className="bg-transparent text-black placeholder-[200] outline-none w-full text-[12px] font-medium"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <img
+              src="/images/employer/icon_search.png"
+              className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+              alt=""
+            />
+          </div>
 
-        <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
-          <select
-            className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer"
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <option value="All">All</option>
-            <option value="Live">Active</option>
-            <option value="Closed">Inactive</option>
-            <option value="Hold">Hold</option>
-          </select>
+          <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
+            <select
+              className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer"
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Live">Active</option>
+              <option value="Closed">Inactive</option>
+              <option value="Hold">Hold</option>
+            </select>
+          </div>
         </div>
       </div>
 

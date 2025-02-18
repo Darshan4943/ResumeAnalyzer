@@ -11,9 +11,8 @@ const PersonalDetails = ({
   selectedColor,
   selectedResumeIndex,
 }) => {
- const { profileData } = useSelector((state) => state.profile.profileData);
-          const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -34,9 +33,9 @@ const PersonalDetails = ({
     dial_code: "",
   });
 
+
   useEffect(() => {
     if (profileData?.basics) {
-     
       const { firstName, lastName, mobileNo, email } = profileData?.basics;
 
       setProfileDataa((prevState) => ({
@@ -45,10 +44,13 @@ const PersonalDetails = ({
         lastName: lastName || "",
         mobileNumber: mobileNo || "",
         email: email || "",
+
       }));
     }
   }, [profileData]);
- 
+  useEffect(()=>{
+    setSelectedItem(data?.dial_code)
+  },[])
 
   const [formErrors, setFormErrors] = useState({
     firstName: false,
@@ -91,6 +93,7 @@ const PersonalDetails = ({
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
+    setData({...data,dial_code:item.dial_code});
     setProfileDataa({ ...profileDataa, dial_code: item.dial_code });
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });

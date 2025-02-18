@@ -169,8 +169,8 @@ function Dashboard({ toggleContentt }) {
     >
       <TopSection statistics={statistics} scrollToPendingJobs={scrollToPendingJobs} />
       <div className="scr1300:flex scr1300:flex-row flex flex-col w-full pt-6 justify-between">
-        <div className="w-[100%] scr1300:w-[31.26%] flex flex-col scr700:flex-row scr700:justify-between scr1168:justify-start scr1300:flex-col items-start scr1300:pt-0 pb-[16px] gap-4">
-          <div className="w-[100%] scr700:w-[48%] scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-4">
+        <div className="w-[100%] scr1300:w-[31.26%] flex flex-col scr700:flex-row scr700:justify-between scr1168:justify-start scr1300:flex-col items-start scr1300:pt-0  gap-6">
+          <div className="w-[100%] scr700:w-[48%] scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
             <div
               className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
               style={{
@@ -240,7 +240,7 @@ function Dashboard({ toggleContentt }) {
               </div>
             </div>
           </div>
-          <div className="w-[100%] scr700:w-[48%]  scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-4">
+          <div className="w-[100%] scr700:w-[48%]  scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
             {userDataGlobal?.role == "employer" ?
               <div
                 className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"

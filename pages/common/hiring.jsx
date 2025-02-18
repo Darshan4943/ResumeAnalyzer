@@ -91,7 +91,7 @@ function Hiring() {
 
       setHeadings((prevHeadings) =>
         prevHeadings.map((item) => {
-          if (item.heading === "Department") {
+          if (item.heading === "JobTitle") {
             return {
               ...item,
               options: data.jobTitles,
@@ -116,7 +116,7 @@ function Hiring() {
 
   const [headings, setHeadings] = useState([
     {
-      heading: "Department",
+      heading: "JobTitle",
       options: [],
     },
     {
@@ -361,7 +361,7 @@ function Hiring() {
               </div>
             </div>
 
-            <div className="hidden ml:flex w-full max-w-[1200px]  gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
+            <div className="hidden ml:flex w-full   gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
               <div className="w-full flex justify-between items-center">
                 {headings.map((filter, index) => (
                   <>
@@ -400,8 +400,19 @@ function Hiring() {
                         ...customStyles,
                         menu: (base) => ({
                           ...base,
-                          width: "200%",
+                          minWidth: "320px",
+                          maxWidth: "150px",
                           zIndex: 9999,
+                        }),
+                        menuList: (base) => ({
+                          ...base,
+                          fontSize: "12px", 
+                          padding: "4px",
+                        }),
+                        option: (base) => ({
+                          ...base,
+                          padding: "4px 8px",
+                          fontSize: "16px",
                         }),
                         menuPortal: (base) => ({
                           ...base,
@@ -422,7 +433,7 @@ function Hiring() {
                 </button> */}
                 <button
                   onClick={handelclear}
-                  className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
+                  className="scr1067:px-[24px] px-4 scr1067:py-[6px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
                 >
                   Clear
                 </button>

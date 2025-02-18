@@ -159,7 +159,7 @@ function RecentApplications({ isPending }) {
     <>
       <div className="pt-6">
         <div
-          className="flex py-6 px-4 flex-col bg-[#fff] items-center w-full"
+          className="flex py-4 px-2 flex-col bg-[#fff] items-center w-full"
           style={{
             boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
             borderTopLeftRadius: "16px",
@@ -171,7 +171,7 @@ function RecentApplications({ isPending }) {
 
             <div className="flex gap-2 items-start justify-end sm:w-[430px]   ">
               <div
-                className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+                className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
                 style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
               >
                 <img
@@ -243,7 +243,7 @@ function RecentApplications({ isPending }) {
                           alt=""
                         />
                         <p className="text-[14px] font-[600]">
-                          {applicant.details?.personal?.firstName} {""}{" "}
+                          {applicant.details?.personal?.firstName} {""}
                           {applicant.details?.personal?.lastName}
                         </p>
                       </div>
@@ -487,7 +487,7 @@ function RecentApplications({ isPending }) {
               <img
                 src="/images/employer/OBJECTS.png"
                 alt="No data available"
-                className="h-[200px] w-[300px]"
+                className="h-[114px] w-[200px]"
               />
             </div>
           )}

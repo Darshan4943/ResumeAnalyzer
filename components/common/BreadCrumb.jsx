@@ -63,9 +63,9 @@ const Breadcrumb = () => {
   
   
   return (
-    <nav className="py-6">
+    <nav className="py-6 pt-[16px] pb-[8px]">
     <ol className="flex gap-2 items-center text-sm sm:text-base">
-      <li className="breadcrumb-item text-[#333333]">Skilotech</li>
+      <li className="breadcrumb-item text-[12px] text-[#333333]">Skilotech</li>
       {breadcrumbItems.map((item, index) => (
         <li
           key={index}
@@ -74,7 +74,7 @@ const Breadcrumb = () => {
           } text-xs sm:text-base`} // Small font size for screens <460px
         >
           <ALink href={item.path}>
-            <span className="breadcrumb-separator leading-4">
+            <span className="breadcrumb-separator text-[12px] leading-4">
               <svg
                 width="16"
                 height="16"
