@@ -260,7 +260,7 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[14px] font-[500]">Description</div>
           <textarea
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
+            className="border-solid border-[#DEDEDE] border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
             name="description"
             value={data.description}

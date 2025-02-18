@@ -239,7 +239,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 setData({ ...Data, maritalStatus: e.target.value })
               }
               value={Data.maritalStatus}
-              className="px-[16px] py-[12px] rounded-[8px] border-[1px] border-[solid] border-[#DEDEDE] text-[12px] font-[400] text-[#646464] h-[44px]"
+              className="px-[16px] py-[12px] rounded-[8px] border-[1px] border-[solid] border-[#DEDEDE] text-[12px] font-[400] outline-none text-[#646464] h-[44px]"
               type="date"
               name=""
               id=""
@@ -254,7 +254,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           <textarea
             value={Data.address}
             onChange={(e) => setData({ ...Data, address: e.target.value })}
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
+            className="border border-[#DEDEDE] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464] outline-none focus:ring-0"
             placeholder="Line 1"
             name="address"
           ></textarea>

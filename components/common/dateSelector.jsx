@@ -107,7 +107,7 @@ const DateSelector = ({
             </label>
           </div>
           <div className="flex gap-4">
-            <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small  min-w-[110px] w-full overflow-hidden relative">
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small  min-w-[110px] w-full overflow-hidden relative">
               <select
                 // disabled={!isChecked}
                 id={`${idPrefix}-startMonth`}
@@ -147,7 +147,7 @@ const DateSelector = ({
               />
             </div>
 
-            <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
+            <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-startYear`}
                 disabled={!isChecked}
@@ -200,7 +200,7 @@ const DateSelector = ({
               </label>
             </div>
             <div className="flex gap-4">
-              <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
                 <select
                   id={`${idPrefix}-endMonth`}
                   // disabled={!isChecked}
@@ -232,7 +232,7 @@ const DateSelector = ({
                   alt=""
                 />
               </div>
-              <div className="flex items-center rounded-lg border border-[#9D9D9D] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
+              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
                 <select
                   id={`${idPrefix}-endYear`}
                   // disabled={!isChecked}
