@@ -275,7 +275,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -659,11 +659,10 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[#767676] text-[12px] font-[400] ${
-                              formError.status
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[#767676] text-[12px] font-[400] ${formError.status
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -682,11 +681,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -713,13 +711,11 @@ function CreateNewJob() {
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${
-                            data?.Keywords ? "justify-between" : ""
-                          } gap-2 border rounded-[8px] px-2 py-[8px]  ${
-                            formError.Keywords
+                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
+                            } gap-2 border rounded-[8px] px-2 py-[8px]  ${formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                          }`}
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%]">
                             {data?.Keywords.length > 0 && (
@@ -818,7 +814,6 @@ function CreateNewJob() {
                         <div className="text-[14px] font-[500]">
                           About Company
                         </div>
-
                         <input
                           className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] py-[12px] px-[16px] outline-none rounded-[8px]"
                           placeholder="Brief description for your company."
@@ -837,11 +832,10 @@ function CreateNewJob() {
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
-                            formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border-[1px] py-[12px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
@@ -861,27 +855,31 @@ function CreateNewJob() {
                           value={countryOptions.filter((country) =>
                             data?.country?.includes(country.value)
                           )}
-                          // className="input"
                           classNamePrefix="select"
                           placeholder="Select countries..."
                           styles={customStyles}
-                          className={` border rounded-[8px] p-[6px] withoutBorder ${
-                            formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px] p-[6px] withoutBorder ${formError.country ? "border-red" : "border-[#DEDEDE]"
+                            }`}
+                          onMenuClose={() => {
+                            setTimeout(() => {
+                              const scrollDiv = document.getElementById("scroll");
+                              if (scrollDiv) {
+                                scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+                              }
+                            }, 100);
+                          }}
                         />
+
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${
-                            formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${formError.location
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%]">
                             {data?.location.length > 0 && (
@@ -1106,7 +1104,7 @@ function CreateNewJob() {
                                 style={{
                                   border: formError.description
                                     ? "2px solid red"
-                                    : "2px solid #dedede",
+                                    : "2px solid #DEDEDE",
                                   fontSize: "16px",
                                   color: "#333",
                                   padding: "10px",
@@ -1127,13 +1125,13 @@ function CreateNewJob() {
                       <div className="text-lg font-semibold">Salary</div>
                       <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
-                          <label className="text-[#333333] text-[14px] font-medium">
+                          <label className="text-[#333333] leading-[20px] text-[14px] font-medium">
                             Currency
                           </label>
                           <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[42px]">
                             <ReactSelect
                               options={currencyOptions}
-                              className="w-[100%] flex min-w-[150px] items-center py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[42px]"
+                              className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[40px]"
                               placeholder="Select Currency"
                               value={
                                 currencyOptions.find(
@@ -1266,9 +1264,8 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: `borderradius-[8px] ${
-                                  state.isFocused ? "#DEDEDE" : "#DEDEDE"
-                                }`,
+                                border: `borderradius-[8px] ${state.isFocused ? "#DEDEDE" : "#DEDEDE"
+                                  }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                                 boxShadow: state.isFocused
@@ -1286,11 +1283,10 @@ function CreateNewJob() {
                                 margin: "3px",
                               }),
                             }}
-                            className={`border JobSectorPlaceHolder ${
-                              formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border JobSectorPlaceHolder ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1304,7 +1300,7 @@ function CreateNewJob() {
                               height: "40px",
                               border: formError.jobType
                                 ? "1px solid red"
-                                : "1px solid #ccc",
+                                : "1px solid #DEDEDE",
                               borderRadius: "5px",
                               padding: "5px",
                             }}
@@ -1329,7 +1325,7 @@ function CreateNewJob() {
                             style={{
                               width: "100%",
                               height: "40px",
-                              border: "1px solid #ccc",
+                              border: "1px solid #DEDEDE",
                               borderRadius: "5px",
                               padding: "5px",
                             }}
@@ -1358,11 +1354,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1409,24 +1404,23 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1483,7 +1477,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -1494,17 +1488,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1549,7 +1542,7 @@ function CreateNewJob() {
                               }),
                               container: (base) => ({
                                 ...base,
-                              margin:"4px"
+                                margin: "4px"
                               }),
                             }}
                           />

@@ -12,7 +12,7 @@ import SyncLoader from "../../../../common/SyncLoader";
 function MyFolders({
   toggleSelect,
   isList,
-
+  tab,
   tabIndex,
   data,
   files,
@@ -28,11 +28,11 @@ function MyFolders({
       return a.type === "folder" ? -1 : 1;
     });
   }
- 
+
   return (
     <div className="h-[calc(85vh-250px)] overflow-y-auto">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] pt-2 flex flex-row gap-y-6 flex-wrap justify-evenly scr460:justify-start  w-full ">
+        <div className="rounded-[16px] pt-2 flex flex-row gap-y-6 flex-wrap justify-start scr460:justify-start  w-full ">
           {data?.length > 0 ? (
             <>
               {!isList ? (
@@ -48,7 +48,7 @@ function MyFolders({
                   >
                     <div className=" relative">
                       {fileIconSeter(item)}
-                      {(select && item.fileName !=="My Clients" ) &&(
+                      {(select && item.fileName !== "My Clients") && (
                         <input
                           type="checkbox"
                           className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
@@ -102,7 +102,7 @@ function MyFolders({
                       >
                         <td className="px-2  w-[50%] break-all scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center">
 
-                          {select &&(
+                          {select && (
                             <input
                               type="checkbox"
                               className="   rounded-[4.5px]  w-full outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
@@ -147,16 +147,32 @@ function MyFolders({
               )}
             </>
           ) : (
-            <div className="w-full h-full flex flex-col gap-6 justify-center items-center">
-              <img
-                src="/images/noFile.png"
-                className="h-[300px] w-[375px]"
-                alt=""
-              />
-              <div className="text-[20px] font-medium text-[#808080]">
-                No Folders Available{" "}
-              </div>
-            </div>
+            <>
+              {tab === 2 ?
+                <div className="w-full h-full flex flex-col gap-2 justify-center items-center">
+                  <img
+                    src="/images/trash.png"
+                    className="h-[180px] w-[240px]"
+                    alt=""
+                  />
+                  <div className="text-[20px] font-medium text-[#808080]">
+                    Nothing in Trash{" "}
+                  </div>
+                </div>
+                :
+
+                <div className="w-full h-full flex flex-col gap-6 justify-center items-center">
+                  <img
+                    src="/images/noFile.png"
+                    className="h-[300px] w-[375px]"
+                    alt=""
+                  />
+                  <div className="text-[20px] font-medium text-[#808080]">
+                    No Folders Available{" "}
+                  </div>
+                </div>
+              }
+            </>
           )}
         </div>
       )}
