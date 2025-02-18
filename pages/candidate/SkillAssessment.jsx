@@ -147,7 +147,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/allSkills")
+      .get("https://dev.api.skilotech.com/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -162,7 +162,7 @@ function SkillAssessment() {
     const found = skills?.find((item) => item === selectedOption.label);
     if (!found) {
       try {
-        const response = await fetch("http://localhost:2000/api/skills", {
+        const response = await fetch("https://dev.api.skilotech.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -204,7 +204,7 @@ function SkillAssessment() {
   useEffect(() => {
     setMainLoading(true);
     axios
-      .get("http://localhost:2000/api/resume/skills/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/resume/skills/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
         setMainLoading(false);
@@ -279,7 +279,7 @@ function SkillAssessment() {
         (assesmentType !== "Normal" && question.length < 60)
       ) {
         axios
-          .post("http://localhost:2000/api/qnaSkill", {
+          .post("https://dev.api.skilotech.com/api/qnaSkill", {
             skill: selectedSkill,
             level: level,
             lastQuestions: question,
@@ -367,7 +367,7 @@ function SkillAssessment() {
     setTimer(30);
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("http://localhost:2000/api/assessment/add", {
+        .post("https://dev.api.skilotech.com/api/assessment/add", {
           userId: userDataGlobal?._id,
           skill: selectedSkill,
           score: checkAnswer(),
@@ -441,7 +441,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/assessment/getByUser/${userDataGlobal?._id}`
       )
       .then((res) => {
         const data = res.data.data;
