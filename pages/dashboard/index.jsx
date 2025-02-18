@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import StackedBarChart from "../../components/common/StackedBarChart";
 import { useSelector } from "react-redux";
@@ -15,12 +14,11 @@ import CountUp from "react-countup";
 function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
   const [error, setError] = useState(null);
   const [statistics, setStatistics] = useState([]);
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState("Daily");
-  const [isPending, setIsPending] = useState("")
+  const [isPending, setIsPending] = useState("");
   const router = useRouter();
   const [pendingJobs, setPendingJobs] = useState(false);
   const pendingJobsRef = useRef(null);
@@ -32,7 +30,7 @@ function Dashboard({ toggleContentt }) {
       setIsPending("Pending");
       window.scrollTo({
         top: elementPosition - offset,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
@@ -61,7 +59,11 @@ function Dashboard({ toggleContentt }) {
       imgSrc: "/images/resumeBuilder/collection.png",
     },
     // { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "Job Posting", imgSrc: "/images/resumeBuilder/job.png", new: "New" },
+    {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/job.png",
+      new: "New",
+    },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
   const list = () => {
@@ -110,7 +112,9 @@ function Dashboard({ toggleContentt }) {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal?.role === "user" ? "/home/MyCollection" : "/myCollection?folders=true"
+          userDataGlobal?.role === "user"
+            ? "/home/MyCollection"
+            : "/myCollection?folders=true"
         );
         break;
       case "Skill Assessments & Certification":
@@ -119,7 +123,9 @@ function Dashboard({ toggleContentt }) {
       case "Search Jobs":
       case "Job Posting":
         handleNavigation(
-          userDataGlobal?.role === "user" ? "/jobs/search" : "/common/jobPosting"
+          userDataGlobal?.role === "user"
+            ? "/jobs/search"
+            : "/common/jobPosting"
         );
         break;
       default:
@@ -134,10 +140,12 @@ function Dashboard({ toggleContentt }) {
 
   const fetchJobStatistics = async () => {
     try {
-      const response = await axios.get(`http://localhost:2000/api/job/getJobStatistics/${userDataGlobal?._id}`);
+      const response = await axios.get(
+        `http://localhost:2000/api/job/getJobStatistics/${userDataGlobal?._id}`
+      );
       setStatistics(response.data);
     } catch (err) {
-      setError('Failed to fetch job statistics');
+      setError("Failed to fetch job statistics");
     }
   };
 
@@ -145,16 +153,18 @@ function Dashboard({ toggleContentt }) {
     fetchJobStatistics();
   }, [userDataGlobal?._id]);
 
-
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
         `http://localhost:2000/api/job/getJobAnalytics/${userDataGlobal?._id}`,
         { params: { selected } }
       );
-      setData(response.data)
+      setData(response.data);
     } catch (error) {
-      console.error("Error fetching job statistics:", error.response?.data || error.message);
+      console.error(
+        "Error fetching job statistics:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -167,12 +177,15 @@ function Dashboard({ toggleContentt }) {
       className="   w-[100%]  overflow-y-auto "
       style={{ scrollbarWidth: "none" }}
     >
-      <TopSection statistics={statistics} scrollToPendingJobs={scrollToPendingJobs} />
+      <TopSection
+        statistics={statistics}
+        scrollToPendingJobs={scrollToPendingJobs}
+      />
       <div className="scr1300:flex scr1300:flex-row flex flex-col w-full pt-6 justify-between">
-        <div className="w-[100%] scr1300:w-[31.26%] flex flex-col scr700:flex-row scr700:justify-between scr1168:justify-start scr1300:flex-col items-start scr1300:pt-0  gap-6">
+        <div className="w-[100%] scr1300:w-[31.26%] flex flex-col scr700:flex-row scr700:justify-between scr1168:justify-start scr1300:flex-col items-start scr1300:pt-0 pb-4 gap-6">
           <div className="w-[100%] scr700:w-[48%] scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
             <div
-              className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
+              className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] w-full"
               style={{
                 borderRadius: "6px",
                 backgroundColor: "#fff",
@@ -241,7 +254,7 @@ function Dashboard({ toggleContentt }) {
             </div>
           </div>
           <div className="w-[100%] scr700:w-[48%]  scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
-            {userDataGlobal?.role == "employer" ?
+            {userDataGlobal?.role == "employer" ? (
               <div
                 className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
                 style={{
@@ -276,7 +289,7 @@ function Dashboard({ toggleContentt }) {
                   </div>
                 </div>
               </div>
-              :
+            ) : (
               <div
                 className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
                 style={{
@@ -311,7 +324,7 @@ function Dashboard({ toggleContentt }) {
                   </div>
                 </div>
               </div>
-            }
+            )}
             <div
               className="flex justify-between items-center px-6 py-[16px] lg:py-[16px]   w-full"
               style={{
@@ -348,7 +361,12 @@ function Dashboard({ toggleContentt }) {
             </div>
           </div>
         </div>
-        <JobStatistics statistics={statistics} setSelected={setSelected} selected={selected} data={data} />
+        <JobStatistics
+          statistics={statistics}
+          setSelected={setSelected}
+          selected={selected}
+          data={data}
+        />
       </div>
       <div ref={pendingJobsRef}>
         <RecentApplications isPending={isPending} />
@@ -397,4 +415,3 @@ function Dashboard({ toggleContentt }) {
 }
 
 export default Dashboard;
-   
