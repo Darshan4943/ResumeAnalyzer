@@ -59,12 +59,12 @@ function Files({
     if (clientData[index]?.fileName === "My Clients") {
       return; // Prevent selection for "My Clients"
     }
-  
+
     setSelectedIndexes((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
-  
+
   useEffect(() => {
     if (clientId) {
       axios
@@ -87,45 +87,49 @@ function Files({
   return (
     <>
       {(tab === 0 || tab === 2) && (
-        <MyFolders
-          isList={isList}
-          selectedIndexes={selectedIndexes}
-          setSelectedIndexes={setSelectedIndexes}
-          setSelect={setSelect}
-          select={select}
-          setTabIndex={setTabIndex}
-          setFolderData={setFolderData}
-          tabIndex={tabIndex}
-          data={data}
-          setData={setData}
-          files={files}
-          setFiles={setFiles}
-          clientData={clientData}
-          tab={tab}
-          openFolder={tab === 1 ? openClientFolder : openFolder}
-          toggleSelect={toggleSelect}
-        />
+        <>
+          <MyFolders
+            isList={isList}
+            selectedIndexes={selectedIndexes}
+            setSelectedIndexes={setSelectedIndexes}
+            setSelect={setSelect}
+            select={select}
+            setTabIndex={setTabIndex}
+            setFolderData={setFolderData}
+            tabIndex={tabIndex}
+            data={data}
+            setData={setData}
+            files={files}
+            setFiles={setFiles}
+            clientData={clientData}
+            tab={tab}
+            openFolder={tab === 1 ? openClientFolder : openFolder}
+            toggleSelect={toggleSelect}
+          />
+        </>
       )}
       {tab === 1 && (
-        <ClientFolders
-          isList={isList}
-          selectedIndexes={selectedIndexes}
-          setSelectedIndexes={setSelectedIndexes}
-          setSelect={setSelect}
-          select={select}
-          setTabIndex={setTabIndex}
-          setFolderData={setFolderData}
-          tabIndex={tabIndex}
-          data={data}
-          setData={setData}
-          files={files}
-          setFiles={setFiles}
-          clientData={clientData}
-          tab={tab}
-          openClientFolder={openFolder}
-          toggleSelect={toggleSelect}
-          query={query}
-        />
+        <>
+          <ClientFolders
+            isList={isList}
+            selectedIndexes={selectedIndexes}
+            setSelectedIndexes={setSelectedIndexes}
+            setSelect={setSelect}
+            select={select}
+            setTabIndex={setTabIndex}
+            setFolderData={setFolderData}
+            tabIndex={tabIndex}
+            data={data}
+            setData={setData}
+            files={files}
+            setFiles={setFiles}
+            clientData={clientData}
+            tab={tab}
+            openClientFolder={openFolder}
+            toggleSelect={toggleSelect}
+            query={query}
+          />
+        </>
       )}
     </>
   );

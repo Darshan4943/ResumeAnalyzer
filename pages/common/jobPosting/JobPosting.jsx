@@ -382,7 +382,7 @@ function JobPosting() {
                         ) : (
                           <div className="p-12 flex items-center justify-center">
                             <img
-                              className="w-[30%]"
+                              className="w-[30%] min-w-[200px]"
                               src="/images/employer/OBJECTS.png"
                               alt="No data available"
                             />
@@ -603,6 +603,7 @@ function JobPosting() {
                 <div className="p-3 w-full flex items-center justify-center">
                   <img
                     src="/images/employer/OBJECTS.png"
+                    className="w-[30%] min-w-[200px]"
                     alt="No data available"
                   />
                 </div>

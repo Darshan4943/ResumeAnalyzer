@@ -89,7 +89,7 @@ const JobCard = ({ filters, setFilters }) => {
           {data?.length === 0 ? (
             <div className="p-12  flex items-center justify-center">
               <img
-                className="w-[20%]"
+                className="w-[20%] min-w-[200px]"
                 src="/images/employer/OBJECTS.png"
                 alt="No data available"
               />

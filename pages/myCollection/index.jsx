@@ -38,7 +38,7 @@ function Collection() {
   const [folderName, setFolderName] = useState("");
   const inputRef = useRef(null);
   const [tab, setTab] = useState(null);
- 
+
   const [ParentId, setParentId] = useState(null);
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -108,7 +108,7 @@ function Collection() {
         getClientData(clientId);
 
       }
-      else if(parentId) {
+      else if (parentId) {
         setParentId(parentId);
         getParentData(parentId);
 
@@ -120,13 +120,13 @@ function Collection() {
     } else if (skilotechCollection == "true") {
       setTab(1);
       setTabIndex(0);
-      if(!parentId){
+      if (!parentId) {
         getSkilotechCollectionData();
-      }else{
+      } else {
         setParentId(parentId);
         getParentData(parentId);
       }
-      
+
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
@@ -193,7 +193,7 @@ function Collection() {
       .then((res) => {
 
         setFolderList(res.data.data[0].files);
-      
+
         getParentData(res.data.data[0]._id);
         setParentId(res.data.data[0]._id)
         setTimeout(() => {
@@ -239,12 +239,12 @@ function Collection() {
   useEffect(() => {
 
     getUnSyncFiles();
- 
+
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
         getUnSyncFiles()
         getData()
-     
+
       }, 30000);
 
       return () => clearInterval(interval);
@@ -572,7 +572,7 @@ function Collection() {
       if (response.data.success) {
 
         setUploadCount(0);
-     ;
+        ;
       } else {
         console.error('First API call error:', response.data.message);
       }
@@ -866,22 +866,22 @@ function Collection() {
                 </div>
               ) : (
                 <input
-                className="border border-blue rounded-[8px] py-2 px-4"
-                ref={inputRef}
-                type="text"
-                value={folderName}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  if (newValue === "Skilotech Collection") {
-                    setError(`${newValue} not allowed`)
-                    setFolderName(newValue);
-                  }else{
-                    setError("")
-                    setFolderName(newValue);
-                  }
-                  
-                }}
-              />
+                  className="border border-blue rounded-[8px] py-2 px-4"
+                  ref={inputRef}
+                  type="text"
+                  value={folderName}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue === "Skilotech Collection") {
+                      setError(`${newValue} not allowed`)
+                      setFolderName(newValue);
+                    } else {
+                      setError("")
+                      setFolderName(newValue);
+                    }
+
+                  }}
+                />
 
               )}
               {fileLoader && isFile && Object.values(files).length > 1 && (
@@ -913,10 +913,10 @@ function Collection() {
                   </div>
                 </>
               )}
-                            {error &&
+              {error &&
                 <p className="text-red font-[500] text-[12px]">{error}</p>
               }
-              
+
               <div className="flex justify-between gap-6">
                 <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
                   {isFile &&
@@ -1005,9 +1005,9 @@ function Collection() {
               <p className="text-[18px] font-semibold h-[36px] ">
                 My Collection
               </p>
-              
+
               <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px]  ">
-                
+
                 <button
                   onClick={() => {
                     // setTab(1);
@@ -1018,7 +1018,7 @@ function Collection() {
                     }  `}
                 >
                   <svg
-                  className="scr420:block hidden"
+                    className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1042,7 +1042,7 @@ function Collection() {
                     }   `}
                 >
                   <svg
-                  className="min-w-[20px] scr420:block hidden"
+                    className="min-w-[20px] scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -1056,7 +1056,7 @@ function Collection() {
                       />
                     </g>
                   </svg>
-                 Skilotech Collection
+                  Skilotech Collection
                 </button>
                 <button
                   onClick={() => {
@@ -1066,7 +1066,7 @@ function Collection() {
                     }  `}
                 >
                   <svg
-                  className="scr420:block hidden"
+                    className="scr420:block hidden"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
