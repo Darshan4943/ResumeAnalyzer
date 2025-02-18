@@ -285,7 +285,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 placeholder="Eg: Product Manager"
                 className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid 
                   ${errors.jobTitle ? "border-red" : "border-[#DEDEDE]"} 
-                  rounded-[6px] placeholder:text-[14px] font-[400]`}
+                  rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]`}
               />
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
@@ -303,7 +303,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                   }
                 }}
                 placeholder="Enter Number"
-                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[14px]  font-[400]  ${errors.positions ? "border-red" : "border-[#DEDEDE]"
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.positions ? "border-red" : "border-[#DEDEDE]"
                   }  `}
               />
             </div>
@@ -329,7 +329,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
                   <ReactSelect
                     options={currencyOptions}
-                    className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[40px]"
+                    className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] font-montserrat font-small text-black h-[40px]"
                     placeholder="Select Currency"
                     value={
                       currencyOptions.find(
@@ -365,7 +365,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                     }
                   }}
                   placeholder="From"
-                  className={`h-[40px] w-[55%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                  className={`h-[40px] w-[55%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
                     }  `}
                 />
               </div>
@@ -380,7 +380,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                   }
                 }}
                 placeholder="To"
-                className={`h-[40px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
+                className={`h-[40px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
                   }  `}
               />
             </div>
@@ -406,7 +406,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                     const newExperience = e.target.value;
                     setData({ ...data, experience: newExperience });
                   }}
-                  className="w-outline-none focus-visible:outline-none p-2 w-full h-[48px]"
+                  className="w-outline-none focus-visible:outline-none placeholder:text-[12px] text-[12px] text-[#646464] font-[400] p-2 w-full h-[48px]"
                 >
                   {experienceOptions.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -428,7 +428,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.requisitionType}
                 onChange={(e) => handleChange(e, "requisitionType")}
-                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] text-[14px]  font-[400] rounded-[6px]  ${errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
+                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]  ${errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
                   } `}
               >
                 <option value="" disabled selected>
@@ -465,7 +465,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                   {data?.location?.map((item, index) => (
                     <div
                       key={index}
-                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                      className="py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center placeholder:text-[12px] text-[12px] text-[#646464] font-[400] "
                     >
                       <span>{item}</span>
                       <span
@@ -500,7 +500,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 <input
                   type="text"
                   placeholder="Location"
-                  className="input w-[100px]"
+                  className="input w-[100px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]"
                   value={loactionText}
                   onChange={(e) => {
                     setLoactionText(e.target.value);
@@ -534,7 +534,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.department}
                 onChange={(e) => handleChange(e, "department")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px] font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid placeholder:text-[12px] text-[12px] text-[#646464] font-[400] border-[#DEDEDE] rounded-[6px] "
               >
                 <option value="" disabled selected>
                   Select
@@ -560,7 +560,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 value={data.hiringDate}
                 onChange={(e) => handleChange(e, "hiringDate")}
                 min={new Date().toISOString().split("T")[0]}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px] font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]"
               />
             </div>
             <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
@@ -568,7 +568,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.jobType}
                 onChange={(e) => handleChange(e, "jobType")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid placeholder:text-[12px] text-[12px] text-[#646464] font-[400] border-[#DEDEDE] rounded-[6px]"
               >
                 <option value="" disabled selected>
                   Select{" "}
@@ -603,7 +603,7 @@ const CreateNewRequisition = ({ setToggle }) => {
             <textarea
               value={data.comments}
               onChange={(e) => handleChange(e, "comments")}
-              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
+              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]"
               placeholder="Provide your comment"
             ></textarea>
           </div>
