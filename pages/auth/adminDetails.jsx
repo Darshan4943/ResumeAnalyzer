@@ -282,7 +282,7 @@ function AdminDetails({
     let tempUser = "tempEmployer";
     axios
       .post("http://localhost:2000/api/otpMailSignup", {
-        userEmail: formData.email,
+        userEmail: formData.email.toLowerCase(),
         tempUser,
       })
       .then((res) => {
@@ -299,7 +299,7 @@ function AdminDetails({
         setTimer(30);
       })
       .catch((err) => {
-        toast.error(err?.response?.formData.message);
+        toast.error(err?.response?.formData?.message);
         setLoadingg(false);
       });
   };
@@ -334,7 +334,7 @@ function AdminDetails({
     const otpEntered = Number(otp.join(""));
     axios
       .post("http://localhost:2000/api/verifyOtp", {
-        userEmail: formData.email,
+        userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
       .then((res) => {
@@ -347,7 +347,7 @@ function AdminDetails({
         }
       })
       .catch((err) => {
-        toast.error(err?.response?.formData.message);
+        toast.error(err.response?.data?.message || "Something went wrong");
       });
   };
   const formatTime = (seconds) => {
@@ -535,7 +535,7 @@ function AdminDetails({
                 {!verify ? (
                   <button
                     onClick={handleVerification}
-                    className="py-2 md:py-[8px] w-full scr540:w-[220px] px-4 md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
                   >
                     {loadingg ? <MiniLoader /> : <>Verify Email</>}
                   </button>

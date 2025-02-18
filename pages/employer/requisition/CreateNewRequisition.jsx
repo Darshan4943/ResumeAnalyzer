@@ -127,7 +127,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     try {
       const response = await axios.post(
         `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
-        { ...data, createdBy: userDataGlobal?._id, createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
+        { ...data, createdBy: userDataGlobal?._id, companyId:userDataGlobal?.companyId,createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
       );
 
       setSuccessfull(true);
