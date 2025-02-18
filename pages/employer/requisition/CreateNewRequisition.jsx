@@ -16,6 +16,33 @@ import { currencyMap } from "../../../utils/data";
 const CreateNewRequisition = ({ setToggle }) => {
   const router = useRouter();
   const [successfull, setSuccessfull] = useState(false);
+  const jobSectorOptions = [
+    "Information Technology",
+    "Healthcare",
+    "Education",
+    "Finance",
+    "Manufacturing",
+    "Construction",
+    "Retail",
+    "Hospitality",
+    "Transportation",
+    "Energy",
+    "Government",
+    "Entertainment",
+    "Real Estate",
+    "Agriculture",
+    "Telecommunications",
+    "Marketing and Advertising",
+    "Legal Services",
+    "Non-Profit",
+    "Science and Research",
+    "Aerospace",
+  ];
+
+  const jobSectors = jobSectorOptions.map((sector) => ({
+    value: sector,
+    label: sector,
+  }));
   const [levels, setLevels] = useState([
     { id: 1, level: "Level 1", name: "", email: "" },
   ]);
@@ -297,11 +324,12 @@ const CreateNewRequisition = ({ setToggle }) => {
               Budget <span className="text-red">*</span>
             </p>
             <div className="flex  sm:flex-row flex-col gap-4 ">
-              <div className="sm:w-[49.01%] flex justify-between w-[100%]">
-                <div className="border-[1px] w-[21.75%] h-[38px] border-solid border-[#DEDEDE] rounded-[6px]">
+              <div className="sm:w-[49.01%] flex justify-between w-[100%] gap-4">
+                <div className="border-[1px] w-[45%]  border-solid border-[#DEDEDE] rounded-[6px]">
+
                   <ReactSelect
                     options={currencyOptions}
-                    className="w-[100%] flex outline-none items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[38px]"
+                    className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[40px]"
                     placeholder="Select Currency"
                     value={
                       currencyOptions.find(
@@ -337,7 +365,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                     }
                   }}
                   placeholder="From"
-                  className={`h-[38px] w-[74%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                  className={`h-[40px] w-[55%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[14px]  font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
                     }  `}
                 />
               </div>
@@ -352,7 +380,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                   }
                 }}
                 placeholder="To"
-                className={`h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
+                className={`h-[40px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
                   }  `}
               />
             </div>
@@ -430,7 +458,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                 Location <span className="text-red">*</span>
               </p>
               <div
-                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[43.6px] ${errors.location ? "border-red" : "border-[#DEDEDE]"
+                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[38px] ${errors.location ? "border-red" : "border-[#DEDEDE]"
                   }`}
               >
                 <div className="flex flex-row overflow-x-auto gap-2 ">
@@ -506,14 +534,18 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.department}
                 onChange={(e) => handleChange(e, "department")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px]  font-[400]"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] text-[14px] font-[400]"
               >
                 <option value="" disabled selected>
-                  Select{" "}
+                  Select
                 </option>
-                <option value="It">It</option>
-                <option value="Devlopment ">Devlopment</option>
+                {jobSectors.map((sector) => (
+                  <option key={sector.value} value={sector.value}>
+                    {sector.label}
+                  </option>
+                ))}
               </select>
+
             </div>
           </div>
 
@@ -547,15 +579,6 @@ const CreateNewRequisition = ({ setToggle }) => {
             </div>
           </div>
 
-          <div className="flex flex-col  gap-[8px] ">
-            <p className="text-[14px]  font-medium">Additional Comments</p>
-            <textarea
-              value={data.comments}
-              onChange={(e) => handleChange(e, "comments")}
-              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
-              placeholder="Provide your comment"
-            ></textarea>
-          </div>
 
           <div className="text-[14px]  font-medium">
             <p>
@@ -575,6 +598,16 @@ const CreateNewRequisition = ({ setToggle }) => {
               }}
             />
           </div>
+          <div className="flex flex-col  gap-[8px] ">
+            <p className="text-[14px]  font-medium">Additional Comments</p>
+            <textarea
+              value={data.comments}
+              onChange={(e) => handleChange(e, "comments")}
+              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[14px]  font-[400]"
+              placeholder="Provide your comment"
+            ></textarea>
+          </div>
+
         </div>
       </div>
 

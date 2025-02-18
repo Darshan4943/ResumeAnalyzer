@@ -561,6 +561,7 @@ function CreateNewJob() {
   const isRelevantAllowed = (totalExpIndex, relevantExpIndex) => {
     return relevantExpIndex <= totalExpIndex;
   };
+ 
 
   const getJobDetails = async (reqId) => {
     try {
@@ -578,6 +579,7 @@ function CreateNewJob() {
         experience: fetchedData.experience || "",
         jobType: fetchedData.jobType || "",
         location: fetchedData.location || [],
+        currency: fetchedData.currency || "",
         openPositions: fetchedData.positions || "",
         description: fetchedData.description || "",
         deadLine: fetchedData.hiringDate
@@ -1276,15 +1278,18 @@ function CreateNewJob() {
                                 ...provided,
                                 color: "#999",
                                 fontSize: "12px",
+                              
                               }),
                               container: (provided) => ({
                                 ...provided,
                                 border: "none",
                                minHeight: "40px",
-                               paddingVertical: "4px"
+                               paddingVertical: "4px",
+                               
                               }),
+                             
                             }}
-                            className={`border min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
+                            className={`border jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
                               ? "border-red"
                               : "border-[#DEDEDE]"
                               }`}
