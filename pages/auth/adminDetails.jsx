@@ -535,7 +535,7 @@ function AdminDetails({
                 {!verify ? (
                   <button
                     onClick={handleVerification}
-                    className="py-2 md:py-[8px] w-full scr540:w-[220px] px-4 md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
                   >
                     {loadingg ? <MiniLoader /> : <>Verify Email</>}
                   </button>
