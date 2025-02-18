@@ -600,7 +600,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
               ) : data?.length === 0 ? (
                 <div className="p-3  flex items-center justify-center">
                   <img
-                    className="w-[40%]"
+                    className="w-[30%] min-w-[200px]"
                     src="/images/employer/OBJECTS.png"
                     alt="No data available"
                   />
@@ -1291,7 +1291,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 ) : data?.length === 0 ? (
                   <div className="p-3  flex items-center justify-center">
                     <img
-                      className="w-[40%]"
+                      className="w-[30%] min-w-[200px]"
                       src="/images/employer/OBJECTS.png"
                       alt="No data available"
                     />

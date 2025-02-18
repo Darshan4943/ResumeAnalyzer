@@ -324,12 +324,12 @@ function Hiring() {
                 {openSort && (
                   <div
                     style={{ boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                    className="absolute top-[48px] right-[5px] flex flex-col gap-[14px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
+                    className="absolute w-[180px] top-[48px] right-[5px] flex flex-col gap-[14px] rounded-[6px] bg-[#FFFFFF] p-[12px] z-[100]"
                   >
                     {headings.map((filter, index) => (
                       <select
                         key={index}
-                        className=" bg-whites py-[4px]"
+                        className=" bg-whites outline-none py-[4px]"
                         onChange={(e) =>
                           handleFilterChange(filter.heading, e.target.value)
                         }

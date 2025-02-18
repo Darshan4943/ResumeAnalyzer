@@ -103,7 +103,7 @@ function RequisitionList({
         ) : requisitions.length === 0 ? (
           <div className="p-12 flex items-center justify-center">
             <img
-              className="w-[30%]"
+              className="w-[30%] min-w-[200px]"
               src="/images/employer/OBJECTS.png"
               alt="No data available"
             />
