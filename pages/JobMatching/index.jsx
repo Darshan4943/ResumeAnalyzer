@@ -70,6 +70,7 @@ const JobMatching = () => {
   const [hiringLoading, setHiringLoading] = useState("");
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
+  const[fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
@@ -216,7 +217,7 @@ const JobMatching = () => {
         resumeCount,
       }
     );
-
+    setFromSkilotechCollection(true)
     if (Array.isArray(response.data)) {
       outputData.push(...response.data);
     } else {
@@ -634,6 +635,7 @@ const JobMatching = () => {
                     hiringLoading={hiringLoading}
                     jobData={jobData}
                     jdApplicantFileNames={jdApplicantFileNames}
+                    fromSkilotechCollection={fromSkilotechCollection}
                   />
                 </div>
               )}

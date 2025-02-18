@@ -223,7 +223,7 @@ function Folders({
       <div className="flex flex-col gap-4   bg-white ms:p-6 p-2  rounded-[16px]   min-h-[560px] ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className="flex justify-end text-[14px] font-medium ">
-            {unSyncFiles > 0 && folders &&
+            {unSyncFiles > 0 && 
               <div className="bg-[#FEFCE8] w-[245px] py-1 px-2 flex justify-between gap-2 items-center text-[#854D0E] rounded-[8px]">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 
