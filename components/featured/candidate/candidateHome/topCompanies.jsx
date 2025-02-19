@@ -48,7 +48,7 @@ const TopCompanies = () => {
   ];
 
   return (
-    <div className="bg-white rounded-[16px] p-6  gap-[20px] ">
+    <div className="bg-white rounded-[16px] p-3 sm:p-6  gap-[20px] ">
       <div className="gap-[20px] flex flex-col">
         <div className="flex justify-between item-center ">
           <div className="flex flex-col gap-[6px]">
@@ -66,7 +66,7 @@ const TopCompanies = () => {
             slidesPerView={1}
             breakpoints={{
               320: { slidesPerView: 1 },
-              640: { slidesPerView: 2 },
+              640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
@@ -74,8 +74,8 @@ const TopCompanies = () => {
           >
             {jobData.map((job) => (
               <SwiperSlide key={job.id} >
-                <div className="w-[140px]  border-[1px] flex flex-col items-center justify-between py-1 border-[#CBCBCB] rounded-[10px] gap-[12px]">
-                  <div className="flex flex-col items-center  gap-4">
+                <div className="w-full border-[1px] flex flex-col items-center justify-between py-1 border-[#CBCBCB] rounded-[10px] gap-[12px]">
+                  <div className="flex flex-col items-center gap-4">
                     <img src={job.icon} className="h-[32px] max-w-[60px]" alt={`${job.companyName} Icon`} />
                     <div className="flex flex-col items-center">
                       <div className="text-[16px] font-[600]">

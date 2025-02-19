@@ -562,19 +562,25 @@
   }
 }
 .topCompaniesSlide {
+  .swiper-wrapper {
+    gap: 16px;
+    @media (max-width: 480px) {
+      gap: 12px !important;
+    }
+  }
   .swiper-slide {
-    width: 146px !important;
+    width: 130px !important;
 
     @media (min-width: 480px) {
-      width: 160px !important;
+      width: 130px !important;
     }
 
     @media (min-width: 768px) {
-      width: 180px !important;
+      width: 160px !important;
     }
 
     @media (min-width: 1024px) {
-      width: 200px !important;
+      width: 152px !important;
     }
   }
 }
