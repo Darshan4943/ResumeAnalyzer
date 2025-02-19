@@ -120,8 +120,8 @@ const JobCard = ({ filters, setFilters }) => {
                   }
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
-                  <div className="flex justify-between w-[100%]">
-                    <div className="flex justify-between gap-[20px] ">
+                  <div className="flex justify-between w-[100%] gap-2">
+                    <div className="flex justify-between gap-[20px] items-start">
                       <p className=" text-[14px] font-[600]">{job.jobTitle}</p>
                       <div className="flex gap-[3px] items-center">
                         {job.status === "Live" ? (
@@ -245,7 +245,7 @@ const JobCard = ({ filters, setFilters }) => {
                     </div>
                   </div>
 
-                  <div className="flex gap-[10px]">
+                  <div className="flex gap-[10px] flex-wrap">
                     {job.revalentExp && (
                       <div className="flex gap-[4px] items-center">
                         <div>

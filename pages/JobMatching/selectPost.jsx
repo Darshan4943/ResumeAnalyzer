@@ -128,9 +128,9 @@ const SelectPost = () => {
             />
           </div>
 
-          <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative">
+          <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative h-[39.6px]">
             <select
-              className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer"
+              className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer h-[39.6px]"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
@@ -161,8 +161,8 @@ const SelectPost = () => {
                       }
                       className="flex w-full sm:w-[380px] py-3 px-4 md:py-4 md:px-6 flex-col items-start gap-3 flex-shrink-0 rounded-lg bg-white shadow-md col-span-4"
                     >
-                      <div className="flex justify-between w-[100%]">
-                        <div className="flex justify-between gap-[20px]">
+                      <div className="flex justify-between  w-[100%]">
+                        <div className="flex justify-between gap-[20px] items-start">
                           <p className="text-[14px] font-[600]">
                             {item?.jobTitle}
                           </p>
@@ -235,7 +235,7 @@ const SelectPost = () => {
                         </div>
                       </div>
 
-                      <div className="flex gap-[10px]">
+                      <div className="flex gap-[10px] flex-wrap">
                         {item?.revalentExp && (
                           <div className="flex gap-[4px] items-center">
                             <div>

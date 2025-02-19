@@ -111,7 +111,7 @@ function Dashboard({ toggleContentt }) {
         handleNavigation("/transform/TransformJob");
         break;
       case "JD Matching":
-        handleNavigation("/JobMatching");
+        handleNavigation("/JobMatching/SelectJob");
         break;
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");

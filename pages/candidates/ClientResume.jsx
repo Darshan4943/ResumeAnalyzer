@@ -128,44 +128,26 @@ function ClientResume() {
 
             <div className="flex  gap-5 flex-wrap scr700:justify-start justify-center ">
               {details?.length > 0 && (
-                <div
-                  // onClick={() => {
-                  //   if (clientCount >= clientCountLimit) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   if (!planAvailable) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  onClick={() => {
-
-                    router.push("/candidates/CreateNewClient");
-
-                  }}
-                  style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[24px] text-center text-white justify-center flex sm:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer"
-                >
-                  <svg
-                    width="27"
-                    height="27"
-                    viewBox="0 0 27 27"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                      fill="white"
-                    />
-                  </svg>
-
-                  <p>Create New Candidate</p>
-                </div>
+              <div
+              onClick={() => {
+                router.push("/candidates/CreateNewClient");
+              }}
+              className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] bg-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] p-6 cursor-pointer"
+            >
+              <svg
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                  fill="#333333"
+                />
+              </svg>
+              <p>Create New Candidate</p>
+            </div>
               )}
               {details?.length > 0 ? (
                 <>
@@ -176,7 +158,7 @@ function ClientResume() {
                       }
                       key={index}
                       className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px] sm:min-w-[224px] min-w-[218px] max-w-[224px] break-all bg-white"
-                      style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
+                      // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">
                         <img
@@ -287,43 +269,25 @@ function ClientResume() {
                 </>
               ) : (
                 <div
-                  // onClick={() => {
-                  //   if (clientCount >= clientCountLimit) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   if (!planAvailable) {
-                  //     setLimitPopUp(true);
-                  //   } else {
-                  //     router.push("/myClients/CreateNewClient");
-                  //   }
-                  // }}
-                  onClick={() => {
-
-                    router.push("/candidates/CreateNewClient");
-
-                  }}
-                  style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer scr540:h-[329px]"
+                onClick={() => {
+                  router.push("/candidates/CreateNewClient");
+                }}
+                className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] bg-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] scr540:min-h-[320px] p-6 cursor-pointer"
+              >
+                <svg
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    width="27"
-                    height="27"
-                    viewBox="0 0 27 27"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                      fill="white"
-                    />
-                  </svg>
-
-                  <p>Create New Candidate</p>
-                </div>
+                  <path
+                    d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                    fill="#333333"
+                  />
+                </svg>
+                <p>Create New Candidate</p>
+              </div>
               )}
             </div>
           </div>
