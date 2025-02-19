@@ -253,9 +253,14 @@ function RecentApplications({ isPending }) {
                       </div>
 
                       <div className="flex w-[15%] items-center justify-center   gap-[8px]">
+                        {applicant.matchingPercentage ?
                         <p className="text-[14px] font-[600]">
                           {applicant.matchingPercentage} %
                         </p>
+                        :
+                        <>-</>
+                        
+                        }
                       </div>
                       <div className=" flex justify-center w-[20%]">
                         <div

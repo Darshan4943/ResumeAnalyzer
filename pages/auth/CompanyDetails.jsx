@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import ReactSelect from "react-select";
+import { telCode } from "../../utils/data";
+import { useRouter } from "next/router";
 function CompanyDetails({
   tog,
   updateTog,
@@ -12,41 +14,81 @@ function CompanyDetails({
   formData,
   setFormData,
 }) {
+ const router=useRouter()
   const [errors, setErrors] = useState({});
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [selectedItem, setSelectedItem] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const companyFields = [
     {
       title: "Company Name",
-      placeholder: "Enter company name",
+      placeholder: "Enter Company Name",
       name: "companyName",
     },
     {
       title: "Company Email",
-      placeholder: "Enter company email",
+      placeholder: "Enter Company Email",
       name: "companyEmail",
     },
     // { title: "Password", placeholder: "Create new password", name: "password", isVisible: true },
     {
       title: "Contact Number",
-      placeholder: "Enter contact number",
+      placeholder: "Enter Contact Number",
       name: "contactNumber",
     },
     {
       title: "Company Website URL",
-      placeholder: "Enter company website",
+      placeholder: "Enter Company Website",
       name: "companyWebsite",
     },
     {
       title: "Year of Establish",
-      placeholder: "Enter year of establish",
+      placeholder: "Enter Year of Establish",
       name: "YearOfEstablish",
     },
     {
       title: "Company Location",
-      placeholder: "Enter your current location",
+      placeholder: "Enter Your Current Location",
       name: "CompanyLocation",
       isLocation: true,
     },
   ];
+
+    const handleItemClick = (item) => {
+      setSelectedItem(item);
+      setFormData({ ...formData, companyDialCode: item.dial_code, country: item.name });
+      setSearchTerm("");
+      setErrors((prevErrors) => {
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors.dial_code;
+        return updatedErrors;
+      });
+    };
+    useEffect(() => {
+      const filterLogic = (item) =>
+        item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.dial_code.includes(searchTerm);
+      const filteredCodes = telCode.filter(filterLogic);
+      const firstSixCodes = filteredCodes.slice(0, 6);
+      const remainingCodes = filteredCodes.slice(6);
+  
+      const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+        const numA = parseInt(a.dial_code.replace("+", ""), 10);
+        const numB = parseInt(b.dial_code.replace("+", ""), 10);
+        return numA - numB;
+      });
+      const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+      setFilteredTelCode(combinedCodes);
+    }, [telCode, searchTerm]);
+  
+    const customFilterOption = ({ label, value, data }, inputValue) => {
+      const lowercasedInput = inputValue.toLowerCase();
+      return (
+        data.code.toLowerCase().includes(lowercasedInput) ||
+        data.dial_code.includes(inputValue)
+      );
+    };
+  
 
   const validateCompanyInput = (fieldName, value) => {
     let newErrors = { ...errors };
@@ -191,54 +233,91 @@ function CompanyDetails({
   return (
     <div
       style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-      className={`${
-        tog === 1 ? "flex" : "hidden"
-      } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
+      className={`${tog === 1 ? "flex" : "hidden"
+        } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
     >
       {companyFields.map((field, index) => (
         <div key={index} className="flex w-full flex-col gap-1">
           <div className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
             {field.title} <span className="text-red">*</span>
           </div>
-          <div
-            className={`flex rounded-[8px] py-[12px] px-4 border ${
-              errors[field.name] ? "border-red" : "border-[#9D9D9D]"
-            } `}
-          >
-            <input
-              type="text"
-              // type={(visiblePass && field.isVisible) ? "password" : "text"}
-              name={field.name}
-              id=""
-              value={formData[field.name]}
-              onChange={handleChange}
-              placeholder={field.placeholder}
-              className="w-full bg-[transparent] outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464]"
-            />
-            {field.isLocation && (
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g mask="url(#mask0_3761_54801)">
-                  <path
-                    d="M12 12C12.55 12 13.0208 11.8042 13.4125 11.4125C13.8042 11.0208 14 10.55 14 10C14 9.45 13.8042 8.97917 13.4125 8.5875C13.0208 8.19583 12.55 8 12 8C11.45 8 10.9792 8.19583 10.5875 8.5875C10.1958 8.97917 10 9.45 10 10C10 10.55 10.1958 11.0208 10.5875 11.4125C10.9792 11.8042 11.45 12 12 12ZM12 19.35C14.0333 17.4833 15.5417 15.7875 16.525 14.2625C17.5083 12.7375 18 11.3833 18 10.2C18 8.38333 17.4208 6.89583 16.2625 5.7375C15.1042 4.57917 13.6833 4 12 4C10.3167 4 8.89583 4.57917 7.7375 5.7375C6.57917 6.89583 6 8.38333 6 10.2C6 11.3833 6.49167 12.7375 7.475 14.2625C8.45833 15.7875 9.96667 17.4833 12 19.35ZM12 22C9.31667 19.7167 7.3125 17.5958 5.9875 15.6375C4.6625 13.6792 4 11.8667 4 10.2C4 7.7 4.80417 5.70833 6.4125 4.225C8.02083 2.74167 9.88333 2 12 2C14.1167 2 15.9792 2.74167 17.5875 4.225C19.1958 5.70833 20 7.7 20 10.2C20 11.8667 19.3375 13.6792 18.0125 15.6375C16.6875 17.5958 14.6833 19.7167 12 22Z"
-                    fill="#646464"
-                  />
-                </g>
-              </svg>
-            )}
-          </div>
+
+       
+          {field.name === "contactNumber"  ? (
+            <div className="flex gap-2">
+           
+           <ReactSelect
+                  options={filteredTelCode}
+                  className=" flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]"
+                  name=""
+                  placeholder="Select"
+                  value={selectedItem}
+                  onChange={handleItemClick}
+                  getOptionLabel={(option) => (
+                    <div className="flex items-center  ">
+                      <img
+                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                        width="20px"
+                      />
+                      <span className="ml-2 text-[#333333] text-[12px] font-[400]">
+                        {option.code} {option.dial_code}
+                      </span>
+                    </div>
+                  )}
+                  // getOptionValue={(option) => option.code}
+                  filterOption={customFilterOption}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+
+                      minWidth: "120px",
+                      outline: "none",
+                    }),
+                  }}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      // primary25: 'hotpink',
+                      primary: "neutral0",
+                    },
+                  })}
+                />
+             
+              <input
+                type="text"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                className=" bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4"
+              />
+            </div>
+          ) : (
+            <div
+              className={`flex rounded-[8px] py-[12px] px-4 border ${errors[field.name] ? "border-red" : "border-[#9D9D9D]"
+                } `}
+            >
+              <input
+                type="text"
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                className="w-full bg-[transparent] outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464]"
+              />
+            </div>
+          )}
+
+          {/* Error Message */}
           {errors[field.name] && (
-            <p className="text-[12px] text-red font-[500]">
-              {errors[field.name]}
-            </p>
+            <p className="text-[12px] text-red font-[500]">{errors[field.name]}</p>
           )}
         </div>
       ))}
+
       <div className="w-full flex justify-between">
         <button
           onClick={() => {

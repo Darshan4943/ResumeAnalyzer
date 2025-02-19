@@ -76,19 +76,19 @@ const SelectPost = () => {
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
     ? jobPost.jobs
-        .filter((job) =>
-          filterStatus === "All" ? true : job.status === filterStatus
-        )
-        .sort((a, b) => {
-          const statusComparison =
-            statusPriority[a.status] - statusPriority[b.status];
+      .filter((job) =>
+        filterStatus === "All" ? true : job.status === filterStatus
+      )
+      .sort((a, b) => {
+        const statusComparison =
+          statusPriority[a.status] - statusPriority[b.status];
 
-          if (statusComparison !== 0) {
-            return statusComparison;
-          }
+        if (statusComparison !== 0) {
+          return statusComparison;
+        }
 
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      })
     : [];
 
   const isLive = (item) => {
@@ -304,8 +304,12 @@ const SelectPost = () => {
                   ))}
                 </>
               ) : (
-                <div className="flex justify-center items-center text-xl">
-                  No job postings found.
+                <div className="flex justify-center items-center text-xl pt-[100px]">
+                  <img
+                    className="w-[20%] min-w-[200px]"
+                    src="/images/employer/OBJECTS.png"
+                    alt="No data available"
+                  />
                 </div>
               )}
             </>

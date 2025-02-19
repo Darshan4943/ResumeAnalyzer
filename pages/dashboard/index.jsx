@@ -34,6 +34,18 @@ function Dashboard({ toggleContentt }) {
       });
     }
   };
+  const scrollToInterviewJobs = () => {
+    if (pendingJobsRef.current) {
+      const offset = 64;
+      const elementPosition = pendingJobsRef.current.offsetTop;
+      setIsPending("Interview");
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
 
   const handleNavigation = (page) => {
     router.push(page);
@@ -179,6 +191,7 @@ function Dashboard({ toggleContentt }) {
     >
       <TopSection
         statistics={statistics}
+        scrollToInterviewJobs={scrollToInterviewJobs}
         scrollToPendingJobs={scrollToPendingJobs}
       />
       <div className="scr1300:flex scr1300:flex-row flex flex-col w-full pt-6 justify-between">
