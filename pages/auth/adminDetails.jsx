@@ -281,7 +281,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = "tempEmployer";
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -333,7 +333,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
