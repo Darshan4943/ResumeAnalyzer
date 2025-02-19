@@ -2,10 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { camelCase } from '../../../utils/middleware';
 import CountUp from 'react-countup';
+import { useRouter } from 'next/router';
 
-function TopSection({ statistics, scrollToPendingJobs }) {
+function TopSection({ statistics, scrollToPendingJobs,scrollToInterviewJobs }) {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  console.log(statistics);
+ const router =useRouter()
   const calculatePercentageChange = (statistics) => {
 
   }
@@ -87,7 +88,8 @@ function TopSection({ statistics, scrollToPendingJobs }) {
 
       {userDataGlobal?.role == "employer" ?
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
+        onClick={() => scrollToInterviewJobs()}
+          className="flex cursor-pointer py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #00B4D8",
@@ -97,7 +99,7 @@ function TopSection({ statistics, scrollToPendingJobs }) {
         >
           <div className="flex items-center justify-between self-stretch">
             <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px] font-semibold leading-normal">
-              03
+            <CountUp end={statistics.interview} />
             </p>
             <div className="w-[69%]">
               <p className="text-[16px] leading-4 font-medium font-montserrat ">
@@ -125,7 +127,8 @@ function TopSection({ statistics, scrollToPendingJobs }) {
 
       {userDataGlobal?.role == "employer" ?
         <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
+        onClick={() =>router.push("/employer/Preboarding")}
+          className=" cursor-pointer flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[32%] scr1067:w-[24%] w-[100%] gap-[6px]  ml:gap-4 h-[130px] relative group"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #F0993B",
@@ -135,7 +138,7 @@ function TopSection({ statistics, scrollToPendingJobs }) {
         >
           <div className="flex items-center justify-between self-stretch">
             <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[26px]  font-semibold leading-normal">
-              04
+            <CountUp end={statistics.shortlisted} />
             </p>
             <div className="w-[69%]">
               <p className=" text-[16px] leading-4 font-medium font-montserrat ">

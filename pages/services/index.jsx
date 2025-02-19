@@ -256,7 +256,7 @@ function Services() {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[59px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
+    <div className="fixed z-[2000]  top-[70px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr420:px-4 px-2 flex scr700:flex-row flex-col scr700:gap-9 gap-6 justify-center w-full transform transition-transform   ease-in-out ${isMove

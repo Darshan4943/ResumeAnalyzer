@@ -34,6 +34,18 @@ function Dashboard({ toggleContentt }) {
       });
     }
   };
+  const scrollToInterviewJobs = () => {
+    if (pendingJobsRef.current) {
+      const offset = 64;
+      const elementPosition = pendingJobsRef.current.offsetTop;
+      setIsPending("Interview");
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
 
   const handleNavigation = (page) => {
     router.push(page);
@@ -141,7 +153,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobStatistics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobStatistics/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/job/getJobStatistics/${userDataGlobal?._id}`
       );
       setStatistics(response.data);
     } catch (err) {
@@ -156,7 +168,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobAnalytics/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getJobAnalytics/${userDataGlobal?._id}`,
         { params: { selected } }
       );
       setData(response.data);
@@ -179,6 +191,7 @@ function Dashboard({ toggleContentt }) {
     >
       <TopSection
         statistics={statistics}
+        scrollToInterviewJobs={scrollToInterviewJobs}
         scrollToPendingJobs={scrollToPendingJobs}
       />
       <div className="scr1300:flex scr1300:flex-row flex flex-col w-full pt-6 justify-between">

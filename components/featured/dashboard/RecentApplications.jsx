@@ -59,7 +59,7 @@ function RecentApplications({ isPending }) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getAllApplication/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getAllApplication/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
@@ -100,7 +100,7 @@ function RecentApplications({ isPending }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/shortlistCandidate",
+        "https://dev.api.skilotech.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -253,9 +253,14 @@ function RecentApplications({ isPending }) {
                       </div>
 
                       <div className="flex w-[15%] items-center justify-center   gap-[8px]">
+                        {applicant.matchingPercentage ?
                         <p className="text-[14px] font-[600]">
                           {applicant.matchingPercentage} %
                         </p>
+                        :
+                        <>-</>
+                        
+                        }
                       </div>
                       <div className=" flex justify-center w-[20%]">
                         <div
