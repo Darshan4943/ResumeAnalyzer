@@ -36,7 +36,8 @@ export const Api = ({ }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  
+  const {recallData } = useSelector((state) => state.recall);
+  console.log(444,recallData)
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
@@ -291,7 +292,30 @@ export const Api = ({ }) => {
 
     }
 
-  }, [userDataGlobal, allPlans]);
+  }, [userDataGlobal, allPlans,recallData]);
+
+  useEffect(() => {
+    if (userDataGlobal?._id) {
+      let userId = userDataGlobal?._id;
+      let role = userDataGlobal?.role;
+
+      axios
+        .post("http://localhost:2000/api/apiLogs/get", {
+          userId,
+          role,
+        })
+        .then((res) => {
+          const result = res.data.data;
+          // localStorage.setItem("chatCount", result.chatBot); 
+          // localStorage.setItem("jdCount", result.jobMatching.matchCount);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userDataGlobal])
+
 
 
 

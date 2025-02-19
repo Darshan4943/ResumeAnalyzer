@@ -7,6 +7,7 @@ import locationReducer from "./slices/locationSlice";
 import jobReducer from "./slices/jobSlice";
 import profileReducer from "./slices/profileSlice"
 import authReducer from "./slices/loginSlice"
+import recallReducer from "./slices/recallSlice"
 
 const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
         job:jobReducer,
         profile:profileReducer,
         auth: authReducer,
+        recall:recallReducer
     },
 });
 

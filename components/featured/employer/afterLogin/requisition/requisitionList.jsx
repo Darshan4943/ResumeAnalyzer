@@ -6,6 +6,7 @@ import MiniLoader from "../../../../common/miniLoader";
 import CustomPagination from "../../../../common/CustomPagination";
 import RequisitionPreview from "../../../../../pages/employer/requisitionPreview";
 import { useSelector } from "react-redux";
+import { currenciesWithIcons } from "../../../../../utils/data";
 
 function RequisitionList({
   filterData,
@@ -83,7 +84,14 @@ function RequisitionList({
     setRequisitionId(requisitions._id);
     setOpenPreview(true);
   };
-
+  const getCurrencyIcon = (currency) => {
+    const icon = currenciesWithIcons?.find(
+      (item) => item?.icon?.toLowerCase() === currency?.toLowerCase()
+    );
+  
+    return icon?.symbol || ""; 
+  };
+  
   return (
     <>
       <div className="web w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
@@ -129,7 +137,7 @@ function RequisitionList({
                 </div>
                 <div className="w-[12.84%] text-[#333333] text-start text-[16px] font-[600] flex flex-col gap-[6px]">
                   <div className="text-[#333333] text-start text-[14px] font-[500]">
-                    {userDataGlobal?.name || "-"}
+                    {requisition?.createdByName || "-"}
                   </div>
                   <div className="text-[#646464] text-start text-[12px] font-[500]">
                     {new Date(requisition.createdAt).toLocaleDateString(
@@ -169,8 +177,8 @@ function RequisitionList({
                     "Not Available"
                   ) : (
                     <>
-                      ${requisition.budgetFrom || 0} - $
-                      {requisition.budgetTo || ""}
+
+                      {getCurrencyIcon(requisition.currency)} {requisition.budgetFrom || 0} - {getCurrencyIcon(requisition.currency)} {requisition.budgetTo || ""}
                     </>
                   )}
                 </div>
@@ -187,29 +195,29 @@ function RequisitionList({
           </div>
         )}
         {requisitions.length > 10 &&
-        <CustomPagination
-          setMiniloading={setMiniloading}
-          miniLoading={miniLoading}
-          setPage={setPage}
-          title={"RequisitionList"}
-          setLimit={setLimit}
-          totalPages={totalPages}
-          limit={limit}
-          page={page}
-        />
-}
+          <CustomPagination
+            setMiniloading={setMiniloading}
+            miniLoading={miniLoading}
+            setPage={setPage}
+            title={"RequisitionList"}
+            setLimit={setLimit}
+            totalPages={totalPages}
+            limit={limit}
+            page={page}
+          />
+        }
       </div>
 
       <div className="mobile  ">
         <div className=" flex flex-col gap-2   relative ">
           <div>
-            {requisitions.map((requisition,index) => (
+            {requisitions.map((requisition, index) => (
               <div
-              key={index}
-              onClick={() => {
-                setRequisitionId(requisition?._id);
-                setOpenPreview(true);
-              }}
+                key={index}
+                onClick={() => {
+                  setRequisitionId(requisition?._id);
+                  setOpenPreview(true);
+                }}
                 className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]"
               >
                 <div className="flex justify-between items-center">
@@ -272,11 +280,10 @@ function RequisitionList({
 
                     <div className="flex items-center py-2 px-4">
                       <p
-                        className={`text-[12px] font-medium ${
-                          requisition.isPriority
+                        className={`text-[12px] font-medium ${requisition.isPriority
                             ? "text-green-600"
                             : "text-red-500"
-                        }`}
+                          }`}
                       >
                         {requisition.isPriority ? "Yes" : "No"}
                       </p>
@@ -287,15 +294,14 @@ function RequisitionList({
                     <div className="px-3 py-[6px] rounded-full">
                       <p
                         className={`text-center font-Montserrat font-semibold text-[14px] px-4 py-2 border rounded-full 
-      ${
-        requisition?.status === "Rejected"
-          ? "text-[#FF7A00] border-[#FF7A00]"
-          : requisition?.status === "Pending"
-          ? "text-yellow border-yellow"
-          : requisition?.status === "Approved"
-          ? "text-green border-green"
-          : "text-gray border-gray"
-      }
+      ${requisition?.status === "Rejected"
+                            ? "text-[#FF7A00] border-[#FF7A00]"
+                            : requisition?.status === "Pending"
+                              ? "text-yellow border-yellow"
+                              : requisition?.status === "Approved"
+                                ? "text-green border-green"
+                                : "text-gray border-gray"
+                          }
     `}
                       >
                         {requisition?.status || "-"}

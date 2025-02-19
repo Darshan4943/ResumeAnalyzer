@@ -438,7 +438,7 @@ function EditProfile({ setEditProfile }) {
           <div className="personal_name_parent w-full">
             <div className={`personal_name w-[50%]`}>
               <p className={`form_text_heading text-[14px]  font-[500] `}>
-                First name <span className="star">*</span>
+                First Name <span className="star">*</span>
               </p>
               <input
                 type="text"
@@ -446,7 +446,7 @@ function EditProfile({ setEditProfile }) {
                 name="firstName"
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
                 // onChange={(e) => setData({ ...data, profile: e.target.value })}
-                placeholder="Enter first name"
+                placeholder="Enter First Name"
                 className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
                   formError.firstName ? "border-red" : "border-[#DEDEDE]"
                 }`}
@@ -454,14 +454,14 @@ function EditProfile({ setEditProfile }) {
             </div>
             <div className="personal_name w-[50%]">
               <p className="form_text_heading text-[14px]  font-[500]">
-                Last name <span className="star">*</span>
+                Last Name <span className="star">*</span>
               </p>
               <input
                 type="text"
                 value={data.lastName}
                 name="lastName"
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                placeholder="Enter Last name"
+                placeholder="Enter Last Name"
                 className={`text-[12px] px-4 h-[44px] w-full font-[400] py-1 max-h-[44px]  border-[1px]   rounded-[8px] border-solid ${
                   formError.lastName ? "border-red" : "border-[#DEDEDE]"
                 }`}
@@ -642,7 +642,7 @@ function EditProfile({ setEditProfile }) {
                 value={data.mobileNo}
                 name="mobileNo"
                 onChange={(e) => handleInputChange("mobileNo", e.target.value)}
-                placeholder="Enter Contact number"
+                placeholder="Enter Contact Number"
                 className="text-[12px]  font-[400]"
               />
             </div>

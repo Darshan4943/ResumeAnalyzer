@@ -19,12 +19,14 @@ import {
   fileIconSeter2,
 } from "../../utils/middleware";
 import Folders from "../../components/featured/candidate/createResume/components/folders";
+import { setRecallData } from "../../Redux/slices/recallSlice";
+import MiniLoader from "../../components/common/miniLoader";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
   const router = useRouter();
   const { skilotechCollection, folders, clientId, parentId, trash } = router.query;
-  console.log(skilotechCollection)
+  const { recallData } = useSelector((state) => state.recall);
   const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -239,12 +241,12 @@ function Collection() {
   useEffect(() => {
 
     getUnSyncFiles();
-
+    dispatch(setRecallData(!recallData));
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
         getUnSyncFiles()
         getData()
-
+        dispatch(setRecallData(!recallData));
       }, 30000);
 
       return () => clearInterval(interval);
@@ -572,7 +574,7 @@ function Collection() {
       if (response.data.success) {
 
         setUploadCount(0);
-        ;
+        dispatch(setRecallData(!recallData));
       } else {
         console.error('First API call error:', response.data.message);
       }
@@ -618,12 +620,12 @@ function Collection() {
                   {fileLoader ? (
                     <>
                       <div className="miniLoader">
-                        <div className="box " style={{ height: "auto" }}>
+                        <div className="box max-h-[80px]">
                           <div className="container">
-                            <span className="circle"></span>
-                            <span className="circle"></span>
-                            <span className="circle"></span>
-                            <span className="circle"></span>
+                            <span className="circle1"></span>
+                            <span className="circle1"></span>
+                            <span className="circle1"></span>
+                            <span className="circle1"></span>
                           </div>
                         </div>
                       </div>
