@@ -81,7 +81,7 @@ const TopCompanies = () => {
                       <div className="text-[16px] font-[600]">
                         {job.companyName}
                       </div>
-                      <div className="flex gap-[5px]">
+                      <div className="flex items-center xsm:flex-col  scr420:flex-row gap-[5px]">
                         <div className="flex gap-[4px]">
                           <div className="w-[14px] h-[14px]">
                             <img src={job.ratingIcon} alt="Rating Icon" />
@@ -91,7 +91,7 @@ const TopCompanies = () => {
                           </div>
                         </div>
                         <div className="border-[1px] border-[#C5C5C5]"></div>
-                        <div className="text-[12px] font-[400]">
+                        <div className="text-[10px] scr420:text-[12px] font-[400]">
                           {job.reviews} Reviews
                         </div>
                       </div>
