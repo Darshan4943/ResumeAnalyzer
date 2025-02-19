@@ -26,7 +26,7 @@ function Index() {
   const fetchCompanyData = async () => {
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/company/getCompaniesById/${id}`,
+        `http://localhost:2000/api/company/getCompaniesById/${id}`,
         {
           params: { page, limit },
         }
@@ -74,7 +74,7 @@ function Index() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://dev.api.skilotech.com/api/company/deleteCompany/${companyId}`
+        `http://localhost:2000/api/company/deleteCompany/${companyId}`
       );
       if (response.data.success) {
         toast.success("Company deleted successfully!");

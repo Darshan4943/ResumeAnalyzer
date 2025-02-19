@@ -27,7 +27,7 @@ const JobCard = ({ filters, setFilters }) => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/job/getAllJobDetails/${id}`,
+        `http://localhost:2000/api/job/getAllJobDetails/${id}`,
         {
           params: { page, limit, ...filters },
         }
@@ -65,7 +65,7 @@ const JobCard = ({ filters, setFilters }) => {
   const handleDelete = async (jobId) => {
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/jobs/deletejob/${jobId}`
+        `http://localhost:2000/api/jobs/deletejob/${jobId}`
       );
 
       if (response.data.success) {
