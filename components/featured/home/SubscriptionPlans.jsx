@@ -374,7 +374,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               clickable: true,
             }}
             modules={[Pagination]}
-            className="mySwiper flex items-center justify-center"
+            className="mySwiper swiperPagination flex items-center justify-center"
             effect="fade"
           >
             {allPlans.map((plan, index) => (

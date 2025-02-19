@@ -571,6 +571,9 @@
   .swiper-slide {
     width: 130px !important;
 
+    @media (min-width: 375px) {
+      width: 120px !important;
+    }
     @media (min-width: 480px) {
       width: 130px !important;
     }
@@ -582,5 +585,11 @@
     @media (min-width: 1024px) {
       width: 152px !important;
     }
+  }
+}
+
+.swiperPagination {
+  .swiper-pagination {
+    display: block;
   }
 }
