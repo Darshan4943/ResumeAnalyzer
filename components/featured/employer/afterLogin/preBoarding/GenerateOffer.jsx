@@ -79,7 +79,7 @@ const GenerateOffer = ({
         formdata.append("file", data.selectedFile);
       }
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/preboarding/genretoffer/${offerData.jobId}/${offerData.applicantId}`,
+        `http://localhost:2000/api/preboarding/genretoffer/${offerData.jobId}/${offerData.applicantId}`,
         formdata,
         {
           headers: { "Content-Type": "multipart/form-data" },

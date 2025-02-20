@@ -19,7 +19,7 @@ function UploadDocuments() {
 
     const getDocumentsUploadStatus = async () => {
         try {
-            const response = await axios.get(`https://dev.api.skilotech.com/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
+            const response = await axios.get(`http://localhost:2000/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
             setPreviousStatus(response.data.documentStatus)
 
             return response.data.documentStatus;
@@ -96,7 +96,7 @@ function UploadDocuments() {
         });
 
         try {
-            const response = await axios.post(`https://dev.api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
+            const response = await axios.post(`http://localhost:2000/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
