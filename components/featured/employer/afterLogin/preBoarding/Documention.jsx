@@ -44,7 +44,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       setMoreOption(false);
     }
   };
- 
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -56,9 +56,6 @@ const Documention = ({ toggleContentt, setToggle }) => {
     setMoreOption((prev) => !prev);
     setSelectedDotIndex(index);
   };
-
-
-
 
   const reminder = async (applicants) => {
     setLoadingApplicantId(applicants.applicantId);
@@ -83,18 +80,21 @@ const Documention = ({ toggleContentt, setToggle }) => {
       isPayroll: applicants.preboardingDetails.documentList.isPayroll,
       isAcademic: applicants.preboardingDetails.documentList.isAcademic,
       isDegrees: applicants.preboardingDetails.documentList.isDegrees,
-      isCertifications: applicants.preboardingDetails.documentList.isCertifications,
+      isCertifications:
+        applicants.preboardingDetails.documentList.isCertifications,
       isExperience: applicants.preboardingDetails.documentList.isExperience,
       content: `<p>Dear Candidate,</p>\n
         <p>We are pleased to inform you that you have been selected for the next round of interviews at Skilotech.</p>\n
-        ${requiredDocs.length > 0
-          ? `<p>To proceed further, please submit the following documents for verification:</p>\n
+        ${
+          requiredDocs.length > 0
+            ? `<p>To proceed further, please submit the following documents for verification:</p>\n
             <ul>${requiredDocs.join("\n")}</ul>\n`
-          : ""
+            : ""
         }
-        ${applicants?.note
-          ? `<p>Additional Note: ${applicants?.note}</p>\n`
-          : ""
+        ${
+          applicants?.note
+            ? `<p>Additional Note: ${applicants?.note}</p>\n`
+            : ""
         }
         <p>Please upload these documents at your earliest convenience.</p>\n
         <p>Best regards,<br />The Skilotech Team</p>`,
@@ -123,14 +123,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const [subject, setSubject] = useState(`Reminder for Document Submission `);
 
   const handleSend = async () => {
-
     try {
       const response = await axios.post(
         "http://localhost:2000/api/preboarding/documentReminder",
         emailDetails
       );
 
-      console.log("Email sent successfully:", response.data);
       setIsRemind(true);
       setLoadingApplicantId(null);
       return response.data;
@@ -247,179 +245,193 @@ const Documention = ({ toggleContentt, setToggle }) => {
           </div>
         </div>
         <div className="grid grid-rows-1 w-full">
-          <div className="grid grid-cols-1 w-full">
-            {jobs?.map((applicants, index) => (
-              <>
-                <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
-                  <div className="grid grid-cols-6 w-full px-4 py-2">
-                    <div className="flex items-center justify-start col-span-1">
-                      <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
-                        {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
-                        <img
-                          className="w-[40px] rounded-[50%]"
-                          src="/images/employer/profile_icon.png"
-                          alt=""
-                        />
-                        <p className="text-[14px] font-[600]">
-                          {applicants.details?.personal?.firstName}{" "}
-                          {applicants.details?.personal?.lastName}
+          {!jobs?.length == 0 ? (
+            <div className="grid grid-cols-1 w-full">
+              {jobs?.map((applicants, index) => (
+                <>
+                  <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
+                    <div className="grid grid-cols-6 w-full px-4 py-2">
+                      <div className="flex items-center justify-start col-span-1">
+                        <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
+                          {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
+                          <img
+                            className="w-[40px] rounded-[50%]"
+                            src="/images/employer/profile_icon.png"
+                            alt=""
+                          />
+                          <p className="text-[14px] font-[600]">
+                            {applicants.details?.personal?.firstName}{" "}
+                            {applicants.details?.personal?.lastName}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-start col-span-1 pl-2">
+                        <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                          {applicants?.jobTitle}
                         </p>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-2">
-                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                        {applicants?.jobTitle}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-3">
-                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                        {formatInterviewDate(applicants?.jobDeadLine)}
-                      </p>
-                    </div>
-                    <div
-                      className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus ===
-                        "Submitted" ||
-                        applicants?.preboardingDetails?.documentStatus ===
-                        "Verified"
-                        ? "text-[#0C8A0A]"
-                        : "text-[#333]"
-                        } `}
-                    >
-                      {applicants?.preboardingDetails?.documentStatus}
-                    </div>
-
-                    <div className="flex items-center justify-start col-span-1 pl-5">
+                      <div className="flex items-center justify-start col-span-1 pl-3">
+                        <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                          {formatInterviewDate(applicants?.jobDeadLine)}
+                        </p>
+                      </div>
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails
-                            ?.preboardingStatus === "Pending"
-                            ? "bg-[#FFF9ED]"
-                            : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Initiated"
+                        className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${
+                          applicants?.preboardingDetails?.documentStatus ===
+                            "Submitted" ||
+                          applicants?.preboardingDetails?.documentStatus ===
+                            "Verified"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
+                        } `}
+                      >
+                        {applicants?.preboardingDetails?.documentStatus}
+                      </div>
+
+                      <div className="flex items-center justify-start col-span-1 pl-5">
+                        <div
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Pending"
+                              ? "bg-[#FFF9ED]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
                               ? "bg-[#E7F8FF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Hired"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-                                  : ""
-                          } ${applicants?.preboardingDetails?.preboardingStatus ===
-                            "Pending"
-                            ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Initiated"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
+                              ?.preboardingStatus === "Pending"
+                              ? "text-[#FFB836]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
                               ? "text-[#06A9EF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Hired"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-                                  : "text-[#333333]"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
                           }`}
-                      >
-                        {applicants?.preboardingDetails?.preboardingStatus}
+                        >
+                          {applicants?.preboardingDetails?.preboardingStatus}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5">
-                      <div className="flex   items-center w-full  justify-between relative">
-                        {applicants?.preboardingDetails?.documentStatus ==
-                          "Submitted" ||
+                      <div className="flex items-center justify-start col-span-1 pl-5">
+                        <div className="flex   items-center w-full  justify-between relative">
+                          {applicants?.preboardingDetails?.documentStatus ==
+                            "Submitted" ||
                           applicants?.preboardingDetails?.documentStatus ==
-                          "Verified" ? (
+                            "Verified" ? (
+                            <button
+                              disabled={
+                                applicants?.preboardingDetails
+                                  ?.isMovedToVerification
+                              }
+                              onClick={() =>
+                                moveToVerification(
+                                  applicants.applicantId,
+                                  applicants.jobId
+                                )
+                              }
+                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${
+                                !applicants?.preboardingDetails
+                                  ?.isMovedToVerification
+                                  ? "text-[#fff] bg-[#06A9EF]"
+                                  : "text-[#ABABAB] border-[#ABABAB]"
+                              }
+                                }`}
+                            >
+                              {applicants?.preboardingDetails
+                                ?.isMovedToVerification
+                                ? "Moved "
+                                : "Move to Next"}
+                            </button>
+                          ) : (
+                            <>
+                              {loadingApplicantId === applicants.applicantId ? (
+                                <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
+                                  <MiniLoader />
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => reminder(applicants)}
+                                  className="w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] "
+                                >
+                                  Remind
+                                </button>
+                              )}
+                            </>
+                          )}
+
                           <button
                             disabled={
                               applicants?.preboardingDetails
-                                ?.isMovedToVerification
+                                ?.preboardingStatus === "Rejected"
                             }
-                            onClick={() =>
-                              moveToVerification(
-                                applicants.applicantId,
-                                applicants.jobId
-                              )
-                            }
-                            className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${!applicants?.preboardingDetails
-                              ?.isMovedToVerification
-                              ? "text-[#fff] bg-[#06A9EF]"
-                              : "text-[#ABABAB] border-[#ABABAB]"
-                              }
-                                }`}
+                            style={{
+                              opacity:
+                                applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Rejected"
+                                  ? 0.5
+                                  : 1,
+                            }}
                           >
-                            {applicants?.preboardingDetails
-                              ?.isMovedToVerification
-                              ? "Moved "
-                              : "Move to Next"}
+                            <img
+                              onClick={() => handleDotClick(index)}
+                              className="min-w-[24px] max-w-[24px]"
+                              src="/images/employer/three-dot.png"
+                              alt=""
+                            />
                           </button>
-                        ) : (
-                          <>
-                            {loadingApplicantId === applicants.applicantId ? (
-                              <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
-                                <MiniLoader />
-                              </div>
-                            ) : (
-                              <button
-                                onClick={() => reminder(applicants)}
-                                className="w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] "
+                          <AnimatePresence>
+                            {moreOption && selectedDotIndex === index && (
+                              <motion.div
+                                onClick={() => {
+                                  setReject(true);
+                                  selectedApplicant(applicants);
+                                }}
+                                initial={{ x: "100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "100%" }}
+                                transition={{ duration: 0.5 }}
+                                ref={taskRef}
+                                className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                                style={{
+                                  boxShadow:
+                                    "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                }}
                               >
-                                Remind
-                              </button>
+                                <div className="text-[#C00000] font-medium cursor-pointer">
+                                  Reject
+                                </div>
+                              </motion.div>
                             )}
-                          </>
-                        )}
-
-                        <button
-                          disabled={
-                            applicants?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"
-                          }
-                          style={{
-                            opacity:
-                              applicants?.preboardingDetails?.preboardingStatus ===
-                                "Rejected"
-                                ? 0.5
-                                : 1,
-                          }}>
-
-                          <img
-                            onClick={() => handleDotClick(index)}
-                            className="min-w-[24px] max-w-[24px]"
-                            src="/images/employer/three-dot.png"
-                            alt=""
-                          />
-                        </button>
-                        <AnimatePresence>
-                          {moreOption && selectedDotIndex === index && (
-                            <motion.div
-                              onClick={() => {
-                                setReject(true);
-                                selectedApplicant(applicants);
-                              }}
-                              initial={{ x: "100%" }}
-                              animate={{ x: 0 }}
-                              exit={{ x: "100%" }}
-                              transition={{ duration: 0.5 }}
-                              ref={taskRef}
-                              className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
-                              style={{
-                                boxShadow:
-                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                              }}
-                            >
-
-                              <div className="text-[#C00000] font-medium cursor-pointer">Reject</div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-
+                          </AnimatePresence>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </>
-            ))}
-          </div>
+                </>
+              ))}
+            </div>
+          ) : (
+            <div className="p-10 w-full flex items-center justify-center">
+              <img
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+                className="h-[114px] w-[200px]"
+              />
+            </div>
+          )}
         </div>
         {totalCount > 10 && (
           <CustomPagination
@@ -459,171 +471,187 @@ const Documention = ({ toggleContentt, setToggle }) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
-          <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
-            {jobs?.map((applicants, index) => (
-              <>
-                <div
-                  className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
-                  style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                >
-                  <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
-                    <div className="flex justify-between items-center self-stretch">
-                      <div className="flex items-center gap-2">
-                        <img
-                          className="w-[40px] h-[40px]"
-                          src="/images/profile/john_doe.png"
-                          alt=""
-                        />
-                        <p className="text-[14px] text-[#333] font-[600]">
-                          {applicants.details?.personal?.firstName}{" "}
-                          {applicants.details?.personal?.lastName}
+          {!jobs?.length == 0 ? (
+            <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
+              {jobs?.map((applicants, index) => (
+                <>
+                  <div
+                    className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl bg-[#fff]"
+                    style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                  >
+                    <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
+                      <div className="flex justify-between items-center self-stretch">
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="w-[40px] h-[40px]"
+                            src="/images/profile/john_doe.png"
+                            alt=""
+                          />
+                          <p className="text-[14px] text-[#333] font-[600]">
+                            {applicants.details?.personal?.firstName}{" "}
+                            {applicants.details?.personal?.lastName}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center self-stretch">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Job Role
+                        </p>
+                        <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
+                          {applicants?.jobTitle}
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center self-stretch">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Due Date
+                        </p>
+                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                          {formatInterviewDate(applicants?.jobDeadLine)}
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center self-stretch">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Doc Status
+                        </p>
+                        <p
+                          className={`text-[14px]  font-[600] font-Montserrat ${
+                            applicants?.preboardingDetails?.documentStatus ===
+                              "Submitted" ||
+                            applicants?.preboardingDetails?.documentStatus ===
+                              "Verified"
+                              ? "text-[#0C8A0A]"
+                              : "text-[#333]"
+                          } `}
+                        >
+                          {applicants?.preboardingDetails?.documentStatus}
                         </p>
                       </div>
 
-                    </div>
+                      <div className="flex justify-between items-center self-stretch">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Preboarding Status
+                        </p>
 
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Job Role
-                      </p>
-                      <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
-                        {applicants?.jobTitle}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Due Date
-                      </p>
-                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {formatInterviewDate(applicants?.jobDeadLine)}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Doc Status
-                      </p>
-                      <p
-                        className={`text-[14px]  font-[600] font-Montserrat ${applicants?.preboardingDetails?.documentStatus ===
-                          "Submitted" ||
-                          applicants?.preboardingDetails?.documentStatus ===
-                          "Verified"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
-                          } `}
-                      >
-                        {applicants?.preboardingDetails?.documentStatus}
-                      </p>
-                    </div>
-
-
-                    <div className="flex justify-between items-center self-stretch">
-                      <p className="text-[14px] text-[#646464] font-[500]">
-                        Preboarding Status
-                      </p>
-
-                      <div
-                        className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : applicants?.preboardingDetails
-                            ?.preboardingStatus === "Pending"
-                            ? "bg-[#FFF9ED]"
-                            : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Initiated"
+                        <div
+                          className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Pending"
+                              ? "bg-[#FFF9ED]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
                               ? "bg-[#E7F8FF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Hired"
-                                ? "bg-[#E8FFE8]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Rejected"
-                                  ? "bg-[#FFE6E2]"
-                                  : ""
-                          } ${applicants?.preboardingDetails?.preboardingStatus ===
-                            "Pending"
-                            ? "text-[#FFB836]"
-                            : applicants?.preboardingDetails
-                              ?.preboardingStatus === "Initiated"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
+                              ?.preboardingStatus === "Pending"
+                              ? "text-[#FFB836]"
+                              : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Initiated"
                               ? "text-[#06A9EF]"
                               : applicants?.preboardingDetails
-                                ?.preboardingStatus === "Hired"
-                                ? "text-[#0C8A0A]"
-                                : applicants?.preboardingDetails
+                                  ?.preboardingStatus === "Hired"
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Rejected"
-                                  ? "text-[#FF6550]"
-                                  : "text-[#333333]"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
                           }`}
-                      >
-                        {applicants?.preboardingDetails?.preboardingStatus}
+                        >
+                          {applicants?.preboardingDetails?.preboardingStatus}
+                        </div>
                       </div>
-
-                    </div>
-                    <div className="flex justify-center w-full">
-                      {applicants?.preboardingDetails?.documentStatus ==
-                        "Submitted" ||
+                      <div className="flex justify-center w-full">
+                        {applicants?.preboardingDetails?.documentStatus ==
+                          "Submitted" ||
                         applicants?.preboardingDetails?.documentStatus ==
-                        "Verified" ? (
-                        <button
-                          disabled={
-                            applicants?.preboardingDetails
-                              ?.isMovedToVerification
-                          }
-                          onClick={() =>
-                            moveToVerification(
-                              applicants.applicantId,
-                              applicants.jobId
-                            )
-                          }
-                          className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${!applicants?.preboardingDetails
-                            ?.isMovedToVerification
-                            ? "text-[#fff] bg-[#06A9EF]"
-                            : "text-[#ABABAB] border-[#ABABAB] border"
+                          "Verified" ? (
+                          <button
+                            disabled={
+                              applicants?.preboardingDetails
+                                ?.isMovedToVerification
+                            }
+                            onClick={() =>
+                              moveToVerification(
+                                applicants.applicantId,
+                                applicants.jobId
+                              )
+                            }
+                            className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${
+                              !applicants?.preboardingDetails
+                                ?.isMovedToVerification
+                                ? "text-[#fff] bg-[#06A9EF]"
+                                : "text-[#ABABAB] border-[#ABABAB] border"
                             }
                                 }`}
-                        >
-                          {applicants?.preboardingDetails?.isMovedToVerification
-                            ? "Moved "
-                            : "Move to Next"}
-                        </button>
-                      ) : (
-                        <div className="flex gap-4">
-                          {loadingApplicantId === applicants.applicantId ? (
-                            <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
-                              <MiniLoader />
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => reminder(applicants)}
-                              className="flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF] text-black font-semibold text-[14px] "
-                            >
-                              Remind
-                            </button>
-                          )}
-                          {applicants?.preboardingDetails?.preboardingStatus !==
-                            "Rejected" &&
-                            <button
-                              disabled={applicants?.preboardingDetails?.preboardingStatus ===
-                                "Rejected"}
-                              onClick={() => {
-
-                                setReject(true);
-                                selectedApplicant(applicants);
-                              }}
-                              style={{
-                                opacity: applicants?.preboardingDetails?.preboardingStatus ===
-                                  "Rejected" ? 0.5 : 1
-                              }}
-                              className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
-                            >
-                              Reject
-                            </button>
-                          }
-                        </div>
-                      )}
+                          >
+                            {applicants?.preboardingDetails
+                              ?.isMovedToVerification
+                              ? "Moved "
+                              : "Move to Next"}
+                          </button>
+                        ) : (
+                          <div className="flex gap-4">
+                            {loadingApplicantId === applicants.applicantId ? (
+                              <div className=" w-[91px] flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border border-[#06A9EF] ">
+                                <MiniLoader />
+                              </div>
+                            ) : (
+                              <button
+                                onClick={() => reminder(applicants)}
+                                className="flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF] text-black font-semibold text-[14px] "
+                              >
+                                Remind
+                              </button>
+                            )}
+                            {applicants?.preboardingDetails
+                              ?.preboardingStatus !== "Rejected" && (
+                              <button
+                                disabled={
+                                  applicants?.preboardingDetails
+                                    ?.preboardingStatus === "Rejected"
+                                }
+                                onClick={() => {
+                                  setReject(true);
+                                  selectedApplicant(applicants);
+                                }}
+                                style={{
+                                  opacity:
+                                    applicants?.preboardingDetails
+                                      ?.preboardingStatus === "Rejected"
+                                      ? 0.5
+                                      : 1,
+                                }}
+                                className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                              >
+                                Reject
+                              </button>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>
-            ))}
-          </div>
+                </>
+              ))}
+            </div>
+          ) : (
+            <div className="p-10 w-full flex items-center justify-center">
+              <img
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+                className="h-[114px] w-[200px]"
+              />
+            </div>
+          )}
         </div>
         {totalCount > 10 && (
           <CustomPagination
@@ -691,18 +719,16 @@ const Documention = ({ toggleContentt, setToggle }) => {
           </div>
         </>
       )}
-      {reject &&
+      {reject && (
         <ShortlistMail
           shortlist={[applicant]}
           setPopupVisible={setReject}
           id={applicant?.jobId}
-
-
           newHiringStage={"Rejected"}
           setStatusChange={setStatusChange}
           statusChange={statusChange}
         />
-      }
+      )}
     </>
   );
 };

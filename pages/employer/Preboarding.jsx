@@ -31,7 +31,6 @@ function Preboarding() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [preboardingData, setPreboardingData] = useState([]);
-  console.log(preboardingData.length);
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
