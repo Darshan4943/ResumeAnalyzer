@@ -27,15 +27,15 @@ function JobCategories() {
                     finance to marketing, and more.
                 </p>
             </div>
-            <div  className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center'>
+            <div  className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center '>
                 {categories.map((category, index) => (
                     <div
                         key={index}
                         style={{ boxShadow: "0px 3px 8px 0px #C9C8C840" }}
                      
-                   onClick={()=>router.push("/jobs/candidate")}
+                   onClick={()=>router.push(`/jobs/candidate?cat=${category.label}`)}
 
-                        className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center'
+                        className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center cursor-pointer'
                     >
                         <img
                             src={category.img}

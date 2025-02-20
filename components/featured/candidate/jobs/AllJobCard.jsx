@@ -186,7 +186,7 @@ function AllJobCard({
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
           setPage={setPage}
-          title={"Front"}
+          title={"Jobs"}
           setLimit={setLimit}
           defaultLimit={10}
           totalPages={totalPages}

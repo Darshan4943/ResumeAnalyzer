@@ -3119,6 +3119,49 @@ export const currencyMap = [
 
 ];
 
+export const jobSectorOptions = [
+  { sector: "Information Technology", jobCat: ["MNC", "Engineering", "Remote", "Startup"] },
+  { sector: "Healthcare", jobCat: ["MNC", "Fresher"] },
+  { sector: "Education", jobCat: ["MNC", "HR"] },
+  { sector: "Finance", jobCat: ["MNC", "Banking and Finance"] },
+  { sector: "Manufacturing", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Construction", jobCat: ["MNC", "Project Manager"] },
+  { sector: "Retail", jobCat: ["MNC", "Sales", "Marketing"] },
+  { sector: "Hospitality", jobCat: ["MNC", "HR"] },
+  { sector: "Transportation", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Energy", jobCat: ["MNC", "Engineering"] },
+  { sector: "Government", jobCat: ["MNC", "Project Manager"] },
+  { sector: "Entertainment", jobCat: ["MNC", "Design", "Marketing"] },
+  { sector: "Real Estate", jobCat: ["MNC", "Sales"] },
+  { sector: "Agriculture", jobCat: ["MNC"] },
+  { sector: "Telecommunications", jobCat: ["MNC", "Engineering"] },
+  { sector: "Marketing and Advertising", jobCat: ["MNC", "Marketing", "Sales"] },
+  { sector: "Legal Services", jobCat: ["MNC"] },
+  { sector: "Non-Profit", jobCat: ["MNC", "HR"] },
+  { sector: "Science and Research", jobCat: ["MNC", "Engineering"] },
+  { sector: "Aerospace", jobCat: ["MNC", "Engineering", "Project Manager"] },
+  { sector: "Automotive", jobCat: ["MNC", "Engineering", "Supply Chain"] },
+  { sector: "Pharmaceuticals", jobCat: ["MNC", "Fresher", "Engineering"] },
+  { sector: "E-commerce", jobCat: ["MNC", "Startup", "Remote"] },
+  { sector: "Cybersecurity", jobCat: ["MNC", "Remote", "Engineering"] },
+  { sector: "Environmental Services", jobCat: ["MNC"] },
+  { sector: "Biotechnology", jobCat: ["MNC", "Science and Research"] },
+  { sector: "Logistics and Supply Chain", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Public Relations", jobCat: ["MNC", "Marketing"] },
+  { sector: "Media and Journalism", jobCat: ["MNC", "Marketing"] },
+  { sector: "Sports and Recreation", jobCat: ["MNC"] },
+  { sector: "Human Resources", jobCat: ["MNC", "HR"] },
+  { sector: "Event Planning", jobCat: ["MNC", "Marketing"] },
+  { sector: "Art and Design", jobCat: ["MNC", "Design"] },
+  { sector: "Gaming and Esports", jobCat: ["MNC", "Design", "Remote"] },
+  { sector: "Fitness and Wellness", jobCat: ["MNC"] },
+  { sector: "Marine and Maritime Industry", jobCat: ["MNC"] },
+  { sector: "Insurance", jobCat: ["MNC", "Banking and Finance"] },
+  { sector: "Petroleum and Natural Gas", jobCat: ["MNC", "Engineering"] },
+  { sector: "Waste Management", jobCat: ["MNC"] },
+  { sector: "Military and Defense", jobCat: ["MNC", "Engineering"] }
+];
+
 export const currenciesWithIcons = [
   { name: "US Dollar", symbol: "$", icon: "usd" },
   {

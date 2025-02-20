@@ -6,7 +6,7 @@ import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import MiniLoader1 from "../../../components/common/mini-loader";
 import ReactSelect from "react-select";
-import { currencyMap, SkillList, telCode } from "../../../utils/data";
+import { currencyMap, jobSectorOptions, SkillList, telCode } from "../../../utils/data";
 import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
@@ -27,7 +27,7 @@ function CreateNewJob() {
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter();
   const { id, companyId, reqId } = router.query;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
   const [skills, setSkills] = useState(SkillList);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -91,32 +91,11 @@ function CreateNewJob() {
         : [],
     });
   };
-  const jobSectorOptions = [
-    "Information Technology",
-    "Healthcare",
-    "Education",
-    "Finance",
-    "Manufacturing",
-    "Construction",
-    "Retail",
-    "Hospitality",
-    "Transportation",
-    "Energy",
-    "Government",
-    "Entertainment",
-    "Real Estate",
-    "Agriculture",
-    "Telecommunications",
-    "Marketing and Advertising",
-    "Legal Services",
-    "Non-Profit",
-    "Science and Research",
-    "Aerospace",
-  ];
+ 
 
   const jobSectors = jobSectorOptions.map((sector) => ({
-    value: sector,
-    label: sector,
+    value: sector.sector,
+    label: sector.sector,
   }));
 
   const handleSectorChange = (selectedJobSector) => {
@@ -237,7 +216,8 @@ function CreateNewJob() {
       setLoadingg(false);
       return;
     }
-
+    const sectorData = jobSectorOptions.find((item) => item.sector === data.jobSector);
+  
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (Array.isArray(data[key])) {
@@ -260,6 +240,15 @@ function CreateNewJob() {
     }
 
     formData.append("createdBy", userDataGlobal?._id);
+    formData.append("createdByName", `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`)
+  
+    if (sectorData?.jobCat) {
+      sectorData.jobCat.forEach((category) => {
+        formData.append("jobCat", category);
+      });
+    } else {
+      formData.append("jobCat", ""); 
+    }
 
     try {
       const response = await axios.post(
