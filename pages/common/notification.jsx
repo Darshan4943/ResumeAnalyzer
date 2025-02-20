@@ -9,16 +9,17 @@ import MiniLoader from "../../components/common/miniLoader";
 function EmployerNotification() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [selectedIds, setSelectedIds] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
   const notificationFilters = [
+    "All",
     "Today ",
     "2 days Ago",
-    // "Application Status ",
+        // "Application Status ",
     // "Offer",
     // "Views on profile",
   ];

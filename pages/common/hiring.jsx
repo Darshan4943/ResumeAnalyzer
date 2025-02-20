@@ -17,7 +17,6 @@ function Hiring() {
     totalJobs: 0,
   });
   const [toggle, setToggle] = useState(0);
-  const [data, setData] = useState([]);
   const [filters, setFilters] = useState({
     Department: "",
     Location: "",

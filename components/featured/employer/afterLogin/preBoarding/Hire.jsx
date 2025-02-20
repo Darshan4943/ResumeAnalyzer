@@ -139,6 +139,7 @@ const Hire = ({}) => {
         </div>
 
         <div className="grid grid-rows-1 w-full">
+        {!jobs?.length == 0 ? (
           <div className="grid grid-cols-1 w-full">
             {jobs.map((applicants, index) => (
               <>
@@ -283,6 +284,15 @@ const Hire = ({}) => {
               </>
             ))}
           </div>
+             ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[114px] w-[200px]"
+                />
+              </div>
+            )}
         </div>
       </div>
 
@@ -307,6 +317,7 @@ const Hire = ({}) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
+        {!jobs?.length == 0 ? (
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {jobs.map((applicants, index) => (
               <>
@@ -468,6 +479,15 @@ const Hire = ({}) => {
               </>
             ))}
           </div>
+             ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[114px] w-[200px]"
+                />
+              </div>
+            )}
         </div>
       </div>
       {totalCount > 10 && (

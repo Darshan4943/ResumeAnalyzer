@@ -402,7 +402,6 @@ function EditProfile({ setEditProfile }) {
   const isEdge = () => {
     return /Edg/.test(navigator.userAgent);
   };
-  console.log("dail code", formError);
 
   return (
     <div

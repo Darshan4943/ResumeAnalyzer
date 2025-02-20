@@ -1709,7 +1709,7 @@ function CreateNewJob() {
                       <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
-                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px] items-center  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Reset
                         </button>
@@ -1717,7 +1717,7 @@ function CreateNewJob() {
                           onClick={() => {
                             openModel(true);
                           }}
-                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px]  md:text-[14px] items-center cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Preview
                         </button>
