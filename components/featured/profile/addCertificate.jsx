@@ -102,7 +102,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     if (isEditing) {
       axios
         .put(
-          `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateCourse/${Course._id}`,
+          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateCourse/${Course._id}`,
           obj
         )
         .then((res) => {
@@ -117,7 +117,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     } else {
       axios
         .post(
-          "https://dev.api.skilotech.com/api/candidate/addCourse/" +
+          "http://localhost:2000/api/candidate/addCourse/" +
             userDataGlobal?._id,
           obj
         )

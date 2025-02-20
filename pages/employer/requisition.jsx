@@ -91,7 +91,7 @@ function Requisition() {
                 onClick={() =>
                   router.push("/employer/requisition/CreateNewRequisition")
                 }
-                className="px-5 py-2.5 bg-[#06A9EF] text-white text-sm sm:text-base font-semibold rounded-full flex items-center gap-2 shadow-md hover:bg-[#0597d3] transition-all duration-300"
+                className="px-4 py-2 bg-[#06A9EF] text-white text-sm font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-[#0597d3] transition-all duration-300"
               >
                 <svg
                   width="18"

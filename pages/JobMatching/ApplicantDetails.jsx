@@ -33,7 +33,7 @@ console.log(22233,userDetails)
   //         );
 
   //         const response = await axios.get(
-  //           "https://dev.api.skilotech.com/api/applicantdetails",
+  //           "http://localhost:2000/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }

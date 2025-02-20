@@ -281,7 +281,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = "tempEmployer";
     axios
-      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -333,7 +333,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://dev.api.skilotech.com/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -372,8 +372,9 @@ function AdminDetails({
     <>
       <div
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-        className={`${tog === 2 ? "flex" : "hidden"
-          } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
+        className={`${
+          tog === 2 ? "flex" : "hidden"
+        } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
       >
         <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
           <div className="flex w-full flex-col gap-1">
@@ -381,8 +382,9 @@ function AdminDetails({
               First Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.firstName ? "border-red" : "border-[#9D9D9D]"
-                }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
+                formError.firstName ? "border-red" : "border-[#9D9D9D]"
+              }`}
             >
               <input
                 type="text"
@@ -390,7 +392,7 @@ function AdminDetails({
                 id=""
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
-                placeholder="Enter Your First Name"
+                placeholder="Enter First Name"
                 className="w-full bg-[transparent] outline-none placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
@@ -400,8 +402,9 @@ function AdminDetails({
               Last Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.lastName ? "border-red" : "border-[#9D9D9D]"
-                }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
+                formError.lastName ? "border-red" : "border-[#9D9D9D]"
+              }`}
             >
               <input
                 type="text"
@@ -409,7 +412,7 @@ function AdminDetails({
                 id=""
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                placeholder="Enter Your Last Name"
+                placeholder="Enter Last Name"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
@@ -421,8 +424,9 @@ function AdminDetails({
           </div>
           <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
             <div
-              className={` rounded-[8px] w-full  pr-4 border ${formError.dial_code ? "border-red" : "border-[#9D9D9D]"
-                } flex`}
+              className={` rounded-[8px] w-full  pr-4 border ${
+                formError.dial_code ? "border-red" : "border-[#9D9D9D]"
+              } flex`}
             >
               <ReactSelect
                 options={filteredTelCode}
@@ -467,18 +471,14 @@ function AdminDetails({
                 type="text"
                 name=""
                 id=""
-                placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
-                  }`}
+                placeholder={`${
+                  isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
+                }`}
                 value={formData.mobileNo}
                 onChange={(e) => handleInputChange("mobileNo", e.target.value)}
                 className="w-full bg-[transparent] pl-4 outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
-
-
-
-
-
           </div>
         </div>
         <div className="w-full flex flex-col gap-1">
@@ -487,8 +487,9 @@ function AdminDetails({
           </div>
           <div className="w-full flex flex-col scr540:flex-row justify-between gap-3 scr540:gap-[20px]">
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError.email ? "border-red" : "border-[#9D9D9D]"
-                }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
+                formError.email ? "border-red" : "border-[#9D9D9D]"
+              }`}
             >
               <input
                 type="email"
@@ -501,7 +502,7 @@ function AdminDetails({
                   setVerified(false);
                   setOtp(new Array(4).fill(""));
                 }}
-                placeholder="Enter Your Email Address"
+                placeholder="Enter Email Address"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {verified && (
@@ -563,7 +564,6 @@ function AdminDetails({
                 )}
               </>
             )}
-
           </div>
           {verify && (
             <div className="flex flex-col gap-2 font-medium w-full pt-2 ">
@@ -633,7 +633,7 @@ function AdminDetails({
                 id=""
                 value={formData.password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
-                placeholder="Create Your Password Here"
+                placeholder="Create Password Here"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&
@@ -692,7 +692,7 @@ function AdminDetails({
                 onChange={(e) =>
                   handleInputChange("confirmPassword", e.target.value)
                 }
-                placeholder="Comfirm Your Password"
+                placeholder="Comfirm Password"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&

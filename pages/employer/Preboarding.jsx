@@ -31,7 +31,6 @@ function Preboarding() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [preboardingData, setPreboardingData] = useState([]);
-  console.log(preboardingData.length);
   const [headings, setHeadings] = useState([
     {
       heading: "Job Role",
@@ -63,7 +62,7 @@ function Preboarding() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+          `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
           {
             params: {
               page: page,

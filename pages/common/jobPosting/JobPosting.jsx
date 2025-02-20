@@ -60,7 +60,7 @@ function JobPosting() {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getRequisitionTitel/${userDataGlobal?._id}`
+          `http://localhost:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
 
@@ -157,7 +157,7 @@ function JobPosting() {
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getrequisitions/${userDataGlobal._id}`,
+          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,
@@ -249,9 +249,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -294,8 +294,9 @@ function JobPosting() {
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                                }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
+                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                              }`}
                             >
                               <div className="w-[14%] text-start">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -312,7 +313,7 @@ function JobPosting() {
                               </p>
                               <p className="text-[14px] w-[14%] text-strat font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                  requisition.location.length > 0 ? (
+                                requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -336,17 +337,18 @@ function JobPosting() {
 
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {!requisition.budgetFrom &&
-                                  !requisition.budgetTo
+                                !requisition.budgetTo
                                   ? ""
-                                  : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || ""
-                                  }`}
+                                  : `$${requisition.budgetFrom || 0} - ${
+                                      requisition.budgetTo || ""
+                                    }`}
                               </p>
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {requisition?.createdByName || "-"}
                               </p>
 
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
-                                {requisition.hiringDate ?
+                                {requisition.hiringDate ? (
                                   <>
                                     {new Date(
                                       requisition.hiringDate
@@ -356,19 +358,16 @@ function JobPosting() {
                                       year: "numeric",
                                     })}
                                   </>
-                                  :
-                                  <>
-                                    -</>
-
-                                }
+                                ) : (
+                                  <>-</>
+                                )}
                               </p>
 
-                              {requisition?.jobStatus ?
-
-                                <div className="rounded-[30px] border border-blue px-[26px] py-1 text-[14px] font-medium opacity-50">
+                              {requisition?.jobStatus ? (
+                                <div className="rounded-[30px]  border border-blue px-[26px] py-1 text-[14px] font-medium opacity-50">
                                   Posted
                                 </div>
-                                :
+                              ) : (
                                 <button
                                   onClick={() =>
                                     router.push(
@@ -393,7 +392,7 @@ function JobPosting() {
                                   </svg>
                                   Post Job
                                 </button>
-                              }
+                              )}
                             </div>
                           ))
                         ) : (
@@ -487,9 +486,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -527,7 +526,7 @@ function JobPosting() {
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]">
                         {requisition.location &&
-                          requisition.location.length > 0 ? (
+                        requisition.location.length > 0 ? (
                           requisition.location.length > 2 ? (
                             <div className="flex flex-col">
                               {requisition.location.map((loc, index) => (
@@ -563,8 +562,9 @@ function JobPosting() {
                         <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
                           {!requisition.budgetFrom && !requisition.budgetTo
                             ? ""
-                            : `$${requisition.budgetFrom || 0} - ${requisition.budgetTo || "Not Available"
-                            }`}
+                            : `$${requisition.budgetFrom || 0} - ${
+                                requisition.budgetTo || "Not Available"
+                              }`}
                         </div>
                       </div>
                       <div className="text-center">
@@ -589,12 +589,11 @@ function JobPosting() {
                           }
                         )}
                       </div>
-                      {requisition?.jobStatus ?
-
-                        <div className="rounded-[30px] border border-blue">
+                      {requisition?.jobStatus ? (
+                        <div className="rounded-[30px] px-[12px] py-[6px] border border-blue">
                           Posted
                         </div>
-                        :
+                      ) : (
                         <button
                           onClick={() =>
                             router.push(
@@ -619,7 +618,7 @@ function JobPosting() {
                           </svg>
                           Post Job
                         </button>
-                      }
+                      )}
                     </div>
                   </div>
                 ))
@@ -633,9 +632,8 @@ function JobPosting() {
                 </div>
               )}
             </div>
-            {requisitions.length > 10 &&
-
-              < CustomPagination
+            {requisitions.length > 10 && (
+              <CustomPagination
                 setMiniloading={setMiniloading}
                 miniLoading={miniLoading}
                 setPage={setPage}
@@ -646,7 +644,7 @@ function JobPosting() {
                 page={page}
                 isBackground={true}
               />
-            }
+            )}
           </div>
         )}
 

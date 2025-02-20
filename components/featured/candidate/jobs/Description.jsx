@@ -21,7 +21,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const addJobView = async () => {
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/jobs/views/${selectedJob?._id}`
+        `http://localhost:2000/api/jobs/views/${selectedJob?._id}`
       );
       localStorage.setItem("viewed", JSON.stringify(true));
       return response.data;
@@ -45,7 +45,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const [copied, setCopied] = useState(false);
 
   const handleClick = (jobId) => {
-    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}`;
+    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
     setCopied(false);
     setGeneratedLink(link);
     setShowPopup(true);

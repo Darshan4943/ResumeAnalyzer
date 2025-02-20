@@ -37,7 +37,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -84,7 +84,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
         );
         const data = response.data;
 
@@ -149,7 +149,6 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setSelectedDotIndex(index);
   };
 
-
   return (
     <>
       {startPreboarding && (
@@ -202,162 +201,168 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         </div>
 
         <div className="grid grid-rows-1 w-full">
-          <div className="grid grid-cols-1 w-full">
-            {jobs.map((job, index) => (
-              <>
-                <div
-                  className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
-                    ? "bg-[#D3F1FF]"
-                    : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
-                    }`}
-                >
-                  <div className="grid grid-cols-5 w-full ">
-                    <div className="flex items-center justify-start col-span-1">
-                      <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
-                        {/* <input
+          {!jobs?.length == 0 ? (
+            <>
+              <div className="grid grid-cols-1 w-full">
+                {jobs.map((job, index) => (
+                  <>
+                    <div
+                      className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${
+                        checkedjob[index]
+                          ? "bg-[#D3F1FF]"
+                          : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                      }`}
+                    >
+                      <div className="grid grid-cols-5 w-full ">
+                        <div className="flex items-center justify-start col-span-1">
+                          <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
+                            {/* <input
                           className="w-[16px] h-[16px]"
                           type="checkbox"
                           checked={!!checkedjob[index]}
                           onChange={() => handleCheckboxChange(index)}
                         /> */}
-                        <img
-                          className="w-[40px]  rounded-[50%]"
-                          src="/images/employer/profile_icon.png"
-                          alt=""
-                        />
-                        <p className="text-[14px] font-[600] text-[#333333]">
-                          {!job.details.personal.firstName.length == 0 ? (
-                            <>
-                              {job.details.personal.firstName}{" "}
-                              {job.details.personal.lastName}
-                            </>
-                          ) : (
-                            "-"
-                          )}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-2">
-                      <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
-                        {job.jobTitle}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-3">
-                      <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
-                        {formatInterviewDate(job?.jobDeadLine)}
-                      </p>
-                    </div>
+                            <img
+                              className="w-[40px]  rounded-[50%]"
+                              src="/images/employer/profile_icon.png"
+                              alt=""
+                            />
+                            <p className="text-[14px] font-[600] text-[#333333]">
+                              {!job.details.personal.firstName.length == 0 ? (
+                                <>
+                                  {job.details.personal.firstName}{" "}
+                                  {job.details.personal.lastName}
+                                </>
+                              ) : (
+                                "-"
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-start col-span-1 pl-2">
+                          <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
+                            {job.jobTitle}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-start col-span-1 pl-3">
+                          <p className="text-[12px] font-[500] text-[#333] font-Montserrat">
+                            {formatInterviewDate(job?.jobDeadLine)}
+                          </p>
+                        </div>
 
-                    <div className="flex items-center justify-start col-span-1 pl-5">
-                      <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                          ? "bg-[#FFFFFF]"
-                          : job?.preboardingDetails?.preboardingStatus ===
-                            "Pending"
-                            ? "bg-[#FFF9ED]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : job?.preboardingDetails?.preboardingStatus ===
-                                "Hired"
+                        <div className="flex items-center justify-start col-span-1 pl-5">
+                          <div
+                            className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                              checkedjob[index]
+                                ? "bg-[#FFFFFF]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Pending"
+                                ? "bg-[#FFF9ED]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Initiated"
+                                ? "bg-[#E7F8FF]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Hired"
                                 ? "bg-[#E8FFE8]"
                                 : job?.preboardingDetails?.preboardingStatus ===
                                   "Rejected"
-                                  ? "bg-[#FFE6E2]"
-                                  : ""
-                          } ${job?.preboardingDetails?.preboardingStatus ===
-                            "Pending"
-                            ? "text-[#FFB836]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Initiated"
-                              ? "text-[#06A9EF]"
-                              : job?.preboardingDetails?.preboardingStatus ===
-                                "Hired"
+                                ? "bg-[#FFE6E2]"
+                                : ""
+                            } ${
+                              job?.preboardingDetails?.preboardingStatus ===
+                              "Pending"
+                                ? "text-[#FFB836]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Initiated"
+                                ? "text-[#06A9EF]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Hired"
                                 ? "text-[#0C8A0A]"
                                 : job?.preboardingDetails?.preboardingStatus ===
                                   "Rejected"
-                                  ? "text-[#FF6550]"
-                                  : "text-[#333333]"
-                          }`}
-                      >
-                        {job?.preboardingDetails?.preboardingStatus}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5">
-                      <div className="flex   items-center w-full  justify-between relative">
-                        <div key={index}>
-                          {job?.preboardingDetails?.preboardingStatus ===
-                            "Initiated" ? (
-                            <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
-                              Initiated
-                            </div>
-                          ) : job?.preboardingDetails?.preboardingStatus ===
-                            "Hired" ? (
-                            <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
-                              Hired
-                            </div>
-                          ) : job?.preboardingDetails?.preboardingStatus ===
-                            "Rejected" ? (
-                            <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
-                              Rejected
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => {
-                                setStartPreboarding(true);
-                                selectedApplicant(job);
-                              }}
-                              className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
-                            >
-                              Start Preboarding
-                            </button>
-                          )}
+                                ? "text-[#FF6550]"
+                                : "text-[#333333]"
+                            }`}
+                          >
+                            {job?.preboardingDetails?.preboardingStatus}
+                          </div>
                         </div>
-                        <button
-                          disabled={
-                            job?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"
-                          }
-                          style={{
-                            opacity:
-                              job?.preboardingDetails?.preboardingStatus ===
+                        <div className="flex items-center justify-start col-span-1 pl-5">
+                          <div className="flex   items-center w-full  justify-between relative">
+                            <div key={index}>
+                              {job?.preboardingDetails?.preboardingStatus ===
+                              "Initiated" ? (
+                                <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                  Initiated
+                                </div>
+                              ) : job?.preboardingDetails?.preboardingStatus ===
+                                "Hired" ? (
+                                <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                  Hired
+                                </div>
+                              ) : job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected" ? (
+                                <div className="flex lg:py-[6px] lg:px-2 xxlg:px-14  px-1 py-1 justify-center items-center content-center rounded-[30px] border border-[#DEDEDE]  text-[#DEDEDE] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat">
+                                  Rejected
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => {
+                                    setStartPreboarding(true);
+                                    selectedApplicant(job);
+                                  }}
+                                  className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-[#FFFFFF] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
+                                >
+                                  Start Preboarding
+                                </button>
+                              )}
+                            </div>
+                            <button
+                              disabled={
+                                job?.preboardingDetails?.preboardingStatus ===
                                 "Rejected"
-                                ? 0.5
-                                : 1,
-                          }}>
-
-                          <img
-                            onClick={() => handleDotClick(index)}
-                            className="min-w-[24px] max-w-[24px]"
-                            src="/images/employer/three-dot.png"
-                            alt=""
-                          />
-                        </button>
-                        <AnimatePresence>
-                          {moreOption && selectedDotIndex === index && (
-                            <motion.div
-                              onClick={() => {
-                                setReject(true);
-                                selectedApplicant(job);
-                              }}
-                              initial={{ x: "100%" }}
-                              animate={{ x: 0 }}
-                              exit={{ x: "100%" }}
-                              transition={{ duration: 0.5 }}
-                              ref={taskRef}
-                              className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                              }
                               style={{
-                                boxShadow:
-                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                opacity:
+                                  job?.preboardingDetails?.preboardingStatus ===
+                                  "Rejected"
+                                    ? 0.5
+                                    : 1,
                               }}
                             >
+                              <img
+                                onClick={() => handleDotClick(index)}
+                                className="min-w-[24px] max-w-[24px]"
+                                src="/images/employer/three-dot.png"
+                                alt=""
+                              />
+                            </button>
+                            <AnimatePresence>
+                              {moreOption && selectedDotIndex === index && (
+                                <motion.div
+                                  onClick={() => {
+                                    setReject(true);
+                                    selectedApplicant(job);
+                                  }}
+                                  initial={{ x: "100%" }}
+                                  animate={{ x: 0 }}
+                                  exit={{ x: "100%" }}
+                                  transition={{ duration: 0.5 }}
+                                  ref={taskRef}
+                                  className="absolute flex flex-col text-[14px] w-[100px] rounded-[8px]  right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white"
+                                  style={{
+                                    boxShadow:
+                                      "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                  }}
+                                >
+                                  <div className="text-[#C00000] font-medium cursor-pointer">
+                                    Reject
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
 
-                              <div className="text-[#C00000] font-medium cursor-pointer">Reject</div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-
-                        {/* <button
+                            {/* <button
                           disabled={
                             job?.preboardingDetails?.preboardingStatus ===
                             "Rejected"
@@ -377,13 +382,23 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                         >
                           Reject
                         </button> */}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </>
-            ))}
-          </div>
+                  </>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="p-10 w-full flex items-center justify-center">
+              <img
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+                className="h-[114px] w-[200px]"
+              />
+            </div>
+          )}
         </div>
         {totalCount > 10 && (
           <CustomPagination
@@ -423,6 +438,8 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
+        {!jobs?.length == 0 ? (
+          <>
           <div className="flex flex-col gap-4 items-start bg-[#fff] p-4 overflow-y-auto w-full">
             {jobs.map((job, index) => (
               <div
@@ -473,20 +490,21 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                     </p>
                     <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00]">
                       <p
-                        className={`text-[#FF7A00] font-semibold text-[14px] ${job?.preboardingDetails?.preboardingStatus ===
+                        className={`text-[#FF7A00] font-semibold text-[14px] ${
+                          job?.preboardingDetails?.preboardingStatus ===
                           "Pending"
-                          ? "bg-[#FFF9ED] text-[#FFB836]"
-                          : job?.preboardingDetails?.preboardingStatus ===
-                            "Initiated"
+                            ? "bg-[#FFF9ED] text-[#FFB836]"
+                            : job?.preboardingDetails?.preboardingStatus ===
+                              "Initiated"
                             ? " text-[#06A9EF]"
                             : job?.preboardingDetails?.preboardingStatus ===
                               "Hired"
-                              ? " text-[#0C8A0A]"
-                              : job?.preboardingDetails?.preboardingStatus ===
-                                "Rejected"
-                                ? " text-[#FF6550]"
-                                : "text-[#333]"
-                          }`}
+                            ? " text-[#0C8A0A]"
+                            : job?.preboardingDetails?.preboardingStatus ===
+                              "Rejected"
+                            ? " text-[#FF6550]"
+                            : "text-[#333]"
+                        }`}
                       >
                         {job?.preboardingDetails?.preboardingStatus}
                       </p>
@@ -506,7 +524,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                       style={{
                         opacity:
                           job?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"
+                          "Rejected"
                             ? 0.5
                             : 1,
                       }}
@@ -517,32 +535,42 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
 
                     {job?.preboardingDetails?.preboardingStatus !==
                       "Rejected" && (
-                        <button
-                          disabled={
+                      <button
+                        disabled={
+                          job?.preboardingDetails?.preboardingStatus ===
+                          "Rejected"
+                        }
+                        onClick={() => {
+                          setReject(true);
+                          selectedApplicant(job);
+                        }}
+                        style={{
+                          opacity:
                             job?.preboardingDetails?.preboardingStatus ===
                             "Rejected"
-                          }
-                          onClick={() => {
-                            setReject(true);
-                            selectedApplicant(job);
-                          }}
-                          style={{
-                            opacity:
-                              job?.preboardingDetails?.preboardingStatus ===
-                                "Rejected"
-                                ? 0.5
-                                : 1,
-                          }}
-                          className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
-                        >
-                          Reject
-                        </button>
-                      )}
+                              ? 0.5
+                              : 1,
+                        }}
+                        className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                      >
+                        Reject
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          </>
+             ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[114px] w-[200px]"
+                />
+              </div>
+            )}
         </div>
 
         {totalCount > 10 && (

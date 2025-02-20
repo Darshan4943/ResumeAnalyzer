@@ -29,7 +29,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     if (clientId) {
       axios
-        .get(`https://dev.api.skilotech.com/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           setDetails(res.data.data);
         })
@@ -37,7 +37,7 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
       axios
-        .get("https://dev.api.skilotech.com/api/resume/" + clientId)
+        .get("http://localhost:2000/api/resume/" + clientId)
         .then((res) => {
           setResumeList(res.data.data);
         })
@@ -50,7 +50,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/cover/get/" + clientId)
+      .get("http://localhost:2000/api/cover/get/" + clientId)
       .then((res) => {
         setCoverList(res.data.data);
         setTimeout(() => {
@@ -80,7 +80,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete("https://dev.api.skilotech.com/api/resume/deleteResume", {
+      .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -104,7 +104,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete(`https://dev.api.skilotech.com/api/cover/delete/${ids}`)
+      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
       .then((response) => {
         toast.success("Resume Deleted successfully");
 
@@ -550,8 +550,8 @@ function ClientDetail({ tabIndex }) {
                 onClick={() =>
                   router.push(`/createResume/BuildResume?clientId=${clientId}`)
                 }
-                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+                style={{ boxShadow: "0px 0px 5px 1px #00000040" }}
+                className="rounded-[12px] text-center justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-white p-6 cursor-pointer"
               >
                 <svg
                   width="27"
@@ -562,7 +562,7 @@ function ClientDetail({ tabIndex }) {
                 >
                   <path
                     d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                    fill="white"
+                    fill="#333333"
                   />
                 </svg>
 
@@ -678,8 +678,8 @@ function ClientDetail({ tabIndex }) {
             <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
               <div
                 onClick={() => router.push(`/coverLetter?clientId=${clientId}`)}
-                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+                style={{ boxShadow: "0px 0px 5px 1px #00000040" }}
+                className="rounded-[12px] text-center bg-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px]  p-6 cursor-pointer"
               >
                 <svg
                   width="27"
@@ -690,7 +690,7 @@ function ClientDetail({ tabIndex }) {
                 >
                   <path
                     d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                    fill="white"
+                    fill="#333333"
                   />
                 </svg>
 

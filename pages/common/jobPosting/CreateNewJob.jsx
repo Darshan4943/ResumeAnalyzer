@@ -263,7 +263,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -289,7 +289,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -381,7 +381,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`https://dev.api.skilotech.com/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -573,7 +573,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getRequisitionById/${reqId}`
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData({
@@ -1709,7 +1709,7 @@ function CreateNewJob() {
                       <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
-                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px] items-center  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Reset
                         </button>
@@ -1717,7 +1717,7 @@ function CreateNewJob() {
                           onClick={() => {
                             openModel(true);
                           }}
-                          className="text-[12px]  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px]  md:text-[14px] items-center cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
                         >
                           Preview
                         </button>

@@ -45,7 +45,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -79,7 +79,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
+        `http://localhost:2000/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -171,6 +171,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           </div>
         </div>
         <div className="grid grid-rows-1 w-full">
+        {!jobs?.length == 0 ? (
           <div className="grid grid-cols-1 w-full">
             {jobs.map((applicants, index) => (
               <>
@@ -324,6 +325,15 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
               </>
             ))}
           </div>
+             ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[114px] w-[200px]"
+                />
+              </div>
+            )}
         </div>
       </div>
 
@@ -350,6 +360,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
+        {!jobs?.length == 0 ? (
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {jobs.map((applicants, index) => (
               <>
@@ -526,6 +537,15 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
               </>
             ))}
           </div>
+             ) : (
+              <div className="p-10 w-full flex items-center justify-center">
+                <img
+                  src="/images/employer/OBJECTS.png"
+                  alt="No data available"
+                  className="h-[114px] w-[200px]"
+                />
+              </div>
+            )}
         </div>
       </div>
 

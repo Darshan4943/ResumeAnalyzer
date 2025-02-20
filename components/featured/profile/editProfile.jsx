@@ -203,7 +203,7 @@ function EditProfile({ setEditProfile }) {
       };
       axios
         .put(
-          "https://dev.api.skilotech.com/api/candidate/updateProfile/" +
+          "http://localhost:2000/api/candidate/updateProfile/" +
             userDataGlobal?._id,
           requestData
         )
@@ -292,7 +292,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
 
     axios
-      .post("https://dev.api.skilotech.com/api/otpMailProfile", {
+      .post("http://localhost:2000/api/otpMailProfile", {
         userId: userDataGlobal?._id,
         userEmail: data.email,
       })
@@ -342,7 +342,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://dev.api.skilotech.com/api/verifyOtpProfile", {
+      .post("http://localhost:2000/api/verifyOtpProfile", {
         userId: userDataGlobal?._id,
         otpEntered,
       })
@@ -402,7 +402,6 @@ function EditProfile({ setEditProfile }) {
   const isEdge = () => {
     return /Edg/.test(navigator.userAgent);
   };
-  console.log("dail code", formError);
 
   return (
     <div

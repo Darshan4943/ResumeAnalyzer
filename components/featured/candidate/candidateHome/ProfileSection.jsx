@@ -51,7 +51,7 @@ function ProfileSection() {
                         <img
                             src="/images/profile/john_doe.png"
                             alt=""
-                            className="w-[92px] h-[92px] object-cover absolute rounded-full"
+                            className="w-[104px] h-[104px] object-cover absolute rounded-full"
                         />
 
                     </div>

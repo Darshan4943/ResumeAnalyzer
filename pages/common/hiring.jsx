@@ -17,7 +17,6 @@ function Hiring() {
     totalJobs: 0,
   });
   const [toggle, setToggle] = useState(0);
-  const [data, setData] = useState([]);
   const [filters, setFilters] = useState({
     Department: "",
     Location: "",
@@ -70,7 +69,7 @@ function Hiring() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {
