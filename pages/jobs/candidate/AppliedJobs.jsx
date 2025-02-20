@@ -21,7 +21,7 @@ function AppliedJobs({ setLimitPopup, }) {
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const dispatch = useDispatch();
-  
+
 
 
   const getAppliedData = () => {
@@ -32,7 +32,7 @@ function AppliedJobs({ setLimitPopup, }) {
       })
       .then((res) => {
 
-       setAppliedJobs(res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        setAppliedJobs(res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
 
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
@@ -72,26 +72,30 @@ function AppliedJobs({ setLimitPopup, }) {
           {appliedJobs?.length > 0 ?
             <div className="flex flex-col gap-[24px] customMargins py-6">
               <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You&apos;ve Applied <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {totalCount} Jobs )</span></p>
-              <div
-                onClick={() => setIsDescription(true)}
-                className="w-full scr700:w-[75%]"
-              >
-                <AppliedJobCard
-                  selectedJob={selectedJob}
-                  setIsDescription={setIsDescription}
-                  setSelectedJob={setSelectedJob}
-                  miniLoading={miniLoading}
-                  setLimit={setLimit}
-                  limit={limit}
-                  setTotalpages={setTotalpages}
-                  totalPages={totalPages}
-                  page={page}
-                  setPage={setPage}
-                  appliedJobs={appliedJobs}
-                  setAppliedJobs={setAppliedJobs}
-                />
+              <div className="flex w-full gap-6">
+                <div
+                  onClick={() => setIsDescription(true)}
+                  className="w-full scr700:w-[75%]"
+                >
+                  <AppliedJobCard
+                    selectedJob={selectedJob}
+                    setIsDescription={setIsDescription}
+                    setSelectedJob={setSelectedJob}
+                    miniLoading={miniLoading}
+                    setLimit={setLimit}
+                    limit={limit}
+                    setTotalpages={setTotalpages}
+                    totalPages={totalPages}
+                    page={page}
+                    setPage={setPage}
+                    appliedJobs={appliedJobs}
+                    setAppliedJobs={setAppliedJobs}
+                  />
+                </div>
+                <div className="hidden lg:block w-[357px]">
+                  <img src="/images/home/JobAppliedPoster.png" alt="" />
+                </div>
               </div>
-
             </div>
 
             :
