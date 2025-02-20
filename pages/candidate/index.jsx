@@ -12,8 +12,8 @@ function CandidateHome() {
       </div>
       <MiddleSection />
       <div className='w-[262px] hidden scr1200:flex flex-col gap-6'>
-        <img src="/images/home/GenerativeAI.png" className="w-full" alt="Event Flyer" />
-        <img src="/images/home/GenerativeAI.png" className="w-full" alt="Generative AI" />
+        <img src="/images/home/CandidatePoster1.png" className="w-full" alt="Event Flyer" />
+        <img src="/images/home/CandidatePoster2.png" className="w-full" alt="Generative AI" />
       </div>
     </div>
   )
