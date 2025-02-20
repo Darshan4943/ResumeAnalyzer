@@ -19,7 +19,7 @@ function UploadDocuments() {
 
     const getDocumentsUploadStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
+            const response = await axios.get(`https://dev.api.skilotech.com/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
             setPreviousStatus(response.data.documentStatus)
 
             return response.data.documentStatus;
@@ -76,9 +76,12 @@ function UploadDocuments() {
         "isDegrees",
         "isExperience",
     ];
+    const filteredRequiredFields = requiredFields.filter(
+        (key) => router.query[key] === "true"
+    );
 
     const uploadDocuments = async () => {
-        const missingFields = requiredFields.filter((key) => !files[key]);
+        const missingFields = filteredRequiredFields.filter((key) => !files[key]);
 
         if (missingFields.length > 0) {
             toast.error(`Please upload all required documents.`);
@@ -93,7 +96,7 @@ function UploadDocuments() {
         });
 
         try {
-            const response = await axios.post(`http://localhost:2000/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
+            const response = await axios.post(`https://dev.api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -281,7 +284,7 @@ function UploadDocuments() {
                 })}
             </div>
 
-            <div className="w-full flex justify-end mt-4 customMargins">
+            <div className="w-full flex justify-end mt-4 customMargins pb-6">
                 {loading1 ?
                     <div className="bg-blue px-4 py-2 text-white rounded-[12px] flex justify-center items-center font-medium w-[91.64px]">
                         <MiniLoader />

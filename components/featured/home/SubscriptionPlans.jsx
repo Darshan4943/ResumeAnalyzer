@@ -59,8 +59,8 @@ function SubscriptionPlans({ fromMain }) {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:2000/api/checkForFreePlanByUserId/" +
-          userDataGlobal?._id
+        "https://dev.api.skilotech.com/api/checkForFreePlanByUserId/" +
+        userDataGlobal?._id
       )
       .then((res) => {
         setIsFree(res.data.success);
@@ -72,7 +72,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -83,7 +83,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/plans/getAllPlans")
+      .get("https://dev.api.skilotech.com/api/plans/getAllPlans")
       .then((res) => {
         const allPlan = res.data.data;
 
@@ -104,7 +104,7 @@ function SubscriptionPlans({ fromMain }) {
         //   }
 
         // }
-        if (userDataGlobal?.role === "recruiter" || fromMain) {
+        if (userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer" || fromMain) {
           setIsUser(false);
 
           setAllPlans(
@@ -196,14 +196,13 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-      <div className="hidden lg:block w-full ">
+      <div className="hidden lg:hiddden w-full ">
         <div className="flex gap-6 justify-center">
           {allPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
-                isUser ? "max-w-[21vw]" : "max-w-[21vw] "
-              } `}
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
+                } `}
               style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
             >
               {index === 1 && (
@@ -227,9 +226,8 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                     )}
 
                     <span
-                      className={`${
-                        plan.type === "recruiter" && "text-[#06A9EF]"
-                      }`}
+                      className={`${plan.type === "recruiter" && "text-[#06A9EF]"
+                        }`}
                     >
                       {" "}
                       {plan?.name}
@@ -329,9 +327,8 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
           ))}
 
           <div
-            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${
-              isUser ? "max-w-[20vw]" : "max-w-[20vw] "
-            } `}
+            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+              } `}
             style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
           >
             <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
@@ -357,45 +354,57 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               // disabled={true}
               onClick={() => router.push("/purchase/enterprise")}
               className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[16px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-              // style={{ opacity: 0.6 }}
+            // style={{ opacity: 0.6 }}
             >
               Contact Us
             </button>
           </div>
         </div>
       </div>
-      <div className="block lg:hidden w-full ">
-        <div className="block lg:hidden w-full">
+      <div className="flex lg:flex w-full ">
+        <div className="flex lg:flex w-full justify-center">
           <Swiper
-            slidesPerView={1}
+            // slidesPerView={1}
             spaceBetween={30}
-            centeredSlides={true}
+            // centeredSlides={true}
             pagination={{
               clickable: true,
             }}
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1140: { slidesPerView: 3 },
+              1440: { slidesPerView: 4 },
+            }}
             modules={[Pagination]}
-            className="mySwiper swiperPagination flex items-center justify-center"
+            className=" swiperPagination flex items-center justify-center self-start "
             effect="fade"
           >
             {allPlans.map((plan, index) => (
               <SwiperSlide
                 style={{ display: "flex" }}
-                className="justify-center pt-6 gap-4 "
+                className="justify-center pt-6 gap-4 pl-2"
                 key={index}
               >
                 <div
-                  className="w-[300px] h-[420px] relative bg-white flex flex-col gap-4 items-center rounded-[16px] mt-[8px] mb-4"
-                  style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
+                  key={index}
+                  className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card min-w-[310px] h-fit ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
+                    } `}
+                  style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
                 >
                   {index === 1 && (
-                    <div className="absolute left-0 top-[-24px] ml:text-[1.3vw] text-[14px] font-semibold px-4 pt-[4px] pb-[110px] bg-[#06A9EF] text-white rounded-t-[16px]">
+                    <div
+                      className="absolute left-0 top-[-28px] text-[12px] font-[600] px-4 pt-[4px] pb-[50px] 
+bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
+                    >
                       Recommended
                     </div>
                   )}
 
-                  <div className="p-2 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[440px]">
-                    <div className="flex text-center flex-col gap-2 text-[#333333] w-[80%]">
-                      <p className="text-[18px] font-[600]">
+                  <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-fit justify-between">
+                    <div className="flex text-center flex-col gap-[12px] text-[#333333] ">
+                      <p className="text-[16px] font-[600] xl:text-[16px]">
                         {plan.type === "candidate" && (
                           <>
                             <span className="text-[#06A9EF]">
@@ -403,37 +412,63 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                             </span>{" "}
                           </>
                         )}
+
                         <span
-                          className={`${
-                            plan.type === "recruiter" && "text-[#06A9EF]"
-                          }`}
+                          className={`${plan.type === "recruiter" && "text-[#06A9EF]"
+                            }`}
                         >
+                          {" "}
                           {plan?.name}
                         </span>
+
                         {plan.type === "recruiter" && <span> Plan</span>}
                       </p>
 
                       <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
+                        {/* <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
+
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1  " : "text-[2.5vw]"}`}>{icon}</p>
+                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1" : "text-[2.5vw]"}`}>
+                        {Math.ceil(plan?.amount * exchangeRate)}
+                      </p>
+                    </div> */}
+                        {/* {(plan.isFree) &&
+                      <p className="text-[2.5vw] font-[700]">
+                        Free
+                      </p>
+                    } */}
                         {plan.isFree ? (
-                          <p className="text-[28px] font-[700]">Free</p>
+                          <p className="text-[26px] font-[700] ">Free</p>
                         ) : (
                           <div className={`flex flex-row  gap-2  `}>
-                            <p className={`font-[700] text-[28px]`}>{icon}</p>
-                            <p className={`font-[700] text-[28px]`}>
+                            <p className={` font-[700] text-[26px] `}>{icon}</p>
+                            <p className={` font-[700] text-[26px]`}>
                               {Math.ceil(plan?.amount * exchangeRate)}
                             </p>
                           </div>
                         )}
                       </div>
 
-                      <p className="text-[12px] font-[500]">
+                      {/* {plan.index === 1 &&
+                    <div className="flex flex-row gap-2 w-full items-center justify-center">
+
+                      <p className="text-[2.5vw] font-[700]">
+                        Free
+                      </p>
+                    </div>
+                  } */}
+
+                      <p
+                        className="text-[14px] font-[500] xl:text-[14px]"
+                        style={{ textTransform: "capitalize" }}
+                      >
                         {plan?.description}
                       </p>
                       <div className="bg-[#DEDEDE] h-[2px]" />
                     </div>
                     <div className="flex gap-3 flex-col text-left">
                       {plan.features.map((feature, index) => (
-                        <div key={index} className="flex gap-3 items-start">
+                        <div key={index} className="flex gap-3 items-start ">
                           <svg
                             className="min-w-[20px]"
                             width="20"
@@ -447,22 +482,30 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                               fill="#06A9EF"
                             />
                           </svg>
-                          <p className="text-[10px] font-[500]">{feature}</p>
+                          <p className="text-[12px] font-[500] xl:text-[12px]">
+                            {feature.includes("(") ? (
+                              <>
+                                {feature.split("(")[0]}
+                                <br />({feature.split("(")[1]}
+                              </>
+                            ) : (
+                              feature
+                            )}
+                          </p>
                         </div>
                       ))}
                     </div>
-
                     {isFree && plan.isFree ? (
                       <button
                         disabled={true}
-                        className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full opacity-50 "
+                        className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                       >
                         Purchased
                       </button>
                     ) : (
                       <button
                         onClick={() => clickHandler(plan.index)}
-                        className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full "
+                        className="px-6 py-3 bg-[#06A9EF] xl:text-[16px] text-white rounded-[12px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                       >
                         Purchase Plan
                       </button>
@@ -478,32 +521,34 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4"
             >
               <div
-                style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
-                className="p-4 z-20 bg-white rounded-[16px] flex flex-col items-center justify-center pt-6 gap-4 max-w-[300px] h-[440px]"
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px] h-fit ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+                  } `}
+                style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
-                <div className="flex text-center flex-col gap-10 text-[#333333] w-[80%] justify-between">
-                  <p className="text-[18px] font-[600]">
-                    <span className="text-[#06A9EF]">Enterprise</span> Plan
+                <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
+                  <p className="text-[16px] font-[600] xl:text-[20px]">
+                    <span className="text-[#06A9EF]">Enterprise </span> Plan
                   </p>
-                  <p className="text-[12px] font-[500] px-2">
-                    Tailored Solutions for{" "}
-                    {isUser ? "Candidates" : "Organizations"}
+                  <p className="text-[16px] font-[500]  px-2">
+                    Tailored Solutions for {isUser ? "Candidates" : "Organizations"}
                   </p>
-                  <div className="bg-[#DEDEDE] h-[2px]" />
+                  <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
                 </div>
-                <div className="flex gap-3 flex-col text-center items-center w-full">
+                <div className="flex gap-3 flex-col text-center items-center w-[168px]">
                   <img
                     src="/images/support_agent.png"
-                    className="h-[80px] max-w-[80px]"
+                    className="h-[80px] w-[80px]"
                     alt=""
                   />
-                  <span className="text-[16px] font-[500] text-center">
+                  <span className="text-[16px] font-[500] text-center xl:text-[16px]">
                     Contact Us for Custom Plan as per your needs
                   </span>
                 </div>
                 <button
+                  // disabled={true}
                   onClick={() => router.push("/purchase/enterprise")}
-                  className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
+                  className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[16px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                // style={{ opacity: 0.6 }}
                 >
                   Contact Us
                 </button>
