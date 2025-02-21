@@ -291,6 +291,30 @@ const ProfessionalDetails = ({
                     className="w-full"
                     onChange={(data) => handleInputChange("keySkills", data)}
                     value={data.keySkills}
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        overflow: "hidden", 
+                        whiteSpace: "nowrap",
+                      }),
+                      multiValue: (provided) => ({
+                        ...provided,
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }),
+                      menu: (provided) => ({
+                        ...provided,
+                        zIndex: 20, 
+                      }),
+                    }}
                   />
                   {formError && (
                     <p className="text-[12px] text-[red] font-[500]">

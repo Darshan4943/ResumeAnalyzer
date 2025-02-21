@@ -194,7 +194,7 @@ function AddEducation({
           <div className="border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
             <select
               name="education"
-              className="w-full text-[12px] font-montserrat font-small"
+              className="w-full text-[12px] font-montserrat font-small outline-none"
               value={educationData.education}
               onChange={handleInputChange}
             >
@@ -214,11 +214,11 @@ function AddEducation({
 
         {[
           // { label: "Education", name: "education", placeholder: "Enter your education" },
-          { label: "University", name: "university", placeholder: "Enter your university" },
-          { label: "Institute", name: "institute", placeholder: "Enter your institute" },
+          { label: "University", name: "university", placeholder: "Enter university" },
+          { label: "Institute", name: "institute", placeholder: "Enter institute" },
           { label: "Course", name: "stream", placeholder: "Enter your Course" },
-          { label: "Specialization", name: "specialization", placeholder: "Enter your specialization" },
-          { label: "Location", name: "location", placeholder: "Enter your location" },
+          { label: "Specialization", name: "specialization", placeholder: "Enter specialization" },
+          { label: "Location", name: "location", placeholder: "Enter location" },
         ].map(({ label, name, placeholder }) => (
           <div key={name} className="flex flex-col gap-2 ">
             <div className="text-[14px] font-montserrat font-medium">{label}</div>

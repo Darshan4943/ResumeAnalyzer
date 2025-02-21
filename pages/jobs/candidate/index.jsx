@@ -47,7 +47,7 @@ function Index() {
   const [totalCount, setTotalCount] = useState(0);
   const [isCountrySet, setIsCountrySet] = useState(false);
   const [miniLoading, setMiniloading] = useState(true);
-  const { loc, jobTit, exp, search } = router.query;
+  const { loc, jobTit, exp, search ,cat} = router.query;
   const [hiddenFilters, setHiddenFilters] = useState({});
   const taskRef = useRef(null);
   const [experience, setExperience] = useState("");
@@ -229,6 +229,7 @@ function Index() {
           // experience: experience ? experience : profileData?.totalExperience?.years,
           experience: experience,
           isExperinceNo: experience ? false : true,
+          jobCat: cat ? cat.trim() :""
         },
         {
           params: { page, limit },
@@ -253,7 +254,7 @@ function Index() {
 
   useEffect(() => {
     if (isCountrySet) {
-      setMiniloading(true);
+      // setMiniloading(true);
       getAllData();
     }
   }, [limit, country, search, jobtypeData]);
@@ -281,8 +282,15 @@ function Index() {
       const response = await axios.post(
         "http://localhost:2000/api/job/getFilterData",
         {
-          requiredSkills: userSkills?.map((item) => item),
-          country,
+          requiredSkills:
+            jobTitle || location ? [] : userSkills?.map((item) => item),
+          jobTitle: jobTitle.trim() || "",
+          country: location ? "" : country,
+          location: location.trim(),
+          // experience: experience ? experience : profileData?.totalExperience?.years,
+          experience: experience,
+          isExperinceNo: experience ? false : true,
+          jobCat: cat ? cat.trim() :"",
           ...mappedFilters,
         },
         {
