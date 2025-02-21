@@ -294,19 +294,19 @@ function CreateCompany() {
       </span>
     );
   };
-  useEffect(() => {
-    const disablePaste = (event) => {
-      if (event.ctrlKey && event.key === "v") {
-        event.preventDefault();
-      }
-    };
+  // useEffect(() => {
+  //   const disablePaste = (event) => {
+  //     if (event.ctrlKey && event.key === "v") {
+  //       event.preventDefault();
+  //     }
+  //   };
 
-    document.addEventListener("keydown", disablePaste);
+  //   document.addEventListener("keydown", disablePaste);
 
-    return () => {
-      document.removeEventListener("keydown", disablePaste);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("keydown", disablePaste);
+  //   };
+  // }, []);
 
   const header = renderHeader();
 

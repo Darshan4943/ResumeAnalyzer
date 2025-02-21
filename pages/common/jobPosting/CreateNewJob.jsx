@@ -252,11 +252,11 @@ function CreateNewJob() {
     if (croppedImage) {
       formData.append("fileName", file?.name);
     }
-    if(reqId){
-      formData.append("reqId",reqId);
+    if (reqId) {
+      formData.append("reqId", reqId);
     }
-    if(userDataGlobal?.companyId){
-      formData.append("companyId",userDataGlobal?.companyId);
+    if (userDataGlobal?.companyId) {
+      formData.append("companyId", userDataGlobal?.companyId);
     }
 
     formData.append("createdBy", userDataGlobal?._id);
@@ -567,7 +567,7 @@ function CreateNewJob() {
   const isRelevantAllowed = (totalExpIndex, relevantExpIndex) => {
     return relevantExpIndex <= totalExpIndex;
   };
- 
+
 
   const getJobDetails = async (reqId) => {
     try {
@@ -863,11 +863,11 @@ function CreateNewJob() {
                           value={countryOptions.filter((country) =>
                             data?.country?.includes(country.value)
                           )}
-                          classNamePrefix="select"
                           placeholder="Select countries..."
                           styles={customStyles}
                           className={`border rounded-[8px]   withoutBorder ${formError.country ? "border-red" : "border-[#DEDEDE]"
                             }`}
+                          classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
                               const scrollDiv = document.getElementById("scroll");
@@ -1284,16 +1284,16 @@ function CreateNewJob() {
                                 ...provided,
                                 color: "#999",
                                 fontSize: "12px",
-                              
+
                               }),
                               container: (provided) => ({
                                 ...provided,
                                 border: "none",
-                               minHeight: "40px",
-                               paddingVertical: "4px",
-                               
+                                minHeight: "40px",
+                                paddingVertical: "4px",
+
                               }),
-                             
+
                             }}
                             className={`border jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
                               ? "border-red"
@@ -1554,7 +1554,7 @@ function CreateNewJob() {
                               }),
                               container: (base) => ({
                                 ...base,
-                                
+
                               }),
                             }}
                           />

@@ -451,34 +451,45 @@ ol {
 }
 
 .withoutBorder {
-  .css-1l1it4t-control {
-    .css-b62m3t-container{
-      height: 38px !important;
-      padding: 0 !important;
-    }
+  .select__control {
     border: none !important;
     border-radius: 8px;
     height: 38px !important;
     padding: 0 !important;
   }
-  .css-3w2yfm-ValueContainer {
+
+  .select__control .select__value-container {
+    height: 38px !important;
+    padding: 0 !important;
+  }
+
+  .select__value-container {
+    display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
   }
-  .css-1p3m7a8-multiValue {
-    min-width: 100px;
+
+  .select__value-container::-webkit-scrollbar {
+    display: none;
   }
-  .css-1jqq78o-placeholder {
+
+  .select__multi-value {
+    min-width: 100px !important;
+  }
+
+  .select__placeholder {
     font-weight: 400;
     font-size: 12px;
-    color: #767676;
+    color: #767676 !important;
   }
-  .css-qbdosj-Input {
-    min-width: 100px;
+
+  .select__input-container {
+    min-width: 100px !important;
   }
 }
+
 .JobSectorPlaceHolder {
   .css-1jqq78o-placeholder {
     font-weight: 400;
