@@ -241,11 +241,6 @@ function CreateNewJob() {
     if (reqId) {
       formData.append("reqId", reqId);
     }
-    if (reqId) {
-      formData.append("reqId", reqId);
-    }
-    if (userDataGlobal?.companyId) {
-      formData.append("companyId", userDataGlobal?.companyId);
     if (userDataGlobal?.companyId) {
       formData.append("companyId", userDataGlobal?.companyId);
     }
@@ -288,8 +283,9 @@ function CreateNewJob() {
       );
     }
   };
-    }
 
+
+    
   const getData = () => {
     setLoading(true);
     axios

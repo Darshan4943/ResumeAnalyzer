@@ -164,7 +164,7 @@ const CreateNewRequisition = ({ setToggle }) => {
       );
 
       setSuccessfull(true);
-      toast.success("Requisition created successfully", response.data);
+      // toast.success("Requisition created successfully", response.data);
     } catch (error) {
       setLoading(false);
       toast.error(
@@ -470,7 +470,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.requisitionType}
                 onChange={(e) => handleChange(e, "requisitionType")}
-                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]  ${
+                className={`h-[38px] outline-none px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]  ${
                   errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
                 } `}
               >
@@ -844,7 +844,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
                 <div className="text-center">
                   <div className="text-[24px] font-[500] text-[#333]">
-                    Successfully created Requisition
+                    Requisition created Successfully
                   </div>
                 </div>
                 <div className="flex justify-center">
