@@ -240,6 +240,7 @@ function CreateNewJob() {
     }
     if (reqId) {
       formData.append("reqId", reqId);
+    }
     if (reqId) {
       formData.append("reqId", reqId);
     }
@@ -287,7 +288,8 @@ function CreateNewJob() {
       );
     }
   };
-
+    }
+    
   const getData = () => {
     setLoading(true);
     axios
@@ -1797,5 +1799,5 @@ function CreateNewJob() {
     </>
   );
 }
-
+  
 export default CreateNewJob;
