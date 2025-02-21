@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import NormalJobCard from "../../../components/featured/candidate/jobs/NormalJobCard";
 import axios from "axios";
 import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
+import { useRouter } from "next/router";
 
 function aboutcompanies() {
   const [company, setCompany] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
-
-  const id = "67b42338ecdf4a7cfbccc23e";
+  const router = useRouter();
+  const { companyName , id} = router.query;
 
   const fetchCompanyDetails = async () => {
     try {
@@ -33,7 +34,7 @@ function aboutcompanies() {
   }, [id]);
 
   const fetchEmployerJobs = async () => {
-    if (!id) {
+    if (!companyName) {
       setError("Company ID is required");
       setLoading(false);
       return;
@@ -42,8 +43,9 @@ function aboutcompanies() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerJobs/${id}`
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(companyName)}`
       );
+
       setJobs(response.data);
       console.log(response.data);
       setError("");
@@ -57,7 +59,7 @@ function aboutcompanies() {
 
   useEffect(() => {
     fetchEmployerJobs();
-  }, [id]);
+  }, [companyName]);
 
   return (
     <>
@@ -80,7 +82,9 @@ function aboutcompanies() {
         </div>
 
         <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
-          <div className="sm:text-[16px] text-[12px] font-[600]">About Company</div>
+          <div className="sm:text-[16px] text-[12px] font-[600]">
+            About Company
+          </div>
           <div className="sm:text-[14px] text-[10px]  font-[400]">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
