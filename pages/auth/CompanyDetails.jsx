@@ -14,7 +14,7 @@ function CompanyDetails({
   formData,
   setFormData,
 }) {
- const router=useRouter()
+  const router = useRouter();
   const [errors, setErrors] = useState({});
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
@@ -48,47 +48,50 @@ function CompanyDetails({
     },
     {
       title: "Company Location",
-      placeholder: "Enter Your Current Location",
+      placeholder: "Enter Current Location",
       name: "CompanyLocation",
       isLocation: true,
     },
   ];
 
-    const handleItemClick = (item) => {
-      setSelectedItem(item);
-      setFormData({ ...formData, companyDialCode: item.dial_code, country: item.name });
-      setSearchTerm("");
-      setErrors((prevErrors) => {
-        const updatedErrors = { ...prevErrors };
-        delete updatedErrors.dial_code;
-        return updatedErrors;
-      });
-    };
-    useEffect(() => {
-      const filterLogic = (item) =>
-        item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.dial_code.includes(searchTerm);
-      const filteredCodes = telCode.filter(filterLogic);
-      const firstSixCodes = filteredCodes.slice(0, 6);
-      const remainingCodes = filteredCodes.slice(6);
-  
-      const sortedRemainingCodes = remainingCodes.sort((a, b) => {
-        const numA = parseInt(a.dial_code.replace("+", ""), 10);
-        const numB = parseInt(b.dial_code.replace("+", ""), 10);
-        return numA - numB;
-      });
-      const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
-      setFilteredTelCode(combinedCodes);
-    }, [telCode, searchTerm]);
-  
-    const customFilterOption = ({ label, value, data }, inputValue) => {
-      const lowercasedInput = inputValue.toLowerCase();
-      return (
-        data.code.toLowerCase().includes(lowercasedInput) ||
-        data.dial_code.includes(inputValue)
-      );
-    };
-  
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setFormData({
+      ...formData,
+      companyDialCode: item.dial_code,
+      country: item.name,
+    });
+    setSearchTerm("");
+    setErrors((prevErrors) => {
+      const updatedErrors = { ...prevErrors };
+      delete updatedErrors.dial_code;
+      return updatedErrors;
+    });
+  };
+  useEffect(() => {
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+    const filteredCodes = telCode.filter(filterLogic);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
+  }, [telCode, searchTerm]);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
 
   const validateCompanyInput = (fieldName, value) => {
     let newErrors = { ...errors };
@@ -111,17 +114,6 @@ function CompanyDetails({
           delete newErrors.companyEmail;
         }
         break;
-
-      // case "password":
-      //     if (!value.trim() || value.length < 6) {
-      //         newErrors.password = "Password must be at least 6 characters long";
-      //     } else if (!validatePassword(value)) {
-      //         newErrors.password =
-      //             "Password should include one uppercase letter, one lowercase letter, one number, and one special character.";
-      //     } else {
-      //         delete newErrors.password;
-      //     }
-      //     break;
 
       case "contactNumber":
         if (!value.trim()) {
@@ -233,8 +225,9 @@ function CompanyDetails({
   return (
     <div
       style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-      className={`${tog === 1 ? "flex" : "hidden"
-        } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
+      className={`${
+        tog === 1 ? "flex" : "hidden"
+      } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
     >
       {companyFields.map((field, index) => (
         <div key={index} className="flex w-full flex-col gap-1">
@@ -242,63 +235,71 @@ function CompanyDetails({
             {field.title} <span className="text-red">*</span>
           </div>
 
-       
-          {field.name === "contactNumber"  ? (
+          {field.name === "contactNumber" ? (
             <div className="flex gap-2">
-           
-           <ReactSelect
-                  options={filteredTelCode}
-                  className=" flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]"
-                  name=""
-                  placeholder="Select"
-                  value={selectedItem}
-                  onChange={handleItemClick}
-                  getOptionLabel={(option) => (
-                    <div className="flex items-center  ">
-                      <img
-                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                        width="20px"
-                      />
-                      <span className="ml-2 text-[#333333] text-[12px] font-[400]">
-                        {option.code} {option.dial_code}
-                      </span>
-                    </div>
-                  )}
-                  // getOptionValue={(option) => option.code}
-                  filterOption={customFilterOption}
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      border: "none",
+              <ReactSelect
+                options={filteredTelCode}
+                className={`flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]  ${
+                  errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                } `}
+                name=""
+                placeholder="Select"
+                value={selectedItem}
+                onChange={handleItemClick}
+                getOptionLabel={(option) => (
+                  <div className="flex items-center  ">
+                    <img
+                      src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                      width="20px"
+                    />
+                    <span className="ml-2 text-[#333333] text-[12px] font-[400]">
+                      {option.code} {option.dial_code}
+                    </span>
+                  </div>
+                )}
+                // getOptionValue={(option) => option.code}
+                filterOption={customFilterOption}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    border: "none",
 
-                      minWidth: "120px",
-                      outline: "none",
-                    }),
-                  }}
-                  theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    colors: {
-                      ...theme.colors,
-                      // primary25: 'hotpink',
-                      primary: "neutral0",
-                    },
-                  })}
-                />
-             
+                    minWidth: "120px",
+                    outline: "none",
+                  }),
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    // primary25: 'hotpink',
+                    primary: "neutral0",
+                  },
+                })}
+              />
+
               <input
                 type="text"
                 name="contactNumber"
                 value={formData.contactNumber}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, ""); 
+                  if (value.length <= 10) {
+                    handleChange({ target: { name: "contactNumber", value } });
+                  }
+                }}
                 placeholder={field.placeholder}
-                className=" bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4"
+                className={`bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${
+                  errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                } `}
               />
             </div>
           ) : (
             <div
-              className={`flex rounded-[8px] py-[12px] px-4 border ${errors[field.name] ? "border-red" : "border-[#9D9D9D]"
-                } `}
+              className={`flex rounded-[8px] py-[12px] px-4 border ${
+                errors[field.name] ? "border-red" : "border-[#9D9D9D]"
+              } `}
             >
               <input
                 type="text"
@@ -311,10 +312,9 @@ function CompanyDetails({
             </div>
           )}
 
-          {/* Error Message */}
-          {errors[field.name] && (
+          {/* {errors[field.name] && (
             <p className="text-[12px] text-red font-[500]">{errors[field.name]}</p>
-          )}
+          )} */}
         </div>
       ))}
 

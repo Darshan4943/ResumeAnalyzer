@@ -15,7 +15,6 @@ const SignUp = () => {
     panFile: null,
     companyLogo: null,
   });
-  const [errors, setErrors] = useState({});
   const [progress, setProgress] = useState(0);
   const [progress1, setProgress1] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);

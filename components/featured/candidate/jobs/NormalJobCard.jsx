@@ -72,7 +72,7 @@ function NormalJobCard({ item }) {
             </div>
             <div
               onClick={(e) => {
-                router.push(`/jobs/candidate/aboutcompanies?id=${item?._id}`);
+                router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`);
                 e.stopPropagation();
               }}
               className="text-[12px] font-medium cursor-pointer"

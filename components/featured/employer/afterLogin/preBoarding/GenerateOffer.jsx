@@ -201,7 +201,7 @@ const GenerateOffer = ({
                 {label === "Body" ? (
                   <>
                     <textarea
-                      className="w-full h-40 px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-400"
+                      className="w-full outline-none h-40 px-4 py-2 border border-gray rounded-lg "
                       name={label.toLowerCase()}
                       value={data[label.toLowerCase()]}
                       onChange={handleChange}

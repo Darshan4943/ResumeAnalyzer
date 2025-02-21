@@ -88,10 +88,10 @@ function RequisitionList({
     const icon = currenciesWithIcons?.find(
       (item) => item?.icon?.toLowerCase() === currency?.toLowerCase()
     );
-  
-    return icon?.symbol || ""; 
+
+    return icon?.symbol || "";
   };
-  
+
   return (
     <>
       <div className="web w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
@@ -177,8 +177,10 @@ function RequisitionList({
                     "Not Available"
                   ) : (
                     <>
-
-                      {getCurrencyIcon(requisition.currency)} {requisition.budgetFrom || 0} - {getCurrencyIcon(requisition.currency)} {requisition.budgetTo || ""}
+                      {getCurrencyIcon(requisition.currency)}{" "}
+                      {requisition.budgetFrom || 0} -{" "}
+                      {getCurrencyIcon(requisition.currency)}{" "}
+                      {requisition.budgetTo || ""}
                     </>
                   )}
                 </div>
@@ -194,7 +196,7 @@ function RequisitionList({
             ))}
           </div>
         )}
-        {requisitions.length > 10 &&
+        {requisitions.length > 10 && (
           <CustomPagination
             setMiniloading={setMiniloading}
             miniLoading={miniLoading}
@@ -205,7 +207,7 @@ function RequisitionList({
             limit={limit}
             page={page}
           />
-        }
+        )}
       </div>
 
       <div className="mobile  ">
@@ -280,10 +282,11 @@ function RequisitionList({
 
                     <div className="flex items-center py-2 px-4">
                       <p
-                        className={`text-[12px] font-medium ${requisition.isPriority
+                        className={`text-[12px] font-medium ${
+                          requisition.isPriority
                             ? "text-green-600"
                             : "text-red-500"
-                          }`}
+                        }`}
                       >
                         {requisition.isPriority ? "Yes" : "No"}
                       </p>
@@ -294,14 +297,15 @@ function RequisitionList({
                     <div className="px-3 py-[6px] rounded-full">
                       <p
                         className={`text-center font-Montserrat font-semibold text-[14px] px-4 py-2 border rounded-full 
-      ${requisition?.status === "Rejected"
-                            ? "text-[#FF7A00] border-[#FF7A00]"
-                            : requisition?.status === "Pending"
-                              ? "text-yellow border-yellow"
-                              : requisition?.status === "Approved"
-                                ? "text-green border-green"
-                                : "text-gray border-gray"
-                          }
+      ${
+        requisition?.status === "Rejected"
+          ? "text-[#FF7A00] border-[#FF7A00]"
+          : requisition?.status === "Pending"
+          ? "text-yellow border-yellow"
+          : requisition?.status === "Approved"
+          ? "text-green border-green"
+          : "text-gray border-gray"
+      }
     `}
                       >
                         {requisition?.status || "-"}

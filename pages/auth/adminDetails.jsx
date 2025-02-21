@@ -209,7 +209,7 @@ function AdminDetails({
     });
 
     setFormError(errors);
-    return Object.keys(errors).length === 0; // Return true if no errors
+    return Object.keys(errors).length === 0;
   };
 
   const submitHandler = (e) => {
@@ -475,7 +475,14 @@ function AdminDetails({
                   isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
                 }`}
                 value={formData.mobileNo}
-                onChange={(e) => handleInputChange("mobileNo", e.target.value)}
+                onChange={(e) => {
+                  handleInputChange("mobileNo", e.target.value);
+                  const value = e.target.value.replace(/\D/g, ""); 
+                  if (value.length <= 10) {
+                    handleChange({ target: { name: "contactNumber", value } }); 
+                  }
+                }}
+                
                 className="w-full bg-[transparent] pl-4 outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>

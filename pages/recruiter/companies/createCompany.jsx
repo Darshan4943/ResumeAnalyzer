@@ -294,19 +294,19 @@ function CreateCompany() {
       </span>
     );
   };
-  useEffect(() => {
-    const disablePaste = (event) => {
-      if (event.ctrlKey && event.key === "v") {
-        event.preventDefault();
-      }
-    };
+  // useEffect(() => {
+  //   const disablePaste = (event) => {
+  //     if (event.ctrlKey && event.key === "v") {
+  //       event.preventDefault();
+  //     }
+  //   };
 
-    document.addEventListener("keydown", disablePaste);
+  //   document.addEventListener("keydown", disablePaste);
 
-    return () => {
-      document.removeEventListener("keydown", disablePaste);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("keydown", disablePaste);
+  //   };
+  // }, []);
 
   const header = renderHeader();
 
@@ -367,17 +367,17 @@ function CreateCompany() {
                   {(croppedImage ||
                     data?.companyLogo ||
                     "/images/jobs/logo.png") && (
-                    <ImageContainer
-                      value={data?.companyLogo}
-                      src={
-                        croppedImage?.url ||
-                        data?.companyLogo ||
-                        "/images/jobs/logo.png"
-                      }
-                      alt="Selected File"
-                      className="w-[32.95%] h-[60px] object-contain"
-                    />
-                  )}
+                      <ImageContainer
+                        value={data?.companyLogo}
+                        src={
+                          croppedImage?.url ||
+                          data?.companyLogo ||
+                          "/images/jobs/logo.png"
+                        }
+                        alt="Selected File"
+                        className="w-[32.95%] h-[60px] object-contain"
+                      />
+                    )}
 
                   <input
                     type="file"
