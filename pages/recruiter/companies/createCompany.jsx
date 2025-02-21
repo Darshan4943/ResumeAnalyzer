@@ -367,17 +367,17 @@ function CreateCompany() {
                   {(croppedImage ||
                     data?.companyLogo ||
                     "/images/jobs/logo.png") && (
-                    <ImageContainer
-                      value={data?.companyLogo}
-                      src={
-                        croppedImage?.url ||
-                        data?.companyLogo ||
-                        "/images/jobs/logo.png"
-                      }
-                      alt="Selected File"
-                      className="w-[32.95%] h-[60px] object-contain"
-                    />
-                  )}
+                      <ImageContainer
+                        value={data?.companyLogo}
+                        src={
+                          croppedImage?.url ||
+                          data?.companyLogo ||
+                          "/images/jobs/logo.png"
+                        }
+                        alt="Selected File"
+                        className="w-[32.95%] h-[60px] object-contain"
+                      />
+                    )}
 
                   <input
                     type="file"

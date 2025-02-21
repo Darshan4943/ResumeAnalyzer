@@ -289,7 +289,7 @@ function CreateNewJob() {
     }
   };
     }
-    
+
   const getData = () => {
     setLoading(true);
     axios
@@ -981,7 +981,7 @@ function CreateNewJob() {
                             <input
                               type="text"
                               placeholder="Location"
-                              className="input w-[100px] placeholder:text-[12px] placeholder:font-[400] outline-none"
+                              className="input w-[55px] placeholder:text-[12px] placeholder:font-[400] outline-none"
                               value={loactionText}
                               onChange={(e) => {
                                 setLoactionText(e.target.value);
