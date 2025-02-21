@@ -18,6 +18,7 @@ function ScheduleInterview({
   mailDetails,
   setMailDetails,
 }) {
+  
   const [levels, setLevels] = useState([
     {
       id: 1,
@@ -189,6 +190,44 @@ function ScheduleInterview({
     setActiveOption(option);
     setToggle(option);
   };
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+       <button
+          className="ql-align"
+        
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+
+  const header = renderHeader();
+
 
   return (
     <div
@@ -548,6 +587,7 @@ function ScheduleInterview({
                   <Editor
                     value={mailDetails?.candidate?.content}
                     onTextChange={(e) => handleChange1(e.htmlValue)}
+                    headerTemplate={header}
                     style={{
                       border: "none",
                       fontSize: "16px",
@@ -616,6 +656,7 @@ function ScheduleInterview({
                   <Editor
                     value={mailDetails?.interviewer?.content}
                     onTextChange={(e) => handleChange2(e.htmlValue)}
+                    headerTemplate={header}
                     style={{
                       border: "none",
                       fontSize: "16px",

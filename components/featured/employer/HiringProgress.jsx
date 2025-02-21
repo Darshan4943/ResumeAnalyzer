@@ -366,7 +366,7 @@ function HiringProgress({
               exit={{ x: "100%" }}
               transition={{ duration: 0.5 }}
               ref={taskRef}
-              className="fixed z-[10100] right-0  w-[100%]  ml:top-0 ml:bottom-[0%]  flex justify-end"
+              className="fixed z-[10100] right-0  ml:w-[100%] w-[70%] top-0 bottom-[0%]  flex justify-end"
             >
               <LevelUpdate
                 closeTaskPopup={closeTaskPopup}

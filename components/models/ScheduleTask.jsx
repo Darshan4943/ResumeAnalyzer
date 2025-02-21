@@ -134,6 +134,45 @@ function ScheduleTask({
   const handleSelectChange = (e) => {
     setToggle(parseInt(e.target.value, 10));
   };
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+       <button
+          className="ql-align"
+        
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+
+  const header = renderHeader();
+
+
   return (
     <div
       className="sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto"
@@ -249,11 +288,10 @@ function ScheduleTask({
             <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4">
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Candidate"
+                  className={` cursor-pointer ${activeOption === "Candidate"
                       ? "text-[#333333]"
                       : "text-[#646464]"
-                  } `}
+                    } `}
                   onClick={() => handleOptionClick("Candidate")}
                 >
                   Email to Candidate
@@ -273,11 +311,10 @@ function ScheduleTask({
               </div>
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Interviewer"
+                  className={` cursor-pointer ${activeOption === "Interviewer"
                       ? "text-[#333333]"
                       : "text-[#646464]"
-                  } `}
+                    } `}
                   onClick={() => handleOptionClick("Interviewer")}
                 >
                   Email to Reviewer
@@ -327,19 +364,26 @@ function ScheduleTask({
                 <div>
                   <p className="text-[16px] font-medium text-[#646464]">Body</p>
                 </div>
-                <Editor
-                  value={mailDetails?.candidate?.content}
-                  onTextChange={(e) => handleChange1(e.htmlValue)}
-                  style={{
-                    border: formError.content
-                      ? "2px solid red"
-                      : "2px solid #dedede",
-                    fontSize: "16px",
-                    color: "#333",
-                    padding: "10px",
-                    minHeight: "196px",
-                  }}
-                />
+
+                <div className=" border border-[#DEDEDE] relative">
+
+
+                  <Editor
+                    value={mailDetails?.candidate?.content}
+                    onTextChange={(e) => handleChange1(e.htmlValue)}
+                    headerTemplate={header}
+                    style={{
+                      border: "none",
+                      fontSize: "16px",
+                      color: "#333",
+                      // paddingTop: "120px",
+
+                      minHeight: "196px",
+
+                    }}
+                  />
+                
+                </div>
               </div>
             </>
           )}
@@ -375,6 +419,7 @@ function ScheduleTask({
                 <Editor
                   value={mailDetails?.interviewer?.content}
                   onTextChange={(e) => handleChange2(e.htmlValue)}
+                  headerTemplate={header}
                   style={{
                     border: formError.content
                       ? "2px solid red"
