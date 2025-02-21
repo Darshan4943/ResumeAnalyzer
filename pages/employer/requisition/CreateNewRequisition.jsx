@@ -155,7 +155,12 @@ const CreateNewRequisition = ({ setToggle }) => {
     try {
       const response = await axios.post(
         `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
-        { ...data, createdBy: userDataGlobal?._id, companyId: userDataGlobal?.companyId, createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}` }
+        {
+          ...data,
+          createdBy: userDataGlobal?._id,
+          companyId: userDataGlobal?.companyId,
+          createdByName: `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`,
+        }
       );
 
       setSuccessfull(true);
@@ -163,7 +168,8 @@ const CreateNewRequisition = ({ setToggle }) => {
     } catch (error) {
       setLoading(false);
       toast.error(
-        `Error creating requisition: ${error.response?.data?.message || error.message
+        `Error creating requisition: ${
+          error.response?.data?.message || error.message
         }`
       );
     } finally {
@@ -254,8 +260,43 @@ const CreateNewRequisition = ({ setToggle }) => {
     label: item.currency,
   }));
   const dateInputRef = useRef(null);
-  console.log(122, data)
 
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button
+          className="ql-align"
+          value="left"
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+  const header = renderHeader();
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
       <div
@@ -299,12 +340,13 @@ const CreateNewRequisition = ({ setToggle }) => {
                 onChange={(e) => {
                   const value = e.target.value;
                   if (/^\d*$/.test(value)) {
-                    handleChange(e, "positions")
+                    handleChange(e, "positions");
                   }
                 }}
                 placeholder="Enter Number"
-                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.positions ? "border-red" : "border-[#DEDEDE]"
-                  }  `}
+                className={`h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${
+                  errors.positions ? "border-red" : "border-[#DEDEDE]"
+                }  `}
               />
             </div>
           </div>
@@ -326,7 +368,6 @@ const CreateNewRequisition = ({ setToggle }) => {
             <div className="flex  sm:flex-row flex-col gap-4 ">
               <div className="sm:w-[49.01%] flex justify-between w-[100%] gap-4">
                 <div className="border-[1px] w-[45%]  border-solid border-[#DEDEDE] rounded-[6px]">
-
                   <ReactSelect
                     options={currencyOptions}
                     className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] font-montserrat font-small text-black h-[40px]"
@@ -361,12 +402,13 @@ const CreateNewRequisition = ({ setToggle }) => {
                   onChange={(e) => {
                     const value = e.target.value;
                     if (/^\d*$/.test(value)) {
-                      handleChange(e, "budgetFrom")
+                      handleChange(e, "budgetFrom");
                     }
                   }}
                   placeholder="From"
-                  className={`h-[40px] w-[55%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
-                    }  `}
+                  className={`h-[40px] w-[55%] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]   placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${
+                    errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                  }  `}
                 />
               </div>
               <input
@@ -376,12 +418,13 @@ const CreateNewRequisition = ({ setToggle }) => {
                 onChange={(e) => {
                   const value = e.target.value;
                   if (/^\d*$/.test(value)) {
-                    handleChange(e, "budgetTo")
+                    handleChange(e, "budgetTo");
                   }
                 }}
                 placeholder="To"
-                className={`h-[40px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
-                  }  `}
+                className={`h-[40px]  px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]  ${
+                  errors.budgetTo ? "border-red" : "border-[#DEDEDE]"
+                }  `}
               />
             </div>
           </div>
@@ -392,7 +435,6 @@ const CreateNewRequisition = ({ setToggle }) => {
                 Experience <span className="text-red">*</span>
               </p>
               <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[40px]">
-
                 <select
                   style={{
                     WebkitAppearance: "none",
@@ -428,8 +470,9 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.requisitionType}
                 onChange={(e) => handleChange(e, "requisitionType")}
-                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]  ${errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
-                  } `}
+                className={`h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#DEDEDE] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] rounded-[6px]  ${
+                  errors.requisitionType ? "border-red" : "border-[#DEDEDE]"
+                } `}
               >
                 <option value="" disabled selected>
                   Select
@@ -458,8 +501,9 @@ const CreateNewRequisition = ({ setToggle }) => {
                 Location <span className="text-red">*</span>
               </p>
               <div
-                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[38px] ${errors.location ? "border-red" : "border-[#DEDEDE]"
-                  }`}
+                className={`w-full flex gap-2 relative border rounded-[8px] px-2 py-[8px] h-[38px] ${
+                  errors.location ? "border-red" : "border-[#DEDEDE]"
+                }`}
               >
                 <div className="flex flex-row overflow-x-auto gap-2 ">
                   {data?.location?.map((item, index) => (
@@ -545,7 +589,6 @@ const CreateNewRequisition = ({ setToggle }) => {
                   </option>
                 ))}
               </select>
-
             </div>
           </div>
 
@@ -579,12 +622,12 @@ const CreateNewRequisition = ({ setToggle }) => {
             </div>
           </div>
 
-
           <div className="text-[14px]  font-medium">
             <p>
               Job Description <span className="text-red">*</span>
             </p>
             <Editor
+              headerTemplate={header}
               value={data.description}
               onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{
@@ -607,7 +650,6 @@ const CreateNewRequisition = ({ setToggle }) => {
               placeholder="Provide your comment"
             ></textarea>
           </div>
-
         </div>
       </div>
 
@@ -718,20 +760,22 @@ const CreateNewRequisition = ({ setToggle }) => {
                         value={level.name || ""}
                         onChange={(e) => handleChange2(e, index, "name")}
                         placeholder="Role / Employee"
-                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${errors[`name_${index}`]
-                          ? "border-red"
-                          : "border-[#DEDEDE]"
-                          }`}
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid rounded-[6px] placeholder:text-[14px] font-[400]   ${
+                          errors[`name_${index}`]
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                        }`}
                       />
                       <input
                         type="text"
                         value={level.email || ""}
                         onChange={(e) => handleChange2(e, index, "email")}
                         placeholder="Enter Email"
-                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${errors[`name_${index}`]
-                          ? "border-red"
-                          : "border-[#DEDEDE]"
-                          }`}
+                        className={`h-[38px] border-[1px] py-[16px] px-[8px] border-solid  rounded-[6px] placeholder:text-[14px] font-[400] ${
+                          errors[`name_${index}`]
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                        }`}
                       />
                     </div>
                   ))}
@@ -800,10 +844,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
                 <div className="text-center">
                   <div className="text-[24px] font-[500] text-[#333]">
-                    Successfully Updated
-                  </div>
-                  <div className="text-[16px] font-[500] text-[#333]">
-                    Requisition settings updated successfully
+                    Successfully created Requisition
                   </div>
                 </div>
                 <div className="flex justify-center">

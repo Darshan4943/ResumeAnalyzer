@@ -38,7 +38,6 @@ function Profile() {
     "Achievements",
     "Websites & Social links",
     "Projects",
-
     "Job Preferences",
     "Personal details",
   ];
@@ -115,12 +114,12 @@ function Profile() {
                   className="eclips_25"
                   alt=""
                 /> */}
-                {/* <p className="profile_percent">
+            {/* <p className="profile_percent">
                   {userData.profileScore?.toFixed(0)} %
                 </p> */}
-              {/* </div> */}
+            {/* </div> */}
 
-              {/* <div className="profile_right_section profile_align">
+            {/* <div className="profile_right_section profile_align">
                 <p className="profile_score_text">Profile Score</p>
                 <p className="improve_text">
                   Improve your profile score, to get more recruiter attention.
@@ -140,8 +139,9 @@ function Profile() {
                   className="w-[100%]"
                 >
                   <div
-                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
-                      }`}
+                    className={`profile_option_menu  ${
+                      selectedTab == item && " profile_option_menu-selected"
+                    }`}
                   >
                     <p className="my_resume cursor-pointer">{item}</p>
                   </div>
@@ -206,18 +206,20 @@ function Profile() {
                     </button>
                   </ALink>
 
-                  <button
-                    onClick={() => handleDownload()}
-                    className=" border border-blue rounded-[8px]  px-3 py-2 text-[12px] font-medium leading-tight"
-                  >
-                    {isLoading ? (
-                      <div className=" justify-center items-center flex w-[110px] p-[0px] h-[15px]">
-                        <MiniLoader />
-                      </div>
-                    ) : (
-                      "Download Resume"
-                    )}
-                  </button>
+                  {resumeList.length > 0 && (
+                    <button
+                      onClick={handleDownload}
+                      className="border border-blue rounded-[8px] px-3 py-2 text-[12px] font-medium leading-tight"
+                    >
+                      {isLoading ? (
+                        <div className="justify-center items-center flex w-[110px] p-[0px] h-[15px]">
+                          <MiniLoader />
+                        </div>
+                      ) : (
+                        "Download Resume"
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
