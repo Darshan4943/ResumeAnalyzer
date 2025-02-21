@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function RequisitionPreview({ setOpenPreview, requisitionId }) {
-  console.log("requisitionId", requisitionId);
   const [requisition, setRequisition] = useState([]);
 
   const fetchRequisition = async () => {
@@ -25,7 +24,10 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const ApprovalLevel = [];
   return (
     <div className="bg-white w-full max-w-[718px] h-[70vh] md:h-[75vh] lg:h-[85vh] overflow-y-auto scrollbar-hide rounded-[16px] p-5 flex flex-col gap-4">
-      <div className="flex w-full justify-end">
+      <div className="flex w-full justify-between">
+        <div className="text-[16px] font-[500]">
+          Requisition Status : ({requisition.status})
+        </div>
         <svg
           onClick={() => setOpenPreview(false)}
           className="hover:fill-red-500 transition-all duration-200 cursor-pointer"
@@ -42,129 +44,134 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
           />
         </svg>
       </div>
-
-      <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
-        {requisition?.jobTitle && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Job Title
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              {requisition.jobTitle}
-            </span>
-          </div>
-        )}
-        {requisition?.positions !== null && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Positions
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              {requisition.positions}
-            </span>
-          </div>
-        )}
-      </div>
-
-      <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
-        {requisition?.isPriority && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Priority
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              {requisition.isPriority ? "Yes" : "No"}
-            </span>
-          </div>
-        )}
-        {requisition?.budgetFrom !== null && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Budget
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              ${requisition.budgetFrom} - {requisition.budgetTo}
-            </span>
-          </div>
-        )}
-      </div>
-
-      <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
-        {requisition?.location && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Location
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              {requisition.location}
-            </span>
-          </div>
-        )}
-        {requisition?.department && (
-          <div className="w-full md:w-[46.58%] flex flex-col gap-1">
-            <span className="text-[#646464] text-[10px] font-[500]">
-              Department
-            </span>
-            <span className="text-[#333333] text-[14px] font-[600]">
-              {requisition.department}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {requisition?.hiringDate && (
-        <div className="w-full flex flex-col gap-1">
-          <span className="text-[#646464] text-[10px] font-[500]">
-            Hiring Date
-          </span>
-          <span className="text-[#333333] text-[14px] font-[600]">
-            {requisition.hiringDate}
-          </span>
+      <div className="flex flex-col gap-4">
+        <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
+          {requisition?.jobTitle && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Job Title
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                {requisition.jobTitle}
+              </span>
+            </div>
+          )}
+          {requisition?.positions !== null && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Positions
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                {requisition.positions}
+              </span>
+            </div>
+          )}
         </div>
-      )}
 
-      {requisition?.RequisitionLevel?.length > 0 && (
+        <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
+          {requisition?.isPriority && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Priority
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                {requisition.isPriority ? "Yes" : "No"}
+              </span>
+            </div>
+          )}
+          {requisition?.budgetFrom !== null && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Budget
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                ${requisition.budgetFrom} - {requisition.budgetTo}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
+          {requisition?.location && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Location
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                {requisition.location.join(", ")}
+              </span>
+            </div>
+          )}
+
+          {requisition?.department && (
+            <div className="w-full md:w-[46.58%] flex flex-col gap-1">
+              <span className="text-[#646464] text-[10px] font-[500]">
+                Department
+              </span>
+              <span className="text-[#333333] text-[14px] font-[600]">
+                {requisition.department}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {requisition?.hiringDate && (
+          <div className="w-full flex flex-col gap-1">
+            <span className="text-[#646464] text-[10px] font-[500]">
+              Hiring Date
+            </span>
+            <span className="text-[#333333] text-[14px] font-[600]">
+              {new Date(requisition.hiringDate).toISOString().split("T")[0]}
+            </span>
+          </div>
+        )}
+
         <div className="w-full flex flex-col gap-2">
           <span className="text-[#333333] text-[14px] font-[600]">
             Approval
           </span>
-          {requisition.RequisitionLevel.map((item, index) => (
-            <div key={index} className="w-full flex flex-col gap-[2px]">
-              <span className="text-[#646464] text-[10px] font-[500]">
-                Level {index + 1}
-              </span>
-              <span className="text-[#333333] text-[14px] font-[600]">
-                {item.name}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
 
-      {requisition?.comments && (
-        <div className="w-full flex flex-col gap-2">
-          <span className="text-[#333333] text-[14px] font-[600]">
-            Additional Comments
-          </span>
-          <span className="text-[#646464] text-[12px] font-[400]">
-            {requisition.comments}
-          </span>
+          {requisition?.RequisitionLevel?.length > 0 && (
+            <>
+              {requisition.RequisitionLevel.map((item, index) => (
+                <div key={index} className="w-full flex flex-col gap-[4px]">
+                  <span className="text-[#646464] text-[10px] font-[500] gap-2">
+                    Level {index + 1} ({item.status})
+                  </span>
+                  <span className="text-[#333333] text-[14px] font-[600]">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </>
+          )}
         </div>
-      )}
 
-      <div className="h-[1px] w-full bg-[#DEDEDE]" />
+        {requisition?.comments && (
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-[#333333] text-[14px] font-[600]">
+              Additional Comments
+            </span>
+            <span className="text-[#646464] text-[12px] font-[400]">
+              {requisition.comments}
+            </span>
+          </div>
+        )}
 
-      {requisition?.description && (
-        <div className="flex flex-col gap-2">
-          <span className="text-[#333333] text-[14px] font-[600]">
-            Job Description
-          </span>
-          <div
-            className="text-[#333333] text-[12px] font-[400]"
-            dangerouslySetInnerHTML={{ __html: requisition.description }}
-          />
-        </div>
-      )}
+        <div className="h-[1px] w-full bg-[#DEDEDE]" />
+
+        {requisition?.description && (
+          <div className="flex flex-col gap-2">
+            <span className="text-[#333333] text-[14px] font-[600]">
+              Job Description
+            </span>
+            <div
+              className="text-[#333333] text-[12px] font-[400]"
+              dangerouslySetInnerHTML={{ __html: requisition.description }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

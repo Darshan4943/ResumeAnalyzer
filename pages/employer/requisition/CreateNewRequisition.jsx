@@ -578,7 +578,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               <select
                 value={data.department}
                 onChange={(e) => handleChange(e, "department")}
-                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid placeholder:text-[12px] text-[12px] text-[#646464] font-[400] border-[#DEDEDE] rounded-[6px] "
+                className="h-[38px] outline-none px-[16px] py-[8px] border-[1px] border-solid placeholder:text-[12px] text-[12px] text-[#646464] font-[400] border-[#DEDEDE] rounded-[6px] "
               >
                 <option value="" disabled selected>
                   Select
@@ -646,7 +646,7 @@ const CreateNewRequisition = ({ setToggle }) => {
             <textarea
               value={data.comments}
               onChange={(e) => handleChange(e, "comments")}
-              className="h-[148px] border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]"
+              className="h-[148px] outline-none border-[1px] border-solid border-[#DEDEDE] px-[16px] py-[8px] rounded-[6px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400]"
               placeholder="Provide your comment"
             ></textarea>
           </div>
