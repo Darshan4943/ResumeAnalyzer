@@ -672,7 +672,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                       {index !== levels.length - 1 && (
                         <div className="connector-line mt-[-2px] mb-[-3px]">
                           <img
-                            className="moving-line1"
+                            className="moving-lineReq"
                             style={{
                               height: "0px",
                               width: "3px",
@@ -696,7 +696,7 @@ const CreateNewRequisition = ({ setToggle }) => {
                         <p>{level.level}</p>
                         {index !== 0 && index === levels.length - 1 && (
                           <svg
-                            className="delete-level"
+                            className="delete-level cursor-pointer"
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
                             height="20"
@@ -749,13 +749,13 @@ const CreateNewRequisition = ({ setToggle }) => {
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
               <button
-                onClick={() => handleClear()}
-                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 "
+                onClick={() => router.back()}
+                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-2 rounded-[30px] max-scr1100:px-6 "
               >
-                Cancel
+                Back
               </button>
               <button
-                className="  text-[#fff] text-[16px] font-semibold px-9 py-3 max-scr1100:px-6  bg-[#06A9EF] rounded-[12px]"
+                className="  text-[#fff] text-[16px] font-semibold px-9 py-2 max-scr1100:px-6  bg-[#06A9EF] rounded-[30px]"
                 onClick={handleSubmit}
               >
                 Create

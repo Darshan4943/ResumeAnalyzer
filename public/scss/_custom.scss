@@ -347,6 +347,20 @@ input[type="checkbox"].custom-checkbox {
     height: 166px;
   }
 }
+.moving-lineReq {
+  animation: moveLineReq 1s linear forwards;
+}
+
+@keyframes moveLineReq {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 120px;
+  }
+}
+
 
 .level {
   opacity: 0;

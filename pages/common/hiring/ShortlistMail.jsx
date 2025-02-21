@@ -24,10 +24,10 @@ function ShortlistMail({
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState(
-    
+
   );
   const [content, setContent] = useState(
-    
+
   );
 
   const handleKeyPress = (e) => {
@@ -97,9 +97,9 @@ function ShortlistMail({
           value="bullet"
           aria-label="Unordered List"
         ></button>
-        <button
+       <button
           className="ql-align"
-          value="left"
+        
           aria-label="Align Left"
         ></button>
         <button
@@ -233,9 +233,9 @@ function ShortlistMail({
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className=" p-[4px] w-full"
-                      placeholder="Enter Subject"
+                    placeholder="Enter Subject"
                   />
-                  
+
                 </div>
                 <div className="border-[1px] border-[#D4D4D480] w-full"></div>
 
@@ -243,7 +243,7 @@ function ShortlistMail({
                 <div className="flex flex-col mt-[20px]">
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
-                 style={{ minHeight: "120px" }}
+                    style={{ minHeight: "120px" }}
                     value={content}
                     headerTemplate={header}
                     onTextChange={(e) => setContent(e.htmlValue)}

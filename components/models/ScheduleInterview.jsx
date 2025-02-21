@@ -35,7 +35,7 @@ function ScheduleInterview({
       duration: "30 min",
       interviewDate: new Date().toISOString().split("T")[0],
     });
-  });
+  }, []);
   const debounceUpdate = useCallback(
     debounce((value) => {
       setMailDetails((prev) => ({
@@ -348,7 +348,7 @@ function ScheduleInterview({
                 value={selectedValues.startTime}
                 onChange={handleStartTimeChange}
               >
-                <option  disabled>
+                <option disabled>
                   Select
                 </option>
 
@@ -361,21 +361,19 @@ function ScheduleInterview({
 
               <div className="flex gap-2   text-[14px] font-[400]">
                 <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${
-                    selectedValues.startAmPm === "AM"
-                      ? " bg-blue text-white"
-                      : ""
-                  }`}
+                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${selectedValues.startAmPm === "AM"
+                    ? " bg-blue text-white"
+                    : ""
+                    }`}
                   onClick={() => handleAmPmChange("AM")}
                 >
                   AM
                 </button>
                 <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${
-                    selectedValues.startAmPm === "PM"
-                      ? "text-white bg-blue"
-                      : ""
-                  }`}
+                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${selectedValues.startAmPm === "PM"
+                    ? "text-white bg-blue"
+                    : ""
+                    }`}
                   onClick={() => handleAmPmChange("PM")}
                 >
                   PM
@@ -468,11 +466,10 @@ function ScheduleInterview({
             <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4">
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Candidate"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
-                  } `}
+                  className={` cursor-pointer ${activeOption === "Candidate"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
+                    } `}
                   onClick={() => handleOptionClick("Candidate")}
                 >
                   Email to Candidate
@@ -492,11 +489,10 @@ function ScheduleInterview({
               </div>
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${
-                    activeOption === "Interviewer"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
-                  } `}
+                  className={` cursor-pointer ${activeOption === "Interviewer"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
+                    } `}
                   onClick={() => handleOptionClick("Interviewer")}
                 >
                   Email to Interviewer
@@ -546,19 +542,29 @@ function ScheduleInterview({
                 <div>
                   <p className="text-[16px] font-medium text-[#646464]">Body</p>
                 </div>
-                <Editor
-                  value={mailDetails?.candidate?.content}
-                  onTextChange={(e) => handleChange1(e.htmlValue)}
-                  style={{
-                    border: formError.content
-                      ? "2px solid red"
-                      : "2px solid #dedede",
-                    fontSize: "16px",
-                    color: "#333",
-                    padding: "10px",
-                    minHeight: "196px",
-                  }}
-                />
+                <div className=" border border-[#DEDEDE] relative">
+
+
+                  <Editor
+                    value={mailDetails?.candidate?.content}
+                    onTextChange={(e) => handleChange1(e.htmlValue)}
+                    style={{
+                      border: "none",
+                      fontSize: "16px",
+                      color: "#333",
+                      paddingTop: "120px",
+
+                      minHeight: "196px",
+
+                    }}
+                  />
+                  <div className=" absolute top-[56px] pl-[16px]">
+                    <p> <span className=" font-medium"> Interview Date :</span> {selectedValues.interviewDate} </p>
+                    <p> <span className=" font-medium"> Start Time : </span>{selectedValues.startTime} {selectedValues.startAmPm}</p>
+                    <p> <span className=" font-medium"> Duration :</span> {selectedValues.duration}</p>
+                    <p> <span className=" font-medium"> {selectedValues?.isOnline ? "Meeting Link" : "Interview Location"} :</span> {selectedValues?.isOnline ? selectedValues.meetingLink : selectedValues.interviewLocation}</p>
+                  </div>
+                </div>
               </div>
             </>
           )}
@@ -576,7 +582,7 @@ function ScheduleInterview({
                   class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                   value={mailDetails?.interviewer?.subject}
                   onChange={(e) =>
-                    setMailDetails((prev) => ({
+                    a((prev) => ({
                       ...prev,
                       interviewer: {
                         ...prev.interviewer,
@@ -591,7 +597,7 @@ function ScheduleInterview({
                 <div>
                   <p className="text-[16px] font-medium text-[#646464]">Body</p>
                 </div>
-                <Editor
+                {/* <Editor
                   value={mailDetails?.interviewer?.content}
                   onTextChange={(e) => handleChange2(e.htmlValue)}
                   style={{
@@ -602,8 +608,31 @@ function ScheduleInterview({
                     color: "#333",
                     padding: "10px",
                     minHeight: "196px",
-                  }}
-                />
+                  }}a
+                /> */}
+                <div className=" border border-[#DEDEDE] relative">
+
+
+                  <Editor
+                    value={mailDetails?.interviewer?.content}
+                    onTextChange={(e) => handleChange2(e.htmlValue)}
+                    style={{
+                      border: "none",
+                      fontSize: "16px",
+                      color: "#333",
+                      paddingTop: "120px",
+
+                      minHeight: "196px",
+
+                    }}
+                  />
+                  <div className=" absolute top-[56px] pl-[16px]">
+                    <p> <span className=" font-medium"> Interview Date :</span> {selectedValues.interviewDate} </p>
+                    <p> <span className=" font-medium"> Start Time : </span>{selectedValues.startTime} {selectedValues.startAmPm}</p>
+                    <p> <span className=" font-medium"> Duration :</span> {selectedValues.duration}</p>
+                    <p> <span className=" font-medium"> {selectedValues?.isOnline ? "Meeting Link" : "Interview Location"} :</span> {selectedValues?.isOnline ? selectedValues.meetingLink : selectedValues.interviewLocation}</p>
+                  </div>
+                </div>
               </div>
             </>
           )}

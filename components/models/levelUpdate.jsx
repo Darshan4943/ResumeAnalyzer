@@ -33,8 +33,8 @@ function LevelUpdate({
   const [shortlist, setShortlist] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const [mailDetails, setMailDetails] = useState({
-    candidate: {},
-    interviewer: {},
+    candidate: {subject:"Interview Scheduled"},
+    interviewer: {subject:"Interview Scheduled"},
   });
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);

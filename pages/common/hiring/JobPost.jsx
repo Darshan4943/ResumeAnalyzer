@@ -1026,7 +1026,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         </button>
                                       )}
 
-                                      {userDataGlobal?.role === "employer" && (
+                                      {/* {userDataGlobal?.role === "employer" && (
                                         <button
                                           disabled={
                                             applicant?.hiringStage !==
@@ -1047,7 +1047,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         >
                                           Shortlist
                                         </button>
-                                      )}
+                                      )} */}
                                       <>
                                         {isPopupVisible && (
                                           <ShortlistMail
@@ -1286,6 +1286,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         {applicant.source}
                                       </p>
                                       <div className="flex gap-[10px]">
+                                      {userDataGlobal?.role === "recruiter" && (
                                         <button
                                           disabled={
                                             applicant?.hiringStage ===
@@ -1310,6 +1311,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         >
                                           Shortlist
                                         </button>
+                                      )}
                                         <>
                                           {isPopupVisible && (
                                             <ShortlistMail

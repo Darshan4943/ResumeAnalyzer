@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import AdminDetails from "./adminDetails";
 import CompanyDetails from "./CompanyDetails";
 import DocumentDetails from "./DocumentDetails";
-const EmployerSignUp = () => {
+const SignUp = () => {
   const router = useRouter();
   const [tog, setTog] = useState(1);
   const [visiblePass, setVisiblePass] = useState(false);
@@ -171,4 +171,4 @@ const EmployerSignUp = () => {
   );
 };
 
-export default EmployerSignUp;
+export default SignUp;
