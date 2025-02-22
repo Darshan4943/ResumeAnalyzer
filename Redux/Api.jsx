@@ -1,10 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 
-
-
 import {
-  
   currenciesWithIcons,
   currencyMap,
   plans,
@@ -13,37 +10,27 @@ import {
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
 
-
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 
 import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
-import {  fetchUserData } from "./slices/userSlice";
+import { fetchUserData } from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAppliedJob, fetchSavedJobIds } from "./slices/jobSlice";
 import { fetchProfileData } from "./slices/profileSlice";
 import { setLoginState } from "./slices/loginSlice";
 import { useRouter } from "next/router";
 
-
-
-export const Api = ({ }) => {
-
-
- 
- 
-
+export const Api = ({}) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const {recallData } = useSelector((state) => state.recall);
-  console.log(444,recallData)
+  const { recallData } = useSelector((state) => state.recall);
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
 
   const [allPlans, setAllPlans] = useState([]);
-
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -58,22 +45,17 @@ export const Api = ({ }) => {
     };
   }, [router.events]);
 
-
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);
 
-
-  
-
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('authToken');
-      const isLoggedIn = token && token !== 'undefined';
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("authToken");
+      const isLoggedIn = token && token !== "undefined";
       dispatch(setLoginState(isLoggedIn));
     }
   }, [dispatch]);
-
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -98,8 +80,7 @@ export const Api = ({ }) => {
   //       localStorage.clear();
   //       console.log("Local Storage Cleared");
   //     }
-  //   }, 10000); 
-
+  //   }, 10000);
 
   //   return () => clearTimeout(timeoutId);
   // }, [userDataGlobal]);
@@ -115,25 +96,20 @@ export const Api = ({ }) => {
   //     });
   // }
 
-
   // useEffect(() => {
   //   if (!userDataGlobal || (typeof userDataGlobal === 'object' && Object.keys(userDataGlobal).length === 0)) {
   //     localStorage.clear();
   //   }
   // }, [userDataGlobal]);
 
-
-
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
   useEffect(() => {
-
     if (userDataGlobal) {
       dispatch(fetchProfileData(userDataGlobal?._id));
       dispatch(fetchAppliedJob(userDataGlobal?._id));
       dispatch(fetchSavedJobIds(userDataGlobal?._id));
     }
-
   }, [userDataGlobal]);
 
   useEffect(() => {
@@ -198,43 +174,98 @@ export const Api = ({ }) => {
               (item) => item.index == result.index
             );
 
-            localStorage.setItem("activePlan", result?.index ? result?.index : null);
+            localStorage.setItem(
+              "activePlan",
+              result?.index ? result?.index : null
+            );
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("uploadCount", result.used.resumeUploded);
             localStorage.setItem("saveCount", result.used.resumeStored);
             localStorage.setItem("chatCountDaily", result.used.chatBot.daily);
-            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly);
+            localStorage.setItem(
+              "chatCountMonthly",
+              result.used.chatBot.monthly
+            );
             localStorage.setItem("jdCountDaily", result.used.jdMatching.daily);
-            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly);
+            localStorage.setItem(
+              "jdCountMonthly",
+              result.used.jdMatching.monthly
+            );
             localStorage.setItem("clientCount", result.used.clientStored);
-            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily);
-            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly);
+            localStorage.setItem(
+              "collectionCountDaily",
+              result.used.collectionStored.daily
+            );
+            localStorage.setItem(
+              "collectionCountMonthly",
+              result.used.collectionStored.monthly
+            );
             localStorage.setItem("jobsApply", result.used.jobsApply);
             localStorage.setItem("coverCount", result.used.coverStored);
             localStorage.setItem("jdMatchingCount", result.used.jdMatching);
             localStorage.setItem("skillTestCount", result.used.skillTest);
-            localStorage.setItem("skillCertifiedCount", result.used.skillCertified);
-            localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
-            localStorage.setItem("saveCountLimit", result.limits.resumeStoredLimit);
-            localStorage.setItem("clientCountLimit", result.limits.clientStoredLimit);
+            localStorage.setItem(
+              "skillCertifiedCount",
+              result.used.skillCertified
+            );
+            localStorage.setItem(
+              "uploadCountLimit",
+              result.limits.resumeUplodedLimit
+            );
+            localStorage.setItem(
+              "saveCountLimit",
+              result.limits.resumeStoredLimit
+            );
+            localStorage.setItem(
+              "clientCountLimit",
+              result.limits.clientStoredLimit
+            );
             localStorage.setItem("isFree", result.isFree);
-            localStorage.setItem("jobsApplyLimit", result.limits.jobsApplyLimit);
-            localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
-            localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
-            localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
-            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily);
-            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly);
-            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily);
-            localStorage.setItem("jdCountMonthlyLimit", result.limits.jdMatchingLimit.monthly);
-            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily);
-            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly);
+            localStorage.setItem(
+              "jobsApplyLimit",
+              result.limits.jobsApplyLimit
+            );
+            localStorage.setItem(
+              "coverCountLimit",
+              result.limits.coverStoredLimit
+            );
+            localStorage.setItem(
+              "skillTestCountLimit",
+              result.limits.skillTestLimit
+            );
+            localStorage.setItem(
+              "skillCertifiedCountLimit",
+              result.limits.skillCertifiedLimit
+            );
+            localStorage.setItem(
+              "chatCountDailyLimit",
+              result.limits.chatBotLimit.daily
+            );
+            localStorage.setItem(
+              "chatCountMonthlyLimit",
+              result.limits.chatBotLimit.monthly
+            );
+            localStorage.setItem(
+              "jdCountDailyLimit",
+              result.limits.jdMatchingLimit.daily
+            );
+            localStorage.setItem(
+              "jdCountMonthlyLimit",
+              result.limits.jdMatchingLimit.monthly
+            );
+            localStorage.setItem(
+              "collectionCountDailyLimit",
+              result.limits.collectionStoredLimit.daily
+            );
+            localStorage.setItem(
+              "collectionCountMonthlyLimit",
+              result.limits.collectionStoredLimit.monthly
+            );
             localStorage.setItem("planAvailable", true);
 
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
-            // console.log(87,newEnddate)
-            // { console.log(999, timezone >= newEnddate ? "active" : "inactive") }
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
@@ -249,10 +280,6 @@ export const Api = ({ }) => {
                   console.log(err);
                 });
             }
-
-            // console.log(33333,moment(result.endDate).format('YYYY-MM-DD'))
-            // console.log(44444,moment(timezone).format('YYYY-MM-DD'))
-            // console.log(55555,moment(result.endDate).isBefore(moment(timezone).format('YYYY-MM-DD')))
           } else {
             if (!planActive && uploadCount == 0) {
               localStorage.setItem("uploadCount", 0);
@@ -288,11 +315,8 @@ export const Api = ({ }) => {
         .catch((err) => {
           console.log(err);
         });
-
-
     }
-
-  }, [userDataGlobal, allPlans,recallData]);
+  }, [userDataGlobal, allPlans, recallData]);
 
   useEffect(() => {
     if (userDataGlobal?._id) {
@@ -306,19 +330,14 @@ export const Api = ({ }) => {
         })
         .then((res) => {
           const result = res.data.data;
-          // localStorage.setItem("chatCount", result.chatBot); 
+          // localStorage.setItem("chatCount", result.chatBot);
           // localStorage.setItem("jdCount", result.jobMatching.matchCount);
-
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal])
-
-
-
-
+  }, [userDataGlobal]);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -385,14 +404,19 @@ export const Api = ({ }) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
-        localStorage.setItem("country", country)
+        localStorage.setItem("country", country);
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
           (item) => item?.countryCode === codeJson?.code
         );
 
         // const currency = Country ? Country.currency : "USD";
-        const currency = country === "India" ? "INR" : country === "United Kingdom" ? "GBP" : "USD";
+        const currency =
+          country === "India"
+            ? "INR"
+            : country === "United Kingdom"
+            ? "GBP"
+            : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
@@ -455,9 +479,9 @@ export const Api = ({ }) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;
@@ -511,7 +535,6 @@ export const Api = ({ }) => {
   useEffect(() => {
     getLocation();
   }, []);
-  // console.log(123,visible && loading == false);
 
   return (
     <>

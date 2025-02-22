@@ -31,7 +31,6 @@ const Internships = ({ data, setData, setIntern, intern }) => {
     }
   }, [data]);
 
-  console.log(99, data);
 
   const handleSave = () => {
     if (isModified.status === true) {

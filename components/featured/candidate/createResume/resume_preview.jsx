@@ -76,7 +76,6 @@ const ResumePreview = ({
   const [saveLimit, setSaveLimit] = useState(0);
   const [resumeLoading, setResumeLoading] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
-  // console.log(67, userDataGlobal);
   const getLimits = () => {
     const saveCountLimit = JSON.parse(localStorage.getItem("saveCountLimit"));
     const saveCount = JSON.parse(localStorage.getItem("saveCount"));
@@ -543,9 +542,6 @@ const ResumePreview = ({
   const generatePDFBlob = async () => {
     try {
       const blob = await pdf(<MyComponent />).toBlob();
-
-      // console.log("Generated Blob size:", blob.size);
-      // console.log("Generated Blob type:", blob.type);
 
       const arrayBuffer = await blob.arrayBuffer();
       if (arrayBuffer) {

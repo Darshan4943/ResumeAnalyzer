@@ -106,7 +106,6 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
           obj
         )
         .then((res) => {
-          console.log(444, res.data);
           dispatch(fetchUserData());
           setAddCertificate(false);
           toast.success("Course updated successfully");

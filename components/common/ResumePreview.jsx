@@ -19,7 +19,6 @@ const ResumePreview = ({
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
   const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
     const [numPages, setNumPages] = useState(null);
-    console.log(loadingg);
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
       setTimeout(() => {

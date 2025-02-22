@@ -168,44 +168,44 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         </p>
                         {userDataGlobal?.role === "user" && (
                           <>
-                            {(limits.used.coverStored >=
-                              limits.total.coverStoredLimit ||
-                              limits.used.resumeStored >=
-                              limits.total.resumeStoredLimit ||
-                              limits.used.skillTest >=
-                              limits.total.skillTestLimit ||
-                              limits.used.skillCertified >=
-                              limits.total.skillCertifiedLimit ||
-                              limits.used.chatBot.monthly >=
-                              limits.total.chatBotLimit.monthly) && (
-                                <div
-                                  onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                                >
-                                  Upgrade Plan
-                                </div>
-                              )}
+                            {(limits?.used?.coverStored >=
+                              limits?.total?.coverStoredLimit ||
+                              limits?.used?.resumeStored >=
+                                limits?.total?.resumeStoredLimit ||
+                              limits?.used?.skillTest >=
+                                limits?.total?.skillTestLimit ||
+                              limits?.used?.skillCertified >=
+                                limits?.total?.skillCertifiedLimit ||
+                              limits?.used?.chatBot?.monthly >=
+                                limits?.total?.chatBotLimit?.monthly) && (
+                              <div
+                                onClick={() => router.push("/purchase/plans")}
+                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                              >
+                                Upgrade Plan
+                              </div>
+                            )}
                           </>
                         )}
                         {userDataGlobal?.role === "recruiter" && (
                           <>
-                            {(limits.used.coverStored >=
-                              limits.total.coverStoredLimit ||
-                              limits.used.resumeStored >=
-                              limits.total.resumeStoredLimit ||
-                              limits.used.chatBot.daily >=
-                              limits.total.chatBotLimit.daily ||
-                              limits.used.jdMatching.monthly >=
-                              limits.total.jdMatchingLimit.monthly ||
-                              limits.used.collectionStored.monthly >=
-                              limits.total.collectionStoredLimit.monthly) && (
-                                <div
-                                  onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                                >
-                                  Upgrade Plan
-                                </div>
-                              )}
+                            {(limits?.used?.coverStored >=
+                              limits?.total?.coverStoredLimit ||
+                              limits?.used?.resumeStored >=
+                                limits?.total?.resumeStoredLimit ||
+                              limits?.used?.chatBot?.daily >=
+                                limits?.total?.chatBotLimit?.daily ||
+                              limits?.used?.jdMatching.monthly >=
+                                limits?.total?.jdMatchingLimit.monthly ||
+                              limits?.used?.collectionStored.monthly >=
+                                limits?.total?.collectionStoredLimit.monthly) && (
+                              <div
+                                onClick={() => router.push("/purchase/plans")}
+                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                              >
+                                Upgrade Plan
+                              </div>
+                            )}
                           </>
                         )}
                         {userDataGlobal?.role === "employer" && (
@@ -266,38 +266,37 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             maxWidth: `${Math.round(
                               (limits?.total?.coverStoredLimit * 100) /
                               limits?.total?.coverStoredLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits.used.coverStored >
-                              limits.total.coverStoredLimit
-                              ? limits.total.coverStoredLimit
-                              : limits.used.coverStored}
-                            /{limits.total.coverStoredLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
+                          )}%`,
+                        }}
+                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                      ></div>
+                    </div>
+                    <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
+                      {isActive ? (
+                        <>
+                          {limits?.used?.coverStored >
+                          limits?.total?.coverStoredLimit
+                            ? limits?.total?.coverStoredLimit
+                            : limits?.used?.coverStored}
+                          /{limits?.total?.coverStoredLimit}
+                        </>
+                      ) : (
+                        "0/0"
+                      )}
                     </div>
                   </div>
-                )}
-                {userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter" && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Resume Creation
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
+                </div>
+                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                  <p className=" scr420:min-w-[164px] min-w-[140px]">
+                    {" "}
+                    Resume Creation
+                  </p>
+                  <div className="flex w-full items-center gap-4">
+                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
+                      <div
+                        style={{
+                          width: `${
+                            isActive
                               ? Math.round(
                                 (limits?.used?.resumeStored * 100) /
                                 limits?.total?.resumeStoredLimit
@@ -307,27 +306,26 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             maxWidth: `${Math.round(
                               (limits?.total?.resumeStoredLimit * 100) /
                               limits?.total?.resumeStoredLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits.used.resumeStored >
-                              limits.total.resumeStoredLimit
-                              ? limits.total.resumeStoredLimit
-                              : limits.used.resumeStored}
-                            /{limits.total.resumeStoredLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
+                          )}%`,
+                        }}
+                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                      ></div>
+                    </div>
+                    <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
+                      {isActive ? (
+                        <>
+                          {limits?.used?.resumeStored >
+                          limits?.total?.resumeStoredLimit
+                            ? limits?.total?.resumeStoredLimit
+                            : limits?.used?.resumeStored}
+                          /{limits?.total?.resumeStoredLimit}
+                        </>
+                      ) : (
+                        "0/0"
+                      )}
                     </div>
                   </div>
-                )}
+                </div>
 
                 {userDataGlobal?.role === "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
@@ -339,16 +337,17 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits.used.skillTest * 100) /
-                                limits.total.skillTestLimit
-                              )
-                              : 0
-                              }% `,
+                            width: `${
+                              isActive
+                                ? Math.round(
+                                    (limits?.used?.skillTest * 100) /
+                                      limits?.total?.skillTestLimit
+                                  )
+                                : 0
+                            }% `,
                             maxWidth: `${Math.round(
-                              (limits.total.skillTestLimit * 100) /
-                              limits.total.skillTestLimit
+                              (limits?.total?.skillTestLimit * 100) /
+                                limits?.total?.skillTestLimit
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -357,10 +356,10 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits.used.skillTest > limits.total.skillTestLimit
-                              ? limits.total.skillTestLimit
-                              : limits.used.skillTest}
-                            /{limits.total.skillTestLimit}
+                            {limits?.used?.skillTest > limits?.total?.skillTestLimit
+                              ? limits?.total?.skillTestLimit
+                              : limits?.used?.skillTest}
+                            /{limits?.total?.skillTestLimit}
                           </>
                         ) : (
                           "0/0"
@@ -379,16 +378,17 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits.used.skillCertified * 100) /
-                                limits.total.skillCertifiedLimit
-                              )
-                              : 0
-                              }% `,
+                            width: `${
+                              isActive
+                                ? Math.round(
+                                    (limits?.used?.skillCertified * 100) /
+                                      limits?.total?.skillCertifiedLimit
+                                  )
+                                : 0
+                            }% `,
                             maxWidth: `${Math.round(
-                              (limits.total.skillCertifiedLimit * 100) /
-                              limits.total.skillCertifiedLimit
+                              (limits?.total?.skillCertifiedLimit * 100) /
+                                limits?.total?.skillCertifiedLimit
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -397,11 +397,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits.used.skillCertified >
-                              limits.total.skillCertifiedLimit
-                              ? limits.total.skillCertifiedLimit
-                              : limits.used.skillCertified}
-                            /{limits.total.skillCertifiedLimit}
+                            {limits?.used?.skillCertified >
+                            limits?.total?.skillCertifiedLimit
+                              ? limits?.total?.skillCertifiedLimit
+                              : limits?.used?.skillCertified}
+                            /{limits?.total?.skillCertifiedLimit}
                           </>
                         ) : (
                           "0/0"
@@ -461,16 +461,17 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits.used.jdMatching.monthly * 100) /
-                                limits.total.jdMatchingLimit.monthly
-                              )
-                              : 0
-                              }% `,
+                            width: `${
+                              isActive
+                                ? Math.round(
+                                    (limits?.used?.jdMatching.monthly * 100) /
+                                      limits?.total?.jdMatchingLimit.monthly
+                                  )
+                                : 0
+                            }% `,
                             maxWidth: `${Math.round(
-                              (limits.total.jdMatchingLimit.monthly * 100) /
-                              limits.total.jdMatchingLimit.monthly
+                              (limits?.total?.jdMatchingLimit.monthly * 100) /
+                                limits?.total?.jdMatchingLimit.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -479,11 +480,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits.used.jdMatching.monthly >
-                              limits.total.jdMatchingLimit.monthly
-                              ? limits.total.jdMatchingLimit.monthly
-                              : limits.used.jdMatching.monthly}
-                            /{limits.total.jdMatchingLimit.monthly}
+                            {limits?.used?.jdMatching.monthly >
+                            limits?.total?.jdMatchingLimit.monthly
+                              ? limits?.total?.jdMatchingLimit.monthly
+                              : limits?.used?.jdMatching.monthly}
+                            /{limits?.total?.jdMatchingLimit.monthly}
                           </>
                         ) : (
                           "0/0"
@@ -503,18 +504,19 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits.used.collectionStored.monthly *
-                                  100) /
-                                limits.total.collectionStoredLimit.monthly
-                              )
-                              : 0
-                              }% `,
+                            width: `${
+                              isActive
+                                ? Math.round(
+                                    (limits?.used?.collectionStored.monthly *
+                                      100) /
+                                      limits?.total?.collectionStoredLimit.monthly
+                                  )
+                                : 0
+                            }% `,
                             maxWidth: `${Math.round(
-                              (limits.total.collectionStoredLimit.monthly *
+                              (limits?.total?.collectionStoredLimit.monthly *
                                 100) /
-                              limits.total.collectionStoredLimit.monthly
+                                limits?.total?.collectionStoredLimit.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -523,11 +525,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits.used.collectionStored.monthly >
-                              limits.total.collectionStoredLimit.monthly
-                              ? limits.total.collectionStoredLimit.monthly
-                              : limits.used.collectionStored.monthly}
-                            /{limits.total.collectionStoredLimit.monthly}
+                            {limits?.used?.collectionStored.monthly >
+                            limits?.total?.collectionStoredLimit.monthly
+                              ? limits?.total?.collectionStoredLimit.monthly
+                              : limits?.used?.collectionStored.monthly}
+                            /{limits?.total?.collectionStoredLimit.monthly}
                           </>
                         ) : (
                           "0/0"

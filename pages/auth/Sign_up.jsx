@@ -118,7 +118,6 @@ function Sign_up({ }) {
         })
         .catch((err) => {
           setGoogleLoading(false);
-          console.log(222, err);
           toast.error(err?.response?.data?.message);
         });
     } catch (error) {
