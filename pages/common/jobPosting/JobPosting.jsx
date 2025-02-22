@@ -240,7 +240,7 @@ function JobPosting() {
               <div className="flex flex-col gap-[16px]">
                 <div className="h-[74px] w-full bg-[#fff] p-[16px] rounded-[6px] flex flex-row items-center justify-between sticky top-0">
                   <p className="  text-[18px] font-[500px]">
-                    All Job Requisitions
+                    Approved Job Requisitions
                   </p>
                   <button
                     onClick={toggleContent}
@@ -432,7 +432,7 @@ function JobPosting() {
               <div className="sticky top-0">
                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                   <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
-                    All Job Requisitions
+                    Approved Job Requisitions
                   </p>
 
                   <button
