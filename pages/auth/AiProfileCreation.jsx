@@ -161,7 +161,7 @@ function AiProfileCreation() {
 
             if (result[0]?.text?.length > 0) {
                 axios
-                    .post("https://dev.api.skilotech.com/api/resume/extraction", {
+                    .post("http://localhost:2000/api/resume/extraction", {
                         data: result,
                     })
                     .then((res) => {

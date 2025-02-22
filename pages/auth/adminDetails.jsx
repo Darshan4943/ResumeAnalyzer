@@ -293,7 +293,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -370,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("https://dev.api.skilotech.com/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -432,7 +432,7 @@ function AdminDetails({
     formDataToSend.append("recOptions", recOptions);
     setLoading(true);
 
-    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
+    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
 
     axios
       .post(url, formDataToSend, {
