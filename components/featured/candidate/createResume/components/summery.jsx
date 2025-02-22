@@ -540,7 +540,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 )}
-              </div>
+              </div> 
             </div>
 
           </div>
