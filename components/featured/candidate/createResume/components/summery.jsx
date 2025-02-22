@@ -404,8 +404,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                           width: `${
                             isActive
                               ? Math.round(
-                                  (limits.used.chatBot.monthly * 100) /
-                                    limits.total.chatBotLimit.monthly
+                                  (limits?.used?.chatBot?.monthly * 100) /
+                                    limits?.total?.chatBotLimit?.monthly
                                 )
                               : 0
                           }% `,
@@ -420,11 +420,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                       {isActive ? (
                         <>
-                          {limits.used.chatBot.monthly >
-                          limits.total.chatBotLimit.monthly
-                            ? limits.total.chatBotLimit.monthly
-                            : limits.used.chatBot.monthly}
-                          /{limits.total.chatBotLimit.monthly}
+                          {limits?.used?.chatBot?.monthly >
+                          limits?.total?.chatBotLimit?.monthly
+                            ? limits?.total?.chatBotLimit?.monthly
+                            : limits?.used?.chatBot?.monthly}
+                          /{limits?.total?.chatBotLimit?.monthly}
                         </>
                       ) : (
                         "0/0"
