@@ -195,10 +195,10 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                                 limits?.total?.resumeStoredLimit ||
                               limits?.used?.chatBot?.daily >=
                                 limits?.total?.chatBotLimit?.daily ||
-                              limits?.used?.jdMatching.monthly >=
-                                limits?.total?.jdMatchingLimit.monthly ||
-                              limits?.used?.collectionStored.monthly >=
-                                limits?.total?.collectionStoredLimit.monthly) && (
+                              limits?.used?.jdMatching?.monthly >=
+                                limits?.total?.jdMatchingLimit?.monthly ||
+                              limits?.used?.collectionStored?.monthly >=
+                                limits?.total?.collectionStoredLimit?.monthly) && (
                               <div
                                 onClick={() => router.push("/purchase/plans")}
                                 className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
@@ -212,10 +212,10 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                           <>
                             {(
 
-                              limits.used.jdMatching.monthly >=
-                              limits.total.jdMatchingLimit.monthly ||
-                              limits.used.collectionStored.monthly >=
-                              limits.total.collectionStoredLimit.monthly) && (
+                              limits?.used?.jdMatching?.monthly >=
+                              limits.total.jdMatchingLimit?.monthly ||
+                              limits?.used?.collectionStored?.monthly >=
+                              limits.total.collectionStoredLimit?.monthly) && (
                                 <div
                                   onClick={() => router.push("/purchase/plans")}
                                   className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
@@ -286,6 +286,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 </div>
+                )}
+                  {userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter" && (
                 <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                   <p className=" scr420:min-w-[164px] min-w-[140px]">
                     {" "}
@@ -326,7 +328,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 </div>
-
+                  )}
                 {userDataGlobal?.role === "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
@@ -464,14 +466,14 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             width: `${
                               isActive
                                 ? Math.round(
-                                    (limits?.used?.jdMatching.monthly * 100) /
-                                      limits?.total?.jdMatchingLimit.monthly
+                                    (limits?.used?.jdMatching?.monthly * 100) /
+                                      limits?.total?.jdMatchingLimit?.monthly
                                   )
                                 : 0
                             }% `,
                             maxWidth: `${Math.round(
-                              (limits?.total?.jdMatchingLimit.monthly * 100) /
-                                limits?.total?.jdMatchingLimit.monthly
+                              (limits?.total?.jdMatchingLimit?.monthly * 100) /
+                                limits?.total?.jdMatchingLimit?.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -480,11 +482,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits?.used?.jdMatching.monthly >
-                            limits?.total?.jdMatchingLimit.monthly
-                              ? limits?.total?.jdMatchingLimit.monthly
-                              : limits?.used?.jdMatching.monthly}
-                            /{limits?.total?.jdMatchingLimit.monthly}
+                            {limits?.used?.jdMatching?.monthly >
+                            limits?.total?.jdMatchingLimit?.monthly
+                              ? limits?.total?.jdMatchingLimit?.monthly
+                              : limits?.used?.jdMatching?.monthly}
+                            /{limits?.total?.jdMatchingLimit?.monthly}
                           </>
                         ) : (
                           "0/0"
@@ -507,16 +509,16 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             width: `${
                               isActive
                                 ? Math.round(
-                                    (limits?.used?.collectionStored.monthly *
+                                    (limits?.used?.collectionStored?.monthly *
                                       100) /
-                                      limits?.total?.collectionStoredLimit.monthly
+                                      limits?.total?.collectionStoredLimit?.monthly
                                   )
                                 : 0
                             }% `,
                             maxWidth: `${Math.round(
-                              (limits?.total?.collectionStoredLimit.monthly *
+                              (limits?.total?.collectionStoredLimit?.monthly *
                                 100) /
-                                limits?.total?.collectionStoredLimit.monthly
+                                limits?.total?.collectionStoredLimit?.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -525,11 +527,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
                         {isActive ? (
                           <>
-                            {limits?.used?.collectionStored.monthly >
-                            limits?.total?.collectionStoredLimit.monthly
-                              ? limits?.total?.collectionStoredLimit.monthly
-                              : limits?.used?.collectionStored.monthly}
-                            /{limits?.total?.collectionStoredLimit.monthly}
+                            {limits?.used?.collectionStored?.monthly >
+                            limits?.total?.collectionStoredLimit?.monthly
+                              ? limits?.total?.collectionStoredLimit?.monthly
+                              : limits?.used?.collectionStored?.monthly}
+                            /{limits?.total?.collectionStoredLimit?.monthly}
                           </>
                         ) : (
                           "0/0"
