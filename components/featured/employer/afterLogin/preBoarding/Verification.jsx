@@ -85,7 +85,6 @@ const Verification = ({ toggleContentt, setToggle }) => {
       setJobs(response.data.applications || []);
       setTotalCount(response.data.pagination?.totalApplications || 0);
       setTotalPages(response.data.pagination?.totalPages || 0);
-      console.log(1221122, response.data);
       toast.dismiss();
     } catch (err) {
       console.error("Error fetching job applications:", err);
@@ -196,8 +195,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
     <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
-          <div
-            className="flex py-3 px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+        <div
+            className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
             style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
           >
             <img

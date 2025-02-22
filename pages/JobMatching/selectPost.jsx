@@ -296,7 +296,8 @@ const SelectPost = () => {
                             </svg>
                           </div>
                           <div className="text-[12px] font-[400]">
-                            {item?.location}
+                          {item?.location?.join(", ")}
+
                           </div>
                         </div>
                       </div>

@@ -27,6 +27,7 @@ function RequisitionList({
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+
   useEffect(() => {
     setLoading(true);
     setMiniloading(true);
@@ -91,7 +92,6 @@ function RequisitionList({
 
     return icon?.symbol || "";
   };
-
   return (
     <>
       <div className="web w-full bg-[#FFFFFF] overflow-hidden rounded-[6px]">
@@ -254,9 +254,11 @@ function RequisitionList({
                         "-"
                       ) : (
                         <>
-                          ${requisition.budgetFrom || 0} - $
-                          {requisition.budgetTo || ""}
-                        </>
+                        {getCurrencyIcon(requisition.currency)}{" "}
+                        {requisition.budgetFrom || 0} -{" "}
+                        {getCurrencyIcon(requisition.currency)}{" "}
+                        {requisition.budgetTo || ""}
+                      </>
                       )}
                     </div>
                   </div>

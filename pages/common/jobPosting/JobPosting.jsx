@@ -7,6 +7,7 @@ import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import CustomPagination from "../../../components/common/CustomPagination";
 import { useSelector } from "react-redux";
+import { currenciesWithIcons } from "../../../utils/data";
 
 function JobPosting() {
   const router = useRouter();
@@ -119,36 +120,45 @@ function JobPosting() {
 
   const [search, setHeadings] = useState([
     {
-      heading: "Department",
-      options: [
-        "Assistant Manager",
-        "Product Manager",
-        "Devlopment",
-        "It",
-        "Developer",
-      ],
+      key: "Department",
+      heading: "Job Title",
+      options: [],
     },
     {
+      key: "location",
       heading: "Location",
-      options: ["Mumbai", "Pune", "Bangalore"],
+      options: [],
     },
     {
+      key: "status",
       heading: "Status",
       options: ["Approved"],
     },
     {
+      key: "priority",
       heading: "Priority",
       options: ["Yes", "No"],
     },
   ]);
 
   const handleHeadingChange = (selectedOption, index) => {
-    const selectedHeading = search[index]?.heading;
+    const selectedKey = search[index]?.key;
 
     setFilterData((prev) => ({
       ...prev,
-      [selectedHeading]: selectedOption ? selectedOption.value : "",
+      [selectedKey]: selectedOption ? selectedOption.value : "",
     }));
+
+    setHeadings((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              heading: selectedOption ? selectedOption.value : item.key,
+            }
+          : item
+      )
+    );
   };
 
   useEffect(() => {
@@ -193,7 +203,6 @@ function JobPosting() {
 
   const handleChangeRowsPerPage = (event) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
-    console.log("New Rows Per Page:", newRowsPerPage);
     setRowsPerPage(newRowsPerPage);
     setPage(0);
   };
@@ -214,6 +223,14 @@ function JobPosting() {
     }),
   };
 
+  const getCurrencyIcon = (currency) => {
+    const icon = currenciesWithIcons?.find(
+      (item) => item?.icon?.toLowerCase() === currency?.toLowerCase()
+    );
+
+    return icon?.symbol || "";
+  };
+
   return (
     <>
       <div>
@@ -223,7 +240,7 @@ function JobPosting() {
               <div className="flex flex-col gap-[16px]">
                 <div className="h-[74px] w-full bg-[#fff] p-[16px] rounded-[6px] flex flex-row items-center justify-between sticky top-0">
                   <p className="  text-[18px] font-[500px]">
-                    All Job Requisitions
+                    Approved Job Requisitions
                   </p>
                   <button
                     onClick={toggleContent}
@@ -336,12 +353,12 @@ function JobPosting() {
                               </p>
 
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
-                                {!requisition.budgetFrom &&
-                                !requisition.budgetTo
-                                  ? ""
-                                  : `$${requisition.budgetFrom || 0} - ${
-                                      requisition.budgetTo || ""
-                                    }`}
+                                <>
+                                  {getCurrencyIcon(requisition.currency)}{" "}
+                                  {requisition.budgetFrom || 0} -{" "}
+                                  {getCurrencyIcon(requisition.currency)}{" "}
+                                  {requisition.budgetTo || ""}
+                                </>
                               </p>
                               <p className="text-[14px] w-[14%] text-start font-[500] text-[#333333]">
                                 {requisition?.createdByName || "-"}
@@ -398,7 +415,7 @@ function JobPosting() {
                         ) : (
                           <div className="p-12 flex items-center justify-center">
                             <img
-                              className="w-[30%] min-w-[200px]"
+                              className="h-[114px] w-[200px]"
                               src="/images/employer/OBJECTS.png"
                               alt="No data available"
                             />
@@ -415,7 +432,7 @@ function JobPosting() {
               <div className="sticky top-0">
                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                   <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
-                    All Job Requisitions
+                    Approved Job Requisitions
                   </p>
 
                   <button
@@ -560,11 +577,12 @@ function JobPosting() {
                           Budget
                         </div>
                         <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
-                          {!requisition.budgetFrom && !requisition.budgetTo
-                            ? ""
-                            : `$${requisition.budgetFrom || 0} - ${
-                                requisition.budgetTo || "Not Available"
-                              }`}
+                          <>
+                            {getCurrencyIcon(requisition.currency)}{" "}
+                            {requisition.budgetFrom || 0} -{" "}
+                            {getCurrencyIcon(requisition.currency)}{" "}
+                            {requisition.budgetTo || ""}
+                          </>
                         </div>
                       </div>
                       <div className="text-center">
@@ -626,7 +644,7 @@ function JobPosting() {
                 <div className="p-3 w-full flex items-center justify-center">
                   <img
                     src="/images/employer/OBJECTS.png"
-                    className="w-[30%] min-w-[200px]"
+                    className="h-[114px] w-[200px]"
                     alt="No data available"
                   />
                 </div>

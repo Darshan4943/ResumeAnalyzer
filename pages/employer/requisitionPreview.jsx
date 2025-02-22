@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { currenciesWithIcons } from "../../utils/data";
 
 function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const [requisition, setRequisition] = useState([]);
@@ -20,6 +21,13 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
       fetchRequisition();
     }
   }, [requisitionId]);
+  const getCurrencyIcon = (currency) => {
+    const icon = currenciesWithIcons?.find(
+      (item) => item?.icon?.toLowerCase() === currency?.toLowerCase()
+    );
+
+    return icon?.symbol || "";
+  };
 
   const ApprovalLevel = [];
   return (
@@ -85,7 +93,12 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
                 Budget
               </span>
               <span className="text-[#333333] text-[14px] font-[600]">
-                ${requisition.budgetFrom} - {requisition.budgetTo}
+                <>
+                  {getCurrencyIcon(requisition.currency)}{" "}
+                  {requisition.budgetFrom || 0} -{" "}
+                  {getCurrencyIcon(requisition.currency)}{" "}
+                  {requisition.budgetTo || ""}
+                </>
               </span>
             </div>
           )}

@@ -19,7 +19,7 @@ function EmployerNotification() {
     "All",
     "Today ",
     "2 days Ago",
-        // "Application Status ",
+    // "Application Status ",
     // "Offer",
     // "Views on profile",
   ];
@@ -39,7 +39,6 @@ function EmployerNotification() {
       const data = await response.json();
       setNotifications(data.notifications);
       setLoading(false);
-
     } catch (error) {
       setLoading(false);
 
@@ -145,15 +144,15 @@ function EmployerNotification() {
                   }}
                 >
                   <div className="flex items-center w-full gap-4">
-                    <div className="w-[50px] h-[50px]  flex-shrink-0">
+                    <div className="w-[50px] h-[50px] flex items-center justify-center flex-shrink-0">
                       <img
                         src={e.logo || "/images/LOGO.png"}
                         alt="Notification Logo"
-                        className=" rounded-[8px] "
+                        className="w-full h-full object-cover rounded-[8px]"
                       />
                     </div>
 
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col justify-center w-full">
                       <p className="text-[14px] sm:text-[16px] text-[#333] font-medium leading-[160%]">
                         {e.description}
                       </p>
@@ -192,23 +191,23 @@ function EmployerNotification() {
             </>
           ) : (
             <div className="flex flex-col items-center justify-center min-h-[360px] p-3 w-full gap-2 bg-gray-100 rounded-lg">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-20 h-20 mb-4 text-gray-500"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 24c1.104 0 2-.896 2-2h-4c0 1.104.896 2 2 2zm10-6v-7c0-3.519-2.613-6.432-6-6.92V3.5c0-.828-.672-1.5-1.5-1.5S13 2.672 13 3.5v.58c-3.387.488-6 3.401-6 6.92v7l-2 2v1h20v-1l-2-2zm-2 1H4v-6.999c0-3.309 2.691-6 6-6s6 2.691 6 6V19z" />
-            </svg>
-            <div className="text-center">
-              <p className="text-lg font-semibold text-gray-700">
-                No Notifications Available
-              </p>
-              <p className="text-sm text-gray-500">
-                You&apos;re all caught up! Check back later for new updates.
-              </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-20 h-20 mb-4 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 24c1.104 0 2-.896 2-2h-4c0 1.104.896 2 2 2zm10-6v-7c0-3.519-2.613-6.432-6-6.92V3.5c0-.828-.672-1.5-1.5-1.5S13 2.672 13 3.5v.58c-3.387.488-6 3.401-6 6.92v7l-2 2v1h20v-1l-2-2zm-2 1H4v-6.999c0-3.309 2.691-6 6-6s6 2.691 6 6V19z" />
+              </svg>
+              <div className="text-center">
+                <p className="text-lg font-semibold text-gray-700">
+                  No Notifications Available
+                </p>
+                <p className="text-sm text-gray-500">
+                  You&apos;re all caught up! Check back later for new updates.
+                </p>
+              </div>
             </div>
-          </div>
           )}
         </div>
       )}
