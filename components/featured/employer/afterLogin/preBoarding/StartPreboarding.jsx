@@ -56,7 +56,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
     if (applicant?.applicantId) {
       setData((prevState) => ({
         ...prevState,
-        applicantId: applicant.applicantId, jobId: applicant.jobId, applicantEmail: applicant.details.personal.email,applicantFirstName:applicant.details.personal.firstName,applicantLastName:applicant.details.personal.lastName
+        applicantId: applicant.applicantId, jobId: applicant.jobId, applicantEmail: applicant.details.personal.email, applicantFirstName: applicant.details.personal.firstName, applicantLastName: applicant.details.personal.lastName
       }));
     }
   }, [applicant]);
@@ -145,7 +145,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
     <>
 
       {sendMail &&
-        <DocumentMail data={data} handleSubmit={handleSubmit} setData={setData}  setSendMail={setSendMail} loading={loading} setLoading={setLoading}/>
+        <DocumentMail data={data} handleSubmit={handleSubmit} setData={setData} setSendMail={setSendMail} loading={loading} setLoading={setLoading} />
       }
 
       <div
@@ -454,11 +454,11 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
               Cancel
             </button>
             <button
-              onClick={() => setSendMail(true)}
-              className="text-[16px] py-2 px-4 justify-center items-center rounded-[30px] bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
+              onClick={(e) => { data?.isDocumentCollecting ? setSendMail(true) : handleSubmit(e) }}
+              className="text-[16px]  py-2  w-[92px] justify-center items-center rounded-[30px] bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
               style={{ border: "1px solid var(--primary, #06A9EF)" }}
             >
-              Send
+              Submit
             </button>
           </div>
         </div>

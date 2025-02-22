@@ -19,7 +19,7 @@ function ApplicantDetailsLeftCard({
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState([]);
   const [hiringStage, setHiringStage] = useState("");
-  console.log(shortlist)
+  console.log(jobDetails)
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
@@ -153,7 +153,7 @@ function ApplicantDetailsLeftCard({
                     <MiniLoader />
                   </div> :
                   <>
-                    {jobDetails?.hiringStage !== "Pending" ?
+                    {jobDetails?.hiringStage === "Selected" ?
                       <div
                         onClick={() => {
                           setToggle("HiringProgress");
@@ -184,9 +184,17 @@ function ApplicantDetailsLeftCard({
                           </button>
 
                           :
-                          <button onClick={moveToHiring} className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
-                            Move to Hiring Process
-                          </button>
+                          jobDetails?.hiringStage === "Hired" ?
+                            <button disabled className="flex gap-2">
+                              <div className="px-4 w-full items-center flex justify-center py-3 rounded-[30px]  text-[16px] font-medium text-[#1D9474] bg-[#4BD06F33s]">
+                                Hired
+                              </div>
+                            </button>
+
+                            :
+                            <button onClick={moveToHiring} className="rounded-[30px] text-[14px] font-semibold bg-blue text-white flex justify-center items-center h-[42px]">
+                              Move to Hiring Process
+                            </button>
                     }
                   </>
                 }
