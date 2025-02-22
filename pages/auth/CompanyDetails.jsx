@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import ReactSelect from "react-select";
 import { telCode } from "../../utils/data";
 import { useRouter } from "next/router";
+import { UploadSvg } from "../../utils/svg";
 function CompanyDetails({
   tog,
   updateTog,
@@ -14,6 +15,7 @@ function CompanyDetails({
   formData,
   setFormData,
 }) {
+  const [formError, setFormError] = useState({});
   const router = useRouter();
   const [errors, setErrors] = useState({});
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -104,6 +106,13 @@ function CompanyDetails({
           delete newErrors.companyName;
         }
         break;
+      case "companyRegistration":
+        if (!value.trim()) {
+          newErrors.companyRegistration = "company Registration Number is required";
+        } else {
+          delete newErrors.companyRegistration;
+        }
+        break;
 
       case "companyEmail":
         if (!value.trim()) {
@@ -183,6 +192,11 @@ function CompanyDetails({
         newErrors = { ...newErrors, ...fieldError };
       }
     });
+    if(!formData.certificate){
+      newErrors={...newErrors,certificate : "Company Certificate is required"}
+    }
+
+   
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
 
@@ -215,19 +229,34 @@ function CompanyDetails({
       });
   };
 
-  const handleBack1 = () => {
-    setProgress1(0);
-    setIsCompleted1(false);
-    updateTog(2);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    if (files.length > 0) {
+      const file = files[0];
+
+      if (file.size > 1048576) {
+        // setFormError((prev) => ({
+        //   ...prev,
+        //   [name]: "File size must be less than 1MB",
+        // }));
+        toast.error("File size must be less than 1MB")
+        return;
+      }
+
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      setFormError((prev) => {
+        const updatedErrors = { ...prev };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
+    }
   };
 
+  console.log(formData)
   return (
     <div
-      style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-      className={`${
-        tog === 1 ? "flex" : "hidden"
-      } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6 `}
+
+      className={`flex  w-full rounded-[8px]  flex-col gap-3 md:gap-6 `}
     >
       {companyFields.map((field, index) => (
         <div key={index} className="flex w-full flex-col gap-1">
@@ -239,9 +268,8 @@ function CompanyDetails({
             <div className="flex gap-2">
               <ReactSelect
                 options={filteredTelCode}
-                className={`flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]  ${
-                  errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
-                } `}
+                className={`flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]  ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                  } `}
                 name=""
                 placeholder="Select"
                 value={selectedItem}
@@ -284,22 +312,20 @@ function CompanyDetails({
                 name="contactNumber"
                 value={formData.contactNumber}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, ""); 
+                  const value = e.target.value.replace(/\D/g, "");
                   if (value.length <= 10) {
                     handleChange({ target: { name: "contactNumber", value } });
                   }
                 }}
                 placeholder={field.placeholder}
-                className={`bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${
-                  errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
-                } `}
+                className={`bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                  } `}
               />
             </div>
           ) : (
             <div
-              className={`flex rounded-[8px] py-[12px] px-4 border ${
-                errors[field.name] ? "border-red" : "border-[#9D9D9D]"
-              } `}
+              className={`flex rounded-[8px] py-[12px] px-4 border ${errors[field.name] ? "border-red" : "border-[#9D9D9D]"
+                } `}
             >
               <input
                 type="text"
@@ -312,12 +338,48 @@ function CompanyDetails({
             </div>
           )}
 
-          {/* {errors[field.name] && (
-            <p className="text-[12px] text-red font-[500]">{errors[field.name]}</p>
-          )} */}
+
+
         </div>
       ))}
 
+      <div className="grid grid-cols-12 gap-[20px]">
+        <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6 items-start ">
+          <p className="text-[14px] md:text-[16px] font-[500] text-[#333333]">Company Registration Number</p>
+          <input
+            type="text"
+            name="companyRegistration"
+            value={formData.companyRegistration}
+            onChange={handleChange}
+            placeholder="Enter Company Registration Number"
+            className={` bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.companyRegistration ? "border-red" : "border-[#9D9D9D]"
+              } `}
+          />
+        </div>
+        <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
+          <label className="text-[16px] font-[500] text-[#333333]">
+            Upload Certificate<span className="text-red">*</span>
+          </label>
+          <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${errors.certificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
+            <input
+              type="file"
+              id="certificateInput"
+              name="certificate"
+              onChange={handleFileChange}
+              className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
+            />
+            {formData.certificate ?
+              <p>{formData?.certificate?.name}</p>
+
+              :
+              <p className="text-[14px] text-[#646464]">Upload certificate</p>
+            }
+            <UploadSvg />
+          </div>
+          {formError.certificate && <span className="text-red text-sm">{formError.certificate}</span>}
+
+        </div>
+      </div>
       <div className="w-full flex justify-between">
         <button
           onClick={() => {

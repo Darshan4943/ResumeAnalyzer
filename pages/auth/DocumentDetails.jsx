@@ -16,6 +16,7 @@ function DocumentDetails({
   setProgress1,
   formData,
   setFormData,
+  role
 }) {
   const [formError, setFormError] = useState({});
   const [loading, setLoading] = useState(false);
@@ -121,6 +122,7 @@ function DocumentDetails({
         formDataToSend.append(key, value);
       }
     });
+    formDataToSend.append("role", role);
     setLoading(true);
   
     const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
@@ -164,9 +166,8 @@ function DocumentDetails({
 
   return (
     <div
-      style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-      className={`${tog === 3 ? "flex" : "hidden"
-        } bg-white w-[95%] md:w-[65%] scr1024:w-[55%] scr1067:w-[45%] rounded-[8px] md:rounded-[16px] p-3 md:p-6 flex-col gap-3 md:gap-6`}
+      
+      className={`flex w-full flex-col gap-3 md:gap-6`}
     >
       <div className="w-full  gap-[20px] grid grid-cols-12">
         <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
