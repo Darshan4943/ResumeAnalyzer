@@ -113,6 +113,7 @@ function CompanyDetails({
           delete newErrors.companyRegistration;
         }
         break;
+      
 
       case "companyEmail":
         if (!value.trim()) {
@@ -192,11 +193,17 @@ function CompanyDetails({
         newErrors = { ...newErrors, ...fieldError };
       }
     });
-    if(!formData.certificate){
-      newErrors={...newErrors,certificate : "Company Certificate is required"}
+    if (!formData.companyRegistration) {
+      newErrors = { ...newErrors, companyRegistration: "Company Registration Number is required" }
+    }
+    if (!formData.certificate) {
+      newErrors = { ...newErrors, certificate: "Company Certificate is required" }
+    }
+    if (!formData.companyLogo) {
+      newErrors = { ...newErrors, companyLogo: "Company Logo is required" }
     }
 
-   
+    console.log(newErrors)
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
 
@@ -208,7 +215,7 @@ function CompanyDetails({
     }
 
     axios
-      .post("http://localhost:2000/api/skiloteckuser/companyCheck", {
+      .post("https://dev.api.skilotech.com/api/skiloteckuser/companyCheck", {
         companyEmail: formData.companyEmail,
       })
       .then((res) => {
@@ -244,6 +251,8 @@ function CompanyDetails({
       }
 
       setFormData((prev) => ({ ...prev, [name]: file }));
+      delete errors.certificate;
+      delete errors.companyLogo;
       setFormError((prev) => {
         const updatedErrors = { ...prev };
         delete updatedErrors[name];
@@ -252,11 +261,11 @@ function CompanyDetails({
     }
   };
 
-  console.log(formData)
+  // console.log(formData)
   return (
     <div
 
-      className={`flex  w-full rounded-[8px]  flex-col gap-3 md:gap-6 `}
+      className={`flex  w-full rounded-[8px]  flex-col gap-3 md:gap-4 `}
     >
       {companyFields.map((field, index) => (
         <div key={index} className="flex w-full flex-col gap-1">
@@ -345,7 +354,7 @@ function CompanyDetails({
 
       <div className="grid grid-cols-12 gap-[20px]">
         <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6 items-start ">
-          <p className="text-[14px] md:text-[16px] font-[500] text-[#333333]">Company Registration Number</p>
+          <p className="text-[14px] md:text-[16px] font-[500] text-[#333333]">Company Registration Number <span className="text-red">*</span></p>
           <input
             type="text"
             name="companyRegistration"
@@ -357,8 +366,8 @@ function CompanyDetails({
           />
         </div>
         <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
-          <label className="text-[16px] font-[500] text-[#333333]">
-            Upload Certificate<span className="text-red">*</span>
+          <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
+             Certificate<span className="text-red">*</span>
           </label>
           <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${errors.certificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
             <input
@@ -380,10 +389,33 @@ function CompanyDetails({
 
         </div>
       </div>
+      <div className="flex w-full flex-col gap-1">
+        <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
+          Company Logo <span className="text-red">*</span>
+        </label>
+        <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer  ${errors.companyLogo ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
+          <input
+            type="file"
+            id="companyLogoInput"
+            name="companyLogo"
+            onChange={handleFileChange}
+            accept=".jpg,.jpeg,.png,"
+            className="w-full cursor-pointer text-[14px] font-[400] text-[#646464] "
+          />
+          {formData.companyLogo ?
+            <p>{formData?.companyLogo?.name}</p>
+
+            :
+            <p className="text-[14px] text-[#646464]">Upload Company Logo</p>
+          }
+          <UploadSvg />
+        </div>
+        {formError.companyLogo && <span className="text-red text-sm">{formError.companyLogo}</span>}
+      </div>
       <div className="w-full flex justify-between">
         <button
           onClick={() => {
-            router.back();
+            router.push("/auth?signup=true");
           }}
           className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] md:rounded-[30px] text-[12px] md:text-[16px] font-[500] text-[#333333]"
         >

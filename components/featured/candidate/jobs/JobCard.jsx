@@ -18,7 +18,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
   const SaveJob = async (e, id) => {
     e.stopPropagation();
     try {
-      await axios.post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`);
+      await axios.post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`);
       getData()
       setSaved((prevState) => !prevState);
       //  dispatch(fetchUserData());
@@ -37,7 +37,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
     try {
 
       await axios.post(
-        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `https://dev.api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
       getData()

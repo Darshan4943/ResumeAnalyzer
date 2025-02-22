@@ -312,8 +312,8 @@ function Form({ }) {
     }
     else {
       const url = isUpdate
-        ? "http://localhost:2000/api/updateUser"
-        : "http://localhost:2000/api/skiloteckuser/recruiter";
+        ? "https://dev.api.skilotech.com/api/updateUser"
+        : "https://dev.api.skilotech.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -387,7 +387,7 @@ function Form({ }) {
     e.preventDefault();
     let tempUser = "tempRecruiter"
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: data.email,
         tempUser
       })
@@ -436,7 +436,7 @@ function Form({ }) {
   const verifyOtp = () => {
 
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: data.email,
         otpEntered
       })

@@ -13,6 +13,7 @@ import MiniLoader from "../../components/common/mini-loader";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { telCode } from "../../utils/data";
+import { UploadSvg } from "../../utils/svg";
 
 function AdminDetails({
   tog,
@@ -23,7 +24,8 @@ function AdminDetails({
   setProgress1,
   formData,
   setFormData,
-  role
+  role,
+  recOptions
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -82,6 +84,7 @@ function AdminDetails({
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
+ 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -150,6 +153,13 @@ function AdminDetails({
         }
 
         break;
+        case "idProof":
+          if (!value.trim()) {
+            errors.idProof = "Id Proof is required";
+          } else {
+            delete errors.idProof;
+          }
+          break;
 
       case "dial_code":
         if (!value.trim()) {
@@ -198,6 +208,7 @@ function AdminDetails({
       { key: "mobileNo", error: "Enter Contact Number" },
       { key: "password", error: "Enter Password" },
       { key: "confirmPassword", error: "Enter Confirm Password" },
+      { key: "idProof", error: "Enter Id Proof" },
     ];
 
     let errors = { ...formError };
@@ -280,9 +291,9 @@ function AdminDetails({
   const handleVerification = (e) => {
     setLoadingg(true);
     e.preventDefault();
-    let tempUser = role ==="employer" ? "tempEmployer" :"tempRecruiter";
+    let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -304,6 +315,31 @@ function AdminDetails({
         setLoadingg(false);
       });
   };
+
+   const handleFileChange = (e) => {
+      const { name, files } = e.target;
+      if (files.length > 0) {
+        const file = files[0];
+  
+        if (file.size > 1048576) {
+          // setFormError((prev) => ({
+          //   ...prev,
+          //   [name]: "File size must be less than 1MB",
+          // }));
+          toast.error("File size must be less than 1MB")
+          return;
+        }
+  
+        setFormData((prev) => ({ ...prev, [name]: file }));
+        delete formError.idProof;
+        delete formError.idProofCertificate;
+        setFormError((prev) => {
+          const updatedErrors = { ...prev };
+          delete updatedErrors[name];
+          return updatedErrors;
+        });
+      }
+    };
 
   useEffect(() => {
     if (verify) {
@@ -334,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -368,12 +404,77 @@ function AdminDetails({
     updateTog(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const handleSubmit = () => {
+
+
+    const isValid = validateFields(); // Validate all fields
+    if (!isValid) {
+      toast.error("Please fill in all required fields correctly.");
+      return;
+    }
+
+    if (!verified) {
+      setOtpError("Email Verification Required");
+      toast.error("Email Verification Required");
+      return;
+    }
+    if (!formData.idProofCertificate) {
+      setFormError({ ...formError, idProofCertificate: "I Proof Certificate is required" })
+    }
+
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        formDataToSend.append(key, value);
+      }
+    });
+    formDataToSend.append("role", role);
+    formDataToSend.append("recOptions", recOptions);
+    setLoading(true);
+
+    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
+
+    axios
+      .post(url, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const response = res.data;
+        try {
+          if (response?.success) {
+
+            localStorage.setItem("authToken", JSON.stringify(response));
+            window.location.href = `/?signIn=false`;
+            setLoading(false);
+            toast.success("Sign up Successfully");
+
+          } else {
+            setLoading(false);
+            if (response.message === "User already exists") {
+              toast.error("User already exists");
+            } else {
+              toast.error("Something went wrong");
+            }
+          }
+        } catch (err) {
+          toast.error("Something went wrong");
+          console.log(err);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response);
+        toast.error("Something went wrong");
+        setLoading(false);
+      });
+  };
 
   return (
     <>
       <div
-        
-        className={`flex  w-full  flex-col gap-3 md:gap-6 `}
+
+        className={`flex  w-full  flex-col gap-3 md:gap-4 `}
       >
         <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
           <div className="flex w-full flex-col gap-1">
@@ -381,9 +482,8 @@ function AdminDetails({
               First Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.firstName ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError?.firstName ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="text"
@@ -401,9 +501,8 @@ function AdminDetails({
               Last Name<span className="text-red">*</span>
             </div>
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.lastName ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError?.lastName ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="text"
@@ -423,9 +522,8 @@ function AdminDetails({
           </div>
           <div className="w-full flex flex-col scr540:flex-row gap-3 scr540:gap-[20px]">
             <div
-              className={` rounded-[8px] w-full  pr-4 border ${
-                formError.dial_code ? "border-red" : "border-[#9D9D9D]"
-              } flex`}
+              className={` rounded-[8px] w-full  pr-4 border ${formError?.dial_code ? "border-red" : "border-[#9D9D9D]"
+                } flex`}
             >
               <ReactSelect
                 options={filteredTelCode}
@@ -470,18 +568,17 @@ function AdminDetails({
                 type="text"
                 name=""
                 id=""
-                placeholder={`${
-                  isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
-                }`}
+                placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
+                  }`}
                 value={formData.mobileNo}
                 onChange={(e) => {
                   handleInputChange("mobileNo", e.target.value);
-                  const value = e.target.value.replace(/\D/g, ""); 
+                  const value = e.target.value.replace(/\D/g, "");
                   if (value.length <= 10) {
-                    handleChange({ target: { name: "contactNumber", value } }); 
+                    handleChange({ target: { name: "contactNumber", value } });
                   }
                 }}
-                
+
                 className="w-full bg-[transparent] pl-4 outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
             </div>
@@ -493,9 +590,8 @@ function AdminDetails({
           </div>
           <div className="w-full flex flex-col scr540:flex-row justify-between gap-3 scr540:gap-[20px]">
             <div
-              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${
-                formError.email ? "border-red" : "border-[#9D9D9D]"
-              }`}
+              className={`w-full rounded-[8px] py-[8px] px-4 border  flex ${formError?.email ? "border-red" : "border-[#9D9D9D]"
+                }`}
             >
               <input
                 type="email"
@@ -677,7 +773,7 @@ function AdminDetails({
                   </svg>
                 ))}
             </div>
-            {formError.password !== "Enter Password" && (
+            {formError?.password !== "Enter Password" && (
               <p className="text-[10px] text-[red] font-[500]">
                 {formError?.password}
               </p>
@@ -736,26 +832,77 @@ function AdminDetails({
                   </svg>
                 ))}
             </div>
-            {formError.confirmPassword !== "Enter Confirm Password" && (
+            {formError?.confirmPassword !== "Enter Confirm Password" && (
               <p className="text-[10px] text-[red] font-[500]">
                 {formError?.confirmPassword}
               </p>
             )}
           </div>
         </div>
+        <div className="grid grid-cols-12 gap-[20px]">
+          <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6 items-start ">
+            <p className="text-[14px] md:text-[16px] font-[500] text-[#333333]">Id Proof Number <span className="text-red">*</span></p>
+            <input
+              type="text"
+              name="idProof"
+              value={formData.idProof}
+              onChange={(e) => handleInputChange("idProof", e.target.value)}
+              placeholder="Enter Id Proof Number"
+              className={` bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border h-[39px]  rounded-[8px] py-[12px] px-4 ${formError.idProof ? "border-red" : "border-[#9D9D9D]"
+                } `}
+            />
+          </div>
+          <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
+            <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
+            Id Proof Certificate<span className="text-red">*</span>
+            </label>
+            <div className={`h-[39px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${formError?.idProofCertificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
+              <input
+                type="file"
+                id="certificateInput"
+                name="idProofCertificate"
+                onChange={handleFileChange}
+                className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
+              />
+              {formData.idProofCertificate ?
+                <p>{formData?.idProofCertificate?.name}</p>
+
+                :
+                <p className="text-[14px] text-[#646464]">Upload Id Proof Certificate</p>
+              }
+              <UploadSvg />
+            </div>
+            {formError?.idProofCertificate && <span className="text-red text-sm">{formError?.idProofCertificate}</span>}
+
+          </div>
+        </div>
         <div className="w-full flex justify-between">
+
           <button
-            onClick={handleBack}
+            onClick={() => recOptions === "firm" ? handleBack : router.push("/auth?signup=true")}
             className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
           >
             Go Back
           </button>
-          <button
-            onClick={submitHandler}
-            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] bg-blue rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
-          >
-            Continue
-          </button>
+
+          <div>
+          </div>
+
+          {loading ?
+          <div
+         
+          className="w-[148.34px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+        >
+          <MiniLoader/>
+        </div>
+        :
+        <button
+          onClick={handleSubmit}
+          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+        >
+          Continue
+        </button>
+}
         </div>
       </div>
     </>
