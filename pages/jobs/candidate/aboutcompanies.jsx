@@ -4,13 +4,13 @@ import axios from "axios";
 import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
 import { useRouter } from "next/router";
 
-function aboutcompanies() {
+function Aboutcompanies() {
   const [company, setCompany] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
-  const { companyName , id} = router.query;
+  const { companyName, id } = router.query;
 
   const fetchCompanyDetails = async () => {
     try {
@@ -89,8 +89,8 @@ function aboutcompanies() {
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English.
+            distribution of letters, as opposed to using Content here, content
+            here, making it look like readable English.
           </div>
         </div>
 
@@ -102,11 +102,14 @@ function aboutcompanies() {
               </h2>
               <div className="flex flex-col gap-4">
                 {jobs.length > 0 ? (
-                  jobs.map((item) => <NormalJobCard item={item} />)
+                  jobs.map((item, index) => (
+                    <NormalJobCard key={item.id || index} item={item} />
+                  ))
                 ) : (
                   <p>No jobs found for this company.</p>
                 )}
               </div>
+
             </div>
 
             <div className="w-[357px] flex flex-col">
@@ -124,4 +127,4 @@ function aboutcompanies() {
   );
 }
 
-export default aboutcompanies;
+export default Aboutcompanies;
