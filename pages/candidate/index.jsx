@@ -7,7 +7,7 @@ function CandidateHome() {
       <div className='flex flex-col gap-4 w-full ml:max-w-[262px]'>
         <ProfileSection />
         <div className='min-w-[262px] hidden ml:block rounded-[12px] bg-[#FFFFFF] h-[300px]'>
-
+          <img src="/images/home/CandidatePoster3.png" className="w-full" alt="Generative AI" />
         </div>
       </div>
       <MiddleSection />

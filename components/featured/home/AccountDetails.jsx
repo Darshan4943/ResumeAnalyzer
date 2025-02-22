@@ -25,9 +25,9 @@ function AccountDetails({
   canceled,
   setCancelModel,
 }) {
-  
+
   const router = useRouter();
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [freePlanSuccess, setFreePlanSuccess] = useState(false);
@@ -205,7 +205,7 @@ function AccountDetails({
     if (jsonData) {
       setData({ ...jsonData });
       const selectedItem = telCode.find((item) => item.dial_code === jsonData.dial_code);
-  
+
       if (selectedItem) {
         setSelectedItem(selectedItem);
       }
@@ -223,7 +223,7 @@ function AccountDetails({
               dial_code: decode._doc.dial_code ? decode._doc.dial_code : "",
             });
             const selectedItem = telCode.find((item) => item.dial_code === decode._doc.dial_code);
-  
+
             if (selectedItem) {
               setSelectedItem(selectedItem);
             }
@@ -240,7 +240,7 @@ function AccountDetails({
           dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_code : "",
         });
         const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal.dial_code);
-  
+
         if (selectedItem) {
           setSelectedItem(selectedItem);
         }
@@ -626,18 +626,16 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${
-                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                }`}
+                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                  }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                  } items-center`}
+                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                    } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -684,11 +682,10 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${
-                    isViewportBelow850
+                  placeholder={`${isViewportBelow850
                       ? "Enter Number "
                       : "Enter Contact Number "
-                  }`}
+                    }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -697,7 +694,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                  // id="single_input"
+                // id="single_input"
                 />
               </div>
 
@@ -726,9 +723,8 @@ function AccountDetails({
                   )}
 
                   <span
-                    className={`${
-                      selectedPlan.type === "recruiter" && "text-[#06A9EF]"
-                    }`}
+                    className={`${selectedPlan.type === "recruiter" && "text-[#06A9EF]"
+                      }`}
                   >
                     {" "}
                     {selectedPlan?.name}
@@ -790,20 +786,20 @@ function AccountDetails({
         )}
         <div className=" w-full font-[500] flex flex-row gap-[16px] justify-between ">
           <button
-            className="buttons"
+            className="buttons rounded-[30px]"
             id="border_button"
             onClick={(e) => {
               e.preventDefault();
-              router.push("/purchase/plans");
+              router.back();
             }}
           >
             Cancel
           </button>
           <button
-            className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
+            className="buttons rounded-[30px] font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
             onClick={
-             ( selectedPlan.isFree) ? handleFreeSession : purchaseHandler
+              (selectedPlan.isFree) ? handleFreeSession : purchaseHandler
             }
           >
             {loading ? (
