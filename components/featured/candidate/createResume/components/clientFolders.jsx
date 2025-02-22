@@ -16,7 +16,7 @@ function ClientFolders({
   openClientFolder,
   query,
 }) {
-  console.log(clientData)
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date

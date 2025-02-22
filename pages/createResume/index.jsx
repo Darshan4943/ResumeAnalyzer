@@ -293,7 +293,6 @@ function CreateResume() {
   const [data, setData] = useState(defaultState);
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
-  console.log(data);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");

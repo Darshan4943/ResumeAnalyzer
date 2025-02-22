@@ -32,7 +32,7 @@ function Files({
   const dispatch = useDispatch();
 
   const openFolder = (index, parentId, name, item) => {
-    console.log(name)
+
     if (item?.type == "file") {
       window.location.href = item.file;
     } else {

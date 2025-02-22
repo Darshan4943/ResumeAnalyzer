@@ -7,7 +7,6 @@ const ListItem = ({ item }) => {
     setEditMode(!editMode);
   };
   const [toggle, setToggle] = useState(0);
-  console.log(10, toggle);
   const handleSelectChange = (e) => {
     setToggle(parseInt(e.target.value, 10));
   };

@@ -23,8 +23,6 @@ function ClientResume() {
       setplanAvailable(planavailable);
     }
   }, []);
-
-  console.log(222, planAvailable)
   const getLimits = () => {
     const clientCount = localStorage.getItem("clientCount");
     const clientCountLimit = localStorage.getItem("clientCountLimit");
