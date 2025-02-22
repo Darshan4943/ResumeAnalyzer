@@ -123,9 +123,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
   const handleSelectAll = () => {
     const selectableApplicants = jobDetails?.data?.applications.filter(
-      (app) => app.hiringStage === "Pending"
+      (app) => app.hiringStage !== "Rejected"
     );
-
     if (selectAll) {
       setCheckedApplicants([]);
     } else {
@@ -134,6 +133,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     setSelectAll(!selectAll);
   };
+
 
   const handleReject = async () => {
     setAllReject(true);
