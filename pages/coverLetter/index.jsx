@@ -17,7 +17,6 @@ function Index() {
   const [isEdit, setIsEdit] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const [contentSituation, setContentSituation] = useState("Experienced");
-  console.log(13, userDataGlobal)
   const { clientId } = router.query;
   const defaultState = {
     firstName: "",

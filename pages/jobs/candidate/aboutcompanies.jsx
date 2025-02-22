@@ -43,11 +43,12 @@ function Aboutcompanies() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(companyName)}`
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
+          companyName
+        )}`
       );
 
       setJobs(response.data);
-      console.log(response.data);
       setError("");
     } catch (err) {
       console.error("Error fetching employer jobs:", err);
@@ -109,7 +110,6 @@ function Aboutcompanies() {
                   <p>No jobs found for this company.</p>
                 )}
               </div>
-
             </div>
 
             <div className="w-[357px] flex flex-col">

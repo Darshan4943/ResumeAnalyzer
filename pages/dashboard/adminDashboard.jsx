@@ -45,7 +45,6 @@ function AdminDashboard({ toggleContentt }) {
     axios
       .get("http://localhost:2000/api/activeSubscription")
       .then((res) => {
-        console.log(444, res.data.data);
         setActivePlans(res.data.data);
       })
       .catch((err) => {

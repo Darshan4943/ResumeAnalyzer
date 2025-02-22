@@ -80,7 +80,6 @@ const createImage = (url) => {
   };
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
-    console.log("Cropped Area Pixels:", croppedAreaPixels);
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
