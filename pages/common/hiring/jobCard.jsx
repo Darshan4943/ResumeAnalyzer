@@ -85,7 +85,7 @@ const JobCard = ({ filters, setFilters }) => {
   const [copied, setCopied] = useState(false);
 
   const handleClick = (jobId) => {
-    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
+    const link = `https://testing.d3pnzi93uiabob.amplifyapp.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
     setCopied(false)
     setGeneratedLink(link);
     setShowPopup(true);
