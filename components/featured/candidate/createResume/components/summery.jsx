@@ -71,7 +71,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-                100
+              100
             );
           }
           setTimeout(() => {
@@ -171,20 +171,20 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             {(limits.used.coverStored >=
                               limits.total.coverStoredLimit ||
                               limits.used.resumeStored >=
-                                limits.total.resumeStoredLimit ||
+                              limits.total.resumeStoredLimit ||
                               limits.used.skillTest >=
-                                limits.total.skillTestLimit ||
+                              limits.total.skillTestLimit ||
                               limits.used.skillCertified >=
-                                limits.total.skillCertifiedLimit ||
+                              limits.total.skillCertifiedLimit ||
                               limits.used.chatBot.monthly >=
-                                limits.total.chatBotLimit.monthly) && (
-                              <div
-                                onClick={() => router.push("/purchase/plans")}
-                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                              >
-                                Upgrade Plan
-                              </div>
-                            )}
+                              limits.total.chatBotLimit.monthly) && (
+                                <div
+                                  onClick={() => router.push("/purchase/plans")}
+                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                >
+                                  Upgrade Plan
+                                </div>
+                              )}
                           </>
                         )}
                         {userDataGlobal?.role === "recruiter" && (
@@ -192,20 +192,37 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                             {(limits.used.coverStored >=
                               limits.total.coverStoredLimit ||
                               limits.used.resumeStored >=
-                                limits.total.resumeStoredLimit ||
+                              limits.total.resumeStoredLimit ||
                               limits.used.chatBot.daily >=
-                                limits.total.chatBotLimit.daily ||
+                              limits.total.chatBotLimit.daily ||
                               limits.used.jdMatching.monthly >=
-                                limits.total.jdMatchingLimit.monthly ||
+                              limits.total.jdMatchingLimit.monthly ||
                               limits.used.collectionStored.monthly >=
-                                limits.total.collectionStoredLimit.monthly) && (
-                              <div
-                                onClick={() => router.push("/purchase/plans")}
-                                className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                              >
-                                Upgrade Plan
-                              </div>
-                            )}
+                              limits.total.collectionStoredLimit.monthly) && (
+                                <div
+                                  onClick={() => router.push("/purchase/plans")}
+                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                >
+                                  Upgrade Plan
+                                </div>
+                              )}
+                          </>
+                        )}
+                        {userDataGlobal?.role === "employer" && (
+                          <>
+                            {(
+
+                              limits.used.jdMatching.monthly >=
+                              limits.total.jdMatchingLimit.monthly ||
+                              limits.used.collectionStored.monthly >=
+                              limits.total.collectionStoredLimit.monthly) && (
+                                <div
+                                  onClick={() => router.push("/purchase/plans")}
+                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                >
+                                  Upgrade Plan
+                                </div>
+                              )}
                           </>
                         )}
                       </div>
@@ -227,87 +244,90 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
 
             <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
               <p className="text-[16px] font-[500]">Available services</p>
+
               <div className="flex flex-col gap-5 scr420:text-[14px] text-[12px] font-medium  ">
-                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                  <p className=" scr420:min-w-[164px] min-w-[140px]">
-                    {" "}
-                    Cover Letter Creation
-                  </p>
-                  <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                      <div
-                        style={{
-                          width: `${
-                            isActive
+                {userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter" && (
+                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                    <p className=" scr420:min-w-[164px] min-w-[140px]">
+                      {" "}
+                      Cover Letter Creation
+                    </p>
+                    <div className="flex w-full items-center gap-4">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
+                        <div
+                          style={{
+                            width: `${isActive
                               ? Math.round(
-                                  (limits?.used?.coverStored * 100) /
-                                    limits?.total?.coverStoredLimit
-                                )
+                                (limits?.used?.coverStored * 100) /
+                                limits?.total?.coverStoredLimit
+                              )
                               : 0
-                          }%`,
-                          maxWidth: `${Math.round(
-                            (limits?.total?.coverStoredLimit * 100) /
+                              }%`,
+                            maxWidth: `${Math.round(
+                              (limits?.total?.coverStoredLimit * 100) /
                               limits?.total?.coverStoredLimit
-                          )}%`,
-                        }}
-                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                      ></div>
-                    </div>
-                    <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                      {isActive ? (
-                        <>
-                          {limits.used.coverStored >
-                          limits.total.coverStoredLimit
-                            ? limits.total.coverStoredLimit
-                            : limits.used.coverStored}
-                          /{limits.total.coverStoredLimit}
-                        </>
-                      ) : (
-                        "0/0"
-                      )}
+                            )}%`,
+                          }}
+                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                        ></div>
+                      </div>
+                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
+                        {isActive ? (
+                          <>
+                            {limits.used.coverStored >
+                              limits.total.coverStoredLimit
+                              ? limits.total.coverStoredLimit
+                              : limits.used.coverStored}
+                            /{limits.total.coverStoredLimit}
+                          </>
+                        ) : (
+                          "0/0"
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                  <p className=" scr420:min-w-[164px] min-w-[140px]">
-                    {" "}
-                    Resume Creation
-                  </p>
-                  <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                      <div
-                        style={{
-                          width: `${
-                            isActive
+                )}
+                {userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter" && (
+                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                    <p className=" scr420:min-w-[164px] min-w-[140px]">
+                      {" "}
+                      Resume Creation
+                    </p>
+                    <div className="flex w-full items-center gap-4">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
+                        <div
+                          style={{
+                            width: `${isActive
                               ? Math.round(
-                                  (limits?.used?.resumeStored * 100) /
-                                    limits?.total?.resumeStoredLimit
-                                )
+                                (limits?.used?.resumeStored * 100) /
+                                limits?.total?.resumeStoredLimit
+                              )
                               : 0
-                          }% `,
-                          maxWidth: `${Math.round(
-                            (limits?.total?.resumeStoredLimit * 100) /
+                              }% `,
+                            maxWidth: `${Math.round(
+                              (limits?.total?.resumeStoredLimit * 100) /
                               limits?.total?.resumeStoredLimit
-                          )}%`,
-                        }}
-                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                      ></div>
-                    </div>
-                    <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                      {isActive ? (
-                        <>
-                          {limits.used.resumeStored >
-                          limits.total.resumeStoredLimit
-                            ? limits.total.resumeStoredLimit
-                            : limits.used.resumeStored}
-                          /{limits.total.resumeStoredLimit}
-                        </>
-                      ) : (
-                        "0/0"
-                      )}
+                            )}%`,
+                          }}
+                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                        ></div>
+                      </div>
+                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
+                        {isActive ? (
+                          <>
+                            {limits.used.resumeStored >
+                              limits.total.resumeStoredLimit
+                              ? limits.total.resumeStoredLimit
+                              : limits.used.resumeStored}
+                            /{limits.total.resumeStoredLimit}
+                          </>
+                        ) : (
+                          "0/0"
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {userDataGlobal?.role === "user" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
@@ -319,17 +339,16 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${
-                              isActive
-                                ? Math.round(
-                                    (limits.used.skillTest * 100) /
-                                      limits.total.skillTestLimit
-                                  )
-                                : 0
-                            }% `,
+                            width: `${isActive
+                              ? Math.round(
+                                (limits.used.skillTest * 100) /
+                                limits.total.skillTestLimit
+                              )
+                              : 0
+                              }% `,
                             maxWidth: `${Math.round(
                               (limits.total.skillTestLimit * 100) /
-                                limits.total.skillTestLimit
+                              limits.total.skillTestLimit
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -360,17 +379,16 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${
-                              isActive
-                                ? Math.round(
-                                    (limits.used.skillCertified * 100) /
-                                      limits.total.skillCertifiedLimit
-                                  )
-                                : 0
-                            }% `,
+                            width: `${isActive
+                              ? Math.round(
+                                (limits.used.skillCertified * 100) /
+                                limits.total.skillCertifiedLimit
+                              )
+                              : 0
+                              }% `,
                             maxWidth: `${Math.round(
                               (limits.total.skillCertifiedLimit * 100) /
-                                limits.total.skillCertifiedLimit
+                              limits.total.skillCertifiedLimit
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -380,7 +398,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         {isActive ? (
                           <>
                             {limits.used.skillCertified >
-                            limits.total.skillCertifiedLimit
+                              limits.total.skillCertifiedLimit
                               ? limits.total.skillCertifiedLimit
                               : limits.used.skillCertified}
                             /{limits.total.skillCertifiedLimit}
@@ -392,47 +410,48 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     </div>
                   </div>
                 )}
-                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                  <p className=" scr420:min-w-[164px] min-w-[140px]">
-                    {" "}
-                    Chatbot
-                  </p>
-                  <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                      <div
-                        style={{
-                          width: `${
-                            isActive
+                {userDataGlobal?.role === "user" && (
+                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                    <p className=" scr420:min-w-[164px] min-w-[140px]">
+                      {" "}
+                      Chatbot
+                    </p>
+                    <div className="flex w-full items-center gap-4">
+                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
+                        <div
+                          style={{
+                            width: `${isActive
                               ? Math.round(
-                                  (limits?.used?.chatBot?.monthly * 100) /
-                                    limits?.total?.chatBotLimit?.monthly
-                                )
+                                (limits?.used?.chatBot?.monthly * 100) /
+                                limits?.total?.chatBotLimit?.monthly
+                              )
                               : 0
-                          }% `,
-                          maxWidth: `${Math.round(
-                            (limits?.total?.chatBotLimit?.monthly * 100) /
+                              }% `,
+                            maxWidth: `${Math.round(
+                              (limits?.total?.chatBotLimit?.monthly * 100) /
                               limits?.total?.chatBotLimit?.monthly
-                          )}%`,
-                        }}
-                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                      ></div>
-                    </div>
-                    <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                      {isActive ? (
-                        <>
-                          {limits?.used?.chatBot?.monthly >
-                          limits?.total?.chatBotLimit?.monthly
-                            ? limits?.total?.chatBotLimit?.monthly
-                            : limits?.used?.chatBot?.monthly}
-                          /{limits?.total?.chatBotLimit?.monthly}
-                        </>
-                      ) : (
-                        "0/0"
-                      )}
+                            )}%`,
+                          }}
+                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                        ></div>
+                      </div>
+                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
+                        {isActive ? (
+                          <>
+                            {limits?.used?.chatBot?.monthly >
+                              limits?.total?.chatBotLimit?.monthly
+                              ? limits?.total?.chatBotLimit?.monthly
+                              : limits?.used?.chatBot?.monthly}
+                            /{limits?.total?.chatBotLimit?.monthly}
+                          </>
+                        ) : (
+                          "0/0"
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                {userDataGlobal?.role === "recruiter" && (
+                )}
+                {userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -442,17 +461,16 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${
-                              isActive
-                                ? Math.round(
-                                    (limits.used.jdMatching.monthly * 100) /
-                                      limits.total.jdMatchingLimit.monthly
-                                  )
-                                : 0
-                            }% `,
+                            width: `${isActive
+                              ? Math.round(
+                                (limits.used.jdMatching.monthly * 100) /
+                                limits.total.jdMatchingLimit.monthly
+                              )
+                              : 0
+                              }% `,
                             maxWidth: `${Math.round(
                               (limits.total.jdMatchingLimit.monthly * 100) /
-                                limits.total.jdMatchingLimit.monthly
+                              limits.total.jdMatchingLimit.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -462,7 +480,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         {isActive ? (
                           <>
                             {limits.used.jdMatching.monthly >
-                            limits.total.jdMatchingLimit.monthly
+                              limits.total.jdMatchingLimit.monthly
                               ? limits.total.jdMatchingLimit.monthly
                               : limits.used.jdMatching.monthly}
                             /{limits.total.jdMatchingLimit.monthly}
@@ -475,7 +493,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 )}
 
-                {userDataGlobal?.role === "recruiter" && (
+                {userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer" && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -485,19 +503,18 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
                         <div
                           style={{
-                            width: `${
-                              isActive
-                                ? Math.round(
-                                    (limits.used.collectionStored.monthly *
-                                      100) /
-                                      limits.total.collectionStoredLimit.monthly
-                                  )
-                                : 0
-                            }% `,
+                            width: `${isActive
+                              ? Math.round(
+                                (limits.used.collectionStored.monthly *
+                                  100) /
+                                limits.total.collectionStoredLimit.monthly
+                              )
+                              : 0
+                              }% `,
                             maxWidth: `${Math.round(
                               (limits.total.collectionStoredLimit.monthly *
                                 100) /
-                                limits.total.collectionStoredLimit.monthly
+                              limits.total.collectionStoredLimit.monthly
                             )}%`,
                           }}
                           className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -507,7 +524,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         {isActive ? (
                           <>
                             {limits.used.collectionStored.monthly >
-                            limits.total.collectionStoredLimit.monthly
+                              limits.total.collectionStoredLimit.monthly
                               ? limits.total.collectionStoredLimit.monthly
                               : limits.used.collectionStored.monthly}
                             /{limits.total.collectionStoredLimit.monthly}
