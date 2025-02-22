@@ -525,7 +525,7 @@
 }
 
 .swiper-wrapper {
-  height: 220px !important;
+  height: 216px !important;
   .topCompaniesSlide {
     gap: 16px !important;
   }
@@ -561,6 +561,7 @@
     width: 140px !important;
   }
 }
+
 .topCompaniesSlide {
   .swiper-wrapper {
     gap: 16px;
@@ -585,6 +586,12 @@
     @media (min-width: 1024px) {
       width: 152px !important;
     }
+  }
+  .swiper-button-prev {
+    left: 39% !important;
+  }
+  .swiper-button-next {
+    left: 54% !important;
   }
 }
 
