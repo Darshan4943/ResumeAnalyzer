@@ -43,7 +43,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine

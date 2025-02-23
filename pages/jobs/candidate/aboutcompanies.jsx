@@ -16,7 +16,7 @@ function Aboutcompanies() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompanies/${id}`
+        `http://localhost:2000/api/getEmployerCompanies/${id}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -43,7 +43,7 @@ function Aboutcompanies() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
         )}`
       );
