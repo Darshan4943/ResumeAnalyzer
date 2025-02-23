@@ -39,7 +39,7 @@ const Hire = ({}) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -99,7 +99,7 @@ const Hire = ({}) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-    "Recruiter",
+  
     "Offer Acceptance",
     "Actions",
   ];
@@ -126,7 +126,7 @@ const Hire = ({}) => {
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
-          <div className="grid grid-cols-7 w-full grid-flow-col">
+          <div className="grid grid-cols-6 w-full grid-flow-col">
             {labels.map((req, index) => (
               <div
                 key={index}
@@ -147,7 +147,7 @@ const Hire = ({}) => {
                   key={index}
                   className="flex w-[100%] border-b border-[#D4D4D480] bg-[#FFFFFF] py-[16px] justify-between items-center"
                 >
-                  <div className="grid grid-cols-7 w-full px-4 py-2">
+                  <div className="grid grid-cols-6 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                         {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -185,10 +185,8 @@ const Hire = ({}) => {
                         ? "Not Required"
                         : applicants?.preboardingDetails?.documentStatus}
                     </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
-                      {applicants.role}
-                    </div>
-                    <div className="flex items-center justify-center col-span-1 ">
+                   
+                    <div className="flex items-center justify-start col-span-1 pl-6">
                       <div
                         className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
                           checkedjob[index]

@@ -45,7 +45,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -79,7 +79,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
+        `https://dev.api.skilotech.com/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -132,7 +132,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-    "Recruiter",
+
     "Offer Acceptance",
     "Actions",
   ];
@@ -159,7 +159,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           </div>
         </div>
         <div className="grid grid-rows-1 w-full ">
-          <div className="grid grid-cols-7 w-full grid-flow-col">
+          <div className="grid grid-cols-6 w-full grid-flow-col">
             {labels.map((req, index) => (
               <div
                 key={index}
@@ -176,7 +176,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
             {jobs.map((applicants, index) => (
               <>
                 <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
-                  <div className="grid grid-cols-7 w-full px-4 py-2">
+                  <div className="grid grid-cols-6 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                         {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -216,12 +216,10 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                         ? "Not Required"
                         : applicants?.preboardingDetails?.documentStatus}
                     </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5 text-[12px] font-[500]">
-                      {applicants.role}
-                    </div>
-                    <div className="flex items-center justify-center col-span-1 ">
+                    
+                    <div className="flex items-center justify-start col-span-1 pl-6">
                       <div
-                        className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                        className={`flex py-[6px] justify-start px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
                           checkedjob[index]
                             ? "bg-[#FFFFFF]"
                             : applicants?.preboardingDetails
@@ -256,7 +254,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                         {applicants?.preboardingDetails?.offerAcceptanceStatus}
                       </div>
                     </div>
-                    <div className="flex items-center justify-between col-span-1">
+                    <div className="flex items-center justify-between col-span-1 pl-6">
                       <div className="flex items-center justify-between w-full col-span-1">
                         <div className="flex  items-center w-full  justify-between relative">
                           {applicants?.preboardingDetails?.preboardingStatus ===

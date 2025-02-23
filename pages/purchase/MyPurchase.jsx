@@ -68,7 +68,7 @@ function MyPurchase() {
   }, [subscription]);
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/plans/getAllPlans")
+      .get("https://dev.api.skilotech.com/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -79,7 +79,7 @@ function MyPurchase() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
       .then((res) => {
         const plan = allPlans.find(
           (item) => item.index == res.data.findIsActive?.index
@@ -107,7 +107,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
+        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -135,7 +135,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/AllSubscription/" + userDataGlobal?._id)
+        .get("https://dev.api.skilotech.com/api/AllSubscription/" + userDataGlobal?._id)
         .then((res) => {
           setSubscriptionHistory(res.data.data.reverse());
           setTimeout(() => {
@@ -411,10 +411,10 @@ function MyPurchase() {
                                     limits?.total?.resumeStoredLimit ||
                                     limits?.used?.chatBot?.daily >=
                                     limits?.total?.chatBotLimit?.daily ||
-                                    limits?.used?.jdMatching.monthly >=
-                                    limits?.total?.jdMatchingLimit.monthly ||
-                                    limits?.used?.collectionStored.monthly >=
-                                    limits?.total?.collectionStoredLimit.monthly
+                                    limits?.used?.jdMatching?.monthly >=
+                                    limits?.total?.jdMatchingLimit?.monthly ||
+                                    limits?.used?.collectionStored?.monthly >=
+                                    limits?.total?.collectionStoredLimit?.monthly
                                     ? "bg-[#06a9ef] btn_hover_effect"
                                     : subscription?.isActive
                                       ? "bg-[#DEDEDE] "
@@ -427,10 +427,10 @@ function MyPurchase() {
                                   limits?.total?.resumeStoredLimit ||
                                   limits?.used?.chatBot?.daily >=
                                   limits?.total?.chatBotLimit?.daily ||
-                                  limits?.used?.jdMatching.monthly >=
-                                  limits?.total?.jdMatchingLimit.monthly ||
-                                  limits?.used?.collectionStored.monthly >=
-                                  limits?.total?.collectionStoredLimit.monthly
+                                  limits?.used?.jdMatching?.monthly >=
+                                  limits?.total?.jdMatchingLimit?.monthly ||
+                                  limits?.used?.collectionStored?.monthly >=
+                                  limits?.total?.collectionStoredLimit?.monthly
                                   ? "Upgrade Plan"
                                   : subscription?.isActive
                                     ? "Purchased"

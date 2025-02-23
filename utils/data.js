@@ -1,5 +1,30 @@
+import { toast } from "react-toastify";
 import Template1 from "../components/featured/resumeTemplates/Template1";
 import Template2 from "../components/featured/resumeTemplates/Template2";
+import axios from "axios";
+
+
+
+  export const uploadFile = async (file, fieldName) => {
+      if (!file) return null;
+
+      try {
+        const fileData = new FormData();
+        fileData.append(fieldName, file);
+
+        const response = await axios.post("https://dev.api.skilotech.com/api/upload/document", fileData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        return response.data[fieldName]; 
+      } catch (error) {
+        console.error(`Error uploading ${fieldName}:`, error);
+        toast.error(`Failed to upload ${fieldName}`);
+        return null;
+      }
+    };
+
+
 
 export function formatDateInNumber(dateString) {
   // Parse the date string into a Date object

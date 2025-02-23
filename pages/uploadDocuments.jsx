@@ -8,6 +8,7 @@ import { DocSVG, PDFSvg, PNGICON } from "../utils/svg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SuccessPopUp from "../components/common/successPopUp";
+import { uploadFile } from "../utils/data";
 
 function UploadDocuments() {
     const router = useRouter();
@@ -19,7 +20,7 @@ function UploadDocuments() {
 
     const getDocumentsUploadStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
+            const response = await axios.get(`https://dev.api.skilotech.com/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
             setPreviousStatus(response.data.documentStatus)
 
             return response.data.documentStatus;
@@ -82,35 +83,68 @@ function UploadDocuments() {
 
     const uploadDocuments = async () => {
         const missingFields = filteredRequiredFields.filter((key) => !files[key]);
-
+    
         if (missingFields.length > 0) {
-            toast.error(`Please upload all required documents.`);
+            toast.warn(`Some required documents are missing.`);
+            return; 
+        }
+    
+        setLoading1(true);
+    
+        const documentKeys = [
+            "isPhotoId",
+            "isAddress",
+            "isPayroll",
+            "isAcademic",
+            "isDegrees",
+            "isExperience",
+            "isCertifications",
+        ];
+    
+        const uploadedFiles = {};
+    
+       
+        for (const key of documentKeys) {
+            if (files[key]) {
+                try {
+                    const uploadedUrl = await uploadFile(files[key], key);
+                    if (uploadedUrl) {
+                        uploadedFiles[key] = uploadedUrl;
+                    } else {
+                        toast.error(`${key} upload failed. Please try again.`);
+                    }
+                } catch (error) {
+                    toast.error(`${key} upload failed. Please try again.`);
+                }
+            }
+        }
+    
+        if (Object.keys(uploadedFiles).length === 0) {
+            setLoading1(false);
+            toast.error("No files were uploaded. Please try again.");
             return;
         }
-        setLoading1(true)
-        const formData = new FormData();
-        Object.keys(files).forEach((key) => {
-            if (files[key]) {
-                formData.append(key, files[key]);
-            }
-        });
-
+    
+      
         try {
-            const response = await axios.post(`http://localhost:2000/api/preboarding/uploadDocuments/${applicantId}/${jobId}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            setLoading1(false)
-            // toast.success("Documents uploaded successfully.");
-            setUpdated(true)
+            const response = await axios.post(
+                `https://dev.api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`,
+                uploadedFiles, 
+                { headers: { "Content-Type": "application/json" } }
+            );
+    
+            setLoading1(false);
+            setUpdated(true);
+            toast.success("Documents uploaded successfully!");
             return response.data;
         } catch (error) {
             console.error("Error uploading files:", error);
-            setLoading1(false)
-            throw error;
+            setLoading1(false);
+            toast.error("Something went wrong while uploading files.");
         }
     };
+    
+    
     const handleDrop = (event, key) => {
         event.preventDefault();
         const droppedFiles = event.dataTransfer.files;
@@ -118,7 +152,7 @@ function UploadDocuments() {
             handleFile(droppedFiles[0], key);
         }
     };
-    
+
 
     const handleFileChange = (event, key) => {
         event.preventDefault();
@@ -208,8 +242,8 @@ function UploadDocuments() {
                                     </div>
                                 ) : (
                                     <div
-                                    onDragOver={(e) => e.preventDefault()}
-                                    onDrop={(e) => handleDrop(e, key)}
+                                        onDragOver={(e) => e.preventDefault()}
+                                        onDrop={(e) => handleDrop(e, key)}
                                         className="border-dashed border-[1px] border-[#BCBCBC]  flex flex-col justify-between rounded-[12px] px-[8px] py-[16px] items-center gap-[8px] upload-btn-wrapper  w-full bg-white h-[102.6px]"
                                     >
 
@@ -263,16 +297,16 @@ function UploadDocuments() {
 
                                                 </div>
 
-                                               
-                                                    <div className="flex text-center justify-center scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                                                        drag and drop or{" "}
-                                                        <span onClick={() => fileRefs.current[key]?.click()} className="text-[#06A9EF]">
-                                                            &nbsp;Browse file{" "}
-                                                        </span>
-                                                        &nbsp;to upload
-                                                    </div>
-                                                   
-                                              
+
+                                                <div className="flex text-center justify-center scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                                                    drag and drop or{" "}
+                                                    <span onClick={() => fileRefs.current[key]?.click()} className="text-[#06A9EF]">
+                                                        &nbsp;Browse file{" "}
+                                                    </span>
+                                                    &nbsp;to upload
+                                                </div>
+
+
                                             </div>
                                         )}
                                     </div>

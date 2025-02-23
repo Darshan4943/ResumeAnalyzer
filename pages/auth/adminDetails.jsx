@@ -12,7 +12,7 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 import MiniLoader from "../../components/common/mini-loader";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
-import { telCode } from "../../utils/data";
+import { telCode, uploadFile } from "../../utils/data";
 import { UploadSvg } from "../../utils/svg";
 
 function AdminDetails({
@@ -84,7 +84,7 @@ function AdminDetails({
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
- 
+
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -153,13 +153,13 @@ function AdminDetails({
         }
 
         break;
-        case "idProof":
-          if (!value.trim()) {
-            errors.idProof = "Id Proof is required";
-          } else {
-            delete errors.idProof;
-          }
-          break;
+      case "idProof":
+        if (!value.trim()) {
+          errors.idProof = "Id Proof is required";
+        } else {
+          delete errors.idProof;
+        }
+        break;
 
       case "dial_code":
         if (!value.trim()) {
@@ -293,7 +293,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -316,30 +316,30 @@ function AdminDetails({
       });
   };
 
-   const handleFileChange = (e) => {
-      const { name, files } = e.target;
-      if (files.length > 0) {
-        const file = files[0];
-  
-        if (file.size > 1048576) {
-          // setFormError((prev) => ({
-          //   ...prev,
-          //   [name]: "File size must be less than 1MB",
-          // }));
-          toast.error("File size must be less than 1MB")
-          return;
-        }
-  
-        setFormData((prev) => ({ ...prev, [name]: file }));
-        delete formError.idProof;
-        delete formError.idProofCertificate;
-        setFormError((prev) => {
-          const updatedErrors = { ...prev };
-          delete updatedErrors[name];
-          return updatedErrors;
-        });
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    if (files.length > 0) {
+      const file = files[0];
+
+      if (file.size > 1048576) {
+        // setFormError((prev) => ({
+        //   ...prev,
+        //   [name]: "File size must be less than 1MB",
+        // }));
+        toast.error("File size must be less than 1MB")
+        return;
       }
-    };
+
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      delete formError.idProof;
+      delete formError.idProofCertificate;
+      setFormError((prev) => {
+        const updatedErrors = { ...prev };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
+    }
+  };
 
   useEffect(() => {
     if (verify) {
@@ -370,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -404,7 +404,7 @@ function AdminDetails({
     updateTog(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
 
     const isValid = validateFields(); // Validate all fields
@@ -422,17 +422,35 @@ function AdminDetails({
       setFormError({ ...formError, idProofCertificate: "I Proof Certificate is required" })
     }
 
+  
+    const idProofCertificateUrl = await uploadFile(formData.idProofCertificate, "idProofCertificate");
+    const certificateUrl = await uploadFile(formData.certificate, "certificate");
+    const companyLogoUrl = await uploadFile(formData.companyLogo, "companyLogo");
+
+  
+    if (!idProofCertificateUrl || !certificateUrl || !companyLogoUrl) {
+      setLoading(false);
+      toast.error("File upload failed. Please try again.");
+      return;
+    }
+
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (value) {
+      if (value && !["idProofCertificate", "certificate", "companyLogo"].includes(key)) {
         formDataToSend.append(key, value);
       }
     });
+
+  
+    formDataToSend.append("idProofCertificate", idProofCertificateUrl);
+    formDataToSend.append("certificate", certificateUrl);
+    formDataToSend.append("companyLogo", companyLogoUrl);
     formDataToSend.append("role", role);
     formDataToSend.append("recOptions", recOptions);
+
     setLoading(true);
 
-    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
+    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
 
     axios
       .post(url, formDataToSend, {
@@ -854,7 +872,7 @@ function AdminDetails({
           </div>
           <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
             <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
-            Id Proof Certificate<span className="text-red">*</span>
+              Id Proof Certificate<span className="text-red">*</span>
             </label>
             <div className={`h-[39px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${formError?.idProofCertificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
               <input
@@ -889,20 +907,20 @@ function AdminDetails({
           </div>
 
           {loading ?
-          <div
-         
-          className="w-[148.34px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
-        >
-          <MiniLoader/>
-        </div>
-        :
-        <button
-          onClick={handleSubmit}
-          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
-        >
-          Continue
-        </button>
-}
+            <div
+
+              className="w-[148.34px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+            >
+              <MiniLoader />
+            </div>
+            :
+            <button
+              onClick={handleSubmit}
+              className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+            >
+              Continue
+            </button>
+          }
         </div>
       </div>
     </>
