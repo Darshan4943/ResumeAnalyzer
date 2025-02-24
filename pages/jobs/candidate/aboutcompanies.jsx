@@ -11,7 +11,6 @@ function Aboutcompanies() {
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const { companyName, createdBy } = router.query;
- 
 
   const fetchCompanyDetails = async () => {
     try {
@@ -35,7 +34,6 @@ function Aboutcompanies() {
   }, [createdBy]);
 
   const fetchEmployerJobs = async () => {
-   
     try {
       setLoading(true);
       const response = await axios.get(
@@ -58,14 +56,34 @@ function Aboutcompanies() {
     if (companyName) {
       fetchEmployerJobs();
     }
-
   }, [companyName]);
+
+  const fetchJobsById = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:2000/api/getJobsById/${createdBy}`
+      );
+      setJobs(response.data);
+      setError("");
+    } catch (err) {
+      console.error("Error fetching employer jobs:", err);
+      setError(err.response?.data?.message || "Failed to fetch jobs.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (createdBy) {
+      fetchJobsById();
+    }
+  }, [createdBy]);
 
   return (
     <>
       <div className="customMargins py-[24px]">
-        {createdBy ?
-
+        {createdBy ? (
           <div className=" flex items-center gap-4  ">
             <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
               <img
@@ -76,9 +94,7 @@ function Aboutcompanies() {
 
             <div className=" items-start justify-start">
               <h2 className="text-[14px] font-[600]">{company?.name}</h2>
-              <div className="text-[12px] font-[400]">
-                {company?.about}
-              </div>
+              <div className="text-[12px] font-[400]">{company?.about}</div>
 
               {/* <div className="flex items-center gap-1 text-sm mt-1">
   ⭐ <span className="text-[12px] font-[500]">3.6</span>
@@ -86,7 +102,7 @@ function Aboutcompanies() {
 </div> */}
             </div>
           </div>
-          :
+        ) : (
           <div className=" flex items-center gap-4  ">
             <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
               <img
@@ -107,7 +123,7 @@ function Aboutcompanies() {
             </div> */}
             </div>
           </div>
-        }
+        )}
         {/* <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
           <div className="sm:text-[16px] text-[12px] font-[600]">
             About Company
