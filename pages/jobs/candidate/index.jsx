@@ -47,7 +47,7 @@ function Index() {
   const [totalCount, setTotalCount] = useState(0);
   const [isCountrySet, setIsCountrySet] = useState(false);
   const [miniLoading, setMiniloading] = useState(true);
-  const { loc, jobTit, exp, search ,cat} = router.query;
+  const { loc, jobTit, exp, search, cat } = router.query;
   const [hiddenFilters, setHiddenFilters] = useState({});
   const taskRef = useRef(null);
   const [experience, setExperience] = useState("");
@@ -229,7 +229,7 @@ function Index() {
           // experience: experience ? experience : profileData?.totalExperience?.years,
           experience: experience,
           isExperinceNo: experience ? false : true,
-          jobCat: cat ? cat.trim() :""
+          jobCat: cat ? cat.trim() : "",
         },
         {
           params: { page, limit },
@@ -290,7 +290,7 @@ function Index() {
           // experience: experience ? experience : profileData?.totalExperience?.years,
           experience: experience,
           isExperinceNo: experience ? false : true,
-          jobCat: cat ? cat.trim() :"",
+          jobCat: cat ? cat.trim() : "",
           ...mappedFilters,
         },
         {
