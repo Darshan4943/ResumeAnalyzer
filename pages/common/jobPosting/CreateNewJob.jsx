@@ -281,6 +281,8 @@ function CreateNewJob() {
     }
 
     formData.append("createdBy", userDataGlobal?._id);
+    formData.append("role", userDataGlobal?.role);
+
     formData.append(
       "createdByName",
       `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`
