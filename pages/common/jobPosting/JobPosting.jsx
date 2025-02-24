@@ -26,13 +26,16 @@ function JobPosting() {
   const [attributes, setAttributes] = useState([]);
   const [miniLoading, setMiniloading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+ const [company, setCompany] = useState();
   // useEffect(() => {
   //   setFilterData((prev) => ({
   //     ...prev,
   //     ["Status"]: "Approved",
   //   }));
   // }, []);
+
+
+ 
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
