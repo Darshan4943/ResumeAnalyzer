@@ -80,14 +80,14 @@ function NormalJobCard({ item }) {
             >
               {item?.companyName}
             </div>
-            {item?.role==="recruiter" &&
-            <div onClick={(e) => {
+            {item?.role === "recruiter" &&
+              <div onClick={(e) => {
                 router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
                 e.stopPropagation();
               }} className="text-[12px] font-medium cursor-pointer">
-              posted by Recruiter ({camelCase(item?.createdByName)})
-            </div>
-}
+                posted by Recruiter ({camelCase(item?.createdByName)})
+              </div>
+            }
           </div>
           {item?.logo && (
             <div className="flex flex-row  items-end">
