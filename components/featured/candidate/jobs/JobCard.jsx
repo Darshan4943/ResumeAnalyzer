@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
+import { camelCase } from "../../../../utils/middleware";
 function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsVisible, getData }) {
   const [limitPopup, setLimitPopup] = useState(false)
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -70,9 +71,24 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                 <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
                   {item?.jobTitle}
                 </div>
-                <div className="text-[12px] font-normal">
+                
+                <div
+                  onClick={(e) => {
+                    router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`);
+                    e.stopPropagation();
+                  }}
+                  className="text-[12px] font-normal cursor-pointer w-fit"
+                >
                   {item?.companyName}
                 </div>
+                {item?.role === "recruiter" &&
+                  <div onClick={(e) => {
+                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
+                    e.stopPropagation();
+                  }} className="text-[12px] font-normal cursor-pointer">
+                    posted by Recruiter ({camelCase(item?.createdByName)})
+                  </div>
+                }
               </div>
               {item?.logo && (
                 <div className="flex flex-row  items-end">
