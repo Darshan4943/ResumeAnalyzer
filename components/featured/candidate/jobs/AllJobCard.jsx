@@ -12,17 +12,10 @@ import NoJobs from "./noJobs";
 import CustomPagination from "../../../common/CustomPagination";
 function AllJobCard({
   setMiniloading,
-
-  getAllData,
   miniLoading,
   loading,
-  setLoading,
-  setLimitPopup,
-
-  appliedJobs,
   setLimit,
   limit,
-  setTotalpages,
   totalPages,
   page,
   setPage,
