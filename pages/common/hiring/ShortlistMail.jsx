@@ -23,13 +23,10 @@ function ShortlistMail({
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState(
-
-  );
-  const [content, setContent] = useState(
-
-  );
-
+  const [subject, setSubject] = useState();
+  const [content, setContent] = useState();
+  const [subjectError, setSubjectError] = useState("");
+  const [contentError, setContentError] = useState("");
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && inputValue.trim()) {
       setTags([...tags, inputValue.trim()]);
@@ -42,6 +39,24 @@ function ShortlistMail({
   };
 
   const handleSend = async () => {
+    let isValid = true;
+
+    if (!subject?.trim()) {
+      setSubjectError("Subject is required.");
+      isValid = false;
+    } else {
+      setSubjectError("");
+    }
+
+    if (!content?.trim()) {
+      setContentError("Content is required.");
+      isValid = false;
+    } else {
+      setContentError("");
+    }
+
+    if (!isValid) return;
+
     setLoading(true);
     const emailDetails = {
       to: shortlist?.map((item) => item?.details?.personal?.email) || "",
@@ -68,8 +83,11 @@ function ShortlistMail({
       setStatusChange(!statusChange);
     } catch (error) {
       setLoading(false);
-      console.log("Error sending email details:", error.response?.data.message);
-      if (error.response?.data.message == "No applicants need updating") {
+      console.log(
+        "Error sending email details:",
+        error.response?.data?.message
+      );
+      if (error.response?.data?.message === "No applicants need updating") {
         toast.error("Already ShortListed");
       } else {
         toast.error("Failed to send email details. Please try again.");
@@ -97,11 +115,7 @@ function ShortlistMail({
           value="bullet"
           aria-label="Unordered List"
         ></button>
-       <button
-          className="ql-align"
-        
-          aria-label="Align Left"
-        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
         <button
           className="ql-align"
           value="center"
@@ -147,7 +161,7 @@ function ShortlistMail({
                   <div className="flex items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">To</div>
                     {shortlist?.details?.personal?.firstName.length === 0 &&
-                      shortlist?.details?.personal?.lastName.length === 0 ? (
+                    shortlist?.details?.personal?.lastName.length === 0 ? (
                       ""
                     ) : (
                       <>
@@ -180,7 +194,7 @@ function ShortlistMail({
                   <div className="flex w-full items-center gap-[20px]">
                     <div className="text-[16px] font-[600]">CC</div>
                     <div className="p-[4px] w-full flex flex-wrap ml:flex-nowrap  rounded-[26px] gap-[10px] items-start">
-                      {tags.length > 0 &&
+                      {tags.length > 0 && (
                         <div className="flex flex-wrap gap-[10px]">
                           {tags.map((tag, index) => (
                             <div
@@ -210,7 +224,7 @@ function ShortlistMail({
                             </div>
                           ))}
                         </div>
-                      }
+                      )}
                       <div className="flex items-center ml:min-w-[500px] gap-[10px]">
                         <input
                           type="text"
@@ -231,23 +245,33 @@ function ShortlistMail({
                   <input
                     type="text"
                     value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
+                    onChange={(e) => {
+                      setSubject(e.target.value);
+                      setSubjectError("");
+                    }}
                     className=" p-[4px] w-full"
                     placeholder="Enter Subject"
                   />
-
                 </div>
+
                 <div className="border-[1px] border-[#D4D4D480] w-full"></div>
-
-
+                {subjectError && (
+                  <p className="text-red text-sm mt-1">{subjectError}</p>
+                )}
                 <div className="flex flex-col mt-[20px]">
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
                     style={{ minHeight: "120px" }}
                     value={content}
                     headerTemplate={header}
-                    onTextChange={(e) => setContent(e.htmlValue)}
+                    onTextChange={(e) => {
+                      setContent(e.htmlValue);
+                      setContentError(""); 
+                    }}
                   />
+                  {contentError && (
+                    <p className="text-red text-sm mt-1">{contentError}</p>
+                  )}
                 </div>
               </div>
             </div>
