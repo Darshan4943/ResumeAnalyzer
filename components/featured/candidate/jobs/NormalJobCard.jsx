@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchSavedJobIds } from "../../../../Redux/slices/jobSlice";
 import axios from "axios";
+import { camelCase } from "../../../../utils/middleware";
 
 function NormalJobCard({ item }) {
   const { appliedJobData, savedJobIds } = useSelector(
@@ -81,10 +82,10 @@ function NormalJobCard({ item }) {
             </div>
             {item?.role==="recruiter" &&
             <div onClick={(e) => {
-                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}`);
+                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
                 e.stopPropagation();
               }} className="text-[12px] font-medium cursor-pointer">
-              posted by {item?.createdByName}
+              posted by Recruiter ({camelCase(item?.createdByName)})
             </div>
 }
           </div>

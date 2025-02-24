@@ -3,6 +3,7 @@ import NormalJobCard from "../../../components/featured/candidate/jobs/NormalJob
 import axios from "axios";
 import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
 import { useRouter } from "next/router";
+import { camelCase } from "../../../utils/middleware";
 
 function Aboutcompanies() {
   const [company, setCompany] = useState(null);
@@ -10,7 +11,8 @@ function Aboutcompanies() {
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
-  const { companyName, createdBy } = router.query;
+  const { companyName, createdBy ,role} = router.query;
+  console.log(888,company)
 
   const fetchCompanyDetails = async () => {
     try {
@@ -87,14 +89,14 @@ function Aboutcompanies() {
           <div className=" flex items-center gap-4  ">
             <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
               <img
-                src={company?.companyLogo}
+                src={role ==="recruiter" ?company?.profilePicture :company?.companyLogo}
                 className="rounded-lg  w-[76px] h-[26px] object-contain"
               />
             </div>
 
             <div className=" items-start justify-start">
-              <h2 className="text-[14px] font-[600]">{company?.name}</h2>
-              <div className="text-[12px] font-[400]">{company?.about}</div>
+              <h2 className="text-[14px] font-[600]">{camelCase(company?.name)}</h2>
+              <div className="text-[12px] font-[400]">{camelCase(role ==="recruiter" ? company?.role: company?.about)}</div>
 
               {/* <div className="flex items-center gap-1 text-sm mt-1">
   ⭐ <span className="text-[12px] font-[500]">3.6</span>
@@ -104,12 +106,14 @@ function Aboutcompanies() {
           </div>
         ) : (
           <div className=" flex items-center gap-4  ">
+            {jobs[0]?.logo &&
             <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
               <img
                 src={jobs[0]?.logo}
-                className="rounded-lg  w-[76px] h-[26px] object-contain"
+                className="rounded-lg  w-[76px] h-[26px] object-contain border-none"
               />
             </div>
+}
 
             <div className=" items-start justify-start">
               <h2 className="text-[14px] font-[600]">{companyName}</h2>
