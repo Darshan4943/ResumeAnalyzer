@@ -293,7 +293,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -370,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -421,7 +421,7 @@ function AdminDetails({
     if (!formData.idProofCertificate) {
       setFormError({ ...formError, idProofCertificate: "I Proof Certificate is required" })
     }
-
+    setLoading(true);
   
     const idProofCertificateUrl = await uploadFile(formData.idProofCertificate, "idProofCertificate");
     const certificateUrl = await uploadFile(formData.certificate, "certificate");
@@ -448,9 +448,9 @@ function AdminDetails({
     formDataToSend.append("role", role);
     formDataToSend.append("recOptions", recOptions);
 
-    setLoading(true);
+   
 
-    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
+    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
 
     axios
       .post(url, formDataToSend, {
@@ -897,7 +897,7 @@ function AdminDetails({
         <div className="w-full flex justify-between">
 
           <button
-            onClick={() => recOptions === "firm" ? handleBack : router.push("/auth?signup=true")}
+            onClick={() => (recOptions === "firm" || role==="employer") ? handleBack : router.push("/auth?signup=true")}
             className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
           >
             Go Back

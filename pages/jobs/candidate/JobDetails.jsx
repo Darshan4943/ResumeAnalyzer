@@ -35,7 +35,7 @@ function JobDetails() {
 
   const getData = () => {
     axios
-      .get(`http://localhost:2000/api/job/${id}/user/${userDataGlobal?._id}`)
+      .get(`https://dev.api.skilotech.com/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
         setJobData([res.data.data]);
         setTimeout(() => {

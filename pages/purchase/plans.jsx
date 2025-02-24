@@ -1,11 +1,12 @@
 import React from 'react'
-import SubscriptionPlan from '../../components/featured/home/SubscriptionHome'
+import SubscriptionPlans from '../../components/featured/home/SubscriptionPlans'
+
 
 const Plans = () => {
   return (
     <div className='mt-5'>
-   <SubscriptionPlan/>
-   </div>
+      <SubscriptionPlans />
+    </div>
   )
 }
 

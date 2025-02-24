@@ -153,7 +153,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobStatistics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobStatistics/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/job/getJobStatistics/${userDataGlobal?._id}`
       );
       setStatistics(response.data);
     } catch (err) {
@@ -168,7 +168,7 @@ function Dashboard({ toggleContentt }) {
   const fetchJobAnalytics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobAnalytics/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getJobAnalytics/${userDataGlobal?._id}`,
         { params: { selected } }
       );
       setData(response.data);
@@ -295,7 +295,7 @@ function Dashboard({ toggleContentt }) {
 
                       <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                         <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                          <CountUp end={statistics.shortlisted} />
+                          <CountUp end={statistics.hired} />
                         </p>
                       </div>
                     </div>
