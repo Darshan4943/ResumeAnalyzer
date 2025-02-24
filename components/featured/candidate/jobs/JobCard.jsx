@@ -305,7 +305,7 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                       // setLimitPopup(true);
                     }
                   } else {
-                    router.push(`/auth/Sign_in?role=user`);
+                    router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
                 className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${jobData?.some(
