@@ -75,11 +75,14 @@ function NormalJobCard({ item }) {
                 router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`);
                 e.stopPropagation();
               }}
-              className="text-[12px] font-medium cursor-pointer"
+              className="text-[12px] font-medium cursor-pointer w-fit"
             >
               {item?.companyName}
             </div>
-            <div className="text-[12px] font-medium">
+            <div onClick={(e) => {
+                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}`);
+                e.stopPropagation();
+              }} className="text-[12px] font-medium cursor-pointer">
               posted by {item?.createdByName}
             </div>
           </div>

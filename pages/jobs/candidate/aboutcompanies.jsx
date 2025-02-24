@@ -10,13 +10,14 @@ function Aboutcompanies() {
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
-  const { companyName, id } = router.query;
+  const { companyName, createdBy } = router.query;
+ 
 
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerCompanies/${id}`
+        `http://localhost:2000/api/getEmployerCompanies/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -28,18 +29,13 @@ function Aboutcompanies() {
   };
 
   useEffect(() => {
-    if (id) {
+    if (createdBy) {
       fetchCompanyDetails();
     }
-  }, [id]);
+  }, [createdBy]);
 
   const fetchEmployerJobs = async () => {
-    if (!companyName) {
-      setError("Company ID is required");
-      setLoading(false);
-      return;
-    }
-
+   
     try {
       setLoading(true);
       const response = await axios.get(
@@ -59,47 +55,73 @@ function Aboutcompanies() {
   };
 
   useEffect(() => {
-    fetchEmployerJobs();
+    if (companyName) {
+      fetchEmployerJobs();
+    }
+
   }, [companyName]);
 
   return (
     <>
-      <div className="customMargins pt-[24px]">
-        <div className=" pb-6 flex items-center gap-4 shadow-sm ">
-          <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
-            <img
-              src={company?.companyLogo}
-              className="rounded-lg  w-[76px] h-[26px] object-contain"
-            />
-          </div>
+      <div className="customMargins py-[24px]">
+        {createdBy ?
 
-          <div className=" items-start justify-start">
-            <h2 className="text-[14px] font-[600]">{company?.name}</h2>
-            <div className="flex items-center gap-1 text-sm mt-1">
-              ⭐ <span className="text-[12px] font-[500]">3.6</span>
-              <span className="text-[12px] font-[500]">| 786 Reviews</span>
+          <div className=" flex items-center gap-4  ">
+            <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
+              <img
+                src={company?.companyLogo}
+                className="rounded-lg  w-[76px] h-[26px] object-contain"
+              />
+            </div>
+
+            <div className=" items-start justify-start">
+              <h2 className="text-[14px] font-[600]">{company?.name}</h2>
+              <div className="text-[12px] font-[400]">
+                {company?.about}
+              </div>
+
+              {/* <div className="flex items-center gap-1 text-sm mt-1">
+  ⭐ <span className="text-[12px] font-[500]">3.6</span>
+  <span className="text-[12px] font-[500]">| 786 Reviews</span>
+</div> */}
             </div>
           </div>
-        </div>
+          :
+          <div className=" flex items-center gap-4  ">
+            <div className="w-[98px] h-[98px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center ">
+              <img
+                src={jobs[0]?.logo}
+                className="rounded-lg  w-[76px] h-[26px] object-contain"
+              />
+            </div>
 
-        <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
+            <div className=" items-start justify-start">
+              <h2 className="text-[14px] font-[600]">{companyName}</h2>
+              <div className="text-[12px] font-[400]">
+                {jobs[0]?.aboutOrganization}
+              </div>
+
+              {/* <div className="flex items-center gap-1 text-sm mt-1">
+              ⭐ <span className="text-[12px] font-[500]">3.6</span>
+              <span className="text-[12px] font-[500]">| 786 Reviews</span>
+            </div> */}
+            </div>
+          </div>
+        }
+        {/* <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
           <div className="sm:text-[16px] text-[12px] font-[600]">
             About Company
           </div>
           <div className="sm:text-[14px] text-[10px]  font-[400]">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using Content here, content
-            here, making it look like readable English.
+            {jobs[0]?.aboutOrganization}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-6 pt-6 ">
           <div className="flex flex-wrap justify-between gap-4">
             <div className="flex-1 min-w-[300px]">
               <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
-                Explore 412 Open Positions at Info Edge
+                Explore {jobs.length} Open Positions at {companyName}
               </h2>
               <div className="flex flex-col gap-4">
                 {jobs.length > 0 ? (
