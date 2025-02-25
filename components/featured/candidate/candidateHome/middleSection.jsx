@@ -70,11 +70,12 @@ function MiddleSection() {
       <div className="flex gap-4">
         <button
           onClick={() => router.push("/jobs/candidate/AppliedJobs")}
-          className="flex gap-1 rounded-[6px] px-2 py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[14px] font-[600] items-center leading-tight"
+          className="flex gap-1 rounded-[6px] px-2 py-2 sm:px-4 sm:py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[12px] sm:text-[14px] font-[600] items-center leading-tight"
         >
           <svg
-            width="24"
-            height="24"
+            width="20"
+            height="20"
+            className="sm:w-6 sm:h-6"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -90,13 +91,15 @@ function MiddleSection() {
           </svg>
           Applied Jobs ({appliedJobData?.length})
         </button>
+
         <button
           onClick={() => router.push("/jobs/candidate/SavedJobs")}
-          className="flex gap-2 rounded-[6px] px-4 py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[14px] font-[600]  items-center"
+          className="flex gap-1 rounded-[6px] px-2 py-2 sm:px-4 sm:py-2 border border-[#C7C7C780] bg-[#FFFFFF] text-[12px] sm:text-[14px] font-[600] items-center"
         >
           <svg
-            width="19"
-            height="24"
+            width="20"
+            height="20"
+            className="sm:w-6 sm:h-6"
             viewBox="0 0 19 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -115,10 +118,10 @@ function MiddleSection() {
             ? `url(${posters[0].backgroundImg}) center/cover no-repeat`
             : posters[0].background,
         }}
-        className="p-[16px] flex   sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between posters[0]s-center  rounded-[12px]  min-h-[169px] overflow-hidden "
+        className="p-[16px] flex   sm:flex-row flex-col-reverse items-center relative scr1100:gap-[80px] gap-8  justify-between posters[0]s-center  rounded-[12px]  min-h-[169px] overflow-hidden "
       >
-        <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center justify-between h-full">
-          <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center ">
+        <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center justify-between sm:items-start items-center h-full">
+          <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center  ">
             <p className=" text-[16px] font-[600] sm:text-start text-center">
               {posters[0]?.title}
             </p>
@@ -129,7 +132,7 @@ function MiddleSection() {
           </div>
           <button
             onClick={() => router.push(posters[0].path)}
-            className="scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]"
+            className="scr1100:py-3 max-w-[155px] scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]"
           >
             Know More
           </button>
@@ -156,9 +159,9 @@ function MiddleSection() {
             ? `url(${posters[1].backgroundImg}) center/cover no-repeat`
             : posters[0].background,
         }}
-        className="p-[16px] flex   sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between posters[0]s-center  rounded-[12px]  min-h-[169px] overflow-hidden "
+        className="p-[16px] flex items-center sm:flex-row flex-col-reverse relative scr1100:gap-[80px] gap-8  justify-between posters[0]s-center  rounded-[12px]  min-h-[169px] overflow-hidden "
       >
-        <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center justify-between h-full">
+        <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center justify-between sm:items-start items-center h-full">
           <div className="flex flex-col gap-2 sm:posters[0]s-start posters[0]s-center ">
             <p className=" text-[16px] font-[600] sm:text-start text-center">
               {posters[1]?.title}
@@ -170,7 +173,7 @@ function MiddleSection() {
           </div>
           <button
             onClick={() => router.push(posters[1].path)}
-            className="scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]"
+            className=" max-w-[155px] scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]"
           >
             Know More
           </button>

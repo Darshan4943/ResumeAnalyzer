@@ -203,7 +203,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         <div className="grid grid-rows-1 w-full">
           {!jobs?.length == 0 ? (
             <>
-              <div className="grid grid-cols-1 w-full">
+              <div className="grid grid-cols-1 rounded-b-[6px] overflow-hidden w-full">
                 {jobs.map((job, index) => (
                   <>
                     <div
