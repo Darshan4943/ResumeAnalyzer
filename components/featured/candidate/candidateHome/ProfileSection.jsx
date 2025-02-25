@@ -48,15 +48,15 @@ function ProfileSection() {
               src={
                 profileData?.profilePicture?.img
                   ? profileData?.profilePicture?.img
-                  : "/images/profile/profileNew.png"
+                  : "/images/profile/john_doe.png"
               }
               alt=""
               className="w-[104px] h-[104px] object-cover absolute rounded-full"
             />
           </div>
-          <div className="bg-[#D4F2FF] px-1 py-[2px] rounded-[4px]  h-[19px] flex items-center justify-center text-center  w-[40px] text-[12px] text-[#06A9EF] font-medium leading-tight">
+          {/* <div className="bg-[#D4F2FF] px-1 py-[2px] rounded-[4px]  h-[19px] flex items-center justify-center text-center  w-[40px] text-[12px] text-[#06A9EF] font-medium leading-tight">
             100%
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col gap-1 items-center">
           <p className="text-[16px] font-semibold">
