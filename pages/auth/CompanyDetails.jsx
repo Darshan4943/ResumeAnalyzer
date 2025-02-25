@@ -21,6 +21,7 @@ function CompanyDetails({
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+ 
   const companyFields = [
     {
       title: "Company Name",
@@ -44,8 +45,8 @@ function CompanyDetails({
       name: "companyWebsite",
     },
     {
-      title: "Year of Establish",
-      placeholder: "Enter Year of Establish",
+      title: "Year of Establishment",
+      placeholder: "Enter Year of Establishment",
       name: "YearOfEstablish",
     },
     {
@@ -53,6 +54,12 @@ function CompanyDetails({
       placeholder: "Enter Current Location",
       name: "CompanyLocation",
       isLocation: true,
+    },
+    {
+      title: "About Company",
+      placeholder: "Enter About Company",
+      name: "CompanyDetails",
+    
     },
   ];
 
@@ -113,7 +120,7 @@ function CompanyDetails({
           delete newErrors.companyRegistration;
         }
         break;
-      
+
 
       case "companyEmail":
         if (!value.trim()) {
@@ -168,6 +175,13 @@ function CompanyDetails({
           delete newErrors.CompanyLocation;
         }
         break;
+        case "CompanyDetails":
+          if (!value.trim()) {
+            newErrors.CompanyDetails = "Company Details are required";
+          } else {
+            delete newErrors.CompanyDetails;
+          }
+          break;
       default:
         break;
     }
@@ -209,13 +223,13 @@ function CompanyDetails({
 
       Object.values(newErrors).forEach((errorMessage) => {
         // toast.error("All fields are requireds");
-      }); 
+      });
 
       return;
     }
 
     axios
-      .post("http://localhost:2000/api/skiloteckuser/companyCheck", {
+      .post("https://dev.api.skilotech.com/api/skiloteckuser/companyCheck", {
         companyEmail: formData.companyEmail,
       })
       .then((res) => {
@@ -277,7 +291,7 @@ function CompanyDetails({
             <div className="flex gap-2">
               <ReactSelect
                 options={filteredTelCode}
-                className={`flex  items-center min-w-[160px] text-[12px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]  ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                className={`flex  items-center min-w-[160px] text-[14px] font-normal border border-[#9D9D9D] justify-center  rounded-[8px]  ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
                   } `}
                 name=""
                 placeholder="Select"
@@ -289,7 +303,7 @@ function CompanyDetails({
                       src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                       width="20px"
                     />
-                    <span className="ml-2 text-[#333333] text-[12px] font-[400]">
+                    <span className="ml-2 text-[#333333] text-[14px] font-[400]">
                       {option.code} {option.dial_code}
                     </span>
                   </div>
@@ -327,7 +341,7 @@ function CompanyDetails({
                   }
                 }}
                 placeholder={field.placeholder}
-                className={`bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                className={`bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
                   } `}
               />
             </div>
@@ -342,7 +356,7 @@ function CompanyDetails({
                 value={formData[field.name]}
                 onChange={handleChange}
                 placeholder={field.placeholder}
-                className="w-full bg-[transparent] outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464]"
+                className="w-full bg-[transparent] outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464]"
               />
             </div>
           )}
@@ -361,13 +375,13 @@ function CompanyDetails({
             value={formData.companyRegistration}
             onChange={handleChange}
             placeholder="Enter Company Registration Number"
-            className={` bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.companyRegistration ? "border-red" : "border-[#9D9D9D]"
+            className={` bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.companyRegistration ? "border-red" : "border-[#9D9D9D]"
               } `}
           />
         </div>
         <div className="flex flex-col gap-1 col-span-12 xlg:col-span-6">
           <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
-             Certificate<span className="text-red">*</span>
+            Certificate<span className="text-red">*</span>
           </label>
           <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${errors.certificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
             <input
@@ -378,7 +392,12 @@ function CompanyDetails({
               className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
             />
             {formData.certificate ?
-              <p>{formData?.certificate?.name}</p>
+              <p className=" ">
+                {formData?.certificate?.name?.length > 20
+                  ? formData.certificate.name.slice(0, 20) + "..."
+                  : formData?.certificate?.name}
+              </p>
+
 
               :
               <p className="text-[14px] text-[#646464]">Upload certificate</p>
@@ -403,8 +422,11 @@ function CompanyDetails({
             className="w-full cursor-pointer text-[14px] font-[400] text-[#646464] "
           />
           {formData.companyLogo ?
-            <p>{formData?.companyLogo?.name}</p>
-
+            <p>
+              {formData?.companyLogo?.name?.length > 40
+                ? formData.companyLogo.name.slice(0, 40) + "..."
+                : formData?.companyLogo?.name}
+            </p>
             :
             <p className="text-[14px] text-[#646464]">Upload Company Logo</p>
           }
@@ -417,13 +439,13 @@ function CompanyDetails({
           onClick={() => {
             router.push("/auth?signup=true");
           }}
-          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] md:rounded-[30px] text-[12px] md:text-[16px] font-[500] text-[#333333]"
+          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] md:rounded-[30px] text-[14px] md:text-[16px] font-[500] text-[#333333]"
         >
           Go Back
         </button>
         <button
           onClick={handleSubmit}
-          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[14px] md:text-[16px] font-[500] text-[#FFFFFF]"
         >
           Continue
         </button>

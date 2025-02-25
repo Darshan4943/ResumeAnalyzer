@@ -293,7 +293,7 @@ function AdminDetails({
     e.preventDefault();
     let tempUser = role === "employer" ? "tempEmployer" : "tempRecruiter";
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: formData.email.toLowerCase(),
         tempUser,
       })
@@ -370,7 +370,7 @@ function AdminDetails({
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: formData.email.toLowerCase(),
         otpEntered,
       })
@@ -450,7 +450,7 @@ function AdminDetails({
 
    
 
-    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
+    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
 
     axios
       .post(url, formDataToSend, {
@@ -753,7 +753,7 @@ function AdminDetails({
                 id=""
                 value={formData.password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
-                placeholder="Create Password Here"
+                placeholder="Enter Password"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&
@@ -812,7 +812,7 @@ function AdminDetails({
                 onChange={(e) =>
                   handleInputChange("confirmPassword", e.target.value)
                 }
-                placeholder="Comfirm Password"
+                placeholder="Confirm Password"
                 className="w-full bg-[transparent] outline-none  placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] text-[#646464]"
               />
               {!isEdge() &&
@@ -883,7 +883,12 @@ function AdminDetails({
                 className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
               />
               {formData.idProofCertificate ?
-                <p>{formData?.idProofCertificate?.name}</p>
+              
+                <p>
+              {formData?.idProofCertificate?.name?.length > 20
+                ? formData.idProofCertificate.name.slice(0, 20) + "..."
+                : formData?.idProofCertificate?.name}
+            </p>
 
                 :
                 <p className="text-[14px] text-[#646464]">Upload Id Proof Certificate</p>
@@ -897,7 +902,7 @@ function AdminDetails({
         <div className="w-full flex justify-between">
 
           <button
-            onClick={() => (recOptions === "firm" || role==="employer") ? handleBack : router.push("/auth?signup=true")}
+            onClick={() => (recOptions === "firm" || role==="employer") ? handleBack() : router.push("/auth?signup=true")}
             className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
           >
             Go Back
