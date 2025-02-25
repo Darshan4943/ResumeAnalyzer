@@ -163,7 +163,7 @@ function Sign_up({ }) {
     setIsProfileImageRemoved(false);
 
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
+    if (selectedFile && selectedFile.size <= 1 * 1024 * 1024) {
 
       if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
@@ -174,7 +174,7 @@ function Sign_up({ }) {
         toast.error("Only Image files are allowed");
       }
     } else {
-      toast.error("Please select a file that is  3 MB.");
+      toast.error("Please select a file that is  1 MB.");
     }
   };
   useEffect(() => {

@@ -35,7 +35,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
   useEffect(() => {
     const isViewed = localStorage.getItem("viewed");
-    console.log(isViewed);
+    
     if (isViewed === "false") {
       addJobView();
     }
@@ -181,7 +181,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                         );
                       }
                     } else {
-                      router.push(`/auth?signin=true&role=user`);
+                      router.push(`/jobs/easyApply?id=${selectedJob._id}`);
                     }
                   }}
                   className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${

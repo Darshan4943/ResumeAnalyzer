@@ -421,7 +421,7 @@ function AdminDetails({
     if (!formData.idProofCertificate) {
       setFormError({ ...formError, idProofCertificate: "I Proof Certificate is required" })
     }
-
+    setLoading(true);
   
     const idProofCertificateUrl = await uploadFile(formData.idProofCertificate, "idProofCertificate");
     const certificateUrl = await uploadFile(formData.certificate, "certificate");
@@ -448,7 +448,7 @@ function AdminDetails({
     formDataToSend.append("role", role);
     formDataToSend.append("recOptions", recOptions);
 
-    setLoading(true);
+   
 
     const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
 
@@ -897,7 +897,7 @@ function AdminDetails({
         <div className="w-full flex justify-between">
 
           <button
-            onClick={() => recOptions === "firm" ? handleBack : router.push("/auth?signup=true")}
+            onClick={() => (recOptions === "firm" || role==="employer") ? handleBack : router.push("/auth?signup=true")}
             className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
           >
             Go Back

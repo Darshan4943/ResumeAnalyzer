@@ -1,7 +1,9 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 function SuccessPopUp({ text, isButton }) {
-    const [button,setButton] =useState(!isButton ? isButton : true)
+    const [button, setButton] = useState(!isButton ? isButton : true)
+    const router = useRouter()
     return (
         <div style={{ boxShadow: "0px 0.5px 3px 0px #00000040" }} className='bg-white flex flex-col  gap-4 p-6 rounded-[10px] justify-center items-center w-[400px]'>
             <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +24,7 @@ function SuccessPopUp({ text, isButton }) {
                 {text}
             </p>
             {button &&
-                <button className='h-[42px] bg-blue rounded-[30px] px-9 text-white text-[14px] font-semibold'>
+                <button onClick={()=>router.back()} className='h-[42px] bg-blue rounded-[30px] px-9 text-white text-[14px] font-semibold'>
                     Done
                 </button>
             }

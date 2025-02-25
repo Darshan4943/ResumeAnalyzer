@@ -34,7 +34,7 @@ const SignUp = () => {
    
     setRecOptions("individual");
     setTog(2)
-    setIsCompleted(true)
+    // setIsCompleted(true)
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -61,7 +61,7 @@ const SignUp = () => {
           </div>
         }
       </div>
-      {role==="employer" &&
+      {(role==="employer" || recOptions==="firm")&&
       <div className="flex w-full items-center flex-col gap-1 pb-[18px]">
         <div className="flex w-full px-[44px] justify-center items-center">
           <svg

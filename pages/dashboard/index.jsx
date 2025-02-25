@@ -295,7 +295,7 @@ function Dashboard({ toggleContentt }) {
 
                       <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
                         <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                          <CountUp end={statistics.shortlisted} />
+                          <CountUp end={statistics.hired} />
                         </p>
                       </div>
                     </div>
