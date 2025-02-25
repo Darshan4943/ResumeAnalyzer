@@ -62,7 +62,7 @@ function Preboarding() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+          `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
           {
             params: {
               page: page,
@@ -126,7 +126,7 @@ function Preboarding() {
           {!preview && (
             <div className="flex flex-col items-start gap-6 w-full  ">
               <div
-                className="flex p-2 ml:p-4 gap-0 ml:gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
+                className="flex p-2 ml:p-4 gap-0 ml:gap-4 items-start w-[100%] rounded-[6px] bg-[#fff]"
                 style={{
                   boxShadow: "box-shadow: 0px -1px 0px 0px #D6DDEB inset",
                 }}

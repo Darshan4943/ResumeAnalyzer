@@ -58,7 +58,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -123,16 +123,17 @@ const Joined = ({ toggleContentt, setPreview }) => {
 
         <div className="grid grid-rows-1 w-full">
         {!jobs?.length == 0 ? (
-          <div className="grid grid-cols-1 w-full">
+          <div className="grid grid-cols-1 w-full rounded-b-[6px] overflow-hidden">
             {jobs.map((applicants, index) => (
               <>
                 <div
-                  key={index}
-                  className={`flex w-[100%] p-[16px] justify-between items-center ${
-                    checkedApplicants[index] ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                  }`}
-                >
-                  <div className="grid grid-cols-5 w-full px-4 py-2">
+                      className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${
+                        checkedjob[index]
+                          ? "bg-[#D3F1FF]"
+                          : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                      }`}
+                    >
+                  <div className="grid grid-cols-5 w-full ">
                     <div className="flex items-center justify-start col-span-1">
                       <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
                         {/* <input
@@ -153,7 +154,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                       </div>
                     </div>
                     <div className="flex items-center justify-start col-span-1">
-                      <p className="text-[14px] font-[600] text-[#333333] font-Montserrat">
+                      <p className="text-[12px] font-[500] text-[#333333] font-Montserrat">
                         {applicants?.jobTitle}
                       </p>
                     </div>

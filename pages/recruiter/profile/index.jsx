@@ -29,7 +29,7 @@ const Profile = () => {
               <img
                 src={data?.profilePicture ? data?.profilePicture : "/images/profile/john_doe.png"}
                 alt=""
-                className="object-contain h-[180px] w-[180px] flex justify-center rounded-full overflow-hidden "
+                className="object-cover h-[180px] w-[180px] flex justify-center rounded-full overflow-hidden "
               />
             }
 

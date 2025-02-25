@@ -37,7 +37,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -84,7 +84,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
         );
         const data = response.data;
 
@@ -203,7 +203,7 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
         <div className="grid grid-rows-1 w-full">
           {!jobs?.length == 0 ? (
             <>
-              <div className="grid grid-cols-1 w-full">
+              <div className="grid grid-cols-1 rounded-b-[6px] overflow-hidden w-full">
                 {jobs.map((job, index) => (
                   <>
                     <div
