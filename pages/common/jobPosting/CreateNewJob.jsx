@@ -901,7 +901,7 @@ function CreateNewJob() {
                           placeholder="Brief description for your company."
                           type="text"
                           name="aboutOrganization"
-                          value={data.aboutOrganization.replace(
+                          value={data?.aboutOrganization?.replace(
                             /<[^>]*>?/gm,
                             ""
                           )}

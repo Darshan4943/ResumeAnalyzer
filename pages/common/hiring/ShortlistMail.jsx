@@ -266,7 +266,7 @@ function ShortlistMail({
                     headerTemplate={header}
                     onTextChange={(e) => {
                       setContent(e.htmlValue);
-                      setContentError(""); 
+                      setContentError("");
                     }}
                   />
                   {contentError && (

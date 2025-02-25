@@ -33,7 +33,7 @@ function ApplyForm() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [resumeIdd, setResumeIdd] = useState();
   const [selectedItem, setSelectedItem] = useState();
-  
+
   const [professionalSec, setProfessionalSec] = useState({
     education: "",
     skills: [],
@@ -56,7 +56,7 @@ function ApplyForm() {
       expectedCTC: "",
       noticePeriod: "",
       currencyExpectedCTC: "",
-      currencyCurrentCTC: ""
+      currencyCurrentCTC: "",
     },
   });
 
@@ -68,15 +68,20 @@ function ApplyForm() {
     axios
       .get(`http://localhost:2000/api/job/getByJobId/${id}`)
       .then((res) => {
-
         setJobDetails(res.data);
 
         setFormData((prevData) => ({
           ...prevData,
           professional: {
             ...prevData.professional,
-            currencyExpectedCTC: res.data?.currency || prevData.professional.currencyExpectedCTC || "",
-            currencyCurrentCTC: res.data?.currency || prevData.professional.currencyCurrentCTC || "",
+            currencyExpectedCTC:
+              res.data?.currency ||
+              prevData.professional.currencyExpectedCTC ||
+              "",
+            currencyCurrentCTC:
+              res.data?.currency ||
+              prevData.professional.currencyCurrentCTC ||
+              "",
           },
         }));
       })
@@ -109,17 +114,34 @@ function ApplyForm() {
 
           professional: {
             ...prevData.professional,
-            totalExperience: professional.totalExperience || prevData.professional.totalExperience || "",
-            relevantExperience: professional.relevantExperience || prevData.professional.relevantExperience || "",
-            currentCTC: professional.currentCTC || prevData.professional.currentCTC || "",
-            expectedCTC: professional.expectedCTC || prevData.professional.expectedCTC || "",
-            noticePeriod: professional.noticePeriod || prevData.professional.noticePeriod || "",
-            comfortableWithLocation: professional.comfortableWithLocation || prevData.professional.comfortableWithLocation || "",
+            totalExperience:
+              professional.totalExperience ||
+              prevData.professional.totalExperience ||
+              "",
+            relevantExperience:
+              professional.relevantExperience ||
+              prevData.professional.relevantExperience ||
+              "",
+            currentCTC:
+              professional.currentCTC || prevData.professional.currentCTC || "",
+            expectedCTC:
+              professional.expectedCTC ||
+              prevData.professional.expectedCTC ||
+              "",
+            noticePeriod:
+              professional.noticePeriod ||
+              prevData.professional.noticePeriod ||
+              "",
+            comfortableWithLocation:
+              professional.comfortableWithLocation ||
+              prevData.professional.comfortableWithLocation ||
+              "",
           },
           dial_code: personal.dial_code || prevData.dial_code || "",
-
         }));
-        const selectedItem = telCode.find((item) => item.dial_code === personal.dial_code);
+        const selectedItem = telCode.find(
+          (item) => item.dial_code === personal.dial_code
+        );
 
         if (selectedItem) {
           setSelectedItem(selectedItem);
@@ -127,7 +149,6 @@ function ApplyForm() {
       })
       .catch((err) => console.error(err));
   }, []);
-
 
   useEffect(() => {
     axios
@@ -194,7 +215,7 @@ function ApplyForm() {
       .put(
         `http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
       )
-      .then((res) => { })
+      .then((res) => {})
       .catch((err) => console.error(err));
   };
 
@@ -222,7 +243,6 @@ function ApplyForm() {
   };
 
   const extractResumeSections = (text) => {
-
     const sections = {
       aboutMe: "",
       skills: [],
@@ -255,7 +275,6 @@ function ApplyForm() {
 
     return sections;
   };
-
 
   const parseData = (file, setText) => {
     return new Promise((resolve, reject) => {
@@ -332,7 +351,6 @@ function ApplyForm() {
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-
       parseData(file, setText)
         .then((extractedText) => {
           setText(extractedText);
@@ -402,17 +420,18 @@ function ApplyForm() {
     }));
   };
 
-
   const applyForJob = () => {
     if (!validateInput()) return;
-    const totalExperience = parseInt(formData.professional?.totalExperience) || 0;
-    const relevantExperience = parseInt(formData.professional?.relevantExperience) || 0;
+    const totalExperience =
+      parseInt(formData.professional?.totalExperience) || 0;
+    const relevantExperience =
+      parseInt(formData.professional?.relevantExperience) || 0;
 
     if (relevantExperience > totalExperience) {
-
       setFormError((prevErrors) => ({
         ...prevErrors,
-        relevantExperience: "Relevant experience cannot be greater than Total experience.",
+        relevantExperience:
+          "Relevant experience cannot be greater than Total experience.",
       }));
       return;
     }
@@ -520,11 +539,13 @@ function ApplyForm() {
     const diffInDays = now.diff(updatedDate, "days");
 
     if (diffInHours < 24) {
-      return `Last updated at ${diffInHours} ${diffInHours === 1 ? "hour" : "hours"
-        } ago`;
+      return `Last updated at ${diffInHours} ${
+        diffInHours === 1 ? "hour" : "hours"
+      } ago`;
     } else {
-      return `Last updated at ${diffInDays} ${diffInDays === 1 ? "day" : "days"
-        } ago`;
+      return `Last updated at ${diffInDays} ${
+        diffInDays === 1 ? "day" : "days"
+      } ago`;
     }
   };
 
@@ -535,7 +556,6 @@ function ApplyForm() {
     link.click();
   };
 
-
   return (
     <>
       <div className="customMargins wl:w-[100%] w-[100%]">
@@ -543,9 +563,9 @@ function ApplyForm() {
           className="rounded-[16px] my-6 bg-[#FFFFFF] sm:p-6 p-3 flex flex-col gap-4"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
-          <div className=" flex xxlg:flex-row flex-col sm:gap-4 gap-2 xxlg:items-center ">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <svg
-              className=" cursor-pointer"
+              className="cursor-pointer"
               onClick={() => router.back()}
               width="28"
               height="29"
@@ -561,17 +581,18 @@ function ApplyForm() {
               </g>
             </svg>
 
-            <p className="text-[#06A9EF]  text-[18px] font-medium">
+            <p className="text-[#06A9EF] text-[16px] sm:text-[18px] font-medium">
               Apply to{" "}
-              <span className="text-[18px] text-[#333333]">
-                {jobDetails?.jobTitle}
-              </span>
+              <span className="text-[#333333]">{jobDetails?.jobTitle}</span>
             </p>
-            <div className="bg-[#DEDEDE] w-[2px] h-[28px] xxlg:block hidden"></div>
-            <p className="text-[16px]  font-medium">
+
+            <div className="hidden xxlg:block bg-[#DEDEDE] w-[2px] h-[28px]"></div>
+
+            <p className="text-[14px] sm:text-[16px] font-medium">
               {jobDetails?.companyName}
             </p>
-            <div className="flex flex-row gap-1 items-start text-[14px] font-medium">
+
+            <div className="flex items-center gap-1 text-[12px] sm:text-[14px] font-medium">
               <svg
                 width="20"
                 height="21"
@@ -586,7 +607,7 @@ function ApplyForm() {
                   />
                 </g>
               </svg>
-              {jobDetails?.country?.join(", ")} ||{" "}
+              {jobDetails?.country?.join(", ")} |{" "}
               {jobDetails?.location?.join(", ")}
             </div>
           </div>
@@ -610,10 +631,9 @@ function ApplyForm() {
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
             </div>
 
-
             {!loadingg ? (
               <>
-                {resumes?.length > 0 &&
+                {resumes?.length > 0 && (
                   <div className="flex flex-col gap-3 max-h-[200px] overflow-y-auto overflow-x-hidden sm:pr-4 pr-2">
                     {resumes?.map((item, index) => (
                       <div
@@ -670,12 +690,11 @@ function ApplyForm() {
                       </div>
                     ))}
                   </div>
-                }
+                )}
               </>
             ) : (
               <MiniLoader1 />
             )}
-
 
             <div className="flex sm:flex-row flex-col gap-4 justify-between w-[100%]">
               {formError.resume && (
@@ -716,7 +735,7 @@ function ApplyForm() {
                   DOC, DOCX, PDF (2 MB)
                 </p>
               )}
-              <label className="sm:px-6 px-3 sm:py-[10px] py-[6px] min-w-[140px] max-w-[140px] sm:max-w-full border border-[#06A9EF] rounded-[30px]  text-[14px]  font-semibold text-[#333333] cursor-pointer">
+              <label className="sm:px-6 px-3 sm:py-[10px] py-[6px] min-w-[140px] max-w-[140px] sm:max-w-full border border-[#06A9EF] rounded-[30px]  scr460:text-[14px] text-[12px] font-semibold text-[#333333] flex  justify-center cursor-pointer">
                 Upload Resume
                 <input
                   type="file"
