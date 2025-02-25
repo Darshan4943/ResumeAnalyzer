@@ -428,11 +428,11 @@ function AdminDetails({
     const companyLogoUrl = await uploadFile(formData.companyLogo, "companyLogo");
 
   
-    if (!idProofCertificateUrl || !certificateUrl || !companyLogoUrl) {
-      setLoading(false);
-      toast.error("File upload failed. Please try again.");
-      return;
-    }
+    // if (!idProofCertificateUrl || !certificateUrl || !companyLogoUrl) {
+    //   setLoading(false);
+    //   toast.error("File upload failed. Please try again.");
+    //   return;
+    // }
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {

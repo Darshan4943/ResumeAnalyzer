@@ -152,6 +152,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     setGenerateOffer(true);
   };
 
+  console.log(loadingApplicantId)
   return (
     <>
       <div className="web w-full">
