@@ -1,4 +1,3 @@
-
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -7,13 +6,13 @@ import axios from "axios";
 import MiniLoader from "../../../components/common/miniLoader";
 import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 import AppliedJobCard from "../../../components/featured/candidate/jobs/AppliedJobCard";
-function AppliedJobs({ setLimitPopup, }) {
+function AppliedJobs({ setLimitPopup }) {
   const [selectedJob, setSelectedJob] = useState();
   const [loading, setLoading] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [page, setPage] = useState(1);
-  const [appliedJobs, setAppliedJobs] = useState()
+  const [appliedJobs, setAppliedJobs] = useState();
   const [isDescription, setIsDescription] = useState(false);
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const [miniLoading, setMiniloading] = useState(false);
@@ -22,17 +21,21 @@ function AppliedJobs({ setLimitPopup, }) {
   const [totalCount, setTotalCount] = useState(0);
   const dispatch = useDispatch();
 
-
-
   const getAppliedData = () => {
-    setMiniloading(true)
+    setMiniloading(true);
     axios
-      .get(`http://localhost:2000/api/job/getAppliedJobsWithoutApplications/${userDataGlobal?._id}`, {
-        params: { page, limit },
-      })
+      .get(
+        `http://localhost:2000/api/job/getAppliedJobsWithoutApplications/${userDataGlobal?._id}`,
+        {
+          params: { page, limit },
+        }
+      )
       .then((res) => {
-
-        setAppliedJobs(res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        setAppliedJobs(
+          res.data.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )
+        );
 
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
@@ -48,16 +51,11 @@ function AppliedJobs({ setLimitPopup, }) {
           setMiniloading(false);
         }, 500);
       });
-  }
-
+  };
 
   useEffect(() => {
-
-    getAppliedData()
-
-
+    getAppliedData();
   }, [userDataGlobal, page, limit]);
-
 
   useEffect(() => {
     if (appliedJobs?.length > 0) {
@@ -67,11 +65,16 @@ function AppliedJobs({ setLimitPopup, }) {
 
   return (
     <>
-      {!loading ?
+      {!loading ? (
         <>
-          {appliedJobs?.length > 0 ?
+          {appliedJobs?.length > 0 ? (
             <div className="flex flex-col gap-[24px] customMargins py-6">
-              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">Jobs You&apos;ve Applied <span className="col-span-12 text-[#000000] text-[18px] font-medium">( {totalCount} Jobs )</span></p>
+              <p className="col-span-12 text-[#000000] text-[18px] font-semibold">
+                Jobs You&apos;ve Applied{" "}
+                <span className="col-span-12 text-[#000000] text-[18px] font-medium">
+                  ( {totalCount} Jobs )
+                </span>
+              </p>
               <div className="flex w-full gap-6">
                 <div
                   onClick={() => setIsDescription(true)}
@@ -88,6 +91,8 @@ function AppliedJobs({ setLimitPopup, }) {
                     totalPages={totalPages}
                     page={page}
                     setPage={setPage}
+                    totalCount={totalCount}
+                    setTotalCount={setTotalCount}
                     appliedJobs={appliedJobs}
                     setAppliedJobs={setAppliedJobs}
                   />
@@ -97,19 +102,17 @@ function AppliedJobs({ setLimitPopup, }) {
                 </div>
               </div>
             </div>
-
-            :
+          ) : (
             <div className=" object-contain justify-center items-center py-12 w-[100%] flex h-full col-span-12">
               <NoJobs name={"Applied"} />
             </div>
-          }
+          )}
         </>
-        :
+      ) : (
         <div className=" h-[70vh] ">
           <MiniLoader />
         </div>
-      }
-
+      )}
     </>
   );
 }

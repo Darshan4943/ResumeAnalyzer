@@ -22,9 +22,6 @@ function ApplicantDetails({ setTogglee }) {
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
 
-
- 
-
   const getData = async () => {
     try {
       setLoading(true);
@@ -66,7 +63,7 @@ function ApplicantDetails({ setTogglee }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      if ( taskSuccessfull ) {
+      if (taskSuccessfull) {
         await getData();
         setToggle("HiringProgress");
       }
@@ -83,7 +80,6 @@ function ApplicantDetails({ setTogglee }) {
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
   const PdfViewer = ({ pdfUrl, loadingg, setLoadingg }) => {
     const [numPages, setNumPages] = useState(null);
-    console.log(loadingg);
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
       setTimeout(() => {
@@ -163,7 +159,7 @@ function ApplicantDetails({ setTogglee }) {
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
                     <div
-                      className={`flex justify-start gap-12 ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
+                      className={`flex justify-between sm:justify-start   gap-3  ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
                     >
                       <div>
                         <p
@@ -219,36 +215,39 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {(userDataGlobal?.role === "employer" && jobDetails?.hiringStage !=="Pending") && (
-                        <div>
-                          <p
-                            className={`${
-                              activeOption === "HiringProgress"
-                                ? "text-[#333]"
-                                : "text-[#646464]"
-                            } cursor-pointer`}
-                            onClick={() => handleOptionClick("HiringProgress")}
-                          >
-                            Hiring Process
-                          </p>
-                          <svg
-                            className=" ml:w-[128px] sm:w-[115px] w-[95px]"
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="4"
-                            viewBox="0 0 138 4"
-                            fill="none"
-                          >
-                            <path
-                              d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
-                              fill={
+                      {userDataGlobal?.role === "employer" &&
+                        jobDetails?.hiringStage !== "Pending" && (
+                          <div>
+                            <p
+                              className={`${
                                 activeOption === "HiringProgress"
-                                  ? "#06A9EF"
-                                  : "white"
+                                  ? "text-[#333]"
+                                  : "text-[#646464]"
+                              } cursor-pointer`}
+                              onClick={() =>
+                                handleOptionClick("HiringProgress")
                               }
-                            />
-                          </svg>
-                        </div>
-                      )}
+                            >
+                              Hiring Process
+                            </p>
+                            <svg
+                              className=" ml:w-[128px] sm:w-[115px] w-[95px]"
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="4"
+                              viewBox="0 0 138 4"
+                              fill="none"
+                            >
+                              <path
+                                d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
+                                fill={
+                                  activeOption === "HiringProgress"
+                                    ? "#06A9EF"
+                                    : "white"
+                                }
+                              />
+                            </svg>
+                          </div>
+                        )}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>

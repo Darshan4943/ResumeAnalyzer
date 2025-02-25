@@ -5,29 +5,35 @@ import axios from "axios";
 import { fetchUserData } from "../../../../Redux/slices/userSlice";
 import { useRouter } from "next/router";
 import { camelCase } from "../../../../utils/middleware";
-function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsVisible, getData }) {
-  const [limitPopup, setLimitPopup] = useState(false)
+function Job_card({
+  jobData,
+  setSaved,
+  save,
+  setSimilarJobsVisible,
+  similarJobsVisible,
+  getData,
+}) {
+  const [limitPopup, setLimitPopup] = useState(false);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const isLogin = useSelector((state) => state.auth.isLogin);
   const router = useRouter();
 
-
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const dispatch = useDispatch();
   const SaveJob = async (e, id) => {
     e.stopPropagation();
     try {
-      await axios.post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`);
-      getData()
+      await axios.post(
+        `http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`
+      );
+      getData();
       setSaved((prevState) => !prevState);
       //  dispatch(fetchUserData());
       // setTimeout(() => {
-      //  
+      //
       // }, 2000);
-
-
     } catch (err) {
       console.error(err);
     }
@@ -36,32 +42,28 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
   const removeSavedJob = async (e, id) => {
     e.stopPropagation();
     try {
-
       await axios.post(
         `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
-      getData()
+      getData();
       //  dispatch(fetchUserData());
 
       // setTimeout(() => {
-      //  
+      //
       // }, 2000);
     } catch (err) {
       console.error(err);
     }
   };
 
-
   return (
     <>
       {jobData?.map((item, index) => (
         <div
-
           className={`p-2 scr700:p-[16px] flex flex-col gap-[8px] relative justify-between  rounded-[12px]   bg-[#FFFFFF]  `}
           style={{
-            boxShadow: "0px 0px 14px 0px #00000005"
-
+            boxShadow: "0px 0px 14px 0px #00000005",
           }}
           key={index}
         >
@@ -71,24 +73,31 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                 <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
                   {item?.jobTitle}
                 </div>
-                
+
                 <div
                   onClick={(e) => {
-                    router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`);
+                    router.push(
+                      `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`
+                    );
                     e.stopPropagation();
                   }}
                   className="text-[12px] font-normal cursor-pointer w-fit"
                 >
                   {item?.companyName}
                 </div>
-                {item?.role === "recruiter" &&
-                  <div onClick={(e) => {
-                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
-                    e.stopPropagation();
-                  }} className="text-[12px] font-normal cursor-pointer">
+                {item?.role === "recruiter" && (
+                  <div
+                    onClick={(e) => {
+                      router.push(
+                        `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`
+                      );
+                      e.stopPropagation();
+                    }}
+                    className="text-[12px] font-normal cursor-pointer"
+                  >
                     posted by Recruiter ({camelCase(item?.createdByName)})
                   </div>
-                }
+                )}
               </div>
               {item?.logo && (
                 <div className="flex flex-row  items-end">
@@ -196,16 +205,22 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                 </svg>
               </div>
               <div className="text-[#262626] font-[400] text-[12px] h-[36px] overflow-hidden">
-                {item?.description?.length > 100
-                  ? <>
-                    <div className=""
-                      dangerouslySetInnerHTML={{ __html: item.description.slice(0, 100) }} />
+                {item?.description?.length > 100 ? (
+                  <>
+                    <div
+                      className=""
+                      dangerouslySetInnerHTML={{
+                        __html: item.description.slice(0, 100),
+                      }}
+                    />
                     <span>...</span>
                   </>
-                  : <div className=""
-                    dangerouslySetInnerHTML={{ __html: item.description }} />
-                }
-
+                ) : (
+                  <div
+                    className=""
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -220,7 +235,12 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
 
               Woman Candidate Preffered
             </div> */}
-            <p onClick={() => setSimilarJobsVisible(!similarJobsVisible)} className="text-[14px] font-semibold text-[#06A9EF] cursor-pointer">Find similar jobs openings</p>
+            <p
+              onClick={() => setSimilarJobsVisible(!similarJobsVisible)}
+              className="text-[14px] font-semibold text-[#06A9EF] cursor-pointer"
+            >
+              Find similar jobs openings
+            </p>
           </div>
 
           <div className="bg-[#AFAFAF99] h-[1px] w-full my-1"></div>
@@ -228,7 +248,8 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
           <div className="flex w-full  gap-2 flex-col scr700:flex-row justify-between items-center px-1 ">
             <div className="flex w-full flex-col scr390:flex-row gap-[6px] scr700:gap-3 justify-between scr700:justify-start items-start">
               {jobData?.some(
-                (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
+                (job) =>
+                  job?.matchedApplication?.applicantId === userDataGlobal?._id
               ) && isLogin ? (
                 <div className="text-[12px] text-[#333333] font-[500] font-Montserrat flex flex-row gap-1 scr700:gap-2 items-center">
                   <svg
@@ -246,10 +267,10 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                     </g>
                   </svg>
                   Applied
-                  <div
-                    className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center"
-                  >
-                    {CountPostingDays(jobData[0]?.matchedApplication?.appliedOn) || ""}
+                  <div className="text-[12px] text-[#646464] font-[500] font-Montserrat flex flex-row gap-2 items-center">
+                    {CountPostingDays(
+                      jobData[0]?.matchedApplication?.appliedOn
+                    ) || ""}
                   </div>
                 </div>
               ) : (
@@ -261,30 +282,41 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                 <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                   Applicants : {jobData[0]?.totalApplicationCount}
                 </div>
-                {jobData[0]?.openPositions &&
+                {jobData[0]?.openPositions && (
                   <div className="text-[12px] text-[#646464] font-[500] font-Montserrat">
                     Openings: {jobData[0]?.openPositions}
                   </div>
-                }
+                )}
               </div>
             </div>
             <div className="flex w-full scr700:w-[250px] justify-end gap-2 h-[42px]">
-              {isLogin &&
+              {isLogin && (
                 <div>
-                  {item?.isSaved ?
-                    <button onClick={(e) => removeSavedJob(e, item._id)} className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]">
+                  {item?.isSaved ? (
+                    <button
+                      onClick={(e) => removeSavedJob(e, item._id)}
+                      className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]"
+                    >
                       Saved
-                    </button> :
-                    <button onClick={(e) => SaveJob(e, item._id)} className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight">
+                    </button>
+                  ) : (
+                    <button
+                      onClick={(e) => SaveJob(e, item._id)}
+                      className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight"
+                    >
                       Save
                     </button>
-                  }
+                  )}
                 </div>
-              }
+              )}
               <button
                 disabled={
-                  jobData?.some(
-                    (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
+                  (jobData?.some(
+                    (job) =>
+                      job?.matchedApplication?.applicantId ===
+                      userDataGlobal?._id
+                  ) &&
+                    isLogin) ||
                   item?.status === "Hold"
                 }
                 onClick={() => {
@@ -292,32 +324,39 @@ function Job_card({ jobData, setSaved, save, setSimilarJobsVisible, similarJobsV
                     if (jobApplyCount > 0) {
                       if (
                         !jobData?.some(
-                          (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id)
+                          (job) =>
+                            job?.matchedApplication?.applicantId ===
+                            userDataGlobal?._id
+                        )
                       ) {
-                        router.push(
-                          `/jobs/candidate/ApplyForm?id=${item._id}`
-                        );
+                        router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
                       }
                     } else {
-                      router.push(
-                        `/jobs/candidate/ApplyForm?id=${item._id}`
-                      );
+                      router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
                       // setLimitPopup(true);
                     }
                   } else {
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${jobData?.some(
-                  (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id) && isLogin ||
+                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${
+                  (jobData?.some(
+                    (job) =>
+                      job?.matchedApplication?.applicantId ===
+                      userDataGlobal?._id
+                  ) &&
+                    isLogin) ||
                   item.status === "Hold"
-                  ? "cursor-not-allowed"
-                  : " cursor-pointer"
-                  }`}
+                    ? "cursor-not-allowed"
+                    : " cursor-pointer"
+                }`}
               >
                 {jobData?.some(
-                  (job) => job?.matchedApplication?.applicantId === userDataGlobal?._id
-                ) && isLogin ? "Applied" : "Apply"}
+                  (job) =>
+                    job?.matchedApplication?.applicantId === userDataGlobal?._id
+                ) && isLogin
+                  ? "Applied"
+                  : "Apply"}
               </button>
             </div>
           </div>
