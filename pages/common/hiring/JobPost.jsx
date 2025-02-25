@@ -134,7 +134,6 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setSelectAll(!selectAll);
   };
 
-
   const handleReject = async () => {
     setAllReject(true);
   };
@@ -656,37 +655,39 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       />
                     </svg>
                   </div>
-                  <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
-                    <p
-                      onClick={() => {
-                        setOption(3),
-                          setActiveOption("Selected Candidate for Hiring");
-                      }}
-                      className={` ${
-                        activeOption === "Selected Candidate for Hiring"
-                          ? ""
-                          : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
-                    >
-                      Selected Candidate for Hiring
-                    </p>
-                    <svg
-                      width="214"
-                      height="4"
-                      viewBox="0 0 214 4"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
-                        fill={
+                  {userDataGlobal?.role !== "recruiter" && (
+                    <div className="flex flex-col mt-[18px] items-center gap-[7px] shadow-border">
+                      <p
+                        onClick={() => {
+                          setOption(3),
+                            setActiveOption("Selected Candidate for Hiring");
+                        }}
+                        className={` ${
                           activeOption === "Selected Candidate for Hiring"
-                            ? "#06A9EF"
-                            : "white"
-                        }
-                      />
-                    </svg>
-                  </div>
+                            ? ""
+                            : "text-[#646464]"
+                        } cursor-pointer font-[600]`}
+                      >
+                        Selected Candidate for Hiring
+                      </p>
+                      <svg
+                        width="214"
+                        height="4"
+                        viewBox="0 0 214 4"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 4C0 1.79086 1.79086 0 4 0H210C212.209 0 214 1.79086 214 4H0Z"
+                          fill={
+                            activeOption === "Selected Candidate for Hiring"
+                              ? "#06A9EF"
+                              : "white"
+                          }
+                        />
+                      </svg>
+                    </div>
+                  )}
                 </div>
                 <div className="h-[1px] bg-[#D6DDEB] w-full"></div>
               </div>
@@ -1286,32 +1287,33 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         {applicant.source}
                                       </p>
                                       <div className="flex gap-[10px]">
-                                      {userDataGlobal?.role === "recruiter" && (
-                                        <button
-                                          disabled={
-                                            applicant?.hiringStage ===
-                                              "Rejected" ||
-                                            applicant?.hiringStage ===
-                                              "Shortlisted"
-                                          }
-                                          style={{
-                                            opacity:
+                                        {userDataGlobal?.role ===
+                                          "recruiter" && (
+                                          <button
+                                            disabled={
                                               applicant?.hiringStage ===
                                                 "Rejected" ||
                                               applicant?.hiringStage ===
                                                 "Shortlisted"
-                                                ? 0.5
-                                                : 1,
-                                          }}
-                                          onClick={() => {
-                                            setHiringStage("Shortlisted");
-                                            togglePopup(applicant);
-                                          }}
-                                          className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
-                                        >
-                                          Shortlist
-                                        </button>
-                                      )}
+                                            }
+                                            style={{
+                                              opacity:
+                                                applicant?.hiringStage ===
+                                                  "Rejected" ||
+                                                applicant?.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? 0.5
+                                                  : 1,
+                                            }}
+                                            onClick={() => {
+                                              setHiringStage("Shortlisted");
+                                              togglePopup(applicant);
+                                            }}
+                                            className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
+                                          >
+                                            Shortlist
+                                          </button>
+                                        )}
                                         <>
                                           {isPopupVisible && (
                                             <ShortlistMail
