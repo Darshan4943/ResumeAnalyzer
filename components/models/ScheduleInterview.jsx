@@ -18,7 +18,6 @@ function ScheduleInterview({
   mailDetails,
   setMailDetails,
 }) {
-  
   const [levels, setLevels] = useState([
     {
       id: 1,
@@ -78,6 +77,7 @@ function ScheduleInterview({
           content: value.slice(0, 200),
         },
       });
+      setError("")
       debounceUpdate1(value.slice(0, 200));
     } else {
       setMailDetails({
@@ -207,11 +207,7 @@ function ScheduleInterview({
           value="bullet"
           aria-label="Unordered List"
         ></button>
-       <button
-          className="ql-align"
-        
-          aria-label="Align Left"
-        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
         <button
           className="ql-align"
           value="center"
@@ -227,7 +223,6 @@ function ScheduleInterview({
   };
 
   const header = renderHeader();
-
 
   return (
     <div
@@ -373,8 +368,8 @@ function ScheduleInterview({
               type="date"
               placeholder="Select Date"
               className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-              value={selectedValues?.interviewDate} // Bind input value to selectedValues.interviewDate
-              onChange={handleDateChange} // Handle input change
+              value={selectedValues?.interviewDate} 
+              onChange={handleDateChange} 
             />
           </div>
           <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
@@ -387,32 +382,35 @@ function ScheduleInterview({
                 value={selectedValues.startTime}
                 onChange={handleStartTimeChange}
               >
-                <option disabled>
-                  Select
-                </option>
+                <option disabled>Select</option>
 
-                {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                  <option key={hour} value={hour}>
+                {Array.from({ length: 12 }, (_, i) => i + 1).flatMap((hour) => [
+                  <option key={`${hour}:00`} value={`${hour}:00`}>
                     {String(hour).padStart(2, "0")}:00
-                  </option>
-                ))}
+                  </option>,
+                  <option key={`${hour}:30`} value={`${hour}:30`}>
+                    {String(hour).padStart(2, "0")}:30
+                  </option>,
+                ])}
               </select>
 
               <div className="flex gap-2   text-[14px] font-[400]">
                 <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${selectedValues.startAmPm === "AM"
-                    ? " bg-blue text-white"
-                    : ""
-                    }`}
+                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${
+                    selectedValues.startAmPm === "AM"
+                      ? " bg-blue text-white"
+                      : ""
+                  }`}
                   onClick={() => handleAmPmChange("AM")}
                 >
                   AM
                 </button>
                 <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${selectedValues.startAmPm === "PM"
-                    ? "text-white bg-blue"
-                    : ""
-                    }`}
+                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${
+                    selectedValues.startAmPm === "PM"
+                      ? "text-white bg-blue"
+                      : ""
+                  }`}
                   onClick={() => handleAmPmChange("PM")}
                 >
                   PM
@@ -505,10 +503,11 @@ function ScheduleInterview({
             <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4">
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${activeOption === "Candidate"
-                    ? "text-[#333333]"
-                    : "text-[#646464]"
-                    } `}
+                  className={` cursor-pointer ${
+                    activeOption === "Candidate"
+                      ? "text-[#333333]"
+                      : "text-[#646464]"
+                  } `}
                   onClick={() => handleOptionClick("Candidate")}
                 >
                   Email to Candidate
@@ -528,10 +527,11 @@ function ScheduleInterview({
               </div>
               <div className="flex flex-col gap-2">
                 <p
-                  className={` cursor-pointer ${activeOption === "Interviewer"
-                    ? "text-[#333333]"
-                    : "text-[#646464]"
-                    } `}
+                  className={` cursor-pointer ${
+                    activeOption === "Interviewer"
+                      ? "text-[#333333]"
+                      : "text-[#646464]"
+                  } `}
                   onClick={() => handleOptionClick("Interviewer")}
                 >
                   Email to Interviewer
@@ -582,8 +582,6 @@ function ScheduleInterview({
                   <p className="text-[16px] font-medium text-[#646464]">Body</p>
                 </div>
                 <div className=" border border-[#DEDEDE] relative">
-
-
                   <Editor
                     value={mailDetails?.candidate?.content}
                     onTextChange={(e) => handleChange1(e.htmlValue)}
@@ -595,14 +593,40 @@ function ScheduleInterview({
                       paddingTop: "120px",
 
                       minHeight: "196px",
-
                     }}
                   />
                   <div className=" absolute top-[56px] pl-[16px]">
-                    <p> <span className=" font-medium"> Interview Date :</span> {selectedValues.interviewDate} </p>
-                    <p> <span className=" font-medium"> Start Time : </span>{selectedValues.startTime} {selectedValues.startAmPm}</p>
-                    <p> <span className=" font-medium"> Duration :</span> {selectedValues.duration}</p>
-                    <p> <span className=" font-medium"> {selectedValues?.isOnline ? "Meeting Link" : "Interview Location"} :</span> {selectedValues?.isOnline ? selectedValues.meetingLink : selectedValues.interviewLocation}</p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium">
+                        {" "}
+                        Interview Date :
+                      </span>{" "}
+                      {selectedValues.interviewDate}{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium"> Start Time : </span>
+                      {selectedValues.startTime} {selectedValues.startAmPm}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium"> Duration :</span>{" "}
+                      {selectedValues.duration}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium">
+                        {" "}
+                        {selectedValues?.isOnline
+                          ? "Meeting Link"
+                          : "Interview Location"}{" "}
+                        :
+                      </span>{" "}
+                      {selectedValues?.isOnline
+                        ? selectedValues.meetingLink
+                        : selectedValues.interviewLocation}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -651,8 +675,6 @@ function ScheduleInterview({
                   }}a
                 /> */}
                 <div className=" border border-[#DEDEDE] relative">
-
-
                   <Editor
                     value={mailDetails?.interviewer?.content}
                     onTextChange={(e) => handleChange2(e.htmlValue)}
@@ -664,14 +686,40 @@ function ScheduleInterview({
                       paddingTop: "120px",
 
                       minHeight: "196px",
-
                     }}
                   />
                   <div className=" absolute top-[56px] pl-[16px]">
-                    <p> <span className=" font-medium"> Interview Date :</span> {selectedValues.interviewDate} </p>
-                    <p> <span className=" font-medium"> Start Time : </span>{selectedValues.startTime} {selectedValues.startAmPm}</p>
-                    <p> <span className=" font-medium"> Duration :</span> {selectedValues.duration}</p>
-                    <p> <span className=" font-medium"> {selectedValues?.isOnline ? "Meeting Link" : "Interview Location"} :</span> {selectedValues?.isOnline ? selectedValues.meetingLink : selectedValues.interviewLocation}</p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium">
+                        {" "}
+                        Interview Date :
+                      </span>{" "}
+                      {selectedValues.interviewDate}{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium"> Start Time : </span>
+                      {selectedValues.startTime} {selectedValues.startAmPm}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium"> Duration :</span>{" "}
+                      {selectedValues.duration}
+                    </p>
+                    <p>
+                      {" "}
+                      <span className=" font-medium">
+                        {" "}
+                        {selectedValues?.isOnline
+                          ? "Meeting Link"
+                          : "Interview Location"}{" "}
+                        :
+                      </span>{" "}
+                      {selectedValues?.isOnline
+                        ? selectedValues.meetingLink
+                        : selectedValues.interviewLocation}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -691,7 +739,7 @@ function ScheduleInterview({
           Cancel
         </button>
         {loading ? (
-          <div className="ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
+          <div className="ml:px-9 w-[230px] items-center justify-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
             <MiniLoader />
           </div>
         ) : (

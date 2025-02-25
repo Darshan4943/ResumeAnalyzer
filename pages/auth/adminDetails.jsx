@@ -866,7 +866,7 @@ function AdminDetails({
               value={formData.idProof}
               onChange={(e) => handleInputChange("idProof", e.target.value)}
               placeholder="Enter Id Proof Number"
-              className={` bg-[transparent] w-full outline-none text-[12px] placeholder:text-[12px] placeholder:font-[400] placeholder:text-[#646464] border h-[39px]  rounded-[8px] py-[12px] px-4 ${formError.idProof ? "border-red" : "border-[#9D9D9D]"
+              className={` bg-[transparent] w-full outline-none placeholder:text-[14px] text-[14px] placeholder:font-[400] font-[400] placeholder:text-[#646464] border h-[39px]  rounded-[8px] py-[12px] px-4 ${formError.idProof ? "border-red" : "border-[#9D9D9D]"
                 } `}
             />
           </div>
