@@ -85,16 +85,14 @@ const Documention = ({ toggleContentt, setToggle }) => {
       isExperience: applicants.preboardingDetails.documentList.isExperience,
       content: `<p>Dear Candidate,</p>\n
         <p>We are pleased to inform you that you have been selected for the next round of interviews at Skilotech.</p>\n
-        ${
-          requiredDocs.length > 0
-            ? `<p>To proceed further, please submit the following documents for verification:</p>\n
+        ${requiredDocs.length > 0
+          ? `<p>To proceed further, please submit the following documents for verification:</p>\n
             <ul>${requiredDocs.join("\n")}</ul>\n`
-            : ""
+          : ""
         }
-        ${
-          applicants?.note
-            ? `<p>Additional Note: ${applicants?.note}</p>\n`
-            : ""
+        ${applicants?.note
+          ? `<p>Additional Note: ${applicants?.note}</p>\n`
+          : ""
         }
         <p>Please upload these documents at your earliest convenience.</p>\n
         <p>Best regards,<br />The Skilotech Team</p>`,
@@ -246,11 +244,16 @@ const Documention = ({ toggleContentt, setToggle }) => {
         </div>
         <div className="grid grid-rows-1 w-full">
           {!jobs?.length == 0 ? (
-            <div className="grid grid-cols-1 w-full">
+            <div className="grid grid-cols-1 w-full rounded-b-[6px] overflow-hidden">
               {jobs?.map((applicants, index) => (
                 <>
-                  <div className="flex w-[100%] bg-[#FFFFFF]  border-b border-[#D4D4D480] py-[16px] justify-between items-center">
-                    <div className="grid grid-cols-6 w-full px-4 py-2">
+                  <div
+                    className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
+                      ? "bg-[#D3F1FF]"
+                      : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                      }`}
+                  >
+                    <div className="grid grid-cols-6 w-full ">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                           {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -276,51 +279,48 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${
+                        className={` flex items-center text-[14px] font-[600] justify-start col-span-1 pl-5 text ${applicants?.preboardingDetails?.documentStatus ===
+                          "Submitted" ||
                           applicants?.preboardingDetails?.documentStatus ===
-                            "Submitted" ||
-                          applicants?.preboardingDetails?.documentStatus ===
-                            "Verified"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
-                        } `}
+                          "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                          } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus}
                       </div>
 
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
-                            checkedjob[index]
-                              ? "bg-[#FFFFFF]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Pending"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                              ?.preboardingStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                                ? "bg-[#E7F8FF]"
+                                : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Hired"
-                              ? "bg-[#E8FFE8]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Rejected"
-                              ? "bg-[#FFE6E2]"
-                              : ""
-                          } ${
-                            applicants?.preboardingDetails
+                                  ? "bg-[#E8FFE8]"
+                                  : applicants?.preboardingDetails
+                                    ?.preboardingStatus === "Rejected"
+                                    ? "bg-[#FFE6E2]"
+                                    : ""
+                            } ${applicants?.preboardingDetails
                               ?.preboardingStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                                ? "text-[#06A9EF]"
+                                : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Hired"
-                              ? "text-[#0C8A0A]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Rejected"
-                              ? "text-[#FF6550]"
-                              : "text-[#333333]"
-                          }`}
+                                  ? "text-[#0C8A0A]"
+                                  : applicants?.preboardingDetails
+                                    ?.preboardingStatus === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : "text-[#333333]"
+                            }`}
                         >
                           {applicants?.preboardingDetails?.preboardingStatus}
                         </div>
@@ -329,7 +329,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         <div className="flex   items-center w-full  justify-between relative">
                           {applicants?.preboardingDetails?.documentStatus ==
                             "Submitted" ||
-                          applicants?.preboardingDetails?.documentStatus ==
+                            applicants?.preboardingDetails?.documentStatus ==
                             "Verified" ? (
                             <button
                               disabled={
@@ -342,12 +342,11 @@ const Documention = ({ toggleContentt, setToggle }) => {
                                   applicants.jobId
                                 )
                               }
-                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${
-                                !applicants?.preboardingDetails
-                                  ?.isMovedToVerification
-                                  ? "text-[#fff] bg-[#06A9EF]"
-                                  : "text-[#ABABAB] border-[#ABABAB]"
-                              }
+                              className={`flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border  ${!applicants?.preboardingDetails
+                                ?.isMovedToVerification
+                                ? "text-[#fff] bg-[#06A9EF]"
+                                : "text-[#ABABAB] border-[#ABABAB]"
+                                }
                                 }`}
                             >
                               {applicants?.preboardingDetails
@@ -515,14 +514,13 @@ const Documention = ({ toggleContentt, setToggle }) => {
                           Doc Status
                         </p>
                         <p
-                          className={`text-[14px]  font-[600] font-Montserrat ${
+                          className={`text-[14px]  font-[600] font-Montserrat ${applicants?.preboardingDetails?.documentStatus ===
+                            "Submitted" ||
                             applicants?.preboardingDetails?.documentStatus ===
-                              "Submitted" ||
-                            applicants?.preboardingDetails?.documentStatus ===
-                              "Verified"
-                              ? "text-[#0C8A0A]"
-                              : "text-[#333]"
-                          } `}
+                            "Verified"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
+                            } `}
                         >
                           {applicants?.preboardingDetails?.documentStatus}
                         </p>
@@ -534,37 +532,35 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         </p>
 
                         <div
-                          className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                            checkedjob[index]
-                              ? "bg-[#FFFFFF]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Pending"
+                          className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${checkedjob[index]
+                            ? "bg-[#FFFFFF]"
+                            : applicants?.preboardingDetails
+                              ?.preboardingStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Initiated"
-                              ? "bg-[#E7F8FF]"
-                              : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                                ? "bg-[#E7F8FF]"
+                                : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Hired"
-                              ? "bg-[#E8FFE8]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Rejected"
-                              ? "bg-[#FFE6E2]"
-                              : ""
-                          } ${
-                            applicants?.preboardingDetails
+                                  ? "bg-[#E8FFE8]"
+                                  : applicants?.preboardingDetails
+                                    ?.preboardingStatus === "Rejected"
+                                    ? "bg-[#FFE6E2]"
+                                    : ""
+                            } ${applicants?.preboardingDetails
                               ?.preboardingStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Initiated"
-                              ? "text-[#06A9EF]"
-                              : applicants?.preboardingDetails
+                                ?.preboardingStatus === "Initiated"
+                                ? "text-[#06A9EF]"
+                                : applicants?.preboardingDetails
                                   ?.preboardingStatus === "Hired"
-                              ? "text-[#0C8A0A]"
-                              : applicants?.preboardingDetails
-                                  ?.preboardingStatus === "Rejected"
-                              ? "text-[#FF6550]"
-                              : "text-[#333333]"
-                          }`}
+                                  ? "text-[#0C8A0A]"
+                                  : applicants?.preboardingDetails
+                                    ?.preboardingStatus === "Rejected"
+                                    ? "text-[#FF6550]"
+                                    : "text-[#333333]"
+                            }`}
                         >
                           {applicants?.preboardingDetails?.preboardingStatus}
                         </div>
@@ -572,7 +568,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       <div className="flex justify-center w-full">
                         {applicants?.preboardingDetails?.documentStatus ==
                           "Submitted" ||
-                        applicants?.preboardingDetails?.documentStatus ==
+                          applicants?.preboardingDetails?.documentStatus ==
                           "Verified" ? (
                           <button
                             disabled={
@@ -585,12 +581,11 @@ const Documention = ({ toggleContentt, setToggle }) => {
                                 applicants.jobId
                               )
                             }
-                            className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${
-                              !applicants?.preboardingDetails
-                                ?.isMovedToVerification
-                                ? "text-[#fff] bg-[#06A9EF]"
-                                : "text-[#ABABAB] border-[#ABABAB] border"
-                            }
+                            className={`flex w-[120px] h-[40px] justify-center items-center rounded-[30px]  font-semibold text-[14px]  ${!applicants?.preboardingDetails
+                              ?.isMovedToVerification
+                              ? "text-[#fff] bg-[#06A9EF]"
+                              : "text-[#ABABAB] border-[#ABABAB] border"
+                              }
                                 }`}
                           >
                             {applicants?.preboardingDetails
@@ -614,27 +609,27 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             )}
                             {applicants?.preboardingDetails
                               ?.preboardingStatus !== "Rejected" && (
-                              <button
-                                disabled={
-                                  applicants?.preboardingDetails
-                                    ?.preboardingStatus === "Rejected"
-                                }
-                                onClick={() => {
-                                  setReject(true);
-                                  selectedApplicant(applicants);
-                                }}
-                                style={{
-                                  opacity:
+                                <button
+                                  disabled={
                                     applicants?.preboardingDetails
                                       ?.preboardingStatus === "Rejected"
-                                      ? 0.5
-                                      : 1,
-                                }}
-                                className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
-                              >
-                                Reject
-                              </button>
-                            )}
+                                  }
+                                  onClick={() => {
+                                    setReject(true);
+                                    selectedApplicant(applicants);
+                                  }}
+                                  style={{
+                                    opacity:
+                                      applicants?.preboardingDetails
+                                        ?.preboardingStatus === "Rejected"
+                                        ? 0.5
+                                        : 1,
+                                  }}
+                                  className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                                >
+                                  Reject
+                                </button>
+                              )}
                           </div>
                         )}
                       </div>
