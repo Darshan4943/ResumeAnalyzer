@@ -209,7 +209,7 @@ function CompanyDetails({
 
       Object.values(newErrors).forEach((errorMessage) => {
         // toast.error("All fields are requireds");
-      });
+      }); 
 
       return;
     }

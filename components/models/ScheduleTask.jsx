@@ -50,6 +50,7 @@ function ScheduleTask({
         candidate: { ...mailDetails.candidate, content: value.slice(0, 200) },
       });
       debounceUpdate(value.slice(0, 200));
+      setError("")
     } else {
       setMailDetails({
         ...mailDetails,
@@ -67,6 +68,7 @@ function ScheduleTask({
           content: value.slice(0, 200),
         },
       });
+      setError("")
       debounceUpdate1(value.slice(0, 200));
     } else {
       setMailDetails({
@@ -400,14 +402,14 @@ function ScheduleTask({
                   placeholder="Skilotech-Online Interview"
                   class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                   value={mailDetails?.interviewer?.subject}
-                  onChange={(e) =>
+                  onChange={(e) =>{
                     setMailDetails((prev) => ({
                       ...prev,
                       interviewer: {
                         ...prev.interviewer,
                         subject: e.target.value,
-                      },
-                    }))
+                      }
+                    }));setError("")}
                   }
                 />
               </div>
@@ -447,7 +449,7 @@ function ScheduleTask({
           Cancel
         </button>
         {loading ? (
-          <div className="ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
+          <div className="ml:px-9 w-[230px] justify-center items-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
             <MiniLoader />
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import MiniLoader from "../../../../common/mini-loader";
 
 const GenerateOffer = ({
   setGenerateOffer,
@@ -14,6 +15,7 @@ const GenerateOffer = ({
     body: "",
     selectedFile: null,
   });
+  const [loading, setLoading] = useState(false);
   const [successfull, setSuccessfull] = useState(false);
   const [errors, setErrors] = useState(false);
   const validate = () => {
@@ -69,6 +71,7 @@ const GenerateOffer = ({
     try {
       e.preventDefault();
       if (!validate()) return;
+      setLoading(true);
       const formdata = new FormData();
       formdata.append("subject", data.subject);
       formdata.append("to", data.to);
@@ -88,11 +91,13 @@ const GenerateOffer = ({
 
       setSuccessfull(true);
       fetchJobs();
+      setLoading(false);
     } catch (error) {
       console.error(
         "Error sending offer:",
         error.response?.data || error.message
       );
+      setLoading(false);
     }
   };
 
@@ -159,9 +164,6 @@ const GenerateOffer = ({
                 Upload File
               </label>
 
-              {errors.selectedFile && (
-                <span style={{ color: "red" }}>{errors.selectedFile}</span>
-              )}
 
               {data.selectedFile && (
                 <div className="relative w-48 h-12 flex items-center justify-between bg-gray-100 rounded-lg shadow-md border border-gray-300 px-3">
@@ -230,21 +232,36 @@ const GenerateOffer = ({
                 )}
               </div>
             ))}
+            <div className="w-full flex justify-end">
+              {errors.selectedFile && (
+                <span style={{ color: "red" }}>{errors.selectedFile}</span>
+              )}
+            </div>
+
+
             <div className="flex justify-end gap-4 w-full">
               <button
                 onClick={() => setGenerateOffer(false)}
-                className="px-6 py-2 text-gray-700 border border-[#06A9EF] rounded-lg bg-white font-semibold hover:bg-gray-100 transition"
+                className="px-6 py-2 text-gray-700 border border-[#06A9EF] rounded-[30px] bg-white font-semibold hover:bg-gray-100 transition"
               >
                 Cancel
               </button>
-              <button
-                onClick={(e) => {
-                  handleSubmit(e);
-                }}
-                className="px-6 py-2 text-white border border-[#06A9EF] rounded-lg bg-[#06A9EF] font-semibold hover:bg-blue-700 transition"
-              >
-                Generate Offer
-              </button>
+              {loading ?
+                <div className="w-[171.33px] flex justify-center items-center px-6 py-2 text-white border border-[#06A9EF] rounded-[30px] bg-[#06A9EF] font-semibold hover:bg-blue-700 transition">
+
+                  <MiniLoader />
+                </div>
+                :
+
+                <button
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                  className="px-6 py-2 text-white border border-[#06A9EF] rounded-[30px] bg-[#06A9EF] font-semibold hover:bg-blue-700 transition"
+                >
+                  Generate Offer
+                </button>
+              }
             </div>
           </div>
         </div>
