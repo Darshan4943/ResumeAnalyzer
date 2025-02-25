@@ -357,8 +357,8 @@ const addData = async (file) => {
                 <div className="scr1300:w-[334px]  justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] w-full">
                   <div className="px-[16px]  flex flex-col ">
                     <div className="text-[14px] font-[500]">
-                      {user.fileName.split(" ").slice(0, 4).join(" ")}
-                      {user.fileName.split(" ").length > 4 ? "..." : ""}
+                     
+                      {user.fileName.length > 20 ? user.fileName.slice(0, 20) + "..." : user.fileName}
                       <br />
                       (Default)
                     </div>
