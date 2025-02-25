@@ -18,10 +18,10 @@ function RequisitionFilter({ filterData, setFilterData }) {
     }
   }, [query.content]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const [headings, setHeadings] = useState([
     {
       heading: "Department",
+      displayName: "Job Title",
       options: [
         "Assistant Manager",
         "Product Manager",
@@ -32,14 +32,17 @@ function RequisitionFilter({ filterData, setFilterData }) {
     },
     {
       heading: "Location",
+      displayName: "Location",
       options: ["Mumbai"],
     },
     {
       heading: "Status",
+      displayName: " Status",
       options: ["Pending", "Approved"],
     },
     {
       heading: "Priority",
+      displayName: " Priority",
       options: ["Yes", "No"],
     },
   ]);
@@ -79,24 +82,20 @@ function RequisitionFilter({ filterData, setFilterData }) {
             ),
           ].map((priority) => (priority === "yes" ? "Yes" : "No"));
 
-          setHeadings((prevHeadings) => [
-            {
-              ...prevHeadings[0],
-              options: departments,
-            },
-            {
-              ...prevHeadings[1],
-              options: locations,
-            },
-            {
-              ...prevHeadings[2],
-              options: ["Pending", "Approved"],
-            },
-            {
-              ...prevHeadings[3],
-              options: priorities,
-            },
-          ]);
+          setHeadings((prevHeadings) =>
+            prevHeadings.map((heading) => {
+              switch (heading.heading) {
+                case "Department":
+                  return { ...heading, options: departments };
+                case "Location":
+                  return { ...heading, options: locations };
+                case "Priority":
+                  return { ...heading, options: priorities };
+                default:
+                  return heading;
+              }
+            })
+          );
         }
       } catch (error) {
         console.error("Error fetching job attributes:", error);
@@ -160,7 +159,7 @@ function RequisitionFilter({ filterData, setFilterData }) {
                       }
                     : null
                 }
-                placeholder={headingObj.heading}
+                placeholder={headingObj.displayName || headingObj.heading}
                 isSearchable={true}
                 noOptionsMessage={() => "No options available"}
                 styles={customStyles}

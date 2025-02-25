@@ -72,7 +72,7 @@ function LevelUpdate({
       setShortlist(true);
     }
   };
-
+  console.log(mailDetails)
   const submitDetails = async () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -93,6 +93,25 @@ function LevelUpdate({
           return;
         }
 
+        if (!mailDetails?.candidate?.subject?.trim()) {
+          setError("Subject is required.");
+          return;
+        }
+      
+        if (!mailDetails?.candidate?.content?.trim()) {
+          setError("Email body is required.");
+          return;
+        }
+        if (!mailDetails?.interviewer?.subject?.trim()) {
+          setError("Subject is required of interviewer.");
+          return;
+        }
+      
+        if (!mailDetails?.interviewer?.content?.trim()) {
+          setError("Email body is required of interviewer.");
+          return;
+        }
+
         const invalidInterviewers = selectedValues.interviewer.some(
           (interviewer) => !interviewer.email || interviewer.email.trim() === ""
         );
@@ -107,7 +126,7 @@ function LevelUpdate({
           return;
         }
 
-        if (!selectedValues?.isOnline && !selectedValues.location) {
+        if (!selectedValues?.isOnline && !selectedValues.interviewLocation) {
           setError("Location is Required");
           return;
         }
@@ -127,6 +146,24 @@ function LevelUpdate({
 
         if (invalidTaskReviewer) {
           setError("Email is required for every Reviewer");
+          return;
+        }
+        if (!mailDetails?.candidate?.subject?.trim()) {
+          setError("Candidate Subject is required.");
+          return;
+        }
+      
+        if (!mailDetails?.candidate?.content?.trim()) {
+          setError("Candidate Email body is required.");
+          return;
+        }
+        if (!mailDetails?.interviewer?.subject?.trim()) {
+          setError("Subject is required for reviewer.");
+          return;
+        }
+      
+        if (!mailDetails?.interviewer?.content?.trim()) {
+          setError("Email body is required for reviewer.");
           return;
         }
       }
