@@ -125,7 +125,7 @@ function Index() {
             companyData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between gap-1 w-[300px]"
+                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
               >
                 <div className="gap-1 flex flex-col">
                   <img

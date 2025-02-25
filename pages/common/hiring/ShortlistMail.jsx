@@ -136,7 +136,7 @@ function ShortlistMail({
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-20"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-        <div className="bg-white p-8 rounded-lg  max-w-[1100px] scr1250:w-[1100px] h-[80vh] overflow-y-auto max-h-[560px]">
+        <div className="bg-white p-4 scr500:p-8 rounded-lg  max-w-[1100px] scr1250:w-[1100px] h-[80vh] overflow-y-auto max-h-[560px]">
           <div className="mb-4 flex items-center">
             <div className="flex w-full flex-col">
               <div

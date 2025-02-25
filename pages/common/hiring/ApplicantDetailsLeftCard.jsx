@@ -57,24 +57,24 @@ function ApplicantDetailsLeftCard({
       )}
       <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[32.26%] ml:w-[40%] w-[100%] bg-white ">
         {jobDetails?.details && (
-          <div className="flex flex-col overflow-y-auto gap-6 px-6 py-4">
-            <div className=" flex  gap-6">
+          <div className="flex flex-col overflow-y-auto gap-6 px-2 scr500:px-6 py-2 scr500:py-4">
+            <div className=" flex gap-2 scr500:gap-6">
               <img
                 src="/images/employer/profileNew.png"
                 alt=""
                 className="h-[96px] w-[96px]"
               />
               <div className="w-[65%] flex flex-col gap-1">
-                <p className="text-[24px]   text-start   font font-medium  ">
+                <p className="text-[20px] scr500:text-[24px]   text-start   font font-medium  ">
                   {jobDetails?.details?.personal?.firstName}{" "}
                   {jobDetails?.details?.personal?.lastName}
                 </p>
                 <p className="text-[16px]   text-start text-[#646464]   font-normal  ">
                   {/* {jobDetails?.jobTitle} */}
                 </p>
-                <div className="flex gap-2 text-[16px] font-medium items-center">
+                <div className="flex gap-2 text-[13px] scr500:text-[16px] font-medium items-center">
                   Profile Match Score :
-                  <span className="text-[16px] font-semibold">
+                  <span className="text-[13px] scr500:text-[16px] font-semibold">
                     {" "}
                     {jobDetails?.matchingPercentage} %
                   </span>
