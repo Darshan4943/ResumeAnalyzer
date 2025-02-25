@@ -121,7 +121,7 @@ function Aboutcompanies() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post(
         "http://localhost:2000/api/reviews",
@@ -161,9 +161,9 @@ function Aboutcompanies() {
       ) : (
         <>
           <div className="customMargins py-[24px] ">
-            <div className="flex justify-between items-center ">
+            <div className="flex md:flex-row flex-col md:justify-between gap-2 md:items-center items-start pb-6">
               {createdBy ? (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 ">
                   <div className="w-[98px] h-[48px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                     {role === "recruiter" ? (
                       company?.profilePicture ? (
@@ -227,7 +227,7 @@ function Aboutcompanies() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-4 pb-7">
+                <div className="flex items-center gap-4 ">
                   {jobs[0]?.logo ? (
                     <div className="w-[98px] h-[48px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                       <img
@@ -250,7 +250,10 @@ function Aboutcompanies() {
                     <h2 className="text-[14px] font-[600]">{companyName}</h2>
 
                     <div className="flex items-center gap-1 text-sm mt-1">
-                      ⭐ <span className="text-[12px] font-[500]">{averageRating}</span>
+                      ⭐{" "}
+                      <span className="text-[12px] font-[500]">
+                        {averageRating}
+                      </span>
                       <span className="text-[12px] font-[500]">
                         | {totalReviews}
                       </span>
@@ -262,7 +265,7 @@ function Aboutcompanies() {
                 onClick={() => {
                   handleClick();
                 }}
-                className="bg-[#06A9EF] py-[12px] px-[36px] text-white text-[14px] font-[600] rounded-[30px]"
+                className="bg-[#06A9EF]  md:py-[12px] md:px-[36px] py-[8px] px-[16px] text-white md:text-[14px] text-[12px] font-[600] rounded-[30px]"
               >
                 Give Us Your Feedback
               </button>
@@ -278,7 +281,11 @@ function Aboutcompanies() {
                 </div>
               </div>
             )}
-            <div className="flex flex-col gap-6 pt-6 ">
+            <div
+              className={`flex flex-col gap-6 ${
+                role === "recruiter" ? "pt-0" : "pt-6"
+              }`}
+            >
               <div className="flex flex-wrap justify-between gap-4">
                 <div className="flex-1 min-w-[300px]">
                   <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">

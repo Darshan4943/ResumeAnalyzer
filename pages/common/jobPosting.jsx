@@ -69,7 +69,7 @@ function JobPosting() {
                     ) : (
                       <select
                         onChange={handleCompanyChange}
-                        className="border border-[#DEDEDE] rounded-[8px] p-2 text-[12px]  font-normal w-[204px]"
+                        className="border border-[#DEDEDE] outline-none rounded-[8px] p-2 text-[12px]  font-normal w-[204px]"
                       >
                         <option value="">Select a company</option>
                         {companyData?.map((company) => (
