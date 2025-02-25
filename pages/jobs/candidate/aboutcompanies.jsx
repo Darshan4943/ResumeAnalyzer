@@ -34,7 +34,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompanies/${createdBy}`
+        `http://localhost:2000/api/getEmployerCompanies/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -57,7 +57,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
         )}&page=${page}&limit=${limit}`
       );
@@ -85,7 +85,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getJobsById/${createdBy}?page=${page}&limit=${limit}`
+        `http://localhost:2000/api/getJobsById/${createdBy}?page=${page}&limit=${limit}`
       );
       const { jobs, totalCount, totalPages } = response.data;
 
@@ -124,7 +124,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/reviews",
+        "http://localhost:2000/api/reviews",
         reviewData
       );
       toast.success(response.data.message);
@@ -139,7 +139,7 @@ function Aboutcompanies() {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getreview/${id}`
+          `http://localhost:2000/api/getreview/${id}`
         );
         const { averageRating, totalReviews, totalRatingCount } = response.data;
 
