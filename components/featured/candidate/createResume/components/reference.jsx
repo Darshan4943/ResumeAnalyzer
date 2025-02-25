@@ -300,7 +300,7 @@ const Reference = ({
                   className={`flex flex-col gap-2 w-full ${item?.className}`}
                   key={index}
                 >
-                  <div className=" text-[14px] font-montserrat  font-medium">
+                  <div className=" sm:text-[14px] text-[12px] font-montserrat  font-medium">
                     {item?.label}{" "}
                     {item.require && <span className="star">*</span>}
                   </div>
