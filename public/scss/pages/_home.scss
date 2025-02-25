@@ -589,9 +589,17 @@
   }
   .swiper-button-prev {
     left: 39% !important;
+
+    @media (max-width: 425px) {
+      left: 30% !important;
+    }
   }
   .swiper-button-next {
     left: 54% !important;
+
+    @media (max-width: 425px) {
+      left: 56% !important;
+    }
   }
 }
 
