@@ -121,7 +121,7 @@ function Aboutcompanies() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post(
         "http://localhost:2000/api/reviews",
@@ -250,7 +250,10 @@ function Aboutcompanies() {
                     <h2 className="text-[14px] font-[600]">{companyName}</h2>
 
                     <div className="flex items-center gap-1 text-sm mt-1">
-                      ⭐ <span className="text-[12px] font-[500]">{averageRating}</span>
+                      ⭐{" "}
+                      <span className="text-[12px] font-[500]">
+                        {averageRating}
+                      </span>
                       <span className="text-[12px] font-[500]">
                         | {totalReviews}
                       </span>
@@ -278,7 +281,11 @@ function Aboutcompanies() {
                 </div>
               </div>
             )}
-            <div className="flex flex-col gap-6 pt-6 ">
+            <div
+              className={`flex flex-col gap-6 ${
+                role === "recruiter" ? "pt-0" : "pt-6"
+              }`}
+            >
               <div className="flex flex-wrap justify-between gap-4">
                 <div className="flex-1 min-w-[300px]">
                   <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
