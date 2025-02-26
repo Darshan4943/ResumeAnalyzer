@@ -20,6 +20,7 @@ import { fetchAppliedJob, fetchSavedJobIds } from "./slices/jobSlice";
 import { fetchProfileData } from "./slices/profileSlice";
 import { setLoginState } from "./slices/loginSlice";
 import { useRouter } from "next/router";
+import { setShareJobClose } from "./slices/shareJobSlice";
 
 export const Api = ({}) => {
   const [error, setError] = useState(false);
@@ -29,10 +30,13 @@ export const Api = ({}) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
+ 
+     
 
   const [allPlans, setAllPlans] = useState([]);
 
   const dispatch = useDispatch();
+  dispatch(setShareJobClose());
   useEffect(() => {
     const handleRouteChange = () => {
       localStorage.setItem("viewed", JSON.stringify(false));

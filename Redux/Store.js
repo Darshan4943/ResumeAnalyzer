@@ -8,6 +8,7 @@ import jobReducer from "./slices/jobSlice";
 import profileReducer from "./slices/profileSlice"
 import authReducer from "./slices/loginSlice"
 import recallReducer from "./slices/recallSlice"
+import shareJobReducer from "./slices/shareJobSlice"
 
 const store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
         job:jobReducer,
         profile:profileReducer,
         auth: authReducer,
-        recall:recallReducer
+        recall:recallReducer,
+        shareJob: shareJobReducer
     },
 });
 

@@ -17,6 +17,7 @@ import CandidateMobileHeader from "./partials/header/candidateMobileHeader";
 import { useSelector } from "react-redux";
 import EmployerHeader from "./partials/header/EmployerHeader";
 import EmployerSidebar from "./partials/header/EmployerSidebar";
+import ShareJobHeader from "./partials/header/shareJobHeader";
 
 function Layout({ children }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -24,6 +25,8 @@ function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const pageOpened = useSelector((state) => state?.website?.pageOpened);
+  const shareJob = useSelector((state) => state?.shareJob?.shareJob);
+  console.log(shareJob)
   const [isSubscribe, setIsSubscrib] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -54,13 +57,16 @@ function Layout({ children }) {
 
   const Temp2 = () => (
     <div className="">
-      {!pageOpened &&
+      {(!pageOpened && !shareJob) &&
         <div>
           <EmployerHeader />
         </div>
       }
+      {shareJob &&
+        <ShareJobHeader />
+      }
       <div className="flex bg-[#f3f3f3] relative min-h-[100vh]  ">
-        {!pageOpened &&
+        {(!pageOpened && !shareJob) &&
           <div className=" ml:max-h-[100vh] min-h-[100vh] ml:block hidden overflow-y-auto sticky  overflow-hidden top-0 min-w-[120px] bg-white "
             style={{ scrollbarWidth: "none" }}>
             <EmployerSidebar />
@@ -70,7 +76,7 @@ function Layout({ children }) {
           style={{ scrollbarWidth: "none" }}
         >
           {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}
-          {!pageOpened &&
+          {(!pageOpened && !shareJob) &&
             <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-6 px-2 ">
               <Breadcrumb />
             </div>
