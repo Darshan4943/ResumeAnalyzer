@@ -152,7 +152,6 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     setGenerateOffer(true);
   };
 
-  console.log(loadingApplicantId)
   return (
     <>
       <div className="web w-full">
@@ -194,10 +193,11 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
               {jobs?.map((applicants, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
-                      ? "bg-[#D3F1FF]"
-                      : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
-                      }`}
+                    className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${
+                      checkedjob[index]
+                        ? "bg-[#D3F1FF]"
+                        : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                    }`}
                   >
                     <div className="grid grid-cols-6 w-full">
                       <div className="flex items-center justify-start col-span-1">
@@ -225,53 +225,59 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                          "Verified" ||
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
                           applicants.preboardingDetails?.documentStatus ===
-                          "Submitted"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
-                          } `}
+                            "Verified" ||
+                          applicants.preboardingDetails?.documentStatus ===
+                            "Submitted"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
+                        } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus ===
-                          "notRequired"
+                        "notRequired"
                           ? "Not Required"
                           : applicants?.preboardingDetails?.documentStatus}
                       </div>
 
                       <div className="flex items-center justify-start col-span-1 pl-5">
                         <div
-                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Pending"
+                          className={`flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                            } ${applicants?.preboardingDetails
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
                               ?.offerAcceptanceStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "text-[#06A9EF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "text-[#0C8A0A]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : "text-[#333333]"
-                            }`}
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
+                          }`}
                         >
-                          {applicants?.preboardingDetails?.offerAcceptanceStatus}
+                          {
+                            applicants?.preboardingDetails
+                              ?.offerAcceptanceStatus
+                          }
                         </div>
                       </div>
 
@@ -289,7 +295,7 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                                 ?.isOfferGenerated ? (
                                 <>
                                   {loadingApplicantId ===
-                                    applicants.applicantId ? (
+                                  applicants.applicantId ? (
                                     <div
                                       className={` w-[116.24px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border border-blue `}
                                     >
@@ -311,7 +317,9 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                                 </>
                               ) : (
                                 <button
-                                  onClick={() => handleGenerateOffer(applicants)}
+                                  onClick={() =>
+                                    handleGenerateOffer(applicants)
+                                  }
                                   className="flex lg:py-[6px] lg:px-3 px-1 py-1 justify-center items-center text-[#fff] bg-[#06A9EF] rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
                                 >
                                   Generate Offer
@@ -427,7 +435,6 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                             {applicants.details?.personal?.lastName}
                           </p>
                         </div>
-
                       </div>
 
                       <div className="flex justify-between items-center self-stretch">
@@ -451,16 +458,17 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                           Doc Status
                         </p>
                         <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                            "Verified" ||
+                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
                             applicants.preboardingDetails?.documentStatus ===
-                            "Submitted"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
-                            } `}
+                              "Verified" ||
+                            applicants.preboardingDetails?.documentStatus ===
+                              "Submitted"
+                              ? "text-[#0C8A0A]"
+                              : "text-[#333]"
+                          } `}
                         >
                           {applicants?.preboardingDetails?.documentStatus ===
-                            "notRequired"
+                          "notRequired"
                             ? "Not Required"
                             : applicants?.preboardingDetails?.documentStatus}
                         </div>
@@ -479,37 +487,42 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                           Offer Acceptance
                         </p>
                         <div
-                          className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Pending"
+                          className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                            } ${applicants?.preboardingDetails
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
                               ?.offerAcceptanceStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "text-[#06A9EF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "text-[#0C8A0A]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : "text-[#333333]"
-                            }`}
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
+                          }`}
                         >
-                          {applicants?.preboardingDetails?.offerAcceptanceStatus}
+                          {
+                            applicants?.preboardingDetails
+                              ?.offerAcceptanceStatus
+                          }
                         </div>
                       </div>
                       <div className="flex justify-center w-[100%]">
@@ -524,19 +537,29 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
                                 ?.isOfferGenerated ? (
                                 <>
                                   {loadingApplicantId ===
-                                    applicants.applicantId ? (
+                                  applicants.applicantId ? (
                                     <div className="w-[140px] h-[40px] flex justify-center items-center rounded-[30px] border border-blue text-[12px] font-semibold">
                                       <MiniLoader />
                                     </div>
                                   ) : (
-                                    <button className="w-[140px] h-[40px] border border-[#06A9EF] bg-white text-black rounded-[30px] font-semibold text-[12px]">
+                                    <button
+                                      onClick={() =>
+                                        releaseOffer(
+                                          applicants.applicantId,
+                                          applicants.jobId
+                                        )
+                                      }
+                                      className="w-[140px] h-[40px] border border-[#06A9EF] bg-white text-black rounded-[30px] font-semibold text-[12px]"
+                                    >
                                       Release Offer
                                     </button>
                                   )}
                                 </>
                               ) : (
                                 <button
-                                  onClick={() => handleGenerateOffer(applicants)}
+                                  onClick={() =>
+                                    handleGenerateOffer(applicants)
+                                  }
                                   className="flex w-[140px] h-[40px] justify-center items-center gap-2 border border-[#06A9EF] rounded-[30px] bg-[#06A9EF] text-white font-semibold text-[12px]"
                                 >
                                   Generate Offer

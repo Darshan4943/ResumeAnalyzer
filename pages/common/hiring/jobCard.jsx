@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MiniLoader from "../../../components/common/miniLoader";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -86,7 +86,7 @@ const JobCard = ({ filters, setFilters }) => {
 
   const handleClick = (jobId) => {
     const link = `https://testing.d3pnzi93uiabob.amplifyapp.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
-    setCopied(false)
+    setCopied(false);
     setGeneratedLink(link);
     setShowPopup(true);
   };
@@ -95,7 +95,20 @@ const JobCard = ({ filters, setFilters }) => {
     navigator.clipboard.writeText(generatedLink);
     setCopied(true);
   };
+  const popupRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setShowPopup]);
   return (
     <div>
       {loading ? (
@@ -346,7 +359,7 @@ const JobCard = ({ filters, setFilters }) => {
             className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
           ></div>
           <div
-            onClick={() => setShowPopup(false)}
+            // onClick={() => setShowPopup(false)}
             className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   "
           >
             <div
@@ -360,9 +373,9 @@ const JobCard = ({ filters, setFilters }) => {
                 borderRadius: "10px",
                 boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
                 zIndex: 1000,
-               
                 height: "140px",
               }}
+              ref={popupRef}
               className="sm:w-[400px] w-[300px]"
             >
               <div className="flex flex-col gap-4">
@@ -381,7 +394,10 @@ const JobCard = ({ filters, setFilters }) => {
                     >
                       {copied ? "Link Copied!" : "Copy Link"}
                     </button>
-                    <div className="cursor-pointer" onClick={() => setShowPopup(false)}>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => setShowPopup(false)}
+                    >
                       <svg
                         width="12"
                         height="12"

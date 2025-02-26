@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import LimitUsedModal from "../../../models/limitUsedModal";
 import MiniLoader from "../../../common/miniLoader";
@@ -35,7 +35,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
   useEffect(() => {
     const isViewed = localStorage.getItem("viewed");
-    
+
     if (isViewed === "false") {
       addJobView();
     }
@@ -55,6 +55,21 @@ function Description({ selectedJob, filter, setLimitPopup }) {
     navigator.clipboard.writeText(generatedLink);
     setCopied(true);
   };
+
+  const popupRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setShowPopup]);
   return (
     <>
       <div>
@@ -230,7 +245,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
               className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
             ></div>
             <div
-              onClick={() => setShowPopup(false)}
+              // onClick={() => setShowPopup(false)}
               className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   "
             >
               <div
@@ -247,6 +262,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
 
                   height: "140px",
                 }}
+                ref={popupRef}
                 className="sm:w-[400px] w-[300px]"
               >
                 <div className="flex flex-col gap-4">

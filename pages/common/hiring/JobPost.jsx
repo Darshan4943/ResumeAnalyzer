@@ -334,6 +334,21 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setCopied(true);
   };
 
+  const popupRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setShowPopup]);
+
   return (
     <>
       <div className=" mb-4">
@@ -403,7 +418,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
                     ></div>
                     <div
-                      onClick={() => setShowPopup(false)}
+                      // onClick={() => setShowPopup(false)}
                       className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   "
                     >
                       <div
@@ -417,9 +432,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           borderRadius: "10px",
                           boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
                           zIndex: 1000,
-
                           height: "140px",
                         }}
+                        ref={popupRef}
                         className="sm:w-[400px] w-[300px]"
                       >
                         <div className="flex flex-col gap-4">

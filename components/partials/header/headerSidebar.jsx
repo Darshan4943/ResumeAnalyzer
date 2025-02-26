@@ -337,7 +337,7 @@ function HeaderSidebar({
                     handleNavigation("/candidate/SkillAssessment");
                     break;
                   case "Job Posting":
-                    handleNavigation("/common/jobPosting");
+                    handleNavigation(userDataGlobal?.role === "recruiter" ? "/common/jobPosting" : "/common/jobPosting/JobPosting");
                     break;
                   case "Search Jobs":
                     handleNavigation("/jobs/candidate");
