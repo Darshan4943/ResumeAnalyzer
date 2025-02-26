@@ -361,27 +361,6 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
                                 </motion.div>
                               )}
                             </AnimatePresence>
-
-                            {/* <button
-                          disabled={
-                            job?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"
-                          }
-                          onClick={() => {
-                            setReject(true);
-                            selectedApplicant(job);
-                          }}
-                          style={{
-                            opacity:
-                              job?.preboardingDetails?.preboardingStatus ===
-                                "Rejected"
-                                ? 0.5
-                                : 1,
-                          }}
-                          className="flex lg:py-[6px] lg:px-2 xxlg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550] lg:text-[12px] xxlg:text-[14px] text-[10px] font-[600] font-Montserrat"
-                        >
-                          Reject
-                        </button> */}
                           </div>
                         </div>
                       </div>
@@ -438,139 +417,161 @@ const Initial = ({ setToggle, setHeadings, headings }) => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
-        {!jobs?.length == 0 ? (
-          <>
-          <div className="flex flex-col gap-4 items-start bg-[#fff] p-4 overflow-y-auto w-full">
-            {jobs.map((job, index) => (
-              <div
-                key={index}
-                className="flex w-full p-2 justify-between items-center rounded-xl bg-[#fff]"
-                style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-              >
-                <div className="w-full flex flex-col justify-center gap-4 items-start">
-                  <div className="flex justify-between items-center w-full">
-                    <div className="flex items-center gap-2">
-                      <img
-                        className="w-10 h-10"
-                        src="/images/profile/john_doe.png"
-                        alt="Profile"
-                      />
-                      <p className="text-[14px] text-[#333] font-[600]">
-                        {job.details.personal.firstName
-                          ? `${job.details.personal.firstName} ${job.details.personal.lastName}`
-                          : "-"}
-                      </p>
-                    </div>
-                  </div>
+          {!jobs?.length == 0 ? (
+            <>
+              <div className="flex flex-col gap-4 items-start bg-[#fff] p-4 overflow-y-auto w-full">
+                {jobs.map((job, index) => (
+                  <div
+                    key={index}
+                    className="flex w-full p-2 justify-between items-center rounded-xl bg-[#fff]"
+                    style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                  >
+                    <div className="w-full flex flex-col justify-center gap-4 items-start">
+                      <div className="flex justify-between items-center w-full">
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="w-10 h-10"
+                            src="/images/profile/john_doe.png"
+                            alt="Profile"
+                          />
+                          <p className="text-[14px] text-[#333] font-[600]">
+                            {job.details.personal.firstName
+                              ? `${job.details.personal.firstName} ${job.details.personal.lastName}`
+                              : "-"}
+                          </p>
+                        </div>
+                      </div>
 
-                  <div className="flex justify-between items-center w-full">
-                    <p className="text-[14px] text-[#646464] font-[500]">
-                      Job Role
-                    </p>
-                    <p className="text-[14px] text-[#333] font-semibold">
-                      {job.jobTitle}
-                    </p>
-                  </div>
+                      <div className="flex justify-between items-center w-full">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Job Role
+                        </p>
+                        <p className="text-[14px] text-[#333] font-semibold">
+                          {job.jobTitle}
+                        </p>
+                      </div>
 
-                  <div className="flex justify-between items-center w-full">
-                    <p className="text-[14px] text-[#646464] font-[500]">
-                      Job Role
-                    </p>
-                    <p className="text-[14px] text-[#333] font-semibold">
-                      {formatInterviewDate(job?.jobDeadLine)}
-                    </p>
-                  </div>
+                      <div className="flex justify-between items-center w-full">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Job Role
+                        </p>
+                        <p className="text-[14px] text-[#333] font-semibold">
+                          {formatInterviewDate(job?.jobDeadLine)}
+                        </p>
+                      </div>
 
-                  <div className="flex justify-between items-center w-full">
-                    <p className="text-[14px] text-[#646464] font-[500]">
-                      Preboarding Status
-                    </p>
-                    <p className="text-[14px] text-[#646464] font-[500]">
-                      {job.proboard}
-                    </p>
-                    <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00]">
-                      <p
-                        className={`text-[#FF7A00] font-semibold text-[14px] ${
-                          job?.preboardingDetails?.preboardingStatus ===
-                          "Pending"
-                            ? "bg-[#FFF9ED] text-[#FFB836]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Initiated"
-                            ? " text-[#06A9EF]"
-                            : job?.preboardingDetails?.preboardingStatus ===
-                              "Hired"
-                            ? " text-[#0C8A0A]"
-                            : job?.preboardingDetails?.preboardingStatus ===
+                      <div className="flex justify-between items-center w-full">
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          Preboarding Status
+                        </p>
+                        <p className="text-[14px] text-[#646464] font-[500]">
+                          {job.proboard}
+                        </p>
+                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00]">
+                          <p
+                            className={`text-[#FF7A00] font-semibold text-[14px] ${
+                              job?.preboardingDetails?.preboardingStatus ===
+                              "Pending"
+                                ? " text-[#FFB836]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Initiated"
+                                ? " text-[#06A9EF]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Hired"
+                                ? " text-[#0C8A0A]"
+                                : job?.preboardingDetails?.preboardingStatus ===
+                                  "Rejected"
+                                ? " text-[#FF6550]"
+                                : "text-[#333]"
+                            }`}
+                          >
+                            {job?.preboardingDetails?.preboardingStatus}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-center w-full gap-4">
+                        {job?.preboardingDetails?.preboardingStatus ===
+                        "Initiated" ? (
+                          <div className="flex justify-center items-center rounded-[30px] border text-[#DEDEDE] font-Montserrat font-[600] 
+      lg:text-[12px] xxlg:text-[14px] text-[10px] py-2 px-4">
+                            Initiated
+                          </div>
+                        ) : job?.preboardingDetails?.preboardingStatus ===
+                          "Hired" ? (
+                          <div className="flex justify-center items-center rounded-[30px] border text-[#DEDEDE] font-Montserrat font-[600] 
+      lg:text-[12px] xxlg:text-[14px] text-[10px] py-2 px-4">
+                            Hired
+                          </div>
+                        ) : job?.preboardingDetails?.preboardingStatus ===
+                          "Rejected" ? (
+                          <div className="flex justify-center items-center rounded-[30px] border text-[#DEDEDE] font-Montserrat font-[600] 
+      lg:text-[12px] xxlg:text-[14px] text-[10px] py-2 px-4">
+                            Rejected
+                          </div>
+                        ) : (
+                          <button
+                            disabled={
+                              job?.preboardingDetails?.preboardingStatus ===
                               "Rejected"
-                            ? " text-[#FF6550]"
-                            : "text-[#333]"
-                        }`}
-                      >
-                        {job?.preboardingDetails?.preboardingStatus}
-                      </p>
+                            }
+                            onClick={() => {
+                              setStartPreboarding(true);
+                              selectedApplicant(job);
+                            }}
+                            style={{
+                              opacity:
+                                job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                  ? 0.5
+                                  : 1,
+                            }}
+                            className="flex justify-center items-center px-4 py-2 rounded-[30px] border border-[#06A9EF] 
+      bg-[#06A9EF] text-white text-[12px] font-medium transition-all duration-200
+      hover:bg-[#0588C2] disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            Start Preboarding
+                          </button>
+                        )}
+
+                        {job?.preboardingDetails?.preboardingStatus !==
+                          "Rejected" && (
+                          <button
+                            disabled={
+                              job?.preboardingDetails?.preboardingStatus ===
+                              "Rejected"
+                            }
+                            onClick={() => {
+                              setReject(true);
+                              selectedApplicant(job);
+                            }}
+                            style={{
+                              opacity:
+                                job?.preboardingDetails?.preboardingStatus ===
+                                "Rejected"
+                                  ? 0.5
+                                  : 1,
+                            }}
+                            className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
+                          >
+                            Reject
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="flex justify-center w-full gap-4">
-                    <button
-                      disabled={
-                        job?.preboardingDetails?.preboardingStatus ===
-                        "Rejected"
-                      }
-                      onClick={() => {
-                        setStartPreboarding(true);
-                        selectedApplicant(job);
-                      }}
-                      style={{
-                        opacity:
-                          job?.preboardingDetails?.preboardingStatus ===
-                          "Rejected"
-                            ? 0.5
-                            : 1,
-                      }}
-                      className="flex w-[140px] h-[40px] justify-center items-center gap-2 rounded-[30px] border border-[#06A9EF] bg-[#06A9EF] text-white font-semibold text-[12px]"
-                    >
-                      Start Preboarding
-                    </button>
-
-                    {job?.preboardingDetails?.preboardingStatus !==
-                      "Rejected" && (
-                      <button
-                        disabled={
-                          job?.preboardingDetails?.preboardingStatus ===
-                          "Rejected"
-                        }
-                        onClick={() => {
-                          setReject(true);
-                          selectedApplicant(job);
-                        }}
-                        style={{
-                          opacity:
-                            job?.preboardingDetails?.preboardingStatus ===
-                            "Rejected"
-                              ? 0.5
-                              : 1,
-                        }}
-                        className="flex  px-6 py-1 justify-center items-center gap-[10px] rounded-[30px]   bg-[#FFE6E2] text-[#FF6550]  text-[12px]  font-[600] font-Montserrat"
-                      >
-                        Reject
-                      </button>
-                    )}
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-          </>
-             ) : (
-              <div className="p-10 w-full flex items-center justify-center">
-                <img
-                  src="/images/employer/OBJECTS.png"
-                  alt="No data available"
-                  className="h-[114px] w-[200px]"
-                />
-              </div>
-            )}
+            </>
+          ) : (
+            <div className="p-10 w-full flex items-center justify-center">
+              <img
+                src="/images/employer/OBJECTS.png"
+                alt="No data available"
+                className="h-[114px] w-[200px]"
+              />
+            </div>
+          )}
         </div>
 
         {totalCount > 10 && (

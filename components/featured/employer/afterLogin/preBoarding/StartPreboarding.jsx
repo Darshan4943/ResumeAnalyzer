@@ -65,7 +65,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
 
   const handleChange1 = useCallback(
     debounce((value) => {
-      const plainText = value.replace(/<[^>]*>/g, "");
+      const plainText = value?.replace(/<[^>]*>/g, "");
       setData((prevData) => ({
         ...prevData,
         note: plainText,
