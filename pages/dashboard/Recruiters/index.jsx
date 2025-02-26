@@ -19,7 +19,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("http://localhost:2000/api/recruiters", {
+      .get("https://dev.api.skilotech.com/api/recruiters", {
         params: { page, limit },
       })
       .then((res) => {
@@ -54,7 +54,7 @@ const Index = () => {
     try {
       let role = "recruiter"
       const response = await axios.post(
-        'http://localhost:2000/api/users/download',
+        'https://dev.api.skilotech.com/api/users/download',
         { role },
         {
           responseType: 'blob',

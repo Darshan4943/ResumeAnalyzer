@@ -37,7 +37,7 @@ const Education = ({ userData }) => {
     const deleteHandler = () => {
         axios
             .delete(
-                `http://localhost:2000/api/candidate/${userDataGlobal?._id}/deleteEducation/${deleteData.id}`
+                `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteEducation/${deleteData.id}`
             )
             .then((res) => {
                 dispatch(fetchUserData());

@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Document, Page, pdfjs } from "react-pdf";
 import MiniLoader from "../../components/common/mini-loader";
+import MiniLoaderr from "../../components/common/miniLoader";
+import InlineSVG from "../../components/common/InlineSvg";
 
 function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -14,7 +16,10 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-
+  const fileExtension = userDetails.file.split(".").pop().toLowerCase();
+  const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+  const isPDF = fileExtension === "pdf";
+  const isDoc = ["doc", "docx"].includes(fileExtension);
 
 
   // useEffect(() => {
@@ -31,7 +36,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
   //         );
 
   //         const response = await axios.get(
-  //           "http://localhost:2000/api/applicantdetails",
+  //           "https://dev.api.skilotech.com/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }
@@ -110,6 +115,26 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
       </div>
     );
   };
+  const DocumentViewer = ({ fileUrl }) => {
+    const [loading, setLoading] = useState(true);
+    
+  
+    return (
+      <div className="relative w-full">
+        {loading && (
+          <div className=" inset-0 flex items-center justify-center bg-gray-100 h-[300px]">
+            <MiniLoaderr/>
+          </div>
+        )}
+        <iframe
+          src={`https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+          className="w-full h-[800px]"
+          onLoad={() => setLoading(false)}
+        />
+      </div>
+    );
+  };
+  
 
 
   return (
@@ -371,31 +396,31 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                       </div>
                     }
                     <div className="flex ml:flex-row gap-4 flex-col justify-between">
-                    {(userDetails?.highestQualification ||  userDetails?.currentJob ) &&
-                      <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
-                        {userDetails?.currentJob &&
-                          <div>
-                            <p className=" text-[14px]  font-medium">Current Job</p>
-                            <p className="text-[12px] font-normal">{userDetails?.currentJob}</p>
-                          </div>
-                        }
-                        {userDetails?.highestQualification &&
-                          <div>
-                            <p className=" text-[14px]  font-medium">
-                              Highest Qualification
-                            </p>
-                            <p className="text-[12px] font-normal">{userDetails?.highestQualification}</p>
-                          </div>
-                        }
-                      </div>
-}
-                      <div className="flex flex-col gap-4 ml:w-[70%] w-[100%]">
-                      {userDetails?.totalExperience &&
-                        <div>
-                          <p className="text-[14px]  font-medium">Experience in Years</p>
-                          <p className="text-[12px] font-normal">{userDetails?.totalExperience}</p>
+                      {(userDetails?.highestQualification || userDetails?.currentJob) &&
+                        <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
+                          {userDetails?.currentJob &&
+                            <div>
+                              <p className=" text-[14px]  font-medium">Current Job</p>
+                              <p className="text-[12px] font-normal">{userDetails?.currentJob}</p>
+                            </div>
+                          }
+                          {userDetails?.highestQualification &&
+                            <div>
+                              <p className=" text-[14px]  font-medium">
+                                Highest Qualification
+                              </p>
+                              <p className="text-[12px] font-normal">{userDetails?.highestQualification}</p>
+                            </div>
+                          }
                         </div>
-}
+                      }
+                      <div className="flex flex-col gap-4 ml:w-[70%] w-[100%]">
+                        {userDetails?.totalExperience &&
+                          <div>
+                            <p className="text-[14px]  font-medium">Experience in Years</p>
+                            <p className="text-[12px] font-normal">{userDetails?.totalExperience}</p>
+                          </div>
+                        }
                         {userDetails?.skills &&
                           <div className="flex flex-col gap-2">
                             <p className=" font-medium">Skills</p>
@@ -420,11 +445,28 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
                 <div className=" flex items-center justify-center py-[16px] px-2 resumes2 ">
 
-                  <PdfViewer
-                    pdfUrl={userDetails?.file}
-                    loadingg={loadingg}
-                    setLoadingg={setLoadingg}
-                  />
+
+                  {isImage ? (
+                    <img
+                      src={userDetails?.file}
+                      alt="Uploaded Document"
+                      className="max-w-full max-h-full object-contain rounded-lg"
+                    />
+                  ) : isPDF ? (
+                    <div className="w-full h-full resumes2">
+                      <PdfViewer
+                        pdfUrl={userDetails?.file}
+                        loadingg={loadingg}
+                        setLoadingg={setLoadingg}
+                      />
+                    </div>
+                  ) : isDoc ? (
+                    <DocumentViewer fileUrl={userDetails?.file}/>
+                    
+
+                  ) : (
+                    <InlineSVG imageUrl={userDetails?.file} />
+                  )}
                 </div>
 
               )}
