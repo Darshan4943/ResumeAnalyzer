@@ -1261,7 +1261,7 @@ function CreateNewJob() {
                                 borderRadius: "8px",
                                 padding: "5px",
                               }}
-                              className="w-full text-[12px] text-[#767676] font-[400]"
+                              className="w-full text-[12px] outline-none text-[#767676] font-[400]"
                               type="text"
                               name="salaryType"
                               value={data.salaryType}
@@ -1399,8 +1399,9 @@ function CreateNewJob() {
                             name="jobType"
                             value={data.jobType}
                             onChange={handleChange}
+                            
                           >
-                            <option value="" disabled selected>
+                            <option value="" disabled >
                               Select
                             </option>
                             <option value="Full Time">Full Time</option>
@@ -1425,7 +1426,7 @@ function CreateNewJob() {
                             value={data.workFrom}
                             onChange={handleChange}
                           >
-                            <option value="" disabled selected>
+                            <option value="" disabled >
                               Select
                             </option>
                             <option value="On-Site">On-Site</option>
