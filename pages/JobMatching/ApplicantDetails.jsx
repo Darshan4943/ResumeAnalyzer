@@ -31,7 +31,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
   //         );
 
   //         const response = await axios.get(
-  //           "http://localhost:2000/api/applicantdetails",
+  //           "https://dev.api.skilotech.com/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }
@@ -236,10 +236,11 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                         </g>
                       </svg>
 
-
-                      <div className="text-[14px] font-[400]">
-                        {userDetails?.location}
-                      </div>
+                      {userDetails?.location &&
+                        <div className="text-[14px] font-[400]">
+                          {userDetails?.location}
+                        </div>
+                      }
                     </div>
                   }
                   {userDetails?.totalExperience &&
@@ -259,7 +260,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
             )}
           </div>
           {userDetails && (
-            <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white min-h-[800px]">
+            <div className=" rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white pb-6">
               <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                 <div className="flex flex-col ">
                   <div
@@ -358,33 +359,43 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                   <div className="h-[1px] w-full bg-[#D6DDEB]"></div>
                   <div className="flex flex-col gap-4">
                     <p className="font-semibold">Professional Info</p>
-                    <div className="flex flex-col gap-2 ml:w-[80%] w-[100%]">
-                      <p className=" font-medium text-[14px] ">About Me</p>
-                      <div className="flex flex-col gap-4 text-[12px] font-normal">
-                        <p>
-                          {userDetails?.about}
-                        </p>
-
-                      </div>
-                    </div>
-                    <div className="flex ml:flex-row gap-4 flex-col justify-between">
-                      <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
-                        <div>
-                          <p className=" text-[14px]  font-medium">Current Job</p>
-                          <p className="text-[12px] font-normal">{userDetails?.currentJob}</p>
-                        </div>
-                        <div>
-                          <p className=" text-[14px]  font-medium">
-                            Highest Qualification
+                    {userDetails?.about &&
+                      <div className="flex flex-col gap-2 ml:w-[80%] w-[100%]">
+                        <p className=" font-medium text-[14px] ">About Me</p>
+                        <div className="flex flex-col gap-4 text-[12px] font-normal">
+                          <p>
+                            {userDetails?.about}
                           </p>
-                          <p className="text-[12px] font-normal">{userDetails?.highestQualification}</p>
+
                         </div>
                       </div>
+                    }
+                    <div className="flex ml:flex-row gap-4 flex-col justify-between">
+                    {(userDetails?.highestQualification ||  userDetails?.currentJob ) &&
+                      <div className="flex flex-col gap-4 ml:w-[30%] w-[100%]">
+                        {userDetails?.currentJob &&
+                          <div>
+                            <p className=" text-[14px]  font-medium">Current Job</p>
+                            <p className="text-[12px] font-normal">{userDetails?.currentJob}</p>
+                          </div>
+                        }
+                        {userDetails?.highestQualification &&
+                          <div>
+                            <p className=" text-[14px]  font-medium">
+                              Highest Qualification
+                            </p>
+                            <p className="text-[12px] font-normal">{userDetails?.highestQualification}</p>
+                          </div>
+                        }
+                      </div>
+}
                       <div className="flex flex-col gap-4 ml:w-[70%] w-[100%]">
+                      {userDetails?.totalExperience &&
                         <div>
                           <p className="text-[14px]  font-medium">Experience in Years</p>
                           <p className="text-[12px] font-normal">{userDetails?.totalExperience}</p>
                         </div>
+}
                         {userDetails?.skills &&
                           <div className="flex flex-col gap-2">
                             <p className=" font-medium">Skills</p>

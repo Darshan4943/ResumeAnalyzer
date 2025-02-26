@@ -40,7 +40,7 @@ function JdMatchCard({
  
  const fetchFolder = async () => {
   try {
-    const response = await axios.get(`http://localhost:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
+    const response = await axios.get(`https://dev.api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
     setParentId(response?.data?._id);
   } catch (error) {
     console.error("Error fetching folder:", error);
@@ -137,7 +137,7 @@ const addData = async (file) => {
         };
 
         const response = await axios.post(
-          "http://localhost:2000/api/folder/addFileToSkilotechCollection",
+          "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
           payload,
           {
             headers: {
@@ -326,7 +326,7 @@ const addData = async (file) => {
                       {item.title}{" "}
                       {item.matching_points == "N/A"
                         ? null
-                        : ": " + item.matching_points}
+                        : ": " + item.matching_points.charAt(0)} / 10
                     </div>
                   ))}
                 </div>
@@ -358,7 +358,7 @@ const addData = async (file) => {
                   <div className="px-[16px]  flex flex-col ">
                     <div className="text-[14px] font-[500]">
                      
-                      {user.fileName.length > 20 ? user.fileName.slice(0, 20) + "..." : user.fileName}
+                      {user?.fileName?.length > 20 ? user?.fileName?.slice(0, 20) + "..." : user?.fileName}
                       <br />
                       (Default)
                     </div>
