@@ -33,8 +33,8 @@ function LevelUpdate({
   const [shortlist, setShortlist] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const [mailDetails, setMailDetails] = useState({
-    candidate: {subject:"Interview Scheduled"},
-    interviewer: {subject:"Interview Scheduled"},
+    candidate: { subject: "Interview Scheduled" },
+    interviewer: { subject: "Interview Scheduled" },
   });
   useEffect(() => {
     setCurrenStatus(selectedLevel?.status);
@@ -44,7 +44,7 @@ function LevelUpdate({
     if (
       selectedLevel?.status === currenStatus &&
       selectedLevel?.level !== 1 &&
-      selectedLevel.status === "Pending" 
+      selectedLevel.status === "Pending"
     ) {
       setError("Status Should Be Changed");
       return;
@@ -77,7 +77,7 @@ function LevelUpdate({
     if (
       selectedLevel?.status === currenStatus &&
       selectedLevel?.level !== 1 &&
-      selectedLevel.status === "Pending" 
+      selectedLevel.status === "Pending"
     ) {
       setError("Status Should Be Changed");
       return;
@@ -97,7 +97,7 @@ function LevelUpdate({
           setError("Subject is required.");
           return;
         }
-      
+
         if (!mailDetails?.candidate?.content?.trim()) {
           setError("Email body is required.");
           return;
@@ -106,7 +106,7 @@ function LevelUpdate({
           setError("Subject is required of interviewer.");
           return;
         }
-      
+
         if (!mailDetails?.interviewer?.content?.trim()) {
           setError("Email body is required of interviewer.");
           return;
@@ -152,7 +152,7 @@ function LevelUpdate({
           setError("Candidate Subject is required.");
           return;
         }
-      
+
         if (!mailDetails?.candidate?.content?.trim()) {
           setError("Candidate Email body is required.");
           return;
@@ -161,7 +161,7 @@ function LevelUpdate({
           setError("Subject is required for reviewer.");
           return;
         }
-      
+
         if (!mailDetails?.interviewer?.content?.trim()) {
           setError("Email body is required for reviewer.");
           return;
@@ -205,7 +205,7 @@ function LevelUpdate({
       if (response.data.success) {
         console.log("Details updated successfully");
         if (selectedValues?.isTask) {
-          
+
           setSuccessfull("Task")
           setTaskSuccessfull(true)
 
@@ -214,11 +214,11 @@ function LevelUpdate({
           setSuccessfull("Interview")
           setTaskSuccessfull(true)
         }
-        if (isNextLevel ==="Shortlisted") {
+        if (isNextLevel === "Shortlisted") {
           setSuccessfull("Shortlisted")
           setTaskSuccessfull(true)
         }
-        if (isNextLevel ==="Rejected") {
+        if (isNextLevel === "Rejected") {
           setSuccessfull("Rejected")
           setTaskSuccessfull(true)
         }
@@ -274,7 +274,7 @@ function LevelUpdate({
 
   return (
     <div
-      className="scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] sm:p-6 p-2 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full "
+      className="scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] sm:p-6 p-3 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full "
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       {shortlist && (
@@ -300,7 +300,7 @@ function LevelUpdate({
         </p>
         <div className="h-[1px] w-full bg-[#D6DDEB]"></div>
       </div>
-      <p className="text-[24px] font-medium">{selectedLevel?.title}</p>
+      <p className="text-[20px] scr420:text-[24px] font-medium">{selectedLevel?.title}</p>
       <div className="min-h-[1px] w-full bg-[#D6DDEB]"></div>
       {selectedLevel?.level !== 1 && (
         <div className="flex ms:flex-row flex-col gap-4 justify-between">
@@ -382,12 +382,12 @@ function LevelUpdate({
         </div>
       )}
       <div className="flex flex-col w-full gap-2">
-        <p className="text-[20px] font-medium">Add Comment</p>
+        <p className="text-[16px] scr420:text-[20px] font-medium">Add Comment</p>
         <div>
           <input
             type="text"
             placeholder="Add Comment"
-            className="px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+            className="px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[12px] scr420:text-[14px] font-[400]"
             value={selectedLevel?.comment || ""}
             onChange={(e) =>
               setSelectedLevel({ ...selectedLevel, comment: e.target.value })
@@ -447,7 +447,6 @@ function LevelUpdate({
                 onChange={(e) => handleLevelTitleChange(e)}
               />
             </div>
-
             <div className="flex justify-between ms:flex-row flex-col gap-4 text-[16px] ms:w-[55%] font-medium">
               <div className="flex gap-[8px] items-center  ">
                 <input
@@ -457,7 +456,6 @@ function LevelUpdate({
                   className="h-[20px] w-[20px] custom-radio cursor-pointer"
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
-
                 <label>Schedule Interview</label>
               </div>
               <div className="flex gap-[8px] items-center ">
