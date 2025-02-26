@@ -67,10 +67,10 @@ function RoleSelect({ signin, signup }) {
               We need to know which role best matches you so that we can personalize your experience.
             </div>
           </div>
-          <div className="flex justify-center item-center">
-            <div className="flex flex-col gap-[24px] px-[8px]">
+          <div className="flex justify-center item-center w-full">
+            <div className="flex flex-col gap-[24px] px-0 sm:px-[8px] w-full">
 
-              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
+              <div onClick={() => { signin ? router.push("/auth/Sign_in?role=user") : router.push("/auth/AiProfileCreation") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer w-full">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
                   <div className="flex items-center">
                     <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
@@ -145,7 +145,7 @@ function RoleSelect({ signin, signup }) {
 
               <div onClick={() => { signin ? router.push("/auth/Sign_in?role=recruiter") : router.push("/auth/SignUp?role=recruiter") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
-                  <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center  sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
+                  <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center  sm:h-[40px] h-[32px] sm:w-[40px] min-w-[32px]">
 
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_7608_92288)">
@@ -175,7 +175,7 @@ function RoleSelect({ signin, signup }) {
 
               <div onClick={() => { signin ? router.push("/auth/Sign_in?role=employer") : router.push("/auth/SignUp?role=employer") }} className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-4 relative sign_up_shadow cursor-pointer">
                 <div className="flex flex-row justify-center item-center gap-[12px] ">
-                  <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] w-[32px]">
+                  <div className=" border-[1px] border-[#333] rounded-[50%] flex justify-center items-center sign_iu_text_border sm:h-[40px] h-[32px] sm:w-[40px] min-w-[32px]">
                     <svg  className="svg_classs" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g  clip-path="url(#clip0_7610_109046)">
                         <path className="svg_classs" d="M8.64811 0.375C10.8557 0.375 12.6465 2.16567 12.6465 4.37452C12.6465 6.71742 11.3748 9.68817 8.64811 9.68817C5.83645 9.68817 4.64836 6.58331 4.64836 4.37452C4.64836 2.16572 6.43917 0.375 8.64811 0.375ZM9.67017 10.8132H7.62478L8.13277 11.826H9.16228L9.67022 10.8132H9.67017ZM9.94369 20.4886L9.01214 12.951H8.28277L7.35117 20.4885L8.64802 22.0458L9.94364 20.4886H9.94369ZM6.33084 21.0212C6.23142 20.9018 6.18577 20.7465 6.20484 20.5922L7.20642 12.4885L6.36614 10.8132H5.38078C2.62725 10.8132 0.375 12.9048 0.375 15.4599V19.9892C0.375 21.1272 1.30355 22.0557 2.44153 22.0557H7.19222L6.33084 21.0212ZM10.5434 22.0556V21.5268L10.1034 22.0556H10.5434ZM10.0885 12.4884L10.2211 13.5614C10.4515 13.0351 10.9771 12.6664 11.5874 12.6664H13.7522V12.3091C13.7522 11.9248 13.8584 11.5649 14.0425 11.2568C13.3961 10.9726 12.6751 10.8132 11.9156 10.8132H10.9288L10.0885 12.4884ZM21.6477 19.3154V19.3441C21.6477 20.1438 20.9979 20.7944 20.1991 20.7944C19.4003 20.7944 18.7488 20.1438 18.7488 19.3441V19.3154H16.0978V19.339C16.0978 20.1386 15.4479 20.7892 14.6491 20.7892C13.8503 20.7892 13.1989 20.1387 13.1989 19.339V19.3154H12.6235C12.2857 19.3154 11.9633 19.2482 11.6685 19.1275V22.5486C11.6685 23.1405 12.153 23.625 12.745 23.625H22.1017C22.6937 23.625 23.1783 23.1405 23.1783 22.5486V19.1275C22.8834 19.2483 22.5611 19.3154 22.2232 19.3154H21.6479H21.6477ZM14.9728 19.339V17.8312H14.3238V19.339C14.3238 19.5183 14.4697 19.6642 14.649 19.6642C14.8284 19.6642 14.9727 19.5183 14.9727 19.339H14.9728ZM20.5227 19.3441V17.8363H19.8738V19.3441C19.8738 19.5234 20.0197 19.6693 20.199 19.6693C20.3775 19.6693 20.5227 19.5234 20.5227 19.3441H20.5227ZM23.625 14.1572V16.7899C23.625 17.5606 22.9939 18.1904 22.2231 18.1904L21.6478 18.1909V17.2739C21.6478 16.9633 21.3959 16.7114 21.0853 16.7114H19.3113C19.0007 16.7114 18.7488 16.9633 18.7488 17.2739V18.1934L16.0978 18.1957V17.2688C16.0978 16.9582 15.8459 16.7063 15.5353 16.7063H13.7613C13.4507 16.7063 13.1988 16.9582 13.1988 17.2688V18.1982L12.6234 18.1987C11.8527 18.1987 11.2215 17.569 11.2215 16.7983V14.1572C11.2215 13.9562 11.3863 13.7914 11.5874 13.7914H14.8772V12.3091C14.8772 11.7946 15.2958 11.3761 15.8102 11.3761H19.0363C19.5508 11.3761 19.9694 11.7946 19.9694 12.3091V13.7914H23.2591C23.4602 13.7914 23.625 13.9562 23.625 14.1572L23.625 14.1572ZM18.8444 12.501H16.0022V13.7914H18.8444V12.501Z" fill="#333333" />

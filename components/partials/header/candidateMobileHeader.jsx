@@ -56,7 +56,7 @@ function CandidateMobileHeader() {
             <button
               // onMouseEnter={() => setIsSignIn(true)}
               // onMouseLeave={() => setIsSignIn(false)}
-              onClick={() => setIsSignIn(!isSignIn)}
+              onClick={() => router.push("/auth?signin=true")}
               className="px-4 py-2 border border-[#06A9EF] rounded-[8px] font-[500]"
             >
               Sign In
