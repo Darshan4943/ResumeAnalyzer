@@ -17,7 +17,7 @@ function Index() {
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [totalCount, setTotalCount] = useState(0);
+  const [totalCompanies, setTotalCount] = useState(0);
 
   useEffect(() => {
     setId(userDataGlobal?._id || "");
@@ -33,7 +33,7 @@ function Index() {
       );
       setCompanyData(response.data.companies || []);
       setTotalPages(response.data.totalPages || 1);
-      setTotalCount(response.data.totalCount || 0);
+      setTotalCount(response.data.totalCompanies || 0);
 
       setTimeout(() => {
         setMiniloading(false);
@@ -192,7 +192,7 @@ function Index() {
               <div>No Companies Available</div>
             </div>
           )}
-          {totalCount > 10 && (
+          {totalCompanies > 10 && (
             <CustomPagination
               setMiniloading={setMiniloading}
               miniLoading={miniloading}

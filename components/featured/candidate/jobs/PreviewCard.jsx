@@ -1,7 +1,7 @@
 import React from "react";
 import { currenciesWithIcons } from "../../../../utils/data";
 
-function PreviewCard({ item, openModel ,croppedImage }) {
+function PreviewCard({ item, openModel, croppedImage }) {
   return (
     <div className="flex flex-col gap-4 px-5 py-3 h-[80vh] overflow-auto">
       <div className="w-full flex justify-end">
@@ -31,11 +31,11 @@ function PreviewCard({ item, openModel ,croppedImage }) {
               </div>
               <div className="text-[12px] font-medium">{item?.companyName}</div>
             </div>
-            {croppedImage?.url && (
-              <div className="flex flex-row  items-end">
+            {croppedImage?.url ? (
+              <div className="flex flex-row items-end">
                 <img
                   src={croppedImage.url}
-                  alt=""
+                  alt="Cropped"
                   style={{
                     height: "56px",
                     width: "56px",
@@ -43,7 +43,19 @@ function PreviewCard({ item, openModel ,croppedImage }) {
                   }}
                 />
               </div>
-            )}
+            ) : item?.logo ? (
+              <div className="flex flex-row items-end">
+                <img
+                  src={item.logo}
+                  alt="Logo"
+                  style={{
+                    height: "56px",
+                    width: "56px",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
           <div className="flex flex-row sm:gap-[11px] gap-1 items-center leading-tight  flex-wrap ">
             {item?.experience && (
