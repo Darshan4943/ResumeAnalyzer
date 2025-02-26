@@ -40,7 +40,7 @@ function JdMatchCard({
  
  const fetchFolder = async () => {
   try {
-    const response = await axios.get(`https://dev.api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
+    const response = await axios.get(`http://localhost:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
     setParentId(response?.data?._id);
   } catch (error) {
     console.error("Error fetching folder:", error);
@@ -137,7 +137,7 @@ const addData = async (file) => {
         };
 
         const response = await axios.post(
-          "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+          "http://localhost:2000/api/folder/addFileToSkilotechCollection",
           payload,
           {
             headers: {

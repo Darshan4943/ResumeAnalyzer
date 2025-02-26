@@ -123,7 +123,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const handleSend = async () => {
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/preboarding/documentReminder",
+        "http://localhost:2000/api/preboarding/documentReminder",
         emailDetails
       );
 
@@ -146,7 +146,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -179,7 +179,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const moveToVerification = async (applicantId, jobId) => {
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/preboarding/moveToVerification/${applicantId}/${jobId}`
+        `http://localhost:2000/api/preboarding/moveToVerification/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
