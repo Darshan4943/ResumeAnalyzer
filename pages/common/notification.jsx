@@ -198,11 +198,11 @@ function EmployerNotification() {
       ) : (
         <div className="flex flex-col items-center justify-center min-h-[360px] p-3 w-full gap-2 bg-gray-100 rounded-lg">
           <div className="text-center">
-            <p className="sm:text-[36px] text-[22px] font-[600] ">
+            <p className="sm:text-[24px] text-[22px] font-[600] ">
               No Notifications Available !{" "}
             </p>
           </div>
-          <div className="sm:w-[354px] w-[300px]">
+          <div className="sm:w-[221px] w-[221px]">
             <svg
               viewBox="0 0 383 407"
               fill="none"
