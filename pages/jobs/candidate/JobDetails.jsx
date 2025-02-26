@@ -4,14 +4,18 @@ import React, { useEffect, useRef, useState } from "react";
 import Job_card from "../../../components/featured/candidate/jobs/JobCard";
 import Description from "../../../components/featured/candidate/jobs/Description";
 import MiniLoader from "../../../components/common/miniLoader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
 import RelevantJobs from "../../../components/featured/candidate/jobs/RelevantJobs";
 import SimilarJobs from "../../../components/featured/candidate/jobs/SimilarJobs";
+import { setShareJobOpen } from "../../../Redux/slices/shareJobSlice";
+
 
 function JobDetails() {
   const [jobData, setJobData] = useState([]);
   const router = useRouter();
+  const dispatch = useDispatch();
+    dispatch(setShareJobOpen());
   const [limitPopup, setLimitPopup] = useState(false);
   const { id } = router.query;
   const [loading, setLoading] = useState(true);
@@ -35,7 +39,7 @@ function JobDetails() {
 
   const getData = () => {
     axios
-      .get(`http://localhost:2000/api/job/${id}/user/${userDataGlobal?._id}`)
+      .get(`https://dev.api.skilotech.com/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
         setJobData([res.data.data]);
         setTimeout(() => {

@@ -18,7 +18,7 @@ function JobPosting() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:2000/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          `https://dev.api.skilotech.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
             params: { page: 1, limit: 100 },
           }
