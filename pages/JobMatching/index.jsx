@@ -59,7 +59,7 @@ const JobMatching = () => {
   const [findMatchLoader, setMatchLoader] = useState(false);
   const taskRef = useRef(null);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
-  console.log(jdCountMonthly)
+  
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);

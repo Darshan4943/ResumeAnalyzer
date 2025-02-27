@@ -7,12 +7,13 @@ import {
   headings,
 } from "../../../../../utils/preboardArray";
 import CustomPagination from "../../../../common/CustomPagination";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
 import MiniLoader from "../../../../common/mini-loader";
+import { setRecallData } from "../../../../../Redux/slices/recallSlice";
 const Acceptance = ({ toggleContentt, setToggle }) => {
   const [hired, setHired] = useState(false);
   const [hiredStates, setHiredStates] = useState(
@@ -38,7 +39,8 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
   const [loadingApplicantId, setLoadingApplicantId] = useState(null);
-
+  const {recallData } = useSelector((state) => state.recall);
+  const dispatch = useDispatch();
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
 
@@ -86,6 +88,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
         toast.success("Candidate Hired successfully");
         fetchJobs();
         setLoadingApplicantId(null);
+        dispatch(setRecallData(!recallData));
         return response.data;
       }
     } catch (error) {

@@ -2,13 +2,14 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import DocumentMail from "./documentMail";
+import { setRecallData } from "../../../../../Redux/slices/recallSlice";
 function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdate }) {
   const [loading, setLoading] = useState();
   const [id, setId] = useState("");
@@ -16,7 +17,8 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
   const [showEditor, setShowEditor] = useState(false);
   const [formError, setFormError] = useState("");
   const [sendMail, setSendMail] = useState(false);
-
+  const {recallData } = useSelector((state) => state.recall);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
       setId(userDataGlobal?._id);
@@ -131,6 +133,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
       setStartPreboarding(false);
       toast.success("Preboarding created successfully.");
       setIsUpdate(!isUpdate)
+      dispatch(setRecallData(!recallData));
     } catch (error) {
       toast.error(
         `Error creating Preboarding: ${error.response?.data?.message || error.message

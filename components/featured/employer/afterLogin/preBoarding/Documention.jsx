@@ -6,14 +6,16 @@ import {
   headings,
 } from "../../../../../utils/preboardArray";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { formatInterviewDate } from "../../../../../utils/middleware";
 import MiniLoader from "../../../../common/mini-loader";
+import MiniLoaderr from "../../../../common/miniLoader";
 import CustomPagination from "../../../../common/CustomPagination";
 import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
 import { AnimatePresence, motion } from "framer-motion";
+import { setRecallData } from "../../../../../Redux/slices/recallSlice";
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
   const [isRemind, setIsRemind] = useState(false);
@@ -39,6 +41,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
   const taskRef = useRef(null);
   const [moreOption, setMoreOption] = useState(false);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+  const {recallData } = useSelector((state) => state.recall);
+  const dispatch = useDispatch();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setMoreOption(false);
@@ -117,7 +121,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
 
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [subject, setSubject] = useState(`Reminder for Document Submission `);
 
   const handleSend = async () => {
@@ -167,6 +171,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       toast.error("Failed to fetch job applications. Please try again later.");
     } finally {
       setMiniloading(false);
+      setLoading(false)
     }
   }, [userDataGlobal?._id, searchQuery, isUpdate, page, limit]);
 
@@ -185,6 +190,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
       if (response.status === 200) {
         toast.success("Moved to verification successfully");
         fetchJobs();
+        dispatch(setRecallData(!recallData));
         return response.data;
       }
     } catch (error) {
@@ -209,6 +215,12 @@ const Documention = ({ toggleContentt, setToggle }) => {
 
   return (
     <>
+       {loading ?
+        <div className="flex justify-center items-center w-full">
+          <MiniLoaderr />
+        </div>
+        :
+        <>
       <div className="web w-full">
         <div className="w-full p-[16px] bg-[#FFFFFF] rounded-[6px] mb-6">
           <div
@@ -724,6 +736,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
           statusChange={statusChange}
         />
       )}
+   </>
+      }
     </>
   );
 };

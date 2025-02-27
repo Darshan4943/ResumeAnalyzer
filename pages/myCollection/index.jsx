@@ -45,12 +45,12 @@ function Collection() {
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
   const [fileLoader, setFileLoader] = useState(false);
-  const [textDataFinal, setTextData] = useState([]);
+  const [textData, setTextData] = useState([]);
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
   const [uploadCount, setUploadCount] = useState(0);
-
+  const [duplicateFiles, setDuplicateFiles] = useState([]);
   const [failedFiles, setFailedFiles] = useState([]);
   const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
@@ -282,55 +282,7 @@ function Collection() {
     }
   };
 
-  const textExtractor = async (textData) => {
-    const { data } = await axios.post(
-      "https://dev.api.skilotech.com/api/resume/extraction",
-      {
-        data: textData,
-      }
-    );
-    return data.data;
-  };
 
-  const extractText = (file) => {
-    let text = "";
-    if (
-      file.type ==
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ) {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        const content = e.target.result;
-        var doc = new Docxtemplater(new PizZip(content), {
-          delimiters: {
-            start: "12op1j2po1j2poj1po",
-            end: "op21j4po21jp4oj1op24j",
-          },
-        });
-        text = doc.getFullText();
-      };
-      reader.readAsBinaryString(file);
-    } else if (file.type == "image/png") {
-      Tesseract.recognize(file, "eng", {
-        logger: (m) => console.log(m),
-      }).then(async ({ data: { textData } }) => {
-        text = textData;
-      });
-    } else if (file.type == "application/pdf") {
-      let fullText = "";
-      const pdfTextPromises = [];
-      for (let i = 1; i <= 1; i++) {
-        pdfTextPromises.push(fileToText(file, i));
-      }
-      Promise.all(pdfTextPromises).then(async (texts) => {
-        fullText = texts.join("");
-        text = fullText;
-      });
-    }
-    setTimeout(() => {
-      return text;
-    }, 1000);
-  };
 
   const parseData = () => {
     return new Promise((resolve, reject) => {
@@ -377,8 +329,76 @@ function Collection() {
     });
   };
 
+  const handleFileChange = async (e) => {
+    const selectedFiles = e.target.files;
+    const textData = [];
 
-  const [duplicateFiles, setDuplicateFiles] = useState([]);
+    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
+    if (allowedFiles.length) {
+        const promises = allowedFiles.map((file, index) => {
+            return new Promise((resolve) => {
+                if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        const content = e.target.result;
+                        const doc = new Docxtemplater(new PizZip(content), {
+                            delimiters: {
+                                start: "12op1j2po1j2poj1po",
+                                end: "op21j4po21jp4oj1op24j",
+                            },
+                        });
+                        const text = doc.getFullText();
+                        textData.push({ index, text });
+                        resolve();
+                    };
+                    reader.readAsBinaryString(file);
+                } else if (file.type === "image/png") {
+                    Tesseract.recognize(file, "eng", {
+                        logger: (m) => console.log(m),
+                    }).then(({ data: { text } }) => {
+                        textData.push({ index, text });
+                        resolve();
+                    });
+                } else if (file.type === "application/pdf") {
+                    fileToText(file, 1).then((text) => {
+                        textData.push({ index, text });
+                        resolve();
+                    });
+                } else {
+                    resolve(); // For unsupported file types
+                }
+            });
+        });
+
+        await Promise.all(promises);
+    }
+
+    setTextData(textData); // Store extracted text globally
+    setFiles(allowedFiles);
+};
+
+const addFiles = async () => {
+    setCount(0);
+    setFileLoader(true);
+
+    if (files.length === 0) {
+        toast.error("No File Selected");
+        setFileLoader(false);
+        return;
+    }
+
+    // Directly use `textData` instead of calling `parseData()`
+    const promises = files.map(async (file, index) => {
+        const textItem = textData.find((item) => item.index === index);
+        const text = textItem ? textItem.text : null;
+        return addData(file, index, text);
+    });
+
+    await Promise.all(promises);
+};
+
+
+
 
   const addData = async (file, index, text) => {
 
@@ -394,7 +414,7 @@ function Collection() {
             setCount((prevCount) => prevCount + 1);
             return;
           }
-          if (text === undefined || text === null || text.length <= 5) {
+          if (text === undefined || text === null || text.length <= 30) {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
               ...prevFailedFiles,
@@ -434,28 +454,7 @@ function Collection() {
 
 
 
-  const addFiles = async () => {
-    setCount(0);
-    setFileLoader(true);
-    if (Object.keys(files).length === 0) {
-      toast.error("No File Selected");
-      setFileLoader(false);
-      return;
-    }
 
-    const extractedText = await parseData();
-
-    const promises = Object.values(files).map(async (file, index) => {
-      const textItem = extractedText.find((item) => item.index == index);
-      const text = textItem ? textItem.text : null;
-      return addData(file, index, text);
-
-    });
-
-
-    await Promise.all(promises);
-
-  };
 
   const handleButtonClick = () => {
     fileRef.current.click();
@@ -472,60 +471,7 @@ function Collection() {
   }, [skilotechCollection, folders, clientId, parentId, userDataGlobal, recall]);
 
 
-  const handleFileChange = async (e) => {
-    const selectedFiles = e.target.files;
-
-    const textData = [];
-
-
-    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
-    // const allowedFiles = Array.from(selectedFiles);
-    if (allowedFiles.length) {
-      const promise = allowedFiles.map((file, index) => {
-        if (
-          file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ) {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            const content = e.target.result;
-            const doc = new Docxtemplater(new PizZip(content), {
-              delimiters: {
-                start: "12op1j2po1j2poj1po",
-                end: "op21j4po21jp4oj1op24j",
-              },
-            });
-            const text = doc.getFullText();
-            textData.push({ index, text });
-          };
-          reader.readAsBinaryString(file);
-        } else if (file.type === "image/png") {
-          Tesseract.recognize(file, "eng", {
-            logger: (m) => console.log(m),
-          }).then(({ data: { text } }) => {
-            textData.push({ index, text });
-          });
-        } else if (file.type === "application/pdf") {
-          let fullText = "";
-          const pdfTextPromises = [];
-
-          for (let i = 1; i <= 1; i++) {
-            pdfTextPromises.push(fileToText(file, i));
-          }
-
-          Promise.all(pdfTextPromises).then((texts) => {
-            fullText = texts.join("");
-            textData.push({ index, text: fullText });
-          });
-        }
-      });
-
-      await Promise.all(promise);
-    }
-
-    setTextData(textData);
-    setFiles(allowedFiles);
-  };
+ 
 
   // const updateCollectionLimit = async () => {
   //   if (uploadCount === 0) {

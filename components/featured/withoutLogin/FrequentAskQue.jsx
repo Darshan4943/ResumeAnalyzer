@@ -9,48 +9,45 @@ function FrequentAskQue() {
 
     const questions = [
         {
-            que: "How do I know if a casting call is legitimate?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            que: "How do I find the right keywords for my resume? ",
+            ans: "Look at the job description and identify frequently mentioned skills and job titles. If you use Skilotech.com, our ATS resume builder automatically suggests the best resume keywords for job applications for your industry. ",
         },
         {
-            que: "How much does it cost to use the platform?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            que: "Is Skilotech.com free to use? ",
+            ans: "Yes! Skilotech.com offers a free resume builder with ATS-friendly templates and resume scanning. ",
         },
         {
-            que: "How can I post a job on the platform?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            que: "What is an ATS-friendly resume, and why does it matter? ",
+            ans: "An ATS-friendly resume is designed to pass through Applicant Tracking Systems (ATS) used by recruiters to screen resumes. At Skilotech.com, our expert-designed templates use clean formatting, standard fonts, and optimized keywords to ensure your resume gets noticed by both ATS software and hiring managers. ",
         },
         {
-            que: "How can I connect with recruiters on the platform?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            que: "Why are keywords important in a resume? ",
+            ans: "ATS scans resumes for specific job-related keywords before passing them to recruiters. With Skilotech.com, you get built-in keyword optimization that aligns with your target job, boosting your chances of making it past the initial screening and securing an interview. ",
         },
         {
-            que: "How can I post a job on the platform?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            que: "Should I customize my resume for each job application? ",
+            ans: "Yes! Tailoring your resume for each job increases your chances of getting shortlisted. Skilotech.com makes it easy to adjust your resume with job-specific keywords and formatting tools. ",
         },
-        {
-            que: "How can I connect with recruiters on the platform?",
-            ans: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-        },
+       
     ];
 
     return (
         <div className="customMargins flex flex-col scr460:gap-[42px] gap-6 pb-[100px] w-full">
             <p className="scr460:text-[30px] text-[18px] font-[600] text-center">Frequently Asked Questions</p>
-            <div className="flex gap-[10px] ">
+            <div className="flex gap-[10px]  items-center">
                 <img
                     src="/images/withoutLogin/freqAsk.png"
                     alt=""
-                    className="h-[344px] min-w-[327px] object-cover ml:block hidden mt-[40px]"
+                    className="h-[344px] min-w-[327px] object-cover ml:block hidden "
                 />
                 <div className="flex flex-col gap-1 px-[10px] w-full ">
                     {questions.map((que, index) => (
                         <div
                             key={index}
-                            className="flex flex-col gap-[18px] justify-between scr460:py-[18px] scr460:pl-[20px] py-2 pl-2  scr460:pr-12 pr-2 border-b-[0.5px] border-[#EAEAEA]"
+                            className="flex flex-col gap-[14px] justify-between scr460:py-[18px] scr460:pl-[20px] py-2 pl-2  scr460:pr-12 pr-2 border-b-[0.5px] border-[#EAEAEA]"
                         >
                             <div className="flex justify-between items-start scr460:gap-0 gap-1">
-                                <p className="scr1024:text-[20px] scr460:text-[16px] text-[14px] font-[400]">{que.que}</p>
+                                <p className=" scr460:text-[16px] text-[14px] font-[500]">{que.que}</p>
                                 <svg
                                     onClick={() => toggleAnswer(index)}
                                     width="24"

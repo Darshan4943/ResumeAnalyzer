@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ import DocumentModal from "../../../../common/DocumentModel";
 import { AnimatePresence, motion } from "framer-motion";
 import MiniLoader from "../../../../common/mini-loader";
 import ShortlistMail from "../../../../../pages/common/hiring/ShortlistMail";
+import { setRecallData } from "../../../../../Redux/slices/recallSlice";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Verification = ({ toggleContentt, setToggle }) => {
@@ -45,6 +46,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
   const taskRef = useRef(null);
   const [moreOption, setMoreOption] = useState(false);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+  const {recallData } = useSelector((state) => state.recall);
+  const dispatch = useDispatch();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setMoreOption(false);
@@ -110,6 +113,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
       if (response.status === 200) {
         toast.success("Moved to Release Offer successfully");
         fetchJobs();
+        dispatch(setRecallData(!recallData));
         setLoadingApplicantId(null);
         return response.data;
       }

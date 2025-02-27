@@ -157,7 +157,7 @@ function UploadDocuments() {
             toast.success("Documents uploaded successfully!");
             return response.data;
         } catch (error) {
-            console.error("Error uploading files:", error);
+            // console.error("Error uploading files:", error);
             setLoading1(false);
             toast.error("Something went wrong while uploading files.");
         }

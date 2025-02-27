@@ -29,6 +29,7 @@ function Preboarding() {
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(10);
+  const {recallData } = useSelector((state) => state.recall);
   const [page, setPage] = useState(0);
   const [preboardingData, setPreboardingData] = useState([]);
   const [headings, setHeadings] = useState([
@@ -117,7 +118,7 @@ function Preboarding() {
     if (id) {
       fetchJobs();
     }
-  }, [id]);
+  }, [id,recallData]);
 
   return (
     <>
