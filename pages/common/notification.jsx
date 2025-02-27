@@ -89,36 +89,37 @@ function EmployerNotification() {
 
   return (
     <div className="flex flex-col w-[100%] items-center gap-4  overflow-hidden">
-      <div className="flex flex-col gap-4 p-4 w-full items-start bg-white rounded-lg ">
-        <p className="text-[20px] text-[#333] font-medium">My Notifications</p>
+      <div className="flex flex-col gap-4 p-4 w-full bg-white rounded-lg">
+        <p className="text-[18px] sm:text-[20px] text-[#333] font-medium">
+          My Notifications
+        </p>
 
-        <div className="pb-1 flex items-start gap-3 overflow-x-auto w-full scrollbar-hide">
-          {notificationFilters.map((e, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedIndex(index)}
-              className={`py-2 px-4 flex items-center rounded-full border border-[#DEDEDE] text-[14px] sm:text-[16px] font-semibold transition-all duration-300 ${
-                selectedIndex === index
-                  ? "bg-[#06A9EF] text-white border-transparent"
-                  : "bg-white text-[#333] shadow-sm hover:bg-[#f1f1f1] active:scale-95"
-              }`}
-              style={{ whiteSpace: "nowrap" }}
-            >
-              {e}
-              {/* ({notifications.length}) */}
-            </button>
-          ))}
-        </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between w-full gap-2 sm:gap-3">
+          <div className="flex flex-wrap sm:flex-nowrap gap-3 w-full overflow-x-auto scrollbar-hide">
+            {notificationFilters.map((e, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedIndex(index)}
+                className={`py-2 px-4 flex items-center rounded-full border border-[#DEDEDE] text-[14px] sm:text-[16px] font-semibold transition-all duration-300 min-w-fit ${
+                  selectedIndex === index
+                    ? "bg-[#06A9EF] text-white border-transparent"
+                    : "bg-white text-[#333] shadow-sm hover:bg-[#f1f1f1] active:scale-95"
+                }`}
+              >
+                {e}
+              </button>
+            ))}
+          </div>
 
-        <div className="w-full flex justify-end">
           <p
-            className="text-[14px] sm:text-[16px] font-semibold text-[#06A9EF] cursor-pointer "
+            className="text-[14px] sm:text-[16px] w-[166px] font-semibold text-[#06A9EF] cursor-pointer "
             onClick={() => handleSelectId()}
           >
             Mark all as read
           </p>
         </div>
       </div>
+
       {notifications.length > 0 ? (
         <>
           {loading ? (

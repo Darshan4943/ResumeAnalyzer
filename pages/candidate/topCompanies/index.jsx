@@ -1,83 +1,59 @@
-import React from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function Index() {
-  const topCompanyData = [
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-    {
-      logo: "/images/candidate/image 5.png",
-      companyNm: "Aven",
-      ratings: "3.6",
-      reviews: "786",
-      description: "IT Services & Consulting",
-    },
-  ]
+  const [company, setCompany] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const topCompam = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        "http://localhost:2000/api/getTopcompanies"
+      );
+      const data = response.data;
+
+      if (Array.isArray(data)) {
+        setCompany(data);
+      } else {
+        setCompany([]);
+      }
+    } catch (err) {
+      console.error("Failed to fetch company details:", err);
+      setError(err?.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    topCompam();
+  }, []);
+
+
   return (
     <>
-      <div className='customMargins  w-full flex flex-col gap-5 pt-6 pb-6'>
-        <span className='text-[18px] font-[500] text-[#000000]'>Top Companies</span>
-        <div className='flex gap-6 w-full'>
-          <div className='flex w-full justify-between gap-y-5 flex-wrap'>
-            {topCompanyData.map((company, index) => (
+      <div className="customMargins  w-full flex flex-col gap-5 pt-6 pb-6">
+        <span className="text-[18px] font-[500] text-[#000000]">
+          Top Companies
+        </span>
+        <div className="flex gap-6 w-full">
+          <div className="flex w-full justify-between gap-y-5 flex-wrap">
+            {company?.map((i, index) => (
               <div
                 key={index}
                 className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px]"
               >
                 <img
-                  src={company.logo}
-                  alt={`${company.companyNm} logo`}
+                  src={i.companyLogo}
+                  alt={`${i.name} logo`}
                   className="h-[56px] w-[56px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] object-contain"
                 />
                 <div className="flex flex-col gap-[6px]">
                   <span className="text-[14px] font-[500] text-[#333333]">
-                    {company.companyNm}
+                    {i.name}
                   </span>
                   <div className="flex gap-[4px] items-center">
                     <svg
@@ -93,21 +69,21 @@ function Index() {
                       />
                     </svg>
                     <span className="flex items-center text-[12px] font-[500] text-[#A1A1A1]">
-                      {company.ratings}
+                      {i.averageRating}
                     </span>
                     <div className="flex items-center w-[1px] h-[12px] bg-[#C5C5C5]"></div>
                     <span className="flex items-center text-[12px] font-[500] text-[#A1A1A1]">
-                      {company.reviews} Reviews
+                      {i.totalReviews} Reviews
                     </span>
                   </div>
                   <div className="py-[2px] px-[6px] border-[0.5px] border-solid border-[#DEDEDE] text-[10px] font-[400] text-[#333333] rounded-[12px]">
-                    {company.description}
+                    {i.about}
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className='hidden scr700:block min-w-[357px] h-[256px] bg-[#D9D9D9]'></div>
+          <div className="hidden scr700:block min-w-[357px] h-[256px] bg-[#D9D9D9]"></div>
         </div>
       </div>
     </>

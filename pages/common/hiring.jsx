@@ -390,7 +390,11 @@ function Hiring() {
                             }
                           : ""
                       }
-                      placeholder={filter.heading}
+                      placeholder={
+                        filter.heading === "JobTitle"
+                          ? "Job Title"
+                          : filter.heading
+                      }
                       isSearchable={true}
                       noOptionsMessage={() => "No options available"}
                       menuPortalTarget={document.body}
@@ -405,7 +409,7 @@ function Hiring() {
                         }),
                         menuList: (base) => ({
                           ...base,
-                          fontSize: "12px", 
+                          fontSize: "12px",
                           padding: "4px",
                         }),
                         option: (base) => ({

@@ -14,7 +14,7 @@ import MiniLoader from "../../components/common/mini-loader";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 
-function Sign_up({ }) {
+function Sign_up({}) {
   const router = useRouter();
   const { byAdmin, isUpdate, role } = router.query;
 
@@ -41,13 +41,12 @@ function Sign_up({ }) {
   const [otpEntered, setOtpEntered] = useState(null);
   const [verified, setVerified] = useState(false);
   const [otpError, setOtpError] = useState("");
-  const [parseData, setParseData] = useState()
+  const [parseData, setParseData] = useState();
   const [formError, setFormError] = useState({});
-
 
   useEffect(() => {
     const parsedResume = JSON.parse(localStorage.getItem("parsedResume"));
-    setParseData(parsedResume)
+    setParseData(parsedResume);
   }, []);
   const [data, setData] = useState({
     firstName: "",
@@ -61,9 +60,7 @@ function Sign_up({ }) {
   });
 
   useEffect(() => {
-
     if (parseData) {
-
       setData({
         ...data,
         firstName: parseData?.first_name || "",
@@ -73,14 +70,15 @@ function Sign_up({ }) {
         dial_code: parseData?.dial_code || "",
       });
 
-      const selectedItem = telCode.find((item) => item.dial_code === parseData?.dial_code);
+      const selectedItem = telCode.find(
+        (item) => item.dial_code === parseData?.dial_code
+      );
 
       if (selectedItem) {
         setSelectedItem(selectedItem);
       }
     }
   }, [parseData]);
-
 
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
@@ -94,12 +92,12 @@ function Sign_up({ }) {
       const userData = {
         name: user.displayName,
         email: user.email,
-        userRole: role
+        userRole: role,
       };
 
       const sendToPurchase = localStorage.getItem("purchase");
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
-      let userRole = role
+      let userRole = role;
       axios
         .post(
           "https://dev.api.skilotech.com/api/skiloteckuser/user/google/signup",
@@ -109,8 +107,9 @@ function Sign_up({ }) {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           if (sendToPurchaseResult?.status) {
             localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-              }`;
+            window.location.href = `/purchase/details?id=${
+              sendToPurchaseResult.index + 1
+            }`;
           } else {
             setGoogleLoading(false);
             window.location.href = "/?signIn=false";
@@ -136,7 +135,6 @@ function Sign_up({ }) {
       updatedOtp[index] = value;
       setOtp(updatedOtp);
 
-
       if (value && index < 3) {
         document.getElementById(`otp-input-${index + 1}`)?.focus();
       }
@@ -151,11 +149,10 @@ function Sign_up({ }) {
 
   const handlePaste = (e) => {
     const pastedData = e.clipboardData.getData("text").split("").slice(0, 4);
-    if (pastedData.every(char => !isNaN(char))) {
+    if (pastedData.every((char) => !isNaN(char))) {
       setOtp(pastedData);
     }
   };
-
 
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
@@ -164,7 +161,6 @@ function Sign_up({ }) {
 
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.size <= 1 * 1024 * 1024) {
-
       if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
         setModelView(true);
@@ -274,10 +270,7 @@ function Sign_up({ }) {
       case "password":
         if (!isUpdate && (!value.trim() || value.trim().length < 6)) {
           errors.password = "Password must be at least 6 characters long";
-        } else if (
-          !validatePassword(value) &&
-          !isUpdate
-        ) {
+        } else if (!validatePassword(value) && !isUpdate) {
           errors.password =
             "Password should include one uppercase letter, one lowercase letter, one number, and one special character.";
         } else {
@@ -311,7 +304,6 @@ function Sign_up({ }) {
   };
 
   const handleInputChange = (fieldName, value) => {
-
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
@@ -320,8 +312,7 @@ function Sign_up({ }) {
             ...prevErrors,
             mobileNo: "length must be 10",
           }));
-        }
-        else {
+        } else {
           setFormError((prevErrors) => {
             const updatedErrors = { ...prevErrors };
             delete updatedErrors.mobileNo;
@@ -329,12 +320,11 @@ function Sign_up({ }) {
           });
         }
       }
-    }
-    else {
+    } else {
       setData({ ...data, [fieldName]: value });
       validateInput(fieldName, value);
     }
-  }
+  };
   const validateFields = () => {
     const requiredFields = [
       { key: "firstName", error: "Enter First Name" },
@@ -354,7 +344,6 @@ function Sign_up({ }) {
         errors[field.key] = field.error;
       }
     });
-
 
     setFormError(errors);
     return Object.keys(errors).length === 0; // Return true if no errors
@@ -396,10 +385,8 @@ function Sign_up({ }) {
         const response = res.data;
         try {
           if (response?.success) {
-
             localStorage.setItem("authToken", JSON.stringify(response));
 
-            
             // if (sendToPurchase && sendToPurchase?.status) {
             //   window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
             //     }`;
@@ -409,7 +396,6 @@ function Sign_up({ }) {
             toast.success("Sign up Successfully");
             setLoading(false);
             // }
-
           } else {
             setLoading(false);
             if (response.message === "User already exists") {
@@ -429,7 +415,6 @@ function Sign_up({ }) {
         toast.error("Something went wrong");
         setLoading(false);
       });
-
   };
 
   const handleTogglePassword = () => {
@@ -473,17 +458,16 @@ function Sign_up({ }) {
     );
   };
 
-
   const handleVerification = (e) => {
     setResend(false);
     setTimer(30);
     setLoadingg(true);
     e.preventDefault();
-    let tempUser = role === "user" ? "tempUser" : "tempRecruiter"
+    let tempUser = role === "user" ? "tempUser" : "tempRecruiter";
     axios
       .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: data.email.toLowerCase(),
-        tempUser
+        tempUser,
       })
       .then((res) => {
         setLoadingg(false);
@@ -529,18 +513,16 @@ function Sign_up({ }) {
 
   const verifyOtp = (e) => {
     e.preventDefault();
-    const otpEntered = Number(otp.join(''));
+    const otpEntered = Number(otp.join(""));
     axios
       .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: data.email,
-        otpEntered
+        otpEntered,
       })
       .then((res) => {
-
         const result = res.data;
         if (result.success) {
-
-          setVerify(false)
+          setVerify(false);
           setVerified(true);
         } else {
           toast.error("OTP does not match");
@@ -548,9 +530,7 @@ function Sign_up({ }) {
       })
       .catch((err) => {
         toast.error(err?.response?.data.message);
-
       });
-
   };
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -565,13 +545,12 @@ function Sign_up({ }) {
   };
 
   return (
-    <div className=" flex justify-center items-center py-[72px]  gap-[50px] customMargins">
+    <div className=" flex justify-center items-center py-[24px]  gap-[50px] customMargins">
       <div className="h-[480px] min-w-[480px] scr1024:block hidden">
         <img
-          src="/images/auth/signIn.png"
+          src="/images/auth/singUp3.png"
           alt=""
           className="h-[480px] w-[480px]  object-cover "
-
         />
       </div>
       <form
@@ -581,44 +560,55 @@ function Sign_up({ }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="text-[20px] font-[600]"> {role === "user" ? "Candidate Sign Up " : role === "recruiter" ? "Recruiter Sign Up" : "Employer Sign Up"}</div>
+        <div className="text-[20px] font-[600]">
+          {" "}
+          {role === "user"
+            ? "Candidate Sign Up "
+            : role === "recruiter"
+            ? "Recruiter Sign Up"
+            : "Employer Sign Up"}
+        </div>
         <div className="flex scr390:flex-row flex-col gap-4 w-full ">
           <div className="scr390:w-[50%] w-full flex flex-col gap-1">
-            <div className={`flex flex-col px-[16px] py-[10px] border-[1px]   rounded-[8px] border-solid ${formError.firstName ? "border-red" : "border-[#DEDEDE]"}`}>
-
+            <div
+              className={`flex flex-col px-[16px] py-[10px] border-[1px]   rounded-[8px] border-solid ${
+                formError.firstName ? "border-red" : "border-[#DEDEDE]"
+              }`}
+            >
               <input
                 type="text"
                 name=""
                 className="font-[400] text-[12px] w-[80%]"
                 placeholder="Enter First Name"
                 value={data.firstName}
-                onChange={(e) =>
-                  handleInputChange("firstName", e.target.value)
-                }
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
               />
-
             </div>
-
           </div>
           <div className="scr390:w-[50%] w-full flex flex-col gap-1">
-            <div className={`flex flex-col px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid ${formError.lastName ? "border-red" : "border-[#DEDEDE]"}`}>
+            <div
+              className={`flex flex-col px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid ${
+                formError.lastName ? "border-red" : "border-[#DEDEDE]"
+              }`}
+            >
               <input
                 type="text"
                 name=""
                 className="font-[400] text-[12px] w-[80%]"
                 placeholder="Enter Last Name"
                 value={data.lastName}
-                onChange={(e) =>
-                  handleInputChange("lastName", e.target.value)
-                }
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
               />
-
             </div>
-
           </div>
         </div>
-        <div className={`flex w-full  rounded-[8px] gap-4 border-[1px] border-solid  h-[40px]  ${(formError.mobileNo || formError.dial_code) ? "border-red" : "border-[#DEDEDE]"}`}>
-
+        <div
+          className={`flex w-full  rounded-[8px] gap-4 border-[1px] border-solid  h-[40px]  ${
+            formError.mobileNo || formError.dial_code
+              ? "border-red"
+              : "border-[#DEDEDE]"
+          }`}
+        >
           <div
             onWheel={(e) => e.stopPropagation()}
             className="   text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -668,45 +658,34 @@ function Sign_up({ }) {
             </div>
           </div>
 
-
           <input
             className="w-full text-[12px] font-[400] mr-2 "
             type="text"
             name=""
             // id="single_input"
-            placeholder={`${isViewportBelow850
-              ? "Enter Number "
-              : "Enter Contact Number "
-              }`}
+            placeholder={`${
+              isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
+            }`}
             value={data.mobileNo}
-            onChange={(e) =>
-              handleInputChange("mobileNo", e.target.value)
-            }
+            onChange={(e) => handleInputChange("mobileNo", e.target.value)}
           />
-
-
-
-
         </div>
 
         <div className="w-full flex flex-col gap-2">
-
-
           <div className="flex gap-2  items-center justify-between w-full">
             <input
-              className={`text-[12px] w-full font-[400] px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid  h-[40px] ${formError.email ? "border-red" : "border-[#DEDEDE]"}`}
-
-
+              className={`text-[12px] w-full font-[400] px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid  h-[40px] ${
+                formError.email ? "border-red" : "border-[#DEDEDE]"
+              }`}
               type="email"
               name=""
-
               placeholder="Enter Email"
               value={data.email}
               onChange={(e) => {
                 handleInputChange("email", e.target.value);
                 setVerify(false);
                 setVerified(false);
-                setOtp(new Array(4).fill(""))
+                setOtp(new Array(4).fill(""));
               }}
             />
             {!verified && (
@@ -717,11 +696,7 @@ function Sign_up({ }) {
                       onClick={handleVerification}
                       className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] btn_hover_effect"
                     >
-                      {loadingg ? (
-                        <MiniLoader />
-                      ) : (
-                        <>Verify Email</>
-                      )}
+                      {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>
                   )
                 ) : (
@@ -731,9 +706,14 @@ function Sign_up({ }) {
                     ) : (
                       <>
                         {!resend ? (
-                          <button disabled onClick={(e) => e.stopPropagation()}>{formatTime(timer)}</button>
+                          <button disabled onClick={(e) => e.stopPropagation()}>
+                            {formatTime(timer)}
+                          </button>
                         ) : (
-                          <p className=" cursor-pointer" onClick={handleVerification}>
+                          <p
+                            className=" cursor-pointer"
+                            onClick={handleVerification}
+                          >
                             Resend Code
                           </p>
                         )}
@@ -745,27 +725,39 @@ function Sign_up({ }) {
             )}
             {verified && (
               <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
-
-                <svg className="zoom-rotate-animation" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="22" height="22" rx="11" fill="#34A853" />
-                  <path d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z" fill="white" />
+                <svg
+                  className="zoom-rotate-animation"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="22"
+                    height="22"
+                    rx="11"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M10.2467 14.2906L16.3595 8.1877C16.4987 8.05215 16.6633 7.98438 16.8533 7.98438C17.0433 7.98438 17.206 8.05244 17.3414 8.18856C17.477 8.32469 17.5447 8.48768 17.5447 8.67755C17.5447 8.86753 17.477 9.03155 17.3414 9.16962L10.734 15.7674C10.5962 15.9028 10.4332 15.9705 10.245 15.9705C10.0569 15.9705 9.89504 15.9028 9.75948 15.7674L6.65078 12.6587C6.51534 12.5198 6.44883 12.3553 6.45123 12.1652C6.45376 11.975 6.52308 11.8122 6.6592 11.6768C6.79533 11.5412 6.95832 11.4734 7.14819 11.4734C7.33817 11.4734 7.50219 11.5412 7.64027 11.6768L10.2467 14.2906Z"
+                    fill="white"
+                  />
                 </svg>
-
               </div>
             )}
-
           </div>
           {/* {formError && (
             <p className="text-[10px] text-start text-[red] font-[500] w-full">
               {formError?.email}
             </p>
           )} */}
-
         </div>
 
         {verify && (
           <div className="flex flex-col gap-2 font-medium w-full ">
-
             <div className="flex gap-2 h-[28px]  items-center  justify-between ">
               <text className="text-[10px] font-[500] text-[#898989]">
                 Enter OTP sent to your Email
@@ -792,7 +784,6 @@ function Sign_up({ }) {
                   Verify
                 </button>
               )}
-
             </div>
             {/* {resend &&
                 <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
@@ -801,21 +792,21 @@ function Sign_up({ }) {
         )}
 
         <div className={`flex gap-2 w-[100%]  flex-col `}>
-
-          <div className={`flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.password ? "border-red" : "border-[#DEDEDE]"}`}>
-
+          <div
+            className={`flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${
+              formError?.password ? "border-red" : "border-[#DEDEDE]"
+            }`}
+          >
             <input
               type={showPassword ? "Text" : "Password"}
               className="font-[400] text-[12px]"
               placeholder="Enter Password"
               value={data.password}
-              onChange={(e) =>
-                handleInputChange("password", e.target.value)
-              }
+              onChange={(e) => handleInputChange("password", e.target.value)}
             />
 
-            {!isEdge() && (
-              showPassword ? (
+            {!isEdge() &&
+              (showPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -848,7 +839,6 @@ function Sign_up({ }) {
                   </g>
                 </svg>
               ))}
-
           </div>
           {formError.password !== "Enter Password" && (
             <p className="text-[10px] text-[red] font-[500]">
@@ -856,8 +846,11 @@ function Sign_up({ }) {
             </p>
           )}
 
-          <div className={`flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.confirmPassword ? "border-red" : "border-[#DEDEDE]"}`}>
-
+          <div
+            className={`flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${
+              formError?.confirmPassword ? "border-red" : "border-[#DEDEDE]"
+            }`}
+          >
             <input
               type={showConfirmPassword ? "Text" : "Password"}
               name=""
@@ -865,20 +858,16 @@ function Sign_up({ }) {
               placeholder="Confirm Password"
               value={data.confirmPassword}
               onChange={(e) =>
-                handleInputChange(
-                  "confirmPassword",
-                  e.target.value
-                )
+                handleInputChange("confirmPassword", e.target.value)
               }
             />
-            {!isEdge() && (
-              showConfirmPassword ? (
+            {!isEdge() &&
+              (showConfirmPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-
                   fill="none"
                   onClick={handleToggleConfirmPassword}
                   style={{ cursor: "pointer" }}
@@ -895,7 +884,6 @@ function Sign_up({ }) {
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -907,27 +895,22 @@ function Sign_up({ }) {
                   </g>
                 </svg>
               ))}
-
           </div>
           {formError.confirmPassword !== "Enter Confirm Password" && (
             <p className="text-[10px] text-[red] font-[500]">
               {formError?.confirmPassword}
             </p>
           )}
-
         </div>
         <div className="w-full flex flex-col gap-[16px]">
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] flex justify-center py-[4px] h-[42px] items-center rounded-[30px] border-[1px] border-solid leading-[20.67px] border-[#06a9ef] text-[14px] font-[600] text-[#fff]  bg-[#06a9ef] ${loading && "bg-[#06a9ef]"
-              } hover:text-[#333333] transition-all duration-200 hover:bg-[#fff]`}
+            className={`w-full px-[36px] flex justify-center py-[4px] h-[42px] items-center rounded-[30px] border-[1px] border-solid leading-[20.67px] border-[#06a9ef] text-[14px] font-[600] text-[#fff]  bg-[#06a9ef] ${
+              loading && "bg-[#06a9ef]"
+            } hover:text-[#333333] transition-all duration-200 hover:bg-[#fff]`}
           >
-            {loading ? (
-             <MiniLoader/>
-            ) : (
-              "Sign Up"
-            )}
+            {loading ? <MiniLoader /> : "Sign Up"}
           </button>
           {/* {role === "user" && ( */}
           <div className="flex flex-row items-center justify-center gap-[6px] text-[16px] font-medium">
@@ -938,7 +921,6 @@ function Sign_up({ }) {
           <div className="flex flex-col gap-[16px]">
             {/* {role === "user" && ( */}
             <div
-
               onClick={handleGoogle}
               disabled={googleLoading}
               className=" cursor-pointer w-full sm:px-[36px] px-4 py-[10px] rounded-[30px] border-[1px] leading-[20.67px]  border-[#06A9EF]   text-[16px] font-[600] text-[#333] flex items-center gap-2 justify-center "
@@ -998,8 +980,9 @@ function Sign_up({ }) {
             {/* )} */}
             <div
               onClick={() => {
-                role === "user" ?
-                  router.push("/auth/Sign_in?role=user") : router.push("/auth/Sign_in?role=recruiter");
+                role === "user"
+                  ? router.push("/auth/Sign_in?role=user")
+                  : router.push("/auth/Sign_in?role=recruiter");
               }}
               className="flex justify-center items-center text-[10px] font-[600] text-[#646464] cursor-pointer"
             >
@@ -1011,7 +994,6 @@ function Sign_up({ }) {
                 }}
                 className="pl-1"
               >
-
                 Sign In
               </span>
             </div>
@@ -1045,7 +1027,6 @@ function Sign_up({ }) {
           </div>
         </div>
       </form>
-
     </div>
   );
 }
