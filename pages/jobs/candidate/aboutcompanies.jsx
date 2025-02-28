@@ -8,6 +8,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 import CustomPagination from "../../../components/common/CustomPagination";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 
 function Aboutcompanies() {
   const [company, setCompany] = useState(null);
@@ -376,31 +377,35 @@ function Aboutcompanies() {
               className={`flex flex-col gap-6 ${role === "recruiter" ? "pt-0" : "pt-6"
                 }`}
             >
-              <div className="flex flex-wrap justify-between gap-4">
-                <div className="flex-1 min-w-[300px]">
-                  <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
-                    Explore {jobs.length} Open Positions at {companyName}
-                  </h2>
-                  <div className="flex flex-col gap-4">
-                    {jobs.length > 0 ? (
-                      jobs.map((item, index) => (
-                        <NormalJobCard key={item.id || index} item={item} />
-                      ))
-                    ) : (
-                      <p>No jobs found for this company.</p>
-                    )}
+              {jobs.length > 0 ?
+                <div className="flex flex-wrap justify-between gap-4">
+                  <div className="flex-1 min-w-[300px]">
+                    <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
+                      Explore {jobs.length} Open Positions at {companyName}
+                    </h2>
+                    <div className="flex flex-col gap-4">
+                      {jobs.length > 0 ? (
+                        jobs.map((item, index) => (
+                          <NormalJobCard key={item.id || index} item={item} />
+                        ))
+                      ) : (
+                        <NoJobs />
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div className="w-[357px] flex flex-col">
-                  <h2 className="sm:text-[18px] text-[14px]  font-semibold mb-2 ">
-                    Relevant Job Opportunities
-                  </h2>
-                  <div className=" bg-white rounded-[12px] mb-6  p-[8px]">
-                    <JobsForYou isRelevant={true} />
+                  <div className="w-[357px] flex flex-col">
+                    <h2 className="sm:text-[18px] text-[14px]  font-semibold mb-2 ">
+                      Relevant Job Opportunities
+                    </h2>
+                    <div className=" bg-white rounded-[12px] mb-6  p-[8px]">
+                      <JobsForYou isRelevant={true} />
+                    </div>
                   </div>
                 </div>
-              </div>
+                :
+                <NoJobs />
+              }
             </div>
           </div>
           {showPopup && (

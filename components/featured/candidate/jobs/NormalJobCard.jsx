@@ -90,7 +90,7 @@ function NormalJobCard({ item }) {
                 e.stopPropagation();
                 router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`);
 
-              }} className="text-[12px] font-medium cursor-pointer">
+              }} className="text-[12px] font-medium cursor-pointer w-fit">
                 posted by Recruiter ({camelCase(item?.createdByName)})
               </div>
             }

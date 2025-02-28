@@ -76,28 +76,27 @@ function Job_card({
 
                 <div
                   onClick={(e) => {
-                    router.push(
-                      `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}`
-                    );
                     e.stopPropagation();
+                    {
+                      item.role === "employer" ?
+                        router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
+                        : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
+                    }
+
                   }}
                   className="text-[12px] font-normal cursor-pointer w-fit"
                 >
                   {item?.companyName}
                 </div>
-                {item?.role === "recruiter" && (
-                  <div
-                    onClick={(e) => {
-                      router.push(
-                        `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`
-                      );
-                      e.stopPropagation();
-                    }}
-                    className="text-[12px] font-normal cursor-pointer"
-                  >
+                {item?.role === "recruiter" &&
+                  <div onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`);
+
+                  }} className="text-[12px] font-normal cursor-pointer w-fit">
                     posted by Recruiter ({camelCase(item?.createdByName)})
                   </div>
-                )}
+                }
               </div>
               {item?.logo && (
                 <div className="flex flex-row  items-end">
@@ -339,17 +338,16 @@ function Job_card({
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${
-                  (jobData?.some(
-                    (job) =>
-                      job?.matchedApplication?.applicantId ===
-                      userDataGlobal?._id
-                  ) &&
-                    isLogin) ||
+                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${(jobData?.some(
+                  (job) =>
+                    job?.matchedApplication?.applicantId ===
+                    userDataGlobal?._id
+                ) &&
+                  isLogin) ||
                   item.status === "Hold"
-                    ? "cursor-not-allowed"
-                    : " cursor-pointer"
-                }`}
+                  ? "cursor-not-allowed"
+                  : " cursor-pointer"
+                  }`}
               >
                 {jobData?.some(
                   (job) =>
