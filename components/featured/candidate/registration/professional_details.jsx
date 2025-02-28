@@ -170,7 +170,7 @@ const ProfessionalDetails = ({
                 )}
 
                 <div
-                  className={`personal_single_input  ${data.workStatus == "Fresher" ? "w-full" : "w-[50%]"
+                  className={`personal_single_input  ${data.workStatus == "Fresher" ? "w-full" : "ml:w-[50%] w-[100%]"
                     }`}
                 >
                   <div className="personal_single_input w-[100%]">
@@ -209,7 +209,7 @@ const ProfessionalDetails = ({
                         <>Role</>
                       ) : (
                         <>
-                          Job Titel <span className="star">*</span>
+                          Job Title <span className="star">*</span>
                         </>
                       )}
                     </p>
@@ -220,7 +220,7 @@ const ProfessionalDetails = ({
                       placeholder={
                         data.workStatus == "Fresher"
                           ? "Enter Role"
-                          : "Enter job titel"
+                          : "Enter job title"
                       }
                       value={data.jobTitle}
                       onChange={(e) =>

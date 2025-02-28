@@ -14,7 +14,6 @@ const TopCompanies = () => {
   const [error, setError] = useState(null);
 
   const router = useRouter();
-  
 
   const topCompam = async () => {
     setLoading(true);
@@ -106,7 +105,15 @@ const TopCompanies = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="text-[#06A9EF] text-[14px] font-[600] flex justify-center">
+                        <div
+                          onClick={(e) => {
+                            router.push(
+                              `/jobs/candidate/aboutcompanies?companyName=${job?.name}&id=${job?.companyId}`
+                            );
+                            e.stopPropagation();
+                          }}
+                          className="text-[#06A9EF] text-[14px] font-[600] flex justify-center cursor-pointer"
+                        >
                           View Job
                         </div>
                       </div>

@@ -203,7 +203,7 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
         >
           <div className="flex flex-col items-center gap-[36px]">
             <>
-              <div className="flex gap-9">
+              <div className="flex md:flex-row flex-col gap-9">
                 <div
                   onClick={(e) => imgSelect("man")}
                   className=" cursor-pointer flex relative items-center justify-center  min-w-[186px]  min-h-[186px] max-w-[186px]  max-h-[186px] rounded-[186px] border-[3px]  border-[#646464]"
@@ -285,7 +285,7 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
                   Change Picture
                 </button>
                 <button
-                  className="flex justify-center items-center ms:px-[36px] px-[5px] py-[8px] rounded-[30px] border-[1px] border-solid border-[#06A9EF] bg-[#06A9EF] text-[#fff] text-[14px] font-[600]"
+                  className="flex justify-center items-center ms:px-[36px] px-2 py-[8px] rounded-[30px] border-[1px] border-solid border-[#06A9EF] bg-[#06A9EF] text-[#fff] text-[14px] font-[600]"
                   onClick={saveProfilePhoto}
                 >
                   Save Picture
