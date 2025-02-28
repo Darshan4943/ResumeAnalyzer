@@ -32,14 +32,13 @@ function Index() {
     topCompam();
   }, []);
 
-
   return (
     <>
       <div className="customMargins  w-full flex flex-col gap-5 pt-6 pb-6">
         <span className="text-[18px] font-[500] text-[#000000]">
           Top Companies
         </span>
-        <div className="flex gap-6 w-full">
+        <div className="flex scr700:flex-row flex-col gap-6 w-full">
           <div className="flex w-full justify-between gap-y-5 flex-wrap">
             {company?.map((i, index) => (
               <div
@@ -83,8 +82,12 @@ function Index() {
               </div>
             ))}
           </div>
-          <div className="hidden scr700:block min-w-[357px] max-w-[357px] h-[256px] bg-[#D9D9D9]">
-            <img src="/images/topcomp.png" alt="" />
+          <div className="flex justify-center ">
+            <img
+              className=" sm:min-w-[357px] sm:max-w-[357px] h-[396px]"
+              src="/images/topcomp.png"
+              alt=""
+            />
           </div>
         </div>
       </div>
