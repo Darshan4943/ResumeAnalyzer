@@ -24,8 +24,8 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
   const callData = () => {
     const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     const url = isResume
-    ? `https://dev.api.skilotech.com/api/resume/${id}`
-    : `https://dev.api.skilotech.com/api/cover/get/${id}`;
+    ? `http://localhost:2000/api/resume/${id}`
+    : `http://localhost:2000/api/cover/get/${id}`;
   
     if (id) {
       axios

@@ -23,7 +23,7 @@ function NormalJobCard({ item }) {
     setIsSaved(true);
     e.stopPropagation();
     axios
-      .post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
@@ -41,7 +41,7 @@ function NormalJobCard({ item }) {
     setUnIsSaved(true);
     axios
       .post(
-        `https://dev.api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));
@@ -74,8 +74,12 @@ function NormalJobCard({ item }) {
             <div
               onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&id=${item.companyId}`);
-             
+                {
+                  item.role === "employer" ?
+                  router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
+                  : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
+                }
+
               }}
               className="text-[12px] font-medium cursor-pointer w-fit"
             >
@@ -84,8 +88,8 @@ function NormalJobCard({ item }) {
             {item?.role === "recruiter" &&
               <div onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
-              
+                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`);
+
               }} className="text-[12px] font-medium cursor-pointer">
                 posted by Recruiter ({camelCase(item?.createdByName)})
               </div>
