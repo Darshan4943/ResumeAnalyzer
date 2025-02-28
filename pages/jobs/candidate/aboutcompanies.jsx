@@ -7,6 +7,7 @@ import { camelCase } from "../../../utils/middleware";
 import MiniLoader from "../../../components/common/miniLoader";
 import CustomPagination from "../../../components/common/CustomPagination";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Aboutcompanies() {
   const [company, setCompany] = useState(null);
@@ -20,22 +21,23 @@ function Aboutcompanies() {
   const [totalCount, setTotalCount] = useState(0);
   const router = useRouter();
   const { companyName, createdBy, role, id, isRec } = router.query;
-  console.log(id)
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [showPopup, setShowPopup] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [totalRatingCount, setTotalRatingCount] = useState(0);
+  const [userReviews, setUserReviews] = useState();
+
   const [reviewData, setReviewData] = useState({
     companyId: id ? id : "",
-    rating: 0,
-    review: "",
+
   });
 
   const fetchCompanyDetailsByRecId = async () => {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerCompaniesByRecId/${createdBy}`
+        `https://dev.api.skilotech.com/api/getEmployerCompaniesByRecId/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -52,7 +54,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getJobsById/${role === "employer" ? id : createdBy}?page=${page}&limit=${limit}&role=${role}`
+        `https://dev.api.skilotech.com/api/getJobsById/${id ? id : createdBy}?page=${page}&limit=${limit}&role=${role}`
       );
       const { jobs, totalCount, totalPages } = response.data;
 
@@ -80,7 +82,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerCompanies/${id}`
+        `https://dev.api.skilotech.com/api/getEmployerCompanies/${id}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -107,13 +109,13 @@ function Aboutcompanies() {
   }, [id]);
 
 
- 
+
 
   const fetchEmployerJobs = async () => {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `https://dev.api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
         )}&page=${page}&limit=${limit}&createdBy=${createdBy}`
       );
@@ -161,35 +163,56 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/reviews",
-        reviewData
+        "https://dev.api.skilotech.com/api/createOrUpdateReview",
+        { ...reviewData, userId: userDataGlobal?._id }
       );
+
       toast.success(response.data.message);
       setShowPopup(false);
-      setReviewData({ companyId: id || "", rating: 0, review: "" });
+      fetchReviews()
+
     } catch (error) {
       console.error("Failed to submit review:", error.response?.data?.message);
       toast.error("Failed to submit review. Please try again.");
     }
   };
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(
+        `https://dev.api.skilotech.com/api/getreview/${id}`
+      );
+      const { averageRating, totalReviews, totalRatingCount } = response.data;
+
+      setAverageRating(averageRating);
+      setTotalReviews(totalReviews);
+      setTotalRatingCount(totalRatingCount);
+    } catch (error) {
+      console.error("Failed to fetch reviews:", error);
+    }
+  };
+  useEffect(() => {
+    if (id) fetchReviews();
+  }, [id]);
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/getreview/${id}`
+          `https://dev.api.skilotech.com/api/getReviewByUser/${id}/${userDataGlobal?._id}`
         );
-        const { averageRating, totalReviews, totalRatingCount } = response.data;
+        const review = response.data.reviews[0];
 
-        setAverageRating(averageRating);
-        setTotalReviews(totalReviews);
-        setTotalRatingCount(totalRatingCount);
+        setReviewData({ ...reviewData, review: review.review, rating: review.rating });
+
       } catch (error) {
         console.error("Failed to fetch reviews:", error);
       }
     };
 
-    if (id) fetchReviews();
-  }, [id]);
+    if (userDataGlobal) fetchReviews();
+  }, [userDataGlobal]);
+
 
   return (
     <div className="customMargins">
@@ -254,11 +277,18 @@ function Aboutcompanies() {
                       {camelCase(company?.name)}
                     </h2>
                     {role !== "recruiter" && (
-                      <div className="flex items-center gap-1 text-sm mt-1">
-                        ⭐ <span className="text-[12px] font-[500]">3.6</span>
-                        <span className="text-[12px] font-[500]">
-                          | 786 Reviews
-                        </span>
+                      <div className="items-start justify-start">
+                        <h2 className="text-[14px] font-[600]">{companyName}</h2>
+
+                        <div className="flex items-center gap-1 text-sm mt-1">
+                          ⭐{" "}
+                          <span className="text-[12px] font-[500]">
+                            {averageRating}
+                          </span>
+                          <span className="text-[12px] font-[500]">
+                            | {totalReviews}
+                          </span>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -286,7 +316,7 @@ function Aboutcompanies() {
                   <div className="items-start justify-start">
                     <h2 className="text-[14px] font-[600]">{companyName}</h2>
 
-                    <div className="flex items-center gap-1 text-sm mt-1">
+                    {/* <div className="flex items-center gap-1 text-sm mt-1">
                       ⭐{" "}
                       <span className="text-[12px] font-[500]">
                         {averageRating}
@@ -294,18 +324,20 @@ function Aboutcompanies() {
                       <span className="text-[12px] font-[500]">
                         | {totalReviews}
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}
-              <button
-                onClick={() => {
-                  handleClick();
-                }}
-                className="bg-[#06A9EF]  md:py-[12px] md:px-[36px] py-[8px] px-[16px] text-white md:text-[14px] text-[12px] font-[600] rounded-[30px]"
-              >
-                Give Us Your Feedback
-              </button>
+              {id &&
+                <button
+                  onClick={() => {
+                    handleClick();
+                  }}
+                  className="bg-[#06A9EF]  md:py-[12px] md:px-[36px] py-[8px] px-[16px] text-white md:text-[14px] text-[12px] font-[600] rounded-[30px]"
+                >
+                  Give Us Your Feedback
+                </button>
+              }
             </div>
 
             {companyName &&
@@ -313,9 +345,15 @@ function Aboutcompanies() {
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
                 </div>
-                <div className="sm:text-[14px] text-[10px]  font-[400]">
+                {/* <div className="sm:text-[14px] text-[10px]  font-[400]">
                   {jobs[0]?.aboutOrganization}
-                </div>
+                </div> */}
+                <div
+                  className="sm:text-[14px] text-[10px]  font-[400]"
+                  dangerouslySetInnerHTML={{
+                    __html: jobs[0]?.aboutOrganization,
+                  }}
+                />
               </div>
             }
             {id &&
@@ -323,9 +361,13 @@ function Aboutcompanies() {
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
                 </div>
-                <div className="sm:text-[14px] text-[10px]  font-[400]">
-                  {company?.about}
-                </div>
+
+                <div
+                  className="sm:text-[14px] text-[10px]  font-[400]"
+                  dangerouslySetInnerHTML={{
+                    __html: company?.about,
+                  }}
+                />
               </div>
 
 

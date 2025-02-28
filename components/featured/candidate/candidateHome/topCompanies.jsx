@@ -20,7 +20,7 @@ const TopCompanies = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "http://localhost:2000/api/getTopcompanies"
+        "https://dev.api.skilotech.com/api/getTopcompanies"
       );
       const data = response.data;
 
@@ -40,6 +40,7 @@ const TopCompanies = () => {
   useEffect(() => {
     topCompam();
   }, []);
+  console.log(company)
 
   return (
     <div className="bg-white rounded-[16px] p-3 sm:p-6  gap-[20px] ">
@@ -110,10 +111,9 @@ const TopCompanies = () => {
                         </div>
                         <div
                           onClick={(e) => {
-                            router.push(
-                              `/jobs/candidate/aboutcompanies?companyName=${job?.name}&id=${job?.companyId}`
-                            );
                             e.stopPropagation();
+                            router.push(`/jobs/candidate/aboutcompanies?id=${job._id}&role=employer`)
+                          
                           }}
                           className="text-[#06A9EF] text-[14px] font-[600] flex justify-center cursor-pointer"
                         >

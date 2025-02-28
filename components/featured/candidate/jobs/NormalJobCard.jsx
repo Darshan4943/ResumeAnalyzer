@@ -23,7 +23,7 @@ function NormalJobCard({ item }) {
     setIsSaved(true);
     e.stopPropagation();
     axios
-      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));
 
@@ -41,7 +41,7 @@ function NormalJobCard({ item }) {
     setUnIsSaved(true);
     axios
       .post(
-        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `https://dev.api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       )
       .then((res) => {
         dispatch(fetchSavedJobIds(userDataGlobal?._id));
@@ -96,13 +96,13 @@ function NormalJobCard({ item }) {
             }
           </div>
           {item?.logo && (
-            <div className="flex flex-row  items-end">
+            <div className="flex flex-row  items-start min-w-[44px]">
               <img
                 src={item?.logo}
                 alt=""
                 style={{
-                  height: "56px",
-                  width: "56px",
+                  height: "44px",
+                  width: "44px",
                   objectFit: "cover",
                 }}
               />
