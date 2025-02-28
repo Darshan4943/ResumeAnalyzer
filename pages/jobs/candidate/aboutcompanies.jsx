@@ -19,7 +19,8 @@ function Aboutcompanies() {
   const [limit, setLimit] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const router = useRouter();
-  const { companyName, createdBy, role, id } = router.query;
+  const { companyName, createdBy, role, id, isRec } = router.query;
+  console.log(id)
   const [showPopup, setShowPopup] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
@@ -30,11 +31,11 @@ function Aboutcompanies() {
     review: "",
   });
 
-  const fetchCompanyDetails = async () => {
+  const fetchCompanyDetailsByRecId = async () => {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompanies/${createdBy}`
+        `http://localhost:2000/api/getEmployerCompaniesByRecId/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -47,19 +48,74 @@ function Aboutcompanies() {
     }
   };
 
+  const fetchJobsById = async () => {
+    try {
+      setMiniloading(true);
+      const response = await axios.get(
+        `http://localhost:2000/api/getJobsById/${role === "employer" ? id : createdBy}?page=${page}&limit=${limit}&role=${role}`
+      );
+      const { jobs, totalCount, totalPages } = response.data;
+
+      setJobs(jobs);
+      setTotalCount(totalCount);
+      setTotalpages(totalPages);
+      setError("");
+    } catch (err) {
+      console.error("Error fetching employer jobs:", err);
+      setError(err.response?.data?.message || "Failed to fetch jobs.");
+    } finally {
+      setTimeout(() => setMiniloading(false), 500);
+    }
+  };
+
+
   useEffect(() => {
-    if (createdBy) {
-      fetchCompanyDetails();
+    if (createdBy && role === "recruiter" && isRec) {
+      fetchCompanyDetailsByRecId();
+      fetchJobsById()
     }
   }, [createdBy]);
+
+  const fetchCompanyDetails = async () => {
+    try {
+      setMiniloading(true);
+      const response = await axios.get(
+        `http://localhost:2000/api/getEmployerCompanies/${id}`
+      );
+      setCompany(response.data);
+    } catch (err) {
+      console.error("Failed to fetch company details:", err);
+      setError(err.message);
+    } finally {
+      setTimeout(() => {
+        setMiniloading(false);
+      }, 500);
+    }
+  };
+
+
+
+  useEffect(() => {
+    if (id) {
+      fetchCompanyDetails()
+      fetchJobsById()
+
+    }
+    else if (companyName) {
+      fetchEmployerJobs()
+    }
+  }, [id]);
+
+
+ 
 
   const fetchEmployerJobs = async () => {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
-        )}&page=${page}&limit=${limit}`
+        )}&page=${page}&limit=${limit}&createdBy=${createdBy}`
       );
 
       const { jobs, totalCount, totalPages } = response.data;
@@ -75,37 +131,18 @@ function Aboutcompanies() {
     }
   };
 
-  useEffect(() => {
-    if (companyName) {
-      fetchEmployerJobs();
-    }
-  }, [companyName, page, limit]);
+  // useEffect(() => {
+  //   if (companyName && role === "recruiter") {
+  //     fetchEmployerJobs();
+  //   }
+  // }, [companyName, page, limit]);
 
-  const fetchJobsById = async () => {
-    try {
-      setMiniloading(true);
-      const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getJobsById/${createdBy}?page=${page}&limit=${limit}`
-      );
-      const { jobs, totalCount, totalPages } = response.data;
 
-      setJobs(jobs);
-      setTotalCount(totalCount);
-      setTotalpages(totalPages);
-      setError("");
-    } catch (err) {
-      console.error("Error fetching employer jobs:", err);
-      setError(err.response?.data?.message || "Failed to fetch jobs.");
-    } finally {
-      setTimeout(() => setMiniloading(false), 500);
-    }
-  };
-
-  useEffect(() => {
-    if (createdBy) {
-      fetchJobsById();
-    }
-  }, [createdBy, page, limit]);
+  // useEffect(() => {
+  //   if (createdBy || role === "employer") {
+  //     fetchJobsById();
+  //   }
+  // }, [createdBy, page, limit, role]);
 
   const handleClick = () => {
     setShowPopup(true);
@@ -124,7 +161,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/reviews",
+        "http://localhost:2000/api/reviews",
         reviewData
       );
       toast.success(response.data.message);
@@ -139,7 +176,7 @@ function Aboutcompanies() {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getreview/${id}`
+          `http://localhost:2000/api/getreview/${id}`
         );
         const { averageRating, totalReviews, totalRatingCount } = response.data;
 
@@ -160,22 +197,22 @@ function Aboutcompanies() {
         <MiniLoader />
       ) : (
         <>
-          <div className="customMargins py-[24px] ">
-            <div className="flex md:flex-row flex-col md:justify-between gap-2 md:items-center items-start pb-6">
-              {createdBy ? (
+          <div className="customMargins py-[24px] flex flex-col gap-6 ">
+            <div className="flex md:flex-row flex-col md:justify-between gap-2 md:items-center items-start ">
+              {(isRec || id) ? (
                 <div className="flex items-center gap-4 ">
-                  <div className="w-[98px] h-[48px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
+                  <div className="w-[98px] h-[54px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                     {role === "recruiter" ? (
                       company?.profilePicture ? (
                         <img
                           src={company?.profilePicture}
-                          className=" object-contain  h-[48px]"
+                          className=" object-contain  h-[40px]"
                           alt="Profile"
                         />
                       ) : (
                         <svg
                           width="98"
-                          height="48"
+                          height="40"
                           viewBox="0 0 74 74"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -200,12 +237,12 @@ function Aboutcompanies() {
                     ) : company?.companyLogo ? (
                       <img
                         src={company?.companyLogo}
-                        className="rounded-lg w-[76px] h-[48px] object-contain"
+                        className="rounded-lg w-[76px] h-[40px] object-contain"
                         alt="Company Logo"
                       />
                     ) : (
                       <img
-                        className="w-[144px] h-[48px] object-contain"
+                        className="w-[76px] h-[40px] object-contain"
                         src="/images/jobs/logo.png"
                         alt="logo"
                       />
@@ -229,17 +266,17 @@ function Aboutcompanies() {
               ) : (
                 <div className="flex items-center gap-4 ">
                   {jobs[0]?.logo ? (
-                    <div className="w-[98px] h-[48px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
+                    <div className="w-[98px] h-[54px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                       <img
                         src={jobs[0]?.logo}
-                        className="rounded-lg w-[76px] h-[48px] object-contain"
+                        className="rounded-lg w-[76px] h-[40px] object-contain"
                         alt="Job Logo"
                       />
                     </div>
                   ) : (
-                    <div className="w-[98px] h-[48px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
+                    <div className="w-[98px] h-[54px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                       <img
-                        className="w-[144px]  h-[48px] object-contain"
+                        className="w-[76px]  h-[40px] object-contain"
                         src="/images/jobs/logo.png"
                         alt="logo"
                       />
@@ -271,7 +308,7 @@ function Aboutcompanies() {
               </button>
             </div>
 
-            {role !== "recruiter" && (
+            {companyName &&
               <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
@@ -280,11 +317,22 @@ function Aboutcompanies() {
                   {jobs[0]?.aboutOrganization}
                 </div>
               </div>
-            )}
+            }
+            {id &&
+              <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
+                <div className="sm:text-[16px] text-[12px] font-[600]">
+                  About Company
+                </div>
+                <div className="sm:text-[14px] text-[10px]  font-[400]">
+                  {company?.about}
+                </div>
+              </div>
+
+
+            }
             <div
-              className={`flex flex-col gap-6 ${
-                role === "recruiter" ? "pt-0" : "pt-6"
-              }`}
+              className={`flex flex-col gap-6 ${role === "recruiter" ? "pt-0" : "pt-6"
+                }`}
             >
               <div className="flex flex-wrap justify-between gap-4">
                 <div className="flex-1 min-w-[300px]">

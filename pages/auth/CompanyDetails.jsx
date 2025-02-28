@@ -229,7 +229,7 @@ function CompanyDetails({
     }
 
     axios
-      .post("https://dev.api.skilotech.com/api/skiloteckuser/companyCheck", {
+      .post("http://localhost:2000/api/skiloteckuser/companyCheck", {
         companyEmail: formData.companyEmail,
       })
       .then((res) => {

@@ -65,7 +65,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setLoading1(true);
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/hiring/moveToHiringMultiple/${id}`,
+        `http://localhost:2000/api/hiring/moveToHiringMultiple/${id}`,
         { applicantIds }
       );
       setLoading1(false);
@@ -168,7 +168,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -193,7 +193,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const fetchJobDetailsHeder = async (id, setJobData) => {
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/job/getJobDetailsById/${id}`
+        `http://localhost:2000/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
     } catch (error) {
@@ -210,7 +210,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/job/getByIdApplication/${id}`,
+        `http://localhost:2000/api/job/getByIdApplication/${id}`,
         {
           params: {
             page: page,

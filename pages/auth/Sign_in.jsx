@@ -10,68 +10,68 @@ import { auth } from "../../utils/firebase";
 import { fetchUserData } from "../../Redux/slices/userSlice";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-function Sign_in({ setSignIn, setSignUp }) {
-  const { role } = useRouter().query;
-  const dispatch = useDispatch();
-  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
-  const [loading, setLoading] = useState(false);
-  const [isEmailEntered, setIsEmailEntered] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const auth = getAuth();
-  const taskRef = useRef(null);
-  const handleGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      setGoogleLoading(true);
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userData = {
-        name: user.displayName,
-        email: user.email,
-        userRole: role,
-      };
-      const sendToPurchase = localStorage.getItem("purchase");
-      const sendToPurchaseResult = JSON.parse(sendToPurchase);
-      axios
-        .post(
-          "https://dev.api.skilotech.com/api/skiloteckuser/user/google/signup",
-          { userData }
-        )
-        .then((res) => {
-          localStorage.setItem("authToken", JSON.stringify(res.data));
-          if (sendToPurchaseResult?.status) {
-            localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${
-              sendToPurchaseResult.index + 1
-            }`;
-          } else {
+
+function Sign_in({  setSignIn, setSignUp }) {
+    const { role } = useRouter().query;
+    const dispatch = useDispatch();
+    const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
+    const [loading, setLoading] = useState(false);
+    const [isEmailEntered, setIsEmailEntered] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
+    const auth = getAuth();
+    const taskRef = useRef(null);
+    const handleGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            setGoogleLoading(true);
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const userData = {
+                name: user.displayName,
+                email: user.email,
+                userRole: role
+            };
+            const sendToPurchase = localStorage.getItem("purchase");
+            const sendToPurchaseResult = JSON.parse(sendToPurchase);
+            axios
+                .post(
+                    "http://localhost:2000/api/skiloteckuser/user/google/signup",
+                    {userData}
+                )
+                .then((res) => {
+                    localStorage.setItem("authToken", JSON.stringify(res.data));
+                    if (sendToPurchaseResult?.status) {
+                        localStorage.removeItem("purchase");
+                        window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
+                            }`;
+                    } else {
+                        setGoogleLoading(false);
+                        window.location.href = "/?signIn=true";
+                    }
+                })
+                .catch((err) => {
+                    setGoogleLoading(false);
+                    console.log(err);
+                    toast.error(err.response.data.message);
+                });
+        } catch (error) {
+            if (error.code === "auth/cancelled-popup-request") {
+                console.log("Sign-in with Google popup was cancelled by the user.");
+            } else {
+                console.log("Error signing in with Google:", error.message);
+            }
             setGoogleLoading(false);
-            window.location.href = "/?signIn=true";
-          }
-        })
-        .catch((err) => {
-          setGoogleLoading(false);
-          console.log(err);
-          toast.error(err.response.data.message);
-        });
-    } catch (error) {
-      if (error.code === "auth/cancelled-popup-request") {
-        console.log("Sign-in with Google popup was cancelled by the user.");
-      } else {
-        console.log("Error signing in with Google:", error.message);
-      }
-      setGoogleLoading(false);
-    }
-  };
-  const handleOutsideClick = (event) => {
-    if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setIsForgot(false);
-      localStorage.setItem("purchase", false);
-    }
-  };
-  const openInNewTab = (url) => {
-    window.open(url, "_blank");
-  };
+        }
+    };
+    const handleOutsideClick = (event) => {
+        if (taskRef.current && !taskRef.current.contains(event.target)) {
+            setIsForgot(false);
+            localStorage.setItem("purchase", false);
+        }
+    };
+    const openInNewTab = (url) => {
+        window.open(url, "_blank");
+    };
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("authToken"));
@@ -97,55 +97,52 @@ function Sign_in({ setSignIn, setSignUp }) {
     setError(null);
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const dataToSend = {
-      email: data.email.toLowerCase(),
-      password: data.password,
-      role: role,
+    const submitHandler = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const dataToSend = {
+            email: data.email.toLowerCase(),
+            password: data.password,
+            role: role,
+        };
+        axios
+            .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
+            .then((res) => {
+                try {
+                    const response = res.data;
+                    localStorage.setItem("authToken", JSON.stringify(response));
+                    dispatch(fetchUserData());
+                    toast.success("Sign in Successfully");
+                    if (sendToPurchase?.status) {
+                        localStorage.removeItem("purchase");
+                        setTimeout(() => {
+                            setLoading(false);
+                            window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                                }`;
+                        }, 1000);
+                        
+                    } else {
+                        setTimeout(() => {
+                            setLoading(false);
+                            window.location.href = role === "user" ? "/home?signIn=true" :"/?signIn=true";
+
+                        }, 1000);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            })
+            .catch((err) => {
+                setError(err?.response?.data.message);
+                console.log(err.response);
+                setLoading(false);
+            });
     };
-    axios
-      .post(
-        "https://dev.api.skilotech.com/api/skiloteckuser/signin",
-        dataToSend
-      )
-      .then((res) => {
-        try {
-          const response = res.data;
-          localStorage.setItem("authToken", JSON.stringify(response));
-          dispatch(fetchUserData());
-          toast.success("Sign in Successfully");
-          if (sendToPurchase?.status) {
-            localStorage.removeItem("purchase");
-            setTimeout(() => {
-              setLoading(false);
-              window.location.href = `/purchase/details?id=${
-                sendToPurchase.index + 1
-              }`;
-            }, 1000);
-          } else {
-            setTimeout(() => {
-              setLoading(false);
-              window.location.href =
-                role === "user" ? "/home?signIn=true" : "/?signIn=true";
-            }, 1000);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      })
-      .catch((err) => {
-        setError(err?.response?.data.message);
-        console.log(err.response);
-        setLoading(false);
-      });
-  };
-  const handleEmailChange = (e) => {
-    const lowercaseEmail = e.target.value.toLowerCase();
-    setData({ ...data, email: e.target.value });
-    clearError();
-  };
+    const handleEmailChange = (e) => {
+        const lowercaseEmail = e.target.value.toLowerCase();
+        setData({ ...data, email: e.target.value });
+        clearError();
+    };
 
   const handlePasswordChange = (e) => {
     setData({ ...data, password: e.target.value });
