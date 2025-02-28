@@ -83,9 +83,12 @@ const TopCompanies = () => {
                             alt={`${job.name} Icon`}
                           />
                           <div className="flex flex-col items-center">
-                            <div className="text-[16px] font-[600]">
-                              {job.name}
+                            <div className="sm:text-[16px] text-[12px] font-[600]">
+                              {job.name.length > 12
+                                ? job.name.slice(0, 12) + "..."
+                                : job.name}
                             </div>
+
                             <div className="flex items-center xsm:flex-col scr420:flex-row gap-[5px]">
                               <div className="flex gap-[4px]">
                                 <div className="w-[14px] h-[14px]">
