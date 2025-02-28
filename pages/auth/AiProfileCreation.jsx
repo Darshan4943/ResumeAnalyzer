@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react'
 import { DocSVG, PDFSvg, PNGICON } from '../../utils/svg';
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
+import Tesseract from "tesseract.js";
+
 import axios from 'axios';
 import MiniLoader from '../../components/common/mini-loader';
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;

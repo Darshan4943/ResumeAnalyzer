@@ -36,7 +36,7 @@ export const Api = ({}) => {
   const [allPlans, setAllPlans] = useState([]);
 
   const dispatch = useDispatch();
-  dispatch(setShareJobClose());
+  // dispatch(setShareJobClose());
   useEffect(() => {
     const handleRouteChange = () => {
       localStorage.setItem("viewed", JSON.stringify(false));

@@ -26,7 +26,7 @@ function Layout({ children }) {
   const [selectedPage, setSelectedPage] = useState("");
   const pageOpened = useSelector((state) => state?.website?.pageOpened);
   const shareJob = useSelector((state) => state?.shareJob?.shareJob);
-  console.log(shareJob)
+ 
   const [isSubscribe, setIsSubscrib] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);

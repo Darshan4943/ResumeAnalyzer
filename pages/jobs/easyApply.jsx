@@ -1,8 +1,11 @@
 
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react'
-
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
+import Tesseract from "tesseract.js";
+
 import axios from 'axios';
 import { DocSVG, PDFSvg, PNGICON } from '../../utils/svg';
 import MiniLoader from '../../components/common/mini-loader';
@@ -41,6 +44,7 @@ function EasyApply() {
     const router = useRouter();
     const { id } = router.query
     const [loading, setLoading] = useState(false);
+    console.log(555,loading)
     const [fileData, setFileData] = useState(null);
     const [tab, setTab] = useState(0);
     const [uploadLimit, setUploadLimit] = useState(0);
@@ -50,6 +54,7 @@ function EasyApply() {
     const [count, setCount] = useState(0);
     const [docfileError, setDocFileError] = useState(false);
     const [planAvailable, setplanAvailable] = useState(false);
+
     const handleButtonClick = () => {
         fileRef.current.click();
     }
@@ -99,6 +104,7 @@ function EasyApply() {
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
                 file?.type == "application/msword"
             ) {
+
                 const reader = new FileReader();
                 reader.onload = async (e) => {
                     try {
@@ -131,6 +137,7 @@ function EasyApply() {
                 };
                 reader.readAsBinaryString(file);
             } else if (file?.type == "image/png") {
+
                 Tesseract.recognize(file, "eng", {
                     logger: (m) => console.log(m),
                 })
@@ -142,6 +149,7 @@ function EasyApply() {
                         console.error(err);
                     });
             } else if (file?.type == "application/pdf") {
+
                 let fullText = "";
                 const pdfTextPromises = [];
                 const fileUrl = URL.createObjectURL(file);
@@ -172,6 +180,7 @@ function EasyApply() {
 
         setLoading(true);
         extracteText(file).then((result) => {
+
 
             if (result[0]?.text?.length > 0) {
                 axios
@@ -289,7 +298,7 @@ function EasyApply() {
         dial_code: "",
         img: null,
     });
-    console.log(parseData)
+
     useEffect(() => {
 
         if (parseData) {

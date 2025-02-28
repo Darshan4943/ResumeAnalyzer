@@ -73,8 +73,9 @@ function NormalJobCard({ item }) {
             </div>
             <div
               onClick={(e) => {
-                router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&id=${item.companyId}`);
                 e.stopPropagation();
+                router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&id=${item.companyId}`);
+             
               }}
               className="text-[12px] font-medium cursor-pointer w-fit"
             >
@@ -82,8 +83,9 @@ function NormalJobCard({ item }) {
             </div>
             {item?.role === "recruiter" &&
               <div onClick={(e) => {
-                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
                 e.stopPropagation();
+                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item?.role}`);
+              
               }} className="text-[12px] font-medium cursor-pointer">
                 posted by Recruiter ({camelCase(item?.createdByName)})
               </div>
