@@ -49,7 +49,7 @@ function Index() {
                 <img
                   src={i.companyLogo}
                   alt={`${i.name} logo`}
-                  className="h-[56px] w-[56px] border-[1px] border-solid border-[#DEDEDE] rounded-[6px] object-contain"
+                  className="min-h-[56px] min-w-[56px] max-w-[56px] max-h-[56px] rounded-[6px] object-contain"
                 />
                 <div className="flex flex-col gap-[6px]">
                   <span className="text-[14px] font-[500] text-[#333333]">
@@ -77,13 +77,15 @@ function Index() {
                     </span>
                   </div>
                   <div className="py-[2px] px-[6px] border-[0.5px] border-solid border-[#DEDEDE] text-[10px] font-[400] text-[#333333] rounded-[12px]">
-                    {i.about}
+                    {/* {i.about} */}IT Services & Consulting
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="hidden scr700:block min-w-[357px] h-[256px] bg-[#D9D9D9]"></div>
+          <div className="hidden scr700:block min-w-[357px] max-w-[357px] h-[256px] bg-[#D9D9D9]">
+            <img src="/images/topcomp.png" alt="" />
+          </div>
         </div>
       </div>
     </>

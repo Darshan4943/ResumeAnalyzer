@@ -98,7 +98,7 @@ function Profile() {
 
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
-          <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px]">
+          <div className="profile_left_section ml:sticky ml:top-[84px] max-w-[262px] hidden ml:inline-flex">
             {/* <div className="score_all">
               <div className="profile_score">
                 <div class="circle-border" style={containerStyle}>
