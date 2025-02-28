@@ -189,7 +189,7 @@ const SignUp = () => {
       <div className="text-[14px] font-[500] text-[#646464]">
         Already have an account?{" "}
         <span
-          onClick={() => router.push("/auth/Sign_in?role=employer")}
+          onClick={() => router.push(role === "recruiter" ? "/auth/Sign_in?role=recruiter " : "/auth/Sign_in?role=employer")}
           className="text-[#06A9EF] cursor-pointer"
         >
           Sign In
