@@ -1,11 +1,12 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function Index() {
   const [company, setCompany] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const router = useRouter();
   const topCompam = async () => {
     setLoading(true);
     setError(null);
@@ -43,6 +44,11 @@ function Index() {
             {company?.map((i, index) => (
               <div
                 key={index}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/jobs/candidate/aboutcompanies?id=${i._id}`);
+               
+                }}
                 className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px]"
               >
                 <img
