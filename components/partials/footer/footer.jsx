@@ -114,6 +114,12 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             <div className="footer_about_section ">
               <p className="text-[#fff] font-[500] text-[16px]">About</p>
               <div className="footer_sub_about gap-[4px]">
+              <p
+                  onClick={() => openInNewTab("/Blogs")}
+                  className="footer_sub_about_P cursor-pointer"
+                >
+                 Blogs
+                </p>
                 <p
                   onClick={() => openInNewTab("/TermsAndConditions")}
                   className="footer_sub_about_P cursor-pointer"

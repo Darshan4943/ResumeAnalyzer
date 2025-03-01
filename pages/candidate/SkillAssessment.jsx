@@ -23,7 +23,6 @@ function SkillAssessment() {
   const resumeRef2 = useRef();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { profileData } = useSelector((state) => state.profile.profileData);
-  console.log(userDataGlobal);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const router = useRouter();
   const query = router.query;

@@ -31,7 +31,6 @@ function Aboutcompanies() {
 
   const [reviewData, setReviewData] = useState({
     companyId: id ? id : "",
-
   });
 
   const fetchCompanyDetailsByRecId = async () => {
@@ -55,7 +54,9 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getJobsById/${id ? id : createdBy}?page=${page}&limit=${limit}&role=${role}`
+        `http://localhost:2000/api/getJobsById/${
+          id ? id : createdBy
+        }?page=${page}&limit=${limit}&role=${role}`
       );
       const { jobs, totalCount, totalPages } = response.data;
 
@@ -71,11 +72,10 @@ function Aboutcompanies() {
     }
   };
 
-
   useEffect(() => {
     if (createdBy && role === "recruiter" && isRec) {
       fetchCompanyDetailsByRecId();
-      fetchJobsById()
+      fetchJobsById();
     }
   }, [createdBy]);
 
@@ -96,21 +96,14 @@ function Aboutcompanies() {
     }
   };
 
-
-
   useEffect(() => {
     if (id) {
-      fetchCompanyDetails()
-      fetchJobsById()
-
-    }
-    else if (companyName) {
-      fetchEmployerJobs()
+      fetchCompanyDetails();
+      fetchJobsById();
+    } else if (companyName) {
+      fetchEmployerJobs();
     }
   }, [id]);
-
-
-
 
   const fetchEmployerJobs = async () => {
     try {
@@ -139,7 +132,6 @@ function Aboutcompanies() {
   //     fetchEmployerJobs();
   //   }
   // }, [companyName, page, limit]);
-
 
   // useEffect(() => {
   //   if (createdBy || role === "employer") {
@@ -170,8 +162,7 @@ function Aboutcompanies() {
 
       toast.success(response.data.message);
       setShowPopup(false);
-      fetchReviews()
-
+      fetchReviews();
     } catch (error) {
       console.error("Failed to submit review:", error.response?.data?.message);
       toast.error("Failed to submit review. Please try again.");
@@ -204,8 +195,11 @@ function Aboutcompanies() {
         );
         const review = response.data.reviews[0];
 
-        setReviewData({ ...reviewData, review: review.review, rating: review.rating });
-
+        setReviewData({
+          ...reviewData,
+          review: review.review,
+          rating: review.rating,
+        });
       } catch (error) {
         console.error("Failed to fetch reviews:", error);
       }
@@ -213,7 +207,6 @@ function Aboutcompanies() {
 
     if (userDataGlobal) fetchReviews();
   }, [userDataGlobal]);
-
 
   return (
     <div className="customMargins">
@@ -223,7 +216,7 @@ function Aboutcompanies() {
         <>
           <div className="customMargins py-[24px] flex flex-col gap-6 ">
             <div className="flex md:flex-row flex-col md:justify-between gap-2 md:items-center items-start ">
-              {(isRec || id) ? (
+              {isRec || id ? (
                 <div className="flex items-center gap-4 ">
                   <div className="w-[98px] h-[54px] bg-white rounded-xl border-[1px] border-[#DEDEDE] flex items-center justify-center">
                     {role === "recruiter" ? (
@@ -279,7 +272,9 @@ function Aboutcompanies() {
                     </h2>
                     {role !== "recruiter" && (
                       <div className="items-start justify-start">
-                        <h2 className="text-[14px] font-[600]">{companyName}</h2>
+                        <h2 className="text-[14px] font-[600]">
+                          {companyName}
+                        </h2>
 
                         <div className="flex items-center gap-1 text-sm mt-1">
                           ⭐{" "}
@@ -329,7 +324,7 @@ function Aboutcompanies() {
                   </div>
                 </div>
               )}
-              {id &&
+              {id && (
                 <button
                   onClick={() => {
                     handleClick();
@@ -338,10 +333,10 @@ function Aboutcompanies() {
                 >
                   Give Us Your Feedback
                 </button>
-              }
+              )}
             </div>
 
-            {companyName &&
+            {companyName && (
               <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
@@ -356,8 +351,8 @@ function Aboutcompanies() {
                   }}
                 />
               </div>
-            }
-            {id &&
+            )}
+            {id && (
               <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
@@ -370,14 +365,13 @@ function Aboutcompanies() {
                   }}
                 />
               </div>
-
-
-            }
+            )}
             <div
-              className={`flex flex-col gap-6 ${role === "recruiter" ? "pt-0" : "pt-6"
-                }`}
+              className={`flex flex-col gap-6 ${
+                role === "recruiter" ? "pt-0" : "pt-6"
+              }`}
             >
-              {jobs.length > 0 ?
+              {jobs.length > 0 ? (
                 <div className="flex flex-wrap justify-between gap-4">
                   <div className="flex-1 min-w-[300px]">
                     <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
@@ -403,9 +397,9 @@ function Aboutcompanies() {
                     </div>
                   </div>
                 </div>
-                :
+              ) : (
                 <NoJobs />
-              }
+              )}
             </div>
           </div>
           {showPopup && (
