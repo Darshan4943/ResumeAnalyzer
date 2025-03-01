@@ -143,7 +143,43 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
       setLoading(false);
     }
   };
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button
+          className="ql-align"
+          value=""
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
 
+  const header = renderHeader();
   return (
     <>
 
@@ -432,12 +468,13 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
           </div>
           {showEditor && (
             <Editor
+            headerTemplate={header}
               value={data.note}
               onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{
                 border: formError.description
                   ? "2px solid red"
-                  : "2px solid #dedede",
+                  : "0px solid #dedede",
                 fontSize: "16px",
                 color: "#333",
                 padding: "10px",

@@ -125,6 +125,44 @@ const CreateNewRequisition = ({ setToggle }) => {
     setApprovalChoice(value);
     setShowApprovalChain(value === "yes");
   };
+
+  const renderHeader = () => {
+    return (
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold"></button>
+        <button className="ql-italic" aria-label="Italic"></button>
+        <button className="ql-underline" aria-label="Underline"></button>
+        <button className="ql-strike" aria-label="Strike"></button>
+        <button
+          className="ql-list"
+          value="ordered"
+          aria-label="Ordered List"
+        ></button>
+        <button
+          className="ql-list"
+          value="bullet"
+          aria-label="Unordered List"
+        ></button>
+        <button
+          className="ql-align"
+          value=""
+          aria-label="Align Left"
+        ></button>
+        <button
+          className="ql-align"
+          value="center"
+          aria-label="Align Center"
+        ></button>
+        <button
+          className="ql-align"
+          value="right"
+          aria-label="Align Right"
+        ></button>
+      </span>
+    );
+  };
+  const header = renderHeader();
+
   return (
     <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
       <div
@@ -293,6 +331,7 @@ const CreateNewRequisition = ({ setToggle }) => {
             <p>Job Description</p>
             <Editor
               value={data.description}
+              headerTemplate={header}
               onTextChange={(e) => handleChange1(e.htmlValue)}
               style={{
                 border: formError.description

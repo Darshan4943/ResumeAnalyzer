@@ -583,6 +583,7 @@ function ScheduleInterview({
                 </div>
                 <div className=" border border-[#DEDEDE] relative">
                   <Editor
+                  
                     value={mailDetails?.candidate?.content}
                     onTextChange={(e) => handleChange1(e.htmlValue)}
                     headerTemplate={header}

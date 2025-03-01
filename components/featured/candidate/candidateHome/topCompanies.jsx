@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -40,7 +39,7 @@ const TopCompanies = () => {
   useEffect(() => {
     topCompam();
   }, []);
-  console.log(company)
+
 
   return (
     <div className="bg-white rounded-[16px] p-3 sm:p-6  gap-[20px] ">

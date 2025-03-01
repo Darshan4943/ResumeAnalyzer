@@ -663,7 +663,7 @@ function CreateNewJob() {
         ></button>
         <button
           className="ql-align"
-          value="left"
+        
           aria-label="Align Left"
         ></button>
         <button

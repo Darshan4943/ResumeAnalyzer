@@ -304,7 +304,7 @@ function CreateCompany() {
         ></button>
         <button
           className="ql-align"
-          value="left"
+          // value="left"
           aria-label="Align Left"
         ></button>
         <button
