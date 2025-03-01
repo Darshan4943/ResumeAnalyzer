@@ -276,7 +276,7 @@ function MyPurchase() {
               <div className=" flex flex-col gap-10  rounded-[16px]">
                 <Summary
                   limits={limits}
-                  selectedPlan={selectedPlan}
+                  selectedPlan={plan}
                   isActive={isActive}
                   loading={loading}
                   setLoading={setLoading}
@@ -289,7 +289,7 @@ function MyPurchase() {
                 >
                   <div className="flex scr1100:flex-row flex-col scr1200:gap-6 gap-4 w-[100%] justify-center ">
                     <div className="flex md:flex-row flex-col gap-6  scr1100:w-[60%] w-[100%] items-center justify-between ">
-                      <div className="flex flex-col gap-6  md:w-[40%] w-[100%] items-center justify-between">
+                      <div className="flex flex-col gap-4  md:w-[40%] w-[100%] items-center justify-between">
                         <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
                           <p className="text-[20px] font-[600]">
                             {plan?.type === "candidate" && (
@@ -387,7 +387,7 @@ function MyPurchase() {
                                     : "Purchase"}
                               </button>
                             )}
-                            {userDataGlobal?.role === "recruiter" && (
+                            {(userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "recruiter") && (
                               <button
                                 onClick={() => router.push("/purchase/plans")}
                                 disabled={
@@ -397,12 +397,12 @@ function MyPurchase() {
                                     limits?.total?.coverStoredLimit ||
                                     limits?.used?.resumeStored >=
                                     limits?.total?.resumeStoredLimit ||
-                                    limits?.used?.skillTest >=
-                                    limits?.total?.skillTestLimit ||
-                                    limits?.used?.skillCertified >=
-                                    limits?.total?.skillCertifiedLimit ||
-                                    limits?.used?.chatBot?.monthly >=
-                                    limits?.total?.chatBotLimit?.monthly
+                                    limits?.used?.chatBot?.daily >=
+                                    limits?.total?.chatBotLimit?.daily ||
+                                    limits?.used?.jdMatching?.monthly >=
+                                    limits?.total?.jdMatchingLimit?.monthly ||
+                                    limits?.used?.collectionStored?.monthly >=
+                                    limits?.total?.collectionStoredLimit?.monthly
                                   )
                                 }
                                 className={`px-9 py-3  ${limits?.used?.coverStored >=
@@ -516,9 +516,9 @@ function MyPurchase() {
                       {plan?.features?.map((feature, index) => (
                         <div key={index} className="flex gap-4 items-start ">
                           <svg
-                            className="min-w-[20px]"
-                            width="20"
-                            height="18"
+                            className="min-w-[20px] mt-[2px]"
+                            width="18"
+                            height="16"
                             viewBox="0 0 20 18"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -530,7 +530,7 @@ function MyPurchase() {
                               }
                             />
                           </svg>
-                          <p className="text-[14px] font-[500]">{feature}</p>
+                          <p className="text-[12px] font-[500]">{feature}</p>
                         </div>
                       ))}
                     </div>

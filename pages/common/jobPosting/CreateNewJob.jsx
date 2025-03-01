@@ -663,7 +663,7 @@ function CreateNewJob() {
         ></button>
         <button
           className="ql-align"
-          value="left"
+          value=""
           aria-label="Align Left"
         ></button>
         <button
@@ -1213,13 +1213,13 @@ function CreateNewJob() {
                                 style={{
                                   border: formError.description
                                     ? "2px solid red"
-                                    : "2px solid #DEDEDE",
+                                    : "0px solid #DEDEDE",
                                   fontSize: "16px",
                                   color: "#333",
                                   padding: "10px",
                                   minHeight: "196px",
-                                  borderBottomLeftRadius: "8px",
-                                  borderBottomRightRadius: "8px",
+                                  // borderBottomLeftRadius: "8px",
+                                  // borderBottomRightRadius: "8px",
                                 }}
                               />
                             )}

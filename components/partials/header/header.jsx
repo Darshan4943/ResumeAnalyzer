@@ -103,7 +103,7 @@ function Header({ userData }) {
       <div className="flex justify-center  z-[10000000] customMargins relative w-full ">
         <div
           className={`flex justify-between w-[100%] transition-all duration-500 ease-in-out bg-white`}
-          style={{ height: isSearch ? "168px" : "70px" }}
+          style={{ height: isSearch ? "168px" : "60px" }}
         >
 
 
@@ -112,13 +112,13 @@ function Header({ userData }) {
             <div className="flex py-3 scr900:gap-9  gap-4 list-none w-full">
               <Link href="/">
                 <img
-                  className=" object-contain min-h-[40px] h-[40px] min-w-[119px]"
+                  className=" object-contain min-h-[36px] h-[36px] min-w-[119px]"
                   src="/images/logo_skilotech.png"
                   alt=""
                 />
               </Link>
               {!isLogin ?
-                <div className=" flex items-center h-[40px] scr900:gap-9 gap-4 mt-1">
+                <div className=" flex items-center h-[40px] scr900:gap-9 gap-4 ">
                   <div
                     onClick={() => {
                       router.push("/jobs/candidate");
@@ -155,7 +155,7 @@ function Header({ userData }) {
                   </div>
                 </div>
                 :
-                <div className="flex items-center gap-9 h-[50px]">
+                <div className="flex items-center gap-9 h-[40px]">
                   {userDataGlobal?.role == "user" &&
                      <motion.div
                      initial={{ opacity: 1, scale: 1 }}
@@ -318,12 +318,12 @@ function Header({ userData }) {
                       :
                       <div
                         onClick={() => setIsSearch(true)}
-                        className={` scr1067:ml-[-80px] flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-1 py-1`}
+                        className={` scr1067:ml-[-80px] flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-[3px] h-[37px] `}
                       >
                         <div className="text-[14px] font-medium text-[#889FBA]">
                           UX Designer
                         </div>
-                        <div className="bg-blue rounded-[50%] h-[38px] w-[38px] flex justify-center items-center">
+                        <div className="bg-blue rounded-[50%] h-[30px] w-[30px] flex justify-center items-center">
                           <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                             <g mask="url(#mask0_8338_107109)">
@@ -351,7 +351,7 @@ function Header({ userData }) {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
                 layout
-               className="relative flex gap-4 justify-end  items-center w-[30%]  h-[50px] mt-[10px] ">
+               className="relative flex gap-4 justify-end  items-center w-[30%]  h-[50px] mt-[4px] ">
 
                 <div
                   onClick={() => setIsLogout(!isLogout)}
@@ -509,7 +509,7 @@ function Header({ userData }) {
               </motion.div>
               :
 
-              <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] m-4">
+              <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] mt-[10px]">
                 <motion.button
                   onClick={() => router.push("/auth?signin=true")}
                   className="buttonTransparent scr1150:min-w-[123px] scr1024:min-w-[110px] min-w-[100px] rounded-[30px] flex justify-center items-center bg-white text-[#333] py-[10px] h-[42px] scr1150:px-6 scr1024:px-3 px-2 text-[14px] font-semibold border-[1px] border-[#06A9EF] hover:bg-[#06A9EF] hover:text-[white] leading-[18px]"

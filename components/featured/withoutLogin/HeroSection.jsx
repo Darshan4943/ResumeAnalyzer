@@ -120,7 +120,7 @@ function HeroSection() {
                                         router.push(`/jobs/candidate?search=${true}&loc=${location}&exp=${experience}&jobTit=${jobTitle}`);
 
                                     }}
-                                    className="ms:block hidden scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] w-[76px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
+                                    className="ms:block hidden relative z-[10] scr1100:text-[14px] text-[12px]  font-[600] text-[#FFFFFF] scr1100:h-[42px] h-[32px] scr1100:w-[122px] w-[76px] scr1100:px-9 px-4 bg-blue rounded-[30px] border border-blue"
                                 >
                                     Search
 

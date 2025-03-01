@@ -49,7 +49,7 @@ function Layout({ children }) {
             <Header />
           </div>
         }
-        <div className="pt-[70px] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
+        <div className="pt-[60px] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
         <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
       </div>
     </>

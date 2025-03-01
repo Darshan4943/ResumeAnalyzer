@@ -6,6 +6,7 @@ import { plans } from "../../../../../utils/data";
 import MiniLoader from "../../../../common/miniLoader";
 
 function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
+ 
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);

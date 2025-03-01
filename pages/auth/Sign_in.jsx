@@ -140,7 +140,7 @@ function Sign_in({  setSignIn, setSignUp }) {
     };
     const handleEmailChange = (e) => {
         const lowercaseEmail = e.target.value.toLowerCase();
-        setData({ ...data, email: e.target.value });
+        setData({ ...data, email: e.target.value.toLowerCase() });
         clearError();
     };
 
