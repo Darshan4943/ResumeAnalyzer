@@ -10,6 +10,7 @@ import TopSection from "../../components/featured/dashboard/TopSection";
 import JobStatistics from "../../components/featured/dashboard/JobStatistics";
 import RecentApplications from "../../components/featured/dashboard/RecentApplications";
 import CountUp from "react-countup";
+import Services from "../../components/featured/candidate/createResume/components/services";
 
 function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -47,108 +48,6 @@ function Dashboard({ toggleContentt }) {
   };
 
 
-  const handleNavigation = (page) => {
-    router.push(page);
-  };
-  const loginListRecruiter = [
-    {
-      name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/createResume.png",
-    },
-    {
-      name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/cover.png",
-    },
-    { name: "Candidates", imgSrc: "/images/resumeBuilder/my_clients.png" },
-    // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
-    {
-      name: "JD Matching",
-      imgSrc: "/images/resumeBuilder/job_description_matching.png",
-    },
-    {
-      name: "My Collection",
-
-      imgSrc: "/images/resumeBuilder/collection.png",
-    },
-    // { name: "Ask Krut", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    {
-      name: "Job Posting",
-      imgSrc: "/images/resumeBuilder/job.png",
-      new: "New",
-    },
-    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
-  ];
-  const list = () => {
-    if (userDataGlobal?.role === "user") {
-      return loginListCandidate;
-    } else if (userDataGlobal?.role === "recruiter") {
-      return loginListRecruiter;
-    } else return loginListRecruiter;
-  };
-  function handleItemClick(itemName) {
-    switch (itemName) {
-      case "Create New Resume":
-        handleNavigation(
-          userDataGlobal?.role === "user"
-            ? "/home/BuildResume"
-            : "/candidates/ClientResume"
-        );
-        break;
-      case "Create New Cover Letter":
-        handleNavigation(
-          userDataGlobal?.role === "user"
-            ? "/coverLetter"
-            : `/candidates/ClientResume?cover=true`
-        );
-        break;
-      case "Candidates":
-        handleNavigation("/candidates");
-        break;
-      case "Resume":
-        handleNavigation("/home/MyCollection");
-        break;
-      case "Transform CV":
-        handleNavigation("/transform/TransformJob");
-        break;
-      case "JD Matching":
-        handleNavigation("/JobMatching/SelectJob");
-        break;
-      case "My Purchases":
-        handleNavigation("/purchase/MyPurchase");
-        break;
-      case "My Website":
-        handleNavigation("/myWebsite");
-        break;
-      case "Ask Krut":
-        handleNavigation("/chatbot");
-        break;
-      case "My Collection":
-        handleNavigation(
-          userDataGlobal?.role === "user"
-            ? "/home/MyCollection"
-            : "/myCollection?folders=true"
-        );
-        break;
-      case "Skill Assessments & Certification":
-        handleNavigation("/home/SkillAssessment");
-        break;
-      case "Search Jobs":
-      case "Job Posting":
-        handleNavigation(
-          userDataGlobal?.role === "user"
-            ? "/jobs/search"
-            : "/common/jobPosting"
-        );
-        break;
-      default:
-        break;
-    }
-  }
-  const handleNavigate = (applicantId, jobId) => {
-    router.push(
-      `/employer/hiring/ApplicantDetails?applicantId=${applicantId}&id=${jobId}`
-    );
-  };
 
   const fetchJobStatistics = async () => {
     try {
@@ -385,38 +284,7 @@ function Dashboard({ toggleContentt }) {
         <RecentApplications isPending={isPending} />
       </div>
 
-      <div className="py-6 px-1 flex flex-col gap-6 ">
-        <p className="text-[20px] font-semibold text-[#333333]">Services</p>
-        <div
-          // style={{ border: "2px solid red" }}
-          className="flex gap-[16px] scr420:gap-12 flex-wrap justify-start "
-        >
-          {list().map((item, index) => (
-            <div
-              key={index}
-              className={
-                "job-card relative scr420:w-[162.67px] w-[132px] scr420:h-[154px] h-[124px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center bg-white"
-              }
-              onClick={() => handleItemClick(item.name)}
-            >
-              <img
-                src={item.imgSrc}
-                alt=""
-                className="scr420:w-[48px] w-[40px]  scr420:h-[48px] h-[40px] "
-              />
-
-              <div className="scr420:text-[14px] text-[12px] font-medium">
-                {item.name}
-              </div>
-              {item.new && (
-                <div className=" absolute scr420:right-4  scr420:top-4 right-2 top-2 flex justify-center items-center px-2  py-2 scr420:h-[19px] h-[15px] bg-[#F72C2C] rounded-[4px] text-[#FFF] scr420:text-[12px] text-[10px] font-medium leading-tight">
-                  {item.new}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      <Services/>
       <div className="py-6  flex flex-col gap-6">
         <p className="text-[20px] font-semibold text-[#333333]">
           Purchase Plans

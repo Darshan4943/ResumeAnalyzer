@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 function Services() {
   const router = useRouter();
-  const [candidate, setCandidate] = useState(true);
+  const [candidate, setCandidate] = useState("user");
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isServices, setServices] = useState(true);
@@ -26,52 +26,41 @@ function Services() {
   const loginListCandidate = [
     {
       name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/createResume.png",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       desc: "Provides concise, customized resumes for your career success.",
       color: "#06A9EF",
     },
     {
       name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/cover.png",
+      imgSrc: "/images/resumeBuilder/servicesCover.png",
       desc: "Highlight your application, key qualifications, and best skills",
-      color: "#9747FF",
+      color: "#06A9EF",
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collection.png",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
       desc: "Save multiple resumes & cover letters in cloud storage",
-      color: "#45ABA0",
+      color: "#06A9EF",
     },
-    // {
-    //   name: "My Resumes",
-    //   imgSrc: "/images/resumeBuilder/myResume.png",
-    //   desc: "Save multiple resumes with multiple folders in cloud storage.",
-    //   color: "#00D2EF",
-    // },
-    // {
-    //   name: "Transform CV",
-    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
-    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
-    //   color: "#428FF5",
-    // },
+ 
     {
       name: "Skill Assessments & Certification",
-      imgSrc: "/images/resumeBuilder/skill_assessments.png",
+      imgSrc: "/images/resumeBuilder/servicesSkill.png",
       desc: "Test your skills and improve knowledge to crack job interviews.",
-      color: "#FE7701",
+      color: "#06A9EF",
     },
     {
       name: "Ask Krut",
-      imgSrc: "/images/resumeBuilder/bot1.png",
+      imgSrc: "/images/resumeBuilder/servicesChat.png",
       desc: "Ask for anything and generate fast responses with our bot.",
-      color: "#7994D8",
+      color: "#06A9EF",
       new: "New",
     },
     {
       name: "My Website",
-      imgSrc: "/images/resumeBuilder/website.png",
+      imgSrc: "/images/resumeBuilder/servicesWebsite.png",
       desc: "Generate link to your profile preview to be seen anywhere.",
-      color: "#FD3A84",
+      color: "#06A9EF",
       new: "New",
     },
     // {
@@ -82,9 +71,9 @@ function Services() {
     // },
     {
       name: "Search Jobs",
-      imgSrc: "/images/resumeBuilder/job.png",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Find jobs matching to a particular resume and apply easily.",
-      color: "#6441A5",
+      color: "#06A9EF",
       new: "New",
     },
   ];
@@ -92,60 +81,99 @@ function Services() {
   const loginListRecruiter = [
     {
       name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/createResume.png",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       desc: "Provides concise, customized resumes for your career success.",
       color: "#06A9EF",
     },
     {
       name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/cover.png",
+      imgSrc: "/images/resumeBuilder/servicesCover.png",
       desc: "Highlight your application, key qualifications, and best skills",
-      color: "#9747FF",
+      color: "#06A9EF",
     },
     {
-      name: "Candidates",
-      imgSrc: "/images/resumeBuilder/my_clients.png",
+      name: "My Candidates",
+      imgSrc: "/images/resumeBuilder/servicesCandidate.png",
       desc: "Business empowerment through customized care & strategy.",
-      color: "#FE7701",
+      color: "#06A9EF",
     },
-    // {
-    //   name: "Transform CV",
-    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
-    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
-    //   color: "#428FF5",
-    // },
+
     {
       name: "JD Matching",
-      imgSrc: "/images/resumeBuilder/job_description_matching.png",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
       desc: "Check eligibility level of multiple resumes with a job description.",
-      color: "#B847FF",
+      color: "#06A9EF",
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collection.png",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
       desc: "Save multiple resumes & cover letters in cloud storage",
-      color: "#45ABA0",
+      color: "#06A9EF",
     },
-    // {
-    //   name: "Ask Krut",
-    //   imgSrc: "/images/resumeBuilder/bot1.png",
-    //   desc: "Save multiple resumes with multiple clients in cloud storage.",
-    //   color: "#7994D8",
-    //   new: "New",
-    // },
-    // {
-    //   name: "My Purchases",
-    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
-    //   desc: "Details of subscription plan and paid services.",
-    //   color: "#8901FF",
-    // },
+
     {
       name: "Job Posting",
-      imgSrc: "/images/resumeBuilder/job.png",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Post new job openings to connect with more candidates.",
-      color: "#6441A5",
+      color: "#06A9EF",
       new: "New",
     },
+    {
+      name: "Hiring",
+      imgSrc: "/images/resumeBuilder/servicesHiring.png",
+      desc: "Find top talent faster with our advanced hiring tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+
+
+  ];
+  const loginListEmployer = [
+
+
+    {
+      name: "JD Matching",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
+      desc: "Check eligibility level of multiple resumes with a job description.",
+      color: "#06A9EF",
+    },
+    {
+      name: "My Collection",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      desc: "Save multiple resumes & cover letters in cloud storage",
+      color: "#06A9EF",
+    },
+   
+    {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      desc: "Post new job openings to connect with more candidates.",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Requisition",
+      imgSrc: "/images/resumeBuilder/servicesRequisition.png",
+      desc: "simplify your hiring requests with our requisition management tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Hiring",
+      imgSrc: "/images/resumeBuilder/servicesHiring.png",
+      desc: "Find top talent faster with our advanced hiring tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Preboarding",
+      imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
+      desc: "Create a seamless transition for your new hires with our preboarding solutions.",
+      color: "#06A9EF",
+      new: "New",
+    },
+
+
   ];
   const [visible, setVisible] = useState(false);
 
@@ -158,8 +186,14 @@ function Services() {
       return loginListCandidate;
     } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
-    } else if (candidate) {
+    } else if (userDataGlobal?.role === "employer") {
+      return loginListEmployer;
+    } else if (candidate === "user") {
       return loginListCandidate;
+    } else if (candidate === "recruiter") {
+      return loginListRecruiter;
+    } else if (candidate === "employer") {
+      return loginListEmployer;
     } else {
       return loginListRecruiter;
     }
@@ -170,29 +204,35 @@ function Services() {
       case "Create New Resume":
         return "createResume";
       case "Create New Cover Letter":
-        return "createCover";
-      case "Candidates":
-        return "candidates";
+        return "createResume";
+      case "My Candidates":
+        return "createResume";
       case "My Resumes":
-        return "MyResume";
+        return "createResume";
       case "Transform CV":
-        return "TransFormCV";
+        return "createResume";
       case "JD Matching":
-        return "JobDes";
+        return "createResume";
       case "My Collection":
-        return "MyCollection";
+        return "createResume";
       case "Skill Assessments & Certification":
-        return "SkillAss";
+        return "createResume";
       case "My Purchases":
-        return "MyPurchase";
+        return "createResume";
       case "Search Jobs":
-        return "searchJobs";
+        return "createResume";
       case "Job Posting":
-        return "postJobs";
+        return "createResume";
       case "Ask Krut":
-        return "chatBot";
+        return "createResume";
       case "My Website":
-        return "myWebsite";
+        return "createResume";
+      case "Hiring":
+        return "createResume";
+      case "Preboarding":
+        return "createResume";
+        case "Requisition":
+          return "createResume";
       default:
         return "";
     }
@@ -207,7 +247,7 @@ function Services() {
             : "/candidates/ClientResume"
         );
         break;
-        
+
       case "Create New Cover Letter":
         handleNavigation(
           userDataGlobal?.role === "user"
@@ -215,7 +255,7 @@ function Services() {
             : `/myClients/ClientResume?cover=true`
         );
         break;
-      case "Candidates":
+      case "My Candidates":
         handleNavigation("/candidates");
         break;
       case "My Resumes":
@@ -265,18 +305,43 @@ function Services() {
             }`}
           style={{ transition: " all .2s linear" }}
         >
-          <div className="flex flex-row scr700:flex-col gap-4">
-            {(userDataGlobal?.role === "user"  || !isLogin) &&
-              <button onClick={() => setCandidate(true)} className="w-[228px] bg-blue h-[42px] rounded-[8px] text-[#FFFFFF] flex items-center px-4 text-[14px] font-medium">
-                Candidate
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row scr700:flex-col gap-4">
+              {(userDataGlobal?.role === "user" || !isLogin) &&
+                <button onClick={() => setCandidate("user")} className={`w-[228px] ${candidate === "user" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                  Candidate
 
-              </button>
-            }
-            {(userDataGlobal?.role === "recruiter" || !isLogin) &&
-              <button onClick={() => setCandidate(false)} className="w-[228px] bg-[#FFDA1D] h-[42px] rounded-[8px] flex items-center px-4 text-[14px] font-medium">
-                Recruiter
+                </button>
+              }
+              {(userDataGlobal?.role === "recruiter" || !isLogin) &&
+                <button onClick={() => setCandidate("recruiter")} className={`w-[228px] ${candidate === "recruiter" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                  Recruiter
 
-              </button>
+                </button>
+              }
+              {(userDataGlobal?.role === "employer" || !isLogin) &&
+                <button onClick={() => setCandidate("employer")} className={`w-[228px] ${candidate === "employer" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                  Employer
+
+                </button>
+              }
+            </div>
+            {(candidate === "employer" || candidate === "recruiter") ?
+              <img
+                src="/images/serviceLeftRecruiter.png"
+                alt=""
+                className="w-[228px] h-[346px] rounded-[8px]"
+                
+              />
+
+
+
+              :
+              <img
+                src="/images/serviceLeftCandidate.png"
+                alt=""
+                className="w-[228px] h-[346px]"
+              />
             }
           </div>
           <div className="flex flex-col gap-6 scr700:w-[800px]  ">
@@ -289,7 +354,7 @@ function Services() {
                   key={index}
                   className={`group rounded-[16px] ${(() =>
                     getServiceItemClassName(item.name))()}`}
-                  onClick={() =>{isLogin && handleItemClick(item.name)}}
+                  onClick={() => { isLogin && handleItemClick(item.name) }}
                   onMouseEnter={() => {
                     setVisible(index);
                   }}
@@ -299,7 +364,7 @@ function Services() {
                     className={`flex items-start gap-[20px] scr420:px-4 px-2 scr420:py-3 py-2  ${visible !== index
                       ? "border border-[#DEDEDE]"
                       : "border border-[#FFF]"
-                      } rounded-[8px]  scr420:w-[370px] h-[66px] ${isLogin ? "cursor-pointer" :"cursor-default"}`}
+                      } rounded-[8px]  scr420:w-[370px] h-[66px] ${isLogin ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <div className="flex items-center scr420:gap-3 gap-2">
                       <img
