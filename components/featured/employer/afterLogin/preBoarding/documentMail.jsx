@@ -102,7 +102,7 @@ function DocumentMail({
         ></button>
         <button
           className="ql-align"
-          value="left"
+          value=""
           aria-label="Align Left"
         ></button>
         <button

@@ -280,7 +280,7 @@ const CreateNewRequisition = ({ setToggle }) => {
         ></button>
         <button
           className="ql-align"
-          value="left"
+  
           aria-label="Align Left"
         ></button>
         <button
