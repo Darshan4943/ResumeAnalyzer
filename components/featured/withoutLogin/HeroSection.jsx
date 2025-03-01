@@ -12,7 +12,7 @@ function HeroSection() {
     const [experinceData, setExperinceData] = useState([]);
     useEffect(() => {
         axios
-            .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
+            .get("http://localhost:2000/api/jobs/getJobAttributes")
             .then((res) => {
                 const { experiences } = res.data;
                 setExperinceData(experiences);
