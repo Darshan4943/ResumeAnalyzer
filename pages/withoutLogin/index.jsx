@@ -12,7 +12,7 @@ import SubscriptionPlans from '../../components/featured/home/SubscriptionPlans'
 
 function WithoutLogin() {
   return (
-    <div className=' flex flex-col scr460:gap-[100px] gap-9 bg-[#FFFFFF]'>
+    <div className=' flex flex-col ms:gap-[100px] gap-9 bg-[#FFFFFF]'>
       <HeroSection/>
       <JobCategories/>
       <SkillAssessment/>
