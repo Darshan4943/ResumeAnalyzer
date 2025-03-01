@@ -617,7 +617,7 @@ function AdminDetails({
                 id=""
                 value={formData.email}
                 onChange={(e) => {
-                  handleInputChange("email", e.target.value);
+                  handleInputChange("email", e.target.value.toLowerCase());
                   setVerify(false);
                   setVerified(false);
                   setOtp(new Array(4).fill(""));

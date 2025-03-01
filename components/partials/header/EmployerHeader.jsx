@@ -75,7 +75,7 @@ function EmployerHeader() {
 
   return (
     <>
-      <div className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]">
+      <div className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[60px]">
         <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between w-[30%] ">
           <div className="flex gap-1 items-center">
             <div className="mobile" onClick={() => setIsSidebar(true)}>
@@ -120,7 +120,7 @@ function EmployerHeader() {
             </svg>
           </div> */}
         </div>
-        <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 w-[60%]  ">
+        <div className="flex ms:px-4  px-2  justify-end gap-4 w-[60%]  ">
           <div className="flex items-center gap-5">
             <svg
               className="relative cursor-pointer"

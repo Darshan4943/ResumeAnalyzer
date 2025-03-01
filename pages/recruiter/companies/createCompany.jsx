@@ -304,7 +304,7 @@ function CreateCompany() {
         ></button>
         <button
           className="ql-align"
-          // value="left"
+          value=""
           aria-label="Align Left"
         ></button>
         <button
@@ -516,12 +516,12 @@ function CreateCompany() {
                 }
                 maxLength={200}
                 style={{
-                  border: "2px solid #dedede",
+                  border: "0px solid #dedede",
                   fontSize: "16px",
                   color: "#333",
                   padding: "10px",
-                  borderBottomLeftRadius: "8px",
-                  borderBottomRightRadius: "8px",
+                  // borderBottomLeftRadius: "8px",
+                  // borderBottomRightRadius: "8px",
                   minHeight: "296px",
                 }}
                 className="editor-container"

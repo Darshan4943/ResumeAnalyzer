@@ -682,7 +682,7 @@ function Sign_up({}) {
               placeholder="Enter Email"
               value={data.email}
               onChange={(e) => {
-                handleInputChange("email", e.target.value);
+                handleInputChange("email", e.target.value.toLowerCase());
                 setVerify(false);
                 setVerified(false);
                 setOtp(new Array(4).fill(""));
