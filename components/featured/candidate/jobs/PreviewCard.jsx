@@ -3,8 +3,8 @@ import { currenciesWithIcons } from "../../../../utils/data";
 
 function PreviewCard({ item, openModel, croppedImage }) {
   return (
-    <div className="flex flex-col gap-4 px-5 py-3 h-[80vh] overflow-auto">
-      <div className="w-full flex justify-end">
+    <div className="flex flex-col gap-4 px-5 pb-3 h-[80vh] overflow-auto relative">
+      <div className="w-full flex justify-end sticky pt-3 top-0 bg-white">
         <svg
           className=" cursor-pointer"
           onClick={() => openModel(false)}
@@ -148,15 +148,17 @@ function PreviewCard({ item, openModel, croppedImage }) {
               </svg>
             </div>
             <div className="text-[#262626] font-[400] text-[12px] max-h-[36px] overflow-hidden ">
-              {item?.description?.length > 100 ? (
+              {item?.description?.length > 160 ? (
                 <>
                   <div
-                    className=""
                     dangerouslySetInnerHTML={{
-                      __html: item.description.slice(0, 100),
+                      __html:
+                        item?.description.length > 160
+                          ? `${item?.description.slice(0, 160)}...`
+                          : description,
                     }}
                   />
-                  <span>...</span>
+
                 </>
               ) : (
                 <div
@@ -238,8 +240,8 @@ function PreviewCard({ item, openModel, croppedImage }) {
                               {item.salaryType === "Annual"
                                 ? "per annum"
                                 : item.salaryType === "Monthly"
-                                ? "per month"
-                                : "per week"}
+                                  ? "per month"
+                                  : "per week"}
                             </div>
                           );
                         })()}

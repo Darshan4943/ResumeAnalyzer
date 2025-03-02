@@ -242,11 +242,12 @@ function Sign_in({  setSignIn, setSignUp }) {
                 <div
                   className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${
                     error
-                      ? "text-[#c00000] font-[600]"
-                      : "text-green font-[600]"
+                      ? "text-[#c00000] text-[12px] font-[600]"
+                      : "text-green text-[12px] font-[600]"
                   }`}
                 >
-                  <div className="w-[18px] h-[18px] scr420:w-[24px] scr420:h-[24px]">
+                  <div className="w-[18px] h-[18px] scr420:w-[20px] scr420:h-[20
+                  px]">
                     <svg
                       viewBox="0 0 24 24"
                       fill="none"
@@ -260,7 +261,7 @@ function Sign_in({  setSignIn, setSignUp }) {
                       </g>
                     </svg>
                   </div>
-                  <p>{error}</p>
+                  <p className="text-[12px]">{error}</p>
                 </div>
               )}
               <a

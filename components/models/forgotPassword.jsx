@@ -46,8 +46,8 @@ function ForgotPassword({ setIsForgot }) {
   };
 
 
-  const verifyOtp = () => {
-
+  const verifyOtp = (e) => {
+e.preventDefault();
     axios
       .post("http://localhost:2000/api/verifyOtp", {
         userEmail: email,

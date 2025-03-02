@@ -341,13 +341,13 @@ function CompanyDetails({
                   }
                 }}
                 placeholder={field.placeholder}
-                className={`bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
+                className={`bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[8px] px-4 ${errors.contactNumber ? "border-red" : "border-[#9D9D9D]"
                   } `}
               />
             </div>
           ) : (
             <div
-              className={`flex rounded-[8px] py-[12px] px-4 border ${errors[field.name] ? "border-red" : "border-[#9D9D9D]"
+              className={`flex rounded-[8px] py-[8px] px-4 border ${errors[field.name] ? "border-red" : "border-[#9D9D9D]"
                 } `}
             >
               <input
@@ -375,7 +375,7 @@ function CompanyDetails({
             value={formData.companyRegistration}
             onChange={handleChange}
             placeholder="Enter Company Registration Number"
-            className={` bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[12px] px-4 ${errors.companyRegistration ? "border-red" : "border-[#9D9D9D]"
+            className={` bg-[transparent] w-full outline-none text-[14px] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border border-[#9D9D9D] rounded-[8px] py-[8px] px-4 ${errors.companyRegistration ? "border-red" : "border-[#9D9D9D]"
               } `}
           />
         </div>
@@ -383,13 +383,13 @@ function CompanyDetails({
           <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
             Certificate<span className="text-red">*</span>
           </label>
-          <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${errors.certificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
+          <div className={`h-[38.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer ${errors.certificate ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
             <input
               type="file"
               id="certificateInput"
               name="certificate"
               onChange={handleFileChange}
-              className="w-full cursor-pointer text-[14px] font-[400] text-[#646464]"
+              className="w-full h-[38.6px] cursor-pointer text-[14px] font-[400] text-[#646464] py-2"
             />
             {formData.certificate ?
               <p className=" ">
@@ -412,7 +412,7 @@ function CompanyDetails({
         <label className="text-[14px] md:text-[16px] font-[500] text-[#333333]">
           Company Logo <span className="text-red">*</span>
         </label>
-        <div className={`h-[43.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer  ${errors.companyLogo ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
+        <div className={`h-[38.6px] rounded-[8px] py-[5.6px] px-4 border flex items-center justify-between cursor-pointer  ${errors.companyLogo ? "border-red" : "border-[#9D9D9D]"} upload-btn-wrapper`}>
           <input
             type="file"
             id="companyLogoInput"

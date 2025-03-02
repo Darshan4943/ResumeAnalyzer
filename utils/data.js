@@ -3184,7 +3184,8 @@ export const jobSectorOptions = [
   { sector: "Insurance", jobCat: ["MNC", "Banking and Finance"] },
   { sector: "Petroleum and Natural Gas", jobCat: ["MNC", "Engineering"] },
   { sector: "Waste Management", jobCat: ["MNC"] },
-  { sector: "Military and Defense", jobCat: ["MNC", "Engineering"] }
+  { sector: "Military and Defense", jobCat: ["MNC", "Engineering"] },
+  { sector: "Others", jobCat: [] }
 ];
 
 export const currenciesWithIcons = [

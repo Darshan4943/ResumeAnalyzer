@@ -121,7 +121,7 @@ const SignUp = () => {
         </div>
       </div>
       }
-      <div style={{ boxShadow: "0px 1px 6px 0px #00000040" }} className={`p-6 flex flex-col gap-4 bg-white w-[95%] lg:w-[75%] scr1024:w-[65%] scr1400:w-[45%]  rounded-[8px] md:rounded-[16px] ${role==="recruiter" && "mt-6"}`}>
+      <div style={{ boxShadow: "0px 1px 6px 0px #00000040" }} className={`p-6 flex flex-col gap-4 bg-white w-[95%] lg:w-[75%] scr1024:w-[65%] scr1400:w-[45%]  rounded-[8px] md:rounded-[16px] ${(role==="recruiter" && recOptions==="individual") && "mt-6"}`}>
         {role === "recruiter" && tog !== 3 &&
           <div className="flex flex-col gap-2">
             <p className="text-[16px] font-medium  ">  Employment Status</p>

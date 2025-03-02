@@ -324,7 +324,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -663,7 +663,7 @@ function CreateNewJob() {
         ></button>
         <button
           className="ql-align"
-        
+
           aria-label="Align Left"
         ></button>
         <button
@@ -736,8 +736,8 @@ function CreateNewJob() {
 
                 <div className="bg-[#FFFFFF] flex flex-col rounded-[16px] gap-[16px] ">
                   <div>
-                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
+                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] p-[10px] md:p-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
                           Job Status <span className="text-[#ff0000]">*</span>
                         </div>
@@ -749,11 +749,10 @@ function CreateNewJob() {
                               appearance: "none",
                               position: "relative",
                             }}
-                            className={`border-[1px] px-[16px] rounded-[8px] h-[38px] w-full text-[#767676] text-[12px] font-[400] ${
-                              formError.status
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] px-[16px] rounded-[8px] h-[38px] w-full text-[#767676] text-[12px] font-[400] ${formError.status
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={data?.status}
                             onChange={(e) => {
                               setData({ ...data, status: e.target.value });
@@ -772,11 +771,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -803,13 +801,11 @@ function CreateNewJob() {
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${
-                            data?.Keywords ? "justify-between" : ""
-                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
-                            formError.Keywords
+                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
+                            } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                          }`}
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%] items-center">
                             {data?.Keywords.length > 0 && (
@@ -903,36 +899,17 @@ function CreateNewJob() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] p-[10px] md:p-[16px] w-full">
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
-                        <div className="text-[14px] font-[500]">
-                          About Company
-                        </div>
-                        <input
-                          className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[38px] px-[16px] outline-none rounded-[8px]"
-                          placeholder="Brief description for your company."
-                          type="text"
-                          name="aboutOrganization"
-                          value={data?.aboutOrganization?.replace(
-                            /<[^>]*>?/gm,
-                            ""
-                          )}
-                          onChange={handleChange}
-                          disabled={
-                            !!companyId || userDataGlobal?.role === "employer"
-                          }
-                        />
-                      </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                    <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] p-[10px] md:p-[16px] w-full">
+
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
-                            formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
@@ -941,7 +918,7 @@ function CreateNewJob() {
                           disabled={userDataGlobal?.role === "employer"}
                         />
                       </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
                           Country <span className="text-[red]">*</span>
                         </div>
@@ -955,11 +932,10 @@ function CreateNewJob() {
                           )}
                           placeholder="Select countries..."
                           styles={customStyles}
-                          className={`border rounded-[8px]   withoutBorder ${
-                            formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px]   withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -972,16 +948,15 @@ function CreateNewJob() {
                           }}
                         />
                       </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2 relative border rounded-[8px] px-2  h-[38px] ${
-                            formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`w-full flex gap-2 relative border rounded-[8px] px-2  h-[38px] ${formError.location
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%] items-center">
                             {data?.location.length > 0 && (
@@ -1067,131 +1042,153 @@ function CreateNewJob() {
                       </div>
                     </div>
 
-                    <div className="p-[10px] md:p-4 flex flex-col gap-4 md:flex-row">
-                      <div className=" w-full md:w-[34.91%] lg:w-[30.91%] scr1100:w-[26.91%] scr1250:w-[20.91%]  flex  flex-col items-center">
-                        <div className="flex w-full flex-col gap-[8px]">
-                          <div className="flex flex-col gap-[8px]">
-                            <div className="text-[14px] font-[500]">
-                              Company logo
-                            </div>
-                            <div className="text-[12px] font-[400]">
-                              This image will be shown publicly as company logo.
-                            </div>
+                    <div className="p-[10px] md:p-4  flex-col gap-4 md:flex-row grid grid-cols-12">
+                      <div className=" col-span-3 flex flex-col gap-4 justify-between">
+                        <div className="flex flex-col gap-[8px] ">
+                          <div className="text-[14px] font-[500]">
+                            About Company
                           </div>
-                        </div>
-                        <div className="flex w-full flex-col pt-[16px] gap-[8px] items-center">
-                          <div
-                            onDrop={handleDrop}
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
-                            className="w-[144px] max-h-[60px] "
-                          >
-                            {croppedImage ? (
-                              <img
-                                className="w-[144px] max-h-[60px] object-contain"
-                                src={croppedImage?.url}
-                                alt="logo"
-                              />
-                            ) : (
-                              <>
-                                <img
-                                  className="w-[144px] max-h-[60px] object-contain"
-                                  src={
-                                    data?.logo
-                                      ? data?.logo
-                                      : "/images/jobs/logo.png"
-                                  }
-                                  alt="logo"
-                                />
-                              </>
+                          <textarea
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[108px] p-[16px] outline-none rounded-[8px]"
+                            placeholder="Brief description for your company."
+                            type="text"
+                            name="aboutOrganization"
+                            value={data?.aboutOrganization?.replace(
+                              /<[^>]*>?/gm,
+                              ""
                             )}
-                          </div>
-                          {userDataGlobal?.role !== "employer" && (
-                            <div
-                              ref={fileRef}
-                              onDrop={handleFileChange}
-                              className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
-                            >
-                              <input
-                                className="outline-none placeholder:text-[12px] placeholder:font-[400]"
-                                type="file"
-                                name="myfile"
-                                onChange={handleFileChange}
-                                multiple
-                                accept="image/png, image/jpeg, image/jpg"
-                              />
-                              <div className="  flex  flex-col  items-center">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="40"
-                                  height="40"
-                                  viewBox="0 0 40 40"
-                                  fill="none"
-                                  onClick={handleButtonClick}
-                                >
-                                  <g clipPath="url(#clip0_4121_52475)">
-                                    <path
-                                      d="M25 13.3333H25.0167"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
-                                      stroke="#06A9EF"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </g>
-                                  <defs>
-                                    <clipPath id="clip0_4121_52475">
-                                      <rect
-                                        width="40"
-                                        height="40"
-                                        fill="white"
-                                      />
-                                    </clipPath>
-                                  </defs>
-                                </svg>
-                                <div className="flex flex-col	font-[400]	">
-                                  <div className="flex gap-[2px]">
-                                    <span
-                                      onClick={handleButtonClick}
-                                      className="text-[#06A9EF] text-[12px]"
-                                    >
-                                      Click to replace
-                                    </span>
-                                    <div className="text-[12px] font-[400]">
-                                      or drag and drop
-                                    </div>
-                                  </div>
-                                  <p className="text-center text-[10px] font-[400] text-[#333333]">
-                                    SVG, PNG, JPG or GIF (max. 400 x 400px)
-                                  </p>
-                                </div>
+                            onChange={handleChange}
+                            disabled={
+                              !!companyId || userDataGlobal?.role === "employer"
+                            }
+                          />
+                        </div>
+                        <div className=" w-full  flex  flex-col items-center">
+                          <div className="flex w-full flex-col gap-[8px]">
+                            <div className="flex flex-col gap-[8px]">
+                              <div className="text-[14px] font-[500]">
+                                Company logo
+                              </div>
+                              <div className="text-[12px] font-[400]">
+                                This image will be shown publicly as company logo.
                               </div>
                             </div>
-                          )}
+                          </div>
+                          <div className="flex w-full flex-col pt-[16px] gap-[8px] items-center">
+                            <div
+                              onDrop={handleDrop}
+                              onDragOver={handleDragOver}
+                              onDragLeave={handleDragLeave}
+                              className="w-[144px] max-h-[60px] "
+                            >
+                              {croppedImage ? (
+                                <img
+                                  className="w-[144px] max-h-[60px] object-contain"
+                                  src={croppedImage?.url}
+                                  alt="logo"
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    className="w-[144px] max-h-[60px] object-contain"
+                                    src={
+                                      data?.logo
+                                        ? data?.logo
+                                        : "/images/jobs/logo.png"
+                                    }
+                                    alt="logo"
+                                  />
+                                </>
+                              )}
+                            </div>
+                            {userDataGlobal?.role !== "employer" && (
+                              <div
+                                ref={fileRef}
+                                onDrop={handleFileChange}
+                                className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                              >
+                                <input
+                                  className="outline-none placeholder:text-[12px] placeholder:font-[400]"
+                                  type="file"
+                                  name="myfile"
+                                  onChange={handleFileChange}
+                                  multiple
+                                  accept="image/png, image/jpeg, image/jpg"
+                                />
+                                <div className="  flex  flex-col  items-center">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="40"
+                                    height="40"
+                                    viewBox="0 0 40 40"
+                                    fill="none"
+                                    onClick={handleButtonClick}
+                                  >
+                                    <g clipPath="url(#clip0_4121_52475)">
+                                      <path
+                                        d="M25 13.3333H25.0167"
+                                        stroke="#06A9EF"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                      <path
+                                        d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
+                                        stroke="#06A9EF"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                      <path
+                                        d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
+                                        stroke="#06A9EF"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                      <path
+                                        d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
+                                        stroke="#06A9EF"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                    </g>
+                                    <defs>
+                                      <clipPath id="clip0_4121_52475">
+                                        <rect
+                                          width="40"
+                                          height="40"
+                                          fill="white"
+                                        />
+                                      </clipPath>
+                                    </defs>
+                                  </svg>
+                                  <div className="flex flex-col	font-[400]	">
+                                    <div className="flex gap-[2px]">
+                                      <span
+                                        onClick={handleButtonClick}
+                                        className="text-[#06A9EF] text-[12px]"
+                                      >
+                                        Click to replace
+                                      </span>
+                                      <div className="text-[12px] font-[400]">
+                                        or drag and drop
+                                      </div>
+                                    </div>
+                                    <p className="text-center text-[10px] font-[400] text-[#333333]">
+                                      SVG, PNG, JPG or GIF (max. 400 x 400px)
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
+
                       </div>
-                      <div className="w-full md:w-[62.09%] lg:w-[68.09%] scr1100:w-[72.09%] scr1250:w-[78.09%] flex flex-col">
-                        <div className="flex flex-col gap-[8px] w-full">
+                      
+                        <div className="flex flex-col gap-[8px] w-full col-span-9 h-fit ">
                           <div className="text-[14px] font-[500]">
                             Job Description{" "}
                             <span className="text-[red]">*</span>
@@ -1208,7 +1205,7 @@ function CreateNewJob() {
                               <Editor
                                 headerTemplate={header}
                                 value={data.description}
-                                className="editor-container"
+                                className="editor-container h-full"
                                 onTextChange={(e) => handleChange1(e.htmlValue)}
                                 style={{
                                   border: formError.description
@@ -1217,7 +1214,7 @@ function CreateNewJob() {
                                   fontSize: "16px",
                                   color: "#333",
                                   padding: "10px",
-                                  minHeight: "196px",
+                                  minHeight: "340px",
                                   // borderBottomLeftRadius: "8px",
                                   // borderBottomRightRadius: "8px",
                                 }}
@@ -1225,7 +1222,7 @@ function CreateNewJob() {
                             )}
                           </div>
                         </div>
-                      </div>
+                      
                     </div>
                   </div>
 
@@ -1375,9 +1372,8 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: `1px solid ${
-                                  formError.jobSector ? "red" : "#DEDEDE"
-                                }`,
+                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
+                                  }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                                 boxShadow: state.isFocused
@@ -1397,11 +1393,10 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
-                              formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1456,9 +1451,7 @@ function CreateNewJob() {
                             <option value="Remote">Remote</option>
                             <option value="Hybrid">Hybrid</option>
                             <option value="International">International</option>
-                            <option value="Jobs for Women">
-                              Jobs for Women
-                            </option>
+                           
                           </select>
                         </div>
                       </div>
@@ -1469,11 +1462,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1520,24 +1512,23 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1594,7 +1585,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -1605,17 +1596,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {

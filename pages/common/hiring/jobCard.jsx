@@ -109,6 +109,7 @@ const JobCard = ({ filters, setFilters }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setShowPopup]);
+  const hasLongTitle = data?.some((job) => job?.jobTitle?.length > 25);
   return (
     <div>
       {loading ? (
@@ -133,27 +134,33 @@ const JobCard = ({ filters, setFilters }) => {
                   }
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
-                  <div className="flex justify-between w-[100%] gap-2">
-                    <div className="flex justify-between gap-[20px] items-start">
-                      <p className=" text-[14px] font-[600]">{job.jobTitle}</p>
+                  <div
+                    className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
+                      }`}
+                  >
+                    <div className="flex justify-between gap-[20px] items-center">
+                      <p className="text-[14px] font-[600]">
+                        {job?.jobTitle?.length > 35 ? `${job.jobTitle.slice(0, 35)} ...` : job.jobTitle}
+                      </p>
+
                       <div className="flex gap-[3px] items-center">
                         {job.status === "Live" ? (
                           <>
-                            <div className="w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
+                            <div className="min-w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#0C8A0A]">
                               Active
                             </div>
                           </>
                         ) : job.status === "Hold" ? (
                           <>
-                            <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
+                            <div className="min-w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#ddda40]">
                               On Hold
                             </div>
                           </>
                         ) : job.status === "Closed" ? (
                           <>
-                            <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
+                            <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#B3261E]">
                               Inactive
                             </div>
@@ -226,7 +233,7 @@ const JobCard = ({ filters, setFilters }) => {
                     <p className="text-[#333] text-[18px] font-[600]">
                       Total Applications
                     </p>
-                    <p className="text-[#333] items-center text-[36px] font-[600] ">
+                    <p className="text-[#333] items-center text-[36px] font-[600]  leading-tight">
                       {job.totalApplicationCount}
                     </p>
                   </div>

@@ -159,7 +159,7 @@ function ApplicantDetails({ setTogglee }) {
                 <div className="flex flex-col  gap-4 scr1024:px-6 px-2 py-4">
                   <div className="flex flex-col ">
                     <div
-                      className={`flex justify-between sm:justify-start   gap-3  ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
+                      className={`flex justify-between sm:justify-start   gap-12  ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}
                     >
                       <div>
                         <p
