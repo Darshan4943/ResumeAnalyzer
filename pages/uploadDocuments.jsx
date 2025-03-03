@@ -292,7 +292,7 @@ function UploadDocuments() {
                             </span>
                           </div>
                           <button
-                            className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer"
+                            className="bg_Button sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer"
                             onClick={() => fileRefs.current[key]?.click()}
                           >
                             Browse file

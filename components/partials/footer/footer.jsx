@@ -172,7 +172,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <div className="footer_inner_input_box"></div>
               <button
                 onClick={handleSubscribed}
-                className="footer_input_btn btn_hover_effect"
+                className="px-4 text-[14px] font-medium h-[38px] rounded-[30px] bg_Button"
                 // disabled={error || email.trim() === ''}
               >
                 Subscribe

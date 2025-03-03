@@ -24,7 +24,7 @@ function SuccessPopUp({ text, isButton }) {
                 {text}
             </p>
             {button &&
-                <button onClick={()=>router.back()} className='h-[42px] bg-blue rounded-[30px] px-9 text-white text-[14px] font-semibold'>
+                <button onClick={()=>router.back()} className='h-[38px]  rounded-[30px] px-6 bg_Button text-[14px] font-semibold'>
                     Done
                 </button>
             }

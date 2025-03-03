@@ -365,10 +365,10 @@ function MyPurchase() {
                                     limits?.total?.skillCertifiedLimit ||
                                     limits?.used?.chatBot?.monthly >=
                                     limits?.total?.chatBotLimit?.monthly
-                                    ? "bg-[#06a9ef] btn_hover_effect"
+                                    ? "bg-[#06a9ef] bg_Button"
                                     : subscription?.isActive
                                       ? "bg-[#DEDEDE] "
-                                      : "bg-[#06a9ef] btn_hover_effect"
+                                      : "bg-[#06a9ef] bg_Button"
                                   } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                               >
                                 {limits?.used?.coverStored >=
@@ -415,10 +415,10 @@ function MyPurchase() {
                                     limits?.total?.jdMatchingLimit?.monthly ||
                                     limits?.used?.collectionStored?.monthly >=
                                     limits?.total?.collectionStoredLimit?.monthly
-                                    ? "bg-[#06a9ef] btn_hover_effect"
+                                    ? "bg-[#06a9ef] bg_Button"
                                     : subscription?.isActive
                                       ? "bg-[#DEDEDE] "
-                                      : "bg-[#06a9ef] btn_hover_effect"
+                                      : "bg-[#06a9ef] bg_Button"
                                   } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                               >
                                 {limits?.used?.coverStored >=

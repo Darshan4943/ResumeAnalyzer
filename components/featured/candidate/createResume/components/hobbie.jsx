@@ -159,7 +159,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
                 disabled={saveDisabled}
                 style={{ opacity: saveDisabled ? 0.5 : 1 }}
                 className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                  !saveDisabled ? "btn_hover_effect" : ""
+                  !saveDisabled ? "bg_Button" : ""
                 }`}
               >
                 Save

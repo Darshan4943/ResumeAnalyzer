@@ -291,7 +291,7 @@ function AiProfileCreation() {
                                         <div>{fileIconSeter(file)}</div>
                                         <span className="text-[12px] w-[80%] break-all">{file.name}</span>
                                     </div>
-                                    <button className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
+                                    <button className="blue_border_Button sm:px-[8px] px-1 h-[38px] rounded-[30px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
                                         Browse file
                                     </button>
                                 </div>
@@ -359,14 +359,14 @@ function AiProfileCreation() {
                     </div>
                 )}
                 <div className='flex gap-6 justify-center'>
-                    <button onClick={() => router.push("/auth/Sign_up?role=user")} className='border border-[#06A9EF] text-[14px] font-[600] rounded-[30px] h-[42px] w-[104px]'>
+                    <button onClick={() => router.push("/auth/Sign_up?role=user")} className=' text-[14px] px-6 font-[600] rounded-[30px] h-[38px]  blue_border_Button'>
                         Skip
                     </button>
 
                     <button
                         disabled={file && !loading ? false : true}
-                        className={`sm:px-9 px-6 py-3 bg-[#06A9EF]   text-[14px] font-[600] rounded-[30px] h-[42px] w-[139px] leading-tight text-white ${file && !loading
-                            ? "opacity-100 btn_hover_effect"
+                        className={` px-6    text-[14px] font-[600] rounded-[30px] h-[38px]  leading-tight bg_Button ${file && !loading
+                            ? "opacity-100 bg_Button"
                             : "opacity-50"
                             } `}
                         onClick={navigate}

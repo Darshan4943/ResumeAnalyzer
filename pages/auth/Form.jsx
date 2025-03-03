@@ -736,7 +736,7 @@ function Form({ }) {
                                 !isUpdate && (
                                   <button
                                     onClick={handleVerification}
-                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center  bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] btn_hover_effect"
+                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center  bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] bg_Button"
                                   >
                                     {loadingg ? (
                                       <MiniLoader />
@@ -793,7 +793,7 @@ function Form({ }) {
                               {!verified && (
                                 <button
                                   onClick={verifyOtp}
-                                  className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight btn_hover_effect"
+                                  className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight bg_Button"
                                 >
                                   Verify
                                 </button>
@@ -879,7 +879,7 @@ function Form({ }) {
                           {!verified && (
                             <button
                               onClick={verifyOtp}
-                              className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight btn_hover_effect"
+                              className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight bg_Button"
                             >
                               Verify
                             </button>
@@ -1044,7 +1044,7 @@ function Form({ }) {
                       Cancel
                     </button>
                     <button
-                      className="buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect"
+                      className="buttons font-[500] bg-[#06A9EF] text-white bg_Button"
                       // id="border_button"
                       onClick={submitHandler}
                     >

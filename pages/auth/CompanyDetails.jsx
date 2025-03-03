@@ -439,13 +439,13 @@ function CompanyDetails({
           onClick={() => {
             router.push("/auth?signup=true");
           }}
-          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] md:rounded-[30px] text-[14px] md:text-[16px] font-[500] text-[#333333]"
+          className="px-4 md:px-6  rounded-[30px] md:rounded-[30px] text-[14px] md:text-[16px] font-[500] h-[38px] blue_border_Button"
         >
           Go Back
         </button>
         <button
           onClick={handleSubmit}
-          className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue md:rounded-[30px] text-[14px] md:text-[16px] font-[500] text-[#FFFFFF]"
+          className=" px-4 md:px-6  rounded-[30px]  md:rounded-[30px] text-[14px] md:text-[16px] font-[500] bg_Button h-[38px]"
         >
           Continue
         </button>

@@ -659,7 +659,7 @@ const ResumeForm = ({
                 ],
               });
             }}
-            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
+            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer bg_Button "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
           </div> */}

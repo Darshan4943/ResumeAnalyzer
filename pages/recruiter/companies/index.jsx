@@ -134,13 +134,20 @@ function Index() {
                     className="h-[60px] object-contain"
                   />
                   <div className="flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]">
-                    {item.companyName}
+                    {item.companyName.length > 25
+                      ? item.companyName.substring(0, 25) + "..."
+                      : item.companyName}
+
                     <div className="w-full text-[12px] font-[400] text-[#646464] text-center line-clamp-2">
                       <div
                         dangerouslySetInnerHTML={{
-                          __html: item.companyDescription,
+                          __html:
+                            item.companyDescription.length > 50
+                              ? item.companyDescription.substring(0, 50) + "..."
+                              : item.companyDescription,
                         }}
                       />
+
                     </div>
                   </div>
                 </div>

@@ -771,7 +771,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       </button>
                     }
                     <div className="flex items-start gap-[8px]">
-                      <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
+                      <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[8px] border border-[#D6DDEB] bg-[#fff]">
                         <img
                           className="w-[24px] h-[24px]"
                           src="/images/employer/icon_search.png"

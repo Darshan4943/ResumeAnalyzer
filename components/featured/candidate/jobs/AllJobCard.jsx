@@ -144,7 +144,7 @@ function AllJobCard({
                                 isLogin ? posters[0].path1 : posters[0].path2
                               )
                             }
-                            className="scr1100:py-3 scr1100:px-9 px-6 py-2 text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px] scr1100:h-[42px] h-[34px] scr1100:w-[155px]"
+                            className="  px-6  text-[#FFFFFF] bg-blue text-[14px] leading-tight font-[600] rounded-[30px]  h-[38px] w-[135px] bg_Button"
                           >
                             Know More
                           </button>

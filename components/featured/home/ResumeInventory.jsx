@@ -38,7 +38,7 @@ function ResumeInventory({ isLogin }) {
                   ? router.push("/home/BuildResume")
                   : router.push("/auth?signin=true&role=user")
               }
-             className="ml:px-9 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect xl:text-[16px] max-w-[167px]"
+             className="ml:px-9 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold bg_Button xl:text-[16px] max-w-[167px]"
               style={{ width: "fit-content" }}
             >
               Get Started

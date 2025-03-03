@@ -73,7 +73,7 @@ function CandidateHome({ onScrollToTop }) {
                 </div>
                 <button
                   onClick={clickHandler}
-                  className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold xl:text-[16px]"
+                  className="bg_Button px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold xl:text-[16px]"
                   style={{ width: "fit-content" }}
                 >
                   Build My Resume
@@ -115,7 +115,7 @@ function CandidateHome({ onScrollToTop }) {
               </div>
               <button
                 onClick={clickHandler}
-                className="ml:px-9 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold btn_hover_effect xl:text-[16px] max-w-[167px]"
+                className="ml:px-9 px-6  py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold bg_Button xl:text-[16px] max-w-[167px]"
               >
                 Get Started
               </button>

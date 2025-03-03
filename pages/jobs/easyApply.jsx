@@ -44,7 +44,7 @@ function EasyApply() {
     const router = useRouter();
     const { id } = router.query
     const [loading, setLoading] = useState(false);
-    console.log(555,loading)
+   
     const [fileData, setFileData] = useState(null);
     const [tab, setTab] = useState(0);
     const [uploadLimit, setUploadLimit] = useState(0);
@@ -427,13 +427,19 @@ function EasyApply() {
                 },
             })
             .then((res) => {
-                setSuccess(true)
-                // localStorage.setItem(
-                //     "parsedResume",""
-
-                // );
-
+                setSuccess(true);
+            
+                let appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
+                const isAlreadyApplied = appliedJobs.includes(id);
+            
+                if (!isAlreadyApplied) {
+                    appliedJobs.push(id);
+                    localStorage.setItem("appliedJobs", JSON.stringify(appliedJobs));
+                } else {
+                    console.log("You have already applied for this job.");
+                }
             })
+            
             .catch((err) => {
                 console.error(err);
 
@@ -587,7 +593,7 @@ function EasyApply() {
                                                 <div>{fileIconSeter(file)}</div>
                                                 <span className="text-[12px] w-[80%] break-all">{file.name}</span>
                                             </div>
-                                            <button className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[14px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
+                                            <button className="blue_border_Button sm:px-[8px] px-1 h-[38px] rounded-[30px] text-[12px] sm:text-[14px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
                                                 Browse file
                                             </button>
                                         </div>
@@ -655,14 +661,14 @@ function EasyApply() {
                             </div>
                         )}
                         <div className='flex gap-6 justify-center'>
-                            <button onClick={() => router.back()} className='border border-[#06A9EF] text-[14px] font-[600] rounded-[30px] h-[42px] w-[104px]'>
+                            <button onClick={() => router.back()} className='text-[14px] font-[600] rounded-[30px] h-[38px] blue_border_Button px-6'>
                                 Back
                             </button>
 
                             <button
                                 disabled={file && !loading ? false : true}
-                                className={`sm:px-9 px-6 py-3 bg-[#06A9EF]   text-[14px] font-[600] rounded-[30px] h-[42px] w-[139px] leading-tight text-white ${file && !loading
-                                    ? "opacity-100 btn_hover_effect"
+                                className={` px-6 h-[38px]    text-[14px] font-[600] rounded-[30px]  leading-tight bg_Button ${file && !loading
+                                    ? "opacity-100 bg_Button"
                                     : "opacity-50"
                                     } `}
                                 onClick={navigate}
@@ -833,16 +839,16 @@ function EasyApply() {
                             <p className='text-[12px] w-full text-red font-medium'>{error}</p>
                         }
                         <div className='flex justify-between w-full'>
-                            <button onClick={() => setTab(0)} className='border border-[#06A9EF] text-[14px] font-[600] rounded-[30px] h-[42px] w-[104px]'>
+                            <button onClick={() => setTab(0)} className=' text-[14px] font-[600] rounded-[30px] h-[38px] px-6 blue_border_Button'>
                                 Back
                             </button>
 
                             {loading ?
-                                <div className='w-[119px] bg-blue rounded-[30px] px-9 flex items-center justify-center font-medium h-[40px] text-white'>
+                                <div className='w-[95px] bg-blue rounded-[30px] px-9 flex items-center justify-center font-medium h-[40px] text-white'>
                                     <MiniLoader />
                                 </div>
                                 :
-                                <button onClick={applyForJob} className='w-[119px] bg-blue rounded-[30px] px-9 flex items-center justify-center font-medium h-[40px] text-white'>
+                                <button onClick={applyForJob} className='w-[95px] rounded-[30px] px-6 flex items-center justify-center font-medium h-[38px] bg_Button '>
                                     Apply
                                 </button>
                             }

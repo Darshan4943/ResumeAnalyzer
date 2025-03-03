@@ -296,7 +296,7 @@ function Services() {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[70px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
+    <div className="fixed z-[2000]  top-[61px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr420:px-4 px-2 flex scr700:flex-row flex-col scr700:gap-9 gap-6 justify-center w-full transform transition-transform   ease-in-out ${isMove
@@ -308,19 +308,19 @@ function Services() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-row scr700:flex-col gap-4">
               {(userDataGlobal?.role === "user" || !isLogin) &&
-                <button onClick={() => setCandidate("user")} className={`w-[228px] ${candidate === "user" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                <button onClick={() => setCandidate("user")} className={`w-[228px] ${candidate === "user" ? "bg-blue text-white " : "border border-blue hover:border-[#0275A7] hover:text-white"} h-[36px] rounded-[8px]  hover:bg-[#0275A7] flex items-center px-4 text-[14px] font-medium`}>
                   Candidate
 
                 </button>
               }
               {(userDataGlobal?.role === "recruiter" || !isLogin) &&
-                <button onClick={() => setCandidate("recruiter")} className={`w-[228px] ${candidate === "recruiter" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                <button onClick={() => setCandidate("recruiter")} className={`w-[228px] ${candidate === "recruiter" ? "bg-blue text-white" : "border border-blue hover:border-[#0275A7] hover:text-white"} h-[36px] rounded-[8px]  flex items-center hover:bg-[#0275A7]  px-4 text-[14px] font-medium`}>
                   Recruiter
 
                 </button>
               }
               {(userDataGlobal?.role === "employer" || !isLogin) &&
-                <button onClick={() => setCandidate("employer")} className={`w-[228px] ${candidate === "employer" ? "bg-[#FFDA1D]" : "border border-blue"} h-[36px] rounded-[8px]  flex items-center px-4 text-[14px] font-medium`}>
+                <button onClick={() => setCandidate("employer")} className={`w-[228px] ${candidate === "employer" ? "bg-blue text-white" : "border border-blue hover:border-[#0275A7] hover:text-white"} h-[36px] rounded-[8px]  flex items-center hover:bg-[#0275A7] px-4 text-[14px] font-medium`}>
                   Employer
 
                 </button>

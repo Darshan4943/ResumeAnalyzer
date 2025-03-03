@@ -215,14 +215,14 @@ e.preventDefault();
           {verify ? (
             <button
               onClick={verifyOtp}
-              className="border border-[#06A9EF] text-white text-[14px] font-[600] bg-[#06A9EF] rounded-[30px] px-4 py-[10px] leading-[20.67px] w-[100%]"
+              className=" text-[14px] font-[600]  rounded-[30px] px-4 h-[38px] bg_Button leading-[20.67px] w-[100%]"
             >
               Verify & Proceed
             </button>
           ) : (
             <button
               onClick={handleVerification}
-              className="h-[42px] border border-[#06A9EF] items-center text-white text-[14px] flex justify-center font-[600] bg-[#06A9EF] rounded-[30px] px-4 py-[10px] w-[100%]"
+              className="h-[38px] items-center  text-[14px] flex justify-center font-[600] bg_Button rounded-[30px] px-4  w-[100%]"
             >
               {loading ? <MiniLoader /> : "Verify Email  "}
             </button>
@@ -348,7 +348,7 @@ e.preventDefault();
           <button
             disabled={passwordError}
             onClick={(e) => handleSubmit(e)}
-            className={`border border-[#06A9EF] text-white text-[14px] font-[600] leading-[20.67px] bg-[#06A9EF] rounded-[30px]  px-4 py-[10px] w-[100%] ${passwordError && "opacity-70"
+            className={`text-[14px] font-[600] leading-[20.67px]  rounded-[30px]  px-4 h-[38px] bg_Button w-[100%] ${passwordError && "opacity-70"
               }`}
           >
             Submit

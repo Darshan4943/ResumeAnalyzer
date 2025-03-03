@@ -694,7 +694,7 @@ function Sign_up({}) {
                   !isUpdate && (
                     <button
                       onClick={handleVerification}
-                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] btn_hover_effect"
+                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
                     >
                       {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>
@@ -779,7 +779,7 @@ function Sign_up({}) {
               {!verified && (
                 <button
                   onClick={verifyOtp}
-                  className="flex justify-center  items-center  px-2 text-[10px] font-[600] border border-blue  rounded-[30px] leading-tight btn_hover_effect h-[26px]"
+                  className="flex justify-center  items-center  px-2 text-[10px] font-[600]  rounded-[30px] leading-tight bg_Button h-[26px]"
                 >
                   Verify
                 </button>
@@ -906,9 +906,9 @@ function Sign_up({}) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] flex justify-center py-[4px] h-[42px] items-center rounded-[30px] border-[1px] border-solid leading-[20.67px] border-[#06a9ef] text-[14px] font-[600] text-[#fff]  bg-[#06a9ef] ${
+            className={`w-full px-[36px] flex justify-center  h-[38px] items-center rounded-[30px]  leading-[20.67px] text-[14px] font-[600] bg_Button ${
               loading && "bg-[#06a9ef]"
-            } hover:text-[#333333] transition-all duration-200 hover:bg-[#fff]`}
+            } `}
           >
             {loading ? <MiniLoader /> : "Sign Up"}
           </button>

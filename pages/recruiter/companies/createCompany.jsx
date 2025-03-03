@@ -434,7 +434,7 @@ function CreateCompany() {
                         setTimeout(() => setShowDropdown(false), 200)
                       }
                       placeholder="Enter or Select Company Sector"
-                      className="w-full border-[1px] border-[#DEDEDE] rounded-[8px] px-4 py-2 outline-none"
+                      className="w-full border-[1px] border-[#DEDEDE] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] rounded-[8px] px-4 py-2 outline-none"
                     />
 
                     {showDropdown && filteredOptions.length > 0 && (
@@ -541,21 +541,21 @@ function CreateCompany() {
           <div className="w-full flex justify-between pt-5">
             <button
               onClick={router.back}
-              className="rounded-[30px] border-[1px] border-[#B3261E] boder-solid px-2 ms:px-8 py-1 ms:py-3 text-[14px] font-[600] text-[#B3261E]"
+              className="rounded-[30px] px-2 ms:px-6 h-[38px] red text-[14px] font-[600] red_border_Button"
             >
               Cancel
             </button>
             <div className="flex gap-[2px] scr340:gap-[14px]">
               <button
                 onClick={handleReset}
-                className="rounded-[30px] border-[1px] border-[#06A9EF] boder-solid px-3 ms:px-9 py-1 ms:py-3 text-[14px] font-[600] text-[#333333]"
+                className="rounded-[30px]  px-3 ms:px-6 text-[14px] font-[600] blue_border_Button h-[38px]"
               >
                 Reset
               </button>
               <button
                 onClick={handleClick}
                 disabled={isButtonDisabled}
-                className="rounded-[30px] border-[1px] border-[#06A9EF] bg-[#06A9EF] border-solid px-3 ms:px-9 py-1 ms:py-3 text-[14px] font-[600] text-[#FFFFFF]"
+                className="rounded-[30px]  px-3 ms:px-6 text-[14px] font-[600] bg_Button h-[38px]"
               >
                 {isButtonDisabled ? (
                   <MiniLoader1 />

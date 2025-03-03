@@ -260,7 +260,7 @@ const Index = () => {
                 No resumes available
                 <button
                   onClick={() => router.push("/createResume/BuildResume")}
-                  className="bg-blue  px-4 py-2 text-white rounded-lg font-medium text-[16px] w-[180px] btn_hover_effect "
+                  className="bg-blue  px-4 py-2 text-white rounded-lg font-medium text-[16px] w-[180px] bg_Button "
                 >
                   Create Resume
                 </button>

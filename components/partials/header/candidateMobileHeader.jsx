@@ -83,7 +83,7 @@ function CandidateMobileHeader() {
                   onClick={() => {
                     router.push("/auth?signin=true&role=recruiter");
                   }}
-                  className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]"
+                  className="flex gap-3 py-2 px-3 items-center bg_Button rounded-b-[8px]"
                 >
                   Recruiter Sign In
                 </div>

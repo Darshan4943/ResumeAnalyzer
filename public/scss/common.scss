@@ -209,8 +209,7 @@
       color: #000;
     }
 
-    .skills {
-    }
+    .skills {}
 
     .skills__item {
       margin-bottom: 10px;
@@ -230,7 +229,7 @@
         margin-right: 3px;
       }
 
-      input:checked + label {
+      input:checked+label {
         background: #79a9ce;
       }
     }
@@ -344,134 +343,140 @@ a {
 
 .createResume:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    31.62deg,
-    rgba(6, 169, 239, 0.15) 14.94%,
-    rgba(162, 227, 255, 0.15) 99.61%
-  );
+  background: linear-gradient(31.62deg,
+      rgba(6, 169, 239, 0.15) 14.94%,
+      rgba(162, 227, 255, 0.15) 99.61%);
 }
+
 .createCover:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    110.9deg,
-    rgba(21, 179, 255, 0.15) -41.91%,
-    rgba(226, 0, 233, 0.15) 89.99%
-  );
+  background: linear-gradient(110.9deg,
+      rgba(21, 179, 255, 0.15) -41.91%,
+      rgba(226, 0, 233, 0.15) 89.99%);
 }
+
 .candidates:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    85.58deg,
-    rgba(255, 222, 0, 0.15) 65.23%,
-    rgba(253, 89, 0, 0.15) 96.45%
-  );
+  background: linear-gradient(85.58deg,
+      rgba(255, 222, 0, 0.15) 65.23%,
+      rgba(253, 89, 0, 0.15) 96.45%);
 }
 
 .TransFormCV:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    0deg,
-    rgba(59, 139, 245, 0.15) 0.56%,
-    rgba(199, 213, 243, 0.15) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(59, 139, 245, 0.15) 0.56%,
+      rgba(199, 213, 243, 0.15) 100%);
 }
 
 .MyResume:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 210, 239, 0.15) 0%,
-    rgba(141, 198, 63, 0.15) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 210, 239, 0.15) 0%,
+      rgba(141, 198, 63, 0.15) 100%);
 }
 
 .JobDes:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 129, 255, 0.15) 0%,
-    rgba(169, 58, 255, 0.15) 100.03%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 129, 255, 0.15) 0%,
+      rgba(169, 58, 255, 0.15) 100.03%);
 }
 
 .MyCollection:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(56, 184, 89, 0.15) -44.44%,
-    rgba(76, 162, 204, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(56, 184, 89, 0.15) -44.44%,
+      rgba(76, 162, 204, 0.15) 100%);
 }
 
 .SkillAss:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    45.46deg,
-    rgba(252, 68, 34, 0.15) 4.03%,
-    rgba(255, 187, 50, 0.15) 89.99%
-  );
+  background: linear-gradient(45.46deg,
+      rgba(252, 68, 34, 0.15) 4.03%,
+      rgba(255, 187, 50, 0.15) 89.99%);
 }
 
 .MyPurchase:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(225, 0, 255, 0.1) -319.33%,
-    rgba(127, 0, 255, 0.1) 103.69%
-  );
+  background: linear-gradient(180deg,
+      rgba(225, 0, 255, 0.1) -319.33%,
+      rgba(127, 0, 255, 0.1) 103.69%);
 }
 
 .searchJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(100, 65, 165, 0.15) 0%,
-    rgba(42, 8, 69, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(100, 65, 165, 0.15) 0%,
+      rgba(42, 8, 69, 0.15) 100%);
 }
 
 .chatBot:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    270deg,
-    rgba(121, 148, 216, 0.2) 0.37%,
-    rgba(114, 141, 210, 0.2) 3.69%,
-    rgba(92, 117, 188, 0.2) 17.46%,
-    rgba(76, 100, 172, 0.2) 32.08%,
-    rgba(66, 90, 163, 0.2) 48%,
-    rgba(63, 87, 160, 0.2) 67.66%,
-    rgba(42, 66, 139, 0.2) 100%
-  );
+  background: linear-gradient(270deg,
+      rgba(121, 148, 216, 0.2) 0.37%,
+      rgba(114, 141, 210, 0.2) 3.69%,
+      rgba(92, 117, 188, 0.2) 17.46%,
+      rgba(76, 100, 172, 0.2) 32.08%,
+      rgba(66, 90, 163, 0.2) 48%,
+      rgba(63, 87, 160, 0.2) 67.66%,
+      rgba(42, 66, 139, 0.2) 100%);
 }
 
 .myWebsite:hover {
   background: linear-gradient(0deg, #ffffff, #ffffff);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 166, 141, 0.2) 0%,
-    rgba(253, 58, 132, 0.2) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 166, 141, 0.2) 0%,
+      rgba(253, 58, 132, 0.2) 100%);
 }
 
 .postJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(100, 65, 165, 0.15) 0%,
-    rgba(42, 8, 69, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(100, 65, 165, 0.15) 0%,
+      rgba(42, 8, 69, 0.15) 100%);
 }
 
 .group:hover .icon-path {
   fill: white;
 }
-.btn_hover_effect {
+
+.bg_Button {
   transition: all 0.2s;
+  background-color: #06A9EF;
+  color: white;
+
 }
 
-.btn_hover_effect:hover {
-  background-color: #ffda1d;
-  color: #000000;
+.bg_Button:hover {
+  background-color: #0275A7;
+  color: white;
+}
+
+.blue_border_Button {
+  transition: all 0.2s;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #06A9EF;
+}
+
+.blue_border_Button:hover {
+  background-color: #0275A7;
+  color: #FFFFFF;
+  border: 1px solid #0275A7;
+}
+
+.red_border_Button {
+  transition: all 0.2s;
+  background-color: #ffffff;
+  color: #C00000;
+  border: 1px solid #C00000;
+}
+
+.red_border_Button:hover {
+  background-color: #C00000;
+  color: #FFFFFF;
+  border: 1px solid #C00000;
 }
 
 .page-break1 {
@@ -640,35 +645,45 @@ a {
 .react-datepicker-popper {
   margin-left: 52px;
 }
-.css-1fdsijx-ValueContainer{
-  padding: 2px 4px 2px 4px !important ;
+
+.css-1fdsijx-ValueContainer {
+  padding: 2px 4px 2px 4px !important;
 }
-.css-1xc3v61-indicatorContainer{
-  padding: 2px 2px 2px 2px !important ;
+
+.css-1xc3v61-indicatorContainer {
+  padding: 2px 2px 2px 2px !important;
 }
-.css-1eymi8j-control{
+
+.css-1eymi8j-control {
   border-radius: 8px !important;
 }
-.css-1hb7zxy-IndicatorsContainer{
+
+.css-1hb7zxy-IndicatorsContainer {
   border-radius: 16px;
 }
-.css-13cymwt-control{
+
+.css-13cymwt-control {
   height: 44px;
   border-radius: 8px !important;
-  
+
 }
+
 .ql-container {
   height: calc(100% - 42.84px) !important;
 }
+
 /* Hide scrollbar and set its width to 0 */
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none; /* For IE10+ */
-  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
+  /* For IE10+ */
+  scrollbar-width: none;
+  /* For Firefox */
 }
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -150,8 +150,8 @@ function MyClients() {
           <div className="rounded-[16px] scr360:p-4 p-2 bg-white">
             <div className="flex flex-col gap-4  py-3 rounded-[24px]">
               <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
-                <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]">
-                  <div className="flex gap-4  w-full items-center ">
+                <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4  ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]">
+                  <div className="flex gap-4  w-full items-center h-[38px] ">
                     <svg
                       className="min-w-[24px]"
                       width="24"
@@ -170,7 +170,7 @@ function MyClients() {
                     </svg>
 
                     <input
-                      className="w-full h-[24px] scr420:text-[16px] sm:text-[14px] sm:placeholder:text-[16px] placeholder:text-[14px]"
+                      className="w-full  scr420:text-[16px] sm:text-[14px] sm:placeholder:text-[16px] placeholder:text-[14px]"
                       type="text"
                       placeholder={`Search Candidate name`}
                       onChange={(e) => changeHandler(e.target.value)}
@@ -181,7 +181,7 @@ function MyClients() {
                   {!select && (
                     <div
                       onClick={() => setSelect(!select)}
-                      className="scr420:py-3 scr420:px-[36px] px-2 py-2 flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[30px] items-center cursor-pointer"
+                      className="scr420:px-6 px-2 h-[38px] flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[30px] items-center cursor-pointer"
                     >
                       <svg
                         className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
@@ -205,15 +205,15 @@ function MyClients() {
                     } gap-12  items-center w-[100%]  `}
                   >
                     {select && (
-                      <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[280px]  scr420:h-[48px] h-[40px]  ">
+                      <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-2  items-center w-full scr420:min-w-[316px] min-w-[280px]   h-[38px]  ">
                         <div
                           onClick={() => setSelect(false)}
                           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
                           className="bg-[#F9F9F9] rounded-[50%] p-[8.5px]  cursor-pointer"
                         >
                           <svg
-                            width="12"
-                            height="12"
+                            width="10"
+                            height="10"
                             viewBox="0 0 11 11"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -241,8 +241,8 @@ function MyClients() {
                           <svg
                             className=" cursor-pointer"
                             onClick={() => deleteClient()}
-                            width="20"
-                            height="20"
+                            width="18"
+                            height="18"
                             viewBox="0 0 20 20"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +267,7 @@ function MyClients() {
                       onClick={() => {
                         router.push("/candidates/CreateNewClient");
                       }}
-                      className="ml:hidden  items-center scr480:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr480:px-6 px-2 py-2 scr480:h-[51px]  scr480:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[30px] text-white"
+                      className="ml:hidden  items-center scr480:text-[16px] xsm:text-[14px] text-[12px] font-semibold  scr480:px-6 px-2  h-[38px] scr480:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[30px] text-white"
                       type="button"
                     >
                       <svg
@@ -291,7 +291,7 @@ function MyClients() {
                     onClick={() => {
                       router.push("/candidates/CreateNewClient");
                     }}
-                    className=" ml:flex w-[285.09px] hidden text-[16px] font-semibold py-3 px-[36px] min-w-[224px]  ml:min-w-[285.09px] gap-1 bg-[#06A9EF] rounded-[30px] text-white"
+                    className=" ml:flex  hidden text-[16px] font-semibold  px-6 h-[38px]  items-center min-w-[224px]  ml:min-w-[262cpx] gap-1 bg-[#06A9EF] rounded-[30px] text-white"
                     type="button"
                   >
                     <svg

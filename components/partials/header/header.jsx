@@ -310,7 +310,7 @@ function Header({ userData }) {
                           onClick={() => {
                             router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
                           }}
-                          className="px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
+                          className="px-6 bg-blue h-[38px] bg_Button rounded-[30px] text-[14px] font-semibold text-white leading-tight"
                         >
                           Search
                         </button>
@@ -512,19 +512,19 @@ function Header({ userData }) {
               <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] mt-[10px]">
                 <motion.button
                   onClick={() => router.push("/auth?signin=true")}
-                  className="buttonTransparent scr1150:min-w-[123px] scr1024:min-w-[110px] min-w-[100px] rounded-[30px] flex justify-center items-center bg-white text-[#333] py-[10px] h-[42px] scr1150:px-6 scr1024:px-3 px-2 text-[14px] font-semibold border-[1px] border-[#06A9EF] hover:bg-[#06A9EF] hover:text-[white] leading-[18px]"
+                  className="buttonTransparent  rounded-[30px] flex justify-center items-center blue_border_Button py-[10px] h-[38px] px-6 text-[14px] font-semibold border-[1px]  leading-[18px]"
                   initial={{ opacity: 1, scale: 1 }}
                   animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
                   layout
                 >
-                  Sign in
+                  Sign In
                 </motion.button>
 
                 <motion.button
                   onClick={() => router.push("/auth?signup=true")}
-                  className="rounded-[30px] scr1150:min-w-[129px] scr1024:min-w-[100px] min-w-[90px] flex justify-center items-center text-[#FFFFFF] py-[10px] h-[42px] scr1150:px-6 scr1024:px-3 px-2 text-[14px] font-semibold border-[1px] border-[#06A9EF] bg-[#06A9EF] hover:bg-white hover:text-[#333333] leading-[18px]"
+                  className="rounded-[30px]  flex justify-center items-center bg_Button py-[10px] h-[38px] px-6  text-[14px] font-semibold border-[1px]  leading-[18px]"
                   initial={{ opacity: 1, scale: 1 }}
                   animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}

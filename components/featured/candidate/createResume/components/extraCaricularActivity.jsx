@@ -352,7 +352,7 @@ const ExtraCaricularActivity = ({
               <button
                 onClick={handleSave}
                 disabled={!isChecked}
-                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
+                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] bg_Button"
               >
                 Save
               </button>

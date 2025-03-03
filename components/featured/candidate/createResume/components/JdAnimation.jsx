@@ -105,7 +105,7 @@ function JdAnimation({ details, count }) {
                     {count == 0 &&
                         <div className="flex flex-col gap-4 items-center">
                             <p className=" text-[16px] font-semibold"> To transform your resume, you will have to first create and save your resume in “My Resumes” section.</p>
-                            <button onClick={() => router.push("/home/MyCollection")} className="btn_hover_effect flex justify-center px-4 py-2 rounded-[12px] bg-blue font-medium text-white w-[170px]">Create Resume</button>
+                            <button onClick={() => router.push("/home/MyCollection")} className="bg_Button flex justify-center px-4 py-2 rounded-[12px] bg-blue font-medium text-white w-[170px]">Create Resume</button>
                         </div>
                     }
                 </>

@@ -79,7 +79,7 @@ const DateSelectorComponent = () => {
 
       <button
         onClick={handleDownload}
-        className="mt-4 buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect w-full"
+        className="mt-4 buttons font-[500] bg-[#06A9EF] text-white bg_Button w-full"
       >
         Download Logs
       </button>

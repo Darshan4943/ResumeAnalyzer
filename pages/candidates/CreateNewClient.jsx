@@ -434,17 +434,18 @@ function CreateNewClient() {
                       <>
                         <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
                           <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[49%] w-[100%]">
-                            <div className="personal_name ml:w-[46%] w-[100%]">
-                              <p className="form_text_heading">
+                            <div className="personal_name ml:w-[50%] w-[100%]">
+                              <p className="form_text_heading ">
                                 First Name <span className="star">*</span>
                               </p>
                               <input
                                 type="text"
                                 name=""
-                                id="first_name"
+                                id=""
                                 placeholder="Enter First Name"
                                 value={data.firstName}
                                 maxLength={50}
+                                className="h-[40px] px-2 rounded-[8px] border border-[#DEDEDE] w-full"
                                 onChange={(e) =>
                                   handleInputChange("firstName", e.target.value)
                                 }
@@ -456,14 +457,14 @@ function CreateNewClient() {
                               )}
                             </div>
 
-                            <div className="personal_name ml:w-[46%] w-[100%]">
+                            <div className="personal_name ml:w-[50%] w-[100%]">
                               <p className="form_text_heading">
                                 Last Name <span className="star">*</span>
                               </p>
                               <input
                                 type="text"
                                 name=""
-                                id="first_name"
+                                className="h-[40px] px-2 rounded-[8px] border border-[#DEDEDE] w-full"
                                 placeholder="Enter Last Name"
                                 value={data.lastName}
                                 onChange={(e) =>
@@ -485,11 +486,11 @@ function CreateNewClient() {
                               Email <span className="star">*</span>
                             </p>
                             <input
-                              className={`${isUpdate && "opacity-70"}`}
+                              className={`${isUpdate && "opacity-70"} h-[40px] px-2 rounded-[8px] border border-[#DEDEDE] w-full`}
                               disabled={isUpdate}
                               type="email"
                               name=""
-                              id="single_input"
+                             
                               placeholder="Enter Email"
                               value={data.email}
                               onChange={(e) =>
@@ -509,12 +510,12 @@ function CreateNewClient() {
                               Contact Number <span className="star">*</span>
                             </p>
                             <div
-                              className={`flex w-[100%] items-start ${
+                              className={`flex  items-center h-[40px] px-2 rounded-[8px] border border-[#DEDEDE] w-full ${
                                 isViewportBelow850
                                   ? "gap-[4px] "
                                   : "gap-[16px] "
                               }`}
-                              id="single_input"
+                            
                             >
                               <div
                                 className={`relative min-w-[150px] ${
@@ -601,7 +602,7 @@ function CreateNewClient() {
                             <input
                               type="text"
                               name=""
-                              id="first_name"
+                           className="h-[38px] px-2 rounded-[8px] border border-[#DEDEDE] w-full"
                               placeholder="Enter Designation"
                               value={data.designation}
                               onChange={(e) =>
@@ -665,7 +666,7 @@ function CreateNewClient() {
                               <input
                                 type="text"
                                 name=""
-                                id="single_input"
+                                 className="h-[38px] px-2 rounded-[8px] border border-[#DEDEDE] w-full"
                                 placeholder="Enter Your Location"
                                 value={data.location}
                                 onChange={(e) =>
@@ -686,19 +687,19 @@ function CreateNewClient() {
                           </div>
                         </div>
 
-                        <div className="bottom_buttons  font-[500] flex justify-between">
+                        <div className="bottom_buttons pt-6  font-[500] flex justify-between">
                           <button
                             onClick={(e) => {
                               e.preventDefault();
                               router.back();
                             }}
-                            className="buttons border border-blue rounded-[30px]"
+                            className="px-6 h-[40px] blue_border_Button  rounded-[30px]"
                           >
                             Back
                           </button>
                           <button
-                            className={`buttons font-[500] bg-[#06A9EF] text-white rounded-[30px] `}
-                            id="border_button"
+                            className={` font-[500] px-6 bg_Button h-[40px] rounded-[30px] `}
+                            id=""
                             onClick={submitHandler}
                           >
                             {loading ? (

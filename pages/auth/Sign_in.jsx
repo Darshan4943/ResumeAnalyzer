@@ -288,9 +288,9 @@ function Sign_in({  setSignIn, setSignUp }) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] py-[10px] rounded-[30px] border-[1px] border-solid leading-[20.67px] border-[#06a9ef] text-[14px] font-[600] text-[#fff]  bg-[#06a9ef] ${
+            className={`w-full px-[36px] h-[38px] bg_Button rounded-[30px] leading-[20.67px]  text-[14px] font-[600] ${
               loading && "bg-[#06a9ef]"
-            } hover:text-[#333333] transition-all duration-200 hover:bg-[#fff]`}
+            } `}
           >
             {loading ? (
               <div role="status">

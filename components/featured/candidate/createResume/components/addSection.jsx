@@ -253,7 +253,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               <button
                 onClick={dataSeter}
                 disabled={!isChecked}
-                className="font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] h-[32px] btn_hover_effect"
+                className="font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] h-[32px] bg_Button"
               >
                 Save Details
               </button>

@@ -813,7 +813,7 @@ function SkillAssessment() {
                 <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center ">
                   <button
                     className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
-                      ? "bg-blue text-white btn_hover_effect"
+                      ? "bg-blue text-white bg_Button"
                       : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                       }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
                     onClick={() => setAssesmentType("Normal")}
@@ -822,7 +822,7 @@ function SkillAssessment() {
                   </button>
                   <button
                     className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
-                      ? "bg-blue text-white btn_hover_effect"
+                      ? "bg-blue text-white bg_Button"
                       : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                       } ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium  `}
                     onClick={() => setAssesmentType("Certificate")}
@@ -836,7 +836,7 @@ function SkillAssessment() {
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
                         className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${!resultType 
-                          ? "bg-blue text-white btn_hover_effect"
+                          ? "bg-blue text-white bg_Button"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                           }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
                         onClick={() => setResultType(false)}
@@ -845,7 +845,7 @@ function SkillAssessment() {
                       </button>
                       <button
                         className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${resultType
-                          ? "bg-blue text-white btn_hover_effect"
+                          ? "bg-blue text-white bg_Button"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                           }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
                         onClick={() => setResultType(true)}
@@ -1597,7 +1597,7 @@ function SkillAssessment() {
                       {assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= 70 && (
                           <button
-                            className="btn_hover_effect min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
+                            className="bg_Button min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                             onClick={() => generatePdf2()}
                           >
                             {loading3 && <MiniLoader />}
@@ -1605,7 +1605,7 @@ function SkillAssessment() {
                           </button>
                         )}
                       <button
-                        className="btn_hover_effect  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
+                        className="bg_Button  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
                         onClick={() => handleDownload()}
                       >
                         {loadingg && <MiniLoader />}

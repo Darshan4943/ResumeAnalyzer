@@ -69,7 +69,8 @@ function NormalJobCard({ item }) {
         <div className="flex flex-row">
           <div className="flex flex-col gap-[4px] w-full">
             <div className="xxsm:text-[16px] sm:text-[16px] font-[600]">
-              {item?.jobTitle}
+            {item?.jobTitle.length > 40 ? `${item?.jobTitle.slice(0, 40)}...` : item?.jobTitle}
+
             </div>
             <div
               onClick={(e) => {
@@ -200,15 +201,16 @@ function NormalJobCard({ item }) {
             </svg>
           </div>
           <div className="text-[#262626] font-[400] text-[12px] max-h-[36px] overflow-hidden ">
-            {item?.description?.length > 100 ? (
+            {item?.description?.length > 120 ? (
               <>
                 <div
-                  className=""
-                  dangerouslySetInnerHTML={{
-                    __html: item?.description.slice(0, 100),
-                  }}
-                />
-                <span>...</span>
+                      className=""
+                      dangerouslySetInnerHTML={{
+                        __html: item.description.length > 120
+                          ? item.description.slice(0, 120) + "..."
+                          : item.description
+                      }}
+                    />
               </>
             ) : (
               <div

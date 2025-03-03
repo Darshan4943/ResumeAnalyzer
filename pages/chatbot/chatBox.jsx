@@ -388,7 +388,7 @@ const ChatBox = ({
                 setIsNew(true);
                 createNewChat();
               }}
-              className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer"
+              className="bg_Button flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer"
             >
               +
             </div>
@@ -532,7 +532,7 @@ const ChatBox = ({
                   placeholder="Type your Questions here"
                   className="text-[12px] font-[400] font-Montserrat w-full"
                 />
-                <button className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+                <button className="bg_Button flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
                   {loading ? (
                     <svg
                       aria-hidden="true"

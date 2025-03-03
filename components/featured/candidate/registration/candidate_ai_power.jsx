@@ -385,7 +385,7 @@ const CandidateAiPower = ({
                             <div>{fileIconSeter(file)}</div>
                             <span className="text-[12px] w-[80%] break-all">{file.name}</span>
                           </div>
-                          <button className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
+                          <button className="bg_Button sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
                             Browse file
                           </button>
                         </div>
@@ -474,7 +474,7 @@ const CandidateAiPower = ({
                 <button
                   disabled={file && !loading ? false : true}
                   className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[30px] text-[14px] text-[#FFFFFF] font-[600] ${file && !loading
-                    ? "opacity-100 btn_hover_effect"
+                    ? "opacity-100 bg_Button"
                     : "opacity-50"
                     } `}
                   onClick={navigate}

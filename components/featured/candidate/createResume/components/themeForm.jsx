@@ -113,7 +113,7 @@ function ThemeForm({
       <div className="flex wrap items-center w-full justify-between gap-2 ">
         <div className="flex wrap gap-[16px] xxsm: items-center justify-center">
           <div
-            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect xxsm:rounded-[8px] gap-1 "
+            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] bg_Button xxsm:rounded-[8px] gap-1 "
             onClick={() => setView(!view)}
           >
             <svg

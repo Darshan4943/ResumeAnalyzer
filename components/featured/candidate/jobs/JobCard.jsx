@@ -19,6 +19,7 @@ function Job_card({
 
   const isLogin = useSelector((state) => state.auth.isLogin);
   const router = useRouter();
+  const appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
 
   const jobApplyCount = localStorage.getItem("jobsApplyLimit");
   const dispatch = useDispatch();
@@ -204,15 +205,17 @@ function Job_card({
                 </svg>
               </div>
               <div className="text-[#262626] font-[400] text-[12px] h-[36px] overflow-hidden">
-                {item?.description?.length > 100 ? (
+                {item?.description?.length > 180 ? (
                   <>
                     <div
                       className=""
                       dangerouslySetInnerHTML={{
-                        __html: item.description.slice(0, 100),
+                        __html: item.description.length > 180
+                          ? item.description.slice(0, 180) + "..."
+                          : item.description
                       }}
                     />
-                    <span>...</span>
+
                   </>
                 ) : (
                   <div
@@ -288,20 +291,20 @@ function Job_card({
                 )}
               </div>
             </div>
-            <div className="flex w-full scr700:w-[250px] justify-end gap-2 h-[42px]">
+            <div className="flex w-full scr700:w-[250px] justify-end gap-2 h-[38px]">
               {isLogin && (
                 <div>
                   {item?.isSaved ? (
                     <button
                       onClick={(e) => removeSavedJob(e, item._id)}
-                      className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight text-[#AFAFAF99]"
+                      className="border border-[#AFAFAF99] rounded-[30px] text-[14px] font-[600] px-6 h-[38px] blue_border_Button leading-tight text-[#AFAFAF99]"
                     >
                       Saved
                     </button>
                   ) : (
                     <button
                       onClick={(e) => SaveJob(e, item._id)}
-                      className="border border-blue rounded-[30px] text-[14px] font-[600] px-9 py-3  leading-tight"
+                      className="border border-blue rounded-[30px] text-[14px] font-[600] px-6 h-[38px]  leading-tight blue_border_Button"
                     >
                       Save
                     </button>
@@ -310,12 +313,8 @@ function Job_card({
               )}
               <button
                 disabled={
-                  (jobData?.some(
-                    (job) =>
-                      job?.matchedApplication?.applicantId ===
-                      userDataGlobal?._id
-                  ) &&
-                    isLogin) ||
+                  item?.matchedApplication?.applicantId === userDataGlobal?._id
+                  && (isLogin || appliedJobs.includes(item?._id)) ||
                   item?.status === "Hold"
                 }
                 onClick={() => {
@@ -338,21 +337,16 @@ function Job_card({
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[12px] px-[36px] rounded-[30px] ${(jobData?.some(
-                  (job) =>
-                    job?.matchedApplication?.applicantId ===
-                    userDataGlobal?._id
-                ) &&
-                  isLogin) ||
-                  item.status === "Hold"
-                  ? "cursor-not-allowed"
-                  : " cursor-pointer"
+                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] h-[38px] px-6 rounded-[30px] bg_Button
+                  ${item?.matchedApplication?.applicantId === userDataGlobal?._id
+                    && (isLogin || appliedJobs.includes(item?._id)) ||
+                    item.status === "Hold"
+                    ? "cursor-not-allowed"
+                    : " cursor-pointer"
                   }`}
               >
-                {jobData?.some(
-                  (job) =>
-                    job?.matchedApplication?.applicantId === userDataGlobal?._id
-                ) && isLogin
+                {item?.matchedApplication?.applicantId === userDataGlobal?._id
+                  && (isLogin || appliedJobs.includes(item?._id))
                   ? "Applied"
                   : "Apply"}
               </button>

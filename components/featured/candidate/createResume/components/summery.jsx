@@ -181,7 +181,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                               limits?.total?.chatBotLimit?.monthly) && (
                                 <div
                                   onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                                 >
                                   Upgrade Plan
                                 </div>
@@ -202,7 +202,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                               limits?.total?.collectionStoredLimit?.monthly) && (
                                 <div
                                   onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                                 >
                                   Upgrade Plan
                                 </div>
@@ -219,7 +219,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                               limits.total.collectionStoredLimit?.monthly) && (
                                 <div
                                   onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                                 >
                                   Upgrade Plan
                                 </div>
@@ -230,7 +230,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     ) : (
                       <div
                         onClick={() => router.push("/purchase/plans")}
-                        className="btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                        className="bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                       >
                         Purchase Plan
                       </div>

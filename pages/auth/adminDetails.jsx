@@ -656,7 +656,7 @@ function AdminDetails({
                 {!verify ? (
                   <button
                     onClick={handleVerification}
-                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px] border flex items-center justify-center  border-[#06A9EF] rounded-[8px] scr540:rounded-[30px] bg-blue md:rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#FFFFFF]"
+                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px] border flex items-center justify-center   rounded-[8px] scr540:rounded-[30px] md:rounded-[30px] text-[12px] md:text-[14px] font-[500] bg_Buttona"
                   >
                     {loadingg ? <MiniLoader /> : <>Verify Email</>}
                   </button>
@@ -710,7 +710,7 @@ function AdminDetails({
                     {!verified && (
                       <button
                         onClick={verifyOtp}
-                        className="flex justify-center  items-center  px-4 text-[12px] font-[600] bg-blue text-white  rounded-[30px] leading-tight btn_hover_effect h-[30px]"
+                        className="flex justify-center  items-center  px-4 text-[12px] font-[600] bg-blue text-white  rounded-[30px] leading-tight bg_Button h-[30px]"
                       >
                         Verify
                       </button>
@@ -903,7 +903,7 @@ function AdminDetails({
 
           <button
             onClick={() => (recOptions === "firm" || role==="employer") ? handleBack() : router.push("/auth?signup=true")}
-            className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] text-[12px] md:text-[14px] font-[500] text-[#333333]"
+            className=" px-4 md:px-6  rounded-[30px] text-[12px] md:text-[14px] font-[500] h-[38px] blue_border_Button"
           >
             Go Back
           </button>
@@ -914,14 +914,14 @@ function AdminDetails({
           {loading ?
             <div
 
-              className="w-[148.34px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+              className="w-[122.74px] py-2 md:py-[8px] px-4 md:px-[36px] border flex justify-center items-center border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
             >
               <MiniLoader />
             </div>
             :
             <button
               onClick={handleSubmit}
-              className="py-2 md:py-[8px] px-4 md:px-[36px] border border-[#06A9EF] rounded-[30px] bg-blue text-[12px] md:text-[16px] font-[500] text-[#FFFFFF]"
+              className=" px-4 md:px-6 rounded-[30px] text-[12px] md:text-[16px] font-[500] bg_Button"
             >
               Continue
             </button>

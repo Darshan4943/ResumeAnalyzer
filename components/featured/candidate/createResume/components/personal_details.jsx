@@ -430,7 +430,7 @@ const PersonalDetails = ({
           <div className="flex justify-between py-2 gap-2">
             <button
               className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
-                isChecked ? "btn_hover_effect" : ""
+                isChecked ? "bg_Button" : ""
               }`}
               style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
@@ -892,7 +892,7 @@ export default PersonalDetails;
 //               Update to Profile
 //             </button> */}
 //             <button
-//               className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${isChecked ? "btn_hover_effect" : ""
+//               className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${isChecked ? "bg_Button" : ""
 //                 }`}
 //               style={{ opacity: isDisabled() ? 0.5 : 1 }}
 //               onClick={saveData}

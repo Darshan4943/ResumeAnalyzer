@@ -138,7 +138,7 @@ const JobCard = ({ filters, setFilters }) => {
                     className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
                       }`}
                   >
-                    <div className="flex justify-between gap-[20px] items-center">
+                    <div className="flex justify-between gap-[20px] items-start">
                       <p className="text-[14px] font-[600]">
                         {job?.jobTitle?.length > 35 ? `${job.jobTitle.slice(0, 35)} ...` : job.jobTitle}
                       </p>

@@ -494,7 +494,7 @@ function EditProfile({ setEditProfile }) {
                     <button
                       disabled={loadingg}
                       onClick={handleVerification}
-                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] btn_hover_effect"
+                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
                     >
                       {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>
@@ -568,7 +568,7 @@ function EditProfile({ setEditProfile }) {
                 {!verified && (
                   <button
                     onClick={verifyOtp}
-                    className="flex justify-center  items-center  px-4 text-[12px] font-[600] border border-blue  rounded-[30px] leading-tight btn_hover_effect h-[36px]"
+                    className="flex justify-center  items-center  px-4 text-[12px] font-[600] border border-blue  rounded-[30px] leading-tight bg_Button h-[36px]"
                   >
                     Verify
                   </button>

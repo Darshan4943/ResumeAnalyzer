@@ -103,7 +103,7 @@ const Index = () => {
           </button> */}
           <button
             onClick={handleDownload}
-            className="mt-4 buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect"
+            className="mt-4 buttons font-[500] bg-[#06A9EF] text-white bg_Button"
           >
             Download
           </button>

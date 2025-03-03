@@ -40,7 +40,7 @@ const SignUp = () => {
 
   return (
     <div className="w-full relative flex items-center flex-col gap-[18px] pb-[62px]">
-      <div className="sticky z-[100] w-full top-[47px] bg-[#F3F4F5] pt-[10px] md:pt-[24px]">
+      <div className="sticky z-[100] w-full top-[37px] bg-[#F3F4F5] pt-[10px] md:pt-[24px]">
         {role === "recruiter" ?
           <div className="w-full bg-blue flex items-center flex-col gap-2 py-[6px] ">
             <span className="text-[24px] md:text-[30px] font-[600] text-white">
@@ -126,10 +126,10 @@ const SignUp = () => {
           <div className="flex flex-col gap-2">
             <p className="text-[16px] font-medium  ">  Employment Status</p>
             <div className="flex gap-4">
-              <button onClick={selectRecruiterFirm} style={{ boxShadow: "0px 1px 3px 1px #00000026", boxShadow: "0px 1px 2px 0px #0000004D" }} className={`rounded-[30px] px-4 h-[32px] w-[137px] ${recOptions === "firm" ? "bg-blue text-white font-semibold" : "bg-white text-[#333333] text-[400]"} text-[14px]  `}>
+              <button onClick={selectRecruiterFirm} style={{ boxShadow: "0px 1px 3px 1px #00000026", boxShadow: "0px 1px 2px 0px #0000004D" }} className={`rounded-[30px] px-4 h-[32px] w-[137px] ${recOptions === "firm" ? "bg-blue text-white font-[500] hover:bg-[#0275A7]" : "bg-white text-[#333333] hover:bg-[#0275A7] hover:text-white text-[500]"} text-[14px]  `}>
                 Recruiter Firm
               </button>
-              <button onClick={selectRecruiterIndividual} style={{ boxShadow: "0px 1px 3px 1px #00000026", boxShadow: "0px 1px 2px 0px #0000004D" }} className={`rounded-[30px] px-4 h-[32px] w-[180px] ${recOptions === "individual" ? "bg-blue text-white font-semibold" : "bg-white text-[#333333] text-[400]"} text-[14px] `}>
+              <button onClick={selectRecruiterIndividual} style={{ boxShadow: "0px 1px 3px 1px #00000026", boxShadow: "0px 1px 2px 0px #0000004D" }} className={`rounded-[30px] px-4 h-[32px] w-[180px] ${recOptions === "individual" ? "bg-blue text-white font-[500] hover:bg-[#0275A7]" : "bg-white text-[#333333] hover:bg-[#0275A7] hover:text-white text-[500]"} text-[14px] `}>
                 Individual Recruiter
               </button>
 
