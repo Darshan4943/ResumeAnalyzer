@@ -47,6 +47,7 @@ function CreateNewJob() {
   const [error, setError] = useState(null);
   const [showEditor, setShowEditor] = useState(false);
   const fileRef = useRef();
+  const [categoryText, setCategoryText] = useState("");
   const [loactionText, setLoactionText] = useState("");
   const [KeywordsText, setKeywordsText] = useState("");
   const [dragging, setDragging] = useState(false);
@@ -76,6 +77,7 @@ function CreateNewJob() {
     revalentExp: "",
     mustSkills: [],
     goodSkills: [],
+    jobCat: [],
     qualificationType: [],
     status: "Live",
     logo: "",
@@ -148,7 +150,6 @@ function CreateNewJob() {
       padding: 2,
       boxShadow: "none",
       hight: "42px",
-      "&:hover": {},
     }),
   };
 
@@ -296,13 +297,13 @@ function CreateNewJob() {
       `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`
     );
 
-    if (sectorData?.jobCat) {
-      sectorData.jobCat.forEach((category) => {
-        formData.append("jobCat", category);
-      });
-    } else {
-      formData.append("jobCat", "");
-    }
+    // if (sectorData?.jobCat) {
+    //   sectorData.jobCat.forEach((jobCat) => {
+    //     formData.append("jobCat", jobCat);
+    //   });
+    // } else {
+    //   formData.append("jobCat", "");
+    // }
 
     try {
       const response = await axios.post(
@@ -324,7 +325,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -348,6 +349,7 @@ function CreateNewJob() {
           jobMode,
           location,
           country,
+          jobCat,
           description,
           jobSector,
           openPositions,
@@ -380,6 +382,7 @@ function CreateNewJob() {
           workFrom: jobMode,
           country,
           location,
+          jobCat,
           deadLine,
           description,
           salaryType,
@@ -424,9 +427,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(
-        `http://localhost:2000/api/company/fetchCompaniDetails/${id}`
-      )
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -512,6 +513,7 @@ function CreateNewJob() {
       requiredSkills: "",
       deadLine: "",
       experience: "",
+      jobCat:[],
       revalentExp: "",
       totalExperience: "",
       mustSkills: [],
@@ -661,11 +663,7 @@ function CreateNewJob() {
           value="bullet"
           aria-label="Unordered List"
         ></button>
-        <button
-          className="ql-align"
-
-          aria-label="Align Left"
-        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
         <button
           className="ql-align"
           value="center"
@@ -680,6 +678,96 @@ function CreateNewJob() {
     );
   };
   const header = renderHeader();
+
+  const options = [
+    { value: "Live", label: "Live" },
+    { value: "Hold", label: "Hold" },
+  ];
+
+  if (id) {
+    options.push({ value: "Closed", label: "Closed" });
+  }
+  const customStyless = {
+    control: (provided, state) => ({
+      ...provided,
+      border: formError.status ? "1px solid red" : "1px solid #DEDEDE",
+      // width: "189px",
+      borderRadius: "8px",
+      padding: "2px 8px",
+      boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+
+      height: "38px",
+      fontSize: "12px",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "#767676",
+      fontSize: "12px",
+      fontWeight: "400",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 10,
+    }),
+  };
+
+  const customStylesss = {
+    control: (provided, state) => ({
+      ...provided,
+      border: formError.country ? "1px solid red" : "1px solid #DEDEDE",
+      borderRadius: "8px",
+      padding: "2px 8px",
+      boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "#767676",
+      fontSize: "12px",
+      fontWeight: "400",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 10,
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "#EFFAFF",
+      borderRadius: "4px",
+    }),
+    multiValueLabel: (provided) => ({
+      ...provided,
+      color: "#06A9EF",
+      fontWeight: "500",
+    }),
+    multiValueRemove: (provided) => ({
+      ...provided,
+      color: "#9A4545",
+      "&:hover": {
+        backgroundColor: "transparent",
+        // color: "white",
+      },
+    }),
+  };
+
+  const optionss = [
+    { value: "Annual", label: "Annual" },
+    { value: "Monthly", label: "Monthly" },
+    { value: "Weekly", label: "Weekly" },
+  ];
+
+  const jobOptions = [
+    { value: "Full Time", label: "Full Time" },
+    { value: "Part Time", label: "Part Time" },
+    { value: "Contract", label: "Contract" },
+    { value: "Internships", label: "Internships" },
+  ];
+
+  const workFromOptions = [
+    { value: "On-Site", label: "On-Site" },
+    { value: "Remote", label: "Remote" },
+    { value: "Hybrid", label: "Hybrid" },
+    { value: "International", label: "International" },
+  ];
 
   return (
     <>
@@ -742,27 +830,30 @@ function CreateNewJob() {
                           Job Status <span className="text-[#ff0000]">*</span>
                         </div>
                         <div>
-                          <select
-                            style={{
-                              WebkitAppearance: "none",
-                              MozAppearance: "none",
-                              appearance: "none",
-                              position: "relative",
+                          <Select
+                            options={[
+                              {
+                                value: "Select",
+                                label: "Select",
+                                isDisabled: true,
+                              },
+                              ...options,
+                            ]}
+                            value={
+                              options.find(
+                                (option) => option.value === data?.status
+                              ) || null
+                            }
+                            onChange={(selectedOption) => {
+                              setData({
+                                ...data,
+                                status: selectedOption?.value,
+                              });
                             }}
-                            className={`border-[1px] px-[16px] rounded-[8px] h-[38px] w-full text-[#767676] text-[12px] font-[400] ${formError.status
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
-                            value={data?.status}
-                            onChange={(e) => {
-                              setData({ ...data, status: e.target.value });
-                            }}
-                          >
-                            <option value="Select">Select</option>
-                            <option value="Live">Live</option>
-                            <option value="Hold">Hold</option>
-                            {id && <option value="Closed">Closed</option>}
-                          </select>
+                            styles={customStyless}
+                            isSearchable={false}
+                            className="w-full"
+                          />
                         </div>
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 ">
@@ -771,10 +862,11 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -783,31 +875,21 @@ function CreateNewJob() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                        <div className="text-[14px] font-[500]">Job Link</div>
-                        <div>
-                          <input
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[38px] px-[16px] rounded-[8px] w-full outline-none"
-                            placeholder="Add Job Link"
-                            type="text"
-                            name="jobLink"
-                            value={data.jobLink}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      </div>
+
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
-                            } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${formError.Keywords
+                          className={`w-full flex ${
+                            data?.Keywords ? "justify-between" : ""
+                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
+                            formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                            }`}
+                          }`}
                         >
-                          <div className="flex gap-4 w-[90%] items-center">
+                          <div className="flex gap-4 w-[90%]  items-center">
                             {data?.Keywords.length > 0 && (
                               <div
                                 style={{
@@ -820,13 +902,13 @@ function CreateNewJob() {
                                 {data?.Keywords?.map((item, index) => (
                                   <div
                                     key={index}
-                                    className="h-[28px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px]"
+                                    className="h-[28px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px]"
                                   >
-                                    <span className="flex  text-nowrap">
+                                    <span className="flex text-[#06A9EF] text-[14px] font-[400] text-nowrap">
                                       {item}
                                     </span>
+
                                     <svg
-                                      className="text-[14px]  cursor-pointer font-medium "
                                       onClick={() =>
                                         setData({
                                           ...data,
@@ -835,17 +917,17 @@ function CreateNewJob() {
                                           ),
                                         })
                                       }
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 16 16"
+                                      width="11"
+                                      height="10"
+                                      viewBox="0 0 11 10"
                                       fill="none"
                                       xmlns="http://www.w3.org/2000/svg"
                                     >
                                       <path
                                         fill-rule="evenodd"
                                         clip-rule="evenodd"
-                                        d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                        fill="#000000"
+                                        d="M0.937354 0.435637C1.08738 0.28566 1.29082 0.201408 1.50295 0.201408C1.71509 0.201408 1.91853 0.28566 2.06855 0.435637L5.50295 3.87004L8.93735 0.435637C9.01115 0.359229 9.09943 0.298283 9.19703 0.256356C9.29463 0.214429 9.39961 0.19236 9.50583 0.191436C9.61206 0.190513 9.7174 0.210755 9.81572 0.250979C9.91403 0.291204 10.0034 0.350607 10.0785 0.425721C10.1536 0.500835 10.213 0.590157 10.2532 0.688474C10.2934 0.786791 10.3137 0.892135 10.3128 0.998358C10.3118 1.10458 10.2898 1.20956 10.2478 1.30716C10.2059 1.40476 10.145 1.49304 10.0686 1.56684L6.63415 5.00124L10.0686 8.43564C10.2143 8.58652 10.2949 8.7886 10.2931 8.99836C10.2913 9.20812 10.2071 9.40877 10.0588 9.55709C9.91048 9.70542 9.70983 9.78955 9.50007 9.79138C9.29032 9.7932 9.08823 9.71256 8.93735 9.56684L5.50295 6.13244L2.06855 9.56684C1.91767 9.71256 1.71559 9.7932 1.50583 9.79138C1.29608 9.78955 1.09543 9.70542 0.947099 9.55709C0.798773 9.40877 0.714637 9.20812 0.712815 8.99836C0.710992 8.7886 0.791628 8.58652 0.937354 8.43564L4.37175 5.00124L0.937354 1.56684C0.787377 1.41681 0.703125 1.21337 0.703125 1.00124C0.703125 0.789106 0.787377 0.585659 0.937354 0.435637V0.435637Z"
+                                        fill="#9A4545"
                                       />
                                     </svg>
                                   </div>
@@ -890,32 +972,56 @@ function CreateNewJob() {
                               }));
                             }}
                           >
-                            <PlusAddLogo
-                              color={
-                                KeywordsText?.length > 0 ? "#646464" : "#bebebe"
-                              }
-                            />
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.14286 6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714H6.85714V12H5.14286V6.85714Z"
+                                fill="#333333"
+                              />
+                            </svg>
                           </button>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-[14px] font-[500]">
+                          Redirect Job URL <span className="text-red">*</span>
+                        </div>
+                        <div>
+                          <input
+                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[38px] px-[16px] rounded-[8px] w-full outline-none"
+                            placeholder="Add Job Link"
+                            type="text"
+                            name="jobLink"
+                            value={data.jobLink}
+                            onChange={handleChange}
+                          />
                         </div>
                       </div>
                     </div>
                     <div className="flex flex-col-reverse scr500:grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] p-[10px] md:p-[16px] w-full">
-
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
                         <div className="text-[14px] font-[500]">
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
+                            formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
                           value={data.companyName}
                           onChange={handleChange}
-                          disabled={userDataGlobal?.role === "employer" && !reqId }
+                          disabled={
+                            userDataGlobal?.role === "employer" && !reqId
+                          }
                         />
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
@@ -930,12 +1036,13 @@ function CreateNewJob() {
                           value={countryOptions.filter((country) =>
                             data?.country?.includes(country.value)
                           )}
-                          placeholder="Select countries..."
-                          styles={customStyles}
-                          className={`border rounded-[8px]   withoutBorder ${formError.country
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          placeholder="Select countries"
+                          styles={customStylesss}
+                          className={`border rounded-[8px] withoutBorder ${
+                            formError.country
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -953,10 +1060,11 @@ function CreateNewJob() {
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2 relative border rounded-[8px] px-2  h-[38px] ${formError.location
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`w-full flex gap-2 relative border rounded-[8px] px-2  h-[38px] ${
+                            formError.location
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                         >
                           <div className="flex gap-4 w-[90%] items-center">
                             {data?.location.length > 0 && (
@@ -967,9 +1075,11 @@ function CreateNewJob() {
                                 {data?.location?.map((item, index) => (
                                   <div
                                     key={index}
-                                    className=" h-[28px] py-[2px] px-[8px] bg-[#E5E5E5] rounded-[4px] flex flex-row gap-1 items-center text-[14px] "
+                                    className=" h-[28px] py-[2px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px] "
                                   >
-                                    <span>{item}</span>
+                                    <span className="text-[#06A9EF]">
+                                      {item}
+                                    </span>
                                     <span
                                       className="text-[14px]  cursor-pointer font-medium "
                                       onClick={() =>
@@ -982,17 +1092,17 @@ function CreateNewJob() {
                                       }
                                     >
                                       <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 16 16"
+                                        width="11"
+                                        height="10"
+                                        viewBox="0 0 11 10"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           fill-rule="evenodd"
                                           clip-rule="evenodd"
-                                          d="M3.43735 3.43564C3.58738 3.28566 3.79082 3.20141 4.00295 3.20141C4.21509 3.20141 4.41853 3.28566 4.56855 3.43564L8.00295 6.87004L11.4374 3.43564C11.5112 3.35923 11.5994 3.29828 11.697 3.25636C11.7946 3.21443 11.8996 3.19236 12.0058 3.19144C12.1121 3.19051 12.2174 3.21075 12.3157 3.25098C12.414 3.2912 12.5034 3.35061 12.5785 3.42572C12.6536 3.50083 12.713 3.59016 12.7532 3.68847C12.7934 3.78679 12.8137 3.89213 12.8128 3.99836C12.8118 4.10458 12.7898 4.20956 12.7478 4.30716C12.7059 4.40476 12.645 4.49304 12.5686 4.56684L9.13415 8.00124L12.5686 11.4356C12.7143 11.5865 12.7949 11.7886 12.7931 11.9984C12.7913 12.2081 12.7071 12.4088 12.5588 12.5571C12.4105 12.7054 12.2098 12.7896 12.0001 12.7914C11.7903 12.7932 11.5882 12.7126 11.4374 12.5668L8.00295 9.13244L4.56855 12.5668C4.41767 12.7126 4.21559 12.7932 4.00583 12.7914C3.79608 12.7896 3.59543 12.7054 3.4471 12.5571C3.29877 12.4088 3.21464 12.2081 3.21281 11.9984C3.21099 11.7886 3.29163 11.5865 3.43735 11.4356L6.87175 8.00124L3.43735 4.56684C3.28738 4.41681 3.20312 4.21337 3.20312 4.00124C3.20312 3.78911 3.28738 3.58566 3.43735 3.43564Z"
-                                          fill="#000000"
+                                          d="M0.773292 0.435637C0.923314 0.28566 1.12676 0.201408 1.33889 0.201408C1.55102 0.201408 1.75447 0.28566 1.90449 0.435637L5.33889 3.87004L8.77329 0.435637C8.84709 0.359229 8.93536 0.298283 9.03297 0.256356C9.13057 0.214429 9.23555 0.19236 9.34177 0.191436C9.44799 0.190513 9.55334 0.210755 9.65165 0.250979C9.74997 0.291204 9.83929 0.350607 9.91441 0.425721C9.98952 0.500835 10.0489 0.590157 10.0891 0.688474C10.1294 0.786791 10.1496 0.892135 10.1487 0.998358C10.1478 1.10458 10.1257 1.20956 10.0838 1.30716C10.0418 1.40476 9.9809 1.49304 9.90449 1.56684L6.47009 5.00124L9.90449 8.43564C10.0502 8.58652 10.1309 8.7886 10.129 8.99836C10.1272 9.20812 10.0431 9.40877 9.89475 9.55709C9.74642 9.70542 9.54577 9.78955 9.33601 9.79138C9.12625 9.7932 8.92417 9.71256 8.77329 9.56684L5.33889 6.13244L1.90449 9.56684C1.75361 9.71256 1.55153 9.7932 1.34177 9.79138C1.13201 9.78955 0.931363 9.70542 0.783037 9.55709C0.63471 9.40877 0.550575 9.20812 0.548752 8.99836C0.546929 8.7886 0.627565 8.58652 0.773292 8.43564L4.20769 5.00124L0.773292 1.56684C0.623315 1.41681 0.539062 1.21337 0.539062 1.00124C0.539062 0.789106 0.623315 0.585659 0.773292 0.435637V0.435637Z"
+                                          fill="#9A4545"
                                         />
                                       </svg>
                                     </span>
@@ -1034,7 +1144,7 @@ function CreateNewJob() {
                           >
                             <PlusAddLogo
                               color={
-                                loactionText?.length > 0 ? "#646464" : "#bebebe"
+                                loactionText?.length > 0 ? "#333333" : "#333333"
                               }
                             />
                           </button>
@@ -1048,33 +1158,33 @@ function CreateNewJob() {
                           <div className="text-[14px] font-[500]">
                             About Company
                           </div>
-                          <textarea
-                            className="border-[1px] border-[#DEDEDE] text-[12px] font-[400] h-[108px] p-[16px] outline-none rounded-[8px]"
-                            placeholder="Brief description for your company."
-                            type="text"
-                            name="aboutOrganization"
-                            value={data?.aboutOrganization?.replace(
-                              /<[^>]*>?/gm,
-                              ""
-                            )}
-                            onChange={handleChange}
-                            disabled={
-                              !!companyId || userDataGlobal?.role === "employer" && !reqId
-                            }
-                          />
+                          <div className="border-[1px] text-start border-[#DEDEDE] text-[12px] items-start justify-start  w-[284px] h-[177px] placeholder:text-[12px] font-[400] p-[16px] outline-none rounded-[8px]">
+                            <input
+                              className="w-full"
+                              placeholder="Brief description for your company."
+                              type="text"
+                              name="aboutOrganization"
+                              value={data?.aboutOrganization?.replace(
+                                /<[^>]*>?/gm,
+                                ""
+                              )}
+                              onChange={handleChange}
+                              disabled={
+                                !!companyId ||
+                                (userDataGlobal?.role === "employer" && !reqId)
+                              }
+                            ></input>
+                          </div>
                         </div>
-                        <div className=" w-full  flex  flex-col items-center">
-                          <div className="flex w-full flex-col gap-[8px]">
+                        <div className=" flex  flex-col">
+                          <div className="flex w-[248px] flex-col gap-[8px]">
                             <div className="flex flex-col gap-[8px]">
                               <div className="text-[14px] font-[500]">
                                 Company logo
                               </div>
-                              <div className="text-[12px] font-[400]">
-                                This image will be shown publicly as company logo.
-                              </div>
                             </div>
                           </div>
-                          <div className="flex w-full flex-col pt-[16px] gap-[8px] items-center">
+                          <div className="flex w-[284px] flex-col pt-[16px] gap-[8px] items-center">
                             <div
                               onDrop={handleDrop}
                               onDragOver={handleDragOver}
@@ -1101,11 +1211,14 @@ function CreateNewJob() {
                                 </>
                               )}
                             </div>
-                            {(userDataGlobal?.role !== "employer" ||  reqId) &&  
+                            <div className="text-[10px] font-[400]">
+                              This image will be shown publicly as company logo.
+                            </div>
+                            {(userDataGlobal?.role !== "employer" || reqId) && (
                               <div
                                 ref={fileRef}
                                 onDrop={handleFileChange}
-                                className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                                className="border-dashed border-[3px] bg-[#EFFAFF] border-[#06A9EF] flex flex-row w-full justify-center rounded-[12px] px-[16px] py-[8px] items-center gap-[8px] upload-btn-wrapper min-h-[83px]"
                               >
                                 <input
                                   className="outline-none placeholder:text-[12px] placeholder:font-[400]"
@@ -1168,11 +1281,11 @@ function CreateNewJob() {
                                     <div className="flex gap-[2px]">
                                       <span
                                         onClick={handleButtonClick}
-                                        className="text-[#06A9EF] text-[12px]"
+                                        className="text-[#06A9EF] text-[10px]"
                                       >
                                         Click to replace
                                       </span>
-                                      <div className="text-[12px] font-[400]">
+                                      <div className="text-[10px] font-[400]">
                                         or drag and drop
                                       </div>
                                     </div>
@@ -1182,47 +1295,44 @@ function CreateNewJob() {
                                   </div>
                                 </div>
                               </div>
-                            }
-                          </div>
-                        </div>
-
-                      </div>
-                      
-                        <div className="flex flex-col gap-[8px] w-full col-span-9 h-fit ">
-                          <div className="text-[14px] font-[500]">
-                            Job Description{" "}
-                            <span className="text-[red]">*</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column-reverse",
-                              maxWidth: "100%",
-                              width: "100%",
-                            }}
-                          >
-                            {showEditor && (
-                              <Editor
-                                headerTemplate={header}
-                                value={data.description}
-                                className="editor-container h-full"
-                                onTextChange={(e) => handleChange1(e.htmlValue)}
-                                style={{
-                                  border: formError.description
-                                    ? "2px solid red"
-                                    : "0px solid #DEDEDE",
-                                  fontSize: "16px",
-                                  color: "#333",
-                                  padding: "10px",
-                                  minHeight: "340px",
-                                  // borderBottomLeftRadius: "8px",
-                                  // borderBottomRightRadius: "8px",
-                                }}
-                              />
                             )}
                           </div>
                         </div>
-                      
+                      </div>
+
+                      <div className="flex flex-col gap-[8px] w-full col-span-9 h-fit ">
+                        <div className="text-[14px] font-[500]">
+                          Job Description <span className="text-[red]">*</span>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column-reverse",
+                            maxWidth: "100%",
+                            width: "100%",
+                          }}
+                        >
+                          {showEditor && (
+                            <Editor
+                              headerTemplate={header}
+                              value={data.description}
+                              className="editor-container h-[416px]"
+                              onTextChange={(e) => handleChange1(e.htmlValue)}
+                              style={{
+                                border: formError.description
+                                  ? "2px solid red"
+                                  : "0px solid #DEDEDE",
+                                fontSize: "16px",
+                                color: "#333",
+                                padding: "10px",
+                                minHeight: "340px",
+                                // borderBottomLeftRadius: "8px",
+                                // borderBottomRightRadius: "8px",
+                              }}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -1273,27 +1383,41 @@ function CreateNewJob() {
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Salary Type</div>
                           <div className="flex justify-between items-center">
-                            <select
-                              style={{
-                                height: "38px",
-                                border: "1px solid #DEDEDE",
-                                borderRadius: "8px",
-                                padding: "5px",
+                            <Select
+                              options={optionss}
+                              value={options.find(
+                                (option) => option.value === data.salaryType
+                              )}
+                              onChange={(selectedOption) =>
+                                handleChange({
+                                  target: {
+                                    name: "salaryType",
+                                    value: selectedOption.value,
+                                  },
+                                })
+                              }
+                              placeholder="Select"
+                              className="w-full font-[400]"
+                              styles={{
+                                control: (base, state) => ({
+                                  ...base,
+                                  height: "38px",
+                                  border: "1px solid #DEDEDE",
+                                  borderRadius: "8px",
+                                  padding: "5px",
+                                  fontSize: "12px",
+                                  outline: "none",
+                                  color: "#767676",
+                                  boxShadow: state.isFocused
+                                    ? "0 0 0 1px #DEDEDE"
+                                    : "none",
+                                }),
+                                menu: (base) => ({
+                                  ...base,
+                                  fontSize: "12px",
+                                }),
                               }}
-                              className="w-full text-[12px] outline-none text-[#767676] font-[400]"
-                              type="text"
-                              name="salaryType"
-                              value={data.salaryType}
-                              onChange={handleChange}
-                            >
-                              <option value="Select" disabled selected>
-                                Select
-                              </option>
-
-                              <option value="Annual">Annual</option>
-                              <option value="Monthly">Monthly</option>
-                              <option value="Weekly">Weekly</option>
-                            </select>
+                            />
                           </div>
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1357,6 +1481,104 @@ function CreateNewJob() {
                             placeholder="Open Positions"
                           />
                         </div>
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
+                          <div className="text-[14px] font-[500]">
+                            Category <span className="text-[red]">*</span>
+                          </div>
+                          <div
+                            className={`w-full flex gap-2 relative border rounded-[8px] px-2 h-[38px] ${
+                              formError.jobCat
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
+                          >
+                            <div className="flex gap-4 w-[90%] items-center">
+                              {data?.jobCat?.length > 0 && (
+                                <div
+                                  id="scroll1"
+                                  className="flex flex-row overflow-x-auto gap-2"
+                                >
+                                  {data?.jobCat?.map((item, index) => (
+                                    <div
+                                      key={index}
+                                      className="h-[28px] py-[2px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px]"
+                                    >
+                                      <span className="text-[#06A9EF]">
+                                        {item}
+                                      </span>
+                                      <span
+                                        className="text-[14px] cursor-pointer font-medium"
+                                        onClick={() =>
+                                          setData({
+                                            ...data,
+                                            jobCat: data.jobCat.filter(
+                                              (cat) => cat !== item
+                                            ),
+                                          })
+                                        }
+                                      >
+                                        <svg
+                                          width="11"
+                                          height="10"
+                                          viewBox="0 0 11 10"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M0.773292 0.435637C0.923314 0.28566 1.12676 0.201408 1.33889 0.201408C1.55102 0.201408 1.75447 0.28566 1.90449 0.435637L5.33889 3.87004L8.77329 0.435637C8.84709 0.359229 8.93536 0.298283 9.03297 0.256356C9.13057 0.214429 9.23555 0.19236 9.34177 0.191436C9.44799 0.190513 9.55334 0.210755 9.65165 0.250979C9.74997 0.291204 9.83929 0.350607 9.91441 0.425721C9.98952 0.500835 10.0489 0.590157 10.0891 0.688474C10.1294 0.786791 10.1496 0.892135 10.1487 0.998358C10.1478 1.10458 10.1257 1.20956 10.0838 1.30716C10.0418 1.40476 9.9809 1.49304 9.90449 1.56684L6.47009 5.00124L9.90449 8.43564C10.0502 8.58652 10.1309 8.7886 10.129 8.99836C10.1272 9.20812 10.0431 9.40877 9.89475 9.55709C9.74642 9.70542 9.54577 9.78955 9.33601 9.79138C9.12625 9.7932 8.92417 9.71256 8.77329 9.56684L5.33889 6.13244L1.90449 9.56684C1.75361 9.71256 1.55153 9.7932 1.34177 9.79138C1.13201 9.78955 0.931363 9.70542 0.783037 9.55709C0.63471 9.40877 0.550575 9.20812 0.548752 8.99836C0.546929 8.7886 0.627565 8.58652 0.773292 8.43564L4.20769 5.00124L0.773292 1.56684C0.623315 1.41681 0.539062 1.21337 0.539062 1.00124C0.539062 0.789106 0.623315 0.585659 0.773292 0.435637V0.435637Z"
+                                            fill="#9A4545"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              <input
+                                type="text"
+                                placeholder="Category"
+                                className="input w-[55px] placeholder:text-[12px] placeholder:font-[400] outline-none"
+                                value={categoryText}
+                                onChange={(e) => {
+                                  setCategoryText(e.target.value);
+                                }}
+                              />
+                            </div>
+                            <button
+                              className="absolute bg-[#FFFFFF] right-2 top-[8px]"
+                              disabled={categoryText?.length === 0}
+                              onClick={() => {
+                                setData({
+                                  ...data,
+                                  jobCat: [...data.jobCat, categoryText],
+                                });
+                                setCategoryText("");
+                                setTimeout(() => {
+                                  const scrollDiv =
+                                    document.getElementById("scroll1");
+                                  if (scrollDiv) {
+                                    scrollDiv.scrollLeft =
+                                      scrollDiv.scrollWidth;
+                                  }
+                                }, 100);
+                                setFormError((prevErrors) => ({
+                                  ...prevErrors,
+                                  jobCat: "",
+                                }));
+                              }}
+                            >
+                              <PlusAddLogo
+                                color={
+                                  categoryText?.length > 0
+                                    ? "#333333"
+                                    : "#333333"
+                                }
+                              />
+                            </button>
+                          </div>
+                        </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 ">
                           <div className="text-sm font-medium">
                             Job Sector <span className="text-[red]">*</span>
@@ -1372,8 +1594,9 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
-                                  }`,
+                                border: `1px solid ${
+                                  formError.jobSector ? "red" : "#DEDEDE"
+                                }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                                 boxShadow: state.isFocused
@@ -1393,79 +1616,98 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
+                              formError.jobSector
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Job Type <span className="text-[red]">*</span>
                           </div>
-                          <select
-                            className="text-[12px] outline-none text-[#767676] font-[400]"
-                            style={{
-                              width: "100%",
-                              height: "38px",
-                              border: formError.jobType
-                                ? "1px solid red"
-                                : "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
+                          <Select
+                            classNamePrefix="react-select"
+                            styles={{
+                              control: (base, { isFocused }) => ({
+                                ...base,
+                                width: "100%",
+                                height: "38px",
+                                border: formError.jobType
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "2px",
+                                fontSize: "12px",
+                                color: "#767676",
+                                boxShadow: isFocused
+                                  ? "0 0 0 1px #767676"
+                                  : "none",
+                                "&:hover": { borderColor: "#767676" },
+                              }),
                             }}
-                            type="text"
-                            name="jobType"
-                            value={data.jobType}
-                            onChange={handleChange}
-                          >
-                            <option value="" disabled>
-                              Select
-                            </option>
-                            <option value="Full Time">Full Time</option>
-                            <option value="Part Time">Part Time</option>
-                            <option value="Contract">Contract</option>
-                            <option value="Internships">Internships</option>
-                          </select>
-                        </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">Work From</div>
-                          <select
-                            className="text-[12px] outline-none text-[#767676] font-[400]"
-                            style={{
-                              width: "100%",
-                              height: "38px",
-                              border: "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
-                            }}
-                            type="text"
-                            name="workFrom"
-                            value={data.workFrom}
-                            onChange={handleChange}
-                          >
-                            <option value="" disabled>
-                              Select
-                            </option>
-                            <option value="On-Site">On-Site</option>
-                            <option value="Remote">Remote</option>
-                            <option value="Hybrid">Hybrid</option>
-                            <option value="International">International</option>
-                           
-                          </select>
+                            options={jobOptions}
+                            value={jobOptions.find(
+                              (option) => option.value === data.jobType
+                            )}
+                            onChange={(selectedOption) =>
+                              handleChange({
+                                target: {
+                                  name: "jobType",
+                                  value: selectedOption?.value,
+                                },
+                              })
+                            }
+                          />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                          <div className="text-sm font-medium">Work From</div>
+                          <Select
+                            classNamePrefix="react-select"
+                            styles={{
+                              control: (base, { isFocused }) => ({
+                                ...base,
+                                width: "100%",
+                                height: "38px",
+                                border: "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "2px",
+                                fontSize: "12px",
+                                color: "#767676",
+                                boxShadow: isFocused
+                                  ? "0 0 0 1px #767676"
+                                  : "none",
+                                "&:hover": { borderColor: "#767676" },
+                              }),
+                            }}
+                            options={workFromOptions}
+                            value={workFromOptions.find(
+                              (option) => option.value === data.workFrom
+                            )}
+                            onChange={(selectedOption) =>
+                              handleChange({
+                                target: {
+                                  name: "workFrom",
+                                  value: selectedOption?.value,
+                                },
+                              })
+                            }
+                          />
+                        </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
+                              formError.requiredQualification
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1512,23 +1754,24 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1585,7 +1828,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={[
                               ...new Set(
                                 skills
@@ -1596,16 +1839,17 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${formError.goodSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1661,32 +1905,28 @@ function CreateNewJob() {
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience
                           </label>
-                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[38px]">
-                            <select
-                              style={{
-                                WebkitAppearance: "none",
-                                MozAppearance: "none",
-                                appearance: "none",
-                                position: "relative",
-                                background: "transparent",
+                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small  min-w-[100px] h-[38px]">
+                            <Select
+                              options={experienceOptions}
+                              value={experienceOptions.find(
+                                (opt) => opt.value === data.experience
+                              )}
+                              onChange={(selectedOption) =>
+                                setData({
+                                  ...data,
+                                  experience: selectedOption.value,
+                                })
+                              }
+                              placeholder="Select experience"
+                              className="w-full text-[12px] font-[400] text-[#767676]"
+                              styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  height: "38px",
+                                  border: "1px solid #ccc",
+                                  background: "transparent",
+                                }),
                               }}
-                              value={data?.experience}
-                              onChange={(e) => {
-                                const newExperience = e.target.value;
-                                setData({ ...data, experience: newExperience });
-                              }}
-                              className="w-outline-none focus-visible:outline-none text-[12px] font-[400] text-[#767676] outline-none p-2 w-full h-[38px]"
-                            >
-                              {experienceOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {option.label}
-                                </option>
-                              ))}
-                            </select>
-                            <img
-                              src="/images/down_arrow.png"
-                              className="h-[20px] w-[20px] absolute right-[4px]"
-                              alt=""
                             />
                           </div>
                         </div>
@@ -1694,26 +1934,21 @@ function CreateNewJob() {
                           <label className="text-[#333333] text-[14px] font-medium">
                             Relevant Experience
                           </label>
-                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[12px] font-[400] text-[#767676] outline-none font-montserrat font-small relative min-w-[100px] overflow-hidden h-[38px]">
-                            <select
-                              style={{
-                                WebkitAppearance: "none",
-                                MozAppearance: "none",
-                                appearance: "none",
-                                position: "relative",
-                                background: "transparent",
-                              }}
-                              value={data?.revalentExp}
-                              onChange={(e) => {
-                                const newRelevantExp = e.target.value;
+                          <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[12px] font-[400] text-[#767676] outline-none font-montserrat font-small  min-w-[100px]  h-[38px]">
+                            <Select
+                              options={experienceOptions}
+                              value={experienceOptions.find(
+                                (opt) => opt.value === data.revalentExp
+                              )}
+                              onChange={(selectedOption) => {
+                                const newRelevantExp = selectedOption.value;
 
                                 const totalExpIndex = experienceIndices.indexOf(
-                                  data?.experience
+                                  data.experience
                                 );
                                 const relevantExpIndex =
                                   experienceIndices.indexOf(newRelevantExp);
 
-                                // Allow selection only if the relevant experience index is less than or equal to the total experience index
                                 if (
                                   isRelevantAllowed(
                                     totalExpIndex,
@@ -1726,7 +1961,7 @@ function CreateNewJob() {
                                   });
                                 } else {
                                   toast.error(
-                                    " Cannot be greater than total experience."
+                                    "Cannot be greater than total experience."
                                   );
                                   setData((prevData) => ({
                                     ...prevData,
@@ -1734,14 +1969,17 @@ function CreateNewJob() {
                                   }));
                                 }
                               }}
-                              className="w-outline-none focus-visible:outline-none p-2 w-full h-[38px]"
-                            >
-                              {experienceOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {option.label}
-                                </option>
-                              ))}
-                            </select>
+                              placeholder="Select relevant experience"
+                              className="w-full text-[12px] font-[400] text-[#767676]"
+                              styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  height: "38px",
+                                  border: "1px solid #ccc",
+                                  background: "transparent",
+                                }),
+                              }}
+                            />
                             <img
                               src="/images/down_arrow.png"
                               className="h-[20px] w-[20px] absolute right-[4px]"
