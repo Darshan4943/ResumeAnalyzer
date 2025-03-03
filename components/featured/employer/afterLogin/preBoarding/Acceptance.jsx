@@ -39,7 +39,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [moreOption, setMoreOption] = useState(false);
   const [loadingApplicantId, setLoadingApplicantId] = useState(null);
-  const {recallData } = useSelector((state) => state.recall);
+  const { recallData } = useSelector((state) => state.recall);
   const dispatch = useDispatch();
   const fetchJobs = useCallback(async () => {
     if (!userDataGlobal?._id) return;
@@ -166,9 +166,15 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
             {labels.map((req, index) => (
               <div
                 key={index}
-                className="flex px-4 text-[14px] font-[600] font-Montserrat text-[#333333] py-4 items-center bg-[#EFFAFF] justify-between w-full"
+                className={`flex px-4 text-[14px] font-[600] font-Montserrat text-[#333333] py-4 items-center bg-[#EFFAFF] w-full ${
+                  index === labels.length - 1
+                    ? "justify-end"
+                    : "justify-between"
+                }`}
               >
-                <p>{req}</p>
+                <p className={index === labels.length - 1 ? "text-right" : ""}>
+                  {req}
+                </p>
               </div>
             ))}
           </div>
@@ -179,12 +185,13 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
               {jobs.map((applicants, index) => (
                 <>
                   <div
-                    className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${checkedjob[index]
-                      ? "bg-[#D3F1FF]"
-                      : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
-                      }`}
+                    className={`flex w-[100%] border-b border-[#D4D4D480] px-[16px] py-[10px] justify-between items-center ${
+                      checkedjob[index]
+                        ? "bg-[#D3F1FF]"
+                        : "bg-[#FFFFFF] hover:bg-[#D3F1FF]"
+                    }`}
                   >
-                    <div className="grid grid-cols-6 w-full ">
+                    <div className="grid grid-cols-6 gap-4 w-full ">
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                           {/* <input className="w-[16px] h-[16px]" type="checkbox" /> */}
@@ -210,66 +217,73 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                          "Verified" ||
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
                           applicants.preboardingDetails?.documentStatus ===
-                          "Submitted"
-                          ? "text-[#0C8A0A]"
-                          : "text-[#333]"
-                          } `}
+                            "Verified" ||
+                          applicants.preboardingDetails?.documentStatus ===
+                            "Submitted"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
+                        } `}
                       >
                         {applicants?.preboardingDetails?.documentStatus ===
-                          "notRequired"
+                        "notRequired"
                           ? "Not Required"
                           : applicants?.preboardingDetails?.documentStatus}
                       </div>
 
                       <div className="flex items-center justify-start col-span-1 pl-6">
                         <div
-                          className={`flex py-[6px] justify-start px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] ${checkedjob[index]
-                            ? "bg-[#FFFFFF]"
-                            : applicants?.preboardingDetails
-                              ?.offerAcceptanceStatus === "Pending"
+                          className={`flex py-[6px] justify-start px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px]  ${
+                            checkedjob[index]
+                              ? "bg-[#FFFFFF]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Pending"
                               ? "bg-[#FFF9ED]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "bg-[#E7F8FF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "bg-[#E7F8FF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "bg-[#E8FFE8]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "bg-[#FFE6E2]"
-                                    : ""
-                            } ${applicants?.preboardingDetails
+                              ? "bg-[#E8FFE8]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "bg-[#FFE6E2]"
+                              : ""
+                          } ${
+                            applicants?.preboardingDetails
                               ?.offerAcceptanceStatus === "Pending"
                               ? "text-[#FFB836]"
                               : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Initiated"
-                                ? "text-[#06A9EF]"
-                                : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Initiated"
+                              ? "text-[#06A9EF]"
+                              : applicants?.preboardingDetails
                                   ?.offerAcceptanceStatus === "Accepted"
-                                  ? "text-[#0C8A0A]"
-                                  : applicants?.preboardingDetails
-                                    ?.offerAcceptanceStatus === "Rejected"
-                                    ? "text-[#FF6550]"
-                                    : "text-[#333333]"
-                            }`}
+                              ? "text-[#0C8A0A]"
+                              : applicants?.preboardingDetails
+                                  ?.offerAcceptanceStatus === "Rejected"
+                              ? "text-[#FF6550]"
+                              : "text-[#333333]"
+                          }`}
                         >
-                          {applicants?.preboardingDetails?.offerAcceptanceStatus}
+                          {
+                            applicants?.preboardingDetails
+                              ?.offerAcceptanceStatus
+                          }
                         </div>
                       </div>
                       <div className="flex items-center justify-between col-span-1 pl-6">
                         <div className="flex items-center justify-between w-full col-span-1">
-                          <div className="flex  items-center w-full  justify-between relative">
-                            {applicants?.preboardingDetails?.preboardingStatus ===
-                              "Hired" ? (
+                          <div className="flex  items-center w-full  justify-end relative">
+                            {applicants?.preboardingDetails
+                              ?.preboardingStatus === "Hired" ? (
                               <div className="flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center text-[#ABABAB] border border-[#ABABAB] items-center   rounded-[30px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat  ">
                                 Hired
                               </div>
                             ) : (
                               <>
-                                {loadingApplicantId === applicants.applicantId ? (
+                                {loadingApplicantId ===
+                                applicants.applicantId ? (
                                   <div
                                     className={` w-[137.25px] flex lg:py-[6px] lg:px-4 px-1 py-1 justify-center items-center  rounded-[30px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border text-[#fff] bg-[#06A9EF]`}
                                   >
@@ -436,16 +450,17 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                           Doc Status
                         </p>
                         <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.preboardingDetails?.documentStatus ===
-                            "Verified" ||
+                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
                             applicants.preboardingDetails?.documentStatus ===
-                            "Submitted"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
-                            } `}
+                              "Verified" ||
+                            applicants.preboardingDetails?.documentStatus ===
+                              "Submitted"
+                              ? "text-[#0C8A0A]"
+                              : "text-[#333]"
+                          } `}
                         >
                           {applicants?.preboardingDetails?.documentStatus ===
-                            "notRequired"
+                          "notRequired"
                             ? "Not Required"
                             : applicants?.preboardingDetails?.documentStatus}
                         </div>
@@ -465,35 +480,37 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                         </p>
                         <div className="flex items-center justify-center col-span-1 ">
                           <div
-                            className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${checkedjob[index]
-                              ? "bg-[#FFFFFF]"
-                              : applicants?.preboardingDetails
-                                ?.offerAcceptanceStatus === "Pending"
+                            className={`flex justify-center items-center gap-[8px] rounded-[80px] border w-[120px] h-[32px] text-[14px] font-semibold ${
+                              checkedjob[index]
+                                ? "bg-[#FFFFFF]"
+                                : applicants?.preboardingDetails
+                                    ?.offerAcceptanceStatus === "Pending"
                                 ? "bg-[#FFF9ED]"
                                 : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Initiated"
-                                  ? "bg-[#E7F8FF]"
-                                  : applicants?.preboardingDetails
+                                    ?.offerAcceptanceStatus === "Initiated"
+                                ? "bg-[#E7F8FF]"
+                                : applicants?.preboardingDetails
                                     ?.offerAcceptanceStatus === "Accepted"
-                                    ? "bg-[#E8FFE8]"
-                                    : applicants?.preboardingDetails
-                                      ?.offerAcceptanceStatus === "Rejected"
-                                      ? "bg-[#FFE6E2]"
-                                      : ""
-                              } ${applicants?.preboardingDetails
+                                ? "bg-[#E8FFE8]"
+                                : applicants?.preboardingDetails
+                                    ?.offerAcceptanceStatus === "Rejected"
+                                ? "bg-[#FFE6E2]"
+                                : ""
+                            } ${
+                              applicants?.preboardingDetails
                                 ?.offerAcceptanceStatus === "Pending"
                                 ? "text-[#FFB836]"
                                 : applicants?.preboardingDetails
-                                  ?.offerAcceptanceStatus === "Initiated"
-                                  ? "text-[#06A9EF]"
-                                  : applicants?.preboardingDetails
+                                    ?.offerAcceptanceStatus === "Initiated"
+                                ? "text-[#06A9EF]"
+                                : applicants?.preboardingDetails
                                     ?.offerAcceptanceStatus === "Accepted"
-                                    ? "text-[#0C8A0A]"
-                                    : applicants?.preboardingDetails
-                                      ?.offerAcceptanceStatus === "Rejected"
-                                      ? "text-[#FF6550]"
-                                      : "text-[#333333]"
-                              }`}
+                                ? "text-[#0C8A0A]"
+                                : applicants?.preboardingDetails
+                                    ?.offerAcceptanceStatus === "Rejected"
+                                ? "text-[#FF6550]"
+                                : "text-[#333333]"
+                            }`}
                           >
                             {
                               applicants?.preboardingDetails
@@ -505,7 +522,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                       <div className="flex justify-center w-[100%]">
                         <div className="flex items-center w-full justify-center relative">
                           {applicants?.preboardingDetails?.preboardingStatus ===
-                            "Hired" ? (
+                          "Hired" ? (
                             <div className="flex w-[140px] h-[40px] justify-center items-center rounded-[30px] border font-semibold text-[12px] border-[#ABABAB] text-[#ABABAB]">
                               Hired
                             </div>
@@ -562,7 +579,6 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
           page={page}
         />
       )}
-
     </>
   );
 };

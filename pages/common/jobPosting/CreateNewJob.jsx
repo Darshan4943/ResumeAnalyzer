@@ -94,9 +94,9 @@ function CreateNewJob() {
       setCompany(response.data);
       setData((prevData) => ({
         ...prevData,
-        companyName: response.data.name,
-        logo: response.data.companyLogo,
-        aboutOrganization: response.data.about,
+        companyName: response?.data?.name,
+        logo: response?.data?.companyLogo,
+        aboutOrganization: response?.data?.about,
       }));
     } catch (err) {
       console.error("Failed to fetch company details:", err);
@@ -915,7 +915,7 @@ function CreateNewJob() {
                           name="companyName"
                           value={data.companyName}
                           onChange={handleChange}
-                          disabled={userDataGlobal?.role === "employer"}
+                          disabled={userDataGlobal?.role === "employer" && !reqId }
                         />
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
@@ -1043,7 +1043,7 @@ function CreateNewJob() {
                     </div>
 
                     <div className="p-[10px] md:p-4  flex-col gap-4 md:flex-row grid grid-cols-12">
-                      <div className=" col-span-3 flex flex-col gap-4 justify-between">
+                      <div className=" col-span-3 flex flex-col gap-4 ">
                         <div className="flex flex-col gap-[8px] ">
                           <div className="text-[14px] font-[500]">
                             About Company
@@ -1059,7 +1059,7 @@ function CreateNewJob() {
                             )}
                             onChange={handleChange}
                             disabled={
-                              !!companyId || userDataGlobal?.role === "employer"
+                              !!companyId || userDataGlobal?.role === "employer" && !reqId
                             }
                           />
                         </div>
@@ -1101,7 +1101,7 @@ function CreateNewJob() {
                                 </>
                               )}
                             </div>
-                            {userDataGlobal?.role !== "employer" && (
+                            {(userDataGlobal?.role !== "employer" ||  reqId) &&  
                               <div
                                 ref={fileRef}
                                 onDrop={handleFileChange}
@@ -1182,7 +1182,7 @@ function CreateNewJob() {
                                   </div>
                                 </div>
                               </div>
-                            )}
+                            }
                           </div>
                         </div>
 

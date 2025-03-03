@@ -53,7 +53,7 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [errors, setErrors] = useState({});
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loactionText, setLoactionText] = useState("");
-
+console.log(errors)
   const experienceOptions = [
     { value: "", label: "Select" },
     { value: "0-2 years", label: "0-2 years" },
@@ -128,8 +128,10 @@ const CreateNewRequisition = ({ setToggle }) => {
     if (!data.experience) newErrors.experience = "Experience is required.";
     if (!data.requisitionType)
       newErrors.requisitionType = "Requisition Type is required.";
-    if (!data.location) newErrors.location = "Location is required.";
-    if (!data.description)
+    if (!data.location || data.location.length === 0) {
+      newErrors.location = "Location is required.";
+    }
+      if (!data.description)
       newErrors.description = "Job Description is required.";
     if (approvalChoice === "yes") {
       data.RequisitionLevel.forEach((level, index) => {
@@ -278,11 +280,7 @@ const CreateNewRequisition = ({ setToggle }) => {
           value="bullet"
           aria-label="Unordered List"
         ></button>
-        <button
-          className="ql-align"
-  
-          aria-label="Align Left"
-        ></button>
+        <button className="ql-align" aria-label="Align Left"></button>
         <button
           className="ql-align"
           value="center"
@@ -367,10 +365,14 @@ const CreateNewRequisition = ({ setToggle }) => {
             </p>
             <div className="flex  sm:flex-row flex-col gap-4 ">
               <div className="sm:w-[49.01%] flex justify-between w-[100%] gap-4">
-                <div className="border-[1px] w-[45%]  border-solid border-[#DEDEDE] rounded-[6px]">
+                <div
+                  className={`border-[1px] w-[45%] border-solid rounded-[6px] ${
+                    errors.budgetFrom ? "border-red" : "border-[#DEDEDE]"
+                  }`}
+                >
                   <ReactSelect
                     options={currencyOptions}
-                    className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] font-montserrat font-small text-black h-[40px]"
+                    className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] placeholder:text-[12px] text-[12px] text-[#646464] font-[400] font-montserrat font-small  h-[40px]"
                     placeholder="Select Currency"
                     value={
                       currencyOptions.find(
@@ -434,7 +436,11 @@ const CreateNewRequisition = ({ setToggle }) => {
               <p className=" text-[14px]  font-medium">
                 Experience <span className="text-red">*</span>
               </p>
-              <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[40px]">
+              <div
+                className={`flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-hidden h-[40px] ${
+                  errors.experience ? "border-red" : "border-[#DEDEDE]"
+                }  `}
+              >
                 <select
                   style={{
                     WebkitAppearance: "none",
@@ -447,6 +453,9 @@ const CreateNewRequisition = ({ setToggle }) => {
                   onChange={(e) => {
                     const newExperience = e.target.value;
                     setData({ ...data, experience: newExperience });
+                    if (errors.experience) {
+                      setErrors((prev) => ({ ...prev, experience: false }));
+                    }
                   }}
                   className="w-outline-none focus-visible:outline-none placeholder:text-[12px] text-[12px] text-[#646464] font-[400] p-2 w-full h-[48px]"
                 >
