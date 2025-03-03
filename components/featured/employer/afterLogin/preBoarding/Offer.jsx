@@ -135,7 +135,6 @@ const Offer = ({ toggleContentt, setToggle, setEditTemplate }) => {
     "Job Role",
     "Due Date",
     "Doc Status",
-
     "Offer Acceptance",
     "Actions",
   ];

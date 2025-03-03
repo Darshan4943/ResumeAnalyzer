@@ -77,7 +77,7 @@ function ScheduleInterview({
           content: value.slice(0, 200),
         },
       });
-      setError("")
+      setError("");
       debounceUpdate1(value.slice(0, 200));
     } else {
       setMailDetails({
@@ -368,8 +368,8 @@ function ScheduleInterview({
               type="date"
               placeholder="Select Date"
               className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-              value={selectedValues?.interviewDate} 
-              onChange={handleDateChange} 
+              value={selectedValues?.interviewDate}
+              onChange={handleDateChange}
             />
           </div>
           <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
@@ -583,7 +583,6 @@ function ScheduleInterview({
                 </div>
                 <div className=" border border-[#DEDEDE] relative">
                   <Editor
-                  
                     value={mailDetails?.candidate?.content}
                     onTextChange={(e) => handleChange1(e.htmlValue)}
                     headerTemplate={header}
@@ -647,7 +646,7 @@ function ScheduleInterview({
                   class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                   value={mailDetails?.interviewer?.subject}
                   onChange={(e) =>
-                    a((prev) => ({
+                    setMailDetails((prev) => ({
                       ...prev,
                       interviewer: {
                         ...prev.interviewer,
