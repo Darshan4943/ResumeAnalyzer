@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -11,12 +11,15 @@ import ShortlistMail from "./ShortlistMail";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { DownSvg, UpSvg } from "../../../utils/svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Analytics from "../../../components/featured/employer/Analytics";
 import { fa } from "@faker-js/faker";
 import CopyLink from "../../../components/common/copyLink";
+import LimitUsedModal from "../../../components/models/limitUsedModal";
+import { setRecallData } from "../../../Redux/slices/recallSlice";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
+  const randomPercentage = useMemo(() => Math.floor(Math.random() * (95 - 70 + 1)) + 70, []);
   const [moreOption, setMoreOption] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -26,8 +29,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const router = useRouter();
   const { id } = router.query;
   const taskRef = useRef(null);
+  const dispatch = useDispatch();
   const [checkedApplicants, setCheckedApplicants] = useState([]);
-
+  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [selectedApplicants, setSelectedApplicants] = useState([]);
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [shortlist, setShortlist] = useState([]);
@@ -48,6 +53,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [allReject, setAllReject] = useState(false);
   const [hiringStage, setHiringStage] = useState("");
   const [aiLoading, setAiLoading] = useState(false)
+  const [limitPopup, setLimitPopup] = useState(false);
+  const { recallData } = useSelector((state) => state.recall);
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
@@ -257,15 +264,21 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
   }, [id, statusChange, selectedFilters, activeOption]);
   const aiMatch = async () => {
+    if (jdCountMonthly >= jdCountMonthlyLimit) {
+      setLimitPopup(true);
+      return;
+    }
     setAiLoading(true);
     try {
       const response = await axios.put(
         `http://localhost:2000/api/job/aiMatch/${id}`
       );
+      updateJobMatchLimit()
       setTimeout(() => {
         setAiLoading(false)
         fetchJobDetails()
-      }, 1000);
+      }, 4000);
+
 
     } catch (error) {
 
@@ -274,6 +287,33 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
 
   }
+
+  const updateJobMatchLimit = async () => {
+
+
+    try {
+
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
+
+      if (!jdSubscriptionResponse.data.success) {
+        console.error(
+          "Error in updateJdSubscriptionLimit:",
+          jdSubscriptionResponse.data.message
+        );
+      }
+      dispatch(setRecallData(!recallData));
+
+      return {
+        updateJobMatchResponse: updateJobMatchResponse.data,
+        jdSubscriptionResponse: jdSubscriptionResponse.data,
+      };
+    } catch (error) {
+      console.error("Something went wrong:", error);
+      return { success: false, message: "Something went wrong", error };
+    }
+  };
+
 
   useEffect(() => {
     fetchJobDetails();
@@ -302,6 +342,20 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
+  }, []);
+
+  const getLimits = () => {
+    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setJdCountMonthly(jdCountMonthly);
+
+    const jdCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setJdCountMonthlyLimit(jdCountMonthlyLimit);
+
+  };
+  useEffect(() => {
+    getLimits();
   }, []);
 
   const applicant_head = [
@@ -374,6 +428,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   return (
     <>
+      {limitPopup && (
+        <div className="z-[200000]">
+          <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+        </div>
+      )}
       <div className=" mb-4">
         <div className="w-[100%] flex flex-col relative ">
           {jobData && (
@@ -664,15 +723,20 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 </div>
               ) : (
                 <>
-                  <div className="flex scr700:flex-row flex-col justify-end p-[16px] scr700:items-center gap-4  bg-[#fff]">
-                    {aiLoading ?
-                      <div className="rounded-[8px] border justify-center border-blue px-3 flex gap-1 h-[42px] items-center text-[12px] font-semibold min-w-[150px]">
+                  <div className="flex scr700:flex-row flex-col justify-between p-[16px] scr700:items-center gap-4  bg-[#fff]">
+                    <div className=" flex gap-3">
 
-                        <MiniLoaderr />
-                      </div>
-                      :
-                      <button onClick={aiMatch} className="rounded-[8px] border justify-center border-blue px-3 flex gap-1 h-[42px] items-center text-[12px] font-semibold min-w-[150px]">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* <button
+                      disabled={aiLoading}
+                      style={{
+                        backgroundColor: "#4C43CD",
+                        backgroundImage: `
+                          radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+                          radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+                        `
+                      }}
+                       onClick={aiMatch} className=" text-white rounded-[30px] justify-center  px-6 flex gap-[10px] h-[38px] items-center text-[12px] font-semibold min-w-[150px]">
+                        <svg className="min-w-[20px]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_9135_108708)">
                             <path d="M9.83765 5.00562C10.4939 7.79858 12.2009 9.48218 14.9939 10.1501C15.0291 10.158 15.0486 10.1931 15.0408 10.2244C15.0369 10.2478 15.0173 10.2673 14.9939 10.2712C12.1775 10.9158 10.4978 12.6384 9.83374 15.4353C9.82593 15.4705 9.79077 15.49 9.75562 15.4822C9.73218 15.4783 9.71265 15.4587 9.70874 15.4353C9.06421 12.6189 7.35718 10.9353 4.5564 10.2634C4.52124 10.2556 4.50171 10.2205 4.50952 10.1853C4.51343 10.1619 4.53296 10.1423 4.5564 10.1384C7.35718 9.4939 9.04858 7.79468 9.71655 5.00171C9.72437 4.96655 9.75952 4.94702 9.79468 4.95483C9.81421 4.97046 9.83374 4.98608 9.83765 5.00562Z" fill="#FFDA1D" />
                             <path d="M16.4268 0.836686C16.7744 2.30544 17.6689 3.19215 19.1377 3.54372C19.1572 3.54762 19.165 3.56715 19.1611 3.58278C19.1572 3.5945 19.1494 3.60622 19.1377 3.60622C17.6572 3.94606 16.7705 4.85231 16.4229 6.32106C16.4189 6.34059 16.3994 6.3484 16.3838 6.3445C16.3721 6.34059 16.3604 6.33278 16.3604 6.32106C16.0205 4.84059 15.1221 3.95387 13.6494 3.5984C13.6299 3.5945 13.6221 3.57497 13.626 3.55934C13.6299 3.54762 13.6377 3.5359 13.6494 3.5359C15.1221 3.19606 16.0127 2.30544 16.3643 0.83278C16.3682 0.813248 16.3838 0.80153 16.4033 0.805436C16.415 0.809342 16.4229 0.821061 16.4268 0.836686Z" fill="#FFDA1D" />
@@ -691,8 +755,59 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         AI Profile Match
 
 
+                      </button> */}
+                      <button
+                        disabled={aiLoading}
+                        style={{
+                          backgroundColor: "#4C43CD",
+                          backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+                          transform: aiLoading ? "scale(1.1)" : "scale(1)",
+                          transition: "transform 0.5s ease-in-out",
+                        }}
+                        onClick={aiMatch}
+                        className="text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
+             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out"
+                      >
+                        <svg
+                          className={`min-w-[20px] transition-all duration-100 ${aiLoading ? "animate-pulse scale-110" : ""}`}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clipPath="url(#clip0_9135_108708)">
+                            <g clip-path="url(#clip0_9135_108708)">
+                              <path d="M9.83765 5.00562C10.4939 7.79858 12.2009 9.48218 14.9939 10.1501C15.0291 10.158 15.0486 10.1931 15.0408 10.2244C15.0369 10.2478 15.0173 10.2673 14.9939 10.2712C12.1775 10.9158 10.4978 12.6384 9.83374 15.4353C9.82593 15.4705 9.79077 15.49 9.75562 15.4822C9.73218 15.4783 9.71265 15.4587 9.70874 15.4353C9.06421 12.6189 7.35718 10.9353 4.5564 10.2634C4.52124 10.2556 4.50171 10.2205 4.50952 10.1853C4.51343 10.1619 4.53296 10.1423 4.5564 10.1384C7.35718 9.4939 9.04858 7.79468 9.71655 5.00171C9.72437 4.96655 9.75952 4.94702 9.79468 4.95483C9.81421 4.97046 9.83374 4.98608 9.83765 5.00562Z" fill="#FFDA1D" />
+                              <path d="M16.4268 0.836686C16.7744 2.30544 17.6689 3.19215 19.1377 3.54372C19.1572 3.54762 19.165 3.56715 19.1611 3.58278C19.1572 3.5945 19.1494 3.60622 19.1377 3.60622C17.6572 3.94606 16.7705 4.85231 16.4229 6.32106C16.4189 6.34059 16.3994 6.3484 16.3838 6.3445C16.3721 6.34059 16.3604 6.33278 16.3604 6.32106C16.0205 4.84059 15.1221 3.95387 13.6494 3.5984C13.6299 3.5945 13.6221 3.57497 13.626 3.55934C13.6299 3.54762 13.6377 3.5359 13.6494 3.5359C15.1221 3.19606 16.0127 2.30544 16.3643 0.83278C16.3682 0.813248 16.3838 0.80153 16.4033 0.805436C16.415 0.809342 16.4229 0.821061 16.4268 0.836686Z" fill="#FFDA1D" />
+                              <path d="M2.80176 3.30957C3.14551 4.77832 4.04395 5.66504 5.5127 6.0166C5.53223 6.02051 5.54004 6.04004 5.53613 6.05566C5.53223 6.06738 5.52441 6.0791 5.5127 6.0791C4.03223 6.41895 3.14551 7.3252 2.79785 8.79395C2.79395 8.81348 2.77441 8.82129 2.75879 8.81738C2.74707 8.81348 2.73535 8.80566 2.73535 8.79395C2.39551 7.31348 1.49707 6.42676 0.0244141 6.07129C0.00488281 6.06738 -0.00292969 6.04785 0.000976563 6.03223C0.00488281 6.02051 0.0126953 6.00879 0.0244141 6.00879C1.49707 5.66895 2.3877 4.77832 2.73926 3.30566C2.74316 3.28613 2.7627 3.27832 2.77832 3.28223C2.79004 3.29004 2.80176 3.29785 2.80176 3.30957Z" fill="#FFDA1D" />
+                              <path d="M17.0439 13.7195C17.3916 15.1882 18.2861 16.075 19.7549 16.4265C19.7744 16.4304 19.7822 16.45 19.7783 16.4656C19.7744 16.4773 19.7666 16.489 19.7549 16.489C18.2744 16.8289 17.3877 17.7351 17.04 19.2039C17.0361 19.2234 17.0166 19.2312 17.001 19.2273C16.9893 19.2234 16.9775 19.2156 16.9775 19.2039C16.6377 17.7234 15.7393 16.8367 14.2666 16.4812C14.2471 16.4773 14.2393 16.4578 14.2432 16.4422C14.2471 16.4304 14.2549 16.4187 14.2666 16.4187C15.7393 16.0789 16.6299 15.1882 16.9814 13.7156C16.9854 13.6961 17.0049 13.6843 17.0205 13.6882C17.0322 13.7 17.0439 13.7078 17.0439 13.7195Z" fill="#FFDA1D" />
+                              <path d="M18.2666 9.19242C18.4854 10.1182 19.0518 10.6807 19.9776 10.9034C19.9893 10.9073 19.9932 10.919 19.9893 10.9307C19.9854 10.9346 19.9815 10.9385 19.9776 10.9424C19.0401 11.1573 18.4815 11.7276 18.2627 12.6573C18.2588 12.669 18.2471 12.6768 18.2354 12.6729C18.2276 12.6729 18.2198 12.6651 18.2198 12.6573C18.0049 11.7198 17.4385 11.1612 16.5088 10.9385C16.4971 10.9346 16.4893 10.9229 16.4932 10.9112C16.4932 10.9034 16.501 10.8955 16.5088 10.8955C17.4385 10.6807 18.001 10.1182 18.2237 9.18852C18.2276 9.1768 18.2393 9.16898 18.251 9.17289C18.2588 9.1768 18.2666 9.18461 18.2666 9.19242Z" fill="#FFDA1D" />
+                              <path d="M4.81352 14.9229C5.03227 15.8487 5.59867 16.4112 6.52445 16.6338C6.53617 16.6377 6.54399 16.6495 6.54008 16.6612C6.54008 16.669 6.53227 16.6768 6.52445 16.6768C5.59086 16.8916 5.03227 17.4659 4.80961 18.3916C4.8057 18.4034 4.79398 18.4112 4.78227 18.4073C4.77445 18.4034 4.77055 18.3995 4.76664 18.3916C4.5518 17.4541 3.98539 16.8955 3.0557 16.6729C3.04398 16.669 3.03617 16.6573 3.04008 16.6455C3.04008 16.6377 3.04789 16.6299 3.0557 16.6299C3.98539 16.4151 4.54789 15.8526 4.77055 14.9229C4.77445 14.9112 4.78617 14.9034 4.79789 14.9073C4.80961 14.9112 4.81352 14.9151 4.81352 14.9229Z" fill="#FFDA1D" />
+                              <path d="M7.15729 0.782289C7.33698 1.54791 7.80573 2.01276 8.57526 2.19635C8.58307 2.20026 8.59088 2.20807 8.58698 2.21588C8.58698 2.2237 8.57916 2.2276 8.57526 2.2276C7.80182 2.40338 7.33698 2.87995 7.15338 3.64948C7.14948 3.65729 7.14166 3.6651 7.12995 3.6612C7.12213 3.6612 7.11823 3.65338 7.11823 3.64948C6.94244 2.87604 6.46979 2.4112 5.70026 2.2276C5.69245 2.2237 5.68463 2.21588 5.68854 2.20416C5.68854 2.19635 5.69635 2.19245 5.70026 2.19245C6.46979 2.01666 6.93463 1.54791 7.12213 0.778383C7.12604 0.77057 7.13385 0.762758 7.14557 0.766664C7.14948 0.77057 7.15729 0.774476 7.15729 0.782289Z" fill="#FFDA1D" />
+                            </g>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_9135_108708">
+                              <rect width="20" height="20" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        AI Profile Match
                       </button>
-                    }
+
+
+                      <button
+                        // onClick={moveToHiringMultiple}
+                        className=" rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[38px] px-6"
+                      >
+                        Set Matching Parameters
+                      </button>
+
+                    </div>
                     <div className="flex items-start gap-[8px]">
                       <div className="ml:w-[314px] flex py-[8px] px-[10px] gap-[16px] rounded-[8px] border border-[#D6DDEB] bg-[#fff]">
                         <img
@@ -722,6 +837,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         Move to Hiring Process
                       </button>
                     )}
+
                   </div>
 
                   {allShortlist && (
@@ -870,9 +986,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                                       {applicant.matchingPercentage ? (
                                         <p className={`text-[14px] font-[600] ${!applicant.isScore ? "blur-[3px]" : ""}`}>
-                                          {applicant.matchingPercentage} %
+                                          {!applicant.isScore ? `${randomPercentage} %` : `${applicant.matchingPercentage} %`}
                                         </p>
-
                                       ) : (
                                         <>-</>
                                       )}
