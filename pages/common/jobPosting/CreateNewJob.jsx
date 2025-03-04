@@ -1451,8 +1451,8 @@ function CreateNewJob() {
                     </div>
                   </div>
 
-                  <div>
-                    <div className="flex flex-col gap-4 p-[10px] md:p-4">
+                  <div className="w-full">
+                    <div className="flex flex-col gap-4 p-[10px] md:p-4 w-full">
                       <div className="text-lg font-semibold">
                         Job Information
                       </div>
@@ -1476,9 +1476,9 @@ function CreateNewJob() {
                             placeholder="Open Positions"
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-4">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-[14px] font-[500]">
-                            Category <span className="text-[red]">*</span>
+                            Job Category <span className="text-[red]">*</span>
                           </div>
                           {/* <div
                             className={`w-full flex gap-2 relative border rounded-[8px] px-2 h-[38px] ${formError.jobCat
@@ -1585,14 +1585,13 @@ function CreateNewJob() {
                                 ...data,
                                 jobCat: selectedOption?.value,
                               });
-                            }} 
+                            }}
                             styles={customStyless}
                             isSearchable={false}
                             className="w-full"
                           />
                         </div>
-                        {/* </div> */}
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3 ">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Job Sector <span className="text-[red]">*</span>
                           </div>
@@ -1674,7 +1673,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-9 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Work From</div>
                           <Select
@@ -1709,7 +1708,7 @@ function CreateNewJob() {
                             }
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Required Qualification
                           </div>
@@ -1725,7 +1724,7 @@ function CreateNewJob() {
                             onChange={handleChange}
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Application Deadline{" "}
                             <span className="text-[red]">*</span>
