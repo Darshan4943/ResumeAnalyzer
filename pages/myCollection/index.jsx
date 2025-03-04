@@ -1061,6 +1061,7 @@ const addFiles = async () => {
             setIsFile={setIsFile}
             setIsCreateFolder={setIsCreateFolder}
             getLimits={getLimits}
+            parentId={parentId}
           />
         </div>
       </div>

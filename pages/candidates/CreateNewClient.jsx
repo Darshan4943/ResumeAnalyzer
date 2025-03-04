@@ -431,9 +431,9 @@ function CreateNewClient() {
                 <div className="flex flex-col gap-4">
                   <div className=" flex justify-center pt-4  pb-2">
                     <form className=" w-[100%]  education_page ">
-                      <>
+                      <div className="flex flex-col gap-2">
                         <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
-                          <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[49%] w-[100%]">
+                          <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
                             <div className="personal_name ml:w-[50%] w-[100%]">
                               <p className="form_text_heading ">
                                 First Name <span className="star">*</span>
@@ -480,7 +480,7 @@ function CreateNewClient() {
                           </div>
 
                           <div
-                            className={`personal_single_input ml:w-[50%] w-[100%] `}
+                            className={`personal_name ml:w-[50%] w-[100%] `}
                           >
                             <p className="form_text_heading">
                               Email <span className="star">*</span>
@@ -727,7 +727,7 @@ function CreateNewClient() {
                             )}
                           </button>
                         </div>
-                      </>
+                      </div>
                     </form>
                   </div>
                 </div>

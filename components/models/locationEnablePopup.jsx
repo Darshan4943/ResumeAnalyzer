@@ -25,9 +25,9 @@ const LocationEnablePopup = ({ setEnablePopup, enablePopup, getLocation }) => {
                 <span className="ml:text-[16px] text-[14px] text-[#333333] font-medium flex flex-col items-start px-4">
               Please follow these steps:
                 <ol className="py-4 flex flex-col gap-[9px]">
-                  <li>1. Click on the lock icon near the URL bar.</li>
-                  <li>2. Find the {`"Location"`} setting.</li>
-                  <li>3. Change the setting to {`"Allow"`}.</li>
+                  <li>Click on the lock icon near the URL bar.</li>
+                  <li>Find the {`"Location"`} setting.</li>
+                  <li>Change the setting to {`"Allow"`}.</li>
                 </ol>
               </span>
             </div>
