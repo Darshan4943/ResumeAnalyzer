@@ -199,7 +199,8 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                       router.push(`/jobs/easyApply?id=${item._id}`);
                     }
                   }}
-                  className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF]  px-6 rounded-[30px] h-[38px] bg_Button
+                  className={`text-[14px] font-[600]  flex items-center ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
+                  && (isLogin || appliedJobs.includes(selectedJob?._id)) && "bg-[#0275A7]" } px-6 rounded-[30px] h-[38px] bg_Button
                   ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
                       && (isLogin || appliedJobs.includes(selectedJob?._id)) ||
                       selectedJob.status === "Hold"

@@ -68,17 +68,19 @@ function NormalJobCard({ item }) {
       <div className=" flex flex-col gap-[8px] ">
         <div className="flex flex-row">
           <div className="flex flex-col gap-[4px] w-full">
-            <div className="xxsm:text-[16px] sm:text-[16px] font-[600]">
-            {item?.jobTitle.length > 40 ? `${item?.jobTitle.slice(0, 40)}...` : item?.jobTitle}
-
+            <div className={`xxsm:text-[16px] sm:text-[16px] font-[600] ${item?.jobTitle.length > 40 && "group"} relative`}>
+              {item?.jobTitle.length > 40 ? `${item?.jobTitle.slice(0, 40)}...` : item?.jobTitle}
+              <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                {item.jobTitle}
+              </div>
             </div>
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 {
                   item.role === "employer" ?
-                  router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
-                  : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
+                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
+                    : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
                 }
 
               }}
@@ -121,6 +123,7 @@ function NormalJobCard({ item }) {
                   height="14"
                   viewBox="0 0 14 15"
                   fill="none"
+                  className="min-w-[14px]"
                 >
                   <g mask="url(#mask0_4135_57914)">
                     <path
@@ -146,6 +149,7 @@ function NormalJobCard({ item }) {
                   height="14"
                   viewBox="0 0 14 15"
                   fill="none"
+                  className="min-w-[14px]"
                 >
                   <g mask="url(#mask0_4135_57920)">
                     <path
@@ -169,6 +173,7 @@ function NormalJobCard({ item }) {
                 height="14"
                 viewBox="0 0 14 15"
                 fill="none"
+                className="min-w-[14px]"
               >
                 <g mask="url(#mask0_4135_57926)">
                   <path
@@ -191,6 +196,7 @@ function NormalJobCard({ item }) {
               height="14"
               viewBox="0 0 14 14"
               fill="none"
+              className="min-w-[14px]"
             >
               <g mask="url(#mask0_4135_57931)">
                 <path
@@ -204,13 +210,13 @@ function NormalJobCard({ item }) {
             {item?.description?.length > 120 ? (
               <>
                 <div
-                      className=""
-                      dangerouslySetInnerHTML={{
-                        __html: item.description.length > 120
-                          ? item.description.slice(0, 120) + "..."
-                          : item.description
-                      }}
-                    />
+                  className=""
+                  dangerouslySetInnerHTML={{
+                    __html: item.description.length > 120
+                      ? item.description.slice(0, 120) + "..."
+                      : item.description
+                  }}
+                />
               </>
             ) : (
               <div

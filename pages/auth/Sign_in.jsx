@@ -316,14 +316,14 @@ function Sign_in({  setSignIn, setSignUp }) {
               "Sign In"
             )}
           </button>
-          {role !== "employer" && (
+          {role === "user" && (
             <div className="flex flex-row items-center justify-center gap-[6px] text-[16px] font-medium">
               <div className="w-[50%] h-[1px] bg-[#DEDEDE]"></div>Or
               <div className="w-[50%] h-[1px] bg-[#DEDEDE]"></div>
             </div>
           )}
           <div className="flex flex-col gap-[16px]">
-            {role !== "employer" && (
+            {role === "user" && (
               <div
                 onClick={handleGoogle}
                 disabled={googleLoading}

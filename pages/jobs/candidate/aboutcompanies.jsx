@@ -329,7 +329,7 @@ function Aboutcompanies() {
                   onClick={() => {
                     handleClick();
                   }}
-                  className="bg-[#06A9EF]  md:py-[12px] md:px-[36px] py-[8px] px-[16px] text-white md:text-[14px] text-[12px] font-[600] rounded-[30px]"
+                  className="bg-[#06A9EF]   md:px-6  px-[16px] text-white md:text-[14px] text-[12px] font-[600] bg_Button h-[38px] rounded-[30px]"
                 >
                   Give Us Your Feedback
                 </button>
@@ -374,7 +374,7 @@ function Aboutcompanies() {
               {jobs.length > 0 ? (
                 <div className="flex flex-wrap justify-between gap-4">
                   <div className="flex-1 min-w-[300px]">
-                    <h2 className="sm:text-[18px] text-[14px] font-semibold mb-2">
+                    <h2 className="sm:text-[16px] text-[14px] font-semibold mb-2">
                       Explore {jobs.length} Open Positions at {companyName}
                     </h2>
                     <div className="flex flex-col gap-4">
@@ -389,7 +389,7 @@ function Aboutcompanies() {
                   </div>
 
                   <div className="w-[357px] flex flex-col">
-                    <h2 className="sm:text-[18px] text-[14px]  font-semibold mb-2 ">
+                    <h2 className="sm:text-[16px] text-[14px]  font-semibold mb-2 ">
                       Relevant Job Opportunities
                     </h2>
                     <div className=" bg-white rounded-[12px] mb-6  p-[8px]">

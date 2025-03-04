@@ -11,8 +11,8 @@ const EarthLoader = () => {
             <img src="/images/loader/glass.png" alt="" className="h-[126px] w-[117px] object-contain glass" />
             </div>
             <div className="flex flex-col items-center justify-center relative z-100">
-            <span className="text-center text-[#fff] text-[16px]">Analyzing Data </span>
-            <span className="text-left text-[#fff] text-[16px] loading_dots">Please wait </span>
+            <span className="text-center text-[#fff] text-[14px]">Analyzing Data </span>
+            <span className="text-left text-[#fff] text-[14px] loading_dots">Please wait </span>
             </div>
         </div>
       </div>

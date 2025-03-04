@@ -25,21 +25,21 @@ function JobStatistics({ setSelected, selected, data }) {
 
   return (
     <div
-      className="scr1300:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:p-4 p-2"
+      className="scr1300:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:px-4 px-2 py-3"
       style={{
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
     >
       <div
-        className="flex pb-4 flex-col gap-4 self-stretch"
+        className="flex pb-2 flex-col gap-4 self-stretch"
         style={{
           borderBottom: " 1px solid var(--Text-Secondary, #646464)",
         }}
       >
         <div className="flex justify-between items-center self-stretch">
           <div className="flex flex-col items-start lg:gap-1 gap-[2px]">
-            <p className="text-[#333333] font-Montserrat text-[12px] lg:text-[28px] font-medium">
+            <p className="text-[#333333] font-Montserrat text-[12px] lg:text-[24px] font-medium leading-[20px]">
               {" "}
               Job statistics
             </p>
@@ -113,22 +113,22 @@ function JobStatistics({ setSelected, selected, data }) {
       <div className="lg:flex w-full ml:flex-row-reverse flex-col flex gap-2 justify-between">
         <div className="flex ml:flex-col flex-row items-start gap-2 ml:gap-4 lg:w-[32.23%] w-[100%]">
           <div
-            className="flex ml:p-4 p-2 flex-col items-start ml:gap-4 gap-1 bg-[#fff] self-stretch w-full"
+            className="flex ml:p-4 p-2 flex-col items-start ml:gap-2 gap-1 bg-[#fff] self-stretch w-full"
             style={{
               boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
               borderRadius: "16px",
             }}
           >
             <div className="flex justify-between items-center self-stretch">
-              <p className="text-[#333] font-Montserrat text-[12px] ml:text-[18px] font-semibold">
+              <p className="text-[#333] font-Montserrat text-[12px] ml:text-[16px] font-semibold">
                 {" "}
                 Job Views
               </p>
               <div className="flex p-[2px] ml:p-[6px] rounded-[32px] bg-[#FFDA1D]">
                 <svg
                   xlgns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 20 20"
                   fill="none"
                 >
@@ -140,11 +140,11 @@ function JobStatistics({ setSelected, selected, data }) {
               </div>
             </div>
             <div className="flex flex-col items-start gap-[2px]">
-              <p className="text-[#333] flex items font-Montserrat font-semibold text-[20px] ml:text-[36px]">
+              <p className="text-[#333] flex items font-Montserrat font-semibold text-[20px] ml:text-[30px]">
                 <CountUp end={data.totalViews} />
               </p>
               <div className="flex gap-2 items-center">
-                <p className="text-[#646464] text-[12px] ml:text-[16px] font-Montserrat font-Medium">
+                <p className="text-[#646464] text-[12px] ml:text-[14px] font-Montserrat font-Medium">
                   {selected === "Daily"
                     ? "This Week"
                     : selected === "Weekly"
@@ -161,7 +161,7 @@ function JobStatistics({ setSelected, selected, data }) {
                             : viewsChange == 0
                             ? "text-[#333333]"
                             : "text-[#C00000]"
-                        } items-center ml:text-[18px] text-[10px] font-medium leading-5`}
+                        } items-center ml:text-[16px] text-[10px] font-medium leading-5`}
                       >
                         {Math.abs(viewsChange)}%
                       </p>
@@ -170,8 +170,8 @@ function JobStatistics({ setSelected, selected, data }) {
                   {viewsChange < 0 && (
                     <svg
                       xlgns="http://www.w3.org/2000/svg"
-                      width="21"
-                      height="21"
+                      width="18"
+                      height="18"
                       viewBox="0 0 21 21"
                       fill="none"
                     >
@@ -200,8 +200,8 @@ function JobStatistics({ setSelected, selected, data }) {
                   {viewsChange > 0 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="21"
-                      height="21"
+                      width="18"
+                      height="18"
                       viewBox="0 0 21 21"
                       fill="none"
                     >
@@ -239,7 +239,7 @@ function JobStatistics({ setSelected, selected, data }) {
             }}
           >
             <div className="flex justify-between items-center self-stretch">
-              <p className="text-[#333] font-Montserrat text-[12px] ml:text-[18px] font-semibold">
+              <p className="text-[#333] font-Montserrat text-[12px] ml:text-[16px] font-semibold">
                 {" "}
                 Job Applied
               </p>
@@ -265,7 +265,7 @@ function JobStatistics({ setSelected, selected, data }) {
                 <CountUp end={data.totalApplicants} />
               </p>
               <div className="flex gap-2 items-center">
-                <p className="text-[#646464] text-[12px] ml:text-[16px] font-Montserrat font-Medium">
+                <p className="text-[#646464] text-[12px] ml:text-[14px] font-Montserrat font-Medium">
                   {selected === "Daily"
                     ? "This Week"
                     : selected === "Weekly"
@@ -280,7 +280,7 @@ function JobStatistics({ setSelected, selected, data }) {
                         : applicantChange == 0
                         ? "text-[#333333]"
                         : "text-[#C00000]"
-                    } items-center ml:text-[18px] text-[10px] font-medium leading-5`}
+                    } items-center ml:text-[16px] text-[10px] font-medium leading-5`}
                   >
                     {Math.abs(applicantChange)}%
                   </p>
@@ -349,7 +349,7 @@ function JobStatistics({ setSelected, selected, data }) {
             </div>
           </div>
         </div>
-        <div className="w-full h-full flex py-2 ">
+        <div className="w-full h-full flex  ">
           <StackedBarChart data={data} />
         </div>
       </div>

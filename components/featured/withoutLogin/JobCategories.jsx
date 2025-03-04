@@ -16,6 +16,7 @@ function JobCategories() {
         { img: "/images/withoutLogin/cat10.png", label: "Project Manager" },
         { img: "/images/withoutLogin/cat11.png", label: "HR" },
         { img: "/images/withoutLogin/cat12.png", label: "Design" },
+        { img: "/images/withoutLogin/cat12.png", label: "Others" },
     ];
 
     return (
@@ -27,7 +28,7 @@ function JobCategories() {
                     finance to marketing, and more.
                 </p>
             </div>
-            <div  className='flex flex-wrap scr460:gap-6 scr380:gap-4 gap-2 justify-center '>
+            <div  className='flex flex-wrap scr460:gap-4 scr380:gap-4 gap-2 justify-center '>
                 {categories.map((category, index) => (
                     <div
                         key={index}
@@ -35,7 +36,7 @@ function JobCategories() {
                      
                    onClick={()=>router.push(`/jobs/candidate?cat=${category.label}`)}
 
-                        className='py-2 px-[10px] flex gap-[6px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center cursor-pointer'
+                        className='py-2 px-[5px] flex gap-[4px] border-[0.5px] border-[#DBDBDB] rounded-[6px] items-center cursor-pointer'
                     >
                         <img
                             src={category.img}
