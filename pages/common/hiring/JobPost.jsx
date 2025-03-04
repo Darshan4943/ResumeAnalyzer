@@ -17,6 +17,7 @@ import { fa } from "@faker-js/faker";
 import CopyLink from "../../../components/common/copyLink";
 import LimitUsedModal from "../../../components/models/limitUsedModal";
 import { setRecallData } from "../../../Redux/slices/recallSlice";
+import JdParameters from "../../../components/common/jdParameters";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(() => Math.floor(Math.random() * (95 - 70 + 1)) + 70, []);
@@ -26,6 +27,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const [activeOption, setActiveOption] = useState("applicant");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [openParameters, setOpenParamenters] = useState(false)
   const router = useRouter();
   const { id } = router.query;
   const taskRef = useRef(null);
@@ -433,6 +435,16 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
         </div>
       )}
+      {openParameters &&
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+
+            <JdParameters setOpenParamenters={setOpenParamenters} />
+          </div>
+        </>
+
+      }
       <div className=" mb-4">
         <div className="w-[100%] flex flex-col relative ">
           {jobData && (
@@ -801,7 +813,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
 
                       <button
-                        // onClick={moveToHiringMultiple}
+                        onClick={() => setOpenParamenters(true)}
                         className=" rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[38px] px-6"
                       >
                         Set Matching Parameters
