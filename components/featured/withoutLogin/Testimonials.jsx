@@ -53,7 +53,7 @@ function Testimonials() {
     <div className="flex flex-col gap-[42px]  ">
       <div className="flex flex-col gap-3 customMargins">
         <p className="scr460:text-[30px] text-[18px] font-[600] text-center leading-tight">
-          Testimonials From Our Customers
+          Testimonials
         </p>
         <p className="scr460:text-[14px] text-[12px] font-[400] text-center leading-tight">
           See how our users have landed their dream jobs with the help of our

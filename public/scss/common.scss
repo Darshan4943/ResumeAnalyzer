@@ -445,12 +445,15 @@ a {
   transition: all 0.2s;
   background-color: #06A9EF;
   color: white;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 
 }
 
 .bg_Button:hover {
   background-color: #0275A7;
   color: white;
+  
 }
 
 .blue_border_Button {
@@ -458,6 +461,8 @@ a {
   background-color: #ffffff;
   color: #333333;
   border: 1px solid #06A9EF;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 .blue_border_Button:hover {
@@ -471,6 +476,8 @@ a {
   background-color: #ffffff;
   color: #C00000;
   border: 1px solid #C00000;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 .red_border_Button:hover {

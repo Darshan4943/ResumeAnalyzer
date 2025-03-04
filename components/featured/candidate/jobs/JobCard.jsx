@@ -71,8 +71,11 @@ function Job_card({
           <div className=" flex flex-col gap-[8px] ">
             <div className="flex flex-row">
               <div className="flex flex-col gap-[4px] w-full">
-                <div className="xxsm:text-[14px] sm:text-[14px] font-[600]">
-                  {item?.jobTitle}
+                <div className={`xxsm:text-[14px] sm:text-[14px] font-[600] ${item?.jobTitle.length > 60 && "group"} relative`}>
+                {item?.jobTitle.length > 60 ? `${item?.jobTitle.slice(0, 60)}...` : item?.jobTitle}
+                  <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                {item.jobTitle}
+              </div>
                 </div>
 
                 <div
@@ -337,7 +340,8 @@ function Job_card({
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] h-[38px] px-6 rounded-[30px] bg_Button
+                className={`text-[14px] font-[600]  flex items-center ${item?.matchedApplication?.applicantId === userDataGlobal?._id
+                  && (isLogin || appliedJobs.includes(item?._id)) && "bg-[#0275A7]" } h-[38px] px-6 rounded-[30px] bg_Button
                   ${item?.matchedApplication?.applicantId === userDataGlobal?._id
                     && (isLogin || appliedJobs.includes(item?._id)) ||
                     item.status === "Hold"

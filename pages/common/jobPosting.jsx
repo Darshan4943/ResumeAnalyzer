@@ -54,6 +54,9 @@ function JobPosting() {
         jobTitles: [
           ...new Set(response.data.jobTitles.map((title) => title.trim())),
         ],
+        companyNames: [
+          ...new Set(response.data.companyNames.map((title) => title.trim())),
+        ],
         locations: [
           ...new Set(
             response.data.locations.map((location) =>
@@ -72,6 +75,11 @@ function JobPosting() {
             return {
               ...item,
               options: data.jobTitles,
+            };
+          }else if (item.heading === "CompanyName") {
+            return {
+              ...item,
+              options: data.companyNames,
             };
           } else if (item.heading === "Location") {
             return {
@@ -97,13 +105,17 @@ function JobPosting() {
       options: [],
     },
     {
-      heading: "Location",
+      heading: "CompanyName",
       options: [],
     },
     {
-      heading: "Status",
-      options: ["All", "Active", "Hold", "Inactive"],
+      heading: "Location",
+      options: [],
     },
+    // {
+    //   heading: "Status",
+    //   options: ["All", "Active", "Hold", "Inactive"],
+    // },
   ]);
   const getResponsiveWidth = () => {
     const width = window.innerWidth;
@@ -253,7 +265,7 @@ function JobPosting() {
                       </select>
                     )}
                     <img
-                      className="max-w-[92px] max-h-[78px] object-cover"
+                      className="max-w-[98px] max-h-[78px] object-cover"
                       src={"/images/company.png"}
                       alt=""
                     />
@@ -289,7 +301,7 @@ function JobPosting() {
                     Manual Job Post
                   </button>
                   <img
-                    className="max-w-[84px] max-h-[78px] object-cover"
+                    className="max-w-[98px] max-h-[78px] object-cover"
                     src={"/images/manualPost.png"}
                     alt=""
                   />
@@ -330,7 +342,8 @@ function JobPosting() {
                       placeholder={
                         filter.heading === "JobTitle"
                           ? "Job Title"
-                          : filter.heading
+                          :  filter.heading === "CompanyName"
+                          ? "Company Name" : filter.heading
                       }
                       isSearchable={true}
                       noOptionsMessage={() => "No options available"}

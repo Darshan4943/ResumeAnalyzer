@@ -568,7 +568,7 @@ function EasyApply() {
                             <p className='text-[12px] font-[500] text-[#646464] leading-tight'>2. Let system scan it and make your application almost ready.</p>
                         </div>
                         {loading ? (
-                            <div className="border-dashed border-[3px] border-[#BCBCBC] flex flex-col rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper h-[107px] sm:w-[360px]">
+                            <div className="border-dashed border-[3px] text-[14px] border-[#BCBCBC] flex flex-col rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper h-[107px] sm:w-[360px]">
                                 <MiniLoader />
                                 <span>Analyzing Resume, Please Wait...</span>
                             </div>

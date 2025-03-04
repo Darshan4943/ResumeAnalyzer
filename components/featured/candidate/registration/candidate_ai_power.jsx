@@ -360,7 +360,7 @@ const CandidateAiPower = ({
               <div className="w-full flex flex-col gap-[16px] ">
                 {" "}
                 {loading ? (
-                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
+                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] text-[14px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
                     <MiniLoader />
                     <span>Analyzing Resume, Please Wait...</span>
                   </div>

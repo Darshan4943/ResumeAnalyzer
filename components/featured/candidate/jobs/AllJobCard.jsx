@@ -174,7 +174,7 @@ function AllJobCard({
           )}
         </>
       )}
-      {totalCount > 9 && (
+      {totalCount > 10 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
