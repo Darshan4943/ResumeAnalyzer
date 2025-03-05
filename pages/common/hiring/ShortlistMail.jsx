@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 function ShortlistMail({
   shortlist,
+  jobData,
   setPopupVisible,
   id,
   setStatusChange,
@@ -23,8 +24,94 @@ function ShortlistMail({
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState();
-  const [content, setContent] = useState();
+  const [subject, setSubject] = useState(
+    newHiringStage === "Shortlisted"
+      ? "Congratulations! You Have Been Shortlisted for the Next Round"
+      : `Update on Your Application - ${jobData?.jobTitle || "Job Position"}`
+  );
+
+  const formatCandidateNames = () => {
+    if (!shortlist || shortlist.length === 0) return "[Candidate's Name]";
+    return shortlist
+      .map(
+        (item) =>
+          `${item?.details?.personal?.firstName} ${item?.details?.personal?.lastName}`
+      )
+      .join(", ");
+  };
+
+  const [content, setContent] = useState(
+    newHiringStage === "Shortlisted"
+      ? `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+
+  <p style="display: block; padding-bottom: 20px;">Dear ${formatCandidateNames()},</p>
+
+  <div style="display: block; padding-bottom: 20px;">
+    <p style="display: block; padding-bottom: 20px;">
+      We are pleased to inform you that after a thorough review of your profile, you have been shortlisted for the next round of the selection process for 
+      <strong>${jobData?.jobTitle || "the position"}</strong> at 
+      <strong>${jobData?.companyName || "[Company Name]"}</strong>.
+    </p>
+
+    <p style="display: block; padding-bottom: 20px;">
+      Your skills and experience align well with the requirements of the role, and we are excited to proceed further with your application.
+    </p>
+
+    <p style="display: block; padding-bottom: 20px;">
+      Please confirm your availability by responding to this email at your earliest convenience.
+    </p>
+
+    <p style="display: block; padding-bottom: 20px;">
+      Should you have any questions, feel free to reach out. We look forward to connecting with you soon.
+    </p>
+  </div>
+
+  <p style="display: block; padding-bottom: 20px;">Best Regards,</p>
+
+  <p style="display: block; padding-bottom: 10px;">Team Skilotech</p>
+
+  <p style="display: block; padding-bottom: 10px;">
+    <a href="https://skilotech.com" style="color: #007bff; text-decoration: none;">Skilotech.com</a>
+  </p>
+
+</div>
+ `
+      : `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+
+  <p style="display: block; padding-bottom: 20px;">Dear ${formatCandidateNames()},</p>
+
+  <p style="display: block; padding-bottom: 20px;">
+    Thank you for taking the time to apply for the 
+    <strong>${jobData?.jobTitle || "position"}</strong> at 
+    <strong>${jobData?.companyName || "[Company Name]"}</strong>. 
+    We appreciate your interest and the effort you put into the process.
+  </p>
+
+  <p style="display: block; padding-bottom: 20px;">
+    After careful consideration, we regret to inform you that we have decided to move forward with other candidates at this time. 
+    This decision was not an easy one, as we received a large number of strong applications, including yours.
+  </p>
+
+  <p style="display: block; padding-bottom: 20px;">
+    We sincerely appreciate your time and effort, and we encourage you to stay connected with us for future opportunities that may be a great fit for your skills and experience.
+  </p>
+
+  <p style="display: block; padding-bottom: 20px;">
+    We wish you success in your career endeavors and hope to cross paths again in the future.
+  </p>
+
+  <p style="display: block; padding-bottom: 20px;">Best Regards,</p>
+
+  <p style="display: block; padding-bottom: 10px;">Team Skilotech</p>
+
+  <p style="display: block; padding-bottom: 10px;">
+    <a href="https://skilotech.com" style="color: #007bff; text-decoration: none;">Skilotech.com</a>
+  </p>
+
+</div>
+`
+  );
+
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");
   const handleKeyPress = (e) => {

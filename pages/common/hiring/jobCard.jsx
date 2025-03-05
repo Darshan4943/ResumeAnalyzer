@@ -136,37 +136,44 @@ const JobCard = ({ filters, setFilters }) => {
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div
-                    className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
-                      }`}
+                    className={`flex justify-between w-[100%] gap-2 ${
+                      hasLongTitle ? "h-[42px]" : ""
+                    }`}
                   >
-                    <div className={`flex justify-between ${job?.jobTitle?.length > 35 && "group"} relative gap-[20px] items-start`}>
+                    <div
+                      className={`flex justify-between ${
+                        job?.jobTitle?.length > 35 && "group"
+                      } relative gap-[20px] items-start`}
+                    >
                       <p className="text-[14px] font-[600]">
-                        {job?.jobTitle?.length > 35 ? `${job.jobTitle.slice(0, 35)} ...` : job.jobTitle}
+                        {job?.jobTitle?.length > 35
+                          ? `${job.jobTitle.slice(0, 35)} ...`
+                          : job.jobTitle}
                       </p>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                         {job.jobTitle}
                       </div>
 
                       <div className="flex gap-[3px] items-center">
-                        {job.status === "Live" ? (
+                        {job.status === "Active" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#0C8A0A]">
                               Active
                             </div>
                           </>
-                        ) : job.status === "Hold" ? (
+                        ) : job.status === "Inactive" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#ddda40]">
-                              On Hold
+                              Inactive
                             </div>
                           </>
                         ) : job.status === "Closed" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#B3261E]">
-                              Inactive
+                              Closed
                             </div>
                           </>
                         ) : null}
@@ -329,7 +336,11 @@ const JobCard = ({ filters, setFilters }) => {
                           />
                         </svg>
                       </div>
-                      <div className={`text-[12px] font-[400] ${job.location.length > 2 && "group"} relative`}>
+                      <div
+                        className={`text-[12px] font-[400] ${
+                          job.location.length > 2 && "group"
+                        } relative`}
+                      >
                         {job.location.length > 2
                           ? `${job.location[0]} ...`
                           : job?.location?.join(", ")}
@@ -367,7 +378,11 @@ const JobCard = ({ filters, setFilters }) => {
       )}
 
       {showPopup && (
-        <CopyLink generatedLink={generatedLink} setShowPopup={setShowPopup} popupRef={popupRef} />
+        <CopyLink
+          generatedLink={generatedLink}
+          setShowPopup={setShowPopup}
+          popupRef={popupRef}
+        />
       )}
     </div>
   );

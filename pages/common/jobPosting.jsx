@@ -112,10 +112,10 @@ function JobPosting() {
       heading: "Location",
       options: [],
     },
-    // {
-    //   heading: "Status",
-    //   options: ["All", "Active", "Hold", "Inactive"],
-    // },
+    {
+      heading: "Status",
+      options: ["All", "Active", "Inactive", "Closed"],
+    },
   ]);
   const getResponsiveWidth = () => {
     const width = window.innerWidth;
@@ -200,18 +200,8 @@ function JobPosting() {
   };
 
   const handleFilterChange = (heading, value) => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters };
-
-      const newValue =
-        value === "Active" ? "Live" : value === "Inactive" ? "Closed" : value;
-
-      if (newValue) {
-        updatedFilters[heading] = newValue;
-      } else {
-        delete updatedFilters[heading];
-      }
-
+    setFilters(() => {
+      const updatedFilters = value ? { [heading]: value } : {};
       return updatedFilters;
     });
   };
@@ -328,16 +318,7 @@ function JobPosting() {
                       }
                       value={
                         filters[filter.heading]
-                          ? {
-                              value: filters[filter.heading],
-                              label:
-                                filters[filter.heading] === "Live"
-                                  ? "Active"
-                                  : filters[filter.heading] === "Closed"
-                                  ? "Inactive"
-                                  : filters[filter.heading],
-                            }
-                          : ""
+                        
                       }
                       placeholder={
                         filter.heading === "JobTitle"
