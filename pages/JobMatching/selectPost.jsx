@@ -76,19 +76,19 @@ const SelectPost = () => {
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
     ? jobPost.jobs
-      .filter((job) =>
-        filterStatus === "All" ? true : job.status === filterStatus
-      )
-      .sort((a, b) => {
-        const statusComparison =
-          statusPriority[a.status] - statusPriority[b.status];
+        .filter((job) =>
+          filterStatus === "All" ? true : job.status === filterStatus
+        )
+        .sort((a, b) => {
+          const statusComparison =
+            statusPriority[a.status] - statusPriority[b.status];
 
-        if (statusComparison !== 0) {
-          return statusComparison;
-        }
+          if (statusComparison !== 0) {
+            return statusComparison;
+          }
 
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      })
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
     : [];
 
   const isLive = (item) => {
@@ -135,9 +135,9 @@ const SelectPost = () => {
               onChange={(e) => setFilterStatus(e.target.value)}
             >
               <option value="All">All</option>
-              <option value="Live">Active</option>
-              <option value="Closed">Inactive</option>
-              <option value="Hold">Hold</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Closed">Closed</option>
             </select>
           </div>
         </div>
@@ -167,25 +167,25 @@ const SelectPost = () => {
                             {item?.jobTitle}
                           </p>
                           <div className="flex gap-[3px] items-center">
-                            {item.status === "Live" ? (
+                            {item.status === "Active" ? (
                               <>
                                 <div className="w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
                                 <div className="text-[12px] font-[500] text-[#0C8A0A]">
                                   Active
                                 </div>
                               </>
-                            ) : item.status === "Hold" ? (
+                            ) : item.status === "Inactive" ? (
                               <>
                                 <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                                 <div className="text-[12px] font-[500] text-[#ddda40]">
-                                  On Hold
+                                  Inactive
                                 </div>
                               </>
                             ) : item.status === "Closed" ? (
                               <>
                                 <div className="w-[6px] h-[6px] bg-[#B3261E] rounded-full"></div>
                                 <div className="text-[12px] font-[500] text-[#B3261E]">
-                                  Inactive
+                                  Closed
                                 </div>
                               </>
                             ) : null}
@@ -296,8 +296,7 @@ const SelectPost = () => {
                             </svg>
                           </div>
                           <div className="text-[12px] font-[400]">
-                          {item?.location?.join(", ")}
-
+                            {item?.location?.join(", ")}
                           </div>
                         </div>
                       </div>

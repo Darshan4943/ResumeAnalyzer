@@ -461,25 +461,25 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       </p>
                     </div>
                     <div className="flex justify-center items-center gap-[4px] mt-1">
-                      {jobData?.status === "Live" ? (
+                      {jobData?.status === "Active" ? (
                         <>
                           <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#0C8A0A] rounded-[90px]"></div>
                           <div className="text-[12px] font-[500] text-[#0C8A0A]">
                             Active
                           </div>
                         </>
-                      ) : jobData?.status === "Hold" ? (
+                      ) : jobData?.status === "Inactive" ? (
                         <>
                           <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
                           <div className="text-[12px] font-[500] text-[#ddda40]">
-                            On Hold
+                          Inactive
                           </div>
                         </>
                       ) : jobData?.status === "Closed" ? (
                         <>
                           <div className="w-[6px] h-[6px] text=[#0C8A0A] bg-[#B3261E] rounded-[90px]"></div>
                           <div className="text-[12px] font-[500] text-[#B3261E]">
-                            Inactive
+                          Closed
                           </div>
                         </>
                       ) : null}

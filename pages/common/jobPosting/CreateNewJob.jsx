@@ -80,14 +80,14 @@ function CreateNewJob() {
     goodSkills: [],
     jobCat: [],
     qualificationType: [],
-    status: "Live",
+    status: "Active",
     logo: "",
   });
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
   }));
-  console.log(1212, data.jobCat);
+  console.log(1212,userDataGlobal?._id);
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
@@ -520,7 +520,7 @@ function CreateNewJob() {
       mustSkills: [],
       goodSkills: [],
       qualificationType: [],
-      status: "Live",
+      status: "Active",
     });
 
     setCroppedImage(null);
@@ -681,12 +681,12 @@ function CreateNewJob() {
   const header = renderHeader();
 
   const options = [
-    { value: "Live", label: "Active" },
-    { value: "Hold", label: "Hold" },
+    { value: "Active", label: "Active" },
+    { value: "Inactive", label: "Inactive" },
   ];
 
   if (id) {
-    options.push({ value: "Closed", label: "Inactive" });
+    options.push({ value: "Closed", label: "Closed" });
   }
   const customStyless = {
     control: (provided, state) => ({
