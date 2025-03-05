@@ -157,7 +157,7 @@ const JobCard = ({ filters, setFilters }) => {
                       <div className="flex gap-[3px] items-center">
                         {job.status === "Active" ? (
                           <>
-                            <div className="min-w-[6px] h-[6px] bg-[#364135] rounded-full"></div>
+                            <div className="min-w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
                             <div className="text-[12px] font-[500] text-[#0C8A0A]">
                               Active
                             </div>

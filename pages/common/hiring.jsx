@@ -76,6 +76,9 @@ function Hiring() {
         jobTitles: [
           ...new Set(response.data.jobTitles.map((title) => title.trim())),
         ],
+        companyNames: [
+          ...new Set(response.data.companyNames.map((title) => title.trim())),
+        ],
         locations: [
           ...new Set(
             response.data.locations.map((location) =>
@@ -95,7 +98,12 @@ function Hiring() {
               ...item,
               options: data.jobTitles,
             };
-          } else if (item.heading === "Location") {
+          } else if (item.heading === "CompanyName") {
+            return {
+              ...item,
+              options: data.companyNames,
+            };
+          }else if (item.heading === "Location") {
             return {
               ...item,
               options: data.locations,
@@ -119,6 +127,10 @@ function Hiring() {
       options: [],
     },
     {
+      heading: "CompanyName",
+      options: [],
+    },
+    {
       heading: "Location",
       options: [],
     },
@@ -135,8 +147,17 @@ function Hiring() {
   }, [userDataGlobal]);
 
   const handleFilterChange = (heading, value) => {
-    setFilters(() => {
-      const updatedFilters = value ? { [heading]: value } : {};
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+
+      
+
+      if (value) {
+        updatedFilters[heading] = value;
+      } else {
+        delete updatedFilters[heading];
+      }
+
       return updatedFilters;
     });
   };
@@ -367,11 +388,24 @@ function Hiring() {
                           selectedOption ? selectedOption.value : ""
                         )
                       }
-                      value={filters[filter.heading]}
+                      value={
+                        filters[filter.heading]
+                          ? {
+                              value: filters[filter.heading],
+                              label:
+                                filters[filter.heading] === "Live"
+                                  ? "Active"
+                                  : filters[filter.heading] === "Closed"
+                                  ? "Inactive"
+                                  : filters[filter.heading],
+                            }
+                          : ""
+                      }
                       placeholder={
                         filter.heading === "JobTitle"
-                          ? "Job Title"
-                          : filter.heading
+                        ? "Job Title"
+                        :  filter.heading === "CompanyName"
+                        ? "Company Name" : filter.heading
                       }
                       isSearchable={true}
                       noOptionsMessage={() => "No options available"}
