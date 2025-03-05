@@ -29,6 +29,10 @@ function CreateCompany() {
     companySector: "",
     companyLogo: "",
     companyDescription: "",
+    companyAddress:"",
+    companyWebsite:"",
+    companyMail:"",
+    companySize:"",
   });
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
@@ -154,6 +158,10 @@ function CreateCompany() {
       companySector: "",
       companyLogo: "",
       companyDescription: "",
+      companyAddress:"",
+      companyWebsite:"",
+      companyMail:"",
+      companySize:"",
     });
     setCroppedImage(null);
     setFile(null);
@@ -302,11 +310,7 @@ function CreateCompany() {
           value="bullet"
           aria-label="Unordered List"
         ></button>
-        <button
-          className="ql-align"
-          value=""
-          aria-label="Align Left"
-        ></button>
+        <button className="ql-align" value="" aria-label="Align Left"></button>
         <button
           className="ql-align"
           value="center"
@@ -402,23 +406,78 @@ function CreateCompany() {
           className=" gap-[32px] bg-[#FFFFFF] rounded-[16px] w-full scr800:p-6 p-3"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
-          <div className=" flex md:flex-row flex-col  gap-[32px] bg-[#FFFFFF]">
+          <div className=" flex flex-col  gap-[32px] bg-[#FFFFFF]">
             <div className="flex flex-col gap-4 ">
               <div className="flex gap-6 w-full sm:min-w-[310px]  flex-col justify-between">
-                <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                  <div className="gap-1">
-                    {" "}
-                    Company Name <span className="text-red">*</span>
+                <div className="flex w-full md:flex-row  flex-col md:gap-[24px] gap-4">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1">
+                      {" "}
+                      Company Name <span className="text-red">*</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="companyName"
+                      value={data.companyName}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Name"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                    />
                   </div>
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={data.companyName}
-                    onChange={handleInputChange}
-                    placeholder="Enter Company Name"
-                    className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
-                  />
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Mail</div>
+                    <input
+                      type="text"
+                      name="companyMail"
+                      value={data.companyMail}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Mail"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                    />
+                  </div>
                 </div>
+                <div className="flex w-full md:flex-row  flex-col  md:gap-[24px] gap-4">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1">
+                      {" "}
+                      Company Website
+                    </div>
+                    <input
+                      type="text"
+                      name="companyName"
+                      value={data.companyWebsite}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Website"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                    />
+                  </div>
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1"> Company Size</div>
+                    <input
+                      type="text"
+                      name="companySize"
+                      value={data.companySize}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Size"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                    />
+                  </div>
+                </div>
+                <div  className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
+                <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1">
+                      {" "}
+                      Company Address
+                    </div>
+                    <input
+                      type="text"
+                      name="companyAddress"
+                      value={data.companyAddress}
+                      onChange={handleInputChange}
+                      placeholder="Enter Company Address"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                    />
+                  </div>
                 <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                   <div className="gap-1">
                     Company Sector<span className="text-red">*</span>
@@ -452,90 +511,97 @@ function CreateCompany() {
                     )}
                   </div>
                 </div>
-                <div className=" w-full flex flex-col  items-center justify-between gap-4">
-                  <div className=" w-full flex flex-col gap-2 text-[#333333] text-[14px] font-[500]">
-                    Company Logo
-                    <div className="text-[#7C8493] text-[12px] font-[400]">
-                      This image will be shown publicly as company logo.
-                    </div>
-                  </div>
-                  <div
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    className=" w-full flex flex-col gap-2 items-center justify-between"
-                  >
-                    {(croppedImage ||
-                      data?.companyLogo ||
-                      "/images/jobs/logo.png") && (
-                      <ImageContainer
-                        value={data?.companyLogo}
-                        src={
-                          croppedImage?.url ||
-                          data?.companyLogo ||
-                          "/images/jobs/logo.png"
-                        }
-                        alt="Selected File"
-                        className="w-[32.95%] h-[60px] object-contain"
-                      />
-                    )}
-
-                    <input
-                      type="file"
-                      ref={fileRef}
-                      onChange={handleFileChange}
-                      style={{ display: "none" }}
-                      id="upload-logo"
-                    />
-                    <label
-                      htmlFor="upload-logo"
-                      className="px-4 py-2 bg-[#EFFAFF] rounded-lg flex flex-col items-center border-dashed border-[1px] border-[#06A9EF] cursor-pointer"
-                    >
-                      <div className="text-[12px] font-[400] text-[#333333]">
-                        <span className="text-[#06A9EF]">Click to replace</span>{" "}
-                        or drag and drop
-                      </div>
-                      <div className="text-[10px] font-[400] text-[#333333]">
-                        SVG, PNG, JPG or GIF (max. 400 x 400px)
-                      </div>
-                    </label>
-                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-              <div className="gap-1">
-                {" "}
-                About Company <span className="text-red">*</span>
+
+            <div className="flex w-full md:flex-row  flex-col  gap-[16px]">
+              <div className=" w-[310px] flex flex-col  items-center  gap-[40px]">
+                <div className=" w-full flex flex-col gap-[8px] text-[#333333] text-[14px] font-[500]">
+                  Company Logo
+                  <div className="text-[#7C8493] text-[12px] font-[400]">
+                    This image will be shown publicly as company logo.
+                  </div>
+                </div>
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  className=" w-full flex flex-col gap-[26px] items-center justify-between"
+                >
+                  {(croppedImage ||
+                    data?.companyLogo ||
+                    "/images/jobs/logo.png") && (
+                    <ImageContainer
+                      value={data?.companyLogo}
+                      src={
+                        croppedImage?.url ||
+                        data?.companyLogo ||
+                        "/images/jobs/logo.png"
+                      }
+                      alt="Selected File"
+                      className="w-[143.95%] h-[60px] object-contain"
+                    />
+                  )}
+
+                  <input
+                    type="file"
+                    ref={fileRef}
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                    id="upload-logo"
+                  />
+                  <label
+                    htmlFor="upload-logo"
+                    className="px-4 py-2 bg-[#EFFAFF] rounded-lg flex flex-col items-center border-dashed border-[1px] border-[#06A9EF] cursor-pointer"
+                  >
+                    <div className="text-[12px] font-[400] text-[#333333]">
+                      <span className="text-[#06A9EF]">Click to replace</span>{" "}
+                      or drag and drop
+                    </div>
+                    <div className="text-[10px] font-[400] text-[#333333]">
+                      SVG, PNG, JPG or GIF (max. 400 x 400px)
+                    </div>
+                  </label>
+                </div>
               </div>
-              <Editor
-                headerTemplate={header}
-                value={data.companyDescription}
-                onTextChange={(e) =>
-                  handleCompanyDescriptionChange(e.htmlValue)
-                }
-                maxLength={200}
-                style={{
-                  border: "0px solid #dedede",
-                  fontSize: "16px",
-                  color: "#333",
-                  padding: "10px",
-                  // borderBottomLeftRadius: "8px",
-                  // borderBottomRightRadius: "8px",
-                  minHeight: "296px",
-                }}
-                className="editor-container"
-                onPaste={(e) => e.preventDefault()}
-              />
-              <div className="text-[12px] text-gray-500">
-                {data.companyDescription
-                  ? data.companyDescription.replace(/<[^>]*>/g, "").length > 200
-                    ? 200
-                    : data.companyDescription.replace(/<[^>]*>/g, "").length
-                  : 0}{" "}
-                / 200 characters
+              <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                <div className="gap-1 ">
+                  {" "}
+                  About Company <span className="text-red">*</span>
+                </div>
+                <Editor
+                  headerTemplate={header}
+                  value={data.companyDescription}
+                  onTextChange={(e) =>
+                    handleCompanyDescriptionChange(e.htmlValue)
+                  }
+                  maxLength={200}
+                  style={{
+                    border: "0px solid #dedede",
+                    fontSize: "16px",
+                    color: "#333",
+                    padding: "10px",
+                    // borderBottomLeftRadius: "8px",
+                    // borderBottomRightRadius: "8px",
+                    minHeight: "296px",
+                    height:"212px"
+                  }}
+                  className={ `editor-container ${window.location.pathname === "/recruiter/companies/createCompany" ? "create-company-height" : ""} editor-container `}
+                  onPaste={(e) => e.preventDefault()}
+                />
+                <div className="text-[12px] text-gray-500">
+                  {data.companyDescription
+                    ? data.companyDescription.replace(/<[^>]*>/g, "").length >
+                      200
+                      ? 200
+                      : data.companyDescription.replace(/<[^>]*>/g, "").length
+                    : 0}{" "}
+                  / 200 characters
+                </div>
               </div>
             </div>
+            
           </div>
 
           <div className="w-full flex justify-between pt-5">
