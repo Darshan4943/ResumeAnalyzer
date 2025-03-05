@@ -716,8 +716,7 @@ function CreateNewJob() {
     }),
     option: (provided, state) => ({
       ...provided,
-      fontSize: "10px", 
-    
+      fontSize: "10px",
     }),
   };
 
@@ -999,7 +998,7 @@ function CreateNewJob() {
                       </div>
                       <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                         <div className="text-[14px] font-[500]">
-                          Redirect Job URL 
+                          Redirect Job URL
                         </div>
                         <div>
                           <input
@@ -1175,7 +1174,13 @@ function CreateNewJob() {
                           <div className="text-[14px] font-[500]">
                             About Company
                           </div>
-                          <div className="border-[1px] text-start border-[#DEDEDE] text-[12px] items-start justify-start  w-[284px] h-[177px] placeholder:text-[12px] font-[400] p-[16px] outline-none rounded-[8px]">
+                          <div
+                            className={`border-[1px] text-start border-[#DEDEDE] text-[12px] 
+    items-start justify-start w-[284px] 
+    ${userDataGlobal?.role !== "employer" || reqId ? "h-[177px]" : "h-[268px]"} 
+    placeholder:text-[12px] font-[400] p-[16px] 
+    outline-none rounded-[8px]`}
+                          >
                             <textarea
                               className="w-full h-full outline-none scroll-none"
                               placeholder="Brief description for your company."
