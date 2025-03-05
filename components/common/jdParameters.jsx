@@ -29,7 +29,7 @@ const MatchingParameter = ({ item, index, moveItem, toggleItem, changePercentage
 
 
     return (
-        <div ref={(node) => ref(drop(node))} style={{ boxShadow: "0px 1px 4px 0px #00000040" }} className="flex items-center justify-between p-3 my-4 bg-white  rounded-[12px] ">
+        <div ref={(node) => ref(drop(node))} style={{ boxShadow: "0px 1px 4px 0px #00000040",cursor: "grab", }} className="flex items-center justify-between p-3 my-4 bg-white  rounded-[12px] ">
             <div className="flex items-center gap-3">
 
 
@@ -158,7 +158,7 @@ const JdParameters = ({ setOpenParamenters }) => {
                     <button onClick={addJDParameters} className=" mt-4 bg_Button   rounded-[30px]  disabled:opacity-50 w-[152px] flex  justify-center items-center px-6 h-[38px]" disabled={parameters.reduce((sum, p) => sum + (p.enabled ? p.percentage : 0), 0) !== 100}>
                         {loading ?
                             <MiniLoader /> :
-                            "Save Parameters"
+                            "Save Parameters"   
                         }
                     </button>
                 </div>
