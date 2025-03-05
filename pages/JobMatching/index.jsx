@@ -92,11 +92,11 @@ const JobMatching = () => {
   }, [update]);
 
   const getLimits = () => {
-    const jdCountMonthly = JSON.parse(localStorage.getItem("jdCountMonthly"));
+    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
     setJdCountMonthly(jdCountMonthly);
 
     const jdCountMonthlyLimit = JSON.parse(
-      localStorage.getItem("jdCountMonthlyLimit")
+      localStorage.getItem("aiHitsMonthlyLimit")
     );
     setJdCountMonthlyLimit(jdCountMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
@@ -454,7 +454,7 @@ const JobMatching = () => {
         );
       }
 
-      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateJdSubscriptionLimit/${userDataGlobal?._id}`;
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
         resumeCount,
       });

@@ -139,7 +139,7 @@ const JobCard = ({ filters, setFilters }) => {
                     className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
                       }`}
                   >
-                    <div className="flex justify-between group relative gap-[20px] items-start">
+                    <div className={`flex justify-between ${job?.jobTitle?.length > 35 && "group"} relative gap-[20px] items-start`}>
                       <p className="text-[14px] font-[600]">
                         {job?.jobTitle?.length > 35 ? `${job.jobTitle.slice(0, 35)} ...` : job.jobTitle}
                       </p>
@@ -329,7 +329,7 @@ const JobCard = ({ filters, setFilters }) => {
                           />
                         </svg>
                       </div>
-                      <div className="text-[12px] font-[400] group relative">
+                      <div className={`text-[12px] font-[400] ${job.location.length > 2 && "group"} relative`}>
                         {job.location.length > 2
                           ? `${job.location[0]} ...`
                           : job?.location?.join(", ")}

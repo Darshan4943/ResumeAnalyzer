@@ -8,7 +8,7 @@ import HeaderSidebar from "./headerSidebar";
 
 function EmployerHeader() {
   const router = useRouter();
-
+ const {recallData } = useSelector((state) => state.recall);
   const [selectedPage, setSelectedPage] = useState("");
   const [isLogout, setIsLogout] = useState(false);
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -17,7 +17,8 @@ function EmployerHeader() {
   const [login, setlogin] = useState(false);
   const isLogin = useSelector((state) => state.auth.isLogin);
   const [isSidebar, setIsSidebar] = useState(false);
-
+  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -40,6 +41,25 @@ function EmployerHeader() {
   const toggleDropdown = () => {
     setIsLogout(!isLogout);
   };
+
+  const getLimits = () => {
+    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setJdCountMonthly(jdCountMonthly);
+
+    const jdCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setJdCountMonthlyLimit(jdCountMonthlyLimit);
+    
+
+   
+  };
+  useEffect(() => {
+    setTimeout(()=>{
+      getLimits();
+    }, 500);
+   
+  }, [recallData]);
 
   const handleLogOut = () => {
     setlogin(false);
@@ -120,7 +140,22 @@ function EmployerHeader() {
             </svg>
           </div> */}
         </div>
+
         <div className="flex ms:px-4  px-2  justify-end gap-4 w-[60%]  ">
+          <div className="flex gap-1 text-[12px] font-medium items-center">
+
+            Remaining AI Hits
+           
+
+              <div
+                className={`relative  p-[6px] bg-[#DFF4FD] text-[12px] font-semibold rounded-[50%] flex justify-center items-center h-[28px] w-[28px] `}
+              >
+                {jdCountMonthlyLimit - jdCountMonthly}
+              </div>
+
+         
+
+          </div>
           <div className="flex items-center gap-5">
             <svg
               className="relative cursor-pointer"

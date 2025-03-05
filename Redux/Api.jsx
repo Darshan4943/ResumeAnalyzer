@@ -191,6 +191,7 @@ export const Api = ({}) => {
               result.used.chatBot.monthly
             );
             localStorage.setItem("jdCountDaily", result.used.jdMatching.daily);
+            localStorage.setItem("aiHitsMonthly", result.used.aiHits.monthly);
             localStorage.setItem(
               "jdCountMonthly",
               result.used.jdMatching.monthly
@@ -256,6 +257,10 @@ export const Api = ({}) => {
             localStorage.setItem(
               "jdCountMonthlyLimit",
               result.limits.jdMatchingLimit.monthly
+            );
+            localStorage.setItem(
+              "aiHitsMonthlyLimit",
+              result.limits.aiHitsLimit.monthly
             );
             localStorage.setItem(
               "collectionCountDailyLimit",
