@@ -1147,13 +1147,13 @@ function CreateNewJob() {
                       </div>
                     </div>
 
-                    <div className="p-[10px] md:p-4  flex-col gap-4 md:flex-row grid grid-cols-12">
-                      <div className=" col-span-3 flex flex-col gap-4 ">
-                        <div className="flex flex-col gap-[8px] ">
+                    <div className="p-[10px] md:p-4 w-full flex-col gap-4 md:flex-row grid lg:grid-cols-12">
+                      <div className=" lg:col-span-3 flex flex-col gap-4 ">
+                        <div className="flex flex-col gap-[8px] w-full">
                           <div className="text-[14px] font-[500]">
                             About Company
                           </div>
-                          <div className="border-[1px] text-start border-[#DEDEDE] text-[12px] items-start justify-start  w-[284px] h-[177px] placeholder:text-[12px] font-[400] p-[16px] outline-none rounded-[8px]">
+                          <div className="border-[1px] text-start border-[#DEDEDE] text-[12px] items-start justify-start w-full h-[177px] placeholder:text-[12px] font-[400] p-[16px] outline-none rounded-[8px]">
                             <input
                               className="w-full"
                               placeholder="Brief description for your company."
@@ -1171,7 +1171,7 @@ function CreateNewJob() {
                             ></input>
                           </div>
                         </div>
-                        <div className=" flex  flex-col">
+                        <div className=" flex  flex-col w-full">
                           <div className="flex w-[248px] flex-col gap-[8px]">
                             <div className="flex flex-col gap-[8px]">
                               <div className="text-[14px] font-[500]">
@@ -1179,7 +1179,7 @@ function CreateNewJob() {
                               </div>
                             </div>
                           </div>
-                          <div className="flex w-[284px] flex-col pt-[16px] gap-[8px] items-center">
+                          <div className="flex w-full flex-col pt-[16px] gap-[8px] items-center">
                             <div
                               onDrop={handleDrop}
                               onDragOver={handleDragOver}
@@ -1295,7 +1295,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col gap-[8px] w-full col-span-9 h-fit ">
+                      <div className="flex flex-col gap-[8px] w-full lg:col-span-9 h-fit ">
                         <div className="text-[14px] font-[500]">
                           Job Description <span className="text-[red]">*</span>
                         </div>
@@ -1331,134 +1331,130 @@ function CreateNewJob() {
                     </div>
                   </div>
 
-                  <div>
-                    <div className="p-[10px] md:p-4 gap-4 flex flex-col">
-                      <div className="text-lg font-semibold">Salary</div>
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] w-full">
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
-                          <label className="leading-[20px] text-[14px] font-medium">
-                            Currency
-                          </label>
-                          <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[40px]">
-                            <ReactSelect
-                              options={currencyOptions}
-                              className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[40px]"
-                              placeholder="Select Currency"
-                              value={
-                                currencyOptions.find(
-                                  (option) => option.value === data?.currency
-                                ) || null
-                              }
-                              onChange={(value) => {
-                                setData({ ...data, currency: value.value });
-                                setFormError({});
-                              }}
-                              styles={{
-                                control: (provided) => ({
-                                  ...provided,
-                                  border: "none",
-                                  width: "100%",
-                                }),
-                                menu: (provided) => ({
-                                  ...provided,
-                                  zIndex: 1,
-                                  position: "absolute",
-                                }),
-                              }}
-                            />
-                          </div>
-                          <div className="flex flex-row items-start justify-start">
-                            {formError && (
-                              <p className="text-[12px] text-[red] font-[500] text-left">
-                                {formError.currency}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">Salary Type</div>
-                          <div className="flex justify-between items-center">
-                            <Select
-                              options={optionss}
-                              value={options.find(
-                                (option) => option.value === data.salaryType
-                              )}
-                              onChange={(selectedOption) =>
-                                handleChange({
-                                  target: {
-                                    name: "salaryType",
-                                    value: selectedOption.value,
-                                  },
-                                })
-                              }
-                              placeholder="Select"
-                              className="w-full font-[400]"
-                              styles={{
-                                control: (base, state) => ({
-                                  ...base,
-                                  height: "38px",
-                                  border: "1px solid #DEDEDE",
-                                  borderRadius: "8px",
-                                  padding: "5px",
-                                  fontSize: "12px",
-                                  outline: "none",
-                                  color: "#767676",
-                                  boxShadow: state.isFocused
-                                    ? "0 0 0 1px #DEDEDE"
-                                    : "none",
-                                }),
-                                menu: (base) => ({
-                                  ...base,
-                                  fontSize: "12px",
-                                }),
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">Min Salary</div>
-                          <input
-                            className="border border-[#DEDEDE] outline-none placeholder:text-[12px] placeholder:font-[400] w-full h-[38px] rounded-lg px-2 text-[12px] font-[400]"
-                            type="text"
-                            name="minSalary"
-                            value={data.minSalary}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              if (/^\d*$/.test(value)) {
-                                handleChange(e);
-                              }
+                  <div className="p-[10px] md:p-4 gap-4 flex flex-col">
+                    <div className="text-lg font-semibold">Salary</div>
+                    <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] w-full">
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <label className="leading-[20px] text-[14px] font-medium">
+                          Currency
+                        </label>
+                        <div className="flex flex-col items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px] font-montserrat font-small relative min-w-[100px] overflow-visible h-[40px]">
+                          <ReactSelect
+                            options={currencyOptions}
+                            className="w-[100%] flex  items-center CurrencyClass py-1 rounded-[8px] text-[12px] font-montserrat font-small text-black h-[40px]"
+                            placeholder="Select Currency"
+                            value={
+                              currencyOptions.find(
+                                (option) => option.value === data?.currency
+                              ) || null
+                            }
+                            onChange={(value) => {
+                              setData({ ...data, currency: value.value });
+                              setFormError({});
                             }}
-                            placeholder="Enter Min Salary"
+                            styles={{
+                              control: (provided) => ({
+                                ...provided,
+                                border: "none",
+                                width: "100%",
+                              }),
+                              menu: (provided) => ({
+                                ...provided,
+                                zIndex: 1,
+                                position: "absolute",
+                              }),
+                            }}
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">Max Salary</div>
-                          <input
-                            className="border border-[#DEDEDE] w-full h-[38px] outline-none placeholder:text-[12px] placeholder:font-[400] rounded-lg px-2 text-[12px] font-[400]"
-                            type="text"
-                            name="maxSalary"
-                            value={data.maxSalary}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              if (/^\d*$/.test(value)) {
-                                handleChange(e);
-                              }
+                        <div className="flex flex-row items-start justify-start">
+                          {formError && (
+                            <p className="text-[12px] text-[red] font-[500] text-left">
+                              {formError.currency}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-sm font-medium">Salary Type</div>
+                        <div className="flex justify-between items-center">
+                          <Select
+                            options={optionss}
+                            value={options.find(
+                              (option) => option.value === data.salaryType
+                            )}
+                            onChange={(selectedOption) =>
+                              handleChange({
+                                target: {
+                                  name: "salaryType",
+                                  value: selectedOption.value,
+                                },
+                              })
+                            }
+                            placeholder="Select"
+                            className="w-full font-[400]"
+                            styles={{
+                              control: (base, state) => ({
+                                ...base,
+                                height: "38px",
+                                border: "1px solid #DEDEDE",
+                                borderRadius: "8px",
+                                padding: "5px",
+                                fontSize: "12px",
+                                outline: "none",
+                                color: "#767676",
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px #DEDEDE"
+                                  : "none",
+                              }),
+                              menu: (base) => ({
+                                ...base,
+                                fontSize: "12px",
+                              }),
                             }}
-                            placeholder="Enter Max Salary"
                           />
                         </div>
                       </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-sm font-medium">Min Salary</div>
+                        <input
+                          className="border border-[#DEDEDE] outline-none placeholder:text-[12px] placeholder:font-[400] w-full h-[38px] rounded-lg px-2 text-[12px] font-[400]"
+                          type="text"
+                          name="minSalary"
+                          value={data.minSalary}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*$/.test(value)) {
+                              handleChange(e);
+                            }
+                          }}
+                          placeholder="Enter Min Salary"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="text-sm font-medium">Max Salary</div>
+                        <input
+                          className="border border-[#DEDEDE] w-full h-[38px] outline-none placeholder:text-[12px] placeholder:font-[400] rounded-lg px-2 text-[12px] font-[400]"
+                          type="text"
+                          name="maxSalary"
+                          value={data.maxSalary}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*$/.test(value)) {
+                              handleChange(e);
+                            }
+                          }}
+                          placeholder="Enter Max Salary"
+                        />
+                      </div>
                     </div>
                   </div>
-
                   <div className="w-full">
                     <div className="flex flex-col gap-4 p-[10px] md:p-4 w-full">
                       <div className="text-lg font-semibold">
                         Job Information
                       </div>
-
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-11 gap-[16px] w-full">
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-2">
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Open Positions
                           </div>
@@ -1673,7 +1669,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-9 gap-[16px] w-full">
+                      <div className="grid grid-cols-1 scr500:grid-cols-10 md:grid-cols-12 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">Work From</div>
                           <Select
@@ -1725,38 +1721,6 @@ function CreateNewJob() {
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
-                          <div className="text-sm font-medium">
-                            Application Deadline{" "}
-                            <span className="text-[red]">*</span>
-                          </div>
-                          <input
-                            type="date"
-                            style={{
-                              width: "100%",
-                              height: "38px",
-                              fontSize: "12px",
-                              fontWeight: "400",
-                              color: "#646464",
-                              border: formError.deadLine
-                                ? "1px solid red"
-                                : "1px solid #DEDEDE",
-                              borderRadius: "8px",
-                              padding: "5px",
-                            }}
-                            name="deadLine"
-                            value={data.deadLine}
-                            min={new Date().toISOString().split("T")[0]}
-                            onChange={handleChange}
-                            onClick={(e) =>
-                              e.target.showPicker && e.target.showPicker()
-                            }
-                            className=" outline-none placeholder:text-[12px] placeholder:text-[#646464] placeholder:font-[400] h-[38px]"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
                           <div className="text-sm font-medium">
                             Must have Skills
                             <span className="text-[red]">*</span>
@@ -1829,7 +1793,7 @@ function CreateNewJob() {
                             }}
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Good to have Skills{" "}
                             <span className="text-[red]">*</span>
@@ -1907,8 +1871,12 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                      {/* <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
+
+                      </div> */}
+
+                      <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience
                           </label>
@@ -1937,7 +1905,7 @@ function CreateNewJob() {
                             />
                           </div>
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5">
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Relevant Experience
                           </label>
@@ -1987,12 +1955,36 @@ function CreateNewJob() {
                                 }),
                               }}
                             />
-                            <img
-                              src="/images/down_arrow.png"
-                              className="h-[20px] w-[20px] absolute right-[4px]"
-                              alt=""
-                            />
                           </div>
+                        </div>
+                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
+                          <div className="text-sm font-medium">
+                            Application Deadline{" "}
+                            <span className="text-[red]">*</span>
+                          </div>
+                          <input
+                            type="date"
+                            style={{
+                              width: "100%",
+                              height: "38px",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                              color: "#646464",
+                              border: formError.deadLine
+                                ? "1px solid red"
+                                : "1px solid #DEDEDE",
+                              borderRadius: "8px",
+                              padding: "5px",
+                            }}
+                            name="deadLine"
+                            value={data.deadLine}
+                            min={new Date().toISOString().split("T")[0]}
+                            onChange={handleChange}
+                            onClick={(e) =>
+                              e.target.showPicker && e.target.showPicker()
+                            }
+                            className=" outline-none placeholder:text-[12px] placeholder:text-[#646464] placeholder:font-[400] h-[38px]"
+                          />
                         </div>
                       </div>
                     </div>
