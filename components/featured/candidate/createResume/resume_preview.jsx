@@ -466,12 +466,16 @@ const ResumePreview = ({
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
 
-        if (userDataGlobal?.role === "user") {
+        // if (userDataGlobal?.role === "user") {
+        //   formData.append("userId", userDataGlobal?._id);
+        // } else if (userDataGlobal?.role === "recruiter") {
+        //   formData.append("userId", data.clientId);
+        //   formData.append("recruiterId", userDataGlobal?._id);
+        // }
+        
+ 
           formData.append("userId", userDataGlobal?._id);
-        } else if (userDataGlobal?.role === "recruiter") {
-          formData.append("userId", data.clientId);
-          formData.append("recruiterId", userDataGlobal?._id);
-        }
+        
 
         axios
           .post("http://localhost:2000/api/resume/add", formData)
