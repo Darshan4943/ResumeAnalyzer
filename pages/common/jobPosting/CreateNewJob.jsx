@@ -87,7 +87,7 @@ function CreateNewJob() {
     value: country.name,
     label: country.name,
   }));
-  console.log(1212,userDataGlobal?._id);
+
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
@@ -255,6 +255,7 @@ function CreateNewJob() {
     return newFormError;
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingg(true);
@@ -286,8 +287,10 @@ function CreateNewJob() {
     if (reqId) {
       formData.append("reqId", reqId);
     }
-    if (userDataGlobal?.companyId) {
+    if (userDataGlobal?.role === "employer") {
       formData.append("companyId", userDataGlobal?.companyId);
+    } else if ( userDataGlobal?.role === "recruiter" && companyId) {
+      formData.append("companyId", companyId);
     }
 
     formData.append("createdBy", userDataGlobal?._id);
@@ -295,7 +298,9 @@ function CreateNewJob() {
 
     formData.append(
       "createdByName",
-      `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`
+      userDataGlobal?.companyId
+        ? userDataGlobal?.companyName
+        : `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`
     );
 
     // if (sectorData?.jobCat) {
@@ -326,7 +331,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
@@ -871,11 +876,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -890,13 +894,11 @@ function CreateNewJob() {
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${
-                            data?.Keywords ? "justify-between" : ""
-                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
-                            formError.Keywords
+                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
+                            } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                          }`}
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%]  items-center">
                             {data?.Keywords.length > 0 && (
@@ -1018,18 +1020,17 @@ function CreateNewJob() {
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
-                            formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
                           value={data.companyName}
                           onChange={handleChange}
                           disabled={
-                            userDataGlobal?.role === "employer" && !reqId
+                           ( userDataGlobal?.role === "employer" && !reqId )|| companyId
                           }
                         />
                       </div>
@@ -1047,11 +1048,10 @@ function CreateNewJob() {
                           )}
                           placeholder="Select countries"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${
-                            formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px] withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -1069,11 +1069,10 @@ function CreateNewJob() {
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2  items-center border rounded-[8px] px-2  h-[38px] ${
-                            formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`w-full flex gap-2  items-center border rounded-[8px] px-2  h-[38px] ${formError.location
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%] items-center">
                             {data?.location.length > 0 && (
@@ -1169,15 +1168,15 @@ function CreateNewJob() {
                     </div>
 
                     <div className="p-[10px] md:p-4 w-full flex-col gap-4 md:flex-row grid lg:grid-cols-12">
-                      <div className=" lg:col-span-3 flex flex-col gap-4 ">
-                        <div className="flex flex-col gap-[8px] w-full">
+                      <div className=" lg:col-span-3 flex flex-col gap-4 h-full ">
+                        <div className="flex flex-col gap-[8px] w-full h-full">
                           <div className="text-[14px] font-[500]">
                             About Company
                           </div>
                           <div
-                            className={`border-[1px] text-start border-[#DEDEDE] text-[12px] 
+                            className={`border-[1px] text-start border-[#DEDEDE] text-[12px] h-full
     items-start justify-start w-[284px] 
-    ${userDataGlobal?.role !== "employer" || reqId ? "h-[177px]" : "h-[268px]"} 
+    ${userDataGlobal?.role !== "employer" || reqId ? "h-[177px]" : "h-full"} 
     placeholder:text-[12px] font-[400] p-[16px] 
     outline-none rounded-[8px]`}
                           >
@@ -1236,7 +1235,7 @@ function CreateNewJob() {
                             <div className="text-[10px] font-[400]">
                               This image will be shown publicly as company logo.
                             </div>
-                            {(userDataGlobal?.role !== "employer" || reqId) && (
+                            {!companyId && (
                               <div
                                 ref={fileRef}
                                 onDrop={handleFileChange}
@@ -1537,9 +1536,8 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: `1px solid ${
-                                  formError.jobSector ? "red" : "#DEDEDE"
-                                }`,
+                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
+                                  }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                                 boxShadow: state.isFocused
@@ -1559,11 +1557,10 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
-                              formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1646,11 +1643,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1665,24 +1661,23 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1744,7 +1739,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -1755,17 +1750,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {

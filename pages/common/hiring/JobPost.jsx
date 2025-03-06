@@ -428,7 +428,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           </div>
         </>
       )}
-      <div className=" mb-4">
+      <div className=" mb-4 overflow-visible">
         <div className="w-[100%] flex flex-col relative ">
           {jobData && (
             <div className="flex flex-col gap-[16px]">
@@ -726,7 +726,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 </div>
               ) : (
                 <>
-                  <div className="flex scr700:flex-row flex-col justify-between p-[16px] scr700:items-center gap-4  bg-[#fff]">
+                  <div className="flex scr700:flex-row flex-col justify-between p-[16px] scr700:items-center gap-4  bg-[#fff] overflow-visible">
                     <div className=" flex gap-3">
                       {/* <button
                       disabled={aiLoading}
@@ -956,14 +956,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       ))}
                     </div>
 
-                    <div className="flex flex-col items-start bg-[#fff]  overflow-y-auto">
+                    <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible overflow-x-hidden  ">
                       {!jobDetails?.data?.applications.length == 0 ? (
                         <>
                           {jobDetails?.data?.applications.map(
                             (applicant, index) => (
                               <>
                                 <div
-                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
+                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${
                                     checkedApplicants[index]
                                       ? "bg-[#D3F1FF]"
                                       : "bg-[#FFFFFF]"
@@ -1091,7 +1091,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           .replace(",", "")}
                                       </p>
                                     </div>
-                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative">
+                                    <div className="flex justify-center  w-[15%] items-center gap-[16px] relative overflow-visible">
                                       <>
                                         {isPopupVisible && (
                                           <ShortlistMail
@@ -1116,7 +1116,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                               exit={{ x: "100%" }}
                                               transition={{ duration: 0.5 }}
                                               ref={taskRef}
-                                              className="absolute flex flex-col gap-2 items-start justify-center rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-2 bg-white"
+                                              className="absolute flex flex-col gap-2 items-start justify-center rounded-[8px] left-0 right-0 z-[1000] top-[100%] border-l border-r border-b border-[#06A9EF] p-2 bg-white"
                                               style={{
                                                 boxShadow:
                                                   "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",

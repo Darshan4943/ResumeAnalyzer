@@ -30,8 +30,14 @@ function Aboutcompanies() {
   const [userReviews, setUserReviews] = useState();
 
   const [reviewData, setReviewData] = useState({
-    companyId: id ? id : "",
+    companyId: id ? id : company?._id,
   });
+  useEffect(() => {
+    if (role === "recruiter") {
+      setReviewData({ ...reviewData, companyId: company?._id })
+    }
+
+  }, [company])
 
   const fetchCompanyDetailsByRecId = async () => {
     try {
@@ -54,8 +60,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getJobsById/${
-          id ? id : createdBy
+        `http://localhost:2000/api/getJobsById/${id ? id : createdBy
         }?page=${page}&limit=${limit}&role=${role}`
       );
       const { jobs, totalCount, totalPages } = response.data;
@@ -170,9 +175,11 @@ function Aboutcompanies() {
   };
 
   const fetchReviews = async () => {
+    const idd = role === "recruiter" ? company?._id : id
+
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/getreview/${id}`
+        `http://localhost:2000/api/getreview/${idd}`
       );
       const { averageRating, totalReviews, totalRatingCount } = response.data;
 
@@ -184,29 +191,36 @@ function Aboutcompanies() {
     }
   };
   useEffect(() => {
-    if (id) fetchReviews();
-  }, [id]);
 
+    fetchReviews();
+
+  }, [id, company]);
+
+
+  const fetchReviewss = async () => {
+
+    const idd = role === "recruiter" ? company?._id : id
+   
+    try {
+      const response = await axios.get(
+        `http://localhost:2000/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
+      );
+      const review = response.data.reviews[0];
+
+      setReviewData({
+        ...reviewData,
+        review: review.review,
+        rating: review.rating,
+      });
+    } catch (error) {
+      console.error("Failed to fetch reviews:", error);
+    }
+  };
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:2000/api/getReviewByUser/${id}/${userDataGlobal?._id}`
-        );
-        const review = response.data.reviews[0];
-
-        setReviewData({
-          ...reviewData,
-          review: review.review,
-          rating: review.rating,
-        });
-      } catch (error) {
-        console.error("Failed to fetch reviews:", error);
-      }
-    };
-
-    if (userDataGlobal) fetchReviews();
-  }, [userDataGlobal]);
+    if (showPopup) {
+      fetchReviewss();
+    }
+  }, [showPopup]);
 
   return (
     <div className="customMargins">
@@ -270,7 +284,7 @@ function Aboutcompanies() {
                     <h2 className="text-[14px] font-[600]">
                       {camelCase(company?.name)}
                     </h2>
-                    {role !== "recruiter" && (
+                    {(role !== "recruiter" || company?.about) && (
                       <div className="items-start justify-start">
                         <h2 className="text-[14px] font-[600]">
                           {companyName}
@@ -288,7 +302,11 @@ function Aboutcompanies() {
                       </div>
                     )}
                   </div>
+
+
+
                 </div>
+
               ) : (
                 <div className="flex items-center gap-4 ">
                   {jobs[0]?.logo ? (
@@ -324,7 +342,7 @@ function Aboutcompanies() {
                   </div>
                 </div>
               )}
-              {id && (
+              {(id || company?.about) && userDataGlobal &&  (
                 <button
                   onClick={() => {
                     handleClick();
@@ -352,7 +370,7 @@ function Aboutcompanies() {
                 />
               </div>
             )}
-            {id && (
+            {(id || company?.about) && (
               <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company
@@ -367,9 +385,8 @@ function Aboutcompanies() {
               </div>
             )}
             <div
-              className={`flex flex-col gap-6 ${
-                role === "recruiter" ? "pt-0" : "pt-6"
-              }`}
+              className={`flex flex-col gap-6 ${role === "recruiter" ? "pt-0" : "pt-6"
+                }`}
             >
               {jobs.length > 0 ? (
                 <div className="flex flex-wrap justify-between gap-4">

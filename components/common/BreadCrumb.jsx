@@ -16,6 +16,7 @@ const Breadcrumb = () => {
     CreateNewJob:"Create New Job",
     createCompany:"Create Company",
     CreateNewRequisition:"Create New Requisition",
+    companyDetails:"Company Details",
 
     'JobPosting?content=CreateNewJob': 'Create New Job',
     'ClientDetail': 'Candidate Details',
