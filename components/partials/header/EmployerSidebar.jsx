@@ -54,7 +54,7 @@ function EmployerSidebar() {
       img: "/images/employer/sidebar/candidate.png",
       img1: "/images/employer/sidebar/candidate1.png",
       title: "Candidates",
-      route: "/candidates",
+      route: "/recruiter/resumeCreation",
     },
     {
       img: "/images/employer/sidebar/myCollection.png",
@@ -115,7 +115,7 @@ function EmployerSidebar() {
     userDataGlobal?.role === "recruiter" ? recruiterList : employerList;
 
   return (
-    <div className="flex flex-col bg-white w-[120px] pt-[86px] h-full">
+    <div className="flex flex-col bg-white w-[120px] pt-[64px] h-full">
       {menuList.map((item, index) => {
         const isActive =
           item.route === "/"
