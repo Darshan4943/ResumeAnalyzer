@@ -1985,7 +1985,7 @@ function CreateNewJob() {
                       <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
-                          className="text-[12px] items-center  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px] items-center  md:text-[12px]  cursor-pointer flex justify-start font-semibold px-6 blue_border_Button rounded-[30px] h-[38px]"
                         >
                           Reset
                         </button>
@@ -1993,18 +1993,18 @@ function CreateNewJob() {
                           onClick={() => {
                             openModel(true);
                           }}
-                          className="text-[12px]  md:text-[14px] items-center cursor-pointer flex justify-start font-semibold px-4 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
+                          className="text-[12px]  md:text-[12px] items-center cursor-pointer flex justify-start font-semibold px-6 blue_border_Button rounded-[30px] h-[38px]"
                         >
                           Preview
                         </button>
                         {loadingg ? (
-                          <div className="flex justify-center items-center text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 w-[158.25px]">
+                          <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-full h-[38px] w-[101.19px]">
                             <MiniLoader1 />
                           </div>
                         ) : (
                           <button
                             onClick={handleSubmit}
-                            className="text-[12px] md:text-[14px] font-semibold text-white px-6 py-1 sm:px-9  bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300 h-[48.2px]"
+                            className="text-[12px] md:text-[14px] font-semibold  px-6  bg_Button rounded-[30px] h-[38px]"
                           >
                             {id ? "Update Job" : "Post Job"}
                           </button>
