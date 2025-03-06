@@ -305,7 +305,7 @@ const addData = async (file) => {
             {user?.matching_parameters?.length > 0 && (
               <div className="flex flex-col gap-[8px] min-h-[157px] justify-top relative w-full ">
                 <span className="text-[#333333] text-[16px] font-semibold ">
-                  Matching Parameters
+                  Matching Parameters (%)
                 </span>
                 <div className="flex flex-col gap-[8px] ">
                   {user?.matching_parameters?.slice(0, 5)?.map((item, i) => (
@@ -326,7 +326,7 @@ const addData = async (file) => {
                       {item.title}{" "}
                       {item.matching_points == "N/A"
                         ? null
-                        : ": " + item.matching_points.charAt(0)} / 10
+                        : ": " + item.matching_points}
                     </div>
                   ))}
                 </div>

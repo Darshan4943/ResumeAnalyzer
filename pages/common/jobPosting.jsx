@@ -200,8 +200,17 @@ function JobPosting() {
   };
 
   const handleFilterChange = (heading, value) => {
-    setFilters(() => {
-      const updatedFilters = value ? { [heading]: value } : {};
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+
+ 
+
+      if (value) {
+        updatedFilters[heading] = value;
+      } else {
+        delete updatedFilters[heading];
+      }
+
       return updatedFilters;
     });
   };
@@ -318,7 +327,16 @@ function JobPosting() {
                       }
                       value={
                         filters[filter.heading]
-                        
+                          ? {
+                              value: filters[filter.heading],
+                              label:
+                                filters[filter.heading] === "Live"
+                                  ? "Active"
+                                  : filters[filter.heading] === "Closed"
+                                  ? "Inactive"
+                                  : filters[filter.heading],
+                            }
+                          : ""
                       }
                       placeholder={
                         filter.heading === "JobTitle"

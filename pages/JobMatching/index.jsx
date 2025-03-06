@@ -23,6 +23,7 @@ import SelectPost from "./selectPost";
 import JdMatchCard from "./JdMatchCard";
 import ApplicantDetails from "./ApplicantDetails";
 import { setRecallData } from "../../Redux/slices/recallSlice";
+import JdParameters from "../../components/common/jdParameters";
 
 const JobMatching = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const JobMatching = () => {
   const fileRef = useRef(null);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-    const {recallData } = useSelector((state) => state.recall);
+  const { recallData } = useSelector((state) => state.recall);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
   const [text, setText] = useState("");
@@ -59,7 +60,7 @@ const JobMatching = () => {
   const [findMatchLoader, setMatchLoader] = useState(false);
   const taskRef = useRef(null);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
-  
+  const [openParameters, setOpenParamenters] = useState(false)
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
@@ -73,10 +74,35 @@ const JobMatching = () => {
   const [hiringLoading, setHiringLoading] = useState("");
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
-  const[fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
+  const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
 
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
+
+  const [parameters, setParameters] = useState([
+  ]);
+
+  console.log(parameters)
+
+  useEffect(() => {
+    const fetchJDParameters = async () => {
+
+      try {
+        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+
+        if (data?.data?.data?.parameters) {
+          const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
+          setParameters(filteredParameters);
+        }
+        
+      } catch (error) {
+        console.error("Error loading JD Parameters");
+      }
+
+    };
+    fetchJDParameters();
+  }, [userDataGlobal?._id,openParameters]);
+
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
@@ -222,6 +248,7 @@ const JobMatching = () => {
       {
         jd: extratctedData,
         resumeCount,
+        
       }
     );
     setFromSkilotechCollection(true)
@@ -306,6 +333,7 @@ const JobMatching = () => {
         jd,
         ids,
         resumeCount,
+        parameters
       }
     );
 
@@ -318,6 +346,7 @@ const JobMatching = () => {
 
     counter.count++;
   };
+  console.log(resumeList)
 
   const MatchJob = async () => {
     // setLoadingg(true);
@@ -477,6 +506,7 @@ const JobMatching = () => {
     }
   };
 
+
   return (
     <>
       {tab === 0 && (
@@ -486,6 +516,16 @@ const JobMatching = () => {
               <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
             </div>
           )}
+          {openParameters &&
+            <>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
+
+                <JdParameters setOpenParamenters={setOpenParamenters} />
+              </div>
+            </>
+
+          }
 
           <div className=" flex flex-col gap-4   ">
             {loadingg && (
@@ -638,7 +678,15 @@ const JobMatching = () => {
                   >
                     Find Match
                   </button>
+
                 )}
+                <button
+                  onClick={() => setOpenParamenters(true)}
+                  className=" rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[38px] px-6"
+                >
+                  Set Matching Parameters
+                </button>
+
               </div>
             </div>
             <div className="flex flex-col gap-6 h-full  ">
