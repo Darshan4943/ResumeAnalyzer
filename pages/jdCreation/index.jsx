@@ -167,7 +167,6 @@ function Index() {
                   }
                   styles={customStyles}
                   placeholder="Select Work Arrangement"
-                  isClearable
                 />
               </div>
               <div className="flex flex-col">
