@@ -34,7 +34,6 @@ function CreateCompany() {
     companyMail:"",
     companySize:"",
   });
-  console.log(data)
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
 

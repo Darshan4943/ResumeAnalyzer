@@ -45,6 +45,12 @@ function EmployerSidebar() {
       route: "/JobMatching/SelectJob",
     },
     {
+      img: "/images/employer/sidebar/jdcreation.png",
+      img1: "/images/employer/sidebar/jdcreation2.png",
+      title: "Jd Creation",
+      route: "/jdCreation",
+    },
+    {
       img: "/images/employer/sidebar/candidate.png",
       img1: "/images/employer/sidebar/candidate1.png",
       title: "Candidates",
@@ -56,6 +62,7 @@ function EmployerSidebar() {
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
+    
   ];
 
   const employerList = [
@@ -101,6 +108,7 @@ function EmployerSidebar() {
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
+    
   ];
 
   const menuList =
