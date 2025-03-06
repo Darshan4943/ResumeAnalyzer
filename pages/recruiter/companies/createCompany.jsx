@@ -68,6 +68,10 @@ function CreateCompany() {
             companySector: response.data.companySector,
             companyLogo: response.data.companyLogo,
             companyDescription: response.data.companyDescription,
+            companyAddress:response.data.companyAddress,
+            companyWebsite:response.data.companyWebsite,
+            companyMail:response.data.companyMail,
+            companySize:response.data.companySize,
           });
         }
       } catch (error) {
@@ -210,6 +214,10 @@ function CreateCompany() {
       formData.append("companyName", data.companyName);
       formData.append("companySector", data.companySector);
       formData.append("companyDescription", data.companyDescription);
+      formData.append("companyAddress", data.companyAddress);
+      formData.append("companyWebsite", data.companyWebsite);
+      formData.append("companyMail", data.companyMail);
+      formData.append("companySize", data.companySize);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -254,6 +262,10 @@ function CreateCompany() {
       formData.append("companyName", data.companyName);
       formData.append("companySector", data.companySector);
       formData.append("companyDescription", data.companyDescription);
+      formData.append("companyAddress", data.companyAddress);
+      formData.append("companyWebsite", data.companyWebsite);
+      formData.append("companyMail", data.companyMail);
+      formData.append("companySize", data.companySize);
       if (croppedImage) {
         const response = await fetch(croppedImage.url);
         const blob = await response.blob();
@@ -444,7 +456,7 @@ function CreateCompany() {
                     </div>
                     <input
                       type="text"
-                      name="companyName"
+                      name="companyWebsite"
                       value={data.companyWebsite}
                       onChange={handleInputChange}
                       placeholder="Enter Company Website"
