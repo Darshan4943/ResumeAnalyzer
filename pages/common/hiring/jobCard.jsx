@@ -18,6 +18,9 @@ const JobCard = ({ filters, setFilters }) => {
   const [miniloading, setMiniloading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(9);
+  const [statusTogle, setStatusTogle] = useState(false);
+  const [status, setStatus] = useState();
+
   const router = useRouter();
   useEffect(() => {
     if (userDataGlobal && userDataGlobal?._id) {
@@ -111,6 +114,34 @@ const JobCard = ({ filters, setFilters }) => {
     };
   }, [setShowPopup]);
   const hasLongTitle = data?.some((job) => job?.jobTitle?.length > 20);
+
+  const handleChangeStatus = async (id, newStatus) => {
+    try {
+      if (!id) {
+        toast.error("Job ID is missing!");
+        return;
+      }
+
+      const response = await axios.post(
+        `http://localhost:2000/api/job/handleChangeStatus`,
+        { jobId: id, status: newStatus }
+
+      );
+
+      if (response.data.success) {
+
+        toast.success("Job status updated successfully");
+        setStatusTogle(false)
+        fetchJobs();
+      } else {
+        toast.error(response.data.message || "Failed to update status");
+      }
+    } catch (error) {
+      console.error("Error updating job status:", error);
+      toast.error("Error updating job status. Please try again.");
+    }
+  };
+  console.log("status", status)
   return (
     <div>
       {loading ? (
@@ -136,14 +167,12 @@ const JobCard = ({ filters, setFilters }) => {
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div
-                    className={`flex justify-between w-[100%] gap-2 ${
-                      hasLongTitle ? "h-[42px]" : ""
-                    }`}
+                    className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
+                      }`}
                   >
                     <div
-                      className={`flex justify-between ${
-                        job?.jobTitle?.length > 35 && "group"
-                      } relative gap-[20px] items-start`}
+                      className={`flex justify-between ${job?.jobTitle?.length > 35 && "group"
+                        } relative gap-[20px] items-start`}
                     >
                       <p className="text-[14px] font-[600]">
                         {job?.jobTitle?.length > 35
@@ -154,7 +183,10 @@ const JobCard = ({ filters, setFilters }) => {
                         {job.jobTitle}
                       </div>
 
-                      <div className="flex gap-[3px] items-center">
+                      <div onClick={(e) => {
+                        e.stopPropagation();
+                        setStatusTogle(!statusTogle)
+                      }} className="flex gap-[3px] items-center relative">
                         {job.status === "Active" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
@@ -177,6 +209,44 @@ const JobCard = ({ filters, setFilters }) => {
                             </div>
                           </>
                         ) : null}
+                        {statusTogle === false &&
+                          <svg
+                            width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g mask="url(#mask0_9445_111500)">
+                              <path d="M8.00366 11.0213C7.88316 11.0213 7.771 11.002 7.66716 10.9635C7.56333 10.925 7.46458 10.859 7.37091 10.7655L2.87666 6.27125C2.73833 6.13275 2.6675 5.95867 2.66416 5.749C2.661 5.5395 2.73183 5.36225 2.87666 5.21725C3.02166 5.07242 3.19733 5 3.40366 5C3.61 5 3.78566 5.07242 3.93066 5.21725L8.00366 9.2905L12.0767 5.21725C12.2152 5.07892 12.3892 5.00808 12.5989 5.00475C12.8084 5.00158 12.9857 5.07242 13.1307 5.21725C13.2755 5.36225 13.3479 5.53792 13.3479 5.74425C13.3479 5.95058 13.2755 6.12625 13.1307 6.27125L8.63641 10.7655C8.54275 10.859 8.444 10.925 8.34016 10.9635C8.23633 11.002 8.12416 11.0213 8.00366 11.0213Z" fill="#646464" />
+                            </g>
+                          </svg>
+                        }
+                        {statusTogle &&
+                          <svg className="rotate-180"
+                            width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g mask="url(#mask0_9445_111500)">
+                              <path d="M8.00366 11.0213C7.88316 11.0213 7.771 11.002 7.66716 10.9635C7.56333 10.925 7.46458 10.859 7.37091 10.7655L2.87666 6.27125C2.73833 6.13275 2.6675 5.95867 2.66416 5.749C2.661 5.5395 2.73183 5.36225 2.87666 5.21725C3.02166 5.07242 3.19733 5 3.40366 5C3.61 5 3.78566 5.07242 3.93066 5.21725L8.00366 9.2905L12.0767 5.21725C12.2152 5.07892 12.3892 5.00808 12.5989 5.00475C12.8084 5.00158 12.9857 5.07242 13.1307 5.21725C13.2755 5.36225 13.3479 5.53792 13.3479 5.74425C13.3479 5.95058 13.2755 6.12625 13.1307 6.27125L8.63641 10.7655C8.54275 10.859 8.444 10.925 8.34016 10.9635C8.23633 11.002 8.12416 11.0213 8.00366 11.0213Z" fill="#646464" />
+                            </g>
+                          </svg>
+                        }
+                        {statusTogle && (
+                          <div className="absolute top-5 z-[3000] bg-white rounded-[6px] shadow-md py-1">
+                            <p
+                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Active"); }}
+                              className={`${job.status === "Active" ? "hidden" : "block"} text-[12px] font-[500] text-[#0C8A0A] hover:bg-[#ccffcb] px-4 cursor-pointer`}
+                            >
+                              Active
+                            </p>
+                            <p
+                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Inactive"); }}
+                              className={`${job.status === "Inactive" ? "hidden" : "block"} text-[12px] font-[500] text-[#ddda40] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                            >
+                              Inactive
+                            </p>
+                            <p
+                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Closed"); }}
+                              className={`${job.status === "Closed" ? "hidden" : "block"} text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
+                            >
+                              Closed
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="flex gap-[6px] cursor-pointer">
@@ -337,9 +407,8 @@ const JobCard = ({ filters, setFilters }) => {
                         </svg>
                       </div>
                       <div
-                        className={`text-[12px] font-[400] ${
-                          job.location.length > 2 && "group"
-                        } relative`}
+                        className={`text-[12px] font-[400] ${job.location.length > 2 && "group"
+                          } relative`}
                       >
                         {job.location.length > 2
                           ? `${job.location[0]} ...`
