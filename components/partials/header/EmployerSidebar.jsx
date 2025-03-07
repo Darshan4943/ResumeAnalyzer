@@ -62,6 +62,12 @@ function EmployerSidebar() {
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
+    {
+      img: "/images/employer/sidebar/template1.png",
+      img1: "/images/employer/sidebar/template.png",
+      title: "Template",
+      route: "/template",
+    },
     
   ];
 
