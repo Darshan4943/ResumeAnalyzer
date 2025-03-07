@@ -105,7 +105,7 @@ const JobCard = ({ filters, setFilters }) => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setShowPopup(false);
-        setStatusToggle({})
+        // setStatusToggle({})
       }
     };
 
