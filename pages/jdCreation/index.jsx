@@ -22,6 +22,8 @@ function Index() {
     requiredExperience: "",
     requiredSkills: "",
     salaryRange: "",
+    jobDescription:"",
+    keyResposibilities:""
   });
   const [jobDescription, setJobDescription] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,40 +42,57 @@ function Index() {
         formData
       );
       const formattedDescription = `
-      <p><span style="font-weight: bold; font-size: 16px;">Company:</span> ${response.data.jobTitle}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Company:</span> ${response.data.company}</p>
+      <p><span style="font-weight: bold; font-size: 16px;">Job Title:</span> ${response.data.jobTitle}</p>
+      <p><span style="font-weight: bold; font-size: 16px;">Company Name:</span> ${response.data.company}</p>
       <p><span style="font-weight: bold; font-size: 16px;">Employment Type:</span> ${response.data.employmentType}</p>
+      <p><span style="font-weight: bold; font-size: 16px;">Work Arrangement:</span> ${response.data.workArrangement}</p>
       <p><span style="font-weight: bold; font-size: 16px;">Location:</span> ${response.data.location}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Salary Range: </span>${response.data.salaryRange}</p>
+      <p><span style="font-weight: bold; font-size: 16px;">Salary Range:</span> ${response.data.salaryRange}</p>
       <p></p>
-  
-      <p><span  style="font-weight: bold; font-size: 16px;">Job Role: </span> ${response.data.jobRole}</p>
-   <p></p>
-      <p style="font-size: 18px; font-weight: bold; margin-top: 100px;">Job Description:</p>
+    
+      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Job Role:</p>
+      <p>${response.data.jobRole}</p>
+      <p></p>
+    
+      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Job Description:</p>
       <p>${response.data.jobDescription}</p>
-   <p></p>
-      <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">Key Responsibilities:</p>
+    <p></p>
+    
+      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Key Responsibilities:</p>
       <ul>
           ${response.data.responsibilities
-          .map((item) => `<li>${item}</li>`)
-          .join("")}
+            .map((item) => `<li>${item}</li>`)
+            .join("")}
       </ul>
-   <p></p>
-      <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">Required Skills & Qualifications:</p>
+  <p></p>
+    
+      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Qualifications:</p>
+        <ul>
+          ${response.data.qualifications
+            ? response.data.qualifications.map((qualification) => `<li>${qualification}</li>`).join("")
+            : "<li>No benefits listed</li>"}
+      </ul>
       
-      <p><span  style="font-weight: bold;">Education: </span> ${response.data.requiredEducation}</p>
-     
-      <p><span  style="font-weight: bold;">Experience:</span> ${response.data.requiredExperience}</p>
-  
-      <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">Technical Skills:</p>
+    <p></p>
+     <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Benefits & Perks:</p>
+      <ul>
+          ${response.data.benefits
+            ? response.data.benefits.map((benefit) => `<li>${benefit}</li>`).join("")
+            : "<li>No benefits listed</li>"}
+      </ul>
+      
+  <p></p>
+    
+     <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Required Skills:</p>
       <ul>
           ${Array.isArray(response.data.requiredSkills)
-          ? response.data.requiredSkills.map((skill) => `<li>${skill.trim()}</li>`).join("")
-          : response.data.requiredSkills
-            ? response.data.requiredSkills.toString().split(",").map((skill) => `<li>${skill.trim()}</li>`).join("")
-            : "<li>No skills listed</li>"}
+            ? response.data.requiredSkills.map((skill) => `<li>${skill.trim()}</li>`).join("")
+            : response.data.requiredSkills
+              ? response.data.requiredSkills.toString().split(",").map((skill) => `<li>${skill.trim()}</li>`).join("")
+              : "<li>No skills listed</li>"}
       </ul>
   `;
+  
 
       setJobDescription(formattedDescription);
       setToggle(1)
@@ -85,7 +104,7 @@ function Index() {
     }
   };
 
-  console.log(jobDescription)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -135,6 +154,8 @@ function Index() {
       requiredExperience: "",
       requiredSkills: "",
       salaryRange: "",
+      keyResposibilities:"",
+      jobDescription:""
     });
   };
   const renderHeader = () => {
@@ -315,6 +336,28 @@ function Index() {
                       onChange={handleChange}
                       placeholder="Enter Salary Range"
                       className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                    />
+                  </div>
+                  <div className="flex flex-col col-span-2  ">
+                    <label className="text-[14px] mb-1">Key Responsibilities</label>
+                    <input
+                      type="text"
+                      name="keyResposibilities"
+                      value={formData.keyResposibilities}
+                      onChange={handleChange}
+                      placeholder="Enter Key Responsibilities"
+                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                    />
+                  </div>
+                  <div className="flex flex-col col-span-3  ">
+                    <label className="text-[14px] mb-1">Job Description</label>
+                    <textarea 
+                      type="text"
+                      name="jobDescription"
+                      value={formData.jobDescription}
+                      onChange={handleChange}
+                      placeholder="Enter Job Description"
+                      className="border text-[14px] border-[#DEDEDE] p-[16px] min-h-[100px]  outline-none justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
                     />
                   </div>
                 </div>

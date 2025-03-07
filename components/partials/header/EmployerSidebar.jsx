@@ -47,7 +47,7 @@ function EmployerSidebar() {
     {
       img: "/images/employer/sidebar/jdcreation.png",
       img1: "/images/employer/sidebar/jdcreation2.png",
-      title: "Jd Creation",
+      title: "JD Creation",
       route: "/jdCreation",
     },
     {
