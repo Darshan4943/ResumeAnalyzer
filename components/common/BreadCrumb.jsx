@@ -17,6 +17,7 @@ const Breadcrumb = () => {
     createCompany:"Create Company",
     CreateNewRequisition:"Create New Requisition",
     companyDetails:"Company Details",
+    jdCreation:"Jd Creation",
 
     'JobPosting?content=CreateNewJob': 'Create New Job',
     'ClientDetail': 'Candidate Details',
@@ -66,7 +67,7 @@ const Breadcrumb = () => {
   
   
   return (
-    <nav className="py-6 pt-[16px] pb-[8px]">
+    <nav className="py-6 pt-[16px] pb-[12px]">
     <ol className="flex gap-2 items-center text-sm sm:text-base">
       <li className="breadcrumb-item text-[12px] text-[#333333]">Skilotech</li>
       {breadcrumbItems.map((item, index) => (

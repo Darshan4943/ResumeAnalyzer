@@ -108,7 +108,7 @@ function Index() {
     control: (provided) => ({
       ...provided,
       border: "1px solid #DEDEDE",
-      padding: "0 16px",
+      padding: "0 8px",
       height: "40px",
       borderRadius: "8px",
       fontSize: "14px",
@@ -181,7 +181,7 @@ function Index() {
           <div className=" gap-[32px] bg-[#FFFFFF] rounded-[16px] w-full scr800:p-6 p-3">
             <div>
               <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid scr1168:grid-cols-3 ms:grid-cols-2 grid-cols-1 gap-4">
                   <div className="flex flex-col">
                     <label className=" mb-1 text-[14px]">Job Title</label>
                     <input
@@ -306,7 +306,7 @@ function Index() {
                     />
                   </div>
 
-                  <div className="flex flex-col col-span-3 w-[424px]">
+                  <div className="flex flex-col  ">
                     <label className="text-[14px] mb-1">Salary Range</label>
                     <input
                       type="text"
