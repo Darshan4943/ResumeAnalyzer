@@ -238,7 +238,7 @@ function EditTemplate() {
           </div>
           <div className="flex justify-end">
             <button
-              className="text-white bg-[#06A9EF] px-[36px] py-[12px] rounded-[30px] font-[600]"
+              className=" px-6 h-[38px] rounded-[30px] bg_Button font-[600]"
               onClick={handleSave}
             >
               Save Changes

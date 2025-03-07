@@ -81,8 +81,9 @@ const JobMatching = () => {
 
   const [parameters, setParameters] = useState([
   ]);
+  const [weightage, setWeightage] = useState(false)
+  const [priority, setPriority] = useState(false)
 
- 
 
   useEffect(() => {
     const fetchJDParameters = async () => {
@@ -93,15 +94,18 @@ const JobMatching = () => {
         if (data?.data?.data?.parameters) {
           const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
           setParameters(filteredParameters);
+
         }
-        
+        setPriority(data?.data?.data?.priority)
+        setWeightage(data?.data?.data?.weightage)
+
       } catch (error) {
         console.error("Error loading JD Parameters");
       }
 
     };
     fetchJDParameters();
-  }, [userDataGlobal?._id,openParameters]);
+  }, [userDataGlobal?._id, openParameters]);
 
 
   useEffect(() => {
@@ -248,7 +252,7 @@ const JobMatching = () => {
       {
         jd: extratctedData,
         resumeCount,
-        
+
       }
     );
     setFromSkilotechCollection(true)
@@ -333,7 +337,9 @@ const JobMatching = () => {
         jd,
         ids,
         resumeCount,
-        parameters
+        parameters,
+        weightage,
+        priority
       }
     );
 

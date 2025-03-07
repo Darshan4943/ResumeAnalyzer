@@ -1,438 +1,58 @@
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import MiniLoader from "../../components/common/mini-loader";
-import Select from "react-select";
-import axios from "axios";
-import { Editor } from "primereact/editor";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Index() {
   const router = useRouter();
-
-  const [formData, setFormData] = useState({
-    jobTitle: "",
-    company: "",
-    jobRole: "",
-    employmentType: "",
-    workArrangement: " ",
-    location: "",
-    requiredEducation: "",
-    requiredExperience: "",
-    requiredSkills: "",
-    salaryRange: "",
-    jobDescription:"",
-    keyResposibilities:""
-  });
-  const [jobDescription, setJobDescription] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [toggle, setToggle] = useState(0)
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
+  const [data, setData] = useState([]);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const getJobDescriptions = async (userId) => {
     try {
-      const response = await axios.post(
-        "http://localhost:2000/api/generate/jobDescription",
-        formData
-      );
-      const formattedDescription = `
-      <p><span style="font-weight: bold; font-size: 16px;">Job Title:</span> ${response.data.jobTitle}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Company Name:</span> ${response.data.company}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Employment Type:</span> ${response.data.employmentType}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Work Arrangement:</span> ${response.data.workArrangement}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Location:</span> ${response.data.location}</p>
-      <p><span style="font-weight: bold; font-size: 16px;">Salary Range:</span> ${response.data.salaryRange}</p>
-      <p></p>
-    
-      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Job Role:</p>
-      <p>${response.data.jobRole}</p>
-      <p></p>
-    
-      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Job Description:</p>
-      <p>${response.data.jobDescription}</p>
-    <p></p>
-    
-      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Key Responsibilities:</p>
-      <ul>
-          ${response.data.responsibilities
-            .map((item) => `<li>${item}</li>`)
-            .join("")}
-      </ul>
-  <p></p>
-    
-      <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Qualifications:</p>
-        <ul>
-          ${response.data.qualifications
-            ? response.data.qualifications.map((qualification) => `<li>${qualification}</li>`).join("")
-            : "<li>No benefits listed</li>"}
-      </ul>
-      
-    <p></p>
-     <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Benefits & Perks:</p>
-      <ul>
-          ${response.data.benefits
-            ? response.data.benefits.map((benefit) => `<li>${benefit}</li>`).join("")
-            : "<li>No benefits listed</li>"}
-      </ul>
-      
-  <p></p>
-    
-     <p style="font-size: 18px; font-weight: bold; margin-top: 20px;">Required Skills:</p>
-      <ul>
-          ${Array.isArray(response.data.requiredSkills)
-            ? response.data.requiredSkills.map((skill) => `<li>${skill.trim()}</li>`).join("")
-            : response.data.requiredSkills
-              ? response.data.requiredSkills.toString().split(",").map((skill) => `<li>${skill.trim()}</li>`).join("")
-              : "<li>No skills listed</li>"}
-      </ul>
-  `;
-  
-
-      setJobDescription(formattedDescription);
-      setToggle(1)
-    } catch (err) {
-      setError("Error generating job description. Please try again.");
-      console.error(err);
-    } finally {
-      setLoading(false);
+      const response = await axios.get(`http://localhost:2000/api/jd/list/${userDataGlobal?._id}`);
+      setData(response.data.data);
+      return response.data.data;
+    } catch (error) {
+      console.error("Error fetching job descriptions:", error.response?.data || error.message);
+      return [];
     }
   };
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-
-
-  const options = [
-    { value: "Full-time", label: "Full-time" },
-    { value: "Part-time", label: "Part-time" },
-  ];
-
-  const options2 = [
-    { value: "Work from home", label: "Work from home" },
-    { value: "Hybrid", label: "Hybrid" },
-    { value: "On-site", label: "On-site" },
-  ];
-
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      border: "1px solid #DEDEDE",
-      padding: "0 8px",
-      height: "40px",
-      borderRadius: "8px",
-      fontSize: "14px",
-      fontWeight: "400",
-      outline: "none",
-      boxShadow: "none",
-    }),
-    placeholder: (provided) => ({
-      ...provided,
-      fontSize: "14px",
-    }),
-  };
-
-  const previousPage = () => router.back();
-  const resetFormData = () => {
-    setFormData({
-      jobTitle: "",
-      company: "",
-      jobRole: "",
-      employmentType: "",
-      workArrangement: " ",
-      location: "",
-      requiredEducation: "",
-      requiredExperience: "",
-      requiredSkills: "",
-      salaryRange: "",
-      keyResposibilities:"",
-      jobDescription:""
-    });
-  };
-  const renderHeader = () => {
-    return (
-      <span className="ql-formats">
-        <button className="ql-bold" aria-label="Bold"></button>
-        <button className="ql-italic" aria-label="Italic"></button>
-        <button className="ql-underline" aria-label="Underline"></button>
-        <button className="ql-strike" aria-label="Strike"></button>
-        <button
-          className="ql-list"
-          value="ordered"
-          aria-label="Ordered List"
-        ></button>
-        <button
-          className="ql-list"
-          value="bullet"
-          aria-label="Unordered List"
-        ></button>
-        <button className="ql-align" aria-label="Align Left"></button>
-        <button
-          className="ql-align"
-          value="center"
-          aria-label="Align Center"
-        ></button>
-        <button
-          className="ql-align"
-          value="right"
-          aria-label="Align Right"
-        ></button>
-      </span>
-    );
-  };
-
-  const header = renderHeader();
+  useEffect(() => {
+    getJobDescriptions()
+  }, []);
 
 
   return (
-    <>
-      {toggle === 0 ?
-        <div className="flex flex-col gap-[16px]">
-         
+    <div className=' flex flex-col gap-5'>
+      <p className='text-[17px] font-medium'>JD Creation</p>
+      <button onClick={() => router.push("jdCreation/createJd")} className='px-6 h-[38px] rounded-[30px] bg_Button w-fit'>
+        Create Job Description
+      </button>
+      <div className='flex gap-4 flex-wrap'>
+        {data.map((jd, index) => (
+          <div key={index} className='flex gap-2 flex-col items-center'>
+            <div className='bg-white rounded-[12px] p-4  w-[330px] relative ' >
+              <svg onClick={()=>router.push(`/jdCreation/createJd?id=${jd?._id}`)} className='absolute top-4 cursor-pointer right-4' width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-          <div className=" gap-[32px] bg-[#FFFFFF] rounded-[16px] w-full scr800:p-6 p-3">
-            <div>
-              <form onSubmit={handleSubmit}>
-                <div className="grid scr1168:grid-cols-3 ms:grid-cols-2 grid-cols-1 gap-4">
-                  <div className="flex flex-col">
-                    <label className=" mb-1 text-[14px]">Job Title</label>
-                    <input
-                      type="text"
-                      name="jobTitle"
-                      value={formData.jobTitle}
-                      onChange={handleChange}
-                      placeholder="Enter Job Title"
-                      className="border border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] text-[14px] "
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className=" mb-1 text-[14px]">Company</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Enter Company Name"
-                      className="border border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] text-[14px] "
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-[14px]mb-1">Job Role</label>
-                    <input
-                      type="text"
-                      name="jobRole"
-                      value={formData.jobRole}
-                      onChange={handleChange}
-                      placeholder="Enter Job Role"
-                      className="border border-[#DEDEDE] text-[14px] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className="mb-1 text-[14px]">Employment Type</label>
-                    <Select
-                      options={options}
-                      value={options.find(
-                        (option) => option.value === formData.employmentType
-                      )}
-                      onChange={(selectedOption) =>
-                        handleChange({
-                          target: {
-                            name: "employmentType",
-                            value: selectedOption?.value,
-                          },
-                        })
-                      }
-                      styles={customStyles}
-                      className="text-[14px]"
-                      placeholder="Select Employment Type"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className=" mb-1 text-[14px]">Specify the work arrangement</label>
-                    <Select
-                      options={options2}
-                      value={
-                        options2.find(
-                          (option) => option.value === formData.workArrangement
-                        ) || null
-                      }
-                      className="text-[14px]"
-                      onChange={(selectedOption) =>
-                        handleChange({
-                          target: {
-                            name: "workArrangement",
-                            value: selectedOption?.value || "",
-                          },
-                        })
-                      }
-                      styles={customStyles}
-                      placeholder="Select Work Arrangement"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-[14px] mb-1">Location</label>
-                    <input
-                      type="text"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      placeholder="Enter Department Name"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className="text-[14px] mb-1">Required Education</label>
-                    <input
-                      type="text"
-                      name="requiredEducation"
-                      value={formData.requiredEducation}
-                      onChange={handleChange}
-                      placeholder="Enter Required Education"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-[14px] mb-1">
-                      Required Experience
-                    </label>
-                    <input
-                      type="text"
-                      name="requiredExperience"
-                      value={formData.requiredExperience}
-                      onChange={handleChange}
-                      placeholder="Enter Required Experience"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-[14px] mb-1">Required Skills</label>
-                    <input
-                      type="text"
-                      name="requiredSkills"
-                      value={formData.requiredSkills}
-                      onChange={handleChange}
-                      placeholder="Enter Required Skills"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
-                    />
-                  </div>
-
-                  <div className="flex flex-col  ">
-                    <label className="text-[14px] mb-1">Salary Range</label>
-                    <input
-                      type="text"
-                      name="salaryRange"
-                      value={formData.salaryRange}
-                      onChange={handleChange}
-                      placeholder="Enter Salary Range"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
-                    />
-                  </div>
-                  <div className="flex flex-col col-span-2  ">
-                    <label className="text-[14px] mb-1">Key Responsibilities</label>
-                    <input
-                      type="text"
-                      name="keyResposibilities"
-                      value={formData.keyResposibilities}
-                      onChange={handleChange}
-                      placeholder="Enter Key Responsibilities"
-                      className="border text-[14px] border-[#DEDEDE] px-[16px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
-                    />
-                  </div>
-                  <div className="flex flex-col col-span-3  ">
-                    <label className="text-[14px] mb-1">Job Description</label>
-                    <textarea 
-                      type="text"
-                      name="jobDescription"
-                      value={formData.jobDescription}
-                      onChange={handleChange}
-                      placeholder="Enter Job Description"
-                      className="border text-[14px] border-[#DEDEDE] p-[16px] min-h-[100px]  outline-none justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  {/* <div className="flex justify-start p-[10px] md:p-4 w-full">
-                    {" "}
-                    <button
-                      onClick={previousPage}
-                      className="text-[12px] text-[#B3261E]  md:text-[14px] items-center cursor-pointer flex justify-start font-semibold px-6 red_border_Button rounded-[30px] h-[38px]"
-                    >
-                      Cancel
-                    </button>
-                  </div> */}
-                  <div className="flex justify-end p-[10px] md:p-4 w-full">
-                    <div className="flex gap-[4px] md:gap-[14px]">
-                      <button
-                        onClick={resetFormData}
-                        className="text-[12px] items-center  md:text-[14px]  cursor-pointer flex justify-start font-semibold px-6 blue_border_Button rounded-[30px] h-[38px]"
-                      >
-                        Reset
-                      </button>
-
-                      {loading ? (
-                        <div className="flex justify-center items-center text-sm font-semibold px-6 bg_Button rounded-[30px] h-[38px] w-[88.45px]">
-                          <MiniLoader />
-                        </div>
-                      ) : (
-                        <button
-                          onClick={handleSubmit}
-                          className="text-[12px] md:text-[14px] font-semibold px-6 bg_Button rounded-[30px] h-[38px]"
-                        >
-                          Create
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        :
-        <>
-          {toggle === 1 &&
-            <div className="flex gap-2 text-[17px] font-[500] pb-4 ">
-              <svg onClick={() => setToggle(0)} className=" cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                <g mask="url(#mask0_9417_111600)">
-                  <path d="M7.371 12.7481L12.5402 17.9174C12.6889 18.066 12.7623 18.24 12.7605 18.4394C12.7585 18.6387 12.68 18.8159 12.525 18.9711C12.3698 19.1159 12.1942 19.1909 11.998 19.1961C11.8018 19.2013 11.6262 19.1263 11.471 18.9711L5.13075 12.6309C5.03708 12.5372 4.97108 12.4384 4.93275 12.3346C4.89425 12.2308 4.875 12.1186 4.875 11.9981C4.875 11.8776 4.89425 11.7654 4.93275 11.6616C4.97108 11.5578 5.03708 11.459 5.13075 11.3654L11.471 5.0251C11.6095 4.8866 11.781 4.81577 11.9855 4.8126C12.19 4.80943 12.3698 4.88027 12.525 5.0251C12.68 5.18027 12.7575 5.35844 12.7575 5.5596C12.7575 5.76094 12.68 5.93918 12.525 6.09435L7.371 11.2481H18.748C18.9608 11.2481 19.139 11.3199 19.2825 11.4636C19.4262 11.6071 19.498 11.7853 19.498 11.9981C19.498 12.2109 19.4262 12.3891 19.2825 12.5326C19.139 12.6763 18.9608 12.7481 18.748 12.7481H7.371Z" fill="#1C1B1F" />
+                <g mask="url(#mask0_9519_112738)">
+                  <path d="M3.75 14.25H4.81875L12.15 6.91875L11.0813 5.85L3.75 13.1812V14.25ZM2.25 15.75V12.5625L12.15 2.68125C12.3 2.54375 12.4656 2.4375 12.6469 2.3625C12.8281 2.2875 13.0188 2.25 13.2188 2.25C13.4187 2.25 13.6125 2.2875 13.8 2.3625C13.9875 2.4375 14.15 2.55 14.2875 2.7L15.3188 3.75C15.4688 3.8875 15.5781 4.05 15.6469 4.2375C15.7156 4.425 15.75 4.6125 15.75 4.8C15.75 5 15.7156 5.19062 15.6469 5.37187C15.5781 5.55312 15.4688 5.71875 15.3188 5.86875L5.4375 15.75H2.25ZM11.6063 6.39375L11.0813 5.85L12.15 6.91875L11.6063 6.39375Z" fill="#646464" />
                 </g>
               </svg>
 
-              JD Creation
+              <div
+                className=" text-[5px]  font-[400]"
+                dangerouslySetInnerHTML={{
+                  __html: jd.jd,
+                }}
+              />
+
             </div>
-          }
-          <div>
-            <Editor
-              value={jobDescription}
-              onTextChange={setJobDescription}
-              headerTemplate={header}
-              style={{
-                // border: "none",
-                fontSize: "16px",
-                color: "#333",
-
-
-
-              }}
-            />
-
+            <p className='text-[12px[ font-medium'>{jd.jobTitle}</p>
           </div>
-        </>
-      }
-    </>
+        ))}
+      </div>
+
+    </div>
   );
 }
 

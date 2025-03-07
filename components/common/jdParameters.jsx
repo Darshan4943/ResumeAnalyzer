@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import MiniLoader from "./mini-loader";
+import { setWeek } from "date-fns";
 
 const ItemType = "PARAMETER";
 
@@ -29,7 +30,7 @@ const MatchingParameter = ({ item, index, moveItem, toggleItem, changePercentage
 
 
     return (
-        <div ref={(node) => ref(drop(node))} style={{ boxShadow: "0px 1px 4px 0px #00000040",cursor: "grab", }} className="flex items-center justify-between p-3 my-4 bg-white  rounded-[12px] ">
+        <div ref={(node) => ref(drop(node))} style={{ boxShadow: "0px 1px 4px 0px #00000040", cursor: "grab", }} className="flex items-center justify-between p-3 my-4 bg-white  rounded-[12px] ">
             <div className="flex items-center gap-3">
 
 
@@ -68,6 +69,8 @@ const MatchingParameter = ({ item, index, moveItem, toggleItem, changePercentage
 
 const JdParameters = ({ setOpenParamenters }) => {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
+    const [weightage, setWeightage] = useState(false)
+    const [priority, setPriority] = useState(false)
     const [loading, setLoading] = useState(false)
     const [parameters, setParameters] = useState([
         { label: "Skills and Competencies", description: "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.", percentage: 15, enabled: true },
@@ -88,8 +91,10 @@ const JdParameters = ({ setOpenParamenters }) => {
                 const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
 
                 if (data?.data?.data?.parameters) {
-                    console.log("hii")
+
                     setParameters(data?.data?.data?.parameters);
+                    setPriority(data?.data?.data?.priority)
+                    setWeightage(data?.data?.data?.weightage)
                 }
             } catch (error) {
                 console.error("Error loading JD Parameters");
@@ -104,7 +109,9 @@ const JdParameters = ({ setOpenParamenters }) => {
         try {
             const response = await axios.post(`http://localhost:2000/api/jdParameters/add`, {
                 userId: userDataGlobal?._id,
-                parameters
+                parameters,
+                weightage,
+                priority
             });
             setLoading(false);
             setOpenParamenters(false)
@@ -154,11 +161,29 @@ const JdParameters = ({ setOpenParamenters }) => {
                         changePercentage={changePercentage}
                     />
                 ))}
-                <div className="w-full flex justify-end">
-                    <button onClick={addJDParameters} className=" mt-4 bg_Button   rounded-[30px]  disabled:opacity-50 w-[152px] flex  justify-center items-center px-6 h-[38px]" disabled={parameters.reduce((sum, p) => sum + (p.enabled ? p.percentage : 0), 0) !== 100}>
+                <div className="w-full flex justify-between mt-6">
+                    <div className=" flex gap-6 items-center">
+                        <div className=" flex gap-2 items-center">
+                            <p className="text-[14px] font-medium">Weightage</p>
+                            <label className="switch">
+                                <input type="checkbox" checked={weightage} onChange={() => setWeightage(!weightage)} />
+                                <span className="slider round"></span>
+                            </label>
+
+                        </div>
+                        <div className=" flex gap-2 items-center">
+                            <p className="text-[14px] font-medium">Priority</p>
+                            <label className="switch">
+                                <input type="checkbox" checked={priority} onChange={() => setPriority(!priority)} />
+                                <span className="slider round"></span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <button onClick={addJDParameters} className="  bg_Button   rounded-[30px]  disabled:opacity-50 w-[152px] flex  justify-center items-center px-6 h-[38px]" disabled={parameters.reduce((sum, p) => sum + (p.enabled ? p.percentage : 0), 0) !== 100}>
                         {loading ?
                             <MiniLoader /> :
-                            "Save Parameters"   
+                            "Save Parameters"
                         }
                     </button>
                 </div>
