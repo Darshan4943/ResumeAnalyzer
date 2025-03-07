@@ -82,7 +82,7 @@ const JobMatching = () => {
   const [parameters, setParameters] = useState([
   ]);
 
-  console.log(parameters)
+ 
 
   useEffect(() => {
     const fetchJDParameters = async () => {
@@ -327,7 +327,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "http://localhost:2000/api/external/jobMatching/",
+      "http://localhost:2000/api/external/jobMatching/priority",
 
       {
         jd,
@@ -346,7 +346,7 @@ const JobMatching = () => {
 
     counter.count++;
   };
-  console.log(resumeList)
+
 
   const MatchJob = async () => {
     // setLoadingg(true);
@@ -395,13 +395,13 @@ const JobMatching = () => {
 
       setResumeList(dataArray);
       setIsMatched(true);
-      setSelectedIndexes([]);
-      setCollection("");
+      // setSelectedIndexes([]);
+      // setCollection("");
       updateJobMatchLimit()
       setTimeout(() => {
         getLimits()
       }, 5000);
-      setSelectedIndexesFilesType([]);
+      // setSelectedIndexesFilesType([]);
       setButtonToggle(false);
       // setLoadingg(false);
       setMatchLoader(false);

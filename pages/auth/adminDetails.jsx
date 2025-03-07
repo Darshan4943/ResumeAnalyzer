@@ -656,7 +656,7 @@ function AdminDetails({
                 {!verify ? (
                   <button
                     onClick={handleVerification}
-                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px] border flex items-center justify-center   rounded-[8px] scr540:rounded-[30px] md:rounded-[30px] text-[12px] md:text-[14px] font-[500] bg_Buttona"
+                    className="w-full scr540:w-[220px] px-4 h-[38.6px] md:px-[30px]  flex items-center justify-center   rounded-[8px] scr540:rounded-[30px] md:rounded-[30px] text-[12px] md:text-[14px] font-[500] bg_Button"
                   >
                     {loadingg ? <MiniLoader /> : <>Verify Email</>}
                   </button>

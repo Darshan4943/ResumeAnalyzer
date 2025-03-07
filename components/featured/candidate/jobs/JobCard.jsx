@@ -88,7 +88,7 @@ function Job_card({
                     }
 
                   }}
-                  className="text-[12px] font-normal cursor-pointer w-fit"
+                  className="text-[12px] font-normal cursor-pointer w-fit z-[10]"
                 >
                   {item?.companyName}
                 </div>

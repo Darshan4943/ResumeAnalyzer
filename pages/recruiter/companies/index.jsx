@@ -124,8 +124,9 @@ function Index() {
           {companyData.length > 0 ? (
             companyData.map((item, index) => (
               <div
+              onClick={()=>router.push(`/recruiter/companies/companyDetails?companyId=${item?._id}`)}
                 key={index}
-                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
+                className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] cursor-pointer flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
               >
                 <div className="gap-1 flex flex-col">
                   <img
@@ -153,7 +154,7 @@ function Index() {
                 </div>
 
                 <div className="w-full flex justify-end gap-2">
-                  <button onClick={() => handleEditCompany(item._id)}>
+                  <button onClick={(e) =>{ e.stopPropagation();handleEditCompany(item._id)}}>
                     <svg
                       width="20"
                       height="20"
@@ -169,7 +170,7 @@ function Index() {
                       </g>
                     </svg>
                   </button>
-                  <button onClick={() => handleDelete(item._id)}>
+                  <button onClick={(e) => { e.stopPropagation();handleDelete(item._id)}}>
                     <svg
                       width="20"
                       height="20"

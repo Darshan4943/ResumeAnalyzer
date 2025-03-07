@@ -148,7 +148,7 @@ radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, r
 radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
 `,
               }}
-              className={`relative  p-[6px]  text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[42px] gap-[4px] text-white `}
+              className={`relative  p-[6px]  text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white `}
             >
               <svg
                 width="11"
