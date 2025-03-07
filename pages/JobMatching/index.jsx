@@ -327,7 +327,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "http://localhost:2000/api/external/jobMatching/priority",
+      "http://localhost:2000/api/external/jobMatching",
 
       {
         jd,
