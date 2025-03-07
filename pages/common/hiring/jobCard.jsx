@@ -141,7 +141,6 @@ const JobCard = ({ filters, setFilters }) => {
       toast.error("Error updating job status. Please try again.");
     }
   };
-  console.log("status", status)
   return (
     <div>
       {loading ? (

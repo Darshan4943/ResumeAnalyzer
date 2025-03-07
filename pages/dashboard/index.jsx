@@ -11,6 +11,7 @@ import JobStatistics from "../../components/featured/dashboard/JobStatistics";
 import RecentApplications from "../../components/featured/dashboard/RecentApplications";
 import CountUp from "react-countup";
 import Services from "../../components/featured/candidate/createResume/components/services";
+import RecentJobs from "../../components/featured/dashboard/RecentJobs";
 
 function Dashboard({ toggleContentt }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -46,8 +47,6 @@ function Dashboard({ toggleContentt }) {
       });
     }
   };
-
-
 
   const fetchJobStatistics = async () => {
     try {
@@ -281,10 +280,11 @@ function Dashboard({ toggleContentt }) {
         />
       </div>
       <div ref={pendingJobsRef}>
-        <RecentApplications isPending={isPending} />
+        {/* <RecentApplications isPending={isPending} /> */}
+        <RecentJobs />
       </div>
 
-      <Services/>
+      <Services />
       <div className="py-6  flex flex-col gap-6">
         <p className="text-[20px] font-semibold text-[#333333]">
           Purchase Plans
