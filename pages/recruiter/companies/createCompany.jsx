@@ -12,7 +12,7 @@ import "primeicons/primeicons.css";
 import MiniLoader from "../../../components/common/miniLoader";
 import MiniLoader1 from "../../../components/common/mini-loader";
 import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
-
+import Select from "react-select";
 function CreateCompany() {
   const [id, setId] = useState("");
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -26,14 +26,15 @@ function CreateCompany() {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [data, setData] = useState({
     companyName: "",
-    companySector: "",
+    companySector: [],
     companyLogo: "",
     companyDescription: "",
-    companyAddress:"",
-    companyWebsite:"",
-    companyMail:"",
-    companySize:"",
+    companyAddress: "",
+    companyWebsite: "",
+    companyMail: "",
+    companySize: "",
   });
+  console.log(data)
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef(null);
 
@@ -65,13 +66,15 @@ function CreateCompany() {
         if (response.data) {
           setData({
             companyName: response.data.companyName,
-            companySector: response.data.companySector,
+            companySector: response.data.companySector
+              ? response.data.companySector.map((sector) => ({ value: sector, label: sector }))
+              : [],
             companyLogo: response.data.companyLogo,
             companyDescription: response.data.companyDescription,
-            companyAddress:response.data.companyAddress,
-            companyWebsite:response.data.companyWebsite,
-            companyMail:response.data.companyMail,
-            companySize:response.data.companySize,
+            companyAddress: response.data.companyAddress,
+            companyWebsite: response.data.companyWebsite,
+            companyMail: response.data.companyMail,
+            companySize: response.data.companySize,
           });
         }
       } catch (error) {
@@ -101,23 +104,28 @@ function CreateCompany() {
     }
   };
 
+  const handleSelect = (selectedOptions) => {
+    setData({ ...data, companySector: selectedOptions });
+    setShowDropdown(false);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
     setData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
 
-    if (name === "companySector") {
-      if (value.trim() === "") {
-        setFilteredOptions(options);
-      } else {
-        setFilteredOptions(
-          options.filter((option) =>
-            option.toLowerCase().includes(value.toLowerCase())
-          )
-        );
-      }
-      setShowDropdown(true);
+
+  }
+  const handleInputChangee = (inputValue) => {
+    if (!inputValue.trim()) {
+      setFilteredOptions(options);
+    } else {
+      setFilteredOptions(
+        options.filter((option) =>
+          option.label.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      );
     }
   };
 
@@ -134,7 +142,7 @@ function CreateCompany() {
     if (!data?.companyName?.trim()) {
       newErrors.companyName = "Company name is required.";
     }
-    if (!data?.companySector?.trim()) {
+    if (data?.companySector?.length < 1) {
       newErrors.companySector = "Company sector is required.";
     }
     if (!data?.companyDescription?.replace(/<[^>]*>/g, "").trim()) {
@@ -159,13 +167,13 @@ function CreateCompany() {
   const handleReset = () => {
     setData({
       companyName: "",
-      companySector: "",
+      companySector: [],
       companyLogo: "",
       companyDescription: "",
-      companyAddress:"",
-      companyWebsite:"",
-      companyMail:"",
-      companySize:"",
+      companyAddress: "",
+      companyWebsite: "",
+      companyMail: "",
+      companySize: "",
     });
     setCroppedImage(null);
     setFile(null);
@@ -212,7 +220,8 @@ function CreateCompany() {
     try {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
-      formData.append("companySector", data.companySector);
+      formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
+
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
@@ -260,7 +269,8 @@ function CreateCompany() {
     try {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
-      formData.append("companySector", data.companySector);
+      formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
+
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
@@ -388,10 +398,6 @@ function CreateCompany() {
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleSelect = (option) => {
-    setData({ ...data, companySector: option });
-    setShowDropdown(false);
-  };
 
   return (
     <div className="w-full relative flex flex-col gap-5">
@@ -418,9 +424,9 @@ function CreateCompany() {
           className=" gap-[32px] bg-[#FFFFFF] rounded-[16px] w-full scr800:p-6 p-3"
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
         >
-          <div className=" flex flex-col  gap-[32px] bg-[#FFFFFF]">
+          <div className=" flex flex-col  gap-[24px] bg-[#FFFFFF]">
             <div className="flex flex-col gap-4 ">
-              <div className="flex gap-6 w-full sm:min-w-[310px]  flex-col justify-between">
+              <div className="flex gap-4 w-full sm:min-w-[310px]  flex-col justify-between">
                 <div className="flex w-full md:flex-row  flex-col md:gap-[24px] gap-4">
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1">
@@ -433,7 +439,7 @@ function CreateCompany() {
                       value={data.companyName}
                       onChange={handleInputChange}
                       placeholder="Enter Company Name"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
@@ -444,7 +450,7 @@ function CreateCompany() {
                       value={data.companyMail}
                       onChange={handleInputChange}
                       placeholder="Enter Company Mail"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
                 </div>
@@ -460,7 +466,7 @@ function CreateCompany() {
                       value={data.companyWebsite}
                       onChange={handleInputChange}
                       placeholder="Enter Company Website"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
                   <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
@@ -471,12 +477,12 @@ function CreateCompany() {
                       value={data.companySize}
                       onChange={handleInputChange}
                       placeholder="Enter Company Size"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
                 </div>
-                <div  className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
-                <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                <div className="flex w-full  md:flex-row  flex-col  md:gap-[24px] gap-4">
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
                     <div className="gap-1">
                       {" "}
                       Company Address
@@ -487,42 +493,25 @@ function CreateCompany() {
                       value={data.companyAddress}
                       onChange={handleInputChange}
                       placeholder="Enter Company Address"
-                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2"
+                      className="placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] border-[1px] border-[#DEDEDE] border-solid outline-none rounded-[8px] px-4 py-2 h-[44px]"
                     />
                   </div>
-                <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
-                  <div className="gap-1">
-                    Company Sector<span className="text-red">*</span>
-                  </div>
-                  <div className="relative w-full">
-                    <input
-                      type="text"
+                  <div className="flex w-full flex-col gap-2 text-[14px] font-[500] text-[#333333]">
+                    <div className="gap-1">
+                      Company Sector<span className="text-red">*</span>
+                    </div>
+                    <Select
+                      isMulti
                       name="companySector"
+                      options={options.map((opt) => ({ value: opt, label: opt }))}
                       value={data.companySector}
-                      onChange={handleInputChange}
-                      onFocus={() => setShowDropdown(true)}
-                      onBlur={() =>
-                        setTimeout(() => setShowDropdown(false), 200)
-                      }
+                      onChange={handleSelect}
+                      onInputChange={handleInputChangee}
                       placeholder="Enter or Select Company Sector"
-                      className="w-full border-[1px] border-[#DEDEDE] placeholder:text-[14px] placeholder:font-[400] placeholder:text-[#646464] rounded-[8px] px-4 py-2 outline-none"
+                      className="w-full"
+                      classNamePrefix="select"
                     />
-
-                    {showDropdown && filteredOptions.length > 0 && (
-                      <ul className="absolute z-10 w-full bg-white border border-[#DEDEDE] rounded-md shadow-md mt-1 max-h-40 overflow-y-auto">
-                        {filteredOptions.map((option, index) => (
-                          <li
-                            key={index}
-                            onMouseDown={() => handleSelect(option)}
-                            className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
-                          >
-                            {option}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -544,17 +533,17 @@ function CreateCompany() {
                   {(croppedImage ||
                     data?.companyLogo ||
                     "/images/jobs/logo.png") && (
-                    <ImageContainer
-                      value={data?.companyLogo}
-                      src={
-                        croppedImage?.url ||
-                        data?.companyLogo ||
-                        "/images/jobs/logo.png"
-                      }
-                      alt="Selected File"
-                      className="w-[143.95%] h-[60px] object-contain"
-                    />
-                  )}
+                      <ImageContainer
+                        value={data?.companyLogo}
+                        src={
+                          croppedImage?.url ||
+                          data?.companyLogo ||
+                          "/images/jobs/logo.png"
+                        }
+                        alt="Selected File"
+                        className="w-[143.95%] h-[60px] object-contain"
+                      />
+                    )}
 
                   <input
                     type="file"
@@ -597,9 +586,9 @@ function CreateCompany() {
                     // borderBottomLeftRadius: "8px",
                     // borderBottomRightRadius: "8px",
                     minHeight: "296px",
-                    height:"212px"
+                    height: "212px"
                   }}
-                  className={ `editor-container ${window.location.pathname === "/recruiter/companies/createCompany" ? "create-company-height" : ""} editor-container `}
+                  className={`editor-container ${window.location.pathname === "/recruiter/companies/createCompany" ? "create-company-height" : ""} editor-container `}
                   onPaste={(e) => e.preventDefault()}
                 />
                 <div className="text-[12px] text-gray-500">
@@ -613,7 +602,7 @@ function CreateCompany() {
                 </div>
               </div>
             </div>
-            
+
           </div>
 
           <div className="w-full flex justify-between pt-5">

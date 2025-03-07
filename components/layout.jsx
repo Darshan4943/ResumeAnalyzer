@@ -72,7 +72,7 @@ function Layout({ children }) {
             <EmployerSidebar />
           </div>
         }
-        <div className="  overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative "
+        <div className="  overflow-y-auto pt-[60px] w-[100%]  overflow-hidden relative "
           style={{ scrollbarWidth: "none" }}
         >
           {/* {(selectedPage.startsWith('/employer') || selectedPage.startsWith('/recruiter')) && */}
