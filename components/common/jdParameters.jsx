@@ -162,23 +162,59 @@ const JdParameters = ({ setOpenParamenters }) => {
                     />
                 ))}
                 <div className="w-full flex justify-between mt-6">
-                    <div className=" flex gap-6 items-center">
-                        <div className=" flex gap-2 items-center">
+                    <div className=" flex gap-6 items-center w-[300px]">
+
+                        {/* <div className=" flex gap-2 items-center  w-full">
+                            <p className="text-[14px] font-medium">Weightage</p>
+                            <div onClick={() => setWeightage(!weightage)} className={` flex justify-center items-center outline outline-[2px]  ${weightage ? "outline-blue" : "outline-[#DEDEDE]"}  min-w-[20px] min-h-[20px]   rounded-full  `}>
+                                <div className={`${weightage && "bg-blue"} min-w-[15px] min-h-[15px] rounded-full `}> </div>
+
+                            </div>
+                        </div>
+                        <div className=" flex gap-2 items-center   w-full ">
+                            <p className="text-[14px] font-medium">Priority</p>
+                            <div onClick={() => setPriority(!priority)} className={`flex justify-center items-center outline outline-[2px] ${priority ? "outline-blue" : "outline-[#DEDEDE]"}   min-w-[20px] min-h-[20px] rounded-full   `}>
+                                <div className={`${priority && "bg-blue"} min-w-[15px] min-h-[15px] rounded-full `}> </div>
+
+
+                            </div>
+                        </div> */}
+                        <div onClick={() => setWeightage(!weightage)} className=" flex gap-4 items-center">
+                            <div className="flex gap-2 items-center">
+                                <div className={`w-[20px] m-[2px] h-[20px] border-[2px] ${weightage ? "border-blue" :"border-[#DEDEDE]"} rounded-[50%] flex items-center justify-center`}>
+                                    <div className={`h-full w-full border-[3px] border-[#FFFFFF] ${weightage && "bg-blue"} rounded-[50%]`}></div>
+                                </div>
+                                <p className="text-[14px] font-[500] text-[#333333]">Weightage</p>
+                            </div>
+                        </div>
+                        <div onClick={() => setPriority(!priority)} className=" flex gap-4 items-center">
+                            <div className="flex gap-2 items-center">
+                                <div className={`w-[20px] m-[2px] h-[20px] border-[2px] ${priority ? "border-blue" :"border-[#DEDEDE]"} rounded-[50%] flex items-center justify-center`}>
+                                    <div className={`h-full w-full border-[3px] border-[#FFFFFF]  ${priority && "bg-blue"} rounded-[50%]`}></div>
+                                </div>
+                                <p className="text-[14px] font-[500] text-[#333333]">Priority</p>
+                            </div>
+                        </div>
+
+                        {/* <div className=" flex gap-2 items-center">
                             <p className="text-[14px] font-medium">Weightage</p>
                             <label className="switch">
                                 <input type="checkbox" checked={weightage} onChange={() => setWeightage(!weightage)} />
                                 <span className="slider round"></span>
                             </label>
 
-                        </div>
-                        <div className=" flex gap-2 items-center">
+                        </div> */}
+                        {/* <div className=" flex gap-2 items-center">
                             <p className="text-[14px] font-medium">Priority</p>
                             <label className="switch">
                                 <input type="checkbox" checked={priority} onChange={() => setPriority(!priority)} />
                                 <span className="slider round"></span>
                             </label>
 
-                        </div>
+                        </div> */}
+
+
+
                     </div>
                     <button onClick={addJDParameters} className="  bg_Button   rounded-[30px]  disabled:opacity-50 w-[152px] flex  justify-center items-center px-6 h-[38px]" disabled={parameters.reduce((sum, p) => sum + (p.enabled ? p.percentage : 0), 0) !== 100}>
                         {loading ?
