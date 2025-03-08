@@ -23,10 +23,10 @@ function EditTemplate() {
     }
   }, [router.isReady, router.query]);
 
-   const [shortlistSubject, setShortlistSubject] = useState(
-     "Congratulations! You Have Been Shortlisted for the Next Round"
-   );
-   const [shortlistContent, setShortlistContent] = useState(`
+  const [shortlistSubject, setShortlistSubject] = useState(
+    "Congratulations! You Have Been Shortlisted for the Next Round"
+  );
+  const [shortlistContent, setShortlistContent] = useState(`
      <div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; ">
        <p style="display: block; ">Dear Candidate,</p>
        <div style="display: block; ">
@@ -48,11 +48,11 @@ function EditTemplate() {
        </p>
      </div>
    `);
- 
-   const [rejectedSubject, setRejectedSubject] = useState(
-     `Update on Your Application - "Job Position"`
-   );
-   const [rejectedContent, setRejectedContent] = useState(`
+
+  const [rejectedSubject, setRejectedSubject] = useState(
+    `Update on Your Application - "Job Position"`
+  );
+  const [rejectedContent, setRejectedContent] = useState(`
      <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.8;">
        <p style="display: block; ">Dear Candidate,</p>
        <p style="display: block; ">
@@ -81,7 +81,7 @@ function EditTemplate() {
         `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
-  
+
       if (response.ok) {
         if (result.templates.length === 0) {
           setSubject(rejectedSubject);
@@ -89,11 +89,19 @@ function EditTemplate() {
         } else {
           result.templates.forEach((template) => {
             if (template.templateType === "shortlist") {
-              setShortlistSubject(template?.tempData?.subject || shortlistSubject);
-              setShortlistContent(template?.tempData?.content || shortlistContent);
+              setShortlistSubject(
+                template?.tempData?.subject || shortlistSubject
+              );
+              setShortlistContent(
+                template?.tempData?.content || shortlistContent
+              );
             } else if (template.templateType === "reject") {
-              setRejectedSubject(template?.tempData?.subject || rejectedSubject);
-              setRejectedContent(template?.tempData?.content || rejectedContent);
+              setRejectedSubject(
+                template?.tempData?.subject || rejectedSubject
+              );
+              setRejectedContent(
+                template?.tempData?.content || rejectedContent
+              );
             }
           });
         }
@@ -104,18 +112,18 @@ function EditTemplate() {
       console.error("Error fetching templates:", error);
     }
   };
-  
+
   useEffect(() => {
     if (userDataGlobal._id) {
       fetchTemplates();
     }
   }, [userDataGlobal._id]);
-  
+
   useEffect(() => {
     if (router.isReady) {
       const isShortlist = router.query.isShortlist === "true";
       const isReject = router.query.isReject === "true";
-  
+
       if (isShortlist) {
         setSubject(shortlistSubject);
         setContent(shortlistContent);
@@ -124,11 +132,18 @@ function EditTemplate() {
         setContent(rejectedContent);
       }
     }
-  }, [router.isReady, router.query, shortlistSubject, shortlistContent, rejectedSubject, rejectedContent]);
-  
+  }, [
+    router.isReady,
+    router.query,
+    shortlistSubject,
+    shortlistContent,
+    rejectedSubject,
+    rejectedContent,
+  ]);
+
   const handleContentChange = (newContent) => setContent(newContent);
   const handleSubjectChange = (event) => setSubject(event.target.value);
-  
+
   const handleSave = async () => {
     try {
       const response = await fetch(
@@ -143,7 +158,7 @@ function EditTemplate() {
           }),
         }
       );
-  
+
       const result = await response.json();
       if (response.ok) {
         toast.success(result.message);
@@ -166,8 +181,6 @@ function EditTemplate() {
       }
     }
   }, [isShortlist, isReject]);
-
-
 
   const renderHeader = () => (
     <span className="ql-formats">
@@ -206,18 +219,18 @@ function EditTemplate() {
   }
 
   return (
-    <div>
+    <>
       <div className="text-[18px] font-[600]">Edit Template</div>
-      <div className="pt-[16px] flex gap-[24px]">
-        <div className="flex flex-col gap-[16px] ">
-          <div className="bg-[#FFFFFF] rounded-[16px] w-[562px] p-[26px] flex flex-col gap-[28px] ">
+      <div className="pt-[16px] flex gap-[24px] w-full">
+        <div className="w-1/2 flex flex-col gap-[16px]">
+          <div className="bg-[#FFFFFF] rounded-[16px] p-[26px] flex flex-col gap-[28px] ">
             <div className="flex flex-col gap-[6px]">
               <div className="text-[16px] font-[600]">Subject</div>
               <input
                 type="text"
                 value={subject}
                 onChange={handleSubjectChange}
-                className="border-[1px] border-[#DEDEDE] rounded-[8px] text-[14px] font-[400] p-[12px] w-full"
+                className="border border-[#DEDEDE] rounded-[8px] text-[14px] font-[400] p-[12px] w-full"
               />
             </div>
             <div className="flex flex-col gap-[6px]">
@@ -238,16 +251,17 @@ function EditTemplate() {
           </div>
           <div className="flex justify-end">
             <button
-              className=" px-6 h-[38px] rounded-[30px] bg_Button font-[600]"
+              className="text-white bg-[#06A9EF] px-[36px] py-[12px] rounded-[30px] font-[600]"
               onClick={handleSave}
             >
               Save Changes
             </button>
           </div>
         </div>
-        <div className="w-[668px] rounded-lg">
-          <div className="w-[500px] bg-gray p-6 rounded-lg shadow-lg">
-            <div className="bg-white p-6 rounded-lg">
+
+        <div className="w-1/2 ">
+          <div className="bg-gray pt-2 pb-2 pr-8 pl-8 rounded-lg  h-[602px] flex items-center">
+            <div className="bg-white p-6 rounded-lg h-[502px]">
               <p className="text-sm font-medium text-gray-800">
                 <span className="text-base font-semibold">Subject:</span>{" "}
                 {subject}
@@ -261,7 +275,7 @@ function EditTemplate() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
