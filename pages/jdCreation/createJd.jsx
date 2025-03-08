@@ -13,15 +13,15 @@ import { toast } from "react-toastify";
 function CreateJd() {
     const router = useRouter();
     const [toggle, setToggle] = useState(0)
-    const {id} =router.query
+    const { id } = router.query
 
     useEffect(() => {
-     if(id){
-        setToggle(1)
-        getJobDescriptions()
-     }
-     },[id]);
-   
+        if (id) {
+            setToggle(1)
+            getJobDescriptions()
+        }
+    }, [id]);
+
 
     const [formData, setFormData] = useState({
         jobTitle: "",
@@ -42,19 +42,19 @@ function CreateJd() {
     const [loading, setLoading] = useState(false);
     const [loadingg, setLoadingg] = useState(false);
     const [error, setError] = useState(null);
-  console.log(jobDescription)
+    console.log(jobDescription)
     const { userDataGlobal } = useSelector((state) => state.user.userData);
 
     const getJobDescriptions = async () => {
         try {
-          const response = await axios.get(`http://localhost:2000/api/jd/getById/${id}`);
-          setJobDescription(response.data.data.jd);
-          
+            const response = await axios.get(`http://localhost:2000/api/jd/getById/${id}`);
+            setJobDescription(response.data.data.jd);
+
         } catch (error) {
-          console.error("Error fetching job descriptions:", error.response?.data || error.message);
-        
+            console.error("Error fetching job descriptions:", error.response?.data || error.message);
+
         }
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -210,28 +210,28 @@ function CreateJd() {
     };
 
     const header = renderHeader();
-  
+
     const addJobDescription = async () => {
-        
+
         try {
             setLoadingg(true)
-          const url = id
-            ? `http://localhost:2000/api/jd/update/${id}` 
-            : "http://localhost:2000/api/jd/add"; 
-      
-          const method = id ? "put" : "post";
-      
-          const response = await axios[method](url, { userId: userDataGlobal?._id, jd: jobDescription,jobTitle });
-      
-          toast.success(`Job Description ${id ? "updated" :"added"}  successfully`)
-          setLoadingg(false)
-          return response.data;
+            const url = id
+                ? `http://localhost:2000/api/jd/update/${id}`
+                : "http://localhost:2000/api/jd/add";
+
+            const method = id ? "put" : "post";
+
+            const response = await axios[method](url, { userId: userDataGlobal?._id, jd: jobDescription, jobTitle });
+
+            toast.success(`Job Description ${id ? "updated" : "added"}  successfully`)
+            setLoadingg(false)
+            return response.data;
         } catch (error) {
             setLoadingg(false)
-          console.error("Error:", error.response?.data || error.message);
-          return null;
+            console.error("Error:", error.response?.data || error.message);
+            return null;
         }
-      };
+    };
 
 
 

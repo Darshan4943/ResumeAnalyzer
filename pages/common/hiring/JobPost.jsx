@@ -956,7 +956,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       ))}
                     </div>
 
-                    <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible overflow-x-hidden  ">
+                    <div className="flex flex-col items-start bg-[#fff]   overflow-y-visible   ">
                       {!jobDetails?.data?.applications.length == 0 ? (
                         <>
                           {jobDetails?.data?.applications.map(
