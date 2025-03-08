@@ -61,8 +61,10 @@ function RecentJobs({ isPending }) {
           params: { page, limit, search: searchQuery },
         }
       );
-      setApplicants(response.data.jobs);
-      console.log(response.data.jobs);
+      const recentApplications = response.data.jobs.slice(0, 5); 
+      setApplicants(recentApplications);
+      
+      // setApplicants(response.data.jobs);
       setTotalCount(response.data.pagination.totalApplications);
       setTotalpages(response.data.pagination.totalPages);
       toast.dismiss();
@@ -175,7 +177,7 @@ function RecentJobs({ isPending }) {
           <div className="flex lg:flex-row flex-col  w-[100%] ml:px-[16px] gap-4 lg:justify-between items-start lg:items-center bg-[#fff]">
             <p className="font-[600] text-[16px]">Recent Job Post</p>
 
-            <div className="flex gap-2 items-start justify-end sm:w-[430px]   ">
+            {/* <div className="flex gap-2 items-start justify-end sm:w-[430px]   ">
               <div
                 className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
                 style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
@@ -193,21 +195,8 @@ function RecentJobs({ isPending }) {
                   className="w-full"
                 />
               </div>
-              {/* <div
-                className="flex py-3 px-4 gap-2 justify-center items-center bg-white sm:w-[108px] w-[98px]"
-                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
-              >
-                <img
-                  src="/images/profile/fil.png"
-                  className=" sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
-                  alt=""
-                />
-
-                <p className="font-Montserrat text-[14px] sm:text-base font-semibold leading-6 text-[#333]">
-                  Filter
-                </p>
-              </div> */}
-            </div>
+          
+            </div> */}
           </div>
         </div>
       </div>
@@ -482,7 +471,7 @@ function RecentJobs({ isPending }) {
         </div>
       </div>
 
-      {totalCount > 5 && (
+      {/* {totalCount > 5 && (
         <CustomPagination
           setMiniloading={setMiniloading}
           miniLoading={miniLoading}
@@ -494,7 +483,7 @@ function RecentJobs({ isPending }) {
           limit={limit}
           page={page}
         />
-      )}
+      )} */}
     </>
   );
 }
