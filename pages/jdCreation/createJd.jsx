@@ -23,6 +23,8 @@ function CreateJd() {
     }, [id]);
 
 
+
+
     const [formData, setFormData] = useState({
         jobTitle: "",
         company: "",
@@ -42,7 +44,7 @@ function CreateJd() {
     const [loading, setLoading] = useState(false);
     const [loadingg, setLoadingg] = useState(false);
     const [error, setError] = useState(null);
-    console.log(jobDescription)
+    console.log(222, jobDescription)
     const { userDataGlobal } = useSelector((state) => state.user.userData);
 
     const getJobDescriptions = async () => {
@@ -238,7 +240,7 @@ function CreateJd() {
 
     return (
         <>
-            {toggle === 0 ?
+            {(toggle === 0) ?
                 <div className="flex flex-col gap-[14px]">
                     <div className="flex gap-2 text-[17px] font-[500] ">
                         <svg onClick={() => router.back()} className=" cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -390,7 +392,7 @@ function CreateJd() {
                                             className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
                                         />
                                     </div>
-                                    <div className="flex flex-col col-span-2  ">
+                                    <div className="flex flex-col scr1168:col-span-2 ms:col-span-2 col-span-1  ">
                                         <label className="text-[14px] mb-1">Key Responsibilities</label>
                                         <input
                                             type="text"
@@ -401,7 +403,7 @@ function CreateJd() {
                                             className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
                                         />
                                     </div>
-                                    <div className="flex flex-col col-span-3  ">
+                                    <div className="flex flex-col scr1168:col-span-3 ms:col-span-2 col-span-1  ">
                                         <label className="text-[14px] mb-1">Job Description</label>
                                         <textarea
                                             type="text"
@@ -454,7 +456,7 @@ function CreateJd() {
                 </div>
                 :
                 <>
-                    {toggle === 1 &&
+                    {(toggle === 1) &&
                         <div className="flex gap-2 text-[17px] font-[500] pb-4 ">
                             <svg onClick={() => setToggle(0)} className=" cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -467,9 +469,10 @@ function CreateJd() {
                         </div>
                     }
                     <div>
+
                         <Editor
                             value={jobDescription}
-                            onTextChange={setJobDescription}
+                            onTextChange={(e) => setJobDescription(e.htmlValue)}
                             headerTemplate={header}
                             style={{
                                 // border: "none",
@@ -480,6 +483,7 @@ function CreateJd() {
 
                             }}
                         />
+
 
                     </div>
                     <div className="w-full flex justify-end pt-6">

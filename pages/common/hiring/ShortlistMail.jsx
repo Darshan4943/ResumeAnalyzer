@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import MiniLoader from "../../../components/common/mini-loader";
 import { Editor } from "primereact/editor";
@@ -24,10 +24,10 @@ function ShortlistMail({
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState(
-    newHiringStage === "Shortlisted"
-      ? "Congratulations! You Have Been Shortlisted for the Next Round"
-      : `Update on Your Application - ${jobData?.jobTitle || "Job Position"}`
+  const [shortlistSubject, setShortlistSubject] = useState("Congratulations! You Have Been Shortlisted for the Next Round");
+
+  const [rejectedSubject, setRejectedSubject] = useState(
+     `Update on Your Application - ${jobData?.jobTitle || "Job Position"}`
   );
 
   const formatCandidateNames = () => {
@@ -40,9 +40,8 @@ function ShortlistMail({
       .join(", ");
   };
 
-  const [content, setContent] = useState(
-    newHiringStage === "Shortlisted"
-      ? `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+  const [shortlistContent, setShortlistContent] = useState(
+   `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
   
     <p style="display: block; margin-bottom: 20px;">Dear ${formatCandidateNames()},</p>
   
@@ -70,13 +69,17 @@ function ShortlistMail({
     </p>
   
   </div>`
-      : `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
+     
+  );
+
+  const [rejectedContent, setRejectedContent] = useState(
+     `<div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; padding: 20px;">
   
     <p style="display: block; margin-bottom: 20px;">Dear ${formatCandidateNames()},</p>
   
     <p style="display: block; margin-bottom: 20px;">
       Thank you for taking the time to apply for the 
-      <strong>${jobData?.jobTitle || "position"}</strong> at 
+      <strong>${jobData?.jobTitle || "[Position]"}</strong> at 
       <strong>${jobData?.companyName || "[Company Name]"}</strong>. 
       We appreciate your interest and the effort you put into the process.
     </p>
@@ -100,6 +103,40 @@ function ShortlistMail({
   
   </div>`
   );
+
+
+    const fetchTemplates = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
+        );
+        const result = await response.json();
+  
+        if (response.ok) {
+          result.templates.forEach((template) => {
+            if (template.templateType === "shortlist") {
+              console.log("Shortlist Template Found:", template);
+              setShortlistSubject(template?.tempData?.subject || "No Subject");
+              setShortlistContent(template?.tempData?.content || "No Content");
+            } else if (template.templateType === "reject") {
+              console.log("Reject Template Found:", template);
+              setRejectedSubject(template?.tempData?.subject || "No Subject");
+              setRejectedContent(template?.tempData?.content || "No Content");
+            }
+          });
+        } else {
+          console.error("Error:", result.message);
+        }
+      } catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    };
+  
+    useEffect(() => {
+      if (userDataGlobal._id) {
+        fetchTemplates();
+      }
+    }, [userDataGlobal._id]);
 
   const [subjectError, setSubjectError] = useState("");
   const [contentError, setContentError] = useState("");
@@ -320,11 +357,24 @@ function ShortlistMail({
                   <div className="text-[16px] font-[600]">Subject</div>
                   <input
                     type="text"
-                    value={subject}
+                    value={newHiringStage === "Shortlisted" ? shortlistSubject : newHiringStage === "Rejected" ? rejectedSubject : ""}
+
+                    // onChange={(e) => {
+                    //   setSubject(e.target.value);
+                    //   setSubjectError("");
+                    // }}
                     onChange={(e) => {
-                      setSubject(e.target.value);
+                      const value = e.target.value;
+                    
+                      if (newHiringStage === "Shortlisted") {
+                        setShortlistSubject(value);
+                      } else if (newHiringStage === "Rejected") {
+                        setRejectedSubject(value);
+                      }
+                    
                       setSubjectError("");
                     }}
+                    
                     className=" p-[4px] w-full"
                     placeholder="Enter Subject"
                   />
@@ -338,12 +388,23 @@ function ShortlistMail({
                   <div className="text-[16px] font-[600] mb-[8px]">Content</div>
                   <Editor
                     style={{ minHeight: "120px", overflow: "auto" }}
-                    value={content}
+                    value={newHiringStage === "Shortlisted" ? shortlistContent : newHiringStage === "Rejected" ? rejectedContent : "subject"}
+
                     headerTemplate={header}
+                    // onTextChange={(e) => {
+                    //   setContent(e.htmlValue);
+                    //   setContentError("");
+                    // }}
                     onTextChange={(e) => {
-                      setContent(e.htmlValue);
+                      if (newHiringStage === "Shortlisted") {
+                        setShortlistContent(e.htmlValue);
+                      } else if (newHiringStage === "Rejected") {
+                        setRejectedContent(e.htmlValue);
+                      }
+                     
                       setContentError("");
                     }}
+                    
                   />
                   {contentError && (
                     <p className="text-red text-sm mt-1">{contentError}</p>

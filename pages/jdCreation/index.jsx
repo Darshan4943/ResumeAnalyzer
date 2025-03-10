@@ -7,7 +7,7 @@ function Index() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const getJobDescriptions = async (userId) => {
+  const getJobDescriptions = async () => {
     try {
       const response = await axios.get(`http://localhost:2000/api/jd/list/${userDataGlobal?._id}`);
       setData(response.data.data);
@@ -31,7 +31,7 @@ function Index() {
       <div className='flex gap-4 flex-wrap'>
         {data.map((jd, index) => (
           <div key={index} className='flex gap-2 flex-col items-center'>
-            <div className='bg-white rounded-[12px] p-4  w-[330px] relative ' >
+            <div className='bg-white rounded-[12px] p-4  w-[330px] relative h-[400px] overflow-y-auto ' >
               <svg onClick={()=>router.push(`/jdCreation/createJd?id=${jd?._id}`)} className='absolute top-4 cursor-pointer right-4' width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                 <g mask="url(#mask0_9519_112738)">
