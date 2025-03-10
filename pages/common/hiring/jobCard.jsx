@@ -204,8 +204,8 @@ const JobCard = ({ filters, setFilters }) => {
                           </>
                         ) : job.status === "Inactive" ? (
                           <>
-                            <div className="min-w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
-                            <div className="text-[12px] font-[500] text-[#ddda40]">
+                            <div className="min-w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
+                            <div className="text-[12px] font-[500] text-[#FF7802]">
                               Inactive
                             </div>
                           </>
@@ -242,7 +242,7 @@ const JobCard = ({ filters, setFilters }) => {
                             </p>
                             <p
                               onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Inactive"); }}
-                              className={`${job.status === "Inactive" ? "hidden" : "block"} text-[12px] font-[500] text-[#ddda40] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                              className={`${job.status === "Inactive" ? "hidden" : "block"} text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
                               Inactive
                             </p>

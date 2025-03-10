@@ -453,8 +453,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         </>
                       ) : jobData?.status === "Inactive" ? (
                         <>
-                          <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
-                          <div className="text-[12px] font-[500] text-[#ddda40]">
+                          <div className="w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
+                          <div className="text-[12px] font-[500] text-[#FF7802]">
                             Inactive
                           </div>
                         </>
@@ -1107,92 +1107,86 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         )}
                                       </>
 
-                                      <AnimatePresence>
-                                        {moreOption &&
-                                          selectedDotIndex === index && (
-                                            <motion.div
-                                              initial={{ x: "100%" }}
-                                              animate={{ x: 0 }}
-                                              exit={{ x: "100%" }}
-                                              transition={{ duration: 0.5 }}
-                                              ref={taskRef}
-                                              className="absolute flex flex-col gap-2 items-start justify-center rounded-[8px] left-0 right-0 z-[1000] top-[100%] border-l border-r border-b border-[#06A9EF] p-2 bg-white"
-                                              style={{
-                                                boxShadow:
-                                                  "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                                              }}
+                                      {moreOption &&
+                                        selectedDotIndex === index && (
+                                          <div
+                                            ref={taskRef}
+                                            className="absolute flex flex-col gap-2 items-start justify-center rounded-[8px] left-0 right-0 z-[1000] top-[100%] border border-[#06A9EF] p-2 bg-white"
+                                            style={{
+                                              boxShadow:
+                                                "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                                            }}
+                                          >
+                                            <div
+                                              className="cursor-pointer text-[14px] font-medium"
+                                              onClick={() =>
+                                                router.push(
+                                                  `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
+                                                )
+                                              }
                                             >
-                                              <div
-                                                className="cursor-pointer text-[14px] font-medium"
-                                                onClick={() =>
-                                                  router.push(
-                                                    `/common/hiring/ApplicantDetails?applicantId=${applicant?.applicantId}&id=${id}`
-                                                  )
-                                                }
-                                              >
-                                                See Application
-                                              </div>
-                                              {userDataGlobal?.role ===
-                                                "recruiter" &&
-                                                applicant?.hiringStage ===
-                                                  "Pending" && (
-                                                  <button
-                                                    disabled={
-                                                      applicant?.hiringStage ===
-                                                        "Rejected" ||
-                                                      applicant?.hiringStage ===
-                                                        "Shortlisted" ||
-                                                      applicant?.hiringStage ===
-                                                        "Hired"
-                                                    }
-                                                    style={{
-                                                      opacity:
-                                                        applicant?.hiringStage ===
-                                                          "Rejected" ||
-                                                        applicant?.hiringStage ===
-                                                          "Shortlisted" ||
-                                                        applicant?.hiringStage ===
-                                                          "Hired"
-                                                          ? 0.5
-                                                          : 1,
-                                                    }}
-                                                    onClick={() => {
-                                                      setHiringStage(
-                                                        "Shortlisted"
-                                                      );
-                                                      togglePopup(applicant);
-                                                    }}
-                                                    className="text-[14px] font-medium flex justify-center items-center leading-tight    rounded-[30px] "
-                                                  >
-                                                    Shortlist
-                                                  </button>
-                                                )}
-                                              {applicant?.hiringStage ===
+                                              See Application
+                                            </div>
+                                            {userDataGlobal?.role ===
+                                              "recruiter" &&
+                                              applicant?.hiringStage ===
                                                 "Pending" && (
                                                 <button
-                                                  disabled={
-                                                    applicant?.hiringStage ===
-                                                    "Rejected"
-                                                  }
+                                                  disabled={[
+                                                    "Rejected",
+                                                    "Shortlisted",
+                                                    "Hired",
+                                                  ].includes(
+                                                    applicant?.hiringStage
+                                                  )}
                                                   style={{
-                                                    opacity:
-                                                      applicant?.hiringStage ===
-                                                      "Rejected"
-                                                        ? 0.5
-                                                        : 1,
+                                                    opacity: [
+                                                      "Rejected",
+                                                      "Shortlisted",
+                                                      "Hired",
+                                                    ].includes(
+                                                      applicant?.hiringStage
+                                                    )
+                                                      ? 0.5
+                                                      : 1,
                                                   }}
                                                   onClick={() => {
-                                                    setHiringStage("Rejected");
+                                                    setHiringStage(
+                                                      "Shortlisted"
+                                                    );
                                                     togglePopup(applicant);
                                                   }}
-                                                  className="text-[14px] font-[500] rounded-[30px]  text-[#B3261E]"
+                                                  className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
                                                 >
-                                                  Reject
+                                                  Shortlist
                                                 </button>
                                               )}
-                                            </motion.div>
-                                          )}
-                                      </AnimatePresence>
+                                            {applicant?.hiringStage ===
+                                              "Pending" && (
+                                              <button
+                                                disabled={
+                                                  applicant?.hiringStage ===
+                                                  "Rejected"
+                                                }
+                                                style={{
+                                                  opacity:
+                                                    applicant?.hiringStage ===
+                                                    "Rejected"
+                                                      ? 0.5
+                                                      : 1,
+                                                }}
+                                                onClick={() => {
+                                                  setHiringStage("Rejected");
+                                                  togglePopup(applicant);
+                                                }}
+                                                className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
+                                              >
+                                                Reject
+                                              </button>
+                                            )}
+                                          </div>
+                                        )}
+
                                       <img
                                         onClick={() => handleDotClick(index)}
                                         className="min-w-[24px] max-w-[24px]"

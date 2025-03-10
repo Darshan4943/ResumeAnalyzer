@@ -176,8 +176,8 @@ const SelectPost = () => {
                               </>
                             ) : item.status === "Inactive" ? (
                               <>
-                                <div className="w-[6px] h-[6px] bg-[#ddda40] rounded-full"></div>
-                                <div className="text-[12px] font-[500] text-[#ddda40]">
+                                <div className="w-[6px] h-[6px] bg-[#FF7802] rounded-full"></div>
+                                <div className="text-[12px] font-[500] text-[#FF7802]">
                                   Inactive
                                 </div>
                               </>

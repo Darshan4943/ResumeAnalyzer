@@ -179,7 +179,7 @@ const JdParameters = ({ setOpenParamenters }) => {
 
                             </div>
                         </div> */}
-                        <div onClick={() => setWeightage(!weightage)} className=" flex gap-4 items-center">
+                        {/* <div onClick={() => setWeightage(!weightage)} className=" flex gap-4 items-center">
                             <div className="flex gap-2 items-center">
                                 <div className={`w-[20px] m-[2px] h-[20px] border-[2px] ${weightage ? "border-blue" :"border-[#DEDEDE]"} rounded-[50%] flex items-center justify-center`}>
                                     <div className={`h-full w-full border-[3px] border-[#FFFFFF] ${weightage && "bg-blue"} rounded-[50%]`}></div>
@@ -194,24 +194,24 @@ const JdParameters = ({ setOpenParamenters }) => {
                                 </div>
                                 <p className="text-[14px] font-[500] text-[#333333]">Priority</p>
                             </div>
-                        </div>
+                        </div> */}
 
-                        {/* <div className=" flex gap-2 items-center">
+                        <div className=" flex gap-2 items-center">
                             <p className="text-[14px] font-medium">Weightage</p>
                             <label className="switch">
                                 <input type="checkbox" checked={weightage} onChange={() => setWeightage(!weightage)} />
                                 <span className="slider round"></span>
                             </label>
 
-                        </div> */}
-                        {/* <div className=" flex gap-2 items-center">
+                        </div> 
+                         <div className=" flex gap-2 items-center">
                             <p className="text-[14px] font-medium">Priority</p>
                             <label className="switch">
                                 <input type="checkbox" checked={priority} onChange={() => setPriority(!priority)} />
                                 <span className="slider round"></span>
                             </label>
 
-                        </div> */}
+                        </div>
 
 
 

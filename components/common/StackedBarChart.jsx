@@ -29,12 +29,29 @@ const StackedBarChart = ({ data }) => {
         ],
     };
 
+    // const options = {
+    //     responsive: true,
+    //     plugins: {
+    //         title: {
+    //             display: false,
+    //             text: "",
+    //         },
+    //     },
+    //     scales: {
+    //         x: {
+    //             stacked: true,
+    //         },
+    //         y: {
+    //             stacked: true,
+    //         },
+    //     },
+    // }
+
     const options = {
         responsive: true,
         plugins: {
             title: {
                 display: false,
-                text: "",
             },
         },
         scales: {
@@ -45,7 +62,15 @@ const StackedBarChart = ({ data }) => {
                 stacked: true,
             },
         },
-    };
+        animation: {
+            duration: 0,
+            y: {
+                from: (ctx) => ctx.chart.scales.y.min, 
+                duration: 1200,
+                easing: "easeOutQuad",
+            },
+        },
+    };  
 
     return (
         <div style={{ width: "100%", height: "100%" }}>
