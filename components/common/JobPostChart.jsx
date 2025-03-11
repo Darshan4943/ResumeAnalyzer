@@ -23,12 +23,12 @@ ChartJS.register(
   Legend
 );
 
-const JobPostChart = () => { 
-    const [chartData, setChartData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [selected, setSelected] = useState("Monthly");
+const JobPostChart = () => {
+  const [chartData, setChartData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [selected, setSelected] = useState("Daily");
 
   useEffect(() => {
     const fetchChartData = async () => {
@@ -38,7 +38,9 @@ const JobPostChart = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal._id}`);
+        const response = await axios.get(
+          `http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal._id}`
+        );
         setChartData(response.data);
       } catch (error) {
         console.error("Error fetching job data:", error);
@@ -50,6 +52,7 @@ const JobPostChart = () => {
 
     fetchChartData();
   }, [userDataGlobal?._id]);
+
   const getChartData = () => {
     if (!chartData) return { labels: [], datasets: [] };
 
@@ -109,22 +112,30 @@ const JobPostChart = () => {
   };
 
   return (
-    <div className="p-5 bg-white rounded-xl w-[880px] flex flex-col">
-      <div className="flex pb-2 flex-col gap-4 border-b border-gray mb-[38px]">
-        <div className="flex justify-between items-center">
+    <div
+      style={{
+        borderRadius: "16px",
+        boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+      }}
+      className="p-5 bg-white md:h-[426px] h-[458px] rounded-xl w-full max-w-[896px] flex flex-col"
+    >
+      <div className="flex pb-2 flex-col gap-4 border-b border-[#DEDEDE] mb-[38px]">
+        <div className="flex justify-between items-center flex-wrap">
           <div>
-            <p className="text-[16px] font-[500]">Job Statistics</p>
+            <p className="text-[16px] font-[500]">Job Post Overview</p>
             <p className="text-[12px] font-[500]">
               Job Post Overview ({selected})
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 mt-2 sm:mt-0">
             {["Daily", "Weekly", "Monthly"].map((period) => (
               <button
                 key={period}
                 onClick={() => setSelected(period)}
                 className={`px-2 p-1 border-[0.5px] text-[12px] font-[500] border-[#DEDEDE] rounded-[6px] ${
-                  selected === period ? "border-[#06A9EF] bg-[#06A9EF] text-white" : ""
+                  selected === period
+                    ? "border-[#06A9EF] bg-[#06A9EF] text-white"
+                    : ""
                 }`}
               >
                 {period}
@@ -133,16 +144,30 @@ const JobPostChart = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: "240px", marginBottom: "30px", position: "relative", zIndex: 1000, overflow: "visible" }}>
-        {chartData ? <Bar data={getChartData()} options={options} /> : <p>Loading...</p>}
+      <div
+        className="w-full"
+        style={{
+          height: "240px",
+          marginBottom: "30px",
+          position: "relative",
+          zIndex: 1000,
+          overflow: "visible",
+        }}
+      >
+        {chartData ? (
+          <Bar data={getChartData()} options={options} />
+        ) : (
+          <p className="text-center text-gray-500">Loading...</p>
+        )}
       </div>
-      <div className="flex space-x-4 mt-3">
+
+      <div className="flex flex-wrap justify-start gap-4 mt-3">
         <div className="flex items-center">
           <span className="w-4 h-4 bg-blue rounded-[4px] mr-2"></span>
           <span className="text-sm">Job Post</span>
         </div>
         <div className="flex items-center">
-          <span className="w-4 h-4 bg-[#0C8A0A] rounded-[4px] mr-2"></span>
+          <span className="w-4 h-4 bg-green rounded-[4px] mr-2"></span>
           <span className="text-sm">Job Closed</span>
         </div>
       </div>

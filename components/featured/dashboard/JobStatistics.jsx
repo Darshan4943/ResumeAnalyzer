@@ -34,7 +34,7 @@ function JobStatistics({ setSelected, selected, data }) {
       <div
         className="flex pb-2 flex-col gap-4 self-stretch"
         style={{
-          borderBottom: " 1px solid var(--Text-Secondary, #646464)",
+          borderBottom: " 1px solid #DEDEDE",
         }}
       >
         <div className="flex justify-between items-center self-stretch">

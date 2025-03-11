@@ -137,19 +137,19 @@ function EmployerHeader() {
           </div> */}
         </div>
 
-        <div className="flex ms:px-4  px-2  justify-end gap-4 w-[60%]  ">
+        <div className="flex ms:px-4  px-2  justify-end scr420:gap-4 gap-2 w-[60%]  ">
           <div className="flex gap-1 text-[12px] font-medium items-center">
-            Remaining AI Hits
-            <div
-              style={{
-                backgroundColor: "#4C43CD",
-                backgroundImage: `
-radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
-radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
-`,
-              }}
-              className={`relative  p-[6px]  text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white `}
-            >
+          <p className="hidden scr420:block">Remaining AI Hits</p>
+          <div
+  style={{
+    backgroundColor: "#4C43CD",
+    backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+  }}
+  className="relative p-[6px] text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
+>
               <svg
                 width="11"
                 height="10"
@@ -190,7 +190,7 @@ radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0,
               {jdCountMonthlyLimit - jdCountMonthly}
             </div>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center scr420:gap-5 gap-3">
             <svg
               className="relative cursor-pointer"
               onClick={() => router.push("/common/notification")}

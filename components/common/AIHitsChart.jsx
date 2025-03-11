@@ -9,7 +9,6 @@ Chart.register(ArcElement, Tooltip, Legend);
 const AIHitsChart = () => {
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
-  const [selectedRange, setSelectedRange] = useState("Monthly");
   const [hoverData, setHoverData] = useState(null);
 
   const router = useRouter();
@@ -28,7 +27,6 @@ const AIHitsChart = () => {
       getLimits();
     }, 500);
   }, [recallData]);
-
 
   const totalHits = jdCountMonthlyLimit;
   const remainingHits = totalHits - jdCountMonthly;
@@ -64,7 +62,13 @@ const AIHitsChart = () => {
         },
       },
     },
+    maintainAspectRatio: false,
   };
+
+  const currentMonthYear = new Date().toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div
@@ -72,49 +76,40 @@ const AIHitsChart = () => {
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="w-[420px] h-[430px] p-5 rounded-2xl bg-white flex flex-col"
+      className="w-full max-w-[420px] p-4 md:p-5 rounded-2xl bg-white flex flex-col"
     >
-      <div className="flex flex-col gap-[12px]">
+      <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-[16px] font-[500]">AI Hits Overview</h2>
-            <p className="text-[12px] font-[500] text-gray-500">
-              Showing AI Hits statistics
+            <h2 className="text-[14px] md:text-[16px] font-medium">
+              AI Hits Overview
+            </h2>
+            <p className="text-[10px] md:text-[12px] text-gray-500">
+              Showing AI Hits statistics - {currentMonthYear}
             </p>
-            <p className="text-[12px] font-[500] text-gray-500">Jan 2025</p>
-          </div>
-
-          <div className="flex space-x-2">
-            {["Daily", "Weekly", "Monthly"].map((range) => (
-              <button
-                key={range}
-                className={`px-2 py-1 rounded-[6px] border-[0.5px] border-[#DEDEDE] text-gray-700 text-[12px] font-[500] ${
-                  selectedRange === range ? "bg-blue text-white" : "bg-white"
-                }`}
-                onClick={() => setSelectedRange(range)}
-              >
-                {range}
-              </button>
-            ))}
           </div>
         </div>
-        <div className="w-full border-[1px] border-[#DEDEDE]"></div>
+        <div className="w-full border-t border-gray-300"></div>
       </div>
 
-      <div className="flex justify-center mt-6 relative">
-        <div className="relative w-[228px] h-[230px]">
+      <div className="flex justify-center mt-4 relative">
+        <div className="relative w-[180px] h-[180px] md:w-[228px] md:h-[230px]">
           <Doughnut data={data} options={options} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <p className="text-gray-600 text-sm">Total AI Hits</p>
-            <p className="text-black text-xl font-bold">{totalHits}</p>
-            <p className="text-gray-600 text-sm mt-1">
+            <p className="text-gray-600 text-[12px] md:text-[14px]">
+              Total AI Hits
+            </p>
+            <p className="text-black text-lg md:text-xl font-bold">
+              {totalHits}
+            </p>
+            <p className="text-gray-600 text-[12px] md:text-[14px] mt-1">
               Remaining: {remainingHits}
             </p>
           </div>
         </div>
 
         {hoverData && (
-          <div className="absolute top-10 bg-white shadow-md p-2 rounded-md text-sm border">
+          <div className="absolute top-10 left-1/2 transform -translate-x-1/2 bg-white shadow-md p-2 rounded-md text-[10px] md:text-sm border">
             <p className="text-gray-700 font-semibold">{hoverData.label}</p>
             <p className="text-black">{hoverData.value}</p>
           </div>
@@ -123,12 +118,12 @@ const AIHitsChart = () => {
 
       <div className="flex justify-center space-x-4 mt-6">
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 bg-[#00B9E2] rounded-[4px]"></div>
-          <p className="">Used AI Hits</p>
+          <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-[#00B9E2] rounded"></div>
+          <p className="text-[10px] md:text-[12px]">Used AI Hits</p>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 bg-[#ADF0FF] rounded-[4px]"></div>
-          <p className="">Remaining AI Hits</p>
+          <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-[#ADF0FF] rounded"></div>
+          <p className="text-[10px] md:text-[12px]">Remaining AI Hits</p>
         </div>
       </div>
     </div>
