@@ -85,7 +85,7 @@ const AIHitsChart = () => {
               AI Hits Overview
             </h2>
             <p className="text-[10px] md:text-[12px] text-gray-500">
-              Showing AI Hits statistics - {currentMonthYear}
+            {currentMonthYear}
             </p>
           </div>
         </div>
@@ -102,8 +102,8 @@ const AIHitsChart = () => {
             <p className="text-black text-lg md:text-xl font-bold">
               {totalHits}
             </p>
-            <p className="text-gray-600 text-[12px] md:text-[14px] mt-1">
-              Remaining: {remainingHits}
+            <p className=" text-[0px] md:text-[12px] mt-1">
+              Remaining AI Hits  {remainingHits}
             </p>
           </div>
         </div>

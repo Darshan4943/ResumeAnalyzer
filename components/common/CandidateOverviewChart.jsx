@@ -159,6 +159,7 @@ const CandidateOverviewChart = () => {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           width: "100%",
           maxWidth: "420px",
+          minWidth:"420px"
         }}
         className="p-4 bg-white rounded-[16px] h-[426px] gap-[30px] flex flex-col"
       >
@@ -202,11 +203,11 @@ const CandidateOverviewChart = () => {
           <Bar ref={chartRef} data={data} options={options} />
         </div>
 
-        <div className="flex items-center gap-4 mt-2 text-sm flex-wrap">
+        <div className="flex items-center gap-4 mt-2 text-[12px] flex-wrap">
           {[
-            ["#1E88E5", "Job Post"],
-            ["#64B5F6", "Apply"],
-            ["#90CAF9", "Shortlist"],
+            ["#1E88E5", "Job Posts"],
+            ["#64B5F6", "Job Applied"],
+            ["#90CAF9", "Shortlisted"],
             ["#BBDEFB", "Rejected"],
           ].map(([color, label]) => (
             <div key={label} className="flex items-center">

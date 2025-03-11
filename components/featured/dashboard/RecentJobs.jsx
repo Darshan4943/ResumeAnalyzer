@@ -61,9 +61,9 @@ function RecentJobs({ isPending }) {
           params: { page, limit, search: searchQuery },
         }
       );
-      const recentApplications = response.data.jobs.slice(0, 5); 
+      const recentApplications = response.data.jobs.slice(0, 5);
       setApplicants(recentApplications);
-      
+
       // setApplicants(response.data.jobs);
       setTotalCount(response.data.pagination.totalApplications);
       setTotalpages(response.data.pagination.totalPages);
@@ -142,15 +142,15 @@ function RecentJobs({ isPending }) {
       check: "",
     },
     {
-      name: "Company Location",
+      name: "Location",
       check: "",
     },
     {
-      name: "Job Post Date",
+      name: "Post Date",
       check: "",
     },
     {
-      name: "Job Post Deadline",
+      name: "Deadline",
       check: "",
     },
     {
@@ -176,27 +176,6 @@ function RecentJobs({ isPending }) {
         >
           <div className="flex lg:flex-row flex-col  w-[100%] ml:px-[16px] gap-4 lg:justify-between items-start lg:items-center bg-[#fff]">
             <p className="font-[600] text-[16px]">Recent Job Post</p>
-
-            {/* <div className="flex gap-2 items-start justify-end sm:w-[430px]   ">
-              <div
-                className="flex py-2 px-3 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
-                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
-              >
-                <img
-                  src="/images/employer/icon_search.png"
-                  className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
-                  alt=""
-                />
-                <input
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  type="text"
-                  placeholder="Search"
-                  className="w-full"
-                />
-              </div>
-          
-            </div> */}
           </div>
         </div>
       </div>

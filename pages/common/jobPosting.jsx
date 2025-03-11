@@ -13,7 +13,7 @@ function JobPosting() {
   const [error, setError] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
- const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState({
     Department: "",
     Location: "",
     Status: "",
@@ -43,7 +43,7 @@ function JobPosting() {
 
     fetchCompanyData();
   }, []);
-  
+
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
@@ -67,8 +67,6 @@ function JobPosting() {
         deadLines: [...new Set(response.data.deadLines)],
       };
 
-     
-
       setHeadings((prevHeadings) =>
         prevHeadings.map((item) => {
           if (item.heading === "JobTitle") {
@@ -76,7 +74,7 @@ function JobPosting() {
               ...item,
               options: data.jobTitles,
             };
-          }else if (item.heading === "CompanyName") {
+          } else if (item.heading === "CompanyName") {
             return {
               ...item,
               options: data.companyNames,
@@ -178,14 +176,13 @@ function JobPosting() {
         setOpenSort(false);
       }
     };
-   
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
- 
+
   const handelclear = () => {
     setFilters({
       Department: "",
@@ -202,8 +199,6 @@ function JobPosting() {
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-
- 
 
       if (value) {
         updatedFilters[heading] = value;
@@ -242,8 +237,8 @@ function JobPosting() {
               {companyData?.length > 0 && (
                 <div className="flex flex-col bg-white rounded-[16px] p-4">
                   <p className="text-[16px] font-medium">
-                    Select an existing company <br />
-                    from your list.
+                    Choose an existing company <br />
+                    from the dropdown list.
                   </p>
                   <div className="flex gap-2 items-end">
                     {loading ? (
@@ -273,8 +268,8 @@ function JobPosting() {
               )}
               <div className="flex flex-col bg-white rounded-[16px] p-4">
                 <p className="text-[16px] font-medium">
-                  Add detailed job descriptions <br />
-                  and requirements.
+                  Enter job descriptions, requirements, <br />
+                  and other necessary details
                 </p>
                 <div className="flex gap-2 items-end">
                   <button
@@ -309,89 +304,90 @@ function JobPosting() {
             </div>
           </div>
           <div className="hidden ml:flex w-full   gap-12 rounded-[6px] px-[12px] py-[10px] bg-[#FFFFFF]  justify-between">
-              <div className="w-full flex justify-between items-center">
-                {headings.map((filter, index) => (
-                  <>
-                    <Select
-                      key={index}
-                      className="scr1067:w-[25%] w-[30%] overflow-visible"
-                      options={filter.options.map((option) => ({
-                        value: option,
-                        label: option,
-                      }))}
-                      onChange={(selectedOption) =>
-                        handleFilterChange(
-                          filter.heading,
-                          selectedOption ? selectedOption.value : ""
-                        )
-                      }
-                      value={
-                        filters[filter.heading]
-                          ? {
-                              value: filters[filter.heading],
-                              label:
-                                filters[filter.heading] === "Live"
-                                  ? "Active"
-                                  : filters[filter.heading] === "Closed"
-                                  ? "Inactive"
-                                  : filters[filter.heading],
-                            }
-                          : ""
-                      }
-                      placeholder={
-                        filter.heading === "JobTitle"
-                          ? "Job Title"
-                          :  filter.heading === "CompanyName"
-                          ? "Company Name" : filter.heading
-                      }
-                      isSearchable={true}
-                      noOptionsMessage={() => "No options available"}
-                      menuPortalTarget={document.body}
-                      menuPosition="absolute"
-                      styles={{
-                        ...customStyles,
-                        menu: (base) => ({
-                          ...base,
-                          minWidth: "320px",
-                          maxWidth: "150px",
-                          zIndex: 9999,
-                        }),
-                        menuList: (base) => ({
-                          ...base,
-                          fontSize: "12px",
-                          padding: "4px",
-                        }),
-                        option: (base) => ({
-                          ...base,
-                          padding: "4px 8px",
-                          fontSize: "16px",
-                        }),
-                        menuPortal: (base) => ({
-                          ...base,
-                          zIndex: 9999,
-                        }),
-                      }}
-                    />
-                    <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
-                  </>
-                ))}
-              </div>
-              <div className=" flex justify-end gap-3">
-                {/* <button
+            <div className="w-full flex justify-between items-center">
+              {headings.map((filter, index) => (
+                <>
+                  <Select
+                    key={index}
+                    className="scr1067:w-[25%] w-[30%] overflow-visible"
+                    options={filter.options.map((option) => ({
+                      value: option,
+                      label: option,
+                    }))}
+                    onChange={(selectedOption) =>
+                      handleFilterChange(
+                        filter.heading,
+                        selectedOption ? selectedOption.value : ""
+                      )
+                    }
+                    value={
+                      filters[filter.heading]
+                        ? {
+                            value: filters[filter.heading],
+                            label:
+                              filters[filter.heading] === "Live"
+                                ? "Active"
+                                : filters[filter.heading] === "Closed"
+                                ? "Inactive"
+                                : filters[filter.heading],
+                          }
+                        : ""
+                    }
+                    placeholder={
+                      filter.heading === "JobTitle"
+                        ? "Job Title"
+                        : filter.heading === "CompanyName"
+                        ? "Company Name"
+                        : filter.heading
+                    }
+                    isSearchable={true}
+                    noOptionsMessage={() => "No options available"}
+                    menuPortalTarget={document.body}
+                    menuPosition="absolute"
+                    styles={{
+                      ...customStyles,
+                      menu: (base) => ({
+                        ...base,
+                        minWidth: "320px",
+                        maxWidth: "150px",
+                        zIndex: 9999,
+                      }),
+                      menuList: (base) => ({
+                        ...base,
+                        fontSize: "12px",
+                        padding: "4px",
+                      }),
+                      option: (base) => ({
+                        ...base,
+                        padding: "4px 8px",
+                        fontSize: "16px",
+                      }),
+                      menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999,
+                      }),
+                    }}
+                  />
+                  <div className="bg-[#E0E0E0] min-w-[1px] h-[20px]"></div>
+                </>
+              ))}
+            </div>
+            <div className=" flex justify-end gap-3">
+              {/* <button
                   onClick={handleFilterChange}
                   className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
                 >
                   Search
                 </button> */}
-                <button
-                  onClick={handelclear}
-                  className="scr1067:px-[24px] px-4 scr1067:py-[6px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
-                >
-                  Clear
-                </button>
-              </div>
+              <button
+                onClick={handelclear}
+                className="scr1067:px-[24px] px-4 scr1067:py-[6px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"
+              >
+                Clear
+              </button>
             </div>
-          <JobCard filters={filters} setFilters={setFilters}/>
+          </div>
+          <JobCard filters={filters} setFilters={setFilters} />
         </div>
       )}
     </>

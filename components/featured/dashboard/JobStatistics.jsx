@@ -44,29 +44,29 @@ function JobStatistics({ setSelected, selected, data }) {
               Job statistics
             </p>
             <p className="text-[#646464] lg:text-[12px] text-[10px] font-medium">
-              Showing Job statistics{" "}
+              Duration :
               {selected === "Monthly"
-                ? `Start: ${new Date(data?.dateRange?.start).toLocaleDateString(
+                ? `${new Date(data?.dateRange?.start).toLocaleDateString(
                     "en-GB",
                     {
                       year: "numeric",
                       month: "short",
                     }
-                  )}, End: ${new Date(data?.dateRange?.end).toLocaleDateString(
+                  )} - ${new Date(data?.dateRange?.end).toLocaleDateString(
                     "en-GB",
                     {
                       year: "numeric",
                       month: "short",
                     }
                   )}`
-                : `Start: ${new Date(data?.dateRange?.start).toLocaleDateString(
+                : `${new Date(data?.dateRange?.start).toLocaleDateString(
                     "en-GB",
                     {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
                     }
-                  )}, End: ${new Date(data?.dateRange?.end).toLocaleDateString(
+                  )} - ${new Date(data?.dateRange?.end).toLocaleDateString(
                     "en-GB",
                     {
                       year: "numeric",
@@ -358,4 +358,3 @@ function JobStatistics({ setSelected, selected, data }) {
 }
 
 export default JobStatistics;
-
