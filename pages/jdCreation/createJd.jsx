@@ -49,7 +49,7 @@ function CreateJd() {
 
     const getJobDescriptions = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/jd/getById/${id}`);
+            const response = await axios.get(`http://192.168.1.161:2000/api/jd/getById/${id}`);
             setJobDescription(response.data.data.jd);
 
         } catch (error) {
@@ -65,7 +65,7 @@ function CreateJd() {
 
         try {
             const response = await axios.post(
-                "http://localhost:2000/api/generate/jobDescription",
+                "http://192.168.1.161:2000/api/generate/jobDescription",
                 formData
             );
             setJobTitle(response.data.jobTitle)
@@ -218,8 +218,8 @@ function CreateJd() {
         try {
             setLoadingg(true)
             const url = id
-                ? `http://localhost:2000/api/jd/update/${id}`
-                : "http://localhost:2000/api/jd/add";
+                ? `http://192.168.1.161:2000/api/jd/update/${id}`
+                : "http://192.168.1.161:2000/api/jd/add";
 
             const method = id ? "put" : "post";
 

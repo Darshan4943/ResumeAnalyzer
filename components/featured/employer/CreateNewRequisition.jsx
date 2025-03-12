@@ -47,7 +47,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/creatrequasetion",
+        "http://192.168.1.161:2000/api/creatrequasetion",
         data
       );
 

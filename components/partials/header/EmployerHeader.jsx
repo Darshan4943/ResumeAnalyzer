@@ -69,7 +69,7 @@ function EmployerHeader() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/getNotificationLength/${userDataGlobal._id}`
+        `http://192.168.1.161:2000/api/getNotificationLength/${userDataGlobal._id}`
       );
 
       if (!response.ok) {
@@ -139,17 +139,17 @@ function EmployerHeader() {
 
         <div className="flex ms:px-4  px-2  justify-end scr420:gap-4 gap-2 w-[60%]  ">
           <div className="flex gap-1 text-[12px] font-medium items-center">
-          <p className="hidden scr420:block">Remaining AI Hits</p>
-          <div
-  style={{
-    backgroundColor: "#4C43CD",
-    backgroundImage: `
+            <p className="hidden scr420:block">Remaining AI Hits</p>
+            <div
+              style={{
+                backgroundColor: "#4C43CD",
+                backgroundImage: `
       radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
       radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
     `,
-  }}
-  className="relative p-[6px] text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
->
+              }}
+              className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
+            >
               <svg
                 width="11"
                 height="10"
@@ -268,7 +268,7 @@ function EmployerHeader() {
                   style={{
                     boxShadow: "0px 2px 2px 0px #00000040",
                   }}
-                  className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[2.80rem] right-4 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
+                  className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[61px] right-4 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
                 >
                   <div
                     onClick={() => router.push("/recruiter/profile")}
@@ -418,8 +418,8 @@ function EmployerHeader() {
                 backdropFilter: "blur(10px)",
                 ...(navigator.userAgent.includes("Safari") &&
                   !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(10px)",
-                  }),
+                  WebkitBackdropFilter: "blur(10px)",
+                }),
                 willChange: "transform",
                 // opacity: isSidebar ? 1 : 0,
                 // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",

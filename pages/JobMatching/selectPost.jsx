@@ -27,7 +27,7 @@ const SelectPost = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        `http://192.168.1.161:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
         {
           params: {
             page,
@@ -113,7 +113,7 @@ const SelectPost = () => {
         </span>
 
         <div className="flex gap-3">
-          <div className="flex items-center gap-2 border-[1px] bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
+          <div className="flex items-center gap-2  bg-[#ffffff]  text-white py-[8px] px-[12px] rounded-lg min-w-[190px]">
             <input
               type="text"
               placeholder="Enter Job Title"
@@ -128,9 +128,9 @@ const SelectPost = () => {
             />
           </div>
 
-          <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative h-[39.6px]">
+          <div className="flex ms:flex-row flex-col-reverse gap-4  ms:items-center items-end justify-end relative h-[39.6px] outline-none">
             <select
-              className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer h-[39.6px]"
+              className="text-[14px] font-medium text-[#333333] bg-white rounded-[8px] py-[8px] px-[12px] cursor-pointer h-[39.6px] outline-none"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
@@ -157,7 +157,7 @@ const SelectPost = () => {
                     <div
                       key={index}
                       onClick={() =>
-                        router.push(`/JobMatching?selectedJob=${item?._id}`)
+                        router.push(`/JobMatching/matchJob?selectedJob=${item?._id}`)
                       }
                       className="flex w-full sm:w-[380px] py-3 px-4 md:py-4 md:px-6 flex-col items-start gap-3 flex-shrink-0 rounded-lg bg-white shadow-md col-span-4"
                     >

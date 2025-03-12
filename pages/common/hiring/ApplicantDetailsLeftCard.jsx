@@ -29,7 +29,7 @@ function ApplicantDetailsLeftCard({
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/hiring/moveToHiring/${applicantId}/${id}`
+        `http://192.168.1.161:2000/api/hiring/moveToHiring/${applicantId}/${id}`
       );
       setLoading(false);
       setStatusChange(true);

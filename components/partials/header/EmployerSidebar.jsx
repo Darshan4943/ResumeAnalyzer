@@ -42,7 +42,7 @@ function EmployerSidebar() {
       img: "/images/employer/sidebar/jdMatching.png",
       img1: "/images/employer/sidebar/jdMatching1.png",
       title: "JD Matching",
-      route: "/JobMatching/SelectJob",
+      route: "/JobMatching",
     },
     {
       img: "/images/employer/sidebar/jdcreation.png",
@@ -53,7 +53,7 @@ function EmployerSidebar() {
     {
       img: "/images/employer/sidebar/candidate.png",
       img1: "/images/employer/sidebar/candidate1.png",
-      title: "Candidates",
+      title: "Resumes",
       route: "/recruiter/resumeCreation",
     },
     {
@@ -65,7 +65,7 @@ function EmployerSidebar() {
     {
       img: "/images/employer/sidebar/template1.png",
       img1: "/images/employer/sidebar/template.png",
-      title: "Template",
+      title: "Mail Templates",
       route: "/template",
     },
     
@@ -100,7 +100,7 @@ function EmployerSidebar() {
       img: "/images/employer/sidebar/jdMatching.png",
       img1: "/images/employer/sidebar/jdMatching1.png",
       title: "JD Matching",
-      route: "/JobMatching/SelectJob",
+      route: "/JobMatching",
     },
     {
       img: "/images/employer/sidebar/preboarding.png",
@@ -131,7 +131,7 @@ function EmployerSidebar() {
           <ALink href={item.route} key={index}>
             <div className="p-2">
               <div
-                className={`w-full flex flex-col gap-2 p-2 justify-center items-center rounded-[8px] ${
+                className={`w-full flex flex-col gap-2 py-2  justify-center items-center rounded-[8px] ${
                   isActive ? "bg-[#DFF4FD]" : ""
                 }`}
               >

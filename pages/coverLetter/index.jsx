@@ -101,7 +101,7 @@ function Index() {
   //   console.log("id", id);
   //   if (id) {
   //     axios
-  //       .get(`http://localhost:2000/api/cover/getById/${id}`)
+  //       .get(`http://192.168.1.161:2000/api/cover/getById/${id}`)
   //       .then((res) => {
   //         setResumeList(res.data.data);
   //       })

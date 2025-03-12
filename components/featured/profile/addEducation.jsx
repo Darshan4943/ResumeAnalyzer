@@ -107,7 +107,7 @@ function AddEducation({
     if (editEducation) {
       axios
         .put(
-          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
+          `http://192.168.1.161:2000/api/candidate/${userDataGlobal?._id}/updateEducation/${Education._id}`,
           obj
         )
         .then((res) => {
@@ -123,7 +123,7 @@ function AddEducation({
     else {
       axios
         .post(
-          `http://localhost:2000/api/candidate/addEducation/${userDataGlobal?._id}`,
+          `http://192.168.1.161:2000/api/candidate/addEducation/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {

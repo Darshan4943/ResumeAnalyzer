@@ -59,7 +59,7 @@ function CandidateHeader() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .get("http://192.168.1.161:2000/api/jobs/getJobAttributes")
       .then((res) => {
         const { experiences } = res.data;
         setExperinceData(experiences);
@@ -481,7 +481,7 @@ function CandidateHeader() {
             style={{
               boxShadow: "0px 2px 2px 0px #00000040",
             }}
-            className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[1.95rem] right-0 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
+            className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[61px]  right-0 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
           >
             <div
               onClick={() => router.push("/profile")}

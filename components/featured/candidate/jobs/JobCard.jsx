@@ -27,7 +27,7 @@ function Job_card({
     e.stopPropagation();
     try {
       await axios.post(
-        `http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`
+        `http://192.168.1.161:2000/api/saveJob/${userDataGlobal?._id}/${id}`
       );
       getData();
       setSaved((prevState) => !prevState);
@@ -44,7 +44,7 @@ function Job_card({
     e.stopPropagation();
     try {
       await axios.post(
-        `http://localhost:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `http://192.168.1.161:2000/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
       getData();

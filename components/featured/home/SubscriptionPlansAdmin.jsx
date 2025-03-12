@@ -46,27 +46,35 @@ function SubscriptionPlansAdmin({ toggle }) {
   }, [userDataGlobal, showPlan, toggle, allPlans]);
   const [subscription, setSubscription] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
-      .then((res) => {
-        setSubscription(res.data.findIsActive);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [userDataGlobal, showPlan]);
+    useEffect(() => {
+        axios
+            .get("http://192.168.1.161:2000/api/subscription/" + userDataGlobal?._id)
+            .then((res) => {
+                setSubscription(res.data.findIsActive);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [userDataGlobal, showPlan]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:2000/api/plans/getAllPlans")
-      .then((res) => {
-        setAllPlans(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [userDataGlobal]);
+
+
+    useEffect(() => {
+        axios
+            .get("http://192.168.1.161:2000/api/plans/getAllPlans")
+            .then((res) => {
+
+                setAllPlans(res.data.data)
+
+
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+
+    }, [userDataGlobal]);
+
 
   return (
     <>

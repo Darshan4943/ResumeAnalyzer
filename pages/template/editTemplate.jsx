@@ -78,7 +78,7 @@ function EditTemplate() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
+        `http://192.168.1.161:2000/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
 
@@ -147,7 +147,7 @@ function EditTemplate() {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/createTemplate/${userDataGlobal._id}`,
+        `http://192.168.1.161:2000/api/createTemplate/${userDataGlobal._id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

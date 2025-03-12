@@ -9,16 +9,17 @@ function HeroSection() {
   const [location, setLocation] = useState("");
   const [experience, setExperience] = useState("");
 
-  const [experinceData, setExperinceData] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:2000/api/jobs/getJobAttributes")
-      .then((res) => {
-        const { experiences } = res.data;
-        setExperinceData(experiences);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    const [experinceData, setExperinceData] = useState([]);
+    useEffect(() => {
+        axios
+            .get("http://192.168.1.161:2000/api/jobs/getJobAttributes")
+            .then((res) => {
+                const { experiences } = res.data;
+                setExperinceData(experiences);
+
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
   const sortedExperiences = (experinceData || [])
     .filter(Boolean)

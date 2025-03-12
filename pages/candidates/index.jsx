@@ -61,7 +61,7 @@ function MyClients() {
   const callData = () => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
+        `http://192.168.1.161:2000/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -85,7 +85,7 @@ function MyClients() {
     }
 
     axios
-      .delete("http://localhost:2000/api/client/deleteClients", {
+      .delete("http://192.168.1.161:2000/api/client/deleteClients", {
         data: { ids },
       })
       .then((response) => {

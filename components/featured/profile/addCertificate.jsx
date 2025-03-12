@@ -102,7 +102,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     if (isEditing) {
       axios
         .put(
-          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateCourse/${Course._id}`,
+          `http://192.168.1.161:2000/api/candidate/${userDataGlobal?._id}/updateCourse/${Course._id}`,
           obj
         )
         .then((res) => {
@@ -116,7 +116,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     } else {
       axios
         .post(
-          "http://localhost:2000/api/candidate/addCourse/" +
+          "http://192.168.1.161:2000/api/candidate/addCourse/" +
             userDataGlobal?._id,
           obj
         )

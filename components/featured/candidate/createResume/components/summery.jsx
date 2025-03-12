@@ -61,7 +61,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal?._id)
+        .get("http://192.168.1.161:2000/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 

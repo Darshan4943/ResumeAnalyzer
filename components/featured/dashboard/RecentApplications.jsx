@@ -59,7 +59,7 @@ function RecentApplications({ isPending }) {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getAllApplication/${userDataGlobal?._id}`,
+        `http://192.168.1.161:2000/api/job/getAllApplication/${userDataGlobal?._id}`,
         {
           params: { page, limit, search: searchQuery },
         }
@@ -100,7 +100,7 @@ function RecentApplications({ isPending }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/shortlistCandidate",
+        "http://192.168.1.161:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 

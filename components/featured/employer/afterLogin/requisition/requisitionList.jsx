@@ -34,7 +34,7 @@ function RequisitionList({
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/getrequisitions/${userDataGlobal._id}`,
+          `http://192.168.1.161:2000/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,

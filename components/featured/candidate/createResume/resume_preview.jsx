@@ -104,7 +104,7 @@ const ResumePreview = ({
     const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`http://localhost:2000/api/resume/${id}`)
+        .get(`http://192.168.1.161:2000/api/resume/${id}`)
 
         .then((res) => {
 
@@ -408,7 +408,7 @@ const ResumePreview = ({
         }
 
         axios
-          .put("http://localhost:2000/api/resume/" + id, formData)
+          .put("http://192.168.1.161:2000/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -478,7 +478,7 @@ const ResumePreview = ({
         
 
         axios
-          .post("http://localhost:2000/api/resume/add", formData)
+          .post("http://192.168.1.161:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -521,7 +521,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        "http://192.168.1.161:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal?._id
       )
       .then((res) => {

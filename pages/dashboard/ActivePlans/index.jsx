@@ -19,7 +19,7 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("http://localhost:2000/api/activeSubscription", {
+      .get("http://192.168.1.161:2000/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {

@@ -65,7 +65,7 @@ const Index = () => {
     setLoading(true);
     if (userDataGlobal?._id) {
       axios
-        .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
+        .get(`http://192.168.1.161:2000/api/resume/${userDataGlobal?._id}`)
         .then((res) => {
           setResumeList(res.data.data);
 
@@ -95,7 +95,7 @@ const Index = () => {
       if (selectedIndexes) {
         try {
           const response = await axios.put(
-            `http://localhost:2000/api/candidate/selectResume`,
+            `http://192.168.1.161:2000/api/candidate/selectResume`,
             {
               selectedIndexes,
               selectedResumeUrl,
@@ -110,7 +110,7 @@ const Index = () => {
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `http://localhost:3000/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `http://192.168.1.161:3000/${userDataGlobal.id}/${userDataGlobal.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);
