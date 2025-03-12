@@ -26,7 +26,6 @@ function Dashboard({ toggleContentt }) {
   const [selected, setSelected] = useState("Daily");
   const [isPending, setIsPending] = useState("");
   const router = useRouter();
-  const [pendingJobs, setPendingJobs] = useState(false);
   const pendingJobsRef = useRef(null);
 
   const scrollToPendingJobs = () => {
@@ -96,190 +95,9 @@ function Dashboard({ toggleContentt }) {
         scrollToInterviewJobs={scrollToInterviewJobs}
         scrollToPendingJobs={scrollToPendingJobs}
       />
-      <div className="scr1300:flex scr1300:flex-row flex flex-col w-full pt-6 justify-between">
-        {/* <div className="w-[100%] scr1300:w-[31.26%] flex flex-col scr700:flex-row scr700:justify-between scr1168:justify-start scr1300:flex-col items-start scr1300:pt-0  gap-6">
-          <div className="w-[100%] scr700:w-[48%] scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
-            <div
-              className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] h-[86px] w-full"
-              style={{
-                borderRadius: "6px",
-                backgroundColor: "#fff",
-                boxShadow:
-                  "0px 4px 0px 0px #FFB836 inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              <div className="flex  items-center w-full">
-                <div className="flex gap-2 items-center w-full ">
-                  <svg
-                    xlgns="http://www.w3.org/2000/svg"
-                    width="10"
-                    height="10"
-                    viewBox="0 0 10 10"
-                    fill="none"
-                  >
-                    <circle cx="5" cy="5" r="5" fill="#FFB836" />
-                  </svg>
-                  <div className="flex justify-between items-center w-[100%]">
-                    <p className="text-[#646464] text-[16px] font-semibold">
-                      Total Jobs Posted
-                    </p>
-
-                    <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
-                      <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        <CountUp end={statistics.totalJobs} />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] h-[86px]  w-full"
-              style={{
-                borderRadius: "6px",
-                backgroundColor: "#fff",
-                boxShadow:
-                  "0px 4px 0px 0px #14AEF0 inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              <div className="flex  items-center w-full">
-                <div className="flex gap-2 items-center w-full ">
-                  <svg
-                    xlgns="http://www.w3.org/2000/svg"
-                    width="10"
-                    height="10"
-                    viewBox="0 0 10 10"
-                    fill="none"
-                  >
-                    <circle cx="5" cy="5" r="5" fill="#14AEF0" />
-                  </svg>
-                  <div className="flex justify-between items-center w-[100%]">
-                    <p className="text-[#646464] text-[16px] font-semibold">
-                      Total Applications
-                    </p>
-
-                    <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
-                      <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        <CountUp end={statistics.totalApplications} />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-[100%] scr700:w-[48%]  scr1300:w-[100%] flex flex-col scr1168:flex-row scr1300:flex-col gap-6">
-            {userDataGlobal?.role == "employer" ? (
-              <div
-                className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] h-[90px]   w-full"
-                style={{
-                  borderRadius: "6px",
-                  backgroundColor: "#fff",
-                  boxShadow:
-                    "0px 4px 0px 0px #56CDAD inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                }}
-              >
-                <div className="flex  items-center w-full">
-                  <div className="flex gap-2 items-center w-full ">
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      fill="none"
-                    >
-                      <circle cx="5" cy="5" r="5" fill="#56CDAD" />
-                    </svg>
-                    <div className="flex justify-between items-center w-[100%]">
-                      <p className="text-[#646464] text-[16px] font-semibold">
-                        Hired
-                      </p>
-
-                      <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
-                        <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                          <CountUp end={statistics.hired} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div
-                className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] h-[86px]  w-full"
-                style={{
-                  borderRadius: "6px",
-                  backgroundColor: "#fff",
-                  boxShadow:
-                    "0px 4px 0px 0px #56CDAD inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                }}
-              >
-                <div className="flex  items-center w-full">
-                  <div className="flex gap-2 items-center w-full ">
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      fill="none"
-                    >
-                      <circle cx="5" cy="5" r="5" fill="#56CDAD" />
-                    </svg>
-                    <div className="flex justify-between items-center w-[100%]">
-                      <p className="text-[#646464] text-[16px] font-semibold">
-                        Shortlisted
-                      </p>
-
-                      <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
-                        <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                          <CountUp end={statistics.shortlisted} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div
-              className="flex justify-between items-center px-6 py-[16px] lg:py-[16px] h-[86px]  w-full"
-              style={{
-                borderRadius: "6px",
-                backgroundColor: "#fff",
-                boxShadow:
-                  "0px 4px 0px 0px #FF6550 inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              <div className="flex  items-center w-full">
-                <div className="flex gap-2 items-center w-full ">
-                  <svg
-                    xlgns="http://www.w3.org/2000/svg"
-                    width="10"
-                    height="10"
-                    viewBox="0 0 10 10"
-                    fill="none"
-                  >
-                    <circle cx="5" cy="5" r="5" fill="#FF6550" />
-                  </svg>
-                  <div className="flex justify-between items-center w-[100%]">
-                    <p className="text-[#646464] text-[16px] font-semibold">
-                      Rejected
-                    </p>
-
-                    <div className="flex px-1 py-[18px] gap-[10px] items-center rounded-[6px] ">
-                      <p className="text-[#333333] text-[20px] font-[600] font-[Montserrat]">
-                        <CountUp end={statistics.rejected} />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
+      <div className="scr1300:flex scr1300:flex-row flex flex-col w-full  scr1300:justify-between gap-4">
         <>
-          {/* <JobPostingChart /> */}
-          <AIHitsChart/>
+          <AIHitsChart />
         </>
 
         <JobStatistics
@@ -289,18 +107,16 @@ function Dashboard({ toggleContentt }) {
           data={data}
         />
       </div>
-      <div>
-        <div className="flex gap-[36px]">
-          <div>
-            <CandidateOverviewChart
-              statistics={statistics}
-             />
-          </div>
-          <div>
-            <JobPostChart />
-          </div>
+
+      <div className="scr1300:flex scr1300:flex-row flex flex-col w-full  scr1300:justify-between gap-4">
+        <div>
+          <CandidateOverviewChart statistics={statistics} />
+        </div>
+        <div>
+          <JobPostChart />
         </div>
       </div>
+
       <div ref={pendingJobsRef}>
         {userDataGlobal?.role === "employer" ? (
           <RecentApplications isPending={isPending} />

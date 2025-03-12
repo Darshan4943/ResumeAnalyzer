@@ -126,13 +126,11 @@ const JobCard = ({ filters, setFilters }) => {
       const response = await axios.post(
         `http://localhost:2000/api/job/handleChangeStatus`,
         { jobId: id, status: newStatus }
-
       );
 
       if (response.data.success) {
-
         toast.success("Job status updated successfully");
-        setStatusToggle({})
+        setStatusToggle({});
         fetchJobs();
       } else {
         toast.error(response.data.message || "Failed to update status");
@@ -146,7 +144,7 @@ const JobCard = ({ filters, setFilters }) => {
   const handleToggle = (jobId) => {
     setStatusToggle((prev) => ({
       ...prev,
-      [jobId]: !prev[jobId], 
+      [jobId]: !prev[jobId],
     }));
   };
   return (
@@ -174,12 +172,14 @@ const JobCard = ({ filters, setFilters }) => {
                   className="flex w-full sm:w-[380px] py-[12px] px-[16px] md:py-[16px] md:px-[24px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md col-span-4"
                 >
                   <div
-                    className={`flex justify-between w-[100%] gap-2 ${hasLongTitle ? "h-[42px]" : ""
-                      }`}
+                    className={`flex justify-between w-[100%] gap-2 ${
+                      hasLongTitle ? "h-[42px]" : ""
+                    }`}
                   >
                     <div
-                      className={`flex justify-between ${job?.jobTitle?.length > 35 && "group"
-                        } relative gap-[20px] items-start`}
+                      className={`flex justify-between ${
+                        job?.jobTitle?.length > 35 && "group"
+                      } relative gap-[20px] items-start`}
                     >
                       <p className="text-[14px] font-[600]">
                         {job?.jobTitle?.length > 35
@@ -190,11 +190,13 @@ const JobCard = ({ filters, setFilters }) => {
                         {job.jobTitle}
                       </div>
 
-                      <div onClick={(e) => {
-                        e.stopPropagation();
-                        handleToggle(job._id); 
-                      }}
-                        className="flex gap-[3px] items-center relative">
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToggle(job._id);
+                        }}
+                        className="flex gap-[3px] items-center relative"
+                      >
                         {job.status === "Active" ? (
                           <>
                             <div className="min-w-[6px] h-[6px] bg-[#0C8A0A] rounded-full"></div>
@@ -233,22 +235,40 @@ const JobCard = ({ filters, setFilters }) => {
                           </g>
                         </svg>
                         {statusToggle[job._id] && (
-                          <div  ref={popupRef} className="absolute top-5 z-[3000] bg-white rounded-[6px] shadow-md py-1">
+                          <div
+                            ref={popupRef}
+                            className="absolute top-5 z-[3000] bg-white rounded-[6px] shadow-md py-1"
+                          >
                             <p
-                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Active"); }}
-                              className={`${job.status === "Active" ? "hidden" : "block"} text-[12px] font-[500] text-[#0C8A0A] hover:bg-[#ccffcb] px-4 cursor-pointer`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleChangeStatus(job._id, "Active");
+                              }}
+                              className={`${
+                                job.status === "Active" ? "hidden" : "block"
+                              } text-[12px] font-[500] text-[#0C8A0A] hover:bg-[#ccffcb] px-4 cursor-pointer`}
                             >
                               Active
                             </p>
                             <p
-                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Inactive"); }}
-                              className={`${job.status === "Inactive" ? "hidden" : "block"} text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleChangeStatus(job._id, "Inactive");
+                              }}
+                              className={`${
+                                job.status === "Inactive" ? "hidden" : "block"
+                              } text-[12px] font-[500] text-[#FF7802] hover:bg-[#ffffe5] px-4 cursor-pointer`}
                             >
                               Inactive
                             </p>
                             <p
-                              onClick={(e) => { e.stopPropagation(); handleChangeStatus(job._id, "Closed"); }}
-                              className={`${job.status === "Closed" ? "hidden" : "block"} text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleChangeStatus(job._id, "Closed");
+                              }}
+                              className={`${
+                                job.status === "Closed" ? "hidden" : "block"
+                              } text-[12px] font-[500] text-[#B3261E] hover:bg-[#ffe2e1] px-4 cursor-pointer`}
                             >
                               Closed
                             </p>
@@ -329,7 +349,7 @@ const JobCard = ({ filters, setFilters }) => {
                   <div className="flex w-[100%] justify-between items-center ">
                     <div className="flex flex-col items-start gap-[4px]">
                       <p className="text-[12px] font-[600] text-[#646464]">
-                        Date posted
+                        Date Posted
                       </p>
                       <p className="text-[#333] font-[500] text-[12px]">
                         {new Date(job.createdAt).toLocaleDateString("en-GB", {
@@ -414,14 +434,28 @@ const JobCard = ({ filters, setFilters }) => {
                         </svg>
                       </div>
                       <div
-                        className={`text-[12px] font-[400] ${job.location.length > 2 && "group"
-                          } relative`}
+                        className={`text-[12px] font-[400] ${
+                          job.location.length > 2 && "group"
+                        } relative`}
                       >
                         {job.location.length > 2
-                          ? `${job.location[0]} ...`
-                          : job?.location?.join(", ")}
-                        <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                          {job?.location?.join(", ")}
+                          ? `${
+                              job.location[0].charAt(0).toUpperCase() +
+                              job.location[0].slice(1)
+                            } ...`
+                          : job?.location
+                              ?.map(
+                                (loc) =>
+                                  loc.charAt(0).toUpperCase() + loc.slice(1) 
+                              )
+                              .join(", ")}
+                        <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                          {job?.location
+                            ?.map(
+                              (loc) =>
+                                loc.charAt(0).toUpperCase() + loc.slice(1) 
+                            )
+                            .join(", ")}
                         </div>
                       </div>
                     </div>
