@@ -255,7 +255,6 @@ function CreateNewJob() {
     return newFormError;
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingg(true);
@@ -289,7 +288,7 @@ function CreateNewJob() {
     }
     if (userDataGlobal?.role === "employer") {
       formData.append("companyId", userDataGlobal?.companyId);
-    } else if ( userDataGlobal?.role === "recruiter" && companyId) {
+    } else if (userDataGlobal?.role === "recruiter" && companyId) {
       formData.append("companyId", companyId);
     }
 
@@ -331,7 +330,7 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-        "An error occurred while adding the job."
+          "An error occurred while adding the job."
       );
     }
   };
@@ -721,7 +720,7 @@ function CreateNewJob() {
     }),
     option: (provided, state) => ({
       ...provided,
-      fontSize: "10px",
+      fontSize: "14px",
     }),
   };
 
@@ -731,7 +730,22 @@ function CreateNewJob() {
       border: formError.country ? "1px solid red" : "1px solid #DEDEDE",
       borderRadius: "8px",
       padding: "2px 8px",
+      flexWrap: "wrap",
+      overflowX: "auto",
       boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+    }),
+    valueContainer: (base) => ({
+      ...base,
+      display: "flex",
+      flexWrap: "nowrap",
+      overflowX: "auto",
+      gap: "4px",
+      padding: "2px 4px",
+      scrollbarWidth: "none", 
+      "-ms-overflow-style": "none", 
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
     }),
     placeholder: (provided) => ({
       ...provided,
@@ -742,11 +756,17 @@ function CreateNewJob() {
     menu: (provided) => ({
       ...provided,
       zIndex: 10,
+      scrollbarWidth: "none", 
+      "-ms-overflow-style": "none", 
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
     }),
     multiValue: (provided) => ({
       ...provided,
       backgroundColor: "#EFFAFF",
       borderRadius: "4px",
+      minWidth: "90px",
     }),
     multiValueLabel: (provided) => ({
       ...provided,
@@ -758,10 +778,10 @@ function CreateNewJob() {
       color: "#9A4545",
       "&:hover": {
         backgroundColor: "transparent",
-        // color: "white",
       },
     }),
   };
+  
 
   const optionss = [
     { value: "Annual", label: "Annual" },
@@ -876,10 +896,11 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
+                              formError.jobTitle
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -894,11 +915,13 @@ function CreateNewJob() {
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
-                            } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${formError.Keywords
+                          className={`w-full flex ${
+                            data?.Keywords ? "justify-between" : ""
+                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
+                            formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                            }`}
+                          }`}
                         >
                           <div className="flex gap-4 w-[90%]  items-center">
                             {data?.Keywords.length > 0 && (
@@ -1020,17 +1043,19 @@ function CreateNewJob() {
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
+                            formError.companyName
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                           placeholder="Enter Company name"
                           type="text"
                           name="companyName"
                           value={data.companyName}
                           onChange={handleChange}
                           disabled={
-                           ( userDataGlobal?.role === "employer" && !reqId )|| companyId
+                            (userDataGlobal?.role === "employer" && !reqId) ||
+                            companyId
                           }
                         />
                       </div>
@@ -1048,10 +1073,11 @@ function CreateNewJob() {
                           )}
                           placeholder="Select countries"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${formError.country
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`border rounded-[8px] withoutBorder ${
+                            formError.country
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -1069,10 +1095,11 @@ function CreateNewJob() {
                           Location <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex gap-2  items-center border rounded-[8px] px-2  h-[38px] ${formError.location
-                            ? "border-red"
-                            : "border-[#DEDEDE]"
-                            }`}
+                          className={`w-full flex gap-2  items-center border rounded-[8px] px-2  h-[38px] ${
+                            formError.location
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                          }`}
                         >
                           <div className="flex gap-4 w-[90%] items-center">
                             {data?.location.length > 0 && (
@@ -1498,25 +1525,60 @@ function CreateNewJob() {
                             placeholder="Open Positions"
                           />
                         </div>
-                        <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
+                        <div className="flex flex-col gap-[6px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-[14px] font-[500]">
                             Job Category <span className="text-[red]">*</span>
                           </div>
 
-                          <Select
-                            options={[...JobCategories]}
+                          <ReactSelect
+                            isMulti
+                            options={JobCategories.map((item) => ({
+                              value: item.value,
+                              label: camelCase(item.label),
+                            }))}
                             value={
-                              JobCategories.find(
-                                (option) => option.value === data?.jobCat
-                              ) || null
+                              data?.jobCat
+                                ? data.jobCat.map((cat) => ({
+                                    value: cat,
+                                    label: camelCase(cat),
+                                  }))
+                                : []
                             }
-                            onChange={(selectedOption) => {
+                            onChange={(selectedOptions) => {
+                              const newCategories = selectedOptions
+                                ? selectedOptions.map((option) => option.value)
+                                : [];
+
                               setData({
                                 ...data,
-                                jobCat: selectedOption?.value,
+                                jobCat: newCategories,
                               });
                             }}
-                            styles={customStyless}
+                            onKeyDown={(event) => {
+                              if (
+                                event.key === "Enter" &&
+                                event.target.value.trim()
+                              ) {
+                                const newCategory = event.target.value.trim();
+                                if (
+                                  !JobCategories.some(
+                                    (category) =>
+                                      category.value.toLowerCase() ===
+                                      newCategory.toLowerCase()
+                                  )
+                                ) {
+                                  setData((prev) => ({
+                                    ...prev,
+                                    jobCat: [
+                                      ...(prev.jobCat || []),
+                                      newCategory,
+                                    ],
+                                  }));
+                                }
+                                event.target.value = "";
+                              }
+                            }}
+                            styles={customStylesss}
                             isSearchable={false}
                             className="w-full"
                           />
@@ -1536,13 +1598,13 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
-                                  }`,
+                                outline:"none",
+                                border: `1px solid ${
+                                  formError.jobSector ? "red" : "#DEDEDE"
+                                }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
-                                boxShadow: state.isFocused
-                                  ? "0 0 0 2px rgba(0, 0, 0, 0.1)"
-                                  : "none",
+                               
                               }),
 
                               placeholder: (provided) => ({
@@ -1557,10 +1619,11 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
+                              formError.jobSector
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1643,10 +1706,11 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
+                              formError.requiredQualification
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1661,23 +1725,24 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.mustSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1717,17 +1782,63 @@ function CreateNewJob() {
                               }
                             }}
                             styles={{
-                              control: (base) => ({
-                                ...base,
-                                borderColor: formError.mustSkills
-                                  ? "red"
-                                  : "#DEDEDE",
+                              control: (provided, state) => ({
+                                ...provided,
+                                border: formError.mustSkills
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
                                 borderRadius: "8px",
+                                padding: "2px 8px",
+                                flexWrap: "wrap",
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px #DEDEDE"
+                                  : "none",
                               }),
-                              placeholder: (base) => ({
+                              valueContainer: (base) => ({
                                 ...base,
+                                display: "flex",
+                                flexWrap: "nowrap",
+                                gap: "4px",
+                                padding: "2px 4px",
+                                overflowX: "auto",
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "#767676",
                                 fontSize: "12px",
-                                font: "400",
+                                fontWeight: "400",
+                              }),
+                              menu: (provided) => ({
+                                ...provided,
+                                zIndex: 10,
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              multiValue: (provided) => ({
+                                ...provided,
+                                backgroundColor: "#EFFAFF",
+                                borderRadius: "4px",
+                                minWidth: "90px",
+                              }),
+                              multiValueLabel: (provided) => ({
+                                ...provided,
+                                color: "#06A9EF",
+                                fontWeight: "500",
+                              }),
+                              multiValueRemove: (provided) => ({
+                                ...provided,
+                                color: "#9A4545",
+                                "&:hover": {
+                                  backgroundColor: "transparent",
+                                },
                               }),
                             }}
                           />
@@ -1739,7 +1850,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => { }}
+                            onInputChange={(data) => {}}
                             options={[
                               ...new Set(
                                 skills
@@ -1750,16 +1861,17 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${formError.goodSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                              }`}
+                            className={`w-full withoutBorder ${
+                              formError.goodSkills
+                                ? "border-red"
+                                : "border-[#DEDEDE]"
+                            }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                  value: skill,
-                                  label: camelCase(skill),
-                                }))
+                                    value: skill,
+                                    label: camelCase(skill),
+                                  }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1795,20 +1907,63 @@ function CreateNewJob() {
                               }
                             }}
                             styles={{
-                              control: (base) => ({
-                                ...base,
-                                borderColor: formError.goodSkills
-                                  ? "red"
-                                  : "#DEDEDE",
+                              control: (provided, state) => ({
+                                ...provided,
+                                border: formError.goodSkills
+                                  ? "1px solid red"
+                                  : "1px solid #DEDEDE",
                                 borderRadius: "8px",
+                                padding: "2px 8px",
+                                flexWrap: "wrap",
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px #DEDEDE"
+                                  : "none",
                               }),
-                              container: (base) => ({
+                              valueContainer: (base) => ({
                                 ...base,
+                                display: "flex",
+                                flexWrap: "nowrap",
+                                gap: "4px",
+                                padding: "2px 4px",
+                                overflowX: "auto",
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
                               }),
-                              placeholder: (base) => ({
-                                ...base,
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "#767676",
                                 fontSize: "12px",
-                                font: "400",
+                                fontWeight: "400",
+                              }),
+                              menu: (provided) => ({
+                                ...provided,
+                                zIndex: 10,
+                                scrollbarWidth: "none",
+                                "-ms-overflow-style": "none",
+                                "&::-webkit-scrollbar": {
+                                  display: "none",
+                                },
+                              }),
+                              multiValue: (provided) => ({
+                                ...provided,
+                                backgroundColor: "#EFFAFF",
+                                borderRadius: "4px",
+                                minWidth: "90px",
+                              }),
+                              multiValueLabel: (provided) => ({
+                                ...provided,
+                                color: "#06A9EF",
+                                fontWeight: "500",
+                              }),
+                              multiValueRemove: (provided) => ({
+                                ...provided,
+                                color: "#9A4545",
+                                "&:hover": {
+                                  backgroundColor: "transparent",
+                                },
                               }),
                             }}
                           />
@@ -1933,55 +2088,7 @@ function CreateNewJob() {
                       </div>
                     </div>
 
-                    {/* <div className="flex flex-wrap gap-4 p-4 w-full justify-between">
-                      <div className="flex gap-4">
-                        <button className="scr700:hidden text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full">
-                          Create Basic Profile Form
-                        </button>
-                      </div>
-
-                      <div className="flex justify-between w-full gap-2 sm:gap-4">
-                        <div className="flex w-full justify-between gap-1">
-                          <button
-                            onClick={handleNavigate}
-                            className=" min-w-[258px] hidden scr700:block text-sm font-semibold cursor-pointer px-6 py-1 sm:px-9 sm:py-3 border-2 border-[#06A9EF] rounded-full"
-                          >
-                            Create Basic Profile Form
-                          </button>
-                          <div
-                            onClick={() => {
-                              openModel(true);
-                            }}
-                            className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
-                          >
-                            Preview
-                          </div>
-                          <div className="flex w-full justify-between gap-3">
-                            <div
-                              onClick={handleClick}
-                              className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
-                            >
-                              Cancel
-                            </div>
-                            <button
-                              onClick={handleSubmit}
-                              className="text-sm font-semibold text-white px-6 py-1 sm:px-9 sm:py-3 bg-[#06A9EF] border-[#06A9EF] rounded-full hover:bg-white border-2 border-transparent hover:text-black cursor-pointer transition duration-300"
-                            >
-                              Comfirm
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
                     <div className="flex justify-end p-[10px] md:p-4 w-full">
-                      {/* <div>
-                        <button
-                          onClick={handleClick}
-                          className="text-sm cursor-pointer flex justify-start font-semibold px-6 py-1 sm:px-9 sm:py-3 border-2 text-[#B3261E] border-[#B3261E] rounded-full"
-                        >
-                          Cancel
-                        </button>
-                      </div> */}
                       <div className="flex gap-[4px] md:gap-[14px]">
                         <button
                           onClick={resetFormData}
