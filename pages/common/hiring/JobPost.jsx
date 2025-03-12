@@ -60,6 +60,37 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [limitPopup, setLimitPopup] = useState(false);
   const { recallData } = useSelector((state) => state.recall);
+
+
+
+
+  const [parameters, setParameters] = useState([]);
+  const [weightage, setWeightage] = useState(false)
+  const [priority, setPriority] = useState(false)
+
+
+  useEffect(() => {
+    const fetchJDParameters = async () => {
+
+      try {
+        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+
+        if (data?.data?.data?.parameters) {
+          const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
+          setParameters(filteredParameters);
+
+        }
+        setPriority(data?.data?.data?.priority)
+        setWeightage(data?.data?.data?.weightage)
+
+      } catch (error) {
+        console.error("Error loading JD Parameters");
+      }
+
+    };
+    fetchJDParameters();
+  }, [userDataGlobal?._id, openParameters]);
+
   const togglePopup = (applicant) => {
     setPopupVisible(!isPopupVisible);
     setShortlist([applicant]);
@@ -128,9 +159,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
       setSelectAll(
         updated.length ===
-          jobDetails?.data?.applications.filter(
-            (app) => app.hiringStage === "Pending"
-          ).length
+        jobDetails?.data?.applications.filter(
+          (app) => app.hiringStage === "Pending"
+        ).length
       );
 
       return updated;
@@ -266,7 +297,29 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       setLoading(true);
       fetchJobDetails();
     }
-  }, [id, statusChange, selectedFilters, activeOption, recallData]);
+  }, [id, statusChange, selectedFilters, activeOption]);
+
+
+  // const aiMatch = async () => {
+  //   if (jdCountMonthly >= jdCountMonthlyLimit) {
+  //     setLimitPopup(true);
+  //     return;
+  //   }
+  //   setAiLoading(true);
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:2000/api/job/aiMatch/${id}`
+  //     );
+  //     updateJobMatchLimit();
+  //     setTimeout(() => {
+  //       setAiLoading(false);
+  //       fetchJobDetails();
+  //     }, 4000);
+  //   } catch (error) {
+  //     setAiLoading(false);
+  //   }
+  // };
+
   const aiMatch = async () => {
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
@@ -274,8 +327,16 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     }
     setAiLoading(true);
     try {
-      const response = await axios.put(
-        `http://localhost:2000/api/job/aiMatch/${id}`
+      const response = await axios.post(
+        "http://localhost:2000/api/aiMatch/gist",
+
+        {
+          jobId: jobData._id,
+          ids: jobDetails?.data?.applications?.map(appId => appId?._id),
+          parameters,
+          weightage,
+          priority
+        }
       );
       updateJobMatchLimit();
       setTimeout(() => {
@@ -286,6 +347,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
       setAiLoading(false);
     }
   };
+
+
 
   const updateJobMatchLimit = async () => {
     try {
@@ -621,9 +684,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       onClick={() => {
                         setOption(0), setActiveOption("applicant");
                       }}
-                      className={` ${
-                        activeOption === "applicant" ? "" : "text-[#646464]"
-                      } cursor-pointer text-[16px] font-[600]`}
+                      className={` ${activeOption === "applicant" ? "" : "text-[#646464]"
+                        } cursor-pointer text-[16px] font-[600]`}
                     >
                       Applicant
                     </p>
@@ -647,9 +709,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       onClick={() => {
                         setOption(1), setActiveOption("JobDetails");
                       }}
-                      className={` ${
-                        activeOption === "JobDetails" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                      className={` ${activeOption === "JobDetails" ? "" : "text-[#646464]"
+                        } cursor-pointer font-[600]`}
                     >
                       Job Details
                     </p>
@@ -673,9 +734,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                       onClick={() => {
                         setOption(2), setActiveOption("Analytics");
                       }}
-                      className={` ${
-                        activeOption === "Analytics" ? "" : "text-[#646464]"
-                      } cursor-pointer font-[600]`}
+                      className={` ${activeOption === "Analytics" ? "" : "text-[#646464]"
+                        } cursor-pointer font-[600]`}
                     >
                       Analytics
                     </p>
@@ -701,11 +761,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           setOption(3),
                             setActiveOption("Selected Candidate for Hiring");
                         }}
-                        className={` ${
-                          activeOption === "Selected Candidate for Hiring"
-                            ? ""
-                            : "text-[#646464]"
-                        } cursor-pointer font-[600]`}
+                        className={` ${activeOption === "Selected Candidate for Hiring"
+                          ? ""
+                          : "text-[#646464]"
+                          } cursor-pointer font-[600]`}
                       >
                         Selected Candidate for Hiring
                       </p>
@@ -750,7 +809,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                   <div className="flex scr700:flex-row flex-col justify-between p-[16px] scr700:items-center gap-4  bg-[#fff] overflow-visible">
                     <div className=" flex gap-3">
                       <button
-                        disabled={aiLoading}
+                        disabled={aiLoading || !jobDetails?.data?.applications?.some(app => app.isScore === false)}
+
                         style={{
                           backgroundColor: "#4C43CD",
                           backgroundImage: `
@@ -761,13 +821,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           transition: "transform 0.5s ease-in-out",
                         }}
                         onClick={aiMatch}
-                        className="text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
-             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out"
+                        className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
+             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out ${ !jobDetails?.data?.applications?.some(app => app.isScore === false) && "opacity-50" }`}
                       >
                         <svg
-                          className={`min-w-[20px] transition-all duration-100 ${
-                            aiLoading ? "animate-pulse scale-110" : ""
-                          }`}
+                          className={`min-w-[20px] transition-all duration-100 ${aiLoading ? "animate-pulse scale-110" : ""
+                            }`}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -875,9 +934,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           checked={
                             checkedApplicants.length > 0 &&
                             checkedApplicants.length ===
-                              jobDetails?.data?.applications.filter(
-                                (app) => app.hiringStage === "Pending"
-                              ).length
+                            jobDetails?.data?.applications.filter(
+                              (app) => app.hiringStage === "Pending"
+                            ).length
                           }
                           onChange={handleSelectAll}
                         />
@@ -954,11 +1013,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             (applicant, index) => (
                               <>
                                 <div
-                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${
-                                    checkedApplicants[index]
-                                      ? "bg-[#D3F1FF]"
-                                      : "bg-[#FFFFFF]"
-                                  }`}
+                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${checkedApplicants[index]
+                                    ? "bg-[#D3F1FF]"
+                                    : "bg-[#FFFFFF]"
+                                    }`}
                                   key={applicant?._id}
                                 >
                                   <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -1001,11 +1059,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                                       {applicant.matchingPercentage ? (
                                         <p
-                                          className={`text-[14px] font-[600] ${
-                                            !applicant.isScore
-                                              ? "blur-[3px]"
-                                              : ""
-                                          }`}
+                                          className={`text-[14px] font-[600] ${!applicant.isScore
+                                            ? "blur-[3px]"
+                                            : ""
+                                            }`}
                                         >
                                           {!applicant.isScore
                                             ? `${randomPercentage} %`
@@ -1017,56 +1074,54 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     </div>
                                     <div className=" flex justify-center w-[20%]">
                                       <div
-                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                          checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
-                                            : applicant?.hiringStage ===
-                                              "Interview"
+                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant?.hiringStage ===
+                                            "Interview"
                                             ? "bg-[#26A4FF1A]"
                                             : applicant?.hiringStage === "Task"
-                                            ? "bg-[#EAF6FF]"
-                                            : applicant?.hiringStage ===
-                                              "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant?.hiringStage === "Hired"
-                                            ? "bg-[#4BD06F33]"
-                                            : applicant?.hiringStage ===
-                                              "Shortlisted"
-                                            ? "bg-[#4640DE1A]"
-                                            : applicant?.hiringStage ===
-                                              "Rejected"
-                                            ? "bg-[#FF65501A]"
-                                            : applicant?.hiringStage ===
-                                              "In Review"
-                                            ? "bg-[#EB85331A]"
-                                            : applicant?.hiringStage ===
-                                              "Selected"
-                                            ? "bg-[#56CDAD1A]"
-                                            : ""
-                                        } ${
-                                          applicant?.hiringStage === "Interview"
+                                              ? "bg-[#EAF6FF]"
+                                              : applicant?.hiringStage ===
+                                                "Pending"
+                                                ? "bg-[#FFF9ED]"
+                                                : applicant?.hiringStage === "Hired"
+                                                  ? "bg-[#4BD06F33]"
+                                                  : applicant?.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "bg-[#4640DE1A]"
+                                                    : applicant?.hiringStage ===
+                                                      "Rejected"
+                                                      ? "bg-[#FF65501A]"
+                                                      : applicant?.hiringStage ===
+                                                        "In Review"
+                                                        ? "bg-[#EB85331A]"
+                                                        : applicant?.hiringStage ===
+                                                          "Selected"
+                                                          ? "bg-[#56CDAD1A]"
+                                                          : ""
+                                          } ${applicant?.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
                                             : applicant?.hiringStage === "Task"
-                                            ? "text-[#0B4A78]"
-                                            : applicant?.hiringStage ===
-                                              "Pending"
-                                            ? "text-[#FFB836]"
-                                            : applicant?.hiringStage === "Hired"
-                                            ? "text-[#1D9474]"
-                                            : applicant?.hiringStage ===
-                                              "Shortlisted"
-                                            ? "text-[#4640DE]"
-                                            : applicant?.hiringStage ===
-                                              "Rejected"
-                                            ? "text-[#FF6550]"
-                                            : applicant?.hiringStage ===
-                                              "In Review"
-                                            ? "text-[#FFB836]"
-                                            : applicant?.hiringStage ===
-                                              "Selected"
-                                            ? "text-[#56CDAD]"
-                                            : "text-[#333333]"
-                                        }`}
+                                              ? "text-[#0B4A78]"
+                                              : applicant?.hiringStage ===
+                                                "Pending"
+                                                ? "text-[#FFB836]"
+                                                : applicant?.hiringStage === "Hired"
+                                                  ? "text-[#1D9474]"
+                                                  : applicant?.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "text-[#4640DE]"
+                                                    : applicant?.hiringStage ===
+                                                      "Rejected"
+                                                      ? "text-[#FF6550]"
+                                                      : applicant?.hiringStage ===
+                                                        "In Review"
+                                                        ? "text-[#FFB836]"
+                                                        : applicant?.hiringStage ===
+                                                          "Selected"
+                                                          ? "text-[#56CDAD]"
+                                                          : "text-[#333333]"
+                                          }`}
                                       >
                                         {applicant?.hiringStage}
                                       </div>
@@ -1111,44 +1166,40 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             {userDataGlobal?.role ===
                                               "recruiter" &&
                                               applicant?.hiringStage ===
-                                                "Pending" && (
-                                                <>
-                                                  <button
-                                                    disabled={[
+                                              "Pending" && (
+                                                <button
+                                                  disabled={[
+                                                    "Rejected",
+                                                    "Shortlisted",
+                                                    "Hired",
+                                                  ].includes(
+                                                    applicant?.hiringStage
+                                                  )}
+                                                  style={{
+                                                    opacity: [
                                                       "Rejected",
                                                       "Shortlisted",
                                                       "Hired",
                                                     ].includes(
                                                       applicant?.hiringStage
-                                                    )}
-                                                    style={{
-                                                      opacity: [
-                                                        "Rejected",
-                                                        "Shortlisted",
-                                                        "Hired",
-                                                      ].includes(
-                                                        applicant?.hiringStage
-                                                      )
-                                                        ? 0.5
-                                                        : 1,
-                                                    }}
-                                                    onClick={() => {
-                                                      setHiringStage(
-                                                        "Shortlisted"
-                                                      );
-                                                      togglePopup(applicant);
-                                                    }}
-                                                    className="text-[14px] font-medium text-left py-2 px-3 hover:bg-gray-100"
-                                                  >
-                                                    Shortlist
-                                                  </button>
-                                                  <div className="border-[0.5px] border-[#DEDEDE] w-[152px] mx-auto"></div>
-                                                </>
+                                                    )
+                                                      ? 0.5
+                                                      : 1,
+                                                  }}
+                                                  onClick={() => {
+                                                    setHiringStage(
+                                                      "Shortlisted"
+                                                    );
+                                                    togglePopup(applicant);
+                                                  }}
+                                                  className="text-[14px] font-medium flex justify-center items-center leading-tight rounded-[30px]"
+                                                >
+                                                  Shortlist
+                                                </button>
                                               )}
 
                                             {applicant?.hiringStage ===
                                               "Pending" && (
-                                              <>
                                                 <button
                                                   disabled={
                                                     applicant?.hiringStage ===
@@ -1157,7 +1208,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                   style={{
                                                     opacity:
                                                       applicant?.hiringStage ===
-                                                      "Rejected"
+                                                        "Rejected"
                                                         ? 0.5
                                                         : 1,
                                                   }}
@@ -1165,25 +1216,11 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                     setHiringStage("Rejected");
                                                     togglePopup(applicant);
                                                   }}
-                                                  className="text-[14px] font-medium text-left py-2 px-3 hover:bg-gray-100 text-[#B3261E]"
+                                                  className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
                                                 >
                                                   Reject
                                                 </button>
-                                                <div className="border-[0.5px] border-[#DEDEDE] w-[152px] mx-auto"></div>
-                                              </>
-                                            )}
-
-                                            <button
-                                              onClick={() => {
-                                                hiredCandidate(
-                                                  applicant?.applicantId,
-                                                  applicant?.jobId
-                                                );
-                                              }}
-                                              className="text-[14px] font-medium text-left py-2 px-3 hover:bg-gray-100"
-                                            >
-                                              Hired
-                                            </button>
+                                              )}
                                           </div>
                                         )}
 
@@ -1320,46 +1357,44 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         </p>
                                       </p>
                                       <div
-                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                          checkedApplicants[index]
-                                            ? "bg-[#FFFFFF]"
-                                            : applicant.hiringStage ===
-                                              "Interview"
+                                        className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                                          ? "bg-[#FFFFFF]"
+                                          : applicant.hiringStage ===
+                                            "Interview"
                                             ? "bg-[#26A4FF1A]"
                                             : applicant.hiringStage ===
                                               "Pending"
-                                            ? "bg-[#FFF9ED]"
-                                            : applicant.hiringStage === "Hired"
-                                            ? "bg-[#56CDAD1A]"
-                                            : applicant.hiringStage ===
-                                              "Shortlisted"
-                                            ? "bg-[#4640DE1A]"
-                                            : applicant.hiringStage ===
-                                              "Rejected"
-                                            ? "bg-[#FF65501A]"
-                                            : applicant.hiringStage ===
-                                              "In Review"
-                                            ? "bg-[#EB85331A]"
-                                            : ""
-                                        } ${
-                                          applicant.hiringStage === "Interview"
+                                              ? "bg-[#FFF9ED]"
+                                              : applicant.hiringStage === "Hired"
+                                                ? "bg-[#56CDAD1A]"
+                                                : applicant.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? "bg-[#4640DE1A]"
+                                                  : applicant.hiringStage ===
+                                                    "Rejected"
+                                                    ? "bg-[#FF65501A]"
+                                                    : applicant.hiringStage ===
+                                                      "In Review"
+                                                      ? "bg-[#EB85331A]"
+                                                      : ""
+                                          } ${applicant.hiringStage === "Interview"
                                             ? "text-[#26A4FF]"
                                             : applicant.hiringStage ===
                                               "Pending"
-                                            ? "text-[#FFB836]"
-                                            : applicant.hiringStage === "Hired"
-                                            ? "text-[#56CDAD]"
-                                            : applicant.hiringStage ===
-                                              "Shortlisted"
-                                            ? "text-[#4640DE]"
-                                            : applicant.hiringStage ===
-                                              "Rejected"
-                                            ? "text-[#FF6550]"
-                                            : applicant.hiringStage ===
-                                              "In Review"
-                                            ? "text-[#FFB836]"
-                                            : "text-[#333333]"
-                                        }`}
+                                              ? "text-[#FFB836]"
+                                              : applicant.hiringStage === "Hired"
+                                                ? "text-[#56CDAD]"
+                                                : applicant.hiringStage ===
+                                                  "Shortlisted"
+                                                  ? "text-[#4640DE]"
+                                                  : applicant.hiringStage ===
+                                                    "Rejected"
+                                                    ? "text-[#FF6550]"
+                                                    : applicant.hiringStage ===
+                                                      "In Review"
+                                                      ? "text-[#FFB836]"
+                                                      : "text-[#333333]"
+                                          }`}
                                       >
                                         {applicant.hiringStage}
                                       </div>{" "}
@@ -1371,31 +1406,31 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       <div className="flex gap-[10px]">
                                         {userDataGlobal?.role ===
                                           "recruiter" && (
-                                          <button
-                                            disabled={
-                                              applicant?.hiringStage ===
+                                            <button
+                                              disabled={
+                                                applicant?.hiringStage ===
                                                 "Rejected" ||
-                                              applicant?.hiringStage ===
+                                                applicant?.hiringStage ===
                                                 "Shortlisted"
-                                            }
-                                            style={{
-                                              opacity:
-                                                applicant?.hiringStage ===
-                                                  "Rejected" ||
-                                                applicant?.hiringStage ===
-                                                  "Shortlisted"
-                                                  ? 0.5
-                                                  : 1,
-                                            }}
-                                            onClick={() => {
-                                              setHiringStage("Shortlisted");
-                                              togglePopup(applicant);
-                                            }}
-                                            className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
-                                          >
-                                            Shortlist
-                                          </button>
-                                        )}
+                                              }
+                                              style={{
+                                                opacity:
+                                                  applicant?.hiringStage ===
+                                                    "Rejected" ||
+                                                    applicant?.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? 0.5
+                                                    : 1,
+                                              }}
+                                              onClick={() => {
+                                                setHiringStage("Shortlisted");
+                                                togglePopup(applicant);
+                                              }}
+                                              className="text-[10px] flex justify-center items-center leading-tight text-white font-[500] py-[8px] px-[10px] rounded-[30px] bg-[#06A9EF]"
+                                            >
+                                              Shortlist
+                                            </button>
+                                          )}
                                         <>
                                           {isPopupVisible && (
                                             <ShortlistMail
@@ -1418,7 +1453,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           style={{
                                             opacity:
                                               applicant?.hiringStage ===
-                                              "Rejected"
+                                                "Rejected"
                                                 ? 0.5
                                                 : 1,
                                           }}
@@ -1534,9 +1569,9 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             checked={
                               checkedApplicants.length > 0 &&
                               checkedApplicants.length ===
-                                jobDetails?.data?.applications.filter(
-                                  (app) => app.hiringStage === "Pending"
-                                ).length
+                              jobDetails?.data?.applications.filter(
+                                (app) => app.hiringStage === "Pending"
+                              ).length
                             }
                             onChange={handleSelectAll}
                           />
@@ -1615,11 +1650,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                               (applicant, index) => (
                                 <>
                                   <div
-                                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${
-                                      checkedApplicants[index]
-                                        ? "bg-[#D3F1FF]"
-                                        : "bg-[#FFFFFF]"
-                                    }`}
+                                    className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center ${checkedApplicants[index]
+                                      ? "bg-[#D3F1FF]"
+                                      : "bg-[#FFFFFF]"
+                                      }`}
                                     key={applicant?._id}
                                   >
                                     <div className="  gap-[20px]  w-full justify-between flex items-center">
@@ -1669,55 +1703,53 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       </div>
                                       <div className=" flex justify-center w-[20%]">
                                         <div
-                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                            checkedApplicants[index]
-                                              ? "bg-[#FFFFFF]"
-                                              : applicant?.hiringStage ===
-                                                "Interview"
+                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                                            ? "bg-[#FFFFFF]"
+                                            : applicant?.hiringStage ===
+                                              "Interview"
                                               ? "bg-[#26A4FF1A]"
                                               : applicant?.hiringStage ===
                                                 "Pending"
-                                              ? "bg-[#FFF9ED]"
-                                              : applicant?.hiringStage ===
-                                                "Hired"
-                                              ? "bg-[#56CDAD1A]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                              ? "bg-[#4640DE1A]"
-                                              : applicant?.hiringStage ===
-                                                "Rejected"
-                                              ? "bg-[#FF65501A]"
-                                              : applicant?.hiringStage ===
-                                                "In Review"
-                                              ? "bg-[#EB85331A]"
-                                              : applicant?.hiringStage ===
-                                                "Selected"
-                                              ? "bg-[#26A4FF1A]"
-                                              : ""
-                                          } ${
-                                            applicant?.hiringStage ===
-                                            "Interview"
+                                                ? "bg-[#FFF9ED]"
+                                                : applicant?.hiringStage ===
+                                                  "Hired"
+                                                  ? "bg-[#56CDAD1A]"
+                                                  : applicant?.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "bg-[#4640DE1A]"
+                                                    : applicant?.hiringStage ===
+                                                      "Rejected"
+                                                      ? "bg-[#FF65501A]"
+                                                      : applicant?.hiringStage ===
+                                                        "In Review"
+                                                        ? "bg-[#EB85331A]"
+                                                        : applicant?.hiringStage ===
+                                                          "Selected"
+                                                          ? "bg-[#26A4FF1A]"
+                                                          : ""
+                                            } ${applicant?.hiringStage ===
+                                              "Interview"
                                               ? "text-[#26A4FF]"
                                               : applicant?.hiringStage ===
                                                 "Pending"
-                                              ? "text-[#FFB836]"
-                                              : applicant?.hiringStage ===
-                                                "Hired"
-                                              ? "text-[#56CDAD]"
-                                              : applicant?.hiringStage ===
-                                                "Shortlisted"
-                                              ? "text-[#4640DE]"
-                                              : applicant?.hiringStage ===
-                                                "Rejected"
-                                              ? "text-[#FF6550]"
-                                              : applicant?.hiringStage ===
-                                                "In Review"
-                                              ? "text-[#FFB836]"
-                                              : applicant?.hiringStage ===
-                                                "Selected"
-                                              ? "text-[#26A4FF]"
-                                              : "text-[#333333]"
-                                          }`}
+                                                ? "text-[#FFB836]"
+                                                : applicant?.hiringStage ===
+                                                  "Hired"
+                                                  ? "text-[#56CDAD]"
+                                                  : applicant?.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "text-[#4640DE]"
+                                                    : applicant?.hiringStage ===
+                                                      "Rejected"
+                                                      ? "text-[#FF6550]"
+                                                      : applicant?.hiringStage ===
+                                                        "In Review"
+                                                        ? "text-[#FFB836]"
+                                                        : applicant?.hiringStage ===
+                                                          "Selected"
+                                                          ? "text-[#26A4FF]"
+                                                          : "text-[#333333]"
+                                            }`}
                                         >
                                           {applicant?.hiringStage}
                                         </div>
@@ -1842,49 +1874,47 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           </p>
                                         </p>
                                         <div
-                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${
-                                            checkedApplicants[index]
-                                              ? "bg-[#FFFFFF]"
-                                              : applicant.hiringStage ===
-                                                "Interview"
+                                          className={` flex py-[6px] justify-center px-[10px] text-[12px] font-[600] items-center gap-[8px] rounded-[80px] w-fit ${checkedApplicants[index]
+                                            ? "bg-[#FFFFFF]"
+                                            : applicant.hiringStage ===
+                                              "Interview"
                                               ? "bg-[#26A4FF1A]"
                                               : applicant.hiringStage ===
                                                 "Pending"
-                                              ? "bg-[#FFF9ED]"
-                                              : applicant.hiringStage ===
-                                                "Hired"
-                                              ? "bg-[#56CDAD1A]"
-                                              : applicant.hiringStage ===
-                                                "Shortlisted"
-                                              ? "bg-[#4640DE1A]"
-                                              : applicant.hiringStage ===
-                                                "Rejected"
-                                              ? "bg-[#FF65501A]"
-                                              : applicant.hiringStage ===
-                                                "In Review"
-                                              ? "bg-[#EB85331A]"
-                                              : ""
-                                          } ${
-                                            applicant.hiringStage ===
-                                            "Interview"
+                                                ? "bg-[#FFF9ED]"
+                                                : applicant.hiringStage ===
+                                                  "Hired"
+                                                  ? "bg-[#56CDAD1A]"
+                                                  : applicant.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "bg-[#4640DE1A]"
+                                                    : applicant.hiringStage ===
+                                                      "Rejected"
+                                                      ? "bg-[#FF65501A]"
+                                                      : applicant.hiringStage ===
+                                                        "In Review"
+                                                        ? "bg-[#EB85331A]"
+                                                        : ""
+                                            } ${applicant.hiringStage ===
+                                              "Interview"
                                               ? "text-[#26A4FF]"
                                               : applicant.hiringStage ===
                                                 "Pending"
-                                              ? "text-[#FFB836]"
-                                              : applicant.hiringStage ===
-                                                "Hired"
-                                              ? "text-[#56CDAD]"
-                                              : applicant.hiringStage ===
-                                                "Shortlisted"
-                                              ? "text-[#4640DE]"
-                                              : applicant.hiringStage ===
-                                                "Rejected"
-                                              ? "text-[#FF6550]"
-                                              : applicant.hiringStage ===
-                                                "In Review"
-                                              ? "text-[#FFB836]"
-                                              : "text-[#333333]"
-                                          }`}
+                                                ? "text-[#FFB836]"
+                                                : applicant.hiringStage ===
+                                                  "Hired"
+                                                  ? "text-[#56CDAD]"
+                                                  : applicant.hiringStage ===
+                                                    "Shortlisted"
+                                                    ? "text-[#4640DE]"
+                                                    : applicant.hiringStage ===
+                                                      "Rejected"
+                                                      ? "text-[#FF6550]"
+                                                      : applicant.hiringStage ===
+                                                        "In Review"
+                                                        ? "text-[#FFB836]"
+                                                        : "text-[#333333]"
+                                            }`}
                                         >
                                           {applicant.hiringStage}
                                         </div>{" "}
@@ -1897,15 +1927,15 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           <button
                                             disabled={
                                               applicant?.hiringStage ===
-                                                "Rejected" ||
+                                              "Rejected" ||
                                               applicant?.hiringStage ===
-                                                "Shortlisted"
+                                              "Shortlisted"
                                             }
                                             style={{
                                               opacity:
                                                 applicant?.hiringStage ===
                                                   "Rejected" ||
-                                                applicant?.hiringStage ===
+                                                  applicant?.hiringStage ===
                                                   "Shortlisted"
                                                   ? 0.5
                                                   : 1,
@@ -1944,7 +1974,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             style={{
                                               opacity:
                                                 applicant?.hiringStage ===
-                                                "Rejected"
+                                                  "Rejected"
                                                   ? 0.5
                                                   : 1,
                                             }}

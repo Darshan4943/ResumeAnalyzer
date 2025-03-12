@@ -180,7 +180,7 @@ function EasyApply() {
 
         setLoading(true);
         extracteText(file).then((result) => {
-
+            setText(result[0]?.text);
 
             if (result[0]?.text?.length > 0) {
                 axios
@@ -285,8 +285,8 @@ function EasyApply() {
 
             const parsedResume = JSON.parse(localStorage.getItem("parsedResume"));
             setParseData(parsedResume)
-            const textData = JSON.parse(localStorage.getItem("text"));
-            setText(textData)
+            // const textData = JSON.parse(localStorage.getItem("text"));
+            // setText(textData)
         }
 
     }, [tab]);
@@ -401,6 +401,7 @@ function EasyApply() {
 
         formDataToSend.append("percentage", "");
         formDataToSend.append("extractedText", text);
+        console.log(text)
         formDataToSend.append("parseData", JSON.stringify(parseData));
         if (file) {
             formDataToSend.append("uploadedResume", file);

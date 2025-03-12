@@ -1004,7 +1004,7 @@ const addFiles = async () => {
                       />
                     </g>
                   </svg>
-                  Skilotech Collection
+                  CV&apos;s from Skilotech
                 </button>
                 <button
                   onClick={() => {

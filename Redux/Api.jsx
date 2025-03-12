@@ -547,7 +547,7 @@ export const Api = ({}) => {
 
   return (
     <>
-      {enablePopup && (
+      {!enablePopup && (
         <LocationEnablePopup
           setEnablePopup={(value) => dispatch(setEnablePopup(value))}
           enablePopup={enablePopup}
