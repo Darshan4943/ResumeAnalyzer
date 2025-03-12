@@ -446,14 +446,14 @@ const JobCard = ({ filters, setFilters }) => {
                           : job?.location
                               ?.map(
                                 (loc) =>
-                                  loc.charAt(0).toUpperCase() + loc.slice(1) 
+                                  loc.charAt(0).toUpperCase() + loc.slice(1)
                               )
                               .join(", ")}
                         <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                           {job?.location
                             ?.map(
                               (loc) =>
-                                loc.charAt(0).toUpperCase() + loc.slice(1) 
+                                loc.charAt(0).toUpperCase() + loc.slice(1)
                             )
                             .join(", ")}
                         </div>
