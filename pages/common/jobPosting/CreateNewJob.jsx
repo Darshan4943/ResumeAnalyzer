@@ -302,14 +302,6 @@ function CreateNewJob() {
         : `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`
     );
 
-    // if (sectorData?.jobCat) {
-    //   sectorData.jobCat.forEach((jobCat) => {
-    //     formData.append("jobCat", jobCat);
-    //   });
-    // } else {
-    //   formData.append("jobCat", "");
-    // }
-
     try {
       const response = await axios.post(
         `http://localhost:2000/api/job/add/${id}`,
@@ -485,7 +477,6 @@ function CreateNewJob() {
   );
 
   const handleChange1 = (value) => {
-    // const plainText = value?.replace(/<[^>]*>/g, "");
     if (value?.length < 200) {
       setData({ ...data, description: value.slice(0, 200) });
       debounceUpdate(value.slice(0, 200));
@@ -530,11 +521,6 @@ function CreateNewJob() {
     setCroppedImage(null);
     setFile(null);
   };
-
-  // const handleClick = () => {
-  //   router.push("/recruiter/jobPosting");
-  // };
-
   const handleButtonClick = () => {
     fileRef.current?.click();
   };
@@ -741,8 +727,8 @@ function CreateNewJob() {
       overflowX: "auto",
       gap: "4px",
       padding: "2px 4px",
-      scrollbarWidth: "none", 
-      "-ms-overflow-style": "none", 
+      scrollbarWidth: "none",
+      "-ms-overflow-style": "none",
       "&::-webkit-scrollbar": {
         display: "none",
       },
@@ -756,8 +742,8 @@ function CreateNewJob() {
     menu: (provided) => ({
       ...provided,
       zIndex: 10,
-      scrollbarWidth: "none", 
-      "-ms-overflow-style": "none", 
+      scrollbarWidth: "none",
+      "-ms-overflow-style": "none",
       "&::-webkit-scrollbar": {
         display: "none",
       },
@@ -781,7 +767,6 @@ function CreateNewJob() {
       },
     }),
   };
-  
 
   const optionss = [
     { value: "Annual", label: "Annual" },
@@ -989,10 +974,6 @@ function CreateNewJob() {
                               });
                               setKeywordsText("");
 
-                              // setFormError(formError => {
-                              //   delete formError.location;
-                              //   return formError;
-                              // });
                               setTimeout(() => {
                                 const scrollDiv =
                                   document.getElementById("scroll");
@@ -1598,13 +1579,12 @@ function CreateNewJob() {
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                outline:"none",
+                                outline: "none",
                                 border: `1px solid ${
                                   formError.jobSector ? "red" : "#DEDEDE"
                                 }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
-                               
                               }),
 
                               placeholder: (provided) => ({
@@ -1970,11 +1950,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                      {/* <div className="grid grid-cols-1 scr500:grid-cols-10 gap-[16px] w-full">
-
-                      </div> */}
-
-                      <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
+                                        <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience
