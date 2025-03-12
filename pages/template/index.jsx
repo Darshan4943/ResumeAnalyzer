@@ -68,7 +68,7 @@ function Index() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `http://localhost:2000/api/getTemplates/${userDataGlobal._id}`
+        `http://192.168.1.161:2000/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
 

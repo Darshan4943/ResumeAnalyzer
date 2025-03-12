@@ -33,7 +33,7 @@ function JobsForYou({ isRelevant, isSimilar }) {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:2000/api/job/getAll",
+        "http://192.168.1.161:2000/api/job/getAll",
         {
           requiredSkills:
             isRelevant || isSimilar ? userSkills?.map((item) => item) : "",

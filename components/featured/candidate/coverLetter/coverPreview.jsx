@@ -147,8 +147,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       formData.append("fileName", name);
 
       const url = isCoverEdit
-        ? `http://localhost:2000/api/cover/update/${data._id}`
-        : "http://localhost:2000/api/cover/add";
+        ? `http://192.168.1.161:2000/api/cover/update/${data._id}`
+        : "http://192.168.1.161:2000/api/cover/add";
       const method = isCoverEdit ? "put" : "post";
 
       const response = await axios[method](url, formData);
@@ -176,7 +176,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get("http://localhost:2000/api/cover/get/" + id)
+        .get("http://192.168.1.161:2000/api/cover/get/" + id)
 
         .then((res) => {
           if (!isCoverEdit) {

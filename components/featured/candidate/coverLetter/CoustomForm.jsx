@@ -41,7 +41,7 @@ const CoustomForm = ({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
 
     axios
-      .post("http://localhost:2000/api/cover/rephrase", { prompt })
+      .post("http://192.168.1.161:2000/api/cover/rephrase", { prompt })
       .then((res) => {
         const rephrasedPassage = res.data;
 

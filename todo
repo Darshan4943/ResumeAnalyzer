@@ -92,7 +92,7 @@
 x;
 // add same popup to change resume name
 
-// remove toast of job search  (http://localhost:2000/jobs/search)
+// remove toast of job search  (http://192.168.1.161:2000/jobs/search)
 
 // add saved jobs page
 

@@ -88,7 +88,7 @@ const JdParameters = ({ setOpenParamenters }) => {
         const fetchJDParameters = async () => {
 
             try {
-                const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+                const data = await axios.get(`http://192.168.1.161:2000/api/jdParameters/get/${userDataGlobal?._id}`);
 
                 if (data?.data?.data?.parameters) {
 
@@ -107,7 +107,7 @@ const JdParameters = ({ setOpenParamenters }) => {
     const addJDParameters = async () => {
         setLoading(true);
         try {
-            const response = await axios.post(`http://localhost:2000/api/jdParameters/add`, {
+            const response = await axios.post(`http://192.168.1.161:2000/api/jdParameters/add`, {
                 userId: userDataGlobal?._id,
                 parameters,
                 weightage,

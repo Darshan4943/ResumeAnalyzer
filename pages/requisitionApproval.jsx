@@ -18,7 +18,7 @@ function RequisitionApproval() {
 
     const getRequisitionLevelStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:2000/api/requisition/requisitionLevelStatus/${requisitionId}/${levelId}`);
+            const response = await axios.get(`http://192.168.1.161:2000/api/requisition/requisitionLevelStatus/${requisitionId}/${levelId}`);
             setPreviousStatus(response.data.levelStatus)
             if(!updated && response.data.levelStatus === "Pending" ){
                 setTimeout(() => {
@@ -43,7 +43,7 @@ function RequisitionApproval() {
     const requisitionUpdate = async () => {
 
         try {
-            const response = await axios.put(`http://localhost:2000/api/requisition/requisitionUpdate/${requisitionId}/${levelId}`, { status })
+            const response = await axios.put(`http://192.168.1.161:2000/api/requisition/requisitionUpdate/${requisitionId}/${levelId}`, { status })
            
             setUpdated(true)
 

@@ -184,7 +184,7 @@ function EasyApply() {
 
             if (result[0]?.text?.length > 0) {
                 axios
-                    .post("http://localhost:2000/api/resume/extraction", {
+                    .post("http://192.168.1.161:2000/api/resume/extraction", {
                         data: result,
                     })
                     .then((res) => {
@@ -422,7 +422,7 @@ function EasyApply() {
         );
 
         axios
-            .post(`http://localhost:2000/api/job/easyApply/${id}`, formDataToSend, {
+            .post(`http://192.168.1.161:2000/api/job/easyApply/${id}`, formDataToSend, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

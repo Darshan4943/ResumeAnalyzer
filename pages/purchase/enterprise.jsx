@@ -147,7 +147,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/planEnquiry/create",
+        "http://192.168.1.161:2000/api/planEnquiry/create",
         data
       );
       // toast.success("Contacted Successfully");

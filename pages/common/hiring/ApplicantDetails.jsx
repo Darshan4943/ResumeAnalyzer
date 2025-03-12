@@ -33,7 +33,7 @@ function ApplicantDetails({ setTogglee }) {
       );
 
       const response = await axios.get(
-        "http://localhost:2000/api/applicantdetails",
+        "http://192.168.1.161:2000/api/applicantdetails",
         {
           params: { id, applicantId },
         }

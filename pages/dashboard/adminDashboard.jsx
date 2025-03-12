@@ -30,7 +30,7 @@ function AdminDashboard({ toggleContentt }) {
   };
   const getData = () => {
     axios
-      .get("http://localhost:2000/api/recruiters")
+      .get("http://192.168.1.161:2000/api/recruiters")
       .then((res) => {
         setRecruiterData(res.data);
         setUserList(res.data.users.results);
@@ -43,7 +43,7 @@ function AdminDashboard({ toggleContentt }) {
         // setMiniloading(false);
       });
     axios
-      .get("http://localhost:2000/api/activeSubscription")
+      .get("http://192.168.1.161:2000/api/activeSubscription")
       .then((res) => {
         setActivePlans(res.data.data);
       })
@@ -52,7 +52,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("http://localhost:2000/api/candidates")
+      .get("http://192.168.1.161:2000/api/candidates")
       .then((res) => {
         setCandidateData(res.data);
 
@@ -64,7 +64,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("http://localhost:2000/api/enquires")
+      .get("http://192.168.1.161:2000/api/enquires")
       .then((res) => {
         setList(res.data.data.results);
         setInquiriesData(res.data);
@@ -75,7 +75,7 @@ function AdminDashboard({ toggleContentt }) {
         setLoading(false);
       });
 
-    axios.get("http://localhost:2000/api/activeRecruiters").then((res) => {
+    axios.get("http://192.168.1.161:2000/api/activeRecruiters").then((res) => {
       console.log(res);
       setResult(res.data);
     });

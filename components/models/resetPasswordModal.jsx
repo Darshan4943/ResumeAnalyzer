@@ -52,7 +52,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/updatePassword", {
+      .post("http://192.168.1.161:2000/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

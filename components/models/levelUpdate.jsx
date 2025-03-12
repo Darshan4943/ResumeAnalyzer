@@ -172,7 +172,7 @@ function LevelUpdate({
     try {
       setLoading(true);
       const response = await axios.put(
-        `http://localhost:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
+        `http://192.168.1.161:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
         {
           selectedValues: {
             level: selectedLevel?.level + 1,

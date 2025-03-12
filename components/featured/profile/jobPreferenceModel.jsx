@@ -126,7 +126,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
 
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateJobPreferance/" +
+        "http://192.168.1.161:2000/api/candidate/updateJobPreferance/" +
           userDataGlobal?._id,
         obj
       )

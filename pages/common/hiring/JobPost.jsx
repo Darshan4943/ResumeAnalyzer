@@ -73,7 +73,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     const fetchJDParameters = async () => {
 
       try {
-        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+        const data = await axios.get(`http://192.168.1.161:2000/api/jdParameters/get/${userDataGlobal?._id}`);
 
         if (data?.data?.data?.parameters) {
           const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
@@ -111,7 +111,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setLoading1(true);
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/hiring/moveToHiringMultiple/${id}`,
+        `http://192.168.1.161:2000/api/hiring/moveToHiringMultiple/${id}`,
         { applicantIds }
       );
       setLoading1(false);
@@ -214,7 +214,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/hiring/shortlistCandidate",
+        "http://192.168.1.161:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 
@@ -239,7 +239,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const fetchJobDetailsHeder = async (id, setJobData) => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getJobDetailsById/${id}`
+        `http://192.168.1.161:2000/api/job/getJobDetailsById/${id}`
       );
       setJobData(response.data);
     } catch (error) {
@@ -256,7 +256,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setError(null);
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/job/getByIdApplication/${id}`,
+        `http://192.168.1.161:2000/api/job/getByIdApplication/${id}`,
         {
           params: {
             page: page,
@@ -308,7 +308,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   //   setAiLoading(true);
   //   try {
   //     const response = await axios.put(
-  //       `http://localhost:2000/api/job/aiMatch/${id}`
+  //       `http://192.168.1.161:2000/api/job/aiMatch/${id}`
   //     );
   //     updateJobMatchLimit();
   //     setTimeout(() => {
@@ -328,10 +328,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
     setAiLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/aiMatch/gist",
+        "http://192.168.1.161:2000/api/aiMatch/gist",
 
         {
-          jobId: jobData._id,
+          jobGist: jobData?.gist,
           ids: jobDetails?.data?.applications?.map(appId => appId?._id),
           parameters,
           weightage,
@@ -352,7 +352,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
   const updateJobMatchLimit = async () => {
     try {
-      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      const jdSubscriptionLimitUrl = `http://192.168.1.161:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
 
       if (!jdSubscriptionResponse.data.success) {
@@ -479,7 +479,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const hiredCandidate = async (applicantId, jobId) => {
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/hiring/hiredCandidate/${applicantId}/${jobId}`
+        `http://192.168.1.161:2000/api/hiring/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -876,7 +876,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
                       <button
                         onClick={() => setOpenParamenters(true)}
-                        className=" rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[38px] px-6"
+                        className=" rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
                       >
                         Set Matching Parameters
                       </button>
@@ -1059,12 +1059,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                                       {applicant.matchingPercentage ? (
                                         <p
-                                          className={`text-[14px] font-[600] ${!applicant.isScore
+                                          className={`text-[14px] font-[600]
+                                             ${applicant.isScore
                                             ? "blur-[3px]"
                                             : ""
-                                            }`}
+                                            }
+                                            `}
                                         >
-                                          {!applicant.isScore
+                                          {applicant.isScore
                                             ? `${randomPercentage} %`
                                             : `${applicant.matchingPercentage} %`}
                                         </p>

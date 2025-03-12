@@ -21,7 +21,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateSkills/" + userDataGlobal?._id,
+        "http://192.168.1.161:2000/api/candidate/updateSkills/" + userDataGlobal?._id,
 
         { skills: skil }
       )

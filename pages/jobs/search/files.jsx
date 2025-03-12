@@ -14,7 +14,7 @@ const Files = ({ selected, setSelected }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("http://192.168.1.161:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setLoading(false);
