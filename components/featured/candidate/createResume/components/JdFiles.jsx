@@ -425,8 +425,8 @@ const handleBack = () => {
             )}
           </div>
           <div className="flex justify-end gap-4">
-            <button onClick={() => { setIsCollection(false); setCollection("") }} className="border border-blue px-6 py-2 text-[14px] font-medium rounded-[30px]"> Cancel</button>
-            <button onClick={() => setIsCollection(false)} className="border border-blue bg-blue px-6 py-2 text-[14px] text-white font-medium rounded-[30px]"> Done</button>
+            <button onClick={() => { setIsCollection(false); setCollection("") }} className="blue_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"> Cancel</button>
+            <button onClick={() => setIsCollection(false)} className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"> Done</button>
           </div>
         </div>
       </div>

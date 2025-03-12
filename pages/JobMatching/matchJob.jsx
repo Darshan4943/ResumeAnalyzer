@@ -75,7 +75,7 @@ const MatchJob = () => {
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
-
+console.log(extratctedData);
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
