@@ -22,10 +22,10 @@ function JobCategories() {
     return (
         <div className='flex flex-col gap-6 customMargins'>
             <div className='flex flex-col gap-3 text-center'>
-                <p className='scr460:text-[24px] text-[18px] font-bold'>Popular Job Categories</p>
+                <p className='scr460:text-[24px] text-[18px] font-bold'>Explore Top Job Categories</p>
                 <p className='scr460:text-[14px] text-[12px] font-medium text-[#705E5E]'>
-                    Discover exciting career opportunities in popular fields, from technology to healthcare,<br className='scr700:block hidden' />
-                    finance to marketing, and more.
+                Discover high-demand job roles in leading industries, from technology and healthcare to finance,<br className='scr700:block hidden' />
+                marketing, and beyond. Start your job search today!
                 </p>
             </div>
             <div  className='flex flex-wrap scr460:gap-4 scr380:gap-4 gap-2 justify-center '>
