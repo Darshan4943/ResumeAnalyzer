@@ -360,7 +360,7 @@ function JobPosting() {
                       option: (base) => ({
                         ...base,
                         padding: "4px 8px",
-                        fontSize: "16px",
+                        fontSize: "14px",
                       }),
                       menuPortal: (base) => ({
                         ...base,
@@ -373,12 +373,6 @@ function JobPosting() {
               ))}
             </div>
             <div className=" flex justify-end gap-3">
-              {/* <button
-                  onClick={handleFilterChange}
-                  className="scr1067:px-[36px] px-4 scr1067:py-[12px] py-2 rounded-[30px]  flex items-center justify-center bg-[#06A9EF] text-[14px] font-[600] text-[#FFFFFF]"
-                >
-                  Search
-                </button> */}
               <button
                 onClick={handelclear}
                 className="scr1067:px-[24px] px-4 scr1067:py-[6px] py-2 rounded-[30px]  border-[1px] border-[#06A9EF] flex items-center justify-center text-[14px] font-[600] text-[#000000]"

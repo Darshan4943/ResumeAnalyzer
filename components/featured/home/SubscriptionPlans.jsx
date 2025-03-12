@@ -501,7 +501,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                         disabled={true}
                         className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                       >
-                        Purchased
+                        Your Current Plan
                       </button>
                     ) : (
                       <button

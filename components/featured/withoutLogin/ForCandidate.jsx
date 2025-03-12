@@ -61,25 +61,25 @@ function ForCandidate() {
             img1: "./images/home/can1.png",
             name1: 'Create Your Free Account',
             img2: "./images/home/rec1.png",
-            name2: 'Register your Organization',
+            name2: 'Register Your Company',
         },
         {
             img1: "./images/home/can2.png",
-            name1: 'Built your Profile',
+            name1: 'Build Your Professional Profile',
             img2: "./images/home/rec2.png",
-            name2: 'Post the required Job Openings',
+            name2: 'Post Job Openings',
         },
         {
             img1: "./images/home/can3.png",
-            name1: 'Search & Apply your dream Job',
+            name1: 'Search & Apply for Jobs',
             img2: "./images/home/rec3.png",
-            name2: 'Get desired talent shortlisted',
+            name2: 'Shortlist the Best Candidates',
         },
         {
             img1: "./images/home/can4.png",
-            name1: 'Get Hired by a desired company',
+            name1: 'Get Hired by Top Companies',
             img2: "./images/home/rec4.png",
-            name2: 'Schedule interview & Hire right talent',
+            name2: 'Schedule interview & Hire',
         },
     ];
 

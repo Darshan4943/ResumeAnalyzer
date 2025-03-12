@@ -117,7 +117,7 @@ const JobPostChart = () => {
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="p-5 bg-white md:h-[426px] h-[458px] rounded-xl  w-[896px] flex flex-col"
+      className="p-5 bg-white rounded-xl w-full max-w-[890px] flex flex-col"
     >
       <div className="flex pb-2 flex-col gap-4 border-b border-[#DEDEDE] mb-[38px]">
         <div className="flex justify-between items-center flex-wrap">
@@ -144,6 +144,7 @@ const JobPostChart = () => {
           </div>
         </div>
       </div>
+
       <div
         className="w-full"
         style={{
@@ -167,7 +168,7 @@ const JobPostChart = () => {
           <span className="text-sm">Total Job Posts</span>
         </div>
         <div className="flex items-center">
-          <span className="w-4 h-4 bg-green rounded-[4px] mr-2"></span>
+          <span className="w-4 h-4 bg-[#0C8A0A] rounded-[4px] mr-2"></span>
           <span className="text-sm">Job Closed</span>
         </div>
       </div>

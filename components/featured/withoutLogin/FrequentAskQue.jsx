@@ -9,24 +9,24 @@ function FrequentAskQue() {
 
     const questions = [
         {
-            que: "How do I find the right keywords for my resume? ",
-            ans: "Look at the job description and identify frequently mentioned skills and job titles. If you use Skilotech.com, our ATS resume builder automatically suggests the best resume keywords for job applications for your industry. ",
+            que: "How can I create and update my profile on Skilotech ",
+            ans: `To create a profile, click on the "Sign Up" button and fill in the required details. To update your profile, log in, click on your name in the top-right corner, and select "My Profile."`,
         },
         {
-            que: "Is Skilotech.com free to use? ",
-            ans: "Yes! Skilotech.com offers a free resume builder with ATS-friendly templates and resume scanning. ",
+            que: "How do I apply for jobs through Skilotech? ",
+            ans: `Use the search bar to find suitable job openings. Click on a job title to view details, then click "Apply" and upload your resume to submit your application.`,
         },
         {
-            que: "What is an ATS-friendly resume, and why does it matter? ",
-            ans: "An ATS-friendly resume is designed to pass through Applicant Tracking Systems (ATS) used by recruiters to screen resumes. At Skilotech.com, our expert-designed templates use clean formatting, standard fonts, and optimized keywords to ensure your resume gets noticed by both ATS software and hiring managers. ",
+            que: "How can I post a job listing on Skilotech?",
+            ans: `Log in to your recruiter account and navigate to the "Job Posting" section. Fill in the required job details, such as the job title and description, then submit the listing. `,
         },
         {
-            que: "Why are keywords important in a resume? ",
-            ans: "ATS scans resumes for specific job-related keywords before passing them to recruiters. With Skilotech.com, you get built-in keyword optimization that aligns with your target job, boosting your chances of making it past the initial screening and securing an interview. ",
+            que: "How do I search for and contact potential candidates? ",
+            ans: `Navigate to the "Job Post" section and use the "Profile Match" feature to find suitable candidates. You can use the "Shortlist" and "Reject" buttons to notify candidates via email. Additionally, you can directly contact them through the platform.`,
         },
         {
-            que: "Should I customize my resume for each job application? ",
-            ans: "Yes! Tailoring your resume for each job increases your chances of getting shortlisted. Skilotech.com makes it easy to adjust your resume with job-specific keywords and formatting tools. ",
+            que: "What services does Skilotech offer to employers?",
+            ans: "Skilotech provides employers with tools to post job listings, search for candidates, and manage the recruitment process efficiently. Additional services include JD (Job Description) matching and JD creation to streamline hiring.",
         },
        
     ];
