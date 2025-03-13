@@ -78,7 +78,7 @@ const CandidateOverviewChart = () => {
   }, [statistics]);
 
   const data = {
-    labels: ["Job Post", "Apply", "Shortlist", "Rejected"],
+    labels: ["", "", "", ""],
     datasets: [
       {
         data: [
