@@ -472,9 +472,9 @@ const JobCard = ({ filters, setFilters }) => {
 
                   {deletePopup && (
                     <>
-                      <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+                      <div className="opacity-25 fixed inset-0 z-[99998] bg-black"></div>
 
-                      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+                      <div className="fixed top-0 left-0 w-full h-full z-[99999] flex justify-center items-center">
                         <div className="bg-white rounded-[12px] p-6 flex flex-col gap-4 justify-center items-center max-w-[330px]">
                           <img
                             src="/images/icons/delete_icon.png"
@@ -490,7 +490,7 @@ const JobCard = ({ filters, setFilters }) => {
                           <div className="w-full flex justify-between">
                             <button
                               className="blue_border_Button h-[38px] px-6 rounded-[30px]"
-                              onClick={() => setDeletePopup(false)}
+                              onClick={(e) =>{  e.stopPropagation(); setDeletePopup(false)}}
                             >
                               No
                             </button>
@@ -508,7 +508,6 @@ const JobCard = ({ filters, setFilters }) => {
                       </div>
                     </>
                   )}
-                  
                 </div>
               ))}
             </div>

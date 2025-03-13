@@ -112,11 +112,13 @@ const CandidateOverviewChart = () => {
     scales: {
       x: {
         min: 0,
-        max: Math.max(10, Math.ceil(Math.max(...data.datasets[0].data) / 10) * 10),
+        max: Math.max(
+          10,
+          Math.ceil(Math.max(...data.datasets[0].data) / 10) * 10
+        ),
         ticks: {
           color: "#888",
-          stepSize:
-            Math.max(...data.datasets[0].data) > 10 ? 10 : 2,
+          stepSize: Math.max(...data.datasets[0].data) > 10 ? 10 : 2,
           callback: (value) => (value % 2 === 0 ? value : ""),
         },
         grid: {
@@ -159,7 +161,7 @@ const CandidateOverviewChart = () => {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           // width: "100%",
           // maxWidth: "420px",
-          minWidth:"420px"
+          minWidth: "420px",
         }}
         className="p-4 bg-white rounded-[16px] h-[426px] gap-[30px] flex flex-col"
       >
@@ -168,7 +170,17 @@ const CandidateOverviewChart = () => {
             <div>
               <h2 className="text-[16px] font-[500]">Candidate Overview</h2>
               <p className="text-[12px] font-[500]">
-                {startDate?.toLocaleDateString()} - {endDate?.toLocaleDateString()}
+                {startDate?.toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}{" "}
+                -
+                {endDate?.toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
               </p>
             </div>
             <div className="relative">
@@ -179,7 +191,10 @@ const CandidateOverviewChart = () => {
                 Select Date Range <FaCalendarAlt />
               </button>
               {showDatePicker && (
-                <div className="absolute top-10 left-0 bg-white shadow-md p-2 rounded-md z-10">
+                <div
+                  className="absolute top-10 left-0 bg-white shadow-md p-2 rounded-md"
+                  style={{ zIndex: 9999 }}
+                >
                   <DatePicker
                     selectsRange
                     startDate={startDate}
