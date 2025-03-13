@@ -154,16 +154,16 @@ const CandidateOverviewChart = () => {
   }, []);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex ">
       <div
         style={{
           borderRadius: "16px",
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           // width: "100%",
           // maxWidth: "420px",
-          minWidth: "420px",
+          // Width: "420px",
         }}
-        className="p-4 bg-white rounded-[16px] h-[426px] gap-[30px] flex flex-col"
+        className="p-4 bg-white rounded-[16px] h-[426px] scr460:min-w-[420px] min-w-[300px] gap-[30px] flex flex-col"
       >
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-2">
