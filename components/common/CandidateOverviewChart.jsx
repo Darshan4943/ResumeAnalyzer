@@ -157,9 +157,9 @@ const CandidateOverviewChart = () => {
         style={{
           borderRadius: "16px",
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-          width: "100%",
-          maxWidth: "420px",
-          // minWidth:"420px"
+          // width: "100%",
+          // maxWidth: "420px",
+          minWidth:"420px"
         }}
         className="p-4 bg-white rounded-[16px] h-[426px] gap-[30px] flex flex-col"
       >

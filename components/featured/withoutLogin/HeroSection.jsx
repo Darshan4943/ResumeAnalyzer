@@ -49,7 +49,7 @@ function HeroSection() {
               Connecting <span className="text-[#FFDA1D]"> Top Employers</span>
             </p>
           </div>
-          <text className="scr1024:text-[16px] scr460:text-[14px] text-[12px] font-[400] ml:text-start text-center">
+          <text className="scr1024:text-[14px] scr460:text-[14px] text-[12px] font-[400] ml:text-start text-center">
             Find Your Dream Job
             <p>Search, Apply & Unlock Endless Career Opportunities!</p>
           </text>

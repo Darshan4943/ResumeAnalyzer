@@ -10,7 +10,7 @@ function FrequentAskQue() {
     const questions = [
         {
             que: "How can I create and update my profile on Skilotech ",
-            ans: `To create a profile, click on the "Sign Up" button and fill in the required details. To update your profile, log in, click on your name in the top-right corner, and select "My Profile."`,
+            ans: `To create a profile, click on the "Sign Up" button and fill in the required details. To update your profile and log in, click on your name in the top-right corner, and select "My Profile."`,
         },
         {
             que: "How do I apply for jobs through Skilotech? ",

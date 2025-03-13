@@ -157,7 +157,9 @@ const SelectPost = () => {
                     <div
                       key={index}
                       onClick={() =>
-                        router.push(`/JobMatching/matchJob?selectedJob=${item?._id}`)
+                        router.push(
+                          `/JobMatching/matchJob?selectedJob=${item?._id}`
+                        )
                       }
                       className="flex w-full sm:w-[380px] py-3 px-4 md:py-4 md:px-6 flex-col items-start gap-3 flex-shrink-0 rounded-lg bg-white shadow-md col-span-4"
                     >
@@ -205,7 +207,7 @@ const SelectPost = () => {
                       <div className="flex w-[100%] justify-between items-center">
                         <div className="flex flex-col items-start gap-[4px]">
                           <p className="text-[12px] font-[600] text-[#646464]">
-                            Date posted
+                            Date Posted
                           </p>
                           <p className="text-[#333] font-[500] text-[12px]">
                             {new Date(item?.createdAt).toLocaleDateString(
@@ -296,7 +298,13 @@ const SelectPost = () => {
                             </svg>
                           </div>
                           <div className="text-[12px] font-[400]">
-                            {item?.location?.join(", ")}
+                            {item?.location
+                              ?.map(
+                                (loc) =>
+                                  loc.charAt(0).toUpperCase() +
+                                  loc.slice(1).toLowerCase()
+                              )
+                              .join(", ")}
                           </div>
                         </div>
                       </div>

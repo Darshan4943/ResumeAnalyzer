@@ -117,7 +117,7 @@ const JobPostChart = () => {
         borderRadius: "16px",
         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="p-5 bg-white rounded-xl w-full max-w-[890px] flex flex-col"
+      className="p-5 bg-white rounded-xl w-[890px] flex flex-col"
     >
       <div className="flex pb-2 flex-col gap-4 border-b border-[#DEDEDE] mb-[38px]">
         <div className="flex justify-between items-center flex-wrap">
