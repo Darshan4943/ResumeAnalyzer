@@ -87,7 +87,7 @@ function ForCandidate() {
         <div className="lg:h-[404px] customMargins relative w-full overflow-hidden">
             <div className="text-center w-full">
                 <animated.p style={toggle ? springProps : springProps4} className="text-center" id={toggle ? "candidate" : "Employer"}>
-                    {toggle ? "Candidate" : "Employer"}
+                    {toggle ? "Land Your Dream Job with Ease" : "Hire Top Talent Effortlessly"}
                 </animated.p>
             </div>
 

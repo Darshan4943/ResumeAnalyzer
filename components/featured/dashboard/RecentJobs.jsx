@@ -175,7 +175,7 @@ function RecentJobs({ isPending }) {
           }}
         >
           <div className="flex lg:flex-row flex-col  w-[100%] ml:px-[16px] gap-4 lg:justify-between items-start lg:items-center bg-[#fff]">
-            <p className="font-[600] text-[16px]">Recent Job Post</p>
+            <p className="font-[600] text-[16px]">Recent Job Posts</p>
           </div>
         </div>
       </div>

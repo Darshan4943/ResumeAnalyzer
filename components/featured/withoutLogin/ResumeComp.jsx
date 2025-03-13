@@ -18,8 +18,7 @@ function ResumeComp() {
           </p>
           <p className="text-[14px] font-[500] ms:text-start text-center">
             Unlock your career potential with AI-powered skill assessment.
-            <br className="ml:block hidden" />✅ Boost Your Abilities | ✅ Boost
-            Your Abilities | ✅ Land Your Dream Job
+            <br className="ml:block hidden" />✅ Boost Your Abilities | ✅ Showcase Your Strengths | ✅ Land Your Dream Job
           </p>
           <button
             onClick={() => router.push("/auth?signin=true")}

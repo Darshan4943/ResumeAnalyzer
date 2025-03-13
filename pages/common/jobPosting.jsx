@@ -295,7 +295,6 @@ function JobPosting() {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -304,7 +303,6 @@ function JobPosting() {
           <MiniLoader />
         </div>
       ) : (
-        
         <div className="flex flex-col gap-[24px]">
           <div className="flex flex-col gap-6">
             <div className="flex gap-6 flex-col  scr1024:flex-row">
@@ -498,7 +496,10 @@ function JobPosting() {
         <div className="fixed inset-0 bg-black bg-opacity-60 z-[9999] flex justify-center items-center">
           <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 relative">
             <button
-              onClick={() => setOpenPopup(false)}
+              onClick={() => {
+                setFile("");
+                setOpenPopup(false);
+              }}
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
             >
               ✕
@@ -570,7 +571,7 @@ function JobPosting() {
             </div>
 
             {file && (
-              <div className="text-green-500 text-sm mb-2">
+              <div className="text-green items-center justify-center flex text-sm mb-2">
                 {file.name} uploaded successfully!
               </div>
             )}
@@ -614,7 +615,7 @@ function JobPosting() {
           </div>
         </div>
       )}
-      
+  
     </>
   );
 }

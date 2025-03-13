@@ -108,7 +108,7 @@ function Dashboard({ toggleContentt }) {
         />
       </div>
 
-      <div className="scr1300:flex scr1300:flex-row flex flex-col w-full  scr1300:justify-between gap-4">
+      <div className="grid scr1300:grid-cols-[1fr,2fr] grid-cols-1 w-full  scr1300:justify-between gap-4">
         <div>
           <CandidateOverviewChart statistics={statistics} />
         </div>

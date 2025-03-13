@@ -41,10 +41,10 @@ function JobStatistics({ setSelected, selected, data }) {
           <div className="flex flex-col items-start lg:gap-1 gap-[2px]">
             <p className="text-[#333333] font-Montserrat text-[12px] lg:text-[24px] font-medium leading-[20px]">
               {" "}
-              Job statistics
+              Job Statistics
             </p>
             <p className="text-[#646464] lg:text-[12px] text-[10px] font-medium">
-              Duration :
+              Duration : {""}
               {selected === "Monthly"
                 ? `${new Date(data?.dateRange?.start).toLocaleDateString(
                     "en-GB",

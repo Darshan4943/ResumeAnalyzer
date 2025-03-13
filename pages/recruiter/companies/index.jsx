@@ -18,6 +18,8 @@ function Index() {
   const [totalPages, setTotalPages] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [totalCompanies, setTotalCount] = useState(0);
+  const [deletePopup, setDeletePopup] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   useEffect(() => {
     setId(userDataGlobal?._id || "");
@@ -65,22 +67,26 @@ function Index() {
   const handleEditCompany = (companyId) => {
     router.push(`/recruiter/companies/createCompany?companyId=${companyId}`);
   };
-
-  const handleDelete = async (companyId) => {
-    if (!companyId) {
+  const handleOpenDeletePopup = (companyId) => {
+    setSelectedJobId(companyId);
+    setDeletePopup(true);
+  };
+  const handleDelete = async () => {
+    if (!selectedJobId) {
       toast.error("No company selected for deletion.");
       return;
     }
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://dev.api.skilotech.com/api/company/deleteCompany/${companyId}`
+        `https://dev.api.skilotech.com/api/company/deleteCompany/${selectedJobId}`
       );
       if (response.data.success) {
         toast.success("Company deleted successfully!");
         fetchCompanyData();
+        setDeletePopup(false);
         setCompanyData((prevData) =>
-          prevData.filter((company) => company._id !== companyId)
+          prevData.filter((company) => company._id !== selectedJobId)
         );
       } else {
         toast.error(response.data.message || "Failed to delete company.");
@@ -124,7 +130,11 @@ function Index() {
           {companyData.length > 0 ? (
             companyData.map((item, index) => (
               <div
-              onClick={()=>router.push(`/recruiter/companies/companyDetails?companyId=${item?._id}`)}
+                onClick={() =>
+                  router.push(
+                    `/recruiter/companies/companyDetails?companyId=${item?._id}`
+                  )
+                }
                 key={index}
                 className="bg-[#FFFFFF] p-5 rounded-[12px] h-[204px] cursor-pointer flex flex-col items-center justify-between shadow-md gap-1 w-[300px]"
               >
@@ -148,13 +158,17 @@ function Index() {
                               : item.companyDescription,
                         }}
                       />
-
                     </div>
                   </div>
                 </div>
 
                 <div className="w-full flex justify-end gap-2">
-                  <button onClick={(e) =>{ e.stopPropagation();handleEditCompany(item._id)}}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditCompany(item._id);
+                    }}
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -170,7 +184,12 @@ function Index() {
                       </g>
                     </svg>
                   </button>
-                  <button onClick={(e) => { e.stopPropagation();handleDelete(item._id)}}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleOpenDeletePopup(item?._id);
+                    }}
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -187,6 +206,44 @@ function Index() {
                     </svg>
                   </button>
                 </div>
+                {deletePopup && (
+                  <>
+                    <div className="opacity-25 fixed inset-0 z-[99998] bg-black"></div>
+
+                    <div className="fixed top-0 left-0 w-full h-full z-[99999] flex justify-center items-center">
+                      <div className="bg-white rounded-[12px] p-6 flex flex-col gap-4 justify-center items-center max-w-[330px]">
+                        <img
+                          src="/images/icons/delete_icon.png"
+                          className="h-[60px] w-[60px]"
+                          alt="Delete"
+                        />
+                        <div className="w-full flex flex-col justify-center items-center">
+                          <h1 className="text-[24px] text-center">Delete</h1>
+                          <p className="text-[16px] text-center">
+                            Are you sure you want to delete this Company?
+                          </p>
+                        </div>
+                        <div className="w-full flex justify-between">
+                          <button
+                            className="blue_border_Button h-[38px] px-6 rounded-[30px]"
+                            onClick={(e) => {e.stopPropagation(); setDeletePopup(false)}}
+                          >
+                            No
+                          </button>
+                          <button
+                            className="red_border_Button h-[38px] px-6 rounded-[30px]"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete();
+                            }}
+                          >
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             ))
           ) : (

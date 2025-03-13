@@ -12,14 +12,17 @@ const JobCard = ({ filters, setFilters }) => {
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [totalCount, setTotalCount] = useState(0);
   const [miniloading, setMiniloading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(9);
   const [statusToggle, setStatusToggle] = useState({});
-  const [status, setStatus] = useState();
+  const [showPopup, setShowPopup] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [deletePopup, setDeletePopup] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
@@ -65,28 +68,6 @@ const JobCard = ({ filters, setFilters }) => {
       fetchJobs();
     }
   }, [limit, page]);
-
-  const handleDelete = async (jobId) => {
-    try {
-      const response = await axios.post(
-        `https://dev.api.skilotech.com/api/jobs/deletejob/${jobId}`
-      );
-
-      if (response.data.success) {
-        fetchJobs();
-        toast.success("Job deleted successfully");
-      } else {
-        toast.error(response.data.message || "Failed to delete the job");
-      }
-    } catch (error) {
-      console.error("Error deleting job:", error);
-      toast.error("Error deleting the job. Please try again.");
-    }
-  };
-
-  const [showPopup, setShowPopup] = useState(false);
-  const [generatedLink, setGeneratedLink] = useState("");
-  const [copied, setCopied] = useState(false);
 
   const handleClick = (jobId) => {
     const link = `https://testing.d3pnzi93uiabob.amplifyapp.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
@@ -147,6 +128,33 @@ const JobCard = ({ filters, setFilters }) => {
       [jobId]: !prev[jobId],
     }));
   };
+
+  const handleOpenDeletePopup = (jobId) => {
+    setSelectedJobId(jobId);
+    setDeletePopup(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.post(
+        `https://dev.api.skilotech.com/api/jobs/deletejob/${selectedJobId}`
+      );
+
+      if (response.data.success) {
+        fetchJobs();
+        toast.success("Job deleted successfully");
+      } else {
+        toast.error(response.data.message || "Failed to delete the job");
+      }
+    } catch (error) {
+      console.error("Error deleting job:", error);
+      toast.error("Error deleting the job. Please try again.");
+    } finally {
+      setDeletePopup(false);
+      setSelectedJobId(null);
+    }
+  };
+
   return (
     <div>
       {loading ? (
@@ -319,7 +327,8 @@ const JobCard = ({ filters, setFilters }) => {
                       <svg
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDelete(job._id);
+                          handleOpenDeletePopup(job._id);
+                          // handleDelete(job._id);
                         }}
                         width="20"
                         height="20"
@@ -460,6 +469,45 @@ const JobCard = ({ filters, setFilters }) => {
                       </div>
                     </div>
                   </div>
+
+                  {deletePopup && (
+                    <>
+                      <div className="opacity-25 fixed inset-0 z-[99998] bg-black"></div>
+
+                      <div className="fixed top-0 left-0 w-full h-full z-[99999] flex justify-center items-center">
+                        <div className="bg-white rounded-[12px] p-6 flex flex-col gap-4 justify-center items-center max-w-[330px]">
+                          <img
+                            src="/images/icons/delete_icon.png"
+                            className="h-[60px] w-[60px]"
+                            alt="Delete"
+                          />
+                          <div className="w-full flex flex-col justify-center items-center">
+                            <h1 className="text-[24px] text-center">Delete</h1>
+                            <p className="text-[16px] text-center">
+                              Are you sure you want to delete this Job?
+                            </p>
+                          </div>
+                          <div className="w-full flex justify-between">
+                            <button
+                              className="blue_border_Button h-[38px] px-6 rounded-[30px]"
+                              onClick={(e) =>{  e.stopPropagation(); setDeletePopup(false)}}
+                            >
+                              No
+                            </button>
+                            <button
+                              className="red_border_Button h-[38px] px-6 rounded-[30px]"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete();
+                              }}
+                            >
+                              Yes
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
