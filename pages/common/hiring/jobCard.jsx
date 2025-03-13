@@ -31,7 +31,7 @@ const JobCard = ({ filters, setFilters }) => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.161:2000/api/job/getAllJobDetails/${id}`,
+        `https://dev.api.skilotech.com/api/job/getAllJobDetails/${id}`,
         {
           params: { page, limit, ...filters },
         }
@@ -69,7 +69,7 @@ const JobCard = ({ filters, setFilters }) => {
   const handleDelete = async (jobId) => {
     try {
       const response = await axios.post(
-        `http://192.168.1.161:2000/api/jobs/deletejob/${jobId}`
+        `https://dev.api.skilotech.com/api/jobs/deletejob/${jobId}`
       );
 
       if (response.data.success) {
@@ -124,7 +124,7 @@ const JobCard = ({ filters, setFilters }) => {
       }
 
       const response = await axios.post(
-        `http://192.168.1.161:2000/api/job/handleChangeStatus`,
+        `https://dev.api.skilotech.com/api/job/handleChangeStatus`,
         { jobId: id, status: newStatus }
       );
 

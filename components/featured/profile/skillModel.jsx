@@ -30,7 +30,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     }
     axios
       .put(
-        "http://192.168.1.161:2000/api/candidate/updateSkills/" +
+        "https://dev.api.skilotech.com/api/candidate/updateSkills/" +
           userDataGlobal?._id,
 
         { skills: skil }

@@ -9,7 +9,7 @@ const DateSelectorComponent = () => {
   const handleDownload = async () => {
     try {
       const requestData = isAllSelected ? {} : { startDate, endDate };
-      const response = await axios.post('http://192.168.1.161:2000/api/apiLogs/download', requestData, {
+      const response = await axios.post('https://dev.api.skilotech.com/api/apiLogs/download', requestData, {
         responseType: 'blob', // Important to receive the response as a Blob (binary data)
       });
 

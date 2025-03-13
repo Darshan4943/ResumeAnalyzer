@@ -156,7 +156,7 @@ console.log(errors)
 
     try {
       const response = await axios.post(
-        `http://192.168.1.161:2000/api/creatrequasetion/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/creatrequasetion/${userDataGlobal?._id}`,
         {
           ...data,
           createdBy: userDataGlobal?._id,

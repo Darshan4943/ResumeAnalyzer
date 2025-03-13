@@ -69,8 +69,8 @@ const MatchingParameter = ({ item, index, moveItem, toggleItem, changePercentage
 
 const JdParameters = ({ setOpenParamenters }) => {
     const { userDataGlobal } = useSelector((state) => state.user.userData);
-    const [weightage, setWeightage] = useState(false)
-    const [priority, setPriority] = useState(false)
+    const [weightage, setWeightage] = useState(true)
+    const [priority, setPriority] = useState(true)
     const [loading, setLoading] = useState(false)
     const [parameters, setParameters] = useState([
         { label: "Skills and Competencies", description: "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.", percentage: 15, enabled: true },
@@ -88,7 +88,7 @@ const JdParameters = ({ setOpenParamenters }) => {
         const fetchJDParameters = async () => {
 
             try {
-                const data = await axios.get(`http://192.168.1.161:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+                const data = await axios.get(`https://dev.api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`);
 
                 if (data?.data?.data?.parameters) {
 
@@ -107,7 +107,7 @@ const JdParameters = ({ setOpenParamenters }) => {
     const addJDParameters = async () => {
         setLoading(true);
         try {
-            const response = await axios.post(`http://192.168.1.161:2000/api/jdParameters/add`, {
+            const response = await axios.post(`https://dev.api.skilotech.com/api/jdParameters/add`, {
                 userId: userDataGlobal?._id,
                 parameters,
                 weightage,

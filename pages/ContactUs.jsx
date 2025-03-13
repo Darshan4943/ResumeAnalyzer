@@ -39,7 +39,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://192.168.1.161:2000/api/contactUs/create",
+        "https://dev.api.skilotech.com/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);

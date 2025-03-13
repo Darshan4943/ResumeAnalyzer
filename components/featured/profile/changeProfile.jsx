@@ -146,7 +146,7 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
 
     try {
       const response = await axios.put(
-        `http://192.168.1.161:2000/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
         formData
       );
       dispatch(fetchUserData());

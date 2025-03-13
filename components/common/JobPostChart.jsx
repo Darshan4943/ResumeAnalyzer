@@ -39,7 +39,7 @@ const JobPostChart = () => {
 
       try {
         const response = await axios.get(
-          `http://192.168.1.161:2000/api/job/getJobStatisticsdata/${userDataGlobal._id}`
+          `https://dev.api.skilotech.com/api/job/getJobStatisticsdata/${userDataGlobal._id}`
         );
         setChartData(response.data);
       } catch (error) {

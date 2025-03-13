@@ -39,7 +39,7 @@ const ApplicantRanking = ({
       const limit = options || 10;
 
       const response = await axios.get(
-        `http://192.168.1.161:2000/api/job/appliedSyncJobs/${id}`,
+        `https://dev.api.skilotech.com/api/job/appliedSyncJobs/${id}`,
         {
           params: {
             limit: limit,

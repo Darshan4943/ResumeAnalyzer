@@ -40,7 +40,7 @@ function JdMatchCard({
  
  const fetchFolder = async () => {
   try {
-    const response = await axios.get(`http://192.168.1.161:2000/api/getSkilotechFolder/${userDataGlobal?._id}`);
+    const response = await axios.get(`https://dev.api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
     setParentId(response?.data?._id);
   } catch (error) {
     console.error("Error fetching folder:", error);
@@ -123,7 +123,7 @@ const parsePDFFileFromURL = async (url) => {
 
 const addData = async (file) => {
   const extractedText = await parsePDFFileFromURL(file.file);
-
+console.log(file);
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
@@ -133,11 +133,11 @@ const addData = async (file) => {
           userId: userDataGlobal?._id,
           text: extractedText,
           file: file?.file,
-          parentId: parentId || "",
+          job: jobData || "",
         };
 
         const response = await axios.post(
-          "http://192.168.1.161:2000/api/folder/addFileToSkilotechCollection",
+          "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
           payload,
           {
             headers: {
@@ -334,8 +334,8 @@ const addData = async (file) => {
             )}
 
             <div className="flex flex-col gap-[20px] scr1300:min-w-[386px] scr390:min-w-[300px] ">
-              {fromSkilotechCollection && parentId &&
-                <p onClick={()=>addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to Skilotech Collection</p>
+              {fromSkilotechCollection && 
+                <p onClick={()=>addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
               }
               <div className=" flex items-center h-[70px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
                 <div className="text-[18px] font-[500] justify-center">

@@ -61,7 +61,7 @@ function CreateCompany() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://192.168.1.161:2000/api/company/fetchCompaniDetails/${companyId}`
+          `https://dev.api.skilotech.com/api/company/fetchCompaniDetails/${companyId}`
         );
         if (response.data) {
           setData({
@@ -236,7 +236,7 @@ function CreateCompany() {
         formData.append("croppedImage", file);
       }
       const response = await axios.post(
-        `http://192.168.1.161:2000/api/company/addCompany/${id}`,
+        `https://dev.api.skilotech.com/api/company/addCompany/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -286,7 +286,7 @@ function CreateCompany() {
       }
 
       const response = await axios.put(
-        `http://192.168.1.161:2000/api/company/updateCompanyDetails/${companyId}`,
+        `https://dev.api.skilotech.com/api/company/updateCompanyDetails/${companyId}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

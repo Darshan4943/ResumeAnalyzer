@@ -70,7 +70,7 @@ Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("http://192.168.1.161:2000/api/text/regenrate", { prompt })
+        .post("https://dev.api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({

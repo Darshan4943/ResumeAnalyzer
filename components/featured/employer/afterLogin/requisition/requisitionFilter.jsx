@@ -51,7 +51,7 @@ function RequisitionFilter({ filterData, setFilterData }) {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.161:2000/api/getRequisitionTitel/${userDataGlobal?._id}`
+          `https://dev.api.skilotech.com/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
 

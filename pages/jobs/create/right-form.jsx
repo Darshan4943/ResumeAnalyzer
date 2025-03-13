@@ -159,7 +159,7 @@ const Rightform = ({
     formData.append("createdBy", userDataGlobal?._id);
 
     axios
-      .post("http://192.168.1.161:2000/api/job/add/" + id, formData)
+      .post("https://dev.api.skilotech.com/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");

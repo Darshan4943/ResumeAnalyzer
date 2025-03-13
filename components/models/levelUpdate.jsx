@@ -172,7 +172,7 @@ function LevelUpdate({
     try {
       setLoading(true);
       const response = await axios.put(
-        `http://192.168.1.161:2000/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
+        `https://dev.api.skilotech.com/api/job/hiringLevelUpdate/${jobDetails?.applicantId}/${jobDetails?.jobId}`,
         {
           selectedValues: {
             level: selectedLevel?.level + 1,

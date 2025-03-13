@@ -68,7 +68,7 @@ function Index() {
   const fetchTemplates = async () => {
     try {
       const response = await fetch(
-        `http://192.168.1.161:2000/api/getTemplates/${userDataGlobal._id}`
+        `https://dev.api.skilotech.com/api/getTemplates/${userDataGlobal._id}`
       );
       const result = await response.json();
 

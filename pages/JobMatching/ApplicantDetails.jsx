@@ -8,15 +8,15 @@ import MiniLoader from "../../components/common/mini-loader";
 import MiniLoaderr from "../../components/common/miniLoader";
 import InlineSVG from "../../components/common/InlineSvg";
 
-function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames }) {
+function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
-
+  console.log(111,collection);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loadingg, setLoadingg] = useState(true);
-  const fileExtension = userDetails.file.split(".").pop().toLowerCase();
+  const fileExtension = userDetails?.file?.split(".").pop().toLowerCase();
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
   const isDoc = ["doc", "docx"].includes(fileExtension);
@@ -36,7 +36,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
   //         );
 
   //         const response = await axios.get(
-  //           "http://192.168.1.161:2000/api/applicantdetails",
+  //           "https://dev.api.skilotech.com/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }
@@ -117,13 +117,13 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
   };
   const DocumentViewer = ({ fileUrl }) => {
     const [loading, setLoading] = useState(true);
-    
-  
+
+
     return (
       <div className="relative w-full">
         {loading && (
           <div className=" inset-0 flex items-center justify-center bg-gray-100 h-[300px]">
-            <MiniLoaderr/>
+            <MiniLoaderr />
           </div>
         )}
         <iframe
@@ -134,7 +134,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
       </div>
     );
   };
-  
+
 
 
   return (
@@ -199,29 +199,32 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
                     <p className="text-[20px] font-medium">  {userDetails?.matching_percentage}</p>
                   </div>
-                  <div className=" flex justify-center  ">
-                    {
-                      (jobData?.applications?.some((item) => item?.fileName === userDetails?.fileName) || jdApplicantFileNames?.includes(userDetails?.fileName)) ? (
-                        <p className='text-[14px] font-semibold text-[#0C8A0A]'>Moved to Hiring</p>
+                  {collection === "MyCollection" &&
+                    <div className=" flex justify-center  ">
+                      {
+                        (jobData?.applications?.some((item) => item?.fileName === userDetails?.fileName) || jdApplicantFileNames?.includes(userDetails?.fileName)) ? (
+                          <p className='text-[14px] font-semibold text-[#0C8A0A]'>Moved to Hiring</p>
 
-                      ) : (
-                        hiringLoading ? (
-                          <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] text-center flex justify-center items-center w-full"
-                          >
-                            <MiniLoader />
-                          </div>
-                        ) :
-                          <button
-                            onClick={() => addApplicant(userDetails)}
-                            className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-full"
-                          >
-                            Move to Hiring
-                          </button>
-                      )
-                    }
+                        ) : (
+                          hiringLoading ? (
+                            <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] text-center flex justify-center items-center w-full"
+                            >
+                              <MiniLoader />
+                            </div>
+                          ) :
+                            <button
+                              onClick={() => addApplicant(userDetails)}
+                              className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-full"
+                            >
+                              Move to Hiring
+                            </button>
+                        )
+                      }
 
-                  </div>
+                    </div>
+                  }
                 </div>
+                
                 <div className="min-h-[1px] bg-[#D6DDEB]"></div>
                 <div className="flex flex-col  gap-[8px] w-[380px]">
                   <div className="text-[16px] font-[600]">Contact</div>
@@ -461,8 +464,8 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
                       />
                     </div>
                   ) : isDoc ? (
-                    <DocumentViewer fileUrl={userDetails?.file}/>
-                    
+                    <DocumentViewer fileUrl={userDetails?.file} />
+
 
                   ) : (
                     <InlineSVG imageUrl={userDetails?.file} />

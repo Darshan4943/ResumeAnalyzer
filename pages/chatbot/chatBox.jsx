@@ -134,7 +134,7 @@ const ChatBox = ({
   // const updateChatCount = () => {
   //   axios
   //     .put(
-  //       `http://192.168.1.161:2000/api/subscription/updateChatLimit/${userDataGlobal?._id}`
+  //       `https://dev.api.skilotech.com/api/subscription/updateChatLimit/${userDataGlobal?._id}`
   //     )
   //     .then((res) => {   localStorage.setItem("chatCount", chatCount-1); 
   //       const chatCounts = Number(localStorage.getItem("chatCount"));
@@ -179,7 +179,7 @@ const ChatBox = ({
       };
       setLoading(true);
       axios
-        .post("http://192.168.1.161:2000/api/qna", {
+        .post("https://dev.api.skilotech.com/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
           userType: userDataGlobal?.role,
@@ -280,7 +280,7 @@ const ChatBox = ({
       //   formData.append("file", file);
       //   try {
       //     const response = await axios.post(
-      //       "http://192.168.1.161:2000/convert",
+      //       "https://dev.api.skilotech.com/convert",
       //       formData,
       //       {
       //         responseType: "blob",
@@ -329,7 +329,7 @@ const ChatBox = ({
       const formData = new FormData();
       formData.append("img", file);
       axios
-        .post("http://192.168.1.161:2000/api/getImageUrl", formData)
+        .post("https://dev.api.skilotech.com/api/getImageUrl", formData)
         .then((res) => {
           if (res.data.success) {
             setImg(res.data.location);

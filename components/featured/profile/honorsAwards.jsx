@@ -72,7 +72,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     if (isEditing) {
       axios
         .put(
-          `http://192.168.1.161:2000/api/candidate/${userDataGlobal?._id}/updateAchivement/${Achievement._id}`,
+          `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateAchivement/${Achievement._id}`,
           awardData
         )
         .then((res) => {
@@ -86,7 +86,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
     } else {
       axios
         .post(
-          `http://192.168.1.161:2000/api/candidate/addAchivement/${userDataGlobal?._id}`,
+          `https://dev.api.skilotech.com/api/candidate/addAchivement/${userDataGlobal?._id}`,
           awardData
         )
         .then((res) => {

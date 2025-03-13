@@ -18,7 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://192.168.1.161:2000/api/job/getByCreatedId/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/job/getByCreatedId/" + userDataGlobal?._id)
       .then((res) => {
        
         setJobPost(res.data);
@@ -93,7 +93,7 @@ const Index = () => {
 
   const deleteJob = (id) => {
     axios
-      .post("http://192.168.1.161:2000/api/jobs/deleteJobs", {
+      .post("https://dev.api.skilotech.com/api/jobs/deleteJobs", {
         ids: selectedIndexes,
       })
       .then((response) => {

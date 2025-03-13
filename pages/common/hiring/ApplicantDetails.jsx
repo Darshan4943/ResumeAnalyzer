@@ -33,7 +33,7 @@ function ApplicantDetails({ setTogglee }) {
       );
 
       const response = await axios.get(
-        "http://192.168.1.161:2000/api/applicantdetails",
+        "https://dev.api.skilotech.com/api/applicantdetails",
         {
           params: { id, applicantId },
         }

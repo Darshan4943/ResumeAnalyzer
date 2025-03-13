@@ -69,7 +69,7 @@ function EmployerHeader() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `http://192.168.1.161:2000/api/getNotificationLength/${userDataGlobal._id}`
+        `https://dev.api.skilotech.com/api/getNotificationLength/${userDataGlobal._id}`
       );
 
       if (!response.ok) {

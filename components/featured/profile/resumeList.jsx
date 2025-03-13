@@ -19,7 +19,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
     setLoading(true);
 
     axios
-      .get("http://192.168.1.161:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         const resumes = res.data.data;
 
@@ -42,7 +42,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
 
   const deleteHandler = () => {
     axios
-      .delete("http://192.168.1.161:2000/api/resume/deleteResume", {
+      .delete("https://dev.api.skilotech.com/api/resume/deleteResume", {
         data: { ids: deleteData.ids },
       })
       .then((response) => {
@@ -59,7 +59,7 @@ const ResumeList = ({ setResumeCount, setResumeList, resumeList }) => {
   const handleCheckboxChange = (resumeId) => {
     setIsResumes(resumeId);
     axios
-      .put("http://192.168.1.161:2000/api/resume/updateIsDefaultResume/" + resumeId)
+      .put("https://dev.api.skilotech.com/api/resume/updateIsDefaultResume/" + resumeId)
       .then((res) => {
         getData();
         // toast.success("Resume Deleted successfully");

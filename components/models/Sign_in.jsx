@@ -58,7 +58,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       role: role,
     };
     axios
-      .post("http://192.168.1.161:2000/api/skiloteckuser/signin", dataToSend)
+      .post("https://dev.api.skilotech.com/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;

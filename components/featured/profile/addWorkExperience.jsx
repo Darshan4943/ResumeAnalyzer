@@ -188,7 +188,7 @@ function AddWorkExperience({
     if (isEditing) {
       axios
         .put(
-          `http://192.168.1.161:2000/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
+          `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/updateWorkExperience/${Experience._id}`,
           obj
         )
         .then((res) => {
@@ -202,7 +202,7 @@ function AddWorkExperience({
     } else {
       axios
         .post(
-          `http://192.168.1.161:2000/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
+          `https://dev.api.skilotech.com/api/candidate/addWorkExperience/${userDataGlobal?._id}`,
           obj
         )
         .then((res) => {

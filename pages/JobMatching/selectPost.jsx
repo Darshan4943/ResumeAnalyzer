@@ -27,7 +27,7 @@ const SelectPost = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `http://192.168.1.161:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getByCreatedId/${userDataGlobal?._id}`,
         {
           params: {
             page,

@@ -25,7 +25,7 @@ function AppliedJobs({ setLimitPopup }) {
     setMiniloading(true);
     axios
       .get(
-        `http://192.168.1.161:2000/api/job/getAppliedJobsWithoutApplications/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getAppliedJobsWithoutApplications/${userDataGlobal?._id}`,
         {
           params: { page, limit },
         }

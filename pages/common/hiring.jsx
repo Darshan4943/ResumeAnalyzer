@@ -69,7 +69,7 @@ function Hiring() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.161:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {

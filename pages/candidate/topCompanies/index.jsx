@@ -12,7 +12,7 @@ function Index() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://192.168.1.161:2000/api/getTopcompanies"
+        "https://dev.api.skilotech.com/api/getTopcompanies"
       );
       const data = response.data;
 

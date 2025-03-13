@@ -22,7 +22,7 @@ function Projects({ userData }) {
   const deleteHandler = () => {
     axios
       .delete(
-        `http://192.168.1.161:2000/api/candidate/${userDataGlobal?._id}/deleteProject/${deleteData.id}`
+        `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteProject/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());

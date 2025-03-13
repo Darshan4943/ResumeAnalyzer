@@ -19,7 +19,7 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("http://192.168.1.161:2000/api/activeSubscription", {
+      .get("https://dev.api.skilotech.com/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {

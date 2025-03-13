@@ -77,7 +77,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://192.168.1.161:2000/api/folder/delete", {
+      .post("https://dev.api.skilotech.com/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -98,7 +98,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://192.168.1.161:2000/api/folder/restore", {
+      .post("https://dev.api.skilotech.com/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })

@@ -203,7 +203,7 @@ function EditProfile({ setEditProfile }) {
       };
       axios
         .put(
-          "http://192.168.1.161:2000/api/candidate/updateProfile/" +
+          "https://dev.api.skilotech.com/api/candidate/updateProfile/" +
             userDataGlobal?._id,
           requestData
         )
@@ -292,7 +292,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
 
     axios
-      .post("http://192.168.1.161:2000/api/otpMailProfile", {
+      .post("https://dev.api.skilotech.com/api/otpMailProfile", {
         userId: userDataGlobal?._id,
         userEmail: data.email,
       })
@@ -342,7 +342,7 @@ function EditProfile({ setEditProfile }) {
     e.preventDefault();
     const otpEntered = Number(otp.join(""));
     axios
-      .post("http://192.168.1.161:2000/api/verifyOtpProfile", {
+      .post("https://dev.api.skilotech.com/api/verifyOtpProfile", {
         userId: userDataGlobal?._id,
         otpEntered,
       })

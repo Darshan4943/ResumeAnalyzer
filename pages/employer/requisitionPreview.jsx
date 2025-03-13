@@ -8,7 +8,7 @@ function RequisitionPreview({ setOpenPreview, requisitionId }) {
   const fetchRequisition = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.161:2000/api/getRequisitionById/${requisitionId}`
+        `https://dev.api.skilotech.com/api/getRequisitionById/${requisitionId}`
       );
       setRequisition(response.data.data);
     } catch (error) {
