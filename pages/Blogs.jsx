@@ -17,13 +17,13 @@ function Blogs() {
               How to Create an ATS-Friendly Resume in 2025
             </p>
             <p className="text-[14px] font-[400]">
-              In today's competitive job market, getting your resume noticed is
+              In today&apos;s competitive job market, getting your resume noticed is
               more challenging than ever. With hundreds of applications flooding
               in for every job posting, companies rely on technology to filter
               out unqualified candidates. This is where an Applicant Tracking
-              System (ATS) comes into play. If your resume isn't optimized for
-              ATS, it might never reach the hands of a hiring manager. But don't
-              worry! In this blog, we'll walk you through the need of creating
+              System (ATS) comes into play. If your resume isn&apos;t optimized for
+              ATS, it might never reach the hands of a hiring manager. But don&apos;t
+              worry! In this blog, we&apos;ll walk you through the need of creating
               an ATS-friendly resume in 2025, and how Skilotech.com can help you
               build one in just a few clicks!
             </p>
@@ -50,8 +50,8 @@ function Blogs() {
             </p>
             <p className="text-[14px] font-[400]">
               You may be the perfect candidate for a job, but if your resume
-              isn't ATS-compliant, it might never reach the recruiter’s desk.
-              Here’s why an ATS-friendly resume is crucial:
+              isn&apos;t ATS-compliant, it might never reach the recruiter&apos;s desk.
+              Here&apos;s why an ATS-friendly resume is crucial:
             </p>
             <p>
               <div className="flex flex-col pl-4 gap-2">
@@ -63,19 +63,19 @@ function Blogs() {
                 </p>
                 <p>
                   {" "}
-                  2.Saves recruiters' time: ATS helps recruiters find the best
+                  2.Saves recruiters&apos; time: ATS helps recruiters find the best
                   matches quickly, so having the right formatting and keywords
                   improves your visibility.
                 </p>
                 <p>
                   {" "}
                   3.Boosts job search success: The more ATS-friendly resumes you
-                  submit, the more interviews you'll land.
+                  submit, the more interviews you&apos;ll land.
                 </p>
               </div>
             </p>
             <p>
-              Now that you know why ATS optimization is essential, let’s see how
+              Now that you know why ATS optimization is essential, let&apos;s see how
               you can create an ATS-compliant resume in a few clicks using
               Skilotech.com.
             </p>
@@ -86,10 +86,10 @@ function Blogs() {
               Skilotech.com
             </p>
             <p className="text-[14px] font-[400]">
-              If you’re wondering how to make your resume ATS-friendly without
+              If you&apos;re wondering how to make your resume ATS-friendly without
               spending hours, Skilotech.com has got you covered! Our resume
               builder online platform offers an easy-to-use resume builder that
-              ensures your resume meets ATS standards. Here’s how you can create
+              ensures your resume meets ATS standards. Here&apos;s how you can create
               an ATS-friendly resume in just a few steps:
             </p>
             <div className="flex flex-col pl-4 gap-2">
@@ -116,7 +116,7 @@ function Blogs() {
               </p>
               <p>
                 {" "}
-                5.Download and apply: Once you're satisfied with your resume,
+                5.Download and apply: Once you&apos;re satisfied with your resume,
                 download it in PDF or Word format and start applying for jobs
                 confidently.
               </p>
@@ -138,7 +138,7 @@ function Blogs() {
             <div className="flex flex-col pl-4 gap-2">
               <p>
                 {" "}
-                ✅ Perfect for All Careers: Whether you're in IT, marketing,
+                ✅ Perfect for All Careers: Whether you&apos;re in IT, marketing,
                 finance, healthcare, engineering, sales, or any other field, our
                 templates are tailored to suit every industry and experience
                 level.{" "}
@@ -170,7 +170,7 @@ function Blogs() {
               How to Know if Your Resume is ATS-Friendly?
             </p>
             <p className="text-[14px] font-[400]">
-              Once you’ve created your resume, it's essential to check if it
+              Once you&apos;ve created your resume, it&apos;s essential to check if it
               meets ATS standards. Here are some quick ways to test:
             </p>
             <p>
@@ -201,7 +201,7 @@ function Blogs() {
             <p className="text-[16px] font-[600]">Conclusion</p>
             <p className="text-[14px] font-[400]">
               In 2025, creating an ATS-friendly resume is more important than
-              ever. If your resume isn’t optimized, it could be rejected before
+              ever. If your resume isn&apos;t optimized, it could be rejected before
               a recruiter even sees it. Luckily, Skilotech.com makes it super
               easy to create an ATS-compliant resume in minutes. With our resume
               builder, ATS-friendly templates, and keyword optimization, you can
