@@ -21,6 +21,7 @@ import {
 import Folders from "../../components/featured/candidate/createResume/components/folders";
 import { setRecallData } from "../../Redux/slices/recallSlice";
 import MiniLoader from "../../components/common/miniLoader";
+import RequestCV from "../../components/common/RequestCV";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
@@ -120,14 +121,15 @@ function Collection() {
 
       }
     } else if (skilotechCollection == "true") {
+      setLoading(false)
       setTab(1);
       setTabIndex(0);
-      if (!parentId) {
-        getSkilotechCollectionData();
-      } else {
-        setParentId(parentId);
-        getParentData(parentId);
-      }
+      // if (!parentId) {
+      //   getSkilotechCollectionData();
+      // } else {
+      //   setParentId(parentId);
+      //   getParentData(parentId);
+      // }
 
     } else if (trash == "true") {
       setTab(2);
@@ -137,7 +139,7 @@ function Collection() {
     } else {
       setTab(1);
       setTabIndex(0);
-      getFolderData();
+      // getFolderData();
 
     }
   };
@@ -335,67 +337,67 @@ function Collection() {
 
     const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
     if (allowedFiles.length) {
-        const promises = allowedFiles.map((file, index) => {
-            return new Promise((resolve) => {
-                if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        const content = e.target.result;
-                        const doc = new Docxtemplater(new PizZip(content), {
-                            delimiters: {
-                                start: "12op1j2po1j2poj1po",
-                                end: "op21j4po21jp4oj1op24j",
-                            },
-                        });
-                        const text = doc.getFullText();
-                        textData.push({ index, text });
-                        resolve();
-                    };
-                    reader.readAsBinaryString(file);
-                } else if (file.type === "image/png") {
-                    Tesseract.recognize(file, "eng", {
-                        logger: (m) => console.log(m),
-                    }).then(({ data: { text } }) => {
-                        textData.push({ index, text });
-                        resolve();
-                    });
-                } else if (file.type === "application/pdf") {
-                    fileToText(file, 1).then((text) => {
-                        textData.push({ index, text });
-                        resolve();
-                    });
-                } else {
-                    resolve(); // For unsupported file types
-                }
+      const promises = allowedFiles.map((file, index) => {
+        return new Promise((resolve) => {
+          if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+              const content = e.target.result;
+              const doc = new Docxtemplater(new PizZip(content), {
+                delimiters: {
+                  start: "12op1j2po1j2poj1po",
+                  end: "op21j4po21jp4oj1op24j",
+                },
+              });
+              const text = doc.getFullText();
+              textData.push({ index, text });
+              resolve();
+            };
+            reader.readAsBinaryString(file);
+          } else if (file.type === "image/png") {
+            Tesseract.recognize(file, "eng", {
+              logger: (m) => console.log(m),
+            }).then(({ data: { text } }) => {
+              textData.push({ index, text });
+              resolve();
             });
+          } else if (file.type === "application/pdf") {
+            fileToText(file, 1).then((text) => {
+              textData.push({ index, text });
+              resolve();
+            });
+          } else {
+            resolve(); // For unsupported file types
+          }
         });
+      });
 
-        await Promise.all(promises);
+      await Promise.all(promises);
     }
 
     setTextData(textData); // Store extracted text globally
     setFiles(allowedFiles);
-};
+  };
 
-const addFiles = async () => {
+  const addFiles = async () => {
     setCount(0);
     setFileLoader(true);
 
     if (files.length === 0) {
-        toast.error("No File Selected");
-        setFileLoader(false);
-        return;
+      toast.error("No File Selected");
+      setFileLoader(false);
+      return;
     }
 
     // Directly use `textData` instead of calling `parseData()`
     const promises = files.map(async (file, index) => {
-        const textItem = textData.find((item) => item.index === index);
-        const text = textItem ? textItem.text : null;
-        return addData(file, index, text);
+      const textItem = textData.find((item) => item.index === index);
+      const text = textItem ? textItem.text : null;
+      return addData(file, index, text);
     });
 
     await Promise.all(promises);
-};
+  };
 
 
 
@@ -471,7 +473,7 @@ const addFiles = async () => {
   }, [skilotechCollection, folders, clientId, parentId, userDataGlobal, recall]);
 
 
- 
+
 
   // const updateCollectionLimit = async () => {
   //   if (uploadCount === 0) {
@@ -948,7 +950,7 @@ const addFiles = async () => {
       )}
       <div className="">
         <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4   relative  ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%]  min-w-[188px] ">
+          <div className="flex flex-col gap-5  justify-between ml:w-[25%] w-[100%]  min-w-[315px] ">
             <div className="flex flex-col gap-4 ">
               <p className="text-[18px] font-semibold h-[36px] ">
                 My Collection
@@ -982,11 +984,11 @@ const addFiles = async () => {
                   </svg>
                   My Folders
                 </button>
-                {/* <button
+                <button
                   onClick={() => {
                     router.push("/myCollection?skilotechCollection=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 1 && "bg-[#C2E7FF]"
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center   min-w-[280px] ${tab === 1 && "bg-[#C2E7FF]"
                     }   `}
                 >
                   <svg
@@ -1004,8 +1006,8 @@ const addFiles = async () => {
                       />
                     </g>
                   </svg>
-                  CVS from Skilotech
-                </button> */}
+                  Request CVS from Skilotech
+                </button>
                 <button
                   onClick={() => {
                     router.push("/myCollection?trash=true");
@@ -1040,29 +1042,35 @@ const addFiles = async () => {
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
             </div> */}
           </div>
+          {tab === 0 ?
 
-          <Folders
-            folderData={folderData}
-            unSyncFiles={unSyncFiles}
-            setFolderData={setFolderData}
-            tabIndex={tabIndex}
-            setTabIndex={setTabIndex}
-            data={folderList}
-            setData={setData}
-            clientData={folderList}
-            tab={tab}
-            setFolderList={setFolderList}
-            loading={loading}
-            query={router.query}
-            setRecall={setRecall}
-            setRename={setRename}
-            isCreate={isCreate}
-            setIsCreate={setIsCreate}
-            setIsFile={setIsFile}
-            setIsCreateFolder={setIsCreateFolder}
-            getLimits={getLimits}
-            parentId={parentId}
-          />
+            <Folders
+              folderData={folderData}
+              unSyncFiles={unSyncFiles}
+              setFolderData={setFolderData}
+              tabIndex={tabIndex}
+              setTabIndex={setTabIndex}
+              data={folderList}
+              setData={setData}
+              clientData={folderList}
+              tab={tab}
+              setFolderList={setFolderList}
+              loading={loading}
+              query={router.query}
+              setRecall={setRecall}
+              setRename={setRename}
+              isCreate={isCreate}
+              setIsCreate={setIsCreate}
+              setIsFile={setIsFile}
+              setIsCreateFolder={setIsCreateFolder}
+              getLimits={getLimits}
+              parentId={parentId}
+            />
+            :
+           
+            <RequestCV/>
+            
+          }
         </div>
       </div>
     </>

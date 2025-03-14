@@ -75,7 +75,7 @@ const MatchJob = () => {
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
-console.log(extratctedData);
+
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
@@ -240,58 +240,65 @@ console.log(extratctedData);
   }, [tab]);
 
   const JobMatchforSkilotechCollection = async () => {
-    if (jdCountMonthly >= jdCountMonthlyLimit) {
-      setLimitPopup(true);
-      return;
-    }
-    const outputData = [];
-    setMatchLoader(true);
-    const response = await axios.post(
-      "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
-
-      {
-        jd: extratctedData,
-        resumeCount,
-        parameters,
-        weightage,
-        priority
-
+    try {
+      if (jdCountMonthly >= jdCountMonthlyLimit) {
+        setLimitPopup(true);
+        return;
       }
-    );
-    setFromSkilotechCollection(true)
-    if (Array.isArray(response.data)) {
-      outputData.push(...response.data);
-    } else {
-      outputData.push(response.data);
-      // outputData.push([response.data]);
-    }
+      const outputData = [];
+      setMatchLoader(true);
+      const response = await axios.post(
+        "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
 
-    const dataArray = outputData
-      .filter((item) => item.matching_percentage)
-      .sort((a, b) => {
-        const parsePercentage = (percentage) => {
-          return parseInt(
-            isNaN(percentage) ? percentage.slice(0, 2) : percentage
+        {
+          jd: extratctedData,
+          resumeCount,
+          parameters,
+          weightage,
+          priority
+
+        }
+      );
+      setFromSkilotechCollection(true)
+      if (Array.isArray(response.data)) {
+        outputData.push(...response.data);
+      } else {
+        outputData.push(response.data);
+        // outputData.push([response.data]);
+      }
+
+      const dataArray = outputData
+        .filter((item) => item.matching_percentage)
+        .sort((a, b) => {
+          const parsePercentage = (percentage) => {
+            return parseInt(
+              isNaN(percentage) ? percentage.slice(0, 2) : percentage
+            );
+          };
+          return (
+            parsePercentage(b.matching_percentage) -
+            parsePercentage(a.matching_percentage)
           );
-        };
-        return (
-          parsePercentage(b.matching_percentage) -
-          parsePercentage(a.matching_percentage)
-        );
-      })
-      .slice(0, resumeCount);
+        })
+        .slice(0, resumeCount);
 
-    setResumeList(dataArray);
-    setIsMatched(true);
-    updateJobMatchLimit()
-    setTimeout(() => {
-      getLimits()
-    }, 5000);
-    setCollection("");
+      setResumeList(dataArray);
+      setIsMatched(true);
+      updateJobMatchLimit()
+      setTimeout(() => {
+        getLimits()
+      }, 5000);
+      setCollection("");
 
-    setButtonToggle(false);
+      setButtonToggle(false);
 
-    setMatchLoader(false);
+      setMatchLoader(false);
+    } catch (error) {
+      console.error("Error in JobMatchforSkilotechCollection:", error);
+      toast.error("Something went wrong, try again")
+    } finally {
+      setMatchLoader(false);
+    }
   };
 
   // useEffect(() => {
@@ -514,7 +521,7 @@ console.log(extratctedData);
       return { success: false, message: "Something went wrong", error };
     }
   };
-  
+
 
   return (
     <>
