@@ -253,49 +253,113 @@ function RequestCV() {
         }
     };
 
+    // const addData = async (files) => {
+    //     try {
+    //         const uploadPromises = files.map(async (file) => {
+    //             const extractedText = await parsePDFFileFromURL(file.file);
+
+    //             const payload = {
+    //                 fileName: file?.fileName,
+    //                 type: "file",
+    //                 userId: userDataGlobal?._id,
+    //                 text: extractedText,
+    //                 file: file?.file,
+    //                 job: isResumes === "post" ? selectedJob : data || "",
+    //                 isResumes
+    //             };
+
+    //             const response = await axios.post(
+    //                 "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+    //                 payload,
+    //                 {
+    //                     headers: {
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                 }
+    //             );
+
+    //             // if (response.data.message === "This file is already Saved") {
+    //             //     toast.info(`"${file.fileName}" is already saved`);
+    //             // } else {
+    //             //     toast.success(`"${file.fileName}" successfully saved`);
+    //             // }
+
+    //             return response.data;
+    //         });
+
+    //         const results = await Promise.all(uploadPromises);
+    //         setShowResume(false)
+    //         return results;
+    //     } catch (error) {
+    //         console.error("Error adding files:", error);
+    //         toast.error("Failed to save some files");
+    //         setShowResume(false)
+    //         throw error;
+    //     }
+    // };
+    
     const addData = async (files) => {
         try {
-            const uploadPromises = files.map(async (file) => {
+            if (files.length === 0) return;
+    
+            // Ensure folder is created before uploading files
+            const firstFile = files[0];
+            const extractedText = await parsePDFFileFromURL(firstFile.file);
+    
+            const payload = {
+                fileName: firstFile?.fileName,
+                type: "file",
+                userId: userDataGlobal?._id,
+                text: extractedText,
+                file: firstFile?.file,
+                job: isResumes === "post" ? selectedJob : data || "",
+                isResumes
+            };
+    
+            const folderResponse = await axios.post(
+                "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+                payload,
+                { headers: { "Content-Type": "application/json" } }
+            );
+    
+            if (!folderResponse.data.file?.parentId) {
+                throw new Error("Folder creation failed");
+            }
+    
+            const parentId = folderResponse.data.file.parentId;
+    
+           
+            const uploadPromises = files.slice(1).map(async (file) => {
                 const extractedText = await parsePDFFileFromURL(file.file);
-
                 const payload = {
                     fileName: file?.fileName,
                     type: "file",
                     userId: userDataGlobal?._id,
                     text: extractedText,
                     file: file?.file,
-                    job: selectedJob || "",
+                    job: isResumes === "post" ? selectedJob : data || "",
+                    isResumes,
+                    parentId, 
                 };
-
-                const response = await axios.post(
+    
+                return axios.post(
                     "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
                     payload,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
+                    { headers: { "Content-Type": "application/json" } }
                 );
-
-                // if (response.data.message === "This file is already Saved") {
-                //     toast.info(`"${file.fileName}" is already saved`);
-                // } else {
-                //     toast.success(`"${file.fileName}" successfully saved`);
-                // }
-
-                return response.data;
             });
-
+    
             const results = await Promise.all(uploadPromises);
-            setShowResume(false)
+            setShowResume(false);
             return results;
         } catch (error) {
             console.error("Error adding files:", error);
             toast.error("Failed to save some files");
-            setShowResume(false)
+            setShowResume(false);
             throw error;
         }
     };
+    
     const handleSaveAll = async () => {
         if (resumeList.length === 0) {
             toast.warn("No resumes to save");

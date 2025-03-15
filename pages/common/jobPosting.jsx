@@ -310,7 +310,7 @@ function JobPosting() {
                 <div className="flex flex-col bg-white rounded-[16px] p-4">
                   <p className="text-[16px] font-medium">
                     Choose an existing company <br />
-                    from the dropdown list.
+                    from the dropdown list
                   </p>
                   <div className="flex gap-2 items-end">
                     {loading ? (
@@ -378,7 +378,7 @@ function JobPosting() {
               <div className="flex flex-col bg-white rounded-[16px] p-4">
                 <p className="text-[16px] font-medium">
                   Download the template, fill in job <br />
-                  details & upload in one click.
+                  details & upload in one click
                 </p>
                 <div className="flex gap-2 items-end">
                   <button

@@ -88,7 +88,7 @@ const MatchJob = () => {
     { label: "Educational Qualification", description: "Compare the candidate's educational qualifications with the required and preferred educational background mentioned in the job description.", percentage: 10, enabled: true },
     { label: "Keywords", description: "Identify any keywords from the job description that are present in the candidate's resume.", percentage: 10, enabled: true },
     { label: "Achievements", description: "Review the candidate's achievements and assess their relevance and impact in relation to the job role.", percentage: 15, enabled: true }
-]);
+  ]);
   const [weightage, setWeightage] = useState(false)
   const [priority, setPriority] = useState(false)
 
@@ -256,7 +256,7 @@ const MatchJob = () => {
       const outputData = [];
       setMatchLoader(true);
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
+        "http://localhost:2000/api/skiloCollection/jobMatching",
 
         {
           jd: extratctedData,
@@ -296,7 +296,7 @@ const MatchJob = () => {
       setTimeout(() => {
         getLimits()
       }, 5000);
-      setCollection("");
+      // setCollection("");
 
       setButtonToggle(false);
 
@@ -656,7 +656,7 @@ const MatchJob = () => {
                         setCollection("SkilotechCollection");
                       }}
                     />
-                    <label>Request CVS From Skilotech</label>
+                    <label>Request CVs From Skilotech</label>
                   </div>
                 </div>
               </div>

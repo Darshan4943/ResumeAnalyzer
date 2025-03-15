@@ -44,7 +44,7 @@ function JobStatistics({ setSelected, selected, data }) {
               Job Statistics
             </p>
             <p className="text-[#646464] lg:text-[12px] text-[10px] font-medium">
-              Duration : {""}
+              Duration: {""}
               {selected === "Monthly"
                 ? `${new Date(data?.dateRange?.start).toLocaleDateString(
                     "en-GB",

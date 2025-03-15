@@ -822,7 +822,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         }}
                         onClick={aiMatch}
                         className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
-             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out ${ !jobDetails?.data?.applications?.some(app => app.isScore === false) && "opacity-50" }`}
+             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out ${!jobDetails?.data?.applications?.some(app => app.isScore === false) && "opacity-50"}`}
                       >
                         <svg
                           className={`min-w-[20px] transition-all duration-100 ${aiLoading ? "animate-pulse scale-110" : ""
@@ -1061,8 +1061,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                         <p
                                           className={`text-[14px] font-[600]
                                              ${applicant.isScore
-                                            ? "blur-[3px]"
-                                            : ""
+                                              ? "blur-[3px]"
+                                              : ""
                                             }
                                             `}
                                         >
@@ -1163,7 +1163,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                               boxShadow:
                                                 "0px 2px 2px 2px #00000020",
                                             }}
-                                            className="absolute flex flex-col w-[180px] gap-0 bg-white rounded-[12px] z-[1000] top-[100%] "
+                                            className="absolute flex flex-col w-[180px] items-start p-3 gap-2 bg-white rounded-[12px] z-[1000] top-[100%] "
                                           >
                                             {userDataGlobal?.role ===
                                               "recruiter" &&
@@ -1280,11 +1280,10 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             handleDotClick(index);
                                           }
                                         }}
-                                        className={`min-w-[24px] max-w-[24px] ${
-                                          applicant?.hiringStage === "Hired"
+                                        className={`min-w-[24px] max-w-[24px] ${applicant?.hiringStage === "Hired"
                                             ? "opacity-50 pointer-events-none"
                                             : ""
-                                        }`}
+                                          }`}
                                         src="/images/employer/three-dot.png"
                                         alt=""
                                       />

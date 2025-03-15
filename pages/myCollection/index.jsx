@@ -1006,7 +1006,7 @@ function Collection() {
                       />
                     </g>
                   </svg>
-                  Request CVS from Skilotech
+                  Request CVs From Skilotech
                 </button>
                 <button
                   onClick={() => {
@@ -1042,7 +1042,7 @@ function Collection() {
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
             </div> */}
           </div>
-          {tab === 0 ?
+          {tab === 0 || tab === 2 ?
 
             <Folders
               folderData={folderData}
@@ -1067,9 +1067,9 @@ function Collection() {
               parentId={parentId}
             />
             :
-           
-            <RequestCV/>
-            
+
+            <RequestCV />
+
           }
         </div>
       </div>
