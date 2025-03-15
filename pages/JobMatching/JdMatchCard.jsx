@@ -123,7 +123,7 @@ const parsePDFFileFromURL = async (url) => {
 
 const addData = async (file) => {
   const extractedText = await parsePDFFileFromURL(file.file);
-console.log(file);
+
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {

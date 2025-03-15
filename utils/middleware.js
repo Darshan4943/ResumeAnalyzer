@@ -69,7 +69,7 @@ export const fileIconSeter = (data) => {
     data?.fileName?.includes("jpeg")
   ) {
     return <PNGICON />;
-  } else {
+  } else if(data.type==="folder") {
     return (
       <svg
         className="min-w-[28px] min-h-[28px]"
@@ -89,6 +89,10 @@ export const fileIconSeter = (data) => {
         />
       </svg>
     );
+  }
+  else{
+    return <PDFSvg />;
+
   }
 };
 export const fileIconSeter1 = (data) => {

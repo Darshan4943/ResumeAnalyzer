@@ -103,7 +103,7 @@ function Files({
             setFiles={setFiles}
             clientData={clientData}
             tab={tab}
-            openFolder={tab === 1 ? openClientFolder : openFolder}
+            openFolder={openFolder}
             toggleSelect={toggleSelect}
           />
         </>
