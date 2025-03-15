@@ -39,6 +39,20 @@ function RequestCV() {
         mustSkills: [],
 
     });
+    const validateFormData = () => {
+       
+      
+        const errors = {};
+      
+        if (!data.jobTitle.trim()) errors.jobTitle = "Job title is required";
+        if (!Array.isArray(data.location) || data.location.length === 0) errors.location = "Location is required";
+        if (!Array.isArray(data.country) || data.country.length === 0) errors.country = "Country is required";
+        if (!data.totalExperience) errors.totalExperience = "Total experience is required";
+        if (!Array.isArray(data.mustSkills) || data.mustSkills.length === 0) errors.mustSkills = "Must skills are required";
+      
+        return Object.keys(errors).length === 0 ? true : errors;
+      };
+      
 
     const getLimits = () => {
         const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
@@ -89,6 +103,14 @@ function RequestCV() {
 
 
     const JobMatchforSkilotechCollection = async () => {
+        if(isResumes!=="post"){
+            const validationResult = validateFormData();
+
+            if (validationResult !== true) {
+              toast.error("All Fields are required")
+              return;
+            }
+        }
         try {
             if (jdCountMonthly >= jdCountMonthlyLimit) {
                 setLimitPopup(true);
@@ -428,7 +450,7 @@ function RequestCV() {
                                             <div key={index} className="flex flex-col gap-4">
 
                                                 <div className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] max-h-[100px] rounded-[8px] cursor-pointer " >
-                                                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg className='min-w-[48px] min-h-[48px]' width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M33.2108 0L42.6465 9.96849V47.8763H7.39844V48H42.7669V10.094L33.2108 0Z" fill="#909090" />
                                                         <path d="M32.6616 0H7.39844V48H42.7669V10.094L32.6616 0Z" fill="#F4F4F4" />
                                                         <path d="M32.0263 39.4745H5.5V28.4219H32.0263V39.4745Z" fill="#DD2025" />

@@ -58,9 +58,18 @@ function MyFolders({
                           onChange={() => toggleSelect(index)}
                         />
                       )}
-                      {item.isSync === false && item.type === "file" &&
+                      {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
                         <div className="absolute -bottom-2 -left-2 z-50">
                           <SyncLoader />
+                        </div>
+                      }
+                      {item.syncStatus === "failed" &&
+                        <div className="absolute -bottom-2 -left-2 z-50">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.0625 10L0 8.9375L3.9375 5L0 1.0625L1.0625 0L5 3.9375L8.9375 0L10 1.0625L6.0625 5L10 8.9375L8.9375 10L5 6.0625L1.0625 10Z" fill="#B3261E" />
+                          </svg>
+
+
                         </div>
                       }
                     </div>
@@ -119,9 +128,18 @@ function MyFolders({
                         </td>
                         <td className="w-[30%] scr460:px-4 justify-between flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
-                          {item.isSync === false && item.type === "file" &&
+                          {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
                             <div className=" overflow-hidden">
                               <SyncLoader />
+                            </div>
+                          }
+                          {item.syncStatus === "failed" &&
+                            <div className="absolute -bottom-2 -left-2 z-50">
+                              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.0625 10L0 8.9375L3.9375 5L0 1.0625L1.0625 0L5 3.9375L8.9375 0L10 1.0625L6.0625 5L10 8.9375L8.9375 10L5 6.0625L1.0625 10Z" fill="#B3261E" />
+                              </svg>
+
+
                             </div>
                           }
                         </td>

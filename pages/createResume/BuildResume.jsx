@@ -44,45 +44,7 @@ function BuildResume() {
           </div>
           <div className="flex justify-center item-center w-full">
             <div className="flex flex-col gap-[24px]  scr500w-[66%]">
-              <div
-               
-                onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}
-              >
-                <div className=" cursor-pointer scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 40 40"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g mask="url(#mask0_181_4664)">
-                          <path
-                            className="svg_classs"
-                            d="M19 29H21V21H29V19H21V11H19V19H11V21H19V29ZM20.0067 38C17.5176 38 15.1774 37.5277 12.9862 36.583C10.795 35.6384 8.88888 34.3564 7.26795 32.737C5.64705 31.1176 4.36383 29.2133 3.4183 27.0241C2.47277 24.8349 2 22.4958 2 20.0067C2 17.5176 2.47232 15.1774 3.41695 12.9862C4.36162 10.795 5.64365 8.88888 7.26305 7.26795C8.88245 5.64705 10.7867 4.36383 12.9759 3.4183C15.1651 2.47277 17.5042 2 19.9933 2C22.4824 2 24.8226 2.47232 27.0138 3.41695C29.205 4.36162 31.1111 5.64365 32.732 7.26305C34.3529 8.88245 35.6362 10.7867 36.5817 12.9759C37.5272 15.1651 38 17.5042 38 19.9933C38 22.4824 37.5277 24.8226 36.583 27.0138C35.6384 29.205 34.3564 31.1111 32.737 32.732C31.1176 34.3529 29.2133 35.6362 27.0241 36.5817C24.8349 37.5272 22.4958 38 20.0067 38ZM20 36C24.4667 36 28.25 34.45 31.35 31.35C34.45 28.25 36 24.4667 36 20C36 15.5333 34.45 11.75 31.35 8.65C28.25 5.55 24.4667 4 20 4C15.5333 4 11.75 5.55 8.65 8.65C5.55 11.75 4 15.5333 4 20C4 24.4667 5.55 28.25 8.65 31.35C11.75 34.45 15.5333 36 20 36Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-
-                      <div>
-                        <div className=" text-[16px] font-[500] sign_ip_text leading-tight">
-                          Create New Resume
-                        </div>
-                        <div className=" text-[12px] font-[500] text-[#646464] sign_ip_text leading-tight">
-                          Enter your details manually
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
-                </div>
-              </div>
+             
               <div
                 onClick={() => router.push(`/createResume/CandidateResumeDetails?isResume=true&clientId=${clientId}`)}
               >
@@ -120,6 +82,45 @@ function BuildResume() {
                   <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
               </div>
+              <div
+               
+               onClick={() => router.push(`/createResume/CandidateResumeDetails?clientId=${clientId}`)}
+             >
+               <div className=" cursor-pointer scr540:px-[16px] px-2  py-4 z-0 flex flex-row justify-between rounded-[16px] scr540:gap-10 gap-2 relative sign_up_shadow">
+                 <div className="flex flex-row justify-center item-center gap-[8px] ">
+                   <div className="flex items-center gap-2">
+                     <svg
+                       width="40"
+                       height="40"
+                       viewBox="0 0 40 40"
+                       fill="none"
+                       xmlns="http://www.w3.org/2000/svg"
+                     >
+                       <g mask="url(#mask0_181_4664)">
+                         <path
+                           className="svg_classs"
+                           d="M19 29H21V21H29V19H21V11H19V19H11V21H19V29ZM20.0067 38C17.5176 38 15.1774 37.5277 12.9862 36.583C10.795 35.6384 8.88888 34.3564 7.26795 32.737C5.64705 31.1176 4.36383 29.2133 3.4183 27.0241C2.47277 24.8349 2 22.4958 2 20.0067C2 17.5176 2.47232 15.1774 3.41695 12.9862C4.36162 10.795 5.64365 8.88888 7.26305 7.26795C8.88245 5.64705 10.7867 4.36383 12.9759 3.4183C15.1651 2.47277 17.5042 2 19.9933 2C22.4824 2 24.8226 2.47232 27.0138 3.41695C29.205 4.36162 31.1111 5.64365 32.732 7.26305C34.3529 8.88245 35.6362 10.7867 36.5817 12.9759C37.5272 15.1651 38 17.5042 38 19.9933C38 22.4824 37.5277 24.8226 36.583 27.0138C35.6384 29.205 34.3564 31.1111 32.737 32.732C31.1176 34.3529 29.2133 35.6362 27.0241 36.5817C24.8349 37.5272 22.4958 38 20.0067 38ZM20 36C24.4667 36 28.25 34.45 31.35 31.35C34.45 28.25 36 24.4667 36 20C36 15.5333 34.45 11.75 31.35 8.65C28.25 5.55 24.4667 4 20 4C15.5333 4 11.75 5.55 8.65 8.65C5.55 11.75 4 15.5333 4 20C4 24.4667 5.55 28.25 8.65 31.35C11.75 34.45 15.5333 36 20 36Z"
+                           fill="#333333"
+                         />
+                       </g>
+                     </svg>
+
+                     <div>
+                       <div className=" text-[16px] font-[500] sign_ip_text leading-tight">
+                         Create New Resume
+                       </div>
+                       <div className=" text-[12px] font-[500] text-[#646464] sign_ip_text leading-tight">
+                         Enter your details manually
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                 <div className="flex justify-center items-center">
+                   <ArrowLeft />
+                 </div>
+                 <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
+               </div>
+             </div>
             </div>
           </div>
         </div>

@@ -3,13 +3,13 @@ import Select from "react-select";
 import ReactSelect from "react-select";
 import { telCode, SkillList } from '../../utils/data';
 import { camelCase } from '../../utils/middleware';
-function ManualForm({ setResumeCount,resumeCount,JobMatchforSkilotechCollection,data, setData}) {
+function ManualForm({ setResumeCount, resumeCount, JobMatchforSkilotechCollection, data, setData }) {
 
     const [loactionText, setLoactionText] = useState("");
     const [skills, setSkills] = useState(SkillList);
     const [formError, setFormError] = useState({});
-   
-  
+
+
 
     const countryOptions = telCode.map((country) => ({
         value: country.name,
@@ -92,8 +92,9 @@ function ManualForm({ setResumeCount,resumeCount,JobMatchforSkilotechCollection,
             </div>
             <div className=' grid grid-cols-12 gap-4'>
                 <div className='flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12'>
-
-                    Designation
+                    <div className="text-[14px] font-[500]">
+                        Designation <span className="text-[red]">*</span>
+                    </div>
                     <input
                         type="text"
                         value={data.jobTitle}
@@ -228,8 +229,9 @@ function ManualForm({ setResumeCount,resumeCount,JobMatchforSkilotechCollection,
                     />
                 </div>
                 <div className='flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12'>
-
-                    Year of Experience
+                    <div className="text-[14px] font-[500]">
+                        Year of Experience <span className="text-[red]">*</span>
+                    </div>
                     <input
                         type="text"
                         value={data.totalExperience}
@@ -371,13 +373,14 @@ function ManualForm({ setResumeCount,resumeCount,JobMatchforSkilotechCollection,
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 text-[14px] font-medium scr1300:col-span-4 scr1024:col-span-6 col-span-12'>
-
-                    Set Filter Limit
+                    <div className="text-[14px] font-[500]">
+                        Set Filter Limit <span className="text-[red]">*</span>
+                    </div>
                     <input
                         type="text"
                         value={resumeCount}
                         placeholder='Set Filter Limit'
-                        onChange={(e) => setResumeCount( e.target.value )}
+                        onChange={(e) => setResumeCount(e.target.value)}
                         className="border rounded-[8px] p-2 border-[#DEDEDE] placeholder:text-[12px] font-normal h-[41.6px] "
                     />
                 </div>
@@ -385,7 +388,7 @@ function ManualForm({ setResumeCount,resumeCount,JobMatchforSkilotechCollection,
 
             </div>
             <div className='flex justify-end'>
-                <button onClick={() =>JobMatchforSkilotechCollection()} className='h-[38px] px-6 bg_Button rounded-[30px]'>
+                <button onClick={() => JobMatchforSkilotechCollection()} className='h-[38px] px-6 bg_Button rounded-[30px]'>
                     Request CV from Skilotech
                 </button>
             </div>

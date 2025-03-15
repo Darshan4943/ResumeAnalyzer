@@ -50,12 +50,7 @@ function EmployerSidebar() {
       title: "JD Creation",
       route: "/jdCreation",
     },
-    {
-      img: "/images/employer/sidebar/candidate.png",
-      img1: "/images/employer/sidebar/candidate1.png",
-      title: "Resumes",
-      route: "/recruiter/resumeCreation",
-    },
+   
     {
       img: "/images/employer/sidebar/myCollection.png",
       img1: "/images/employer/sidebar/myCollection1.png",
@@ -67,6 +62,12 @@ function EmployerSidebar() {
       img1: "/images/employer/sidebar/template.png",
       title: "Mail Templates",
       route: "/template",
+    },
+    {
+      img: "/images/employer/sidebar/candidate.png",
+      img1: "/images/employer/sidebar/candidate1.png",
+      title: "Resumes",
+      route: "/recruiter/resumeCreation",
     },
     
   ];
@@ -96,12 +97,7 @@ function EmployerSidebar() {
       title: "Hiring",
       route: "/common/hiring",
     },
-    {
-      img: "/images/employer/sidebar/jdMatching.png",
-      img1: "/images/employer/sidebar/jdMatching1.png",
-      title: "JD Matching",
-      route: "/JobMatching",
-    },
+    
     {
       img: "/images/employer/sidebar/preboarding.png",
       img1: "/images/employer/sidebar/preboarding1.png",
@@ -109,10 +105,28 @@ function EmployerSidebar() {
       route: "/employer/Preboarding",
     },
     {
+      img: "/images/employer/sidebar/jdMatching.png",
+      img1: "/images/employer/sidebar/jdMatching1.png",
+      title: "JD Matching",
+      route: "/JobMatching",
+    },
+    {
+      img: "/images/employer/sidebar/jdcreation.png",
+      img1: "/images/employer/sidebar/jdcreation2.png",
+      title: "JD Creation",
+      route: "/jdCreation",
+    },
+    {
       img: "/images/employer/sidebar/myCollection.png",
       img1: "/images/employer/sidebar/myCollection1.png",
       title: "My Collection",
       route: "/myCollection?folders=true",
+    },
+    {
+      img: "/images/employer/sidebar/template1.png",
+      img1: "/images/employer/sidebar/template.png",
+      title: "Mail Templates",
+      route: "/template",
     },
     
   ];
