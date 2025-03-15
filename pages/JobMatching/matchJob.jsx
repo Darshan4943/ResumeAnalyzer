@@ -256,7 +256,7 @@ const MatchJob = () => {
       const outputData = [];
       setMatchLoader(true);
       const response = await axios.post(
-        "http://localhost:2000/api/skiloCollection/jobMatching",
+        "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
 
         {
           jd: extratctedData,
