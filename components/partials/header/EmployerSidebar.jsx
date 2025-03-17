@@ -16,31 +16,31 @@ function EmployerSidebar() {
   const recruiterList = [
     {
       img: "/images/employer/sidebar/home.png",
-      img1: "/images/employer/sidebar/home1.png",
+      img1: "/images/employer/sidebar/home2.png",
       title: "Home",
       route: "/",
     },
     {
       img: "/images/employer/sidebar/companies.png",
-      img1: "/images/employer/sidebar/companies1.png",
+      img1: "/images/employer/sidebar/companies2.png",
       title: "Companies",
       route: "/recruiter/companies",
     },
     {
       img: "/images/employer/sidebar/jobPosting.png",
-      img1: "/images/employer/sidebar/jobPosting1.png",
+      img1: "/images/employer/sidebar/jobPosting2.png",
       title: "Job Posting",
       route: "/common/jobPosting",
     },
     {
       img: "/images/employer/sidebar/hiring.png",
-      img1: "/images/employer/sidebar/hiring1.png",
+      img1: "/images/employer/sidebar/hiring2.png",
       title: "Hiring",
       route: "/common/hiring",
     },
     {
       img: "/images/employer/sidebar/jdMatching.png",
-      img1: "/images/employer/sidebar/jdMatching1.png",
+      img1: "/images/employer/sidebar/jdMatching2.png",
       title: "JD Matching",
       route: "/JobMatching",
     },
@@ -53,7 +53,7 @@ function EmployerSidebar() {
    
     {
       img: "/images/employer/sidebar/myCollection.png",
-      img1: "/images/employer/sidebar/myCollection1.png",
+      img1: "/images/employer/sidebar/myCollection2.png",
       title: "My Collection",
       route: "/myCollection?folders=true",
     },
@@ -65,7 +65,7 @@ function EmployerSidebar() {
     },
     {
       img: "/images/employer/sidebar/candidate.png",
-      img1: "/images/employer/sidebar/candidate1.png",
+      img1: "/images/employer/sidebar/candidate2.png",
       title: "Resumes",
       route: "/recruiter/resumeCreation",
     },
@@ -75,38 +75,38 @@ function EmployerSidebar() {
   const employerList = [
     {
       img: "/images/employer/sidebar/home.png",
-      img1: "/images/employer/sidebar/home1.png",
+      img1: "/images/employer/sidebar/home2.png",
       title: "Home",
       route: "/",
     },
     {
       img: "/images/employer/sidebar/requisition.png",
-      img1: "/images/employer/sidebar/requisition1.png",
+      img1: "/images/employer/sidebar/requisition2.png",
       title: "Requisition",
       route: "/employer/requisition",
     },
     {
       img: "/images/employer/sidebar/jobPosting.png",
-      img1: "/images/employer/sidebar/jobPosting1.png",
+      img1: "/images/employer/sidebar/jobPosting2.png",
       title: "Job Posting",
       route: "/common/jobPosting/JobPosting",
     },
     {
       img: "/images/employer/sidebar/hiring.png",
-      img1: "/images/employer/sidebar/hiring1.png",
+      img1: "/images/employer/sidebar/hiring2.png",
       title: "Hiring",
       route: "/common/hiring",
     },
     
     {
       img: "/images/employer/sidebar/preboarding.png",
-      img1: "/images/employer/sidebar/preboarding1.png",
+      img1: "/images/employer/sidebar/preboarding2.png",
       title: "Preboarding",
       route: "/employer/Preboarding",
     },
     {
       img: "/images/employer/sidebar/jdMatching.png",
-      img1: "/images/employer/sidebar/jdMatching1.png",
+      img1: "/images/employer/sidebar/jdMatching2.png",
       title: "JD Matching",
       route: "/JobMatching",
     },
@@ -118,7 +118,7 @@ function EmployerSidebar() {
     },
     {
       img: "/images/employer/sidebar/myCollection.png",
-      img1: "/images/employer/sidebar/myCollection1.png",
+      img1: "/images/employer/sidebar/myCollection2.png",
       title: "My Collection",
       route: "/myCollection?folders=true",
     },

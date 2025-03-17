@@ -29,23 +29,23 @@ function TopSection({
             color: "#57697B",
             svg: "svg2",
           },
-          // {
-          //   title: "Shortlisted",
-          //   count: statistics.shortlisted,
-          //   color: "#57697B",
-          //   svg: "svg3",
-          // },
+          {
+            title: "Shortlisted",
+            count: statistics.shortlisted,
+            color: "#57697B",
+            svg: "svg3",
+          },
           {
             title: "Hired",
             count: statistics.hired,
             color: "#57697B",
-            svg: "svg3",
+            svg: "svg4",
           },
           {
             title: "Rejected",
             count: statistics.rejected,
             color: "#57697B",
-            svg: "svg4",
+            svg: "svg5",
           },
         ]
       : [
