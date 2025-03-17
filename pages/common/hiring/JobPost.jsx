@@ -486,8 +486,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
         setMoreOption(false);
 
         toast.success("Candidate Hired successfully");
-
-        dispatch(setRecallData(!recallData));
+        fetchJobDetails()
+       
         return response.data;
       }
     } catch (error) {
@@ -1195,28 +1195,50 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 </button>
                                               )}
 
-                                          
-                                                <button
-                                                  disabled={
-                                                    applicant?.hiringStage ===
+
+                                            <button
+                                              disabled={
+                                                applicant?.hiringStage ===
+                                                "Rejected"
+                                              }
+                                              style={{
+                                                opacity:
+                                                  applicant?.hiringStage ===
                                                     "Rejected"
-                                                  }
-                                                  style={{
-                                                    opacity:
-                                                      applicant?.hiringStage ===
-                                                        "Rejected"
-                                                        ? 0.5
-                                                        : 1,
-                                                  }}
-                                                  onClick={() => {
-                                                    setHiringStage("Rejected");
-                                                    togglePopup(applicant);
-                                                  }}
-                                                  className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
-                                                >
-                                                  Reject
-                                                </button>
-                                            
+                                                    ? 0.5
+                                                    : 1,
+                                              }}
+                                              onClick={() => {
+                                                setHiringStage("Rejected");
+                                                togglePopup(applicant);
+                                              }}
+                                              className="text-[14px] font-[500] rounded-[30px] text-[#B3261E]"
+                                            >
+                                              Reject
+                                            </button>
+                                            {userDataGlobal?.role ===
+                                              "recruiter" && applicant?.hiringStage ===
+                                                  "Shortlisted" &&
+                                              <button
+                                                disabled={
+                                                  applicant?.hiringStage !==
+                                                  "Shortlisted"
+                                                }
+                                                style={{
+                                                  opacity:
+                                                    applicant?.hiringStage !==
+                                                  "Shortlisted"
+                                                      ? 0.5
+                                                      : 1,
+                                                }}
+                                                onClick={() => hiredCandidate(applicant?.applicantId, applicant?.jobId)}
+
+                                                className="text-[14px] font-[500] rounded-[30px] "
+                                              >
+                                                Hire
+                                              </button>
+                                            }
+
                                           </div>
                                         )}
 
@@ -1269,12 +1291,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                       <img
                                         onClick={() => {
                                           if (
-                                            applicant?.hiringStage !== "Hired"
+                                            applicant?.hiringStage !== "Hired" && applicant?.hiringStage !== "Rejected"
                                           ) {
                                             handleDotClick(index);
                                           }
                                         }}
-                                        className={`min-w-[24px] max-w-[24px] ${applicant?.hiringStage === "Hired"
+                                        className={`min-w-[24px] max-w-[24px] cursor-pointer ${applicant?.hiringStage === "Hired" || applicant?.hiringStage === "Rejected"
                                           ? "opacity-50 pointer-events-none"
                                           : ""
                                           }`}
