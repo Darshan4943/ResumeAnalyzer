@@ -42,7 +42,7 @@ const SelectPostJd = ({setSelectedJob,setResumeCount,resumeCount,JobMatchforSkil
     const getData = async () => {
         try {
             const { data } = await axios.get(
-                `https://dev.api.skilotech.com/api/job/getByCreatedId/${userDataGlobal?._id}`,
+                `http://localhost:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
                 {
                     params: {
                         page,
