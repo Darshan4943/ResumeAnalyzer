@@ -66,7 +66,7 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/job/getByJobId/${id}`)
+      .get(`https://dev.api.skilotech.com/api/job/getByJobId/${id}`)
       .then((res) => {
         setJobDetails(res.data);
 
@@ -91,7 +91,7 @@ function ApplyForm() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/userJobDetails/getUserJobDetailsById/${userDataGlobal?._id}`
       )
       .then((res) => {
         const { personal, professional } = res.data.data;
@@ -152,7 +152,7 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
+      .get(`https://dev.api.skilotech.com/api/resume/${userDataGlobal?._id}`)
       .then((res) => {
         setResumes(res.data.data);
         setLoadingg(false);
@@ -213,7 +213,7 @@ function ApplyForm() {
   const updateApplyCount = () => {
     axios
       .put(
-        `http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
       )
       .then((res) => {})
       .catch((err) => console.error(err));
@@ -482,7 +482,7 @@ function ApplyForm() {
     );
 
     axios
-      .post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
+      .post(`https://dev.api.skilotech.com/api/job/apply/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -505,7 +505,7 @@ function ApplyForm() {
       .finally(() => {
         axios
           .post(
-            "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
+            "https://dev.api.skilotech.com/api/userJobDetails/createOrUpdateUserJobDetails",
             {
               userId: userDataGlobal?._id,
               ...formData,

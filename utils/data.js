@@ -12,7 +12,7 @@ export const uploadFile = async (file, fieldName) => {
     const fileData = new FormData();
     fileData.append(fieldName, file);
 
-    const response = await axios.post("http://localhost:2000/api/upload/document", fileData, {
+    const response = await axios.post("https://dev.api.skilotech.com/api/upload/document", fileData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
