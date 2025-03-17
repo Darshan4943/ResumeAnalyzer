@@ -41,7 +41,7 @@ const MatchJob = () => {
   const [loadingg, setLoadingg] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
   const [files, setFiles] = useState([]);
-  const { clientId, selectedJob } = router.query;
+  const { clientId, selectedJob, data } = router.query;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [count, setCount] = useState(0);
@@ -91,6 +91,12 @@ const MatchJob = () => {
   ]);
   const [weightage, setWeightage] = useState(false)
   const [priority, setPriority] = useState(false)
+  useEffect(() => {
+    if (data?.description) {
+      setExtractedData(data?.description)
+    }
+  }, [data])
+
 
 
   useEffect(() => {
@@ -226,25 +232,27 @@ const MatchJob = () => {
 
   const getData = async () => {
     setLoading(true);
-    if (selectedJob) {
-      await axios
-        .get("https://dev.api.skilotech.com/api/job/getById/" + selectedJob)
-        .then((res) => {
-          setLoading(false);
-          const { applications, ...restData } = res.data;
 
-          setExtractedData(restData);
-          setJobData(res.data);
-        })
-        .catch((err) => {
-          setLoading(false);
+    await axios
+      .get("https://dev.api.skilotech.com/api/job/getById/" + selectedJob)
+      .then((res) => {
+        setLoading(false);
+        const { applications, ...restData } = res.data;
 
-          console.log(err);
-        });
-    }
+        setExtractedData(restData);
+        setJobData(res.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+
+        console.log(err);
+      });
+
   };
   useEffect(() => {
-    getData();
+    if (selectedJob) {
+      getData();
+    }
   }, [tab]);
 
   const JobMatchforSkilotechCollection = async () => {
