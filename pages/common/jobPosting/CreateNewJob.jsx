@@ -87,12 +87,12 @@ function CreateNewJob() {
     value: country.name,
     label: country.name,
   }));
-
+console.log(userDataGlobal.companyId)
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?._id}`
+        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -614,8 +614,8 @@ function CreateNewJob() {
         `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
-      setData({
-        ...data,
+      setData((prevData) => ({
+        ...prevData,
         jobTitle: fetchedData.jobTitle || "",
         minSalary: fetchedData.budgetFrom || "",
         maxSalary: fetchedData.budgetTo || "",
@@ -629,7 +629,7 @@ function CreateNewJob() {
         deadLine: fetchedData.hiringDate
           ? new Date(fetchedData.hiringDate).toISOString().split("T")[0]
           : "",
-      });
+      }));
     } catch (error) {
       console.error("Error fetching job details:", error);
     } finally {
