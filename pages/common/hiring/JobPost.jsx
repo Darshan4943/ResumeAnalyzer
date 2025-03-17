@@ -1059,19 +1059,14 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                     <div className="flex w-[15%] items-center justify-center   gap-[8px]">
                                       {applicant.matchingPercentage ? (
                                         <p
-                                          className={`text-[14px] font-[600]
-                                             ${applicant.isScore
-                                              ? "blur-[3px]"
-                                              : ""
-                                            }
-                                            `}
+                                          className={`text-[14px] font-[600] `}
                                         >
-                                          {applicant.isScore
-                                            ? `${randomPercentage} %`
-                                            : `${applicant.matchingPercentage} %`}
+                                          {applicant.matchingPercentage} %
                                         </p>
                                       ) : (
-                                        <>-</>
+                                        <p className="blur-[3px] text-[14px] font-[600]">
+                                          {randomPercentage} %
+                                        </p>
                                       )}
                                     </div>
                                     <div className=" flex justify-center w-[20%]">
@@ -1281,8 +1276,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           }
                                         }}
                                         className={`min-w-[24px] max-w-[24px] ${applicant?.hiringStage === "Hired"
-                                            ? "opacity-50 pointer-events-none"
-                                            : ""
+                                          ? "opacity-50 pointer-events-none"
+                                          : ""
                                           }`}
                                         src="/images/employer/three-dot.png"
                                         alt=""
