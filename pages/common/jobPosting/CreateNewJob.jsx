@@ -1592,6 +1592,11 @@ console.log(userDataGlobal.companyId)
                                 color: "#999",
                                 fontSize: "12px",
                               }),
+                              singleValue: (provided) => ({
+                                ...provided,
+                                fontSize: "12px",
+                                color: "#333",    
+                              }),
                               container: (provided) => ({
                                 ...provided,
                                 border: "none",
