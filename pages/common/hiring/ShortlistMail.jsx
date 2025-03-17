@@ -154,14 +154,14 @@ function ShortlistMail({
   const handleSend = async () => {
     let isValid = true;
 
-    if (!subject?.trim()) {
+    if (newHiringStage==="Shortlisted" ? !shortlistSubject?.trim() : !rejectedSubject?.trim()) {
       setSubjectError("Subject is required.");
       isValid = false;
     } else {
       setSubjectError("");
     }
 
-    if (!content?.trim()) {
+    if (newHiringStage==="Shortlisted" ? !shortlistContent?.trim() : !rejectedContent?.trim()) {
       setContentError("Content is required.");
       isValid = false;
     } else {
@@ -174,8 +174,8 @@ function ShortlistMail({
     const emailDetails = {
       to: shortlist?.map((item) => item?.details?.personal?.email) || "",
       cc: tags,
-      subject,
-      content,
+      subject:newHiringStage==="Shortlisted" ? shortlistSubject : rejectedSubject,
+      content:newHiringStage==="Shortlisted" ? shortlistContent : rejectedContent,
       applicantId: shortlist?.map((item) => item?.applicantId),
       role: userDataGlobal?.role,
       jobId: id,
