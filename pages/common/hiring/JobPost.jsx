@@ -1195,8 +1195,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 </button>
                                               )}
 
-                                            {applicant?.hiringStage ===
-                                              "Pending" && (
+                                          
                                                 <button
                                                   disabled={
                                                     applicant?.hiringStage ===
@@ -1217,7 +1216,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 >
                                                   Reject
                                                 </button>
-                                              )}
+                                            
                                           </div>
                                         )}
 
