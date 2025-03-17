@@ -14,11 +14,11 @@ function Services() {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/servicesResume.png",
     },
-    {
-      name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/servicesCover.png",
-    },
-    { name: "My Candidates", imgSrc: "/images/resumeBuilder/servicesCandidate.png" },
+    // {
+    //   name: "Create New Cover Letter",
+    //   imgSrc: "/images/resumeBuilder/servicesCover.png",
+    // },
+    // { name: "My Candidates", imgSrc: "/images/resumeBuilder/servicesCandidate.png" },
 
     {
       name: "JD Matching",

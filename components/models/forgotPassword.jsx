@@ -26,7 +26,7 @@ function ForgotPassword({ setIsForgot }) {
     e.preventDefault();
     
     axios
-      .post("http://localhost:2000/api/otpMail", {
+      .post("https://dev.api.skilotech.com/api/otpMail", {
         userEmail: email,
        
       })
@@ -49,7 +49,7 @@ function ForgotPassword({ setIsForgot }) {
   const verifyOtp = (e) => {
 e.preventDefault();
     axios
-      .post("http://localhost:2000/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: email,
         otpEntered
       })
@@ -87,7 +87,7 @@ e.preventDefault();
       }
 
       const response = await axios.post(
-        "http://localhost:2000/api/updatePassword",
+        "https://dev.api.skilotech.com/api/updatePassword",
         {
           email: email,
           newPassword: password,
