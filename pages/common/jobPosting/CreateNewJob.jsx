@@ -92,7 +92,7 @@ console.log(userDataGlobal.companyId)
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `https://dev.api.skilotech.com/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -304,7 +304,7 @@ console.log(userDataGlobal.companyId)
 
     try {
       const response = await axios.post(
-        `http://localhost:2000/api/job/add/${id}`,
+        `https://dev.api.skilotech.com/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -330,7 +330,7 @@ console.log(userDataGlobal.companyId)
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/job/getByJobId/" + id)
+      .get("https://dev.api.skilotech.com/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -424,7 +424,7 @@ console.log(userDataGlobal.companyId)
     setLoading(true);
 
     axios
-      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
+      .get(`https://dev.api.skilotech.com/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -611,7 +611,7 @@ console.log(userDataGlobal.companyId)
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:2000/api/getRequisitionById/${reqId}`
+        `https://dev.api.skilotech.com/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({
