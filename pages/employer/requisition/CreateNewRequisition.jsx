@@ -53,7 +53,7 @@ const CreateNewRequisition = ({ setToggle }) => {
   const [errors, setErrors] = useState({});
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loactionText, setLoactionText] = useState("");
-console.log(errors)
+
   const experienceOptions = [
     { value: "", label: "Select" },
     { value: "0-2 years", label: "0-2 years" },
