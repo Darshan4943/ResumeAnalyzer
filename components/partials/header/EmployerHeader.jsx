@@ -148,7 +148,7 @@ function EmployerHeader() {
       radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
     `,
               }}
-              className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
+              className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center leading-tight h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
             >
               <svg
                 width="11"
