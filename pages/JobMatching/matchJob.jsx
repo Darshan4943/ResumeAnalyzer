@@ -75,7 +75,7 @@ const MatchJob = () => {
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
-
+const [byMyCollection,setMatchByCOllection] = useState(false);
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
@@ -92,11 +92,12 @@ const MatchJob = () => {
   const [weightage, setWeightage] = useState(false)
   const [priority, setPriority] = useState(false)
   useEffect(() => {
-    if (data?.description) {
-      setExtractedData(data?.description)
+    if (data) {
+      const dataa=JSON.parse(decodeURIComponent(data))
+      setExtractedData(dataa)
     }
   }, [data])
-
+console.log(222,extratctedData);
 
 
   useEffect(() => {
@@ -305,7 +306,7 @@ const MatchJob = () => {
         getLimits()
       }, 5000);
       // setCollection("");
-
+      setMatchByCOllection(false)
       setButtonToggle(false);
 
       setMatchLoader(false);
@@ -389,7 +390,7 @@ const MatchJob = () => {
     setMatchLoader(true);
     setIsAnimate(false);
     setShowsideBar(false);
-    if (Object?.keys(extratctedData).length > 5) {
+    if (Object?.keys(extratctedData).length > 1) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       const counter = { count: 0 };
@@ -429,6 +430,7 @@ const MatchJob = () => {
       setIsMatched(true);
       // setSelectedIndexes([]);
       // setCollection("");
+      setMatchByCOllection(true)
       updateJobMatchLimit()
       setTimeout(() => {
         getLimits()
@@ -438,7 +440,7 @@ const MatchJob = () => {
       // setLoadingg(false);
       setMatchLoader(false);
     } else {
-      toast.error("Something went wrong, please try again");
+      toast.error("Something went wrong, please try againn");
     }
   };
 
@@ -735,6 +737,8 @@ const MatchJob = () => {
                     jdApplicantFileNames={jdApplicantFileNames}
                     fromSkilotechCollection={fromSkilotechCollection}
                     collection={collection}
+                    data={data}
+                    byMyCollection={byMyCollection}
                   />
                 </div>
               )}
@@ -751,6 +755,8 @@ const MatchJob = () => {
           hiringLoading={hiringLoading}
           jdApplicantFileNames={jdApplicantFileNames}
           collection={collection}
+          data={data}
+          byMyCollection={byMyCollection}
         />
       )}
     </>

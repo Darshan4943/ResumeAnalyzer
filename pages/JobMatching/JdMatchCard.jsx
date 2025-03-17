@@ -18,11 +18,14 @@ function JdMatchCard({
   hiringLoading,
   jobData,
   jdApplicantFileNames,
-  fromSkilotechCollection
+  fromSkilotechCollection,
+  data,
+  collection,
+  byMyCollection
 }) {
   const router = useRouter();
-  const[parentId,setParentId] = useState()
-  console.log(parentId)
+  const [parentId, setParentId] = useState()
+
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const downloadResume = (resumeUrl) => {
     if (resumeUrl) {
@@ -37,34 +40,34 @@ function JdMatchCard({
     }
   };
 
- 
- const fetchFolder = async () => {
-  try {
-    const response = await axios.get(`https://dev.api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
-    setParentId(response?.data?._id);
-  } catch (error) {
-    console.error("Error fetching folder:", error);
-    throw error;
-  }
-};
-useEffect(()=>{
 
-  fetchFolder()
+  const fetchFolder = async () => {
+    try {
+      const response = await axios.get(`https://dev.api.skilotech.com/api/getSkilotechFolder/${userDataGlobal?._id}`);
+      setParentId(response?.data?._id);
+    } catch (error) {
+      console.error("Error fetching folder:", error);
+      throw error;
+    }
+  };
+  useEffect(() => {
 
-},[resumeList])
+    fetchFolder()
 
-const fetchPDFFromURL = async (url) => {
-  try {
-    const response = await axios.get(url, {
-      responseType: 'blob', 
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching file:", error);
-    throw new Error("Failed to fetch the PDF file.");
-  }
-};
- const fileToText = (file, pageNumber) => {
+  }, [resumeList])
+
+  const fetchPDFFromURL = async (url) => {
+    try {
+      const response = await axios.get(url, {
+        responseType: 'blob',
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching file:", error);
+      throw new Error("Failed to fetch the PDF file.");
+    }
+  };
+  const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = function (event) {
@@ -81,86 +84,87 @@ const fetchPDFFromURL = async (url) => {
       reader.readAsArrayBuffer(file);
     });
   }
-const parseData = (file) => {
-  
-
-  return new Promise((resolve, reject) => {
-    if (file.type === "application/pdf") {
-      const textDataPromises = [];
-      const promise = fileToText(file, 1).then((text) => {
-        return { text };
-      });
-
-      textDataPromises.push(promise);
-
-      Promise.all(textDataPromises)
-        .then((results) => {
-          resolve(results.filter((result) => result.text.length > 0));
-        })
-        .catch(reject);
-    } else {
-      reject(new Error("The provided file is not a PDF."));
-    }
-  });
-};
+  const parseData = (file) => {
 
 
-const parsePDFFileFromURL = async (url) => {
-  try {
-    const file = await fetchPDFFromURL(url);
-    const fileObject = new Blob([file], { type: 'application/pdf' });
+    return new Promise((resolve, reject) => {
+      if (file.type === "application/pdf") {
+        const textDataPromises = [];
+        const promise = fileToText(file, 1).then((text) => {
+          return { text };
+        });
 
-    const data = await parseData(fileObject);
-    console.log("Extracted Text:", data);
+        textDataPromises.push(promise);
 
-    return data[0].text; 
-  } catch (error) {
-    console.error("Error processing the PDF:", error);
-    return null; 
-  }
-};
-
-
-const addData = async (file) => {
-  const extractedText = await parsePDFFileFromURL(file.file);
-
-  return new Promise((resolve, reject) => {
-    setTimeout(async () => {
-      try {
-        const payload = {
-          fileName: file?.fileName,
-          type: "file",
-          userId: userDataGlobal?._id,
-          text: extractedText,
-          file: file?.file,
-          job: jobData || "",
-        };
-
-        const response = await axios.post(
-          "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
-          payload,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.data.message === "This file is already Saved") {
-          toast.info("This file is already Saved");
-        } else {
-          toast.success("Successfully Saved to Skilotech Collection");
-        }
-
-        resolve(response.data);
-      } catch (e) {
-        console.error("Error adding file:", e);
-        toast.error("Failed to save file");
-        reject(e);
+        Promise.all(textDataPromises)
+          .then((results) => {
+            resolve(results.filter((result) => result.text.length > 0));
+          })
+          .catch(reject);
+      } else {
+        reject(new Error("The provided file is not a PDF."));
       }
-    }, 200);
-  });
-};
+    });
+  };
+
+
+  const parsePDFFileFromURL = async (url) => {
+    try {
+      const file = await fetchPDFFromURL(url);
+      const fileObject = new Blob([file], { type: 'application/pdf' });
+
+      const data = await parseData(fileObject);
+      console.log("Extracted Text:", data);
+
+      return data[0].text;
+    } catch (error) {
+      console.error("Error processing the PDF:", error);
+      return null;
+    }
+  };
+
+
+  const addData = async (file) => {
+    const extractedText = await parsePDFFileFromURL(file.file);
+
+    return new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        try {
+          const payload = {
+            fileName: file?.fileName,
+            type: "file",
+            userId: userDataGlobal?._id,
+            text: extractedText,
+            file: file?.file,
+            job: data ? extratctedData : jobData || "",
+            isResumes: "manual"
+          };
+
+          const response = await axios.post(
+            "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+            payload,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.data.message === "This file is already Saved") {
+            toast.info("This file is already Saved");
+          } else {
+            toast.success("Successfully Saved to Skilotech Collection");
+          }
+
+          resolve(response.data);
+        } catch (e) {
+          console.error("Error adding file:", e);
+          toast.error("Failed to save file");
+          reject(e);
+        }
+      }, 200);
+    });
+  };
 
 
 
@@ -334,8 +338,8 @@ const addData = async (file) => {
             )}
 
             <div className="flex flex-col gap-[20px] scr1300:min-w-[386px] scr390:min-w-[300px] ">
-              {fromSkilotechCollection && 
-                <p onClick={()=>addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
+              {fromSkilotechCollection &&
+                <p onClick={() => addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
               }
               <div className=" flex items-center h-[70px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
                 <div className="text-[18px] font-[500] justify-center">
@@ -357,7 +361,7 @@ const addData = async (file) => {
                 <div className="scr1300:w-[334px]  justify-center flex flex-col border border-[#DEDEDE] rounded-r-[12px] w-full">
                   <div className="px-[16px]  flex flex-col ">
                     <div className="text-[14px] font-[500]">
-                     
+
                       {user?.fileName?.length > 20 ? user?.fileName?.slice(0, 20) + "..." : user?.fileName}
                       <br />
                       (Default)
@@ -372,35 +376,37 @@ const addData = async (file) => {
                     setTab(1);
                     setUserDetails(user);
                   }}
-                  className="flex justify-center scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]"
+                  className={`flex justify-center ${ (data || !byMyCollection) ? "w-full ":"scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] "}cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]`}
                 >
                   <button className="text-[14px] font-[600] ">
                     See Application
                   </button>
                 </div>
-                <div className="  w-full ">
-                  {jobData?.applications?.some(
-                    (item) => item?.fileName === user?.fileName
-                  ) || jdApplicantFileNames?.includes(user?.fileName) ? (
-                    <p className="text-[14px] font-semibold text-[#0C8A0A]">
-                      Moved to Hiring
-                    </p>
-                  ) : (
-                    // hiringLoading ? (
-                    //     <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
-                    //     >
-                    //         <MiniLoader />
-                    //     </div>
-                    // ) :
-                    <button
-                      onClick={() => addApplicant(user)}
-                      disabled={hiringLoading}
-                      className="text-[14px] font-[600] text-white py-[12px] scr1300:px-[36px] px-4 bg-[#06A9EF] rounded-[30px] flex justify-center items-center scr1300:w-[177.8px] scr390:w-[140px] w-full"
-                    >
-                      Move to Hiring
-                    </button>
-                  )}
-                </div>
+                {!data && byMyCollection &&
+                  <div className="  w-full ">
+                    {jobData?.applications?.some(
+                      (item) => item?.fileName === user?.fileName
+                    ) || jdApplicantFileNames?.includes(user?.fileName) ? (
+                      <p className="text-[14px] font-semibold text-[#0C8A0A]">
+                        Moved to Hiring
+                      </p>
+                    ) : (
+                      // hiringLoading ? (
+                      //     <div className="text-[14px] font-[600] text-white py-[12px] px-[36px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center w-[177.8px]"
+                      //     >
+                      //         <MiniLoader />
+                      //     </div>
+                      // ) :
+                      <button
+                        onClick={() => addApplicant(user)}
+                        disabled={hiringLoading}
+                        className="text-[14px] font-[600] text-white py-[12px] scr1300:px-[36px] px-4 bg-[#06A9EF] rounded-[30px] flex justify-center items-center scr1300:w-[177.8px] scr390:w-[140px] w-full"
+                      >
+                        Move to Hiring
+                      </button>
+                    )}
+                  </div>
+                }
               </div>
             </div>
           </div>

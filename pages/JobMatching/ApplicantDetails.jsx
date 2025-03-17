@@ -8,7 +8,7 @@ import MiniLoader from "../../components/common/mini-loader";
 import MiniLoaderr from "../../components/common/miniLoader";
 import InlineSVG from "../../components/common/InlineSvg";
 
-function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
+function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
   console.log(111,collection);
@@ -199,7 +199,7 @@ function ApplicantDetails({ setTogglee, userDetails, setTab, jobData, addApplica
 
                     <p className="text-[20px] font-medium">  {userDetails?.matching_percentage}</p>
                   </div>
-                  {collection === "MyCollection" &&
+                  {!byMyCollection || !data &&
                     <div className=" flex justify-center  ">
                       {
                         (jobData?.applications?.some((item) => item?.fileName === userDetails?.fileName) || jdApplicantFileNames?.includes(userDetails?.fileName)) ? (

@@ -25,7 +25,7 @@ const SelectPost = () => {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     description: "",
-    jobtitel: "",
+    jobTitle: "",
   });
 
   const handleChange = (e) => {
@@ -43,8 +43,8 @@ const SelectPost = () => {
   const handleSubmit = () => {
     let newErrors = {};
 
-    if (!data.jobtitel.trim()) {
-      newErrors.jobtitel = "Job title is required";
+    if (!data.jobTitle.trim()) {
+      newErrors.jobTitle = "Job title is required";
     }
 
     if (!data.description.trim()) {
@@ -59,6 +59,7 @@ const SelectPost = () => {
     const queryData = encodeURIComponent(JSON.stringify(data));
     router.push(`/JobMatching/matchJob?data=${queryData}`);
   };
+  
 
   localStorage.setItem("jdApplicantFilenames", JSON.stringify(""));
 
@@ -415,11 +416,11 @@ const SelectPost = () => {
               <div>
                 <input
                   type="text"
-                  name="jobtitel"
-                  value={data.jobtitel}
+                  name="jobTitle"
+                  value={data.jobTitle}
                   onChange={handleChange}
                   className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${
-                    errors.jobtitel ? "border-red" : "border-[#DEDEDE]"
+                    errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
                   }`}
                   placeholder="Enter Job Title"
                 />

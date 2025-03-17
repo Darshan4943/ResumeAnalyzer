@@ -103,7 +103,7 @@ function Services() {
         handleNavigation(
           userDataGlobal?.role === "user"
             ? "/home/BuildResume"
-            : "/candidates/ClientResume"
+            : "/createResume/BuildResume"
         );
         break;
       case "Create New Cover Letter":
