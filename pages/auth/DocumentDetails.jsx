@@ -125,7 +125,7 @@ function DocumentDetails({
     formDataToSend.append("role", role);
     setLoading(true);
   
-    const url = "https://dev.api.skilotech.com/api/skiloteckuser/employerSignUp";
+    const url = "http://localhost:2000/api/skiloteckuser/employerSignUp";
   
     axios
       .post(url, formDataToSend, {

@@ -39,7 +39,7 @@ const JobPostChart = () => {
 
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/job/getJobStatisticsdata/${userDataGlobal._id}`
+          `http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal._id}`
         );
         setChartData(response.data);
       } catch (error) {
@@ -154,11 +154,7 @@ const JobPostChart = () => {
           overflow: "visible",
         }}
       >
-        {chartData ? (
-          <Bar data={getChartData()} options={options} />
-        ) : (
-          <p className="text-center text-gray-500">Loading...</p>
-        )}
+        <Bar data={getChartData()} options={options} />
       </div>
 
       <div className="flex flex-wrap justify-start gap-4 mt-3">
