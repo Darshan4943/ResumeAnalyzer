@@ -22,6 +22,7 @@ const SelectPost = () => {
   const [select, setSelect] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [toggle, setToggle] = useState(0);
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     description: "",
     jobtitel: "",
@@ -33,6 +34,30 @@ const SelectPost = () => {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const handleSubmit = () => {
+    let newErrors = {};
+
+    if (!data.jobtitel.trim()) {
+      newErrors.jobtitel = "Job title is required";
+    }
+
+    if (!data.description.trim()) {
+      newErrors.description = "Description is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    const queryData = encodeURIComponent(JSON.stringify(data));
+    router.push(`/JobMatching/matchJob?data=${queryData}`);
   };
 
   localStorage.setItem("jdApplicantFilenames", JSON.stringify(""));
@@ -393,7 +418,9 @@ const SelectPost = () => {
                   name="jobtitel"
                   value={data.jobtitel}
                   onChange={handleChange}
-                  className="border-[1px] border-[#DEDEDE] rounded-[8px] p-[8px] w-full outline-none"
+                  className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${
+                    errors.jobtitel ? "border-red" : "border-[#DEDEDE]"
+                  }`}
                   placeholder="Enter Job Title"
                 />
               </div>{" "}
@@ -405,7 +432,9 @@ const SelectPost = () => {
                   name="description"
                   value={data.description}
                   onChange={handleChange}
-                  className="w-full  min-h-[300px]  border-[1px] border-[#DEDEDE] rounded-[8px] outline-none p-4"
+                  className={`w-full h-[200px] border-[1px] rounded-[8px] p-4 outline-none ${
+                    errors.description ? "border-red" : "border-[#DEDEDE]"
+                  }`}
                   placeholder="Enter description"
                 ></textarea>
               </div>
@@ -415,7 +444,7 @@ const SelectPost = () => {
                 Reset
               </button>
               <button
-                onClick={() => router.push(`/JobMatching/matchJob?data=${data}`)}
+                onClick={handleSubmit}
                 className="px-[36px] rounded-[30px] h-[38px] bg_Button text-[#fff] text-[14px] font-[600]"
               >
                 Continue
