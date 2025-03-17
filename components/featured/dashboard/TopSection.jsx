@@ -29,6 +29,12 @@ function TopSection({
             color: "#57697B",
             svg: "svg2",
           },
+          // {
+          //   title: "Shortlisted",
+          //   count: statistics.shortlisted,
+          //   color: "#57697B",
+          //   svg: "svg3",
+          // },
           {
             title: "Hired",
             count: statistics.hired,

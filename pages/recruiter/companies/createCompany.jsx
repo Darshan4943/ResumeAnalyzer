@@ -123,7 +123,7 @@ function CreateCompany() {
     } else {
       setFilteredOptions(
         options.filter((option) =>
-          option.label.toLowerCase().includes(inputValue.toLowerCase())
+          option?.label?.toLowerCase().includes(inputValue.toLowerCase())
         )
       );
     }
