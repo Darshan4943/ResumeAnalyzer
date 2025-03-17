@@ -127,8 +127,8 @@ function Index() {
         </div>
       ) : (
         <div className="flex w-full flex-wrap gap-[24px] md:justify-start justify-center">
-          {companyData.length > 0 ? (
-            companyData.map((item, index) => (
+          {companyData?.length > 0 ? (
+            companyData?.map((item, index) => (
               <div
                 onClick={() =>
                   router.push(
@@ -140,22 +140,22 @@ function Index() {
               >
                 <div className="gap-1 flex flex-col">
                   <img
-                    src={item.companyLogo || "/images/jobs/logo.png"}
+                    src={item?.companyLogo || "/images/jobs/logo.png"}
                     alt="Company logo"
                     className="h-[60px] object-contain"
                   />
                   <div className="flex w-full flex-col gap-2 text-center text-[14px] font-[500] text-[#333333]">
-                    {item.companyName.length > 25
-                      ? item.companyName.substring(0, 25) + "..."
-                      : item.companyName}
+                    {item?.companyName?.length > 25
+                      ? item?.companyName.substring(0, 25) + "..."
+                      : item?.companyName}
 
                     <div className="w-full text-[12px] font-[400] text-[#646464] text-center line-clamp-2">
                       <div
                         dangerouslySetInnerHTML={{
                           __html:
-                            item.companyDescription.length > 50
-                              ? item.companyDescription.substring(0, 50) + "..."
-                              : item.companyDescription,
+                            item?.companyDescription?.length > 50
+                              ? item?.companyDescription?.substring(0, 50) + "..."
+                              : item?.companyDescription,
                         }}
                       />
                     </div>
@@ -166,7 +166,7 @@ function Index() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleEditCompany(item._id);
+                      handleEditCompany(item?._id);
                     }}
                   >
                     <svg
