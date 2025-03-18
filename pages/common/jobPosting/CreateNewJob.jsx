@@ -87,7 +87,7 @@ function CreateNewJob() {
     value: country.name,
     label: country.name,
   }));
-console.log(userDataGlobal.companyId)
+
   const fetchCompanyDetails = async () => {
     try {
       setLoading(true);
