@@ -231,20 +231,20 @@ function JobPosting() {
   const [file, setFile] = useState(null);
 
   const allowedFileTypes = [
-    "application/vnd.ms-excel", // .xls
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-    "text/csv", // .csv
+    "application/vnd.ms-excel", 
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+    "text/csv", 
   ];
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setError(""); // Reset error
+    setError(""); 
     const droppedFile = e.dataTransfer.files[0];
     validateFile(droppedFile);
   };
 
   const handleFileChange = (e) => {
-    setError(""); // Reset error
+    setError(""); 
     setFile(e.target.files[0]);
 
     const selectedFile = e.target.files[0];
@@ -576,8 +576,6 @@ function JobPosting() {
               </div>
             )}
 
-            {error && <div className="text-red-500 text-sm mb-2"> {error}</div>}
-
             <div className="flex justify-center gap-4 mb-4">
               <a
                 href="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/job_details.xlsx"
@@ -615,7 +613,6 @@ function JobPosting() {
           </div>
         </div>
       )}
-  
     </>
   );
 }
