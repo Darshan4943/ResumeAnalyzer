@@ -25,7 +25,8 @@ function JdMatchCard({
 }) {
   const router = useRouter();
   const [parentId, setParentId] = useState()
-
+  const [select, setSelect] = useState(false);
+  const [selectedResumes, setSelectedResumes] = useState([]);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const downloadResume = (resumeUrl) => {
     if (resumeUrl) {
@@ -136,6 +137,7 @@ function JdMatchCard({
             userId: userDataGlobal?._id,
             text: extractedText,
             file: file?.file,
+            gist: file?.gist || "",
             job: data ? extratctedData : jobData || "",
             isResumes: "manual"
           };
@@ -166,23 +168,116 @@ function JdMatchCard({
     });
   };
 
-
-
+  const handleCheckboxChange = (userId) => {
+    console.log(userId);
+    setSelectedResumes((prevSelected) =>
+      prevSelected.includes(userId)
+        ? prevSelected.filter((id) => id !== userId) 
+        : [...prevSelected, userId] 
+    );
+  };
+ 
+  const handleSelectAll = () => {
+    if (selectedResumes.length === resumeList.length) {
+      setSelectedResumes([]); 
+    } else {
+      setSelectedResumes(resumeList.map((user) => user._id)); 
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-[16px] border border-[#06A9EF] rounded-[16px] scr390:px-4 scr390:py-4 px-2 py-4 bg-white ">
-      <div className="text-[18px] font-[500]">
-        {resumeList.length} results found for {extratctedData?.jobTitle}
+      <div className="text-[18px] font-[500] flex justify-between">
+        <p>{resumeList.length} results found for {extratctedData?.jobTitle}</p>
+        {!select &&
+          <div
+            onClick={() => setSelect(!select)}
+            className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer bg-[#E9EEF6] rounded-[30px] py-2 px-4 h-[40px]"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_1148_17404)">
+                <path
+                  d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
+                  fill="#333333"
+                />
+              </g>
+            </svg>
+
+            <p className="">Select</p>
+          </div>
+        }
+        {select &&
+          <div className="bg-[#D1EDFF] relative flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center  ">
+            <div
+              onClick={() => setSelect(false)}
+              style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
+              className="bg-[#F9F9F9] rounded-[50%] p-[8.5px]  cursor-pointer"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.5 10.5L0.5 9.5L4.5 5.5L0.5 1.5L1.5 0.5L5.5 4.5L9.5 0.5L10.5 1.5L6.5 5.5L10.5 9.5L9.5 10.5L5.5 6.5L1.5 10.5Z"
+                  fill="#333333"
+                />
+              </svg>
+            </div>
+            <div className="flex ms:gap-6 sm:gap-4 gap-2 w-full scr540:justify-start justify-between ">
+              <div className="flex gap-2 text-[14px] font-medium">
+                <label className="flex items-center gap-2 text-[14px] font-medium">
+                  Select All
+                  <input
+                    type="checkbox"
+                    className="rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                    style={{ width: "20px", height: "20px" }}
+                    checked={selectedResumes.length > 0 && selectedResumes.length === resumeList.length}
+          onChange={handleSelectAll}
+                  />
+
+                </label>
+              </div>
+
+
+
+              <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
+                {selectedResumes.length} selected
+              </div>
+
+
+            </div>
+          </div>
+        }
       </div>
+
 
       {resumeList &&
         resumeList?.map((user, index) => (
           <div
             key={index}
-            className="  justify-between scr390:p-4  p-3 rounded-[16px] gap-4 bg-white flex scr1024:flex-row flex-col items-start "
+            className="  justify-between scr390:p-4  p-3 rounded-[16px] gap-4 bg-white flex scr1024:flex-row flex-col items-start relative "
             style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
           >
+         
             <div className="flex flex-col gap-4 scr1300:w-[380px]">
+              {select &&
+                <input
+                  type="checkbox"
+                  className="absolute left-[10px] top-[10px] rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                  style={{ width: "18px", height: "18px" }}
+                  checked={selectedResumes.includes(user._id)}
+                  onChange={() => handleCheckboxChange(user._id)}
+                />
+              }
               <div className="flex items-start gap-[22px]">
                 <img
                   className="max-w-[96px] max-h-[96px] rounded-full  p-1 object-cover"
@@ -376,7 +471,7 @@ function JdMatchCard({
                     setTab(1);
                     setUserDetails(user);
                   }}
-                  className={`flex justify-center ${ (data || !byMyCollection) ? "w-full ":"scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] "}cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]`}
+                  className={`flex justify-center ${(data || !byMyCollection) ? "w-full " : "scr1300:w-[190.8px] w-full scr1300:min-w-[190px] min-w-[140px] "}cursor-pointer py-[12px] scr1300:px-[36px] px-3 border-[1px] border-[#06A9EF] rounded-[30px]`}
                 >
                   <button className="text-[14px] font-[600] ">
                     See Application
