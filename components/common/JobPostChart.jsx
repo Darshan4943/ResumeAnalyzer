@@ -31,15 +31,14 @@ const JobPostChart = () => {
   const [selected, setSelected] = useState("Daily");
 
   useEffect(() => {
+
     const fetchChartData = async () => {
-      if (!userDataGlobal?._id) {
-        setError("User ID is missing");
-        return;
-      }
+      setLoading(true); 
+      setError(null);
 
       try {
         const response = await axios.get(
-          `http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal._id}`
+          `http://localhost:2000/api/job/getJobStatisticsdata/${userDataGlobal?._id}?filter=${selected}`
         );
         setChartData(response.data);
       } catch (error) {
@@ -51,15 +50,15 @@ const JobPostChart = () => {
     };
 
     fetchChartData();
-  }, [userDataGlobal?._id]);
+  }, [userDataGlobal?._id , selected]);
 
   const getChartData = () => {
     if (!chartData) return { labels: [], datasets: [] };
-
-    const labels = chartData[selected]?.labels || [];
-    const jobPostData = chartData[selected]?.jobPostData || [];
-    const jobClosedData = chartData[selected]?.jobClosedData || [];
-
+  
+    const labels = chartData.labels || [];
+    const jobPostData = chartData.jobPostData || [];
+    const jobClosedData = chartData.jobClosedData || [];
+  
     return {
       labels,
       datasets: [
@@ -95,6 +94,7 @@ const JobPostChart = () => {
       ],
     };
   };
+  
 
   const options = {
     responsive: true,
