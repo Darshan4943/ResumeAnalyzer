@@ -19,7 +19,7 @@ function CandidateResumeDetails() {
   const [tabindex, setTabIndex] = useState(2);
   const [selectedItem, setSelectedItem] = useState();
   const { isResume } = router.query;
-
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   useEffect(() => {
     if (isResume) {
       console.log("object");
@@ -32,7 +32,7 @@ function CandidateResumeDetails() {
   const [certificate, setCertificate] = useState();
   const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profile.profileData);
- 
+
   const [data, setData] = useState({
     firstName: profileData?.basics?.firstName || "",
     lastName: profileData?.basics?.lastName || "",
@@ -45,7 +45,7 @@ function CandidateResumeDetails() {
     university: profileData?.education?.[0]?.university || "",
     institute: profileData?.education?.[0]?.institute || "",
     educationDuration: profileData?.education?.[0]?.duration || "",
-    workStatus:  "Experienced",
+    workStatus: "Experienced",
     workExperiance: profileData?.totalExperience?.years || 0,
     companyName: profileData?.workExperiance?.[0]?.companyName || "",
     jobTitle: profileData?.workExperiance?.[0]?.jobTitle || "",
@@ -59,13 +59,13 @@ function CandidateResumeDetails() {
   });
 
   useEffect(() => {
-   
-      const selectedItem = telCode.find((item) => item.dial_code === profileData?.basics?.dial_code);
 
-      if (selectedItem) {
-        setSelectedItem(selectedItem);
-      }
-    
+    const selectedItem = telCode.find((item) => item.dial_code === profileData?.basics?.dial_code);
+
+    if (selectedItem) {
+      setSelectedItem(selectedItem);
+    }
+
   }, []);
   const [error, setError] = useState({
     firstName: { message: "Please Enter Valid First Name", view: null },
@@ -75,20 +75,23 @@ function CandidateResumeDetails() {
   return (
     <>
       <div className=" relative !important ">
+      
         <div className="register_head  w-[100%] z-50   gap-12">
           {/* {tabindex !== 1 && */}
-            <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px] ">
-              <div className="register_text_parent">
-                <div className="register_heding text-center">
-                  <p className="ml:text-[30px] scr420:text-[24px] text-[20px] font-semibold text-white">
-                    Enter Details to Build your Professional Resume
-                  </p>
-                  <p className="register_heding_desc">
-                    Create your Resume with Skilotech
-                  </p>
-                </div>
+          {userDataGlobal?.role === "user" &&
+          <div className="register_cadidate py-3 px-2 overflow-hidden sticky  top-[70px] ">
+            <div className="register_text_parent">
+              <div className="register_heding text-center">
+                <p className="ml:text-[30px] scr420:text-[24px] text-[20px] font-semibold text-white">
+                  Enter Details to Build your Professional Resume
+                </p>
+                <p className="register_heding_desc">
+                  Create your Resume with Skilotech
+                </p>
               </div>
             </div>
+          </div>
+        }
           {/* } */}
           {tabindex == 1 ? null : <Stepper tabindex={tabindex} data={data} />}
         </div>

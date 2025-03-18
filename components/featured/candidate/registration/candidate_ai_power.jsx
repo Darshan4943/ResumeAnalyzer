@@ -218,7 +218,7 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://dev.api.skilotech.com/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -230,7 +230,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "https://dev.api.skilotech.com/api/subscription/updateUploadLimit/" +
+                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
                   userDataGlobal?._id
                 )
                 .then((res) => {
@@ -342,17 +342,17 @@ const CandidateAiPower = ({
               }}
             >
               <div className="flex flex-col gap-4">
-                <p className="text-center font-[600] text-[26px] text-[#333333]">
+                <p className="text-center font-[600] text-[22px] text-[#333333]">
                   AI Powered profile creation
                 </p>
-                <p className=" text-center font-[500] text-[18px] text-[#333333] not-italic	">
+                <p className=" text-center font-[500] text-[16px] text-[#333333] not-italic	">
                   Easy process to create your profile
                 </p>
                 <div className="flex flex-col gap-2">
-                  <p className="text-center font-[500] text-[14px] text-[#333333]	not-italic">
+                  <p className="text-center font-[500] text-[13px] text-[#333333]	not-italic">
                     1. Upload your CV/Resume.
                   </p>
-                  <p className="text-center font-[500] text-[14px] text-[#333333]	not-italic	">
+                  <p className="text-center font-[500] text-[13px] text-[#333333]	not-italic	">
                     2. Let the system scan it and make your profile ready.
                   </p>
                 </div>
@@ -360,7 +360,7 @@ const CandidateAiPower = ({
               <div className="w-full flex flex-col gap-[16px] ">
                 {" "}
                 {loading ? (
-                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] text-[14px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
+                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] text-[13px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
                     <MiniLoader />
                     <span>Analyzing Resume, Please Wait...</span>
                   </div>
@@ -460,8 +460,8 @@ const CandidateAiPower = ({
 
               <div className="flex flex-row gap-[24px]">
                 <button
-                  className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] text-[14px] text-[#333333] font-[600] rounded-[30px]"
-                  id="button"
+                  className=" px-6  text-[14px] text-[#333333] blue_border_Button h-[38px] font-[600] rounded-[30px]"
+                  
                   onClick={() => {
                     router.push("/createResume/BuildResume");
                   }}
@@ -473,7 +473,7 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[30px] text-[14px] text-[#FFFFFF] font-[600] ${file && !loading
+                  className={` px-6  bg_Button rounded-[30px] h-[38px] text-[14px] text-[#FFFFFF] font-[600] ${file && !loading
                     ? "opacity-100 bg_Button"
                     : "opacity-50"
                     } `}

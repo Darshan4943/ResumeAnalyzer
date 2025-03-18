@@ -35,7 +35,7 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setAllData(res.data.data)
@@ -52,8 +52,8 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      // .get("https://dev.api.skilotech.com/api/cover/get/" + userDataGlobal?._id)
-      .get("https://dev.api.skilotech.com/api/cover/get/" + userDataGlobal?._id)
+      // .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
 
       .then((res) => {
         setCoverList(res.data.data);
@@ -83,7 +83,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("https://dev.api.skilotech.com/api/resume/deleteResume", {
+      .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -107,7 +107,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete(`https://dev.api.skilotech.com/api/cover/delete/${ids}`)
+      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
       .then((response) => {
         toast.success("Cover Letter Deleted successfully");
         setView(false);
@@ -202,11 +202,11 @@ const MyCollection = () => {
     <>
       <div
         className={`${
-          userDataGlobal.role === "user" ? "customMargins" : ""
+          userDataGlobal?.role === "user" ? "customMargins" : ""
         } py-6 min-h-[80vh]`}
       >
         <div className="flex flex-col gap-[16px]">
-          {userDataGlobal.role === "user" ? (
+          {userDataGlobal?.role === "user" ? (
             <div className="bg-[#F9F9F9] w-[248px] flex rounded-[30px] text-[14px] font-semibold">
               <button
                 className={`${

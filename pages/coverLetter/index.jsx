@@ -101,7 +101,7 @@ function Index() {
   //   console.log("id", id);
   //   if (id) {
   //     axios
-  //       .get(`https://dev.api.skilotech.com/api/cover/getById/${id}`)
+  //       .get(`http://localhost:2000/api/cover/getById/${id}`)
   //       .then((res) => {
   //         setResumeList(res.data.data);
   //       })
@@ -160,7 +160,7 @@ function Index() {
   }, [contentSituation, isCoverEdit]);
 
   return (
-    <div className={`flex scr800:flex-row flex-col gap-4 py-6 ${userDataGlobal.role === "user" && "customMargins"} overflow-hidden relative`}>
+    <div className={`flex scr800:flex-row flex-col gap-4 py-6 ${userDataGlobal?.role === "user" && "customMargins"} overflow-hidden relative`}>
       <div className="ml:w-[41%] scr1024:min-w-[486px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px]  ">
         <CoverForm
           selectedCoverIndex={selectedCoverIndex}

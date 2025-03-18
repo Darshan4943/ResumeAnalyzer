@@ -68,7 +68,7 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("https://dev.api.skilotech.com/api/allskills")
+      .get("http://localhost:2000/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
@@ -95,7 +95,7 @@ const Skills = ({ data, setData }) => {
     const found = skills.includes(value.label);
     if (!found) {
       try {
-        const response = await fetch("https://dev.api.skilotech.com/api/skills", {
+        const response = await fetch("http://localhost:2000/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
