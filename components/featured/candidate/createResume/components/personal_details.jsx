@@ -33,7 +33,6 @@ const PersonalDetails = ({
     designation: "",
     dial_code: "",
   });
-  console.log(111, profileDataa);
 
   useEffect(() => {
     if (profileData?.basics) {
