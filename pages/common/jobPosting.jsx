@@ -231,20 +231,20 @@ function JobPosting() {
   const [file, setFile] = useState(null);
 
   const allowedFileTypes = [
-    "application/vnd.ms-excel", // .xls
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-    "text/csv", // .csv
+    "application/vnd.ms-excel", 
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
+    "text/csv", 
   ];
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setError(""); // Reset error
+    setError(""); 
     const droppedFile = e.dataTransfer.files[0];
     validateFile(droppedFile);
   };
 
   const handleFileChange = (e) => {
-    setError(""); // Reset error
+    setError(""); 
     setFile(e.target.files[0]);
 
     const selectedFile = e.target.files[0];
