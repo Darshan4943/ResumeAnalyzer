@@ -266,6 +266,7 @@ function CreateResume() {
     mobileNumber: "",
     email: "",
     location: "",
+    country: "",
     summary: "",
     showSummary: true,
     education: [],

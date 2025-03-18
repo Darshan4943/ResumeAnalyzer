@@ -110,6 +110,10 @@ const PersonalDetails = ({
       ...prev,
       country: selectedCountry.value,
     }));
+    setData((prev) => ({
+      ...prev,
+      country: selectedCountry.value,
+    }));
 
     setIsModified(true);
   };
@@ -156,7 +160,7 @@ const PersonalDetails = ({
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
       value: profileDataa.mobileNumber,
-      className: " col-span-2 ",
+      className: " col-span-2  ",
     },
     {
       label: "Email Address",
@@ -176,7 +180,7 @@ const PersonalDetails = ({
           onChange={handleCountryChange}
           value={countryValue}
           placeholder="Select countries"
-          className="border rounded-[8px] withoutBorder"
+          className="border border-[#9D9D9D] rounded-[8px] withoutBorder outline-none"
           classNamePrefix="select"
           onMenuClose={() => {
             setTimeout(() => {
@@ -390,8 +394,8 @@ const PersonalDetails = ({
                   }`}
                 >
                   <div
-                    className="flex w-[100%] items-start gap-2"
-                    id="single_input"
+                    className="flex w-[100%] items-center gap-2 border border-[#9D9D9D] rounded-[8px] h-[41.6px] "
+                    // id="single_input"
                   >
                     <div className="relative items-center cursor-pointer">
                       <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
@@ -399,7 +403,7 @@ const PersonalDetails = ({
                           <div className="flex items-center gap-1 cursor-pointer w-[100%]">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex items-center py-2 rounded-[8px] outline-none border-none cursor-pointer"
+                              className="w-[100%] px-1 flex items-center py-2 rounded-[8px] outline-none border-none cursor-pointer"
                               name=""
                               placeholder="Select"
                               value={selectedItem}
@@ -421,6 +425,7 @@ const PersonalDetails = ({
                                   ...provided,
                                   border: "none",
                                   minWidth: "130px",
+                                  marginLeft:"4px"
                                 }),
                               }}
                               theme={(theme) => ({
