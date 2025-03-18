@@ -576,8 +576,6 @@ function JobPosting() {
               </div>
             )}
 
-            {error && <div className="text-red-500 text-sm mb-2"> {error}</div>}
-
             <div className="flex justify-center gap-4 mb-4">
               <a
                 href="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/job_details.xlsx"
@@ -615,7 +613,6 @@ function JobPosting() {
           </div>
         </div>
       )}
-  
     </>
   );
 }
