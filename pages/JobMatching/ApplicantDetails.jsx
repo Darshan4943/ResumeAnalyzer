@@ -11,7 +11,7 @@ import InlineSVG from "../../components/common/InlineSvg";
 function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
-  console.log(111,collection);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -199,7 +199,7 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
 
                     <p className="text-[20px] font-medium">  {userDetails?.matching_percentage}</p>
                   </div>
-                  {!byMyCollection || !data &&
+                  { !data &&
                     <div className=" flex justify-center  ">
                       {
                         (jobData?.applications?.some((item) => item?.fileName === userDetails?.fileName) || jdApplicantFileNames?.includes(userDetails?.fileName)) ? (

@@ -382,7 +382,7 @@ function JdMatchCard({
                     See Application
                   </button>
                 </div>
-                {!data && byMyCollection &&
+                {!data &&
                   <div className="  w-full ">
                     {jobData?.applications?.some(
                       (item) => item?.fileName === user?.fileName
