@@ -36,10 +36,12 @@ function CandidateResumeDetails() {
   const [data, setData] = useState({
     firstName: profileData?.basics?.firstName || "",
     lastName: profileData?.basics?.lastName || "",
+    dial_code:profileData?.basics?.dial_code|| "",
     mobileNo: profileData?.basics?.mobileNo || "",
     email: profileData?.basics?.email || "",
     dob: profileData?.basics?.dob || "",
     gender: profileData?.basics?.gender || "male",
+    country:profileData?.basics?.country || "",
     currentLocation: profileData?.basics?.currentLocation || "",
     stream: profileData?.education?.[0]?.stream || "",
     university: profileData?.education?.[0]?.university || "",
@@ -57,7 +59,7 @@ function CandidateResumeDetails() {
     employmentStatus: "employed",
     clientId: clientId,
   });
-
+console.log(data)
   useEffect(() => {
 
     const selectedItem = telCode.find((item) => item.dial_code === profileData?.basics?.dial_code);

@@ -350,6 +350,7 @@ function CreateResume() {
         summary,
         address,
         skills,
+        country
       } = parsedData;
       const languages = parsedData?.languages;
       const hobbies = parsedData?.hobbies;
@@ -395,6 +396,7 @@ function CreateResume() {
         designation: designation,
         summery: summary,
         location: address,
+        country:country,
         skills:
           skills?.length > 0
             ? skills?.map((item) => ({
@@ -567,6 +569,7 @@ function CreateResume() {
         dial_code: preResumeData?.dial_code,
         mobileNumber: preResumeData?.mobileNo,
         location: preResumeData?.currentLocation,
+        country:preResumeData?.country,
         skills:
           preResumeData?.keySkills?.length > 0
             ? preResumeData?.keySkills?.map((item) => ({

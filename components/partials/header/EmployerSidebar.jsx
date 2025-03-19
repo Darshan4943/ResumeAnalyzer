@@ -98,6 +98,7 @@ function EmployerSidebar() {
       route: "/common/hiring",
     },
     
+    
     {
       img: "/images/employer/sidebar/preboarding.png",
       img1: "/images/employer/sidebar/preboarding2.png",

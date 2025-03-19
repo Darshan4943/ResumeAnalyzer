@@ -231,20 +231,20 @@ function JobPosting() {
   const [file, setFile] = useState(null);
 
   const allowedFileTypes = [
-    "application/vnd.ms-excel", 
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-    "text/csv", 
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "text/csv",
   ];
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setError(""); 
+    setError("");
     const droppedFile = e.dataTransfer.files[0];
     validateFile(droppedFile);
   };
 
   const handleFileChange = (e) => {
-    setError(""); 
+    setError("");
     setFile(e.target.files[0]);
 
     const selectedFile = e.target.files[0];
@@ -494,25 +494,36 @@ function JobPosting() {
       )}
       {openPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-[9999] flex justify-center items-center">
-          <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 relative">
-            <button
-              onClick={() => {
-                setFile("");
-                setOpenPopup(false);
-              }}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl"
-            >
-              ✕
-            </button>
-
-            <h2 className="text-[18px] font-[600] text-center mb-4">
-              Upload Bulk Jobs
-            </h2>
-
+          <div className="bg-white flex gap-4 flex-col  rounded-lg shadow-lg p-6 relative">
+            <div className=" flex justify-between items-center">
+              <h2 className="text-[18px] font-[600] text-start ">
+                Upload Bulk Jobs
+              </h2>
+              <button
+                onClick={() => {
+                  setFile("");
+                  setOpenPopup(false);
+                }}
+                className=""
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.71874 11.1648L0.84375 10.2898L5.13126 6.00234L0.84375 1.71483L1.71874 0.839844L6.00624 5.12735L10.2938 0.839844L11.1687 1.71483L6.88123 6.00234L11.1687 10.2898L10.2938 11.1648L6.00624 6.87733L1.71874 11.1648Z"
+                    fill="#333333"
+                  />
+                </svg>
+              </button>
+            </div>
             <div
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
-              className="border-2 border-dashed border-blue bg-[#EFFAFF]  rounded-md p-6 text-center mb-4"
+              className="border-2 border-dashed border-blue bg-[#EFFAFF]  rounded-md p-6 text-center "
             >
               <div className="flex items-center gap-[16px] justify-center">
                 <div>
@@ -576,7 +587,37 @@ function JobPosting() {
               </div>
             )}
 
-            <div className="flex justify-center gap-4 mb-4">
+            <div className="text-[11px] font-[500] flex flex-col gap-2 w-full">
+              <p>
+                1.Download the Template{" "}
+                <span className="font-[400]">
+                  - Click on "Download CSV File" to get the required format.
+                </span>
+              </p>
+              <p>
+                2.Fill in the Job Details
+                <span className="font-[400]">
+                  {" "}
+                  - Open the file, enter all job-related information, and save
+                  it.
+                </span>
+              </p>
+              <p>
+                3.Upload the File{" "}
+                <span className="font-[400]">
+                  - Click "Browse" or drag and drop your completed CSV file.
+                </span>
+              </p>
+              <p>
+                4.Submit the Jobs
+                <span className="font-[400]">
+                  {" "}
+                  - Click "Upload" to post your jobs successfully.
+                </span>
+              </p>
+            </div>
+
+            <div className="flex justify-end gap-4 ">
               <a
                 href="https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/job_details.xlsx"
                 download="job_details.xlsx"
@@ -606,10 +647,6 @@ function JobPosting() {
                 Upload
               </button>
             </div>
-
-            <p className="text-red text-center text-[12px] font-[400] cursor-pointer hover:underline">
-              Download a blank CSV file with the required headers
-            </p>
           </div>
         </div>
       )}

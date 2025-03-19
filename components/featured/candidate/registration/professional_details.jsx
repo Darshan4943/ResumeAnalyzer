@@ -15,7 +15,7 @@ const ProfessionalDetails = ({
   register_cadidate,
   certificate,
   setCertificate,
-  clientId
+  clientId,
 }) => {
   const [loading, setLoading] = useState(false);
   const [duration, setDuration] = useState({});
@@ -36,17 +36,17 @@ const ProfessionalDetails = ({
         //   return;
         // }
         //  else {
-          if (Object.keys(duration.duration.start).length < 2) {
-            toast.error("Please fill start duration");
-            return;
-          } 
-          // else if (
-          //   duration.duration.end &&
-          //   Object.keys(duration.duration.end).length < 2
-          // ) {
-          //   toast.error("Please fill end duration");
-          //   return;
-          // }
+        if (Object.keys(duration.duration.start).length < 2) {
+          toast.error("Please fill start duration");
+          return;
+        }
+        // else if (
+        //   duration.duration.end &&
+        //   Object.keys(duration.duration.end).length < 2
+        // ) {
+        //   toast.error("Please fill end duration");
+        //   return;
+        // }
         // }
       } else {
         toast.error("Please fill duration");
@@ -140,9 +140,10 @@ const ProfessionalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${data.employmentStatus == "employed" &&
+                          className={`gen_button ${
+                            data.employmentStatus == "employed" &&
                             "gen_button_active"
-                            }`}
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, employmentStatus: "employed" });
@@ -151,9 +152,10 @@ const ProfessionalDetails = ({
                           Employed
                         </button>
                         <button
-                          className={`gen_button ${data.employmentStatus == "unemployed" &&
+                          className={`gen_button ${
+                            data.employmentStatus == "unemployed" &&
                             "gen_button_active"
-                            }`}
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({
@@ -170,8 +172,11 @@ const ProfessionalDetails = ({
                 )}
 
                 <div
-                  className={`personal_single_input  ${data.workStatus == "Fresher" ? "w-full" : "ml:w-[50%] w-[100%]"
-                    }`}
+                  className={`personal_single_input  ${
+                    data.workStatus == "Fresher"
+                      ? "w-full"
+                      : "ml:w-[50%] w-[100%]"
+                  }`}
                 >
                   <div className="personal_single_input w-[100%]">
                     <div className="personal_name w-[100%]">
@@ -279,12 +284,12 @@ const ProfessionalDetails = ({
                   />
                 </div>
               </div>
-              <div
-                onWheel={(e) => e.stopPropagation()}
-                className="flex gap-6 w-[100%] ml:flex-row flex-col"
-              >
-                <div className="personal_single_input w-[100%] gap-2">
-                  <p className="form_text_heading w-[100%]">Key skills</p>
+
+              <div className="flex w-full flex-wrap gap-4">
+                <div className="w-full md:w-[48%]">
+                  <p className="text-[14px] font-medium text-gray-700 mb-1">
+                    Key Skills
+                  </p>
                   <ReactSelect
                     options={skills}
                     isMulti
@@ -292,68 +297,106 @@ const ProfessionalDetails = ({
                     onChange={(data) => handleInputChange("keySkills", data)}
                     value={data.keySkills}
                     styles={{
-                      control: (provided) => ({
+                      control: (provided, state) => ({
                         ...provided,
-                        overflow: "hidden", 
-                        whiteSpace: "nowrap",
+                        border: formError.mustSkills
+                          ? "1px solid red"
+                          : "1px solid #DEDEDE",
+                        borderRadius: "8px",
+                        padding: "2px 8px",
+                        flexWrap: "wrap",
+                        boxShadow: state.isFocused
+                          ? "0 0 0 1px #DEDEDE"
+                          : "none",
                       }),
-                      multiValue: (provided) => ({
-                        ...provided,
-                        maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
+                      valueContainer: (base) => ({
+                        ...base,
+                        display: "flex",
+                        flexWrap: "nowrap",
+                        gap: "4px",
+                        padding: "2px 4px",
+                        overflowX: "auto",
+                        scrollbarWidth: "none",
+                        "-ms-overflow-style": "none",
+                        "&::-webkit-scrollbar": {
+                          display: "none",
+                        },
                       }),
-                      multiValueLabel: (provided) => ({
+                      placeholder: (provided) => ({
                         ...provided,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
+                        color: "#767676",
+                        fontSize: "12px",
+                        fontWeight: "400",
                       }),
                       menu: (provided) => ({
                         ...provided,
-                        zIndex: 20, 
+                        zIndex: 10,
+                        scrollbarWidth: "none",
+                        "-ms-overflow-style": "none",
+                        "&::-webkit-scrollbar": {
+                          display: "none",
+                        },
+                      }),
+                      multiValue: (provided) => ({
+                        ...provided,
+                        backgroundColor: "#EFFAFF",
+                        borderRadius: "4px",
+                        minWidth: "90px",
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        color: "#06A9EF",
+                        fontWeight: "500",
+                      }),
+                      multiValueRemove: (provided) => ({
+                        ...provided,
+                        color: "#9A4545",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
                       }),
                     }}
                   />
-                  {formError && (
-                    <p className="text-[12px] text-[red] font-[500]">
-                      {formError?.keySkills}
+                  {formError?.keySkills && (
+                    <p className="text-[12px] text-red-500 font-medium mt-1">
+                      {formError.keySkills}
                     </p>
                   )}
                 </div>
-              </div>
-              {data.workStatus != "Fresher" && (
-                <div className="personal_single_input w-[100%] ">
-                  <div className="personal_name w-[100%]">
-                    <p className="form_text_heading">Notice Period</p>
-                    <form className="notice_period flex flex-wrap ">
+
+                {data.workStatus !== "Fresher" && (
+                  <div className="w-full md:w-[48%]">
+                    <p className="text-[14px] font-medium text-gray-700 mb-1">
+                      Notice Period
+                    </p>
+                    <select
+                      className="w-full border border-[#DEDEDE] rounded-[8px] p-2 outline-none focus:border-blue-400 transition"
+                      value={data.noticePeriod || ""}
+                      onChange={(e) =>
+                        handleInputChange("noticePeriod", e.target.value)
+                      }
+                    >
+                      <option value="" disabled>
+                        Select Notice Period
+                      </option>
                       {noticePeriods.map((item, index) => (
-                        <div className="radio " key={index}>
-                          <input
-                            type="radio"
-                            value={item.value}
-                            checked={data.noticePeriod == item.value}
-                            onChange={(e) =>
-                              handleInputChange("noticePeriod", e.target.value)
-                            }
-                          />
+                        <option key={index} value={item.value}>
                           {item.title}
-                        </div>
+                        </option>
                       ))}
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.noticePeriod}
-                        </p>
-                      )}
-                    </form>
+                    </select>
+                    {formError?.noticePeriod && (
+                      <p className="text-[12px] text-red-500 font-medium mt-1">
+                        {formError.noticePeriod}
+                      </p>
+                    )}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               <div className="bottom_buttons pt-4 flex justify-between w-full">
                 <button
-                  className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
+                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
                   onClick={() => {
                     setTabIndex(3);
 
@@ -363,7 +406,7 @@ const ProfessionalDetails = ({
                   Back
                 </button>
                 <button
-                  className=" font-[600] bg-[#06A9EF] text-white px-9 py-[11.25px] rounded-[30px] text-[14px] leading-tight"
+                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
                   onClick={handleClick}
                 >
                   {loading && <MiniLoader />}

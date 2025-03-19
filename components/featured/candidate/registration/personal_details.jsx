@@ -4,13 +4,12 @@ import { motion } from "framer-motion";
 
 import { toast } from "react-toastify";
 
-
-
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@react-hook/media-query";
 
 import { telCode } from "../../../../utils/data";
 import ReactSelect from "react-select";
+import { Select } from "@mui/material";
 
 const PersonalDetails = ({
   data,
@@ -22,10 +21,12 @@ const PersonalDetails = ({
   error,
   setError,
   isResume,
-  selectedItem, setSelectedItem
+  selectedItem,
+  setSelectedItem,
 }) => {
   const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isModified, setIsModified] = useState(false);
 
   const [formError, setFormError] = useState({});
 
@@ -79,6 +80,13 @@ const PersonalDetails = ({
           delete errors.mobileNo;
         }
         break;
+      case "country":
+        if (!value.trim()) {
+          errors.country = "Country is required";
+        } else {
+          delete errors.country;
+        }
+        break;
       case "currentLocation":
         if (!value.trim()) {
           errors.currentLocation = "Current Location is required";
@@ -97,7 +105,6 @@ const PersonalDetails = ({
   };
 
   const handleInputChange = (fieldName, value) => {
-
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
@@ -116,7 +123,7 @@ const PersonalDetails = ({
       "firstName",
       "lastName",
       "email",
-
+      "country",
       "currentLocation",
       "mobileNo",
     ];
@@ -139,7 +146,7 @@ const PersonalDetails = ({
   };
 
   const [dropdown, setDropdown] = useState(false);
- 
+
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
   const handleSearch = (e) => {
@@ -191,6 +198,36 @@ const PersonalDetails = ({
   }, []);
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+  const handleCountryChange = (selectedCountry) => {
+    setFormError((prevErrors) => {
+      const errors = { ...prevErrors };
+  
+      if (!selectedCountry?.value?.trim()) {
+        errors.country = "Country is required";
+      } else {
+        delete errors.country;
+      }
+  
+      return errors;
+    });
+  
+    setData((prev) => ({
+      ...prev,
+      country: selectedCountry ? selectedCountry.value : "",
+    }));
+  };
+  
+
+  const countryOptions = telCode
+    .filter((country) => country.name)
+    .map((country) => ({
+      value: country.name,
+      label: country.name,
+    }));
+
+  const countryValue = countryOptions.find(
+    (option) => option.value === data.country
+  );
 
   return (
     <>
@@ -201,84 +238,63 @@ const PersonalDetails = ({
               <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page ">
                 <>
                   <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
-                    <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
-                      <div className="personal_name ml:w-[48%] w-[100%]">
-                        <p className="form_text_heading">
-                          First Name <span className="star">*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name=""
-                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                          placeholder="Enter First Name"
-                          value={data.firstName}
-                          onChange={(e) =>
-                            handleInputChange("firstName", e.target.value)
-                          }
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError.firstName}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="personal_name ml:w-[48%] w-[100%]">
-                        <p className="form_text_heading">
-                          Last Name <span className="star">*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name=""
-                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                          placeholder="Enter Last Name"
-                          value={data.lastName}
-                          onChange={(e) =>
-                            handleInputChange("lastName", e.target.value)
-                          }
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.lastName}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="personal_single_input gap-2">
+                    <div className="personal_name ml:w-[48%] w-[100%]">
                       <p className="form_text_heading">
-                        Email <span className="star">*</span>
+                        First Name <span className="star">*</span>
                       </p>
                       <input
-                        type="email"
+                        type="text"
                         name=""
                         className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                        placeholder="Enter Email"
-                        value={data.email}
+                        placeholder="Enter First Name"
+                        value={data.firstName}
                         onChange={(e) =>
-                          handleInputChange("email", e.target.value)
+                          handleInputChange("firstName", e.target.value)
                         }
                       />
                       {formError && (
                         <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.email}
+                          {formError.firstName}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="personal_name ml:w-[48%] w-[100%]">
+                      <p className="form_text_heading">
+                        Last Name <span className="star">*</span>
+                      </p>
+                      <input
+                        type="text"
+                        name=""
+                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
+                        placeholder="Enter Last Name"
+                        value={data.lastName}
+                        onChange={(e) =>
+                          handleInputChange("lastName", e.target.value)
+                        }
+                      />
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.lastName}
                         </p>
                       )}
                     </div>
                   </div>
+
                   <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
-                    <div className="personal_single_input">
+                    <div className="personal_single_input gap-2">
                       <p className="form_text_heading">
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] px-2 text-[14px] font-normal  rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
-
+                        className={`flex w-[100%] px-2 text-[14px] font-normal  rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                       >
                         <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
+                          className={`relative min-w-[150px] ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                         >
                           <div
                             className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -336,10 +352,11 @@ const PersonalDetails = ({
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${isViewportBelow850
+                          placeholder={`${
+                            isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                            }`}
+                          }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -347,7 +364,6 @@ const PersonalDetails = ({
                         />
                       </div>
 
-                      {/* Display error message if any */}
                       {formError && (
                         <p className="text-[12px] text-[red] font-[500]">
                           {formError?.mobileNo}
@@ -355,6 +371,85 @@ const PersonalDetails = ({
                       )}
                     </div>
 
+                    <div className="personal_single_input gap-2">
+                      <p className="form_text_heading">
+                        Email <span className="star">*</span>
+                      </p>
+                      <input
+                        type="email"
+                        name=""
+                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
+                        placeholder="Enter Email"
+                        value={data.email}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
+                      />
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.email}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
+                    <div className="personal_single_input relative overflow-visible">
+                      <div className="personal_name w-full">
+                        <p className="form_text_heading">
+                          Country <span className="text-red">*</span>
+                        </p>
+                        <ReactSelect
+                          options={countryOptions}
+                          onChange={handleCountryChange}
+                          value={countryValue}
+                          isClearable
+                          placeholder="Select countries"
+                          className="w-full"
+                          classNamePrefix="select"
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              padding: "0.25rem 1rem",
+                              borderRadius: "8px",
+                              borderColor: state.isFocused
+                                ? "#DEDEDE"
+                                : "#DEDEDE",
+                              boxShadow: state.isFocused
+                                ? "0 0 0 1px #DEDEDE"
+                                : "none",
+                              height: "40px",
+                              outline: "none",
+                            }),
+                            placeholder: (provided) => ({
+                              ...provided,
+                              color: "#A0A0A0",
+                            }),
+                            singleValue: (provided) => ({
+                              ...provided,
+                              color: "#000",
+                            }),
+                            input: (provided) => ({
+                              ...provided,
+                              margin: "0px",
+                              padding: "0px",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              zIndex: 9999,
+                            }),
+                          }}
+                        />
+
+                        {formError?.country && (
+                          <p className="text-[12px] text-red font-medium mt-1">
+                            {formError?.country}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                     <div className="personal_single_input">
                       <div className="personal_name w-[100%]">
                         <p className="form_text_heading">
@@ -391,8 +486,9 @@ const PersonalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${data.gender == "male" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "male" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "male" });
@@ -401,8 +497,9 @@ const PersonalDetails = ({
                           Male
                         </button>
                         <button
-                          className={`gen_button ${data.gender == "female" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "female" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "female" });
@@ -411,8 +508,9 @@ const PersonalDetails = ({
                           Female
                         </button>
                         <button
-                          className={`gen_button ${data.gender == "other" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "other" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "other" });
@@ -430,9 +528,10 @@ const PersonalDetails = ({
                         </p>
                         <div className="gender_button">
                           <button
-                            className={`gen_button ${data.workStatus == "Experienced" &&
+                            className={`gen_button ${
+                              data.workStatus == "Experienced" &&
                               "gen_button_active"
-                              }`}
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -444,9 +543,10 @@ const PersonalDetails = ({
                             Experienced
                           </button>
                           <button
-                            className={`gen_button ${data.workStatus == "Fresher" &&
+                            className={`gen_button ${
+                              data.workStatus == "Fresher" &&
                               "gen_button_active"
-                              }`}
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -464,20 +564,16 @@ const PersonalDetails = ({
 
                   <div className="flex justify-between w-full font-[500] pt-4">
                     <button
-                      className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
-                  
-                      onClick={() => {
-                       
-                        router.back("/createResume/BuildResume/")
-                      }  
-                      }
+                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
+                  onClick={() => {
+                        router.back("/createResume/BuildResume/");
+                      }}
                     >
                       Back
                     </button>
                     <button
-                      className=" font-[600] bg-[#06A9EF] text-white px-9 py-[11.25px] rounded-[30px] text-[14px] leading-tight"
-                     
-                      onClick={submitHandler}
+                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
+                  onClick={submitHandler}
                     >
                       Continue
                     </button>
