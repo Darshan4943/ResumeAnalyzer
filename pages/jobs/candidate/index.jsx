@@ -87,7 +87,7 @@ function Index() {
     setIsCountrySet(true);
 
     axios
-      .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
+      .get("http://localhost:2000/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
         setTimeout(() => {
@@ -219,7 +219,7 @@ function Index() {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "https://dev.api.skilotech.com/api/job/getAll",
+        "http://localhost:2000/api/job/getAll",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),
@@ -280,7 +280,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/job/getFilterData",
+        "http://localhost:2000/api/job/getFilterData",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),

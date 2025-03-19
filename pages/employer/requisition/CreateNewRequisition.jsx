@@ -156,7 +156,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/creatrequasetion/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/creatrequasetion/${userDataGlobal?._id}`,
         {
           ...data,
           createdBy: userDataGlobal?._id,

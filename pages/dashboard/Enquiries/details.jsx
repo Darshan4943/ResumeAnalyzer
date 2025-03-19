@@ -17,7 +17,7 @@ function Details() {
     if (id) {
       setLoading(true);
       axios
-        .get("https://dev.api.skilotech.com/api/subscription/byId/" + id)
+        .get("http://localhost:2000/api/subscription/byId/" + id)
         .then((res) => {
           setSubscription(res.data.data);
           setuserData(res.data.userData);
@@ -43,7 +43,7 @@ function Details() {
     e.preventDefault();
     setBtnLoading(true);
     axios
-      .put("https://dev.api.skilotech.com/api/subscription/active/" + subscription.email)
+      .put("http://localhost:2000/api/subscription/active/" + subscription.email)
       .then((res) => {
         setBtnLoading(false);
         setPopUp(true);
