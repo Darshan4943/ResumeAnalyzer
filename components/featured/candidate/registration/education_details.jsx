@@ -191,7 +191,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
               </div>
               <div className="w-full flex justify-between pt-4">
                 <button
-                    className="text-[14px] font-semibold border rounded-[30px] px-9 py-[11.25px] border-blue"
+                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
                   onClick={() => {
                     setTabIndex(2);
                     window.scroll(0, 0);
@@ -200,7 +200,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   Back
                 </button>
                 <button
-                   className=" font-[600] bg-[#06A9EF] text-white px-9 py-[11.25px] rounded-[30px] text-[14px] leading-tight"
+                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
                   onClick={submitHandler}
                 >
                   Continue

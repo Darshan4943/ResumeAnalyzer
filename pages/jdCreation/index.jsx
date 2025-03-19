@@ -79,84 +79,155 @@ function Index() {
       >
         Create Job Description
       </button>
-      <div className="flex gap-4 flex-wrap">
-        {data.map((jd) => (
-          <div key={jd._id} className="flex gap-2 flex-col items-center">
-            <div className="bg-white rounded-[12px] p-4 w-[192px] h-[256px] relative overflow-hidden group">
-              <div
-                className="text-[5px] font-[400]"
-                dangerouslySetInnerHTML={{
-                  __html: jd.jd,
-                }}
-              />
 
-              <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-opacity duration-200">
-                <div className="flex flex-col bg-[#333333] rounded-[16px] p-[12px] gap-2">
-                  <div
-                    onClick={() => handlePreview(jd)}
-                    className="flex flex-col gap-[2px] items-center"
-                  >
-                    <button className="flex items-center justify-center p-2 ">
-                      <svg
-                        width="22"
-                        height="15"
-                        viewBox="0 0 22 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M11.0028 11.5769C12.1359 11.5769 13.0983 11.1803 13.89 10.3871C14.6816 9.59394 15.0775 8.6308 15.0775 7.4977C15.0775 6.36462 14.6809 5.40224 13.8877 4.61058C13.0945 3.81891 12.1314 3.42308 10.9983 3.42308C9.8652 3.42308 8.90283 3.81966 8.11116 4.61283C7.3195 5.40601 6.92366 6.36915 6.92366 7.50225C6.92366 8.63533 7.32025 9.59771 8.11341 10.3894C8.9066 11.181 9.86974 11.5769 11.0028 11.5769ZM11.0006 10.2C10.2506 10.2 9.61306 9.93748 9.08806 9.41248C8.56306 8.88748 8.30056 8.24998 8.30056 7.49998C8.30056 6.74998 8.56306 6.11248 9.08806 5.58748C9.61306 5.06248 10.2506 4.79998 11.0006 4.79998C11.7506 4.79998 12.3881 5.06248 12.9131 5.58748C13.4381 6.11248 13.7006 6.74998 13.7006 7.49998C13.7006 8.24998 13.4381 8.88748 12.9131 9.41248C12.3881 9.93748 11.7506 10.2 11.0006 10.2ZM11.0019 14.5C8.70232 14.5 6.60699 13.8657 4.71596 12.5971C2.82495 11.3285 1.43265 9.62946 0.539062 7.49998C1.43265 5.37049 2.8245 3.67146 4.71461 2.40288C6.60471 1.13429 8.69957 0.5 10.9992 0.5C13.2988 0.5 15.3941 1.13429 17.2852 2.40288C19.1762 3.67146 20.5685 5.37049 21.4621 7.49998C20.5685 9.62946 19.1766 11.3285 17.2865 12.5971C15.3964 13.8657 13.3016 14.5 11.0019 14.5ZM11.0006 13C12.8839 13 14.6131 12.5041 16.1881 11.5125C17.7631 10.5208 18.9672 9.18331 19.8006 7.49998C18.9672 5.81664 17.7631 4.47914 16.1881 3.48748C14.6131 2.49581 12.8839 1.99998 11.0006 1.99998C9.11723 1.99998 7.38806 2.49581 5.81306 3.48748C4.23806 4.47914 3.0339 5.81664 2.20056 7.49998C3.0339 9.18331 4.23806 10.5208 5.81306 11.5125C7.38806 12.5041 9.11723 13 11.0006 13Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </button>
-                    <p className="text-[12px] font-[600] text-white">Preview</p>
-                  </div>
-                  <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
+      {data?.length > 0 ? (
+        <div className="flex gap-4 flex-wrap">
+          {data.map((jd) => (
+            <div key={jd._id} className="flex gap-2 flex-col items-center">
+              <div className="bg-white rounded-[12px] p-4 w-[192px] h-[256px] relative overflow-hidden group">
+                <div
+                  className="text-[5px] font-[400]"
+                  dangerouslySetInnerHTML={{
+                    __html: jd.jd,
+                  }}
+                />
 
-                  <div className="flex flex-col gap-[2px] items-center">
-                    <button
-                      onClick={() =>
-                        router.push(`/jdCreation/createJd?id=${jd?._id}`)
-                      }
-                      className="flex items-center justify-center  p-2 "
+                <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-opacity duration-200">
+                  <div className="flex flex-col bg-[#333333] rounded-[16px] p-[12px] gap-2">
+                    <div
+                      onClick={() => handlePreview(jd)}
+                      className="flex flex-col gap-[2px] items-center"
                     >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g mask="url(#mask0_9618_112303)">
+                      <button className="flex items-center justify-center p-2 ">
+                        <svg
+                          width="22"
+                          height="15"
+                          viewBox="0 0 22 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
-                            d="M4.99997 19H6.2615L16.4981 8.7634L15.2366 7.50188L4.99997 17.7385V19ZM3.5 20.5V17.1154L16.6904 3.93078C16.8416 3.79343 17.0086 3.68729 17.1913 3.61237C17.374 3.53746 17.5656 3.5 17.7661 3.5C17.9666 3.5 18.1608 3.53558 18.3488 3.60675C18.5368 3.6779 18.7032 3.79103 18.848 3.94615L20.0692 5.18268C20.2243 5.32754 20.3349 5.49424 20.4009 5.68278C20.4669 5.87129 20.5 6.05981 20.5 6.24833C20.5 6.44941 20.4656 6.64131 20.3969 6.82403C20.3283 7.00676 20.219 7.17373 20.0692 7.32495L6.88458 20.5H3.5ZM15.8563 8.1437L15.2366 7.50188L16.4981 8.7634L15.8563 8.1437Z"
+                            d="M11.0028 11.5769C12.1359 11.5769 13.0983 11.1803 13.89 10.3871C14.6816 9.59394 15.0775 8.6308 15.0775 7.4977C15.0775 6.36462 14.6809 5.40224 13.8877 4.61058C13.0945 3.81891 12.1314 3.42308 10.9983 3.42308C9.8652 3.42308 8.90283 3.81966 8.11116 4.61283C7.3195 5.40601 6.92366 6.36915 6.92366 7.50225C6.92366 8.63533 7.32025 9.59771 8.11341 10.3894C8.9066 11.181 9.86974 11.5769 11.0028 11.5769ZM11.0006 10.2C10.2506 10.2 9.61306 9.93748 9.08806 9.41248C8.56306 8.88748 8.30056 8.24998 8.30056 7.49998C8.30056 6.74998 8.56306 6.11248 9.08806 5.58748C9.61306 5.06248 10.2506 4.79998 11.0006 4.79998C11.7506 4.79998 12.3881 5.06248 12.9131 5.58748C13.4381 6.11248 13.7006 6.74998 13.7006 7.49998C13.7006 8.24998 13.4381 8.88748 12.9131 9.41248C12.3881 9.93748 11.7506 10.2 11.0006 10.2ZM11.0019 14.5C8.70232 14.5 6.60699 13.8657 4.71596 12.5971C2.82495 11.3285 1.43265 9.62946 0.539062 7.49998C1.43265 5.37049 2.8245 3.67146 4.71461 2.40288C6.60471 1.13429 8.69957 0.5 10.9992 0.5C13.2988 0.5 15.3941 1.13429 17.2852 2.40288C19.1762 3.67146 20.5685 5.37049 21.4621 7.49998C20.5685 9.62946 19.1766 11.3285 17.2865 12.5971C15.3964 13.8657 13.3016 14.5 11.0019 14.5ZM11.0006 13C12.8839 13 14.6131 12.5041 16.1881 11.5125C17.7631 10.5208 18.9672 9.18331 19.8006 7.49998C18.9672 5.81664 17.7631 4.47914 16.1881 3.48748C14.6131 2.49581 12.8839 1.99998 11.0006 1.99998C9.11723 1.99998 7.38806 2.49581 5.81306 3.48748C4.23806 4.47914 3.0339 5.81664 2.20056 7.49998C3.0339 9.18331 4.23806 10.5208 5.81306 11.5125C7.38806 12.5041 9.11723 13 11.0006 13Z"
                             fill="white"
                           />
-                        </g>
-                      </svg>
-                    </button>
-                    <p className="text-[12px] font-[600] text-white">Edit</p>
-                  </div>
-                  <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
+                        </svg>
+                      </button>
+                      <p className="text-[12px] font-[600] text-white">
+                        Preview
+                      </p>
+                    </div>
+                    <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
 
-                  <div
-                    onClick={() => handleDelete(jd._id)}
-                    className="flex flex-col gap-[2px] items-center"
-                  >
-                    <button className="flex items-center justify-center  p-2 ">
-                      <MdDelete size={20} color="red" />
-                    </button>
-                    <p className="text-[12px] font-[600] text-white">Delete</p>
+                    <div className="flex flex-col gap-[2px] items-center">
+                      <button
+                        onClick={() =>
+                          router.push(`/jdCreation/createJd?id=${jd?._id}`)
+                        }
+                        className="flex items-center justify-center  p-2 "
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_9618_112303)">
+                            <path
+                              d="M4.99997 19H6.2615L16.4981 8.7634L15.2366 7.50188L4.99997 17.7385V19ZM3.5 20.5V17.1154L16.6904 3.93078C16.8416 3.79343 17.0086 3.68729 17.1913 3.61237C17.374 3.53746 17.5656 3.5 17.7661 3.5C17.9666 3.5 18.1608 3.53558 18.3488 3.60675C18.5368 3.6779 18.7032 3.79103 18.848 3.94615L20.0692 5.18268C20.2243 5.32754 20.3349 5.49424 20.4009 5.68278C20.4669 5.87129 20.5 6.05981 20.5 6.24833C20.5 6.44941 20.4656 6.64131 20.3969 6.82403C20.3283 7.00676 20.219 7.17373 20.0692 7.32495L6.88458 20.5H3.5ZM15.8563 8.1437L15.2366 7.50188L16.4981 8.7634L15.8563 8.1437Z"
+                              fill="white"
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                      <p className="text-[12px] font-[600] text-white">Edit</p>
+                    </div>
+                    <div className=" border-[1px] border-[#FFFFFF] w-[50px]"></div>
+
+                    <div
+                      onClick={() => handleDelete(jd._id)}
+                      className="flex flex-col gap-[2px] items-center"
+                    >
+                      <button className="flex items-center justify-center  p-2 ">
+                        <MdDelete size={20} color="red" />
+                      </button>
+                      <p className="text-[12px] font-[600] text-white">
+                        Delete
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <p className="text-[12px] font-medium">{jd.jobTitle}</p>
             </div>
-            <p className="text-[12px] font-medium">{jd.jobTitle}</p>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center gap-[46px] bg-[#FFFFFF] p-[16px] rounded-[12px] ">
+          <div className="sm:text-[24px] text-[16px] font-[600] text-center">
+            Create JD Creation Steps
           </div>
-        ))}
-      </div>
-
+          <div className="flex scr1024:flex-row flex-col justify-between scr1024:gap-0 gap-10 items-center">
+            <div className="w-[300px] flex flex-col justify-center items-center gap-[14px]">
+              <div className="w-[172px] h-[172px]">
+                <img src="images/recruiter/step1.png" alt="" />
+              </div>
+              <div>
+                <p className="text-[16px] font-[600] text-center">
+                  Step 1 : Initiate JD Creation
+                </p>
+                <p className="text-[14px] font-[400] text-center">
+                  Begin the process of creating a new Job Description by
+                  clicking the 'Create JD' button.
+                </p>
+              </div>
+            </div>
+            <div className="w-[80px]">
+              <img
+                src="images/recruiter/arrowjd.png"
+                className="transition-transform duration-300 scr1024:rotate-0 rotate-90"
+                alt=""
+              />
+            </div>
+            <div className="w-[300px] flex flex-col justify-center items-center gap-[14px]">
+              <div className="w-[172px] h-[172px]">
+                <img src="images/recruiter/step2.png" alt="" />
+              </div>
+              <div>
+                <p className="text-[16px] font-[600] text-center">
+                  Step 2 : Complete the Job Description Form
+                </p>
+                <p className="text-[14px] font-[400] text-center">
+                  Fill in all the required details for the Job Description,
+                  including job title, description, skills, experience, and any
+                  other relevant information.
+                </p>
+              </div>
+            </div>
+            <div className="w-[80px]">
+              <img
+                src="images/recruiter/arrowjd.png"
+                className="transition-transform duration-300 scr1024:rotate-0 rotate-90"
+                alt=""
+              />
+            </div>
+            <div className="w-[300px] flex flex-col justify-center items-center gap-[14px]">
+              <div className="w-[172px] h-[172px]">
+                <img src="images/recruiter/step3.png" alt="" />
+              </div>
+              <div>
+                <p className="text-[16px] font-[600] text-center">
+                  Step 3 : Finalize and Create the Job Description
+                </p>
+                <p className="text-[14px] font-[400] text-center">
+                  Review the information you have entered, and then click the
+                  'Create' button to save and publish your new Job Description.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {selectedJD && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] px-4 animate-fadeIn">
           <div

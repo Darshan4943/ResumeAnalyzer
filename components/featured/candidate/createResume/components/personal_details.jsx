@@ -59,6 +59,7 @@ const PersonalDetails = ({
     mobileNumber: false,
     email: false,
     location: false,
+    country: false,
     designation: false,
     dial_code: false,
   });
@@ -69,6 +70,7 @@ const PersonalDetails = ({
     mobileNumber: false,
     email: false,
     location: false,
+    country: false,
     designation: false,
     dial_code: false,
   });
@@ -238,6 +240,12 @@ const PersonalDetails = ({
             allFieldsValid = false;
           }
           break;
+        case "country":
+          if (!value?.trim() && touched[name]) {
+            newErrors[name] = "country is required";
+            allFieldsValid = false;
+          }
+          break;
         case "location":
           if (!value?.trim() && touched[name]) {
             newErrors[name] = "Location is required";
@@ -317,6 +325,7 @@ const PersonalDetails = ({
         mobileNumber: profileDataa.mobileNumber,
         dial_code: profileDataa.dial_code,
         email: profileDataa.email.toLowerCase(),
+        country:profileDataa.country,
         location: camelCase(profileDataa.location),
         designation: profileDataa.designation,
         selectedResumeIndex: selectedResumeIndex,
@@ -339,6 +348,7 @@ const PersonalDetails = ({
       lastName,
       email,
       mobileNumber,
+      country,
       location,
       designation,
       dial_code,
@@ -349,6 +359,7 @@ const PersonalDetails = ({
       lastName,
       email,
       mobileNumber,
+      country,
       location,
       designation,
       dial_code: dial_code ? dial_code : "+260",
@@ -425,7 +436,7 @@ const PersonalDetails = ({
                                   ...provided,
                                   border: "none",
                                   minWidth: "130px",
-                                  marginLeft:"4px"
+                                  marginLeft: "4px",
                                 }),
                               }}
                               theme={(theme) => ({
