@@ -178,7 +178,7 @@ function Index() {
                 </p>
                 <p className="text-[14px] font-[400] text-center">
                   Begin the process of creating a new Job Description by
-                  clicking the 'Create JD' button.
+                  clicking the &quot;Create JD&quot; button.
                 </p>
               </div>
             </div>
@@ -221,7 +221,7 @@ function Index() {
                 </p>
                 <p className="text-[14px] font-[400] text-center">
                   Review the information you have entered, and then click the
-                  'Create' button to save and publish your new Job Description.
+                  &quot;Create&quot; button to save and publish your new Job Description.
                 </p>
               </div>
             </div>
