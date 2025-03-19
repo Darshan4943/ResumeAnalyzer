@@ -66,7 +66,7 @@ const SelectPost = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:2000/api/job/getByCreatedId/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/getByCreatedId/${userDataGlobal?._id}`,
         {
           params: {
             page,
@@ -171,7 +171,7 @@ const SelectPost = () => {
       {toggle === 0 ? (
         <div className=" flex flex-col gap-[16px] pt-[14px] ">
           <div className="flex ml:flex-row flex-col gap-4 justify-between ml:items-center items-end w-full">
-            <span className="text-[20px] font-[500] py-[8px] px-[12px]  w-full ">
+            <span className="text-[18px] font-[500] py-[8px] px-[12px]  w-full ">
               Select Job
             </span>
 
@@ -409,7 +409,7 @@ const SelectPost = () => {
         </div>
       ) : (
         <div className="pt-[14px] flex flex-col gap-4">
-          <div className="text-[20px] font-[500]">Manual JD</div>
+          <div className="text-[18px] font-[500] py-2 px-3">Manual JD</div>
           <div className="w-full bg-[#FFFFFF] flex flex-col rounded-[16px] p-[16px] gap-[16px]">
             <div className="flex flex-col gap-[8px]">
               <div className="text-[14px] font-[500]">Job Title</div>

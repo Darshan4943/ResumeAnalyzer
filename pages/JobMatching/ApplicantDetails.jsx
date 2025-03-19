@@ -8,10 +8,10 @@ import MiniLoader from "../../components/common/mini-loader";
 import MiniLoaderr from "../../components/common/miniLoader";
 import InlineSVG from "../../components/common/InlineSvg";
 
-function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
+function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTab, jobData, addApplicant, hiringLoading, jdApplicantFileNames, collection }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
   const [activeOption, setActiveOption] = useState("ApplicantProfile");
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -20,6 +20,18 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
   const isDoc = ["doc", "docx"].includes(fileExtension);
+  const downloadResume = (resumeUrl) => {
+    if (resumeUrl) {
+      const link = document.createElement("a");
+      link.href = resumeUrl; // URL of the resume
+      link.download = "Resume.pdf"; // Default name of the downloaded file
+      document.body.appendChild(link); // Append the link to the document body
+      link.click(); // Trigger the click event
+      document.body.removeChild(link); // Clean up by removing the link
+    } else {
+      toast.error("Resume URL is not available.");
+    }
+  };
 
 
   // useEffect(() => {
@@ -36,7 +48,7 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
   //         );
 
   //         const response = await axios.get(
-  //           "http://localhost:2000/api/applicantdetails",
+  //           "https://dev.api.skilotech.com/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }
@@ -199,7 +211,7 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
 
                     <p className="text-[20px] font-medium">  {userDetails?.matching_percentage}</p>
                   </div>
-                  { !data &&
+                  {!data &&
                     <div className=" flex justify-center  ">
                       {
                         (jobData?.applications?.some((item) => item?.fileName === userDetails?.fileName) || jdApplicantFileNames?.includes(userDetails?.fileName)) ? (
@@ -224,7 +236,7 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
                     </div>
                   }
                 </div>
-                
+
                 <div className="min-h-[1px] bg-[#D6DDEB]"></div>
                 <div className="flex flex-col  gap-[8px] w-[380px]">
                   <div className="text-[16px] font-[600]">Contact</div>
@@ -342,6 +354,33 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
                           d="M0.5 4C0.5 1.79086 2.29086 0 4.5 0H64.5C66.7091 0 68.5 1.79086 68.5 4H0.5Z"
                           fill={
                             activeOption === "Resume" ? "#06A9EF" : "white"
+                          }
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p
+                        className={`${activeOption === "matchingParameters"
+                          ? "text-[#333]"
+                          : "text-[#646464]"
+                          } cursor-pointer`}
+                        onClick={() => handleOptionClick("matchingParameters")}
+                      >
+                        Matching Parameters
+                      </p>
+                      <svg
+                        className=" ml:w-[178px] sm:w-[120px] w-[100px]"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="4"
+                        viewBox="0 0 138 4"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
+                          fill={
+                            activeOption === "matchingParameters"
+                              ? "#06A9EF"
+                              : "white"
                           }
                         />
                       </svg>
@@ -473,6 +512,32 @@ function ApplicantDetails({byMyCollection,data, setTogglee, userDetails, setTab,
                 </div>
 
               )}
+              {toggle === "matchingParameters" &&
+                <div className="flex flex-col gap-[8px] p-6 ">
+                  {userDetails?.matching_parameters?.slice(0, 8)?.map((item, i) => (
+                    <div
+                      key={i}
+                      className="text-[#333333]  flex  items-start gap-[8px] text-[14px] font-[400]"
+                    >
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="mt-[6px] min-w-[10px]"
+                      >
+                        <circle cx="5" cy="5" r="5" fill="#D9D9D9" />
+                      </svg>
+                      {item.title}{" "}
+                      {item.matching_points == "N/A"
+                        ? null
+                        : ": " + item.matching_points}
+                    </div>
+                  ))}
+                </div>
+
+              }
 
             </div>
           )}

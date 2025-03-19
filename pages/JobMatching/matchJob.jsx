@@ -74,8 +74,10 @@ const MatchJob = () => {
   const [hiringLoading, setHiringLoading] = useState("");
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
+  const [selectedResumes, setSelectedResumes] = useState([]);
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
   const [byMyCollection, setMatchByCOllection] = useState(false);
+  const [select, setSelect] = useState(false);
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
@@ -104,7 +106,7 @@ const MatchJob = () => {
     const fetchJDParameters = async () => {
 
       try {
-        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+        const data = await axios.get(`https://dev.api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`);
 
         if (data?.data?.data?.parameters) {
           const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
@@ -188,7 +190,7 @@ const MatchJob = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://dev.api.skilotech.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -210,7 +212,7 @@ const MatchJob = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
+      .get(`https://dev.api.skilotech.com/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file" && item.isSync === true) {
@@ -235,7 +237,7 @@ const MatchJob = () => {
     setLoading(true);
 
     await axios
-      .get("http://localhost:2000/api/job/getById/" + selectedJob)
+      .get("https://dev.api.skilotech.com/api/job/getById/" + selectedJob)
       .then((res) => {
         setLoading(false);
         const { applications, ...restData } = res.data;
@@ -257,6 +259,8 @@ const MatchJob = () => {
   }, [tab]);
 
   const JobMatchforSkilotechCollection = async () => {
+    setSelectedResumes([])
+    setSelect(false)
     try {
       if (jdCountMonthly >= jdCountMonthlyLimit) {
         setLimitPopup(true);
@@ -265,7 +269,7 @@ const MatchJob = () => {
       const outputData = [];
       setMatchLoader(true);
       const response = await axios.post(
-        "http://localhost:2000/api/skiloCollection/jobMatching",
+        "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
 
         {
           jd: extratctedData,
@@ -358,7 +362,7 @@ const MatchJob = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "http://localhost:2000/api/external/jobMatching",
+      "https://dev.api.skilotech.com/api/external/jobMatching",
 
       {
         jd,
@@ -382,6 +386,8 @@ const MatchJob = () => {
 
 
   const MatchJob = async () => {
+    setSelectedResumes([])
+    setSelect(false)
     setFromSkilotechCollection(false)
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
@@ -448,7 +454,7 @@ const MatchJob = () => {
     setHiringLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/job/moveToHiring/${selectedJob}`,
+        `https://dev.api.skilotech.com/api/job/moveToHiring/${selectedJob}`,
         applicantData,
         {
           headers: {
@@ -505,7 +511,7 @@ const MatchJob = () => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
-      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `https://dev.api.skilotech.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -517,7 +523,7 @@ const MatchJob = () => {
         );
       }
 
-      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      const jdSubscriptionLimitUrl = `https://dev.api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
         resumeCount,
       });
@@ -680,6 +686,12 @@ const MatchJob = () => {
                 </div>
               )}
               <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start">
+              <button
+                  onClick={() => setOpenParamenters(true)}
+                  className=" rounded-[30px] text-[14px] font-semibold blue_border_Button flex justify-center items-center h-[38px] px-6"
+                >
+                  Set Matching Parameters
+                </button>
                 <div className="flex flex-row  gap-4 items-center">
                   <span className=" text-[14px] font-[500] text-[#333333]">
                     Set Filter Limit{" "}
@@ -714,12 +726,7 @@ const MatchJob = () => {
                   </button>
 
                 )}
-                <button
-                  onClick={() => setOpenParamenters(true)}
-                  className=" rounded-[30px] text-[14px] font-semibold bg_Button flex justify-center items-center h-[38px] px-6"
-                >
-                  Set Matching Parameters
-                </button>
+               
 
               </div>
             </div>
@@ -739,6 +746,13 @@ const MatchJob = () => {
                     collection={collection}
                     data={data}
                     byMyCollection={byMyCollection}
+                    setUpdate={setUpdate}
+                    selectedJob={selectedJob}
+                    setSelectedResumes={setSelectedResumes}
+                    selectedResumes={selectedResumes}
+                    select={select}
+                    setSelect={setSelect}
+                    
                   />
                 </div>
               )}
