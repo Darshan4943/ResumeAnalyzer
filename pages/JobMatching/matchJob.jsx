@@ -60,7 +60,7 @@ const MatchJob = () => {
   const [findMatchLoader, setMatchLoader] = useState(false);
   const taskRef = useRef(null);
   const [jdCountMonthly, setJdCountMonthly] = useState(0);
-  const [openParameters, setOpenParamenters] = useState(false)
+  const [openParameters, setOpenParamenters] = useState(false);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
   const [limitPopup, setLimitPopup] = useState(false);
@@ -74,54 +74,100 @@ const MatchJob = () => {
   const [hiringLoading, setHiringLoading] = useState("");
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
-  const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
+  const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false);
   const [byMyCollection, setMatchByCOllection] = useState(false);
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
   const [parameters, setParameters] = useState([
-    { label: "Skills and Competencies", description: "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.", percentage: 15, enabled: true },
-    { label: "Relevant Experience in the Required Field", description: "Compare the candidate's experience in the relevant field with the job requirements, noting any areas where the candidate meets, exceeds, or falls short of the required experience.", percentage: 15, enabled: true },
-    { label: "Roles and Responsibilities", description: "Evaluate the roles and responsibilities listed in the candidate's work experience and compare them with those required by the job description.", percentage: 15, enabled: true },
-    { label: "Objective and Professional Summary from Resume", description: "Assess the candidate's objective and professional summary in the resume to determine alignment with the job role and company values.", percentage: 10, enabled: true },
-    { label: "Total Experience", description: "Summarize the candidate's total professional experience, including all relevant fields, and compare it with the job requirements.", percentage: 10, enabled: true },
-    { label: "Educational Qualification", description: "Compare the candidate's educational qualifications with the required and preferred educational background mentioned in the job description.", percentage: 10, enabled: true },
-    { label: "Keywords", description: "Identify any keywords from the job description that are present in the candidate's resume.", percentage: 10, enabled: true },
-    { label: "Achievements", description: "Review the candidate's achievements and assess their relevance and impact in relation to the job role.", percentage: 15, enabled: true }
+    {
+      label: "Skills and Competencies",
+      description:
+        "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.",
+      percentage: 15,
+      enabled: true,
+    },
+    {
+      label: "Relevant Experience in the Required Field",
+      description:
+        "Compare the candidate's experience in the relevant field with the job requirements, noting any areas where the candidate meets, exceeds, or falls short of the required experience.",
+      percentage: 15,
+      enabled: true,
+    },
+    {
+      label: "Roles and Responsibilities",
+      description:
+        "Evaluate the roles and responsibilities listed in the candidate's work experience and compare them with those required by the job description.",
+      percentage: 15,
+      enabled: true,
+    },
+    {
+      label: "Objective and Professional Summary from Resume",
+      description:
+        "Assess the candidate's objective and professional summary in the resume to determine alignment with the job role and company values.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Total Experience",
+      description:
+        "Summarize the candidate's total professional experience, including all relevant fields, and compare it with the job requirements.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Educational Qualification",
+      description:
+        "Compare the candidate's educational qualifications with the required and preferred educational background mentioned in the job description.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Keywords",
+      description:
+        "Identify any keywords from the job description that are present in the candidate's resume.",
+      percentage: 10,
+      enabled: true,
+    },
+    {
+      label: "Achievements",
+      description:
+        "Review the candidate's achievements and assess their relevance and impact in relation to the job role.",
+      percentage: 15,
+      enabled: true,
+    },
   ]);
-  const [weightage, setWeightage] = useState(false)
-  const [priority, setPriority] = useState(false)
+  const [weightage, setWeightage] = useState(false);
+  const [priority, setPriority] = useState(false);
   useEffect(() => {
     if (data) {
-      const dataa = JSON.parse(decodeURIComponent(data))
-      setExtractedData(dataa)
+      const dataa = JSON.parse(decodeURIComponent(data));
+      setExtractedData(dataa);
     }
-  }, [data])
+  }, [data]);
   console.log(222, extratctedData);
-
 
   useEffect(() => {
     const fetchJDParameters = async () => {
-
       try {
-        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+        const data = await axios.get(
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
+        );
 
         if (data?.data?.data?.parameters) {
-          const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
+          const filteredParameters = data.data.data.parameters.filter(
+            (param) => param.enabled === true
+          );
           setParameters(filteredParameters);
-
         }
-        setPriority(data?.data?.data?.priority)
-        setWeightage(data?.data?.data?.weightage)
-
+        setPriority(data?.data?.data?.priority);
+        setWeightage(data?.data?.data?.weightage);
       } catch (error) {
         console.error("Error loading JD Parameters");
       }
-
     };
     fetchJDParameters();
   }, [userDataGlobal?._id, openParameters]);
-
 
   useEffect(() => {
     const parentid = localStorage.getItem("parentId");
@@ -248,7 +294,6 @@ const MatchJob = () => {
 
         console.log(err);
       });
-
   };
   useEffect(() => {
     if (selectedJob) {
@@ -272,11 +317,10 @@ const MatchJob = () => {
           resumeCount,
           parameters,
           weightage,
-          priority
-
+          priority,
         }
       );
-      setFromSkilotechCollection(true)
+      setFromSkilotechCollection(true);
       if (Array.isArray(response.data)) {
         outputData.push(...response.data);
       } else {
@@ -301,18 +345,18 @@ const MatchJob = () => {
 
       setResumeList(dataArray);
       setIsMatched(true);
-      updateJobMatchLimit()
+      updateJobMatchLimit();
       setTimeout(() => {
-        getLimits()
+        getLimits();
       }, 5000);
       // setCollection("");
-      setMatchByCOllection(false)
+      setMatchByCOllection(false);
       setButtonToggle(false);
 
       setMatchLoader(false);
     } catch (error) {
       console.error("Error in JobMatchforSkilotechCollection:", error);
-      toast.error("Something went wrong, try again")
+      toast.error("Something went wrong, try again");
     } finally {
       setMatchLoader(false);
     }
@@ -366,7 +410,7 @@ const MatchJob = () => {
         resumeCount,
         parameters,
         weightage,
-        priority
+        priority,
       }
     );
 
@@ -380,9 +424,8 @@ const MatchJob = () => {
     counter.count++;
   };
 
-
   const MatchJob = async () => {
-    setFromSkilotechCollection(false)
+    setFromSkilotechCollection(false);
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
       return;
@@ -430,10 +473,10 @@ const MatchJob = () => {
       setIsMatched(true);
       // setSelectedIndexes([]);
       // setCollection("");
-      setMatchByCOllection(true)
-      updateJobMatchLimit()
+      setMatchByCOllection(true);
+      updateJobMatchLimit();
       setTimeout(() => {
-        getLimits()
+        getLimits();
       }, 5000);
       // setSelectedIndexesFilesType([]);
       setButtonToggle(false);
@@ -540,7 +583,6 @@ const MatchJob = () => {
     }
   };
 
-
   return (
     <>
       {tab === 0 && (
@@ -550,16 +592,14 @@ const MatchJob = () => {
               <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
             </div>
           )}
-          {openParameters &&
+          {openParameters && (
             <>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
-
                 <JdParameters setOpenParamenters={setOpenParamenters} />
               </div>
             </>
-
-          }
+          )}
 
           <div className=" flex flex-col gap-4   ">
             {loadingg && (
@@ -670,7 +710,7 @@ const MatchJob = () => {
                   </div>
                 </div>
               </div>
-              {(selectedIndexes.length > 0 && collection === "MyCollection") && (
+              {selectedIndexes.length > 0 && collection === "MyCollection" && (
                 <div className="font-medium text-[16px] ">
                   Resumes Selected :{" "}
                   <span className="text-[16px] font-semibold">
@@ -712,7 +752,6 @@ const MatchJob = () => {
                   >
                     Find Match
                   </button>
-
                 )}
                 <button
                   onClick={() => setOpenParamenters(true)}
@@ -720,12 +759,12 @@ const MatchJob = () => {
                 >
                   Set Matching Parameters
                 </button>
-
               </div>
             </div>
-            <div className="flex flex-col gap-6 h-full  ">
-              {isMatched && (
-                <div className=" w-full">
+
+            <div className="flex flex-col gap-6 h-full items-center  ">
+              {isMatched ? (
+                <div className="w-full">
                   <JdMatchCard
                     resumeList={resumeList}
                     extratctedData={extratctedData}
@@ -740,6 +779,132 @@ const MatchJob = () => {
                     data={data}
                     byMyCollection={byMyCollection}
                   />
+                </div>
+              ) : (
+                <div className="bg-[#FFFFFF] p-[24px] w-[1140px] justify-center items-center flex flex-col rounded-[12px] mt-10">
+                  <div className="text-[18px] font-[500] text-center mb-2">
+                    JD Matching Steps
+                  </div>
+
+                  <div className="flex flex-col items-center gap-12 w-full p-[24px] ">
+                    <div className="flex flex-wrap justify-center md:justify-between items-center w-full max-w-4xl gap-8">
+                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                        <img
+                          className="w-28 h-28 md:w-32 md:h-32"
+                          src="/images/recruiter/jdstep1.png"
+                          alt="Step 1"
+                        />
+                        <p className="text-base md:text-lg font-bold">
+                          Step 1: Choose Your JD Source
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Begin by selecting where you'd like to find the Job
+                          Description you want to use for matching.
+                        </p>
+                      </div>
+
+                      <div className="hidden md:block w-32 h-0 relative">
+                        <svg
+                          className="absolute left-0 top-1/2 -translate-y-1/2"
+                          width="100"
+                          height="20"
+                          viewBox="0 0 100 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 10 L90 10 M90 10 L85 5 M90 10 L85 15"
+                            stroke="#000"
+                            strokeWidth="1"
+                            strokeDasharray="5,5"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                        <img
+                          className="w-28 h-28 md:w-32 md:h-32"
+                          src="/images/recruiter/jdstep2.png"
+                          alt="Step 2"
+                        />
+                        <p className="text-base md:text-lg font-bold">
+                          Step 2: Set Matching Parameter
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Define a specific order of importance for different
+                          aspects of the Job Description.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="relative h-20 hidden md:block">
+                      <svg
+                        className="absolute left-[50%] md:left-[20rem] -translate-x-1/2"
+                        width="20"
+                        height="80"
+                        viewBox="0 0 20 80"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0 V70 M10 70 L5 65 M10 70 L15 65"
+                          stroke="#000"
+                          strokeWidth="1"
+                          strokeDasharray="5,5"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="flex flex-wrap flex-row-reverse justify-center md:justify-between items-center w-full max-w-4xl gap-8">
+                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                        <img
+                          className="w-28 h-28 md:w-32 md:h-32"
+                          src="/images/recruiter/jdstep3.png"
+                          alt="Step 3"
+                        />
+                        <p className="text-base md:text-lg font-bold">
+                          Step 3: Set Filter Limit
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Specify the maximum number of candidate profiles you
+                          want to retrieve.
+                        </p>
+                      </div>
+
+                      <div className="hidden md:block w-32 h-0 relative">
+                        <svg
+                          className="absolute left-0 top-1/2 -translate-y-1/2"
+                          width="100"
+                          height="20"
+                          viewBox="0 0 100 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M90 10 L0 10 M0 10 L5 5 M0 10 L5 15"
+                            stroke="#000"
+                            strokeWidth="1"
+                            strokeDasharray="5,5"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="flex flex-col items-center gap-4 w-64 text-center">
+                        <img
+                          className="w-28 h-28 md:w-32 md:h-32"
+                          src="/images/recruiter/jdstep4.png"
+                          alt="Step 4"
+                        />
+                        <p className="text-base md:text-lg font-bold">
+                          Step 4: Click the "Find Match" button
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Specify the maximum number of candidate profiles you
+                          want to retrieve for matching.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
