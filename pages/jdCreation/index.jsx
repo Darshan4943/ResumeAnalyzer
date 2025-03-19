@@ -165,7 +165,7 @@ function Index() {
       ) : (
         <div className="flex flex-col justify-center gap-[46px] bg-[#FFFFFF] p-[16px] rounded-[12px] ">
           <div className="sm:text-[24px] text-[16px] font-[600] text-center">
-            Create JD Creation Steps
+            JD Creation Steps
           </div>
           <div className="flex scr1024:flex-row flex-col justify-between scr1024:gap-0 gap-10 items-center">
             <div className="w-[300px] flex flex-col justify-center items-center gap-[14px]">
@@ -178,7 +178,7 @@ function Index() {
                 </p>
                 <p className="text-[14px] font-[400] text-center">
                   Begin the process of creating a new Job Description by
-                  clicking the &quot;Create JD&quot; button.
+                  clicking the &quot;Create Job Description&quot; button.
                 </p>
               </div>
             </div>
