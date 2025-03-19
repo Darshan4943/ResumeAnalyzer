@@ -75,7 +75,7 @@ const MatchJob = () => {
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
   const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
-const [byMyCollection,setMatchByCOllection] = useState(false);
+  const [byMyCollection, setMatchByCOllection] = useState(false);
   localStorage.setItem("selectedIndexes", "");
   localStorage.setItem("selectedIndexesFileType", "");
 
@@ -93,11 +93,11 @@ const [byMyCollection,setMatchByCOllection] = useState(false);
   const [priority, setPriority] = useState(false)
   useEffect(() => {
     if (data) {
-      const dataa=JSON.parse(decodeURIComponent(data))
+      const dataa = JSON.parse(decodeURIComponent(data))
       setExtractedData(dataa)
     }
   }, [data])
-console.log(222,extratctedData);
+  console.log(222, extratctedData);
 
 
   useEffect(() => {
