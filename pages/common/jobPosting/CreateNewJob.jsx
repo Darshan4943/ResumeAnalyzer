@@ -1029,7 +1029,7 @@ function CreateNewJob() {
                               ? "border-red"
                               : "border-[#DEDEDE]"
                           }`}
-                          placeholder="Enter Company name"
+                          placeholder="Enter Company Name"
                           type="text"
                           name="companyName"
                           value={data.companyName}
@@ -1086,7 +1086,7 @@ function CreateNewJob() {
                             {data?.location.length > 0 && (
                               <div
                                 id="scroll1"
-                                className="flex flex-row  overflow-x-auto gap-2 "
+                                className="flex flex-row  overflow-x-auto gap-2 scrollbar-none "
                               >
                                 {data?.location?.map((item, index) => (
                                   <div
@@ -1190,7 +1190,7 @@ function CreateNewJob() {
                           >
                             <textarea
                               className="w-full h-full outline-none scroll-none"
-                              placeholder="Brief description for your company."
+                              placeholder="Enter About Your Company."
                               type="text"
                               name="aboutOrganization"
                               value={data?.aboutOrganization?.replace(
@@ -1595,7 +1595,7 @@ function CreateNewJob() {
                               singleValue: (provided) => ({
                                 ...provided,
                                 fontSize: "12px",
-                                color: "#333",    
+                                color: "#333",
                               }),
                               container: (provided) => ({
                                 ...provided,
@@ -1955,7 +1955,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                                        <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
+                      <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience

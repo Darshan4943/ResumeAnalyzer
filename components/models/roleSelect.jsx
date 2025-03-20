@@ -138,7 +138,7 @@ function RoleSelect({ signin, signup }) {
                       Candidate
                     </div>
                     <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] sign_ip_text">
-                      Create your own resume
+                    Make your own resume
                     </div>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ function RoleSelect({ signin, signup }) {
                       Recruiter
                     </div>
                     <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] ">
-                      Create resumes for various clients
+                    Create resumes for clients
                     </div>
                   </div>
                 </div>
@@ -234,7 +234,7 @@ function RoleSelect({ signin, signup }) {
                       Employer
                     </div>
                     <div className="text-[10px]  sm:text-[12px] font-[500] text-[#646464] sign_ip_text ">
-                      Create resumes for various clients
+                    Build resumes to hire top talent
                     </div>
                   </div>
                 </div>
