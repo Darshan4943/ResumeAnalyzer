@@ -42,7 +42,9 @@ const TopCompanies = () => {
 
 
   return (
-    <div className="bg-white rounded-[16px] p-3 sm:p-6  gap-[20px] ">
+    <div className={`bg-white rounded-[16px] p-3 sm:p-6 gap-[20px] ${
+      company?.length === 0 ? "hidden" : ""
+    }`}>
       <div className="gap-[20px] flex flex-col">
         <div className="flex justify-between item-center ">
           <div className="flex flex-col gap-[6px]">
