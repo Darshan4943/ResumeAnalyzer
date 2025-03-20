@@ -354,7 +354,7 @@ function Aboutcompanies() {
               )}
             </div>
 
-            {companyName && (
+            {companyName && jobs[0]?.aboutOrganization && (
               <div className="bg-[#FFFFFF] p-[12px] flex flex-col rounded-[6px] gap-[10px]">
                 <div className="sm:text-[16px] text-[12px] font-[600]">
                   About Company

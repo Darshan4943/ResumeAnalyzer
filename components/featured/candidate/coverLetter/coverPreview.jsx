@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import html2canvas from "html2canvas";
@@ -19,6 +19,8 @@ import CoverLetter8 from "./letters/CoverLetter8";
 import CoverLetter13 from "./letters/CoverLatter13";
 
 import LimitUsedModal from "../../../models/limitUsedModal";
+import { setRecallData } from "../../../../Redux/slices/recallSlice";
+import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
 
 function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [namePreview, setNamePreview] = useState(false);
@@ -29,7 +31,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
   const [download, setDownload] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -39,17 +42,35 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   const [coverCountLimit, setCoverCountLimit] = useState(0);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
-  const getLimits = () => {
-    const coverCountLimit = JSON.parse(localStorage.getItem("coverCountLimit"));
-    const saveCount = JSON.parse(localStorage.getItem("coverCount"));
-    if (coverCountLimit) {
-      setCoverCountLimit(coverCountLimit);
-    }
-    if (saveCount) {
-      setSaveLimit(saveCount);
-    }
-  };
+  const [aiHitsMonthly, setAiHitsMonthly] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+  const [aiHitsMonthlyLimit, setAiHitsMonthlyLimit] = useState(0);
+  // const getLimits = () => {
+  //   const coverCountLimit = JSON.parse(localStorage.getItem("coverCountLimit"));
+  //   const saveCount = JSON.parse(localStorage.getItem("coverCount"));
+  //   if (coverCountLimit) {
+  //     setCoverCountLimit(coverCountLimit);
+  //   }
+  //   if (saveCount) {
+  //     setSaveLimit(saveCount);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   getLimits();
+  // }, []);
+  const getLimits = () => {
+    const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitsMonthly(aiHitsMonthly);
+
+    const aiHitsMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitsMonthlyLimit(aiHitsMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
   useEffect(() => {
     getLimits();
   }, []);
@@ -113,19 +134,24 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       Math.max(prevZoomLevel - 0.1, minZoomLevel)
     );
   };
-
+ 
   const addCoverLetter = async () => {
     try {
       const pdfBlob = await generatePdfBlob();
       if (!pdfBlob) {
         return;
       }
+     
 
-      if (saveLimit >= coverCountLimit) {
-        setLoading(false);
-        setLoading1(false);
+      // if (saveLimit >= coverCountLimit) {
+      //   setLoading(false);
+      //   setLoading1(false);
+      //   setLimitUsedModal(true);
+
+      //   return;
+      // }
+      if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
         setLimitUsedModal(true);
-
         return;
       }
       const formData = new FormData();
@@ -153,13 +179,18 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
 
       const response = await axios[method](url, formData);
 
-      localStorage.setItem("coverCount", Number(saveLimit) + 1);
-      const saveCount = JSON.parse(localStorage.getItem("coverCount"));
-      setSaveLimit(saveCount)
-      getLimits();
+      // localStorage.setItem("coverCount", Number(saveLimit) + 1);
+      // const saveCount = JSON.parse(localStorage.getItem("coverCount"));
+      // setSaveLimit(saveCount)
+      // getLimits();
       toast.success(
         `Cover Letter ${isCoverEdit ? "updated" : "added"} successfully`
       );
+      dispatch(updateAiHit(userDataGlobal?._id))
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
       setLoading(false);
       setLoading1(false);
       setDownload(false);
@@ -201,12 +232,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
   }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
-  
-    if (saveLimit >= coverCountLimit) {
-      setLoading(false);
-      setLoading1(false);
-      setLimitUsedModal(true);
 
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
+      setLimitUsedModal(true);
       return;
     }
     if (!page1Ref.current) {
@@ -240,14 +268,10 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
     }
   };
 
-  
+
   const downloadPdfBlob = async () => {
-
-    if (saveLimit >= coverCountLimit) {
-      setLoading(false);
-      setLoading1(false);
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
       setLimitUsedModal(true);
-
       return;
     }
     const input1 = page1Ref.current;
@@ -268,11 +292,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       }
 
       const pdfBlob = pdf.output("blob");
-      if (saveLimit >= coverCountLimit) {
-        setLoading(false);
-        setLoading1(false);
+      if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
         setLimitUsedModal(true);
-
         return;
       }
 
@@ -326,7 +347,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
       }}
       className="hover:bg-[#06A9EF] hover-svg-white h-[38.33px] hover:text-[white] flex gap-1 text-[14px] w-fit justify-center font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF]"
       disabled={loading1 || saveDisabled}
-      style={{ opacity: (loading1 || saveDisabled )? 0.5 : 1 }}
+      style={{ opacity: (loading1 || saveDisabled) ? 0.5 : 1 }}
     >
       {loading1 ? (
         <svg
@@ -484,8 +505,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
         </div>
         <div className="flex gap-4 justify-end ">
           <button
-           disabled={loading || saveDisabled}
-           style={{ opacity: (loading || saveDisabled )? 0.5 : 1 }}
+            disabled={loading || saveDisabled}
+            style={{ opacity: (loading || saveDisabled) ? 0.5 : 1 }}
             onClick={() => {
               if (data?.passages) {
                 handleSave();
@@ -586,7 +607,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
           >
             <div
               style={{ transform: `scale(${zoomLevel})` }}
-              // Zoom Level: {zoomLevel}
+            // Zoom Level: {zoomLevel}
             >
               {" "}
             </div>
@@ -634,9 +655,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex, isCoverEdit }) {
               transform: `scale(${zoomLevel})`,
               transformOrigin: "top center",
               display: "inline-block",
-              
+
             }}
-           
+
           >
             <div style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
               {selectCoverTemplate(selectedCoverIndex)}

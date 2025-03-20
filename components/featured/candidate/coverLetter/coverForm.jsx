@@ -612,7 +612,7 @@ function CoverForm({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className=" ml:min-w-[496px] ml:w-[34%] min-w-[370px] flex flex-col gap-4 "
+            className=" ml:min-w-[450px] ml:w-[34%] min-w-[370px] flex flex-col gap-4 "
             style={{
               background: "white",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",

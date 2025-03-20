@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function Index() {
@@ -10,7 +10,8 @@ function Index() {
   const { EditData, isCoverEdit } = router.query;
 
   const { userDataGlobal } = useSelector((state) => state.user.userData);
-
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
   const [selectedColor, setSelectedColor] = useState();

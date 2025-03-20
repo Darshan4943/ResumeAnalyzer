@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { formatDate } from "../../utils/middleware";
@@ -10,6 +10,8 @@ import { pdfjs } from "react-pdf";
 import FileError from "../../components/models/fileError";
 import mammoth from "mammoth";
 import LimitUsedModal from "../../components/models/limitUsedModal";
+import { setRecallData } from "../../Redux/slices/recallSlice";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -99,7 +101,7 @@ const ChatBox = ({
   isNew,
   once, setOnce
 }) => {
- const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [existingChat, setExistingChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
@@ -114,22 +116,43 @@ const ChatBox = ({
   const [chatCountDailyLimit, setChatCountDailyLimit] = useState(0)
   const [chatCountMonthly, setChatCountMonthly] = useState(0)
   const [chatCountMonthlyLimit, setChatCountMonthlyLimit] = useState(0)
-  const [activePlan, setActivePlan] = useState(0)
-  useEffect(() => {
-    const chatCountDaily = JSON.parse(localStorage.getItem("chatCountDaily"));
-    const chatCountMonthly = JSON.parse(localStorage.getItem("chatCountMonthly"));
-    const chatCountDailyLimit = JSON.parse(localStorage.getItem("chatCountDailyLimit"));
-    const chatCountMonthlyLimit = JSON.parse(localStorage.getItem("chatCountMonthlyLimit"));
-    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
-    setChatCountDaily(chatCountDaily)
-    setChatCountMonthly(chatCountMonthly)
-    setChatCountDailyLimit(chatCountDailyLimit)
-    setChatCountMonthlyLimit(chatCountMonthlyLimit)
 
-    setActivePlan(activePlan)
-  }, [])
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
 
+  const [activePlan, setActivePlan] = useState();
   const [limitPopup, setLimitPopup] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  // useEffect(() => {
+  //   const chatCountDaily = JSON.parse(localStorage.getItem("chatCountDaily"));
+  //   const chatCountMonthly = JSON.parse(localStorage.getItem("chatCountMonthly"));
+  //   const chatCountDailyLimit = JSON.parse(localStorage.getItem("chatCountDailyLimit"));
+  //   const chatCountMonthlyLimit = JSON.parse(localStorage.getItem("chatCountMonthlyLimit"));
+  //   const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+  //   setChatCountDaily(chatCountDaily)
+  //   setChatCountMonthly(chatCountMonthly)
+  //   setChatCountDailyLimit(chatCountDailyLimit)
+  //   setChatCountMonthlyLimit(chatCountMonthlyLimit)
+
+  //   setActivePlan(activePlan)
+  // }, [])
+
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   // const updateChatCount = () => {
   //   axios
@@ -159,16 +182,20 @@ const ChatBox = ({
   const submitHandler = (e) => {
 
     e.preventDefault();
-    if (chatCountDailyLimit === null) {
-      if (chatCountMonthly >= chatCountMonthlyLimit) {
-        setLimitPopup(true);
-        return;
-      }
-    } else {
-      if (chatCountDaily >= chatCountDailyLimit) {
-        setLimitPopup(true);
-        return;
-      }
+    // if (chatCountDailyLimit === null) {
+    //   if (chatCountMonthly >= chatCountMonthlyLimit) {
+    //     setLimitPopup(true);
+    //     return;
+    //   }
+    // } else {
+    //   if (chatCountDaily >= chatCountDailyLimit) {
+    //     setLimitPopup(true);
+    //     return;
+    //   }
+    // }
+    if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+      setLimitPopup(true);
+      return;
     }
     if (text?.length > 5) {
       const obj = {
@@ -198,11 +225,17 @@ const ChatBox = ({
           delete dummyData[selectedChat];
           const newChat = { ...chatObje, ...dummyData };
           setSelectedChat(newName);
+          dispatch(updateAiHit(userDataGlobal?._id))
+          setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+          }, 1000);
           localStorage.setItem("chat", JSON.stringify(newChat));
           forceUpdate();
           setLoading(false);
           setText("");
-          updateChatCount()
+
+          // updateChatCount()
         })
         .catch((err) => {
           console.log(err);
@@ -516,7 +549,7 @@ const ChatBox = ({
           <div className="w-[90%] gap-3 flex flex-col items-start sticky">
             {limitPopup && (
               <div className="text-[14px] text-red pl-2">
-                {`You have reached your ${userDataGlobal?.role==="user"? "monthly":"daily"} limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per ${userDataGlobal?.role==="user"? "month":"day"}) with your current plan.`}
+                {`You have reached your ${userDataGlobal?.role === "user" ? "monthly" : "daily"} limit of Chatbot Usage (${chatCountDailyLimit === null ? chatCountMonthlyLimit : chatCountDailyLimit} per ${userDataGlobal?.role === "user" ? "month" : "day"}) with your current plan.`}
               </div>
             )}
             <form

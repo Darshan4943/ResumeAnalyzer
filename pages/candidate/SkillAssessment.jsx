@@ -16,6 +16,8 @@ import LimitUsedModal from "../../components/models/limitUsedModal";
 import ResultPdf from "../../components/featured/home/ResultPdf";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../Redux/slices/recallSlice";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -81,34 +83,53 @@ function SkillAssessment() {
   const [skillCertifiedCount, setSkillCertifiedCount] = useState(0);
   const [skillTestCountLimit, setSkillTestCountLimit] = useState(0);
   const [skillCertifiedCountLimit, setSkillCertifiedCountLimit] = useState(0);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+ const { recallData } = useSelector((state) => state.recall);
+  // const getLimits = () => {
+  //   const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
+  //   const skillCertifiedCount = JSON.parse(
+  //     localStorage.getItem("skillCertifiedCount")
+  //   );
+  //   const skillTestCountLimit = JSON.parse(
+  //     localStorage.getItem("skillTestCountLimit")
+  //   );
+  //   const skillCertifiedCountLimit = JSON.parse(
+  //     localStorage.getItem("skillCertifiedCountLimit")
+  //   );
+
+  //   if (skillTestCount) {
+  //     setSkillTestCount(skillTestCount);
+  //   }
+  //   if (skillCertifiedCount) {
+  //     setSkillCertifiedCount(skillCertifiedCount);
+  //   }
+
+  //   if (skillTestCountLimit) {
+  //     setSkillTestCountLimit(skillTestCountLimit);
+  //   }
+  //   if (skillCertifiedCountLimit) {
+  //     setSkillCertifiedCountLimit(skillCertifiedCountLimit);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getLimits();
+  // }, []);
 
   const getLimits = () => {
-    const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
-    const skillCertifiedCount = JSON.parse(
-      localStorage.getItem("skillCertifiedCount")
-    );
-    const skillTestCountLimit = JSON.parse(
-      localStorage.getItem("skillTestCountLimit")
-    );
-    const skillCertifiedCountLimit = JSON.parse(
-      localStorage.getItem("skillCertifiedCountLimit")
-    );
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
 
-    if (skillTestCount) {
-      setSkillTestCount(skillTestCount);
-    }
-    if (skillCertifiedCount) {
-      setSkillCertifiedCount(skillCertifiedCount);
-    }
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
 
-    if (skillTestCountLimit) {
-      setSkillTestCountLimit(skillTestCountLimit);
-    }
-    if (skillCertifiedCountLimit) {
-      setSkillCertifiedCountLimit(skillCertifiedCountLimit);
-    }
+    setActivePlan(activePlan);
   };
-
   useEffect(() => {
     getLimits();
   }, []);
@@ -376,20 +397,25 @@ function SkillAssessment() {
           count: assesmentType === "Normal" ? attemptCount + 1 : attemptCount,
         })
         .then((res) => {
-          assesmentType === "Normal"
-            ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1)
-            : localStorage.setItem(
-              "skillCertifiedCount",
-              Number(skillCertifiedCount) + 1
-            );
-          const skillTestCount1 = JSON.parse(
-            localStorage.getItem("skillTestCount")
-          );
-          const skillCertifiedCount1 = JSON.parse(
-            localStorage.getItem("skillCertifiedCount")
-          );
-          setSkillTestCount(skillTestCount1);
-          setSkillCertifiedCount(skillCertifiedCount1);
+          // assesmentType === "Normal"
+          //   ? localStorage.setItem("skillTestCount", Number(skillTestCount) + 1)
+          //   : localStorage.setItem(
+          //     "skillCertifiedCount",
+          //     Number(skillCertifiedCount) + 1
+          //   );
+          // const skillTestCount1 = JSON.parse(
+          //   localStorage.getItem("skillTestCount")
+          // );
+          // const skillCertifiedCount1 = JSON.parse(
+          //   localStorage.getItem("skillCertifiedCount")
+          // );
+          // setSkillTestCount(skillTestCount1);
+          // setSkillCertifiedCount(skillCertifiedCount1);
+          dispatch(updateAiHit(userDataGlobal?._id))
+          setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+          }, 1000);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
@@ -601,21 +627,37 @@ function SkillAssessment() {
     setLoadingg(false);
   };
 
+  // const handleStart = () => {
+  //   const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
+  //   const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+  //   if (!selectedSkill) {
+  //     toast.error("Please select a skill to start assessment");
+  //   } else if (
+  //     isActivePlan &&
+  //     assesmentType === "Certificate" &&
+  //     skillCertifiedCount < skillCertifiedCountLimit
+  //   ) {
+  //     setisLevel(true);
+  //   } else if (
+  //     isActivePlan &&
+  //     assesmentType === "Normal" &&
+  //     skillTestCount < skillTestCountLimit
+  //   ) {
+  //     setisLevel(true);
+  //   } else {
+  //     setisLevel(false);
+  //     setIsplan(true);
+  //   }
+  // };
   const handleStart = () => {
     const isActivePlan = JSON.parse(localStorage.getItem("planActive"));
-    const activePlan = JSON.parse(localStorage.getItem("activePlan"));
+
     if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
     } else if (
       isActivePlan &&
-      assesmentType === "Certificate" &&
-      skillCertifiedCount < skillCertifiedCountLimit
-    ) {
-      setisLevel(true);
-    } else if (
-      isActivePlan &&
-      assesmentType === "Normal" &&
-      skillTestCount < skillTestCountLimit
+
+      aiHitMonthly < aiHitMonthlyLimit
     ) {
       setisLevel(true);
     } else {
@@ -815,7 +857,7 @@ function SkillAssessment() {
                     className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
                       ? "bg-blue text-white bg_Button"
                       : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                      }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                      }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
                     onClick={() => setAssesmentType("Normal")}
                   >
                     Quick Assessment
@@ -824,7 +866,7 @@ function SkillAssessment() {
                     className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
                       ? "bg-blue text-white bg_Button"
                       : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                      } ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium  `}
+                      } ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium  `}
                     onClick={() => setAssesmentType("Certificate")}
                   >
                     Certification Assessment
@@ -835,10 +877,10 @@ function SkillAssessment() {
                   {showSecondDiv && (
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
-                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${!resultType 
+                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${!resultType
                           ? "bg-blue text-white bg_Button"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          }  ml:px-6   ml:text-[16px] py-2  text-[10px] font-medium `}
+                          }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
@@ -847,7 +889,7 @@ function SkillAssessment() {
                         className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${resultType
                           ? "bg-blue text-white bg_Button"
                           : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          }  ml:px-6   ml:text-[16px] py-2 text-[10px] font-medium `}
+                          }  ml:px-6   ml:text-[14px] py-2 text-[10px] font-medium `}
                         onClick={() => setResultType(true)}
                       >
                         Certification Assesment Result
@@ -1063,7 +1105,7 @@ function SkillAssessment() {
                         <button
                           onMouseEnter={() => setIsHovered(true)}
                           onMouseLeave={() => setIsHovered(false)}
-                          className="h-[42px] w-[252px] flex items-center justify-center rounded-[30px] text-[14px] text-[#FFFFFF] gap-[4px] font-[600] bg-[#06A9EF]  border border-transparent hover:text-[#000000] hover:bg-[#FFFFFF] hover:border hover:border-[#06A9EF]  "
+                          className="h-[38px] w-[252px] flex items-center justify-center rounded-[30px] text-[14px]  gap-[4px] font-[600] blue_border_Button   "
                           disabled={loading}
                         >
                           {loading ? <MiniLoader /> :
@@ -1073,12 +1115,12 @@ function SkillAssessment() {
                                 width="12"
                                 height="8"
                                 viewBox="0 0 12 8"
-                                fill={isHovered ? "black" : "white"}
+                                fill={isHovered ? "white" : "black"}
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   d="M9.45863 4.56116H0.9375C0.777875 4.56116 0.64425 4.50728 0.536625 4.39953C0.428875 4.29191 0.375 4.15828 0.375 3.99866C0.375 3.83903 0.428875 3.70541 0.536625 3.59778C0.64425 3.49003 0.777875 3.43616 0.9375 3.43616H9.45863L6.98944 0.966969C6.87794 0.855344 6.82288 0.724781 6.82425 0.575281C6.82575 0.425781 6.88081 0.292844 6.98944 0.176469C7.10581 0.0602194 7.23944 0.000156055 7.39031 -0.00371894C7.54131 -0.00759394 7.675 0.0486561 7.79137 0.165031L11.1504 3.52409C11.2207 3.59434 11.2702 3.66841 11.2989 3.74628C11.3278 3.82416 11.3422 3.90828 11.3422 3.99866C11.3422 4.08903 11.3278 4.17316 11.2989 4.25103C11.2702 4.32891 11.2207 4.40297 11.1504 4.47322L7.79137 7.83228C7.67975 7.94378 7.54731 7.99884 7.39406 7.99747C7.24069 7.99597 7.10581 7.93709 6.98944 7.82084C6.88081 7.70447 6.82456 7.57272 6.82069 7.42559C6.81681 7.27847 6.87306 7.14672 6.98944 7.03034L9.45863 4.56116Z"
-                                  fill={isHovered ? "black" : "white"}
+                                  fill={isHovered ? "white" : "black"}
                                 />
                               </svg>
                             </>}
@@ -1402,7 +1444,7 @@ function SkillAssessment() {
                     <button
                       style={{ opacity: !btnEnable ? "0.5" : 1 }}
                       disabled={!btnEnable}
-                      className="flex flex-row gap-[3px] items-center cursor-pointer text-[14px] font-[600]   px-[24px] py-[12px] justify-between leading-tight  rounded-[30px] border-[1px] border-solid border-[#06A9EF] "
+                      className="flex flex-row gap-[3px] items-center cursor-pointer text-[14px] font-[600]   px-[24px] justify-between leading-tight  rounded-[30px] blue_border_Button "
                       onClick={() => {
                         setIsNext(!isNext);
                         resetSelection();
@@ -1417,7 +1459,7 @@ function SkillAssessment() {
                       Skip
                     </button>
                     <button
-                      className="flex flex-row gap-[4px] items-center px-6 py-3 rounded-[30px] bg-blue leading-tight text-white justify-center text-[14px] font-[600] "
+                      className="flex flex-row gap-[4px] items-center px-6 bg_Button rounded-[30px] h-[38px]  leading-tight  justify-center text-[14px] font-[600] "
                       style={{ opacity: !btnEnable || !btnEnable1 ? "0.5" : 1 }}
                       disabled={!btnEnable || !btnEnable1}
                       onClick={() => {
@@ -1589,7 +1631,7 @@ function SkillAssessment() {
                           setBtnEnable1(false);
 
                         }}
-                        className="border-[1px]  border-solid bg-[#ffffff] hover:bg-[#06A9EF] hover:text-[#ffffff] border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
+                        className=" rounded-[30px] px-[14px] sm:px-[24px] h-[38px] text-[12px] scr700:text-[16px] text-[#333] font-[500] blue_border_Button"
                       >
                         Close
                       </button>
@@ -1597,7 +1639,7 @@ function SkillAssessment() {
                       {assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= 70 && (
                           <button
-                            className="bg_Button min-w-[132.78px] flex justify-center items-center rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
+                            className="bg_Button min-w-[132.78px] flex justify-center items-center rounded-[30px] px-[12px] sm:px-[14px] text-[12px] h-[38px] scr700:text-[16px]  font-[500] "
                             onClick={() => generatePdf2()}
                           >
                             {loading3 && <MiniLoader />}
@@ -1605,7 +1647,7 @@ function SkillAssessment() {
                           </button>
                         )}
                       <button
-                        className="bg_Button  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
+                        className="bg_Button  min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center   rounded-[30px] px-[8px] sm:px-[24px] h-[38px] text-[12px] scr700:text-[16px] font-[500] "
                         onClick={() => handleDownload()}
                       >
                         {loadingg && <MiniLoader />}

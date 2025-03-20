@@ -63,7 +63,7 @@ const MatchJob = () => {
   const [openParameters, setOpenParamenters] = useState(false);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
-  const [limitPopup, setLimitPopup] = useState(false);
+r
   const [tab, setTab] = useState(0);
   const [update, setUpdate] = useState();
   const [isMatched, setIsMatched] = useState(false);
@@ -487,7 +487,7 @@ const MatchJob = () => {
       // setLoadingg(false);
       setMatchLoader(false);
     } else {
-      toast.error("Something went wrong, please try againn");
+      toast.error("Something went wrong, please try again");
     }
   };
 

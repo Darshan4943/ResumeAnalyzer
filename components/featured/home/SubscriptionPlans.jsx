@@ -331,7 +331,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               } `}
             style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
           >
-            <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
+            <div className="flex text-center flex-col gap-4 text-[#333333] items-center  justify-between">
               <p className="text-[1.4vw] font-[600] xl:text-[20px]">
                 <span className="text-[#06A9EF]">Enterprise </span> Plan
               </p>
@@ -375,7 +375,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1140: { slidesPerView: 3 },
-              1440: { slidesPerView: 4 },
+              1440: { slidesPerView: 3 },
             }}
             modules={[Pagination]}
             className=" swiperPagination flex items-center justify-center self-start "
@@ -526,7 +526,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
-                <div className="flex text-center flex-col gap-9 text-[#333333] items-center  justify-between">
+                <div className="flex text-center flex-col gap-6 text-[#333333] items-center  justify-between">
                   <p className="text-[16px] font-[600] xl:text-[20px]">
                     <span className="text-[#06A9EF]">Enterprise </span> Plan
                   </p>
@@ -538,7 +538,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                 <div className="flex gap-3 flex-col text-center items-center w-[168px]">
                   <img
                     src="/images/support_agent.png"
-                    className="h-[80px] w-[80px]"
+                    className="h-[120px] max-w-[120px]"
                     alt=""
                   />
                   <span className="text-[16px] font-[500] text-center xl:text-[16px]">

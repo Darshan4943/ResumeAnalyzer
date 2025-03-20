@@ -694,7 +694,7 @@ function Sign_up({}) {
                   !isUpdate && (
                     <button
                       onClick={handleVerification}
-                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
+                      className="  text-[10px] min-w-[100px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
                     >
                       {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>

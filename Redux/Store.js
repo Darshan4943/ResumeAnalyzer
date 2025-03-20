@@ -9,6 +9,7 @@ import profileReducer from "./slices/profileSlice"
 import authReducer from "./slices/loginSlice"
 import recallReducer from "./slices/recallSlice"
 import shareJobReducer from "./slices/shareJobSlice"
+import aiHitsReducer from "./slices/aiHitsSlice.js"
 
 const store = configureStore({
     reducer: {
@@ -16,11 +17,12 @@ const store = configureStore({
         user: userReducer,
         popup: popupReducer,
         location: locationReducer,
-        job:jobReducer,
-        profile:profileReducer,
+        job: jobReducer,
+        profile: profileReducer,
         auth: authReducer,
-        recall:recallReducer,
-        shareJob: shareJobReducer
+        recall: recallReducer,
+        shareJob: shareJobReducer,
+        aiHits: aiHitsReducer
     },
 });
 
