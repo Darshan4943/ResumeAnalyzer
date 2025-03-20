@@ -6,7 +6,7 @@ export const updateAiHit = createAsyncThunk(
   "aiHits/updateAiHit",
   async (userId) => {
     const response = await axios.put(
-      `http://localhost:2000/api/subscription/updateAiHits/${userId}`
+      `https://dev.api.skilotech.com/api/subscription/updateAiHits/${userId}`
     );
     return response.data;
   }

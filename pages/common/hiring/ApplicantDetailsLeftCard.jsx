@@ -29,7 +29,7 @@ function ApplicantDetailsLeftCard({
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:2000/api/hiring/moveToHiring/${applicantId}/${id}`
+        `https://dev.api.skilotech.com/api/hiring/moveToHiring/${applicantId}/${id}`
       );
       setLoading(false);
       setStatusChange(true);
@@ -122,7 +122,7 @@ function ApplicantDetailsLeftCard({
                     }}
                     className="flex gap-2"
                   >
-                    <div className="px-4 w-full items-center flex justify-center py-3 border-solid border-[1px] border-[#06A9EF] text-[16px] font-medium text-[#FFFFFF] hover:text-[#06A9EF] rounded-[30px] bg-[#06A9EF] hover:bg-[#FFFFFF]">
+                    <div className="px-4 w-full items-center flex justify-center py-3 text-[16px] font-medium text-[#FFFFFF]  rounded-[30px] bg-[#06A9EF] hover:bg-[#0275A7]">
                       Shortlist Candidate
                     </div>
                   </button>

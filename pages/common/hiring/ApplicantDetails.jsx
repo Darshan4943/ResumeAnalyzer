@@ -33,7 +33,7 @@ function ApplicantDetails({ setTogglee }) {
       );
 
       const response = await axios.get(
-        "http://localhost:2000/api/applicantdetails",
+        "https://dev.api.skilotech.com/api/applicantdetails",
         {
           params: { id, applicantId },
         }
@@ -163,11 +163,10 @@ function ApplicantDetails({ setTogglee }) {
                     >
                       <div>
                         <p
-                          className={`${
-                            activeOption === "ApplicantProfile"
-                              ? "text-[#333]"
-                              : "text-[#646464]"
-                          } cursor-pointer `}
+                          className={`${activeOption === "ApplicantProfile"
+                            ? "text-[#333]"
+                            : "text-[#646464]"
+                            } cursor-pointer `}
                           onClick={() => handleOptionClick("ApplicantProfile")}
                         >
                           Applicant Profile
@@ -191,11 +190,10 @@ function ApplicantDetails({ setTogglee }) {
                       </div>
                       <div>
                         <p
-                          className={`${
-                            activeOption === "Resume"
-                              ? "text-[#333]"
-                              : "text-[#646464]"
-                          } cursor-pointer`}
+                          className={`${activeOption === "Resume"
+                            ? "text-[#333]"
+                            : "text-[#646464]"
+                            } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -215,15 +213,43 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
+                      {jobDetails?.isScore &&
+                        <div>
+                          <p
+                            className={`${activeOption === "matchingParameters"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                              } cursor-pointer `}
+                            onClick={() => handleOptionClick("matchingParameters")}
+                          >
+                            Matching Parameters
+                          </p>
+                          <svg
+                            className=" ml:w-[175px] sm:w-[120px] w-[100px]"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="4"
+                            viewBox="0 0 138 4"
+                            fill="none"
+                          >
+                            <path
+                              d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z"
+                              fill={
+                                activeOption === "matchingParameters"
+                                  ? "#06A9EF"
+                                  : "white"
+                              }
+                            />
+                          </svg>
+                        </div>
+                      }
                       {userDataGlobal?.role === "employer" &&
                         jobDetails?.hiringStage !== "Pending" && (
                           <div>
                             <p
-                              className={`${
-                                activeOption === "HiringProgress"
-                                  ? "text-[#333]"
-                                  : "text-[#646464]"
-                              } cursor-pointer`}
+                              className={`${activeOption === "HiringProgress"
+                                ? "text-[#333]"
+                                : "text-[#646464]"
+                                } cursor-pointer`}
                               onClick={() =>
                                 handleOptionClick("HiringProgress")
                               }
@@ -262,6 +288,17 @@ function ApplicantDetails({ setTogglee }) {
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
+                  </div>
+                )}
+                {toggle === "matchingParameters" && (
+                  <div>
+                    {jobDetails?.matchingParameters?.map((param, index) => (
+                      <div key={index} className="px-6 py-2">
+                        <h3 className="text-[16px] font-semibold">{param.title}</h3>
+                        <p className="text-[14px] font-normal ">Matching Points: {param.matching_points}</p>
+                        <p className="text-[14px] font-normal ">{param.description}</p>
+                      </div>
+                    ))}
                   </div>
                 )}
                 {toggle === "HiringProgress" && (
