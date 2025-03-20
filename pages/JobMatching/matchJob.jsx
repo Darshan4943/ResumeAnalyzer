@@ -75,7 +75,7 @@ r
   const [jdApplicantFileNames, setJdApplicantFilename] = useState([]);
   const [jobData, setJobData] = useState();
   const [selectedResumes, setSelectedResumes] = useState([]);
-  const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false)
+  const [fromSkilotechCollection, setFromSkilotechCollection] = useState(false);
   const [byMyCollection, setMatchByCOllection] = useState(false);
   const [select, setSelect] = useState(false);
   localStorage.setItem("selectedIndexes", "");
@@ -147,12 +147,13 @@ r
       setExtractedData(dataa);
     }
   }, [data]);
-  console.log(222, extratctedData);
 
   useEffect(() => {
     const fetchJDParameters = async () => {
       try {
-        const data = await axios.get(`http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`);
+        const data = await axios.get(
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
+        );
 
         if (data?.data?.data?.parameters) {
           const filteredParameters = data.data.data.parameters.filter(
@@ -302,8 +303,8 @@ r
   }, [tab]);
 
   const JobMatchforSkilotechCollection = async () => {
-    setSelectedResumes([])
-    setSelect(false)
+    setSelectedResumes([]);
+    setSelect(false);
     try {
       if (jdCountMonthly >= jdCountMonthlyLimit) {
         setLimitPopup(true);
@@ -427,9 +428,9 @@ r
   };
 
   const MatchJob = async () => {
-    setSelectedResumes([])
-    setSelect(false)
-    setFromSkilotechCollection(false)
+    setSelectedResumes([]);
+    setSelect(false);
+    setFromSkilotechCollection(false);
     if (jdCountMonthly >= jdCountMonthlyLimit) {
       setLimitPopup(true);
       return;
@@ -724,7 +725,7 @@ r
                 </div>
               )}
               <div className="flex scr420:flex-row flex-col gap-4 scr420:items-center items-start">
-              <button
+                <button
                   onClick={() => setOpenParamenters(true)}
                   className=" rounded-[30px] text-[14px] font-semibold blue_border_Button flex justify-center items-center h-[38px] px-6"
                 >
@@ -763,8 +764,6 @@ r
                     Find Match
                   </button>
                 )}
-               
-
               </div>
             </div>
 
@@ -790,17 +789,16 @@ r
                     selectedResumes={selectedResumes}
                     select={select}
                     setSelect={setSelect}
-                    
                   />
                 </div>
               ) : (
-                <div className="bg-[#FFFFFF] p-[24px] w-[1140px] justify-center items-center flex flex-col rounded-[12px] mt-10">
-                  <div className="text-[18px] font-[500] text-center mb-2">
+                <div className="bg-[#FFFFFF] p-[24px] w-full max-w-[1140px] flex flex-col items-center rounded-[12px] mt-10">
+                  <div className="text-[18px] font-[500] text-center mb-6">
                     JD Matching Steps
                   </div>
 
-                  <div className="flex flex-col items-center gap-12 w-full p-[24px] ">
-                    <div className="flex flex-wrap justify-center md:justify-between items-center w-full max-w-4xl gap-8">
+                  <div className="flex flex-col items-center gap-12 w-full">
+                    <div className="flex flex-col md:flex-row justify-center items-center w-full gap-8">
                       <div className="flex flex-col items-center gap-4 w-64 text-center">
                         <img
                           className="w-28 h-28 md:w-32 md:h-32"
@@ -811,8 +809,8 @@ r
                           Step 1: Choose Your JD Source
                         </p>
                         <p className="text-sm text-gray-600">
-                          Begin by selecting where you&apos;d like to find the Job
-                          Description you want to use for matching.
+                          Begin by selecting where you&apos;d like to find the
+                          Job Description you want to use for matching.
                         </p>
                       </div>
 
@@ -850,9 +848,9 @@ r
                       </div>
                     </div>
 
-                    <div className="relative h-20 hidden md:block">
+                    <div className="relative h-16 scr1024:block hidden">
                       <svg
-                        className="absolute left-[50%] md:left-[20rem] -translate-x-1/2"
+                        className="absolute left-[230px] -translate-x-1/2"
                         width="20"
                         height="80"
                         viewBox="0 0 20 80"
@@ -868,7 +866,7 @@ r
                       </svg>
                     </div>
 
-                    <div className="flex flex-wrap flex-row-reverse justify-center md:justify-between items-center w-full max-w-4xl gap-8">
+                    <div className="flex flex-col md:flex-row-reverse justify-center items-center w-full gap-8">
                       <div className="flex flex-col items-center gap-4 w-64 text-center">
                         <img
                           className="w-28 h-28 md:w-32 md:h-32"
@@ -909,7 +907,7 @@ r
                           alt="Step 4"
                         />
                         <p className="text-base md:text-lg font-bold">
-                        Step 4: Click the &quot;Find Match&quot; buttone
+                          Step 4: Click the &quot;Find Match&quot; button
                         </p>
                         <p className="text-sm text-gray-600">
                           Specify the maximum number of candidate profiles you

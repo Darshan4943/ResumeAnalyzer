@@ -283,7 +283,7 @@ function JobPosting() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-
+      setFile(null);
       setMessage(response.data.message);
 
       toast.success(response.data.message);
@@ -431,22 +431,22 @@ function JobPosting() {
                     value={
                       filters[filter.heading]
                         ? {
-                          value: filters[filter.heading],
-                          label:
-                            filters[filter.heading] === "Live"
-                              ? "Active"
-                              : filters[filter.heading] === "Closed"
+                            value: filters[filter.heading],
+                            label:
+                              filters[filter.heading] === "Live"
+                                ? "Active"
+                                : filters[filter.heading] === "Closed"
                                 ? "Inactive"
                                 : filters[filter.heading],
-                        }
+                          }
                         : ""
                     }
                     placeholder={
                       filter.heading === "JobTitle"
                         ? "Job Title"
                         : filter.heading === "CompanyName"
-                          ? "Company Name"
-                          : filter.heading
+                        ? "Company Name"
+                        : filter.heading
                     }
                     isSearchable={true}
                     noOptionsMessage={() => "No options available"}
@@ -591,9 +591,9 @@ function JobPosting() {
               <p>
                 1.Download the Template{" "}
                 <span className="font-[400]">
-                  - Click on &quot;Download CSV File&quot; to get the required format.
+                  - Click on &quot;Download CSV File&quot; to get the required
+                  format.
                 </span>
-
               </p>
               <p>
                 2.Fill in the Job Details
@@ -606,16 +606,15 @@ function JobPosting() {
               <p>
                 3.Upload the File{" "}
                 <span className="font-[400]">
-                  - Click &quot;Browse&quot; or drag and drop your completed CSV file.
+                  - Click &quot;Browse&quot; or drag and drop your completed CSV
+                  file.
                 </span>
-
               </p>
               <p>
                 4.Submit the Jobs
                 <span className="font-[400]">
                   - Click &quot;Upload&quot; to post your jobs successfully.
                 </span>
-
               </p>
             </div>
 

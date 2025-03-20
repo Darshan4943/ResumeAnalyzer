@@ -372,11 +372,11 @@ function CreateNewJob() {
           jobTitle,
           Keywords,
           jobLink,
-          jobType,
+          jobType: jobType?.trim(),
           jobSector,
           openPositions: openPositions === null ? "" : openPositions,
           aboutOrganization,
-          workFrom: jobMode,
+          workFrom: jobMode?.trim() || "",
           country,
           location,
           jobCat,
@@ -388,11 +388,11 @@ function CreateNewJob() {
           requiredQualification,
           requiredSkills,
           deadLine: formattedDeadLine,
-          experience,
+          experience:experience?.trim(),
           mustSkills,
           goodSkills,
           currency,
-          revalentExp,
+          revalentExp:revalentExp?.trim(),
           totalExperience,
           status,
           logo,
@@ -1029,7 +1029,7 @@ function CreateNewJob() {
                               ? "border-red"
                               : "border-[#DEDEDE]"
                           }`}
-                          placeholder="Enter Company name"
+                          placeholder="Enter Company Name"
                           type="text"
                           name="companyName"
                           value={data.companyName}
@@ -1086,7 +1086,7 @@ function CreateNewJob() {
                             {data?.location.length > 0 && (
                               <div
                                 id="scroll1"
-                                className="flex flex-row  overflow-x-auto gap-2 "
+                                className="flex flex-row  overflow-x-auto gap-2 scrollbar-none "
                               >
                                 {data?.location?.map((item, index) => (
                                   <div
@@ -1190,7 +1190,7 @@ function CreateNewJob() {
                           >
                             <textarea
                               className="w-full h-full outline-none scroll-none"
-                              placeholder="Brief description for your company."
+                              placeholder="Enter About Your Company."
                               type="text"
                               name="aboutOrganization"
                               value={data?.aboutOrganization?.replace(
@@ -1413,14 +1413,18 @@ function CreateNewJob() {
                         <div className="flex justify-between items-center">
                           <Select
                             options={optionss}
-                            value={options.find(
-                              (option) => option.value === data.salaryType
-                            )}
+                            value={
+                              optionss.find(
+                                (option) => option.value === data.salaryType
+                              ) || null
+                            }
                             onChange={(selectedOption) =>
                               handleChange({
                                 target: {
                                   name: "salaryType",
-                                  value: selectedOption.value,
+                                  value: selectedOption
+                                    ? selectedOption.value
+                                    : "",
                                 },
                               })
                             }
@@ -1595,7 +1599,7 @@ function CreateNewJob() {
                               singleValue: (provided) => ({
                                 ...provided,
                                 fontSize: "12px",
-                                color: "#333",    
+                                color: "#333",
                               }),
                               container: (provided) => ({
                                 ...provided,
@@ -1637,7 +1641,9 @@ function CreateNewJob() {
                             }}
                             options={jobOptions}
                             value={jobOptions.find(
-                              (option) => option.value === data.jobType
+                              (option) =>
+                                option.value.trim().toLowerCase() ===
+                                data.jobType.trim().toLowerCase()
                             )}
                             onChange={(selectedOption) =>
                               handleChange({
@@ -1674,7 +1680,7 @@ function CreateNewJob() {
                             }}
                             options={workFromOptions}
                             value={workFromOptions.find(
-                              (option) => option.value === data.workFrom
+                              (option) => option.value.trim() === data.workFrom.trim()
                             )}
                             onChange={(selectedOption) =>
                               handleChange({
@@ -1955,7 +1961,7 @@ function CreateNewJob() {
                         </div>
                       </div>
 
-                                        <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
+                      <div className="grid grid-cols-1 scr500:grid-cols-9 gap-[16px] w-full">
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-3">
                           <label className="text-[#333333] text-[14px] font-medium">
                             Total Experience

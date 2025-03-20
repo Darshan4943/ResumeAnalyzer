@@ -14,7 +14,7 @@ function Index() {
   const [id, setId] = useState("");
   const [page, setPage] = useState();
   const [miniloading, setMiniloading] = useState(false);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
   const [totalPages, setTotalPages] = useState(1);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [totalCompanies, setTotalCount] = useState(0);
@@ -257,7 +257,7 @@ function Index() {
               <div>No Companies Available</div>
             </div>
           )}
-          {totalCompanies > 10 && (
+          {totalCompanies > 12 && (
             <CustomPagination
               setMiniloading={setMiniloading}
               miniLoading={miniloading}
@@ -266,7 +266,7 @@ function Index() {
               setLimit={setLimit}
               totalPages={totalPages}
               limit={limit}
-              defaultLimit={10}
+              defaultLimit={12}
               page={page}
             />
           )}
