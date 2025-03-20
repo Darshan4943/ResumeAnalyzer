@@ -372,11 +372,11 @@ function CreateNewJob() {
           jobTitle,
           Keywords,
           jobLink,
-          jobType,
+          jobType: jobType?.trim(),
           jobSector,
           openPositions: openPositions === null ? "" : openPositions,
           aboutOrganization,
-          workFrom: jobMode,
+          workFrom: jobMode?.trim() || "",
           country,
           location,
           jobCat,
@@ -388,11 +388,11 @@ function CreateNewJob() {
           requiredQualification,
           requiredSkills,
           deadLine: formattedDeadLine,
-          experience,
+          experience:experience?.trim(),
           mustSkills,
           goodSkills,
           currency,
-          revalentExp,
+          revalentExp:revalentExp?.trim(),
           totalExperience,
           status,
           logo,
@@ -407,6 +407,7 @@ function CreateNewJob() {
         console.log(err);
       });
   };
+  console.log(data);
 
   useEffect(() => {
     if (id) {
@@ -1413,14 +1414,18 @@ function CreateNewJob() {
                         <div className="flex justify-between items-center">
                           <Select
                             options={optionss}
-                            value={options.find(
-                              (option) => option.value === data.salaryType
-                            )}
+                            value={
+                              optionss.find(
+                                (option) => option.value === data.salaryType
+                              ) || null
+                            }
                             onChange={(selectedOption) =>
                               handleChange({
                                 target: {
                                   name: "salaryType",
-                                  value: selectedOption.value,
+                                  value: selectedOption
+                                    ? selectedOption.value
+                                    : "",
                                 },
                               })
                             }
@@ -1637,7 +1642,9 @@ function CreateNewJob() {
                             }}
                             options={jobOptions}
                             value={jobOptions.find(
-                              (option) => option.value === data.jobType
+                              (option) =>
+                                option.value.trim().toLowerCase() ===
+                                data.jobType.trim().toLowerCase()
                             )}
                             onChange={(selectedOption) =>
                               handleChange({
@@ -1674,7 +1681,7 @@ function CreateNewJob() {
                             }}
                             options={workFromOptions}
                             value={workFromOptions.find(
-                              (option) => option.value === data.workFrom
+                              (option) => option.value.trim() === data.workFrom.trim()
                             )}
                             onChange={(selectedOption) =>
                               handleChange({
