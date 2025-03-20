@@ -147,7 +147,6 @@ const MatchJob = () => {
       setExtractedData(dataa);
     }
   }, [data]);
-  console.log(222, extratctedData);
 
   useEffect(() => {
     const fetchJDParameters = async () => {
