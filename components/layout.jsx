@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import EmployerHeader from "./partials/header/EmployerHeader";
 import EmployerSidebar from "./partials/header/EmployerSidebar";
 import ShareJobHeader from "./partials/header/shareJobHeader";
+import AdminHeader from "./partials/header/AdminHeader";
 
 function Layout({ children }) {
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -47,6 +48,27 @@ function Layout({ children }) {
         {!pageOpened &&
           <div>
             <Header />
+          </div>
+        }
+        <div className="pt-[60px] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
+        <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
+      </div>
+    </>
+  );
+  const Temp3 = () => (
+    <>
+      <div className="mobile">
+        <div>
+          <CandidateMobileHeader />
+        </div>
+        <div className="pt-[3.75rem] bg-[#F3F4F5] ">{children}</div>
+        <Footer isSubscribe={isSubscribe} setIsSubscrib={setIsSubscrib} />
+      </div>
+
+      <div className="web min-h-[100vh]">
+        {!pageOpened &&
+          <div>
+            <AdminHeader />
           </div>
         }
         <div className="pt-[60px] bg-[#F3F4F5] min-h-[calc(100vh-291.33px)] ">{children}</div>
@@ -91,7 +113,7 @@ function Layout({ children }) {
   );
   return (
     <>
-      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> : <Temp />}
+      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> :  userDataGlobal?.role === "admin" ? <Temp3/> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
