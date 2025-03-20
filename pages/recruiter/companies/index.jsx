@@ -257,7 +257,7 @@ function Index() {
               <div>No Companies Available</div>
             </div>
           )}
-          {totalCompanies > 10 && (
+          {totalCompanies > 12 && (
             <CustomPagination
               setMiniloading={setMiniloading}
               miniLoading={miniloading}
