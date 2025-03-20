@@ -407,7 +407,6 @@ function CreateNewJob() {
         console.log(err);
       });
   };
-  console.log(data);
 
   useEffect(() => {
     if (id) {
