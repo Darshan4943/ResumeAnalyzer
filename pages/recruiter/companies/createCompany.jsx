@@ -54,6 +54,7 @@ function CreateCompany() {
       setId(userDataGlobal?._id);
     }
   }, [userDataGlobal]);
+  console.log(id)
 
   useEffect(() => {
     if (!companyId) return;
@@ -61,8 +62,9 @@ function CreateCompany() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/company/fetchCompaniDetails/${companyId}`
+          `http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`
         );
+        console.log(response.data)
         if (response.data) {
           setData({
             companyName: response.data.companyName,
@@ -221,7 +223,6 @@ function CreateCompany() {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
       formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
-
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
@@ -236,7 +237,7 @@ function CreateCompany() {
         formData.append("croppedImage", file);
       }
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/company/addCompany/${id}`,
+        `http://localhost:2000/api/company/addCompany/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -270,7 +271,6 @@ function CreateCompany() {
       const formData = new FormData();
       formData.append("companyName", data.companyName);
       formData.append("companySector", JSON.stringify(data.companySector.map((sector) => sector.value)));
-
       formData.append("companyDescription", data.companyDescription);
       formData.append("companyAddress", data.companyAddress);
       formData.append("companyWebsite", data.companyWebsite);
@@ -286,7 +286,7 @@ function CreateCompany() {
       }
 
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/company/updateCompanyDetails/${companyId}`,
+        `http://localhost:2000/api/company/updateCompanyDetails/${companyId}/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

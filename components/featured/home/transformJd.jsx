@@ -75,7 +75,7 @@ function TransformJd({
     formData.append("pdfBlob", blob);
 
     axios
-      .post("https://dev.api.skilotech.com/api/resume/add", formData)
+      .post("http://localhost:2000/api/resume/add", formData)
       .then((res) => {
         const pdfUrl = res.data.data.resumeUrl;
 
