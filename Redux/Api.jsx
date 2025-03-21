@@ -22,7 +22,7 @@ import { setLoginState } from "./slices/loginSlice";
 import { useRouter } from "next/router";
 import { setShareJobClose } from "./slices/shareJobSlice";
 
-export const Api = ({}) => {
+export const Api = ({ }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -30,8 +30,8 @@ export const Api = ({}) => {
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
   const router = useRouter();
- 
-     
+
+
 
   const [allPlans, setAllPlans] = useState([]);
 
@@ -387,6 +387,11 @@ export const Api = ({}) => {
       setError("Geolocation is not supported by this browser.");
     }
   };
+ 
+
+
+
+
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
@@ -406,6 +411,9 @@ export const Api = ({}) => {
       }
     };
 
+   
+
+
     const processCountryData = async (results) => {
       const countryData = results.find((result) =>
         result.types.includes("country")
@@ -424,8 +432,8 @@ export const Api = ({}) => {
           country === "India"
             ? "INR"
             : country === "United Kingdom"
-            ? "GBP"
-            : "USD";
+              ? "GBP"
+              : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
@@ -488,9 +496,9 @@ export const Api = ({}) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance in kilometers
       return distance;
