@@ -448,23 +448,15 @@ const JobCard = ({ filters, setFilters }) => {
                         } relative`}
                       >
                         {job.location.length > 2
-                          ? `${
-                              job.location[0].charAt(0).toUpperCase() +
-                              job.location[0].slice(1)
-                            } ...`
+                          ? `${job.location[0].split(" ")[0]} ...`
                           : job?.location
-                              ?.map(
-                                (loc) =>
-                                  loc.charAt(0).toUpperCase() + loc.slice(1)
-                              )
-                              .join(", ")}
+                              ?.map((loc) => loc.split(" ")[0]) 
+                              .join(" ")}
+
                         <div className="absolute w-[150px] text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                           {job?.location
-                            ?.map(
-                              (loc) =>
-                                loc.charAt(0).toUpperCase() + loc.slice(1)
-                            )
-                            .join(", ")}
+                            ?.map((loc) => loc.split(" ")[0])
+                            .join(" ")}
                         </div>
                       </div>
                     </div>
@@ -490,7 +482,10 @@ const JobCard = ({ filters, setFilters }) => {
                           <div className="w-full flex justify-between">
                             <button
                               className="blue_border_Button h-[38px] px-6 rounded-[30px]"
-                              onClick={(e) =>{  e.stopPropagation(); setDeletePopup(false)}}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDeletePopup(false);
+                              }}
                             >
                               No
                             </button>

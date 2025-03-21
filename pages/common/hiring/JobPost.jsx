@@ -637,7 +637,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         />
                       </svg>
                       <div className="text-[12px] text-[#262626] font-[500]">
-                        {jobData?.location?.join(", ")}
+                      {jobData?.location?.map((loc) => loc.split(" ")[0]).join(" ")}
                       </div>
                     </div>
                   </div>

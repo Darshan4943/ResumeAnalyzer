@@ -71,36 +71,49 @@ function Job_card({
           <div className=" flex flex-col gap-[8px] ">
             <div className="flex flex-row">
               <div className="flex flex-col gap-[4px] w-full">
-                <div className={`xxsm:text-[14px] sm:text-[14px] font-[600] ${item?.jobTitle.length > 60 && "group"} relative`}>
-                {item?.jobTitle.length > 60 ? `${item?.jobTitle.slice(0, 60)}...` : item?.jobTitle}
+                <div
+                  className={`xxsm:text-[14px] sm:text-[14px] font-[600] ${
+                    item?.jobTitle.length > 60 && "group"
+                  } relative`}
+                >
+                  {item?.jobTitle.length > 60
+                    ? `${item?.jobTitle.slice(0, 60)}...`
+                    : item?.jobTitle}
                   <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                {item.jobTitle}
-              </div>
+                    {item.jobTitle}
+                  </div>
                 </div>
 
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
                     {
-                      item.role === "employer" ?
-                        router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
-                        : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
+                      item.role === "employer"
+                        ? router.push(
+                            `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
+                          )
+                        : router.push(
+                            `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
+                          );
                     }
-
                   }}
                   className="text-[12px] font-normal cursor-pointer w-fit z-[10]"
                 >
                   {item?.companyName}
                 </div>
-                {item?.role === "recruiter" &&
-                  <div onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`);
-
-                  }} className="text-[12px] font-normal cursor-pointer w-fit">
+                {item?.role === "recruiter" && (
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(
+                        `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`
+                      );
+                    }}
+                    className="text-[12px] font-normal cursor-pointer w-fit"
+                  >
                     posted by Recruiter ({camelCase(item?.createdByName)})
                   </div>
-                }
+                )}
               </div>
               {item?.logo && (
                 <div className="flex flex-row  items-end">
@@ -185,7 +198,16 @@ function Job_card({
                   </svg>
                   <div className="text-[#262626] text-[12px] font-[400] ">
                     {item?.country?.join(", ")} {item?.country && "||"}{" "}
-                    {item?.location?.join(", ")}
+                    {item?.location
+                      ?.filter((loc) => loc.trim() !== "")
+                      ?.map((loc) => {
+                        const firstWord = loc.split(" ")[0];
+                        return (
+                          firstWord.charAt(0).toUpperCase() +
+                          firstWord.slice(1).toLowerCase()
+                        );
+                      })
+                      .join(" ")}
                   </div>
                 </div>
               )}
@@ -213,12 +235,12 @@ function Job_card({
                     <div
                       className=""
                       dangerouslySetInnerHTML={{
-                        __html: item.description.length > 180
-                          ? item.description.slice(0, 180) + "..."
-                          : item.description
+                        __html:
+                          item.description.length > 180
+                            ? item.description.slice(0, 180) + "..."
+                            : item.description,
                       }}
                     />
-
                   </>
                 ) : (
                   <div
@@ -316,8 +338,9 @@ function Job_card({
               )}
               <button
                 disabled={
-                  item?.matchedApplication?.applicantId === userDataGlobal?._id
-                  && (isLogin || appliedJobs.includes(item?._id)) ||
+                  (item?.matchedApplication?.applicantId ===
+                    userDataGlobal?._id &&
+                    (isLogin || appliedJobs.includes(item?._id))) ||
                   item?.status === "Hold"
                 }
                 onClick={() => {
@@ -340,17 +363,24 @@ function Job_card({
                     router.push(`/jobs/easyApply?id=${item._id}`);
                   }
                 }}
-                className={`text-[14px] font-[600]  flex items-center ${item?.matchedApplication?.applicantId === userDataGlobal?._id
-                  && (isLogin || appliedJobs.includes(item?._id)) && "bg-[#0275A7]" } h-[38px] px-6 rounded-[30px] bg_Button
-                  ${item?.matchedApplication?.applicantId === userDataGlobal?._id
-                    && (isLogin || appliedJobs.includes(item?._id)) ||
+                className={`text-[14px] font-[600]  flex items-center ${
+                  item?.matchedApplication?.applicantId ===
+                    userDataGlobal?._id &&
+                  (isLogin || appliedJobs.includes(item?._id)) &&
+                  "bg-[#0275A7]"
+                } h-[38px] px-6 rounded-[30px] bg_Button
+                  ${
+                    (item?.matchedApplication?.applicantId ===
+                      userDataGlobal?._id &&
+                      (isLogin || appliedJobs.includes(item?._id))) ||
                     item.status === "Hold"
-                    ? "cursor-not-allowed"
-                    : " cursor-pointer"
+                      ? "cursor-not-allowed"
+                      : " cursor-pointer"
                   }`}
               >
-                {item?.matchedApplication?.applicantId === userDataGlobal?._id
-                  && (isLogin || appliedJobs.includes(item?._id))
+                {item?.matchedApplication?.applicantId ===
+                  userDataGlobal?._id &&
+                (isLogin || appliedJobs.includes(item?._id))
                   ? "Applied"
                   : "Apply"}
               </button>

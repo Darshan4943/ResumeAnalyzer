@@ -59,7 +59,6 @@ const SelectPost = () => {
     const queryData = encodeURIComponent(JSON.stringify(data));
     router.push(`/JobMatching/matchJob?data=${queryData}`);
   };
-  
 
   localStorage.setItem("jdApplicantFilenames", JSON.stringify(""));
 
@@ -362,12 +361,15 @@ const SelectPost = () => {
                               </div>
                               <div className="text-[12px] font-[400]">
                                 {item?.location
-                                  ?.map(
-                                    (loc) =>
-                                      loc.charAt(0).toUpperCase() +
-                                      loc.slice(1).toLowerCase()
-                                  )
-                                  .join(", ")}
+                                  ?.filter((loc) => loc.trim() !== "")
+                                  ?.map((loc) => {
+                                    const firstWord = loc.split(" ")[0];
+                                    return (
+                                      firstWord.charAt(0).toUpperCase() +
+                                      firstWord.slice(1).toLowerCase()
+                                    );
+                                  })
+                                  .join(" ")}
                               </div>
                             </div>
                           </div>

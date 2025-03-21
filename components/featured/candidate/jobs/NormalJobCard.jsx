@@ -68,8 +68,14 @@ function NormalJobCard({ item }) {
       <div className=" flex flex-col gap-[8px] ">
         <div className="flex flex-row">
           <div className="flex flex-col gap-[4px] w-full">
-            <div className={`xxsm:text-[16px] sm:text-[16px] font-[600] ${item?.jobTitle.length > 40 && "group"} relative`}>
-              {item?.jobTitle.length > 40 ? `${item?.jobTitle.slice(0, 40)}...` : item?.jobTitle}
+            <div
+              className={`xxsm:text-[16px] sm:text-[16px] font-[600] ${
+                item?.jobTitle.length > 40 && "group"
+              } relative`}
+            >
+              {item?.jobTitle.length > 40
+                ? `${item?.jobTitle.slice(0, 40)}...`
+                : item?.jobTitle}
               <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                 {item.jobTitle}
               </div>
@@ -78,25 +84,32 @@ function NormalJobCard({ item }) {
               onClick={(e) => {
                 e.stopPropagation();
                 {
-                  item.role === "employer" ?
-                    router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`)
-                    : router.push(`/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`)
+                  item.role === "employer"
+                    ? router.push(
+                        `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&id=${item.companyId}&role=${item.role}`
+                      )
+                    : router.push(
+                        `/jobs/candidate/aboutcompanies?companyName=${item?.companyName}&createdBy=${item?.createdBy}&role=${item.role}`
+                      );
                 }
-
               }}
               className="text-[12px] font-medium cursor-pointer w-fit z-[10]"
             >
               {item?.companyName}
             </div>
-            {item?.role === "recruiter" &&
-              <div onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`);
-
-              }} className="text-[12px] font-medium cursor-pointer w-fit">
+            {item?.role === "recruiter" && (
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(
+                    `/jobs/candidate/aboutcompanies?createdBy=${item?.createdBy}&role=${item.role}&isRec=true`
+                  );
+                }}
+                className="text-[12px] font-medium cursor-pointer w-fit"
+              >
                 Posted by Recruiter ( {camelCase(item?.createdByName)} )
               </div>
-            }
+            )}
           </div>
           {item?.logo && (
             <div className="flex flex-row  items-start min-w-[44px]">
@@ -183,7 +196,27 @@ function NormalJobCard({ item }) {
                 </g>
               </svg>
               <div className="text-[#262626] text-[12px] font-[400] ">
-                {item?.country?.join(", ")} || {item?.location?.join(", ")}
+                {item?.country
+                  ?.filter((country) => country.trim() !== "")
+                  ?.map((country) => {
+                    const firstWord = country.split(" ")[0]; 
+                    return (
+                      firstWord.charAt(0).toUpperCase() +
+                      firstWord.slice(1).toLowerCase()
+                    );
+                  })
+                  .join(" ,")}
+                ||
+                {item?.location
+                  ?.filter((loc) => loc.trim() !== "")
+                  ?.map((loc) => {
+                    const firstWord = loc.split(" ")[0];
+                    return (
+                      firstWord.charAt(0).toUpperCase() +
+                      firstWord.slice(1).toLowerCase()
+                    );
+                  })
+                  .join(" ,")}
               </div>
             </div>
           )}
@@ -212,9 +245,10 @@ function NormalJobCard({ item }) {
                 <div
                   className=""
                   dangerouslySetInnerHTML={{
-                    __html: item.description.length > 120
-                      ? item.description.slice(0, 120) + "..."
-                      : item.description
+                    __html:
+                      item.description.length > 120
+                        ? item.description.slice(0, 120) + "..."
+                        : item.description,
                   }}
                 />
               </>
