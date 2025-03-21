@@ -43,7 +43,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompaniesByRecId/${createdBy}`
+        `http://localhost:2000/api/getEmployerCompaniesByRecId/${createdBy}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -60,7 +60,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getJobsById/${id ? id : createdBy
+        `http://localhost:2000/api/getJobsById/${id ? id : createdBy
         }?page=${page}&limit=${limit}&role=${role}`
       );
       const { jobs, totalCount, totalPages } = response.data;
@@ -88,7 +88,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompanies/${id}`
+        `http://localhost:2000/api/getEmployerCompanies/${id}`
       );
       setCompany(response.data);
     } catch (err) {
@@ -114,7 +114,7 @@ function Aboutcompanies() {
     try {
       setMiniloading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerJobs?companyName=${encodeURIComponent(
+        `http://localhost:2000/api/getEmployerJobs?companyName=${encodeURIComponent(
           companyName
         )}&page=${page}&limit=${limit}&createdBy=${createdBy}`
       );
@@ -161,7 +161,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/createOrUpdateReview",
+        "http://localhost:2000/api/createOrUpdateReview",
         { ...reviewData, userId: userDataGlobal?._id }
       );
 
@@ -179,7 +179,7 @@ function Aboutcompanies() {
 
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getreview/${idd}`
+        `http://localhost:2000/api/getreview/${idd}`
       );
       const { averageRating, totalReviews, totalRatingCount } = response.data;
 
@@ -203,7 +203,7 @@ function Aboutcompanies() {
    
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
+        `http://localhost:2000/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
       );
       const review = response.data.reviews[0];
 

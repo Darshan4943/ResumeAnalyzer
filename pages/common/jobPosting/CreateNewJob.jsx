@@ -98,7 +98,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getEmployerCompanies/${userDataGlobal?.companyId}`
+        `http://localhost:2000/api/getEmployerCompanies/${userDataGlobal?.companyId}`
       );
       setCompany(response.data);
       setData((prevData) => ({
@@ -310,7 +310,7 @@ function CreateNewJob() {
 
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/job/add/${id}`,
+        `http://localhost:2000/api/job/add/${id}`,
         formData,
         {
           headers: {
@@ -349,7 +349,7 @@ function CreateNewJob() {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/job/getByJobId/" + id)
+      .get("http://localhost:2000/api/job/getByJobId/" + id)
       .then((res) => {
         setLoading(false);
         const formattedDeadLine = res.data.deadLine
@@ -443,7 +443,7 @@ function CreateNewJob() {
     setLoading(true);
 
     axios
-      .get(`https://dev.api.skilotech.com/api/company/fetchCompaniDetails/${id}`)
+      .get(`http://localhost:2000/api/company/fetchCompaniDetails/${id}`)
       .then((res) => {
         setLoading(false);
 
@@ -640,7 +640,7 @@ function CreateNewJob() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getRequisitionById/${reqId}`
+        `http://localhost:2000/api/getRequisitionById/${reqId}`
       );
       const fetchedData = response.data.data;
       setData((prevData) => ({
