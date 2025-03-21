@@ -10,25 +10,26 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { telCode } from "../../../../utils/data";
 import ReactSelect from "react-select";
 import { Select } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCities } from "../../../../Redux/slices/geoLocationSlice";
+import debounce from "lodash.debounce";
 
 const PersonalDetails = ({
   data,
   setData,
   setTabIndex,
   tabindex,
-  setfile,
-  file,
-  error,
-  setError,
-  isResume,
   selectedItem,
   setSelectedItem,
 }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [selectedCity,setSelectedCity] =useState("")
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isModified, setIsModified] = useState(false);
-
+  const { cities, loading, error } = useSelector((state) => state.cities);
   const [formError, setFormError] = useState({});
+  const [input, setInput] = useState("");
 
   function togglePasswordVisibility(e) {
     e.preventDefault();
@@ -145,13 +146,30 @@ const PersonalDetails = ({
     }
   };
 
+  const getCountryCode = (countryName) => {
+    return telCode.find((item) => item.name === countryName)?.code || "";
+  };
+
+ 
+  const handleDebouncedSearch = debounce((value) => {
+    const countryCode = getCountryCode(data.country);
+    if (value.trim()) {
+      dispatch(fetchCities({ input: value, country: countryCode }));
+    }
+  }, 500);
+
+  const handleChange = (selectedOption) => {
+    setInput(selectedOption); 
+    handleInputChange("currentLocation", selectedOption?.value || "");
+  };
+
   const [dropdown, setDropdown] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+
+
+
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -201,22 +219,22 @@ const PersonalDetails = ({
   const handleCountryChange = (selectedCountry) => {
     setFormError((prevErrors) => {
       const errors = { ...prevErrors };
-  
+
       if (!selectedCountry?.value?.trim()) {
         errors.country = "Country is required";
       } else {
         delete errors.country;
       }
-  
+
       return errors;
     });
-  
+
     setData((prev) => ({
       ...prev,
       country: selectedCountry ? selectedCountry.value : "",
     }));
   };
-  
+
 
   const countryOptions = telCode
     .filter((country) => country.name)
@@ -287,14 +305,12 @@ const PersonalDetails = ({
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] px-2 text-[14px] font-normal  rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] px-2 text-[14px] font-normal  rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div
                             className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -352,11 +368,10 @@ const PersonalDetails = ({
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
-                              ? "Enter Number "
-                              : "Enter Contact Number "
-                          }`}
+                          placeholder={`${isViewportBelow850
+                            ? "Enter Number "
+                            : "Enter Contact Number "
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -396,7 +411,7 @@ const PersonalDetails = ({
                   <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
                     <div className="personal_single_input relative overflow-visible">
                       <div className="personal_name w-full">
-                        <p className="form_text_heading">
+                        <p className="form_text_heading leading-[19.2px]">
                           Country <span className="text-red">*</span>
                         </p>
                         <ReactSelect
@@ -451,30 +466,76 @@ const PersonalDetails = ({
                       </div>
                     </div>
                     <div className="personal_single_input">
-                      <div className="personal_name w-[100%]">
-                        <p className="form_text_heading">
+                      <div className="personal_name w-[100%] relative">
+                        <p className="form_text_heading leading-4">
                           Current Location <span className="star">*</span>
                         </p>
-                        <input
-                          type="text"
-                          name=""
-                          className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                          placeholder="Enter Your Location"
-                          value={data.currentLocation}
-                          onChange={(e) =>
-                            handleInputChange("currentLocation", e.target.value)
+
+                        <ReactSelect
+                          options={
+                            cities?.predictions?.map((city) => ({
+                              value: city.description,
+                              label: city.description,
+                            })) || []
                           }
+                          onInputChange={(value) => {
+                            setInput({ value, label: value }); // Store input as an object
+                            handleDebouncedSearch(value);
+                          }}
+                          onChange={(selectedOption) => {
+                            setInput(selectedOption);
+                            setSelectedCity(selectedOption); // Set selected option
+                            handleInputChange("currentLocation", selectedOption.value);
+                          }}
+                          value={selectedCity} // Ensure selected value persists
+                          placeholder="Search & Select Your Location"
+                          isSearchable={true}
+                          className="w-full"
+                          classNamePrefix="select"
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              padding: "0.25rem 1rem",
+                              borderRadius: "8px",
+                              borderColor: state.isFocused ? "#DEDEDE" : "#DEDEDE",
+                              boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+                              height: "40px",
+                              outline: "none",
+                            }),
+                            placeholder: (provided) => ({
+                              ...provided,
+                              color: "#A0A0A0",
+                            }),
+                            singleValue: (provided) => ({
+                              ...provided,
+                              color: "#000",
+                            }),
+                            input: (provided) => ({
+                              ...provided,
+                              margin: "0px",
+                              padding: "0px",
+                            }),
+                            menu: (provided) => ({
+                              ...provided,
+                              zIndex: 9999,
+                            }),
+                          }}
                         />
+
+
                         {formError && (
                           <p className="text-[12px] text-[red] font-[500]">
                             {formError?.currentLocation}
                           </p>
                         )}
-                        <img
+
+                        {/* <img
                           className="icon max-h-[20px] max-w-[20px]"
                           src="/images/auth/candidate/location_on.png"
                           alt=""
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>
@@ -486,9 +547,8 @@ const PersonalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${
-                            data.gender == "male" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "male" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "male" });
@@ -497,9 +557,8 @@ const PersonalDetails = ({
                           Male
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "female" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "female" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "female" });
@@ -508,9 +567,8 @@ const PersonalDetails = ({
                           Female
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "other" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "other" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "other" });
@@ -528,10 +586,9 @@ const PersonalDetails = ({
                         </p>
                         <div className="gender_button">
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Experienced" &&
+                            className={`gen_button ${data.workStatus == "Experienced" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -543,10 +600,9 @@ const PersonalDetails = ({
                             Experienced
                           </button>
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Fresher" &&
+                            className={`gen_button ${data.workStatus == "Fresher" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -564,16 +620,16 @@ const PersonalDetails = ({
 
                   <div className="flex justify-between w-full font-[500] pt-4">
                     <button
-                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
-                  onClick={() => {
+                      className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
+                      onClick={() => {
                         router.back("/createResume/BuildResume/");
                       }}
                     >
                       Back
                     </button>
                     <button
-                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
-                  onClick={submitHandler}
+                      className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
+                      onClick={submitHandler}
                     >
                       Continue
                     </button>

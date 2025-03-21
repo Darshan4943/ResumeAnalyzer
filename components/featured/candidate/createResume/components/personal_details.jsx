@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { camelCase } from "../../../../../utils/middleware";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { currencyMap, telCode } from "../../../../../utils/data";
+import debounce from "lodash.debounce";
+import { fetchCities } from "../../../../../Redux/slices/geoLocationSlice";
 
 const PersonalDetails = ({
   setData,
@@ -11,6 +13,9 @@ const PersonalDetails = ({
   selectedColor,
   selectedResumeIndex,
 }) => {
+
+
+  const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isChecked, setIsChecked] = useState(true);
@@ -18,10 +23,32 @@ const PersonalDetails = ({
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { cities, loading, error } = useSelector((state) => state.cities);
+  const [selectedCity,setSelectedCity] =useState("")
+ 
+    const [input, setInput] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
+  useEffect(() => {
+    if (data.location) {
+      setSelectedCity({ value: data.location, label: data.location });
+    }
+  }, [data.location]);
+ 
+  
+    const getCountryCode = (countryName) => {
+      return telCode.find((item) => item.name === countryName)?.code || "";
+    };
+   
+   
+    const handleDebouncedSearch = debounce((value) => {
+      const countryCode = getCountryCode(data.country);
+      if (value.trim()) {
+        dispatch(fetchCities({ input: value, country: countryCode }));
+      }
+    }, 500);
+  
 
   const [profileDataa, setProfileDataa] = useState({
     firstName: "",
@@ -119,6 +146,12 @@ const PersonalDetails = ({
 
     setIsModified(true);
   };
+  const handleInputChange1 = (fieldName, value) => {
+ 
+      setData({ ...data, [fieldName]: value });
+      setIsModified(true);
+    
+  };
 
   const countryOptions = telCode
     .filter((country) => country.name)
@@ -201,9 +234,61 @@ const PersonalDetails = ({
       label: "Current Location",
       type: "text",
       name: "location",
-      placeholder: "Current Location",
-      value: profileDataa.location,
-      className: " col-span-2",
+      component: (
+        <ReactSelect
+          options={
+            cities?.predictions?.map((city) => ({
+              value: city.description,
+              label: city.description,
+            })) || []
+          }
+          onInputChange={(value) => {
+            setInput({ value, label: value });
+            handleDebouncedSearch(value);
+          }}
+          onChange={(selectedOption) => {
+            setInput(selectedOption);
+            setSelectedCity(selectedOption); 
+            handleInputChange1("location", selectedOption.value);
+          }}
+          value={selectedCity} 
+          placeholder="Search & Select Your Location"
+          isSearchable={true}
+          className="border border-[#9D9D9D] rounded-[8px] withoutBorder outline-none"
+          classNamePrefix="select"
+          styles={{
+            control: (provided, state) => ({
+              ...provided,
+              fontSize: "14px",
+              fontWeight: "400",
+              padding: "0.25rem 1rem",
+              borderRadius: "8px",
+              borderColor: state.isFocused ? "#DEDEDE" : "#DEDEDE",
+              boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+              height: "40px",
+              outline: "none",
+            }),
+            placeholder: (provided) => ({
+              ...provided,
+              color: "#A0A0A0",
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: "#000",
+            }),
+            input: (provided) => ({
+              ...provided,
+              margin: "0px",
+              padding: "0px",
+            }),
+            menu: (provided) => ({
+              ...provided,
+              zIndex: 9999,
+            }),
+          }}
+        />
+      ),
+      className: "col-span-2",
     },
   ];
 
@@ -325,7 +410,7 @@ const PersonalDetails = ({
         mobileNumber: profileDataa.mobileNumber,
         dial_code: profileDataa.dial_code,
         email: profileDataa.email.toLowerCase(),
-        country:profileDataa.country,
+        country: profileDataa.country,
         location: camelCase(profileDataa.location),
         designation: profileDataa.designation,
         selectedResumeIndex: selectedResumeIndex,
@@ -398,15 +483,14 @@ const PersonalDetails = ({
                 <div className="w-full">{item.component}</div>
               ) : item.name === "mobileNumber" ? (
                 <div
-                  className={`rounded-[8px] ${
-                    formErrors[item.name]
+                  className={`rounded-[8px] ${formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
-                  }`}
+                    }`}
                 >
                   <div
                     className="flex w-[100%] items-center gap-2 border border-[#9D9D9D] rounded-[8px] h-[41.6px] "
-                    // id="single_input"
+                  // id="single_input"
                   >
                     <div className="relative items-center cursor-pointer">
                       <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
@@ -465,11 +549,10 @@ const PersonalDetails = ({
                 </div>
               ) : (
                 <div
-                  className={`border-[1px] rounded-[8px] px-[16px] py-2 ${
-                    formErrors[item.name]
+                  className={`border-[1px] rounded-[8px] px-[16px] py-2 ${formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
-                  }`}
+                    }`}
                 >
                   <input
                     type={item.type}
@@ -499,9 +582,8 @@ const PersonalDetails = ({
         <div className="flex justify-end ">
           <div className="flex justify-between py-2 gap-2">
             <button
-              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
-                isChecked ? "bg_Button" : ""
-              }`}
+              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${isChecked ? "bg_Button" : ""
+                }`}
               style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
               disabled={isDisabled() || !isChecked}

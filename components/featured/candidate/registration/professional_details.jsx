@@ -23,7 +23,7 @@ const ProfessionalDetails = ({
   const [formError, setFormError] = useState({});
   const router = useRouter();
   const handleClick = () => {
-    if (data.workStatus != "Fresher") {
+    if (data.employmentStatus != "unemployed") {
       const requiredFields = ["companyName", "jobLocation", "jobTitle"];
       const emptyFields = requiredFields.filter((field) => !data[field]);
       if (emptyFields.length > 0) {

@@ -292,6 +292,7 @@ function CreateResume() {
   };
 
   const [data, setData] = useState(defaultState);
+
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
   useEffect(() => {
@@ -614,19 +615,19 @@ function CreateResume() {
             location: preResumeData?.jobLocation,
             duration: {
               start: {
-                year: preResumeData?.jobDuration.start?.year
-                  ? preResumeData?.jobDuration.start?.year
+                year: preResumeData?.jobDuration?.start?.year
+                  ? preResumeData?.jobDuration?.start?.year
                   : "Year",
-                month: preResumeData?.jobDuration.start?.month
-                  ? preResumeData?.jobDuration.start?.month
+                month: preResumeData?.jobDuration?.start?.month
+                  ? preResumeData?.jobDuration?.start?.month
                   : "Month",
               },
               end: {
-                year: preResumeData?.jobDuration.end?.year
-                  ? preResumeData?.jobDuration.end?.year
+                year: preResumeData?.jobDuration?.end?.year
+                  ? preResumeData?.jobDuration?.end?.year
                   : "Year",
-                month: preResumeData?.jobDuration.end?.month
-                  ? preResumeData?.jobDuration.end?.month
+                month: preResumeData?.jobDuration?.end?.month
+                  ? preResumeData?.jobDuration?.end?.month
                   : "Month",
               },
             },

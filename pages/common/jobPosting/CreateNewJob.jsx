@@ -16,7 +16,7 @@ import {
 import { camelCase } from "../../../utils/middleware";
 import { toast } from "react-toastify";
 import CreatableSelect from "react-select/creatable";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Description from "../../../components/featured/candidate/jobs/Description";
 import ImageCropper from "../../../components/featured/candidate/createResume/components/imageCropper";
 import debounce from "lodash.debounce";
@@ -28,6 +28,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import Select from "react-select";
 import PreviewCard from "../../../components/featured/candidate/jobs/PreviewCard";
+import { fetchCities } from "../../../Redux/slices/geoLocationSlice";
 function CreateNewJob() {
   const [file, setFile] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -53,6 +54,10 @@ function CreateNewJob() {
   const [KeywordsText, setKeywordsText] = useState("");
   const [dragging, setDragging] = useState(false);
   const [company, setCompany] = useState();
+  const { cities } = useSelector((state) => state.cities);
+  const [selectedCity, setSelectedCity] = useState("")
+  const dispatch = useDispatch();
+  const [input, setInput] = useState("");
   const [data, setData] = useState({
     jobTitle: "",
     companyName: "",
@@ -83,6 +88,7 @@ function CreateNewJob() {
     status: "Active",
     logo: "",
   });
+  console.log(data);
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
@@ -322,10 +328,23 @@ function CreateNewJob() {
       setLoadingg(false);
       toast.error(
         error.response?.data?.message ||
-          "An error occurred while adding the job."
+        "An error occurred while adding the job."
       );
     }
   };
+
+  const getCountryCode = (countryName) => {
+    return telCode.find((item) => item.name === countryName)?.code || "";
+  };
+
+
+  const handleDebouncedSearch = debounce((value) => {
+    const countryCode = getCountryCode(data.country);
+    if (value.trim()) {
+      dispatch(fetchCities({ input: value, country: countryCode }));
+    }
+  }, 500);
+
 
   const getData = () => {
     setLoading(true);
@@ -388,11 +407,11 @@ function CreateNewJob() {
           requiredQualification,
           requiredSkills,
           deadLine: formattedDeadLine,
-          experience:experience?.trim(),
+          experience: experience?.trim(),
           mustSkills,
           goodSkills,
           currency,
-          revalentExp:revalentExp?.trim(),
+          revalentExp: revalentExp?.trim(),
           totalExperience,
           status,
           logo,
@@ -485,6 +504,16 @@ function CreateNewJob() {
       setData({ ...data, description: value });
       debounceUpdate(value);
     }
+  };
+  const handleInputChange1 = (value) => {
+    console.log(value);
+    setData({ ...data, location: value });
+  };
+  const handleSelectChange = (selectedOptions) => {
+    console.log("Selected Options:", selectedOptions);
+  
+    setSelectedCity(selectedOptions || []); 
+    setData({ ...data, location: selectedOptions?.map(option => option.value) || [] }); 
   };
 
   const resetFormData = () => {
@@ -636,6 +665,14 @@ function CreateNewJob() {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    if (Array.isArray(data.location) && data.location.length > 0) {
+      setSelectedCity(data.location.map((city) => ({ value: city, label: city })));
+    } else {
+      setSelectedCity([]); 
+    }
+  }, [data.location]);
+  
 
   const renderHeader = () => {
     return (
@@ -881,11 +918,10 @@ function CreateNewJob() {
                         </div>
                         <div>
                           <input
-                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${
-                              formError.jobTitle
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] font-[400] outline-none ${formError.jobTitle
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Add job title / role"
                             type="text"
                             name="jobTitle"
@@ -900,13 +936,11 @@ function CreateNewJob() {
                           Keywords <span className="text-[red]">*</span>
                         </div>
                         <div
-                          className={`w-full flex ${
-                            data?.Keywords ? "justify-between" : ""
-                          } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${
-                            formError.Keywords
+                          className={`w-full flex ${data?.Keywords ? "justify-between" : ""
+                            } gap-2 border-[1px] rounded-[8px] px-2 h-[38px]  ${formError.Keywords
                               ? "border-red"
                               : "border-[#DEDEDE]"
-                          }`}
+                            }`}
                         >
                           <div className="flex gap-4 w-[90%]  items-center">
                             {data?.Keywords.length > 0 && (
@@ -1024,11 +1058,10 @@ function CreateNewJob() {
                           Company Name <span className="text-[red]">*</span>
                         </div>
                         <input
-                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${
-                            formError.companyName
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border-[1px] h-[38px] px-[16px] rounded-[8px] w-full text-[12px] outline-none font-[400] ${formError.companyName
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           placeholder="Enter Company Name"
                           type="text"
                           name="companyName"
@@ -1054,11 +1087,10 @@ function CreateNewJob() {
                           )}
                           placeholder="Select countries"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${
-                            formError.country
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
+                          className={`border rounded-[8px] withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
                           classNamePrefix="select"
                           onMenuClose={() => {
                             setTimeout(() => {
@@ -1075,103 +1107,30 @@ function CreateNewJob() {
                         <div className="text-[14px] font-[500]">
                           Location <span className="text-[red]">*</span>
                         </div>
-                        <div
-                          className={`w-full flex gap-2  items-center border rounded-[8px] px-2  h-[38px] ${
-                            formError.location
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
-                          }`}
-                        >
-                          <div className="flex gap-4 w-[90%] items-center">
-                            {data?.location.length > 0 && (
-                              <div
-                                id="scroll1"
-                                className="flex flex-row  overflow-x-auto gap-2 scrollbar-none "
-                              >
-                                {data?.location?.map((item, index) => (
-                                  <div
-                                    key={index}
-                                    className=" h-[28px] py-[2px] px-[8px] bg-[#EFFAFF] rounded-[4px] flex flex-row gap-[12px] items-center text-[14px] "
-                                  >
-                                    <span className="text-[#06A9EF]">
-                                      {item}
-                                    </span>
-                                    <span
-                                      className="text-[14px]  cursor-pointer font-medium "
-                                      onClick={() =>
-                                        setData({
-                                          ...data,
-                                          location: data.location.filter(
-                                            (data) => data != item
-                                          ),
-                                        })
-                                      }
-                                    >
-                                      <svg
-                                        width="11"
-                                        height="10"
-                                        viewBox="0 0 11 10"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          fill-rule="evenodd"
-                                          clip-rule="evenodd"
-                                          d="M0.773292 0.435637C0.923314 0.28566 1.12676 0.201408 1.33889 0.201408C1.55102 0.201408 1.75447 0.28566 1.90449 0.435637L5.33889 3.87004L8.77329 0.435637C8.84709 0.359229 8.93536 0.298283 9.03297 0.256356C9.13057 0.214429 9.23555 0.19236 9.34177 0.191436C9.44799 0.190513 9.55334 0.210755 9.65165 0.250979C9.74997 0.291204 9.83929 0.350607 9.91441 0.425721C9.98952 0.500835 10.0489 0.590157 10.0891 0.688474C10.1294 0.786791 10.1496 0.892135 10.1487 0.998358C10.1478 1.10458 10.1257 1.20956 10.0838 1.30716C10.0418 1.40476 9.9809 1.49304 9.90449 1.56684L6.47009 5.00124L9.90449 8.43564C10.0502 8.58652 10.1309 8.7886 10.129 8.99836C10.1272 9.20812 10.0431 9.40877 9.89475 9.55709C9.74642 9.70542 9.54577 9.78955 9.33601 9.79138C9.12625 9.7932 8.92417 9.71256 8.77329 9.56684L5.33889 6.13244L1.90449 9.56684C1.75361 9.71256 1.55153 9.7932 1.34177 9.79138C1.13201 9.78955 0.931363 9.70542 0.783037 9.55709C0.63471 9.40877 0.550575 9.20812 0.548752 8.99836C0.546929 8.7886 0.627565 8.58652 0.773292 8.43564L4.20769 5.00124L0.773292 1.56684C0.623315 1.41681 0.539062 1.21337 0.539062 1.00124C0.539062 0.789106 0.623315 0.585659 0.773292 0.435637V0.435637Z"
-                                          fill="#9A4545"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                            <input
-                              type="text"
-                              placeholder="Location"
-                              className="input w-[55px] placeholder:text-[12px] placeholder:font-[400] outline-none"
-                              value={loactionText}
-                              onChange={(e) => {
-                                setLoactionText(e.target.value);
-                              }}
-                            />
-                          </div>
-                          <button
-                            className="  bg-[#FFFFFF] "
-                            disabled={loactionText?.length == 0}
-                            onClick={() => {
-                              setData({
-                                ...data,
-                                location: [...data.location, loactionText],
-                              });
-                              setLoactionText("");
-                              setTimeout(() => {
-                                const scrollDiv =
-                                  document.getElementById("scroll1");
-                                if (scrollDiv) {
-                                  scrollDiv.scrollLeft = scrollDiv.scrollWidth;
-                                }
-                              }, 100);
-                              setFormError((prevErrors) => ({
-                                ...prevErrors,
-                                location: "",
-                              }));
-                            }}
-                          >
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M5.14286 6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714H6.85714V12H5.14286V6.85714Z"
-                                fill="#333333"
-                              />
-                            </svg>
-                          </button>
-                        </div>
+                        <Select
+                          isMulti
+                          options={
+                            cities?.predictions?.map((city) => ({
+                              value: city.description,
+                              label: city.description,
+                            })) || []
+                          }
+                          onInputChange={(value) => {
+                            setInput({ value, label: value }); // Store input as an object
+                            handleDebouncedSearch(value);
+                          }}
+                          onChange={handleSelectChange}
+                          value={selectedCity} // Ensure selected value persists
+                          placeholder="Search & Select Your Location"
+                          isSearchable={true}
+
+                          classNamePrefix="select"
+                          styles={customStylesss}
+                          className={`border rounded-[8px] withoutBorder ${formError.country
+                            ? "border-red"
+                            : "border-[#DEDEDE]"
+                            }`}
+                        />
                       </div>
                     </div>
 
@@ -1524,9 +1483,9 @@ function CreateNewJob() {
                             value={
                               data?.jobCat
                                 ? data.jobCat.map((cat) => ({
-                                    value: cat,
-                                    label: camelCase(cat),
-                                  }))
+                                  value: cat,
+                                  label: camelCase(cat),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1584,9 +1543,8 @@ function CreateNewJob() {
                               control: (provided, state) => ({
                                 ...provided,
                                 outline: "none",
-                                border: `1px solid ${
-                                  formError.jobSector ? "red" : "#DEDEDE"
-                                }`,
+                                border: `1px solid ${formError.jobSector ? "red" : "#DEDEDE"
+                                  }`,
                                 borderRadius: "8px",
                                 justifyContent: "space-between",
                               }),
@@ -1608,11 +1566,10 @@ function CreateNewJob() {
                                 paddingVertical: "4px",
                               }),
                             }}
-                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${
-                              formError.jobSector
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] jobSectorInput min-h-[40px] JobSectorPlaceHolder ${formError.jobSector
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                           />
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
@@ -1697,11 +1654,10 @@ function CreateNewJob() {
                             Required Qualification
                           </div>
                           <input
-                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${
-                              formError.requiredQualification
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`border-[1px] h-[38px] py-[10px] px-[16px] rounded-[8px] w-full text-[12px] outline-none placeholder:text-[12px] placeholder:font-[400] font-[400] ${formError.requiredQualification
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             placeholder="Required Qualification"
                             type="text"
                             name="requiredQualification"
@@ -1716,24 +1672,23 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={skills
                               .filter((item) => item.trim() !== "")
                               .map((item) => ({
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${
-                              formError.mustSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.mustSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.mustSkills
                                 ? data.mustSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {
@@ -1841,7 +1796,7 @@ function CreateNewJob() {
                           </div>
                           <ReactSelect
                             isMulti
-                            onInputChange={(data) => {}}
+                            onInputChange={(data) => { }}
                             options={[
                               ...new Set(
                                 skills
@@ -1852,17 +1807,16 @@ function CreateNewJob() {
                               value: item,
                               label: camelCase(item),
                             }))}
-                            className={`w-full withoutBorder ${
-                              formError.goodSkills
-                                ? "border-red"
-                                : "border-[#DEDEDE]"
-                            }`}
+                            className={`w-full withoutBorder ${formError.goodSkills
+                              ? "border-red"
+                              : "border-[#DEDEDE]"
+                              }`}
                             value={
                               data.goodSkills
                                 ? data.goodSkills.map((skill) => ({
-                                    value: skill,
-                                    label: camelCase(skill),
-                                  }))
+                                  value: skill,
+                                  label: camelCase(skill),
+                                }))
                                 : []
                             }
                             onChange={(selectedOptions) => {

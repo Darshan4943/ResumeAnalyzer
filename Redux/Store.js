@@ -10,6 +10,7 @@ import authReducer from "./slices/loginSlice"
 import recallReducer from "./slices/recallSlice"
 import shareJobReducer from "./slices/shareJobSlice"
 import aiHitsReducer from "./slices/aiHitsSlice.js"
+import citiesReducer from "./slices/geoLocationSlice.js"
 
 const store = configureStore({
     reducer: {
@@ -22,7 +23,8 @@ const store = configureStore({
         auth: authReducer,
         recall: recallReducer,
         shareJob: shareJobReducer,
-        aiHits: aiHitsReducer
+        aiHits: aiHitsReducer,
+        cities:citiesReducer
     },
 });
 
