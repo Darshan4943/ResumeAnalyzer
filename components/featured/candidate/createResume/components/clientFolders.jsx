@@ -116,11 +116,11 @@ function ClientFolders({
                             onChange={() => toggleSelect(index)}
                           />
                         )}
-                        {item.isSync === false && item.type === "file" &&
+                        {/* {item.isSync === false && item.type === "file" &&
                         <div className="absolute -bottom-2 -left-2 z-50">
                           <SyncLoader />
                         </div>
-                      }
+                      } */}
                       </div>
                       
                       <span className="text-[12px]">
@@ -196,11 +196,11 @@ function ClientFolders({
                         
                         <td className="w-[30%] scr460:px-4 flex gap-4 items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
-                          {item.isSync === false && item.type === "file" &&
+                          {/* {item.isSync === false && item.type === "file" &&
                             <div className=" overflow-hidden">
                               <SyncLoader />
                             </div>
-                          }
+                          } */}
                         </td>
                         
                         {/* <td className="sm:px-4 px-2 py-2 text-[#858585]">

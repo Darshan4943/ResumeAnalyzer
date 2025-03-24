@@ -63,6 +63,7 @@ const MatchJob = () => {
   const [openParameters, setOpenParamenters] = useState(false);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
+r
   const [tab, setTab] = useState(0);
   const [update, setUpdate] = useState();
   const [isMatched, setIsMatched] = useState(false);
@@ -237,7 +238,9 @@ const MatchJob = () => {
       .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-          if (item.type == "file" && item.isSync === true) {
+          if (item.type == "file"
+            //  && item.isSync === true
+            ) {
             return true;
           } else if (item.type == "folder") {
             return true;
@@ -259,7 +262,9 @@ const MatchJob = () => {
       .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
-          if (item.type == "file" && item.isSync === true) {
+          if (item.type == "file"
+            //  && item.isSync === true
+            ) {
             return true;
           } else if (item.type == "folder") {
             return true;

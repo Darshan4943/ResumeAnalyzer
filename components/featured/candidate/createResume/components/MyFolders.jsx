@@ -58,11 +58,11 @@ function MyFolders({
                           onChange={() => toggleSelect(index)}
                         />
                       )}
-                      {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
+                      {/* {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
                         <div className="absolute -bottom-2 -left-2 z-50">
                           <SyncLoader />
                         </div>
-                      }
+                      } */}
                       {item.syncStatus === "failed" &&
                         <div className="absolute -bottom-2 -left-2 z-50">
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,11 +128,11 @@ function MyFolders({
                         </td>
                         <td className="w-[30%] scr460:px-4 justify-between flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
-                          {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
+                          {/* {item.isSync === false && item.type === "file" && item.syncStatus !== "failed" &&
                             <div className=" overflow-hidden">
                               <SyncLoader />
                             </div>
-                          }
+                          } */}
                           {item.syncStatus === "failed" &&
                             <div className="absolute -bottom-2 -left-2 z-50">
                               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
