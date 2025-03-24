@@ -809,7 +809,7 @@ const CreateNewRequisition = ({ setToggle }) => {
               </button>
               <button
                 className="text-[12px] md:text-[14px] font-semibold  px-6  bg_Button rounded-[30px] h-[38px]"
-                onClick={handleSubmit}
+               onClick={handleSubmit}
               >
                 Create
               </button>

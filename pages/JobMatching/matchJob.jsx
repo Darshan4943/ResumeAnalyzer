@@ -63,7 +63,6 @@ const MatchJob = () => {
   const [openParameters, setOpenParamenters] = useState(false);
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState(0);
-r
   const [tab, setTab] = useState(0);
   const [update, setUpdate] = useState();
   const [isMatched, setIsMatched] = useState(false);
