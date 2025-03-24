@@ -21,6 +21,7 @@ function ApplicantDetails({ setTogglee }) {
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
+  
 
   const getData = async () => {
     try {

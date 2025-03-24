@@ -64,10 +64,12 @@ function Collection() {
     const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
     const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
     const collectionCountMonthlyLimit = JSON.parse(localStorage.getItem("collectionCountMonthlyLimit"));
+    const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    const aiHitsMonthlyLimit = JSON.parse(localStorage.getItem("aiHitsMonthlyLimit"));
 
     const remainingDaily = collectionCountDailyLimit - collectionCountDaily;
-    const remainingMonthly = collectionCountMonthlyLimit - collectionCountMonthly;
-
+    // const remainingMonthly = collectionCountMonthlyLimit - collectionCountMonthly;
+    const remainingMonthly = aiHitsMonthlyLimit - aiHitsMonthly;
 
     const finalLimit = Math.max(0, Math.min(remainingDaily, remainingMonthly));
     setCollectionCount(finalLimit)
