@@ -131,7 +131,7 @@ const CreateNewRequisition = ({ setToggle }) => {
     if (!data.location || data.location.length === 0) {
       newErrors.location = "Location is required.";
     }
-      if (!data.description)
+    if (!data.description)
       newErrors.description = "Job Description is required.";
     if (approvalChoice === "yes") {
       data.RequisitionLevel.forEach((level, index) => {
@@ -803,12 +803,12 @@ const CreateNewRequisition = ({ setToggle }) => {
             <div className="flex flex-row justify-between">
               <button
                 onClick={() => router.back()}
-                className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-2 rounded-[30px] max-scr1100:px-6 "
+                className="text-[12px] items-center  md:text-[12px]  cursor-pointer flex justify-start font-semibold px-6 blue_border_Button rounded-[30px] h-[38px]"
               >
                 Back
               </button>
               <button
-                className="  text-[#fff] text-[16px] font-semibold px-9 py-2 max-scr1100:px-6  bg-[#06A9EF] rounded-[30px]"
+                className="text-[12px] md:text-[14px] font-semibold  px-6  bg_Button rounded-[30px] h-[38px]"
                 onClick={handleSubmit}
               >
                 Create
