@@ -7,13 +7,22 @@ import { Editor } from "primereact/editor";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../Redux/slices/recallSlice";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 
 function CreateJd() {
     const router = useRouter();
+    const dispatch = useDispatch();
+    const { recallData } = useSelector((state) => state.recall);
     const [toggle, setToggle] = useState(0)
     const { id } = router.query
+    const [activePlan, setActivePlan] = useState();
+    const [limitPopup, setLimitPopup] = useState(false);
+    const [aiHitMonthly, setAiHitMonthly] = useState(0);
+    const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
 
     useEffect(() => {
         if (id) {
@@ -22,7 +31,21 @@ function CreateJd() {
         }
     }, [id]);
 
+    const getLimits = () => {
+        const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+        setAiHitMonthly(aiHitMonthly);
 
+        const aiHitMonthlyLimit = JSON.parse(
+            localStorage.getItem("aiHitsMonthlyLimit")
+        );
+        setAiHitMonthlyLimit(aiHitMonthlyLimit);
+        const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+        setActivePlan(activePlan);
+    };
+    useEffect(() => {
+        getLimits();
+    }, []);
 
 
     const [formData, setFormData] = useState({
@@ -44,7 +67,7 @@ function CreateJd() {
     const [loading, setLoading] = useState(false);
     const [loadingg, setLoadingg] = useState(false);
     const [error, setError] = useState(null);
-    console.log(222, jobDescription)
+
     const { userDataGlobal } = useSelector((state) => state.user.userData);
 
     const getJobDescriptions = async () => {
@@ -59,6 +82,10 @@ function CreateJd() {
     };
 
     const handleSubmit = async (e) => {
+        if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+            setLimitPopup(true);
+            return;
+          }
         e.preventDefault();
         setLoading(true);
         setError(null);
@@ -117,6 +144,11 @@ function CreateJd() {
 
             setJobDescription(formattedDescription);
             setToggle(1)
+            dispatch(updateAiHit(userDataGlobal?._id))
+            setTimeout(() => {
+                dispatch(setRecallData(!recallData));
+                getLimits();
+            }, 1000);
         } catch (err) {
             setError("Error generating job description. Please try again.");
             console.error(err);
@@ -214,6 +246,7 @@ function CreateJd() {
     const header = renderHeader();
 
     const addJobDescription = async () => {
+      
 
         try {
             setLoadingg(true)
@@ -226,6 +259,7 @@ function CreateJd() {
             const response = await axios[method](url, { userId: userDataGlobal?._id, jd: jobDescription, jobTitle });
 
             toast.success(`Job Description ${id ? "updated" : "added"}  successfully`)
+           
             setLoadingg(false)
             return response.data;
         } catch (error) {
@@ -240,6 +274,7 @@ function CreateJd() {
 
     return (
         <>
+         <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
             {(toggle === 0) ?
                 <div className="flex flex-col gap-[14px]">
                     <div className="flex gap-2 text-[17px] font-[500] ">

@@ -29,18 +29,21 @@ function EditTemplate() {
   const [shortlistContent, setShortlistContent] = useState(`
      <div style="font-family: Arial, sans-serif; line-height: 1.8; color: #333; ">
        <p style="display: block; ">Dear Candidate,</p>
+        <p></p>
        <div style="display: block; ">
          <p style="display: block; ">
            We are pleased to inform you that after a thorough review of your profile, you have been shortlisted for the next round of the selection process for 
            <strong>the position</strong> at 
            <strong>[Company Name]</strong>.
          </p>
+         <p></p>
          <p style="display: block; ">
            Your skills and experience align well with the requirements of the role, and we are excited to proceed further with your application.
            Please confirm your availability by responding to this email at your earliest convenience.
            Should you have any questions, feel free to reach out. We look forward to connecting with you soon.
          </p>
        </div>
+        <p></p>
        <p style="display: block;">Best Regards,</p>
        <p style="display: block; ">Team Skilotech</p>
        <p style="display: block; ">
@@ -55,18 +58,21 @@ function EditTemplate() {
   const [rejectedContent, setRejectedContent] = useState(`
      <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.8;">
        <p style="display: block; ">Dear Candidate,</p>
+        <p></p>
        <p style="display: block; ">
          Thank you for taking the time to apply for the 
          <strong>position</strong> at 
          <strong>[Company Name]</strong>. 
          We appreciate your interest and the effort you put into the process.
        </p>
+        <p></p>
        <p style="display: block; ">
          After careful consideration, we regret to inform you that we have decided to move forward with other candidates at this time. 
          This decision was not an easy one, as we received a large number of strong applications, including yours.
          We sincerely appreciate your time and effort, and we encourage you to stay connected with us for future opportunities that may be a great fit for your skills and experience.
          We wish you success in your career endeavors and hope to cross paths again in the future.
        </p>
+        <p></p>
        <p style="display: block; ">Best Regards,</p>
        <p style="display: block; ">Team Skilotech</p>
        <p style="display: block; ">
@@ -251,7 +257,7 @@ function EditTemplate() {
           </div>
           <div className="flex justify-end">
             <button
-              className="text-white bg-[#06A9EF] px-[36px] py-[12px] rounded-[30px] font-[600]"
+              className=" px-[36px] h-[38px] bg_Button rounded-[30px] font-[600]"
               onClick={handleSave}
             >
               Save Changes
