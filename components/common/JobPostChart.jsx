@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
   PointElement,
   LineElement,
   Tooltip,
@@ -16,7 +15,6 @@ import { useSelector } from "react-redux";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
   PointElement,
   LineElement,
   Tooltip,
@@ -31,9 +29,8 @@ const JobPostChart = () => {
   const [selected, setSelected] = useState("Daily");
 
   useEffect(() => {
-
     const fetchChartData = async () => {
-      setLoading(true); 
+      setLoading(true);
       setError(null);
 
       try {
@@ -50,57 +47,51 @@ const JobPostChart = () => {
     };
 
     fetchChartData();
-  }, [userDataGlobal?._id , selected]);
+  }, [userDataGlobal?._id, selected]);
 
   const getChartData = () => {
     if (!chartData) return { labels: [], datasets: [] };
-  
+
     const labels = chartData.labels || [];
     const jobPostData = chartData.jobPostData || [];
     const jobClosedData = chartData.jobClosedData || [];
-  
+
     return {
       labels,
       datasets: [
         {
-          type: "bar",
           label: "Job Post",
           data: jobPostData,
-          backgroundColor: "rgba(144, 202, 249, 0.6)",
-          borderRadius: 4,
-          barThickness: 24,
-          barPercentage: 0.6,
-          categoryPercentage: 0.8,
-          order: 1,
-          yAxisID: "y",
+          borderColor: "rgba(33, 150, 243, 1)",
+          backgroundColor: "rgba(33, 150, 243, 0.2)",
+          borderWidth: 2,
+          pointRadius: 5,
+          pointBackgroundColor: "white",
+          pointBorderColor: "rgba(33, 150, 243, 1)",
+          fill: true,
+          tension: 0.4, 
         },
         {
-          type: "line",
           label: "Job Closed",
           data: jobClosedData,
           borderColor: "#2E7D32",
+          backgroundColor: "rgba(46, 125, 50, 0.2)",
           borderWidth: 2,
-          pointStyle: "circle",
-          pointRadius: 6,
-          pointHoverRadius: 6,
+          pointRadius: 5,
           pointBackgroundColor: "white",
           pointBorderColor: "#2E7D32",
-          pointBorderWidth: 4,
-          order: 99,
-          fill: false,
-          clip: false,
-          yAxisID: "y",
+          fill: true,
+          tension: 0.4, 
         },
       ],
     };
   };
-  
 
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false },
+      legend: { display: true },
     },
     scales: {
       x: { grid: { display: false } },
@@ -108,6 +99,10 @@ const JobPostChart = () => {
         beginAtZero: true,
         grid: { color: "#E0E0E0" },
       },
+    },
+    animation: {
+      duration: 1000, 
+      easing: "easeInOutQuad",
     },
   };
 
@@ -154,7 +149,7 @@ const JobPostChart = () => {
           overflow: "visible",
         }}
       >
-        <Bar data={getChartData()} options={options} />
+        <Line data={getChartData()} options={options} />
       </div>
 
       <div className="flex flex-wrap justify-start gap-4 mt-3">
