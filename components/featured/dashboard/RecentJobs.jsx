@@ -224,13 +224,11 @@ function RecentJobs({ isPending }) {
                       <div className="flex w-[16%] flex-col items-start text-[14px] font-[600] gap-[4px]">
                         {Array.isArray(applicant.location)
                           ? applicant.location.map((loc, index) => (
-                              <span key={index}>{loc}</span>
+                              <span key={index}>
+                                {loc.split(",")[0].trim()}
+                              </span>
                             ))
-                          : applicant.location
-                              ?.split(",")
-                              .map((loc, index) => (
-                                <span key={index}>{loc.trim()}</span>
-                              ))}
+                          : applicant.location?.split(",")[0].trim()}
                       </div>
 
                       <div className=" flex justify-start w-[16%]">
