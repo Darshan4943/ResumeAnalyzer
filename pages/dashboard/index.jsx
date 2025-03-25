@@ -118,11 +118,11 @@ function Dashboard({ toggleContentt }) {
       </div>
 
       <div ref={pendingJobsRef}>
-        {userDataGlobal?.role === "employer" ? (
+        {/* {userDataGlobal?.role === "employer" ? (
           <RecentApplications isPending={isPending} />
-        ) : (
+        ) : ( */}
           <RecentJobs />
-        )}
+        {/* )} */}
       </div>
 
       <Services />
