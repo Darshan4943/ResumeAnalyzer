@@ -78,6 +78,11 @@ function Services() {
       imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
     },
+    {
+      name: "Mail Template",
+      imgSrc: "/images/resumeBuilder/template2.png",
+      new: "AI",
+    },
   ];
 
   const handleNavigation = (page) => {
@@ -162,6 +167,9 @@ function Services() {
         break;
         case "JD Creation":
           handleNavigation("/jdCreation");
+          break;
+        case "Mail Template":
+          handleNavigation("/template");
           break;
       default:
         break;
