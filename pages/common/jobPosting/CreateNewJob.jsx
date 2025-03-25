@@ -88,7 +88,6 @@ function CreateNewJob() {
     status: "Active",
     logo: "",
   });
-  console.log(data);
   const countryOptions = telCode.map((country) => ({
     value: country.name,
     label: country.name,
