@@ -77,7 +77,7 @@ function CreateJd() {
   const getJobDescriptions = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:2000/api/jd/getById/${id}`
+        `https://dev.api.skilotech.com/api/jd/getById/${id}`
       );
       setJobDescription(response.data.data.jd);
     } catch (error) {
@@ -121,7 +121,7 @@ function CreateJd() {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/generate/jobDescription",
+        "https://dev.api.skilotech.com/api/generate/jobDescription",
         formData
       );
       setJobTitle(response.data.jobTitle);
@@ -306,8 +306,8 @@ function CreateJd() {
     try {
       setLoadingg(true);
       const url = id
-        ? `http://localhost:2000/api/jd/update/${id}`
-        : "http://localhost:2000/api/jd/add";
+        ? `https://dev.api.skilotech.com/api/jd/update/${id}`
+        : "https://dev.api.skilotech.com/api/jd/add";
 
       const method = id ? "put" : "post";
 

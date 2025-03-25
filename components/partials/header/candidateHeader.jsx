@@ -79,7 +79,7 @@ function CandidateHeader() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
       .then((res) => {
         const { experiences } = res.data;
         setExperinceData(experiences);

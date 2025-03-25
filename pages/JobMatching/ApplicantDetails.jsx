@@ -48,7 +48,7 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
   //         );
 
   //         const response = await axios.get(
-  //           "http://localhost:2000/api/applicantdetails",
+  //           "https://dev.api.skilotech.com/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }
