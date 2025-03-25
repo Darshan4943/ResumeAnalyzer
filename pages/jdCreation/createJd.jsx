@@ -247,7 +247,7 @@ function CreateJd() {
     }),
     placeholder: (provided) => ({
       ...provided,
-      fontSize: "14px",
+      fontSize: "12px",
     }),
   };
 
@@ -373,15 +373,11 @@ function CreateJd() {
                       value={formData.jobTitle}
                       onChange={handleChange}
                       placeholder="Enter Job Title"
-                      className="border border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] text-[14px] "
+                      className={`border border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400] text-[14px] ${
+                        errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
+                      }`}
                     />
-                    <p>
-                      {errors.jobTitle && (
-                        <span className="text-red text-sm mt-1">
-                          {errors.jobTitle}
-                        </span>
-                      )}
-                    </p>
+                    <p></p>
                   </div>
 
                   <div className="flex flex-col">
@@ -394,13 +390,10 @@ function CreateJd() {
                       value={formData.company}
                       onChange={handleChange}
                       placeholder="Enter Company Name"
-                      className="border border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] text-[14px] "
+                      className={`border px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400] text-[14px] ${
+                        errors.company ? "border-red" : "border-[#DEDEDE]"
+                      }`}
                     />
-                    {errors.company && (
-                      <span className="text-red text-sm mt-1">
-                        {errors.company}
-                      </span>
-                    )}
                   </div>
                   <div className="flex flex-col">
                     <label className="text-[14px]mb-1">
@@ -412,13 +405,10 @@ function CreateJd() {
                       value={formData.jobRole}
                       onChange={handleChange}
                       placeholder="Enter Job Role"
-                      className="border border-[#DEDEDE] text-[14px] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
+                      className={`border border-[#DEDEDE] text-[14px] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400] ${
+                        errors.jobRole ? "border-red" : "border-[#DEDEDE]"
+                      } `}
                     />
-                    {errors.jobRole && (
-                      <span className="text-red text-sm mt-1">
-                        {errors.jobRole}
-                      </span>
-                    )}
                   </div>
 
                   <div className="flex flex-col">
@@ -473,7 +463,7 @@ function CreateJd() {
                       value={formData.location}
                       onChange={handleChange}
                       placeholder="Enter Department Name"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400] "
                     />
                   </div>
 
@@ -487,7 +477,7 @@ function CreateJd() {
                       value={formData.requiredEducation}
                       onChange={handleChange}
                       placeholder="Enter Required Education"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400] "
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400] "
                     />
                   </div>
                   <div className="flex flex-col">
@@ -500,7 +490,7 @@ function CreateJd() {
                       value={formData.requiredExperience}
                       onChange={handleChange}
                       placeholder="Enter Required Experience"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -511,7 +501,7 @@ function CreateJd() {
                       value={formData.requiredSkills}
                       onChange={handleChange}
                       placeholder="Enter Required Skills"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
 
@@ -523,7 +513,7 @@ function CreateJd() {
                       value={formData.salaryRange}
                       onChange={handleChange}
                       placeholder="Enter Salary Range"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
                   <div className="flex flex-col scr1168:col-span-2 ms:col-span-2 col-span-1  ">
@@ -536,7 +526,7 @@ function CreateJd() {
                       value={formData.keyResposibilities}
                       onChange={handleChange}
                       placeholder="Enter Key Responsibilities"
-                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] px-[14px] h-[40px] justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
                   <div className="flex flex-col scr1168:col-span-3 ms:col-span-2 col-span-1  ">
@@ -547,7 +537,7 @@ function CreateJd() {
                       value={formData.jobDescription}
                       onChange={handleChange}
                       placeholder="Enter Job Description"
-                      className="border text-[14px] border-[#DEDEDE] p-[14px] min-h-[100px]  outline-none justify-center rounded-[8px] placeholder:text-[14px] font-[400]"
+                      className="border text-[14px] border-[#DEDEDE] p-[14px] min-h-[100px]  outline-none justify-center rounded-[8px] placeholder:text-[12px] font-[400]"
                     />
                   </div>
                 </div>
