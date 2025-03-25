@@ -73,6 +73,11 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
       new: "AI",
     },
+    {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
+      new: "AI",
+    },
   ];
 
   const handleNavigation = (page) => {
@@ -155,6 +160,9 @@ function Services() {
       case "Preboarding":
         handleNavigation("/employer/Preboarding");
         break;
+        case "JD Creation":
+          handleNavigation("/jdCreation");
+          break;
       default:
         break;
     }

@@ -10,7 +10,13 @@ function Home() {
   const isLogin = useSelector((state) => state.auth.isLogin);
   return (
     <div>
-      {userDataGlobal?.role === "user" ?  <CandidateHome /> : userDataGlobal?.role === "admin"? <AdminDashboard/> : <Dashboard />}
+      {userDataGlobal?.role === "user" ? (
+        <CandidateHome />
+      ) : userDataGlobal?.role === "admin" ? (
+        <AdminDashboard />
+      ) : (
+        <Dashboard />
+      )}
     </div>
   );
 }
