@@ -16,7 +16,7 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
-  
+
   const [allPlans, setAllPlans] = useState([]);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -208,8 +208,8 @@ function MyPurchase() {
                 </p>{" "}
                 <p
                   className={`font-bold ${selectedPlansData?.isActive
-                      ? "text-[#0C8A0A]"
-                      : "text-[#C00000]"
+                    ? "text-[#0C8A0A]"
+                    : "text-[#C00000]"
                     }`}
                 >
                   {selectedPlansData.isActive ? "Active" : "Expired"}
@@ -283,8 +283,8 @@ function MyPurchase() {
                 />
                 <div
                   className={` flex gap-4  border  rounded-[16px] bg-[#FFFFFF] scr1200:p-6 p-3 ${subscription?.isActive
-                      ? "border-[#06A9EF]"
-                      : "border-[#C00000]"
+                    ? "border-[#06A9EF]"
+                    : "border-[#C00000]"
                     } `}
                 >
                   <div className="flex scr1100:flex-row flex-col scr1200:gap-6 gap-4 w-[100%] justify-center ">
@@ -356,19 +356,19 @@ function MyPurchase() {
                                   )
                                 }
                                 className={`px-9 py-3  ${limits?.used?.coverStored >=
-                                    limits?.total?.coverStoredLimit ||
-                                    limits?.used?.resumeStored >=
-                                    limits?.total?.resumeStoredLimit ||
-                                    limits?.used?.skillTest >=
-                                    limits?.total?.skillTestLimit ||
-                                    limits?.used?.skillCertified >=
-                                    limits?.total?.skillCertifiedLimit ||
-                                    limits?.used?.chatBot?.monthly >=
-                                    limits?.total?.chatBotLimit?.monthly
-                                    ? "bg-[#06a9ef] bg_Button"
-                                    : subscription?.isActive
-                                      ? "bg-[#DEDEDE] "
-                                      : "bg-[#06a9ef] bg_Button"
+                                  limits?.total?.coverStoredLimit ||
+                                  limits?.used?.resumeStored >=
+                                  limits?.total?.resumeStoredLimit ||
+                                  limits?.used?.skillTest >=
+                                  limits?.total?.skillTestLimit ||
+                                  limits?.used?.skillCertified >=
+                                  limits?.total?.skillCertifiedLimit ||
+                                  limits?.used?.chatBot?.monthly >=
+                                  limits?.total?.chatBotLimit?.monthly
+                                  ? "bg-[#06a9ef] bg_Button"
+                                  : subscription?.isActive
+                                    ? "bg-[#DEDEDE] "
+                                    : "bg-[#06a9ef] bg_Button"
                                   } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                               >
                                 {limits?.used?.coverStored >=
@@ -406,19 +406,19 @@ function MyPurchase() {
                                   )
                                 }
                                 className={`px-9 py-3  ${limits?.used?.coverStored >=
-                                    limits?.total?.coverStoredLimit ||
-                                    limits?.used?.resumeStored >=
-                                    limits?.total?.resumeStoredLimit ||
-                                    limits?.used?.chatBot?.daily >=
-                                    limits?.total?.chatBotLimit?.daily ||
-                                    limits?.used?.jdMatching?.monthly >=
-                                    limits?.total?.jdMatchingLimit?.monthly ||
-                                    limits?.used?.collectionStored?.monthly >=
-                                    limits?.total?.collectionStoredLimit?.monthly
-                                    ? "bg-[#06a9ef] bg_Button"
-                                    : subscription?.isActive
-                                      ? "bg-[#DEDEDE] "
-                                      : "bg-[#06a9ef] bg_Button"
+                                  limits?.total?.coverStoredLimit ||
+                                  limits?.used?.resumeStored >=
+                                  limits?.total?.resumeStoredLimit ||
+                                  limits?.used?.chatBot?.daily >=
+                                  limits?.total?.chatBotLimit?.daily ||
+                                  limits?.used?.jdMatching?.monthly >=
+                                  limits?.total?.jdMatchingLimit?.monthly ||
+                                  limits?.used?.collectionStored?.monthly >=
+                                  limits?.total?.collectionStoredLimit?.monthly
+                                  ? "bg-[#06a9ef] bg_Button"
+                                  : subscription?.isActive
+                                    ? "bg-[#DEDEDE] "
+                                    : "bg-[#06a9ef] bg_Button"
                                   } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[190px] max-w-[190px] `}
                               >
                                 {limits?.used?.coverStored >=
@@ -458,10 +458,10 @@ function MyPurchase() {
                           <div className="flex  gap-4">
                             <div
                               className={`flex text-[14px]  gap-4 justify-between font-[700] w-[40%] ${subscription?.isActive
-                                  ? "text-[#0C8A0A]"
-                                  : subscription?.inReview
-                                    ? "text-[#06a9ef]"
-                                    : "text-[#C00000]"
+                                ? "text-[#0C8A0A]"
+                                : subscription?.inReview
+                                  ? "text-[#06a9ef]"
+                                  : "text-[#C00000]"
                                 }`}
                             >
                               <p className="">Status</p>
@@ -469,10 +469,10 @@ function MyPurchase() {
                             </div>
                             <div
                               className={`text-[14px] font-[500] ${subscription?.isActive
-                                  ? "text-[#0C8A0A]"
-                                  : subscription?.inReview
-                                    ? "text-[#06a9ef]"
-                                    : "text-[#C00000]"
+                                ? "text-[#0C8A0A]"
+                                : subscription?.inReview
+                                  ? "text-[#06a9ef]"
+                                  : "text-[#C00000]"
                                 }`}
                             >
                               {subscription?.isActive
@@ -674,9 +674,9 @@ function MyPurchase() {
             </div>
           </>
 
-          <div className="py-6  flex flex-col gap-6">
+          <div className={`py-6  flex flex-col gap-6 ${userDataGlobal?.role === 'user' ? 'customMargins' : '' }`}>
             <p className="text-[20px] font-semibold text-[#333333]">
-            Our Popular Subscription Plan
+              Our Popular Subscription Plan
             </p>
             <SubscriptionPlans />
           </div>
