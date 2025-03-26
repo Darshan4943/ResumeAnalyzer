@@ -140,9 +140,9 @@ const JobPostChart = () => {
       </div>
 
       <div
-        className="w-full h-full"
+        className="w-full"
         style={{
-          
+          height: "240px",
           marginBottom: "30px",
           position: "relative",
           zIndex: 1000,
@@ -152,7 +152,7 @@ const JobPostChart = () => {
         <Line data={getChartData()} options={options} />
       </div>
 
-      {/* <div className="flex flex-wrap justify-start gap-4 mt-3">
+      <div className="flex flex-wrap justify-start gap-4 mt-3">
         <div className="flex items-center">
           <span className="w-4 h-4 bg-blue rounded-[4px] mr-2"></span>
           <span className="text-sm">Total Job Posts</span>
@@ -161,7 +161,7 @@ const JobPostChart = () => {
           <span className="w-4 h-4 bg-[#0C8A0A] rounded-[4px] mr-2"></span>
           <span className="text-sm">Job Closed</span>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
