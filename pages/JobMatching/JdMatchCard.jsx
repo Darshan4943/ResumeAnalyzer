@@ -24,17 +24,17 @@ function JdMatchCard({
   byMyCollection,
   setUpdate,
   selectedJob,
-  selectedResumes, 
+  selectedResumes,
   setSelectedResumes,
   select, setSelect
 }) {
   const router = useRouter();
   const [parentId, setParentId] = useState()
-  
-  
+const [saveLoading,setSaveLoading]= useState()
+
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(false);
-  const [hiringLoading1,setHiringLoading1] = useState(false);
+  const [hiringLoading1, setHiringLoading1] = useState(false);
   const downloadResume = (resumeUrl) => {
     if (resumeUrl) {
       const link = document.createElement("a");
@@ -133,6 +133,7 @@ function JdMatchCard({
 
 
   const addData = async (file) => {
+    setSaveLoading(file?._id)
     const extractedText = await parsePDFFileFromURL(file.file);
 
     return new Promise((resolve, reject) => {
@@ -146,7 +147,7 @@ function JdMatchCard({
             file: file?.file,
             gist: file?.gist || "",
             job: data ? extratctedData : jobData || "",
-          isResumes: data ? "manual" :"post"
+            isResumes: data ? "manual" : "post"
           };
 
           const response = await axios.post(
@@ -161,13 +162,16 @@ function JdMatchCard({
 
           if (response.data.message === "This file is already saved") {
             toast.info("This file is already Saved");
+            setSaveLoading()
           } else {
+            setSaveLoading()
             toast.success("Successfully Saved to Skilotech Collection");
           }
 
           resolve(response.data);
         } catch (e) {
           console.error("Error adding file:", e);
+          setSaveLoading()
           toast.error("Failed to save file");
           reject(e);
         }
@@ -193,7 +197,7 @@ function JdMatchCard({
             file: file?.file,
             gist: file?.gist || "",
             job: data ? extratctedData : jobData || "",
-            isResumes: data ? "manual" :"post"
+            isResumes: data ? "manual" : "post"
           };
 
 
@@ -271,18 +275,18 @@ function JdMatchCard({
       toast.warning("No resumes selected.");
       return;
     }
-  
+
     setHiringLoading1(true);
     try {
 
-      
+
       const filteredApplicants = selectedResumes.filter(
         (applicant) =>
           !jobData?.applications?.some((item) => item?.fileName === applicant?.fileName) &&
           !jdApplicantFileNames.includes(applicant?.fileName)
       );
-      
-  
+
+
       if (filteredApplicants.length === 0) {
         toast.info("All selected resumes are already moved.");
         setHiringLoading1(false);
@@ -303,18 +307,18 @@ function JdMatchCard({
           return { success: false, fileName: applicant?.fileName, error };
         }
       });
-  
+
       const results = await Promise.allSettled(movePromises);
-  
-      
+
+
       const successfulFiles = results
         .filter((res) => res.status === "fulfilled" && res.value.success)
         .map((res) => res.value.fileName);
-  
+
       const failedFiles = results
         .filter((res) => res.status === "fulfilled" && !res.value.success)
         .map((res) => res.value.fileName);
-  
+
       if (successfulFiles.length > 0) {
         toast.success(`${successfulFiles.length} resumes moved to hiring.`);
         const existingFilenames =
@@ -324,7 +328,7 @@ function JdMatchCard({
           JSON.stringify([...existingFilenames, ...successfulFiles])
         );
       }
-  
+
       if (failedFiles.length > 0) {
         toast.error(
           `Failed to move ${failedFiles.length} applicants: ${failedFiles.join(
@@ -332,7 +336,7 @@ function JdMatchCard({
           )}`
         );
       }
-  
+
       setUpdate((prev) => !prev);
     } catch (error) {
       console.error("Unexpected error:", error);
@@ -341,7 +345,7 @@ function JdMatchCard({
       setHiringLoading1(false);
     }
   };
-  
+
 
 
   return (
@@ -351,16 +355,16 @@ function JdMatchCard({
         <div className="flex gap-4">
           {select &&
             <>
-            { !byMyCollection && 
-              <button disabled={loading} onClick={handleAddAllSelectedFiles} className="rounded-[30px] h-[38px] px-6 bg_Button w-[180px] flex justify-center items-center">
-                {loading ?
+              {!byMyCollection &&
+                <button disabled={loading} onClick={handleAddAllSelectedFiles} className="rounded-[30px] h-[38px] px-6 bg_Button w-[180px] flex justify-center items-center">
+                  {loading ?
 
-                  <MiniLoader />
-                  :
-                  "  Save to My Collection"
-                }
-              </button>
-}
+                    <MiniLoader />
+                    :
+                    "  Save to My Collection"
+                  }
+                </button>
+              }
               <button disabled={hiringLoading1} onClick={addAllApplicant} className="rounded-[30px] h-[38px] px-6 bg_Button w-[180px] flex justify-center items-center">
                 {hiringLoading1 ?
 
@@ -619,7 +623,15 @@ function JdMatchCard({
 
             <div className="flex flex-col gap-[20px] scr1300:min-w-[386px] scr390:min-w-[300px] ">
               {fromSkilotechCollection &&
-                <p onClick={() => addData(user)} className=" cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
+                <>
+                  {saveLoading === user?._id ?
+                  <div className="w-full flex justify-center"> <MiniLoader /></div>
+                   
+
+                    :
+                    <p onClick={() => addData(user)} className=" h-[24px] cursor-pointer w-full text-center text-blue text-[14px] font-[600]">Save to My Collection</p>
+                  }
+                </>
               }
               <div className=" flex items-center h-[70px] justify-center border-[1px] border-[#06A9EF] rounded-[12px] gap-[24px] px-2">
                 <div className="text-[18px] font-[500] justify-center">
@@ -665,7 +677,7 @@ function JdMatchCard({
                 {!data &&
                   <div className="  w-full ">
                     {jobData?.applications?.some((item) => item?.fileName === user?.fileName)
-                     || jdApplicantFileNames?.includes(user?.fileName) ? (
+                      || jdApplicantFileNames?.includes(user?.fileName) ? (
                       <p className="text-[14px] font-semibold text-[#0C8A0A]">
                         Moved to Hiring
                       </p>
