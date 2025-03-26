@@ -575,7 +575,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4 h-full"
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px] h-[470.5px] ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px]  ${isUser ? "max-w-[20vw] h-[500.5px]" : "max-w-[20vw] h-[470.5px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
