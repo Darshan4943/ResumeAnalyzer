@@ -7,6 +7,9 @@ import axios from "axios";
 import { Close_svg } from "../../../utils/svg";
 import MiniLoader from "../../common/mini-loader";
 import { fetchUserData } from "../../../Redux/slices/userSlice";
+import { updateAiHit } from "../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../Redux/slices/recallSlice";
+import LimitUsedModal from "../../models/limitUsedModal";
 
 const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const [text, setText] = useState(userData?.summary);
@@ -17,7 +20,36 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   //   summary: "",
   // });
   const [error, setError] = useState("");
+
+
+  const { recallData } = useSelector((state) => state.recall);
+
+  const [activePlan, setActivePlan] = useState();
+  const [limitPopup, setLimitPopup] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+
+
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
   const generateText = () => {
+    if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+      setLimitPopup(true);
+      return;
+    }
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {
       setLoading(true);
@@ -26,6 +58,11 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
         .then((res) => {
           setLoading(false);
           setText(res.data.data.choices[0].message.content);
+          dispatch(updateAiHit(userDataGlobal?._id))
+          setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+          }, 1000);
         })
         .catch((err) => {
           setLoading(false);
@@ -51,7 +88,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
     axios
       .post(
         "http://localhost:2000/api/candidate/updateSummery/" +
-          userDataGlobal?._id,
+        userDataGlobal?._id,
 
         { summery: text }
       )
@@ -73,6 +110,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
 
   return (
     <>
+      <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
       <div id="demo-modal" class="modal ">
         <div class="modal__content md:w-[56%] gap-4 flex flex-col p-6 rounded-xl">
           <div className="flex items-center gap-4 self-stretch w-full">
@@ -117,7 +155,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               )}
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-[12px] md:text-14 font-normal leading-170]">
-            {400 - (text?.length ?? 0)} characters left
+              {400 - (text?.length ?? 0)} characters left
             </p>
           </div>
           <div className="w-full flex items-center justify-end gap-3 xxsm:items-center">

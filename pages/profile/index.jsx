@@ -28,6 +28,7 @@ function Profile() {
   const [resumeCount, setResumeCount] = useState(1);
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
+  
   const arr = [
     "My Resume",
     "About me",
