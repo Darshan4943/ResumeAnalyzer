@@ -14,7 +14,7 @@ function MyPurchase() {
   const router = useRouter();
   const [subscriptionHistory, setSubscriptionHistory] = useState([]);
   const [plan, setPlan] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [subscription, setSubscription] = useState(null);
 
   const [allPlans, setAllPlans] = useState([]);
@@ -32,7 +32,12 @@ function MyPurchase() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
-  // console.log(limits);
+  const { recallData } = useSelector((state) => state.recall);
+
+  const [activePlan, setActivePlan] = useState();
+  const [limitPopup, setLimitPopup] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -59,6 +64,21 @@ function MyPurchase() {
     return remainingDays <= 0 ? 0 : remainingDays;
   };
 
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
   useEffect(() => {
     if (subscription?.startDate) {
       setDaysRemaing(
@@ -129,22 +149,20 @@ function MyPurchase() {
           setLoading(false);
         });
     }
-  }, [userDataGlobal, allPlans]);
+  }, [allPlans]);
 
   useEffect(() => {
     if (userDataGlobal) {
-      setLoading(true);
+      // setLoading(true);
       axios
         .get("https://dev.api.skilotech.com/api/AllSubscription/" + userDataGlobal?._id)
         .then((res) => {
           setSubscriptionHistory(res.data.data.reverse());
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
+
         })
         .catch((err) => {
           console.log(err);
-          setLoading(false);
+
         });
     }
   }, [userDataGlobal, allPlans, plan]);
@@ -337,7 +355,7 @@ function MyPurchase() {
                           </button>
                         ) : (
                           <>
-                            {userDataGlobal?.role === "user" && (
+                            {/* {userDataGlobal?.role === "user" && (
                               <button
                                 onClick={() => router.push("/purchase/plans")}
                                 disabled={
@@ -436,7 +454,28 @@ function MyPurchase() {
                                     ? "Purchased"
                                     : "Purchase"}
                               </button>
-                            )}
+                            )} */}
+                            {subscription?.isActive ?
+                              <>
+                                {(aiHitMonthly >= aiHitMonthlyLimit) ?
+                                  <button  onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px] ">
+                                    Upgrade Plan
+                                  </button>
+                                  :
+
+                                  <button disabled className="px-6 h-[38px] bg_Button rounded-[30px] bg-[#DEDEDE] ">
+                                    Puchased
+                                  </button>
+                                }
+                              </>
+                              :
+
+                              <button  onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px]">
+                                Purchase Plan
+                              </button>
+
+                            }
+
                           </>
                         )}
                       </div>
@@ -674,7 +713,7 @@ function MyPurchase() {
             </div>
           </>
 
-          <div className={`py-6  flex flex-col gap-6 ${userDataGlobal?.role === 'user' ? 'customMargins' : '' }`}>
+          <div className={`py-6  flex flex-col gap-6 ${userDataGlobal?.role === 'user' ? 'customMargins' : ''}`}>
             <p className="text-[20px] font-semibold text-[#333333]">
               Our Popular Subscription Plan
             </p>

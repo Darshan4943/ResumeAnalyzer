@@ -6,18 +6,23 @@ import { plans } from "../../../../../utils/data";
 import MiniLoader from "../../../../common/miniLoader";
 
 function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
- 
+
   const router = useRouter();
   const [progress, setProgress] = useState(0);
+  const [progress1, setProgress1] = useState(0);
+  console.log(progress, progress1);
   const [daysRemaing, setDaysRemaing] = useState(0);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [circumference, setCircumference] = useState(2 * Math.PI * 70);
   const [dashOffset, setDashOffset] = useState(2 * Math.PI * 70);
+  const [circumference1, setCircumference1] = useState(Math.PI * 90);
+  const [dashOffset1, setDashOffset1] = useState(2 * Math.PI * 70);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [activePlanIndex, setActivePlanIndex] = useState();
   const [isFree, setIsFree] = useState();
-
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const activePlan = JSON.parse(localStorage.getItem("activePlan"));
@@ -27,6 +32,22 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     seticon(icon);
     const isFree = JSON.parse(localStorage.getItem("isFree"));
     setIsFree(isFree);
+  }, []);
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setProgress1(100 - ((aiHitMonthly * 100) / aiHitMonthlyLimit))
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+
+  };
+  useEffect(() => {
+    getLimits();
   }, []);
 
   const calculateOverallPercentage = (used, total) => {
@@ -48,6 +69,13 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
       setDashOffset(dashOffset);
     }
   }, [circumference, progress]);
+  useEffect(() => {
+    const dashOffset = circumference1 - (progress1 / 100) * circumference1;
+
+    if (dashOffset != "NaN") {
+      setDashOffset1(dashOffset);
+    }
+  }, [circumference1, progress1]);
 
   const calculateDaysRemaining = (startDate, endDate) => {
     const today = new Date();
@@ -74,6 +102,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                 selectedPlan?.days) *
               100
             );
+
           }
           setTimeout(() => {
             setLoading(false);
@@ -148,7 +177,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
 
                   <div className="flex flex-col gap-4">
                     {isActive ? (
-                      <div className="">
+                      <div className="flex flex-col justify-center items-center gap-2 ">
                         {isFree ? (
                           <p className="ml:text-[2vw] font-[700] text-[24px] text-center">
                             {" "}
@@ -156,10 +185,10 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                           </p>
                         ) : (
                           <div className="flex flex-row gap-2 w-full items-center justify-center">
-                            <p className="ml:text-[2vw] font-[700] text-[24px]">
+                            <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
                               {icon}
                             </p>
-                            <p className="ml:text-[2vw] font-[700] text-[24px]">
+                            <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
                               {Math.ceil(selectedPlan?.amount * exchangeRate)}
                             </p>
                           </div>
@@ -167,65 +196,15 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <p className="text-[12px] font-medium">
                           Your Plan Validity is {selectedPlan?.days} Days
                         </p>
-                        {userDataGlobal?.role === "user" && (
-                          <>
-                            {(limits?.used?.coverStored >=
-                              limits?.total?.coverStoredLimit ||
-                              limits?.used?.resumeStored >=
-                              limits?.total?.resumeStoredLimit ||
-                              limits?.used?.skillTest >=
-                              limits?.total?.skillTestLimit ||
-                              limits?.used?.skillCertified >=
-                              limits?.total?.skillCertifiedLimit ||
-                              limits?.used?.chatBot?.monthly >=
-                              limits?.total?.chatBotLimit?.monthly) && (
-                                <div
-                                  onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                                >
-                                  Upgrade Plan
-                                </div>
-                              )}
-                          </>
-                        )}
-                        {userDataGlobal?.role === "recruiter" && (
-                          <>
-                            {(limits?.used?.coverStored >=
-                              limits?.total?.coverStoredLimit ||
-                              limits?.used?.resumeStored >=
-                              limits?.total?.resumeStoredLimit ||
-                              limits?.used?.chatBot?.daily >=
-                              limits?.total?.chatBotLimit?.daily ||
-                              limits?.used?.jdMatching?.monthly >=
-                              limits?.total?.jdMatchingLimit?.monthly ||
-                              limits?.used?.collectionStored?.monthly >=
-                              limits?.total?.collectionStoredLimit?.monthly) && (
-                                <div
-                                  onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                                >
-                                  Upgrade Plan
-                                </div>
-                              )}
-                          </>
-                        )}
-                        {userDataGlobal?.role === "employer" && (
-                          <>
-                            {(
 
-                              limits?.used?.jdMatching?.monthly >=
-                              limits.total.jdMatchingLimit?.monthly ||
-                              limits?.used?.collectionStored?.monthly >=
-                              limits.total.collectionStoredLimit?.monthly) && (
-                                <div
-                                  onClick={() => router.push("/purchase/plans")}
-                                  className=" mt-4 bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                                >
-                                  Upgrade Plan
-                                </div>
-                              )}
-                          </>
-                        )}
+                        {(aiHitMonthly >= aiHitMonthlyLimit) &&
+                          <button onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px] ">
+                            Upgrade Plan
+                          </button>
+
+                        }
+
+
                       </div>
                     ) : (
                       <div
@@ -242,7 +221,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             </div>
 
             <div className="xxlg:hidden w-full h-[1px]  bg-[#DEDEDE]"></div>
-
+            {/* 
             <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
               <p className="text-[16px] font-[500]">Available services</p>
 
@@ -299,11 +278,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <div
                           style={{
                             width: `${isActive
-                                ? Math.round(
-                                  (limits?.used?.resumeStored * 100) /
-                                  limits?.total?.resumeStoredLimit
-                                )
-                                : 0
+                              ? Math.round(
+                                (limits?.used?.resumeStored * 100) /
+                                limits?.total?.resumeStoredLimit
+                              )
+                              : 0
                               }% `,
                             maxWidth: `${Math.round(
                               (limits?.total?.resumeStoredLimit * 100) /
@@ -340,11 +319,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <div
                           style={{
                             width: `${isActive
-                                ? Math.round(
-                                  (limits?.used?.skillTest * 100) /
-                                  limits?.total?.skillTestLimit
-                                )
-                                : 0
+                              ? Math.round(
+                                (limits?.used?.skillTest * 100) /
+                                limits?.total?.skillTestLimit
+                              )
+                              : 0
                               }% `,
                             maxWidth: `${Math.round(
                               (limits?.total?.skillTestLimit * 100) /
@@ -380,11 +359,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <div
                           style={{
                             width: `${isActive
-                                ? Math.round(
-                                  (limits?.used?.skillCertified * 100) /
-                                  limits?.total?.skillCertifiedLimit
-                                )
-                                : 0
+                              ? Math.round(
+                                (limits?.used?.skillCertified * 100) /
+                                limits?.total?.skillCertifiedLimit
+                              )
+                              : 0
                               }% `,
                             maxWidth: `${Math.round(
                               (limits?.total?.skillCertifiedLimit * 100) /
@@ -462,11 +441,11 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <div
                           style={{
                             width: `${isActive
-                                ? Math.round(
-                                  (limits?.used?.jdMatching?.monthly * 100) /
-                                  limits?.total?.jdMatchingLimit?.monthly
-                                )
-                                : 0
+                              ? Math.round(
+                                (limits?.used?.jdMatching?.monthly * 100) /
+                                limits?.total?.jdMatchingLimit?.monthly
+                              )
+                              : 0
                               }% `,
                             maxWidth: `${Math.round(
                               (limits?.total?.jdMatchingLimit?.monthly * 100) /
@@ -493,7 +472,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 )}
 
-                {(userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer" )&& (
+                {(userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer") && (
                   <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
                     <p className=" scr420:min-w-[164px] min-w-[140px]">
                       {" "}
@@ -504,12 +483,12 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         <div
                           style={{
                             width: `${isActive
-                                ? Math.round(
-                                  (limits?.used?.collectionStored?.monthly *
-                                    100) /
-                                  limits?.total?.collectionStoredLimit?.monthly
-                                )
-                                : 0
+                              ? Math.round(
+                                (limits?.used?.collectionStored?.monthly *
+                                  100) /
+                                limits?.total?.collectionStoredLimit?.monthly
+                              )
+                              : 0
                               }% `,
                             maxWidth: `${Math.round(
                               (limits?.total?.collectionStoredLimit?.monthly *
@@ -537,6 +516,41 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   </div>
                 )}
               </div>
+            </div> */}
+            <div className="w-[60%] flex justify-center">
+            <div className="flex items-center justify-center relative">
+              <svg width="300" height="200" viewBox="0 0 200 100">
+                {/* Background Circle */}
+                <path
+                  d="M 10,90 A 90,90 0 0,1 190,90"
+                  stroke="#DEDEDE"
+                  strokeWidth="8"
+                  fill="transparent"
+                />
+                {/* Progress Arc */}
+                <path
+                  d="M 10,90 A 90,90 0 0,1 190,90"
+                  stroke="#0879A9"
+                  strokeWidth="8"
+                  fill="transparent"
+                  strokeDasharray={circumference1}
+                  strokeDashoffset={circumference1 - (progress1 / 100) * circumference1}
+                />
+              </svg>
+
+              {/* Center Content */}
+              <div className="absolute bottom-10 flex flex-col gap-2 text-center text-[14px] font-normal">
+                <div className="text-black text-[24px] font-bold">{progress1}%</div>
+                <div className="flex items-center gap-2 text-[12px]">
+                  <div className="bg-[#C7E9F7] w-4 h-4 rounded-[2px]"></div>
+                  Total AI Hits: <span className=" text-[13px] font-semibold"> {aiHitMonthlyLimit}</span>
+                </div>
+                <div className="flex items-center gap-2 text-[12px]">
+                  <div className="bg-[#0879A9] w-4 h-4 rounded-[2px]"></div>
+                  Remaining AI Hits: <span className="text-[13px] font-semibold">{aiHitMonthlyLimit-aiHitMonthly}</span>
+                </div>
+              </div>
+            </div>
             </div>
 
           </div>
