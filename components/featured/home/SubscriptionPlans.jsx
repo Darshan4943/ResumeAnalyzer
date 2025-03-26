@@ -404,7 +404,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                   )}
 
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-fit justify-between">
-                    <div className="flex text-center flex-col gap-[12px] text-[#333333] justify-center items-center ">
+                    <div className="flex text-center flex-col gap-[12px] text-[#333333] justify-center items-center w-full ">
                       <p className="text-[16px] font-[600] xl:text-[16px]">
                         {plan.type === "candidate" && (
                           <>
@@ -518,7 +518,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                           {plan?.limits?.aiHits?.monthly} AI Hits
                         </div>
                       </div>
-                      <div className="bg-[#DEDEDE] h-[2px]" />
+                      <div className="bg-[#DEDEDE] h-[2px] w-[70%]" />
                     </div>
                     <div className="flex gap-3 flex-col text-left">
                       {plan.features.map((feature, index) => (
