@@ -228,7 +228,7 @@ function AddWorkExperience({
               Add Work Experience
             </p>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-            <div onClick={() => setOpenAddExperience(false)}>
+            <div className=" cursor-pointer" onClick={() => setOpenAddExperience(false)}>
               <ClosedIcon />
             </div>
           </div>
@@ -430,15 +430,15 @@ function AddWorkExperience({
 
         <div className="flex justify-end gap-3">
           <button
-            className="sm:px-9 px-4 py-[10px] bg-white-600 border border-[#06A9EF] text-[14px]  font-medium rounded-[30px]"
-            onClick={() => setOpenAddExperience(false)}
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
+              onClick={() => setOpenAddExperience(false)}
           >
             Cancel
           </button>
 
           <button
-            className="sm:px-9 px-4 py-[10px] bg-[#06A9EF] text-white text-[14px] font-medium rounded-[130px]"
-            onClick={handleSaveChanges}
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
+              onClick={handleSaveChanges}
           >
             {isEditing ? "Save Changes" : "Add Experience"}
           </button>

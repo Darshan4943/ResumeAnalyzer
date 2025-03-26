@@ -761,13 +761,13 @@ function ApplyForm() {
 
           <div className="flex justify-end flex-row gap-4 pt-8">
             <button
-              className="px-[36px] py-2 rounded-[30px] text-[14px] font-semibold border border-[#06A9EF]"
+              className="px-[36px] red_border_Button h-[42px] rounded-[30px]"
               onClick={() => router.back()}
             >
               Cancel
             </button>
             <button
-              className="bg-[#06A9EF] px-[36px] py-2 text-[#FFFFFF] text-[14px] font-semibold rounded-[30px]"
+              className="px-[36px] bg_Button h-[42px] rounded-[30px]"
               onClick={() => validateInput() && applyForJob()}
             >
               {loading ? <MiniLoader /> : "Apply"}

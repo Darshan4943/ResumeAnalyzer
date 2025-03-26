@@ -219,7 +219,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[30px] py-[8px] md:py-[8px] px-[16px] md:px-[36px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px]  font-[500] hover:cursor-pointer"
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
               onClick={() => {
                 setData({
                   profile: "",
@@ -232,7 +232,7 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
               Cancel
             </button>
             <button
-              className="rounded-[30px] py-[8px] md:py-[8px] px-[16px] md:px-[36px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px] font-[500] bg-[#06A9EF] "
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
               onClick={handleSubmit}
             >
               {isEditing ? " Save Changes" : "Add Social Link"}

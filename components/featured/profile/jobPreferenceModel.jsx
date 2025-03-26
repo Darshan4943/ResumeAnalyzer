@@ -298,14 +298,14 @@ const JobPrefrenceModal = ({ setEditView }) => {
         </button> */}
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[30px] py-[8px] sm:px-9 px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[14px] font-[600] hover:cursor-pointer"
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
               onClick={() => setEditView(false)}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
-              className="rounded-[30px] py-[8px] sm:px-9 px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[14px] font-[600] bg-[#06A9EF] "
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
             >
               Save Changes
             </button>

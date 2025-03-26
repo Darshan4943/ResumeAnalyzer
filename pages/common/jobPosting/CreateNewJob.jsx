@@ -225,6 +225,13 @@ function CreateNewJob() {
       return newFormError;
     }
 
+    if (!Array.isArray(data.jobCat) || data.jobCat.length === 0) {
+      newFormError.jobCat = "Job Category is required";
+    } else {
+      delete newFormError.jobCat; 
+    }
+    
+
     if (!isValidString(data.jobSector)) {
       newFormError.jobSector = "Job Sector is required";
       return newFormError;
@@ -232,6 +239,15 @@ function CreateNewJob() {
 
     if (!isValidString(data.jobType)) {
       newFormError.jobType = "Job Type is required";
+      return newFormError;
+    }
+
+    if (!isValidArray(data.mustSkills)) {
+      newFormError.mustSkills = "Must have Skills are required";
+      return newFormError;
+    }
+    if (!isValidArray(data.goodSkills)) {
+      newFormError.goodSkills = "Must have Skills are required";
       return newFormError;
     }
 
@@ -248,14 +264,7 @@ function CreateNewJob() {
       return newFormError;
     }
 
-    if (!isValidArray(data.mustSkills)) {
-      newFormError.mustSkills = "Must have Skills are required";
-      return newFormError;
-    }
-    if (!isValidArray(data.goodSkills)) {
-      newFormError.goodSkills = "Must have Skills are required";
-      return newFormError;
-    }
+ 
 
     return newFormError;
   };
@@ -749,7 +758,7 @@ function CreateNewJob() {
   const customStylesss = {
     control: (provided, state) => ({
       ...provided,
-      border: formError.country ? "1px solid red" : "1px solid #DEDEDE",
+      border: formError.country || formError.jobCat ? "1px solid red" : "1px solid #DEDEDE",
       borderRadius: "8px",
       padding: "2px 8px",
       flexWrap: "wrap",
@@ -1115,17 +1124,17 @@ function CreateNewJob() {
                             })) || []
                           }
                           onInputChange={(value) => {
-                            setInput({ value, label: value }); // Store input as an object
+                            setInput({ value, label: value });
                             handleDebouncedSearch(value);
                           }}
                           onChange={handleSelectChange}
-                          value={selectedCity} // Ensure selected value persists
+                          value={selectedCity} 
                           placeholder="Search & Select Your Location"
                           isSearchable={true}
 
                           classNamePrefix="select"
                           styles={customStylesss}
-                          className={`border rounded-[8px] withoutBorder ${formError.country
+                          className={`border rounded-[8px] withoutBorder ${formError.location
                             ? "border-red"
                             : "border-[#DEDEDE]"
                             }`}
@@ -1477,7 +1486,7 @@ function CreateNewJob() {
                             isMulti
                             options={JobCategories.map((item) => ({
                               value: item.value,
-                              label: camelCase(item.label),
+                              label: item.label,
                             }))}
                             value={
                               data?.jobCat
@@ -1496,6 +1505,10 @@ function CreateNewJob() {
                                 ...data,
                                 jobCat: newCategories,
                               });
+                              setFormError((prev) => ({
+                                ...prev,
+                                jobCat: newCategories.length > 0 ? "" : prev.jobCat,
+                              }));
                             }}
                             onKeyDown={(event) => {
                               if (

@@ -148,7 +148,7 @@ function AddEducation({
           <div className="flex justify-between w-full items-center ">
             <p className=" text-[18px] font-semibold min-w-[160px]">  {editEducation ? "Edit Education" : "Add Education"}</p>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-            <div onClick={() => setOpenAddEducation(false)}>
+            <div className="cursor-pointer" onClick={() => setOpenAddEducation(false)}>
               <ClosedIcon />
             </div>
           </div>
@@ -308,16 +308,15 @@ function AddEducation({
 
         <div className="flex justify-end gap-3">
           <button
-            className="sm:px-9 py-2 px-4 text-[14px] bg-white-600 border border-[#06A9EF] font md:font-medium rounded-[30px]"
-            id="button"
-            onClick={() => setOpenAddEducation(false)}
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
+              onClick={() => setOpenAddEducation(false)}
           >
             Cancel
           </button>
 
           <button
-            className={`sm:px-9 py-2 px-4 text-[14px] bg-[#06A9EF] border rounded-[30px] font-semibold text-white `}
-            onClick={(e) => handleSaveChanges(e)}
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
+              onClick={(e) => handleSaveChanges(e)}
           >
             {editEducation ? "Save Changes" : "Add Education"}
 

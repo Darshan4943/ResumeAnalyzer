@@ -160,6 +160,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
               height="40"
               viewBox="0 0 40 40"
               fill="none"
+              className="cursor-pointer"
             >
               <g mask="url(#mask0_5716_140784)">
                 <path
@@ -244,14 +245,14 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
 
         <div className="flex justify-end items-start self-stretch gap-[12px]">
           <button
-            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px]    text-[14px] font-[500] border-[1px] border-solid border-[#06A9EF]"
-            onClick={() => setAddCertificate(false)}
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
+              onClick={() => setAddCertificate(false)}
           >
             Cancel
           </button>
           <button
-            className="flex py-[8px] px-[16px] justify-center items-center rounded-[30px] bg-[#06A9EF] text-[#fff]  text-[14px] font-[500] border-[1px] border-solid border-[#06A9EF] h-[42px] w-[166px]"
-            onClick={postData}
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
+              onClick={postData}
           >
             {loading ? (
               <>

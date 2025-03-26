@@ -21,14 +21,12 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   // });
   const [error, setError] = useState("");
 
-
   const { recallData } = useSelector((state) => state.recall);
 
   const [activePlan, setActivePlan] = useState();
   const [limitPopup, setLimitPopup] = useState(false);
   const [aiHitMonthly, setAiHitMonthly] = useState(0);
   const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
-
 
   const getLimits = () => {
     const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
@@ -46,7 +44,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
     getLimits();
   }, []);
   const generateText = () => {
-    if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+    if (aiHitMonthly >= aiHitMonthlyLimit || !activePlan) {
       setLimitPopup(true);
       return;
     }
@@ -58,7 +56,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
         .then((res) => {
           setLoading(false);
           setText(res.data.data.choices[0].message.content);
-          dispatch(updateAiHit(userDataGlobal?._id))
+          dispatch(updateAiHit(userDataGlobal?._id));
           setTimeout(() => {
             dispatch(setRecallData(!recallData));
             getLimits();
@@ -118,8 +116,9 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               Edit About me
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-
-            <Close_svg handleImageClick={handleImageClick} />
+            <div className=" cursor-pointer">
+              <Close_svg handleImageClick={handleImageClick} />
+            </div>
           </div>
           <div className="flex w-full  px-4 py-3 rounded-md border border-gray-300 bg-white">
             <textarea
@@ -160,14 +159,14 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
           </div>
           <div className="w-full flex items-center justify-end gap-3 xxsm:items-center">
             <button
-              className="flex items-center justify-center px-6 xxsm:px-4 py-2 font-Montserrat text-[14px] xxsm:text-[12px] md:text-[16px] font-medium leading-normal rounded-[30px] border border-[#06A9EF] bg-white w-full max-w-[180px] xxsm:max-w-[140px]"
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
               onClick={() => handleImageClick(false)}
             >
               Cancel
             </button>
 
             <button
-              className="flex items-center justify-center px-6 xxsm:px-4 py-2 font-Montserrat text-[14px] scr340:text-[12px] xxsm:text-[10px] md:text-[14px] font-medium leading-normal text-white bg-[#06A9EF] rounded-[30px] border border-[#06A9EF] w-full max-w-[180px] xxsm:max-w-[140px]"
+              className="px-[26px] bg_Button h-[38px] rounded-[30px]"
               onClick={handleSubmit}
             >
               Save Changes

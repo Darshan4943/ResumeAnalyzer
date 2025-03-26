@@ -60,7 +60,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
                 Edit Skill
               </div>
               <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-              <div onClick={() => handleImageClick(false)}>
+              <div className="cursor-pointer" onClick={() => handleImageClick(false)}>
                 <Close_svg />
               </div>
             </div>
@@ -117,14 +117,14 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
 
           <div className="w-full flex items-end gap-3 justify-end self-stretch">
             <button
-              className="flex items-center justify-center px-4 py-2 font-Montserrat text-[14px] md:text-16 md:px-9 md:py-2  font-medium leading-normal rounded-[30px] border border-[#06A9EF]  bg-white "
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
               onClick={() => handleImageClick(false)}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
-              className="flex items-center justify-center md:px-9 md:py-2 px-[8px] py-[5px] font-Montserrat text-[14px] md:text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-[30px] border border-border-color bg-primary"
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
             >
               Save Changes
             </button>

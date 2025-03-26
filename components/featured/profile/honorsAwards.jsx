@@ -146,7 +146,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
               {isEditing ? " Edit" : "Add"} Achievements
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-full"></div>
-            <div onClick={() => setAddAchivements(false)}>
+            <div className="cursor-pointer" onClick={() => setAddAchivements(false)}>
               <ClosedIcon />
             </div>
           </div>
@@ -234,12 +234,12 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
               </div>
 
               <div
-                className="flex  items-center rounded-lg border border-[#646464] bg-white text-[12px]  font-montserrat font-small  w-[50%]"
+                className="flex  items-center rounded-lg border border-[#DEDEDE] bg-white text-[12px]  font-montserrat font-small  w-[50%]"
               >
                 <select
                   value={data.issuedDate.year}
                   onChange={(e) => handleDateChange("year", e.target.value)}
-                  className="w-outline-none focus-visible:outline-none  p-2 w-full "
+                  className="w-outline-none  focus-visible:outline-none  p-2 w-full "
                   style={{
                     WebkitAppearance: "none",
                     MozAppearance: "none",
@@ -268,7 +268,7 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[14px] font-[500]">Description</div>
           <textarea
-            className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
+            className="border-solid border-[#DEDEDE] border-[1px] rounded-[8px] p-[12px] text-[12px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
             name="description"
             value={data.description}
@@ -279,13 +279,13 @@ function HonorsAwards({ setAddAchivements, editAchievement, Achievement }) {
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[30px] py-[8px] sm:px-[36px] px-4 border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px] font-[500] hover:cursor-pointer"
+              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
               onClick={() => setAddAchivements(false)}
             >
               Cancel
             </button>
             <button
-              className="rounded-[30px] py-[8px] sm:px-[36px] px-4 border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px]  font-[500] bg-[#06A9EF]"
+              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
               onClick={handleSubmit}
             >
               {isEditing ? " Save Changes" : "Add Achievement"}
