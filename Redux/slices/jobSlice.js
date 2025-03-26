@@ -4,14 +4,14 @@ import axios from 'axios';
 
 
 export const fetchAppliedJob = createAsyncThunk('job/fetchAppliedJob', async (userId) => {
-    const response = await axios.get(`http://localhost:2000/api/job/getAppliedJobs/${userId}`);
+    const response = await axios.get(`https://dev.api.skilotech.com/api/job/getAppliedJobs/${userId}`);
   
     const appliedJobData = response.data.data;
     return appliedJobData
   })
   
   export const fetchSavedJobIds = createAsyncThunk('job/fetchSavedJobIds', async (userId) => {
-    const response = await axios.get(`http://localhost:2000/api/job/getSaveJobIds/${userId}`);
+    const response = await axios.get(`https://dev.api.skilotech.com/api/job/getSaveJobIds/${userId}`);
   
     const savedJobIds = response.data.savedJobIds;
     

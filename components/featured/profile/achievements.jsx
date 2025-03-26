@@ -21,7 +21,7 @@ const Achievements = ({userData}) => {
     const deleteHandler = () => {
         axios
             .delete(
-                `http://localhost:2000/api/candidate/${userDataGlobal?._id}/deleteAchivement/${deleteData.id}`
+                `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteAchivement/${deleteData.id}`
             )
             .then((res) => {
                 dispatch(fetchUserData());
