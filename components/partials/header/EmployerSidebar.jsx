@@ -81,7 +81,7 @@ function EmployerSidebar() {
     },
     {
       img: "/images/employer/sidebar/requisition.png",
-      img1: "/images/employer/sidebar/requisition2.png",
+      img1: "/images/employer/sidebar/Requisition2.png",
       title: "Requisition",
       route: "/employer/requisition",
     },
