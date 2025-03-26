@@ -375,10 +375,10 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1140: { slidesPerView: 3 },
-              1440: { slidesPerView: 3 },
+              1440: { slidesPerView: userDataGlobal?.role === "user" ? 3 : 4 },
             }}
             modules={[Pagination]}
-            className=" swiperPagination flex items-center justify-center self-start "
+            className=" swiperPagination flex items-center justify-center self-start h-full "
             effect="fade"
           >
             {allPlans.map((plan, index) => (
@@ -519,10 +519,10 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
             {/* Add the Enterprise Plan as a separate SwiperSlide */}
             <SwiperSlide
               style={{ display: "flex" }}
-              className="justify-center pt-6 gap-4"
+              className="justify-center pt-6 gap-4 h-full"
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px] h-fit ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px] h-[431.5px] ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
@@ -538,7 +538,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                 <div className="flex gap-3 flex-col text-center items-center w-[168px]">
                   <img
                     src="/images/support_agent.png"
-                    className="h-[120px] max-w-[120px]"
+                    className="h-[100px] max-w-[100px]"
                     alt=""
                   />
                   <span className="text-[16px] font-[500] text-center xl:text-[16px]">
