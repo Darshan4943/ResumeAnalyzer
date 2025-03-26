@@ -21,7 +21,7 @@ function ApplicantDetails({ setTogglee }) {
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
-  
+
 
   const getData = async () => {
     try {
@@ -214,7 +214,7 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {jobDetails?.isScore &&
+                      {jobDetails?.matchingParameters.length > 0 &&
                         <div>
                           <p
                             className={`${activeOption === "matchingParameters"
