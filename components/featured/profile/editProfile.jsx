@@ -494,7 +494,7 @@ function EditProfile({ setEditProfile }) {
                     <button
                       disabled={loadingg}
                       onClick={handleVerification}
-                      className="  text-[10px] min-w-[86px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
+                      className="  text-[10px] min-w-[110px] font-semibold flex justify-center items-center  bg-blue text-white py-[10px] px-3 rounded-[30px] leading-tight h-[34px] bg_Button"
                     >
                       {loadingg ? <MiniLoader /> : <>Verify Email</>}
                     </button>
@@ -561,7 +561,7 @@ function EditProfile({ setEditProfile }) {
                       value={digit}
                       onChange={(e) => handleChange(e.target.value, index)}
                       onKeyDown={(e) => handleKeyDown(e, index)}
-                      className="border border-[#DEDEDE] rounded-[8px] w-[32px] h-[32px] text-center text-lg"
+                      className="border border-[#DEDEDE] rounded-[8px] w-[28px] h-[28px] text-center text-[14px]"
                     />
                   ))}
                 </div>
