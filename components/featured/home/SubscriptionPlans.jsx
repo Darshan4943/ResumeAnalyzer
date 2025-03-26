@@ -404,7 +404,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                   )}
 
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-fit justify-between">
-                    <div className="flex text-center flex-col gap-[12px] text-[#333333] justify-center items-center ">
+                    <div className="flex text-center flex-col gap-[12px] text-[#333333] justify-center items-center w-full ">
                       <p className="text-[16px] font-[600] xl:text-[16px]">
                         {plan.type === "candidate" && (
                           <>
@@ -518,7 +518,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                           {plan?.limits?.aiHits?.monthly} AI Hits
                         </div>
                       </div>
-                      <div className="bg-[#DEDEDE] h-[2px]" />
+                      <div className="bg-[#DEDEDE] h-[2px] w-[70%]" />
                     </div>
                     <div className="flex gap-3 flex-col text-left">
                       {plan.features.map((feature, index) => (
@@ -554,7 +554,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                         disabled={true}
                         className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                       >
-                        Your Current Plan
+                        Purchased
                       </button>
                     ) : (
                       <button
@@ -575,7 +575,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4 h-full"
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px] h-[470.5px] ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px]  ${isUser ? "max-w-[20vw] h-[500.5px]" : "max-w-[20vw] h-[470.5px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
