@@ -49,6 +49,7 @@ function ApplicantDetailsLeftCard({
           shortlist={shortlist}
           setPopupVisible={setPopupVisible}
           id={id}
+          jobData={jobDetails}
           applicantIds={[shortlist.applicantId]}
           statusChange={statusChange}
           setStatusChange={setStatusChange}
