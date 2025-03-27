@@ -20,6 +20,7 @@ function ShortlistMail({
   isByEmployer,
   newHiringStage,
 }) {
+  console.log(jobData)
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -152,6 +153,13 @@ function ShortlistMail({
   };
 
   const handleSend = async () => {
+
+    if(inputValue){
+      setTags([...tags, inputValue.trim()]);
+      setInputValue("");
+      return
+    }
+  
     let isValid = true;
 
     if (newHiringStage==="Shortlisted" ? !shortlistSubject?.trim() : !rejectedSubject?.trim()) {
@@ -184,7 +192,7 @@ function ShortlistMail({
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/hiring/shortlistCandidate",
+        "http://localhost:2000/api/hiring/shortlistCandidate",
         emailDetails
       );
 
