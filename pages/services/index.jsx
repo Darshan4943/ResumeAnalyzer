@@ -51,14 +51,14 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesChat.png",
       desc: "Ask for anything and generate fast responses with our bot.",
       color: "#06A9EF",
-      new: "AI",
+      // new: "AI",
     },
     {
       name: "My Website",
       imgSrc: "/images/resumeBuilder/servicesWebsite.png",
       desc: "Generate link to your profile preview to be seen anywhere.",
       color: "#06A9EF",
-      new: "AI",
+      // new: "AI",
     },
     // {
     //   name: "My Purchases",
@@ -71,7 +71,7 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Find jobs matching to a particular resume and apply easily.",
       color: "#06A9EF",
-      new: "AI",
+      // new: "AI",
     },
   ];
 

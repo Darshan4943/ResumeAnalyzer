@@ -114,7 +114,7 @@ function SavedJobs({ setLimitPopup,
                   />
                 </div>
 
-                <div className=" hidden ml:flex flex-col gap-6   rounded-[12px] bg-[#FFFFFF] p-4 h-fit">
+                {/* <div className=" hidden ml:flex flex-col gap-6   rounded-[12px] bg-[#FFFFFF] p-4 h-fit">
                   <p className="text-[16px] font-semibold">Top Company Jobs</p>
                   <div className="flex gap-[10px] flex-wrap">
                     {posters?.map((item, index) => (
@@ -130,7 +130,8 @@ function SavedJobs({ setLimitPopup,
 
                   </div>
 
-                </div>
+                </div> */}
+                <div className="w-[40%]"></div>
               </div>
             </div>
             :

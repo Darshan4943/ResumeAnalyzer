@@ -81,7 +81,7 @@ const TopCompanies = () => {
                         <div className="flex flex-col items-center gap-4">
                           <img
                             src={job.companyLogo}
-                            className="max-w-[40px] max-h-[40px] object-top min-h-[40px] min-w-[40px]"
+                            className="max-w-[80px] max-h-[20px]  object-fit min-h-[20px] min-w-[40px] "
                             alt={`${job.name} Icon`}
                           />
                           <div className="flex flex-col items-center">

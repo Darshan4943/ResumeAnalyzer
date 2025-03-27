@@ -18,7 +18,7 @@ function WithoutLogin() {
       <SkillAssessment/>
       <ForCandidate/>
       <DreamJob/>
-      <TrustedBy/>
+      {/* <TrustedBy/> */}
       <ResumeComp/>
       <Testimonials/>
  
