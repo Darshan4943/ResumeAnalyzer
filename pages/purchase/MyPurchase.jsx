@@ -307,7 +307,7 @@ function MyPurchase() {
                 >
                   <div className="flex scr1100:flex-row flex-col scr1200:gap-6 gap-4 w-[100%] justify-center ">
                     <div className="flex md:flex-row flex-col gap-6  scr1100:w-[60%] w-[100%] items-center justify-between ">
-                      <div className="flex flex-col gap-4  md:w-[40%] w-[100%] items-center justify-between">
+                      <div className="flex flex-col gap-4  md:w-[50%] w-[100%] items-center justify-between">
                         <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
                           <p className="text-[20px] font-[600]">
                             {plan?.type === "candidate" && (
@@ -486,7 +486,7 @@ function MyPurchase() {
                         </div>
                         <div className="flex flex-col gap-9 w-[100%] ">
                           <div className="flex  gap-4">
-                            <div className="flex text-[14px]  gap-4 font-[700] justify-between w-[40%]">
+                            <div className="flex text-[14px]  gap-4 font-[700] justify-between w-[45%]">
                               <p>Plan Name</p>
                               <div>:</div>
                             </div>
@@ -496,7 +496,7 @@ function MyPurchase() {
                           </div>
                           <div className="flex  gap-4">
                             <div
-                              className={`flex text-[14px]  gap-4 justify-between font-[700] w-[40%] ${subscription?.isActive
+                              className={`flex text-[14px]  gap-4 justify-between font-[700] w-[45%] ${subscription?.isActive
                                 ? "text-[#0C8A0A]"
                                 : subscription?.inReview
                                   ? "text-[#06a9ef]"
@@ -524,7 +524,7 @@ function MyPurchase() {
                           {/* {subscription?.isActive && ( */}
                           <>
                             <div className="flex gap-4">
-                              <div className="flex  gap-4 justify-between font-[700] text-[14px] w-[40%]">
+                              <div className="flex  gap-4 justify-between font-[700] text-[14px] w-[45%]">
                                 <p>Date of Purchase</p>
                                 <div>:</div>
                               </div>
@@ -533,7 +533,7 @@ function MyPurchase() {
                               </div>
                             </div>
                             <div className="flex  gap-4">
-                              <div className="flex  gap-4 justify-between font-[700] text-[14px] w-[40%]">
+                              <div className="flex  gap-4 justify-between font-[700] text-[14px] w-[45%]">
                                 <p>Date of Renewal</p>
                                 <div>:</div>
                               </div>
@@ -617,9 +617,9 @@ function MyPurchase() {
                       )}
                     </div>
                     <div className="bg-[#DEDEDE] min-w-[1px] ml:h-[120px] h-[1px]"></div>
-                    <div className="flex flex-col gap-6 min-w-[55%] scr1200:min-w-[40%] ">
+                    <div className="flex flex-col gap-6 min-w-[65%] scr1200:min-w-[40%] ">
                       <div className="flex  gap-4">
-                        <div className="flex  gap-4 font-[700] justify-between w-[30%]  text-[14px]">
+                        <div className="flex  gap-4 font-[700] justify-between w-[40%]  text-[14px]">
                           <p>Email Id </p>
                           <div>:</div>
                         </div>
@@ -630,7 +630,7 @@ function MyPurchase() {
 
                       {subscription?.isActive && (
                         <div className="flex gap-4">
-                          <div className="flex  gap-4 justify-between font-[700] w-[30%] text-[14px]">
+                          <div className="flex  gap-4 justify-between font-[700] w-[40%] text-[14px]">
                             <p>Date Of Renewal </p>
                             <div>:</div>
                           </div>
