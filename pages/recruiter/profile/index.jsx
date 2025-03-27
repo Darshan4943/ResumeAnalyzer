@@ -29,15 +29,19 @@ const Profile = () => {
     setCompanyData({ ...companyData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (file) => {
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     if (!file) return;
 
-    if (!validImageTypes.includes(file.type)) {
-      toast.error("Only JPG, JPEG, and PNG files are allowed.");
+    const maxSize = 1 * 1024 * 1024;
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only PNG, JPEG, and JPG formats are allowed.");
       return;
     }
 
-    if (file.size > 1024 * 1024) {
+    if (file.size > maxSize) {
       toast.error("File size must be 1MB or less.");
       return;
     }
@@ -46,8 +50,8 @@ const Profile = () => {
     reader.onloadend = () => {
       setCompanyData((prev) => ({ ...prev, companyLogo: reader.result }));
     };
-    reader.readAsDataURL(file);
 
+    reader.readAsDataURL(file);
     setSelectedFile(file);
   };
 
@@ -294,6 +298,7 @@ const Profile = () => {
                           >
                             <input
                               type="file"
+                              accept="image/png, image/jpeg, image/jpg"
                               className="hidden"
                               onChange={handleFileChange}
                             />
