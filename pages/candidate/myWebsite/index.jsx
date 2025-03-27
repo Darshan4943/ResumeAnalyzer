@@ -110,7 +110,7 @@ const Index = () => {
             toast.success("Link Generated successfully");
             // setSelectedLink(`www.skilotech.com/${userDataGlobal.firstName}/${selectedResumeName}`)
             setSelectedLink(
-              `http://192.168.1.161:3000/${userDataGlobal.id}/${userDataGlobal.firstName}`
+              `https://www.skilotech.com/${userDataGlobal.id}/${userDataGlobal.firstName}`
             );
           } else {
             console.error("Error Generating Link:", response.data.message);
