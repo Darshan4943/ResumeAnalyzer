@@ -786,8 +786,8 @@ function AccountDetails({
         )}
         <div className=" w-full font-[500] flex flex-row gap-[16px] justify-between ">
           <button
-            className="buttons rounded-[30px]"
-            id="border_button"
+            className="blue_border_Button rounded-[30px] h-[38px] px-6"
+           
             onClick={(e) => {
               e.preventDefault();
               router.back();
@@ -796,8 +796,8 @@ function AccountDetails({
             Cancel
           </button>
           <button
-            className="buttons rounded-[30px] font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
-            id="border_button"
+            className="bg_Button rounded-[30px] h-[38px] px-6 sm:min-w-[191px]"
+            
             onClick={
               (selectedPlan.isFree) ? handleFreeSession : purchaseHandler
             }

@@ -28,11 +28,13 @@ function HeaderSidebar({
     "Companies",
     "Job Posting",
     "Hiring",
-    "Candidates",
-
-    "My Collection",
-
     "JD Matching",
+    "JD Creation",
+    "My Collection",
+    "Mail Templates",
+    "Resumes"
+
+
 
   ];
   const loginListEmployer = [
@@ -41,11 +43,11 @@ function HeaderSidebar({
     "Job Posting",
     "Hiring",
     "Preboarding",
-
-    "My Collection",
-
     "JD Matching",
-
+    "JD Creation",
+    "My Collection",
+    "Mail Templates",
+ 
   ];
   const router = useRouter();
   const [visible, setvisible] = useState(false);
@@ -211,29 +213,51 @@ function HeaderSidebar({
                   ...getListItemStyles("/candidates"),
                   transition: "transform 0.8s ease-in-out",
                 }),
+                ...(item === "Companies" && {
+                  ...getListItemStyles("/recruiter/companies"),
+                  transition: "transform 0.8s ease-in-out",
+                }),
+                ...(item === "Requisition" && {
+                  ...getListItemStyles("/employer/requisition"),
+                  transition: "transform 0.8s ease-in-out",
+                }),
+                ...(item === "Job Posting" && {
+                  ...getListItemStyles("/common/jobPosting"),
+                  transition: "transform 0.9s ease-in-out",
+                }),
+               
                 ...(item === "Create New Resume" && {
                   ...getListItemStyles("/createResume/BuildResume"),
-                  transition: "transform 0.8s ease-in-out",
+                  transition: "transform 1.2s ease-in-out",
                 }),
                 ...(item === "Create New Cover Letter" && {
                   ...getListItemStyles(userDataGlobal?.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`),
-                  transition: "transform 0.8s ease-in-out",
+                  transition: "transform 1.3s ease-in-out",
                 }),
                 ...(item === "My Resumes" && {
                   ...getListItemStyles("/home/MyCollection"),
-                  transition: "transform 0.8s ease-in-out",
+                  transition: "transform 1.4s ease-in-out",
                 }),
                 ...(item === "Transform CV" && {
                   ...getListItemStyles("/transform/TransformJob"),
-                  transition: "transform 0.9s ease-in-out",
+                  transition: "transform 1.5s ease-in-out",
+                }),
+                ...(item === "Hiring" && {
+                  ...getListItemStyles("/common/hiring"),
+                  transition: "transform 1s ease-in-out",
+                }),
+
+                ...(item === "Preboarding" && {
+                  ...getListItemStyles("/employer/Preboarding"),
+                  transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "JD Matching" && {
                   ...getListItemStyles("/JobMatching/SelectJob"),
-                  transition: "transform 1s ease-in-out",
+                  transition: "transform 1.2s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
                   ...getListItemStyles(userDataGlobal?.role === "user" ? "/candidate/MyCollection" : "/myCollection"),
-                  transition: "transform 1.1s ease-in-out",
+                  transition: "transform 1.3s ease-in-out",
                 }),
                 ...(item === "Skill Assessments & Certification" && {
                   ...getListItemStyles("/candidate/SkillAssessment"),
@@ -243,10 +267,7 @@ function HeaderSidebar({
                   ...getListItemStyles("/jobs/candidate"),
                   transition: "transform 1.1s ease-in-out",
                 }),
-                ...(item === "Job Posting" && {
-                  ...getListItemStyles("/common/jobPosting"),
-                  transition: "transform 1.1s ease-in-out",
-                }),
+                
                 ...(item === "Ask Krut" && {
                   ...getListItemStyles("/chatbot"),
                   transition: "transform 1.1s ease-in-out",
@@ -259,21 +280,18 @@ function HeaderSidebar({
                   ...getListItemStyles("/purchase/MyPurchase"),
                   transition: "transform 1.2s ease-in-out",
                 }),
-                ...(item === "Hiring" && {
-                  ...getListItemStyles("/common/hiring"),
-                  transition: "transform 1.2s ease-in-out",
+                
+                ...(item === "JD Creation" && {
+                  ...getListItemStyles("/jdCreation"),
+                  transition: "transform 1.3s ease-in-out",
                 }),
-                ...(item === "Companies" && {
-                  ...getListItemStyles("/recruiter/companies"),
-                  transition: "transform 1.2s ease-in-out",
+                ...(item === "Mail Templates" && {
+                  ...getListItemStyles("/template"),
+                  transition: "transform 1.4s ease-in-out",
                 }),
-                ...(item === "Requisition" && {
-                  ...getListItemStyles("/employer/requisition"),
-                  transition: "transform 1.2s ease-in-out",
-                }),
-                ...(item === "Preboarding" && {
-                  ...getListItemStyles("/employer/Preboarding"),
-                  transition: "transform 1.2s ease-in-out",
+                ...(item === "Resumes" && {
+                  ...getListItemStyles("/recruiter/resumeCreation"),
+                  transition: "transform 1.5s ease-in-out",
                 }),
 
               }}
@@ -300,6 +318,12 @@ function HeaderSidebar({
                   case "Candidates":
                     handleNavigation("/candidates");
                     break;
+                    case "Resumes":
+                      handleNavigation("/recruiter/resumeCreation");
+                      break;
+                      case "JD Creation":
+                      handleNavigation("/jdCreation");
+                      break;
                   case "Create New Resume":
                     handleNavigation(userDataGlobal?.role === "user"
                       ? "/createResume/BuildResume"
@@ -348,6 +372,9 @@ function HeaderSidebar({
                   case "Preboarding":
                     handleNavigation("/employer/Preboarding");
                     break;
+                    case "Mail Templates":
+                      handleNavigation("/template");
+                      break;
                   default:
                     break;
                 }

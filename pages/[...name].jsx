@@ -145,7 +145,7 @@ const Name = () => {
           </button>
         </div>
       </div>
-      <div className="flex  flex-col gap-4  items-center  my-12 website">
+      <div className="flex  flex-col gap-4  items-center  py-12 website">
         {!loadingg && (
           <div className="text-[16px] text-gray-800 font-medium mobile600">
             {selectedResume?.resumeName?.length > 22

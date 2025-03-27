@@ -389,8 +389,8 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               >
                 <div
                   key={index}
-                  onClick={() => clickHandler(plan.index)}
-                  className={`group relative mt-[40px] bg-white cursor-pointer flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card min-w-[280px] xsm:min-w-[310px] h-fit ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
+                 
+                  className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card min-w-[280px] xsm:min-w-[310px] h-fit ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
                     } `}
                   style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
                 >
@@ -558,7 +558,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                       </button>
                     ) : (
                       <button
-
+                      onClick={() => clickHandler(plan.index)}
                         className="px-6 py-3 bg-[#06A9EF] xl:text-[16px] text-white rounded-[12px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                       >
                         Purchase Plan

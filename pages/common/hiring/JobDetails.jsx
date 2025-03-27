@@ -161,6 +161,7 @@ function JobDetails({ jobDetails, totalCount }) {
                 <p className="text-[#333] font-medium text-[18px] font-Montserrat">
                   About this role
                 </p>
+                {jobDetails?.openPositions &&
                 <div className="flex flex-col p-4 gap-2 self-stretch items-start bg-[#F8F8FD]">
                   <p className="text-[16px] font-semibold font-Montserrat text-[#333]">
                     {totalCount} applied{" "}
@@ -182,6 +183,7 @@ function JobDetails({ jobDetails, totalCount }) {
                     ></div>
                   </div>
                 </div>
+}
                 <div className="flex justify-between items-start self-stretch">
                   <p className="text-[16px] text-[#646464] font-medium font-Montserrat">
                     Apply Before
