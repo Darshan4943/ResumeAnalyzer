@@ -42,9 +42,8 @@ const TopCompanies = () => {
 
 
   return (
-    <div className={`bg-white rounded-[16px] p-3 sm:p-6 gap-[20px] ${
-      company?.length === 0 ? "hidden" : ""
-    }`}>
+    <div className={`bg-white rounded-[16px] p-3 sm:p-6 gap-[20px] ${company?.length === 0 ? "hidden" : ""
+      }`}>
       <div className="gap-[20px] flex flex-col">
         <div className="flex justify-between item-center ">
           <div className="flex flex-col gap-[6px]">
@@ -76,37 +75,39 @@ const TopCompanies = () => {
             <>
               {!loading && !error && company?.length > 0
                 ? company.map((job) => (
-                    <SwiperSlide key={job._id}>
-                      <div className="w-full border-[1px] flex flex-col items-center justify-between py-1 border-[#CBCBCB] rounded-[10px] gap-[12px]">
-                        <div className="flex flex-col items-center gap-2 pt-1">
-                          <img
-                            src={job.companyLogo}
-                            className="max-w-[80px] max-h-[20px]  object-fit min-h-[20px] min-w-[40px] "
-                            alt={`${job.name} Icon`}
-                          />
-                          <div className="flex flex-col items-center">
-                            <div className="sm:text-[16px] text-[12px] font-[600]">
-                              {job.name.length > 12
-                                ? job.name.slice(0, 12) + "..."
-                                : job.name}
-                            </div>
+                  <SwiperSlide key={job._id}>
+                    <div className="w-full border-[1px] h-[136.6px] flex flex-col items-center justify-between py-1 border-[#CBCBCB] rounded-[10px] gap-[12px]">
+                      <div className="flex flex-col items-center justify-between gap-2 pt-1 h-full">
 
-                            <div className="flex items-center xsm:flex-col scr420:flex-row gap-[5px]">
-                              <div className="flex gap-[4px]">
-                                <div className="w-[14px] h-[14px]">
-                                  <img
-                                    src="/images/withoutLogin/Star.png"
-                                    alt="Rating Icon"
-                                  />
-                                </div>
-                                <div className="text-[12px] font-[400]">
-                                  {job.averageRating}
-                                </div>
+                        <img
+                          src={job.companyLogo}
+                          className="  max-w-[76px]  max-h-[40px] object-cover"
+                          alt={`${job.name} Icon`}
+                        />
+
+
+                        <div className="flex flex-col items-center">
+                          <div className="sm:text-[16px] text-[12px] font-[600]">
+                            {job.name.length > 12
+                              ? job.name.slice(0, 12) + "..."
+                              : job.name}
+                          </div>
+
+                          <div className="flex items-center xsm:flex-col scr420:flex-row gap-[5px]">
+                            <div className="flex gap-[4px]">
+                              <div className="w-[14px] h-[14px]">
+                                <img
+                                  src="/images/withoutLogin/Star.png"
+                                  alt="Rating Icon"
+                                />
                               </div>
-                              <div className="border-[1px] border-[#C5C5C5]"></div>
-                              <div className="text-[10px] scr420:text-[12px] font-[400]">
-                                {job.totalReviews} Reviews
+                              <div className="text-[12px] font-[400]">
+                                {job.averageRating}
                               </div>
+                            </div>
+                            <div className="border-[1px] border-[#C5C5C5]"></div>
+                            <div className="text-[10px] scr420:text-[12px] font-[400]">
+                              {job.totalReviews} Reviews
                             </div>
                           </div>
                         </div>
@@ -114,15 +115,17 @@ const TopCompanies = () => {
                           onClick={(e) => {
                             e.stopPropagation();
                             router.push(`/jobs/candidate/aboutcompanies?id=${job._id}&role=employer`)
-                          
+
                           }}
                           className="text-[#06A9EF] text-[14px] font-[600] flex justify-center cursor-pointer"
                         >
                           View Job
                         </div>
                       </div>
-                    </SwiperSlide>
-                  ))
+
+                    </div>
+                  </SwiperSlide>
+                ))
                 : !loading && <p>No companies found.</p>}
             </>
           </Swiper>
