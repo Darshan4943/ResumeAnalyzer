@@ -779,13 +779,13 @@ function EditProfile({ setEditProfile }) {
           <div className="flex justify-end items-start self-stretch gap-[12px]">
             <button
               onClick={() => setEditProfile(false)}
-              className="flex py-[8px] px-[16px] justify-center items-center rounded-[8px]    text-[16px] font-[500] border-[1px] border-solid border-[#06A9EF]"
+              className="flex  justify-center items-center rounded-[30px]  h-[38px] blue_border_Button px-6   "
             >
               Cancel
             </button>
             <button
               disabled={loading}
-              className=" w-[148px] flex py-[8px] px-[16px] justify-center items-center rounded-[8px] text-[#fff] text-[16px] font-[500] border-[1px] border-solid bg-[#06A9EF]"
+              className=" w-[156px] flex  px-[24px] justify-center items-center rounded-[30px] text-[#fff] bg_Button h-[38px]"
               onClick={handleSubmit}
             >
               {loading ? <MiniLoader /> : "Save Changes"}
