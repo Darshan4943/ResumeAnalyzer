@@ -49,7 +49,7 @@ function Index() {
                   router.push(`/jobs/candidate/aboutcompanies?id=${i._id}`);
                
                 }}
-                className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px]"
+                className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px] h-fit"
               >
                 <img
                   src={i.companyLogo}
