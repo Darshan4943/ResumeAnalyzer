@@ -6,7 +6,6 @@ import { plans } from "../../../../../utils/data";
 import MiniLoader from "../../../../common/miniLoader";
 
 function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
-
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [progress1, setProgress1] = useState(0);
@@ -40,11 +39,9 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     const aiHitMonthlyLimit = JSON.parse(
       localStorage.getItem("aiHitsMonthlyLimit")
     );
-    setProgress1(100 - ((aiHitMonthly * 100) / aiHitMonthlyLimit))
+    setProgress1(100 - (aiHitMonthly * 100) / aiHitMonthlyLimit);
     setAiHitMonthlyLimit(aiHitMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("planActive"));
-
-
   };
   useEffect(() => {
     getLimits();
@@ -89,7 +86,10 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
+        .get(
+          "https://dev.api.skilotech.com/api/subscription/" +
+            userDataGlobal?._id
+        )
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -100,9 +100,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-              100
+                100
             );
-
           }
           setTimeout(() => {
             setLoading(false);
@@ -120,439 +119,147 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
   return (
     <>
       {!loading ? (
-        <div className="bg-[#FFFFFF] rounded-[16px] p-[24px] flex flex-col gap-[16px] w-full">
+        <div className="flex flex-col gap-1">
           <p className="text-[18px] font-[600]"> Usage Summary</p>
 
-          <div className="flex xxlg:flex-row flex-col xxlg:gap-4 gap-6 items-center">
-            <div className="flex flex-col gap-3 xxlg:w-[50%] w-full">
-              <div className="flex flex-col ">
-                <div className="text-[14px] font-[500]">Credit balance</div>
-                <div className="flex scr420:flex-row flex-col scr1400:gap-[80px]  scr420:gap-12 gap-6 items-center  ">
-                  <div className="flex flex-col gap-4 ">
-                    <div className="flex items-center justify-center">
-                      <svg className="transform rotate-270 w-[160px] h-[160px]">
-                        <circle
-                          cx="80"
-                          cy="80"
-                          r="70"
-                          stroke="#DEDEDE"
-                          strokeWidth="8"
-                          fill="transparent"
-                        />
-                        <circle
-                          cx="80"
-                          cy="80"
-                          r="70"
-                          stroke="#06A9EF"
-                          strokeWidth="8"
-                          fill="transparent"
-                          strokeDasharray={(isActive = 2 * Math.PI * 70)}
-                          strokeDashoffset={
-                            isActive ? dashOffset : 2 * Math.PI * 70
-                          }
-                        />
-                      </svg>
+          <div className="bg-[#FFFFFF] rounded-[16px] p-3 scr540:p-[24px] flex flex-col gap-[16px] w-full">
+            <div className="text-[14px] font-[500]">Credit balance</div>
+            <div className="flex scr1024:flex-row flex-col gap-4 scr540:gap-5 w-full justify-center items-center ">
+              <div className="flex flex-col gap-4 border-[1px] border-[#DEDEDE] rounded-[12px] p-[20px] w-full scr540:w-[300px] ">
+                <div className="text-[16px] font-[500]">
+                  Plan Validity Day’s Overview
+                </div>
+                <div className="flex items-center justify-center">
+                  <svg className="transform rotate-270 w-[160px] h-[160px]">
+                    <circle
+                      cx="80"
+                      cy="80"
+                      r="70"
+                      stroke="#DEDEDE"
+                      strokeWidth="8"
+                      fill="transparent"
+                    />
+                    <circle
+                      cx="80"
+                      cy="80"
+                      r="70"
+                      stroke="#06A9EF"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={(isActive = 2 * Math.PI * 70)}
+                      strokeDashoffset={
+                        isActive ? dashOffset : 2 * Math.PI * 70
+                      }
+                    />
+                  </svg>
 
-                      <div
-                        className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
-                        style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
-                      >
-                        {isActive ? daysRemaing : "0"} days
-                        <p className="text-[12px] font-medium">Remaining</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4 items-center text-[12px] font-medium">
-                      <div className="flex gap-2 items-center">
-                        Remaining
-                        <div className="w-[16px] h-[16px] rounded-[2px] bg-blue"></div>
-                      </div>
-                      <div className="flex gap-2 items-center">
-                        Used
-                        <div className="w-[16px] h-[16px] rounded-[2px] bg-[#DEDEDE]"></div>
-                      </div>
-                    </div>
+                  <div
+                    className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
+                    style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
+                  >
+                    {isActive ? daysRemaing : "0"} days
+                    <p className="text-[12px] font-medium">Remaining</p>
                   </div>
+                </div>
+                <div className="flex gap-4 items-center text-[12px] font-medium">
+                  <div className="flex gap-2 items-center">
+                    Remaining Day’s
+                    <div className="w-[16px] h-[16px] rounded-[2px] bg-blue"></div>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    Used Day’s
+                    <div className="w-[16px] h-[16px] rounded-[2px] bg-[#DEDEDE]"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-4 border-[1px] border-[#DEDEDE] rounded-[12px] p-[20px] justify-center relative w-full scr540:w-[390px]">
+                <div className="text-[16px] font-[500]">AI Hits Overview</div>
+                <svg
+                  className="w-[250px] scr420:w-[300px]"
+                  width="300"
+                  height="200"
+                  viewBox="0 0 200 100"
+                >
+                  <path
+                    d="M 10,90 A 90,90 0 0,1 190,90"
+                    stroke="#DEDEDE"
+                    strokeWidth="8"
+                    fill="transparent"
+                  />
+                  <path
+                    d="M 10,90 A 90,90 0 0,1 190,90"
+                    stroke="#0879A9"
+                    strokeWidth="8"
+                    fill="transparent"
+                    strokeDasharray={circumference1}
+                    strokeDashoffset={
+                      circumference1 - (progress1 / 100) * circumference1
+                    }
+                  />
+                </svg>
 
-                  <div className=" scr420:min-w-[1px] min-w-full bg-[#DEDEDE] scr420:h-[192px] h-[1px]"></div>
-
-                  <div className="flex flex-col gap-4">
-                    {isActive ? (
-                      <div className="flex flex-col justify-center items-center gap-2 ">
-                        {isFree ? (
-                          <p className="ml:text-[2vw] font-[700] text-[24px] text-center">
-                            {" "}
-                            Free
-                          </p>
-                        ) : (
-                          <div className="flex flex-row gap-2 w-full items-center justify-center">
-                            <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
-                              {icon}
-                            </p>
-                            <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
-                              {Math.ceil(selectedPlan?.amount * exchangeRate)}
-                            </p>
-                          </div>
-                        )}
-                        <p className="text-[12px] font-medium">
-                          Your Plan Validity is {selectedPlan?.days} Days
-                        </p>
-
-                        {(aiHitMonthly >= aiHitMonthlyLimit) &&
-                          <button onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px] ">
-                            Upgrade Plan
-                          </button>
-
-                        }
-
-
-                      </div>
+                <div className="absolute bottom-10 flex flex-col gap-2 text-center text-[14px] font-normal">
+                  <div className="text-black text-[24px] font-bold">
+                    {progress1}%
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px]">
+                    <div className="bg-[#C7E9F7] w-4 h-4 rounded-[2px]"></div>
+                    Total AI Hits:{" "}
+                    <span className=" text-[13px] font-semibold">
+                      {" "}
+                      {aiHitMonthlyLimit}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px]">
+                    <div className="bg-[#0879A9] w-4 h-4 rounded-[2px]"></div>
+                    Remaining AI Hits:{" "}
+                    <span className="text-[13px] font-semibold">
+                      {aiHitMonthlyLimit - aiHitMonthly}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col bg-[#F3F3F3] w-full scr540:w-[462px] h-[284px] justify-center rounded-[12px] gap-4">
+                {isActive ? (
+                  <div className="flex flex-col justify-center items-center gap-2 ">
+                    {isFree ? (
+                      <p className="ml:text-[2vw] font-[700] text-[24px] text-center">
+                        {" "}
+                        Free
+                      </p>
                     ) : (
-                      <div
-                        onClick={() => router.push("/purchase/plans")}
-                        className="bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
-                      >
-                        Purchase Plan
+                      <div className="flex flex-row gap-2 w-full items-center justify-center">
+                        <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
+                          {icon}
+                        </p>
+                        <p className="ml:text-[2vw] font-[700] text-[24px] leading-tight">
+                          {Math.ceil(selectedPlan?.amount * exchangeRate)}
+                        </p>
                       </div>
                     )}
-                  </div>
+                    <p className="text-[12px] font-medium">
+                      Your Plan Validity is {selectedPlan?.days} Days
+                    </p>
 
-                </div>
-              </div>
-            </div>
-
-            <div className="xxlg:hidden w-full h-[1px]  bg-[#DEDEDE]"></div>
-            {/* 
-            <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
-              <p className="text-[16px] font-[500]">Available services</p>
-
-              <div className="flex flex-col gap-5 scr420:text-[14px] text-[12px] font-medium  ">
-                {(userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter") && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Cover Letter Creation
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.coverStored * 100) /
-                                limits?.total?.coverStoredLimit
-                              )
-                              : 0
-                              }%`,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.coverStoredLimit * 100) /
-                              limits?.total?.coverStoredLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.coverStored >
-                              limits?.total?.coverStoredLimit
-                              ? limits?.total?.coverStoredLimit
-                              : limits?.used?.coverStored}
-                            /{limits?.total?.coverStoredLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
+                    {aiHitMonthly >= aiHitMonthlyLimit && (
+                      <button
+                        onClick={() => router.push("/purchase/plans")}
+                        className="px-6 h-[38px] bg_Button rounded-[30px] "
+                      >
+                        Upgrade Plan
+                      </button>
+                    )}
                   </div>
-                )}
-                {(userDataGlobal?.role === "user" || userDataGlobal?.role === "recruiter") && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Resume Creation
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.resumeStored * 100) /
-                                limits?.total?.resumeStoredLimit
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.resumeStoredLimit * 100) /
-                              limits?.total?.resumeStoredLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.resumeStored >
-                              limits?.total?.resumeStoredLimit
-                              ? limits?.total?.resumeStoredLimit
-                              : limits?.used?.resumeStored}
-                            /{limits?.total?.resumeStoredLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {userDataGlobal?.role === "user" && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Skill Assessment
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.skillTest * 100) /
-                                limits?.total?.skillTestLimit
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.skillTestLimit * 100) /
-                              limits?.total?.skillTestLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.skillTest > limits?.total?.skillTestLimit
-                              ? limits?.total?.skillTestLimit
-                              : limits?.used?.skillTest}
-                            /{limits?.total?.skillTestLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {userDataGlobal?.role === "user" && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Certification
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.skillCertified * 100) /
-                                limits?.total?.skillCertifiedLimit
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.skillCertifiedLimit * 100) /
-                              limits?.total?.skillCertifiedLimit
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.skillCertified >
-                              limits?.total?.skillCertifiedLimit
-                              ? limits?.total?.skillCertifiedLimit
-                              : limits?.used?.skillCertified}
-                            /{limits?.total?.skillCertifiedLimit}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {userDataGlobal?.role === "user" && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Chatbot
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.chatBot?.monthly * 100) /
-                                limits?.total?.chatBotLimit?.monthly
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.chatBotLimit?.monthly * 100) /
-                              limits?.total?.chatBotLimit?.monthly
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.chatBot?.monthly >
-                              limits?.total?.chatBotLimit?.monthly
-                              ? limits?.total?.chatBotLimit?.monthly
-                              : limits?.used?.chatBot?.monthly}
-                            /{limits?.total?.chatBotLimit?.monthly}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {(userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer") && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      Jd Matching
-                    </p>
-                    <div className="flex w-full items-center gap-4 ">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.jdMatching?.monthly * 100) /
-                                limits?.total?.jdMatchingLimit?.monthly
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.jdMatchingLimit?.monthly * 100) /
-                              limits?.total?.jdMatchingLimit?.monthly
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.jdMatching?.monthly >
-                              limits?.total?.jdMatchingLimit?.monthly
-                              ? limits?.total?.jdMatchingLimit?.monthly
-                              : limits?.used?.jdMatching?.monthly}
-                            /{limits?.total?.jdMatchingLimit?.monthly}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {(userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "employer") && (
-                  <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                    <p className=" scr420:min-w-[164px] min-w-[140px]">
-                      {" "}
-                      My Collection
-                    </p>
-                    <div className="flex w-full items-center gap-4">
-                      <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px] overflow-hidden">
-                        <div
-                          style={{
-                            width: `${isActive
-                              ? Math.round(
-                                (limits?.used?.collectionStored?.monthly *
-                                  100) /
-                                limits?.total?.collectionStoredLimit?.monthly
-                              )
-                              : 0
-                              }% `,
-                            maxWidth: `${Math.round(
-                              (limits?.total?.collectionStoredLimit?.monthly *
-                                100) /
-                              limits?.total?.collectionStoredLimit?.monthly
-                            )}%`,
-                          }}
-                          className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                        ></div>
-                      </div>
-                      <div className="scr420:min-w-[85px] min-w-[70px] flex items-center">
-                        {isActive ? (
-                          <>
-                            {limits?.used?.collectionStored?.monthly >
-                              limits?.total?.collectionStoredLimit?.monthly
-                              ? limits?.total?.collectionStoredLimit?.monthly
-                              : limits?.used?.collectionStored?.monthly}
-                            /{limits?.total?.collectionStoredLimit?.monthly}
-                          </>
-                        ) : (
-                          "0/0"
-                        )}
-                      </div>
-                    </div>
+                ) : (
+                  <div
+                    onClick={() => router.push("/purchase/plans")}
+                    className="bg_Button flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                  >
+                    Purchase Plan
                   </div>
                 )}
               </div>
-            </div> */}
-            <div className="w-[60%] flex justify-center">
-            <div className="flex items-center justify-center relative">
-              <svg width="300" height="200" viewBox="0 0 200 100">
-                {/* Background Circle */}
-                <path
-                  d="M 10,90 A 90,90 0 0,1 190,90"
-                  stroke="#DEDEDE"
-                  strokeWidth="8"
-                  fill="transparent"
-                />
-                {/* Progress Arc */}
-                <path
-                  d="M 10,90 A 90,90 0 0,1 190,90"
-                  stroke="#0879A9"
-                  strokeWidth="8"
-                  fill="transparent"
-                  strokeDasharray={circumference1}
-                  strokeDashoffset={circumference1 - (progress1 / 100) * circumference1}
-                />
-              </svg>
-
-              {/* Center Content */}
-              <div className="absolute bottom-10 flex flex-col gap-2 text-center text-[14px] font-normal">
-                <div className="text-black text-[24px] font-bold">{progress1}%</div>
-                <div className="flex items-center gap-2 text-[12px]">
-                  <div className="bg-[#C7E9F7] w-4 h-4 rounded-[2px]"></div>
-                  Total AI Hits: <span className=" text-[13px] font-semibold"> {aiHitMonthlyLimit}</span>
-                </div>
-                <div className="flex items-center gap-2 text-[12px]">
-                  <div className="bg-[#0879A9] w-4 h-4 rounded-[2px]"></div>
-                  Remaining AI Hits: <span className="text-[13px] font-semibold">{aiHitMonthlyLimit-aiHitMonthly}</span>
-                </div>
-              </div>
             </div>
-            </div>
-
           </div>
         </div>
       ) : (
