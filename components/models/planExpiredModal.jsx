@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const PlanExpiredModal = () => {
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -17,7 +17,7 @@ const PlanExpiredModal = () => {
         return;
       }
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           if (res.data.success) {
             if (
@@ -26,8 +26,8 @@ const PlanExpiredModal = () => {
             ) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" +
-                    userDataGlobal._id
+                  "https://dev.api.skilotech.com/api/subscription/update/" +
+                    userDataGlobal?._id
                 )
                 .then((res) => {
                   setVisible(true);

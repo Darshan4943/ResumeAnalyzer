@@ -104,7 +104,7 @@ function ThemeForm({
 
   return (
     <div
-      className="flex flex-col rounded-lg bg-white "
+      className="flex flex-col rounded-2xl bg-white p-4 "
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         gap: view ? "16px" : "unset",
@@ -113,7 +113,7 @@ function ThemeForm({
       <div className="flex wrap items-center w-full justify-between gap-2 ">
         <div className="flex wrap gap-[16px] xxsm: items-center justify-center">
           <div
-            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect xxsm:rounded-[8px] gap-1 "
+            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] bg_Button xxsm:rounded-[8px] gap-1 "
             onClick={() => setView(!view)}
           >
             <svg
@@ -131,7 +131,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="scr340:text-[14px] text-[12px] font-medium tracking-wide text-[#fff] cursor-pointer scr500:text-[16px] font-semibold">
+            <h1 className="scr340:text-[14px] text-[12px]  tracking-wide text-[#fff] cursor-pointer scr500:text-[16px] font-semibold">
               Customize
             </h1>
           </div>

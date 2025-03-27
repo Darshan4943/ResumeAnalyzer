@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { setJob } from "../../../Redux/actions";
+
 import { useDispatch } from "react-redux";
 
 const InputBox = ({
@@ -46,7 +46,7 @@ const InputBox = ({
     try {
       // if (country) {
       const response = await axios.post(
-        "https://jamblix.com/api/job/getFilterData",
+        "https://dev.api.skilotech.com/api/job/getFilterData",
         {
           requiredSkills: userSkills?.map((item) => item),
           country,

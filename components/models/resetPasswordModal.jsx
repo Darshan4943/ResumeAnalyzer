@@ -18,7 +18,7 @@ const ResetPasswordModal = ({ visible }) => {
     newConfirm: null,
   });
   const [error, setError] = useState(null);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   useEffect(() => {
     const timer = setTimeout(() => {
       setTabIndex(2);
@@ -52,7 +52,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/updatePassword", {
+      .post("https://dev.api.skilotech.com/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

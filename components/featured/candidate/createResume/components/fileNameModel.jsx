@@ -6,7 +6,8 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
  
   const [name, setName] = useState(data.firstName + (isResume  ? "_resume" : "_cover"));
   const [existingNames, setExistingNames] = useState([]);
- 
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -18,13 +19,13 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,i
       setError("File name cannot exceed 40 characters");
     }
   };
-  const userDataGlobal = useSelector((state) => state.userData);
+
 
   const callData = () => {
-    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     const url = isResume
-    ? `https://jamblix.com/api/resume/${id}`
-    : `https://jamblix.com/api/cover/get/${id}`;
+    ? `https://dev.api.skilotech.com/api/resume/${id}`
+    : `https://dev.api.skilotech.com/api/cover/get/${id}`;
   
     if (id) {
       axios

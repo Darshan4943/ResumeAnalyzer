@@ -12,7 +12,7 @@ function Details() {
   const router = useRouter();
   const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [selectedPlan, setSelectedPlan] = useState();
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
@@ -32,7 +32,7 @@ function Details() {
 
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/plans/getByIndex/${id}`)
+      .get(`https://dev.api.skilotech.com/api/plans/getByIndex/${id}`)
       .then((res) => {
 
         setSelectedPlan(res.data.data[0])
@@ -65,7 +65,8 @@ function Details() {
   };
   
   return (
-    <div className=" flex flex-col gap-9">
+    <div className=" flex flex-col  gap-9 ">
+      {userDataGlobal?.role==="user" &&
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
         <div className=" font-semibold text-[30px] text-white leading-tight">
           Purchase
@@ -74,6 +75,7 @@ function Details() {
           Purchase plan and make payment
         </div>
       </div>
+}
       {successModel.visible && (
         <PaymentSuccess
           successFunction={navigate}
@@ -93,10 +95,10 @@ function Details() {
           <MiniLoader />
         </div>
       ) : (
-        <div className="flex items-center justify-center pb-12  px-2 customMargins ">
+        <div className="flex items-center justify-center pb-12 pt-4  px-2 customMargins ">
           <div
             style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
-            className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px]"
+            className=" flex scr700:flex-row flex-col scr700:p-6 p-3 rounded-[16px] items-top w-[100%] gap-[32px] bg-white"
           >
             <div className="flex flex-col gap-4  plan-container">
               <div className="text-[16px] font-[600]">Subscription Plan</div>
@@ -105,7 +107,7 @@ function Details() {
                 style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
               >
                 <div className="flex text-center flex-col gap-3 text-[#333333] w-[90%]">
-                  <p className="scr700:text-[1.7vw] text-[5vw] font-[600]">
+                  <p className="scr700:text-[16px] text-[5vw] font-[600]">
                     {selectedPlan.type === "candidate" &&
                       <>
                         <span className="text-[#06A9EF]">{selectedPlan?.days} Days</span>{" "}
@@ -119,14 +121,14 @@ function Details() {
                     }
                   </p>
                   <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="ml:text-[2.5vw] text-[24px] font-[700]">
+                    <p className="ml:text-[26px] text-[24px] font-[700]">
                       {icon}
                     </p>
-                    <p className="ml:text-[2.5vw] text-[24px] font-[700]">
+                    <p className="ml:text-[26px] text-[24px] font-[700]">
                       {Math.ceil(selectedPlan?.amount * exchangeRate)}
                     </p>
                   </div>
-                  <p className="scr700:text-[1.1vw] text-[4vw] font-[500]">
+                  <p className="scr700:text-[12px] text-[4vw] font-[500]">
                     {selectedPlan?.description}
                   </p>
                   <div className="bg-[#DEDEDE] h-[2px]" />
@@ -146,7 +148,7 @@ function Details() {
                           fill="#06A9EF"
                         />
                       </svg>
-                      <p className="scr700:text-[0.9vw] text-[3vw] font-[500] w-[80%]">
+                      <p className="scr700:text-[10px] text-[3vw] font-[500] w-[80%]">
                         {feature}
                       </p>
                     </div>

@@ -3,31 +3,107 @@ import { useRouter } from 'next/router';
 
 const Breadcrumb = () => {
   const router = useRouter();
-  const pathSegments = router.asPath.split('/').filter((segment) => segment !== '');
+  const pathSegments = router.asPath.split('?')[0].split('/').filter((segment) => segment !== '');
+
+  const queryParams = new URLSearchParams(router.asPath.split('?')[1] || '');
+
+
+  const breadcrumbMapping = {
+    dashboard: 'Home',
+    Home: 'Home',
+    JobPosting: 'Create Job Post',
+    jobPosting: 'Job Posting',
+    CreateNewJob:"Create New Job",
+    createCompany:"Create Company",
+    CreateNewRequisition:"Create New Requisition",
+    companyDetails:"Company Details",
+    jdCreation:"Jd Creation",
+    editTemplate:"Edit Template",
+    matchJob:"Job Matching",
+    'JobPosting?content=CreateNewJob': 'Create New Job',
+    'ClientDetail': 'Candidate Details',
+    "CreateNewClient":"Create New Candidate",
+    "resumeCreation": "Resume Creation",
+    "CandidateResumeDetails":"Create Resume",
+    "BuildResume":"Create Resume",
+    "createResume":"Create Resume",
+    "Form":"Update Profile",
+    "coverLetter":"Cover Letter",
+    "createJd" : " Create Jd",
+    "myCollection":"My Collection",
+    "PrivacyPolicy":"Privacy Policy",
+    "TermsAndConditions":"Terms And Conditions",
+    "JobMatching":"Job Matching",
+    "SelectJob":"Job Matching",
+    'Requisition?content=CreateNewRequisition': 'Create New Requisition',
+    'Hiring?content=ApplicantDetails': 'Applicant Details',
+    'BulkUploads?content=ApplicantDetails': 'Applicant Details',
+    BulkUploads: 'Bulk Uploads',
+    ClientResume:"Select Candidate",
+    MyPurchase:"My Purchase",
+    details:"Purchase Plan "
+
+  };
+
  
-  const breadcrumbItems = [
-   
-    ...pathSegments.slice(2).map((segment, index) => ({
-      label: segment === 'EmployerHome' ? 'Home' : segment === 'JobPosting' ? 'Job Posting' : segment=== "JobPosting?content=CreateNewJob" ? "Create New Job" :segment === "Requisition?content=CreateNewRequisition" ?"Create New Requisition" :segment === "Hiring?content=JobPost" ?"Job Post" :segment === "Hiring?content=ApplicantDetails" ?"Applicant Details" :segment === "BulkUploads?content=ApplicantDetails" ?"Applicant Details" :segment  === "BulkUploads" ?"Bulk Uploads" :segment,
-      path: `/${pathSegments.slice(0, index + 3).join('/')}`,
-    })),
-  ];
+  const breadcrumbItems = pathSegments.length
+  ? (pathSegments.length > 1 ? pathSegments.slice(1) : pathSegments).map((segment, index) => {
+      const fullPath = `/${pathSegments.slice(0, pathSegments.length > 1 ? index + 2 : index + 1).join('/')}`;
+
+      if (segment === 'JobPost' && queryParams.get('id')) {
+        return { label: 'Job Post', path: fullPath };
+      }
+
+      if (segment === 'CreateNewClient' && queryParams.get('id')) {
+        return { label: 'Update Candidate', path: fullPath };
+      }
+
+      if (segment === 'ApplicantDetails' && queryParams.get('id')) {
+        return { label: 'Applicant Details', path: fullPath };
+      }
+
+      return { label: breadcrumbMapping[segment] || segment, path: fullPath };
+    })
+  : [{ label: 'Home', path: '/' }]; // Default to Home when no path segments exist
+
+  
+  
   
   return (
-    <nav className=" pb-4 pt-6">
-      <ol className="flex">
-        <li className="breadcrumb-item text-[#333]">
-            Skilotech
+    <nav className="py-6 pt-[16px] pb-[12px]">
+    <ol className="flex gap-2 items-center text-sm sm:text-base">
+      <li className="breadcrumb-item text-[12px] text-[#333333]">Skilotech</li>
+      {breadcrumbItems.map((item, index) => (
+        <li
+          key={index}
+          className={`breadcrumb-item text-[#333333] ${
+            index === breadcrumbItems?.length - 1 ? "font-semibold" : "font-medium"
+          } text-xs sm:text-base`} // Small font size for screens <460px
+        >
+          <ALink href={item.path}>
+            <span className="breadcrumb-separator text-[12px] leading-4">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_6706_81040)">
+                  <path
+                    d="M10.4646 7.78125L6.46458 11.7812L5.53125 10.8479L8.59792 7.78125L5.53125 4.71458L6.46458 3.78125L10.4646 7.78125Z"
+                    fill="#495057"
+                  />
+                </g>
+              </svg>
+              {item.label}
+            </span>
+          </ALink>
         </li>
-        {breadcrumbItems.map((item, index) => (
-          <li key={index} className="breadcrumb-item text-[#646464]">
-            <ALink href={item.path}>
-              <span>{item.label}</span>
-            </ALink>
-          </li>
-        ))}
-      </ol>
-    </nav>
+      ))}
+    </ol>
+  </nav>
+  
   );
 };
 

@@ -39,7 +39,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/contactUs/create",
+        "https://dev.api.skilotech.com/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);
@@ -250,7 +250,7 @@ function ContactUs() {
             <div className="w-[100%] flex justify-center">
               <button
                 type="submit"
-                className="buttons hover:bg-[#333] btn_hover_effect bg-[#06A9EF] text-[#fff] font-[600] text-[14px]  leading-[17.07px] font-Montserrat rounded-lg"
+                className="buttons hover:bg-[#333] bg_Button bg-[#06A9EF] text-[#fff] font-[600] text-[14px]  leading-[17.07px] font-Montserrat rounded-lg"
                 id="border_button"
               >
                 Submit

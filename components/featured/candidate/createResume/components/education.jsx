@@ -24,7 +24,6 @@ const Education = ({ setData, data }) => {
       end: { year: currentYear, month: currentMonth },
     },
   });
- 
 
   useEffect(() => {
     if (data) {
@@ -78,7 +77,6 @@ const Education = ({ setData, data }) => {
         end: { year: "", month: "" },
       },
     });
-
   };
 
   const handleEditEducation = (index) => {
@@ -157,7 +155,7 @@ const Education = ({ setData, data }) => {
   return (
     <>
       <div
-        className="flex flex-col py-4 gap-2 rounded-lg bg-white"
+        className="flex flex-col p-4 gap-2 rounded-2xl bg-white"
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
           opacity: isChecked ? 1 : 0.5,
@@ -371,12 +369,9 @@ const Education = ({ setData, data }) => {
                 >
                   Cancel
                 </button>
-                {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                  Update to Profile
-                </button> */}
                 <button
                   onClick={handleSave}
-                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
+                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] bg_Button"
                 >
                   Save
                 </button>
@@ -423,24 +418,6 @@ const Education = ({ setData, data }) => {
               </g>
             </svg>
             <p
-              // onClick={() => {
-              //   setEducationData({
-              //     qualification: "",
-              //     specialization: "",
-              //     instituteName: "",
-              //     type: "full-time",
-              //     location: "",
-              //     duration: {
-              //       start: { year: "Year", month: "Month" },
-              //       end: { year: "Year", month: "Month" },
-              //     },
-              //   });
-              //   setIsModified({
-              //     status: false,
-              //     index: 0,
-              //   });
-              //   setView(true);
-              // }}
               className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >

@@ -12,7 +12,8 @@ const Reference = ({
   setReferenceView,
   setCustomOptions,
 }) => {
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
 
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
@@ -231,7 +232,7 @@ const Reference = ({
   return (
     <>
       <div
-        className="flex flex-col sm:py-4 py-2 gap-2 rounded-lg bg-white "
+        className="flex flex-col p-4 gap-2 rounded-2xl bg-white "
         style={{
           opacity: isChecked ? 1 : 0.5,
         }}
@@ -299,7 +300,7 @@ const Reference = ({
                   className={`flex flex-col gap-2 w-full ${item?.className}`}
                   key={index}
                 >
-                  <div className=" text-[14px] font-montserrat  font-medium">
+                  <div className=" sm:text-[14px] text-[12px] font-montserrat  font-medium">
                     {item?.label}{" "}
                     {item.require && <span className="star">*</span>}
                   </div>

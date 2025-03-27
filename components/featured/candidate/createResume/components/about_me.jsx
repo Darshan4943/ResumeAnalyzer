@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { textFieldClasses } from "@mui/material";
 
 const AboutMe = ({ data, setData }) => {
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [text, setText] = useState("");
   const [attempt, setAttempt] = useState(5);
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,7 @@ const AboutMe = ({ data, setData }) => {
     if (text.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://dev.api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");
@@ -91,7 +92,7 @@ const AboutMe = ({ data, setData }) => {
   return (
     <>
       <div
-        className="flex flex-col py-4 gap-2 rounded-lg bg-white "
+        className="flex flex-col p-4 gap-2 rounded-2xl bg-white "
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
@@ -168,7 +169,7 @@ const AboutMe = ({ data, setData }) => {
           </button>
           <button
             className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-              text?.length !== 0 ? "btn_hover_effect" : ""
+              text?.length !== 0 ? "bg_Button" : ""
             }`}
             onClick={() => setData({ ...data, summery: text })}
             // style={{ opacity: text === data?.summery ? 0.5 : 1 }}

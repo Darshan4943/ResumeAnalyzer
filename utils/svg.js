@@ -18,6 +18,7 @@ export const Visibility_off = ({ className }) => (
     </svg>
   </>
 );
+
 export const Visibility_on = ({ className }) => (
   <>
     <svg
@@ -208,7 +209,31 @@ export const Delete_icon = ({ width = 20, height = 20 }) => (
     </svg>
   </>
 );
+export const ImageSelect = () => (
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_6706_125925)">
+      <rect width="44" height="44" rx="22" fill="#0C8A0A" />
 
+      <g mask="url(#mask0_6706_125925)">
+        <path d="M17.8547 30.1205L10.4297 22.6955L12.4679 20.6573L17.8547 26.044L31.0062 12.8926L33.0444 14.9308L17.8547 30.1205Z" fill="white" />
+      </g>
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_125925">
+        <rect width="44" height="44" rx="22" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+)
+export const DeleteProfileImg = () => (
+
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="white" />
+    <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" stroke="#646464" />
+    <path d="M15.125 34C14.3688 34 13.7214 33.7389 13.1828 33.2167C12.6443 32.6944 12.375 32.0667 12.375 31.3333V14H11V11.3333H17.875V10H26.125V11.3333H33V14H31.625V31.3333C31.625 32.0667 31.3557 32.6944 30.8172 33.2167C30.2786 33.7389 29.6313 34 28.875 34H15.125ZM28.875 14H15.125V31.3333H28.875V14ZM17.875 28.6667H20.625V16.6667H17.875V28.6667ZM23.375 28.6667H26.125V16.6667H23.375V28.6667Z" fill="#FF0000" />
+  </svg>
+
+)
 export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
   <>
     <svg
@@ -222,7 +247,7 @@ export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
       <g mask="url(#mask0_5716_140510)">
         <path
           d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
-          fill="#646464"
+          fill="#333333"
         />
       </g>
     </svg>
@@ -526,6 +551,65 @@ export const PNGICON1 = () => (
   <img src="/images/Document.png" className="h-full w-full object-contain" />
 );
 
+export const UpSvg = () => (
+  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_6706_94625)">
+      <path d="M15.8672 13L10.8672 8L5.86719 13H15.8672Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_94625">
+        <rect width="20" height="20" fill="white" transform="translate(0.867188 0.5)" />
+      </clipPath>
+    </defs>
+  </svg>
+
+)
+export const DownSvg = () => (
+  <svg
+
+    width="21"
+    height="21"
+    viewBox="0 0 21 21"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clipPath="url(#clip0_6706_94637)">
+      <path
+        d="M5.86719 8L10.8672 13L15.8672 8L5.86719 8Z"
+        fill="#000000"
+        stroke="#000000"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_6706_94637">
+        <rect
+          width="20"
+          height="20"
+          fill="white"
+          transform="matrix(-1 0 0 -1 20.8672 20.5)"
+        />
+      </clipPath>
+    </defs>
+  </svg>
+
+)
+export const DummyProfileSvg = () => (
+  <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8424_107234)">
+      <rect x="0.5" width="40" height="40" rx="3.63636" fill="#EDEDED" />
+      <path d="M36.8629 41.2478V42.7226C32.2667 46.4226 26.4158 48.6385 20.0445 48.6385C13.6737 48.6385 7.82211 46.4226 3.22656 42.7238V41.2478C3.22656 33.2801 9.71438 26.8203 17.7174 26.8203H22.3721C30.3751 26.8203 36.8629 33.2801 36.8629 41.2478Z" fill="#AEB6BA" />
+      <path d="M20.0426 22.2727C24.8123 22.2727 28.679 18.4061 28.679 13.6364C28.679 8.86663 24.8123 5 20.0426 5C15.2729 5 11.4062 8.86663 11.4062 13.6364C11.4062 18.4061 15.2729 22.2727 20.0426 22.2727Z" fill="#AEB6BA" />
+    </g>
+    <defs>
+      <clipPath id="clip0_8424_107234">
+        <rect x="0.5" width="40" height="40" rx="20" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+)
 export const ServiceCross = () => (
   <svg
     width="20"
@@ -722,6 +806,14 @@ export const SearchIcon = () => (
     />
   </svg>
 );
+export const UploadSvg = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g mask="url(#mask0_3761_55114)">
+      <path d="M11 16V7.85L8.4 10.45L7 9L12 4L17 9L15.6 10.45L13 7.85V16H11ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#333333" />
+    </g>
+  </svg>
+
+)
 
 export const ListSvg = () => (
   <svg

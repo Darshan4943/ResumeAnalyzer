@@ -13,7 +13,8 @@ import { countries, telCode } from "../../../utils/data";
 import Select from "react-select";
 
 
-const Leftform = ({
+const 
+Leftform = ({
   file,
   setFile,
   data,
@@ -69,7 +70,7 @@ const Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://dev.api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({

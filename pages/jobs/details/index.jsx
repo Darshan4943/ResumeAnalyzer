@@ -16,7 +16,7 @@ const Index = () => {
   const { id, isUser } = router.query;
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(0);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [jobPost, setJobPost] = useState(null);
   const [applications, setApplications] = useState([]);
   const [options, setOption] = useState(10);
@@ -39,7 +39,7 @@ const Index = () => {
     setLoading(true);
     if (id) {
       await axios
-        .get("https://jamblix.com/api/job/getById/" + id)
+        .get("https://dev.api.skilotech.com/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
           setJobPost(res.data);
@@ -66,7 +66,7 @@ const Index = () => {
     if (id) {
       try {
         const res = await axios.get(
-          `https://jamblix.com/api/jobs/SyncById/${id}`
+          `https://dev.api.skilotech.com/api/jobs/SyncById/${id}`
         );
 
         if (res.data.success) {
@@ -85,7 +85,7 @@ const Index = () => {
   const getAllAppliedData = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/job/getSynchData/${id}`,
+        `https://dev.api.skilotech.com/api/job/getSynchData/${id}`,
         {
           params: {
             page,

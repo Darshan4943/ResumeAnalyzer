@@ -45,7 +45,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
       className: " ",
     },
     {
-      label: "Current/ Previous Organization",
+      label: "Organization",
       type: "text",
       name: "organization",
       placeholder: "Organization Name",
@@ -109,7 +109,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/allskills")
+      .get("https://dev.api.skilotech.com/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
@@ -289,7 +289,7 @@ const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
             {inputFields
               .filter(
                 (employer) =>
-                  employer.label === "Current/ Previous Organization" ||
+                  employer.label === "Organization" ||
                   employer.label === "Industry/ Sector"
               )
               .map((employer, index) => (

@@ -25,9 +25,9 @@ function AccountDetails({
   canceled,
   setCancelModel,
 }) {
-  
+
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData); const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
   const [freePlanSuccess, setFreePlanSuccess] = useState(false);
@@ -171,8 +171,8 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://jamblix.com/api/add/subscription", {
-  //         userId: userDataGlobal._id,
+  //       .post("https://dev.api.skilotech.com/api/add/subscription", {
+  //         userId: userDataGlobal?._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
   //         mobileNo: jsonData.mobileNo,
@@ -205,14 +205,14 @@ function AccountDetails({
     if (jsonData) {
       setData({ ...jsonData });
       const selectedItem = telCode.find((item) => item.dial_code === jsonData.dial_code);
-  
+
       if (selectedItem) {
         setSelectedItem(selectedItem);
       }
     } else {
       if (recruiterid) {
         axios
-          .get("https://jamblix.com/api/skiloteckuser/user/" + recruiterid)
+          .get("https://dev.api.skilotech.com/api/skiloteckuser/user/" + recruiterid)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -223,7 +223,7 @@ function AccountDetails({
               dial_code: decode._doc.dial_code ? decode._doc.dial_code : "",
             });
             const selectedItem = telCode.find((item) => item.dial_code === decode._doc.dial_code);
-  
+
             if (selectedItem) {
               setSelectedItem(selectedItem);
             }
@@ -240,7 +240,7 @@ function AccountDetails({
           dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_code : "",
         });
         const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal.dial_code);
-  
+
         if (selectedItem) {
           setSelectedItem(selectedItem);
         }
@@ -266,7 +266,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://jamblix.com/api/getPriceId",
+        "https://dev.api.skilotech.com/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -295,7 +295,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://jamblix.com/api/proceed/payment", {
+            .post("https://dev.api.skilotech.com/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -319,7 +319,7 @@ function AccountDetails({
       try {
         // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://jamblix.com/api/retrieve/session",
+          "https://dev.api.skilotech.com/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -369,8 +369,8 @@ function AccountDetails({
     seticon(icon);
     setexchangeRate(exchangeRate);
     try {
-      await axios.post("https://jamblix.com/api/add/subscription", {
-        userId: userDataGlobal._id,
+      await axios.post("https://dev.api.skilotech.com/api/add/subscription", {
+        userId: userDataGlobal?._id,
         plan: `${selectedPlan.name}`,
         ...jsonData,
         mobileNo: jsonData?.mobileNo,
@@ -418,8 +418,8 @@ function AccountDetails({
       } else {
         setLoading(true);
         try {
-          await axios.post("https://jamblix.com/api/add/subscription", {
-            userId: userDataGlobal._id,
+          await axios.post("https://dev.api.skilotech.com/api/add/subscription", {
+            userId: userDataGlobal?._id,
             plan: `${selectedPlan.name}`,
             firstName: data?.firstName,
             email: data?.email,
@@ -497,7 +497,7 @@ function AccountDetails({
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
             <div className=" absolute rounded-[16px] bg-white shadow-lg  p-6 flex flex-col gap-4 w-[22%] sm:min-w-[366px]  min-w-[260px] justify-center  items-center ">
-              {userDataGlobal.role == "admin" ? (
+              {userDataGlobal?.role == "admin" ? (
                 <div className="flex items-center justify-center h-[80px] w-[80px] bg-[#0C8A0A] rounded-[50%]">
                   <svg
                     width="45"
@@ -531,7 +531,7 @@ function AccountDetails({
 
               <div className="flex flex-col gap-2 text-center">
                 <text className="text-[24px] font-medium">
-                  {userDataGlobal.role == "admin"
+                  {userDataGlobal?.role == "admin"
                     ? "Plan Activated Successfully"
                     : "Our Team Will Reach Out To You Shortly"}
                 </text>
@@ -539,7 +539,7 @@ function AccountDetails({
               <button
                 onClick={() =>
                   router.push(
-                    userDataGlobal.role == "admin"
+                    userDataGlobal?.role == "admin"
                       ? role == "user"
                         ? "/dashboard/Candidates"
                         : "/dashboard/Recruiters"
@@ -556,8 +556,8 @@ function AccountDetails({
       )}
       <div className="flex flex-col gap-6 w-[100%]">
         <div className=" flex flex-col gap-4 justify-center w-[100%] ">
-          <div className="text-[18px] font-[600] ">Account Details</div>
-          <div className="flex flex-col gap-6 w-[100%] text-[14px]">
+          <div className="text-[16px] font-[600] ">Account Details</div>
+          <div className="flex flex-col gap-4 w-[100%] text-[14px]">
             <div className="flex gap-5 w-[100%] ">
               <div className=" w-[50%]">
                 <p className="">
@@ -567,7 +567,7 @@ function AccountDetails({
                   type="text"
                   name=""
                   id="single_input"
-                  placeholder="Enter first name"
+                  placeholder="Enter First Name"
                   value={data.firstName}
                   onChange={(e) =>
                     handleInputChange("firstName", e.target.value)
@@ -588,7 +588,7 @@ function AccountDetails({
                   type="text"
                   name=""
                   id="single_input"
-                  placeholder="Enter Last name"
+                  placeholder="Enter Last Name"
                   value={data.lastName}
                   onChange={(e) =>
                     handleInputChange("lastName", e.target.value)
@@ -626,18 +626,16 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${
-                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                }`}
+                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                  }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                  } items-center`}
+                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                    } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -684,11 +682,10 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${
-                    isViewportBelow850
+                  placeholder={`${isViewportBelow850
                       ? "Enter Number "
                       : "Enter Contact Number "
-                  }`}
+                    }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -697,7 +694,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                  // id="single_input"
+                // id="single_input"
                 />
               </div>
 
@@ -726,9 +723,8 @@ function AccountDetails({
                   )}
 
                   <span
-                    className={`${
-                      selectedPlan.type === "recruiter" && "text-[#06A9EF]"
-                    }`}
+                    className={`${selectedPlan.type === "recruiter" && "text-[#06A9EF]"
+                      }`}
                   >
                     {" "}
                     {selectedPlan?.name}
@@ -790,20 +786,20 @@ function AccountDetails({
         )}
         <div className=" w-full font-[500] flex flex-row gap-[16px] justify-between ">
           <button
-            className="buttons"
+            className="buttons rounded-[30px]"
             id="border_button"
             onClick={(e) => {
               e.preventDefault();
-              router.push("/purchase/plans");
+              router.back();
             }}
           >
             Cancel
           </button>
           <button
-            className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
+            className="buttons rounded-[30px] font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
             onClick={
-             ( selectedPlan.isFree) ? handleFreeSession : purchaseHandler
+              (selectedPlan.isFree) ? handleFreeSession : purchaseHandler
             }
           >
             {loading ? (

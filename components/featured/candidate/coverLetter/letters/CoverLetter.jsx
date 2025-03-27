@@ -199,8 +199,10 @@ function CoverLetter({ page2Ref, page1Ref, data }) {
             <div className="flex flex-col gap-[16px] w-[34%]">
               <span className="text-[12px] font-[400] text-[#414042] font-Lato">
                 Date :-{" "}
-                {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
-                {/* {new Date(data?.letterDate)} */}
+                {/* {data?.letterDate != {} && formatDateInNumber(data?.letterDate)} */}
+                {data?.letterDate
+                  ? new Date(data.letterDate).toLocaleDateString()
+                  : ""}
               </span>
             </div>
           </div>

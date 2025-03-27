@@ -39,7 +39,7 @@ function GenerateAi() {
     };
   }, [generateAiRef]);
 
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   const [animationText, setAnimationText] = useState(" ");
 
@@ -186,7 +186,7 @@ function GenerateAi() {
       setLoading(true);
       setStars(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://dev.api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");
@@ -450,7 +450,7 @@ function GenerateAi() {
                     Generate with AI
                   </p>
                 </button>
-                {/* <button className="py-2 sm:px-4 px-3 btn_hover_effect  text-[9px]  ml:text-[0.9vw] font-semibold bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed ">
+                {/* <button className="py-2 sm:px-4 px-3 bg_Button  text-[9px]  ml:text-[0.9vw] font-semibold bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed ">
                   Save
                 </button> */}
               </div>

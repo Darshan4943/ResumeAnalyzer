@@ -7,7 +7,7 @@
 @import "pages/home";
 @import "pages/job-list";
 @import "pages/editor";
-
+@import "pages/profile";
 @import "pages/sign";
 @import "pages/modal";
 
@@ -134,14 +134,25 @@ html {
   .bg-noJobs {
     background-image: url("../images/jobs/noJobsBg.png");
   }
+  .bg-Skill {
+    background-image: url("../images/withoutLogin/skillBg.png");
+  }
 }
 
 .resumes {
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
-    width: 192px !important;
-    height: 272px !important;
+    width: 234px !important;
+    height: 330px !important;
+  }
+}
+.docs {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 170px !important;
+    height: 260px !important;
   }
 }
 
@@ -160,6 +171,15 @@ html {
     user-select: none !important;
     width: 292px !important;
     height: 372px !important;
+  }
+}
+
+.resumes3 {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 192px !important;
+    height: 272px !important;
   }
 }
 .resumes2 {
@@ -219,7 +239,7 @@ html {
 
 .swiper {
   width: 100%;
-  height: 500px;
+  height: 630px;
 }
 
 .swiper-slide {
@@ -343,7 +363,7 @@ html {
     display: flex;
     position: relative;
 
-    .circle {
+    .circle1 {
       width: 15px;
       height: 15px;
       border-radius: 50%;
@@ -391,8 +411,7 @@ html {
   }
 }
 
-ul,
-ol {
+ul {
   list-style: unset !important;
 }
 
@@ -421,4 +440,72 @@ ol {
 
 .css-occ1gz-control {
   cursor: pointer;
+  // height: 40px !important;
+}
+.css-b62m3t-container {
+  padding: 0 !important;
+}
+
+ol {
+  list-style-type: decimal; /* Use decimal numbers */
+}
+
+.withoutBorder {
+  
+  .select__control {
+    border: none !important;
+    border-radius: 8px;
+    height: 38px !important;
+    padding: 0 !important;
+    padding-left: 8px !important;
+  }
+
+  .select__control .select__value-container {
+    height: 38px !important;
+    padding: 0 !important;
+  }
+
+  .select__value-container {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+
+  .select__value-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .select__multi-value {
+    min-width: 100px !important;
+  }
+
+  .select__placeholder {
+    font-weight: 400;
+    font-size: 12px;
+    color: #767676 !important; 
+  }
+
+  .select__input-container {
+    min-width: 100px !important;
+  }
+}
+
+.JobSectorPlaceHolder {
+  .select__placeholder {
+    font-weight: 400;
+    font-size: 12px;
+    
+    color: #767676;
+  }
+}
+
+.CurrencyClass {
+  .select__control {
+   width: 100%;
+  }
+}
+.css-1u9des2-indicatorSeparator{
+  width: 0;
 }

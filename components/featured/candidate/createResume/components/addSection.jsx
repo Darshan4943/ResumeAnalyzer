@@ -129,7 +129,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   
   return (
     <div
-      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col p-4 gap-2 rounded-2xl bg-white"
       style={{
         opacity: isChecked ? 1 : 0.5,
       }}
@@ -253,7 +253,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               <button
                 onClick={dataSeter}
                 disabled={!isChecked}
-                className="font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] h-[32px] btn_hover_effect"
+                className="font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] h-[32px] bg_Button"
               >
                 Save Details
               </button>

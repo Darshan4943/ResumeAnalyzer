@@ -55,21 +55,23 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
       return;
     }
     if (duration?.duration) {
-      if (Object.keys(duration.duration).length < 2) {
-        toast.error("Please fill duration");
-        return;
-      } else {
+      // if (Object.keys(duration.duration).length < 2) {
+      //   toast.error("Please fill duration");
+      //   return;
+      // } 
+      // else {
         if (Object.keys(duration.duration.start).length < 2) {
           toast.error("Please fill start duration");
           return;
-        } else if (
-          duration.duration.end &&
-          Object.keys(duration.duration.end).length < 2
-        ) {
-          toast.error("Please fill end duration");
-          return;
-        }
-      }
+        } 
+        // else if (
+        //   duration.duration.end &&
+        //   Object.keys(duration.duration.end).length < 2
+        // ) {
+        //   toast.error("Please fill end duration");
+        //   return;
+        // }
+      // }
     } else {
       toast.error("Please fill duration");
       return;
@@ -101,7 +103,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                       className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder="Select Degree"
                       value={data.stream}
                       onChange={(e) =>
@@ -124,7 +126,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                     className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder="Enter Specialization"
                       value={data.specialization}
                       onChange={(e) =>
@@ -150,7 +152,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                       className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder="Enter University Name"
                       value={data.university}
                       onChange={(e) =>
@@ -183,23 +185,22 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     idPrefix="education"
                     data={duration}
                     dataSeter={setDuration}
+                    isRow={true}
                   />
                 </div>
               </div>
-              <div className="bottom_buttons">
+              <div className="w-full flex justify-between pt-4">
                 <button
-                  className="buttons"
-                  id="border_button"
+                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
                   onClick={() => {
                     setTabIndex(2);
                     window.scroll(0, 0);
                   }}
                 >
-                  Go Back
+                  Back
                 </button>
                 <button
-                  className="buttons bg-[#06A9EF] text-white"
-                  id="border_button"
+                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
                   onClick={submitHandler}
                 >
                   Continue

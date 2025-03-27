@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useRouter } from "next/router";
-import { setPageOpened } from "../Redux/actions/website";
+
 import { jwtDecode } from "jwt-decode";
+import { setPageOpened } from "../Redux/slices/websiteSlice";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -95,7 +96,7 @@ const Name = () => {
     dispatch(setPageOpened());
     if (userId) {
       axios
-        .get("https://jamblix.com/api/skiloteckuser/userId/" + userId)
+        .get("https://dev.api.skilotech.com/api/skiloteckuser/userId/" + userId)
         .then((res) => {
           const decode = jwtDecode(res.data.data);
           setSelectedResume(decode._doc);

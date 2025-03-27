@@ -3,12 +3,12 @@ import Progress_bar from "../../../components/featured/jobMatching/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { recallUser } from "../../../Redux/reducers/userReducer";
-import { reCallUserData } from "../../../Redux/actions/user";
+
+
 
 const JobCard = ({ data, setJd, resume, jd }) => {
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isApplied, setIsApplied] = useState(true);
   const [isApply, setIsApply] = useState(false);
   const dispatch = useDispatch();
@@ -17,12 +17,12 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     setLoading(true);
     if (data) {
       axios
-        .get("https://jamblix.com/api/job/getById/" + data?._id)
+        .get("https://dev.api.skilotech.com/api/job/getById/" + data?._id)
         .then((res) => {
           setLoading(false);
           setIsApplied(
             res.data.data.applications?.find(
-              (item) => item.applicantId == userDataGlobal._id
+              (item) => item.applicantId == userDataGlobal?._id
             )
           );
         })
@@ -40,8 +40,8 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/job/apply/" + data?._id, {
-        userId: userDataGlobal._id,
+      .post("https://dev.api.skilotech.com/api/job/apply/" + data?._id, {
+        userId: userDataGlobal?._id,
         resumeId: resume._id,
         percentage: data?.percentage,
       })
@@ -57,9 +57,9 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   };
   const SaveJob = (id) => {
     axios
-      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
-        dispatch(reCallUserData());
+        // dispatch(reCallUserData());
         getData();
         toast.success("Job Saved  Successfully");
       })

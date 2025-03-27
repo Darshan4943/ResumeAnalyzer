@@ -212,7 +212,7 @@ const ExistingChat = ({
                   <p className="text-[14px] font-[500] font-Montserrat">
                     New Chat
                   </p>
-                  <div className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+                  <div className="bg_Button flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
                     +
                   </div>
                 </div>
@@ -405,7 +405,7 @@ const ExistingChat = ({
                         <p className="text-[14px] font-[500] font-Montserrat">
                           New Chat
                         </p>
-                        <div className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+                        <div className="bg_Button flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
                           +
                         </div>
                       </div>

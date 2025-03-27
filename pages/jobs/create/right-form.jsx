@@ -21,7 +21,7 @@ const Rightform = ({
   setFormError,
 }) => {
   const [loading, setLoading] = useState(false);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
   const [skillText, setSkillText] = useState("");
@@ -156,10 +156,10 @@ const Rightform = ({
       formData.append("logo", croppedImage.blob);
       formData.append("fileName", file.name);
     }
-    formData.append("createdBy", userDataGlobal._id);
+    formData.append("createdBy", userDataGlobal?._id);
 
     axios
-      .post("https://jamblix.com/api/job/add/" + id, formData)
+      .post("https://dev.api.skilotech.com/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");

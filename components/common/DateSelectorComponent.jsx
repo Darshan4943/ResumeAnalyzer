@@ -9,7 +9,7 @@ const DateSelectorComponent = () => {
   const handleDownload = async () => {
     try {
       const requestData = isAllSelected ? {} : { startDate, endDate };
-      const response = await axios.post('https://jamblix.com/api/apiLogs/download', requestData, {
+      const response = await axios.post('https://dev.api.skilotech.com/api/apiLogs/download', requestData, {
         responseType: 'blob', // Important to receive the response as a Blob (binary data)
       });
 
@@ -79,7 +79,7 @@ const DateSelectorComponent = () => {
 
       <button
         onClick={handleDownload}
-        className="mt-4 buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect w-full"
+        className="mt-4 buttons font-[500] bg-[#06A9EF] text-white bg_Button w-full"
       >
         Download Logs
       </button>

@@ -28,12 +28,12 @@ import Template48 from "../components/featured/resumeTemplates/Template48";
 import { DocSVG, DocSVG1, PDFSvg, PDFSvg1, PNGICON, PNGICON1 } from "./svg";
 
 export function camelCase(str) {
+  if (typeof str !== "string") return ""; 
   return str
-    ?.toLowerCase() // Convert the entire string to lowercase
-    .replace(/\b\w/g, function (word) {
-      return word.toUpperCase(); // Convert the first character of each word to uppercase
-    });
+    .toLowerCase()
+    .replace(/\b\w/g, (word) => word.toUpperCase());
 }
+
 export const dateSeter = (date) => {
   const monthLater = [
     "Jan",
@@ -69,12 +69,12 @@ export const fileIconSeter = (data) => {
     data?.fileName?.includes("jpeg")
   ) {
     return <PNGICON />;
-  } else {
+  } else if(data.type==="folder") {
     return (
       <svg
         className="min-w-[28px] min-h-[28px]"
-        width="57"
-        height="48"
+        width="50"
+        height="44"
         viewBox="0 0 57 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg "
@@ -89,6 +89,10 @@ export const fileIconSeter = (data) => {
         />
       </svg>
     );
+  }
+  else{
+    return <PDFSvg />;
+
   }
 };
 export const fileIconSeter1 = (data) => {
@@ -168,6 +172,15 @@ export const dateFormatter = (date) => {
   const day = String(currentDate.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
+
+export const formatInterviewDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+};
+
 
 export function timeAgo(date) {
   const currentDate = new Date();

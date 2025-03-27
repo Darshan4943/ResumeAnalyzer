@@ -7,7 +7,8 @@ function Certificate({
   setDownloadCertificate,
   downloadCertificate,
 }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);       
+   const { userDataGlobal } = useSelector((state) => state.user.userData);
 
   function formatDate(inputDate) {
     const date = new Date(inputDate);
@@ -62,7 +63,7 @@ function Certificate({
 
         <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
           <span className="font-Montserrat text-[34px] font-[600] text-[ #333333] uppercase">
-            {userDataGlobal.firstName} {userDataGlobal.lastName}
+            {userDataGlobal?.firstName} {userDataGlobal?.lastName}
           </span>
           <div className="w-[90%] bg-[#FFD500] h-[1.64px]"></div>
         </div>

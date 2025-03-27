@@ -2,15 +2,13 @@ import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { reCallUserData } from "../../../Redux/actions/user";
-import { CountPostingDays } from "../../../utils/data";
+
 import { useRouter } from "next/router";
 
-import AllJobCard from "./AllJobCard";
-import Description from "./Description";
+import AllJobCard from "../../../components/featured/candidate/jobs/AllJobCard";
+import Description from "../../../components/featured/candidate/jobs/Description";
 import MiniLoader from "../../../components/common/miniLoader";
-import NoJobs from "./noJobs";
+import NoJobs from "../../../components/featured/candidate/jobs/noJobs";
 
 function AllJobs({
   setLimitPopup,
@@ -27,7 +25,8 @@ function AllJobs({
   setMiniloading,
   miniLoading,
 }) {
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const router = useRouter();
   const [isDescription, setIsDescription] = useState(false);
@@ -36,23 +35,9 @@ function AllJobs({
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const [savedJobList, setSavedJobList] = useState([]);
 
-  const getData = () => {
-    axios
-      .post("https://jamblix.com/api/job/byIds", {
-        ids: userDataGlobal?.savedJobs
-          ?.map((item) => item.id)
-          .filter((item) => item != "undefined"),
-      })
-      .then((res) => {
-        setSavedJobList(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+ 
   useEffect(() => {
-    if (userDataGlobal._id) {
+    if (userDataGlobal?._id) {
       getData();
     }
   }, [userDataGlobal]);
@@ -72,17 +57,16 @@ function AllJobs({
               {!isDescription && (
                 <div
                   onClick={() => setIsDescription(true)}
-                  className={`mobile1024 ml:mt-4  ${
-                    isViewportBelow600 ? "col-span-12" : "col-span-12"
-                  }`}
+                  className={`mobile1024 ml:mt-4  ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                    }`}
                 >
                   <AllJobCard
                     miniLoading={miniLoading}
                     selectedJob={selectedJob}
                     setIsDescription={setIsDescription}
                     setSelectedJob={setSelectedJob}
-                    savedJobList={savedJobList}
-                    setSavedJobList={setSavedJobList}
+                 
+                   
                     setCurrentPage={setPage}
                     isLogin={isLogin}
                     appliedJobs={appliedJobs}
@@ -103,8 +87,8 @@ function AllJobs({
                   selectedJob={selectedJob}
                   setIsDescription={setIsDescription}
                   setSelectedJob={setSelectedJob}
-                  savedJobList={savedJobList}
-                  setSavedJobList={setSavedJobList}
+                
+                 
                   setCurrentPage={setPage}
                   isLogin={isLogin}
                   appliedJobs={appliedJobs}
@@ -130,9 +114,8 @@ function AllJobs({
 
               {isDescription && (
                 <div
-                  className={`mobile1024 ${
-                    isViewportBelow600 ? "col-span-12" : "col-span-12"
-                  } flex flex-col gap-3 ml:mt-4 `}
+                  className={`mobile1024 ${isViewportBelow600 ? "col-span-12" : "col-span-12"
+                    } flex flex-col gap-3 ml:mt-4 `}
                 >
                   <div
                     onClick={() => setIsDescription(false)}

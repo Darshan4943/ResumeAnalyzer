@@ -22,7 +22,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/candidates", {
+      .get("https://dev.api.skilotech.com/api/candidates", {
         params: { page, limit },
       })
       .then((res) => {
@@ -61,7 +61,7 @@ const Index = () => {
     try {
       let role = "user"
       const response = await axios.post(
-        'https://jamblix.com/api/users/download',
+        'https://dev.api.skilotech.com/api/users/download',
         { role },
         {
           responseType: 'blob',
@@ -103,7 +103,7 @@ const Index = () => {
           </button> */}
           <button
             onClick={handleDownload}
-            className="mt-4 buttons font-[500] bg-[#06A9EF] text-white btn_hover_effect"
+            className="mt-4 buttons font-[500] bg-[#06A9EF] text-white bg_Button"
           >
             Download
           </button>

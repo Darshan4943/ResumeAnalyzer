@@ -1,25 +1,82 @@
-import { AgChartsReact } from "ag-charts-react";
-import { useState } from "react";
+import React, { useRef } from "react";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { Bar } from "react-chartjs-2";
 
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
-const StackedBarChart = ({ data, title,  }) => {
-    const [options, setOptions] = useState({
-        data,
-        title: {
-            text: title,
-        },
-      
-        series: [
+const StackedBarChart = ({ data }) => {
+    const { applicantAnalytics, viewsAnalytics, labels } = data;
+
+    const chartRef = useRef(null);
+
+    const cleanedAnalytics = applicantAnalytics?.filter((item) => item !== null);
+    const cleanedViews = viewsAnalytics?.filter((item) => item !== null);
+    const cleanedLabels = labels?.filter((item) => item !== null);
+
+    const chartData = {
+        labels: cleanedLabels,
+        datasets: [
             {
-                type: "donut",
-                calloutLabelKey: "asset",
-                angleKey: "Recruiters",
-                innerRadiusRatio: 0.6,
+                data: cleanedAnalytics,
+                backgroundColor: "rgba(62, 107, 126, 1)",
+                label: "Job Applied",
+            },
+            {
+                data: cleanedViews,
+                backgroundColor: "rgba(234, 214, 117, 1)",
+                label: "Views",
             },
         ],
-    });
+    };
 
-    return <AgChartsReact options={options} />;
+    // const options = {
+    //     responsive: true,
+    //     plugins: {
+    //         title: {
+    //             display: false,
+    //             text: "",
+    //         },
+    //     },
+    //     scales: {
+    //         x: {
+    //             stacked: true,
+    //         },
+    //         y: {
+    //             stacked: true,
+    //         },
+    //     },
+    // }
+
+    const options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                stacked: true,
+            },
+            y: {
+                stacked: true,
+            },
+        },
+        animation: {
+            duration: 0,
+            y: {
+                from: (ctx) => ctx.chart.scales.y.min, 
+                duration: 1200,
+                easing: "easeOutQuad",
+            },
+        },
+    };  
+
+    return (
+        <div style={{ width: "100%", height: "100%" }}>
+            <Bar ref={chartRef} data={chartData} options={options} />
+        </div>
+    );
 };
 
 export default StackedBarChart;

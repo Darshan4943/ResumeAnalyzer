@@ -1,5 +1,32 @@
+import { toast } from "react-toastify";
 import Template1 from "../components/featured/resumeTemplates/Template1";
 import Template2 from "../components/featured/resumeTemplates/Template2";
+import axios from "axios";
+
+
+
+
+
+export const uploadFile = async (file, fieldName) => {
+  if (!file) return null;
+
+  try {
+    const fileData = new FormData();
+    fileData.append(fieldName, file);
+
+    const response = await axios.post("https://dev.api.skilotech.com/api/upload/document", fileData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return response.data[fieldName];
+  } catch (error) {
+    console.error(`Error uploading ${fieldName}:`, error);
+    toast.error(`Failed to upload ${fieldName}`);
+    return null;
+  }
+};
+
+
 
 export function formatDateInNumber(dateString) {
   // Parse the date string into a Date object
@@ -3103,7 +3130,7 @@ export const currencyMap = [
   { countryCode: "UA", currency: "UAH" }, // Ukraine
   { countryCode: "AE", currency: "AED" }, // United Arab Emirates
   { countryCode: "GB", currency: "GBP" }, // United Kingdom
- 
+
   { countryCode: "US", currency: "USD" }, // United States
   { countryCode: "UM", currency: "USD" }, // United States Minor Outlying Islands
   { countryCode: "UY", currency: "UYU" }, // Uruguay
@@ -3118,6 +3145,68 @@ export const currencyMap = [
   { countryCode: "YE", currency: "YER" }, // Yemen
 
 ];
+
+export const jobSectorOptions = [
+  { sector: "Information Technology", jobCat: ["MNC", "Engineering", "Remote", "Startup"] },
+  { sector: "Healthcare", jobCat: ["MNC", "Fresher"] },
+  { sector: "Education", jobCat: ["MNC", "HR"] },
+  { sector: "Finance", jobCat: ["MNC", "Banking and Finance"] },
+  { sector: "Manufacturing", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Construction", jobCat: ["MNC", "Project Manager"] },
+  { sector: "Retail", jobCat: ["MNC", "Sales", "Marketing"] },
+  { sector: "Hospitality", jobCat: ["MNC", "HR"] },
+  { sector: "Transportation", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Energy", jobCat: ["MNC", "Engineering"] },
+  { sector: "Government", jobCat: ["MNC", "Project Manager"] },
+  { sector: "Entertainment", jobCat: ["MNC", "Design", "Marketing"] },
+  { sector: "Real Estate", jobCat: ["MNC", "Sales"] },
+  { sector: "Agriculture", jobCat: ["MNC"] },
+  { sector: "Telecommunications", jobCat: ["MNC", "Engineering"] },
+  { sector: "Marketing and Advertising", jobCat: ["MNC", "Marketing", "Sales"] },
+  { sector: "Legal Services", jobCat: ["MNC"] },
+  { sector: "Non-Profit", jobCat: ["MNC", "HR"] },
+  { sector: "Science and Research", jobCat: ["MNC", "Engineering"] },
+  { sector: "Aerospace", jobCat: ["MNC", "Engineering", "Project Manager"] },
+  { sector: "Automotive", jobCat: ["MNC", "Engineering", "Supply Chain"] },
+  { sector: "Pharmaceuticals", jobCat: ["MNC", "Fresher", "Engineering"] },
+  { sector: "E-commerce", jobCat: ["MNC", "Startup", "Remote"] },
+  { sector: "Cybersecurity", jobCat: ["MNC", "Remote", "Engineering"] },
+  { sector: "Environmental Services", jobCat: ["MNC"] },
+  { sector: "Biotechnology", jobCat: ["MNC", "Science and Research"] },
+  { sector: "Logistics and Supply Chain", jobCat: ["MNC", "Supply Chain"] },
+  { sector: "Public Relations", jobCat: ["MNC", "Marketing"] },
+  { sector: "Media and Journalism", jobCat: ["MNC", "Marketing"] },
+  { sector: "Sports and Recreation", jobCat: ["MNC"] },
+  { sector: "Human Resources", jobCat: ["MNC", "HR"] },
+  { sector: "Event Planning", jobCat: ["MNC", "Marketing"] },
+  { sector: "Art and Design", jobCat: ["MNC", "Design"] },
+  { sector: "Gaming and Esports", jobCat: ["MNC", "Design", "Remote"] },
+  { sector: "Fitness and Wellness", jobCat: ["MNC"] },
+  { sector: "Marine and Maritime Industry", jobCat: ["MNC"] },
+  { sector: "Insurance", jobCat: ["MNC", "Banking and Finance"] },
+  { sector: "Petroleum and Natural Gas", jobCat: ["MNC", "Engineering"] },
+  { sector: "Waste Management", jobCat: ["MNC"] },
+  { sector: "Military and Defense", jobCat: ["MNC", "Engineering"] },
+  { sector: "Others", jobCat: [] }
+];
+
+export const JobCategories = [
+  { value: "MNC", label: "MNC" },
+  { value: "Sales", label: "Sales" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Engineering", label: "Engineering" },
+  { value: "Supply Chain", label: "Supply Chain" },
+  { value: "Fresher", label: "Fresher" },
+  { value: "Banking and Finance", label: "Banking and Finance" },
+  { value: "Startup", label: "Startup" },
+  { value: "Remote", label: "Remote" },
+  { value: "Project Manager", label: "Project Manager" },
+  { value: "HR", label: "HR" },
+  { value: "Design", label: "Design" },
+  { value: "Others", label: "Others" }
+];
+
+
 
 export const currenciesWithIcons = [
   { name: "US Dollar", symbol: "$", icon: "usd" },
@@ -3363,29 +3452,29 @@ export const countryCondition2 = [
 ]
 
 export const countries = [
-  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
-  "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", 
-  "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", 
-  "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", 
-  "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", 
-  "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Democratic Republic of the Congo", 
-  "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", 
-  "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", 
-  "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", 
-  "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", 
-  "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", 
-  "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", 
-  "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", 
-  "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", 
-  "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", 
-  "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", 
-  "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
-  "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", 
-  "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", 
-  "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", 
-  "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", 
-  "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", 
-  "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", 
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia",
+  "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus",
+  "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
+  "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada",
+  "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)",
+  "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Democratic Republic of the Congo",
+  "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea",
+  "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia",
+  "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti",
+  "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+  "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia",
+  "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi",
+  "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia",
+  "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru",
+  "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia",
+  "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru",
+  "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis",
+  "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe",
+  "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
+  "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan",
+  "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo",
+  "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
+  "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu",
   "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ];
 
@@ -3395,7 +3484,7 @@ export const CountPostingDays = (date) => {
 
   const diffInMilliseconds = currentDate - postingDate;
   const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-  
+
   if (diffInSeconds < 60) {
     return `${diffInSeconds} seconds ago`;
   } else if (diffInSeconds < 3600) {

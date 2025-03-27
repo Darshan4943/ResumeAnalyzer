@@ -1,49 +1,117 @@
 import React, { useEffect, useState } from "react";
-import { DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
+import { ClosedIcon, ClosedIcon1, DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
 import Fuse from "fuse.js";
 
+
 function JdFiles({
+  setIsCollection,
   files,
   details,
-  query,
+  fileName,
   selectedIndexes,
   setSelectedIndexes,
   loading,
   setSelectedIndexesFilesType,
   selectedIndexesFileTypes,
+  setCollection,
+  setTab,
+  setIsOpen,
+  isOpen
 }) {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
-  const { clientId, name } = query;
+
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {
     function sortFoldersAndFiles(data) {
-      return data.sort((a, b) => {
+      return data?.sort((a, b) => {
         if (a.type === b.type) {
           return 0;
         }
         return a.type === "folder" ? -1 : 1;
       });
     }
-    // sortFoldersAndFiles(details);
+    sortFoldersAndFiles(details);
     setData(details);
     setAllData(details);
   }, [details]);
-  const openFolder = (index, parentId, name, item) => {
-    if (item?.type == "file") {
-      window.location.href = item.file;
-    } else {
-      localStorage.setItem("previousPage", window.location.href);
-      router.push({
-        pathname: "/transform/JobMatching",
-        query: { ...query, name, parentId },
+
+
+//   const openFolder = (index, parentId, name, item) => {
+//   if (item?.type === "file") {
+//     window.location.href = item.file;
+//   } else {
+//     const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+//     const currentParentId = localStorage.getItem("parentId");
+//     const currentFileName = localStorage.getItem("fileName");
+
+//     if (currentParentId !== null && currentFileName !== null) {
+//       historyStack.push({
+//         parentId: currentParentId,
+//         fileName: currentFileName,
+//       });
+//       localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+//     }
+
+//     localStorage.setItem("parentId", parentId);
+//     localStorage.setItem("fileName", name);
+//     setIsOpen(!isOpen);
+//   }
+// };
+
+// const handleBack = () => {
+//   const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+
+//   if (historyStack.length > 0) {
+//     const lastFolder = historyStack.pop();
+//     localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+//     localStorage.setItem("parentId", lastFolder.parentId);
+//     localStorage.setItem("fileName", lastFolder.fileName);
+//     setIsOpen(!isOpen);
+//   }
+// };
+
+const openFolder = (index, parentId, name, item) => {
+  if (item?.type === "file") {
+    window.location.href = item.file;
+  } else {
+    const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+    const currentParentId = localStorage.getItem("parentId");
+    const currentFileName = localStorage.getItem("fileName");
+
+    if (currentParentId !== null && currentFileName !== null) {
+      historyStack.push({
+        parentId: currentParentId,
+        fileName: currentFileName,
       });
+      localStorage.setItem("folderHistory", JSON.stringify(historyStack));
     }
-  };
+
+    localStorage.setItem("parentId", parentId || ""); 
+    localStorage.setItem("fileName", name || ""); 
+    setIsOpen(!isOpen);
+  }
+};
+
+const handleBack = () => {
+  const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+
+  if (historyStack.length > 0) {
+    const lastFolder = historyStack.pop();
+    localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+    localStorage.setItem("parentId", lastFolder.parentId);
+    localStorage.setItem("fileName", lastFolder.fileName);
+    setIsOpen(!isOpen);
+  } else {
+    localStorage.setItem("parentId", "");
+    localStorage.setItem("fileName", "");
+  }
+};
+
 
   const fileIconSeter = (data) => {
     if (
@@ -52,7 +120,7 @@ function JdFiles({
       data?.fileName?.includes("DOC") ||
       data?.fileName?.includes("DOCX")
     ) {
-      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
+      return <img src="/images/docIcon.png" className="h-[42px] w-[42px]" />;
       m;
     } else if (
       data?.fileName?.includes("pdf") ||
@@ -68,8 +136,8 @@ function JdFiles({
     } else {
       return (
         <svg
-          width="57"
-          height="48"
+          width="50"
+          height="41"
           viewBox="0 0 57 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg "
@@ -227,118 +295,142 @@ function JdFiles({
     }
   };
 
-  return (
-    <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
-      <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
-        <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
-          {name && (
-            <svg
-              className="min-w-[32px]"
-              onClick={() => router.back()}
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g mask="url(#mask0_1706_29363)">
-                <path
-                  d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
-                  fill="#1C1B1F"
-                />
-              </g>
-            </svg>
-          )}
-          {/* {name && (
-            <span className="text-[14px] text-[#333333] font-normal">
-              {name}
-            </span>
-          )} */}
-          <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
-            <SearchIcon />
 
-            <input
-              type="text"
-              className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
-              placeholder="Search"
-              onChange={(e) => changeHandler(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="w-full flex justify-end">
-          <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
-            <div className="flex gap-2 text-[14px] font-medium">
-              <label className="flex items-center gap-2 text-[14px] font-medium">
-                Select All
+  // useEffect(() => {
+  //   // Check if the query parameter exists in localStorage
+  //   const isFiles = localStorage.getItem("isFiles");
+  //   if (isFiles) {
+  //     localStorage.removeItem("isFiles"); // Clear it once used
+  //     router.replace({
+  //       pathname: router.pathname,
+  //       query: { ...router.query, isFiles },
+  //     });
+  //   }
+  // }, [router]);
+
+  return (
+    <>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
+        <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit ml:w-[60%] w-[90%] ">
+          <div className="flex scr1200:flex-row  flex-col items-center justify-between gap-[12px] relative ">
+
+            <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
+              {fileName && (
+                <svg
+                  className="min-w-[32px]"
+                  onClick={handleBack}
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g mask="url(#mask0_1706_29363)">
+                    <path
+                      d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
+                      fill="#1C1B1F"
+                    />
+                  </g>
+                </svg>
+              )}
+              {fileName && (
+                <span className="text-[14px] text-[#333333] font-medium text-wrap w-[140px]">
+                {fileName.length > 15 ? fileName.slice(0, 15) + "..." : fileName}
+              </span>
+              
+              )}
+              <div className="flex ml-4 flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center ">
+                <SearchIcon />
+
                 <input
-                  type="checkbox"
-                  className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
-                  style={{ width: "20px", height: "20px" }}
-                  // checked={selectAll}
-                  checked={selectedIndexes.length > 0}
-                  onChange={toggleSelectAll}
+                  type="text"
+                  className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
+                  placeholder="Search"
+                  onChange={(e) => changeHandler(e.target.value)}
                 />
-              </label>
+              </div>
             </div>
-            <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
-              {selectedIndexesFileTypes.length} selected
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
-      <div
-        className="flex flex-row flex-wrap gap-4  py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-        // style={{ overflowX: "auto" }}
-      >
-        {loading ? (
-          <div className="w-full ">
-            <MiniLoader />
-          </div>
-        ) : data?.length > 0 ? (
-          data?.map((item, index) => (
-            <>
-              <div
-                key={index}
-                onClick={() => openFolder(index, item._id, item.fileName, item)}
-                className="w-[98px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
-              >
-                <div className="relative">
-                  {fileIconSeter(item)}
-                  {/* {select && ( */}
-                  {(getAllFiles(item).filter((item) => item.type == "file")
-                    ?.length > 0 ||
-                    item.type === "file") && (
+            <div className="w-full  flex justify-end">
+              <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
+                <div className="flex gap-2 text-[14px] font-medium">
+                  <label className="flex items-center gap-2 text-[14px] font-medium">
+                    Select All
                     <input
                       type="checkbox"
-                      className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                      className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
                       style={{ width: "20px", height: "20px" }}
-                      onClick={(e) => e.stopPropagation()}
-                      checked={selectedIndexes?.includes(item._id)}
-                      onChange={() => toggleSelect(item._id, item)}
+                      // checked={selectAll}
+                      checked={selectedIndexes.length > 0}
+                      onChange={toggleSelectAll}
                     />
-                  )}
-                  {/* )} */}
+                  </label>
                 </div>
-
-                <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
-                  {item.fileName.length > 17
-                    ? `${item.fileName.slice(0, 17)}...`
-                    : item.fileName}
-                </span>
-                <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                  {item.fileName}
+                <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
+                  {selectedIndexesFileTypes.length} selected
                 </div>
               </div>
-            </>
-          ))
-        ) : (
-          <div className="text-[20px] font-medium text-center w-full py-[24px]">
-            No Resume Available
+            </div>
           </div>
-        )}
+          <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
+          <div
+            className="flex flex-row flex-wrap gap-4  py-4  h-[50vh] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+          // style={{ overflowX: "auto" }}
+          >
+            {loading ? (
+              <div className="w-full ">
+                <MiniLoader />
+              </div>
+            ) : data?.length > 0 ? (
+              data?.map((item, index) => (
+                <>
+                  <div
+                    key={index}
+                    onClick={() => openFolder(index, item._id, item.fileName, item)}
+                    className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] max-h-[100px] rounded-[8px] cursor-pointer "
+                  >
+                    <div className="relative">
+                      {fileIconSeter(item)}
+                      {/* {select && ( */}
+                      {(getAllFiles(item).filter((item) => item.type == "file")
+                        ?.length > 0 ||
+                        item.type === "file") && (
+                          <input
+                            type="checkbox"
+                            className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                            style={{ width: "20px", height: "20px" }}
+                            onClick={(e) => e.stopPropagation()}
+                            checked={selectedIndexes?.includes(item._id)}
+                            onChange={() => toggleSelect(item._id, item)}
+                          />
+                        )}
+                      {/* )} */}
+                    </div>
+
+                    <span className=" text-[12px] text-[#333333] text-center break-all">
+                      {item.fileName.length > 17
+                        ? `${item.fileName.slice(0, 17)}...`
+                        : item.fileName}
+                    </span>
+                    <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                      {item.fileName}
+                    </div>
+                  </div>
+                </>
+              ))
+            ) : (
+              <div className="text-[20px] font-medium text-center w-full py-[24px]">
+                No Resume Available
+              </div>
+            )}
+          </div>
+          <div className="flex justify-end gap-4">
+            <button onClick={() => { setIsCollection(false); setCollection("") }} className="blue_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"> Cancel</button>
+            <button onClick={() => setIsCollection(false)} className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"> Done</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

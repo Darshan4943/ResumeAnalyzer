@@ -5,10 +5,10 @@ const MiniLoader = () => {
     <div className="miniLoader">
       <div className="box">
         <div className="container">
-          <span className="circle"></span>
-          <span className="circle"></span>
-          <span className="circle"></span>
-          <span className="circle"></span>
+          <span className="circle1"></span>
+          <span className="circle1"></span>
+          <span className="circle1"></span>
+          <span className="circle1"></span>
         </div>
       </div>
     </div>

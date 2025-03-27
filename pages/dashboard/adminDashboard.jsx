@@ -30,7 +30,7 @@ function AdminDashboard({ toggleContentt }) {
   };
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/recruiters")
+      .get("https://dev.api.skilotech.com/api/recruiters")
       .then((res) => {
         setRecruiterData(res.data);
         setUserList(res.data.users.results);
@@ -43,9 +43,8 @@ function AdminDashboard({ toggleContentt }) {
         // setMiniloading(false);
       });
     axios
-      .get("https://jamblix.com/api/activeSubscription")
+      .get("https://dev.api.skilotech.com/api/activeSubscription")
       .then((res) => {
-        console.log(444, res.data.data);
         setActivePlans(res.data.data);
       })
       .catch((err) => {
@@ -53,7 +52,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("https://jamblix.com/api/candidates")
+      .get("https://dev.api.skilotech.com/api/candidates")
       .then((res) => {
         setCandidateData(res.data);
 
@@ -65,7 +64,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("https://jamblix.com/api/enquires")
+      .get("https://dev.api.skilotech.com/api/enquires")
       .then((res) => {
         setList(res.data.data.results);
         setInquiriesData(res.data);
@@ -76,7 +75,7 @@ function AdminDashboard({ toggleContentt }) {
         setLoading(false);
       });
 
-    axios.get("https://jamblix.com/api/activeRecruiters").then((res) => {
+    axios.get("https://dev.api.skilotech.com/api/activeRecruiters").then((res) => {
       console.log(res);
       setResult(res.data);
     });
@@ -124,6 +123,7 @@ function AdminDashboard({ toggleContentt }) {
   };
 
   return (
+    <>
     <div className=" flex flex-col gap-12 w-[100%] customMargins ">
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
         <div
@@ -365,6 +365,7 @@ function AdminDashboard({ toggleContentt }) {
         )}
       </>
     </div>
+    </>
   );
 }
 

@@ -7,6 +7,7 @@ import EducationDetails from "./StandardFormat/EducationDetails";
 import ProjectInternship from "./StandardFormat/ProjectInternship";
 import axios from "axios";
 import { SparklingStarts } from "../../../../utils/svg";
+import { toast } from "react-toastify";
 
 const CoustomForm = ({
   contentSituation,
@@ -20,31 +21,42 @@ const CoustomForm = ({
   selectedFont,
   isFormat,
   setError,
-  isCoverEdit
+  isCoverEdit,
 }) => {
   const [loading, setLoading] = useState(false);
   const rephrasePassage = () => {
+    if (data.passages.length === 0 || !data.passages[0].trim()) {
+      toast.error("Please fill the data before rephrasing.");
+      return;
+    }
+    if (!Array.isArray(data?.passages)) {
+      console.error("Error: data.passages is not an array", data?.passages);
+      toast.error("Invalid data format. Please try again.");
+      return;
+    }
+
     const oldPassage = data.passages.join(" ");
     setLoading(true);
+
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
+
     axios
-      .post("https://jamblix.com/api/cover/rephrase", { prompt })
+      .post("https://dev.api.skilotech.com/api/cover/rephrase", { prompt })
       .then((res) => {
         const rephrasedPassage = res.data;
 
         setData((prevData) => ({
           ...prevData,
-          passages: rephrasedPassage.passages,
-          // type: "custom",
+          passages: Array.isArray(rephrasedPassage.passages)
+            ? rephrasedPassage.passages
+            : [rephrasedPassage.passages], // Ensure it's always an array
         }));
+
         setLoading(false);
-        // if (!isPlanActive) {
-        //   localStorage.setItem("attempts", attempt - 1);
-        //   getAttempts();
-        // }
       })
       .catch((err) => {
         console.error(err);
+        toast.error("Something went wrong. Please try again.");
         setLoading(false);
       });
   };
@@ -75,7 +87,12 @@ const CoustomForm = ({
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
           <EmployerDetails data={data} setData={setData} setError={setError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <CustomLetterBody data={data} setData={setData} setError={setError} isCoverEdit={isCoverEdit} />
+          <CustomLetterBody
+            data={data}
+            setData={setData}
+            setError={setError}
+            isCoverEdit={isCoverEdit}
+          />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
               className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "

@@ -18,6 +18,17 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     dial_code: "",
     address: "",
   });
+
+
+  useEffect(() => {
+    if (data?.dial_code) {
+      const matchedItem = telCode.find((item) => item.dial_code === data.dial_code);
+      if (matchedItem) {
+        setSelectedItem(matchedItem);
+      }
+    }
+  }, []);
+
   const [formErrors, setFormErrors] = useState({
     firstName: false,
     lastName: false,

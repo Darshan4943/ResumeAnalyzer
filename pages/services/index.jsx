@@ -2,72 +2,63 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function Services({ isServices, isMove, setIsMove }) {
+function Services() {
   const router = useRouter();
-
+  const [candidate, setCandidate] = useState("user");
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [isServices, setServices] = useState(true);
+  const [isMove, setIsMove] = useState(false);
+  const isLogin = useSelector((state) => state.auth.isLogin);
   useEffect(() => {
-    if (isServices) {
-      const imagedownTimer = setTimeout(() => {
-        setIsMove(true);
-      }, 200);
+    const imagedownTimer = setTimeout(() => {
+      setIsMove(true);
+    }, 200);
 
-      return () => {
-        clearTimeout(imagedownTimer);
-      };
-    }
-  }, [isServices]);
+    return () => {
+      clearTimeout(imagedownTimer);
+    };
+  }, []);
 
-  const userDataGlobal = useSelector((state) => state.userData);
   const loginListCandidate = [
     {
       name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/createResume.png",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       desc: "Provides concise, customized resumes for your career success.",
       color: "#06A9EF",
     },
     {
       name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/cover.png",
+      imgSrc: "/images/resumeBuilder/servicesCover.png",
       desc: "Highlight your application, key qualifications, and best skills",
-      color: "#9747FF",
+      color: "#06A9EF",
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collection.png",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
       desc: "Save multiple resumes & cover letters in cloud storage",
-      color: "#45ABA0",
+      color: "#06A9EF",
     },
-    // {
-    //   name: "My Resumes",
-    //   imgSrc: "/images/resumeBuilder/myResume.png",
-    //   desc: "Save multiple resumes with multiple folders in cloud storage.",
-    //   color: "#00D2EF",
-    // },
-    // {
-    //   name: "Transform CV",
-    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
-    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
-    //   color: "#428FF5",
-    // },
+
     {
       name: "Skill Assessments & Certification",
-      imgSrc: "/images/resumeBuilder/skill_assessments.png",
+      imgSrc: "/images/resumeBuilder/servicesSkill.png",
       desc: "Test your skills and improve knowledge to crack job interviews.",
-      color: "#FE7701",
+      color: "#06A9EF",
     },
     {
       name: "Ask Krut",
-      imgSrc: "/images/resumeBuilder/bot1.png",
+      imgSrc: "/images/resumeBuilder/servicesChat.png",
       desc: "Ask for anything and generate fast responses with our bot.",
-      color: "#7994D8",
-      new: "New",
+      color: "#06A9EF",
+      new: "AI",
     },
     {
       name: "My Website",
-      imgSrc: "/images/resumeBuilder/website.png",
+      imgSrc: "/images/resumeBuilder/servicesWebsite.png",
       desc: "Generate link to your profile preview to be seen anywhere.",
-      color: "#FD3A84",
-      new: "New",
+      color: "#06A9EF",
+      new: "AI",
     },
     // {
     //   name: "My Purchases",
@@ -77,68 +68,101 @@ function Services({ isServices, isMove, setIsMove }) {
     // },
     {
       name: "Search Jobs",
-      imgSrc: "/images/resumeBuilder/job.png",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Find jobs matching to a particular resume and apply easily.",
-      color: "#6441A5",
-      new: "New",
+      color: "#06A9EF",
+      new: "AI",
     },
   ];
 
   const loginListRecruiter = [
     {
       name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/createResume.png",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
       desc: "Provides concise, customized resumes for your career success.",
       color: "#06A9EF",
     },
     {
       name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/cover.png",
+      imgSrc: "/images/resumeBuilder/servicesCover.png",
       desc: "Highlight your application, key qualifications, and best skills",
-      color: "#9747FF",
+      color: "#06A9EF",
     },
     {
-      name: "My Clients",
-      imgSrc: "/images/resumeBuilder/my_clients.png",
+      name: "My Candidates",
+      imgSrc: "/images/resumeBuilder/servicesCandidate.png",
       desc: "Business empowerment through customized care & strategy.",
-      color: "#FE7701",
+      color: "#06A9EF",
     },
-    // {
-    //   name: "Transform CV",
-    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
-    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
-    //   color: "#428FF5",
-    // },
+
     {
-      name: "Job Description Matching",
-      imgSrc: "/images/resumeBuilder/job_description_matching.png",
+      name: "JD Matching",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
       desc: "Check eligibility level of multiple resumes with a job description.",
-      color: "#B847FF",
+      color: "#06A9EF",
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collection.png",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
       desc: "Save multiple resumes & cover letters in cloud storage",
-      color: "#45ABA0",
+      color: "#06A9EF",
     },
+
     {
-      name: "Ask Krut",
-      imgSrc: "/images/resumeBuilder/bot1.png",
-      desc: "Save multiple resumes with multiple clients in cloud storage.",
-      color: "#7994D8",
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
+      desc: "Post new job openings to connect with more candidates.",
+      color: "#06A9EF",
       new: "New",
     },
-    // {
-    //   name: "My Purchases",
-    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
-    //   desc: "Details of subscription plan and paid services.",
-    //   color: "#8901FF",
-    // },
     {
-      name: "Post Jobs",
-      imgSrc: "/images/resumeBuilder/job.png",
+      name: "Hiring",
+      imgSrc: "/images/resumeBuilder/servicesHiring.png",
+      desc: "Find top talent faster with our advanced hiring tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+  ];
+  const loginListEmployer = [
+    {
+      name: "JD Matching",
+      imgSrc: "/images/resumeBuilder/servicesJd.png",
+      desc: "Check eligibility level of multiple resumes with a job description.",
+      color: "#06A9EF",
+    },
+    {
+      name: "My Collection",
+      imgSrc: "/images/resumeBuilder/servicesCollection.png",
+      desc: "Save multiple resumes & cover letters in cloud storage",
+      color: "#06A9EF",
+    },
+
+    {
+      name: "Job Posting",
+      imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Post new job openings to connect with more candidates.",
-      color: "#6441A5",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Requisition",
+      imgSrc: "/images/resumeBuilder/servicesRequisition.png",
+      desc: "simplify your hiring requests with our requisition management tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Hiring",
+      imgSrc: "/images/resumeBuilder/servicesHiring.png",
+      desc: "Find top talent faster with our advanced hiring tools.",
+      color: "#06A9EF",
+      new: "New",
+    },
+    {
+      name: "Preboarding",
+      imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
+      desc: "Create a seamless transition for your new hires with our preboarding solutions.",
+      color: "#06A9EF",
       new: "New",
     },
   ];
@@ -149,11 +173,21 @@ function Services({ isServices, isMove, setIsMove }) {
   };
 
   const list = () => {
-    if (userDataGlobal.role === "user") {
+    if (userDataGlobal?.role === "user") {
       return loginListCandidate;
-    } else if (userDataGlobal.role === "recruiter") {
+    } else if (userDataGlobal?.role === "recruiter") {
       return loginListRecruiter;
-    } else return loginListRecruiter;
+    } else if (userDataGlobal?.role === "employer") {
+      return loginListEmployer;
+    } else if (candidate === "user") {
+      return loginListCandidate;
+    } else if (candidate === "recruiter") {
+      return loginListRecruiter;
+    } else if (candidate === "employer") {
+      return loginListEmployer;
+    } else {
+      return loginListRecruiter;
+    }
   };
 
   function getServiceItemClassName(itemName) {
@@ -161,29 +195,35 @@ function Services({ isServices, isMove, setIsMove }) {
       case "Create New Resume":
         return "createResume";
       case "Create New Cover Letter":
-        return "createCover";
-      case "My Clients":
-        return "myClinet";
+        return "createResume";
+      case "My Candidates":
+        return "createResume";
       case "My Resumes":
-        return "MyResume";
+        return "createResume";
       case "Transform CV":
-        return "TransFormCV";
-      case "Job Description Matching":
-        return "JobDes";
+        return "createResume";
+      case "JD Matching":
+        return "createResume";
       case "My Collection":
-        return "MyCollection";
+        return "createResume";
       case "Skill Assessments & Certification":
-        return "SkillAss";
+        return "createResume";
       case "My Purchases":
-        return "MyPurchase";
+        return "createResume";
       case "Search Jobs":
-        return "searchJobs";
-      case "Post Jobs":
-        return "postJobs";
+        return "createResume";
+      case "Job Posting":
+        return "createResume";
       case "Ask Krut":
-        return "chatBot";
+        return "createResume";
       case "My Website":
-        return "myWebsite";
+        return "createResume";
+      case "Hiring":
+        return "createResume";
+      case "Preboarding":
+        return "createResume";
+      case "Requisition":
+        return "createResume";
       default:
         return "";
     }
@@ -193,23 +233,24 @@ function Services({ isServices, isMove, setIsMove }) {
     switch (itemName) {
       case "Create New Resume":
         handleNavigation(
-          userDataGlobal.role === "user"
-            ? "/home/BuildResume"
-            : "/myClients/ClientResume"
+          userDataGlobal?.role === "user"
+            ? "/createResume/BuildResume"
+            : "/candidates/ClientResume"
         );
         break;
+
       case "Create New Cover Letter":
         handleNavigation(
-          userDataGlobal.role === "user"
+          userDataGlobal?.role === "user"
             ? "/coverLetter"
             : `/myClients/ClientResume?cover=true`
         );
         break;
-      case "My Clients":
-        handleNavigation("/myClients");
+      case "My Candidates":
+        handleNavigation("/candidates");
         break;
       case "My Resumes":
-        handleNavigation("/home/MyCollection");
+        handleNavigation("/candidate/MyCollection");
         break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
@@ -222,22 +263,24 @@ function Services({ isServices, isMove, setIsMove }) {
         break;
       case "My Collection":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/home/MyCollection" : "/collection"
+          userDataGlobal?.role === "user"
+            ? "/candidate/MyCollection"
+            : "/collection"
         );
         break;
       case "Skill Assessments & Certification":
-        handleNavigation("/home/SkillAssessment");
+        handleNavigation("/candidate/SkillAssessment");
         break;
       case "Ask Krut":
         handleNavigation("/chatbot");
         break;
       case "My Website":
-        handleNavigation("/myWebsite");
+        handleNavigation("/candidate/myWebsite");
         break;
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
-          userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"
+          userDataGlobal?.role === "user" ? "/jobs/candidate" : "/jobs/list"
         );
         break;
       default:
@@ -246,106 +289,70 @@ function Services({ isServices, isMove, setIsMove }) {
   }
 
   return (
-    <div className="fixed z-[2000]  top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
+    <div className="fixed z-[2000]  top-[61px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto   ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform px-4  ease-in-out ${
+          className={`scr420:px-4 px-2 flex scr700:flex-row flex-col scr700:gap-9 gap-6 justify-center w-full transform transition-transform   ease-in-out ${
             isMove
               ? "translate-y-0  opacity-100"
               : "translate-y-[30px] opacity-0 move"
           }`}
           style={{ transition: " all .2s linear" }}
         >
-          <div className="flex flex-col gap-[24px]">
-            <div
-              onClick={() => router.push("/home")}
-              className={` group min-w-[272px] h-[186px] `}
-            >
-              <div className="border border-[#DEDEDE] dashboard group-hover:border-[#F9F9F9] rounded-[24px] bg-[#F9F9F9] flex flex-col justify-between gap-2 p-6  leading-tight cursor-pointer">
-                <div
-                  className=" flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-16px] group-hover:translate-x-0 move"
-                  style={{ transition: " all .3s linear" }}
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row scr700:flex-col gap-4">
+              {(userDataGlobal?.role === "user" || !isLogin) && (
+                <button
+                  onClick={() => setCandidate("user")}
+                  className={`w-[228px] ${
+                    candidate === "user"
+                      ? "bg-blue text-white "
+                      : "border border-blue hover:border-[#0275A7] hover:text-white"
+                  } h-[36px] rounded-[8px]  hover:bg-[#0275A7] flex items-center px-4 text-[14px] font-medium`}
                 >
-                  <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_1897_29995)">
-                      <path
-                        d="M12.6 12.5L8 7.9L9.4 6.5L15.4 12.5L9.4 18.5L8 17.1L12.6 12.5Z"
-                        fill="white"
-                      />
-                    </g>
-                  </svg>
-                </div>
-
-                <div className="flex flex-col gap-2 w-[124px] ">
-                  <svg
-                    className="min-w-[32px]"
-                    width="32"
-                    height="32"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_2038_22277)">
-                      <path
-                        className="icon-path "
-                        d="M7.99997 25.3332H12.4615V17.4101H19.5384V25.3332H24V13.3332L16 7.30755L7.99997 13.3332V25.3332ZM6 27.3331V12.3332L16 4.80762L25.9999 12.3332V27.3331H17.5384V19.4101H14.4615V27.3331H6Z"
-                        fill="#808080"
-                      />
-                    </g>
-                  </svg>
-                  <p className="text-[14px] font-medium group-hover:text-white">
-                    Dashboard
-                  </p>
-                  <p className="text-[12px] font-medium text-[#808080] group-hover:text-white">
-                    Go to your personalized home page
-                  </p>
-                </div>
-              </div>
+                  Candidate
+                </button>
+              )}
+              {(userDataGlobal?.role === "recruiter" || !isLogin) && (
+                <button
+                  onClick={() => setCandidate("recruiter")}
+                  className={`w-[228px] ${
+                    candidate === "recruiter"
+                      ? "bg-blue text-white"
+                      : "border border-blue hover:border-[#0275A7] hover:text-white"
+                  } h-[36px] rounded-[8px]  flex items-center hover:bg-[#0275A7]  px-4 text-[14px] font-medium`}
+                >
+                  Recruiter
+                </button>
+              )}
+              {(userDataGlobal?.role === "employer" || !isLogin) && (
+                <button
+                  onClick={() => setCandidate("employer")}
+                  className={`w-[228px] ${
+                    candidate === "employer"
+                      ? "bg-blue text-white"
+                      : "border border-blue hover:border-[#0275A7] hover:text-white"
+                  } h-[36px] rounded-[8px]  flex items-center hover:bg-[#0275A7] px-4 text-[14px] font-medium`}
+                >
+                  Employer
+                </button>
+              )}
             </div>
-
-            {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={() => router.push('/jobs/saved')}>
-              <svg
-                width="12"
-                height="16"
-                viewBox="0 0 12 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.166504 15.5V2.16667C0.166504 1.70833 0.329698 1.31597 0.656087 0.989583C0.982476 0.663194 1.37484 0.5 1.83317 0.5H10.1665C10.6248 0.5 11.0172 0.663194 11.3436 0.989583C11.67 1.31597 11.8332 1.70833 11.8332 2.16667V15.5L5.99984 13L0.166504 15.5ZM1.83317 12.9583L5.99984 11.1667L10.1665 12.9583V2.16667H1.83317V12.9583Z"
-                  fill="#808080"
-                />
-              </svg>
-              <span className="text-[#33333] text-[16px] font-normal">
-                Saved Jobs
-              </span>
-            </button> */}
-            {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center">
-              <svg
-                width="18"
-                height="17"
-                viewBox="0 0 18 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.33317 16.5001C1.87484 16.5001 1.48248 16.3369 1.15609 16.0105C0.829698 15.6841 0.666504 15.2917 0.666504 14.8334V5.66675C0.666504 5.20841 0.829698 4.81605 1.15609 4.48966C1.48248 4.16328 1.87484 4.00008 2.33317 4.00008H5.6665V2.33341C5.6665 1.87508 5.8297 1.48272 6.15609 1.15633C6.48248 0.829943 6.87484 0.666748 7.33317 0.666748H10.6665C11.1248 0.666748 11.5172 0.829943 11.8436 1.15633C12.17 1.48272 12.3332 1.87508 12.3332 2.33341V4.00008H15.6665C16.1248 4.00008 16.5172 4.16328 16.8436 4.48966C17.17 4.81605 17.3332 5.20841 17.3332 5.66675V14.8334C17.3332 15.2917 17.17 15.6841 16.8436 16.0105C16.5172 16.3369 16.1248 16.5001 15.6665 16.5001H2.33317ZM2.33317 14.8334H15.6665V5.66675H2.33317V14.8334ZM7.33317 4.00008H10.6665V2.33341H7.33317V4.00008Z"
-                  fill="#808080"
-                />
-              </svg>
-
-              <span className="text-[#33333] text-[16px] font-normal">
-                Applied Jobs
-              </span>
-            </button> */}
+            {candidate === "employer" || candidate === "recruiter" ? (
+              <img
+                src="/images/serviceLeftRecruiter.png"
+                alt=""
+                className="w-[228px] h-[346px] rounded-[8px]"
+              />
+            ) : (
+              <img
+                src="/images/serviceLeftCandidate.png"
+                alt=""
+                className="w-[228px] h-[346px]"
+              />
+            )}
           </div>
-          <div className="flex flex-col gap-6 w-[800px]  ">
+          <div className="flex flex-col gap-6 scr700:w-[800px]  ">
             <div className="header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] ">
               Services
             </div>
@@ -355,38 +362,87 @@ function Services({ isServices, isMove, setIsMove }) {
                   key={index}
                   className={`group rounded-[16px] ${(() =>
                     getServiceItemClassName(item.name))()}`}
-                  onClick={() => handleItemClick(item.name)}
+                  onClick={() => {
+                    isLogin && handleItemClick(item.name);
+                  }}
                   onMouseEnter={() => {
                     setVisible(index);
                   }}
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] p-4  ${
+                    className={`flex items-start gap-[20px] scr420:px-4 px-2 scr420:py-3 py-2  ${
                       visible !== index
                         ? "border border-[#DEDEDE]"
                         : "border border-[#FFF]"
-                    } rounded-[16px] cursor-pointer w-[370px] `}
+                    } rounded-[8px]  scr420:w-[370px] h-[66px] ${
+                      isLogin ? "cursor-pointer" : "cursor-default"
+                    }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center scr420:gap-3 gap-2">
                       <img
                         src={item.imgSrc}
                         alt=""
-                        className="w-[46px] h-[46px]"
+                        className="w-[30px] h-[30px]"
                       />
-                      <div className="w-[270px] flex flex-col gap-1  ">
+                      <div className="scr420:w-[270px] w-full flex flex-col gap-1 h-[43px]  ">
                         <div className="flex gap-3 items-center">
-                          <span className="text-[14px] font-medium">
+                          <span className="text-[12px] font-medium leading-tight">
                             {item.name}
                           </span>
                           {item.new && (
-                            <div className="flex justify-center items-center px-2 h-[17px] bg-[#F72C2C] rounded-[4px] text-[#FFF] text-[12px] font-medium leading-tight">
+                            <div
+                              style={{
+                                backgroundColor: "#4C43CD",
+                                backgroundImage: `
+                  radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+                  radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+                `,
+                              }}
+                              className="flex justify-center items-center px-1 h-[15px]  rounded-[4px] text-[#FFF] text-[10px] font-normal leading-tight"
+                            >
+                              <svg
+                                width="11"
+                                height="10"
+                                viewBox="0 0 11 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M4.93291 2.29406C5.26133 3.80704 6.1156 4.71906 7.51333 5.0809C7.53093 5.08513 7.5407 5.10418 7.53679 5.12111C7.53484 5.1338 7.52506 5.14438 7.51333 5.1465C6.10388 5.49565 5.26329 6.42883 4.93096 7.94392C4.92705 7.96296 4.90946 7.97354 4.89186 7.96931C4.88013 7.9672 4.87036 7.95662 4.8684 7.94392C4.54585 6.41825 3.69158 5.50623 2.28994 5.14227C2.27235 5.13803 2.26257 5.11899 2.26648 5.09995C2.26844 5.08725 2.27821 5.07667 2.28994 5.07455C3.69158 4.7254 4.53803 3.80492 4.87231 2.29194C4.87622 2.2729 4.89382 2.26232 4.91141 2.26655C4.92118 2.27502 4.93096 2.28348 4.93291 2.29406Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M8.23025 0.0407713C8.40423 0.836407 8.8519 1.31675 9.58693 1.5072C9.5967 1.50931 9.60061 1.51989 9.59865 1.52836C9.5967 1.5347 9.59279 1.54105 9.58693 1.54105C8.84603 1.72515 8.40228 2.21607 8.2283 3.01171C8.22634 3.02229 8.21657 3.02652 8.20875 3.02441C8.20288 3.02229 8.19702 3.01806 8.19702 3.01171C8.02694 2.20973 7.57733 1.72938 6.84034 1.53682C6.83057 1.5347 6.82666 1.52412 6.82861 1.51566C6.83057 1.50931 6.83448 1.50296 6.84034 1.50296C7.57733 1.31887 8.02303 0.836407 8.19897 0.0386553C8.20093 0.0280751 8.20875 0.0217269 8.21852 0.0238429C8.22439 0.025959 8.2283 0.0323071 8.23025 0.0407713Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M1.40994 1.37472C1.58197 2.17035 2.03158 2.6507 2.76661 2.84114C2.77639 2.84326 2.7803 2.85384 2.77834 2.8623C2.77639 2.86865 2.77248 2.875 2.76661 2.875C2.02572 3.05909 1.58197 3.55002 1.40798 4.34565C1.40603 4.35623 1.39625 4.36047 1.38843 4.35835C1.38257 4.35623 1.37671 4.352 1.37671 4.34565C1.20663 3.54367 0.757014 3.06333 0.0200304 2.87077C0.0102561 2.86865 0.00634635 2.85807 0.00830122 2.8496C0.0102561 2.84326 0.0141658 2.83691 0.0200304 2.83691C0.757014 2.65281 1.20272 2.17035 1.37866 1.3726C1.38061 1.36202 1.39039 1.35779 1.39821 1.3599C1.40407 1.36414 1.40994 1.36837 1.40994 1.37472Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M8.53494 7.01733C8.70892 7.81297 9.15658 8.29331 9.89161 8.48376C9.90139 8.48587 9.9053 8.49645 9.90334 8.50492C9.90139 8.51127 9.89748 8.51762 9.89161 8.51762C9.15072 8.70171 8.70697 9.19264 8.53298 9.98827C8.53103 9.99885 8.52125 10.0031 8.51343 10.001C8.50757 9.99885 8.50171 9.99462 8.50171 9.98827C8.33163 9.18629 7.88201 8.70594 7.14503 8.51338C7.13526 8.51127 7.13135 8.50069 7.1333 8.49222C7.13526 8.48587 7.13917 8.47953 7.14503 8.47953C7.88201 8.29543 8.32772 7.81297 8.50366 7.01522C8.50561 7.00464 8.51539 6.99829 8.52321 7.00041C8.52907 7.00675 8.53494 7.01099 8.53494 7.01733Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M9.14583 4.56582C9.2553 5.06732 9.53876 5.37203 10.0021 5.49265C10.0079 5.49477 10.0099 5.50111 10.0079 5.50746C10.006 5.50958 10.004 5.51169 10.0021 5.51381C9.53289 5.63019 9.25335 5.93914 9.14387 6.44276C9.14192 6.44911 9.13605 6.45334 9.13019 6.45122C9.12628 6.45122 9.12237 6.44699 9.12237 6.44276C9.01485 5.9349 8.7314 5.63231 8.26614 5.51169C8.26028 5.50958 8.25637 5.50323 8.25832 5.49688C8.25832 5.49265 8.26223 5.48842 8.26614 5.48842C8.7314 5.37203 9.0129 5.06732 9.12433 4.5637C9.12628 4.55735 9.13214 4.55312 9.13801 4.55524C9.14192 4.55735 9.14583 4.56159 9.14583 4.56582Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M2.41927 7.67308C2.52874 8.17458 2.81219 8.47929 3.2755 8.59991C3.28136 8.60202 3.28527 8.60837 3.28332 8.61472C3.28332 8.61895 3.27941 8.62318 3.2755 8.62318C2.80828 8.73957 2.52874 9.05063 2.41731 9.55213C2.41536 9.55848 2.40949 9.56271 2.40363 9.5606C2.39972 9.55848 2.39776 9.55636 2.39581 9.55213C2.28829 9.04428 2.00484 8.74168 1.53958 8.62107C1.53371 8.61895 1.5298 8.6126 1.53176 8.60626C1.53176 8.60202 1.53567 8.59779 1.53958 8.59779C2.00484 8.48141 2.28634 8.1767 2.39776 7.67308C2.39972 7.66673 2.40558 7.6625 2.41145 7.66461C2.41731 7.66673 2.41927 7.66884 2.41927 7.67308Z"
+                                  fill="#FFDA1D"
+                                />
+                                <path
+                                  d="M3.59492 0.00902704C3.68485 0.423773 3.91943 0.675584 4.30454 0.775038C4.30845 0.777154 4.31236 0.781386 4.3104 0.785618C4.3104 0.78985 4.30649 0.791966 4.30454 0.791966C3.91748 0.887189 3.68485 1.14535 3.59297 1.56221C3.59101 1.56644 3.5871 1.57067 3.58124 1.56856C3.57733 1.56856 3.57537 1.56433 3.57537 1.56221C3.48741 1.14323 3.25087 0.891421 2.86576 0.791966C2.86185 0.78985 2.85794 0.785618 2.85989 0.77927C2.85989 0.775038 2.8638 0.772922 2.86576 0.772922C3.25087 0.6777 3.4835 0.423773 3.57733 0.00691098C3.57928 0.00267888 3.58319 -0.00155321 3.58906 0.000562842C3.59101 0.00267889 3.59492 0.00479494 3.59492 0.00902704Z"
+                                  fill="#FFDA1D"
+                                />
+                              </svg>{" "}
                               {item.new}
                             </div>
                           )}
                         </div>
 
-                        <p className="text-[12px] font-normal text-[#808080]">
+                        <p className="text-[10px] font-normal text-[#808080] leading-tight">
                           {item.desc}
                         </p>
                       </div>

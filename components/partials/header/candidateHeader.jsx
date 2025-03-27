@@ -5,10 +5,13 @@ import Link from "next/link";
 import Services from "../../../pages/services";
 import { Service, ServiceCross } from "../../../utils/svg";
 import { camelCase } from "../../../utils/middleware";
+import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
 
 function CandidateHeader() {
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
@@ -19,6 +22,29 @@ function CandidateHeader() {
   const [isMove, setIsMove] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
+  const [experience, setExperience] = useState("");
+  const [isSearch, setIsSearch] = useState(false)
+  const [experinceData, setExperinceData] = useState([]);
+  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
+  const { recallData } = useSelector((state) => state.recall);
+
+  const getLimits = () => {
+    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setJdCountMonthly(jdCountMonthly);
+
+    const jdCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setJdCountMonthlyLimit(jdCountMonthlyLimit);
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      getLimits();
+    }, 500);
+  }, [recallData]);
+
+
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -50,9 +76,43 @@ function CandidateHeader() {
     }
   }, []);
 
+
+  useEffect(() => {
+    axios
+      .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
+      .then((res) => {
+        const { experiences } = res.data;
+        setExperinceData(experiences);
+
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+
+  const sortedExperiences = (experinceData || [])
+    .filter(Boolean)
+    .sort((a, b) => {
+      const getYearsRange = (str) => {
+        const match = str?.match(/\d+/g);
+        return match ? [parseInt(match[0]), parseInt(match[1] || Infinity)] : [Infinity, Infinity];
+      };
+
+      const [aStart, aEnd] = getYearsRange(a);
+      const [bStart, bEnd] = getYearsRange(b);
+
+
+      if (aStart !== bStart) return aStart - bStart;
+
+
+      return aEnd - bEnd;
+    });
+
+
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsLogout(false);
+      setIsSearch(false)
     }
   };
 
@@ -77,8 +137,8 @@ function CandidateHeader() {
 
   return (
     <>
-      <div className="flex justify-center items-center list-none  scr1600:gap-9 xxlg:gap-4 gap-0 ">
-        <Link href="/home">
+      <div className="flex   list-none  scr1600:gap-9 xxlg:gap-4 gap-0  bg-white">
+        <Link href="/">
           {" "}
           <img
             src="/images/logo_skilotech.png"
@@ -196,89 +256,15 @@ function CandidateHeader() {
           </>
         ) : (
           <>
-            {" "}
-            <Link
-              onClick={() => setServices(false)}
-              href="/home"
-              className={
-                (selectedPage === "/home" && !isServices)
-                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
-                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
-              }
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g mask="url(#mask0_1861_9679)">
-                  <path
-                    d="M4.99967 15.8333H7.49967V10.8333H12.4997V15.8333H14.9997V8.33333L9.99967 4.58333L4.99967 8.33333V15.8333ZM3.33301 17.5V7.5L9.99967 2.5L16.6663 7.5V17.5H10.833V12.5H9.16634V17.5H3.33301Z"
-                    fill="url(#paint0_linear_1861_9679)"
-                  />
-                </g>
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_1861_9679"
-                    x1="3.33301"
-                    y1="10"
-                    x2="16.6663"
-                    y2="10"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#06A9EF" />
-                    <stop offset="1" stopColor="#55CCFF" />
-                  </linearGradient>
-                </defs>
-              </svg>
 
-              <li>Home</li>
-            </Link>
-            <div className="relative ">
-              {!isServices ? (
-                <div
-                  onClick={() => setServices(true)}
-                  className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
-                  }
-                >
-                  <Service />
-
-                  <li>Services</li>
-                </div>
-              ) : (
-                <div
-                  onClick={() => {
-                    setIsMove(false);
-                  }}
-                  className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
-                  }
-                >
-                  <Service />
-
-                  <li>Services</li>
-                </div>
-              )}
-              {isServices && (
-                <Services
-                  setServices={setServices}
-                  isServices={isServices}
-                  setIsMove={setIsMove}
-                  isMove={isMove}
-                />
-              )}
-            </div>
             {userDataGlobal?.role == "user" &&
-              <Link
-                onClick={() => setServices(false)}
-                href="/jobs/search"
+              <div
+                onClick={() => { setServices(false); selectedPage !== "/" && router.push("/") }}
+
                 className={
-                  (selectedPage === "/jobs/search" && !isServices)
-                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
-                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+                  (selectedPage === "/" && !isServices)
+                    ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px] cursor-pointer"
+                    : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
                 }
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,114 +287,227 @@ function CandidateHeader() {
                   </defs>
                 </svg>
 
-
-
-
-
-
                 <li>Jobs</li>
-              </Link>
+              </div>
             }
+
+            <div className="relative ">
+              {!isServices ? (
+                <div
+                  onClick={() => setServices(true)}
+                  className={
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                  }
+                >
+                  <Service />
+
+                  <li>Services</li>
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    setServices(false);
+                  }}
+                  className={
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                  }
+                >
+                  <Service />
+
+                  <li>Services</li>
+                </div>
+              )}
+              {isServices && (
+                <Services
+                  setServices={setServices}
+                  isServices={isServices}
+                  setIsMove={setIsMove}
+                  isMove={isMove}
+                />
+              )}
+            </div>
+            {/* {userDataGlobal?.role == "user" &&
+              <div onClick={() => setIsSearch(true)} className="flex justify-between pl-[10px] gap-4 items-center border border-[#E1E3E3] rounded-[30px] pr-1 py-1 min-w-[258px] cursor-pointer">
+                <div className="text-[14px] font-medium text-[#889FBA]">
+                  UX  Designer
+                </div>
+                <div className="bg-blue rounded-[50%] h-[38px] w-[38px] flex justify-center items-center ">
+                  <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g mask="url(#mask0_6706_105484)">
+                      <path d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z" fill="white" />
+                    </g>
+                  </svg>
+
+                </div>
+              </div>
+            } */}
+            <div className=" relative">
+              <motion.div
+
+                className={`absolute  left-1/2 transform -translate-x-1/2  flex justify-between items-center  ${isSearch ? "" : ""}  `}
+                initial={{ width: "258px", height: "46px" }}
+                animate={{
+                  width: isSearch ? "648px" : "258px",
+                  height: isSearch ? "62px" : "46px",
+                  y: isSearch ? 80 : 0,
+                  x: isSearch ? -80 : 0,
+
+                }}
+                exit={{ width: "80px", height: "50px" }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                {isSearch ?
+                  <motion.div
+                    initial={{ scaleX: 0, scaleY: 0 }}
+                    animate={{
+                      width: isSearch ? "648px" : "258px",
+                      height: isSearch ? "62px" : "46px",
+                      scaleX: isSearch ? 1 : 0,
+                      scaleY: isSearch ? 1 : 0,
+                    }}
+                    exit={{ scaleX: 0, scaleY: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between w-full border border-[#E1E3E3] rounded-[30px] px-3 py-[10px]">
+                    <input
+                      type="text"
+                      placeholder="Enter Job title"
+                      className="text-[14px] font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px] placeholder:text-[#889FBA]"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                    />
+                    <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+
+                    <select
+                      className={`text-[14px] font-[500] outline-none border-none w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"}`}
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                    >
+                      <option value="" disabled className="text-[#889FBA]">
+                        Select Experience
+                      </option>
+                      {sortedExperiences
+                        .filter((exp) => exp)
+                        .map((exp, index) => (
+                          <option key={index} value={exp} className="text-[#333333]">
+                            {exp}
+                          </option>
+                        ))}
+                    </select>
+
+
+                    <div className="bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+
+                    <input
+                      type="text"
+                      placeholder="Enter Location"
+                      className="text-[14px] outline-none border-none  font-[500] w-full font-Montserrat max-w-[110px] min-w-[80px] placeholder:text-[#889FBA]"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+
+                    <button
+                      onClick={() => {
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+                      }}
+                      className="px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
+                    >
+                      Search
+                    </button>
+                  </motion.div>
+                  :
+                  <div
+                    onClick={() => setIsSearch(true)}
+                    className={` flex justify-between pl-[10px] gap-4 items-center  cursor-pointer w-full  border border-[#E1E3E3] rounded-[30px] px-1 py-1`}
+                  >
+                    <div className="text-[14px] font-medium text-[#889FBA]">
+                      UX Designer
+                    </div>
+                    <div className="bg-blue rounded-[50%] h-[38px] w-[38px] flex justify-center items-center">
+                      <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                        <g mask="url(#mask0_8338_107109)">
+                          <path d="M7.75831 11.7119C6.47756 11.7119 5.39294 11.2677 4.50444 10.3794C3.61606 9.49087 3.17188 8.40625 3.17188 7.1255C3.17188 5.84475 3.61606 4.76013 4.50444 3.87163C5.39294 2.98325 6.47756 2.53906 7.75831 2.53906C9.03906 2.53906 10.1237 2.98325 11.0122 3.87163C11.9006 4.76013 12.3448 5.84475 12.3448 7.1255C12.3448 7.66112 12.2549 8.17269 12.0751 8.66019C11.8953 9.14769 11.6553 9.57169 11.3553 9.93219L15.6708 14.2477C15.7747 14.3514 15.8278 14.4819 15.8302 14.6392C15.8326 14.7964 15.7794 14.9294 15.6708 15.038C15.5622 15.1466 15.4304 15.2009 15.2756 15.2009C15.1208 15.2009 14.9891 15.1466 14.8805 15.038L10.565 10.7225C10.19 11.0321 9.75875 11.2744 9.27125 11.4494C8.78375 11.6244 8.27944 11.7119 7.75831 11.7119ZM7.75831 10.5871C8.72469 10.5871 9.54319 10.2517 10.2138 9.581C10.8846 8.91037 11.2199 8.09187 11.2199 7.1255C11.2199 6.15912 10.8846 5.34062 10.2138 4.67C9.54319 3.99925 8.72469 3.66387 7.75831 3.66387C6.79194 3.66387 5.97344 3.99925 5.30281 4.67C4.63206 5.34062 4.29669 6.15912 4.29669 7.1255C4.29669 8.09187 4.63206 8.91037 5.30281 9.581C5.97344 10.2517 6.79194 10.5871 7.75831 10.5871Z" fill="white" />
+                        </g>
+                      </svg>
+
+                    </div>
+                  </div>
+                }
+
+
+              </motion.div>
+
+            </div>
+
           </>
         )}
       </div>
 
-      <div className="relative flex gap-4 justify-end  items-center w-[60%]  ">
-      {userDataGlobal?.role == "user" &&
-        <div className="flex justify-center items-center  border border-[#9D9D9D] rounded-[8px] w-[60%] min-w-[350px] ">
-          <div className="flex sm:flex-row flex-col justify-between sm:items-center  sm:gap-2 gap-1 items-start   scr1024:px-[12px] px-2 scr1024:py-2 py-1 rounded-[8px] bg-white w-[100%]   ">
-            <div className="flex flex-row gap-[8px] scr1024:gap-[16.82px] items-center  sm:w-[45%] w-full rounded-[8px] sm-p-0 ">
-              <svg
-                className="w-[22px] h-[22px]  min-w-[22px]  "
-                viewBox="0 0 36 36"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M23.25 23.25L28.5 28.5L23.25 23.25ZM7.5 16.5C7.5 17.6819 7.73279 18.8522 8.18508 19.9441C8.63738 21.0361 9.30031 22.0282 10.136 22.864C10.9718 23.6997 11.9639 24.3626 13.0558 24.8149C14.1478 25.2672 15.3181 25.5 16.5 25.5C17.6819 25.5 18.8522 25.2672 19.9441 24.8149C21.0361 24.3626 22.0282 23.6997 22.864 22.864C23.6997 22.0282 24.3626 21.0361 24.8149 19.9441C25.2672 18.8522 25.5 17.6819 25.5 16.5C25.5 14.1131 24.5518 11.8239 22.864 10.136C21.1761 8.44821 18.8869 7.5 16.5 7.5C14.1131 7.5 11.8239 8.44821 10.136 10.136C8.44821 11.8239 7.5 14.1131 7.5 16.5V16.5Z"
-                  stroke="#333333"
-                  strokeWidth="3.1544"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-
-              <input
-                type="text"
-                placeholder="Job title"
-                className="text-[14px] sm:text-[16px] font-[400] font-Montserrat w-full min-w-[80px]"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
+      <div className="relative flex gap-4 justify-end  items-center w-[30%]  ">
+        <div className="flex gap-1 text-[12px] font-medium items-center">
+          <p className="hidden scr420:block">Remaining AI Hits</p>
+          <div
+            style={{
+              backgroundColor: "#4C43CD",
+              backgroundImage: `
+      radial-gradient(65.28% 65.28% at 26.39% 20.83%, rgba(255, 255, 255, 0.413) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
+    `,
+            }}
+            className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center leading-tight h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
+          >
+            <svg
+              width="11"
+              height="10"
+              viewBox="0 0 11 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.93291 2.29406C5.26133 3.80704 6.1156 4.71906 7.51333 5.0809C7.53093 5.08513 7.5407 5.10418 7.53679 5.12111C7.53484 5.1338 7.52506 5.14438 7.51333 5.1465C6.10388 5.49565 5.26329 6.42883 4.93096 7.94392C4.92705 7.96296 4.90946 7.97354 4.89186 7.96931C4.88013 7.9672 4.87036 7.95662 4.8684 7.94392C4.54585 6.41825 3.69158 5.50623 2.28994 5.14227C2.27235 5.13803 2.26257 5.11899 2.26648 5.09995C2.26844 5.08725 2.27821 5.07667 2.28994 5.07455C3.69158 4.7254 4.53803 3.80492 4.87231 2.29194C4.87622 2.2729 4.89382 2.26232 4.91141 2.26655C4.92118 2.27502 4.93096 2.28348 4.93291 2.29406Z"
+                fill="#FFDA1D"
               />
+              <path
+                d="M8.23025 0.0407713C8.40423 0.836407 8.8519 1.31675 9.58693 1.5072C9.5967 1.50931 9.60061 1.51989 9.59865 1.52836C9.5967 1.5347 9.59279 1.54105 9.58693 1.54105C8.84603 1.72515 8.40228 2.21607 8.2283 3.01171C8.22634 3.02229 8.21657 3.02652 8.20875 3.02441C8.20288 3.02229 8.19702 3.01806 8.19702 3.01171C8.02694 2.20973 7.57733 1.72938 6.84034 1.53682C6.83057 1.5347 6.82666 1.52412 6.82861 1.51566C6.83057 1.50931 6.83448 1.50296 6.84034 1.50296C7.57733 1.31887 8.02303 0.836407 8.19897 0.0386553C8.20093 0.0280751 8.20875 0.0217269 8.21852 0.0238429C8.22439 0.025959 8.2283 0.0323071 8.23025 0.0407713Z"
+                fill="#FFDA1D"
+              />
+              <path
+                d="M1.40994 1.37472C1.58197 2.17035 2.03158 2.6507 2.76661 2.84114C2.77639 2.84326 2.7803 2.85384 2.77834 2.8623C2.77639 2.86865 2.77248 2.875 2.76661 2.875C2.02572 3.05909 1.58197 3.55002 1.40798 4.34565C1.40603 4.35623 1.39625 4.36047 1.38843 4.35835C1.38257 4.35623 1.37671 4.352 1.37671 4.34565C1.20663 3.54367 0.757014 3.06333 0.0200304 2.87077C0.0102561 2.86865 0.00634635 2.85807 0.00830122 2.8496C0.0102561 2.84326 0.0141658 2.83691 0.0200304 2.83691C0.757014 2.65281 1.20272 2.17035 1.37866 1.3726C1.38061 1.36202 1.39039 1.35779 1.39821 1.3599C1.40407 1.36414 1.40994 1.36837 1.40994 1.37472Z"
+                fill="#FFDA1D"
+              />
+              <path
+                d="M8.53494 7.01733C8.70892 7.81297 9.15658 8.29331 9.89161 8.48376C9.90139 8.48587 9.9053 8.49645 9.90334 8.50492C9.90139 8.51127 9.89748 8.51762 9.89161 8.51762C9.15072 8.70171 8.70697 9.19264 8.53298 9.98827C8.53103 9.99885 8.52125 10.0031 8.51343 10.001C8.50757 9.99885 8.50171 9.99462 8.50171 9.98827C8.33163 9.18629 7.88201 8.70594 7.14503 8.51338C7.13526 8.51127 7.13135 8.50069 7.1333 8.49222C7.13526 8.48587 7.13917 8.47953 7.14503 8.47953C7.88201 8.29543 8.32772 7.81297 8.50366 7.01522C8.50561 7.00464 8.51539 6.99829 8.52321 7.00041C8.52907 7.00675 8.53494 7.01099 8.53494 7.01733Z"
+                fill="#FFDA1D"
+              />
+              <path
+                d="M9.14583 4.56582C9.2553 5.06732 9.53876 5.37203 10.0021 5.49265C10.0079 5.49477 10.0099 5.50111 10.0079 5.50746C10.006 5.50958 10.004 5.51169 10.0021 5.51381C9.53289 5.63019 9.25335 5.93914 9.14387 6.44276C9.14192 6.44911 9.13605 6.45334 9.13019 6.45122C9.12628 6.45122 9.12237 6.44699 9.12237 6.44276C9.01485 5.9349 8.7314 5.63231 8.26614 5.51169C8.26028 5.50958 8.25637 5.50323 8.25832 5.49688C8.25832 5.49265 8.26223 5.48842 8.26614 5.48842C8.7314 5.37203 9.0129 5.06732 9.12433 4.5637C9.12628 4.55735 9.13214 4.55312 9.13801 4.55524C9.14192 4.55735 9.14583 4.56159 9.14583 4.56582Z"
+                fill="#FFDA1D"
+              />
+              <path
+                d="M2.41927 7.67308C2.52874 8.17458 2.81219 8.47929 3.2755 8.59991C3.28136 8.60202 3.28527 8.60837 3.28332 8.61472C3.28332 8.61895 3.27941 8.62318 3.2755 8.62318C2.80828 8.73957 2.52874 9.05063 2.41731 9.55213C2.41536 9.55848 2.40949 9.56271 2.40363 9.5606C2.39972 9.55848 2.39776 9.55636 2.39581 9.55213C2.28829 9.04428 2.00484 8.74168 1.53958 8.62107C1.53371 8.61895 1.5298 8.6126 1.53176 8.60626C1.53176 8.60202 1.53567 8.59779 1.53958 8.59779C2.00484 8.48141 2.28634 8.1767 2.39776 7.67308C2.39972 7.66673 2.40558 7.6625 2.41145 7.66461C2.41731 7.66673 2.41927 7.66884 2.41927 7.67308Z"
+                fill="#FFDA1D"
+              />
+              <path
+                d="M3.59492 0.00902704C3.68485 0.423773 3.91943 0.675584 4.30454 0.775038C4.30845 0.777154 4.31236 0.781386 4.3104 0.785618C4.3104 0.78985 4.30649 0.791966 4.30454 0.791966C3.91748 0.887189 3.68485 1.14535 3.59297 1.56221C3.59101 1.56644 3.5871 1.57067 3.58124 1.56856C3.57733 1.56856 3.57537 1.56433 3.57537 1.56221C3.48741 1.14323 3.25087 0.891421 2.86576 0.791966C2.86185 0.78985 2.85794 0.785618 2.85989 0.77927C2.85989 0.775038 2.8638 0.772922 2.86576 0.772922C3.25087 0.6777 3.4835 0.423773 3.57733 0.00691098C3.57928 0.00267888 3.58319 -0.00155321 3.58906 0.000562842C3.59101 0.00267889 3.59492 0.00479494 3.59492 0.00902704Z"
+                fill="#FFDA1D"
+              />
+            </svg>
 
-            </div>
-
-
-
-            <div className="flex flex-row justify-between items-center gap-[8px] scr1024:gap-[16px] bg-white sm:w-[55%] w-full  rounded-[8px]  sm:p-0">
-              <div className="flex flex-row gap-4">
-                <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
-                <div className="flex flex-row gap-[8px] scr1024:gap-[16px]  items-center">
-                  <svg
-                    className="w-[22px] h-[22px]  min-w-[22px]"
-                    viewBox="0 0 31 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M25.5879 12.5C25.5879 18.0225 15.5879 27.5 15.5879 27.5C15.5879 27.5 5.58789 18.0225 5.58789 12.5C5.58789 9.84784 6.64146 7.3043 8.51682 5.42893C10.3922 3.55357 12.9357 2.5 15.5879 2.5C18.2401 2.5 20.7836 3.55357 22.659 5.42893C24.5343 7.3043 25.5879 9.84784 25.5879 12.5V12.5Z"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                    />
-                    <path
-                      d="M15.5879 13.75C15.9194 13.75 16.2374 13.6183 16.4718 13.3839C16.7062 13.1495 16.8379 12.8315 16.8379 12.5C16.8379 12.1685 16.7062 11.8505 16.4718 11.6161C16.2374 11.3817 15.9194 11.25 15.5879 11.25C15.2564 11.25 14.9384 11.3817 14.704 11.6161C14.4696 11.8505 14.3379 12.1685 14.3379 12.5C14.3379 12.8315 14.4696 13.1495 14.704 13.3839C14.9384 13.6183 15.2564 13.75 15.5879 13.75Z"
-                      fill="white"
-                      stroke="#333333"
-                      strokeWidth="3.1544"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-
-                  <input
-                    type="text"
-                    placeholder="Location"
-                    className="text-[14px] sm:text-[16px] font-[400] w-full font-Montserrat min-w-[80px]"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div
-                onClick={() => {
-                  router.push(`/jobs/search?search=${true}&loc=${location}&jobTit=${jobTitle}`);
-
-                }}
-                className=" cursor-pointer"
-              >
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21.6504 20.1774L14.6942 13.2211C15.7736 11.8256 16.3575 10.1193 16.3575 8.32468C16.3575 6.17647 15.5192 4.16218 14.0031 2.64343C12.487 1.12468 10.4674 0.28897 8.32184 0.28897C6.1763 0.28897 4.15666 1.12736 2.64059 2.64343C1.12184 4.1595 0.286121 6.17647 0.286121 8.32468C0.286121 10.4702 1.12451 12.4899 2.64059 14.0059C4.15666 15.5247 6.17362 16.3604 8.32184 16.3604C10.1165 16.3604 11.8201 15.7765 13.2156 14.6997L20.1718 21.6533C20.1922 21.6737 20.2165 21.6899 20.2431 21.7009C20.2698 21.7119 20.2983 21.7176 20.3272 21.7176C20.356 21.7176 20.3846 21.7119 20.4113 21.7009C20.4379 21.6899 20.4622 21.6737 20.4825 21.6533L21.6504 20.4881C21.6708 20.4677 21.687 20.4435 21.6981 20.4168C21.7091 20.3901 21.7148 20.3616 21.7148 20.3327C21.7148 20.3039 21.7091 20.2753 21.6981 20.2486C21.687 20.222 21.6708 20.1978 21.6504 20.1774ZM12.5647 12.5675C11.429 13.7006 9.92362 14.3247 8.32184 14.3247C6.72005 14.3247 5.21469 13.7006 4.07898 12.5675C2.94594 11.4318 2.32184 9.92647 2.32184 8.32468C2.32184 6.7229 2.94594 5.21486 4.07898 4.08183C5.21469 2.94879 6.72005 2.32468 8.32184 2.32468C9.92362 2.32468 11.4317 2.94611 12.5647 4.08183C13.6977 5.21754 14.3218 6.7229 14.3218 8.32468C14.3218 9.92647 13.6977 11.4345 12.5647 12.5675Z" fill="#06A9EF" />
-                </svg>
-
-
-              </div>
-            </div>
-            <div className="block sm:hidden w-full h-[1px]  bg-[#E0E0E0]"></div>
-
+            {jdCountMonthlyLimit - jdCountMonthly}
           </div>
         </div>
-}
+
         <div
           onClick={() => setIsLogout(!isLogout)}
           className="flex items-center gap-[8px] cursor-pointer"
         >
           <div className=" h-[36px] w-[36px]">
-            {userDataGlobal?.profilePicture ? (
+            {profileData?.profilePicture?.img ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
                 src={
-                  userDataGlobal?.profilePicture ||
+                  profileData?.profilePicture?.img ||
                   "/images/profile/profileNew.png"
                 }
               />
@@ -422,10 +521,10 @@ function CandidateHeader() {
               </div>
             )}
           </div>
-          {userDataGlobal?.firstName && (
-            <div className="scr1250:text-[14px] text-[14px] xxlg:block hidden">
-              {camelCase(userDataGlobal?.firstName)}{" "}
-              {camelCase(userDataGlobal?.lastName)}
+          {profileData?.basics?.firstName && (
+            <div className=" text-[14px] font-semibold xxlg:block hidden">
+              {camelCase(profileData?.basics?.firstName)}{" "}
+              {camelCase(profileData?.basics?.lastName)}
             </div>
           )}
 
@@ -454,7 +553,7 @@ function CandidateHeader() {
             style={{
               boxShadow: "0px 2px 2px 0px #00000040",
             }}
-            className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[1.95rem] right-0 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
+            className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[61px]  right-0 z-[5000] bg-[#FFFF]  rounded-b-[8px]   "
           >
             <div
               onClick={() => router.push("/profile")}
@@ -510,7 +609,7 @@ function CandidateHeader() {
             </div>
             {userDataGlobal?.role == "user" &&
               <div
-                onClick={() => router.push("/myWebsite")}
+                onClick={() => router.push("/candidate/myWebsite")}
                 className=" flex gap-3 py-2 px-3  items-center"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -553,6 +652,112 @@ function CandidateHeader() {
           </div>
         )}
       </div>
+      {/* <AnimatePresence>
+        {isSearch &&
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+
+            <motion.div
+              initial={{ y: "-100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.5 }}
+              ref={taskRef}
+              className="fixed z-[2000]  h-[153px]  top-0 left-0 right-0 bottom-0 px-4 py-4"
+              style={{
+                background: "white",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <div className="flex flex-col items-center gap-4 justify-between customMargins h-full ">
+                <div className="w-full flex justify-start">
+                  <img
+                    src="/images/logo_skilotech.png"
+                    alt=""
+                    className="object-contain h-[40px]"
+                  />
+                </div>
+
+                <div className="flex justify-center items-center  border border-[#E1E3E3] rounded-[30px] w-[648px] min-w-[350px] h-[62px] px-3 py-[10px] ">
+
+                  <div className="flex flex-row gap-[8px] scr1024:gap-4 items-center justify-between   w-full  ">
+                    <svg className="min-w-[24px]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_6706_106760)">
+                        <path d="M9.5215 15.6153C7.81383 15.6153 6.36767 15.023 5.183 13.8385C3.9985 12.6538 3.40625 11.2077 3.40625 9.50002C3.40625 7.79235 3.9985 6.34618 5.183 5.16152C6.36767 3.97702 7.81383 3.38477 9.5215 3.38477C11.2292 3.38477 12.6753 3.97702 13.86 5.16152C15.0445 6.34618 15.6367 7.79235 15.6367 9.50002C15.6367 10.2142 15.5169 10.8963 15.2772 11.5463C15.0374 12.1963 14.7175 12.7616 14.3175 13.2423L20.0715 18.9963C20.21 19.1346 20.2808 19.3086 20.284 19.5183C20.2872 19.7279 20.2163 19.9052 20.0715 20.05C19.9267 20.1948 19.751 20.2673 19.5445 20.2673C19.3382 20.2673 19.1626 20.1948 19.0177 20.05L13.2638 14.296C12.7638 14.7088 12.1887 15.0319 11.5387 15.2653C10.8887 15.4986 10.2163 15.6153 9.5215 15.6153ZM9.5215 14.1155C10.81 14.1155 11.9013 13.6683 12.7955 12.774C13.6898 11.8798 14.137 10.7885 14.137 9.50002C14.137 8.21152 13.6898 7.12018 12.7955 6.22601C11.9013 5.33168 10.81 4.88452 9.5215 4.88452C8.233 4.88452 7.14167 5.33168 6.2475 6.22601C5.35317 7.12018 4.906 8.21152 4.906 9.50002C4.906 10.7885 5.35317 11.8798 6.2475 12.774C7.14167 13.6683 8.233 14.1155 9.5215 14.1155Z" fill="#333333" fill-opacity="0.5" />
+                      </g>
+                    </svg>
+
+                    <input
+                      type="text"
+                      placeholder="Enter Job title"
+                      className="text-[14px]  font-[500] font-Montserrat w-full max-w-[100px] min-w-[80px]  placeholder:text-[#889FBA]"
+                      value={jobTitle}
+                      onChange={(e) => setJobTitle(e.target.value)}
+                    />
+                    <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+                    <select
+                      className={`text-[14px] font-[500] w-full font-Montserrat max-w-[148px] min-w-[80px] ${experience ? "text-[#333333]" : "text-[#889FBA]"
+                        }`}
+                      value={experience}
+                      onChange={(e) => setExperience(e.target.value)}
+                    >
+                      <option
+                        value=""
+                        disabled
+                        className="text-[#889FBA]"
+                      >
+                        Select Experience
+                      </option>
+                      {sortedExperiences
+                        .filter((exp) => exp)
+                        .map((exp, index) => (
+                          <option
+                            key={index}
+                            value={exp}
+                            className="text-[#333333]"
+                          >
+                            {exp}
+                          </option>
+                        ))}
+                    </select>
+
+
+
+                    <div className=" bg-[#E0E0E0] min-w-[2px] h-[22px] sm:block hidden"></div>
+                    <input
+                      type="text"
+                      placeholder=" Enter Location"
+                      className="text-[14px]  font-[500] w-full font-Montserrat   max-w-[110px] min-w-[80px]  placeholder:text-[#889FBA]"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+
+                    <button
+                      onClick={() => {
+                        router.push(`/jobs/candidate?search=${true}&jobTit=${jobTitle}&exp=${experience}&loc=${location}`);
+
+                      }}
+                      className=" px-9 bg-blue py-3 rounded-[30px] text-[14px] font-semibold text-white leading-tight"
+                    >
+                      Search
+
+
+                    </button>
+
+                  </div>
+
+
+
+
+
+
+                </div>
+              </div>
+            </motion.div>
+          </>
+        }
+      </AnimatePresence> */}
     </>
   );
 }

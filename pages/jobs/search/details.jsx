@@ -13,17 +13,17 @@ import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isApplied, setIsApplied] = useState(true);
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getById/" + data._id)
+      .get("https://dev.api.skilotech.com/api/job/getById/" + data._id)
       .then((res) => {
         setLoading(false);
         setIsApplied(
           res.data.applications.find(
-            (item) => item.applicantId == userDataGlobal._id
+            (item) => item.applicantId == userDataGlobal?._id
           )
         );
       })
@@ -40,8 +40,8 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/job/apply/" + data._id, {
-        userId: userDataGlobal._id,
+      .post("https://dev.api.skilotech.com/api/job/apply/" + data._id, {
+        userId: userDataGlobal?._id,
         resumeId: resume._id,
         percentage: data.percentage,
       })

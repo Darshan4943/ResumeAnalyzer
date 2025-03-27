@@ -2,6 +2,7 @@
 module.exports = {
   plugins: [
     // require('@tailwindcss/aspect-ratio'),
+    require('tailwind-scrollbar-hide'),
   ],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,7 +14,6 @@ module.exports = {
     screens: {
       xxsm: "320px",
       scr340: "340px",
-      scr500: "500px",
       xsm: "360px",
       scr360: "360px",
       scr390: "390px",
@@ -22,6 +22,7 @@ module.exports = {
       sm: "480px",
       scr500: "500px",
       scr540: "540px",
+      xlg: "600px",
       ms: "601px",
       scr700: "700px",
       md: "768px",
@@ -32,10 +33,11 @@ module.exports = {
       scr930: "930px",
       lg: "976px",
       scr1024: "1024px",
+      scr1067: "1067px",
       xxlg: "1128px",
-      xlg: "600px",
       scr1100: "1100px",
       scr1150: "1150px",
+      scr1168: "1168px",
       scr1200: "1200px",
       scr1250: "1250px",
       scr1300: "1300px",

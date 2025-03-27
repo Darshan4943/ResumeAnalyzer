@@ -35,7 +35,8 @@ function CoverForm({
 
   const [FieldError, setFieldError] = useState("");
   const [isError, setError] = useState(null);
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
@@ -179,7 +180,7 @@ function CoverForm({
 
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
-            "https://jamblix.com/api/cover-letter/transform",
+            "https://dev.api.skilotech.com/api/cover-letter/transform",
             data
           );
           const letterData = response.data;
@@ -219,7 +220,7 @@ function CoverForm({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/cover/rephrase", { prompt })
+      .post("https://dev.api.skilotech.com/api/cover/rephrase", { prompt })
       .then((res) => {
         setLoading(false);
         const rephrasedPassage = res.data;
@@ -249,10 +250,10 @@ function CoverForm({
 
   return (
     <div
-      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white "
+      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white px-4 pb-4"
       style={{ scrollbarWidth: "none" }}
     >
-      <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2  ">
+      <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2 pt-2 ">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
           style={{}}
@@ -393,7 +394,7 @@ function CoverForm({
         </div>
       )}
       {isShow === false && (
-        <div className="flex flex-col gap-[16px] sticky md:top-[0px]  z-[10] bg-white pt-5 pb-4">
+        <div className="flex flex-col gap-[16px] sticky md:top-[-40px]  z-[10] bg-white pt-5 pb-4">
           {/** <ThemeForm
             selectedCoverIndex={selectedCoverIndex}
             selectedColor={selectedColor}
@@ -542,7 +543,7 @@ function CoverForm({
           </div>
         )}
       </div>
-      <div className=" p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] sticky bottom-[0px]  bg-white">
+      <div className=" p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] sticky bottom-[-16px]  bg-white">
         {isShow === false && (
           <div className="flex justify-end ">
             {isFormat === "standard" && (
@@ -611,7 +612,7 @@ function CoverForm({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className=" ml:min-w-[496px] ml:w-[34%] min-w-[370px] flex flex-col gap-4 "
+            className=" ml:min-w-[450px] ml:w-[34%] min-w-[370px] flex flex-col gap-4 "
             style={{
               background: "white",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",

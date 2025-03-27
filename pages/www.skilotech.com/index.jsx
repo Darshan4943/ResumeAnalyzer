@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 function Index() {
   const [resume, setResume] = useState();
 
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
  
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal._id)
+      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         const selectedResume = res.data.data.find(
           (resume) => resume._id === userDataGlobal.selectedResume

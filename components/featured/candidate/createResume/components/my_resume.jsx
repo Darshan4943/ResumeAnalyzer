@@ -20,32 +20,31 @@ const ResumeList = ({ data, setData }) => {
 
   useEffect(() => {
     if (data) {
-      if (data?.showProfile === true && data.selectedResumeIndex !== 14 && data.selectedResumeIndex !== 13) {
+      if (
+        data?.showProfile === true &&
+        data.selectedResumeIndex !== 14 &&
+        data.selectedResumeIndex !== 13
+      ) {
         setIsChecked(true);
-      }
-      else {
+      } else {
         setIsChecked(false);
       }
     }
   }, [data]);
-
 
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showProfile: !isChecked });
   };
 
-
   const handleFileChange = async (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile.size <= 1 * 1024 * 1024) {
-        // Check if file is less than 2MB
         if (selectedFile.type.includes("image")) {
           const pngBlob = await convertToPng(selectedFile);
           if (pngBlob.size <= 1 * 1024 * 1024) {
-            // Ensure PNG is also less than 2MB
             setFile(pngBlob);
             setModelView(true);
             event.target.value = "";
@@ -61,6 +60,36 @@ const ResumeList = ({ data, setData }) => {
     }
   };
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDrop = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const droppedFile = event.dataTransfer.files[0];
+    if (droppedFile) {
+      if (droppedFile.size <= 1 * 1024 * 1024) {
+        // Check if file is less than 2MB
+        if (droppedFile.type.includes("image")) {
+          const pngBlob = await convertToPng(droppedFile);
+          if (pngBlob.size <= 1 * 1024 * 1024) {
+            // Ensure PNG is also less than 1MB
+            setFile(pngBlob);
+            setModelView(true);
+          } else {
+            toast.error("Converted PNG file is larger than 1 MB.");
+          }
+        } else {
+          toast.error("Only image files are allowed.");
+        }
+      } else {
+        toast.error("Please select a file which is less than 1 MB.");
+      }
+    }
+  };
 
   const convertToPng = async (file) => {
     return new Promise((resolve, reject) => {
@@ -108,9 +137,6 @@ const ResumeList = ({ data, setData }) => {
 
       reader.readAsDataURL(file);
     });
-  };
-  const handleDragOver = (event) => {
-    event.preventDefault();
   };
 
   const removeImgae = () => {
@@ -183,7 +209,7 @@ const ResumeList = ({ data, setData }) => {
         </svg>
       </div> */}
       <div
-        className="flex flex-col gap-4 py-4 bg-white rounded-lg"
+        className="flex flex-col gap-4   bg-white rounded-2xl p-4"
         // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
@@ -194,11 +220,13 @@ const ResumeList = ({ data, setData }) => {
           <p className="text-[20px] font-medium">Upload Photo</p>
           <label className="switch">
             <input
-
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
-              disabled={data.selectedResumeIndex === 13 || data.selectedResumeIndex === 14}
+              disabled={
+                data.selectedResumeIndex === 13 ||
+                data.selectedResumeIndex === 14
+              }
             />
             <span className="slider round"></span>
           </label>
@@ -219,9 +247,9 @@ const ResumeList = ({ data, setData }) => {
           )}
           <div
             className="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center upload-btn-wrapper"
-            onDragOver={handleDragOver}
             ref={fileRef}
-            onDrop={handleFileChange}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
           >
             <input type="file" name="myfile" onChange={handleFileChange} />
 
@@ -258,10 +286,11 @@ const ResumeList = ({ data, setData }) => {
               disabled={
                 data.profilePhoto === null || data.profilePhoto === undefined
               }
-              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${(data.profilePhoto === null ||
-                data.profilePhoto === undefined) &&
+              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${
+                (data.profilePhoto === null ||
+                  data.profilePhoto === undefined) &&
                 "opacity-50"
-                }`}
+              }`}
               onClick={() => removeImgae()}
             >
               Remove
@@ -269,8 +298,9 @@ const ResumeList = ({ data, setData }) => {
 
             <button
               disabled={!croppedImage}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!croppedImage && "opacity-50"
-                }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
+                !croppedImage && "opacity-50"
+              }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

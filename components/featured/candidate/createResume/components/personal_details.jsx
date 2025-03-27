@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { camelCase } from "../../../../../utils/middleware";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactSelect from "react-select";
-import { telCode } from "../../../../../utils/data";
+import { currencyMap, telCode } from "../../../../../utils/data";
+import debounce from "lodash.debounce";
+import { fetchCities } from "../../../../../Redux/slices/geoLocationSlice";
 
 const PersonalDetails = ({
   setData,
@@ -11,27 +13,72 @@ const PersonalDetails = ({
   selectedColor,
   selectedResumeIndex,
 }) => {
-  const userDataGlobal = useSelector((state) => state.userData);
 
+
+  const dispatch = useDispatch();
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { cities, loading, error } = useSelector((state) => state.cities);
+  const [selectedCity,setSelectedCity] =useState("")
+ 
+    const [input, setInput] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
+  useEffect(() => {
+    if (data.location) {
+      setSelectedCity({ value: data.location, label: data.location });
+    }
+  }, [data.location]);
+ 
+  
+    const getCountryCode = (countryName) => {
+      return telCode.find((item) => item.name === countryName)?.code || "";
+    };
+   
+   
+    const handleDebouncedSearch = debounce((value) => {
+      const countryCode = getCountryCode(data.country);
+      if (value.trim()) {
+        dispatch(fetchCities({ input: value, country: countryCode }));
+      }
+    }, 500);
+  
 
-  const [profileData, setProfileData] = useState({
+  const [profileDataa, setProfileDataa] = useState({
     firstName: "",
     lastName: "",
     mobileNumber: "",
     email: "",
     location: "",
+    country: "",
     designation: "",
     dial_code: "",
   });
+
+  useEffect(() => {
+    if (profileData?.basics) {
+      const { firstName, lastName, mobileNo, email, country } =
+        profileData?.basics;
+
+      setProfileDataa((prevState) => ({
+        ...prevState,
+        firstName: firstName || "",
+        lastName: lastName || "",
+        mobileNumber: mobileNo || "",
+        email: email || "",
+        country: country || "",
+      }));
+    }
+  }, [profileData]);
+  useEffect(() => {
+    setSelectedItem(data?.dial_code);
+  }, []);
 
   const [formErrors, setFormErrors] = useState({
     firstName: false,
@@ -39,6 +86,7 @@ const PersonalDetails = ({
     mobileNumber: false,
     email: false,
     location: false,
+    country: false,
     designation: false,
     dial_code: false,
   });
@@ -49,6 +97,7 @@ const PersonalDetails = ({
     mobileNumber: false,
     email: false,
     location: false,
+    country: false,
     designation: false,
     dial_code: false,
   });
@@ -74,10 +123,46 @@ const PersonalDetails = ({
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    setProfileData({ ...profileData, dial_code: item.dial_code });
+    setData({ ...data, dial_code: item.dial_code });
+    setProfileDataa({ ...profileDataa, dial_code: item.dial_code });
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
   };
+
+  const handleCountryChange = (selectedCountry) => {
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      country: "",
+    }));
+
+    setProfileDataa((prev) => ({
+      ...prev,
+      country: selectedCountry.value,
+    }));
+    setData((prev) => ({
+      ...prev,
+      country: selectedCountry.value,
+    }));
+
+    setIsModified(true);
+  };
+  const handleInputChange1 = (fieldName, value) => {
+ 
+      setData({ ...data, [fieldName]: value });
+      setIsModified(true);
+    
+  };
+
+  const countryOptions = telCode
+    .filter((country) => country.name)
+    .map((country) => ({
+      value: country.name,
+      label: country.name,
+    }));
+
+  const countryValue = countryOptions.find(
+    (option) => option.value === profileDataa.country
+  );
 
   const inputFields = [
     {
@@ -85,7 +170,7 @@ const PersonalDetails = ({
       type: "text",
       name: "firstName",
       placeholder: "Enter First Name",
-      value: profileData.firstName,
+      value: profileDataa.firstName,
       className: " ",
     },
     {
@@ -93,7 +178,7 @@ const PersonalDetails = ({
       type: "text",
       name: "lastName",
       placeholder: "Enter Last Name",
-      value: profileData.lastName,
+      value: profileDataa.lastName,
       className: " ",
     },
     {
@@ -101,7 +186,7 @@ const PersonalDetails = ({
       type: "text",
       name: "designation",
       placeholder: "Enter Designation",
-      value: profileData.designation,
+      value: profileDataa.designation,
       className: " col-span-2",
     },
     {
@@ -109,24 +194,101 @@ const PersonalDetails = ({
       type: "text",
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
-      value: profileData.mobileNumber,
-      className: " col-span-2 ",
+      value: profileDataa.mobileNumber,
+      className: " col-span-2  ",
     },
     {
       label: "Email Address",
       type: "email",
       name: "email",
       placeholder: "Enter Email Address",
-      value: profileData.email,
+      value: profileDataa.email,
       className: " col-span-2",
+    },
+    {
+      label: "Country",
+      type: "country",
+      name: "country",
+      component: (
+        <ReactSelect
+          options={countryOptions}
+          onChange={handleCountryChange}
+          value={countryValue}
+          placeholder="Select countries"
+          className="border border-[#9D9D9D] rounded-[8px] withoutBorder outline-none"
+          classNamePrefix="select"
+          onMenuClose={() => {
+            setTimeout(() => {
+              const scrollDiv = document.getElementById("scroll");
+              if (scrollDiv) {
+                scrollDiv.scrollLeft = scrollDiv.scrollWidth;
+              }
+            }, 100);
+          }}
+          isDisabled={!isChecked}
+        />
+      ),
+      className: "col-span-2",
     },
     {
       label: "Current Location",
       type: "text",
       name: "location",
-      placeholder: "Current Location",
-      value: profileData.location,
-      className: " col-span-2",
+      component: (
+        <ReactSelect
+          options={
+            cities?.predictions?.map((city) => ({
+              value: city.description,
+              label: city.description,
+            })) || []
+          }
+          onInputChange={(value) => {
+            setInput({ value, label: value });
+            handleDebouncedSearch(value);
+          }}
+          onChange={(selectedOption) => {
+            setInput(selectedOption);
+            setSelectedCity(selectedOption); 
+            handleInputChange1("location", selectedOption.value);
+          }}
+          value={selectedCity} 
+          placeholder="Search & Select Your Location"
+          isSearchable={true}
+          className="border border-[#9D9D9D] rounded-[8px] withoutBorder outline-none"
+          classNamePrefix="select"
+          styles={{
+            control: (provided, state) => ({
+              ...provided,
+              fontSize: "14px",
+              fontWeight: "400",
+              padding: "0.25rem 1rem",
+              borderRadius: "8px",
+              borderColor: state.isFocused ? "#DEDEDE" : "#DEDEDE",
+              boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
+              height: "40px",
+              outline: "none",
+            }),
+            placeholder: (provided) => ({
+              ...provided,
+              color: "#A0A0A0",
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: "#000",
+            }),
+            input: (provided) => ({
+              ...provided,
+              margin: "0px",
+              padding: "0px",
+            }),
+            menu: (provided) => ({
+              ...provided,
+              zIndex: 9999,
+            }),
+          }}
+        />
+      ),
+      className: "col-span-2",
     },
   ];
 
@@ -136,7 +298,7 @@ const PersonalDetails = ({
 
     inputFields.forEach((field) => {
       const { name } = field;
-      const value = profileData[name];
+      const value = profileDataa[name];
 
       switch (name) {
         case "firstName":
@@ -160,6 +322,12 @@ const PersonalDetails = ({
         case "email":
           if (!value?.trim() && touched[name]) {
             newErrors[name] = "Email is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "country":
+          if (!value?.trim() && touched[name]) {
+            newErrors[name] = "country is required";
             allFieldsValid = false;
           }
           break;
@@ -197,16 +365,16 @@ const PersonalDetails = ({
 
     if (name === "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
-        setProfileData({
-          ...profileData,
+        setProfileDataa({
+          ...profileDataa,
           [name]: value.replace(/\D/g, ""),
         });
         setIsModified(true);
         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
       }
     } else {
-      setProfileData({
-        ...profileData,
+      setProfileDataa({
+        ...profileDataa,
         [name]: value,
       });
       setIsModified(true);
@@ -217,7 +385,7 @@ const PersonalDetails = ({
   const isDisabled = () => {
     if (!isChecked || !isModified) return true;
 
-    const isAnyFieldEmpty = Object.values(profileData).some((value) => {
+    const isAnyFieldEmpty = Object.values(profileDataa).some((value) => {
       if (typeof value === "string") {
         return value.trim() === "";
       }
@@ -237,13 +405,14 @@ const PersonalDetails = ({
       setData({
         ...data,
         dial_code: data.dial_code,
-        firstName: camelCase(profileData.firstName),
-        lastName: camelCase(profileData.lastName),
-        mobileNumber: profileData.mobileNumber,
-        dial_code: profileData.dial_code,
-        email: profileData.email.toLowerCase(),
-        location: camelCase(profileData.location),
-        designation: profileData.designation,
+        firstName: camelCase(profileDataa.firstName),
+        lastName: camelCase(profileDataa.lastName),
+        mobileNumber: profileDataa.mobileNumber,
+        dial_code: profileDataa.dial_code,
+        email: profileDataa.email.toLowerCase(),
+        country: profileDataa.country,
+        location: camelCase(profileDataa.location),
+        designation: profileDataa.designation,
         selectedResumeIndex: selectedResumeIndex,
         createdAt: data.createdAt || new Date().toISOString(),
       });
@@ -256,7 +425,7 @@ const PersonalDetails = ({
     if (allFieldsValid && isModified) {
       setIsModified(true);
     }
-  }, [profileData]);
+  }, [profileDataa]);
 
   useEffect(() => {
     const {
@@ -264,16 +433,18 @@ const PersonalDetails = ({
       lastName,
       email,
       mobileNumber,
+      country,
       location,
       designation,
       dial_code,
     } = data;
     setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
-    setProfileData({
+    setProfileDataa({
       firstName,
       lastName,
       email,
       mobileNumber,
+      country,
       location,
       designation,
       dial_code: dial_code ? dial_code : "+260",
@@ -291,7 +462,7 @@ const PersonalDetails = ({
   return (
     <>
       <div
-        className="flex flex-col sm:py-4 py-2 gap-2 rounded-lg bg-white"
+        className="flex flex-col  p-4 gap-2 rounded-xl bg-white"
         style={{
           opacity: isChecked ? 1 : 0.5,
         }}
@@ -305,28 +476,29 @@ const PersonalDetails = ({
               className={`flex flex-col gap-2 w-full ${item.className}`}
               key={index}
             >
-              <div className=" text-[14px]  font-medium">
+              <div className="text-[14px] font-medium">
                 {item.label} <span className="star">*</span>
               </div>
-              {item.name === "mobileNumber" ? (
+              {item.component ? (
+                <div className="w-full">{item.component}</div>
+              ) : item.name === "mobileNumber" ? (
                 <div
-                  className={`rounded-[8px] ${
-                    formErrors[item.name]
+                  className={`rounded-[8px] ${formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
-                  } `}
+                    }`}
                 >
                   <div
-                    className={`flex w-[100%] items-start gap-2`}
-                    id="single_input"
+                    className="flex w-[100%] items-center gap-2 border border-[#9D9D9D] rounded-[8px] h-[41.6px] "
+                  // id="single_input"
                   >
-                    <div className={`relative items-center cursor-pointer`}>
+                    <div className="relative items-center cursor-pointer">
                       <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
                         <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
                           <div className="flex items-center gap-1 cursor-pointer w-[100%]">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex items-center py-2 rounded-[8px] outline-none border-none cursor-pointer"
+                              className="w-[100%] px-1 flex items-center py-2 rounded-[8px] outline-none border-none cursor-pointer"
                               name=""
                               placeholder="Select"
                               value={selectedItem}
@@ -348,6 +520,7 @@ const PersonalDetails = ({
                                   ...provided,
                                   border: "none",
                                   minWidth: "130px",
+                                  marginLeft: "4px",
                                 }),
                               }}
                               theme={(theme) => ({
@@ -368,7 +541,7 @@ const PersonalDetails = ({
                       name={item.name}
                       placeholder={item.placeholder}
                       className="w-full text-[14px]"
-                      value={profileData[item.name]}
+                      value={profileDataa[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
@@ -376,18 +549,17 @@ const PersonalDetails = ({
                 </div>
               ) : (
                 <div
-                  className={`border-[1px] rounded-[8px] px-[16px] py-2 ${
-                    formErrors[item.name]
+                  className={`border-[1px] rounded-[8px] px-[16px] py-2 ${formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
-                  } `}
+                    }`}
                 >
                   <input
                     type={item.type}
                     name={item.name}
                     placeholder={item.placeholder}
                     className="w-full text-[14px]"
-                    value={profileData[item.name]}
+                    value={profileDataa[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
                     maxLength={
@@ -406,12 +578,12 @@ const PersonalDetails = ({
             </div>
           ))}
         </div>
+
         <div className="flex justify-end ">
           <div className="flex justify-between py-2 gap-2">
             <button
-              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
-                isChecked ? "btn_hover_effect" : ""
-              }`}
+              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${isChecked ? "bg_Button" : ""
+                }`}
               style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
               disabled={isDisabled() || !isChecked}
@@ -426,465 +598,3 @@ const PersonalDetails = ({
 };
 
 export default PersonalDetails;
-
-// import React, { useEffect, useState } from "react";
-// import { camelCase } from "../../../../../utils/middleware";
-// import { useSelector } from "react-redux";
-// import ReactSelect from "react-select";
-// import { telCode } from "../../../../../utils/data";
-
-// const PersonalDetails = ({
-//   setData,
-//   data,
-//   selectedFont,
-//   selectedColor,
-//   selectedResumeIndex,
-// }) => {
-//   const userDataGlobal = useSelector((state) => state.userData);
-
-//   const [isChecked, setIsChecked] = useState(true);
-//   const [isModified, setIsModified] = useState(false);
-//   const [filteredTelCode, setFilteredTelCode] = useState([]);
-//   const [selectedItem, setSelectedItem] = useState();
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const handleSwitchChange = () => {
-//     setIsChecked(!isChecked);
-//   };
-//   const [profileData, setProfileData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     mobileNumber: "",
-//     email: "",
-//     location: "",
-//     designation: "",
-//     dial_code: "",
-//   });
-
-//   useEffect(() => {
-//     const filterLogic = (item) =>
-//       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       item.dial_code.includes(searchTerm);
-
-//     const filteredCodes = telCode.filter(filterLogic);
-//     const firstSixCodes = filteredCodes.slice(0, 6);
-//     const remainingCodes = filteredCodes.slice(6);
-
-//     const sortedRemainingCodes = remainingCodes.sort((a, b) => {
-//       const numA = parseInt(a.dial_code.replace("+", ""), 10);
-//       const numB = parseInt(b.dial_code.replace("+", ""), 10);
-//       return numA - numB;
-//     });
-
-//     const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
-//     setFilteredTelCode(combinedCodes);
-//   }, [telCode, searchTerm]);
-
-//   const handleItemClick = (item) => {
-//     setSelectedItem(item);
-//     setProfileData({ ...profileData, dial_code: item.dial_code });
-//     setIsModified(true);
-//   };
-//   const inputFields = [
-//     {
-//       label: "First Name",
-//       type: "text",
-//       name: "firstName",
-//       placeholder: "Entet First Name",
-//       value: profileData.firstName,
-//       className: " ",
-//     },
-//     {
-//       label: "Last Name",
-//       type: "text",
-//       name: "lastName",
-//       placeholder: "Enter Last Name",
-//       value: profileData.lastName,
-//       className: " ",
-//     },
-//     {
-//       label: "Designation",
-//       type: "text",
-//       name: "designation",
-//       placeholder: "Enter designation",
-//       value: profileData.designation,
-//       className: " col-span-2",
-//     },
-//     {
-//       label: "Mobile Number",
-//       type: "text",
-//       name: "mobileNumber",
-//       placeholder: "Enter Mobile Number",
-//       value: profileData.mobileNumber,
-//       className: " col-span-2 ",
-//     },
-//     {
-//       label: "Email Address",
-//       type: "email",
-//       name: "email",
-//       placeholder: "Enter Email Address",
-//       value: profileData.email,
-//       className: " col-span-2",
-//     },
-//     {
-//       label: "Current Location",
-//       type: "text",
-//       name: "location",
-//       placeholder: "Current Location",
-//       value: profileData.location,
-//       className: " col-span-2",
-//     },
-//   ];
-
-//   const [formErrors, setFormErrors] = useState({
-//     firstName: false,
-//     lastName: false,
-//     mobileNumber: false,
-//     email: false,
-//     location: false,
-//     designation: false,
-//     dial_code: false
-//   });
-
-//   const validateFields = () => {
-//     const newErrors = {};
-//     let allFieldsValid = true;
-
-//     inputFields.forEach((field) => {
-//       const { name } = field;
-//       const value = profileData[name];
-
-//       switch (name) {
-//         case "firstName":
-//           if (!value.trim()) {
-//             newErrors[name] = "First name is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "lastName":
-//           if (!value.trim()) {
-//             newErrors[name] = "Last name is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "mobileNumber":
-//           if (!value || !value.toString().trim()) {
-//             newErrors[name] = "Mobile number is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "email":
-//           if (!value.trim()) {
-//             newErrors[name] = "Email is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "location":
-//           if (!value.trim()) {
-//             newErrors[name] = "Location is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "designation":
-//           if (!value.trim()) {
-//             newErrors[name] = "Designation is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         case "dial_code":
-//           if (!value.trim()) {
-//             newErrors[name] = "Dial code is required";
-//             allFieldsValid = false;
-//           }
-//           break;
-//         default:
-//           break;
-//       }
-//     });
-
-//     setFormErrors(newErrors);
-//     return allFieldsValid;
-//   };
-
-//   // const validateFields = () => {
-//   //   const newErrors = {};
-//   //   let allFieldsValid = true;
-
-//   //   inputFields.forEach((field) => {
-//   //     const { name } = field;
-//   //     const value = profileData[name];
-
-//   //     if (typeof value === "string" && value.trim() === "") {
-//   //       newErrors[name] = true;
-//   //       allFieldsValid = false;
-//   //     } else {
-//   //       newErrors[name] = false;
-//   //     }
-//   //   });
-
-//   //   // setFormErrors({ ...newErrors });
-//   //   return allFieldsValid;
-//   // };
-
-//   // console.log(1616,profileData.dial_code)
-//   // console.log(1111111,data.dial_code)
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-
-//     if (name == "mobileNumber") {
-//       if (value.replace(/\D/g, "").length <= 10) {
-//         setProfileData({
-//           ...profileData,
-//           [name]: value.replace(/\D/g, ""),
-//         });
-//         setIsModified(true);
-//         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
-//       }
-//     } else {
-//       setProfileData({
-//         ...profileData,
-//         [name]: value,
-//       });
-//       setIsModified(true);
-//       setFormErrors({ ...formErrors, [name]: value.trim() === "" });
-//     }
-//   };
-
-//   const isDisabled = () => {
-//     if (!isChecked || !isModified) return true;
-
-//     const isAnyFieldEmpty = Object.values(profileData).some((value) => {
-//       if (typeof value === "string") {
-//         return value.trim() === "";
-//       }
-
-//       if (typeof value === "number") {
-//         return value.toString().trim() === "";
-//       }
-//       return true;
-//     });
-
-//     return isAnyFieldEmpty;
-//   };
-
-//   const saveData = () => {
-//     const allFieldsValid = validateFields();
-//     if (allFieldsValid && isModified) {
-//       setData({
-//         ...data,
-//         dial_code: data.dial_code,
-//         firstName: camelCase(profileData.firstName),
-//         lastName: camelCase(profileData.lastName),
-//         mobileNumber: profileData.mobileNumber,
-//         dial_code: profileData.dial_code,
-//         email: profileData.email.toLowerCase(),
-//         location: camelCase(profileData.location),
-//         designation: profileData.designation,
-//         selectedResumeIndex: selectedResumeIndex,
-
-//         createdAt: data.createdAt || new Date().toISOString(),
-//       });
-//       setIsModified(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const allFieldsValid = validateFields();
-//     if (allFieldsValid && isModified) {
-//       setIsModified(true);
-//     }
-//   }, [profileData]);
-
-//   useEffect(() => {
-//     const {
-//       firstName,
-//       lastName,
-//       email,
-//       mobileNumber: mobileNumber,
-//       location,
-//       designation,
-//       dial_code,
-//     } = data;
-//     setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
-//     setProfileData({
-//       ...profileData,
-//       firstName,
-//       lastName,
-//       email,
-//       mobileNumber,
-//       location: location,
-//       designation,
-//       dial_code: dial_code ? dial_code : "+260",
-//     });
-//   }, [data]);
-
-//   const customFilterOption = ({ label, value, data }, inputValue) => {
-//     const lowercasedInput = inputValue.toLowerCase();
-//     return (
-//       data.code.toLowerCase().includes(lowercasedInput) ||
-//       data.dial_code.includes(inputValue)
-//     );
-//   };
-
-//   return (
-//     <>
-//       <div
-//         className="flex flex-col sm:py-4 py-2 gap-2 rounded-lg bg-white"
-//         style={{
-//           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-//           opacity: isChecked ? 1 : 0.5,
-//         }}
-//       >
-//         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-//           <p> Personal Details</p>
-//           {/**  <label className="switch">
-//             <input
-//               type="checkbox"
-//               checked={isChecked}
-//               onChange={handleSwitchChange}
-//             />
-//             <span className="slider round"></span>
-//           </label> */}
-//         </div>
-//         <div className="grid grid-cols-2 gap-4">
-//           {inputFields.map((item, index) => (
-//             <div
-//               className={`flex flex-col gap-2 w-full ${item.className}`}
-//               key={index}
-//             >
-//               <div className=" text-[14px]  font-medium">{item.label} <span className="star">*</span></div>
-//               {item.name == "mobileNumber" ? (
-//                 <div
-//                   className={`rounded-[8px] ${formErrors[item.name]
-//                       ? "border-[#C00000]"
-//                       : "border-[#9D9D9D]"
-//                     } `}
-//                 >
-//                   <div
-//                     className={`flex w-[100%] items-start  "
-//                           }`}
-//                     id="single_input"
-//                   >
-//                     <div
-//                       className={`relative
-//                             } items-center`}
-//                     >
-//                       <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
-//                         <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
-//                           <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
-//                             <ReactSelect
-//                               options={filteredTelCode}
-//                               className="w-[100%] flex  items-center py-2  rounded-[8px] outline-none border-none cursor-pointer"
-//                               name=""
-//                               placeholder="Select"
-//                               value={selectedItem}
-//                               onChange={handleItemClick}
-//                               getOptionLabel={(option) => (
-//                                 <div className="flex items-center cursor-pointer  ">
-//                                   <img
-//                                     src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-//                                     width="20px"
-//                                   />
-//                                   <span className="ml-2 text-[#333333] cursor-pointer">
-//                                     {option.code} {option.dial_code}
-//                                   </span>
-//                                 </div>
-//                               )}
-//                               // getOptionValue={(option) => option.code}
-//                               filterOption={customFilterOption}
-//                               styles={{
-//                                 control: (provided) => ({
-//                                   ...provided,
-//                                   border: "none",
-
-//                                   minWidth: "130px",
-//                                 }),
-//                               }}
-//                               theme={(theme) => ({
-//                                 ...theme,
-//                                 borderRadius: 0,
-//                                 colors: {
-//                                   ...theme.colors,
-//                                   // primary25: "hotpink",
-//                                   primary: "neutral0",
-//                                 },
-//                               })}
-//                             />
-//                           </div>
-//                         </div>
-//                       </div>
-//                     </div>
-
-//                     <input
-//                       type={item.type}
-//                       name={item.name}
-//                       placeholder={item.placeholder}
-//                       className="w-full text-[14px] "
-//                       value={profileData[item.name]}
-//                       onChange={handleInputChange}
-//                       disabled={!isChecked}
-//                     />
-//                   </div>
-//                 </div>
-//               ) : (
-//                 <div
-//                   className={`border-[1px] rounded-[8px] px-[16px] py-2   ${formErrors[item.name]
-//                       ? "border-[#C00000]"
-//                       : "border-[#9D9D9D]"
-//                     } `}
-//                 >
-//                   <input
-//                     type={item.type}
-//                     name={item.name}
-//                     placeholder={item.placeholder}
-//                     className="w-full text-[14px] "
-//                     value={profileData[item.name]}
-//                     onChange={handleInputChange}
-//                     disabled={!isChecked}
-//                     maxLength={
-//                       item.name === "firstName" || item.name === "lastName"
-//                         ? 25
-//                         : 100
-//                     }
-//                   />
-//                 </div>
-//               )}
-//               {/* {formErrors[item.name] && (
-//                 <span className="text-[#C00000] text-[12px]">
-//                   Field is required
-//                 </span>
-//               )} */}
-
-//               {formErrors[item.name] && (
-//                 <span className="text-[#C00000] text-[12px]">{formErrors[item.name]}</span>
-//               )}
-
-//               {console.log(1111, formErrors)}
-//             </div>
-//           ))}
-//         </div>
-//         <div className="flex justify-end ">
-//           <div className="flex justify-between  py-2 gap-2">
-//             {/* <button
-//               className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]"
-//               disabled={!isChecked}
-//             >
-//               Update to Profile
-//             </button> */}
-//             <button
-//               className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${isChecked ? "btn_hover_effect" : ""
-//                 }`}
-//               style={{ opacity: isDisabled() ? 0.5 : 1 }}
-//               onClick={saveData}
-//               disabled={isDisabled() || !isChecked}
-//             >
-//               Save
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default PersonalDetails;

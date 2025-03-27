@@ -1,12 +1,13 @@
 import BeforeLoginHome from "./home";
 import React, { useEffect, useRef, useState } from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 
 function Home() {
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [loading, setLoading] = useState(true);
-  const [visible,setVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
 
@@ -20,7 +21,7 @@ function Home() {
     }
     const timer = setTimeout(() => {
       setLoading(false);
-      if(userDataGlobal?.tempPassword?.length>0){
+      if (userDataGlobal?.tempPassword?.length > 0) {
         setVisible(true)
       }
     }, 1000);
@@ -28,11 +29,11 @@ function Home() {
     return () => clearTimeout(timer);
 
   }, []);
-  
+
   return (
     <>
 
-        <BeforeLoginHome />
+      <BeforeLoginHome />
     </>
   );
 }

@@ -4,8 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { popupNotVisible, reCallUserData } from "../../Redux/actions/user";
-import Link from "next/link";
+
 import ForgotPassword from "./forgotPassword";
 
 function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
@@ -36,7 +35,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       document.removeEventListener("mousedown", handleOutsideClick);
       localStorage.setItem("purchase", false);
     };
-  }, []);
+  });
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -59,12 +58,12 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
       role: role,
     };
     axios
-      .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
+      .post("https://dev.api.skilotech.com/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;
           localStorage.setItem("authToken", JSON.stringify(response));
-          dispatch(reCallUserData());
+     
           toast.success("Sign in Successfully");
           if (sendToPurchase?.status) {
             localStorage.removeItem("purchase");

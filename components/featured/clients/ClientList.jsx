@@ -52,7 +52,7 @@ function ClientList({
   };
   const toggleDetails = (detail) => {
     setSelectedDetail(details[detail]);
-    router.push(`/myClients/ClientDetail?detailIndex=${detail._id}`);
+    router.push(`/candidates/ClientDetail?detailIndex=${detail._id}`);
   };
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -65,7 +65,7 @@ function ClientList({
     <>
       <div className="rounded-[16px]  flex flex-col gap-4 w-[100%] break-all">
         <div className="text-[16px] font-medium">
-          Total Clients ({details?.length})
+          Total Candidates ({details?.length})
         </div>
 
         <div className="flex  gap-4 flex-wrap scr700:justify-start justify-center  ">
@@ -86,11 +86,10 @@ function ClientList({
             // }}
             onClick={() => {
 
-              router.push("/myClients/CreateNewClient");
+              router.push("/candidates/CreateNewClient");
 
             }}
-            style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-            className="rounded-[24px] text-center text-white justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px]   max-w-[224px] bg-[#646464] p-4 cursor-pointer"
+            className="rounded-[16px] text-center text-[#333333] border-[1px] border-solid border-[#DEDEDE] justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium min-w-[224px] max-w-[224px] p-4 cursor-pointer "
           >
             <svg
               width="27"
@@ -101,18 +100,17 @@ function ClientList({
             >
               <path
                 d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                fill="white"
+                fill="#333333"
               />
             </svg>
 
-            <p>Create New Client</p>
-          </div>
+            <p className=" break-words">Create New <br/> Candidate</p>
+          </div >
           {details?.map((detail, index) => (
             <div
               onClick={() => toggleDetails(detail)}
               key={index}
-              className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px]  w-[224px]"
-              style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
+              className="flex flex-col gap-4 cursor-pointer border-[1px] border-solid border-[#DEDEDE] p-4 rounded-[16px]  w-[224px]"
             >
               <div className="flex justify-center relative">
                 {select && (
@@ -169,7 +167,7 @@ function ClientList({
                       onClick={() => toggleDetails(detail)}
                       className="text-[14px] font-medium"
                     >
-                      View Client
+                      View Candidates
                     </p>
 
                     <p
@@ -186,7 +184,7 @@ function ClientList({
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-[18px] font-medium">
+                <p className="text-[14px] text-[#333333] font-[500]">
                   {" "}
                   {detail.firstName} {detail.lastName}
                 </p>
@@ -205,15 +203,14 @@ function ClientList({
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium">
+                  <p className="text-[12px] text-[#333333] font-[500]">
                     {detail.designation}
                   </p>
                 </div>
               </div>
               <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
               <div className="flex flex-col gap-2">
-                <p className="text-[16px] font-medium">Contact</p>
-
+                <p className="text-[14px] font-[500] text-[#333333]">Contact</p>
                 <div className="flex  gap-2">
                   <div className="w-[20px] h-[20px] ">
                     <svg
@@ -231,7 +228,7 @@ function ClientList({
                       </g>
                     </svg>
                   </div>
-                  <p className="text-[14px] font-normal">{detail.email}</p>
+                  <p className="text-[12px] text-[#333333] font-[400]">{detail.email}</p>
                 </div>
                 <div className="flex  gap-2">
                   <svg
@@ -249,7 +246,7 @@ function ClientList({
                     </g>
                   </svg>
 
-                  <p className="text-[14px] font-normal">{detail.mobileNo}</p>
+                  <p className="text-[12px] text-[#333333] font-[400]">{detail.mobileNo}</p>
                 </div>
                 <div className="flex  gap-2">
                   <svg
@@ -267,7 +264,7 @@ function ClientList({
                     </g>
                   </svg>
 
-                  <p className="text-[14px] font-normal">{detail.location}</p>
+                  <p className="text-[12px] text-[#333333] font-[400]">{detail.location}</p>
                 </div>
               </div>
             </div>

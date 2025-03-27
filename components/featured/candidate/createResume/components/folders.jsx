@@ -26,12 +26,13 @@ function Folders({
   setIsCreate,
   setIsFile,
   setIsCreateFolder,
-  unSyncFiles
+  unSyncFiles,
+  getLimits
 }) {
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
   const [mainDataAll, setMainDataAll] = useState(data);
-  const { clients, folders, clientId, name, trash } = query;
+  const { skilotechCollection, folders, clientId, name, trash } = query;
   const [isSort, setIsSort] = useState(false);
   const [sortSelect, setSortSelect] = useState(1);
   const [files, setFiles] = useState(null);
@@ -76,7 +77,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/delete", {
+      .post("https://dev.api.skilotech.com/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -97,7 +98,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://jamblix.com/api/folder/restore", {
+      .post("https://dev.api.skilotech.com/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -136,8 +137,11 @@ function Folders({
       setSelectedIndexes([]);
     } else {
       setSelectedIndexes(
-        Array.from({ length: clientData?.length }, (_, index) => index)
+        clientData
+          ?.map((client, index) => (client.fileName === "My Clients" ? null : index))
+          .filter((index) => index !== null)
       );
+
     }
     setSelectAll(!selectAll);
   };
@@ -178,99 +182,8 @@ function Folders({
 
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
-      <div className="flex justify-between items-center">
-        <p className="text-[18px] font-semibold ml:block hidden">
-          My Collection
-        </p>
-        <button
-          onClick={(e) => {
-            setIsCreate(!isCreate);
-            e.stopPropagation();
-          }}
-          disabled={tab != 1}
-          className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 ml:hidden flex gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
-          style={{ opacity: tab == 1 ? 1 : 0.6 }}
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g mask="url(#mask0_1346_17971)">
-              <path
-                d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
-                fill="white"
-              />
-            </g>
-          </svg>
-          New
-          {isCreate && (
-            <>
-              <div
-                className="absolute flex text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-4 bg-white"
-                style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-              >
-                <div
-                  onClick={(e) => {
-                    setIsFile(false);
-                    setIsCreateFolder(true);
-                  }}
-                  className="flex gap-1 text-[10px] items-center"
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_1304_20124)">
-                      <path
-                        d="M14.25 15.75H15.75V13.75H17.75V12.25H15.75V10.25H14.25V12.25H12.25V13.75H14.25V15.75ZM4.3077 19.5C3.80257 19.5 3.375 19.325 3.025 18.975C2.675 18.625 2.5 18.1974 2.5 17.6923V6.3077C2.5 5.80257 2.675 5.375 3.025 5.025C3.375 4.675 3.80257 4.5 4.3077 4.5H9.79803L11.798 6.5H19.6923C20.1974 6.5 20.625 6.675 20.975 7.025C21.325 7.375 21.5 7.80257 21.5 8.3077V17.6923C21.5 18.1974 21.325 18.625 20.975 18.975C20.625 19.325 20.1974 19.5 19.6923 19.5H4.3077ZM4.3077 18H19.6923C19.782 18 19.8557 17.9711 19.9134 17.9134C19.9711 17.8557 20 17.782 20 17.6923V8.3077C20 8.21795 19.9711 8.14422 19.9134 8.08652C19.8557 8.02883 19.782 7.99998 19.6923 7.99998H11.1846L9.1846 5.99998H4.3077C4.21795 5.99998 4.14423 6.02882 4.08653 6.08652C4.02883 6.14423 3.99998 6.21795 3.99998 6.3077V17.6923C3.99998 17.782 4.02883 17.8557 4.08653 17.9134C4.14423 17.9711 4.21795 18 4.3077 18Z"
-                        fill="#1C1B1F"
-                      />
-                    </g>
-                  </svg>
-                  New Folder
-                </div>
+      <div className="flex justify-end items-center">
 
-                <div
-                  className="flex gap-1 text-[10px] items-center upload-btn-wrapper"
-                  onClick={(e) => {
-                    setIsFile(true);
-                    setIsCreateFolder(true);
-                  }}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_1304_20136)">
-                      <path
-                        d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z"
-                        fill="#1C1B1F"
-                      />
-                    </g>
-                  </svg>
-                  {/* <input
-                        multiple
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        onChange={(event) =>
-                          handleFileChange(event, folderData.folderName)
-                        }
-                      /> */}
-                  Upload Files
-                </div>
-              </div>
-            </>
-          )}
-        </button>
         <div
           className="bg-[#FFFFFF] rounded-[36px] py-[10px] px-3 flex gap-2 items-center "
           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
@@ -307,10 +220,10 @@ function Folders({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
+      <div className="flex flex-col gap-4   bg-white ms:p-6 p-2  rounded-[16px]   min-h-[560px] ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
-          <div className="flex justify-end text-[14px] font-medium ">
-            {unSyncFiles > 0 && folders &&
+          {/* <div className="flex justify-end text-[14px] font-medium ">
+            {unSyncFiles > 0 &&
               <div className="bg-[#FEFCE8] w-[245px] py-1 px-2 flex justify-between gap-2 items-center text-[#854D0E] rounded-[8px]">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -322,7 +235,7 @@ function Folders({
                 {unSyncFiles} files syncing in progress
               </div>
             }
-          </div>
+          </div> */}
           <div
             className={` ${select ? "flex" : "hidden"
               } gap-12  items-center w-[100%] h-[40px] `}
@@ -353,11 +266,25 @@ function Folders({
                       Select All
                       <input
                         type="checkbox"
-                        className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                        className="rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
                         style={{ width: "20px", height: "20px" }}
-                        checked={selectAll}
-                        onChange={toggleSelectAll}
+                        checked={
+                          clientData?.length > 0 &&
+                          clientData
+                            .filter((client) => client.fileName !== "My Clients")
+                            .every((client) => selectedIndexes.includes(clientData.indexOf(client)))
+                        }
+                        onChange={() => {
+                          const selectableIndexes = clientData
+                            ?.map((client, index) => (client.fileName !== "My Clients" ? index : null))
+                            .filter((index) => index !== null);
+
+                          setSelectedIndexes((prev) =>
+                            prev.length === selectableIndexes.length ? [] : selectableIndexes
+                          );
+                        }}
                       />
+
                     </label>
                   </div>
 
@@ -366,6 +293,7 @@ function Folders({
                       <>
                         <svg
                           onClick={restoreFile}
+                          className=" cursor-pointer"
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -415,33 +343,33 @@ function Folders({
                             />
                           </g>
                         </svg> */}
-                        {/* {!clients && (
+                        {/* {!skilotechCollection && (
                           <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                             {" "}
                           </div>
                         )} */}
                       </>
                     )}
-                    {!clients && (
-                      <svg
-                        onClick={() =>
-                          selectedIndexes.length > 0 && setShowDelete(true)
-                        }
-                        className=" cursor-pointer"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g mask="url(#mask0_1381_18138)">
-                          <path
-                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-                    )}
+
+                    <svg
+                      onClick={() =>
+                        selectedIndexes.length > 0 && setShowDelete(true)
+                      }
+                      className=" cursor-pointer"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_1381_18138)">
+                        <path
+                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                          fill="#333333"
+                        />
+                      </g>
+                    </svg>
+
                     {/* {trash || selectedIndexes.length > 1 ? null : (
                       <>
                         {" "}
@@ -466,32 +394,32 @@ function Folders({
                       </>
                     )} */}
                   </div>
-                  {!clients && !trash && (
-                  <div>
-                    <svg
-                      onClick={() =>
-                        selectedIndexes.length > 0 && setShowDelete(true)
-                      }
-                      className=" cursor-pointer scr540:hidden"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1381_18138)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
-                  </div>
+                  {!trash && (
+                    <div>
+                      <svg
+                        onClick={() =>
+                          selectedIndexes.length > 0 && setShowDelete(true)
+                        }
+                        className=" cursor-pointer scr540:hidden"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1381_18138)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                    </div>
                   )}
                   <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
                     {selectedIndexes.length} selected
                   </div>
-                  {!clients && trash && (
+                  {trash && (
                     <svg
                       onClick={() => setIsOption(!isOption)}
                       className="scr540:hidden"
@@ -583,7 +511,7 @@ function Folders({
               )}
             </div>
             <div className=" ml:w-[65%] w-[100%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
-              <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
+              <div className="rounded-[30px] py-2 px-3 flex gap-2  w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%] border border-[#DEDEDE]  ">
                 <svg
                   width="24"
                   height="24"
@@ -602,35 +530,35 @@ function Folders({
 
                 <input
                   onChange={(e) => changeHandler(e.target.value)}
-                  className="w-full bg-[#E9EEF6] text-[#333333]"
+                  className="w-full  text-[#333333]"
                   type="text"
                   placeholder="Search File"
                 />
               </div>
               <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] justify-center sm:w-[210px] h-[40px]">
-                {!clients &&
-                  <div
-                    onClick={() => setSelect(!select)}
-                    className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1148_17404)">
-                        <path
-                          d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
 
-                    <p className="sm:block  hidden">Select</p>
-                  </div>
-                }
+                <div
+                  onClick={() => setSelect(!select)}
+                  className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_1148_17404)">
+                      <path
+                        d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+
+                  <p className="sm:block  hidden">Select</p>
+                </div>
+
                 {trash ? null : (
                   <>
                     {" "}
@@ -652,9 +580,9 @@ function Folders({
                     </svg>
                     Filter
                   </div> */}
-                    {!clients &&
-                      <div className="w-[1px] h-full bg-white"></div>
-                    }
+
+                    <div className="w-[1px] h-full bg-white"></div>
+
                     <div
                       onClick={() => setIsSort(!isSort)}
                       className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer sm:w-[78px]"
@@ -721,6 +649,72 @@ function Folders({
         </div>
 
         <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
+        {tab !== 2 && (
+          <div
+            className=" flex text-[14px] gap-8 "
+
+          >
+            {parentId &&
+              <div
+                className="flex gap-1 items-center upload-btn-wrapper text-[14px] font-semibold text-[#06A9EF] cursor-pointer"
+                onClick={(e) => {
+                  setIsFile(true);
+                  setIsCreateFolder(true);
+                  getLimits()
+                }}
+              >
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g mask="url(#mask0_1304_20136)">
+                    <path
+                      d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z"
+                      fill="#06A9EF"
+                    />
+                  </g>
+                </svg>
+                {/* <input
+                                multiple
+                                type="file"
+                                accept=".pdf,.doc,.docx"
+                                onChange={(event) =>
+                                  handleFileChange(event, folderData.folderName)
+                                }
+                              /> */}
+                Upload Files
+              </div>
+            }
+            <div
+              onClick={(e) => {
+                setIsFile(false);
+                setIsCreateFolder(true);
+              }}
+              className="flex gap-1  items-center h-[30] text-[14px] font-semibold text-[#06A9EF] cursor-pointer"
+            >
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_1304_20124)">
+                  <path
+                    d="M14.25 15.75H15.75V13.75H17.75V12.25H15.75V10.25H14.25V12.25H12.25V13.75H14.25V15.75ZM4.3077 19.5C3.80257 19.5 3.375 19.325 3.025 18.975C2.675 18.625 2.5 18.1974 2.5 17.6923V6.3077C2.5 5.80257 2.675 5.375 3.025 5.025C3.375 4.675 3.80257 4.5 4.3077 4.5H9.79803L11.798 6.5H19.6923C20.1974 6.5 20.625 6.675 20.975 7.025C21.325 7.375 21.5 7.80257 21.5 8.3077V17.6923C21.5 18.1974 21.325 18.625 20.975 18.975C20.625 19.325 20.1974 19.5 19.6923 19.5H4.3077ZM4.3077 18H19.6923C19.782 18 19.8557 17.9711 19.9134 17.9134C19.9711 17.8557 20 17.782 20 17.6923V8.3077C20 8.21795 19.9711 8.14422 19.9134 8.08652C19.8557 8.02883 19.782 7.99998 19.6923 7.99998H11.1846L9.1846 5.99998H4.3077C4.21795 5.99998 4.14423 6.02882 4.08653 6.08652C4.02883 6.14423 3.99998 6.21795 3.99998 6.3077V17.6923C3.99998 17.782 4.02883 17.8557 4.08653 17.9134C4.14423 17.9711 4.21795 18 4.3077 18Z"
+                    fill="#06A9EF"
+                  />
+                </g>
+              </svg>
+              New Folder
+            </div>
+
+
+          </div>
+        )}
         {loading ? (
           <MiniLoader />
         ) : (
@@ -748,9 +742,9 @@ function Folders({
 
         {showDelete && (
           <>
-            <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+            <div className="opacity-25 fixed inset-0 z-[2200] bg-black"></div>
 
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none ">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[2300] outline-none focus:outline-none ">
               <div className="delete_modal_container pt-[16px] scr420:w-[360px] w-[300px] px-[16px] scr420:px-[36px]">
                 <div className="flex items-center gap-3">
                   <img
@@ -760,7 +754,7 @@ function Folders({
                   />
                   {trash ? (
                     <p className="scr420:text-[20px] text-[18px] font-[500] text-[#C00000] text-center">
-                      Delete Permanantly?
+                      Delete Permanently?
                     </p>
                   ) : (
                     <p className="text-[20px] font-[500] text-[#C00000] text-center">

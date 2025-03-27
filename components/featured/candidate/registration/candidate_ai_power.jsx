@@ -57,7 +57,8 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const [resumeErrorPopup, setResumeErrorPopup] = useState(false);
   const [count, setCount] = useState(0);
@@ -100,14 +101,33 @@ const CandidateAiPower = ({
 
   const handleFile = (selectedFile) => {
     if (selectedFile) {
-      if (selectedFile.type === "application/pdf" || "application/msword" || "application/docs") {
-        // Adjust file type checks as per your requirement
-        sendFile(selectedFile);
-      } else {
-        setDocFileError(true);
-      }
+      setLoading(true); 
+  
+      setTimeout(() => {
+        if (
+          selectedFile.type === "application/pdf" ||
+          selectedFile.type === "application/msword" ||
+          selectedFile.type ===
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          sendFile(selectedFile);
+        } else {
+          setDocFileError(true);
+          toast.error("Invalid file type! Please upload a PDF or DOC file.", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+        }
+        setLoading(false); 
+      }, 2000);
     }
   };
+  
 
   const sendFile = (file) => {
     setfile(file);
@@ -188,10 +208,6 @@ const CandidateAiPower = ({
 
   const navigate = () => {
 
-    // if (uploadLimit <= 0) {
-    //   setLimitUsedModal(true);
-    //   return;
-    // }
     if (!planAvailable) {
       setLimitUsedModal(true);
       return;
@@ -202,10 +218,11 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://jamblix.com/api/resume/extraction", {
+          .post("https://dev.api.skilotech.com/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
+            setLoading(false)
             if (Object.keys(res.data.data[0]).length > 0) {
               localStorage.setItem(
                 "parsedResume",
@@ -213,12 +230,11 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/updateUploadLimit/" +
-                  userDataGlobal._id
+                  "https://dev.api.skilotech.com/api/subscription/updateUploadLimit/" +
+                  userDataGlobal?._id
                 )
                 .then((res) => {
                   const result = res.data;
-                  console.log(result)
                   if (result.success) {
                     localStorage.setItem(
                       "uploadCount",
@@ -227,13 +243,13 @@ const CandidateAiPower = ({
                     setLoading(false);
                     setfile(file);
 
-                    router.push(`/home/createResume?clientId=${clientId}`);
+                    router.push(`/createResume?clientId=${clientId}`);
                   } else {
                     localStorage.setItem("uploadCount", 0);
                     setLoading(false);
                     setfile(file);
 
-                    router.push(`/home/createResume?clientId=${clientId}`);
+                    router.push(`/createResume?clientId=${clientId}`);
                   }
                 })
                 .catch((err) => {
@@ -241,7 +257,7 @@ const CandidateAiPower = ({
                   setLoading(false);
                   setfile(file);
 
-                  router.push(`/home/createResume?clientId=${clientId}`);
+                  router.push(`/createResume?clientId=${clientId}`);
                 });
             } else {
               setCount(count + 1);
@@ -316,9 +332,9 @@ const CandidateAiPower = ({
 
       {tabindex == 1 && (
         <>
-          <div className="flex justify-center items-center  relative pb-8 ">
+          <div className="flex justify-center items-center relative pb-8 ">
             <div
-              className="flex flex-col gap-[36px] p-[16px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -326,17 +342,17 @@ const CandidateAiPower = ({
               }}
             >
               <div className="flex flex-col gap-4">
-                <p className="text-center font-semibold text-black-600 text-3xl">
+                <p className="text-center font-[600] text-[22px] text-[#333333]">
                   AI Powered profile creation
                 </p>
-                <p className=" text-center font-medium text-lg not-italic	">
+                <p className=" text-center font-[500] text-[16px] text-[#333333] not-italic	">
                   Easy process to create your profile
                 </p>
                 <div className="flex flex-col gap-2">
-                  <p className="text-center font-medium text-sm	not-italic">
+                  <p className="text-center font-[500] text-[13px] text-[#333333]	not-italic">
                     1. Upload your CV/Resume.
                   </p>
-                  <p className="text-center font-medium	text-sm	not-italic	">
+                  <p className="text-center font-[500] text-[13px] text-[#333333]	not-italic	">
                     2. Let the system scan it and make your profile ready.
                   </p>
                 </div>
@@ -344,7 +360,7 @@ const CandidateAiPower = ({
               <div className="w-full flex flex-col gap-[16px] ">
                 {" "}
                 {loading ? (
-                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
+                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] text-[13px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
                     <MiniLoader />
                     <span>Analyzing Resume, Please Wait...</span>
                   </div>
@@ -369,7 +385,7 @@ const CandidateAiPower = ({
                             <div>{fileIconSeter(file)}</div>
                             <span className="text-[12px] w-[80%] break-all">{file.name}</span>
                           </div>
-                          <button className="btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
+                          <button className="bg_Button sm:px-[8px] px-1 py-[6px] border border-[#06A9EF] rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer">
                             Browse file
                           </button>
                         </div>
@@ -444,10 +460,10 @@ const CandidateAiPower = ({
 
               <div className="flex flex-row gap-[24px]">
                 <button
-                  className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
-                  id="button"
+                  className=" px-6  text-[14px] text-[#333333] blue_border_Button h-[38px] font-[600] rounded-[30px]"
+                  
                   onClick={() => {
-                    router.push("/home/BuildResume");
+                    router.push("/createResume/BuildResume");
                   }}
                 >
                   Cancel
@@ -457,8 +473,8 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${file && !loading
-                    ? "opacity-100 btn_hover_effect"
+                  className={` px-6  bg_Button rounded-[30px] h-[38px] text-[14px] text-[#FFFFFF] font-[600] ${file && !loading
+                    ? "opacity-100 bg_Button"
                     : "opacity-50"
                     } `}
                   onClick={navigate}

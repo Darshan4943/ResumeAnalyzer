@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { reCallUserData } from "../../../../../Redux/actions/user";
+
 import { useDispatch } from "react-redux";
 import ClientFolders from "./clientFolders";
 import MyFolders from "./MyFolders";
@@ -32,12 +32,13 @@ function Files({
   const dispatch = useDispatch();
 
   const openFolder = (index, parentId, name, item) => {
+
     if (item?.type == "file") {
       window.location.href = item.file;
     } else {
       localStorage.setItem("previousPage", window.location.href);
       router.push({
-        pathname: "/collection",
+        pathname: "/myCollection",
         query: { ...query, name, parentId },
       });
     }
@@ -49,23 +50,25 @@ function Files({
     } else {
       localStorage.setItem("previousPage", window.location.href);
       router.push({
-        pathname: "/collection",
-        query: { ...query, clients: true, name, clientId },
+        pathname: "/myCollection",
+        query: { ...query, skilotechCollection: true, name, clientId },
       });
     }
   };
   const toggleSelect = (index) => {
-    if (selectedIndexes.includes(index)) {
-      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
-    } else {
-      setSelectedIndexes([...selectedIndexes, index]);
+    if (clientData[index]?.fileName === "My Clients") {
+      return; // Prevent selection for "My Clients"
     }
+
+    setSelectedIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
 
   useEffect(() => {
     if (clientId) {
       axios
-        .get("https://jamblix.com/api/resume/" + clientId)
+        .get("https://dev.api.skilotech.com/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(
@@ -83,46 +86,50 @@ function Files({
 
   return (
     <>
-      {(tab === 1 || tab === 2) && (
-        <MyFolders
-          isList={isList}
-          selectedIndexes={selectedIndexes}
-          setSelectedIndexes={setSelectedIndexes}
-          setSelect={setSelect}
-          select={select}
-          setTabIndex={setTabIndex}
-          setFolderData={setFolderData}
-          tabIndex={tabIndex}
-          data={data}
-          setData={setData}
-          files={files}
-          setFiles={setFiles}
-          clientData={clientData}
-          tab={tab}
-          openFolder={tab === 0 ? openClientFolder : openFolder}
-          toggleSelect={toggleSelect}
-        />
+      {(tab === 0 || tab === 2) && (
+        <>
+          <MyFolders
+            isList={isList}
+            selectedIndexes={selectedIndexes}
+            setSelectedIndexes={setSelectedIndexes}
+            setSelect={setSelect}
+            select={select}
+            setTabIndex={setTabIndex}
+            setFolderData={setFolderData}
+            tabIndex={tabIndex}
+            data={data}
+            setData={setData}
+            files={files}
+            setFiles={setFiles}
+            clientData={clientData}
+            tab={tab}
+            openFolder={openFolder}
+            toggleSelect={toggleSelect}
+          />
+        </>
       )}
-      {tab === 0 && (
-        <ClientFolders
-          isList={isList}
-          selectedIndexes={selectedIndexes}
-          setSelectedIndexes={setSelectedIndexes}
-          setSelect={setSelect}
-          select={select}
-          setTabIndex={setTabIndex}
-          setFolderData={setFolderData}
-          tabIndex={tabIndex}
-          data={data}
-          setData={setData}
-          files={files}
-          setFiles={setFiles}
-          clientData={clientData}
-          tab={tab}
-          openClientFolder={openClientFolder}
-          toggleSelect={toggleSelect}
-          query={query}
-        />
+      {tab === 1 && (
+        <>
+          <ClientFolders
+            isList={isList}
+            selectedIndexes={selectedIndexes}
+            setSelectedIndexes={setSelectedIndexes}
+            setSelect={setSelect}
+            select={select}
+            setTabIndex={setTabIndex}
+            setFolderData={setFolderData}
+            tabIndex={tabIndex}
+            data={data}
+            setData={setData}
+            files={files}
+            setFiles={setFiles}
+            clientData={clientData}
+            tab={tab}
+            openClientFolder={openFolder}
+            toggleSelect={toggleSelect}
+            query={query}
+          />
+        </>
       )}
     </>
   );

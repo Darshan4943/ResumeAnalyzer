@@ -415,7 +415,7 @@ function AddNewSectionContainer({
   }, [data]);
 
   return (
-    <div className="grid grid-cols-1 py-4 gap-x-3 gap-y-3 rounded-lg bg-white xxlg:grid-cols-2 ms:grid-cols-1 sm:grid-cols-2">
+    <div className="grid grid-cols-1 p-4 gap-x-3 gap-y-3 rounded-2xl bg-white xxlg:grid-cols-2 ms:grid-cols-1 sm:grid-cols-2">
       {information.map((item, index) => {
         // setHovered(hoveredIndex === index ? true : false);
         return (

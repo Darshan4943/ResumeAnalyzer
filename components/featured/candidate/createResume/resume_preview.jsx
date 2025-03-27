@@ -35,7 +35,7 @@ import Template16 from "../../resumeTemplates/Template16";
 
 import Fonts from "../../../../public/fonts/fonts";
 import { ClosedIcon } from "../../../../utils/svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FileNameModel from "./components/fileNameModel";
 import Template32 from "../../resumeTemplates/Template32";
 import Template39 from "../../resumeTemplates/Template39";
@@ -49,6 +49,8 @@ import MiniLoader from "../../../common/miniLoader";
 import Template47 from "../../resumeTemplates/Template47";
 import Template30 from "../../resumeTemplates/Template30";
 import Template53 from "../../resumeTemplates/Template53";
+import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../../Redux/slices/recallSlice";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -69,24 +71,47 @@ const ResumePreview = ({
 
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [saveCountLimit, setSaveCountLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
   const [resumeLoading, setResumeLoading] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
-  // console.log(67, userDataGlobal);
-  const getLimits = () => {
-    const saveCountLimit = JSON.parse(localStorage.getItem("saveCountLimit"));
-    const saveCount = JSON.parse(localStorage.getItem("saveCount"));
-    if (saveCountLimit) {
-      setSaveCountLimit(saveCountLimit);
-    }
-    if (saveCount) {
-      setSaveLimit(saveCount);
-    }
-  };
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
+ 
+  const [activePlan, setActivePlan] = useState();
+  const [limitPopup, setLimitPopup] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  // const getLimits = () => {
+  //   const saveCountLimit = JSON.parse(localStorage.getItem("saveCountLimit"));
+  //   const saveCount = JSON.parse(localStorage.getItem("saveCount"));
+  //   if (saveCountLimit) {
+  //     setSaveCountLimit(saveCountLimit);
+  //   }
+  //   if (saveCount) {
+  //     setSaveLimit(saveCount);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   getLimits();
+  // }, []);
+
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
   useEffect(() => {
     getLimits();
   }, []);
@@ -101,10 +126,10 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://jamblix.com/api/resume/${id}`)
+        .get(`https://dev.api.skilotech.com/api/resume/${id}`)
 
         .then((res) => {
 
@@ -369,14 +394,13 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
-
+ 
   const saveResume = async (blob, download) => {
     setdisabled(true);
 
     if (blob !== null) {
-
-      if (saveLimit >= saveCountLimit) {
-        setLimitUsedModal(true);
+      if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
+        setLimitPopup(true);
         return;
       }
       if (isEdit) {
@@ -400,20 +424,20 @@ const ResumePreview = ({
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
 
-        if (userDataGlobal.role === "user") {
-          formData.append("UserId", userDataGlobal._id);
-        } else if (userDataGlobal.role === "recruiter") {
-          formData.append("UserId", userDataGlobal._id);
+        if (userDataGlobal?.role === "user") {
+          formData.append("UserId", userDataGlobal?._id);
+        } else if (userDataGlobal?.role === "recruiter") {
+          formData.append("UserId", userDataGlobal?._id);
 
         }
 
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put("https://dev.api.skilotech.com/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-            localStorage.setItem("saveCount", Number(saveLimit) + 1);
-             const saveCount = JSON.parse(localStorage.getItem("saveCount"));
-            setSaveLimit(saveCount)
+            // localStorage.setItem("saveCount", Number(saveLimit) + 1);
+            // const saveCount = JSON.parse(localStorage.getItem("saveCount"));
+            // setSaveLimit(saveCount)
 
             if (download) {
               const link = document.createElement("a");
@@ -424,7 +448,12 @@ const ResumePreview = ({
               document.body.removeChild(link);
             }
 
-            getLimits();
+
+            dispatch(updateAiHit(userDataGlobal?._id))
+            setTimeout(() => {
+              dispatch(setRecallData(!recallData));
+              getLimits();
+            }, 1000);
             toast.success("Resume Updated successfully");
             setTimeout(() => {
               setSaveDisabled(false);
@@ -466,15 +495,19 @@ const ResumePreview = ({
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
 
-        if (userDataGlobal.role === "user") {
-          formData.append("userId", userDataGlobal._id);
-        } else if (userDataGlobal.role === "recruiter") {
-          formData.append("userId", data.clientId);
-          formData.append("recruiterId", userDataGlobal._id);
-        }
+        // if (userDataGlobal?.role === "user") {
+        //   formData.append("userId", userDataGlobal?._id);
+        // } else if (userDataGlobal?.role === "recruiter") {
+        //   formData.append("userId", data.clientId);
+        //   formData.append("recruiterId", userDataGlobal?._id);
+        // }
+
+
+        formData.append("userId", userDataGlobal?._id);
+
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("https://dev.api.skilotech.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -490,6 +523,11 @@ const ResumePreview = ({
             }
 
             getLimits();
+
+            dispatch(updateAiHit(userDataGlobal?._id))
+            setTimeout(() => {
+              dispatch(setRecallData(!recallData));
+            }, 1000);
             toast.success("Resume Saved To Collection successfully");
             localStorage.removeItem("userData");
             localStorage.removeItem("resumeData");
@@ -513,12 +551,12 @@ const ResumePreview = ({
     }
   };
   const updateDownloadCount = async () => {
-    
+
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+        "https://dev.api.skilotech.com/api/subscription/updateDownloadLimit/" +
+        userDataGlobal?._id
       )
       .then((res) => {
         const result = res.data;
@@ -543,9 +581,6 @@ const ResumePreview = ({
     try {
       const blob = await pdf(<MyComponent />).toBlob();
 
-      // console.log("Generated Blob size:", blob.size);
-      // console.log("Generated Blob type:", blob.type);
-
       const arrayBuffer = await blob.arrayBuffer();
       if (arrayBuffer) {
         saveResume(blob);
@@ -560,7 +595,7 @@ const ResumePreview = ({
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
-        onClick={() => generatePDFBlob()}
+        onClick={() => { setSaveDisabled(true); generatePDFBlob() }}
         disabled={saveDisabled}
         style={{ opacity: saveDisabled ? "0.5" : 1 }}
         className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px]  sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
@@ -643,16 +678,14 @@ const ResumePreview = ({
       className="ml:w-[100%] w-[100%] "
       style={{
         position: "relative",
-        overflowY: "auto",
+        // overflowY: "auto",
         maxHeight: "88vh",
       }}
     >
-      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
+      <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
       <div
-        className="flex  h-fit flex-col w-full  sm:px-4 px-2 gap-[14px] rounded-lg bg-white shadow-md"
-        style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-        }}
+        className="flex  h-fit flex-col w-full  sm:px-4 p-3 gap-[14px]  "
+
       >
         <div className="" ref={resumeRef}>
           <div className="flex justify-between  scr1024:gap-4 gap-2 ">
@@ -722,7 +755,7 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full ms:flex items-center justify-center  bg-[#525659] py-[24px] rounded-[8px] min-h-[700px] relative hidden "
+            className=" w-full ms:flex items-center justify-center  bg-[#525659] py-[16px] rounded-[8px] min-h-[700px] relative hidden "
             style={{
               transformOrigin: "top left",
             }}
@@ -733,12 +766,12 @@ const ResumePreview = ({
               </div>
             ) : ( */}
 
-            <PDFViewer width="90%" height="900px" showToolbar={false}>
+            <PDFViewer width="98%" height="836px" showToolbar={false}>
               <MyComponent />
             </PDFViewer>
 
             {/* )}  */}
-            {resumeLoading && (
+            {/* {resumeLoading && (
               <div
                 className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
                 style={{
@@ -749,7 +782,7 @@ const ResumePreview = ({
                   <MiniLoader />
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         )}
 

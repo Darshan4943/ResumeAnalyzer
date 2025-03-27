@@ -229,7 +229,7 @@ const ResumeForm = ({
           >
             <svg
               className=" cursor-pointer"
-              onClick={() => router.push("/home/BuildResume")}
+              onClick={() => router.push("/createResume/BuildResume")}
               width="24"
               height="24"
               viewBox="0 0 40 40"
@@ -270,7 +270,7 @@ const ResumeForm = ({
               <div
                 ref={taskRef}
                 onWheel={(e) => e.stopPropagation()}
-                className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+                className=" absolute top-[100px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[calc(100vh-130px)] overflow-y-auto "
               >
                 {renderAllTemplates()}
                 <div
@@ -546,8 +546,9 @@ const ResumeForm = ({
               // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
               opacity: isChecked ? 1 : 0.5,
             }}
+            className="bg-white rounded-t-2xl"
           >
-            <div className="text-[20px] flex justify-between font-medium pt-4">
+            <div className="text-[20px] flex justify-between font-medium pt-4 px-4">
               Custom Sections
               <label className="switch">
                 <input
@@ -658,7 +659,7 @@ const ResumeForm = ({
                 ],
               });
             }}
-            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
+            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer bg_Button "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
           </div> */}

@@ -8,12 +8,13 @@ import MiniLoader from "../../../components/common/miniLoader";
 const Files = ({ selected, setSelected }) => {
   const [loading, setLoading] = useState();
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);       
+   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [resumeList, setResumeList] = useState([]);
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setLoading(false);

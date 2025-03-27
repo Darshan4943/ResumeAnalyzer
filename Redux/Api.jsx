@@ -1,15 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { userAction } from "./actions/user";
-import { jwtDecode } from "jwt-decode";
-import { setJob } from "./actions";
 
 import {
-  countriesCoordinatesEast,
-  countriesCoordinatesNorthEast,
-  countriesCoordinatesSouthEast,
-  countryCondition1,
   currenciesWithIcons,
   currencyMap,
   plans,
@@ -17,23 +9,57 @@ import {
 } from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
-import { recallUser } from "./reducers/userReducer";
+
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
-import { setPageClosed, setPageOpened } from "./actions/website";
-import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
-const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
+import { setEnablePopup, setShowPlans } from "./slices/popupSlice";
+import { fetchUserData } from "./slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAppliedJob, fetchSavedJobIds } from "./slices/jobSlice";
+import { fetchProfileData } from "./slices/profileSlice";
+import { setLoginState } from "./slices/loginSlice";
+import { useRouter } from "next/router";
+import { setShareJobClose } from "./slices/shareJobSlice";
 
 export const Api = ({ }) => {
-  const store = useStore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const { recallData } = useSelector((state) => state.recall);
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
-  const showPlan = useSelector((state) => state.showPlan.show);
+  const router = useRouter();
+
+
+
   const [allPlans, setAllPlans] = useState([]);
+
+  const dispatch = useDispatch();
+  // dispatch(setShareJobClose());
+  useEffect(() => {
+    const handleRouteChange = () => {
+      localStorage.setItem("viewed", JSON.stringify(false));
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("authToken");
+      const isLoggedIn = token && token !== "undefined";
+      dispatch(setLoginState(isLoggedIn));
+    }
+  }, [dispatch]);
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -51,30 +77,28 @@ export const Api = ({ }) => {
   //     };
   // }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const timeoutId = setTimeout(() => {
-      if (Object.keys(userDataGlobal).length === 0) {
-        localStorage.clear();
-        console.log("Local Storage Cleared");
-      }
-    }, 10000); 
-  
-    
-    return () => clearTimeout(timeoutId);
-  }, [userDataGlobal]);
-  
-  // if (userDataGlobal._id) {
-        //   axios
-        //     .put("https://jamblix.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal._id)
-        //     .then((res) => {
+  //   const timeoutId = setTimeout(() => {
+  //     if (Object.keys(userDataGlobal).length === 0) {
+  //       localStorage.clear();
+  //       console.log("Local Storage Cleared");
+  //     }
+  //   }, 10000);
 
-        //     })
-        //     .catch((err) => {
-        //       console.log(err);
-        //     });
-        // }
+  //   return () => clearTimeout(timeoutId);
+  // }, [userDataGlobal]);
 
+  // if (userDataGlobal?._id) {
+  //   axios
+  //     .put("https://dev.api.skilotech.com/api/skiloteckuser/clrLocalStorage/" + userDataGlobal?._id)
+  //     .then((res) => {
+
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   // useEffect(() => {
   //   if (!userDataGlobal || (typeof userDataGlobal === 'object' && Object.keys(userDataGlobal).length === 0)) {
@@ -82,18 +106,19 @@ export const Api = ({ }) => {
   //   }
   // }, [userDataGlobal]);
 
-
-  const dispatch = useDispatch();
-
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
-  // console.log(25,timezone)
-  const reCallUser = useSelector((state) => state.reCallUser);
-  // dispatch(setPageClosed());
+  useEffect(() => {
+    if (userDataGlobal) {
+      dispatch(fetchProfileData(userDataGlobal?._id));
+      dispatch(fetchAppliedJob(userDataGlobal?._id));
+      dispatch(fetchSavedJobIds(userDataGlobal?._id));
+    }
+  }, [userDataGlobal]);
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/plans/getAllPlans")
+      .get("https://dev.api.skilotech.com/api/plans/getAllPlans")
       .then((res) => {
         setAllPlans(res.data.data);
       })
@@ -101,6 +126,7 @@ export const Api = ({ }) => {
         console.log(err);
       });
   }, [userDataGlobal]);
+
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
@@ -110,31 +136,31 @@ export const Api = ({ }) => {
 
       return () => clearTimeout(timer);
     }
-  }, [userDataGlobal, showPlan]);
+  }, [userDataGlobal]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = JSON.parse(localStorage.getItem("authToken"));
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const token = JSON.parse(localStorage.getItem("authToken"));
 
-      if (token && token != "undefined") {
-        const decoded = jwtDecode(token.token);
-        axios
-          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
-          .then((res) => {
-            const decode = jwtDecode(res.data.data);
-            dispatch(
-              userAction({
-                ...decode._doc,
-                profileScore: res.data.profileScore,
-              })
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
-  }, [reCallUser, showPlan]);
+  //     if (token && token != "undefined") {
+  //       const decoded = jwtDecode(token.token);
+  //       axios
+  //         .get("https://dev.api.skilotech.com/api/skiloteckuser/user/" + decoded._id)
+  //         .then((res) => {
+  //           const decode = jwtDecode(res.data.data);
+  //           dispatch(
+  //             userAction({
+  //               ...decode._doc,
+  //               profileScore: res.data.profileScore,
+  //             })
+  //           );
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     }
+  //   }
+  // }, [reCallUser]);
 
   useEffect(() => {
     const planActive =
@@ -143,7 +169,7 @@ export const Api = ({ }) => {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -152,47 +178,107 @@ export const Api = ({ }) => {
               (item) => item.index == result.index
             );
 
-            localStorage.setItem("activePlan", result?.index ? result?.index : null);
+            localStorage.setItem(
+              "activePlan",
+              result?.index ? result?.index : null
+            );
             localStorage.setItem("planActive", result.isActive);
             localStorage.setItem("uploadCount", result.used.resumeUploded);
             localStorage.setItem("saveCount", result.used.resumeStored);
             localStorage.setItem("chatCountDaily", result.used.chatBot.daily);
-            localStorage.setItem("chatCountMonthly", result.used.chatBot.monthly);
+            localStorage.setItem(
+              "chatCountMonthly",
+              result.used.chatBot.monthly
+            );
             localStorage.setItem("jdCountDaily", result.used.jdMatching.daily);
-            localStorage.setItem("jdCountMonthly", result.used.jdMatching.monthly);
+            localStorage.setItem("aiHitsMonthly", result.used.aiHits.monthly);
+            localStorage.setItem(
+              "jdCountMonthly",
+              result.used.jdMatching.monthly
+            );
             localStorage.setItem("clientCount", result.used.clientStored);
-            localStorage.setItem("collectionCountDaily", result.used.collectionStored.daily);
-            localStorage.setItem("collectionCountMonthly", result.used.collectionStored.monthly);
+            localStorage.setItem(
+              "collectionCountDaily",
+              result.used.collectionStored.daily
+            );
+            localStorage.setItem(
+              "collectionCountMonthly",
+              result.used.collectionStored.monthly
+            );
             localStorage.setItem("jobsApply", result.used.jobsApply);
             localStorage.setItem("coverCount", result.used.coverStored);
             localStorage.setItem("jdMatchingCount", result.used.jdMatching);
             localStorage.setItem("skillTestCount", result.used.skillTest);
-            localStorage.setItem("skillCertifiedCount", result.used.skillCertified);
-            localStorage.setItem("uploadCountLimit", result.limits.resumeUplodedLimit);
-            localStorage.setItem("saveCountLimit", result.limits.resumeStoredLimit);
-            localStorage.setItem("clientCountLimit", result.limits.clientStoredLimit);
+            localStorage.setItem(
+              "skillCertifiedCount",
+              result.used.skillCertified
+            );
+            localStorage.setItem(
+              "uploadCountLimit",
+              result.limits.resumeUplodedLimit
+            );
+            localStorage.setItem(
+              "saveCountLimit",
+              result.limits.resumeStoredLimit
+            );
+            localStorage.setItem(
+              "clientCountLimit",
+              result.limits.clientStoredLimit
+            );
             localStorage.setItem("isFree", result.isFree);
-            localStorage.setItem("jobsApplyLimit", result.limits.jobsApplyLimit);
-            localStorage.setItem("coverCountLimit", result.limits.coverStoredLimit);
-            localStorage.setItem("skillTestCountLimit", result.limits.skillTestLimit);
-            localStorage.setItem("skillCertifiedCountLimit", result.limits.skillCertifiedLimit);
-            localStorage.setItem("chatCountDailyLimit", result.limits.chatBotLimit.daily);
-            localStorage.setItem("chatCountMonthlyLimit", result.limits.chatBotLimit.monthly);
-            localStorage.setItem("jdCountDailyLimit", result.limits.jdMatchingLimit.daily);
-            localStorage.setItem("jdCountMonthlyLimit", result.limits.jdMatchingLimit.monthly);
-            localStorage.setItem("collectionCountDailyLimit", result.limits.collectionStoredLimit.daily);
-            localStorage.setItem("collectionCountMonthlyLimit", result.limits.collectionStoredLimit.monthly);
+            localStorage.setItem(
+              "jobsApplyLimit",
+              result.limits.jobsApplyLimit
+            );
+            localStorage.setItem(
+              "coverCountLimit",
+              result.limits.coverStoredLimit
+            );
+            localStorage.setItem(
+              "skillTestCountLimit",
+              result.limits.skillTestLimit
+            );
+            localStorage.setItem(
+              "skillCertifiedCountLimit",
+              result.limits.skillCertifiedLimit
+            );
+            localStorage.setItem(
+              "chatCountDailyLimit",
+              result.limits.chatBotLimit.daily
+            );
+            localStorage.setItem(
+              "chatCountMonthlyLimit",
+              result.limits.chatBotLimit.monthly
+            );
+            localStorage.setItem(
+              "jdCountDailyLimit",
+              result.limits.jdMatchingLimit.daily
+            );
+            localStorage.setItem(
+              "jdCountMonthlyLimit",
+              result.limits.jdMatchingLimit.monthly
+            );
+            localStorage.setItem(
+              "aiHitsMonthlyLimit",
+              result.limits.aiHitsLimit.monthly
+            );
+            localStorage.setItem(
+              "collectionCountDailyLimit",
+              result.limits.collectionStoredLimit.daily
+            );
+            localStorage.setItem(
+              "collectionCountMonthlyLimit",
+              result.limits.collectionStoredLimit.monthly
+            );
             localStorage.setItem("planAvailable", true);
 
             let newEnddate = moment(result.endDate).format(
               "YYYY-MM-DD HH:mm:ss"
             );
-            // console.log(87,newEnddate)
-            // { console.log(999, timezone >= newEnddate ? "active" : "inactive") }
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" + result._id
+                  "https://dev.api.skilotech.com/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -203,10 +289,6 @@ export const Api = ({ }) => {
                   console.log(err);
                 });
             }
-
-            // console.log(33333,moment(result.endDate).format('YYYY-MM-DD'))
-            // console.log(44444,moment(timezone).format('YYYY-MM-DD'))
-            // console.log(55555,moment(result.endDate).isBefore(moment(timezone).format('YYYY-MM-DD')))
           } else {
             if (!planActive && uploadCount == 0) {
               localStorage.setItem("uploadCount", 0);
@@ -242,88 +324,29 @@ export const Api = ({ }) => {
         .catch((err) => {
           console.log(err);
         });
-
-
     }
-
-  }, [userDataGlobal, reCallUser, showPlan, allPlans]);
+  }, [userDataGlobal, allPlans, recallData]);
 
   useEffect(() => {
-    if (userDataGlobal._id) {
-      let userId = userDataGlobal._id;
-      let role = userDataGlobal.role;
+    if (userDataGlobal?._id) {
+      let userId = userDataGlobal?._id;
+      let role = userDataGlobal?.role;
 
       axios
-        .post("https://jamblix.com/api/apiLogs/get", {
+        .post("https://dev.api.skilotech.com/api/apiLogs/get", {
           userId,
           role,
         })
         .then((res) => {
           const result = res.data.data;
-          // localStorage.setItem("chatCount", result.chatBot); 
+          // localStorage.setItem("chatCount", result.chatBot);
           // localStorage.setItem("jdCount", result.jobMatching.matchCount);
-
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal])
-
-
-
-  // const getLocation = () => {
-  //   if (navigator.geolocation) {
-  //     console.log(138, "again called");
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         console.log(1771, position.coords);
-  //         axios
-  //           .get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
-  //           )
-  //           .then(async (response) => {
-  //             const results = response.data.results;
-  //             const countryData = response.data.results.find((result) =>
-  //               result.types.includes("country")
-  //             );
-  //             if (countryData) {
-  //               const country = countryData.formatted_address;
-  //               const codeJson = telCode.find((item) => item.name == country);
-  //               const Country = currencyMap.find(
-  //                 (item) => item.countryCode == codeJson.code
-  //               );
-  //               const currency = Country ? Country.currency : "USD";
-  //               const icon = currenciesWithIcons.find(
-  //                 (item) => item.icon == currency.toLowerCase()
-  //               );
-  //               const symbol = icon ? icon.symbol : currency;
-  //               const exchangeRate = await axios.get(
-  //                 "https://jamblix.com/api/exchangeRate/" + currency
-  //               );
-  //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
-  //               localStorage.setItem("currency", currency);
-  //               localStorage.setItem("icon", symbol);
-  //             } else {
-  //               console.log(err);
-  //             }
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //           });
-  //       },
-  //       (error) => {
-  //         console.log(4444444, error);
-  //         if (error.code === 1) {
-  //           setEnablePopup(true);
-  //         }
-  //         setError(error.message);
-  //       }
-  //     );
-  //   } else {
-  //     setError("Geolocation is not supported by this browser.");
-  //   }
-  // };
+  }, [userDataGlobal]);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -364,6 +387,11 @@ export const Api = ({ }) => {
       setError("Geolocation is not supported by this browser.");
     }
   };
+ 
+
+
+
+
 
   const successCallback = async (position) => {
     let { latitude, longitude } = position.coords;
@@ -383,6 +411,9 @@ export const Api = ({ }) => {
       }
     };
 
+   
+
+
     const processCountryData = async (results) => {
       const countryData = results.find((result) =>
         result.types.includes("country")
@@ -390,14 +421,19 @@ export const Api = ({ }) => {
 
       if (countryData) {
         const country = countryData.formatted_address;
-        localStorage.setItem("country", country)
+        localStorage.setItem("country", country);
         const codeJson = telCode.find((item) => item?.name === country);
         const Country = currencyMap.find(
           (item) => item?.countryCode === codeJson?.code
         );
 
         // const currency = Country ? Country.currency : "USD";
-        const currency = country === "India" ? "INR" : country === "United Kingdom" ? "GBP" : "USD";
+        const currency =
+          country === "India"
+            ? "INR"
+            : country === "United Kingdom"
+              ? "GBP"
+              : "USD";
         // const currency = "USD";
         const icon = currenciesWithIcons?.find(
           (item) => item?.icon === currency?.toLowerCase()
@@ -406,7 +442,7 @@ export const Api = ({ }) => {
         const symbol = icon ? icon.symbol : currency;
 
         const exchangeRate = await axios.get(
-          `https://jamblix.com/api/exchangeRate/${currency}`
+          `https://dev.api.skilotech.com/api/exchangeRate/${currency}`
         );
 
         localStorage.setItem(
@@ -520,11 +556,10 @@ export const Api = ({ }) => {
   useEffect(() => {
     getLocation();
   }, []);
-  // console.log(123,visible && loading == false);
 
   return (
     <>
-      {enablePopup && (
+      {!enablePopup && (
         <LocationEnablePopup
           setEnablePopup={(value) => dispatch(setEnablePopup(value))}
           enablePopup={enablePopup}

@@ -23,7 +23,8 @@ const Index = () => {
       skillTest: "",
       skillCertified: "",
       jdMatching: { daily: "", monthly: "" },
-      chatBot: { daily: "", monthly: "" }
+      chatBot: { daily: "", monthly: "" },
+      aiHits: { daily: "", monthly: "" }
     },
     features: [],
   });
@@ -48,7 +49,7 @@ const Index = () => {
   const fetchPlanData = async (planId) => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/plans/getByIndex/${planId}`
+        `https://dev.api.skilotech.com/api/plans/getByIndex/${planId}`
       );
 
       const plan = response.data.data[0];
@@ -70,7 +71,8 @@ const Index = () => {
           skillTest: plan.limits.skillTest,
           skillCertified: plan.limits.skillCertified,
           jdMatching: { daily: plan.limits.jdMatching.daily, monthly: plan.limits.jdMatching.monthly },
-          chatBot: { daily: plan.limits.chatBot.daily, monthly: plan.limits.chatBot.monthly }
+          chatBot: { daily: plan.limits.chatBot.daily, monthly: plan.limits.chatBot.monthly },
+          aiHits: { daily: plan.limits.aiHits.daily, monthly: plan.limits.aiHits.monthly }
         },
         features: plan.features || [],
       });
@@ -120,7 +122,7 @@ const Index = () => {
   const handleSubmitData = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://jamblix.com/api/plans/update/${id}`, planData);
+      await axios.put(`https://dev.api.skilotech.com/api/plans/update/${id}`, planData);
       console.log("Data updated successfully");
       setHasChanges(false);
       router.back();
@@ -417,6 +419,19 @@ const Index = () => {
                       />
                     </div>
                   }
+                  
+                    <div className="ml:w-[100%] gap-1 lg:col-span-1">
+                      <p className="scr420:text-[14px] text-[12px]">Ai Hits Limit</p>
+                      <input
+                        type="text"
+                        name="aiHits.monthly"
+                        value={planData.limits.aiHits.monthly}
+                        onChange={handleLimitsChange}
+                        placeholder="aiHits monthly"
+                        className="bg-white scr420:text-[14px] text-[12px] border-[1px] w-full border-[#ccc] rounded-[6px] p-[8px]"
+                      />
+                    </div>
+                  
                   <div className="ml:w-[100%] gap-1 lg:col-span-1">
                     <p className="scr420:text-[14px] text-[12px]">Is Free</p>
                     <select

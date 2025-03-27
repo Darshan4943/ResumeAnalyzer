@@ -27,7 +27,7 @@ function CandidateMobileHeader() {
   return (
     <>
       <div
-        className="flex p-2 justify-between fixed w-[100%] bg-white z-[100]  "
+        className="flex p-2 justify-between fixed w-[100%] bg-white z-[100000]  "
         style={{ boxShadow: "0px 1px 1px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="flex gap-2 items-center">
@@ -56,7 +56,7 @@ function CandidateMobileHeader() {
             <button
               // onMouseEnter={() => setIsSignIn(true)}
               // onMouseLeave={() => setIsSignIn(false)}
-              onClick={() => setIsSignIn(!isSignIn)}
+              onClick={() => router.push("/auth?signin=true")}
               className="px-4 py-2 border border-[#06A9EF] rounded-[8px] font-[500]"
             >
               Sign In
@@ -83,7 +83,7 @@ function CandidateMobileHeader() {
                   onClick={() => {
                     router.push("/auth?signin=true&role=recruiter");
                   }}
-                  className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]"
+                  className="flex gap-3 py-2 px-3 items-center bg_Button rounded-b-[8px]"
                 >
                   Recruiter Sign In
                 </div>
@@ -101,7 +101,7 @@ function CandidateMobileHeader() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed z-[3000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
+              className="fixed z-[300000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
                 boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",

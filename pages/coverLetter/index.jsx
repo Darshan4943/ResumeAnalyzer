@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function Index() {
   const router = useRouter();
   const { EditData, isCoverEdit } = router.query;
 
-  // const userDataGlobal = useSelector((state) => state.userData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedCoverIndex, setSelectedCoverIndex] = useState();
   const [selectedColor, setSelectedColor] = useState();
   const [isEdit, setIsEdit] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const [contentSituation, setContentSituation] = useState("Experienced");
-
   const { clientId } = router.query;
-
   const defaultState = {
     firstName: "",
     lastName: "",
@@ -101,7 +102,7 @@ function Index() {
   //   console.log("id", id);
   //   if (id) {
   //     axios
-  //       .get(`https://jamblix.com/api/cover/getById/${id}`)
+  //       .get(`https://dev.api.skilotech.com/api/cover/getById/${id}`)
   //       .then((res) => {
   //         setResumeList(res.data.data);
   //       })
@@ -160,8 +161,8 @@ function Index() {
   }, [contentSituation, isCoverEdit]);
 
   return (
-    <div className="flex scr800:flex-row flex-col gap-4 py-6 customMargins overflow-hidden relative">
-      <div className="ml:w-[41%] scr1024:min-w-[508px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px] ">
+    <div className={`flex scr800:flex-row flex-col gap-4 py-6 ${userDataGlobal?.role === "user" && "customMargins"} overflow-hidden relative`}>
+      <div className="ml:w-[41%] scr1024:min-w-[486px]  md:w-[100%] xxsm:min-w-[300px] scr420:min-w-[400px]  ">
         <CoverForm
           selectedCoverIndex={selectedCoverIndex}
           setSelectedCoverIndex={setSelectedCoverIndex}
@@ -190,5 +191,6 @@ function Index() {
     </div>
   );
 }
+
 
 export default Index;

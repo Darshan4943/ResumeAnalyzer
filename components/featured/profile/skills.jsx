@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import SkillModel from "./skillModel";
+import ALink from "../../alink";
+
+
+const Skills = ({ userData }) => {
+  const [isComponentOpen, setIsComponentOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsComponentOpen(!isComponentOpen);
+  };
+  return (
+    <div className="build_ai ai2 ">
+      <div className="gap flex items-center justify-between">
+        <p className="page_headings text-[16px] font-[600]">Skills</p>
+        <div className="flex justify-center items-center gap-4">
+          <div className="flex justify-center items-center  gap-4">
+            <ALink href={"/candidate/SkillAssessment"}>
+              <p className="text-[#06A9EF] font-montserrat hover:text-[12.2px] hover:text-[#1f7093] transition-all duration-500 text-[12px] font-[600]">
+                Take a skill Test
+              </p>
+            </ALink>
+            <div className="p-[2px] hover:border-blue border-solid border-[1px] rounded-[6px] border-white  transition-all duration-500 cursor-pointer">
+              <img
+                src="/images/profile/edit.png"
+                alt=""
+                className="w-[24px] h-[24px]"
+                onClick={handleImageClick}
+              />
+            </div>
+            {isComponentOpen && (
+              <SkillModel
+                handleImageClick={handleImageClick}
+                userData={userData}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* <div className="add_delete">
+          <button className="take_test">Take Skill Test</button>
+          <img
+            style={{ width: "24px" }}
+            src="./images/profile/add.png"
+            alt=""
+          />
+          <img
+            style={{ width: "24px" }}
+            src="./images/profile/edit.png"
+            alt=""
+          />
+        </div> */}
+      </div>
+
+      <div className="skill_buttons">
+        {userData?.skills?.map((item, index) => (
+          <div key={index} className="skill_button text-[14px] font-[500] leading-tight">{item.label}</div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Skills;

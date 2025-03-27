@@ -20,7 +20,7 @@ const ExternalJobMatching = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
-  const userDataGlobal = useSelector((state) => state.userData);
+ const { profileData } = useSelector((state) => state.profile.profileData);         const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([]);
   const [files, setFiles] = useState([]);
@@ -33,7 +33,7 @@ const ExternalJobMatching = () => {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://dev.api.skilotech.com/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -50,7 +50,7 @@ const ExternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/external/jobMatching", {
+      .post("https://dev.api.skilotech.com/api/external/jobMatching", {
         jd: text,
         resumeCount,
         resumeData: extractedData,
@@ -91,7 +91,7 @@ const ExternalJobMatching = () => {
   const extractData = async () => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/resume/extraction", {
+      .post("https://dev.api.skilotech.com/api/resume/extraction", {
         data: textDataFinal,
       })
       .then((res) => {

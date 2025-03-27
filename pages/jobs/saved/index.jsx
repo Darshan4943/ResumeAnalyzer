@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { AddIcon, Edit_icon } from "../../../utils/svg";
+
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { setLocation } from "../../../Redux/actions";
+
 import { dateSeter } from "../../../utils/middleware";
 import MiniLoader from "../../../components/common/miniLoader";
-import { PencilLineIcon } from "lucide-react";
+
 
 const Saved = () => {
   const router = useRouter();
-  const userDataGlobal = useSelector((state) => state.userData);
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
   const isUser = userDataGlobal?.role == "user";
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
+
   const getData = () => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/job/byIds", {
+      .post("https://dev.api.skilotech.com/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),
@@ -33,7 +35,7 @@ const Saved = () => {
   };
 
   useEffect(() => {
-    if (userDataGlobal._id) {
+    if (userDataGlobal?._id) {
       getData();
     }
   }, [userDataGlobal]);

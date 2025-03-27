@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { toast } from "react-toastify";
 import ImageContainer from "../../../common/image";
@@ -15,13 +15,15 @@ const ProfessionalDetails = ({
   register_cadidate,
   certificate,
   setCertificate,
+  clientId,
 }) => {
   const [loading, setLoading] = useState(false);
   const [duration, setDuration] = useState({});
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
   const [formError, setFormError] = useState({});
   const router = useRouter();
   const handleClick = () => {
-    if (data.workStatus != "Fresher") {
+    if (data.employmentStatus != "unemployed") {
       const requiredFields = ["companyName", "jobLocation", "jobTitle"];
       const emptyFields = requiredFields.filter((field) => !data[field]);
       if (emptyFields.length > 0) {
@@ -29,35 +31,42 @@ const ProfessionalDetails = ({
         return;
       }
       if (duration?.duration) {
-        if (Object.keys(duration.duration).length < 2) {
-          toast.error("Please fill duration");
+        // if (Object.keys(duration.duration).length < 2) {
+        //   toast.error("Please fill duration");
+        //   return;
+        // }
+        //  else {
+        if (Object.keys(duration.duration.start).length < 2) {
+          toast.error("Please fill start duration");
           return;
-        } else {
-          if (Object.keys(duration.duration.start).length < 2) {
-            toast.error("Please fill start duration");
-            return;
-          } else if (
-            duration.duration.end &&
-            Object.keys(duration.duration.end).length < 2
-          ) {
-            toast.error("Please fill end duration");
-            return;
-          }
         }
+        // else if (
+        //   duration.duration.end &&
+        //   Object.keys(duration.duration.end).length < 2
+        // ) {
+        //   toast.error("Please fill end duration");
+        //   return;
+        // }
+        // }
       } else {
         toast.error("Please fill duration");
         return;
       }
     }
 
-    // setLoading(true);
-    setData({ ...data, jobDuration: duration.duration });
-
-    router.push({
-      pathname: "/home/createResume",
-      query: { ...data, keySkills: JSON.stringify(data.keySkills),jobDuration:  JSON.stringify(duration.duration),educationDuration: JSON.stringify(data.educationDuration)},
-    });
+    setData((prevData) => ({ ...prevData, jobDuration: duration.duration }));
+    setIsDataUpdated(true);
+    // localStorage.setItem("preResumeData", JSON.stringify(data));
+    // router.push(`/createResume?clientId=${clientId}`);
   };
+
+  useEffect(() => {
+    if (isDataUpdated) {
+      localStorage.setItem("preResumeData", JSON.stringify(data));
+      router.push(`/createResume?clientId=${clientId}`);
+    }
+  }, [isDataUpdated]);
+
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -164,7 +173,9 @@ const ProfessionalDetails = ({
 
                 <div
                   className={`personal_single_input  ${
-                    data.workStatus == "Fresher" ? "w-full" : "w-[50%]"
+                    data.workStatus == "Fresher"
+                      ? "w-full"
+                      : "ml:w-[50%] w-[100%]"
                   }`}
                 >
                   <div className="personal_single_input w-[100%]">
@@ -178,7 +189,7 @@ const ProfessionalDetails = ({
                       <input
                         type="text"
                         name=""
-                        id="single_input"
+                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                         placeholder="Enter Company Name"
                         value={data.companyName}
                         onChange={(e) =>
@@ -203,18 +214,18 @@ const ProfessionalDetails = ({
                         <>Role</>
                       ) : (
                         <>
-                          Job tittle <span className="star">*</span>
+                          Job Title <span className="star">*</span>
                         </>
                       )}
                     </p>
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                      className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder={
                         data.workStatus == "Fresher"
                           ? "Enter Role"
-                          : "Enter job tittle"
+                          : "Enter job title"
                       }
                       value={data.jobTitle}
                       onChange={(e) =>
@@ -242,7 +253,7 @@ const ProfessionalDetails = ({
                     <input
                       type="text"
                       name=""
-                      id="single_input"
+                      className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
                       placeholder="Enter job location"
                       value={data.jobLocation}
                       onChange={(e) =>
@@ -260,81 +271,142 @@ const ProfessionalDetails = ({
               <div className="personal_single_input w-[100%]">
                 <div className="personal_name w-[100%]">
                   <p className="form_text_heading">
-                    Duration{" "}
+                    Date of Joining{" "}
                     {data.workStatus != "Fresher" && (
                       <span className="star">*</span>
                     )}
                   </p>
                   <DateSelector
-                    idPrefix="education"
+                    idPrefix="experience"
                     data={duration}
                     dataSeter={setDuration}
+                    isRow={true}
                   />
                 </div>
               </div>
-              <div
-                onWheel={(e) => e.stopPropagation()}
-                className="flex gap-6 w-[100%] ml:flex-row flex-col"
-              >
-                <div className="personal_single_input w-[100%]">
-                  <p className="form_text_heading w-[100%]">Key skills</p>
+
+              <div className="flex w-full flex-wrap gap-4">
+                <div className="w-full md:w-[48%]">
+                  <p className="text-[14px] font-medium text-gray-700 mb-1">
+                    Key Skills
+                  </p>
                   <ReactSelect
                     options={skills}
                     isMulti
                     className="w-full"
                     onChange={(data) => handleInputChange("keySkills", data)}
                     value={data.keySkills}
+                    styles={{
+                      control: (provided, state) => ({
+                        ...provided,
+                        border: formError.mustSkills
+                          ? "1px solid red"
+                          : "1px solid #DEDEDE",
+                        borderRadius: "8px",
+                        padding: "2px 8px",
+                        flexWrap: "wrap",
+                        boxShadow: state.isFocused
+                          ? "0 0 0 1px #DEDEDE"
+                          : "none",
+                      }),
+                      valueContainer: (base) => ({
+                        ...base,
+                        display: "flex",
+                        flexWrap: "nowrap",
+                        gap: "4px",
+                        padding: "2px 4px",
+                        overflowX: "auto",
+                        scrollbarWidth: "none",
+                        "-ms-overflow-style": "none",
+                        "&::-webkit-scrollbar": {
+                          display: "none",
+                        },
+                      }),
+                      placeholder: (provided) => ({
+                        ...provided,
+                        color: "#767676",
+                        fontSize: "12px",
+                        fontWeight: "400",
+                      }),
+                      menu: (provided) => ({
+                        ...provided,
+                        zIndex: 10,
+                        scrollbarWidth: "none",
+                        "-ms-overflow-style": "none",
+                        "&::-webkit-scrollbar": {
+                          display: "none",
+                        },
+                      }),
+                      multiValue: (provided) => ({
+                        ...provided,
+                        backgroundColor: "#EFFAFF",
+                        borderRadius: "4px",
+                        minWidth: "90px",
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        color: "#06A9EF",
+                        fontWeight: "500",
+                      }),
+                      multiValueRemove: (provided) => ({
+                        ...provided,
+                        color: "#9A4545",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      }),
+                    }}
                   />
-                  {formError && (
-                    <p className="text-[12px] text-[red] font-[500]">
-                      {formError?.keySkills}
+                  {formError?.keySkills && (
+                    <p className="text-[12px] text-red-500 font-medium mt-1">
+                      {formError.keySkills}
                     </p>
                   )}
                 </div>
-              </div>
-              {data.workStatus != "Fresher" && (
-                <div className="personal_single_input w-[100%] ">
-                  <div className="personal_name w-[100%]">
-                    <p className="form_text_heading">Notice Period</p>
-                    <form className="notice_period flex flex-wrap ">
-                      {noticePeriods.map((item, index) => (
-                        <div className="radio " key={index}>
-                          <input
-                            type="radio"
-                            value={item.value}
-                            checked={data.noticePeriod == item.value}
-                            onChange={(e) =>
-                              handleInputChange("noticePeriod", e.target.value)
-                            }
-                          />
-                          {item.title}
-                        </div>
-                      ))}
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.noticePeriod}
-                        </p>
-                      )}
-                    </form>
-                  </div>
-                </div>
-              )}
 
-              <div className="bottom_buttons">
+                {data.workStatus !== "Fresher" && (
+                  <div className="w-full md:w-[48%]">
+                    <p className="text-[14px] font-medium text-gray-700 mb-1">
+                      Notice Period
+                    </p>
+                    <select
+                      className="w-full border border-[#DEDEDE] rounded-[8px] p-2 outline-none focus:border-blue-400 transition"
+                      value={data.noticePeriod || ""}
+                      onChange={(e) =>
+                        handleInputChange("noticePeriod", e.target.value)
+                      }
+                    >
+                      <option value="" disabled>
+                        Select Notice Period
+                      </option>
+                      {noticePeriods.map((item, index) => (
+                        <option key={index} value={item.value}>
+                          {item.title}
+                        </option>
+                      ))}
+                    </select>
+                    {formError?.noticePeriod && (
+                      <p className="text-[12px] text-red-500 font-medium mt-1">
+                        {formError.noticePeriod}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="bottom_buttons pt-4 flex justify-between w-full">
                 <button
-                  className="buttons"
-                  id="border_button"
+                  className="text-[14px] font-semibold border rounded-[30px] px-6 blue_border_Button h-[38px] "
                   onClick={() => {
                     setTabIndex(3);
 
                     window.scroll(0, 0);
                   }}
                 >
-                  Go Back
+                  Back
                 </button>
                 <button
-                  className="buttons bg-[#06A9EF] text-white"
-                  id="border_button"
+                  className=" font-[600]  text-white px-6 h-[38px] bg_Button rounded-[30px] text-[14px] leading-tight"
                   onClick={handleClick}
                 >
                   {loading && <MiniLoader />}

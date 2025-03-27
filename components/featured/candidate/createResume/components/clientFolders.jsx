@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { PDFSvg } from "../../../../../utils/svg";
 import { convertBytes, dateSeter, fileIconSeter1 } from "../../../../../utils/middleware";
+import SyncLoader from "../../../../common/SyncLoader";
 
 function ClientFolders({
   toggleSelect,
@@ -15,6 +16,7 @@ function ClientFolders({
   openClientFolder,
   query,
 }) {
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date
@@ -52,7 +54,7 @@ function ClientFolders({
   }, [isList]);
 
   const fileIconSeter = (data) => {
-    if (data?.resumeUrl?.toLowerCase().includes("pdf")) {
+    if (data?.file?.toLowerCase().includes("pdf")) {
       return <PDFSvg />;
     } else {
       return (
@@ -85,17 +87,17 @@ function ClientFolders({
               {!isList ? (
                 clientData?.map((item, index) => (
                   <>
+                  
                     <div
                       onClick={() => {
                         !select &&
                           openClientFolder(
                             index,
                             item._id,
-                            clientId
-                              ?<>{item.fileName.length > 15
+                            item.fileName.length > 15
                                 ? `${item.fileName.slice(0, 14)}...`
-                                : item.fileName}</>
-                              : item.firstName + " " + item.lastName,
+                                : item.fileName,
+                             
                             item
                           );
                       }}
@@ -114,39 +116,47 @@ function ClientFolders({
                             onChange={() => toggleSelect(index)}
                           />
                         )}
+                        {/* {item.isSync === false && item.type === "file" &&
+                        <div className="absolute -bottom-2 -left-2 z-50">
+                          <SyncLoader />
+                        </div>
+                      } */}
                       </div>
+                      
                       <span className="text-[12px]">
                         {" "}
-                        {clientId
-                          ?<>{item.fileName.length > 15
+                        <>{item.fileName.length > 15
                             ? `${item.fileName.slice(0, 14)}...`
                             : item.fileName}</>
-                          : item.firstName + " " + item.lastName}
+                         
                       </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                        {clientId
-                          ? item.fileName
-                          : item.firstName + " " + item.lastName}
+                       
+                        { item.fileName}
+                          
                       </div>
                     </div>
                   </>
                 ))
               ) : (
-                <table className="w-[100%] text-[12px] sm:text-[16px]">
-                  <thead>
-                    <tr>
-                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF]">
+                <table className="w-[100%] text-[12px] flex flex-col sm:text-[16px] ">
+                  <thead className="w-full flex">
+                    <tr className="w-full flex">
+                      <th className=" py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[50%] text-left border-r border-[#FFF] font-medium">
                         Name
                       </th>
-                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left border-r border-[#FFF]  rounded-r-[12px]">
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF] font-medium ">
                         Date Modified
+                      </th>
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[20%] text-left border-r border-[#FFF]  rounded-r-[12px] font-medium">
+                        Action
                       </th>
                       {/* <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
                         Size
                       </th> */}
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="w-full">
                     {clientData.map((item, index) => (
 
                       <tr
@@ -155,16 +165,17 @@ function ClientFolders({
                           openClientFolder(
                             index,
                             item._id,
-                            clientId
-                              ? item.fileName
-                              : item.firstName + " " + item.lastName,
+                           
+                               item.fileName,
+                             
                             item
                           )
                         }
-                        className="cursor-pointer"
+                        className="cursor-pointer flex w-full "
                       >
-                        <td className="sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
-                          
+
+                        <td className=" w-[50%] sm:px-4 px-2 py-2 font-medium flex gap-2  items-center ">
+
                           {select && (
 
                             <input
@@ -179,16 +190,33 @@ function ClientFolders({
                           <div className="h-[24px] min-w-[24px]">
                             {fileIconSeter1(item)}
                           </div>
-                          {clientId
-                            ? item.fileName
-                            : item.firstName + " " + item.lastName}
+                        {  item.fileName}
+                           
                         </td>
-                        <td className="sm:px-4 px-2 py-2 text-[#858585]">
+                        
+                        <td className="w-[30%] scr460:px-4 flex gap-4 items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
+                          {/* {item.isSync === false && item.type === "file" &&
+                            <div className=" overflow-hidden">
+                              <SyncLoader />
+                            </div>
+                          } */}
                         </td>
+                        
                         {/* <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {convertBytes(item.size)}
                         </td> */}
+
+                        <td className="sm:px-4 px-2 py-2 text-[#858585] w-[20%]">
+                          {item?.role !== "client" &&
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                              <g mask="url(#mask0_6706_99235)">
+                                <path d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="#06A9EF" />
+                              </g>
+                            </svg>
+                          }
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -233,11 +261,10 @@ function ClientFolders({
                 {clientData.map((item, index) => (
                   <tr key={index} className="">
                     <td className="px-4 py-2 font-medium">
-                      {clientId
-                        ? <>{item.fileName.length > 15
+                     <>{item.fileName.length > 15
                           ? `${item.fileName.slice(0, 14)}...`
                           : item.fileName}</>
-                        : item.firstName + " " + item.lastName}
+                       
                     </td>
                     {/* <td className='px-4 py-2 text-[#858585]'>{item.dateModified}</td>
                             <td className='px-4 py-2 text-[#858585]'>{item.category}</td>
