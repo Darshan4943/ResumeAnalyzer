@@ -78,7 +78,7 @@ const TopCompanies = () => {
                 ? company.map((job) => (
                     <SwiperSlide key={job._id}>
                       <div className="w-full border-[1px] flex flex-col items-center justify-between py-1 border-[#CBCBCB] rounded-[10px] gap-[12px]">
-                        <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col items-center gap-2 pt-1">
                           <img
                             src={job.companyLogo}
                             className="max-w-[80px] max-h-[20px]  object-fit min-h-[20px] min-w-[40px] "
