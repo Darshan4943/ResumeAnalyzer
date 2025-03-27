@@ -52,7 +52,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("https://dev.api.skilotech.com/api/updatePassword", {
+      .post("https://jamblix.com/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

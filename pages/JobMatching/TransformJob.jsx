@@ -44,7 +44,7 @@ function TransformJob() {
     setLoading(true);
 
     axios
-      .post("https://dev.api.skilotech.com/api/cv/transform", {
+      .post("https://jamblix.com/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -75,7 +75,7 @@ function TransformJob() {
     if (userDataGlobal?.role == "recruiter") {
       axios
         .get(
-          `https://dev.api.skilotech.com/api/client/getByRecruiter/${userDataGlobal?._id}`
+          `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal?._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -88,7 +88,7 @@ function TransformJob() {
           });
           if (result?.length > 0) {
             axios
-              .get("https://dev.api.skilotech.com/api/resume/" + res.data.data[0]?._id)
+              .get("https://jamblix.com/api/resume/" + res.data.data[0]?._id)
               .then((res) => {
                 setResumeList(res.data.data);
 
@@ -109,7 +109,7 @@ function TransformJob() {
     if (userDataGlobal?.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://dev.api.skilotech.com/api/resume/" + data.value)
+        .get("https://jamblix.com/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);

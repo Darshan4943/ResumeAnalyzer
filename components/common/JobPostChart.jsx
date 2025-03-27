@@ -35,7 +35,7 @@ const JobPostChart = () => {
 
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/job/getJobStatisticsdata/${userDataGlobal?._id}?filter=${selected}`
+          `https://jamblix.com/api/job/getJobStatisticsdata/${userDataGlobal?._id}?filter=${selected}`
         );
         setChartData(response.data);
       } catch (error) {

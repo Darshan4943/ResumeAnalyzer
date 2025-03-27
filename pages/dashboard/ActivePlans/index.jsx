@@ -19,7 +19,7 @@ function ActivePlans() {
 
   const getData = () => {
     axios
-      .get("https://dev.api.skilotech.com/api/activeSubscription", {
+      .get("https://jamblix.com/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {

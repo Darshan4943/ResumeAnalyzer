@@ -64,7 +64,7 @@ function JobPosting() {
     const fetchAttributes = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getRequisitionTitel/${userDataGlobal?._id}`
+          `https://jamblix.com/api/getRequisitionTitel/${userDataGlobal?._id}`
         );
         const data = response.data;
 
@@ -170,7 +170,7 @@ function JobPosting() {
     const fetchRequisitions = async () => {
       try {
         const response = await axios.get(
-          `https://dev.api.skilotech.com/api/getrequisitions/${userDataGlobal._id}`,
+          `https://jamblix.com/api/getrequisitions/${userDataGlobal._id}`,
           {
             params: {
               ...filterData,

@@ -108,7 +108,7 @@ function ShortlistMail({
     const fetchTemplates = async () => {
       try {
         const response = await fetch(
-          `https://dev.api.skilotech.com/api/getTemplates/${userDataGlobal._id}`
+          `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
         );
         const result = await response.json();
   
@@ -184,7 +184,7 @@ function ShortlistMail({
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/hiring/shortlistCandidate",
+        "https://jamblix.com/api/hiring/shortlistCandidate",
         emailDetails
       );
 

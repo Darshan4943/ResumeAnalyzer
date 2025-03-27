@@ -20,7 +20,7 @@ function UploadDocuments() {
 
     const getDocumentsUploadStatus = async () => {
         try {
-            const response = await axios.get(`https://dev.api.skilotech.com/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
+            const response = await axios.get(`https://jamblix.com/api/preboarding/documentsUploadStatus/${applicantId}/${jobId}`);
             setPreviousStatus(response.data.documentStatus)
 
       return response.data.documentStatus;
@@ -147,7 +147,7 @@ function UploadDocuments() {
       
         try {
             const response = await axios.post(
-                `https://dev.api.skilotech.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`,
+                `https://jamblix.com/api/preboarding/uploadDocuments/${applicantId}/${jobId}`,
                 uploadedFiles, 
                 { headers: { "Content-Type": "application/json" } }
             );
