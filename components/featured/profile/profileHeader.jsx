@@ -75,7 +75,7 @@ const ProfileHeader = ({ userData }) => {
                       </div>
                     </div>
                     <div
-                      className="flex items-center"
+                      className="flex items-center cursor-pointer"
                       onClick={() => setEditProfile(true)}
                       class="w-[24px]"
                     >
