@@ -8,6 +8,8 @@ import { currenciesWithIcons } from "../../../../utils/data";
 import CopyLink from "../../../common/copyLink";
 
 function Description({ selectedJob, filter, setLimitPopup }) {
+  
+
   const router = useRouter();
   const { userDataGlobal, profileData } = useSelector(
     (state) => state.user.userData
@@ -183,20 +185,17 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                     if (isLogin) {
                       if (jobApplyCount > 0) {
                         if (
-                          !jobData?.some(
-                            (job) =>
-                              job?.matchedApplication?.applicantId ===
-                              userDataGlobal?._id
-                          )
+                          selectedJob?.matchedApplication?.applicantId !== userDataGlobal?._id
+                          
                         ) {
-                          router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
+                          router.push(`/jobs/candidate/ApplyForm?id=${selectedJob._id}`);
                         }
                       } else {
-                        router.push(`/jobs/candidate/ApplyForm?id=${item._id}`);
+                        router.push(`/jobs/candidate/ApplyForm?id=${selectedJob._id}`);
                         // setLimitPopup(true);
                       }
                     } else {
-                      router.push(`/jobs/easyApply?id=${item._id}`);
+                      router.push(`/jobs/easyApply?id=${selectedJob._id}`);
                     }
                   }}
                   className={`text-[14px] font-[600]  flex items-center ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
