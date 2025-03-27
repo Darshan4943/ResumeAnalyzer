@@ -13,7 +13,7 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 import MiniLoader from "../../components/common/mini-loader";
 import { fetchUserData } from "../../Redux/slices/userSlice";
 
-function Form({ }) {
+function Form({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -91,7 +91,7 @@ function Form({ }) {
       location,
       country,
       profilePicture,
-      dial_code
+      dial_code,
     } = userDataGlobal;
     setData({
       ...data,
@@ -102,12 +102,14 @@ function Form({ }) {
       role,
       currentLocation: location,
       country,
-      dial_code
+      dial_code,
     });
     if (profilePicture) {
       setCroppedImage({ url: profilePicture });
     }
-    const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
+    const selectedItem = telCode.find(
+      (item) => item.dial_code === userDataGlobal?.dial_code
+    );
 
     if (selectedItem) {
       setSelectedItem(selectedItem);
@@ -286,7 +288,7 @@ function Form({ }) {
       "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-    console.log(emptyFields)
+    console.log(emptyFields);
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
@@ -305,12 +307,10 @@ function Form({ }) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    }
-    else if (!verified && !isUpdate) {
+    } else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
-    }
-    else {
+    } else {
       const url = isUpdate
         ? "https://dev.api.skilotech.com/api/updateUser"
         : "https://dev.api.skilotech.com/api/skiloteckuser/recruiter";
@@ -349,8 +349,9 @@ function Form({ }) {
                   dispatch(fetchUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                      }`;
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home?signIn=false`;
@@ -385,11 +386,11 @@ function Form({ }) {
     setTimer(30);
     setLoadingg(true);
     e.preventDefault();
-    let tempUser = "tempRecruiter"
+    let tempUser = "tempRecruiter";
     axios
       .post("https://dev.api.skilotech.com/api/otpMailSignup", {
         userEmail: data.email,
-        tempUser
+        tempUser,
       })
       .then((res) => {
         setLoadingg(false);
@@ -434,18 +435,14 @@ function Form({ }) {
   }, [verify]);
 
   const verifyOtp = () => {
-
     axios
       .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: data.email,
-        otpEntered
+        otpEntered,
       })
       .then((res) => {
-
         const result = res.data;
         if (result.success) {
-
-
           setVerified(true);
         } else {
           toast.error("OTP does not match");
@@ -453,9 +450,7 @@ function Form({ }) {
       })
       .catch((err) => {
         toast.error(err?.response?.data.message);
-
       });
-
   };
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -498,216 +493,225 @@ function Form({ }) {
         )}
         <div className={` ${isUpdate && "pt-12"} pb-8  `}>
           <div className="flex flex-col gap-4">
-            <motion.div className=" flex justify-center pt-4  pb-2">
+            <motion.div className=" flex justify-center ">
               <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page  ">
-                <>
+                <div className="w-full">
                   {byAdmin ? null : (
                     <>
                       {" "}
                       <p className="text-[16px] font-medium">
                         Profile Photo <span className="star"></span>
                       </p>
-                      <div className="flex sm:gap-6 gap-3">
-                        {croppedImage ? (
-                          <ImageContainer
-                            src={croppedImage.url}
-                            alt="Selected File"
-                            className="w-[112px] h-[112px] rounded-[50%] object-cover"
-                          />
-                        ) : (
-                          <svg
-                            width="112"
-                            height="112"
-                            viewBox="0 0 112 112"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z"
-                              fill="#EFFAFF"
+                      <div className="flex gap-2 md:flex-row flex-col items-center ">
+                        <div className="flex  sm:gap-6 gap-1">
+                          {croppedImage ? (
+                            <ImageContainer
+                              src={croppedImage.url}
+                              alt="Selected File"
+                              className="w-[112px] h-[112px] rounded-[50%] object-cover"
                             />
-                            <path
-                              d="M72.8477 57.6827C82.1815 49.1895 82.1815 35.4193 72.8477 26.9261C63.514 18.4329 48.381 18.4329 39.0472 26.9261C29.7135 35.4193 29.7135 49.1895 39.0472 57.6827C48.381 66.176 63.514 66.1759 72.8477 57.6827Z"
-                              fill="#D4E5EF"
-                            />
-                            <path
-                              d="M55.9999 112C73.0337 112 88.289 104.393 98.5599 92.3928C93.1095 75.6573 76.1192 66.7704 55.9999 66.7704C35.8806 66.7704 18.8903 75.6573 13.4399 92.3928C23.7108 104.393 38.9661 112 55.9999 112Z"
-                              fill="#D4E5EF"
-                            />
-                          </svg>
-                          // <img src="/images/empty.png" />
-                        )}
+                          ) : (
+                            <svg
+                              width="112"
+                              height="112"
+                              viewBox="0 0 112 112"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z"
+                                fill="#EFFAFF"
+                              />
+                              <path
+                                d="M72.8477 57.6827C82.1815 49.1895 82.1815 35.4193 72.8477 26.9261C63.514 18.4329 48.381 18.4329 39.0472 26.9261C29.7135 35.4193 29.7135 49.1895 39.0472 57.6827C48.381 66.176 63.514 66.1759 72.8477 57.6827Z"
+                                fill="#D4E5EF"
+                              />
+                              <path
+                                d="M55.9999 112C73.0337 112 88.289 104.393 98.5599 92.3928C93.1095 75.6573 76.1192 66.7704 55.9999 66.7704C35.8806 66.7704 18.8903 75.6573 13.4399 92.3928C23.7108 104.393 38.9661 112 55.9999 112Z"
+                                fill="#D4E5EF"
+                              />
+                            </svg>
+                            // <img src="/images/empty.png" />
+                          )}
 
-                        <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
-                          <p className="text-[12px] font-normal">
-                            Allowed file formats: jpg, jpeg | up to 3 MB
-                          </p>
-                          <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
-                            <input
-                              type="file"
-                              ref={fileRef}
-                              onChange={handleFileChange}
-                              accept="image/*"
-                            />
-                            Upload Picture
+                          <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
+                            <p className="text-[12px] font-normal">
+                              Allowed file formats: jpg, jpeg | up to 3 MB
+                            </p>
+                            <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
+                              <input
+                                type="file"
+                                ref={fileRef}
+                                onChange={handleFileChange}
+                                accept="image/*"
+                              />
+                              Upload Picture
+                            </div>
+                            <div
+                              className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
+                              onClick={() => {
+                                setData((prevData) => ({
+                                  ...prevData,
+                                  img: null,
+                                }));
+                                setFile(null);
+                                setCroppedImage(null);
+                                setError(false);
+                                setIsProfileImageRemoved(true);
+                              }}
+                            >
+                              Remove Picture
+                            </div>
                           </div>
-                          <div
-                            className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
-                            onClick={() => {
-                              setData((prevData) => ({
-                                ...prevData,
-                                img: null,
-                              }));
-                              setFile(null);
-                              setCroppedImage(null);
-                              setError(false);
-                              setIsProfileImageRemoved(true);
-                            }}
-                          >
-                            Remove Picture
+                        </div>
+                        {error && (
+                          <div className="text-[16px] text-red">{error}</div>
+                        )}
+                        <div className="flex gap-2 w-full flex-col ">
+                          <div className="flex flex-col sm:flex-row gap-4 w-full">
+                            <div className="w-full flex flex-col gap-1 sm:w-1/2">
+                              <p className="form_text_heading">
+                                First Name <span className="star">*</span>
+                              </p>
+                              <input
+                                type="text"
+                                name="firstName"
+                                className="w-full border border-[#DEDEDE] rounded-md h-[40px] px-3 text-gray-700 placeholder-gray outline-none"
+                                placeholder="Enter First Name"
+                                value={data.firstName}
+                                onChange={(e) =>
+                                  handleInputChange("firstName", e.target.value)
+                                }
+                              />
+
+                              {formError && (
+                                <p className="text-[12px] text-[red] font-[500]">
+                                  {formError.firstName}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="w-full flex flex-col gap-1 sm:w-1/2">
+                              <p className="form_text_heading">
+                                Last Name <span className="star">*</span>
+                              </p>
+                              <input
+                                type="text"
+                                name=""
+                                className="w-full border border-[#DEDEDE] rounded-md h-[40px] px-3 text-gray-700 placeholder-gray outline-none"
+                                placeholder="Enter Last Name"
+                                value={data.lastName}
+                                onChange={(e) =>
+                                  handleInputChange("lastName", e.target.value)
+                                }
+                              />
+                              {formError && (
+                                <p className="text-[12px] text-[red] font-[500]">
+                                  {formError?.lastName}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="w-full flex flex-col gap-1">
+                            <p className="form_text_heading">
+                              Contact Number <span className="star">*</span>
+                            </p>
+                            <div
+                              className={`flex w-[100%] items-start ${
+                                isViewportBelow850
+                                  ? "gap-[4px] "
+                                  : "gap-[16px] "
+                              }`}
+                              id="single_input"
+                            >
+                              <div
+                                className={`relative min-w-[150px] ${
+                                  isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                                } items-center`}
+                              >
+                                <div
+                                  onWheel={(e) => e.stopPropagation()}
+                                  className=" w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                                >
+                                  <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
+                                    <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
+                                      <ReactSelect
+                                        options={filteredTelCode}
+                                        className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                                        name=""
+                                        placeholder="Select"
+                                        value={selectedItem}
+                                        onChange={handleItemClick}
+                                        getOptionLabel={(option) => (
+                                          <div className="flex items-center  ">
+                                            <img
+                                              src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                                              width="20px"
+                                            />
+                                            <span className="ml-2 text-[#333333]">
+                                              {option.code} {option.dial_code}
+                                            </span>
+                                          </div>
+                                        )}
+                                        // getOptionValue={(option) => option.code}
+                                        filterOption={customFilterOption}
+                                        styles={{
+                                          control: (provided) => ({
+                                            ...provided,
+                                            border: "none",
+
+                                            minWidth: "120px",
+                                            outline: "none",
+                                          }),
+                                        }}
+                                        theme={(theme) => ({
+                                          ...theme,
+                                          borderRadius: 0,
+                                          colors: {
+                                            ...theme.colors,
+                                            // primary25: 'hotpink',
+                                            primary: "neutral0",
+                                          },
+                                        })}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <input
+                                className="w-full mobileNo "
+                                type="text"
+                                name=""
+                                // id="single_input"
+                                placeholder={`${
+                                  isViewportBelow850
+                                    ? "Enter Number "
+                                    : "Enter Contact Number "
+                                }`}
+                                value={data.mobileNo}
+                                onChange={(e) =>
+                                  handleInputChange("mobileNo", e.target.value)
+                                }
+                              />
+                            </div>
+
+                            {formError && (
+                              <>
+                                <p className="text-[12px] text-[red] font-[500]">
+                                  {formError?.mobileNo}
+                                </p>
+                                <p className="text-[12px] text-[red] font-[500]">
+                                  {formError?.dial_code}
+                                </p>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
                     </>
                   )}
 
-                  {error && <div className="text-[16px] text-red">{error}</div>}
-                  <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
-                    <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[48%] w-[100%]">
-                      <div className="personal_name ml:w-[47%] w-[100%]">
-                        <p className="form_text_heading">
-                          First Name <span className="star">*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name=""
-                          id="first_name"
-                          placeholder="Enter First Name"
-                          value={data.firstName}
-                          onChange={(e) =>
-                            handleInputChange("firstName", e.target.value)
-                          }
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError.firstName}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="personal_name ml:w-[47%] w-[100%]">
-                        <p className="form_text_heading">
-                          Last Name <span className="star">*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name=""
-                          id="first_name"
-                          placeholder="Enter Last Name"
-                          value={data.lastName}
-                          onChange={(e) =>
-                            handleInputChange("lastName", e.target.value)
-                          }
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.lastName}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="personal_single_input">
-                      <p className="form_text_heading">
-                        Contact Number <span className="star">*</span>
-                      </p>
-                      <div
-                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
-                        id="single_input"
-                      >
-                        <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
-                        >
-                          <div
-                            onWheel={(e) => e.stopPropagation()}
-                            className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
-                          >
-                            <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
-                              <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
-                                <ReactSelect
-                                  options={filteredTelCode}
-                                  className="w-[100%] flex  items-center py-1  rounded-[8px]"
-                                  name=""
-                                  placeholder="Select"
-                                  value={selectedItem}
-                                  onChange={handleItemClick}
-                                  getOptionLabel={(option) => (
-                                    <div className="flex items-center  ">
-                                      <img
-                                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                                        width="20px"
-                                      />
-                                      <span className="ml-2 text-[#333333]">
-                                        {option.code} {option.dial_code}
-                                      </span>
-                                    </div>
-                                  )}
-                                  // getOptionValue={(option) => option.code}
-                                  filterOption={customFilterOption}
-                                  styles={{
-                                    control: (provided) => ({
-                                      ...provided,
-                                      border: "none",
-
-                                      minWidth: "120px",
-                                      outline: "none",
-                                    }),
-                                  }}
-                                  theme={(theme) => ({
-                                    ...theme,
-                                    borderRadius: 0,
-                                    colors: {
-                                      ...theme.colors,
-                                      // primary25: 'hotpink',
-                                      primary: "neutral0",
-                                    },
-                                  })}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <input
-                          className="w-full mobileNo "
-                          type="text"
-                          name=""
-                          // id="single_input"
-                          placeholder={`${isViewportBelow850
-                            ? "Enter Number "
-                            : "Enter Contact Number "
-                            }`}
-                          value={data.mobileNo}
-                          onChange={(e) =>
-                            handleInputChange("mobileNo", e.target.value)
-                          }
-                        />
-                      </div>
-
-                      {/* Display error message if any */}
-                      {formError && (
-                        <>
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.mobileNo}
-                          </p>
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.dial_code}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  </div>
                   <div className="flex gap-6 ml:flex-row flex-col  w-[100%]">
                     <div className="flex flex-col gap-4 ml:w-[50%] w-[100%]">
                       <div className="personal_single_input w-[100%]">
@@ -716,12 +720,11 @@ function Form({ }) {
                         </p>
                         <div className="flex gap-2 h-[48px] items-center justify-center">
                           <input
-                            className="h-full"
                             disabled={isUpdate}
                             style={{ opacity: isUpdate ? "0.5" : "1" }}
                             type="email"
                             name=""
-                            id="single_input"
+                            className="w-full border border-[#DEDEDE] rounded-md h-[40px] px-3 text-gray-700 placeholder-gray outline-none"
                             placeholder="Enter Email"
                             value={data.email}
                             onChange={(e) => {
@@ -776,8 +779,6 @@ function Form({ }) {
                           <div className="flex flex-col gap-2 font-medium w-full">
                             <div className="flex gap-2 items-center">
                               <p className="min-w-[100px]"> Enter Code</p>
-
-
                             </div>
                             <div className="flex gap-4 h-[48px]  items-center ml:w-[49%] ">
                               <input
@@ -818,9 +819,13 @@ function Form({ }) {
                                 </div>
                               )}
                             </div>
-                            {resend &&
-                              <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
-                            }
+                            {resend && (
+                              <p className="text-[12px]  text-red pl-1">
+                                {" "}
+                                Didn&apos;t receive your OTP? Please check your
+                                spam or junk folder.
+                              </p>
+                            )}
                           </div>
                         )}
                       </div>
@@ -834,7 +839,7 @@ function Form({ }) {
                         <input
                           type="text"
                           name=""
-                          id="single_input"
+                          className="w-full border border-[#DEDEDE] rounded-md h-[40px] px-3 text-gray-700 placeholder-gray outline-none"
                           placeholder="Enter Your Location"
                           value={data.currentLocation}
                           onChange={(e) =>
@@ -852,18 +857,21 @@ function Form({ }) {
                           alt=""
                         />
                       </div>
-
                     </div>
-
                   </div>
+
                   <div className="w-full ml:flex hidden">
                     {verify && (
                       <div className="flex flex-col gap-2 font-medium w-full">
                         <div className="flex gap-2 items-center">
                           Enter Code
-                          {resend &&
-                            <p className="text-[12px]  text-red pl-1"> Didn&apos;t receive your OTP? Please check your spam or junk folder.</p>
-                          }
+                          {resend && (
+                            <p className="text-[12px]  text-red pl-1">
+                              {" "}
+                              Didn&apos;t receive your OTP? Please check your
+                              spam or junk folder.
+                            </p>
+                          )}
                         </div>
                         <div className="flex gap-4 h-[48px]  items-center ml:w-[49%] ">
                           <input
@@ -925,8 +933,8 @@ function Form({ }) {
                             }
                           />
 
-                          {!isEdge() && (
-                            showPassword ? (
+                          {!isEdge() &&
+                            (showPassword ? (
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -986,8 +994,8 @@ function Form({ }) {
                               )
                             }
                           />
-                          {!isEdge() && (
-                            showConfirmPassword ? (
+                          {!isEdge() &&
+                            (showConfirmPassword ? (
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -1032,10 +1040,9 @@ function Form({ }) {
                     </div>
                   )}
 
-                  <div className=" w-full font-[500] flex flex-row gap-[16px] justify-end ">
+                  <div className=" w-full font-[500] flex flex-row gap-[16px] pt-2 justify-end ">
                     <button
-                      className="buttons"
-                      id="border_button"
+                      className="text-[12px] md:text-[14px] font-semibold  px-6  red_border_Button  rounded-[30px] h-[38px]"
                       onClick={(e) => {
                         e.preventDefault();
                         router.back();
@@ -1044,7 +1051,7 @@ function Form({ }) {
                       Cancel
                     </button>
                     <button
-                      className="buttons font-[500] bg-[#06A9EF] text-white bg_Button"
+                      className="text-[12px] md:text-[14px] font-semibold  px-6  bg_Button rounded-[30px] h-[38px]"
                       // id="border_button"
                       onClick={submitHandler}
                     >
@@ -1071,7 +1078,7 @@ function Form({ }) {
                       )}
                     </button>
                   </div>
-                </>
+                </div>
               </div>
             </motion.div>
           </div>
