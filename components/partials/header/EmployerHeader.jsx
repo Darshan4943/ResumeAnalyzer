@@ -69,7 +69,7 @@ function EmployerHeader() {
   const fetchNotifications = async (filter) => {
     try {
       const response = await fetch(
-        `https://dev.api.skilotech.com/api/getNotificationLength/${userDataGlobal._id}`
+        `https://jamblix.com/api/getNotificationLength/${userDataGlobal._id}`
       );
 
       if (!response.ok) {

@@ -83,7 +83,7 @@ function RequestCV() {
         const fetchJDParameters = async () => {
 
             try {
-                const data = await axios.get(`https://dev.api.skilotech.com/api/jdParameters/get/${userDataGlobal?._id}`);
+                const data = await axios.get(`https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`);
 
                 if (data?.data?.data?.parameters) {
                     const filteredParameters = data.data.data.parameters.filter(param => param.enabled === true);
@@ -123,7 +123,7 @@ function RequestCV() {
             const outputData = [];
 
             const response = await axios.post(
-                "https://dev.api.skilotech.com/api/skiloCollection/jobMatching",
+                "https://jamblix.com/api/skiloCollection/jobMatching",
                 {
                     jd: isResumes === "post" ? selectedJob : data,
                     resumeCount,
@@ -173,7 +173,7 @@ function RequestCV() {
 
 
         try {
-            const updateJobMatchApiUrl = `https://dev.api.skilotech.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+            const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
             const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
                 resumeCount,
             });
@@ -185,7 +185,7 @@ function RequestCV() {
                 );
             }
 
-            const jdSubscriptionLimitUrl = `https://dev.api.skilotech.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+            const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
             const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
                 resumeCount,
             });
@@ -291,7 +291,7 @@ function RequestCV() {
     //             };
 
     //             const response = await axios.post(
-    //                 "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+    //                 "https://jamblix.com/api/folder/addFileToSkilotechCollection",
     //                 payload,
     //                 {
     //                     headers: {
@@ -339,7 +339,7 @@ function RequestCV() {
             };
     
             const folderResponse = await axios.post(
-                "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+                "https://jamblix.com/api/folder/addFileToSkilotechCollection",
                 payload,
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -365,7 +365,7 @@ function RequestCV() {
                 };
     
                 return axios.post(
-                    "https://dev.api.skilotech.com/api/folder/addFileToSkilotechCollection",
+                    "https://jamblix.com/api/folder/addFileToSkilotechCollection",
                     payload,
                     { headers: { "Content-Type": "application/json" } }
                 );

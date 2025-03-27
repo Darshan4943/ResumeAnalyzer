@@ -36,7 +36,7 @@ function ApplicantPreview({  }) {
       );
 
       const response = await axios.get(
-        "https://dev.api.skilotech.com/api/applicantdetails",
+        "https://jamblix.com/api/applicantdetails",
         {
           params: { id, applicantId },
         }

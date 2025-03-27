@@ -35,7 +35,7 @@ function Sign_in({  setSignIn, setSignUp }) {
             const sendToPurchaseResult = JSON.parse(sendToPurchase);
             axios
                 .post(
-                    "https://dev.api.skilotech.com/api/skiloteckuser/user/google/signup",
+                    "https://jamblix.com/api/skiloteckuser/user/google/signup",
                     {userData}
                 )
                 .then((res) => {
@@ -106,7 +106,7 @@ function Sign_in({  setSignIn, setSignUp }) {
             role: role,
         };
         axios
-            .post("https://dev.api.skilotech.com/api/skiloteckuser/signin", dataToSend)
+            .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
             .then((res) => {
                 try {
                     const response = res.data;

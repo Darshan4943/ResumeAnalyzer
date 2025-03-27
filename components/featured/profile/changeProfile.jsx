@@ -146,7 +146,7 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
 
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
+        `https://jamblix.com/api/candidate/updateProfileImage/${userDataGlobal?._id}`,
         formData
       );
       dispatch(fetchUserData());
