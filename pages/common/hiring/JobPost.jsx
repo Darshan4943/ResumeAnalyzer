@@ -455,7 +455,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [generatedLink, setGeneratedLink] = useState("");
 
   const handleClick = (jobId) => {
-    const link = `https://testing.d3pnzi93uiabob.amplifyapp.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
+    const link = `https://www.skilotech.com/jobs/candidate/JobDetails?id=${jobId}&isShared=true`;
 
     setGeneratedLink(link);
     setShowPopup(true);
