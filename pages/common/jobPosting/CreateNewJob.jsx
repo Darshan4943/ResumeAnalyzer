@@ -326,7 +326,7 @@ function CreateNewJob() {
           },
         }
       );
-      router.push("/common/jobPosting");
+      router.push("/common/hiring");
       toast.success(
         id ? "Job Post Updated Successfully" : "Job Post Created Successfully"
       );
