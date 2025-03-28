@@ -242,7 +242,7 @@ function TopSection({
   return (
     <div className="flex flex-wrap gap-4 w-full ">
       <div
-        className="flex flex-col gap-6 p-4 rounded-[16px] w-full sm:w-[212px]"
+        className="flex flex-col gap-6 p-4 rounded-[16px] w-full sm:w-[280px]"
         style={{
           background:
             "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)",
@@ -283,9 +283,9 @@ function TopSection({
             backgroundColor: "#fff",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full sm:w-[207px] h-[130px] bg-white shadow-md rounded-lg p-4 relative"
+          className="w-full sm:w-[195px] h-[130px] bg-white shadow-md rounded-lg p-4 relative"
         >
-          <div className="text-gray-700 font-medium text-lg">{stat.title}</div>
+          <div className="text-gray-700 font-medium text-[17px]">{stat.title}</div>
           <div className="text-3xl font-semibold  mt-1">
             {stat.count}
           </div>

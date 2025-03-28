@@ -39,7 +39,7 @@ function JobStatistics({ setSelected, selected, data }) {
       >
         <div className="flex justify-between items-center self-stretch">
           <div className="flex flex-col items-start lg:gap-1 gap-[2px]">
-            <p className="text-[#333333] font-Montserrat text-[12px] lg:text-[24px] font-medium leading-[20px]">
+            <p className="text-[#333333] font-Montserrat text-[12px] lg:text-[20px] font-medium leading-[20px]">
               {" "}
               Job Statistics
             </p>

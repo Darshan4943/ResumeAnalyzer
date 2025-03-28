@@ -242,8 +242,7 @@ const Profile = () => {
             <MiniLoader />
           </div>
         ) : (
-          companyData &&
-          Object.keys(companyData).length > 0 && (
+          companyData.name && (
             <div className="w-[100%] gap-4 flex flex-col">
               {showEditForm ? (
                 <div
