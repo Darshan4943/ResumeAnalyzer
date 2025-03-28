@@ -152,7 +152,7 @@ const Profile = () => {
             <div className="flex flex-col w-[100%] lg:w-[80%] gap-4">
               <div className="flex flex-col w-[100%]">
                 <div className="w-[100%] flex gap-[6px]">
-                  {data.role === "recruiter" ? (
+                  {data?.role === "recruiter" ? (
                     <>
                       <img
                         src="/images/profile/check.png"
@@ -179,7 +179,7 @@ const Profile = () => {
                       <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
                         <div className="break-all sm:text-[14px] text-[12px]   font-Montserrat font-medium text-[#333]">
                           {data?.firstName && data?.lastName
-                            ? `${data.firstName} ${data.lastName}`
+                            ? `${data?.firstName} ${data?.lastName}`
                             : null}
                         </div>
                       </div>
@@ -190,7 +190,7 @@ const Profile = () => {
                         Activated on <span>:</span>{" "}
                       </div>
                       <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {dateFormatter(data.createdAt)}
+                        {dateFormatter(data?.createdAt)}
                       </div>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ const Profile = () => {
                         Email ID <span>:</span>{" "}
                       </div>
                       <div className="w-[50%] break-all sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {data.email}
+                        {data?.email}
                       </div>
                     </div>
                     <div className="w-[100%] flex gap-4 items-center">
@@ -211,7 +211,7 @@ const Profile = () => {
                         Contact Number <span>:</span>{" "}
                       </div>
                       <div className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {data?.mobileNo ? data.mobileNo : "-"}
+                        {data?.mobileNo ? data?.mobileNo : "-"}
                       </div>
                     </div>
                   </div>
@@ -242,8 +242,7 @@ const Profile = () => {
             <MiniLoader />
           </div>
         ) : (
-          companyData &&
-          Object.keys(companyData).length > 0 && (
+          companyData.name && (
             <div className="w-[100%] gap-4 flex flex-col">
               {showEditForm ? (
                 <div
