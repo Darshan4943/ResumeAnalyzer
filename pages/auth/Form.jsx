@@ -494,7 +494,7 @@ function Form({}) {
         <div className={` ${isUpdate && "pt-12"} pb-8  `}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center ">
-              <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page  ">
+              <div className="personal_details_form scr1250:w-[70%] sm:w-[80%] w-[95%] education_page  ">
                 <div className="w-full">
                   {byAdmin ? null : (
                     <>
@@ -508,7 +508,7 @@ function Form({}) {
                             <ImageContainer
                               src={croppedImage.url}
                               alt="Selected File"
-                              className="w-[112px] h-[112px] rounded-[50%] object-cover"
+                              className="w-[112px] max-w-[112px] max-h-[112px] h-[112px] rounded-[50%] object-cover"
                             />
                           ) : (
                             <svg
