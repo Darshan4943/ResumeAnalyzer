@@ -11,9 +11,11 @@ import MainTextEditor from "./CoustomFormat/MainTextEditor";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../../Redux/slices/recallSlice";
 
 function CoverForm({
   selectedCoverIndex,
@@ -41,7 +43,12 @@ function CoverForm({
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
   const [isShow, setIsShow] = useState(false);
-
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+  const [aiHitsMonthly, setAiHitsMonthly] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+  const [aiHitsMonthlyLimit, setAiHitsMonthlyLimit] = useState(0);
   const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
   const datePickerRef = useRef(null);
@@ -50,6 +57,21 @@ function CoverForm({
     setSelectedColor(template.themeColor);
     setSelectedFont(template.fontFamily);
   };
+  const getLimits = () => {
+    const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitsMonthly(aiHitsMonthly);
+
+    const aiHitsMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitsMonthlyLimit(aiHitsMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   // useEffect(() => {
   //   if (isCoverEdit) {
@@ -172,6 +194,10 @@ function CoverForm({
   }
 
   const fetchCoverLetter = async () => {
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
+      setLimitUsedModal(true);
+      return;
+    }
     setLoading(true);
     try {
       if (data) {
@@ -186,7 +212,11 @@ function CoverForm({
           const letterData = response.data;
 
           setData({ ...data, passages: letterData.passages });
-
+          dispatch(updateAiHit(userDataGlobal?._id))
+          setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+          }, 1000);
           setLoading(false);
           setIsShow(true);
         } else {
@@ -215,6 +245,10 @@ function CoverForm({
   };
 
   const rephrasePassage = () => {
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
+      setLimitUsedModal(true);
+      return;
+    }
     setLoading(true);
     const oldPassage = data.passages.join(" ");
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
@@ -229,7 +263,11 @@ function CoverForm({
           ...prevData,
           passages: rephrasedPassage.passages,
         }));
-
+        dispatch(updateAiHit(userDataGlobal?._id))
+        setTimeout(() => {
+          dispatch(setRecallData(!recallData));
+          getLimits();
+        }, 1000);
         setLoading(false);
         // if (!isPlanActive) {
         //   localStorage.setItem("attempts", attempt - 1);
