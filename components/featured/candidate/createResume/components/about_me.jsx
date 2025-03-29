@@ -125,7 +125,7 @@ const AboutMe = ({ data, setData }) => {
 
   return (
     <>
-        <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+         <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
         className="flex flex-col p-4 gap-2 rounded-2xl bg-white "
         style={{

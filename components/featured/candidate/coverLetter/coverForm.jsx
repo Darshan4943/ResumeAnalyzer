@@ -289,7 +289,7 @@ function CoverForm({
 
   return (
     <>
-        <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+        <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
     <div
       className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white px-4 pb-4"
       style={{ scrollbarWidth: "none" }}

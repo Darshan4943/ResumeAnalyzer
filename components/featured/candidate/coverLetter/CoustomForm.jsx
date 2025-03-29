@@ -99,7 +99,7 @@ const CoustomForm = ({
 
   return (
     <>
-     <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
+     <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       {contentSituation === "Experienced" && (
         <>
           <PersonalDetails
