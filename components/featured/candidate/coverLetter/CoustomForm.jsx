@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
 import { setRecallData } from "../../../../Redux/slices/recallSlice";
 import { useDispatch, useSelector } from "react-redux";
+import LimitUsedModal from "../../../models/limitUsedModal";
 
 const CoustomForm = ({
   contentSituation,
@@ -98,6 +99,7 @@ const CoustomForm = ({
 
   return (
     <>
+     <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       {contentSituation === "Experienced" && (
         <>
           <PersonalDetails

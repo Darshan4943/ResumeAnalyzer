@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { SparklingStarts } from "../../../../../utils/svg";
 import axios from "axios";
 import MiniLoader from "../../../../common/mini-loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { textFieldClasses } from "@mui/material";
+import { updateAiHit } from "../../../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../../../Redux/slices/recallSlice";
+import LimitUsedModal from "../../../../models/limitUsedModal";
 
 const AboutMe = ({ data, setData }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -14,6 +17,28 @@ const AboutMe = ({ data, setData }) => {
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(true);
   const [isPlanActive, setIsPlanActive] = useState(false);
+
+  const dispatch = useDispatch();
+  const { recallData } = useSelector((state) => state.recall);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+  const [aiHitsMonthly, setAiHitsMonthly] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+  const [aiHitsMonthlyLimit, setAiHitsMonthlyLimit] = useState(0);
+  const getLimits = () => {
+    const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitsMonthly(aiHitsMonthly);
+
+    const aiHitsMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitsMonthlyLimit(aiHitsMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
@@ -31,6 +56,10 @@ const AboutMe = ({ data, setData }) => {
   }, [data]);
 
   const generateText = () => {
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
+      setLimitUsedModal(true);
+      return;
+    }
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {
       setLoading(true);
@@ -44,6 +73,11 @@ const AboutMe = ({ data, setData }) => {
             localStorage.setItem("attempts", attempt - 1);
             getAttempts();
           }
+          dispatch(updateAiHit(userDataGlobal?._id))
+          setTimeout(() => {
+            dispatch(setRecallData(!recallData));
+            getLimits();
+          }, 1000);
         })
         .catch((err) => {
           setLoading(false);
@@ -91,6 +125,7 @@ const AboutMe = ({ data, setData }) => {
 
   return (
     <>
+         <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
         className="flex flex-col p-4 gap-2 rounded-2xl bg-white "
         style={{
