@@ -102,7 +102,7 @@ function Index() {
   //   console.log("id", id);
   //   if (id) {
   //     axios
-  //       .get(`https://jamblix.com/api/cover/getById/${id}`)
+  //       .get(`https://dev.api.skilotech.com/api/cover/getById/${id}`)
   //       .then((res) => {
   //         setResumeList(res.data.data);
   //       })

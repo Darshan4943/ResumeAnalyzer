@@ -17,7 +17,7 @@ const PlanExpiredModal = () => {
         return;
       }
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal?._id)
+        .get("https://dev.api.skilotech.com/api/subscription/" + userDataGlobal?._id)
         .then((res) => {
           if (res.data.success) {
             if (
@@ -26,7 +26,7 @@ const PlanExpiredModal = () => {
             ) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" +
+                  "https://dev.api.skilotech.com/api/subscription/update/" +
                     userDataGlobal?._id
                 )
                 .then((res) => {

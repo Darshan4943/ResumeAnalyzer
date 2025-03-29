@@ -109,7 +109,7 @@ function ShortlistMail({
     const fetchTemplates = async () => {
       try {
         const response = await fetch(
-          `https://jamblix.com/api/getTemplates/${userDataGlobal._id}`
+          `https://dev.api.skilotech.com/api/getTemplates/${userDataGlobal._id}`
         );
         const result = await response.json();
   

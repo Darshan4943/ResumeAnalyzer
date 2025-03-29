@@ -126,7 +126,7 @@ function StartPreboarding({ setStartPreboarding, applicant, isUpdate, setIsUpdat
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/preboarding",
+        "https://dev.api.skilotech.com/api/preboarding",
         data
       );
 

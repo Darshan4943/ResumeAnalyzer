@@ -73,7 +73,7 @@ const Profile = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://jamblix.com/api/getEmployerCompanieBy/${userDataGlobal?._id}`
+          `https://dev.api.skilotech.com/api/getEmployerCompanieBy/${userDataGlobal?._id}`
         );
 
         if (response.data && Object.keys(response.data).length > 0) {
@@ -107,7 +107,7 @@ const Profile = () => {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/updateCompany/${companyData._id}`,
+        `https://dev.api.skilotech.com/api/updateCompany/${companyData._id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

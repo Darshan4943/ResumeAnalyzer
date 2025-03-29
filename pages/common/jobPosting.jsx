@@ -27,7 +27,7 @@ function JobPosting() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          `https://dev.api.skilotech.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
             params: { page: 1, limit: 100 },
           }
@@ -51,7 +51,7 @@ function JobPosting() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {
@@ -277,7 +277,7 @@ function JobPosting() {
 
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
+        `https://dev.api.skilotech.com/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
