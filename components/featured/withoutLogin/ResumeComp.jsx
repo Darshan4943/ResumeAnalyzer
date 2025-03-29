@@ -34,7 +34,7 @@ function ResumeComp() {
                 Unlock your career potential with AI-powered skill assessment.
               </p>
               <p className="text-[12px] scr800:text-[16px] scr900:text-[14px] font-[500] text-[#FFFFFF]">
-                <br />✅ Boost Your Abilities |
+                ✅ Boost Your Abilities |
                 <br className="block xsm:hidden" />✅ LandYour Dream Job |
                 <br className="block scr570:hidden ms:block scr900:hidden" /> ✅
                 Showcase Your Strengths
@@ -42,7 +42,7 @@ function ResumeComp() {
             </div>
             <button
               onClick={() => router.push("/auth?signin=true")}
-              className="py-2 scr540:py-3 px-4 scr540:px-9 rounded-[30px] text-[14px] font-[600] w-[155px] bg-[#06A9EF] text-[#FFFFFF]"
+              className="h-[38px] w-[135px] rounded-[30px] bg_Button text-[#FFFFFF]"
             >
               Get Started
             </button>
