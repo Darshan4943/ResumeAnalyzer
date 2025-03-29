@@ -141,12 +141,26 @@ const MatchJob = () => {
   ]);
   const [weightage, setWeightage] = useState(false);
   const [priority, setPriority] = useState(false);
+  console.log(data)
+  // useEffect(() => {
+  //   if (data) {
+  //     const dataa = JSON.parse(decodeURIComponent(data));
+  //     setExtractedData(dataa);
+  //   }
+  // }, [data]);
   useEffect(() => {
     if (data) {
-      const dataa = JSON.parse(decodeURIComponent(data));
-      setExtractedData(dataa);
+      try {
+        
+        const decodedData = typeof data === "string" ? decodeURIComponent(data) : data;
+        const parsedData = JSON.parse(decodedData);
+        setExtractedData(parsedData);
+      } catch (error) {
+        console.error("Error parsing data:", error);
+      }
     }
   }, [data]);
+  
 
   useEffect(() => {
     const fetchJDParameters = async () => {

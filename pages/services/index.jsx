@@ -82,12 +82,12 @@ function Services() {
       desc: "Provides concise, customized resumes for your career success.",
       color: "#06A9EF",
     },
-    {
-      name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/servicesCover.png",
-      desc: "Highlight your application, key qualifications, and best skills",
-      color: "#06A9EF",
-    },
+    // {
+    //   name: "Create New Cover Letter",
+    //   imgSrc: "/images/resumeBuilder/servicesCover.png",
+    //   desc: "Highlight your application, key qualifications, and best skills",
+    //   color: "#06A9EF",
+    // },
     {
       name: "My Candidates",
       imgSrc: "/images/resumeBuilder/servicesCandidate.png",
@@ -113,14 +113,14 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Post new job openings to connect with more candidates.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
     {
       name: "Hiring",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
       desc: "Find top talent faster with our advanced hiring tools.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
   ];
   const loginListEmployer = [
@@ -142,28 +142,28 @@ function Services() {
       imgSrc: "/images/resumeBuilder/servicesJob.png",
       desc: "Post new job openings to connect with more candidates.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
     {
       name: "Requisition",
       imgSrc: "/images/resumeBuilder/servicesRequisition.png",
       desc: "simplify your hiring requests with our requisition management tools.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
     {
       name: "Hiring",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
       desc: "Find top talent faster with our advanced hiring tools.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
     {
       name: "Preboarding",
       imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
       desc: "Create a seamless transition for your new hires with our preboarding solutions.",
       color: "#06A9EF",
-      new: "New",
+      // new: "New",
     },
   ];
   const [visible, setVisible] = useState(false);
