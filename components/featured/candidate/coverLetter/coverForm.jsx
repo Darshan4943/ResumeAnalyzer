@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
 import { setRecallData } from "../../../../Redux/slices/recallSlice";
+import LimitUsedModal from "../../../models/limitUsedModal";
 
 function CoverForm({
   selectedCoverIndex,
@@ -287,6 +288,8 @@ function CoverForm({
   };
 
   return (
+    <>
+        <LimitUsedModal visible={limitPopup} setVisible={setLimitPopup} />
     <div
       className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white px-4 pb-4"
       style={{ scrollbarWidth: "none" }}
@@ -729,6 +732,7 @@ function CoverForm({
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }
 
