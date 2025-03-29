@@ -23,31 +23,19 @@ const ProfessionalDetails = ({
   const [formError, setFormError] = useState({});
   const router = useRouter();
   const handleClick = () => {
-    if (data.employmentStatus != "unemployed") {
+    if (data.workStatus === "Experienced") {
       const requiredFields = ["companyName", "jobLocation", "jobTitle"];
       const emptyFields = requiredFields.filter((field) => !data[field]);
+  
       if (emptyFields.length > 0) {
         toast.error("Please fill in all required fields");
         return;
       }
       if (duration?.duration) {
-        // if (Object.keys(duration.duration).length < 2) {
-        //   toast.error("Please fill duration");
-        //   return;
-        // }
-        //  else {
         if (Object.keys(duration.duration.start).length < 2) {
           toast.error("Please fill start duration");
           return;
         }
-        // else if (
-        //   duration.duration.end &&
-        //   Object.keys(duration.duration.end).length < 2
-        // ) {
-        //   toast.error("Please fill end duration");
-        //   return;
-        // }
-        // }
       } else {
         toast.error("Please fill duration");
         return;
@@ -56,8 +44,6 @@ const ProfessionalDetails = ({
 
     setData((prevData) => ({ ...prevData, jobDuration: duration.duration }));
     setIsDataUpdated(true);
-    // localStorage.setItem("preResumeData", JSON.stringify(data));
-    // router.push(`/createResume?clientId=${clientId}`);
   };
 
   useEffect(() => {
@@ -69,7 +55,10 @@ const ProfessionalDetails = ({
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
-
+    if (data.workStatus === "Fresher") {
+      setFormError({});
+      return {};
+    }
     switch (fieldName) {
       case "workExperiance":
         if (!value.workExperiance?.years) {

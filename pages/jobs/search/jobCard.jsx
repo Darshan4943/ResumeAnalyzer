@@ -17,7 +17,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     setLoading(true);
     if (data) {
       axios
-        .get("https://jamblix.com/api/job/getById/" + data?._id)
+        .get("https://dev.api.skilotech.com/api/job/getById/" + data?._id)
         .then((res) => {
           setLoading(false);
           setIsApplied(
@@ -40,7 +40,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/job/apply/" + data?._id, {
+      .post("https://dev.api.skilotech.com/api/job/apply/" + data?._id, {
         userId: userDataGlobal?._id,
         resumeId: resume._id,
         percentage: data?.percentage,
@@ -57,7 +57,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   };
   const SaveJob = (id) => {
     axios
-      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         // dispatch(reCallUserData());
         getData();

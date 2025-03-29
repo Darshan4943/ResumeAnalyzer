@@ -6,7 +6,7 @@ export const updateAiHit = createAsyncThunk(
   "aiHits/updateAiHit",
   async (userId) => {
     const response = await axios.put(
-      `https://jamblix.com/api/subscription/updateAiHits/${userId}`
+      `https://dev.api.skilotech.com/api/subscription/updateAiHits/${userId}`
     );
     return response.data;
   }

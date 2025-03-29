@@ -25,7 +25,7 @@ function OfferAccept() {
 
     const getOfferAcceptanceStatus = async () => {
         try {
-            const response = await axios.get(`https://jamblix.com/api/preboarding/offerAcceptanceStatus/${applicantId}/${jobId}`);
+            const response = await axios.get(`https://dev.api.skilotech.com/api/preboarding/offerAcceptanceStatus/${applicantId}/${jobId}`);
             setPreviousStatus(response.data.offerAcceptanceStatus)
             if(!updated && response.data.offerAcceptanceStatus === "Pending" ){
                 setTimeout(() => {
@@ -54,7 +54,7 @@ function OfferAccept() {
     const OfferUpdate = async () => {
 
         try {
-            const response = await axios.put(`https://jamblix.com/api/preboarding/offerAccept/${applicantId}/${jobId}`, { status })
+            const response = await axios.put(`https://dev.api.skilotech.com/api/preboarding/offerAccept/${applicantId}/${jobId}`, { status })
             setLoading(false)
             setLoading1(false)
             // toast.success("Documents uploaded successfully.");

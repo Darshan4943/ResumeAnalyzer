@@ -87,7 +87,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://jamblix.com/api/subscription/" +
+          "https://dev.api.skilotech.com/api/subscription/" +
             userDataGlobal?._id
         )
         .then((res) => {

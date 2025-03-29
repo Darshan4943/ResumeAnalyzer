@@ -129,7 +129,7 @@ const ResumePreview = ({
     const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://jamblix.com/api/resume/${id}`)
+        .get(`https://dev.api.skilotech.com/api/resume/${id}`)
 
         .then((res) => {
 
@@ -432,7 +432,7 @@ const ResumePreview = ({
         }
 
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put("https://dev.api.skilotech.com/api/resume/" + id, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             // localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -507,7 +507,7 @@ const ResumePreview = ({
 
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("https://dev.api.skilotech.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -555,7 +555,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
+        "https://dev.api.skilotech.com/api/subscription/updateDownloadLimit/" +
         userDataGlobal?._id
       )
       .then((res) => {

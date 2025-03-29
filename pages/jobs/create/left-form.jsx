@@ -70,7 +70,7 @@ Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/text/regenrate", { prompt })
+        .post("https://dev.api.skilotech.com/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({

@@ -44,7 +44,7 @@ const InternalJobMatching = () => {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal?._id}`
+        `https://dev.api.skilotech.com/api/client/getByRecruiter/${userDataGlobal?._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -57,7 +57,7 @@ const InternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/jobMatching/" + userDataGlobal?._id, {
+      .post("https://dev.api.skilotech.com/api/jobMatching/" + userDataGlobal?._id, {
         jd: text,
         resumeCount,
       })

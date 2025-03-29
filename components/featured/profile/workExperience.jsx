@@ -27,7 +27,7 @@ const WorkExperiance = ({ userData }) => {
   const deleteHandler = () => {
     axios
       .delete(
-        `https://jamblix.com/api/candidate/${userDataGlobal?._id}/deleteWorkExperience/${deleteData.id}`
+        `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteWorkExperience/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());

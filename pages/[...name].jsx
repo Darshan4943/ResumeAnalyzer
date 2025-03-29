@@ -96,7 +96,7 @@ const Name = () => {
     dispatch(setPageOpened());
     if (userId) {
       axios
-        .get("https://jamblix.com/api/skiloteckuser/userId/" + userId)
+        .get("https://dev.api.skilotech.com/api/skiloteckuser/userId/" + userId)
         .then((res) => {
           const decode = jwtDecode(res.data.data);
           setSelectedResume(decode._doc);

@@ -26,7 +26,7 @@ function ForgotPassword({ setIsForgot }) {
     e.preventDefault();
     
     axios
-      .post("https://jamblix.com/api/otpMail", {
+      .post("https://dev.api.skilotech.com/api/otpMail", {
         userEmail: email,
        
       })
@@ -49,7 +49,7 @@ function ForgotPassword({ setIsForgot }) {
   const verifyOtp = (e) => {
 e.preventDefault();
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("https://dev.api.skilotech.com/api/verifyOtp", {
         userEmail: email,
         otpEntered
       })
@@ -87,7 +87,7 @@ e.preventDefault();
       }
 
       const response = await axios.post(
-        "https://jamblix.com/api/updatePassword",
+        "https://dev.api.skilotech.com/api/updatePassword",
         {
           email: email,
           newPassword: password,

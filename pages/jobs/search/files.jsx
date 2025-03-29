@@ -14,7 +14,7 @@ const Files = ({ selected, setSelected }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setLoading(false);
