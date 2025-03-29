@@ -147,7 +147,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "https://dev.api.skilotech.com/api/planEnquiry/create",
+        "https://jamblix.com/api/planEnquiry/create",
         data
       );
       // toast.success("Contacted Successfully");

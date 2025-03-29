@@ -29,7 +29,7 @@ function ApplicantDetailsLeftCard({
     setLoading(true);
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/hiring/moveToHiring/${applicantId}/${id}`
+        `https://jamblix.com/api/hiring/moveToHiring/${applicantId}/${id}`
       );
       setLoading(false);
       setStatusChange(true);

@@ -206,7 +206,7 @@ function CoverForm({
 
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
-            "https://dev.api.skilotech.com/api/cover-letter/transform",
+            "https://jamblix.com/api/cover-letter/transform",
             data
           );
           const letterData = response.data;
@@ -254,7 +254,7 @@ function CoverForm({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     setLoading(true);
     axios
-      .post("https://dev.api.skilotech.com/api/cover/rephrase", { prompt })
+      .post("https://jamblix.com/api/cover/rephrase", { prompt })
       .then((res) => {
         setLoading(false);
         const rephrasedPassage = res.data;

@@ -12,7 +12,7 @@ function Index() {
     setError(null);
     try {
       const response = await axios.get(
-        "https://dev.api.skilotech.com/api/getTopcompanies"
+        "https://jamblix.com/api/getTopcompanies"
       );
       const data = response.data;
 

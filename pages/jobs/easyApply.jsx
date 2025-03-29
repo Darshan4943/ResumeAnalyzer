@@ -184,7 +184,7 @@ function EasyApply() {
 
             if (result[0]?.text?.length > 0) {
                 axios
-                    .post("https://dev.api.skilotech.com/api/resume/extraction", {
+                    .post("https://jamblix.com/api/resume/extraction", {
                         data: result,
                     })
                     .then((res) => {
@@ -422,7 +422,7 @@ function EasyApply() {
         );
 
         axios
-            .post(`https://dev.api.skilotech.com/api/job/easyApply/${id}`, formDataToSend, {
+            .post(`https://jamblix.com/api/job/easyApply/${id}`, formDataToSend, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

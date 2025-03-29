@@ -21,7 +21,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .put(
-        "https://dev.api.skilotech.com/api/candidate/updateSkills/" + userDataGlobal?._id,
+        "https://jamblix.com/api/candidate/updateSkills/" + userDataGlobal?._id,
 
         { skills: skil }
       )

@@ -80,7 +80,7 @@ const UserResumes = ({
         // setSelect(resumeList[0]);
       } else if (userDataGlobal?.role == "user") {
         axios
-          .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
+          .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
           .then((response) => {
             setData(response.data.data);
             setAllData(response.data.data);

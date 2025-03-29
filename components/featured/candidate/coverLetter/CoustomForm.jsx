@@ -71,7 +71,7 @@ const CoustomForm = ({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
 
     axios
-      .post("https://dev.api.skilotech.com/api/cover/rephrase", { prompt })
+      .post("https://jamblix.com/api/cover/rephrase", { prompt })
       .then((res) => {
         const rephrasedPassage = res.data;
 

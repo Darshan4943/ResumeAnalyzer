@@ -47,7 +47,7 @@ function ShareJobHeader({ userData }) {
 
     useEffect(() => {
         axios
-            .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
+            .get("https://jamblix.com/api/jobs/getJobAttributes")
             .then((res) => {
                 const { experiences } = res.data;
                 setExperinceData(experiences);

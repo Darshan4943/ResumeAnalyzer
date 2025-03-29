@@ -636,7 +636,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://dev.api.skilotech.com/api/client/getByClientId/${clientId}`)
+        .get(`https://jamblix.com/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({

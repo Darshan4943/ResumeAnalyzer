@@ -31,7 +31,7 @@ function Social_links_ndWebsites({ userData }) {
   const deleteHandler = () => {
     axios
       .delete(
-        `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteSocialLink/${deleteData.id}`
+        `https://jamblix.com/api/candidate/${userDataGlobal?._id}/deleteSocialLink/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());
