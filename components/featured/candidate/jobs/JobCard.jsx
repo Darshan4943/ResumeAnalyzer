@@ -27,7 +27,7 @@ function Job_card({
     e.stopPropagation();
     try {
       await axios.post(
-        `https://dev.api.skilotech.com/api/saveJob/${userDataGlobal?._id}/${id}`
+        `https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`
       );
       getData();
       setSaved((prevState) => !prevState);
@@ -44,7 +44,7 @@ function Job_card({
     e.stopPropagation();
     try {
       await axios.post(
-        `https://dev.api.skilotech.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
+        `https://jamblix.com/api/removeSavedJob/${userDataGlobal?._id}/${id}`
       );
       setSaved((prevState) => !prevState);
       getData();

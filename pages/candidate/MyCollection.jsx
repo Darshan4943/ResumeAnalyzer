@@ -35,7 +35,7 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://dev.api.skilotech.com/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setAllData(res.data.data)
@@ -52,8 +52,8 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      // .get("https://dev.api.skilotech.com/api/cover/get/" + userDataGlobal?._id)
-      .get("https://dev.api.skilotech.com/api/cover/get/" + userDataGlobal?._id)
+      // .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
 
       .then((res) => {
         setCoverList(res.data.data);
@@ -83,7 +83,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("https://dev.api.skilotech.com/api/resume/deleteResume", {
+      .delete("https://jamblix.com/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -107,7 +107,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete(`https://dev.api.skilotech.com/api/cover/delete/${ids}`)
+      .delete(`https://jamblix.com/api/cover/delete/${ids}`)
       .then((response) => {
         toast.success("Cover Letter Deleted successfully");
         setView(false);

@@ -22,7 +22,7 @@ function Projects({ userData }) {
   const deleteHandler = () => {
     axios
       .delete(
-        `https://dev.api.skilotech.com/api/candidate/${userDataGlobal?._id}/deleteProject/${deleteData.id}`
+        `https://jamblix.com/api/candidate/${userDataGlobal?._id}/deleteProject/${deleteData.id}`
       )
       .then((res) => {
         dispatch(fetchUserData());

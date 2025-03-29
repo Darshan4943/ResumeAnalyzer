@@ -39,7 +39,7 @@ function JobDetails() {
 
   const getData = () => {
     axios
-      .get(`https://dev.api.skilotech.com/api/job/${id}/user/${userDataGlobal?._id}`)
+      .get(`https://jamblix.com/api/job/${id}/user/${userDataGlobal?._id}`)
       .then((res) => {
         setJobData([res.data.data]);
         setTimeout(() => {

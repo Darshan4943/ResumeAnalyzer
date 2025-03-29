@@ -24,7 +24,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
   const addJobView = async () => {
     try {
       const response = await axios.post(
-        `https://dev.api.skilotech.com/api/jobs/views/${selectedJob?._id}`
+        `https://jamblix.com/api/jobs/views/${selectedJob?._id}`
       );
       localStorage.setItem("viewed", JSON.stringify(true));
       return response.data;

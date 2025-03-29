@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonalDetails from "./StandardFormat/PersonalDetails";
 import EmployerDetails from "./StandardFormat/EmployerDetails";
 import JobDetails from "./StandardFormat/JobDetails";
@@ -8,6 +8,9 @@ import ProjectInternship from "./StandardFormat/ProjectInternship";
 import axios from "axios";
 import { SparklingStarts } from "../../../../utils/svg";
 import { toast } from "react-toastify";
+import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../../Redux/slices/recallSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const CoustomForm = ({
   contentSituation,
@@ -24,7 +27,34 @@ const CoustomForm = ({
   isCoverEdit,
 }) => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+  const [aiHitsMonthly, setAiHitsMonthly] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+  const [aiHitsMonthlyLimit, setAiHitsMonthlyLimit] = useState(0);
+  const { recallData } = useSelector((state) => state.recall);
+  const getLimits = () => {
+    const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitsMonthly(aiHitsMonthly);
+
+    const aiHitsMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitsMonthlyLimit(aiHitsMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
   const rephrasePassage = () => {
+
+    if ((aiHitsMonthly >= aiHitsMonthlyLimit) || !activePlan) {
+      setLimitUsedModal(true);
+      return;
+    }
     if (data.passages.length === 0 || !data.passages[0].trim()) {
       toast.error("Please fill the data before rephrasing.");
       return;
@@ -41,7 +71,7 @@ const CoustomForm = ({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
 
     axios
-      .post("https://dev.api.skilotech.com/api/cover/rephrase", { prompt })
+      .post("https://jamblix.com/api/cover/rephrase", { prompt })
       .then((res) => {
         const rephrasedPassage = res.data;
 
@@ -51,6 +81,11 @@ const CoustomForm = ({
             ? rephrasedPassage.passages
             : [rephrasedPassage.passages], // Ensure it's always an array
         }));
+        dispatch(updateAiHit(userDataGlobal?._id))
+        setTimeout(() => {
+          dispatch(setRecallData(!recallData));
+          getLimits();
+        }, 1000);
 
         setLoading(false);
       })
@@ -95,7 +130,7 @@ const CoustomForm = ({
           />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
-              className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "
+              className="flex items-center justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "
               onClick={rephrasePassage}
             >
               {loading ? (
@@ -156,7 +191,7 @@ const CoustomForm = ({
           <CustomLetterBody data={data} setData={setData} setError={setError} />
           <div className="flex flex-row justify-end items-end gap-[10px]">
             <button
-              className="flex items-end justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "
+              className="flex items-center justify-center font-montserrat text-xs font-semibold btn_outline gap-[6px] "
               onClick={rephrasePassage}
             >
               {loading ? (

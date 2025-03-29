@@ -47,7 +47,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -81,7 +81,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `https://dev.api.skilotech.com/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
+        `https://jamblix.com/api/preboarding/hiredCandidate/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {

@@ -12,7 +12,7 @@ function HeroSection() {
     const [experinceData, setExperinceData] = useState([]);
     useEffect(() => {
         axios
-            .get("https://dev.api.skilotech.com/api/jobs/getJobAttributes")
+            .get("https://jamblix.com/api/jobs/getJobAttributes")
             .then((res) => {
                 const { experiences } = res.data;
                 setExperinceData(experiences);
@@ -75,7 +75,7 @@ function HeroSection() {
               <input
                 type="text"
                 placeholder="Enter Skill / Designation"
-                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[170px] ms:max-w-[145px] placeholder:text-[#889FBA]"
+                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] ms:max-w-[148px] placeholder:text-[#889FBA]"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
@@ -109,7 +109,7 @@ function HeroSection() {
                 onChange={(e) => setLocation(e.target.value)}
               />
               <div className=" bg-[#E0E0E0]  h-[1px] w-full ms:hidden"></div>
-              <div className=" flex items-center ms:justify-end justify-center scr1100:w-[122px] ms:w-[76px] w-full">
+              <div className=" flex items-center ms:justify-end justify-center scr1100:w-[102px] ms:w-[76px] w-full">
                 <button
                   onClick={() => {
                     router.push(

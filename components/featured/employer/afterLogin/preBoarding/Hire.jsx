@@ -39,7 +39,7 @@ const Hire = ({ }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://dev.api.skilotech.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,

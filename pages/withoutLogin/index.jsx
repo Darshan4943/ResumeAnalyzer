@@ -15,11 +15,12 @@ function WithoutLogin() {
     <div className=' flex flex-col ms:gap-[100px] gap-9 bg-[#FFFFFF]'>
       <HeroSection/>
       <JobCategories/>
+      <ResumeComp/>
       <SkillAssessment/>
       <ForCandidate/>
       <DreamJob/>
       {/* <TrustedBy/> */}
-      <ResumeComp/>
+   
       <Testimonials/>
  
       <FrequentAskQue/>
