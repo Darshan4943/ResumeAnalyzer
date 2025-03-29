@@ -168,6 +168,7 @@ function EditTemplate() {
       const result = await response.json();
       if (response.ok) {
         toast.success(result.message);
+        router.push("/template");
       } else {
         console.error("Error:", result.message);
       }
