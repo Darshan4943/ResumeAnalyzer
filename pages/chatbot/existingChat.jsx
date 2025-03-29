@@ -121,11 +121,6 @@ const ExistingChat = ({
 
   const taskRef = useRef(null);
 
-  const handleOutsideClick = (event) => {
-    if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setPopUp(false);
-    }
-  };
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -164,12 +159,25 @@ const ExistingChat = ({
     setOnce(false);
     const dummyData = { ...existingChat };
     delete dummyData[key];
-    
+
     localStorage.setItem("chat", JSON.stringify(dummyData));
     setSelectedChat(Object.keys(dummyData)[0]);
     forceUpdate();
   };
+  const modalRef = useRef(null); 
 
+  const handleOutsideClick = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setPopUp(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
   return (
     <>
       <div
@@ -193,10 +201,9 @@ const ExistingChat = ({
                   <img
                     src="/images/resumeBuilder/sklogo.png"
                     alt=""
-                    className="h-[24px] w-[24px]" 
+                    className="h-[24px] w-[24px]"
                   />
                   <p className="text-[18px] font-[600] font-Montserrat">
-                  
                     Ask KrutAI
                   </p>
                 </div>
@@ -277,7 +284,7 @@ const ExistingChat = ({
                                     </div>
                                     {activeChat === chat && popUp && (
                                       <div
-                                        // ref={taskRef}
+                                        ref={modalRef}
                                         style={{
                                           opacity: popUp ? 1 : 0,
                                           transition: "opacity 0.5s",

@@ -151,8 +151,8 @@ const MatchJob = () => {
   useEffect(() => {
     if (data) {
       try {
-        
-        const decodedData = typeof data === "string" ? decodeURIComponent(data) : data;
+        const decodedData = typeof data === "string" ? data : JSON.stringify(data);
+        console.log(222, decodedData);
         const parsedData = JSON.parse(decodedData);
         setExtractedData(parsedData);
       } catch (error) {
@@ -160,6 +160,7 @@ const MatchJob = () => {
       }
     }
   }, [data]);
+  
   
 
   useEffect(() => {

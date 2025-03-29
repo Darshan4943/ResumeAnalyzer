@@ -16,9 +16,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  // const [data, setData] = useState({
-  //   summary: "",
-  // });
+
   const [error, setError] = useState("");
 
   const { recallData } = useSelector((state) => state.recall);
@@ -49,7 +47,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
       return;
     }
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
-    if (text.length > 100) {
+    if (text?.length > 100) {
       setLoading(true);
       axios
         .post("https://jamblix.com/api/text/regenrate", { prompt })
@@ -75,12 +73,8 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
 
     if (inputValue.length <= 400) {
       setText(inputValue);
-    } else {
-      // console.log("Input exceeds 400 characters");
     }
   };
-
-  // <input type="text" onChange={handleChange} value={text} />
 
   const handleSubmit = () => {
     axios
@@ -127,7 +121,6 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               id=""
               cols="30"
               rows="10"
-              // onChange={(e) => setText(e.target.value)}
               onChange={handleChange}
               value={text}
             ></textarea>
@@ -154,7 +147,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               )}
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-[12px] md:text-14 font-normal leading-170]">
-              {400 - (text?.length ?? 0)} characters left
+            {Math.max(0, 400 - (text?.length ?? 0))}  characters left
             </p>
           </div>
           <div className="w-full flex items-center justify-end gap-3 xxsm:items-center">
