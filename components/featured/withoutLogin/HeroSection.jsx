@@ -40,7 +40,7 @@ function HeroSection() {
     });
 
   return (
-    <div className="bg-[#EBF9FF] py-[30px] relative">
+    <div className="bg-[#EBF9FF] py-[30px] relative h-[calc(100vh-60.8px)] flex items-center">
       <div className="  flex gap-[33px] items-center customMargins justify-between">
         <div className="flex flex-col gap-6  ml:items-start items-center ml:w-[50%] w-full">
           <div className="font-bold scr1024:text-[36px] scr460:text-[30px] text-[20px] leading-tight ml:text-start text-center ">
