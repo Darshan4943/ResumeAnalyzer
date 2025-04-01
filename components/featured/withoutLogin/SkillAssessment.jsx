@@ -7,9 +7,9 @@ function SkillAssessment() {
     <div className="customMargins">
       <div className="py-4 px-4 rounded-[12px] bg-Skill bg-cover bg-no-repeat flex scr540:flex-row flex-col-reverse scr460:gap-12 gap-6 items-center scr1024:w-[930px] justify-between ">
         <div className="flex flex-col scr540:items-start items-center  gap-6">
-          <p className="ml:text-[18px] scr460:text-[16px] text-[14px] font-[500] scr540:text-start text-center gap-2 flex flex-col">
+          <p className="ml:text-[20px] scr460:text-[16px] text-[14px] font-[600] scr540:text-start text-center gap-2 flex flex-col">
             Boost Your Career with Smart Skill Assessment
-            <br className="ml:block hidden" /> <p className="text-[12px]">Unlock your true potential with
+            <br className="ml:block hidden" /> <p className="text-[12px] ml:text-[14px] font-medium">Unlock your true potential with
             AI-powered skill evaluations. 
             Identify strengths, improve weaknesses, and land better job
             opportunities</p>

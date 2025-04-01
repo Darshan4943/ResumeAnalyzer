@@ -120,12 +120,12 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     <>
       {!loading ? (
         <div className="flex flex-col gap-1">
-          <p className="text-[18px] font-[600]"> Usage Summary</p>
+          <p className="text-[18px] font-[600] pb-2"> Usage Summary</p>
 
           <div className="bg-[#FFFFFF] rounded-[16px] p-3 scr540:p-[24px] flex flex-col gap-[16px] w-full">
             <div className="text-[14px] font-[500]">Credit balance</div>
-            <div className="flex scr1024:flex-row flex-col gap-4 scr540:gap-5 w-full justify-center items-center ">
-              <div className="flex flex-col gap-4 border-[1px] border-[#DEDEDE] rounded-[12px] p-[20px] w-full scr540:w-[300px] ">
+            <div className="flex scr1024:flex-row flex-col gap-4 scr540:gap-5 w-full justify-between items-center ">
+              <div className="flex flex-col gap-4 border-[1px] border-[#DEDEDE] rounded-[12px] p-[20px] w-full scr540:w-[300px] min-w-[275px] ">
                 <div className="text-[16px] font-[500]">
                   Plan Validity Day’s Overview
                 </div>
@@ -182,13 +182,13 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                 >
                   <path
                     d="M 10,90 A 90,90 0 0,1 190,90"
-                    stroke="#DEDEDE"
+                    stroke="#D0CDFF"
                     strokeWidth="8"
                     fill="transparent"
                   />
                   <path
                     d="M 10,90 A 90,90 0 0,1 190,90"
-                    stroke="#0879A9"
+                    stroke="#4C43CD"
                     strokeWidth="8"
                     fill="transparent"
                     strokeDasharray={circumference1}
@@ -198,7 +198,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                   />
                 </svg>
 
-                <div className="absolute bottom-10 flex flex-col gap-2 text-center text-[14px] font-normal">
+                <div className="absolute bottom-[60px] flex flex-col gap-2 text-center text-[14px] font-normal">
                   <div className="text-black text-[24px] font-bold">
                     {progress1}%
                   </div>
@@ -221,7 +221,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
               </div>
               <div className="flex flex-col bg-[#F3F3F3] w-full scr540:w-[462px] h-[284px] justify-center rounded-[12px] gap-4">
                 {isActive ? (
-                  <div className="flex flex-col justify-center items-center gap-2 ">
+                  <div className="flex flex-col justify-center items-center gap-2 flex-wrap ">
                     {isFree ? (
                       <p className="ml:text-[2vw] font-[700] text-[24px] text-center">
                         {" "}
@@ -237,7 +237,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                         </p>
                       </div>
                     )}
-                    <p className="text-[12px] font-medium">
+                    <p className="text-[12px] font-medium text-wrap text-center">
                       Your Plan Validity is {selectedPlan?.days} Days
                     </p>
 

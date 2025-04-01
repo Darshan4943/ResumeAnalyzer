@@ -9,6 +9,7 @@ import ResumeComp from '../../components/featured/withoutLogin/ResumeComp'
 import Testimonials from '../../components/featured/withoutLogin/Testimonials'
 import FrequentAskQue from '../../components/featured/withoutLogin/FrequentAskQue'
 import SubscriptionPlans from '../../components/featured/home/SubscriptionPlans'
+import NewToggle from '../../components/featured/withoutLogin/newToggle'
 
 function WithoutLogin() {
   return (
@@ -16,11 +17,14 @@ function WithoutLogin() {
       <HeroSection/>
       <JobCategories/>
       <ResumeComp/>
+    
+      {/* <ForCandidate/> */}
+      <NewToggle/>
+     
       <SkillAssessment/>
-      <ForCandidate/>
-      <DreamJob/>
       {/* <TrustedBy/> */}
-   
+      
+      <DreamJob/>
       <Testimonials/>
  
       <FrequentAskQue/>
