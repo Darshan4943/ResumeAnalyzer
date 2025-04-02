@@ -141,7 +141,7 @@ const MatchJob = () => {
   ]);
   const [weightage, setWeightage] = useState(false);
   const [priority, setPriority] = useState(false);
-  console.log(data)
+
   // useEffect(() => {
   //   if (data) {
   //     const dataa = JSON.parse(decodeURIComponent(data));
@@ -167,7 +167,7 @@ const MatchJob = () => {
     const fetchJDParameters = async () => {
       try {
         const data = await axios.get(
-          `https://jamblix.com/api/jdParameters/get/${userDataGlobal?._id}`
+          `http://localhost:2000/api/jdParameters/get/${userDataGlobal?._id}`
         );
 
         if (data?.data?.data?.parameters) {
@@ -250,7 +250,7 @@ const MatchJob = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
@@ -274,7 +274,7 @@ const MatchJob = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal?._id}`)
       .then((res) => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
@@ -301,7 +301,7 @@ const MatchJob = () => {
     setLoading(true);
 
     await axios
-      .get("https://jamblix.com/api/job/getById/" + selectedJob)
+      .get("http://localhost:2000/api/job/getById/" + selectedJob)
       .then((res) => {
         setLoading(false);
         const { applications, ...restData } = res.data;
@@ -332,7 +332,7 @@ const MatchJob = () => {
       const outputData = [];
       setMatchLoader(true);
       const response = await axios.post(
-        "https://jamblix.com/api/skiloCollection/jobMatching",
+        "http://localhost:2000/api/skiloCollection/jobMatching",
 
         {
           jd: extratctedData,
@@ -424,7 +424,7 @@ const MatchJob = () => {
   const processChunk = async (chunk, jd, outputData, counter) => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching",
+      "http://localhost:2000/api/external/jobMatching",
 
       {
         jd,
@@ -515,7 +515,7 @@ const MatchJob = () => {
     setHiringLoading(true);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/job/moveToHiring/${selectedJob}`,
+        `http://localhost:2000/api/job/moveToHiring/${selectedJob}`,
         applicantData,
         {
           headers: {
@@ -572,7 +572,7 @@ const MatchJob = () => {
     let resumeCount = selectedIndexesFileTypes.length;
 
     try {
-      const updateJobMatchApiUrl = `https://jamblix.com/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
+      const updateJobMatchApiUrl = `http://localhost:2000/api/apiLogs/updateJobMatchCount/${userDataGlobal?._id}`;
       const updateJobMatchResponse = await axios.put(updateJobMatchApiUrl, {
         resumeCount,
       });
@@ -584,7 +584,7 @@ const MatchJob = () => {
         );
       }
 
-      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      const jdSubscriptionLimitUrl = `http://localhost:2000/api/subscription/updateAiHits/${userDataGlobal?._id}`;
       const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
         resumeCount,
       });
