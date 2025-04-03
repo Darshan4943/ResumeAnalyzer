@@ -141,7 +141,7 @@ const MatchJob = () => {
   ]);
   const [weightage, setWeightage] = useState(false);
   const [priority, setPriority] = useState(false);
-  console.log(data)
+
   // useEffect(() => {
   //   if (data) {
   //     const dataa = JSON.parse(decodeURIComponent(data));

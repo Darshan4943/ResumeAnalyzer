@@ -3,7 +3,7 @@ import ProfileSection from '../../components/featured/candidate/candidateHome/Pr
 import MiddleSection from '../../components/featured/candidate/candidateHome/middleSection'
 function CandidateHome() {
   return (
-    <div className='flex flex-col ml:flex-row gap-4 customMargins py-6 scr1200:min-w-[1200px]'>
+    <div className='flex flex-col ml:flex-row gap-4 customMargins py-6  justify-between'>
       <div className='flex flex-col gap-4 w-full ml:max-w-[262px]'>
         <ProfileSection />
         <div className='min-w-[262px] hidden ml:block rounded-[12px] bg-[#FFFFFF] h-[300px]'>

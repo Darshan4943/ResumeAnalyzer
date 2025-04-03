@@ -196,176 +196,12 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-      <div className="hidden lg:hiddden w-full ">
-        <div className="flex gap-6 justify-center">
-          {allPlans.map((plan, index) => (
-            <div
-              key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
-                } `}
-              style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
-            >
-              {index === 1 && (
-                <div
-                  className="absolute left-0 top-[-28px] text-[12px] font-[600] px-4 pt-[4px] pb-[50px] 
-bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
-                >
-                  Recommended
-                </div>
-              )}
-
-              <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                <div className="flex text-center flex-col gap-[12px] text-[#333333] ">
-                  <p className="text-[16px] font-[600] xl:text-[16px]">
-                    {plan.type === "candidate" && (
-                      <>
-                        <span className="text-[#06A9EF]">
-                          {plan?.days} Days
-                        </span>{" "}
-                      </>
-                    )}
-
-                    <span
-                      className={`${plan.type === "recruiter" && "text-[#06A9EF]"
-                        }`}
-                    >
-                      {" "}
-                      {plan?.name}
-                    </span>
-
-                    {plan.type === "recruiter" && <span> Plan</span>}
-                  </p>
-
-                  <div className="flex flex-row gap-2 w-full items-end justify-center leading-tight ">
-                    {/* <div className={`flex flex-row ${(plan.isFree) ? "gap-0 line-through" : "gap-2"}  `}>
-
-                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1  " : "text-[2.5vw]"}`}>{icon}</p>
-                      <p className={` font-[700] ${(plan.isFree) ? "text-[#666666] text-[1.5vw] pb-1" : "text-[2.5vw]"}`}>
-                        {Math.ceil(plan?.amount * exchangeRate)}
-                      </p>
-                    </div> */}
-                    {/* {(plan.isFree) &&
-                      <p className="text-[2.5vw] font-[700]">
-                        Free
-                      </p>
-                    } */}
-                    {plan.isFree ? (
-                      <p className="text-[26px] font-[700] ">Free</p>
-                    ) : (
-                      <div className={`flex flex-row  gap-2  `}>
-                        <p className={` font-[700] text-[26px] `}>{icon}</p>
-                        <p className={` font-[700] text-[26px]`}>
-                          {Math.ceil(plan?.amount * exchangeRate)}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* {plan.index === 1 &&
-                    <div className="flex flex-row gap-2 w-full items-center justify-center">
-
-                      <p className="text-[2.5vw] font-[700]">
-                        Free
-                      </p>
-                    </div>
-                  } */}
-
-                  <p
-                    className="text-[14px] font-[500] xl:text-[14px]"
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    {plan?.description}
-                  </p>
-                  <div className="bg-[#DEDEDE] h-[2px]" />
-                </div>
-                <div className="flex gap-3 flex-col text-left">
-                  {plan.features.map((feature, index) => (
-                    <div key={index} className="flex gap-3 items-start ">
-                      <svg
-                        className="min-w-[20px]"
-                        width="20"
-                        height="18"
-                        viewBox="0 0 20 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7.16683 17.75L5.5835 15.0833L2.5835 14.4167L2.87516 11.3333L0.833496 9L2.87516 6.66667L2.5835 3.58333L5.5835 2.91667L7.16683 0.25L10.0002 1.45833L12.8335 0.25L14.4168 2.91667L17.4168 3.58333L17.1252 6.66667L19.1668 9L17.1252 11.3333L17.4168 14.4167L14.4168 15.0833L12.8335 17.75L10.0002 16.5417L7.16683 17.75ZM9.12516 11.9583L13.8335 7.25L12.6668 6.04167L9.12516 9.58333L7.3335 7.83333L6.16683 9L9.12516 11.9583Z"
-                          fill="#06A9EF"
-                        />
-                      </svg>
-                      <p className="text-[12px] font-[500] xl:text-[12px]">
-                        {feature.includes("(") ? (
-                          <>
-                            {feature.split("(")[0]}
-                            <br />({feature.split("(")[1]}
-                          </>
-                        ) : (
-                          feature
-                        )}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                {isFree && plan.isFree ? (
-                  <button
-                    disabled={true}
-                    className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
-                  >
-                    Purchased
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => clickHandler(plan.index)}
-                    className="px-6 py-3 bg-[#06A9EF] xl:text-[16px] text-white rounded-[12px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-                  >
-                    Purchase Plan
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-
-          <div
-            className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[20vw] "
-              } `}
-            style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
-          >
-            <div className="flex text-center flex-col gap-4 text-[#333333] items-center  justify-between">
-              <p className="text-[1.4vw] font-[600] xl:text-[20px]">
-                <span className="text-[#06A9EF]">Enterprise </span> Plan
-              </p>
-              <p className="text-[16px] font-[500]  px-2">
-                Tailored Solutions for {isUser ? "Candidates" : "Organizations"}
-              </p>
-              <div className="bg-[#DEDEDE] h-[2px] w-[90%]" />
-            </div>
-            <div className="flex gap-3 flex-col text-center items-center w-[168px]">
-              <img
-                src="/images/support_agent.png"
-                className="h-[80px] w-[80px]"
-                alt=""
-              />
-              <span className="text-[16px] font-[500] text-center xl:text-[16px]">
-                Contact Us for Custom Plan as per your needs
-              </span>
-            </div>
-            <button
-              // disabled={true}
-              onClick={() => router.push("/purchase/enterprise")}
-              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[16px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
-            // style={{ opacity: 0.6 }}
-            >
-              Contact Us
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="flex lg:flex w-full ">
-        <div className="flex lg:flex w-full justify-center">
+      
+      <div className="flex w-full ">
+        <div className="flex w-full justify-between overflow-hidden">
           <Swiper
             // slidesPerView={1}
-            spaceBetween={30}
+            spaceBetween={12}
             // centeredSlides={true}
             pagination={{
               clickable: true,
@@ -375,22 +211,22 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1140: { slidesPerView: 3 },
-              1440: { slidesPerView: userDataGlobal?.role === "user" ? 3 : 4 },
+              1440: { slidesPerView: userDataGlobal?.role === "user" ? 4 : 4 },
             }}
             modules={[Pagination]}
-            className=" swiperPagination flex items-center justify-center self-start h-full "
+            className=" swiperPagination flex items-center justify-center w-full h-full "
             effect="fade"
           >
             {allPlans.map((plan, index) => (
               <SwiperSlide
                 style={{ display: "flex" }}
-                className="justify-center pt-6 gap-4 pl-2"
+                className="justify-center pt-6 gap-4"
                 key={index}
               >
                 <div
                   key={index}
                  
-                  className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card min-w-[280px] xsm:min-w-[310px] h-fit ${isUser ? "max-w-[21vw]" : "max-w-[21vw] "
+                  className={`group relative mt-[40px] bg-white  justify-center flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card min-w-[264px] xsm:min-w-[264px] h-fit ${isUser ? "max-w-[264px]" : "max-w-[300px] "
                     } `}
                   style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
                 >
@@ -536,7 +372,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                               fill="#06A9EF"
                             />
                           </svg>
-                          <p className="text-[12px] font-[500] xl:text-[12px]">
+                          <p className="text-[10px] font-[500] xl:text-[10px]">
                             {feature.includes("(") ? (
                               <>
                                 {feature.split("(")[0]}
@@ -572,10 +408,10 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
             {/* Add the Enterprise Plan as a separate SwiperSlide */}
             <SwiperSlide
               style={{ display: "flex" }}
-              className="justify-center pt-6 gap-4 h-full"
+              className="justify-center pt-6 gap-4 h-full "
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[310px]  ${isUser ? "max-w-[20vw] h-[536.5px]" : "max-w-[20vw] h-[470.5px]"
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[512.5px]" : "max-w-[300px] h-[455.43px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >

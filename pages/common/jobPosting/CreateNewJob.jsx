@@ -228,9 +228,9 @@ function CreateNewJob() {
     if (!Array.isArray(data.jobCat) || data.jobCat.length === 0) {
       newFormError.jobCat = "Job Category is required";
     } else {
-      delete newFormError.jobCat; 
+      delete newFormError.jobCat;
     }
-    
+
 
     if (!isValidString(data.jobSector)) {
       newFormError.jobSector = "Job Sector is required";
@@ -264,7 +264,7 @@ function CreateNewJob() {
       return newFormError;
     }
 
- 
+
 
     return newFormError;
   };
@@ -519,9 +519,9 @@ function CreateNewJob() {
   };
   const handleSelectChange = (selectedOptions) => {
     console.log("Selected Options:", selectedOptions);
-  
-    setSelectedCity(selectedOptions || []); 
-    setData({ ...data, location: selectedOptions?.map(option => option.value) || [] }); 
+
+    setSelectedCity(selectedOptions || []);
+    setData({ ...data, location: selectedOptions?.map(option => option.value) || [] });
   };
 
   const resetFormData = () => {
@@ -677,10 +677,10 @@ function CreateNewJob() {
     if (Array.isArray(data.location) && data.location.length > 0) {
       setSelectedCity(data.location.map((city) => ({ value: city, label: city })));
     } else {
-      setSelectedCity([]); 
+      setSelectedCity([]);
     }
   }, [data.location]);
-  
+
 
   const renderHeader = () => {
     return (
@@ -1128,7 +1128,7 @@ function CreateNewJob() {
                             handleDebouncedSearch(value);
                           }}
                           onChange={handleSelectChange}
-                          value={selectedCity} 
+                          value={selectedCity}
                           placeholder="Search & Select Your Location"
                           isSearchable={true}
 
@@ -1682,7 +1682,9 @@ function CreateNewJob() {
                             Must have Skills
                             <span className="text-[red]">*</span>
                           </div>
-                          <ReactSelect
+
+
+                          <CreatableSelect
                             isMulti
                             onInputChange={(data) => { }}
                             options={skills
@@ -1691,9 +1693,7 @@ function CreateNewJob() {
                                 value: item,
                                 label: camelCase(item),
                               }))}
-                            className={`w-full withoutBorder ${formError.mustSkills
-                              ? "border-red"
-                              : "border-[#DEDEDE]"
+                            className={`w-full withoutBorder ${formError.mustSkills ? "border-red" : "border-[#DEDEDE]"
                               }`}
                             value={
                               data.mustSkills
@@ -1708,9 +1708,7 @@ function CreateNewJob() {
                                 ? selectedOptions.map((option) => option.value)
                                 : [];
 
-                              if (
-                                newMustSkills.length > data?.mustSkills?.length
-                              ) {
+                              if (newMustSkills.length > data?.mustSkills?.length) {
                                 setFormError((prevErrors) => ({
                                   ...prevErrors,
                                   mustSkills: "",
@@ -1722,35 +1720,26 @@ function CreateNewJob() {
                                 mustSkills: newMustSkills,
                               });
                             }}
-                            onKeyDown={(event) => {
-                              if (
-                                event.key === "Enter" &&
-                                event.target.value.trim()
-                              ) {
-                                const newSkill = event.target.value.trim();
+                            onCreateOption={(inputValue) => {
+                              const newSkill = inputValue.trim();
 
-                                if (!skills.includes(newSkill)) {
-                                  setSkills((prevSkills) => [
-                                    ...prevSkills,
-                                    newSkill,
-                                  ]);
-                                }
-
-                                event.target.value = "";
+                              if (newSkill && !skills.includes(newSkill)) {
+                                setSkills((prevSkills) => [...prevSkills, newSkill]);
                               }
+
+                              setData({
+                                ...data,
+                                mustSkills: [...(data.mustSkills || []), newSkill],
+                              });
                             }}
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                border: formError.mustSkills
-                                  ? "1px solid red"
-                                  : "1px solid #DEDEDE",
+                                border: formError.mustSkills ? "1px solid red" : "1px solid #DEDEDE",
                                 borderRadius: "8px",
                                 padding: "2px 8px",
                                 flexWrap: "wrap",
-                                boxShadow: state.isFocused
-                                  ? "0 0 0 1px #DEDEDE"
-                                  : "none",
+                                boxShadow: state.isFocused ? "0 0 0 1px #DEDEDE" : "none",
                               }),
                               valueContainer: (base) => ({
                                 ...base,
@@ -1800,13 +1789,14 @@ function CreateNewJob() {
                               }),
                             }}
                           />
+
                         </div>
                         <div className="flex flex-col gap-[8px] col-span-1 scr500:col-span-5 md:col-span-3">
                           <div className="text-sm font-medium">
                             Good to have Skills{" "}
                             <span className="text-[red]">*</span>
                           </div>
-                          <ReactSelect
+                          <CreatableSelect
                             isMulti
                             onInputChange={(data) => { }}
                             options={[

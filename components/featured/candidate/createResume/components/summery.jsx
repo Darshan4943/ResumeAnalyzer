@@ -88,7 +88,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
       axios
         .get(
           "https://jamblix.com/api/subscription/" +
-            userDataGlobal?._id
+          userDataGlobal?._id
         )
         .then((res) => {
           const result = res.data.findIsActive;
@@ -100,7 +100,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-                100
+              100
             );
           }
           setTimeout(() => {
@@ -116,6 +116,14 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
     }
   }, [userDataGlobal, selectedPlan]);
 
+  const radius = 90;
+  const centerX = 100;
+  const centerY = 90;
+  const startAngle = Math.PI;
+  const endAngle = Math.PI + (progress1 / 100) * Math.PI;
+
+  const endX = centerX + radius * Math.cos(endAngle);
+  const endY = centerY + radius * Math.sin(endAngle);
   return (
     <>
       {!loading ? (
@@ -174,12 +182,8 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
               </div>
               <div className="flex flex-col items-center gap-4 border-[1px] border-[#DEDEDE] rounded-[12px] p-[20px] justify-center relative w-full scr540:w-[390px]">
                 <div className="text-[16px] font-[500]">AI Hits Overview</div>
-                <svg
-                  className="w-[250px] scr420:w-[300px]"
-                  width="300"
-                  height="200"
-                  viewBox="0 0 200 100"
-                >
+
+                <svg className="w-[250px] scr420:w-[300px]" width="300" height="200" viewBox="0 0 200 100">
                   <path
                     d="M 10,90 A 90,90 0 0,1 190,90"
                     stroke="#D0CDFF"
@@ -192,10 +196,21 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     strokeWidth="8"
                     fill="transparent"
                     strokeDasharray={circumference1}
-                    strokeDashoffset={
-                      circumference1 - (progress1 / 100) * circumference1
-                    }
+                    strokeDashoffset={dashOffset1}
                   />
+                  <defs>
+                    <filter id="lighterShadow" x="-60%" y="-120%" width="400%" height="400%">
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="7" />
+                      <feOffset dx="0" dy="4" result="offsetblur" />
+                      <feFlood floodColor="#0D0A2C" floodOpacity="1" />
+                      <feComposite in2="offsetblur" operator="in" />
+                      <feMerge>
+                        <feMergeNode />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <circle cx={endX} cy={endY} r="8" fill="#4C43CD" stroke="white" strokeWidth="3" filter="url(#lighterShadow)" />
                 </svg>
 
                 <div className="absolute bottom-[60px] flex flex-col gap-2 text-center text-[14px] font-normal">
@@ -203,18 +218,18 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                     {progress1}%
                   </div>
                   <div className="flex items-center gap-2 text-[12px]">
-                    <div className="bg-[#C7E9F7] w-4 h-4 rounded-[2px]"></div>
+                    <div className="bg-[#4C43CD] w-4 h-4 rounded-[2px]"></div>
+                    Remaining AI Hits:{" "}
+                    <span className="text-[13px] font-semibold">
+                      {aiHitMonthlyLimit - aiHitMonthly}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px]">
+                    <div className="bg-[#D0CDFF] w-4 h-4 rounded-[2px]"></div>
                     Total AI Hits:{" "}
                     <span className=" text-[13px] font-semibold">
                       {" "}
                       {aiHitMonthlyLimit}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[12px]">
-                    <div className="bg-[#0879A9] w-4 h-4 rounded-[2px]"></div>
-                    Remaining AI Hits:{" "}
-                    <span className="text-[13px] font-semibold">
-                      {aiHitMonthlyLimit - aiHitMonthly}
                     </span>
                   </div>
                 </div>
