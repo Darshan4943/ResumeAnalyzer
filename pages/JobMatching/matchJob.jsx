@@ -458,7 +458,7 @@ const MatchJob = () => {
     setIsAnimate(false);
     setShowsideBar(false);
     if (Object?.keys(extratctedData).length > 1) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 14);
+      const chunks = chunkArray(selectedIndexesFileTypes, 24);
       const outputData = [];
       const counter = { count: 0 };
 
