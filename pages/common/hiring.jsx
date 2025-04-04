@@ -103,7 +103,7 @@ function Hiring() {
               ...item,
               options: data.companyNames,
             };
-          }else if (item.heading === "Location") {
+          } else if (item.heading === "Location") {
             return {
               ...item,
               options: data.locations,
@@ -149,8 +149,6 @@ function Hiring() {
   const handleFilterChange = (heading, value) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-
-      
 
       if (value) {
         updatedFilters[heading] = value;
@@ -403,9 +401,10 @@ function Hiring() {
                       }
                       placeholder={
                         filter.heading === "JobTitle"
-                        ? "Job Title"
-                        :  filter.heading === "CompanyName"
-                        ? "Company Name" : filter.heading
+                          ? "Job Title"
+                          : filter.heading === "CompanyName"
+                          ? "Company Name"
+                          : filter.heading
                       }
                       isSearchable={true}
                       noOptionsMessage={() => "No options available"}

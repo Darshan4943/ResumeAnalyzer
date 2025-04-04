@@ -63,6 +63,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
         .catch((err) => {
           setLoading(false);
           console.log(err);
+          
         });
     } else {
       setError("Minimum 100 characters required");
@@ -147,7 +148,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               )}
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-[12px] md:text-14 font-normal leading-170]">
-            {Math.max(0, 400 - (text?.length ?? 0))}  characters left
+              {Math.max(0, 400 - (text?.length ?? 0))} characters left
             </p>
           </div>
           <div className="w-full flex items-center justify-end gap-3 xxsm:items-center">
