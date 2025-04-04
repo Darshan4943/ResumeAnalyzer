@@ -372,7 +372,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                               fill="#06A9EF"
                             />
                           </svg>
-                          <p className="text-[10px] font-[500] xl:text-[10px]">
+                          <p className={` font-[500]  ${isUser ?"text-[10px]" : "text-[12px]"}`}>
                             {feature.includes("(") ? (
                               <>
                                 {feature.split("(")[0]}
@@ -411,7 +411,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4 h-full "
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[506.5px]" : "max-w-[300px] h-[440.5px]"
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[506.5px]" : "max-w-[300px] h-[434.5px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
@@ -430,7 +430,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                     className="h-[100px] max-w-[100px]"
                     alt=""
                   />
-                  <span className="text-[16px] font-[500] text-center xl:text-[16px]">
+                  <span className="text-[14px] font-[500] text-center xl:text-[14px]">
                     Contact Us for Custom Plan as per your needs
                   </span>
                 </div>
