@@ -232,7 +232,7 @@ function SubscriptionPlans({ fromMain }) {
                 >
                   {index === 1 && (
                     <div
-                      className="absolute left-0 top-[-28px] text-[12px] font-[600] px-4 pt-[4px] pb-[50px] 
+                      className="absolute left-0 top-[-24px] text-[12px] font-[600] px-4 pt-[4px] pb-[50px] 
 bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                     >
                       Recommended
@@ -388,14 +388,14 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                     {isFree && plan.isFree ? (
                       <button
                         disabled={true}
-                        className="px-[36px] py-[12px] bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
+                        className="px-[36px] flex justify-center items-center h-[42px] bg-[#06A9EF] text-white rounded-[30px] text-[16px] font-semibold w-full  transition-all cursor-not-allowed opacity-50 xl:text-[18px]  "
                       >
                         Purchased
                       </button>
                     ) : (
                       <button
                       onClick={() => clickHandler(plan.index)}
-                        className="px-6 py-3 bg-[#06A9EF] xl:text-[16px] text-white rounded-[12px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                        className="px-6 flex justify-center items-center h-[42px] bg-[#06A9EF] xl:text-[16px] text-white rounded-[30px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                       >
                         Purchase Plan
                       </button>
@@ -411,7 +411,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
               className="justify-center pt-6 gap-4 h-full "
             >
               <div
-                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[512.5px]" : "max-w-[300px] h-[455.43px]"
+                className={`group relative mt-[40px] p-4 z-20 bg-white  flex flex-col gap-4 items-center justify-between rounded-[16px] purchase-plan-card min-w-[264px]  ${isUser ? "max-w-[264px] h-[506.5px]" : "max-w-[300px] h-[440.5px]"
                   } `}
                 style={{ boxShadow: "0px 0px 4.9px 0px #00000040" }}
               >
@@ -437,7 +437,7 @@ bg-gradient-to-b from-[#06A9EF] to-[#55CCFF] text-white rounded-t-[16px]"
                 <button
                   // disabled={true}
                   onClick={() => router.push("/purchase/enterprise")}
-                  className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] xl:text-[16px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
+                  className="px-6 flex justify-center items-center h-[42px] bg-[#06A9EF] text-white rounded-[30px] xl:text-[16px] text-[16px] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                 // style={{ opacity: 0.6 }}
                 >
                   Contact Us

@@ -589,14 +589,14 @@ function JobPosting() {
 
             <div className="text-[11px] font-[500] flex flex-col gap-2 w-full">
               <p>
-                1.Download the Template{" "}
+                1. Download the Template{" "}
                 <span className="font-[400]">
                   - Click on &quot;Download CSV File&quot; to get the required
                   format.
                 </span>
               </p>
               <p>
-                2.Fill in the Job Details
+                2. Fill in the Job Details
                 <span className="font-[400]">
                   {" "}
                   - Open the file, enter all job-related information, and save
@@ -604,14 +604,14 @@ function JobPosting() {
                 </span>
               </p>
               <p>
-                3.Upload the File{" "}
+                3. Upload the File{" "}
                 <span className="font-[400]">
                   - Click &quot;Browse&quot; or drag and drop your completed CSV
                   file.
                 </span>
               </p>
               <p>
-                4.Submit the Jobs
+                4. Submit the Jobs
                 <span className="font-[400]">
                   - Click &quot;Upload&quot; to post your jobs successfully.
                 </span>
