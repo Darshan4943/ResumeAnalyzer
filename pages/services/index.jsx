@@ -76,24 +76,19 @@ function Services() {
   ];
 
   const loginListRecruiter = [
-    {
-      name: "Create New Resume",
-      imgSrc: "/images/resumeBuilder/servicesResume.png",
-      desc: "Provides concise, customized resumes for your career success.",
-      color: "#06A9EF",
-    },
+   
     // {
     //   name: "Create New Cover Letter",
     //   imgSrc: "/images/resumeBuilder/servicesCover.png",
     //   desc: "Highlight your application, key qualifications, and best skills",
     //   color: "#06A9EF",
     // },
-    {
-      name: "My Candidates",
-      imgSrc: "/images/resumeBuilder/servicesCandidate.png",
-      desc: "Business empowerment through customized care & strategy.",
-      color: "#06A9EF",
-    },
+    // {
+    //   name: "My Candidates",
+    //   imgSrc: "/images/resumeBuilder/servicesCandidate.png",
+    //   desc: "Business empowerment through customized care & strategy.",
+    //   color: "#06A9EF",
+    // },
 
     {
       name: "JD Matching",
@@ -121,6 +116,19 @@ function Services() {
       desc: "Find top talent faster with our advanced hiring tools.",
       color: "#06A9EF",
       // new: "New",
+    },
+    {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
+      desc: "Fill in key details and let AI generate a polished Job Description instantly.",
+      color: "#06A9EF",
+      // new: "New",
+    },
+    {
+      name: "Create New Resume",
+      imgSrc: "/images/resumeBuilder/servicesResume.png",
+      desc: "Provides concise, customized resumes for your career success.",
+      color: "#06A9EF",
     },
   ];
   const loginListEmployer = [
@@ -162,6 +170,13 @@ function Services() {
       name: "Preboarding",
       imgSrc: "/images/resumeBuilder/servicesPreboarding.png",
       desc: "Create a seamless transition for your new hires with our preboarding solutions.",
+      color: "#06A9EF",
+      // new: "New",
+    },
+    {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
+      desc: "Fill in key details and let AI generate a polished Job Description instantly.",
       color: "#06A9EF",
       // new: "New",
     },

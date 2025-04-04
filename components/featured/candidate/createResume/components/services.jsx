@@ -13,6 +13,7 @@ function Services() {
     {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/servicesResume.png",
+      new: "AI",
     },
     // {
     //   name: "Create New Cover Letter",
@@ -23,6 +24,7 @@ function Services() {
     {
       name: "JD Matching",
       imgSrc: "/images/resumeBuilder/servicesJd.png",
+      new: "AI",
     },
     {
       name: "My Collection",
@@ -33,19 +35,30 @@ function Services() {
     {
       name: "Job Posting",
       imgSrc: "/images/resumeBuilder/servicesJob.png",
-      new: "AI",
+      // new: "AI",
     },
 
     {
       name: "Hiring",
       imgSrc: "/images/resumeBuilder/servicesHiring.png",
+      // new: "AI",
+    },
+    {
+      name: "JD Creation",
+      imgSrc: "/images/resumeBuilder/jdCreation1.png",
       new: "AI",
+    },
+    {
+      name: "Mail Template",
+      imgSrc: "/images/resumeBuilder/template2.png",
+      // new: "AI",
     },
   ];
   const loginListEmployer = [
     {
       name: "JD Matching",
       imgSrc: "/images/resumeBuilder/servicesJd.png",
+      new: "AI",
     },
     {
       name: "My Collection",
@@ -56,12 +69,12 @@ function Services() {
     {
       name: "Job Posting",
       imgSrc: "/images/resumeBuilder/servicesJob.png",
-      new: "AI",
+      // new: "AI",
     },
     {
       name: "Requisition",
       imgSrc: "/images/resumeBuilder/servicesRequisition.png",
-      new: "AI",
+      
     },
     {
       name: "Hiring",
@@ -81,7 +94,7 @@ function Services() {
     {
       name: "Mail Template",
       imgSrc: "/images/resumeBuilder/template2.png",
-      new: "AI",
+      // new: "AI",
     },
   ];
 
