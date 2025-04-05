@@ -14,7 +14,6 @@ function JobPosting() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState(null);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [filters, setFilters] = useState({
     Department: "",
@@ -27,7 +26,7 @@ function JobPosting() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://jamblix.com/api/company/getCompaniesById/${userDataGlobal?._id}`,
+          `http://localhost:2000/api/company/getCompaniesById/${userDataGlobal?._id}`,
           {
             params: { page: 1, limit: 100 },
           }
@@ -51,7 +50,7 @@ function JobPosting() {
   const fetchAttributes = async () => {
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
+        `http://localhost:2000/api/jobs/getDistinctJobTitlesAndLocations/${userDataGlobal?._id}`
       );
 
       const data = {
@@ -268,16 +267,17 @@ function JobPosting() {
       toast.error("Please select a file");
       return;
     }
-
+  
     setLoading(true);
     setMessage("");
-
+  
     const formData = new FormData();
     formData.append("file", file);
-
+    formData.append("createdByName", userDataGlobal?.name); 
+  
     try {
       const response = await axios.post(
-        `https://jamblix.com/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
+        `http://localhost:2000/api/job/bulkUploadJobs/${userDataGlobal?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -285,9 +285,7 @@ function JobPosting() {
       );
       setFile(null);
       setMessage(response.data.message);
-
       toast.success(response.data.message);
-
       setOpenPopup(false);
     } catch (error) {
       toast.error(error.response?.data?.message || "Error uploading file");
@@ -295,6 +293,7 @@ function JobPosting() {
       setLoading(false);
     }
   };
+  
 
   return (
     <>

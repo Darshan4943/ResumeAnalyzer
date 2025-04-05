@@ -62,7 +62,7 @@ function CreateCompany() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://jamblix.com/api/company/fetchCompaniDetails/${companyId}`
+          `http://localhost:2000/api/company/fetchCompaniDetails/${companyId}`
         );
         console.log(response.data)
         if (response.data) {
@@ -237,7 +237,7 @@ function CreateCompany() {
         formData.append("croppedImage", file);
       }
       const response = await axios.post(
-        `https://jamblix.com/api/company/addCompany/${id}`,
+        `http://localhost:2000/api/company/addCompany/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -286,7 +286,7 @@ function CreateCompany() {
       }
 
       const response = await axios.put(
-        `https://jamblix.com/api/company/updateCompanyDetails/${companyId}/${id}`,
+        `http://localhost:2000/api/company/updateCompanyDetails/${companyId}/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

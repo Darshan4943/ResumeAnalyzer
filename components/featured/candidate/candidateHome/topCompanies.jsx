@@ -20,7 +20,7 @@ const TopCompanies = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "https://jamblix.com/api/getTopcompanies"
+        "http://localhost:2000/api/getTopcompanies"
       );
       const data = response.data;
 

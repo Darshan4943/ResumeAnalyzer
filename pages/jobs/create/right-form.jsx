@@ -159,7 +159,7 @@ const Rightform = ({
     formData.append("createdBy", userDataGlobal?._id);
 
     axios
-      .post("https://jamblix.com/api/job/add/" + id, formData)
+      .post("http://localhost:2000/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");

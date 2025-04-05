@@ -66,7 +66,7 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/job/getByJobId/${id}`)
+      .get(`http://localhost:2000/api/job/getByJobId/${id}`)
       .then((res) => {
         setJobDetails(res.data);
 
@@ -91,7 +91,7 @@ function ApplyForm() {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/userJobDetails/getUserJobDetailsById/${userDataGlobal?._id}`
+        `http://localhost:2000/api/userJobDetails/getUserJobDetailsById/${userDataGlobal?._id}`
       )
       .then((res) => {
         const { personal, professional } = res.data.data;
@@ -152,7 +152,7 @@ function ApplyForm() {
 
   useEffect(() => {
     axios
-      .get(`https://jamblix.com/api/resume/${userDataGlobal?._id}`)
+      .get(`http://localhost:2000/api/resume/${userDataGlobal?._id}`)
       .then((res) => {
         setResumes(res.data.data);
         setLoadingg(false);
@@ -213,7 +213,7 @@ function ApplyForm() {
   const updateApplyCount = () => {
     axios
       .put(
-        `https://jamblix.com/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
+        `http://localhost:2000/api/subscription/updateApplyLimit/${userDataGlobal?._id}`
       )
       .then((res) => {})
       .catch((err) => console.error(err));
@@ -482,7 +482,7 @@ function ApplyForm() {
     );
 
     axios
-      .post(`https://jamblix.com/api/job/apply/${id}`, formDataToSend, {
+      .post(`http://localhost:2000/api/job/apply/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -505,7 +505,7 @@ function ApplyForm() {
       .finally(() => {
         axios
           .post(
-            "https://jamblix.com/api/userJobDetails/createOrUpdateUserJobDetails",
+            "http://localhost:2000/api/userJobDetails/createOrUpdateUserJobDetails",
             {
               userId: userDataGlobal?._id,
               ...formData,

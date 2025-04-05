@@ -36,7 +36,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     e.preventDefault();
     let tempUser = "tempUser"
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("http://localhost:2000/api/otpMailSignup", {
         userEmail: data.email,
         tempUser
       })
@@ -88,7 +88,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const verifyOtp = () => {
     setLoading(true)
     axios
-      .post("https://jamblix.com/api/verifyOtp", {
+      .post("http://localhost:2000/api/verifyOtp", {
         userEmail: data.email,
         otpEntered
       })
@@ -131,7 +131,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
@@ -206,7 +206,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     };
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/skiloteckuser/user/signup", dataToSend)
+      .post("http://localhost:2000/api/skiloteckuser/user/signup", dataToSend)
       .then((res) => {
         const response = res.data;
         try {
