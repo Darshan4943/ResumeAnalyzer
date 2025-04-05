@@ -54,6 +54,7 @@ function BulkUploadPopUp({ setOpenPopup }) {
         formData.append("file", file);
         formData.append("createdByName", userDataGlobal?.name);
         formData.append("role", userDataGlobal?.role)
+        formData.append("employerCompId", userDataGlobal?.companyId)
 
         try {
             const response = await axios.post(
