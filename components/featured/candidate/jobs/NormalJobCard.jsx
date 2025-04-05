@@ -206,7 +206,8 @@ function NormalJobCard({ item }) {
                     );
                   })
                   .join(" ,")}
-                ||
+                  {" "}
+                || {" "}
                 {item?.location
                   ?.filter((loc) => loc.trim() !== "")
                   ?.map((loc) => {
