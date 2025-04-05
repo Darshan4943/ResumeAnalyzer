@@ -137,7 +137,7 @@ function Header({ userData }) {
                 />
               </Link>
               {!isLogin ?
-                <div className=" flex items-center h-[40px] scr1024:gap-9 gap-4 ">
+                <div className=" ml:flex hidden items-center h-[40px] scr1024:gap-9 gap-4 ">
                   <div
                     onClick={() => {
                       router.push("/jobs/candidate");
@@ -174,7 +174,7 @@ function Header({ userData }) {
                   </div>
                 </div>
                 :
-                <div className="flex items-center scr1024:gap-9 gap-4 h-[40px]">
+                <div className="ml:flex hidden items-center scr1024:gap-9 gap-4 h-[40px]">
                   {userDataGlobal?.role == "user" &&
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
@@ -262,13 +262,13 @@ function Header({ userData }) {
 
 
               {(selectedPage.startsWith('/jobs') || isLogin) &&
-                <div className="relative  w-full flex justify-center ">
+                <div className="relative  w-full ml:flex hidden justify-center ">
                   <motion.div
 
-                    className={`absolute z-[3000] bg-white  ${isSearch ? "" : ""}  `}
+                    className={`absolute z-[3000] bg-white xlg:w-[258px]  ${isSearch ? "" : ""}  `}
                     initial={{ width: "258px", height: "46px" }}
                     animate={{
-                      width: isSearch ? "648px" : "258px",
+                      width: isSearch ? "648px" : "",
                       height: isSearch ? "62px" : "46px",
                       y: isSearch ? 80 : 0,
                       x: isSearch ? 0 : 0,
@@ -372,7 +372,7 @@ function Header({ userData }) {
                 layout
                 className="relative flex gap-4 justify-end  items-center scr1024:w-[50%]  w-[40%] h-[50px] mt-[4px] ">
                 <div className="flex gap-1 text-[12px] font-medium items-center">
-                  <p className="hidden scr420:block min-w-[120px]">Remaining AI Hits</p>
+                  <p className="hidden ml:block min-w-[120px]">Remaining AI Hits</p>
                   <div
                     style={{
                       backgroundColor: "#4C43CD",

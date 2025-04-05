@@ -210,7 +210,7 @@ function Summary({ limits, selectedPlan, isActive, loading, setLoading }) {
                       </feMerge>
                     </filter>
                   </defs>
-                  <circle cx={endX} cy={endY} r="8" fill="#4C43CD" stroke="white" strokeWidth="3" filter="url(#lighterShadow)" />
+                  <circle cx={endX} cy={endY} r="8" fill="#4C43CD" stroke="white" strokeWidth="3"  />
                 </svg>
 
                 <div className="absolute bottom-[60px] flex flex-col gap-2 text-center text-[14px] font-normal">

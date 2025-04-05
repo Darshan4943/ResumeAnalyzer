@@ -458,7 +458,7 @@ function MyPurchase() {
                             {subscription?.isActive ?
                               <>
                                 {(aiHitMonthly >= aiHitMonthlyLimit) ?
-                                  <button  onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px] ">
+                                  <button onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px] ">
                                     Upgrade Plan
                                   </button>
                                   :
@@ -470,7 +470,7 @@ function MyPurchase() {
                               </>
                               :
 
-                              <button  onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px]">
+                              <button onClick={() => router.push("/purchase/plans")} className="px-6 h-[38px] bg_Button rounded-[30px]">
                                 Purchase Plan
                               </button>
 
@@ -576,7 +576,7 @@ function MyPurchase() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-6 px-[8px] w-[100%] ml:pl-6">
+                <div className="flex flex-col gap-6  w-[100%] ">
                   <div className="text-[18px] font-[600]">
                     Account Details
                   </div>
@@ -617,7 +617,7 @@ function MyPurchase() {
                       )}
                     </div>
                     <div className="bg-[#DEDEDE] min-w-[1px] ml:h-[120px] h-[1px]"></div>
-                    <div className="flex flex-col gap-6 min-w-[65%] scr1200:min-w-[40%] ">
+                    <div className="flex flex-col gap-6  scr1200:min-w-[40%] ">
                       <div className="flex  gap-4">
                         <div className="flex  gap-4 font-[700] justify-between w-[40%]  text-[14px]">
                           <p>Email Id </p>
@@ -643,11 +643,8 @@ function MyPurchase() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div
-              className={`pb-12 w-[100%] flex flex-col px-[12px] xsm:pb-[0px] bg-white  rounded-[12px] ${userDataGlobal?.role == "user" ? "customMargins" : ""
+                <div
+              className={`pb-12 w-[100%] flex flex-col px-[12px] xsm:pb-[0px] bg-white   rounded-[12px] ${userDataGlobal?.role == "user" ? "customMargins" : ""
                 }`}
             >
               {" "}
@@ -711,10 +708,14 @@ function MyPurchase() {
                 </div>
               ))}
             </div>
+              </div>
+            </div>
+
+            
           </>
 
-          <div className={`py-6  flex flex-col gap-6 ${userDataGlobal?.role === 'user' ? 'customMargins' : ''}`}>
-            <p className="text-[20px] font-semibold text-[#333333]">
+          <div className={`py-6  flex flex-col gap-6 ${userDataGlobal?.role === 'user' ? 'scr1400:px-[136px] scr1300:px-[100px] scr1200:px-[60px] px-[24px]' : ''}`}>
+            <p className="text-[20px] font-semibold text-[#333333] ml:px-4">
               Our Popular Subscription Plan
             </p>
             <SubscriptionPlans />

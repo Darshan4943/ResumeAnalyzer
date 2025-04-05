@@ -116,8 +116,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
     } else {
       axios
         .post(
-          "https://jamblix.com/api/candidate/addCourse/" +
-            userDataGlobal?._id,
+          "https://jamblix.com/api/candidate/addCourse/" + userDataGlobal?._id,
           obj
         )
         .then((res) => {
@@ -245,14 +244,14 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
 
         <div className="flex justify-end items-start self-stretch gap-[12px]">
           <button
-              className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
-              onClick={() => setAddCertificate(false)}
+            className="px-[26px] red_border_Button h-[38px] rounded-[30px]"
+            onClick={() => setAddCertificate(false)}
           >
             Cancel
           </button>
           <button
-              className="px-[32px] bg_Button h-[38px] rounded-[30px]"
-              onClick={postData}
+            className="px-[32px] bg_Button h-[38px] rounded-[30px]"
+            onClick={postData}
           >
             {loading ? (
               <>
