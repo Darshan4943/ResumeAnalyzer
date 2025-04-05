@@ -137,7 +137,7 @@ function EmployerHeader() {
           </div> */}
         </div>
 
-        <div className="flex ms:px-4  px-2  justify-end scr420:gap-4 gap-2 w-[60%]  ">
+        <div className="flex ms:px-4    justify-end scr420:gap-4 gap-2 w-[60%]  ">
           <div className="flex gap-1 text-[12px] font-medium items-center">
             <p className="hidden scr420:block">Remaining AI Hits</p>
             <div
@@ -148,7 +148,7 @@ function EmployerHeader() {
       radial-gradient(92.09% 85.42% at 86.3% 87.5%, rgba(0, 0, 0, 0.23) 0%, rgba(0, 0, 0, 0) 86.18%)
     `,
               }}
-              className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center leading-tight h-[28px] w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
+              className="relative py-[6px] px-2 text-[12px] font-[600] rounded-[30px] flex justify-center items-center leading-tight h-[28px] min-w-[51px] gap-[4px] text-white scr420:p-[4px] scr420:text-[10px] scr420:h-[24px] scr420:w-[40px]"
             >
               <svg
                 width="11"
@@ -190,7 +190,7 @@ function EmployerHeader() {
               {jdCountMonthlyLimit - jdCountMonthly}
             </div>
           </div>
-          <div className="flex items-center scr420:gap-5 gap-3">
+          <div className="flex items-center xlg:gap-5 gap-3">
             <svg
               className="relative cursor-pointer"
               onClick={() => router.push("/common/notification")}
@@ -212,10 +212,10 @@ function EmployerHeader() {
             )}
 
             <div className="flex items-center gap-2">
-              <div className=" h-[36px] w-[36px] min-w-[36px]">
+              <div className=" xlg:h-[36px] h-[32px] xlg:w-[36px] w-[32px]  xlg:min-w-[36px] min-w-[32px]">
                 {userDataGlobal?.profilePicture ? (
                   <img
-                    className=" rounded-full object-cover h-[36px] w-[36px]"
+                    className=" rounded-full object-cover xlg:h-[36px] h-[32px] xlg:w-[36px] w-[32px] "
                     src={
                       userDataGlobal?.profilePicture ||
                       "/images/profile/profileNew.png"
@@ -223,7 +223,7 @@ function EmployerHeader() {
                   />
                 ) : (
                   <div
-                    className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
+                    className="rounded-[36px] xlg:h-[36px] h-[32px] xlg:w-[36px] w-[32px] xlg:text-[20px] text-[16px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold  "
                     style={{ textTransform: "capitalize" }}
                     alt=""
                   >
@@ -237,7 +237,7 @@ function EmployerHeader() {
                 className=" flex items-center cursor-pointer text-[14px] font-semibold"
               >
                 {profileData?.basics?.firstName && (
-                  <div className=" text-[14px] font-semibold scr540:block hidden">
+                  <div className=" text-[14px] font-semibold ml:block hidden">
                     {camelCase(profileData?.basics?.firstName)}{" "}
                     {camelCase(profileData?.basics?.lastName)}
                   </div>
