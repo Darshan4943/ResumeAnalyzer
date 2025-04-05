@@ -8,6 +8,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 import CustomPagination from "../../../components/common/CustomPagination";
 import { useSelector } from "react-redux";
 import { currenciesWithIcons } from "../../../utils/data";
+import BulkUploadPopUp from "../../../components/common/bulkUploadPopUp";
 
 function JobPosting() {
   const router = useRouter();
@@ -26,7 +27,8 @@ function JobPosting() {
   const [attributes, setAttributes] = useState([]);
   const [miniLoading, setMiniloading] = useState(true);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
- const [company, setCompany] = useState();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [company, setCompany] = useState();
   // useEffect(() => {
   //   setFilterData((prev) => ({
   //     ...prev,
@@ -35,7 +37,7 @@ function JobPosting() {
   // }, []);
 
 
- 
+
 
   useEffect(() => {
     if (query.content === "CreateNewJob") {
@@ -156,9 +158,9 @@ function JobPosting() {
       prev.map((item, i) =>
         i === index
           ? {
-              ...item,
-              heading: selectedOption ? selectedOption.value : item.key,
-            }
+            ...item,
+            heading: selectedOption ? selectedOption.value : item.key,
+          }
           : item
       )
     );
@@ -236,6 +238,9 @@ function JobPosting() {
 
   return (
     <>
+      {openPopup && (
+        <BulkUploadPopUp setOpenPopup={setOpenPopup} />
+      )}
       <div>
         {toggle === 0 && (
           <div>
@@ -245,12 +250,23 @@ function JobPosting() {
                   <p className="  text-[18px] font-[500px]">
                     Approved Job Requisitions
                   </p>
+                  <div className="flex gap-4">
+                  <button
+                        onClick={() => setOpenPopup(true)}
+                        className="bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
+                      >
+                       
+                        Bulk Job Upload
+                      </button>
+                    
+                  
                   <button
                     onClick={toggleContent}
                     className=" bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
                   >
                     + Create New Job
                   </button>
+                  </div>
                 </div>
 
                 <div className=" flex flex-col gap-[16px] ">
@@ -269,9 +285,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                    label: filterData[headingObj.heading],
-                                    value: filterData[headingObj.heading],
-                                  }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -314,9 +330,8 @@ function JobPosting() {
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
-                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                              }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                                }`}
                             >
                               <div className="w-[14%] text-start">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -333,7 +348,7 @@ function JobPosting() {
                               </p>
                               <p className="text-[14px] w-[14%] text-strat font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                requisition.location.length > 0 ? (
+                                  requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -435,15 +450,27 @@ function JobPosting() {
               <div className="sticky top-0">
                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                   <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
-                    Approved Job Requisitions
+                    Approved Job Requisition
                   </p>
 
-                  <button
-                    onClick={toggleContent}
-                    className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] w-[159px] text-white "
-                  >
-                    + Create New Job
-                  </button>
+                  <div className="flex sm:flex-row flex-col gap-4">
+                      <button
+                        onClick={() => setOpenPopup(true)}
+                        className="w-[212px] gap-1 rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[38px] items-center justify-center"
+                      >
+                       
+                        Bulk Job Upload
+                      </button>
+                    
+                  
+
+                    <button
+                      onClick={toggleContent}
+                      className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-[30px] text-[14px] ml:text-[16px] font-semibold w-[159px] text-white h-[38px] "
+                    >
+                      + Create New Job
+                    </button>
+                  </div>
                 </div>
                 <div className="flex relative gap-[1px] pt-2 ml:w-[20%] w-full">
                   <div
@@ -506,9 +533,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                    label: filterData[headingObj.heading],
-                                    value: filterData[headingObj.heading],
-                                  }
+                                  label: filterData[headingObj.heading],
+                                  value: filterData[headingObj.heading],
+                                }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -546,7 +573,7 @@ function JobPosting() {
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]">
                         {requisition.location &&
-                        requisition.location.length > 0 ? (
+                          requisition.location.length > 0 ? (
                           requisition.location.length > 2 ? (
                             <div className="flex flex-col">
                               {requisition.location.map((loc, index) => (
