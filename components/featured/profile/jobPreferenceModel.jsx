@@ -126,7 +126,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
 
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateJobPreferance/" +
+        "https://jamblix.com/api/candidate/updateJobPreferance/" +
           userDataGlobal?._id,
         obj
       )

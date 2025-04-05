@@ -87,7 +87,7 @@ function Index() {
     setIsCountrySet(true);
 
     axios
-      .get("http://localhost:2000/api/jobs/getJobAttributes")
+      .get("https://jamblix.com/api/jobs/getJobAttributes")
       .then((res) => {
         setJobTypeData(res.data);
         setTimeout(() => {
@@ -219,7 +219,7 @@ function Index() {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:2000/api/job/getAll",
+        "https://jamblix.com/api/job/getAll",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),
@@ -280,7 +280,7 @@ function Index() {
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/job/getFilterData",
+        "https://jamblix.com/api/job/getFilterData",
         {
           requiredSkills:
             jobTitle || location ? [] : userSkills?.map((item) => item),
