@@ -52,7 +52,9 @@ function BulkUploadPopUp({ setOpenPopup }) {
 
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("createdByName", userDataGlobal?.name);
+        formData.append("createdByName", userDataGlobal?.companyId
+            ? userDataGlobal?.companyName
+            : `${userDataGlobal?.firstName} ${userDataGlobal?.lastName}`);
         formData.append("role", userDataGlobal?.role)
         formData.append("employerCompId", userDataGlobal?.companyId)
 
