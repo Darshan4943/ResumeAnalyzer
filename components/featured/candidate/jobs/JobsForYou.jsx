@@ -33,7 +33,7 @@ function JobsForYou({ isRelevant, isSimilar }) {
   const getAllData = async () => {
     try {
       const res = await axios.post(
-        "https://jamblix.com/api/job/getAll",
+        "http://localhost:2000/api/job/getAll",
         {
           requiredSkills:
             isRelevant || isSimilar ? userSkills?.map((item) => item) : "",

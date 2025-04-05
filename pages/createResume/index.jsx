@@ -636,7 +636,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://jamblix.com/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({

@@ -47,7 +47,7 @@ const CreateNewRequisition = ({ setToggle }) => {
 
     try {
       const response = await axios.post(
-        "https://jamblix.com/api/creatrequasetion",
+        "http://localhost:2000/api/creatrequasetion",
         data
       );
 
