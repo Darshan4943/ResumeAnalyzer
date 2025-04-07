@@ -12,7 +12,6 @@ function HiringProgress({
   taskSuccessfull,
   setTaskSuccessfull,
 }) {
-
   const [openTaskModel, setOpenTaskModel] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const taskRef = useRef(null);
@@ -109,7 +108,9 @@ function HiringProgress({
                 </div>
               ) : (
                 <>
-                  {level?.status === "Shortlisted" || level?.status === "Rejected" || level?.status === "Hired" ?
+                  {level?.status === "Shortlisted" ||
+                  level?.status === "Rejected" ||
+                  level?.status === "Hired" ? (
                     <div className="flex gap-4 w-full ">
                       <div className="w-[24px]  ">
                         <svg
@@ -142,7 +143,6 @@ function HiringProgress({
                           <div className="h-[1px] w-[90%] bg-[#D6DDEB]"></div>
                         </div>
 
-
                         <div className="flex gap-8">
                           {level?.assignOn && (
                             <div className="flex flex-col gap-2">
@@ -153,19 +153,22 @@ function HiringProgress({
                             </div>
                           )}
                           <div
-                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${level?.status === "Hired" ? " text-[#0C8A0A] bg-[#E2FFE1]" : level?.status === "Shortlisted" ? " text-[#4640DE] bg-[#4640DE1A]" : level?.status === "Rejected" ? " text-[#FF6550] bg-[#FFE6E2]" : ""}  }`}
+                            className={`px-[10px] py-[3px] rounded-[80px] w-fit h-fit ${
+                              level?.status === "Hired"
+                                ? " text-[#0C8A0A] bg-[#E2FFE1]"
+                                : level?.status === "Shortlisted"
+                                ? " text-[#4640DE] bg-[#4640DE1A]"
+                                : level?.status === "Rejected"
+                                ? " text-[#FF6550] bg-[#FFE6E2]"
+                                : ""
+                            }  }`}
                           >
-
                             {level?.status}
                           </div>
-
                         </div>
-
-
                       </div>
-
                     </div>
-                    :
+                  ) : (
                     <div className="flex gap-4 ">
                       <div className="w-[24px]  ">
                         <svg
@@ -225,39 +228,41 @@ function HiringProgress({
                                 <p className="text-[#646464] text-[14px] font-normal">
                                   Assign On
                                 </p>
-                                <div>{formatInterviewDate(level?.assignOn)}</div>
+                                <div>
+                                  {formatInterviewDate(level?.assignOn)}
+                                </div>
                               </div>
                             )}
 
                             {(level?.status === "Conducted" ||
                               level?.status === "Completed") && (
-                                <div className="flex flex-col gap-2">
-                                  <p className="text-[#646464] text-[16px] font-normal">
-                                    {level?.isTask ? "Reviewer" : "Conducted by"}
-                                  </p>
-                                  <div className="flex gap-4 flex-wrap">
-                                    {(level?.isTask
-                                      ? level?.taskReviewer
-                                      : level?.interviewer
-                                    )?.map((assignee, i) => (
-                                      <div key={i} className="flex gap-2">
-                                        <DummyProfileSvg />
-                                        <div className="flex flex-col">
-                                          <p className="text-[14px] font-medium">
-                                            {assignee.name}
-                                          </p>
-                                          <p className="text-[12px] font-normal text-[#646464]">
-                                            {assignee.role}
-                                          </p>
-                                          <p className="text-[12px] font-normal text-[#646464]">
-                                            {assignee.email}
-                                          </p>
-                                        </div>
+                              <div className="flex flex-col gap-2">
+                                <p className="text-[#646464] text-[16px] font-normal">
+                                  {level?.isTask ? "Reviewer" : "Conducted by"}
+                                </p>
+                                <div className="flex gap-4 flex-wrap">
+                                  {(level?.isTask
+                                    ? level?.taskReviewer
+                                    : level?.interviewer
+                                  )?.map((assignee, i) => (
+                                    <div key={i} className="flex gap-2">
+                                      <DummyProfileSvg />
+                                      <div className="flex flex-col">
+                                        <p className="text-[14px] font-medium">
+                                          {assignee.name}
+                                        </p>
+                                        <p className="text-[12px] font-normal text-[#646464]">
+                                          {assignee.role}
+                                        </p>
+                                        <p className="text-[12px] font-normal text-[#646464]">
+                                          {assignee.email}
+                                        </p>
                                       </div>
-                                    ))}
-                                  </div>
+                                    </div>
+                                  ))}
                                 </div>
-                              )}
+                              </div>
+                            )}
 
                             {index === 0 && (
                               <button
@@ -277,13 +282,14 @@ function HiringProgress({
                                 {level?.isTask ? "Task" : "Interview"} Status
                               </p>
                               <div
-                                className={`px-[10px] py-[3px] rounded-[80px] w-fit ${level?.status === "Pending"
-                                  ? "text-[#FFB836] bg-[#EB85331A]"
-                                  : level?.status === "Conducted" ||
-                                    level?.status === "Completed"
+                                className={`px-[10px] py-[3px] rounded-[80px] w-fit ${
+                                  level?.status === "Pending"
+                                    ? "text-[#FFB836] bg-[#EB85331A]"
+                                    : level?.status === "Conducted" ||
+                                      level?.status === "Completed"
                                     ? "text-[#0C8A0A] bg-[#E2FFE1]"
                                     : "text-[#FF6550] bg-[#FF65501A]"
-                                  }`}
+                                }`}
                               >
                                 {level?.status === "Pending"
                                   ? "In Progress"
@@ -295,7 +301,9 @@ function HiringProgress({
                               level?.status !== "Completed" && (
                                 <div className="flex flex-col gap-2">
                                   <p className="text-[#646464] text-[16px] font-normal">
-                                    {level?.isTask ? "Task Reviewer" : "Assign To"}
+                                    {level?.isTask
+                                      ? "Task Reviewer"
+                                      : "Assign To"}
                                   </p>
                                   <div className="flex gap-4 flex-wrap">
                                     {(level?.isTask
@@ -346,8 +354,7 @@ function HiringProgress({
                         </div>
                       </div>
                     </div>
-
-                  }
+                  )}
                 </>
               )}
             </React.Fragment>
@@ -387,15 +394,23 @@ function HiringProgress({
           <div className="fixed z-[15000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
             <div
               className="w-[330px] relative rounded-[16px] p-4 flex flex-col gap-[16px] bg-white items-center"
-
               style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
             >
-              <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="66"
+                height="66"
+                viewBox="0 0 66 66"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <g clip-path="url(#clip0_6706_89699)">
                   <rect width="66" height="66" rx="33" fill="#0C8A0A" />
 
                   <g mask="url(#mask0_6706_89699)">
-                    <path d="M26.7859 45.1778L15.6484 34.0403L18.7058 30.983L26.7859 39.0631L46.5131 19.3359L49.5705 22.3933L26.7859 45.1778Z" fill="white" />
+                    <path
+                      d="M26.7859 45.1778L15.6484 34.0403L18.7058 30.983L26.7859 39.0631L46.5131 19.3359L49.5705 22.3933L26.7859 45.1778Z"
+                      fill="white"
+                    />
                   </g>
                 </g>
                 <defs>
@@ -407,7 +422,14 @@ function HiringProgress({
 
               <div className="text-center">
                 <div className="text-[24px] font-[500] text-[#333]">
-                  {successfull === "Interview" ? "Interview Scheduled" : successfull === "Task" ? "Task Assigned" : successfull === "Shortlisted" ? "Shortlisted" : "Rejected"}  Successfully
+                  {successfull === "Interview"
+                    ? "Interview Scheduled"
+                    : successfull === "Task"
+                    ? "Task Assigned"
+                    : successfull === "Shortlisted"
+                    ? "Shortlisted"
+                    : "Rejected"}{" "}
+                  Successfully
                 </div>
               </div>
               <div className="flex justify-center">

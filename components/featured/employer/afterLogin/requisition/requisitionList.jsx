@@ -124,11 +124,11 @@ function RequisitionList({
                   setRequisitionId(requisition?._id);
                   setOpenPreview(true);
                 }}
-                className="w-full bg-[#FFFFFF] hover:bg-[#DFF4FD] cursor-pointer p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]"
+                className="w-full bg-[#FFFFFF]  cursor-pointer p-[16px] flex justify-between items-center border-b-[1px] border-solid border-[#DEDEDE]"
                 key={requisition.id}
               >
                 <div className="w-[12.84%] text-[#333333] text-[16px] font-[600] flex flex-col gap-[6px]">
-                  <div className="text-[#333333] text-start text-[14px] font-[500]">
+                  <div className="text-[#06A9EF]  text-start text-[14px] font-[500]">
                     {requisition.requisitionType}
                   </div>
                   <div className="text-[#646464] text-start text-[12px] font-[500]">
