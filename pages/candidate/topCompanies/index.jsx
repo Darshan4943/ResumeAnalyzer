@@ -40,7 +40,8 @@ function Index() {
           Top Companies
         </span>
         <div className="flex scr700:flex-row flex-col gap-6 w-full">
-          <div className="flex w-full justify-between gap-y-5 flex-wrap">
+
+          <div className="flex flex-wrap w-full justify-between gap-y-5 h-fit">
             {company?.map((i, index) => (
               <div
                 key={index}
@@ -88,6 +89,7 @@ function Index() {
               </div>
             ))}
           </div>
+
           <div className="flex justify-center ">
             <img
               className=" sm:min-w-[357px] sm:max-w-[357px] h-[396px]"
