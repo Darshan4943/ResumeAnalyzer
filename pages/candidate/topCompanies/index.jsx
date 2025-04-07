@@ -15,6 +15,7 @@ function Index() {
         "https://jamblix.com/api/getTopcompanies"
       );
       const data = response.data;
+      console.log(response.data)
 
       if (Array.isArray(data)) {
         setCompany(data);
@@ -32,7 +33,6 @@ function Index() {
   useEffect(() => {
     topCompam();
   }, []);
-
   return (
     <>
       <div className="customMargins  w-full flex flex-col gap-5 pt-6 pb-6">
@@ -40,7 +40,8 @@ function Index() {
           Top Companies
         </span>
         <div className="flex scr700:flex-row flex-col gap-6 w-full">
-          <div className="flex w-full justify-between gap-y-5 flex-wrap">
+
+          <div className="flex flex-wrap w-full justify-between gap-y-5 h-fit cursor-pointer">
             {company?.map((i, index) => (
               <div
                 key={index}
@@ -82,12 +83,13 @@ function Index() {
                     </span>
                   </div>
                   <div className="py-[2px] px-[6px] border-[0.5px] border-solid border-[#DEDEDE] text-[10px] font-[400] text-[#333333] rounded-[12px]">
-                    {/* {i.about} */}IT Services & Consulting
+                  {i.about.length > 40 ? `${i.about.slice(0, 40)}...` : i.about}
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
           <div className="flex justify-center ">
             <img
               className=" sm:min-w-[357px] sm:max-w-[357px] h-[396px]"

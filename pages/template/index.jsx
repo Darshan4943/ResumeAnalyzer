@@ -101,7 +101,7 @@ function Index() {
   return (
     <div>
       <div className="text-[18px] font-[600]">Template</div>
-      <div className="flex gap-[36px] pt-[16px]">
+      <div className="flex gap-[36px] pt-[16px] sm:flex-row flex-col sm:items-start items-center">
         <div className="flex flex-col gap-[8px]">
           <div className="flex gap-[6px]">
             <div className="relative flex h-[256px] w-[192px] rounded-[6px] flex-col p-3 gap-1 bg-[#FFFFFF] overflow-hidden group">
