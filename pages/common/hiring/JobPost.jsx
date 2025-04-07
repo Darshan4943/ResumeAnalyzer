@@ -169,7 +169,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   };
   const handleSelectAll = () => {
     const selectableApplicants = jobDetails?.data?.applications.filter(
-      (app) => app.hiringStage !== "Rejected"
+      (app) => app.hiringStage !== "Selected"
     );
     if (selectAll) {
       setCheckedApplicants([]);
@@ -487,7 +487,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
         toast.success("Candidate Hired successfully");
         fetchJobDetails()
-       
+
         return response.data;
       }
     } catch (error) {
@@ -637,7 +637,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         />
                       </svg>
                       <div className="text-[12px] text-[#262626] font-[500]">
-                      {jobData?.location?.map((loc) => loc.split(" ")[0]).join(" ")}
+                        {jobData?.location?.map((loc) => loc.split(" ")[0]).join(" ")}
                       </div>
                     </div>
                   </div>
@@ -806,8 +806,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                 </div>
               ) : (
                 <>
-                  <div className="flex scr700:flex-row flex-col justify-between p-[16px] scr700:items-center gap-4  bg-[#fff] overflow-visible">
-                    <div className=" flex gap-3">
+                  <div className="flex scr1150:flex-row flex-col justify-between p-[16px] scr1150:items-center gap-4  bg-[#fff] overflow-visible">
+                    <div className=" flex scr420:flex-row flex-col gap-3">
                       <button
                         disabled={aiLoading || !jobDetails?.data?.applications?.some(app => app.isScore === false)}
 
@@ -822,7 +822,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                         }}
                         onClick={aiMatch}
                         className={`text-white rounded-[30px] justify-center px-6 flex gap-[10px] items-center text-[12px] font-semibold 
-             min-w-[150px] h-[38px] transition-all duration-300 ease-in-out ${!jobDetails?.data?.applications?.some(app => app.isScore === false) && "opacity-50"}`}
+             min-w-[176.24px] h-[38px] transition-all duration-300 ease-in-out  ${!jobDetails?.data?.applications?.some(app => app.isScore === false) && "opacity-50"}`}
                       >
                         <svg
                           className={`min-w-[20px] transition-all duration-100 ${aiLoading ? "animate-pulse scale-110" : ""
@@ -876,7 +876,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
                       <button
                         onClick={() => setOpenParamenters(true)}
-                        className=" rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
+                        className=" min-w-[204.81px] rounded-[30px] text-[14px] font-semibold  flex justify-center items-center h-[38px] bg_Button px-6"
                       >
                         Set Matching Parameters
                       </button>
@@ -896,20 +896,21 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                           className="sm:w-full w-[100px]"
                         />
                       </div>
+
+                      {userDataGlobal?.role === "employer" && (
+                        <button
+                          disabled={!checkedApplicants.length > 0 || loading1}
+                          style={{
+                            opacity:
+                              !checkedApplicants.length > 0 || loading1 ? 0.5 : 1,
+                          }}
+                          onClick={moveToHiringMultiple}
+                          className="min-w-[197.54px] rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[42px] px-4"
+                        >
+                          Move to Hiring Process
+                        </button>
+                      )}
                     </div>
-                    {userDataGlobal?.role === "employer" && (
-                      <button
-                        disabled={!checkedApplicants.length > 0 || loading1}
-                        style={{
-                          opacity:
-                            !checkedApplicants.length > 0 || loading1 ? 0.5 : 1,
-                        }}
-                        onClick={moveToHiringMultiple}
-                        className=" rounded-[30px] text-[14px] font-semibold bg-blue text-white hidden ml:flex justify-center items-center h-[42px] px-4"
-                      >
-                        Move to Hiring Process
-                      </button>
-                    )}
                   </div>
 
                   {allShortlist && (
@@ -1013,8 +1014,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                             (applicant, index) => (
                               <>
                                 <div
-                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${checkedApplicants[index]
-                                    ? "bg-[#D3F1FF]"
+                                  className={`flex w-[100%] border-b border-[#D4D4D480]  p-[16px] justify-between items-center  ${!checkedApplicants[index]
+                                    ? "bg-[#FFFFFF]"
                                     : "bg-[#FFFFFF]"
                                     }`}
                                   key={applicant?._id}
@@ -1218,7 +1219,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                             </button>
                                             {userDataGlobal?.role ===
                                               "recruiter" && applicant?.hiringStage ===
-                                                  "Shortlisted" &&
+                                              "Shortlisted" &&
                                               <button
                                                 disabled={
                                                   applicant?.hiringStage !==
@@ -1227,7 +1228,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 style={{
                                                   opacity:
                                                     applicant?.hiringStage !==
-                                                  "Shortlisted"
+                                                      "Shortlisted"
                                                       ? 0.5
                                                       : 1,
                                                 }}
@@ -1356,9 +1357,17 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                           }
                                         </p>
                                       </div>
-                                      <p className="text-[14px] font-[600]">
-                                        {applicant.matchingPercentage} %
-                                      </p>
+                                      {applicant.matchingPercentage ? (
+                                        <p
+                                          className={`text-[14px] font-[600] `}
+                                        >
+                                          {applicant.matchingPercentage} %
+                                        </p>
+                                      ) : (
+                                        <p className="blur-[3px] text-[14px] font-[600]">
+                                          {randomPercentage} %
+                                        </p>
+                                      )}
                                     </div>
 
                                     <div className="flex justify-between items-center self-stretch">
@@ -1474,7 +1483,8 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                 ? 0.5
                                                 : 1,
                                           }}
-                                          onClick={() => {
+                                          onClick={(e) => {
+                                            e.stopPropagation();
                                             setHiringStage("Rejected");
                                             togglePopup(applicant);
                                           }}
@@ -1742,7 +1752,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                         ? "bg-[#EB85331A]"
                                                         : applicant?.hiringStage ===
                                                           "Selected"
-                                                          ? "bg-[#26A4FF1A]"
+                                                          ? "bg-[#56CDAD1A]"
                                                           : ""
                                             } ${applicant?.hiringStage ===
                                               "Interview"
@@ -1764,7 +1774,7 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
                                                         ? "text-[#FFB836]"
                                                         : applicant?.hiringStage ===
                                                           "Selected"
-                                                          ? "text-[#26A4FF]"
+                                                          ? "text-[#56CDAD]"
                                                           : "text-[#333333]"
                                             }`}
                                         >
