@@ -295,12 +295,12 @@ function LevelUpdate({
         </>
       )}
       <div className="flex gap-4 justify-between items-center w-full  ">
-        <p className="text-[24px] font-medium min-w-[110px]">
+        <p className="text-[20px] font-medium min-w-[110px]">
           Level {selectedLevel?.level}
         </p>
         <div className="h-[1px] w-full bg-[#D6DDEB]"></div>
       </div>
-      <p className="text-[20px] scr420:text-[24px] font-medium">{selectedLevel?.title}</p>
+      <p className="text-[18px] scr420:text-[20px] font-medium">{selectedLevel?.title}</p>
       <div className="min-h-[1px] w-full bg-[#D6DDEB]"></div>
       {selectedLevel?.level !== 1 && (
         <div className="flex ms:flex-row flex-col gap-4 justify-between">
@@ -382,12 +382,12 @@ function LevelUpdate({
         </div>
       )}
       <div className="flex flex-col w-full gap-2">
-        <p className="text-[16px] scr420:text-[20px] font-medium">Add Comment</p>
+        <p className="text-[16px] scr420:text-[18px] font-medium">Add Comment</p>
         <div>
           <input
             type="text"
             placeholder="Add Comment"
-            className="px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[12px] scr420:text-[14px] font-[400]"
+            className="px-[16px] w-full py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[12px] scr420:text-[14px] font-[400] placeholder:text-[12px]"
             value={selectedLevel?.comment || ""}
             onChange={(e) =>
               setSelectedLevel({ ...selectedLevel, comment: e.target.value })
@@ -395,7 +395,7 @@ function LevelUpdate({
           />
         </div>
       </div>
-      <div className="h-[1px] bg-[#D6DDEB]"></div>
+      <div className="min-h-[1px] bg-[#D6DDEB]"></div>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between ms:flex-row flex-col gap-4 text-[14px] font-semibold">
           <div className="flex gap-[8px] items-center  ">
@@ -478,8 +478,8 @@ function LevelUpdate({
         <div className="flex gap-4 justify-end py-[1rem]">
           <button
             onClick={closeTaskPopup}
-            className="w-[106px] h-[42px] border border-[#06A9EF] rounded-[30px] flex justify-center items-center  text-[16px] font-semibold"
-            id="button"
+            className=" h-[38px] red_border_Button rounded-[30px] px-6"
+            // id="button"
           >
             Cancel
           </button>
@@ -490,7 +490,7 @@ function LevelUpdate({
           ) : (
             <button
               onClick={isNextLevel ? nextStage : submitDetails}
-              className="h-[42px] w-[106px] bg-[#06A9EF] rounded-[30px] flex justify-center items-center text-[16px] font-semibold text-white"
+              className=" h-[38px] bg_Button rounded-[30px] px-8"
             >
               Save
             </button>
