@@ -261,7 +261,7 @@ function ShortlistMail({
           <div className="mb-4 flex items-center">
             <div className="flex w-full flex-col">
               <div
-                onClick={() => setPopupVisible(false)}
+                onClick={(e) =>{e.stopPropagation(); setPopupVisible(false)}}
                 className="flex w-full justify-end cursor-pointer"
               >
                 <svg
