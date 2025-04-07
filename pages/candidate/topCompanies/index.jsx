@@ -41,7 +41,7 @@ function Index() {
         </span>
         <div className="flex scr700:flex-row flex-col gap-6 w-full">
 
-          <div className="flex flex-wrap w-full justify-between gap-y-5 h-fit">
+          <div className="flex flex-wrap w-full justify-between gap-y-5 h-fit cursor-pointer">
             {company?.map((i, index) => (
               <div
                 key={index}
