@@ -733,8 +733,8 @@ function ScheduleInterview({
       <div className="flex gap-4 sm:justify-end  justify-center pb-[1rem]">
         <button
           onClick={() => setShowScheduleInterview(false)}
-          className="ml:px-9  px-2 py-2 border border-[#06A9EF] rounded-[30px]  text-[16px] font-semibold"
-          id="button"
+          className="h-[38px] red_border_Button rounded-[30px] px-6"
+          // id="button"
         >
           Cancel
         </button>
@@ -745,7 +745,7 @@ function ScheduleInterview({
         ) : (
           <button
             onClick={() => submitDetails()}
-            className="ml:px-9  px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white"
+            className="h-[38px] bg_Button rounded-[30px] px-8"
           >
             Schedule Interview
           </button>
