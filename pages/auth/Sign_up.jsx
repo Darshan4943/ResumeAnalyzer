@@ -79,6 +79,9 @@ function Sign_up({}) {
       }
     }
   }, [parseData]);
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+};
 
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);

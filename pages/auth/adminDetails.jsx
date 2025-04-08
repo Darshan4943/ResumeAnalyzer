@@ -800,7 +800,7 @@ function AdminDetails({
         </div>
         <div className="w-full flex flex-col gap-1">
           <div className="w-full text-[14px] font-[500] text-[#333333]">
-            Comfirm Password<span className="text-red">*</span>
+            Confirm Password<span className="text-red">*</span>
           </div>
           <div className="w-full flex flex-col  justify-between gap-2">
             <div className="w-full rounded-[8px] py-[8px] px-4 border border-[#9D9D9D] flex items-center">
