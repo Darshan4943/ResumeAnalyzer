@@ -464,7 +464,7 @@ function MyPurchase() {
                                   :
 
                                   <button disabled className="px-6 h-[38px] bg_Button rounded-[30px] bg-[#DEDEDE] ">
-                                    Puchased
+                                    Purchased
                                   </button>
                                 }
                               </>

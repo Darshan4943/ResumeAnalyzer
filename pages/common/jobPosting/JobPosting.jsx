@@ -36,9 +36,6 @@ function JobPosting() {
   //   }));
   // }, []);
 
-
-
-
   useEffect(() => {
     if (query.content === "CreateNewJob") {
       setToggle(1);
@@ -158,9 +155,9 @@ function JobPosting() {
       prev.map((item, i) =>
         i === index
           ? {
-            ...item,
-            heading: selectedOption ? selectedOption.value : item.key,
-          }
+              ...item,
+              heading: selectedOption ? selectedOption.value : item.key,
+            }
           : item
       )
     );
@@ -238,9 +235,7 @@ function JobPosting() {
 
   return (
     <>
-      {openPopup && (
-        <BulkUploadPopUp setOpenPopup={setOpenPopup} />
-      )}
+      {openPopup && <BulkUploadPopUp setOpenPopup={setOpenPopup} />}
       <div>
         {toggle === 0 && (
           <div>
@@ -251,21 +246,19 @@ function JobPosting() {
                     Approved Job Requisitions
                   </p>
                   <div className="flex gap-4">
-                  <button
-                        onClick={() => setOpenPopup(true)}
-                        className="bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
-                      >
-                       
-                        Bulk Job Upload
-                      </button>
-                    
-                  
-                  <button
-                    onClick={toggleContent}
-                    className=" bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
-                  >
-                    + Create New Job
-                  </button>
+                    <button
+                      onClick={() => setOpenPopup(true)}
+                      className="bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
+                    >
+                      Bulk Job Upload
+                    </button>
+
+                    <button
+                      onClick={toggleContent}
+                      className=" bg-[#06A9EF] rounded-[30px] text-[14px] font-[600] text-white px-[36px] py-[12px]"
+                    >
+                      + Create New Job
+                    </button>
                   </div>
                 </div>
 
@@ -285,9 +278,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -330,8 +323,9 @@ function JobPosting() {
                           requisitions.map((requisition, index) => (
                             <div
                               key={index}
-                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
-                                }`}
+                              className={`w-full bg-[#FFFFFF] p-[16px] flex justify-between items-center border-b-[1px] border-b-[#DEDEDE] ${
+                                index % 2 === 0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"
+                              }`}
                             >
                               <div className="w-[14%] text-start">
                                 <p className="text-[14px] font-[500] text-[#06A9EF]">
@@ -348,7 +342,7 @@ function JobPosting() {
                               </p>
                               <p className="text-[14px] w-[14%] text-strat font-[500] text-[#333333] flex flex-col">
                                 {requisition.location &&
-                                  requisition.location.length > 0 ? (
+                                requisition.location.length > 0 ? (
                                   requisition.location.length > 2 ? (
                                     <div className="flex flex-col">
                                       {requisition.location.map(
@@ -446,33 +440,30 @@ function JobPosting() {
               </div>
             </div>
 
-            <div className="mobile ml:hidden relative flex flex-col gap-3 overflow-y-scroll ">
+            <div className="mobile ml:hidden relative flex flex-col gap-3 overflow-y-scroll  ">
               <div className="sticky top-0">
                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
-                  <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
+                  <p className="h-[29px] text-[16px] xsm:text-[18px] ml:text-[24px] font-[500px]">
                     Approved Job Requisition
                   </p>
 
-                  <div className="flex sm:flex-row flex-col gap-4">
-                      <button
-                        onClick={() => setOpenPopup(true)}
-                        className="w-[212px] gap-1 rounded-[30px] flex text-[14px] font-semibold bg-blue text-white h-[38px] items-center justify-center"
-                      >
-                       
-                        Bulk Job Upload
-                      </button>
-                    
-                  
+                  <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+                    <button
+                      onClick={() => setOpenPopup(true)}
+                      className="w-full sm:w-[212px] h-[38px] flex items-center justify-center gap-1 rounded-full text-[12px] font-[600] bg-blue text-white"
+                    >
+                      Bulk Job Upload
+                    </button>
 
                     <button
                       onClick={toggleContent}
-                      className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-[30px] text-[14px] ml:text-[16px] font-semibold w-[159px] text-white h-[38px] "
+                      className="w-full sm:w-[159px] h-[38px] py-2 px-3 rounded-full text-[12px] sm:text-[12px] font-[600] bg-[#06A9EF] text-white"
                     >
                       + Create New Job
                     </button>
                   </div>
                 </div>
-                <div className="flex relative gap-[1px] pt-2 ml:w-[20%] w-full">
+                <div className="flex relative gap-[1px] pt-2 ml:w-[20%] w-full ">
                   <div
                     onClick={() => setOpenSort(true)}
                     className=" w-full py-[12px] px-[16px] text-[#333] text-[14px] font-[600] justify-end flex gap-[8px] items-center bg-[#fff]"
@@ -518,7 +509,7 @@ function JobPosting() {
                   {openSort && (
                     <div
                       style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-                      className="absolute top-[50px] right-0 flex flex-col gap-4 rounded-md bg-white p-4 z-50 w-64"
+                      className="absolute right-0 flex flex-col gap-4 rounded-md bg-white p-4 z-[9999] w-64"
                     >
                       {search.map((headingObj, index) => (
                         <div className="w-full" key={index}>
@@ -533,9 +524,9 @@ function JobPosting() {
                             value={
                               filterData[headingObj.heading]
                                 ? {
-                                  label: filterData[headingObj.heading],
-                                  value: filterData[headingObj.heading],
-                                }
+                                    label: filterData[headingObj.heading],
+                                    value: filterData[headingObj.heading],
+                                  }
                                 : null
                             }
                             placeholder={headingObj.heading}
@@ -573,7 +564,7 @@ function JobPosting() {
                       </div>
                       <div className="text-[#333] text-[12px] font-[500]">
                         {requisition.location &&
-                          requisition.location.length > 0 ? (
+                        requisition.location.length > 0 ? (
                           requisition.location.length > 2 ? (
                             <div className="flex flex-col">
                               {requisition.location.map((loc, index) => (
@@ -592,21 +583,21 @@ function JobPosting() {
                         )}
                       </div>
                     </div>
-                    <div className="flex justify-evenly">
+                    <div className="flex justify-evenly items-center pt-2">
                       <div className="text-center">
-                        <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                        <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                           Requested by
                         </div>
-                        <div className="text-[#333] text-[12px] font-[500]  ">
+                        <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px]  ">
                           {requisition?.createdByName || "-"}
                           <div className="text-[#646464] text-[10px] font-[500]"></div>
                         </div>
                       </div>
                       <div className="text-center">
-                        <div className="py-[6px] px-[12px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                        <div className="py-[6px] px-[12px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                           Budget
                         </div>
-                        <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
+                        <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px] ">
                           <>
                             {getCurrencyIcon(requisition.currency)}{" "}
                             {requisition.budgetFrom || 0} -{" "}
@@ -616,10 +607,10 @@ function JobPosting() {
                         </div>
                       </div>
                       <div className="text-center">
-                        <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                        <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                           Open Position
                         </div>
-                        <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
+                        <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px] ">
                           {requisition.positions
                             ? `${requisition.positions} positions`
                             : "-"}
@@ -627,7 +618,7 @@ function JobPosting() {
                       </div>
                     </div>
                     <div className="flex justify-between">
-                      <div className="flex items-center py-[6px] px-[12px] border-[1px] border-solid border-[#FF7A00] text-[14px] font-[600] text-[#FF7A00] rounded-[80px]">
+                      <div className="flex items-center py-[6px] px-[12px] border-[1px] border-solid border-[#FF7A00] scr420:text-[12px] text-[10px] font-[600] text-[#FF7A00] rounded-[80px]">
                         {new Date(requisition.hiringDate).toLocaleDateString(
                           "en-GB",
                           {
@@ -638,7 +629,7 @@ function JobPosting() {
                         )}
                       </div>
                       {requisition?.jobStatus ? (
-                        <div className="rounded-[30px] px-[12px] py-[6px] border border-blue">
+                        <div className="rounded-[30px] scr420:text-[12px] text-[10px] px-[12px] py-[6px] border border-blue">
                           Posted
                         </div>
                       ) : (
@@ -680,6 +671,7 @@ function JobPosting() {
                 </div>
               )}
             </div>
+
             {requisitions.length > 10 && (
               <CustomPagination
                 setMiniloading={setMiniloading}
