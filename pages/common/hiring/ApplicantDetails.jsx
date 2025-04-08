@@ -7,6 +7,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 import ApplicantProfile from "./ApplicantProfile";
 import ApplicantDetailsLeftCard from "./ApplicantDetailsLeftCard";
 import { useSelector } from "react-redux";
+import InlineSVG from "../../../components/common/InlineSvg";
 
 function ApplicantDetails({ setTogglee }) {
   const [toggle, setToggle] = useState("ApplicantProfile");
@@ -21,8 +22,10 @@ function ApplicantDetails({ setTogglee }) {
   const [statusChange, setStatusChange] = useState(false);
   const [successfull, setSuccessfull] = useState();
   const [taskSuccessfull, setTaskSuccessfull] = useState(false);
-
-
+  const fileExtension = jobDetails?.resumeUrl?.split(".").pop().toLowerCase();
+  const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+  const isPDF = fileExtension === "pdf";
+  const isDoc = ["doc", "docx"].includes(fileExtension)
   const getData = async () => {
     try {
       setLoading(true);
@@ -125,6 +128,26 @@ function ApplicantDetails({ setTogglee }) {
       </div>
     );
   };
+   const DocumentViewer = ({ fileUrl }) => {
+      const [loading, setLoading] = useState(true);
+  
+  
+      return (
+        <div className="relative w-full flex flex-col items-center">
+          {loading && (
+            <div className=" inset-0 flex items-center w-full justify-center bg-gray-100 h-[600px]">
+              <MiniLoader />
+            </div>
+          )}
+          <iframe
+            src={`https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+            className="w-[80%] h-[700px]"
+            onLoad={() => setLoading(false)}
+          />
+        </div>
+      );
+    };
+  
 
   return (
     <div>
@@ -164,10 +187,11 @@ function ApplicantDetails({ setTogglee }) {
                     >
                       <div>
                         <p
-                          className={` min-w-[121px] ${activeOption === "ApplicantProfile"
-                            ? "text-[#333]"
-                            : "text-[#646464]"
-                            } cursor-pointer `}
+                          className={` min-w-[121px] ${
+                            activeOption === "ApplicantProfile"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                          } cursor-pointer `}
                           onClick={() => handleOptionClick("ApplicantProfile")}
                         >
                           Applicant Profile
@@ -193,10 +217,11 @@ function ApplicantDetails({ setTogglee }) {
                         jobDetails?.hiringStage !== "Pending" && (
                           <div>
                             <p
-                              className={`min-w-[115px] ${activeOption === "HiringProgress"
-                                ? "text-[#333]"
-                                : "text-[#646464]"
-                                } cursor-pointer`}
+                              className={`min-w-[115px] ${
+                                activeOption === "HiringProgress"
+                                  ? "text-[#333]"
+                                  : "text-[#646464]"
+                              } cursor-pointer`}
                               onClick={() =>
                                 handleOptionClick("HiringProgress")
                               }
@@ -223,10 +248,11 @@ function ApplicantDetails({ setTogglee }) {
                         )}
                       <div>
                         <p
-                          className={` min-w-[60px] ${activeOption === "Resume"
-                            ? "text-[#333]"
-                            : "text-[#646464]"
-                            } cursor-pointer`}
+                          className={` min-w-[60px] ${
+                            activeOption === "Resume"
+                              ? "text-[#333]"
+                              : "text-[#646464]"
+                          } cursor-pointer`}
                           onClick={() => handleOptionClick("Resume")}
                         >
                           Resume
@@ -246,14 +272,17 @@ function ApplicantDetails({ setTogglee }) {
                           />
                         </svg>
                       </div>
-                      {jobDetails?.matchingParameters.length > 0 &&
+                      {jobDetails?.matchingParameters.length > 0 && (
                         <div>
                           <p
-                            className={`min-w-[156px] ${activeOption === "matchingParameters"
-                              ? "text-[#333]"
-                              : "text-[#646464]"
-                              } cursor-pointer `}
-                            onClick={() => handleOptionClick("matchingParameters")}
+                            className={`min-w-[156px] ${
+                              activeOption === "matchingParameters"
+                                ? "text-[#333]"
+                                : "text-[#646464]"
+                            } cursor-pointer `}
+                            onClick={() =>
+                              handleOptionClick("matchingParameters")
+                            }
                           >
                             Matching Parameters
                           </p>
@@ -274,8 +303,7 @@ function ApplicantDetails({ setTogglee }) {
                             />
                           </svg>
                         </div>
-                      }
-                     
+                      )}
                     </div>
                     <div className="h-[1px] bg-[#D6DDEB]"></div>
                   </div>
@@ -285,20 +313,43 @@ function ApplicantDetails({ setTogglee }) {
                 )}
                 {toggle === "Resume" && (
                   <div className=" flex items-center justify-center py-[16px] resumes2 ">
-                    <PdfViewer
+                    
+                    {isImage ? (
+                    <img
+                      src={userDetails?.file}
+                      alt="Uploaded Document"
+                      className="max-w-full max-h-full object-contain rounded-lg"
+                    />
+                  ) : isPDF ? (
+                   
+                     <PdfViewer
                       pdfUrl={jobDetails?.resumeUrl}
                       loadingg={loadingg}
                       setLoadingg={setLoadingg}
                     />
+               
+                  ) : isDoc ? (
+                    <DocumentViewer fileUrl={jobDetails?.resumeUrl} />
+
+
+                  ) : (
+                    <InlineSVG imageUrl={jobDetails?.resumeUrl} />
+                  )}
                   </div>
                 )}
                 {toggle === "matchingParameters" && (
                   <div>
                     {jobDetails?.matchingParameters?.map((param, index) => (
                       <div key={index} className="px-6 py-2">
-                        <h3 className="text-[16px] font-semibold">{param.title}</h3>
-                        <p className="text-[14px] font-normal ">Matching Points: {param.matching_points}</p>
-                        <p className="text-[14px] font-normal ">{param.description}</p>
+                        <h3 className="text-[16px] font-semibold">
+                          {param.title}
+                        </h3>
+                        <p className="text-[14px] font-normal ">
+                          Matching Points: {param.matching_points}
+                        </p>
+                        <p className="text-[14px] font-normal ">
+                          {param.description}
+                        </p>
                       </div>
                     ))}
                   </div>
