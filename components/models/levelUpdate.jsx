@@ -274,7 +274,7 @@ function LevelUpdate({
 
   return (
     <div
-      className="scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] sm:p-6 p-3 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full "
+      className="scr1200:max-w-[40%] scr1200:w-[40%] ml:w-[50%] sm:p-6 p-3 rounded-tl-[16px] h-[100vh] bg-white flex flex-col gap-4 overflow-y-auto w-full "
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       {shortlist && (
@@ -382,7 +382,7 @@ function LevelUpdate({
         </div>
       )}
       <div className="flex flex-col w-full gap-2">
-        <p className="text-[16px] scr420:text-[18px] font-medium">Add Comment</p>
+        <p className="text-[16px] scr420:text-[18px] font-medium ml:text-[14px] ">Add Comment</p>
         <div>
           <input
             type="text"
@@ -408,7 +408,7 @@ function LevelUpdate({
               checked={isNextLevel === "nextLevel"}
             />
 
-            <label>Move to next Level</label>
+            <label className="ml:text-[12px] text-[14px]">Move to next Level</label>
           </div>
           <div className="flex gap-[8px] items-center  ">
             <input
@@ -419,7 +419,7 @@ function LevelUpdate({
               onChange={(e) => handleIsNextLevel(e.target.value)}
               checked={isNextLevel === "Shortlisted"}
             />
-            <label className="text-[#0C8A0A] ">Shortlist Candidate</label>
+            <label className="text-[#0C8A0A] ml:text-[12px] text-[14px] ">Shortlist Candidate</label>
           </div>
           <div className="flex gap-[8px] items-center  ">
             <input
@@ -430,7 +430,7 @@ function LevelUpdate({
               onChange={(e) => handleIsNextLevel(e.target.value)}
               checked={isNextLevel === "Rejected"}
             />
-            <label className="text-[#C00000]">Reject Candidate</label>
+            <label className="text-[#C00000] ml:text-[12px] text-[14px]">Reject Candidate</label>
           </div>
         </div>
         {isNextLevel === "nextLevel" && (
@@ -456,7 +456,7 @@ function LevelUpdate({
                   className="h-[20px] w-[20px] custom-radio cursor-pointer"
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
-                <label>Schedule Interview</label>
+                <label className="text-[14px]">Schedule Interview</label>
               </div>
               <div className="flex gap-[8px] items-center ">
                 <input
@@ -466,7 +466,7 @@ function LevelUpdate({
                   className="h-[20px] w-[20px] custom-radio cursor-pointer "
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
-                <label>Assign Task</label>
+                <label  className="text-[14px]">Assign Task</label>
               </div>
             </div>
             <div className="h-[1px] bg-[#D6DDEB]"></div>
@@ -508,7 +508,7 @@ function LevelUpdate({
               exit={{ x: "100%" }}
               transition={{ duration: 0.5 }}
               // ref={taskRef}
-              className="absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] "
+              className="absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[40%]  scr1200:w-[40%] ml:w-40%] "
             >
               <ScheduleInterview
                 setError={setError}
@@ -537,7 +537,7 @@ function LevelUpdate({
               exit={{ x: "100%" }}
               transition={{ duration: 0.5 }}
               // ref={taskRef}
-              className="absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] "
+              className="absolute z-[2500] right-0 w-[100%] top-[0] scr1200:max-w-[40%]  scr1200:w-[40%] ml:w-40%] "
             >
               <ScheduleTask
                 setError={setError}
