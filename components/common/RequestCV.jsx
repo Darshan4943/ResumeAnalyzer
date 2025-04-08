@@ -559,9 +559,9 @@ function RequestCV() {
         </>
       )}
       <div className="w-full flex flex-col gap-4 ">
-        <div className="h-[36px]"></div>
+        <div className="ml:h-[36px] h-0"></div>
         <div className="p-4 bg-white rounded-[16px] flex flex-col gap-4 min-h-[560px]">
-          <div className="bg-[#F9F9F9] w-[348px] flex rounded-[30px] text-[14px] font-semibold">
+          <div className="bg-[#F9F9F9] scr390:w-[348px] w-[284px] flex rounded-[30px] scr390:text-[14px] text-[10px] font-semibold justify-center">
             <button
               className={`${
                 isResumes === "post"
