@@ -145,7 +145,7 @@ const SelectPost = () => {
 
   return (
     <>
-      <div className="bg-[#F9F9F9] w-[348px] flex rounded-[30px] text-[14px] font-semibold ">
+      <div className="bg-[#F9F9F9] xsm:w-[348px] w-[284px] flex rounded-[30px] text-[14px] font-semibold ">
         <button
           className={`${
             toggle === 0

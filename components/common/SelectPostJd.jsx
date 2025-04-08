@@ -26,17 +26,13 @@ const SelectPostJd = ({
   const [jobPost, setJobPost] = useState([]);
   const dispatch = useDispatch();
   const { recallData } = useSelector((state) => state.recall);
-
   const [totalPages, setTotalPages] = useState(1);
-
   const [totalCount, setTotalCount] = useState(0);
   const [miniloading, setMiniloading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(9);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [delayedSearchTerm, setDelayedSearchTerm] = useState("");
-
   const [openLimit, setOpenLimit] = useState(false);
 
   localStorage.setItem("jdApplicantFilenames", JSON.stringify(""));
@@ -192,7 +188,7 @@ const SelectPostJd = ({
           Select a Job for Request CV from Skilotech
         </span>
 
-        <div className="flex gap-3">
+        <div className="flex scr360:flex-row flex-col items-start gap-3">
           <div className="flex items-center gap-2  bg-[#ffffff]  border border-[#DEDEDE] rounded-[30px] py-[8px] px-[24px]  min-w-[190px]">
             <input
               type="text"
