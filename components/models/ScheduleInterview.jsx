@@ -358,63 +358,67 @@ function ScheduleInterview({
           </div>
         </div>
         <div className="flex xl:flex-row flex-col gap-4 w-full">
-          <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
-            <div>
-              <p className="text-[14px] font-medium">
-                Interview Date <span className="text-red">*</span>
-              </p>
+          <div>
+            <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
+              <div>
+                <p className="text-[14px] font-medium">
+                  Interview Date <span className="text-red">*</span>
+                </p>
+              </div>
+              <input
+                type="date"
+                placeholder="Select Date"
+                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                value={selectedValues?.interviewDate}
+                onChange={handleDateChange}
+              />
             </div>
-            <input
-              type="date"
-              placeholder="Select Date"
-              className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-              value={selectedValues?.interviewDate}
-              onChange={handleDateChange}
-            />
-          </div>
-          <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
-            <p className="text-[14px] font-medium">
-              Start Time <span className="text-red">*</span>
-            </p>
-            <div className="flex gap-4">
-              <select
-                className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
-                value={selectedValues.startTime}
-                onChange={handleStartTimeChange}
-              >
-                <option disabled>Select</option>
-
-                {Array.from({ length: 12 }, (_, i) => i + 1).flatMap((hour) => [
-                  <option key={`${hour}:00`} value={`${hour}:00`}>
-                    {String(hour).padStart(2, "0")}:00
-                  </option>,
-                  <option key={`${hour}:30`} value={`${hour}:30`}>
-                    {String(hour).padStart(2, "0")}:30
-                  </option>,
-                ])}
-              </select>
-
-              <div className="flex gap-2   text-[14px] font-[400]">
-                <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${
-                    selectedValues.startAmPm === "AM"
-                      ? " bg-blue text-white"
-                      : ""
-                  }`}
-                  onClick={() => handleAmPmChange("AM")}
+            <div className="flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]">
+              <p className="text-[14px] font-medium">
+                Start Time <span className="text-red">*</span>
+              </p>
+              <div className="flex gap-4">
+                <select
+                  className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
+                  value={selectedValues.startTime}
+                  onChange={handleStartTimeChange}
                 >
-                  AM
-                </button>
-                <button
-                  className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${
-                    selectedValues.startAmPm === "PM"
-                      ? "text-white bg-blue"
-                      : ""
-                  }`}
-                  onClick={() => handleAmPmChange("PM")}
-                >
-                  PM
-                </button>
+                  <option disabled>Select</option>
+
+                  {Array.from({ length: 12 }, (_, i) => i + 1).flatMap(
+                    (hour) => [
+                      <option key={`${hour}:00`} value={`${hour}:00`}>
+                        {String(hour).padStart(2, "0")}:00
+                      </option>,
+                      <option key={`${hour}:30`} value={`${hour}:30`}>
+                        {String(hour).padStart(2, "0")}:30
+                      </option>,
+                    ]
+                  )}
+                </select>
+
+                <div className="flex gap-2   text-[14px] font-[400]">
+                  <button
+                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px]  ${
+                      selectedValues.startAmPm === "AM"
+                        ? " bg-blue text-white"
+                        : ""
+                    }`}
+                    onClick={() => handleAmPmChange("AM")}
+                  >
+                    AM
+                  </button>
+                  <button
+                    className={`text-[14px] rounded-[6px] h-[38px] w-[40px] ${
+                      selectedValues.startAmPm === "PM"
+                        ? "text-white bg-blue"
+                        : ""
+                    }`}
+                    onClick={() => handleAmPmChange("PM")}
+                  >
+                    PM
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -466,6 +470,7 @@ function ScheduleInterview({
             </select>
           </div>
         </div>
+
         {selectedValues?.isOnline ? (
           <div className="flex flex-col gap-2">
             <label className="text-[14px] font-medium">
@@ -500,8 +505,8 @@ function ScheduleInterview({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-            <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4">
-              <div className="flex flex-col gap-2">
+          <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
+          <div className="flex flex-col gap-2">
                 <p
                   className={` cursor-pointer ${
                     activeOption === "Candidate"

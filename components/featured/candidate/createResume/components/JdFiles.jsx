@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ClosedIcon, ClosedIcon1, DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
+import {
+  ClosedIcon,
+  ClosedIcon1,
+  DocSVG,
+  PDFSvg,
+  PNGICON,
+  SearchIcon,
+} from "../../../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
 import Fuse from "fuse.js";
-
 
 function JdFiles({
   setIsCollection,
@@ -18,7 +24,7 @@ function JdFiles({
   setCollection,
   setTab,
   setIsOpen,
-  isOpen
+  isOpen,
 }) {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
@@ -40,78 +46,78 @@ function JdFiles({
     setAllData(details);
   }, [details]);
 
+  //   const openFolder = (index, parentId, name, item) => {
+  //   if (item?.type === "file") {
+  //     window.location.href = item.file;
+  //   } else {
+  //     const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+  //     const currentParentId = localStorage.getItem("parentId");
+  //     const currentFileName = localStorage.getItem("fileName");
 
-//   const openFolder = (index, parentId, name, item) => {
-//   if (item?.type === "file") {
-//     window.location.href = item.file;
-//   } else {
-//     const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
-//     const currentParentId = localStorage.getItem("parentId");
-//     const currentFileName = localStorage.getItem("fileName");
+  //     if (currentParentId !== null && currentFileName !== null) {
+  //       historyStack.push({
+  //         parentId: currentParentId,
+  //         fileName: currentFileName,
+  //       });
+  //       localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+  //     }
 
-//     if (currentParentId !== null && currentFileName !== null) {
-//       historyStack.push({
-//         parentId: currentParentId,
-//         fileName: currentFileName,
-//       });
-//       localStorage.setItem("folderHistory", JSON.stringify(historyStack));
-//     }
+  //     localStorage.setItem("parentId", parentId);
+  //     localStorage.setItem("fileName", name);
+  //     setIsOpen(!isOpen);
+  //   }
+  // };
 
-//     localStorage.setItem("parentId", parentId);
-//     localStorage.setItem("fileName", name);
-//     setIsOpen(!isOpen);
-//   }
-// };
+  // const handleBack = () => {
+  //   const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
 
-// const handleBack = () => {
-//   const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
+  //   if (historyStack.length > 0) {
+  //     const lastFolder = historyStack.pop();
+  //     localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+  //     localStorage.setItem("parentId", lastFolder.parentId);
+  //     localStorage.setItem("fileName", lastFolder.fileName);
+  //     setIsOpen(!isOpen);
+  //   }
+  // };
 
-//   if (historyStack.length > 0) {
-//     const lastFolder = historyStack.pop();
-//     localStorage.setItem("folderHistory", JSON.stringify(historyStack));
-//     localStorage.setItem("parentId", lastFolder.parentId);
-//     localStorage.setItem("fileName", lastFolder.fileName);
-//     setIsOpen(!isOpen);
-//   }
-// };
+  const openFolder = (index, parentId, name, item) => {
+    if (item?.type === "file") {
+      window.location.href = item.file;
+    } else {
+      const historyStack =
+        JSON.parse(localStorage.getItem("folderHistory")) || [];
+      const currentParentId = localStorage.getItem("parentId");
+      const currentFileName = localStorage.getItem("fileName");
 
-const openFolder = (index, parentId, name, item) => {
-  if (item?.type === "file") {
-    window.location.href = item.file;
-  } else {
-    const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
-    const currentParentId = localStorage.getItem("parentId");
-    const currentFileName = localStorage.getItem("fileName");
+      if (currentParentId !== null && currentFileName !== null) {
+        historyStack.push({
+          parentId: currentParentId,
+          fileName: currentFileName,
+        });
+        localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+      }
 
-    if (currentParentId !== null && currentFileName !== null) {
-      historyStack.push({
-        parentId: currentParentId,
-        fileName: currentFileName,
-      });
-      localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+      localStorage.setItem("parentId", parentId || "");
+      localStorage.setItem("fileName", name || "");
+      setIsOpen(!isOpen);
     }
+  };
 
-    localStorage.setItem("parentId", parentId || ""); 
-    localStorage.setItem("fileName", name || ""); 
-    setIsOpen(!isOpen);
-  }
-};
+  const handleBack = () => {
+    const historyStack =
+      JSON.parse(localStorage.getItem("folderHistory")) || [];
 
-const handleBack = () => {
-  const historyStack = JSON.parse(localStorage.getItem("folderHistory")) || [];
-
-  if (historyStack.length > 0) {
-    const lastFolder = historyStack.pop();
-    localStorage.setItem("folderHistory", JSON.stringify(historyStack));
-    localStorage.setItem("parentId", lastFolder.parentId);
-    localStorage.setItem("fileName", lastFolder.fileName);
-    setIsOpen(!isOpen);
-  } else {
-    localStorage.setItem("parentId", "");
-    localStorage.setItem("fileName", "");
-  }
-};
-
+    if (historyStack.length > 0) {
+      const lastFolder = historyStack.pop();
+      localStorage.setItem("folderHistory", JSON.stringify(historyStack));
+      localStorage.setItem("parentId", lastFolder.parentId);
+      localStorage.setItem("fileName", lastFolder.fileName);
+      setIsOpen(!isOpen);
+    } else {
+      localStorage.setItem("parentId", "");
+      localStorage.setItem("fileName", "");
+    }
+  };
 
   const fileIconSeter = (data) => {
     if (
@@ -295,7 +301,6 @@ const handleBack = () => {
     }
   };
 
-
   // useEffect(() => {
   //   // Check if the query parameter exists in localStorage
   //   const isFiles = localStorage.getItem("isFiles");
@@ -314,7 +319,6 @@ const handleBack = () => {
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    ">
         <div className="absolute rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] px-[16px] pt-12 pb-4 flex flex-col gap-[16px] h-fit ml:w-[60%] w-[90%] ">
           <div className="flex scr1200:flex-row  flex-col items-center justify-between gap-[12px] relative ">
-
             <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
               {fileName && (
                 <svg
@@ -336,9 +340,10 @@ const handleBack = () => {
               )}
               {fileName && (
                 <span className="text-[14px] text-[#333333] font-medium text-wrap w-[140px]">
-                {fileName.length > 15 ? fileName.slice(0, 15) + "..." : fileName}
-              </span>
-              
+                  {fileName.length > 15
+                    ? fileName.slice(0, 15) + "..."
+                    : fileName}
+                </span>
               )}
               <div className="flex ml-4 flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center ">
                 <SearchIcon />
@@ -375,7 +380,7 @@ const handleBack = () => {
           <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
           <div
             className="flex flex-row flex-wrap gap-4  py-4  h-[50vh] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-          // style={{ overflowX: "auto" }}
+            // style={{ overflowX: "auto" }}
           >
             {loading ? (
               <div className="w-full ">
@@ -386,7 +391,9 @@ const handleBack = () => {
                 <>
                   <div
                     key={index}
-                    onClick={() => openFolder(index, item._id, item.fileName, item)}
+                    onClick={() =>
+                      openFolder(index, item._id, item.fileName, item)
+                    }
                     className="w-[88px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[80px] max-h-[100px] rounded-[8px] cursor-pointer "
                   >
                     <div className="relative">
@@ -395,15 +402,15 @@ const handleBack = () => {
                       {(getAllFiles(item).filter((item) => item.type == "file")
                         ?.length > 0 ||
                         item.type === "file") && (
-                          <input
-                            type="checkbox"
-                            className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
-                            style={{ width: "20px", height: "20px" }}
-                            onClick={(e) => e.stopPropagation()}
-                            checked={selectedIndexes?.includes(item._id)}
-                            onChange={() => toggleSelect(item._id, item)}
-                          />
-                        )}
+                        <input
+                          type="checkbox"
+                          className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                          style={{ width: "20px", height: "20px" }}
+                          onClick={(e) => e.stopPropagation()}
+                          checked={selectedIndexes?.includes(item._id)}
+                          onChange={() => toggleSelect(item._id, item)}
+                        />
+                      )}
                       {/* )} */}
                     </div>
 
@@ -425,8 +432,23 @@ const handleBack = () => {
             )}
           </div>
           <div className="flex justify-end gap-4">
-            <button onClick={() => { setIsCollection(false); setCollection("") }} className="blue_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"> Cancel</button>
-            <button onClick={() => setIsCollection(false)} className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"> Done</button>
+            <button
+              onClick={() => {
+                setIsCollection(false);
+                setCollection("");
+              }}
+              className="red_border_Button px-6 py-2 text-[14px] font-medium rounded-[30px] h-[38px]"
+            >
+              {" "}
+              Cancel
+            </button>
+            <button
+              onClick={() => setIsCollection(false)}
+              className="bg_Button px-6 py-2 text-[14px] text-white font-medium rounded-[30px] h-[38px]"
+            >
+              {" "}
+              Done
+            </button>
           </div>
         </div>
       </div>

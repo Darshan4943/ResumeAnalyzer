@@ -161,7 +161,8 @@ function RequisitionList({
                           <>
                             <span className="min-w-1" key={index}>
                               {loc}
-                              {index !== requisition.location.length - 1 && ", "}
+                              {index !== requisition.location.length - 1 &&
+                                ", "}
                             </span>
                           </>
                         ))}
@@ -212,8 +213,8 @@ function RequisitionList({
         )}
       </div>
 
-      <div className="mobile  ">
-        <div className=" flex flex-col gap-2   relative ">
+      <div className="mobile">
+        <div className=" flex flex-col gap-2 relative ">
           <div>
             {requisitions.map((requisition, index) => (
               <div
@@ -234,24 +235,24 @@ function RequisitionList({
                     </div>
                   </div>
                   <div className="text-[#333] text-[12px] font-[500]">
-                    {/* {req.Location} */}
+                    {/* {requisition.Location} */}
                   </div>
                 </div>
-                <div className="flex justify-evenly">
+                <div className="flex justify-evenly items-center pt-2">
                   <div className="text-center">
-                    <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                    <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                       Requested by
                     </div>
-                    <div className="text-[#333] text-[12px] font-[500]  ">
+                    <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px]  ">
                       {userDataGlobal?.name || "-"}
                       <div className="text-[#646464] text-[10px] font-[500]"></div>
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="py-[6px] px-[12px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                    <div className="py-[6px] px-[12px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                       Budget
                     </div>
-                    <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
+                    <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px] ">
                       {!requisition.budgetFrom && !requisition.budgetTo ? (
                         "-"
                       ) : (
@@ -265,10 +266,10 @@ function RequisitionList({
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] text-[12px] font-[500]">
+                    <div className="p-[6px] rounded-[2px] bg-[#FFFADD] text-[#333] xsm:text-[12px] text-[10px] font-[500]">
                       Open Position
                     </div>
-                    <div className="text-[#333] text-[12px] font-[500] py-[6px] ">
+                    <div className="text-[#333] xsm:text-[12px] text-[10px] font-[500] py-[6px] ">
                       {requisition.positions
                         ? `${requisition.positions} positions`
                         : "-"}
@@ -279,17 +280,18 @@ function RequisitionList({
                 <div className="flex justify-between items-center self-stretch">
                   <div className="flex items-center rounded-md bg-[#E0F6FF] w-fit">
                     <div className="flex items-center py-2 px-3 bg-[#F8F8F8] rounded-l-md">
-                      <p className="text-[#333] text-[12px] font-medium">
+                      <p className="text-[#333] xsm:text-[12px] text-[10px] font-medium">
                         Priority
                       </p>
                     </div>
 
                     <div className="flex items-center py-2 px-4">
                       <p
-                        className={`text-[12px] font-medium ${requisition.isPriority
-                          ? "text-green-600"
-                          : "text-red-500"
-                          }`}
+                        className={`xsm:text-[12px] text-[10px] font-medium ${
+                          requisition.isPriority
+                            ? "text-green-600"
+                            : "text-red-500"
+                        }`}
                       >
                         {requisition.isPriority ? "Yes" : "No"}
                       </p>
@@ -299,15 +301,16 @@ function RequisitionList({
                   <div className="flex">
                     <div className="px-3 py-[6px] rounded-full">
                       <p
-                        className={`text-center font-Montserrat font-semibold text-[14px] px-4 py-2 border rounded-full 
-      ${requisition?.status === "Rejected"
-                            ? "text-[#FF7A00] border-[#FF7A00]"
-                            : requisition?.status === "Pending"
-                              ? "text-yellow border-yellow"
-                              : requisition?.status === "Approved"
-                                ? "text-green border-green"
-                                : "text-gray border-gray"
-                          }
+                        className={`text-center font-Montserrat font-semibold xsm:text-[14px] text-[12px] px-4 py-2 border rounded-full 
+      ${
+        requisition?.status === "Rejected"
+          ? "text-[#FF7A00] border-[#FF7A00]"
+          : requisition?.status === "Pending"
+          ? "text-yellow border-yellow"
+          : requisition?.status === "Approved"
+          ? "text-green border-green"
+          : "text-gray border-gray"
+      }
     `}
                       >
                         {requisition?.status || "-"}
@@ -320,6 +323,7 @@ function RequisitionList({
           </div>
         </div>
       </div>
+      
     </>
   );
 }

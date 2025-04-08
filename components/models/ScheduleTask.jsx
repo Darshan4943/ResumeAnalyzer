@@ -287,8 +287,8 @@ function ScheduleTask({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-            <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4">
-              <div className="flex flex-col gap-2">
+          <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
+          <div className="flex flex-col gap-2">
                 <p
                   className={` cursor-pointer ${activeOption === "Candidate"
                       ? "text-[#333333]"
@@ -311,7 +311,7 @@ function ScheduleTask({
                   />
                 </svg>
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 ">
                 <p
                   className={` cursor-pointer ${activeOption === "Interviewer"
                       ? "text-[#333333]"

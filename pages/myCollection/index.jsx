@@ -1,12 +1,8 @@
 import Fuse from "fuse.js";
 import React, { useEffect, useReducer, useRef, useState } from "react";
-
 import axios from "axios";
 import { toast } from "react-toastify";
-
 import { useSelector, useDispatch } from "react-redux";
-
-
 import { useRouter } from "next/router";
 import Tesseract from "tesseract.js";
 import PizZip from "pizzip";
@@ -26,7 +22,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 function Collection() {
   const router = useRouter();
-  const { skilotechCollection, folders, clientId, parentId, trash } = router.query;
+  const { skilotechCollection, folders, clientId, parentId, trash } =
+    router.query;
   const { recallData } = useSelector((state) => state.recall);
   const dispatch = useDispatch();
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -53,29 +50,39 @@ function Collection() {
   const [uploadCount, setUploadCount] = useState(0);
   const [duplicateFiles, setDuplicateFiles] = useState([]);
   const [failedFiles, setFailedFiles] = useState([]);
-  const [unSyncFiles, setUnSyncFiles] = useState(null)
+  const [unSyncFiles, setUnSyncFiles] = useState(null);
   const [count, setCount] = useState("");
-  const [refresh, setRefresh] = useState(true)
-  const [collectionCount, setCollectionCount] = useState(0)
-  const [error, setError] = useState("")
+  const [refresh, setRefresh] = useState(true);
+  const [collectionCount, setCollectionCount] = useState(0);
+  const [error, setError] = useState("");
 
   const getLimits = () => {
-    const collectionCountDaily = JSON.parse(localStorage.getItem("collectionCountDaily"));
-    const collectionCountDailyLimit = JSON.parse(localStorage.getItem("collectionCountDailyLimit"));
-    const collectionCountMonthly = JSON.parse(localStorage.getItem("collectionCountMonthly"));
-    const collectionCountMonthlyLimit = JSON.parse(localStorage.getItem("collectionCountMonthlyLimit"));
+    const collectionCountDaily = JSON.parse(
+      localStorage.getItem("collectionCountDaily")
+    );
+    const collectionCountDailyLimit = JSON.parse(
+      localStorage.getItem("collectionCountDailyLimit")
+    );
+    const collectionCountMonthly = JSON.parse(
+      localStorage.getItem("collectionCountMonthly")
+    );
+    const collectionCountMonthlyLimit = JSON.parse(
+      localStorage.getItem("collectionCountMonthlyLimit")
+    );
     const aiHitsMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
-    const aiHitsMonthlyLimit = JSON.parse(localStorage.getItem("aiHitsMonthlyLimit"));
+    const aiHitsMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
 
     const remainingDaily = collectionCountDailyLimit - collectionCountDaily;
     // const remainingMonthly = collectionCountMonthlyLimit - collectionCountMonthly;
     const remainingMonthly = aiHitsMonthlyLimit - aiHitsMonthly;
 
     const finalLimit = Math.max(0, Math.min(remainingDaily, remainingMonthly));
-    setCollectionCount(finalLimit)
-  }
+    setCollectionCount(finalLimit);
+  };
   useEffect(() => {
-    getLimits()
+    getLimits();
   }, []);
 
   const fileToText = (file, pageNumber) => {
@@ -102,28 +109,20 @@ function Collection() {
     }
   }, [isCreate]);
 
-
-
   const getData = () => {
-
     if (folders == "true") {
       setTab(0);
       setTabIndex(0);
       if (clientId) {
         getClientData(clientId);
-
-      }
-      else if (parentId) {
+      } else if (parentId) {
         setParentId(parentId);
         getParentData(parentId);
-
-
       } else {
         getFolderData();
-
       }
     } else if (skilotechCollection == "true") {
-      setLoading(false)
+      setLoading(false);
       setTab(1);
       setTabIndex(0);
       // if (!parentId) {
@@ -132,17 +131,14 @@ function Collection() {
       //   setParentId(parentId);
       //   getParentData(parentId);
       // }
-
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
       getTrashed();
-
     } else {
       setTab(1);
       setTabIndex(0);
       // getFolderData();
-
     }
   };
 
@@ -197,11 +193,10 @@ function Collection() {
         `https://jamblix.com/api/folder/getSkilotechCollectionData/${userDataGlobal?._id}`
       )
       .then((res) => {
-
         setFolderList(res.data.data[0].files);
 
         getParentData(res.data.data[0]._id);
-        setParentId(res.data.data[0]._id)
+        setParentId(res.data.data[0]._id);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -228,11 +223,10 @@ function Collection() {
   };
 
   const getUnSyncFiles = () => {
-
     axios
       .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
       .then((res) => {
-        const files = res.data.data.filter(item => item.type === 'file');
+        const files = res.data.data.filter((item) => item.type === "file");
         setUnSyncFiles(files.length);
       })
       .catch((err) => {
@@ -240,23 +234,19 @@ function Collection() {
       });
   };
 
-
-
   useEffect(() => {
-
     getUnSyncFiles();
     dispatch(setRecallData(!recallData));
     if (unSyncFiles > 0) {
       const interval = setInterval(() => {
-        getUnSyncFiles()
-        getData()
+        getUnSyncFiles();
+        getData();
         dispatch(setRecallData(!recallData));
       }, 30000);
 
       return () => clearInterval(interval);
     }
   }, [unSyncFiles]);
-
 
   const createFolder = () => {
     setFileLoader(true);
@@ -286,13 +276,14 @@ function Collection() {
     }
   };
 
-
-
   const parseData = () => {
     return new Promise((resolve, reject) => {
       const textDataPromises = Object.values(files).map(async (file, index) => {
         return new Promise((resolve) => {
-          if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+          if (
+            file.type ===
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ) {
             const reader = new FileReader();
             reader.onload = (e) => {
               const content = e.target.result;
@@ -328,7 +319,7 @@ function Collection() {
       });
 
       Promise.all(textDataPromises).then((results) => {
-        resolve(results.filter(result => result.text.length > 0));
+        resolve(results.filter((result) => result.text.length > 0));
       });
     });
   };
@@ -341,7 +332,10 @@ function Collection() {
     if (allowedFiles.length) {
       const promises = allowedFiles.map((file, index) => {
         return new Promise((resolve) => {
-          if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+          if (
+            file.type ===
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ) {
             const reader = new FileReader();
             reader.onload = async (e) => {
               const content = e.target.result;
@@ -401,16 +395,16 @@ function Collection() {
     await Promise.all(promises);
   };
 
-
-
-
   const addData = async (file, index, text) => {
-
     return new Promise((resolve) => {
       setTimeout(async () => {
         const formData = new FormData();
         try {
-          if (folderList.some((existingFile) => existingFile.fileName === file.name)) {
+          if (
+            folderList.some(
+              (existingFile) => existingFile.fileName === file.name
+            )
+          ) {
             setDuplicateFiles((prevDuplicateFiles) => [
               ...prevDuplicateFiles,
               { file, index },
@@ -422,7 +416,7 @@ function Collection() {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
               ...prevFailedFiles,
-              { file, index, error: 'Invalid text' },
+              { file, index, error: "Invalid text" },
             ]);
             return;
           }
@@ -456,10 +450,6 @@ function Collection() {
     });
   };
 
-
-
-
-
   const handleButtonClick = () => {
     fileRef.current.click();
   };
@@ -472,10 +462,14 @@ function Collection() {
 
   useEffect(() => {
     getData();
-  }, [skilotechCollection, folders, clientId, parentId, userDataGlobal, recall]);
-
-
-
+  }, [
+    skilotechCollection,
+    folders,
+    clientId,
+    parentId,
+    userDataGlobal,
+    recall,
+  ]);
 
   // const updateCollectionLimit = async () => {
   //   if (uploadCount === 0) {
@@ -490,7 +484,7 @@ function Collection() {
   //     if (response.data.success) {
 
   //       setUploadCount(0);
-  //    
+  //
   //       return response.data;
   //     } else {
   //       console.error('Error:', response.data.message);
@@ -509,8 +503,11 @@ function Collection() {
 
   const updateCollectionLimit = async () => {
     if (uploadCount === 0) {
-      console.log('No files to update. Skipping API call.');
-      return { success: false, message: 'Files count is zero, no update needed.' };
+      console.log("No files to update. Skipping API call.");
+      return {
+        success: false,
+        message: "Files count is zero, no update needed.",
+      };
     }
     try {
       const apiUrl = `https://jamblix.com/api/apiLogs/updateCollectionCount/${userDataGlobal?._id}`;
@@ -519,37 +516,36 @@ function Collection() {
       const updateCountPromise = axios.put(apiUrl, { uploadCount });
       const anotherApiPromise = axios.put(anotherApiUrl, { uploadCount });
 
-      const [response, secondResponse] = await Promise.all([updateCountPromise, anotherApiPromise]);
+      const [response, secondResponse] = await Promise.all([
+        updateCountPromise,
+        anotherApiPromise,
+      ]);
 
       if (response.data.success) {
-
         setUploadCount(0);
         dispatch(setRecallData(!recallData));
       } else {
-        console.error('First API call error:', response.data.message);
+        console.error("First API call error:", response.data.message);
       }
 
       if (secondResponse.data.success) {
-
-        console.log('Second API call was successful');
+        console.log("Second API call was successful");
       } else {
-        console.error('Second API call error:', secondResponse.data.message);
+        console.error("Second API call error:", secondResponse.data.message);
       }
-
 
       return {
         success: response.data.success && secondResponse.data.success,
-        message: 'Both API calls completed',
+        message: "Both API calls completed",
         firstApiResponse: response.data,
         secondApiResponse: secondResponse.data,
       };
     } catch (error) {
-      console.error('Something went wrong:', error);
+      console.error("Something went wrong:", error);
       setUploadCount(0);
-      return { success: false, message: 'Something went wrong', error };
+      return { success: false, message: "Something went wrong", error };
     }
   };
-
 
   return (
     <>
@@ -825,16 +821,14 @@ function Collection() {
                   onChange={(e) => {
                     const newValue = e.target.value;
                     if (newValue === "Skilotech Collection") {
-                      setError(`${newValue} not allowed`)
+                      setError(`${newValue} not allowed`);
                       setFolderName(newValue);
                     } else {
-                      setError("")
+                      setError("");
                       setFolderName(newValue);
                     }
-
                   }}
                 />
-
               )}
               {fileLoader && isFile && Object.values(files).length > 1 && (
                 <>
@@ -844,38 +838,45 @@ function Collection() {
                       {Object.keys(files).length > 0 ? "Files" : "File"}
                     </span>
                     <span className="text-sm font-medium text-blue-700">
-                      {`${Math.round(
-                        (uploadCount / Object.keys(files).length) * 100
-                      ).toString() != "Infinity"
-                        ? Math.round(
+                      {`${
+                        Math.round(
                           (uploadCount / Object.keys(files).length) * 100
-                        )
-                        : 100
-                        }%`}
+                        ).toString() != "Infinity"
+                          ? Math.round(
+                              (uploadCount / Object.keys(files).length) * 100
+                            )
+                          : 100
+                      }%`}
                     </span>
                   </div>
                   <div className="w-full bg-[#e8f0ff] rounded-full h-2.5">
                     <div
                       class="bg-[#06a9ef] h-2.5 rounded-full"
                       style={{
-                        width: `${(uploadCount / Object.keys(files).length) * 100
-                          }%`,
+                        width: `${
+                          (uploadCount / Object.keys(files).length) * 100
+                        }%`,
                       }}
                     ></div>
                   </div>
                 </>
               )}
-              {error &&
+              {error && (
                 <p className="text-red font-[500] text-[12px]">{error}</p>
-              }
+              )}
 
               <div className="flex justify-between gap-6">
-                <div className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"}`} >
-                  {isFile &&
+                <div
+                  className={`text-[16px] font-medium ${
+                    collectionCount > 0 ? "text-[#000000]" : "text-red"
+                  }`}
+                >
+                  {isFile && (
                     <>
-                      Daily upload limit : {collectionCount ? collectionCount : 0}
+                      Daily upload limit :{" "}
+                      {collectionCount ? collectionCount : 0}
                     </>
-                  }
+                  )}
                 </div>
 
                 <div className="flex justify-end gap-6 text-blue font-medium">
@@ -891,12 +892,11 @@ function Collection() {
                       setFailedFiles([]);
                       setDuplicateFiles([]);
                       getData();
-                      getUnSyncFiles()
+                      getUnSyncFiles();
                       setTimeout(() => {
-                        getUnSyncFiles()
+                        getUnSyncFiles();
                       }, 10000);
-                      updateCollectionLimit()
-
+                      updateCollectionLimit();
                     }}
                   >
                     Close
@@ -905,16 +905,20 @@ function Collection() {
                     <button
                       //  id="border_button"
                       disabled={
-                        fileLoader || error ||
-                        (isFile ? Object.values(files).length === 0 : !folderName)
+                        fileLoader ||
+                        error ||
+                        (isFile
+                          ? Object.values(files).length === 0
+                          : !folderName)
                       }
                       style={{
                         minWidth: "80px",
                         opacity:
-                          fileLoader || error ||
-                            (isFile
-                              ? Object.values(files).length === 0
-                              : !folderName)
+                          fileLoader ||
+                          error ||
+                          (isFile
+                            ? Object.values(files).length === 0
+                            : !folderName)
                             ? 0.5
                             : 1,
                       }}
@@ -945,7 +949,6 @@ function Collection() {
                   )}
                 </div>
               </div>
-
             </div>
           </div>
         </>
@@ -958,16 +961,16 @@ function Collection() {
                 My Collection
               </p>
 
-              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px]  ">
-
+              <div className="flex ml:flex-col flex-row  sm:gap-2 w-full  bg-white rounded-[16px] scr420:px-4 scr420:py-4  ml:justify-start justify-between py-2  px-2 ml:min-h-[560px] overflow-x-auto ">
                 <button
                   onClick={() => {
                     // setTab(1);
                     // setTabIndex(0);
                     router.push("/myCollection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${tab === 0 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${
+                    tab === 0 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     className="scr420:block hidden"
@@ -990,8 +993,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/myCollection?skilotechCollection=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center   min-w-[280px] ${tab === 1 && "bg-[#C2E7FF]"
-                    }   `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center   min-w-[280px] ${
+                    tab === 1 && "bg-[#C2E7FF]"
+                  }   `}
                 >
                   <svg
                     className="min-w-[20px] scr420:block hidden"
@@ -1014,8 +1018,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/myCollection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
+                    tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     className="scr420:block hidden"
@@ -1044,8 +1049,7 @@ function Collection() {
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
             </div> */}
           </div>
-          {tab === 0 || tab === 2 ?
-
+          {tab === 0 || tab === 2 ? (
             <Folders
               folderData={folderData}
               unSyncFiles={unSyncFiles}
@@ -1068,11 +1072,9 @@ function Collection() {
               getLimits={getLimits}
               parentId={parentId}
             />
-            :
-
+          ) : (
             <RequestCV />
-
-          }
+          )}
         </div>
       </div>
     </>
