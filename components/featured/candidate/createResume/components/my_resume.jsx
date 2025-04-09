@@ -8,6 +8,7 @@ import ImageCropperResume from "./imgCropperResume";
 
 const ResumeList = ({ data, setData }) => {
   const [file, setFile] = useState(null);
+
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
   const [isChecked, setIsChecked] = useState(true);
@@ -17,6 +18,7 @@ const ResumeList = ({ data, setData }) => {
     fileRef.current.click();
   };
   const [croppedImage, setCroppedImage] = useState(null);
+
 
   useEffect(() => {
     if (data) {
@@ -238,13 +240,20 @@ const ResumeList = ({ data, setData }) => {
               alt="Selected File"
               className="w-[112px] h-[112px] rounded-[50%] object-cover"
             />
-          ) : (
-            <img
-              src="/images/services/profile.png"
-              alt="Selected File"
-              className="w-[112px] h-[112px] rounded-[50%] object-cover"
-            />
-          )}
+          ) :
+            data?.profilePhoto ? (
+              <ImageContainer
+                src={data.profilePhoto}
+                alt="Selected File"
+                className="w-[112px] h-[112px] rounded-[50%] object-cover"
+              />
+            ) : (
+              <img
+                src="/images/services/profile.png"
+                alt="Selected File"
+                className="w-[112px] h-[112px] rounded-[50%] object-cover"
+              />
+            )}
           <div
             className="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center upload-btn-wrapper"
             ref={fileRef}
@@ -286,11 +295,10 @@ const ResumeList = ({ data, setData }) => {
               disabled={
                 data.profilePhoto === null || data.profilePhoto === undefined
               }
-              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${
-                (data.profilePhoto === null ||
+              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${(data.profilePhoto === null ||
                   data.profilePhoto === undefined) &&
                 "opacity-50"
-              }`}
+                }`}
               onClick={() => removeImgae()}
             >
               Remove
@@ -298,9 +306,8 @@ const ResumeList = ({ data, setData }) => {
 
             <button
               disabled={!croppedImage}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                !croppedImage && "opacity-50"
-              }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!croppedImage && "opacity-50"
+                }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

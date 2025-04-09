@@ -126,7 +126,7 @@ const ResumePreview = ({
   }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
-    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal?.role === "user" ? userDataGlobal?._id : userDataGlobal?._id;
     if (id) {
       axios
         .get(`https://jamblix.com/api/resume/${id}`)
@@ -397,48 +397,67 @@ const ResumePreview = ({
  
   const saveResume = async (blob, download) => {
     setdisabled(true);
-
-    if (blob !== null) {
+  
+    if (!blob) {
+      toast.error("Something went wrong, Please try again");
+      return;
+    }
+  
+    const uploadProfilePhotoAndSave = async () => {
+      let profilePhotoUrl = "";
+  
+     
+      if (data.profilePhoto && typeof data.profilePhoto === "object" && data.profilePhoto instanceof Blob) {
+        const photoForm = new FormData();
+        photoForm.append("profilePhoto", data.profilePhoto);
+  
+        try {
+          const res = await axios.post("http://localhost:2000/api/upload/profile-photo", photoForm);
+          profilePhotoUrl = res.data.url; 
+        } catch (error) {
+          setLoading(false);
+          setSaveDisabled(false);
+         
+          
+        }
+      }
+  
+      // Now continue to save resume
       if ((aiHitMonthly >= aiHitMonthlyLimit) || !activePlan) {
         setLimitPopup(true);
         return;
       }
+  
       if (isEdit) {
         setSaveDisabled(true);
         setLoading(true);
-
+  
         const formData = new FormData();
-        if (Object.keys(data).length > 0) {
-          Object.keys(data).map((key) => {
-            if (Array.isArray(data[key]) && data[key].length > 0) {
-              formData.append(key, JSON.stringify(data[key]));
-            } else {
-              formData.append(key, data[key]);
-            }
-          });
+        Object.keys(data).forEach((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            formData.append(key, data[key]);
+          }
+        });
+  
+        if (profilePhotoUrl) {
+          formData.append("profilePhoto", profilePhotoUrl);
         }
-
+  
         formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
-
-        if (userDataGlobal?.role === "user") {
-          formData.append("UserId", userDataGlobal?._id);
-        } else if (userDataGlobal?.role === "recruiter") {
-          formData.append("UserId", userDataGlobal?._id);
-
-        }
-
+  
+        formData.append("UserId", userDataGlobal?._id);
+  
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put(`http://localhost:2000/api/resume/${id}`, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-            // localStorage.setItem("saveCount", Number(saveLimit) + 1);
-            // const saveCount = JSON.parse(localStorage.getItem("saveCount"));
-            // setSaveLimit(saveCount)
-
+  
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -447,72 +466,59 @@ const ResumePreview = ({
               link.click();
               document.body.removeChild(link);
             }
-
-
-            dispatch(updateAiHit(userDataGlobal?._id))
+  
+            dispatch(updateAiHit(userDataGlobal?._id));
             setTimeout(() => {
               dispatch(setRecallData(!recallData));
               getLimits();
             }, 1000);
+  
             toast.success("Resume Updated successfully");
-            setTimeout(() => {
-              setSaveDisabled(false);
-            }, 10000);
-
-            setTimeout(() => {
-              setLoading(false);
-            }, 1000);
-            setTimeout(() => {
-              setdisabled(false);
-            }, 10000);
+  
+            setTimeout(() => setSaveDisabled(false), 10000);
+            setTimeout(() => setLoading(false), 1000);
+            setTimeout(() => setdisabled(false), 10000);
           })
           .catch((err) => {
-            setLoading(false);
-            setSaveDisabled(false);
             console.log(err);
             toast.error("Something went wrong ");
+            setLoading(false);
+            setSaveDisabled(false);
           });
       } else {
         setLoading(true);
         setSaveDisabled(true);
-
+  
         const formData = new FormData();
-        if (Object.keys(data).length > 0) {
-          Object.keys(data).map((key) => {
-            if (Array.isArray(data[key]) && data[key].length > 0) {
-              formData.append(key, JSON.stringify(data[key]));
-            } else {
-              if (data[key] != undefined) {
-                formData.append(key, data[key]);
-              }
+        Object.keys(data).forEach((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            if (data[key] !== undefined) {
+              formData.append(key, data[key]);
             }
-          });
+          }
+        });
+  
+        if (profilePhotoUrl) {
+          formData.append("profilePhoto", profilePhotoUrl);
         }
-
+  
         formData.append("pdfBlob", blob);
         formData.append("resumeTemplateIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
-
-        // if (userDataGlobal?.role === "user") {
-        //   formData.append("userId", userDataGlobal?._id);
-        // } else if (userDataGlobal?.role === "recruiter") {
-        //   formData.append("userId", data.clientId);
-        //   formData.append("recruiterId", userDataGlobal?._id);
-        // }
-
-
         formData.append("userId", userDataGlobal?._id);
-
-
+  
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
             const saveCount = JSON.parse(localStorage.getItem("saveCount"));
-            setSaveLimit(saveCount)
+            setSaveLimit(saveCount);
+  
             if (download) {
               const link = document.createElement("a");
               link.href = pdfUrl;
@@ -521,23 +527,21 @@ const ResumePreview = ({
               link.click();
               document.body.removeChild(link);
             }
-
+  
             getLimits();
-
-            dispatch(updateAiHit(userDataGlobal?._id))
+  
+            dispatch(updateAiHit(userDataGlobal?._id));
             setTimeout(() => {
               dispatch(setRecallData(!recallData));
             }, 1000);
+  
             toast.success("Resume Saved To Collection successfully");
             localStorage.removeItem("userData");
             localStorage.removeItem("resumeData");
-            setTimeout(() => {
-              setSaveDisabled(false);
-            }, 10000);
+  
+            setTimeout(() => setSaveDisabled(false), 10000);
             setLoading(false);
-            setTimeout(() => {
-              setdisabled(false);
-            }, 10000);
+            setTimeout(() => setdisabled(false), 10000);
           })
           .catch((err) => {
             console.log(err);
@@ -546,10 +550,12 @@ const ResumePreview = ({
             setLoading(false);
           });
       }
-    } else {
-      toast.error("Something went wrong, Please try again");
-    }
+    };
+  
+    // Call the flow
+    uploadProfilePhotoAndSave();
   };
+  
   const updateDownloadCount = async () => {
 
     setDownloadBtnLoading(true);
