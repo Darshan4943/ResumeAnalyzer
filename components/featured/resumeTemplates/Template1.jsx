@@ -14,6 +14,33 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
+  const fetchImageAsBase64 = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const [profileBase64, setProfileBase64] = useState(null);
+
+  useEffect(() => {
+    const prepareImage = async () => {
+      if (data?.profilePhoto && typeof data.profilePhoto === 'string' && data.profilePhoto.startsWith('http')) {
+        try {
+          const base64Image = await fetchImageAsBase64(data.profilePhoto);
+          setProfileBase64(base64Image);
+        } catch (error) {
+          console.error('Error fetching image:', error);
+        }
+      }
+    };
+    prepareImage();
+  }, [data?.profilePhoto]);
 
   const formatLink = (link) => {
     if (link?.length > 23) {
@@ -87,7 +114,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               {data?.designation}
             </Text>
           </View>
-          { data?.showProfile === true && (
+          {data?.showProfile === true && (
             <View
               style={{
                 width: "112px",
@@ -98,10 +125,10 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                 <Image
                   src={
                     preview
-                      ? data?.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
+                      ? profileBase64 || data?.profilePhoto
+                      : Object.keys(data?.profilePhoto || {}).includes("filename")
                         ? URL.createObjectURL(data?.profilePhoto)
-                        : data?.profilePhoto
+                        : profileBase64 || data?.profilePhoto
                   }
                   style={{
                     objectFit: "cover",
@@ -110,6 +137,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                     height: "112px",
                   }}
                 />
+
               ) : (
                 <Image src="/images/services/profile.png" />
               )}
@@ -386,7 +414,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               </View>
             )}
             {data?.achievements?.length > 0 &&
-              data.showAchievements === true &&  !pageLayout &&(
+              data.showAchievements === true && !pageLayout && (
                 <View
                   wrap={false}
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
@@ -920,7 +948,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                 ))}
               </View>
             )}
-            {data?.project?.length > 0 && data?.showProject === true &&  (
+            {data?.project?.length > 0 && data?.showProject === true && (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }} wrap={data?.project?.length == 1 ? false : true}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -1117,7 +1145,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               </View>
             )}
             {data?.extraCaricularData?.length > 0 &&
-              data?.showExtraCariculam === true && !pageLayout &&(
+              data?.showExtraCariculam === true && !pageLayout && (
                 <View
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 >
@@ -1217,7 +1245,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                   ))}
                 </View>
               )}
-            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout &&(
+            {data?.section?.length > 0 && data?.showCustomSection === true && !pageLayout && (
               <>
                 {data?.section?.map((item, index) => (
                   <View
