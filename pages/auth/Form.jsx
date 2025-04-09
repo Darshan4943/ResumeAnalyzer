@@ -288,7 +288,6 @@ function Form({}) {
       "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-    console.log(emptyFields);
     if (!data.dial_code) {
       setFormError((prevErrors) => ({
         ...prevErrors,
