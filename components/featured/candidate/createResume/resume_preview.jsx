@@ -412,7 +412,7 @@ const ResumePreview = ({
         photoForm.append("profilePhoto", data.profilePhoto);
   
         try {
-          const res = await axios.post("http://localhost:2000/api/upload/profile-photo", photoForm);
+          const res = await axios.post("https://jamblix.com/api/upload/profile-photo", photoForm);
           profilePhotoUrl = res.data.url; 
         } catch (error) {
           setLoading(false);
@@ -454,7 +454,7 @@ const ResumePreview = ({
         formData.append("UserId", userDataGlobal?._id);
   
         axios
-          .put(`http://localhost:2000/api/resume/${id}`, formData)
+          .put(`https://jamblix.com/api/resume/${id}`, formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
   
@@ -512,7 +512,7 @@ const ResumePreview = ({
         formData.append("userId", userDataGlobal?._id);
   
         axios
-          .post("http://localhost:2000/api/resume/add", formData)
+          .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
