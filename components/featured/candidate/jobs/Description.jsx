@@ -179,7 +179,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                   disabled={
                     selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
                     && (isLogin || appliedJobs.includes(selectedJob?._id)) ||
-                    selectedJob?.status === "Hold"
+                    selectedJob?.status === "Inactive" || selectedJob?.status === "Closed"
                   }
                   onClick={() => {
                     if (isLogin) {
@@ -202,7 +202,7 @@ function Description({ selectedJob, filter, setLimitPopup }) {
                   && (isLogin || appliedJobs.includes(selectedJob?._id)) && "bg-[#0275A7]" } px-6 rounded-[30px] h-[38px] bg_Button
                   ${selectedJob?.matchedApplication?.applicantId === userDataGlobal?._id
                       && (isLogin || appliedJobs.includes(selectedJob?._id)) ||
-                      selectedJob.status === "Hold"
+                      selectedJob.status === "Inactive" || selectedJob?.status === "Closed"
                       ? "cursor-not-allowed"
                       : " cursor-pointer"
                     }`}
