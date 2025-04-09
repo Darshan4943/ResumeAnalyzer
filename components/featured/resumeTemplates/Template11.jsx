@@ -13,6 +13,33 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) {
+  const fetchImageAsBase64 = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+  
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result); 
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+  
+  const [profileBase64, setProfileBase64] = useState(null);
+
+useEffect(() => {
+  const prepareImage = async () => {
+    if (data?.profilePhoto && typeof data.profilePhoto === 'string' && data.profilePhoto.startsWith('http')) {
+      try {
+        const base64Image = await fetchImageAsBase64(data.profilePhoto);
+        setProfileBase64(base64Image);
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    }
+  };
+  prepareImage();
+}, [data?.profilePhoto]);
   const formatLink22 = (link) => {
     if (link?.length > 18) {
       return link?.match(/.{1,18}/g).join("\n");
@@ -123,13 +150,13 @@ function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) 
             <View style={{ width: "176px", height: "180px" }}>
               {data.profilePhoto ? (
                 <Image
-                  src={
-                    preview
-                      ? data.profilePhoto
-                      : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
-                  }
+                src={
+                  preview
+                    ? profileBase64 || data?.profilePhoto
+                    : Object.keys(data?.profilePhoto || {}).includes("filename")
+                      ? URL.createObjectURL(data?.profilePhoto)
+                      : profileBase64 || data?.profilePhoto
+                }
                   style={{ objectFit: "contain" }}
                   alt=""
                 />

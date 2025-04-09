@@ -12,6 +12,33 @@ import {
 } from "@react-pdf/renderer";
 
 function Template13({ data, selectedColor, selectedFont, pageLayout }) {
+  const fetchImageAsBase64 = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+  
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result); 
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+  
+  const [profileBase64, setProfileBase64] = useState(null);
+
+useEffect(() => {
+  const prepareImage = async () => {
+    if (data?.profilePhoto && typeof data.profilePhoto === 'string' && data.profilePhoto.startsWith('http')) {
+      try {
+        const base64Image = await fetchImageAsBase64(data.profilePhoto);
+        setProfileBase64(base64Image);
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    }
+  };
+  prepareImage();
+}, [data?.profilePhoto]);
   const formatLink = (link) => {
     if (link?.length > 26) {
       return link?.match(/.{1,26}/g).join("\n");
