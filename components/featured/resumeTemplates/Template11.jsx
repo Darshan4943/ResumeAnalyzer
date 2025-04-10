@@ -10,7 +10,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview, pageLayout }) {
   const fetchImageAsBase64 = async (url) => {

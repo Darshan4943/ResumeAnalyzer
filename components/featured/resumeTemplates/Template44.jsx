@@ -13,38 +13,48 @@ import {
   ClipPath,
   data,
 } from "@react-pdf/renderer";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { formatLink } from "../../../utils/middleware";
 
 //template 13
-const Template44 = ({ data, selectedColor, selectedFont, preview,pageLayout }) => {
+const Template44 = ({
+  data,
+  selectedColor,
+  selectedFont,
+  preview,
+  pageLayout,
+}) => {
   const fetchImageAsBase64 = async (url) => {
     const response = await fetch(url);
     const blob = await response.blob();
-  
+
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result); 
+      reader.onloadend = () => resolve(reader.result);
       reader.onerror = reject;
       reader.readAsDataURL(blob);
     });
   };
-  
+
   const [profileBase64, setProfileBase64] = useState(null);
 
-useEffect(() => {
-  const prepareImage = async () => {
-    if (data?.profilePhoto && typeof data.profilePhoto === 'string' && data.profilePhoto.startsWith('http')) {
-      try {
-        const base64Image = await fetchImageAsBase64(data.profilePhoto);
-        setProfileBase64(base64Image);
-      } catch (error) {
-        console.error('Error fetching image:', error);
+  useEffect(() => {
+    const prepareImage = async () => {
+      if (
+        data?.profilePhoto &&
+        typeof data.profilePhoto === "string" &&
+        data.profilePhoto.startsWith("http")
+      ) {
+        try {
+          const base64Image = await fetchImageAsBase64(data.profilePhoto);
+          setProfileBase64(base64Image);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
       }
-    }
-  };
-  prepareImage();
-}, [data?.profilePhoto]);
+    };
+    prepareImage();
+  }, [data?.profilePhoto]);
   const formatLink1 = (link) => {
     if (link?.length > 34) {
       return link?.match(/.{1,34}/g).join("\n");
@@ -76,13 +86,15 @@ useEffect(() => {
             <View style={{ marginTop: "24px" }}>
               {data?.profilePhoto ? (
                 <Image
-                src={
-                  preview
-                    ? profileBase64 || data?.profilePhoto
-                    : Object.keys(data?.profilePhoto || {}).includes("filename")
+                  src={
+                    preview
+                      ? profileBase64 || data?.profilePhoto
+                      : Object.keys(data?.profilePhoto || {}).includes(
+                          "filename"
+                        )
                       ? URL.createObjectURL(data?.profilePhoto)
                       : profileBase64 || data?.profilePhoto
-                }
+                  }
                   style={{
                     objectFit: "cover",
                     borderRadius: "50%",
@@ -105,7 +117,12 @@ useEffect(() => {
           )}
           {data?.showSummary === true && (
             <View
-              style={{ paddingTop: data?.showProfile ? "" : "34px", flexDirection: "column", gap: 16, alignItems: "center" }}
+              style={{
+                paddingTop: data?.showProfile ? "" : "34px",
+                flexDirection: "column",
+                gap: 16,
+                alignItems: "center",
+              }}
             >
               <Text
                 style={{
@@ -211,7 +228,14 @@ useEffect(() => {
                   color: "#282829",
                 }}
               >
-                {data.mobileNumber ? <> {data.dial_code} {data.mobileNumber}</> : <>Your Phone</>}
+                {data.mobileNumber ? (
+                  <>
+                    {" "}
+                    {data.dial_code} {data.mobileNumber}
+                  </>
+                ) : (
+                  <>Your Phone</>
+                )}
               </Text>
             </View>
 
@@ -289,23 +313,25 @@ useEffect(() => {
                   gap: "8px",
                 }}
               >
-                {data?.skills?.slice(0, pageLayout && 5)?.map((detail, index) => (
-                  <View
-                    wrap={false}
-                    key={index}
-                    style={{
-                      color: "#414042",
-                      fontSize: "12px",
-                      // width: "calc(50% - 4px)",
-                      width: "100%",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {detail.skill}
-                    </Text>
-                  </View>
-                ))}
+                {data?.skills
+                  ?.slice(0, pageLayout && 5)
+                  ?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
+                      style={{
+                        color: "#414042",
+                        fontSize: "12px",
+                        // width: "calc(50% - 4px)",
+                        width: "100%",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                        {detail.skill}
+                      </Text>
+                    </View>
+                  ))}
               </View>
             </View>
           )}
@@ -353,7 +379,215 @@ useEffect(() => {
                     gap: "8px",
                   }}
                 >
-                  {data?.achievements?.slice(0, pageLayout && 3)?.map((detail, index) => (
+                  {data?.achievements
+                    ?.slice(0, pageLayout && 3)
+                    ?.map((detail, index) => (
+                      <View
+                        wrap={false}
+                        key={index}
+                        style={{
+                          color: "#414042",
+                          fontSize: "12px",
+                          // width: "calc(50% - 4px)",
+                          width: "100%",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                          {detail.title}
+                        </Text>
+                      </View>
+                    ))}
+                </View>
+              </View>
+            )}
+
+          {data?.socialLinks?.length > 0 &&
+            data?.showLinks === true &&
+            !pageLayout && (
+              <View
+                wrap={data?.socialLinks?.length > 1 ? true : false}
+                style={{
+                  flexDirection: "column",
+                  width: "100%",
+                  display: "flex",
+                  padding: "8px",
+                  gap: "10px",
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: `${selectedFont} 500`,
+                      // color: selectedColor,
+                      fontSize: 14,
+                    }}
+                  >
+                    Website & Social link
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    // flexDirection: "row",
+                    flexDirection: "column",
+
+                    // flexWrap: "wrap",
+                    // rowGap:'10px',
+                    alignItems: "center",
+                    width: "100%",
+                    paddingHorizontal: "8px",
+                    gap: "8px",
+                  }}
+                >
+                  {data?.socialLinks?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
+                      style={{
+                        color: "#414042",
+                        fontSize: "12px",
+                        // width: "calc(50% - 4px)",
+                        width: "100%",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <Text style={{ fontFamily: `${selectedFont} 500` }}>
+                        {detail.platform}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 400`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {formatLink(detail.link)}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+
+          {data?.languages?.length > 0 &&
+            data?.showLanguage === true &&
+            !pageLayout && (
+              <View
+                wrap={false}
+                style={{
+                  flexDirection: "column",
+                  width: "100%",
+                  display: "flex",
+                  padding: "8px",
+                  gap: "10px",
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    wrap={data?.internship?.length > 1 ? true : false}
+                    style={{
+                      fontFamily: `${selectedFont} 500`,
+                      // color: selectedColor,
+                      fontSize: 14,
+                    }}
+                  >
+                    LANGUAGES
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    // flexDirection: "row",
+                    flexDirection: "column",
+
+                    // flexWrap: "wrap",
+                    // rowGap:'10px',
+                    alignItems: "center",
+                    width: "100%",
+                    paddingHorizontal: "8px",
+                    gap: "8px",
+                  }}
+                >
+                  {data?.languages?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
+                      style={{
+                        color: "#414042",
+                        fontSize: "12px",
+                        // width: "calc(50% - 4px)",
+                        width: "100%",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                        {detail?.languages}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+
+          {data?.hobbies?.length > 0 &&
+            data?.showHobbies === true &&
+            !pageLayout && (
+              <View
+                wrap={data?.hobbies?.length > 1 ? true : false}
+                style={{
+                  flexDirection: "column",
+                  width: "100%",
+                  display: "flex",
+                  padding: "8px",
+                  gap: "10px",
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: `${selectedFont} 500`,
+                      // color: selectedColor,
+                      fontSize: 14,
+                    }}
+                  >
+                    HOBBIES
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    // flexDirection: "row",
+                    flexDirection: "column",
+
+                    // flexWrap: "wrap",
+                    // rowGap:'10px',
+                    alignItems: "center",
+                    width: "100%",
+                    paddingHorizontal: "8px",
+                    gap: "8px",
+                  }}
+                >
+                  {data?.hobbies?.map((detail, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -374,284 +608,102 @@ useEffect(() => {
               </View>
             )}
 
-          {data?.socialLinks?.length > 0 && data?.showLinks === true && !pageLayout && (
-            <View
-              wrap={data?.socialLinks?.length > 1 ? true : false}
-              style={{
-                flexDirection: "column",
-                width: "100%",
-                display: "flex",
-                padding: "8px",
-                gap: "10px",
-              }}
-            >
+          {data?.reference?.length > 0 &&
+            data?.showReference === true &&
+            !pageLayout && (
               <View
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Text
-                  style={{
-                    fontFamily: `${selectedFont} 500`,
-                    // color: selectedColor,
-                    fontSize: 14,
-                  }}
-                >
-                  Website & Social link
-                </Text>
-              </View>
-              <View
+                wrap={data?.reference?.length > 1 ? true : false}
                 style={{
-                  display: "flex",
-                  // flexDirection: "row",
                   flexDirection: "column",
-
-                  // flexWrap: "wrap",
-                  // rowGap:'10px',
-                  alignItems: "center",
                   width: "100%",
-                  paddingHorizontal: "8px",
-                  gap: "8px",
+                  display: "flex",
+                  padding: "8px",
+                  gap: "10px",
                 }}
               >
-                {data?.socialLinks?.map((detail, index) => (
-                  <View
-                    wrap={false}
-                    key={index}
-                    style={{
-                      color: "#414042",
-                      fontSize: "12px",
-                      // width: "calc(50% - 4px)",
-                      width: "100%",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Text style={{ fontFamily: `${selectedFont} 500` }}>
-                      {detail.platform}
-                    </Text>
-                    <Text
-                      style={{
-                        color: "#414042",
-                        fontSize: 12,
-                        fontFamily: `${selectedFont} 400`,
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {formatLink(detail.link)}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {data?.languages?.length > 0 && data?.showLanguage === true &&  !pageLayout &&(
-            <View
-              wrap={false}
-              style={{
-                flexDirection: "column",
-                width: "100%",
-                display: "flex",
-                padding: "8px",
-                gap: "10px",
-              }}
-            >
-              <View
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Text
-                  wrap={data?.internship?.length > 1 ? true : false}
+                <View
                   style={{
-                    fontFamily: `${selectedFont} 500`,
-                    // color: selectedColor,
-                    fontSize: 14,
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
                   }}
                 >
-                  LANGUAGES
-                </Text>
-              </View>
-              <View
-                style={{
-                  display: "flex",
-                  // flexDirection: "row",
-                  flexDirection: "column",
-
-                  // flexWrap: "wrap",
-                  // rowGap:'10px',
-                  alignItems: "center",
-                  width: "100%",
-                  paddingHorizontal: "8px",
-                  gap: "8px",
-                }}
-              >
-                {data?.languages?.map((detail, index) => (
-                  <View
-                    wrap={false}
-                    key={index}
+                  <Text
                     style={{
-                      color: "#414042",
-                      fontSize: "12px",
-                      // width: "calc(50% - 4px)",
-                      width: "100%",
-                      flexWrap: "wrap",
+                      fontFamily: `${selectedFont} 500`,
+                      // color: selectedColor,
+                      fontSize: 14,
                     }}
                   >
-                    <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {detail?.languages}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {data?.hobbies?.length > 0 && data?.showHobbies === true &&  !pageLayout &&(
-            <View
-              wrap={data?.hobbies?.length > 1 ? true : false}
-              style={{
-                flexDirection: "column",
-                width: "100%",
-                display: "flex",
-                padding: "8px",
-                gap: "10px",
-              }}
-            >
-              <View
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Text
+                    REFERENCE
+                  </Text>
+                </View>
+                <View
                   style={{
-                    fontFamily: `${selectedFont} 500`,
-                    // color: selectedColor,
-                    fontSize: 14,
+                    display: "flex",
+                    // flexDirection: "row",
+                    flexDirection: "column",
+
+                    // flexWrap: "wrap",
+                    // rowGap:'10px',
+                    alignItems: "center",
+                    width: "100%",
+                    paddingHorizontal: "8px",
+                    gap: "8px",
                   }}
                 >
-                  HOBBIES
-                </Text>
-              </View>
-              <View
-                style={{
-                  display: "flex",
-                  // flexDirection: "row",
-                  flexDirection: "column",
-
-                  // flexWrap: "wrap",
-                  // rowGap:'10px',
-                  alignItems: "center",
-                  width: "100%",
-                  paddingHorizontal: "8px",
-                  gap: "8px",
-                }}
-              >
-                {data?.hobbies?.map((detail, index) => (
-                  <View
-                    wrap={false}
-                    key={index}
-                    style={{
-                      color: "#414042",
-                      fontSize: "12px",
-                      // width: "calc(50% - 4px)",
-                      width: "100%",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {detail.title}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {data?.reference?.length > 0 && data?.showReference === true &&  !pageLayout &&(
-            <View
-              wrap={data?.reference?.length > 1 ? true : false}
-              style={{
-                flexDirection: "column",
-                width: "100%",
-                display: "flex",
-                padding: "8px",
-                gap: "10px",
-              }}
-            >
-              <View
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Text
-                  style={{
-                    fontFamily: `${selectedFont} 500`,
-                    // color: selectedColor,
-                    fontSize: 14,
-                  }}
-                >
-                  REFERENCE
-                </Text>
-              </View>
-              <View
-                style={{
-                  display: "flex",
-                  // flexDirection: "row",
-                  flexDirection: "column",
-
-                  // flexWrap: "wrap",
-                  // rowGap:'10px',
-                  alignItems: "center",
-                  width: "100%",
-                  paddingHorizontal: "8px",
-                  gap: "8px",
-                }}
-              >
-                {data?.reference?.map((detail, index) => (
-                  <View
-                    wrap={false}
-                    key={index}
-                    style={{
-                      color: "#414042",
-                      fontSize: "12px",
-                      // width: "calc(50% - 4px)",
-                      width: "100%",
-                      flexWrap: "wrap",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <Text style={{ fontFamily: `${selectedFont} 500` }}>
-                      {detail.referantName}
-                    </Text>
-                    <Text
+                  {data?.reference?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
                       style={{
                         color: "#414042",
-                        fontSize: 12,
-                        fontFamily: `${selectedFont} 400`,
-                        lineHeight: 1.5,
+                        fontSize: "12px",
+                        // width: "calc(50% - 4px)",
+                        width: "100%",
+                        flexWrap: "wrap",
+                        flexDirection: "column",
+                        gap: "8px",
                       }}
                     >
-                      {detail.designation}
-                    </Text>
-                    <Text
-                      style={{
-                        color: "#414042",
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {detail.organization}
-                    </Text>
-                    <Text
-                      style={{
-                        color: "#414042",
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {detail.email}
-                    </Text>
-                  </View>
-                ))}
+                      <Text style={{ fontFamily: `${selectedFont} 500` }}>
+                        {detail.referantName}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 400`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {detail.designation}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 10,
+                          fontFamily: `${selectedFont} 400`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 10,
+                          fontFamily: `${selectedFont} 400`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {detail.email}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
-          )}
+            )}
         </View>
         <View
           style={{
@@ -723,60 +775,72 @@ useEffect(() => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.experience?.slice(0, pageLayout && 1)?.map((detail, index) => (
-                  <View
-                    key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
-                    wrap={false}
-                  >
-                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
-                      <Text
+                {data?.experience
+                  ?.slice(0, pageLayout && 1)
+                  ?.map((detail, index) => (
+                    <View
+                      key={index}
+                      style={{ flexDirection: "column", gap: 4 }}
+                      wrap={false}
+                    >
+                      <View
                         style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 14,
-                          color: "#2D3033",
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
                         }}
                       >
-                        {formatLink1(detail.organization)}
-                      </Text>
-                      {detail.duration?.start?.year && (
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 14,
                             color: "#2D3033",
-                            height: "20px"
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                         `}
+                          {formatLink1(detail.organization)}
                         </Text>
-                      )}
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 14,
+                              color: "#2D3033",
+                              height: "20px",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${
+                                detail.currentlyWorking ||
+                                detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
+                        )}
+                      </View>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 12,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.designation}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
                     </View>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 12,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.designation}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 10,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
-                ))}
+                  ))}
               </View>
             </View>
           )}
@@ -806,62 +870,73 @@ useEffect(() => {
                   EDUCATION
                 </Text>
               </View>
-              {data?.education?.slice(0, pageLayout && 2)?.map((detail, index) => (
-                <View
-                  key={index}
-                  wrap={false}
-                  style={{
-                    gap: 4,
-                  }}
-                >
-                  <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
-                    <Text
+              {data?.education
+                ?.slice(0, pageLayout && 2)
+                ?.map((detail, index) => (
+                  <View
+                    key={index}
+                    wrap={false}
+                    style={{
+                      gap: 4,
+                    }}
+                  >
+                    <View
                       style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 13,
-                        color: "#2D3033",
-                        height: "20px"
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        gap: "4px",
                       }}
                     >
-                      {formatLink1(detail.qualification)}
-                    </Text>
-                    {detail.duration?.start?.year && (
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
                           fontSize: 13,
                           color: "#2D3033",
-                          height: "20px"
+                          height: "20px",
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                            ? "Pursuing"
-                            : detail.duration?.end?.year
-                          }`}
+                        {formatLink1(detail.qualification)}
                       </Text>
-                    )}
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 13,
+                            color: "#2D3033",
+                            height: "20px",
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${
+                              detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
+                            }`}
+                        </Text>
+                      )}
+                    </View>
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 12,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.instituteName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 10,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.specialization}
+                    </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: 12,
-                      color: "#6D6E71",
-                    }}
-                  >
-                    {detail.instituteName}
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: 10,
-                      color: "#6D6E71",
-                    }}
-                  >
-                    {detail.specialization}
-                  </Text>
-                </View>
-              ))}
+                ))}
             </View>
           )}
 
@@ -891,59 +966,72 @@ useEffect(() => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.course?.slice(0, pageLayout && 1)?.map((detail, index) => (
-                  <View
-                    key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
-                    wrap={false}
-                  ><View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
-                      <Text
+                {data?.course
+                  ?.slice(0, pageLayout && 1)
+                  ?.map((detail, index) => (
+                    <View
+                      key={index}
+                      style={{ flexDirection: "column", gap: 4 }}
+                      wrap={false}
+                    >
+                      <View
                         style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 14,
-                          color: "#2D3033",
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
                         }}
                       >
-                        {formatLink1(detail.title)}
-                      </Text>
-                      {detail.duration?.start?.year && (
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 14,
                             color: "#2D3033",
-                            height: "20px"
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                         `}
+                          {formatLink1(detail.title)}
                         </Text>
-                      )}
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 14,
+                              color: "#2D3033",
+                              height: "20px",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking ||
+                                detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
+                        )}
+                      </View>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 12,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
                     </View>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 12,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.organization}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 10,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
-                ))}
+                  ))}
               </View>
             </View>
           )}
@@ -974,150 +1062,174 @@ useEffect(() => {
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.internship?.slice(0, pageLayout && 1)?.map((detail, index) => (
-                  <View
-                    key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
-                    wrap={false}
-                  >
-
-                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
-                      <Text
+                {data?.internship
+                  ?.slice(0, pageLayout && 1)
+                  ?.map((detail, index) => (
+                    <View
+                      key={index}
+                      style={{ flexDirection: "column", gap: 4 }}
+                      wrap={false}
+                    >
+                      <View
                         style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 14,
-                          color: "#2D3033",
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
                         }}
                       >
-                        {formatLink1(detail.title)}
-                      </Text>
-                      {detail.duration?.start?.year && (
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 14,
                             color: "#2D3033",
-                            height: "20px"
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                         `}
+                          {formatLink1(detail.title)}
                         </Text>
-                      )}
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 14,
+                              color: "#2D3033",
+                              height: "20px",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking ||
+                                detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
+                        )}
+                      </View>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 12,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
                     </View>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 12,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.organization}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 10,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
-                ))}
+                  ))}
               </View>
             </View>
           )}
 
-          {data?.project?.length > 0 && data?.showProject === true &&  !pageLayout &&(
-            <View
-              style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              wrap={data?.project?.length > 1 ? true : false}
-            >
+          {data?.project?.length > 0 &&
+            data?.showProject === true &&
+            !pageLayout && (
               <View
-                style={{
-                  backgroundColor: "#2D3033",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: 4,
-                }}
+                style={{ display: "flex", flexDirection: "column", gap: 15 }}
+                wrap={data?.project?.length > 1 ? true : false}
               >
-                <Text
+                <View
                   style={{
-                    fontFamily: `${selectedFont} 400`,
-                    fontSize: 14,
-                    color: "#FFFFFF",
+                    backgroundColor: "#2D3033",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: 4,
                   }}
                 >
-                  PROJECT
-                </Text>
-              </View>
-              <View style={{ flexDirection: "column", gap: 16 }}>
-                {data?.project?.map((detail, index) => (
-                  <View
-                    key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
-                  // wrap={false}
+                  <Text
+                    style={{
+                      fontFamily: `${selectedFont} 400`,
+                      fontSize: 14,
+                      color: "#FFFFFF",
+                    }}
                   >
-                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
-                      <Text
+                    PROJECT
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "column", gap: 16 }}>
+                  {data?.project?.map((detail, index) => (
+                    <View
+                      key={index}
+                      style={{ flexDirection: "column", gap: 4 }}
+                      // wrap={false}
+                    >
+                      <View
                         style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 14,
-                          color: "#2D3033",
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
                         }}
                       >
-                        {formatLink1(detail.title)}
-                      </Text>
-                      {detail.duration?.start?.year && (
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 14,
                             color: "#2D3033",
-                            height: "20px"
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                         `}
+                          {formatLink1(detail.title)}
                         </Text>
-                      )}
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 14,
+                              color: "#2D3033",
+                              height: "20px",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking ||
+                                detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
+                        )}
+                      </View>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 12,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
                     </View>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 12,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.organization}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 10,
-                        color: "#6D6E71",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
-                ))}
+                  ))}
+                </View>
               </View>
-            </View>
-          )}
+            )}
           {data?.extraCaricularData?.length > 0 &&
-            data?.showExtraCariculam === true && !pageLayout &&(
+            data?.showExtraCariculam === true &&
+            !pageLayout && (
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
                 wrap={data?.extraCaricularData?.length > 1 ? true : false}
@@ -1149,7 +1261,15 @@ useEffect(() => {
                       style={{ flexDirection: "column", gap: 4 }}
                       wrap={false}
                     >
-                      <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                      <View
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
+                        }}
+                      >
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
@@ -1165,13 +1285,15 @@ useEffect(() => {
                               fontFamily: `${selectedFont} 400`,
                               fontSize: 14,
                               color: "#2D3033",
-                              height: "20px"
+                              height: "20px",
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking ||
+                                detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1202,7 +1324,8 @@ useEffect(() => {
             )}
 
           {data?.section?.length > 0 &&
-            data?.showCustomSection === true && !pageLayout &&
+            data?.showCustomSection === true &&
+            !pageLayout &&
             data?.section?.map((item, index) => (
               <View
                 // wrap={false}
@@ -1232,14 +1355,16 @@ useEffect(() => {
                 </View>
                 {item?.subSection?.map((detail, index) => (
                   <>
-                    <View
-                      key={index}
-                      style={{ gap: "10px" }}
-                      wrap={false}
-                    >
-
-
-                      <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                    <View key={index} style={{ gap: "10px" }} wrap={false}>
+                      <View
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          gap: "4px",
+                        }}
+                      >
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
@@ -1255,13 +1380,13 @@ useEffect(() => {
                               fontFamily: `${selectedFont} 400`,
                               fontSize: 14,
                               color: "#2D3033",
-                              height: "20px"
+                              height: "20px",
                             }}
                           >
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
                             {detail?.duration?.end?.year === "Year" ||
-                              detail?.duration?.end?.year === undefined
+                            detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>

@@ -49,7 +49,7 @@ const ResumePreview = ({
         style={{
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
           borderRadius: "10px",
-          width: "600px",
+          width: "550px",
           height: "572px",
           overflowY: "auto",
           scrollbarWidth: "none",
