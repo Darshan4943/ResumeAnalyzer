@@ -50,7 +50,7 @@ function EmployerSidebar() {
       title: "JD Creation",
       route: "/jdCreation",
     },
-   
+
     {
       img: "/images/employer/sidebar/myCollection.png",
       img1: "/images/employer/sidebar/myCollection2.png",
@@ -68,8 +68,9 @@ function EmployerSidebar() {
       img1: "/images/employer/sidebar/candidate2.png",
       title: "Resumes",
       route: "/recruiter/resumeCreation",
+      route1: "/createResume"
     },
-    
+
   ];
 
   const employerList = [
@@ -97,8 +98,8 @@ function EmployerSidebar() {
       title: "Hiring",
       route: "/common/hiring",
     },
-    
-    
+
+
     {
       img: "/images/employer/sidebar/preboarding.png",
       img1: "/images/employer/sidebar/Preboarding2.png",
@@ -129,7 +130,7 @@ function EmployerSidebar() {
       title: "Mail Templates",
       route: "/template",
     },
-    
+
   ];
 
   const menuList =
@@ -141,14 +142,14 @@ function EmployerSidebar() {
         const isActive =
           item.route === "/"
             ? selectedPage === item.route
-            : selectedPage.startsWith(item.route.split("?")[0]);
+            : selectedPage.startsWith(item.route?.split("?")[0] || "") ||
+            (item.route1 && selectedPage.startsWith(item.route1.split("?")[0]));
         return (
           <ALink href={item.route} key={index}>
             <div className="p-2">
               <div
-                className={`w-full flex flex-col gap-2 py-2  justify-center items-center rounded-[8px] ${
-                  isActive ? "bg-[#DFF4FD]" : ""
-                }`}
+                className={`w-full flex flex-col gap-2 py-2  justify-center items-center rounded-[8px] ${isActive ? "bg-[#DFF4FD]" : ""
+                  }`}
               >
                 <img
                   src={isActive ? item.img1 : item.img}
@@ -156,9 +157,8 @@ function EmployerSidebar() {
                   className="w-[24px] h-[24px]"
                 />
                 <div
-                  className={`text-center text-[12px] font-medium ${
-                    isActive ? "text-blue" : "text-[#646464]"
-                  }`}
+                  className={`text-center text-[12px] font-medium ${isActive ? "text-blue" : "text-[#646464]"
+                    }`}
                 >
                   {item.title}
                 </div>
