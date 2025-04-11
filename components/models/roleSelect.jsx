@@ -256,7 +256,7 @@ function RoleSelect({ signin, signup }) {
               </span>
             </div>
           ) : (
-            <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
+            <div className="flex items-center justify-center text-[12px]  sm:text-[14px] font-[500] text-[#646464]">
               Already have an account?{"  "}
               <span
                 onClick={() => router.push("/auth?signin=true")}

@@ -40,10 +40,10 @@ function HeroSection() {
     });
 
   return (
-    <div className="bg-[#EBF9FF] py-[30px] relative h-[calc(100vh-60.8px)] flex items-center">
+    <div className="bg-[#EBF9FF] py-[30px] relative ms:h-[calc(100vh-60.8px)] flex items-center">
       <div className="  flex gap-[33px] items-center customMargins justify-between">
         <div className="flex flex-col gap-6  ml:items-start items-center ml:w-[50%] w-full">
-          <div className="font-bold scr1024:text-[36px] scr460:text-[30px] text-[20px] leading-tight ml:text-start text-center ">
+          <div className="font-bold scr1024:text-[36px] scr460:text-[30px] text-[20px] leading-tight ml:text-start text-start ">
             Empowering <span className="text-[#06A9EF]"> Job Seekers,</span>
             <p>
               Connecting <span className="text-[#FFDA1D]"> Top Employers</span>
@@ -53,7 +53,7 @@ function HeroSection() {
             Find Your Dream Job
             <p>Search, Apply & Unlock Endless Career Opportunities!</p>
           </text>
-          <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%] ms:w-[87%] md:w-[70%] w-full max-w-[643px] ">
+          <div className="scr1024:gap-4  gap-1 flex justify-end  items-center ml:w-[117%]   w-full max-w-[643px] ">
             <div className="flex ms:flex-row flex-col justify-between scr1100:h-[62px] ms:h-[48px] ms:items-center  lg:gap-2 ms:gap-1 gap-2 items-start    scr1100:px-3 ms:px-2 px-4 scr1100:py-[10px] ms:py-2 py-4 border border-[#E1E3E3] ms:rounded-[30px] rounded-[12px] bg-white w-[100%]   ">
               <svg
                 width="24"
@@ -75,7 +75,7 @@ function HeroSection() {
               <input
                 type="text"
                 placeholder="Enter Skill / Designation"
-                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] ms:max-w-[148px] placeholder:text-[#889FBA]"
+                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[176px] ms:max-w-[148px] placeholder:text-[#889FBA]"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
