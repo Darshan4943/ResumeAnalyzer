@@ -118,14 +118,14 @@ function Job_card({
                 )}
               </div>
               {item?.logo && (
-                <div className="flex flex-row  items-end">
+                <div className="flex flex-row object-cover min-w-[76px] items-end">
                   <img
                     src={item?.logo}
                     alt=""
                     style={{
-                      height: "56px",
-                      width: "56px",
-                      objectFit: "cover",
+                      height: "40px",
+                      width: "76px",
+                     
                     }}
                   />
                 </div>
