@@ -449,8 +449,9 @@ function Header({ userData }) {
                   </div>
                   {profileData?.basics?.firstName && (
                     <div className=" text-[14px] font-semibold xxlg:block hidden">
-                      {camelCase(profileData?.basics?.firstName)}{" "}
-                      {camelCase(profileData?.basics?.lastName)}
+                      {camelCase(profileData?.basics?.firstName)}
+                      {/* {" "}
+                      {camelCase(profileData?.basics?.lastName)} */}
                     </div>
                   )}
 
