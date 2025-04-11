@@ -26,24 +26,24 @@ function Header({ userData }) {
 
   const [isMove, setIsMove] = useState(false);
 
-  const [jdCountMonthly, setJdCountMonthly] = useState(0);
+  const [jdCountMonthly, setJdCountMonthly] = useState();
   const [jdCountMonthlyLimit, setJdCountMonthlyLimit] = useState(0);
   const { recallData } = useSelector((state) => state.recall);
+  const { aiHitsMonthly, aiHitsMonthlyLimit } = useSelector((state) => state.aiHits);
+  // const getLimits = () => {
+  //   const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+  //   setJdCountMonthly(jdCountMonthly);
 
-  const getLimits = () => {
-    const jdCountMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
-    setJdCountMonthly(jdCountMonthly);
-
-    const jdCountMonthlyLimit = JSON.parse(
-      localStorage.getItem("aiHitsMonthlyLimit")
-    );
-    setJdCountMonthlyLimit(jdCountMonthlyLimit);
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      getLimits();
-    }, 500);
-  }, [recallData]);
+  //   const jdCountMonthlyLimit = JSON.parse(
+  //     localStorage.getItem("aiHitsMonthlyLimit")
+  //   );
+  //   setJdCountMonthlyLimit(jdCountMonthlyLimit);
+  // };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     getLimits();
+  //   }, 500);
+  // }, [recallData]);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -420,7 +420,7 @@ function Header({ userData }) {
                       />
                     </svg>
 
-                    {jdCountMonthlyLimit - jdCountMonthly}
+                    {aiHitsMonthlyLimit - aiHitsMonthly}
                   </div>
                 </div>
 

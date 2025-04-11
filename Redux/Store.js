@@ -11,6 +11,7 @@ import recallReducer from "./slices/recallSlice"
 import shareJobReducer from "./slices/shareJobSlice"
 import aiHitsReducer from "./slices/aiHitsSlice.js"
 import citiesReducer from "./slices/geoLocationSlice.js"
+import setAiHitsReducer from "./slices/setAiHitsSlice.js"
 
 const store = configureStore({
     reducer: {
@@ -24,7 +25,8 @@ const store = configureStore({
         recall: recallReducer,
         shareJob: shareJobReducer,
         aiHits: aiHitsReducer,
-        cities:citiesReducer
+        cities:citiesReducer,
+        aiHits: setAiHitsReducer,
     },
 });
 
