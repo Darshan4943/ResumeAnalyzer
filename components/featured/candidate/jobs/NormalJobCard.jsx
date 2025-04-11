@@ -113,7 +113,7 @@ function NormalJobCard({ item }) {
           </div>
           {item?.logo && (
             <div className="flex flex-row  items-start min-w-[44px]">
-              <imga
+              <img
                 src={item?.logo}
                 alt=""
                 style={{
