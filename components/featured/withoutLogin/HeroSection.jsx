@@ -75,7 +75,7 @@ function HeroSection() {
               <input
                 type="text"
                 placeholder="Enter Skill / Designation"
-                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] min-w-[174px] ms:min-w-[148px] ms:max-w-[148px] placeholder:text-[#889FBA]"
+                className="scr1100:text-[14px] ms:text-[12px] scr460:text-[14px] text-[12px]  font-[500] font-Montserrat scr1100:max-w-[174px] scr1100:min-w-[174px] ms:min-w-[148px] ms:max-w-[148px] placeholder:text-[#889FBA]"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
