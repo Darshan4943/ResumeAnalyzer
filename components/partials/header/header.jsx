@@ -467,7 +467,7 @@ function Header({ userData }) {
                     >
                       <img
                         src="/images/down_arrow.png"
-                        className="h-4 w-4 ml-1 cursor-pointer min-w-4 "
+                        className="h-4 w-4  cursor-pointer min-w-4 "
                         alt=""
                       />
                     </div>

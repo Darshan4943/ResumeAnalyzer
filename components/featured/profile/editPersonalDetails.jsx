@@ -317,7 +317,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             </div>
           )}
         </div>
-        <div className=" flex flex-col gap-[16px]">
+        {/* <div className=" flex flex-col gap-[16px]">
           <div className="w-[50%] flex flex-col gap-[12px] text-[14px] font-[500] ">
             Do you have a Work Permit?
             <div className="flex gap-[16px] items-center">
@@ -378,7 +378,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
         <div className="flex flex-col gap-[16px]">
           <div className="w-[50%] flex flex-col gap-[12px] text-[14px]  font-[500] ">
             Are you specially abled?

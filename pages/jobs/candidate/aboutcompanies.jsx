@@ -427,9 +427,9 @@ function Aboutcompanies() {
               ></div>
 
               <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
-                <div className="w-full max-w-[350px] bg-white p-6 rounded-2xl shadow-lg">
+                <div className="w-full max-w-[250px] h-[330px] bg-white p-6 rounded-[4px] shadow-lg">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="text-[16px] font-[600]">
                       Rate and Review Us
                     </h2>
                     <button
@@ -451,7 +451,7 @@ function Aboutcompanies() {
                     </button>
                   </div>
                   <div className="mb-4">
-                    <label className="text-sm font-medium">Rating</label>
+                    <label className="text-[12px] font-[500]">Rating</label>
                     <div className="flex gap-1 mt-1">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <svg
@@ -472,11 +472,11 @@ function Aboutcompanies() {
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label className="text-sm font-semibold">
+                    <label className="text-[12px] font-[500]">
                       Give Us Review About Company
                     </label>
                     <textarea
-                      className="w-full p-3 mt-1 text-sm font-medium bg-[#F3F4F5] rounded-lg focus:outline-none"
+                      className="w-full p-3 mt-1 text-[12px] font-[500] bg-[#F3F4F5] rounded-lg focus:outline-none placeholder:text-[10px] "
                       rows="4"
                       placeholder="Enter Review About Company"
                       value={reviewData.review}
