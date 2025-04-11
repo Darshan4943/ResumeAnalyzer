@@ -104,7 +104,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       type="text"
                       name=""
                        className="text-[14px] font-normal px-4 py-3 rounded-[8px] border border-[#DEDEDE] leading-tight h-[40px] w-full"
-                      placeholder="Select Degree"
+                      placeholder="Enter Degree"
                       value={data.stream}
                       onChange={(e) =>
                         handleInputChange("stream", e.target.value)
