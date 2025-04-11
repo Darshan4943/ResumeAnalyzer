@@ -234,7 +234,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
   
 
       <div className="footer_copyright">
-        Copyright © 2025s Skilotech. All rights reserved.
+        Copyright © 2025 Skilotech. All rights reserved.
       </div>
     </div>
   );
