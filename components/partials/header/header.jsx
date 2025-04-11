@@ -158,9 +158,9 @@ function Header({ userData }) {
                   </div>
 
                   <div
-                    onClick={() => setServices(true)}
+                    onClick={() => router.push("/services")}
                     className={`transition-opacity duration-800 ease-in-out ${isSearch ? "opacity-0" : "opacity-100"
-                      } ${isServices ? "active" : "li"} scr1250:text-[16px] text-[16px] cursor-pointer`}
+                      } ${selectedPage === "/services" ? "active" : "li"} scr1250:text-[16px] text-[16px] cursor-pointer`}
                   >
                     <motion.div
                       initial={{ opacity: 1, scale: 1 }}
@@ -222,9 +222,9 @@ function Header({ userData }) {
                     transition={{ duration: 0.4 }}
                     layout
                     className="relative flex items-center  ">
-                    {!isServices ? (
+                    {selectedPage !== "/services" ? (
                       <div
-                        onClick={() => setServices(true)}
+                        onClick={() => router.push("/services")}
                         className={
                          "text-[14px] flex gap-2 items-center   px-[4px] font-medium cursor-pointer  border-2 border-white hover:border-b-yellow "
                         }
@@ -235,9 +235,9 @@ function Header({ userData }) {
                       </div>
                     ) : (
                       <div
-                        onClick={() => {
-                          setServices(false);
-                        }}
+                        // onClick={() => {
+                        //   setServices(false);
+                        // }}
                         className={
                           " text-[14px] flex gap-2  items-center font-semibold px-[4px] border-b-2 border-b-yellow   cursor-pointer "
                         }
@@ -265,7 +265,7 @@ function Header({ userData }) {
                 <div className="relative  w-full ml:flex hidden justify-center ">
                   <motion.div
 
-                    className={`absolute z-[3000] bg-white xlg:w-[258px]  ${isSearch ? "" : ""}  `}
+                    className={`absolute z-[30000] bg-white xlg:w-[258px]  ${isSearch ? "" : ""}  `}
                     initial={{ width: "258px", height: "46px" }}
                     animate={{
                       width: isSearch ? "648px" : "",
@@ -336,7 +336,7 @@ function Header({ userData }) {
                       </motion.div>
                       :
                       <div
-                        onClick={() => {setIsSearch(true);setServices(false)}}
+                        onClick={() => {setIsSearch(true);}}
                         className={`  flex justify-between pl-[10px] gap-4 items-center  cursor-pointer lg:w-full w-[200px]  border border-[#E1E3E3] rounded-[30px] px-[3px] h-[37px] `}
                       >
                         <div className="text-[14px] font-medium text-[#889FBA]">
@@ -467,7 +467,7 @@ function Header({ userData }) {
                     >
                       <img
                         src="/images/down_arrow.png"
-                        className="h-4 w-4 ml-1 cursor-pointer min-w-4 "
+                        className="h-4 w-4 -ml-1 cursor-pointer min-w-4 "
                         alt=""
                       />
                     </div>
