@@ -21,7 +21,7 @@ function RecommendedJobs() {
                         router.push(`/jobs/candidate?search=${true}`);
 
                     }}
-                    className='text-[#06A9EF] text-[14px] font-semibold cursor-pointer'>
+                    className='text-[#06A9EF] text-[14px] font-semibold cursor-pointer min-w-[60px]'>
                     View All
                 </div>
 
