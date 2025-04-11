@@ -35,13 +35,13 @@ function Index() {
   }, []);
   return (
     <>
-      <div className="customMargins  w-full flex flex-col gap-5 pt-6 pb-6">
+      <div className="customMargins  w-full flex flex-col gap-5 pt-6 pb-6 ">
         <span className="text-[18px] font-[500] text-[#000000]">
           Top Companies
         </span>
         <div className="flex scr700:flex-row flex-col gap-6 w-full">
 
-          <div className="flex flex-wrap w-full justify-between gap-y-5 h-fit cursor-pointer">
+          <div className="flex flex-wrap w-full justify-between gap-y-[20px] h-fit cursor-pointer">
             {company?.map((i, index) => (
               <div
                 key={index}
@@ -50,12 +50,12 @@ function Index() {
                   router.push(`/jobs/candidate/aboutcompanies?id=${i._id}`);
                
                 }}
-                className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px] h-fit"
+                className="w-full lg:w-[49.05%] min-w-[268px] rounded-[10px] bg-[#FFFFFF] py-3 px-4 flex gap-[14px] h-fit border-[#DEDEDE] border-[1px] items-center"
               >
                 <img
                   src={i.companyLogo}
                   alt={`${i.name} logo`}
-                  className="min-h-[56px] min-w-[56px] max-w-[56px] max-h-[56px] rounded-[6px] object-contain"
+                  className="min-h-[56px] min-w-[56px] max-w-[56px] max-h-[56px] rounded-[6px] object-contain border-[#DEDEDE] border-[1px]"
                 />
                 <div className="flex flex-col gap-[6px]">
                   <span className="text-[14px] font-[500] text-[#333333]">
@@ -83,7 +83,7 @@ function Index() {
                     </span>
                   </div>
                   <div className="py-[2px] px-[6px] border-[0.5px] border-solid border-[#DEDEDE] text-[10px] font-[400] text-[#333333] rounded-[12px]">
-                  {i.about.length > 40 ? `${i.about.slice(0, 40)}...` : i.about}
+                  {i.about.length > 24 ? `${i.about.slice(0, 24)}...` : i.about}
                   </div>
                 </div>
               </div>

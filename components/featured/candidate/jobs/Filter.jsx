@@ -84,7 +84,7 @@ function Filter({
                 <div key={index} className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="rounded-md border h-[16px] w-[16px] border-blue bg-white object-cover"
+                    className="rounded-md border h-[16px] w-[16px] border-blue bg-white object-cover cursor-pointer"
                     onChange={(e) =>
                       onChange(
                         e,

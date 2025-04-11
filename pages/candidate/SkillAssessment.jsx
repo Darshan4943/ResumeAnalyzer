@@ -86,7 +86,7 @@ function SkillAssessment() {
   const [aiHitMonthly, setAiHitMonthly] = useState(0);
   const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
   const [activePlan, setActivePlan] = useState();
- const { recallData } = useSelector((state) => state.recall);
+  const { recallData } = useSelector((state) => state.recall);
   // const getLimits = () => {
   //   const skillTestCount = JSON.parse(localStorage.getItem("skillTestCount"));
   //   const skillCertifiedCount = JSON.parse(
@@ -179,7 +179,7 @@ function SkillAssessment() {
   }, [skillList]);
 
   const handleInputChange = async (selectedOption) => {
-    const found = skills?.find((item) => item === selectedOption.label);
+    const found = skills?.find((item) => item === selectedOption?.label);
     if (!found) {
       try {
         const response = await fetch("https://jamblix.com/api/skills", {
@@ -373,10 +373,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-            ? questionIndex + 1
-            : assesmentType === "Normal"
-              ? 9
-              : 59
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
       );
     }
   };
@@ -411,7 +411,7 @@ function SkillAssessment() {
           // );
           // setSkillTestCount(skillTestCount1);
           // setSkillCertifiedCount(skillCertifiedCount1);
-          dispatch(updateAiHit(userDataGlobal?._id))
+          dispatch(updateAiHit(userDataGlobal?._id));
           setTimeout(() => {
             dispatch(setRecallData(!recallData));
             getLimits();
@@ -436,10 +436,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-            ? questionIndex + 1
-            : assesmentType === "Normal"
-              ? 9
-              : 59
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
       );
     }
   };
@@ -654,11 +654,7 @@ function SkillAssessment() {
 
     if (!selectedSkill) {
       toast.error("Please select a skill to start assessment");
-    } else if (
-      isActivePlan &&
-
-      aiHitMonthly < aiHitMonthlyLimit
-    ) {
+    } else if (isActivePlan && aiHitMonthly < aiHitMonthlyLimit) {
       setisLevel(true);
     } else {
       setisLevel(false);
@@ -696,6 +692,30 @@ function SkillAssessment() {
       console.error("Error generating PDF:", error);
       setViewCertificateLoader(false);
     }
+  };
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      borderRadius: "999px",
+      border: "1px solid #ddd",
+      boxShadow: "none",
+      paddingLeft: "16px",
+      paddingRight: "40px", 
+      height: "40px",
+      backgroundColor: "white",
+      fontSize: "14px",
+      color: "#4B5563", 
+      "&:hover": {
+        borderColor: "#ccc",
+      },
+    }),
+    placeholder: (base) => ({
+      ...base,
+      color: "#94A3B8", 
+    }),
+    dropdownIndicator: () => null,
+    indicatorSeparator: () => null,
   };
 
   return (
@@ -749,48 +769,36 @@ function SkillAssessment() {
                       <div className="text-[20px] font-medium">My Skills</div>
 
                       <div className="flex justify-between items-center">
-                        <div className=" relative flex flex-col gap-4  ">
+                        <div className="relative w-full max-w-sm">
                           <CreatableSelect
+                            isClearable
                             options={skills.map((item) => ({
                               value: item,
                               label: item,
                             }))}
-                            className="ms:w-[400px] scr420:w-[240px] xsm:w-[200px] w-[160px] rounded-[40px]"
-                            styles={{
-                              control: (baseStyles) => ({
-                                ...baseStyles,
-                                borderRadius: "6px",
-                                padding: "4px 4px",
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                alignItems: "center",
-                                position: "relative",
-                                background: "none",
-                                "& svg": {
-                                  display: "none",
-                                },
-                                "&::before": {
-                                  content: `' '`,
-                                  width: "18px",
-                                  height: "18px",
-                                  background:
-                                    "url('data:image/svg+xml,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6.5193%2012.6133C4.81164%2012.6133%203.36547%2012.0211%202.1808%2010.8366C0.996302%209.6519%200.404053%208.20573%200.404053%206.49806C0.404053%204.7904%200.996302%203.34423%202.1808%202.15956C3.36547%200.975063%204.81164%200.382812%206.5193%200.382812C8.22697%200.382812%209.67314%200.975063%2010.8578%202.15956C12.0423%203.34423%2012.6346%204.7904%2012.6346%206.49806C12.6346%207.21223%2012.5147%207.89431%2012.2751%208.54431C12.0352%209.19431%2011.7153%209.75965%2011.3153%2010.2403L17.0693%2015.9943C17.2078%2016.1326%2017.2786%2016.3066%2017.2818%2016.5163C17.285%2016.726%2017.2141%2016.9032%2017.0693%2017.0481C16.9245%2017.1929%2016.7488%2017.2653%2016.5423%2017.2653C16.336%2017.2653%2016.1604%2017.1929%2016.0156%2017.0481L10.2616%2011.2941C9.76155%2011.7069%209.18655%2012.03%208.53655%2012.2633C7.88655%2012.4966%207.21414%2012.6133%206.5193%2012.6133ZM6.5193%2011.1136C7.8078%2011.1136%208.89914%2010.6664%209.7933%209.77206C10.6876%208.8779%2011.1348%207.78656%2011.1348%206.49806C11.1348%205.20956%2010.6876%204.11823%209.7933%203.22406C8.89914%202.32973%207.8078%201.88256%206.5193%201.88256C5.2308%201.88256%204.13947%202.32973%203.2453%203.22406C2.35097%204.11823%201.9038%205.20956%201.9038%206.49806C1.9038%207.78656%202.35097%208.8779%203.2453%209.77206C4.13947%2010.6664%205.2308%2011.1136%206.5193%2011.1136Z%22%20fill%3D%22%23646464%22%2F%3E%3C%2Fsvg%3E') no-repeat center center",
-                                  backgroundSize: "contain",
-                                  display: "flex",
-                                  justifyContent: "flex-end",
-                                  position: "relative",
-                                  left: "92%",
-                                },
-                                "@media (max-width: 460px)": {
-                                  "&::before": {
-                                    left: "86%",
-                                  },
-                                },
-                              }),
-                            }}
-                            placeholder="Search"
+                            styles={customStyles}
+                            placeholder="Search Skill"
                             onChange={handleInputChange}
+                            className="w-full"
+                            components={{
+                              DropdownIndicator: () => null,   
+                              IndicatorSeparator: () => null, 
+                            }}
                           />
+                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <svg
+                              width="18"
+                              height="18"
+                              viewBox="0 0 18 18"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.5193 12.6133C4.81164 12.6133 3.36547 12.0211 2.1808 10.8366C0.996302 9.6519 0.404053 8.20573 0.404053 6.49806C0.404053 4.7904 0.996302 3.34423 2.1808 2.15956C3.36547 0.975063 4.81164 0.382812 6.5193 0.382812C8.22697 0.382812 9.67314 0.975063 10.8578 2.15956C12.0423 3.34423 12.6346 4.7904 12.6346 6.49806C12.6346 7.21223 12.5147 7.89431 12.2751 8.54431C12.0352 9.19431 11.7153 9.75965 11.3153 10.2403L17.0693 15.9943C17.2078 16.1326 17.2786 16.3066 17.2818 16.5163C17.285 16.726 17.2141 16.9032 17.0693 17.0481C16.9245 17.1929 16.7488 17.2653 16.5423 17.2653C16.336 17.2653 16.1604 17.1929 16.0156 17.0481L10.2616 11.2941C9.76155 11.7069 9.18655 12.03 8.53655 12.2633C7.88655 12.4966 7.21414 12.6133 6.5193 12.6133ZM6.5193 11.1136C7.8078 11.1136 8.89914 10.6664 9.7933 9.77206C10.6876 8.8779 11.1348 7.78656 11.1348 6.49806C11.1348 5.20956 10.6876 4.11823 9.7933 3.22406C8.89914 2.32973 7.8078 1.88256 6.5193 1.88256C5.2308 1.88256 4.13947 2.32973 3.2453 3.22406C2.35097 4.11823 1.9038 5.20956 1.9038 6.49806C1.9038 7.78656 2.35097 8.8779 3.2453 9.77206C4.13947 10.6664 5.2308 11.1136 6.5193 11.1136Z"
+                                fill="#646464"
+                              />
+                            </svg>
+                          </div>
                         </div>
                         <div
                           className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px]   "
@@ -839,8 +847,9 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
@@ -854,19 +863,21 @@ function SkillAssessment() {
               {!showSecondDiv ? (
                 <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center ">
                   <button
-                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${assesmentType === "Normal"
-                      ? "bg-blue text-white bg_Button"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                      }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
+                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                      assesmentType === "Normal"
+                        ? "bg-blue text-white bg_Button"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
                     onClick={() => setAssesmentType("Normal")}
                   >
                     Quick Assessment
                   </button>
                   <button
-                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${assesmentType === "Certificate"
-                      ? "bg-blue text-white bg_Button"
-                      : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                      } ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium  `}
+                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                      assesmentType === "Certificate"
+                        ? "bg-blue text-white bg_Button"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium  `}
                     onClick={() => setAssesmentType("Certificate")}
                   >
                     Certification Assessment
@@ -877,19 +888,21 @@ function SkillAssessment() {
                   {showSecondDiv && (
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
-                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${!resultType
-                          ? "bg-blue text-white bg_Button"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
+                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                          !resultType
+                            ? "bg-blue text-white bg_Button"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${resultType
-                          ? "bg-blue text-white bg_Button"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                          }  ml:px-6   ml:text-[14px] py-2 text-[10px] font-medium `}
+                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                          resultType
+                            ? "bg-blue text-white bg_Button"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  ml:px-6   ml:text-[14px] py-2 text-[10px] font-medium `}
                         onClick={() => setResultType(true)}
                       >
                         Certification Assesment Result
@@ -1023,13 +1036,20 @@ function SkillAssessment() {
                             // backdropFilter: "blur(45px)",
                           }}
                         >
-                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <g mask="url(#mask0_6706_119836)">
-                              <path d="M26.6836 35.2795C25.7211 35.2795 24.8995 34.9397 24.2187 34.2602C23.5379 33.5807 23.1975 32.7607 23.1975 31.8V25.1466C23.1975 24.1901 23.5379 23.3711 24.2187 22.6895C24.8995 22.0079 25.7211 21.6671 26.6836 21.6671H33.3304C34.2929 21.6671 35.1145 22.0079 35.7953 22.6895C36.4761 23.3711 36.8165 24.1901 36.8165 25.1466V31.8C36.8165 32.7607 36.4761 33.5807 35.7953 34.2602C35.1145 34.9397 34.2929 35.2795 33.3304 35.2795H26.6836ZM26.3605 32.1231H33.6534V24.8235H26.3605V32.1231ZM3.05469 30.0548V26.8918H18.1842V30.0548H3.05469ZM26.6836 18.3338C25.7211 18.3338 24.8995 17.9934 24.2187 17.3126C23.5379 16.6318 23.1975 15.8102 23.1975 14.8477V8.20097C23.1975 7.23844 23.5379 6.41679 24.2187 5.73601C24.8995 5.05523 25.7211 4.71484 26.6836 4.71484H33.3304C34.2929 4.71484 35.1145 5.05523 35.7953 5.73601C36.4761 6.41679 36.8165 7.23844 36.8165 8.20097V14.8477C36.8165 15.8102 36.4761 16.6318 35.7953 17.3126C35.1145 17.9934 34.2929 18.3338 33.3304 18.3338H26.6836ZM26.3605 15.1708H33.6534V7.87788H26.3605V15.1708ZM3.05469 13.1025V9.94613H18.1842V13.1025H3.05469Z" fill="#646464" />
+                              <path
+                                d="M26.6836 35.2795C25.7211 35.2795 24.8995 34.9397 24.2187 34.2602C23.5379 33.5807 23.1975 32.7607 23.1975 31.8V25.1466C23.1975 24.1901 23.5379 23.3711 24.2187 22.6895C24.8995 22.0079 25.7211 21.6671 26.6836 21.6671H33.3304C34.2929 21.6671 35.1145 22.0079 35.7953 22.6895C36.4761 23.3711 36.8165 24.1901 36.8165 25.1466V31.8C36.8165 32.7607 36.4761 33.5807 35.7953 34.2602C35.1145 34.9397 34.2929 35.2795 33.3304 35.2795H26.6836ZM26.3605 32.1231H33.6534V24.8235H26.3605V32.1231ZM3.05469 30.0548V26.8918H18.1842V30.0548H3.05469ZM26.6836 18.3338C25.7211 18.3338 24.8995 17.9934 24.2187 17.3126C23.5379 16.6318 23.1975 15.8102 23.1975 14.8477V8.20097C23.1975 7.23844 23.5379 6.41679 24.2187 5.73601C24.8995 5.05523 25.7211 4.71484 26.6836 4.71484H33.3304C34.2929 4.71484 35.1145 5.05523 35.7953 5.73601C36.4761 6.41679 36.8165 7.23844 36.8165 8.20097V14.8477C36.8165 15.8102 36.4761 16.6318 35.7953 17.3126C35.1145 17.9934 34.2929 18.3338 33.3304 18.3338H26.6836ZM26.3605 15.1708H33.6534V7.87788H26.3605V15.1708ZM3.05469 13.1025V9.94613H18.1842V13.1025H3.05469Z"
+                                fill="#646464"
+                              />
                             </g>
                           </svg>
-
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px]  scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1048,13 +1068,20 @@ function SkillAssessment() {
                             backdropFilter: "blur(22.5px)",
                           }}
                         >
-                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <g mask="url(#mask0_6706_119843)">
-                              <path d="M20.0004 36.9448C17.6682 36.9448 15.4719 36.5012 13.4113 35.614C11.3507 34.7269 9.55303 33.5159 8.01831 31.9812C6.48359 30.4465 5.27265 28.6489 4.38548 26.5885C3.49828 24.5282 3.05469 22.332 3.05469 20.0001C3.05469 17.6496 3.49828 15.4439 4.38548 13.3829C5.27265 11.3219 6.48324 9.52857 8.01727 8.00287C9.5513 6.47718 11.3487 5.26976 13.4094 4.38063C15.4701 3.49146 17.6666 3.04688 19.9989 3.04688C22.3497 3.04688 24.5559 3.49128 26.6174 4.38008C28.6789 5.26892 30.4723 6.47589 31.9977 8.001C33.5231 9.52608 34.7302 11.3192 35.6192 13.3804C36.5082 15.4416 36.9526 17.6478 36.9526 19.9992C36.9526 20.7774 36.9034 21.5487 36.8049 22.3132C36.7063 23.0777 36.555 23.8212 36.3509 24.5439C35.9675 24.1397 35.5301 23.8085 35.0386 23.5504C34.5471 23.2922 34.0182 23.1231 33.4518 23.043C33.5655 22.5514 33.6502 22.0542 33.706 21.5514C33.7617 21.0486 33.7896 20.5312 33.7896 19.9992C33.7896 16.1554 32.4524 12.8962 29.7779 10.2217C27.1033 7.54717 23.8431 6.20992 19.997 6.20992C16.1695 6.20992 12.915 7.54717 10.2334 10.2217C7.55188 12.8962 6.2111 16.1565 6.2111 20.0025C6.2111 23.83 7.55133 27.0845 10.2318 29.7661C12.9122 32.4476 16.1675 33.7884 19.9976 33.7884C21.5258 33.7884 22.9767 33.5532 24.3503 33.0828C25.7239 32.6124 26.9828 31.9637 28.1269 31.1365C28.4298 31.5959 28.7939 32.0043 29.2191 32.362C29.6443 32.7195 30.1124 32.9974 30.6232 33.1954C29.1666 34.3759 27.5369 35.2959 25.7342 35.9555C23.9316 36.6151 22.0203 36.9448 20.0004 36.9448ZM32.545 30.247C31.9865 30.247 31.5136 30.0534 31.1266 29.6661C30.7395 29.2788 30.546 28.8053 30.546 28.2455C30.546 27.6877 30.7396 27.2157 31.1269 26.8297C31.5142 26.4437 31.9877 26.2507 32.5475 26.2507C33.1053 26.2507 33.5773 26.4439 33.9633 26.8304C34.3493 27.2169 34.5423 27.6894 34.5423 28.248C34.5423 28.8066 34.3491 29.2794 33.9626 29.6665C33.5761 30.0535 33.1036 30.247 32.545 30.247ZM25.7941 28.0179L18.5719 20.6042V11.3479H21.5955V19.3772L28.0112 25.8208L25.7941 28.0179Z" fill="#646464" />
+                              <path
+                                d="M20.0004 36.9448C17.6682 36.9448 15.4719 36.5012 13.4113 35.614C11.3507 34.7269 9.55303 33.5159 8.01831 31.9812C6.48359 30.4465 5.27265 28.6489 4.38548 26.5885C3.49828 24.5282 3.05469 22.332 3.05469 20.0001C3.05469 17.6496 3.49828 15.4439 4.38548 13.3829C5.27265 11.3219 6.48324 9.52857 8.01727 8.00287C9.5513 6.47718 11.3487 5.26976 13.4094 4.38063C15.4701 3.49146 17.6666 3.04688 19.9989 3.04688C22.3497 3.04688 24.5559 3.49128 26.6174 4.38008C28.6789 5.26892 30.4723 6.47589 31.9977 8.001C33.5231 9.52608 34.7302 11.3192 35.6192 13.3804C36.5082 15.4416 36.9526 17.6478 36.9526 19.9992C36.9526 20.7774 36.9034 21.5487 36.8049 22.3132C36.7063 23.0777 36.555 23.8212 36.3509 24.5439C35.9675 24.1397 35.5301 23.8085 35.0386 23.5504C34.5471 23.2922 34.0182 23.1231 33.4518 23.043C33.5655 22.5514 33.6502 22.0542 33.706 21.5514C33.7617 21.0486 33.7896 20.5312 33.7896 19.9992C33.7896 16.1554 32.4524 12.8962 29.7779 10.2217C27.1033 7.54717 23.8431 6.20992 19.997 6.20992C16.1695 6.20992 12.915 7.54717 10.2334 10.2217C7.55188 12.8962 6.2111 16.1565 6.2111 20.0025C6.2111 23.83 7.55133 27.0845 10.2318 29.7661C12.9122 32.4476 16.1675 33.7884 19.9976 33.7884C21.5258 33.7884 22.9767 33.5532 24.3503 33.0828C25.7239 32.6124 26.9828 31.9637 28.1269 31.1365C28.4298 31.5959 28.7939 32.0043 29.2191 32.362C29.6443 32.7195 30.1124 32.9974 30.6232 33.1954C29.1666 34.3759 27.5369 35.2959 25.7342 35.9555C23.9316 36.6151 22.0203 36.9448 20.0004 36.9448ZM32.545 30.247C31.9865 30.247 31.5136 30.0534 31.1266 29.6661C30.7395 29.2788 30.546 28.8053 30.546 28.2455C30.546 27.6877 30.7396 27.2157 31.1269 26.8297C31.5142 26.4437 31.9877 26.2507 32.5475 26.2507C33.1053 26.2507 33.5773 26.4439 33.9633 26.8304C34.3493 27.2169 34.5423 27.6894 34.5423 28.248C34.5423 28.8066 34.3491 29.2794 33.9626 29.6665C33.5761 30.0535 33.1036 30.247 32.545 30.247ZM25.7941 28.0179L18.5719 20.6042V11.3479H21.5955V19.3772L28.0112 25.8208L25.7941 28.0179Z"
+                                fill="#646464"
+                              />
                             </g>
                           </svg>
-
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1072,13 +1099,20 @@ function SkillAssessment() {
                             backdropFilter: "blur(22.5px)",
                           }}
                         >
-                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <g mask="url(#mask0_6706_119850)">
-                              <path d="M15.9248 9.36722H18.7557V6.54297H15.9248V9.36722ZM21.58 9.36722V6.54297H24.4108V9.36722H21.58ZM15.9248 20.6776V17.8533H18.7557V20.6776H15.9248ZM27.2351 15.0224V12.1981H30.066V15.0224H27.2351ZM27.2351 20.6776V17.8533H30.066V20.6776H27.2351ZM21.58 20.6776V17.8533H24.4108V20.6776H21.58ZM27.2351 9.36722V6.54297H30.066V9.36722H27.2351ZM18.7557 12.1981V9.36722H21.58V12.1981H18.7557ZM9.9375 33.5883V6.54297H13.1005V9.36722H15.9248V12.1959H13.1005V15.0246H15.9248V17.8533H13.1005V33.5883H9.9375ZM24.4108 17.8533V15.0224H27.2351V17.8533H24.4108ZM18.7557 17.8533V15.0224H21.58V17.8533H18.7557ZM15.9248 15.0224V12.1981H18.7557V15.0224H15.9248ZM21.58 15.0224V12.1981H24.4108V15.0224H21.58ZM24.4108 12.1981V9.36722H27.2351V12.1981H24.4108Z" fill="#646464" />
+                              <path
+                                d="M15.9248 9.36722H18.7557V6.54297H15.9248V9.36722ZM21.58 9.36722V6.54297H24.4108V9.36722H21.58ZM15.9248 20.6776V17.8533H18.7557V20.6776H15.9248ZM27.2351 15.0224V12.1981H30.066V15.0224H27.2351ZM27.2351 20.6776V17.8533H30.066V20.6776H27.2351ZM21.58 20.6776V17.8533H24.4108V20.6776H21.58ZM27.2351 9.36722V6.54297H30.066V9.36722H27.2351ZM18.7557 12.1981V9.36722H21.58V12.1981H18.7557ZM9.9375 33.5883V6.54297H13.1005V9.36722H15.9248V12.1959H13.1005V15.0246H15.9248V17.8533H13.1005V33.5883H9.9375ZM24.4108 17.8533V15.0224H27.2351V17.8533H24.4108ZM18.7557 17.8533V15.0224H21.58V17.8533H18.7557ZM15.9248 15.0224V12.1981H18.7557V15.0224H15.9248ZM21.58 15.0224V12.1981H24.4108V15.0224H21.58ZM24.4108 12.1981V9.36722H27.2351V12.1981H24.4108Z"
+                                fill="#646464"
+                              />
                             </g>
                           </svg>
-
 
                           <div className="flex flex-col gap-2 md:item-start item-center">
                             <div className="text-[10px] md:text-[12px] scr820:text-[16px] text-[#333333] font-[600] flex flex-col leading-tight md:text-start text-center ">
@@ -1101,14 +1135,15 @@ function SkillAssessment() {
                           handleStart();
                         }}
                       >
-
                         <button
                           onMouseEnter={() => setIsHovered(true)}
                           onMouseLeave={() => setIsHovered(false)}
                           className="h-[38px] w-[252px] flex items-center justify-center rounded-[30px] text-[14px]  gap-[4px] font-[600] blue_border_Button   "
                           disabled={loading}
                         >
-                          {loading ? <MiniLoader /> :
+                          {loading ? (
+                            <MiniLoader />
+                          ) : (
                             <>
                               Start
                               <svg
@@ -1123,7 +1158,8 @@ function SkillAssessment() {
                                   fill={isHovered ? "white" : "black"}
                                 />
                               </svg>
-                            </>}
+                            </>
+                          )}
                         </button>
                       </div>
 
@@ -1131,7 +1167,8 @@ function SkillAssessment() {
                         <div className="text-[10px] scr820:text-[12px] text-[#646464] font-[500] ">
                           The Test begins as soon as you click
                           <span className="text-[10px] scr820:text-[12px] text-[#646464] font-[700]">
-                            {" "}Start.
+                            {" "}
+                            Start.
                           </span>
                         </div>
                         <div className="text-[10px] scr820:text-[12px] text-[#646464] font-[500] ">
@@ -1410,14 +1447,15 @@ function SkillAssessment() {
                       {question[questionIndex]?.options.map((option, index) => (
                         <div
                           key={index}
-                          className={`flex items-start py-[12px] px-[16px] gap-4 rounded-[8px] cursor-pointer ${isSelected(
-                            option,
-                            questionIndex + 1,
-                            question[questionIndex]?.question
-                          )
-                            ? "bg-[#06A9EF] text-white"
-                            : "bg-white"
-                            }`}
+                          className={`flex items-start py-[12px] px-[16px] gap-4 rounded-[8px] cursor-pointer ${
+                            isSelected(
+                              option,
+                              questionIndex + 1,
+                              question[questionIndex]?.question
+                            )
+                              ? "bg-[#06A9EF] text-white"
+                              : "bg-white"
+                          }`}
                           style={{
                             boxShadow: "0px 0px 2px 0px #00000080",
                             transition: "background-color 0.3s ease",
@@ -1479,8 +1517,8 @@ function SkillAssessment() {
                           ? "Submit"
                           : "Next"
                         : questionIndex == 59
-                          ? "Submit"
-                          : "Next"}
+                        ? "Submit"
+                        : "Next"}
 
                       <svg
                         width="12"
@@ -1610,11 +1648,12 @@ function SkillAssessment() {
                     </div>
 
                     <div
-                      className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" &&
+                      className={`flex  justify-between items-center pb-[12px] ${
+                        assesmentType !== "Normal" &&
                         calculateMarkOutOf60() >= 70
-                        ? "sm:w-[90%] w-[95%]"
-                        : "w-[80%]"
-                        } `}
+                          ? "sm:w-[90%] w-[95%]"
+                          : "w-[80%]"
+                      } `}
                     >
                       <button
                         onClick={() => {
@@ -1629,7 +1668,6 @@ function SkillAssessment() {
                           // setSkippedArray([])
                           // window.location.reload();
                           setBtnEnable1(false);
-
                         }}
                         className=" rounded-[30px] px-[14px] sm:px-[24px] h-[38px] text-[12px] scr700:text-[16px] text-[#333] font-[500] blue_border_Button"
                       >

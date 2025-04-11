@@ -245,7 +245,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               <input
                 type="text"
                 className="w-full input text-[12px] font-[400]"
-                placeholder={"Enter here your preference"}
+                placeholder={"Enter expected salary"}
                 name={"expectedSalary"}
                 value={data.expectedSalary}
                 onChange={handleInputChange}

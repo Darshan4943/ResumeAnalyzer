@@ -19,7 +19,7 @@ const MyCollection = () => {
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [select, setSelect] = useState(false);
- const [allData, setAllData] = useState([]);
+  const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [resumeList, setResumeList] = useState([]);
   const [view, setView] = useState(false);
@@ -38,7 +38,7 @@ const MyCollection = () => {
       .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
-        setAllData(res.data.data)
+        setAllData(res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -172,11 +172,8 @@ const MyCollection = () => {
       const options = {
         includeScore: true,
         threshold: 0.2,
-     
-        keys: [
-          "fileName",
-          
-        ],
+
+        keys: ["fileName"],
       };
       const fuse = new Fuse(allData, options);
       const result = fuse.search(value);
@@ -197,7 +194,6 @@ const MyCollection = () => {
     setSelectAll(!selectAll);
   };
 
-  
   return (
     <>
       <div
@@ -231,7 +227,11 @@ const MyCollection = () => {
             </div>
           ) : (
             <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
-              <div className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4  ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE]">
+              <div
+                className={`flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE] ${
+                  userDataGlobal.role === "user" ? "bg-transparent" : "bg-white"
+                }`}
+              >
                 <div className="flex gap-4  w-full items-center h-[38px] ">
                   <svg
                     className="min-w-[24px]"

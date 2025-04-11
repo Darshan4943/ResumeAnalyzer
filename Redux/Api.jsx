@@ -21,6 +21,7 @@ import { fetchProfileData } from "./slices/profileSlice";
 import { setLoginState } from "./slices/loginSlice";
 import { useRouter } from "next/router";
 import { setShareJobClose } from "./slices/shareJobSlice";
+import { setAiHitsData } from "./slices/setAiHitsSlice";
 
 export const Api = ({ }) => {
   const [error, setError] = useState(false);
@@ -178,6 +179,10 @@ export const Api = ({ }) => {
               (item) => item.index == result.index
             );
 
+            dispatch(setAiHitsData({
+              monthly: result.used.aiHits.monthly,
+              limit: result.limits.aiHitsLimit.monthly,
+            }));
             localStorage.setItem(
               "activePlan",
               result?.index ? result?.index : null
@@ -191,7 +196,7 @@ export const Api = ({ }) => {
               result.used.chatBot.monthly
             );
             localStorage.setItem("jdCountDaily", result.used.jdMatching.daily);
-            localStorage.setItem("aiHitsMonthly", result.used.aiHits.monthly);
+            // localStorage.setItem("aiHitsMonthly", result.used.aiHits.monthly);
             localStorage.setItem(
               "jdCountMonthly",
               result.used.jdMatching.monthly
@@ -258,10 +263,10 @@ export const Api = ({ }) => {
               "jdCountMonthlyLimit",
               result.limits.jdMatchingLimit.monthly
             );
-            localStorage.setItem(
-              "aiHitsMonthlyLimit",
-              result.limits.aiHitsLimit.monthly
-            );
+            // localStorage.setItem(
+            //   "aiHitsMonthlyLimit",
+            //   result.limits.aiHitsLimit.monthly
+            // );
             localStorage.setItem(
               "collectionCountDailyLimit",
               result.limits.collectionStoredLimit.daily

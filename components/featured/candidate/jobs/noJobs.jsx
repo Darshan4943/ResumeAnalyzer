@@ -2,7 +2,7 @@ import React from 'react'
 
 function NoJobs({name}) {
     return (
-        <div className='flex flex-col gap-2 p-2  bg-cover items-center justify-center '>
+        <div className='flex flex-col gap-2 p-2  bg-cover items-center justify-center pt-24 '>
           <p className='text-[36px] font-semibold text-[#FF6262]'>Sorry!</p>
             <p className=' text-[27px] font-medium  text-center'>No {name} Jobs were found.</p>
             <img
