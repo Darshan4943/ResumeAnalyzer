@@ -12,18 +12,15 @@ function ResumeComp() {
         // }}
         className="max-w-[930px] relative overflow-hidden w-full h-full rounded-[12px] bg-homeResume bg-cover bg-no-repeat"
       >
-        
+
         <div className=" w-full h-full top-0 flex flex-col gap-4 ms:flex-row py-4 scr930:py-5 px-4 scr930:px-5 items-center justify-between">
           <div className="w-full ms:w-[66.34%] ms:items-start  items-center flex flex-col gap-[12px] scr930:gap-[26px] ">
             <div className="flex flex-col gap-2">
               <p className="text-[16px] ms:text-start text-center scr800:text-[20px] font-[600] text-[#FFFFFF]">
-                Unlock your career potential with AI-powered skill assessment.
+              Craft Your Perfect Resume in Minutes
               </p>
               <p className="text-[12px] scr800:text-[16px] scr900:text-[14px] ms:text-start text-center font-[500] text-[#FFFFFF]">
-                ✅ Boost Your Abilities |
-                <br className="block xsm:hidden" />✅ LandYour Dream Job |
-                <br className="block scr570:hidden ms:block scr900:hidden" /> ✅
-                Showcase Your Strengths
+                Tired of spending hours on your resume? Our AI-powered tool creates professional resumes tailored to your experience and industry. Simply input your information, and let our AI do the rest.
               </p>
             </div>
             <button
