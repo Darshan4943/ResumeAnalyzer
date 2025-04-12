@@ -534,7 +534,7 @@ const MyCollection = () => {
                   </>
                 </div>
               ) : (
-                <div className="flex flex-row flex-wrap gap-y-[48px] gap-x-[24px] p-[24px] bg-[#F9F9F9] rounded-[8px] scr540:justify-start justify-center  ">
+                <div className="flex flex-row flex-wrap gap-y-[48px] gap-x-[24px] p-[24px]  rounded-[8px] scr540:justify-start justify-center  ">
                   <div
                     onClick={() => router.push(`/coverLetter`)}
                     style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
@@ -562,7 +562,7 @@ const MyCollection = () => {
                       <>
                         <div
                           key={index}
-                          style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
+                          // style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
                           className="flex flex-col h-[360px] items-center overflow-hidden justify-between group relative resumes"
                         >
                           <PdfViewer pdfUrl={item?.resumeUrl} />
