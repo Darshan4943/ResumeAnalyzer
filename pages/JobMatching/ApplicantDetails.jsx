@@ -48,7 +48,7 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
   //         );
 
   //         const response = await axios.get(
-  //           "https://jamblix.com/api/applicantdetails",
+  //           "http://localhost:2000/api/applicantdetails",
   //           {
   //             params: { id, applicantId },
   //           }

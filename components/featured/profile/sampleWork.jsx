@@ -98,7 +98,7 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
     if (isEditing) {
       axios
         .put(
-          `https://jamblix.com/api/candidate/${userDataGlobal?._id}/updateProject/${Project._id}`,
+          `http://localhost:2000/api/candidate/${userDataGlobal?._id}/updateProject/${Project._id}`,
           projectData
         )
         .then((res) => {
@@ -112,7 +112,7 @@ function SampleWork({ setaddSampleWork, Project, editProject }) {
     } else {
       axios
         .post(
-          `https://jamblix.com/api/candidate/addProject/${userDataGlobal?._id}`,
+          `http://localhost:2000/api/candidate/addProject/${userDataGlobal?._id}`,
           projectData
         )
         .then((res) => {

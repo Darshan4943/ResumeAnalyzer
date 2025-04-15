@@ -74,7 +74,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     setMiniloading(true);
     try {
       const response = await axios.get(
-        `https://jamblix.com/api/getInPreboadingCandidates/${userDataGlobal._id}`,
+        `http://localhost:2000/api/getInPreboadingCandidates/${userDataGlobal._id}`,
         {
           params: {
             page: page,
@@ -107,7 +107,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     setLoadingApplicantId(applicantId);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/preboarding/moveToReleaseOffer/${applicantId}/${jobId}`
+        `http://localhost:2000/api/preboarding/moveToReleaseOffer/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {
@@ -127,7 +127,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `https://jamblix.com/api/preboarding/verifyDocuments/${applicantId}/${jobId}`
+        `http://localhost:2000/api/preboarding/verifyDocuments/${applicantId}/${jobId}`
       );
 
       if (response.status === 200) {

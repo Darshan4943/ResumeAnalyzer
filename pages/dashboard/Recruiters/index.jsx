@@ -19,7 +19,7 @@ const Index = () => {
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
     axios
-      .get("https://jamblix.com/api/recruiters", {
+      .get("http://localhost:2000/api/recruiters", {
         params: { page, limit },
       })
       .then((res) => {
@@ -54,7 +54,7 @@ const Index = () => {
     try {
       let role = "recruiter"
       const response = await axios.post(
-        'https://jamblix.com/api/users/download',
+        'http://localhost:2000/api/users/download',
         { role },
         {
           responseType: 'blob',
