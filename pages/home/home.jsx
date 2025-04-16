@@ -3,7 +3,8 @@ import CandidateHome from "../candidate";
 import { useSelector } from "react-redux";
 import Dashboard from "../dashboard";
 import AdminDashboard from "../dashboard/adminDashboard";
-import ResumePage from "./ResumePage";
+import ResumePage from "../auth/resume";
+
 
 function Home() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
