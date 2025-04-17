@@ -50,7 +50,7 @@ const WrappedApp = ({ Component, pageProps }) => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -72,7 +72,7 @@ const WrappedApp = ({ Component, pageProps }) => {
       </Helmet>
       <Provider store={store}>
         <Api />
-        {loading && (
+        {/* {loading && (
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-white "></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
@@ -97,7 +97,7 @@ const WrappedApp = ({ Component, pageProps }) => {
               </div>
             </div>
           </>
-        )}
+        )} */}
         {!loading && (
           <ParallaxProvider>
             {/* <ReactLenis root> */}

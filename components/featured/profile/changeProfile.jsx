@@ -176,8 +176,8 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
             <svg
               onClick={() => setIsChangeProfile(false)}
               xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
+              width="28"
+              height="28"
               viewBox="0 0 40 40"
               fill="none"
               className="min-w-[40px]"

@@ -75,6 +75,7 @@ function Aboutcompanies() {
     } finally {
       setTimeout(() => setMiniloading(false), 500);
     }
+
   };
 
   useEffect(() => {
@@ -200,7 +201,7 @@ function Aboutcompanies() {
   const fetchReviewss = async () => {
 
     const idd = role === "recruiter" ? company?._id : id
-   
+
     try {
       const response = await axios.get(
         `http://localhost:2000/api/getReviewByUser/${idd}/${userDataGlobal?._id}`
@@ -225,7 +226,67 @@ function Aboutcompanies() {
   return (
     <div className="customMargins">
       {miniLoading ? (
-        <MiniLoader />
+        <div className="flex flex-col gap-[24px] customMargins py-6">
+          <div className="flex items-center gap-4">
+            <div className="skeleton-line h-[54px] w-[98px] rounded-[12px]"></div>
+            <div className="skeleton-line h-[21px] w-[140px]"></div>
+
+          </div>
+          {companyName &&
+            <div className="flex justify-between gap-2  bg-white rounded-[8px] h-[79px] p-4 flex-col">
+              <div className="skeleton-line h-[24px] w-[198px] "></div>
+              <div className="skeleton-line h-[24px] w-[240px]"></div>
+
+            </div>
+          }
+          <div className={`flex ml:flex-row flex-col justify-between  w-full  gap-6 ${companyName && "pt-6" }`}>
+            <div className="flex gap-6 flex-col w-full scr700:w-[70%]">
+              <div className="skeleton-line h-[16px] w-[340px] mb-[-12px]"></div>
+              {[1, 2, 3, 4].map((item, index) => (
+                <div key={index} className="flex gap-4 flex-col w-full">
+                  <div className="h-[172px] w-full  bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                      {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                    </div>
+
+
+                    <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                    <div className="skeleton-line h-[50px] w-full"></div>
+                    <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="w-[357px] ">
+              <div className="skeleton-line h-[16px] w-[240px] mb-[8px]"></div>
+              <div className="flex gap-4 flex-col  bg-white items-center justify-center rounded-[12px] ">
+                {[1, 2, 3, 4].map((item, index) => (
+                  <div key={index} className="flex gap-4 flex-col w-full items-center justify-center ">
+                    <div className="h-[172px] w-full   rounded-[12px] p-4 flex flex-col gap-1">
+                      <div className="flex justify-between">
+                        <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                        {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                      </div>
+
+
+                      <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                      <div className="skeleton-line h-[50px] w-full"></div>
+                      <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+
+                    </div>
+                    <div className="skeleton-line h-[1px] max-w-[90%] px-4"></div>
+                  </div>
+                ))}
+
+
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
       ) : (
         <>
           <div className="customMargins py-[24px] flex flex-col gap-6 ">
@@ -342,7 +403,7 @@ function Aboutcompanies() {
                   </div>
                 </div>
               )}
-              {(id || company?.about) && userDataGlobal &&  (
+              {(id || company?.about) && userDataGlobal && (
                 <button
                   onClick={() => {
                     handleClick();
@@ -389,7 +450,7 @@ function Aboutcompanies() {
                 }`}
             >
               {jobs.length > 0 ? (
-                <div className="flex flex-wrap justify-between gap-4">
+                <div className="flex ml:flex-row flex-col justify-between gap-4">
                   <div className="flex-1 min-w-[300px]">
                     <h2 className="sm:text-[16px] text-[14px] font-semibold mb-2">
                       Explore {jobs.length} Open Positions at {companyName}

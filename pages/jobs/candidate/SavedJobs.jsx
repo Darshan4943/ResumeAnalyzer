@@ -141,8 +141,33 @@ function SavedJobs({ setLimitPopup,
           }
         </>
         :
-        <div className=" h-[70vh] ">
-          <MiniLoader />
+        <div className="flex flex-col gap-[24px] customMargins py-6">
+          <p className="col-span-12 text-[#000000] text-[18px] font-semibold">
+            Jobs You&apos;ve Saved
+          
+          </p>
+          <div className=" flex justify-between w-full  gap-6 ">
+            <div className="flex gap-4 flex-col w-full scr700:w-[70%]">
+              {[1, 2, 3, 4].map((item, index) => (
+                <div key={index} className="flex gap-4 flex-col w-full">
+                  <div className="h-[172px] w-full  bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                      {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                    </div>
+
+                   
+                    <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                    <div className="skeleton-line h-[50px] w-full"></div>
+                    <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+
+            
+          </div>
         </div>
       }
 

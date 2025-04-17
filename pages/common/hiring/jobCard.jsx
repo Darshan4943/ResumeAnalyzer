@@ -9,7 +9,7 @@ import CopyLink from "../../../components/common/copyLink";
 
 const JobCard = ({ filters, setFilters }) => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [id, setId] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [totalPages, setTotalPages] = useState();
@@ -158,7 +158,23 @@ const JobCard = ({ filters, setFilters }) => {
   return (
     <div>
       {loading ? (
-        <MiniLoader />
+       <div className="flex gap-4 flex-shrink-0 w-full col-span-4">
+       {[1, 2, 3].map((item, index) => (
+       
+           <div key={index}  className="h-[192px] w-full sm:w-[380px] bg-white rounded-[12px] p-4 flex flex-col gap-1">
+             <div className="flex justify-between">
+               <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+               {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+             </div>
+
+             <div className="skeleton-subtitle h-[20px]"></div>
+             <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+             <div className="skeleton-line h-[50px] w-full"></div>
+             <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+           </div>
+     
+       ))}
+     </div>
       ) : (
         <>
           {data?.length === 0 ? (

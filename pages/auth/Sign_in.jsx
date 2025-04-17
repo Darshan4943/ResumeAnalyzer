@@ -11,67 +11,67 @@ import { fetchUserData } from "../../Redux/slices/userSlice";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 
-function Sign_in({  setSignIn, setSignUp }) {
-    const { role } = useRouter().query;
-    const dispatch = useDispatch();
-    const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
-    const [loading, setLoading] = useState(false);
-    const [isEmailEntered, setIsEmailEntered] = useState(false);
-    const [googleLoading, setGoogleLoading] = useState(false);
-    const auth = getAuth();
-    const taskRef = useRef(null);
-    const handleGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            setGoogleLoading(true);
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            const userData = {
-                name: user.displayName,
-                email: user.email,
-                userRole: role
-            };
-            const sendToPurchase = localStorage.getItem("purchase");
-            const sendToPurchaseResult = JSON.parse(sendToPurchase);
-            axios
-                .post(
-                    "http://localhost:2000/api/skiloteckuser/user/google/signup",
-                    {userData}
-                )
-                .then((res) => {
-                    localStorage.setItem("authToken", JSON.stringify(res.data));
-                    if (sendToPurchaseResult?.status) {
-                        localStorage.removeItem("purchase");
-                        window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-                            }`;
-                    } else {
-                        setGoogleLoading(false);
-                        window.location.href = "/?signIn=true";
-                    }
-                })
-                .catch((err) => {
-                    setGoogleLoading(false);
-                    console.log(err);
-                    toast.error(err.response.data.message);
-                });
-        } catch (error) {
-            if (error.code === "auth/cancelled-popup-request") {
-                console.log("Sign-in with Google popup was cancelled by the user.");
-            } else {
-                console.log("Error signing in with Google:", error.message);
-            }
+function Sign_in({ setSignIn, setSignUp }) {
+  const { role } = useRouter().query;
+  const dispatch = useDispatch();
+  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
+  const [loading, setLoading] = useState(false);
+  const [isEmailEntered, setIsEmailEntered] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const auth = getAuth();
+  const taskRef = useRef(null);
+  const handleGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      setGoogleLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        userRole: role
+      };
+      const sendToPurchase = localStorage.getItem("purchase");
+      const sendToPurchaseResult = JSON.parse(sendToPurchase);
+      axios
+        .post(
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
+          { userData }
+        )
+        .then((res) => {
+          localStorage.setItem("authToken", JSON.stringify(res.data));
+          if (sendToPurchaseResult?.status) {
+            localStorage.removeItem("purchase");
+            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
+              }`;
+          } else {
             setGoogleLoading(false);
-        }
-    };
-    const handleOutsideClick = (event) => {
-        if (taskRef.current && !taskRef.current.contains(event.target)) {
-            setIsForgot(false);
-            localStorage.setItem("purchase", false);
-        }
-    };
-    const openInNewTab = (url) => {
-        window.open(url, "_blank");
-    };
+            window.location.href = "/?signIn=true";
+          }
+        })
+        .catch((err) => {
+          setGoogleLoading(false);
+          console.log(err);
+          toast.error(err.response.data.message);
+        });
+    } catch (error) {
+      if (error.code === "auth/cancelled-popup-request") {
+        console.log("Sign-in with Google popup was cancelled by the user.");
+      } else {
+        console.log("Error signing in with Google:", error.message);
+      }
+      setGoogleLoading(false);
+    }
+  };
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsForgot(false);
+      localStorage.setItem("purchase", false);
+    }
+  };
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("authToken"));
@@ -97,52 +97,44 @@ function Sign_in({  setSignIn, setSignUp }) {
     setError(null);
   };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        setLoading(true);
-        const dataToSend = {
-            email: data.email.toLowerCase(),
-            password: data.password,
-            role: role,
-        };
-        axios
-            .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
-            .then((res) => {
-                try {
-                    const response = res.data;
-                    localStorage.setItem("authToken", JSON.stringify(response));
-                    dispatch(fetchUserData());
-                    toast.success("Sign in Successfully");
-                    if (sendToPurchase?.status) {
-                        localStorage.removeItem("purchase");
-                        setTimeout(() => {
-                            setLoading(false);
-                            window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                                }`;
-                        }, 1000);
-                        
-                    } else {
-                        setTimeout(() => {
-                            setLoading(false);
-                            window.location.href = role === "user" ? "/home?signIn=true" :"/?signIn=true";
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const dataToSend = {
+      email: data.email.toLowerCase(),
+      password: data.password,
+      role: role,
+    };
+    axios
+      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
+      .then((res) => {
+        try {
+          const response = res.data;
+          localStorage.setItem("authToken", JSON.stringify(response));
+          dispatch(fetchUserData());
+          toast.success("Sign in Successfully");
 
-                        }, 1000);
-                    }
-                } catch (err) {
-                    console.log(err);
-                }
-            })
-            .catch((err) => {
-                setError(err?.response?.data.message);
-                console.log(err.response);
-                setLoading(false);
-            });
-    };
-    const handleEmailChange = (e) => {
-        const lowercaseEmail = e.target.value.toLowerCase();
-        setData({ ...data, email: e.target.value.toLowerCase() });
-        clearError();
-    };
+          // setTimeout(() => {
+            setLoading(false);
+            window.location.href = role === "user" ? "/home?signIn=true" : "/?signIn=true";
+
+          // }, 1000);
+
+        } catch (err) {
+          console.log(err);
+        }
+      })
+      .catch((err) => {
+        setError(err?.response?.data.message);
+        console.log(err.response);
+        setLoading(false);
+      });
+  };
+  const handleEmailChange = (e) => {
+    const lowercaseEmail = e.target.value.toLowerCase();
+    setData({ ...data, email: e.target.value.toLowerCase() });
+    clearError();
+  };
 
   const handlePasswordChange = (e) => {
     setData({ ...data, password: e.target.value });
@@ -174,8 +166,8 @@ function Sign_in({  setSignIn, setSignUp }) {
           {role === "user"
             ? "Candidate Sign In "
             : role === "recruiter"
-            ? "Recruiter Sign In"
-            : "Employer Sign In"}
+              ? "Recruiter Sign In"
+              : "Employer Sign In"}
         </div>
         <div className="w-full flex flex-col gap-[24px]">
           <div className="flex flex-row px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid border-[#DEDEDE]">
@@ -240,11 +232,10 @@ function Sign_in({  setSignIn, setSignUp }) {
             <div className="flex justify-between text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               {error && (
                 <div
-                  className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${
-                    error
+                  className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${error
                       ? "text-[#c00000] text-[12px] font-[600]"
                       : "text-green text-[12px] font-[600]"
-                  }`}
+                    }`}
                 >
                   <div className="w-[18px] h-[18px] scr420:w-[20px] scr420:h-[20
                   px]">
@@ -288,9 +279,8 @@ function Sign_in({  setSignIn, setSignUp }) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] h-[38px] bg_Button rounded-[30px] leading-[20.67px]  text-[14px] font-[600] ${
-              loading && "bg-[#06a9ef]"
-            } `}
+            className={`w-full px-[36px] h-[38px] bg_Button rounded-[30px] leading-[20.67px]  text-[14px] font-[600] ${loading && "bg-[#06a9ef]"
+              } `}
           >
             {loading ? (
               <div role="status">

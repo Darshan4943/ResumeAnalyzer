@@ -234,7 +234,7 @@ export const DeleteProfileImg = () => (
   </svg>
 
 )
-export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
+export const Close_svg = ({ handleImageClick, width = 28, height = 28 }) => (
   <>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +269,7 @@ export const AddIcon = ({ className, color = "#646464" }) => (
     </svg>
   </>
 );
-export const ClosedIcon = ({ className, size = 40 }) => (
+export const ClosedIcon = ({ className, size = 28 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

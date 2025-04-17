@@ -237,11 +237,11 @@ function JobPosting() {
 
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <div className="w-full justify-center">
           <MiniLoader />
         </div>
-      ) : (
+      ) : ( */}
         <div className="flex flex-col gap-[24px]">
           <div className="flex flex-col gap-6">
             <div className="flex gap-6 flex-col  scr1024:flex-row">
@@ -430,7 +430,7 @@ function JobPosting() {
           </div>
           <JobCard filters={filters} setFilters={setFilters} />
         </div>
-      )}
+      {/* )} */}
       {openPopup && (
        <BulkUploadPopUp setOpenPopup={setOpenPopup} />
       )}

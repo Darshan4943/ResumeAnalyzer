@@ -863,21 +863,21 @@ function SkillAssessment() {
               {!showSecondDiv ? (
                 <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center ">
                   <button
-                    className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                    className={` rounded-[30px]  scr420:px-3 px-2   ${
                       assesmentType === "Normal"
-                        ? "bg-blue text-white bg_Button"
-                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
+                        ? "bg-blue text-white bg_Button text-[12px] "
+                        : "bg-white text-[#333] border  text-[12px] font-[600] border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                    }  ml:px-6    py-2   font-[600] `}
                     onClick={() => setAssesmentType("Normal")}
                   >
                     Quick Assessment
                   </button>
                   <button
-                    className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                    className={` rounded-[30px] scr420:px-3  px-2  text-[12px] ${
                       assesmentType === "Certificate"
-                        ? "bg-blue text-white bg_Button"
-                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                    } ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium  `}
+                        ? "bg-blue text-white bg_Button text-[14px]"
+                        : "bg-white text-[#333] border border-[#06A9EF] font-[600]  hover:bg-[#06A9EF] hover:text-[white]"
+                    } ml:px-6   text-[12px] py-2 font-[600]  `}
                     onClick={() => setAssesmentType("Certificate")}
                   >
                     Certification Assessment
@@ -888,21 +888,21 @@ function SkillAssessment() {
                   {showSecondDiv && (
                     <div className=" w-[100%] flex scr360:flex-row flex-col scr420:gap-[24px] gap-[16px] justify-center  ">
                       <button
-                        className={` rounded-[30px]  scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px]  ${
+                        className={` rounded-[30px]  scr420:px-3 px-2 ]  ${
                           !resultType
                             ? "bg-blue text-white bg_Button"
                             : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  ml:px-6   ml:text-[14px] py-2  text-[10px] font-medium `}
+                        }  ml:px-6  text-[12px] py-2  font-[600]   `}
                         onClick={() => setResultType(false)}
                       >
                         Quick Assesment Result
                       </button>
                       <button
-                        className={` rounded-[30px] scr420:px-3 scr500:text-[12px] scr420:text-[12px] px-2 text-[10px] ${
+                        className={` rounded-[30px] scr420:px-3  px-2 ${
                           resultType
-                            ? "bg-blue text-white bg_Button"
+                            ? "bg-blue text-white bg_Button text-[12px]"
                             : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  ml:px-6   ml:text-[14px] py-2 text-[10px] font-medium `}
+                        }  ml:px-6  text-[12px] py-2  font-[600]`}
                         onClick={() => setResultType(true)}
                       >
                         Certification Assesment Result

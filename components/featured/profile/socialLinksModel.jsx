@@ -111,8 +111,8 @@ function Social_Links({ setaddWebsites, setEditSocial, Social, editSocial }) {
               className="hover:cursor-pointer min-w-[40px]"
               onClick={() => setaddWebsites(false)}
               xmlns="http://www.w3.org/2000/svg"
-              width="40"
-              height="40"
+              width="28"
+              height="28"
               viewBox="0 0 40 40"
               fill="none"
             >
