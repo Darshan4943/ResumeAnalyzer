@@ -118,7 +118,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
 
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateProfileDetails/" +
+        "https://jamblix.com/api/candidate/updateProfileDetails/" +
           userDataGlobal?._id,
         obj
       )

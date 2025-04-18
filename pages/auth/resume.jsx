@@ -13,7 +13,7 @@ function ResumePage({ onClose }) {
 
     if (parsedResume) {
       axios
-        .post("http://localhost:2000/api/resumeCheck", {
+        .post("https://jamblix.com/api/resumeCheck", {
           resumeText: parsedResume,
         })
         .then((response) => {
