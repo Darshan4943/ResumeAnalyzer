@@ -50,7 +50,7 @@ const WrappedApp = ({ Component, pageProps }) => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);

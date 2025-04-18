@@ -124,7 +124,7 @@ const MyCollection = () => {
     setView(false);
   };
   const coverPdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) {}
+    function onDocumentLoadSuccess(numPages) { }
 
     return (
       <div
@@ -197,29 +197,26 @@ const MyCollection = () => {
   return (
     <>
       <div
-        className={`${
-          userDataGlobal?.role === "user" ? "customMargins" : ""
-        } py-6 min-h-[80vh]`}
+        className={`${userDataGlobal?.role === "user" ? "customMargins" : ""
+          } py-6 min-h-[80vh]`}
       >
         <div className="flex flex-col gap-[16px]">
           {userDataGlobal?.role === "user" ? (
             <div className="bg-[#F9F9F9] w-[248px] flex rounded-[30px] text-[14px] font-semibold">
               <button
-                className={`${
-                  isResumes === "resumes"
+                className={`${isResumes === "resumes"
                     ? "bg-[#06A9EF] py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
                     : "py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%]"
-                }`}
+                  }`}
                 onClick={() => setIsResumes("resumes")}
               >
                 Resumes
               </button>
               <button
-                className={`${
-                  isResumes === "covers"
+                className={`${isResumes === "covers"
                     ? "bg-[#06A9EF] py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
                     : "py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%]"
-                }`}
+                  }`}
                 onClick={() => setIsResumes("covers")}
               >
                 Cover Letters
@@ -228,9 +225,8 @@ const MyCollection = () => {
           ) : (
             <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
               <div
-                className={`flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE] ${
-                  userDataGlobal.role === "user" ? "bg-transparent" : "bg-white"
-                }`}
+                className={`flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[30px] px-4 ml:w-[58%] w-[100%] items-center border-[1px] border-solid border-[#DEDEDE] ${userDataGlobal.role === "user" ? "bg-transparent" : "bg-white"
+                  }`}
               >
                 <div className="flex gap-4  w-full items-center h-[38px] ">
                   <svg
@@ -397,9 +393,21 @@ const MyCollection = () => {
           )}
 
           {loading ? (
-            <div className="h-[60vh] w-full flex items-center justify-center">
-              <MiniLoader />
-            </div>
+          
+              <div className="h-[330px]  w-full sm:w-[234px] bg-white rounded-[12px] p-4 flex flex-col gap-2 mt-6">
+                <div className="flex justify-between">
+                  <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                  {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                </div>
+
+                <div className="skeleton-subtitle h-[20px]"></div>
+                <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                <div className="skeleton-line h-[50px] w-full"></div>
+                <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                <div className="skeleton-line h-[50px] w-full"></div>
+                <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+              </div>
+        
           ) : (
             <>
               {isResumes === "resumes" ? (
