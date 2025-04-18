@@ -114,19 +114,19 @@ const SelectPost = () => {
 
   const sortedJobs = Array.isArray(jobPost?.jobs)
     ? jobPost.jobs
-        .filter((job) =>
-          filterStatus === "All" ? true : job.status === filterStatus
-        )
-        .sort((a, b) => {
-          const statusComparison =
-            statusPriority[a.status] - statusPriority[b.status];
+      .filter((job) =>
+        filterStatus === "All" ? true : job.status === filterStatus
+      )
+      .sort((a, b) => {
+        const statusComparison =
+          statusPriority[a.status] - statusPriority[b.status];
 
-          if (statusComparison !== 0) {
-            return statusComparison;
-          }
+        if (statusComparison !== 0) {
+          return statusComparison;
+        }
 
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      })
     : [];
 
   const isLive = (item) => {
@@ -147,21 +147,19 @@ const SelectPost = () => {
     <>
       <div className="bg-[#F9F9F9] xsm:w-[348px] w-[284px] flex rounded-[30px] text-[14px] font-semibold ">
         <button
-          className={`${
-            toggle === 0
+          className={`${toggle === 0
               ? "bg-[#06A9EF] py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
               : "py-[8px] px-[28px] flex justify-center items-center rounded-[30px] w-[50%]"
-          }`}
+            }`}
           onClick={() => setToggle(0)}
         >
           Select Job
         </button>
         <button
-          className={`${
-            toggle === 1
+          className={`${toggle === 1
               ? "bg-[#06A9EF] py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%] text-white"
               : "py-[8px] px-[14px] flex justify-center items-center rounded-[30px] w-[50%]"
-          }`}
+            }`}
           onClick={() => setToggle(1)}
         >
           Manual
@@ -208,8 +206,24 @@ const SelectPost = () => {
           <div>
             <div className=" flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
               {loading ? (
-                <div className="w-full flex items-center justify-center h-[80vh]">
-                  <MiniLoader />
+                
+                  <div className="flex gap-[34px] flex-shrink-0 w-full col-span-4">
+                    {[1, 2, 3].map((item, index) => (
+
+                      <div key={index} className="h-[201px] w-full sm:w-[380px] bg-white rounded-[12px] p-4 flex flex-col gap-1">
+                        <div className="flex justify-between">
+                          <div className="skeleton-line h-[24px] max-w-[140px]"></div>
+                          {/* <div className="skeleton-img h-[36px] w-[36px] rounded-[50%]"></div> */}
+                        </div>
+
+                        <div className="skeleton-subtitle h-[20px]"></div>
+                        <div className="skeleton-line h-[20px] max-w-[70%]"></div>
+                        <div className="skeleton-line h-[50px] w-full"></div>
+                        <div className="skeleton-line h-[20px] max-w-[140px]"></div>
+                      </div>
+
+                    ))}
+                
                 </div>
               ) : (
                 <>
@@ -421,9 +435,8 @@ const SelectPost = () => {
                   name="jobTitle"
                   value={data.jobTitle}
                   onChange={handleChange}
-                  className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${
-                    errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
-                  }`}
+                  className={`border-[1px] rounded-[8px] p-[8px] w-full outline-none ${errors.jobTitle ? "border-red" : "border-[#DEDEDE]"
+                    }`}
                   placeholder="Enter Job Title"
                 />
               </div>{" "}
@@ -435,9 +448,8 @@ const SelectPost = () => {
                   name="description"
                   value={data.description}
                   onChange={handleChange}
-                  className={`w-full h-[200px] border-[1px] rounded-[8px] p-4 outline-none ${
-                    errors.description ? "border-red" : "border-[#DEDEDE]"
-                  }`}
+                  className={`w-full h-[200px] border-[1px] rounded-[8px] p-4 outline-none ${errors.description ? "border-red" : "border-[#DEDEDE]"
+                    }`}
                   placeholder="Enter description"
                 ></textarea>
               </div>
