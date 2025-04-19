@@ -223,8 +223,9 @@ function Index() {
       const res = await axios.post(
         "https://jamblix.com/api/job/getAll",
         {
-          requiredSkills:
-            jobTitle || location ? [] : userSkills?.map((item) => item),
+          // requiredSkills:
+          //   jobTitle || location ? [] : userSkills?.map((item) => item),
+          requiredSkills:jobTitle || location ? [] : [],
           jobTitle: jobTitle.trim() || "",
           country: location ? "" : country,
           location: location.trim(),
@@ -284,8 +285,9 @@ function Index() {
       const response = await axios.post(
         "https://jamblix.com/api/job/getFilterData",
         {
-          requiredSkills:
-            jobTitle || location ? [] : userSkills?.map((item) => item),
+          // requiredSkills:
+          //   jobTitle || location ? [] : userSkills?.map((item) => item),
+          requiredSkills:jobTitle || location ? [] : [],
           jobTitle: jobTitle.trim() || "",
           country: location ? "" : country,
           location: location.trim(),

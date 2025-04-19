@@ -58,6 +58,7 @@ function JobDetails() {
     getData();
   }, []);
 
+  console.log(jobData[0]);
   return (
     <>
 
@@ -77,11 +78,11 @@ function JobDetails() {
               setLimitPopup={setLimitPopup}
             />
             <div ref={similarJobsRef}>
-              <SimilarJobs />
+              <SimilarJobs  jobData={jobData[0]} />
             </div>
           </div>
           <div className="w-[400px]  hidden ml:flex flex-col px-2 pt-3 bg-[#FFFFFF] rounded-[16px] gap-1 h-fit">
-            <RelevantJobs />
+            <RelevantJobs jobData={jobData[0]}/>
           </div>
         </div>
       ) : (

@@ -13,8 +13,10 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Tesseract from "tesseract.js";
 import { DocSVG, PDFSvg, PNGICON } from "../../../../utils/svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LimitUsedModal from "../../../models/limitUsedModal";
+import { updateAiHit } from "../../../../Redux/slices/aiHitsSlice";
+import { setRecallData } from "../../../../Redux/slices/recallSlice";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const fileToText = (file, pageNumber) => {
@@ -53,7 +55,7 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
-
+  const dispatch = useDispatch()
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
@@ -64,6 +66,25 @@ const CandidateAiPower = ({
   const [count, setCount] = useState(0);
   const [docfileError, setDocFileError] = useState(false);
   const [planAvailable, setplanAvailable] = useState(false);
+  const [aiHitMonthly, setAiHitMonthly] = useState(0);
+  const [aiHitMonthlyLimit, setAiHitMonthlyLimit] = useState(0);
+  const [activePlan, setActivePlan] = useState();
+  const { recallData } = useSelector((state) => state.recall);
+  const getLimits = () => {
+    const aiHitMonthly = JSON.parse(localStorage.getItem("aiHitsMonthly"));
+    setAiHitMonthly(aiHitMonthly);
+
+    const aiHitMonthlyLimit = JSON.parse(
+      localStorage.getItem("aiHitsMonthlyLimit")
+    );
+    setAiHitMonthlyLimit(aiHitMonthlyLimit);
+    const activePlan = JSON.parse(localStorage.getItem("planActive"));
+
+    setActivePlan(activePlan);
+  };
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   useEffect(() => {
     const planavailable =
@@ -101,14 +122,14 @@ const CandidateAiPower = ({
 
   const handleFile = (selectedFile) => {
     if (selectedFile) {
-      setLoading(true); 
-  
+      setLoading(true);
+
       setTimeout(() => {
         if (
           selectedFile.type === "application/pdf" ||
           selectedFile.type === "application/msword" ||
           selectedFile.type ===
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ) {
           sendFile(selectedFile);
         } else {
@@ -123,11 +144,11 @@ const CandidateAiPower = ({
             theme: "colored",
           });
         }
-        setLoading(false); 
+        setLoading(false);
       }, 2000);
     }
   };
-  
+
 
   const sendFile = (file) => {
     setfile(file);
@@ -222,6 +243,11 @@ const CandidateAiPower = ({
             data: result,
           })
           .then((res) => {
+            dispatch(updateAiHit(userDataGlobal?._id));
+            setTimeout(() => {
+              dispatch(setRecallData(!recallData));
+              getLimits();
+            }, 1000);
             setLoading(false)
             if (Object.keys(res.data.data[0]).length > 0) {
               localStorage.setItem(
@@ -461,7 +487,7 @@ const CandidateAiPower = ({
               <div className="flex flex-row gap-[24px]">
                 <button
                   className=" px-6  text-[14px] text-[#333333] blue_border_Button h-[38px] font-[600] rounded-[30px]"
-                  
+
                   onClick={() => {
                     router.push("/createResume/BuildResume");
                   }}

@@ -1,7 +1,7 @@
 import React from 'react'
 import JobsForYou from './JobsForYou'
 
-function RelevantJobs() {
+function RelevantJobs({jobData}) {
   return (
     <div>
       <div className='flex gap-2  items-center'>
@@ -11,7 +11,7 @@ function RelevantJobs() {
         </p>
 
       </div>
-      <JobsForYou isRelevant={true} />
+      <JobsForYou isRelevant={true} jobData={jobData} />
 
     </div>
   )

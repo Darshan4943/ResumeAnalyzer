@@ -1,7 +1,7 @@
 import React from 'react'
 import JobsForYou from './JobsForYou'
 
-function SimilarJobs() {
+function SimilarJobs({jobData}) {
     return (
 
 
@@ -13,7 +13,7 @@ function SimilarJobs() {
                 </p>
 
             </div>
-            <JobsForYou isSimilar={true} />
+            <JobsForYou isSimilar={true} jobData={jobData} />
 
         </div>
 
