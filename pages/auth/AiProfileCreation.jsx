@@ -68,13 +68,33 @@ function AiProfileCreation() {
     handleFile(selectedFile);
   };
 
-  const handleFile = (selectedFile) => {
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // reads file as base64 string
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleFile = async (selectedFile) => {
     if (selectedFile) {
       if (
         selectedFile.type === "application/pdf" ||
         "application/msword" ||
         "application/docs"
       ) {
+        const base64 = await fileToBase64(selectedFile);
+
+        const fileData = {
+          name: selectedFile.name,
+          type: selectedFile.type,
+          size: selectedFile.size,
+          lastModified: selectedFile.lastModified,
+          content: base64, 
+        };
+
+        localStorage.setItem("uploadedResume", JSON.stringify(fileData));
         // Adjust file type checks as per your requirement
         sendFile(selectedFile);
       } else {
@@ -160,85 +180,83 @@ function AiProfileCreation() {
   };
 
   const navigate = () => {
-      setLoading(true);
-      extracteText(file).then((result) => {
+    setLoading(true);
+    extracteText(file).then((result) => {
+      if (result[0]?.text?.length > 0) {
+        axios
+          .post("https://jamblix.com/api/resume/extraction", {
+            data: result,
+          })
+          .then((res) => {
+            if (Object.keys(res.data.data[0]).length > 0) {
+              localStorage.setItem(
+                "parsedResume",
+                JSON.stringify(res.data.data[0])
+              );
+              setLoading(false);
+              router.push("/auth/Sign_up?role=user");
+            } else {
+              setCount(count + 1);
+            }
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+            extracteText();
+          });
+      } else {
+        setResumeErrorPopup(true);
 
-          if (result[0]?.text?.length > 0) {
-              axios
-                  .post("https://jamblix.com/api/resume/extraction", {
-                      data: result,
-                  })
-                  .then((res) => {
-
-                      if (Object.keys(res.data.data[0]).length > 0) {
-                          localStorage.setItem(
-                              "parsedResume",
-                              JSON.stringify(res.data.data[0])
-                          );
-                          setLoading(false);
-                          router.push("/auth/Sign_up?role=user")
-                      } else {
-                          setCount(count + 1);
-                      }
-                  })
-                  .catch((err) => {
-                      setLoading(false);
-                      console.log(err);
-                      extracteText();
-                  });
-          } else {
-              setResumeErrorPopup(true);
-
-              // setLoading(false);
-              // setfile();
-              // setCount(count + 1);
-          }
-      });
+        // setLoading(false);
+        // setfile();
+        // setCount(count + 1);
+      }
+    });
   };
 
-//   const navigate = () => {
-//     setLoading(true);
+  //   const navigate = () => {
+  //     setLoading(true);
 
-//     extracteText(file).then((result) => {
-//       if (result[0]?.text?.length > 0) {
-//         const extractedText = result[0].text;
+  //     extracteText(file).then((result) => {
+  //       if (result[0]?.text?.length > 0) {
+  //         const extractedText = result[0].text;
 
-//         // 1. Send extracted text to the first API (extraction)
-//         axios
-//           .post("https://jamblix.com/api/resume/extraction", {
-//             data: result,
-//           })
-//           .then((res) => {
-//             if (Object.keys(res.data.data[0]).length > 0) {
-//               localStorage.setItem(
-//                 "parsedResume",
-//                 JSON.stringify(res.data.data[0])
-//               );
+  //         // 1. Send extracted text to the first API (extraction)
+  //         axios
+  //           .post("https://jamblix.com/api/resume/extraction", {
+  //             data: result,
+  //           })
+  //           .then((res) => {
+  //             if (Object.keys(res.data.data[0]).length > 0) {
+  //               localStorage.setItem(
+  //                 "parsedResume",
+  //                 JSON.stringify(res.data.data[0])
+  //               );
 
-//               // 2. Send extracted text to AI resume check API
-//               return axios.post("https://jamblix.com/api/resumeCheck", {
-//                 resumeText: extractedText,
-//               });
-//             } else {
-//               setCount(count + 1);
-//               throw new Error("Empty parsed resume");
-//             }
-//           })
-//           .then((aiRes) => {
-//             console.log("AI Feedback:", aiRes.data);
-//             setLoading(false);
-//             // router.push("/auth/Sign_up?role=user");
-//           })
-//           .catch((err) => {
-//             console.error("Error during resume processing:", err);
-//             setLoading(false);
-//           });
-//       } else {
-//         setResumeErrorPopup(true);
-//         setLoading(false);
-//       }
-//     });
-//   };
+  //               // 2. Send extracted text to AI resume check API
+  //               return axios.post("https://jamblix.com/api/resumeCheck", {
+  //                 resumeText: extractedText,
+  //               });
+  //             } else {
+  //               setCount(count + 1);
+  //               throw new Error("Empty parsed resume");
+  //             }
+  //           })
+  //           .then((aiRes) => {
+  //             console.log("AI Feedback:", aiRes.data);
+  //             setLoading(false);
+  //             // router.push("/auth/Sign_up?role=user");
+  //           })
+  //           .catch((err) => {
+  //             console.error("Error during resume processing:", err);
+  //             setLoading(false);
+  //           });
+  //       } else {
+  //         setResumeErrorPopup(true);
+  //         setLoading(false);
+  //       }
+  //     });
+  //   };
 
   useEffect(() => {
     if (count > 2) {
