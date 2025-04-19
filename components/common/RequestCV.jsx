@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import MiniLoader1 from "../../components/common/mini-loader";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function RequestCV() {
   const [isResumes, setIsResumes] = useState("post");
@@ -227,22 +228,27 @@ function RequestCV() {
         );
       }
 
-      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
-      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
-        resumeCount,
-      });
+      // const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
+      //   resumeCount,
+      // });
 
-      if (!jdSubscriptionResponse.data.success) {
-        console.error(
-          "Error in updateJdSubscriptionLimit:",
-          jdSubscriptionResponse.data.message
-        );
-      }
-      dispatch(setRecallData(!recallData));
+      // if (!jdSubscriptionResponse.data.success) {
+      //   console.error(
+      //     "Error in updateJdSubscriptionLimit:",
+      //     jdSubscriptionResponse.data.message
+      //   );
+      // }
+           dispatch(updateAiHit(userDataGlobal?._id));
+            setTimeout(() => {
+              dispatch(setRecallData(!recallData));
+              getLimits();
+            }, 1000);
+     
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
-        jdSubscriptionResponse: jdSubscriptionResponse.data,
+        // jdSubscriptionResponse: jdSubscriptionResponse.data,
       };
     } catch (error) {
       console.error("Something went wrong:", error);

@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NormalJobCard from "./NormalJobCard";
 
-function JobsForYou({ isRelevant, isSimilar }) {
+function JobsForYou({ isRelevant, isSimilar, jobData }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [country, setCountry] = useState("");
   const [experience, setExperience] = useState("");
-  const [jobData, setJobData] = useState([]);
+  const [jobsData, setJobsData] = useState([]);
   const [userSkills, setUserSkills] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { profileData } = useSelector((state) => state.profile.profileData);
-
+  console.log(isRelevant, isSimilar);
   useEffect(() => {
     if (profileData?.skills) {
       setUserSkills(profileData.skills.map((item) => item.value));
@@ -36,20 +36,20 @@ function JobsForYou({ isRelevant, isSimilar }) {
         "https://jamblix.com/api/job/getAll",
         {
           requiredSkills:
-            isRelevant || isSimilar ? userSkills?.map((item) => item) : "",
-          jobTitle: "",
+            isRelevant || isSimilar ? jobData?.mustSkills : "",
+          jobTitle: isSimilar ? jobData?.jobTitle : "",
           country: country,
           location: "",
-          experience: isRelevant || isSimilar ? "" : "",
+          experience: isSimilar ? "" : "",
           isExperinceNo: true,
         },
         {
           params: { page, limit },
-          
+
         }
       );
 
-      setJobData(res.data.filteredJobs);
+      setJobsData(res.data.filteredJobs);
     } catch (err) {
       console.error(err);
     }
@@ -57,25 +57,23 @@ function JobsForYou({ isRelevant, isSimilar }) {
 
   useEffect(() => {
     getAllData();
-  }, [country]);
+  }, [country, userSkills]);
 
   return (
     <div
-      className={`flex flex-col  ${
-        isRelevant ? "" : isSimilar ? "gap-3" : "gap-5"
-      }`}
+      className={`flex flex-col  ${isRelevant ? "" : isSimilar ? "gap-3" : "gap-5"
+        }`}
       style={{
         ...(isRelevant ? {} : { boxShadow: "0px 0px 14px 0px #00000005" }),
       }}
     >
-      {jobData?.map((item, index) => (
+      {jobsData?.map((item, index) => (
         <div
           key={index}
-          className={`${
-            isRelevant
-              ? index !== jobData.length - 1 && "border-b"
+          className={`${isRelevant
+              ? index !== jobsData.length - 1 && "border-b"
               : "border rounded-[12px]"
-          } border-[#D2D2D2]  w-full`}
+            } border-[#D2D2D2]  w-full`}
         >
           <NormalJobCard item={item} />
         </div>

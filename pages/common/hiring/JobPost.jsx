@@ -18,6 +18,7 @@ import CopyLink from "../../../components/common/copyLink";
 import LimitUsedModal from "../../../components/models/limitUsedModal";
 import { setRecallData } from "../../../Redux/slices/recallSlice";
 import JdParameters from "../../../components/common/jdParameters";
+import { updateAiHit } from "../../../Redux/slices/aiHitsSlice";
 function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
   const [option, setOption] = useState(0);
   const randomPercentage = useMemo(
@@ -338,7 +339,12 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
           priority
         }
       );
-      updateJobMatchLimit();
+      dispatch(updateAiHit(userDataGlobal?._id));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
+      // updateJobMatchLimit();
       setTimeout(() => {
         setAiLoading(false);
         fetchJobDetails();
@@ -350,28 +356,28 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
 
 
-  const updateJobMatchLimit = async () => {
-    try {
-      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
-      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
+  // const updateJobMatchLimit = async () => {
+  //   try {
+  //     const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+  //     const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl);
 
-      if (!jdSubscriptionResponse.data.success) {
-        console.error(
-          "Error in updateJdSubscriptionLimit:",
-          jdSubscriptionResponse.data.message
-        );
-      }
-      dispatch(setRecallData(!recallData));
+  //     if (!jdSubscriptionResponse.data.success) {
+  //       console.error(
+  //         "Error in updateJdSubscriptionLimit:",
+  //         jdSubscriptionResponse.data.message
+  //       );
+  //     }
+  //     dispatch(setRecallData(!recallData));
 
-      return {
-        updateJobMatchResponse: updateJobMatchResponse.data,
-        jdSubscriptionResponse: jdSubscriptionResponse.data,
-      };
-    } catch (error) {
-      console.error("Something went wrong:", error);
-      return { success: false, message: "Something went wrong", error };
-    }
-  };
+  //     return {
+  //       updateJobMatchResponse: updateJobMatchResponse.data,
+  //       jdSubscriptionResponse: jdSubscriptionResponse.data,
+  //     };
+  //   } catch (error) {
+  //     console.error("Something went wrong:", error);
+  //     return { success: false, message: "Something went wrong", error };
+  //   }
+  // };
 
   useEffect(() => {
     fetchJobDetails();
