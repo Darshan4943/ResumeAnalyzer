@@ -62,7 +62,7 @@ const TopCompanies = () => {
         company?.length === 0 ? "hidden" : ""
       }`}
     >
-       {loading && (
+       {/* {loading && (
           <div className="flex justify-center ite h-0 ">
            <div className="flex gap-4 flex-col w-full ml:max-w-[548px]">
             <div className='flex gap-4 '>
@@ -112,7 +112,7 @@ const TopCompanies = () => {
 
           </div>
           </div>
-        )}
+        )} */}
       <div className="gap-[20px] flex flex-col">
         <div className="flex justify-between item-center ">
           <div className="flex flex-col gap-[6px]">

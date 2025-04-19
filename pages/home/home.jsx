@@ -4,25 +4,20 @@
 // import Dashboard from "../dashboard";
 // import AdminDashboard from "../dashboard/adminDashboard";
 // import ResumePage from "../auth/resume";
-
+// import { useRouter } from "next/router";
 
 // function Home() {
+//   const router = useRouter();
 //   const { userDataGlobal } = useSelector((state) => state.user.userData);
 //   const isLogin = useSelector((state) => state.auth.isLogin);
-
-//   const [showResumePage, setShowResumePage] = useState(false);
-
+//   const { signIn } = router.query;
 //   const parsedResume = localStorage.getItem("parsedResume");
-
-//   const handleCloseResumePage = () => {
-//     setShowResumePage(false); 
-//   };
 
 //   return (
 //     <div>
 //       {userDataGlobal?.role === "user" ? (
-//         showResumePage || parsedResume ? (
-//           <ResumePage onClose={handleCloseResumePage} />
+//         (parsedResume && signIn ==="false") ? (
+//           <ResumePage />
 //         ) : (
 //           <CandidateHome />
 //         )
@@ -36,8 +31,6 @@
 // }
 
 // export default Home;
-
-
 
 import React from "react";
 import CandidateHome from "../candidate";
