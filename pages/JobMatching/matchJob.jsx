@@ -24,6 +24,7 @@ import JdMatchCard from "./JdMatchCard";
 import ApplicantDetails from "./ApplicantDetails";
 import { setRecallData } from "../../Redux/slices/recallSlice";
 import JdParameters from "../../components/common/jdParameters";
+import { updateAiHit } from "../../Redux/slices/aiHitsSlice";
 
 const MatchJob = () => {
   const dispatch = useDispatch();
@@ -160,8 +161,8 @@ const MatchJob = () => {
       }
     }
   }, [data]);
-  
-  
+
+
 
   useEffect(() => {
     const fetchJDParameters = async () => {
@@ -255,7 +256,7 @@ const MatchJob = () => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
             //  && item.isSync === true
-            ) {
+          ) {
             return true;
           } else if (item.type == "folder") {
             return true;
@@ -279,7 +280,7 @@ const MatchJob = () => {
         const filteredData = res.data.data.filter((item) => {
           if (item.type == "file"
             //  && item.isSync === true
-            ) {
+          ) {
             return true;
           } else if (item.type == "folder") {
             return true;
@@ -584,22 +585,27 @@ const MatchJob = () => {
         );
       }
 
-      const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
-      const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
-        resumeCount,
-      });
+      // const jdSubscriptionLimitUrl = `https://jamblix.com/api/subscription/updateAiHits/${userDataGlobal?._id}`;
+      // const jdSubscriptionResponse = await axios.put(jdSubscriptionLimitUrl, {
+      //   resumeCount,
+      // });
 
-      if (!jdSubscriptionResponse.data.success) {
-        console.error(
-          "Error in updateJdSubscriptionLimit:",
-          jdSubscriptionResponse.data.message
-        );
-      }
-      dispatch(setRecallData(!recallData));
+      // if (!jdSubscriptionResponse.data.success) {
+      //   console.error(
+      //     "Error in updateJdSubscriptionLimit:",
+      //     jdSubscriptionResponse.data.message
+      //   );
+      // }
+      // dispatch(setRecallData(!recallData));
+      dispatch(updateAiHit(userDataGlobal?._id));
+      setTimeout(() => {
+        dispatch(setRecallData(!recallData));
+        getLimits();
+      }, 1000);
 
       return {
         updateJobMatchResponse: updateJobMatchResponse.data,
-        jdSubscriptionResponse: jdSubscriptionResponse.data,
+        // jdSubscriptionResponse: jdSubscriptionResponse.data,
       };
     } catch (error) {
       console.error("Something went wrong:", error);

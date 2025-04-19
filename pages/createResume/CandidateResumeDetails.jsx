@@ -59,7 +59,7 @@ function CandidateResumeDetails() {
     employmentStatus: "employed",
     clientId: clientId,
   });
-console.log(data)
+
   useEffect(() => {
 
     const selectedItem = telCode.find((item) => item.dial_code === profileData?.basics?.dial_code);
