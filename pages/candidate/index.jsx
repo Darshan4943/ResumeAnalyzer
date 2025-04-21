@@ -20,9 +20,9 @@ function CandidateHome() {
     <>
       {loading ?
 
-        <div className=" gap-6 flex flex-col ml:flex-row pt-6 customMargins">
+        <div className=" gap-6 flex flex-col ml:flex-row pt-6  customMargins">
 
-          <div className="flex gap-6 flex-col rounded-[12px] w-full ml:max-w-[262px]">
+          <div className="flex gap-6 flex-col rounded-[12px] ml:max-w-[262px] items-center w-full">
 
             <div className="h-[254px]  ml:max-w-[262px] w-[262px]  bg-white rounded-[12px] px-4 py-[28px] flex flex-col gap-4 items-center">
               <div className="skeleton-subtitle h-[104px] w-[104px] rounded-full"></div>

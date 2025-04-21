@@ -162,7 +162,7 @@ const TopCompanies = () => {
                                 : job.name}
                             </div>
 
-                            <div className="flex items-center xsm:flex-col scr420:flex-row gap-[5px]">
+                            <div className="flex items-center  gap-[5px]">
                               <div className="flex gap-[4px]">
                                 <div className="w-[14px] h-[14px]">
                                   <img
