@@ -12,6 +12,7 @@ function Job_card({
   setSimilarJobsVisible,
   similarJobsVisible,
   getData,
+  isShared
 }) {
   const [limitPopup, setLimitPopup] = useState(false);
   const { profileData } = useSelector((state) => state.profile.profileData);
@@ -72,7 +73,7 @@ function Job_card({
             <div className="flex flex-row">
               <div className="flex flex-col gap-[4px] w-full">
                 <div
-                  className={`xxsm:text-[14px] flex justify-between sm:text-[14px] font-[600] ${
+                  className={`xxsm:text-[14px] flex gap-6 sm:text-[14px] font-[600] ${
                     item?.jobTitle.length > 60 && "group"
                   } relative`}
                 >
@@ -82,7 +83,7 @@ function Job_card({
                   <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break top-[20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                     {item.jobTitle}
                   </div>
-                  {item?.status === "Closed" && (
+                  {(item?.status === "Closed" && isShared) && (
                     <p className="text-red">Closed</p>
                   )}
                 </div>
