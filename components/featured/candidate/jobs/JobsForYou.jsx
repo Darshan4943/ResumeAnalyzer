@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NormalJobCard from "./NormalJobCard";
 
-function JobsForYou({ isRelevant, isSimilar, jobData }) {
+function JobsForYou({ isRelevant, isSimilar, jobData, setIsData }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [country, setCountry] = useState("");
@@ -12,7 +12,7 @@ function JobsForYou({ isRelevant, isSimilar, jobData }) {
   const [userSkills, setUserSkills] = useState();
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const { profileData } = useSelector((state) => state.profile.profileData);
-  console.log(isRelevant, isSimilar);
+
   useEffect(() => {
     if (profileData?.skills) {
       setUserSkills(profileData.skills.map((item) => item.value));
@@ -48,8 +48,13 @@ function JobsForYou({ isRelevant, isSimilar, jobData }) {
 
         }
       );
-
-      setJobsData(res.data.filteredJobs);
+      
+      const filteredJobs = res.data.filteredJobs.filter(job => job._id !== jobData?._id);
+      setJobsData(filteredJobs);
+    
+      if (filteredJobs <= 0) {
+        setIsData(false)
+      }
     } catch (err) {
       console.error(err);
     }
@@ -71,8 +76,8 @@ function JobsForYou({ isRelevant, isSimilar, jobData }) {
         <div
           key={index}
           className={`${isRelevant
-              ? index !== jobsData.length - 1 && "border-b"
-              : "border rounded-[12px]"
+            ? index !== jobsData.length - 1 && "border-b"
+            : "border rounded-[12px]"
             } border-[#D2D2D2]  w-full`}
         >
           <NormalJobCard item={item} />

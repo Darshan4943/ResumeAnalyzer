@@ -9,6 +9,7 @@ import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
 import RelevantJobs from "../../../components/featured/candidate/jobs/RelevantJobs";
 import SimilarJobs from "../../../components/featured/candidate/jobs/SimilarJobs";
 import { setShareJobOpen } from "../../../Redux/slices/shareJobSlice";
+import ApplicationStatus from "./ApplicationStatus";
 
 
 function JobDetails() {
@@ -17,12 +18,12 @@ function JobDetails() {
   const dispatch = useDispatch();
   dispatch(setShareJobOpen());
   const [limitPopup, setLimitPopup] = useState(false);
-  const { id } = router.query;
+  const { id, isShared } = router.query;
   const [loading, setLoading] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [save, setSaved] = useState(false);
-
+  const [isdata, setIsData] = useState(true)
   const [similarJobsVisible, setSimilarJobsVisible] = useState(false);
   const similarJobsRef = useRef(null);
 
@@ -72,18 +73,28 @@ function JobDetails() {
               save={save}
               setSimilarJobsVisible={setSimilarJobsVisible}
               similarJobsVisible={similarJobsVisible}
+              isShared={isShared}
             />
+            {/* <ApplicationStatus/> */}
             <Description
               selectedJob={jobData[0]}
               setLimitPopup={setLimitPopup}
             />
+
             <div ref={similarJobsRef}>
-              <SimilarJobs  jobData={jobData[0]} />
+              <SimilarJobs jobData={jobData[0]} />
             </div>
           </div>
-          <div className="w-[400px]  hidden ml:flex flex-col px-2 pt-3 bg-[#FFFFFF] rounded-[16px] gap-1 h-fit">
-            <RelevantJobs jobData={jobData[0]}/>
-          </div>
+          {isdata ?
+            <div className="w-[400px]  hidden ml:flex flex-col px-2 rounded-[16px] bg-[#FFFFFF]  pt-3  gap-1 h-fit">
+              <RelevantJobs jobData={jobData[0]} isdata={isdata} setIsData={setIsData} />
+            </div>
+            :
+            <div className='w-[262px] hidden scr1200:flex flex-col gap-6'>
+              <img src="/images/home/CandidatePoster1.png" className="w-full" alt="Event Flyer" />
+              <img src="/images/home/CandidatePoster2.png" className="w-full" alt="Generative AI" />
+            </div>
+          }
         </div>
       ) : (
         <div className="customMargins py-6 flex gap-5 w-full ">
