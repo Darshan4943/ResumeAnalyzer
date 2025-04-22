@@ -82,10 +82,10 @@ function ShareJobHeader({ userData }) {
     };
     const handleLogOut = () => {
 
-  
+
         localStorage.clear();
         sessionStorage.clear();
-       
+
     };
 
     return (
@@ -112,7 +112,10 @@ function ShareJobHeader({ userData }) {
 
                     <>
                         <div className="flex py-3 scr900:gap-9  gap-4 list-none w-full">
-                            <div>
+                            <div onClick={() => {
+                                router.push("/");
+
+                            }}>
                                 <img
                                     className=" object-contain min-h-[40px] h-[40px] min-w-[119px]"
                                     src="/images/logo_skilotech.png"
@@ -313,7 +316,7 @@ function ShareJobHeader({ userData }) {
 
                         <div className="w-[40%] gap-4 flex justify-end items-center h-[40px] mt-[10px]">
                             <motion.button
-                                onClick={() =>{handleLogOut();router.push("/auth/Sign_in?role=user")}}
+                                onClick={() => { handleLogOut(); router.push("/auth/Sign_in?role=user") }}
                                 className="buttonTransparent  rounded-[30px] flex justify-center items-center blue_border_Button py-[10px] h-[38px] px-6 text-[14px] font-semibold border-[1px]  leading-[18px]"
                                 initial={{ opacity: 1, scale: 1 }}
                                 animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
@@ -325,7 +328,7 @@ function ShareJobHeader({ userData }) {
                             </motion.button>
 
                             <motion.button
-                                onClick={() => {handleLogOut();router.push("/auth/AiProfileCreation")}}
+                                onClick={() => { handleLogOut(); router.push("/auth/AiProfileCreation") }}
                                 className="rounded-[30px]  flex justify-center items-center bg_Button py-[10px] h-[38px] px-6  text-[14px] font-semibold border-[1px]  leading-[18px]"
                                 initial={{ opacity: 1, scale: 1 }}
                                 animate={{ opacity: isSearch ? 0 : 1, scale: isSearch ? 0.8 : 1 }}
