@@ -606,7 +606,7 @@ function Index() {
 
             <div className=" flex-col gap-6 rounded-[12px] scr900:flex hidden">
               <img
-                src="/images/home/SearchJobPoster1.png"
+                src="/images/home/CandidatePoster2.png"
                 alt=""
                 className=" scr1100:min-w-[262px] w-[220px] min-w-[200px]  rounded-[12px] scr1100:h-[356px] h-[300px]  "
               />
