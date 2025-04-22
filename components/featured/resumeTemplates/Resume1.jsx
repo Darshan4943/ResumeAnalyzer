@@ -635,7 +635,7 @@ function Resume1({ data, isPremium ,openPopup }) {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-0 z-1000 bg-white/60 backdrop-blur-sm top-[-0px] left-0 w-full h-full flex items-center justify-center z-10">
+            <div className="absolute top-[-50px] left-0 w-full h-full flex items-center justify-center z-10">
               <span className="text-[#FF9500] text-sm font-semibold">
                 <button
                   onClick={() => openPopup("Upgrade to Premium")}
