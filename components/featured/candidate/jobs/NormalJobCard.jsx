@@ -119,7 +119,7 @@ function NormalJobCard({ item }) {
                 style={{
                   height: "40px",
                   width: "76px",
-                  objectFit: "cover",
+                  objectFit: "contain",
                 }}
               />
             </div>
