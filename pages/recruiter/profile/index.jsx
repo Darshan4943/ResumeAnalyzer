@@ -280,11 +280,11 @@ const Profile = () => {
                         <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-[60%]">
                           <div className="h-[60px] w-[140px] flex items-center justify-center rounded-md">
                             {companyData.companyLogo && (
-                              <div className="flex rounded-[6px] w-[48px] h-[48px] sm:w-[56px] sm:h-[56px]">
+                              <div className="flex rounded-[6px] w-[48px] h-[48px] sm:w-[76px] sm:h-[56px]">
                                 <img
                                   src={companyData.companyLogo}
                                   alt="Company Logo"
-                                  className="w-full h-full object-cover rounded-[6px]"
+                                  className="w-full h-full object-contain rounded-[6px]"
                                 />
                               </div>
                             )}
@@ -419,7 +419,7 @@ const Profile = () => {
                             <img
                               src={companyData.companyLogo}
                               alt="Company Logo"
-                              className="w-full h-full object-cover rounded-[6px]"
+                              className="w-full h-full object-contain rounded-[6px]"
                             />
                           </div>
                         )}
