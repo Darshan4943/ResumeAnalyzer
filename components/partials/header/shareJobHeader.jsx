@@ -113,9 +113,9 @@ function ShareJobHeader({ userData }) {
                     <>
                         <div className="flex py-3 scr900:gap-9  gap-4 list-none w-full">
                             <div onClick={() => {
-                                router.push("/");
+                                handleLogOut(); router.push("/");
 
-                            }}>
+                            }} className=" cursor-pointer">
                                 <img
                                     className=" object-contain min-h-[40px] h-[40px] min-w-[119px]"
                                     src="/images/logo_skilotech.png"
