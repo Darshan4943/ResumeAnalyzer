@@ -9,6 +9,7 @@ import JobsForYou from "../../../components/featured/candidate/jobs/JobsForYou";
 import RelevantJobs from "../../../components/featured/candidate/jobs/RelevantJobs";
 import SimilarJobs from "../../../components/featured/candidate/jobs/SimilarJobs";
 import { setShareJobOpen } from "../../../Redux/slices/shareJobSlice";
+import ApplicationStatus from "./ApplicationStatus";
 
 
 function JobDetails() {
@@ -74,6 +75,7 @@ function JobDetails() {
               similarJobsVisible={similarJobsVisible}
               isShared={isShared}
             />
+            {/* <ApplicationStatus/> */}
             <Description
               selectedJob={jobData[0]}
               setLimitPopup={setLimitPopup}

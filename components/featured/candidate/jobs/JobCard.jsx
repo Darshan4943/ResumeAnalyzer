@@ -127,6 +127,7 @@ function Job_card({
                     style={{
                       height: "40px",
                       width: "76px",
+                       objectFit:"contain"
                     }}
                   />
                 </div>
