@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ScheduleTask from "./ScheduleTask";
 import ScheduleInterview from "./ScheduleInterview";
-import { DummyProfileSvg } from "../../utils/svg";
+import { ClosedIcon, DummyProfileSvg } from "../../utils/svg";
 import axios from "axios";
 import { formatInterviewDate } from "../../utils/middleware";
 import { toast } from "react-toastify";
@@ -26,6 +26,8 @@ function LevelUpdate({
   const [error, setError] = useState();
   const [currenStatus, setCurrenStatus] = useState();
   const [statusChange, setStatusChange] = useState(false);
+  const [isCandidatePreview, setIsCandidatePreview] = useState(false)
+  const [isInterviewerPreview, setIsInterviewerPreview] = useState(false)
   const handleStarClick = (starIndex) => {
     setSelectedLevel({ ...selectedLevel, score: starIndex + 1 });
   };
@@ -72,7 +74,7 @@ function LevelUpdate({
       setShortlist(true);
     }
   };
-  console.log(mailDetails)
+  console.log(jobDetails)
   const submitDetails = async () => {
     if (
       selectedLevel?.status === currenStatus &&
@@ -304,11 +306,11 @@ function LevelUpdate({
       <div className="min-h-[1px] w-full bg-[#D6DDEB]"></div>
       {selectedLevel?.level !== 1 && (
         <div className="flex ms:flex-row flex-col gap-4 justify-between">
-          <div className="flex flex-col gap-4 w-[30%]">
+          <div className="flex flex-col gap-4 w-[45%]">
             <div>
-              <p className="text-[20px] font-medium">Interview Status</p>
+              <p className="text-[18px] font-medium">{selectedLevel?.isInterview ? "Interview" : "Task"} Status</p>
               <p className="text-[12px] font-normal">
-                Change Interview Status of the Candidate
+                Change {selectedLevel?.isInterview ? "Interview" : "Task"} Status of the Candidate
               </p>
             </div>
 
@@ -330,7 +332,7 @@ function LevelUpdate({
             </select>
           </div>
           <div className="flex flex-col gap-2 w-[30%]">
-            <p className="text-[20px] font-medium">Interview Date</p>
+            <p className="text-[18px] font-medium">{selectedLevel?.isInterview ? "Interview" : "Task"} Date</p>
 
             <div>{formatInterviewDate(selectedLevel?.interviewDate)}</div>
           </div>
@@ -340,7 +342,7 @@ function LevelUpdate({
         <div className="flex ms:flex-row flex-col gap-4 justify-between">
           {selectedLevel?.interviewer?.length > 0 && (
             <div className="flex flex-col gap-2">
-              <p className="text-[20px] font-medium">Conducted By</p>
+              <p className="text-[18px] font-medium">Conducted By</p>
               <div className="flex  gap-2 flex-wrap">
                 {selectedLevel?.interviewer?.map((person, index) => (
                   <div key={index} className="flex gap-2">
@@ -356,9 +358,9 @@ function LevelUpdate({
               </div>
             </div>
           )}
-          <div className="flex flex-col gap-2 w-[30%]">
+          <div className="flex flex-col gap-2 w-[45%]">
             <div>
-              <p className="text-[20px] font-medium">Interview Score</p>
+              <p className="text-[18px] font-medium">{selectedLevel?.isInterview ? "Interview" : "Task"} Score</p>
               <p className="text-[12px] font-normal">
                 rate candidate from scale of 1 to 5
               </p>
@@ -466,7 +468,7 @@ function LevelUpdate({
                   className="h-[20px] w-[20px] custom-radio cursor-pointer "
                   onChange={(e) => handleRadioChange(e.target.value)}
                 />
-                <label  className="text-[14px]">Assign Task</label>
+                <label className="text-[14px]">Assign Task</label>
               </div>
             </div>
             <div className="h-[1px] bg-[#D6DDEB]"></div>
@@ -479,7 +481,7 @@ function LevelUpdate({
           <button
             onClick={closeTaskPopup}
             className=" h-[38px] red_border_Button rounded-[30px] px-6"
-            // id="button"
+          // id="button"
           >
             Cancel
           </button>
@@ -521,6 +523,7 @@ function LevelUpdate({
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
                 submitDetails={submitDetails}
+              
               />
             </motion.div>
           </div>
@@ -550,11 +553,102 @@ function LevelUpdate({
                 selectedValues={selectedValues}
                 setSelectedValues={setSelectedValues}
                 submitDetails={submitDetails}
+                isCandidatePreview={isCandidatePreview}
+                setIsCandidatePreview={setIsCandidatePreview}
+                setIsInterviewerPreview={setIsInterviewerPreview}
+                isInterviewerPreview={isInterviewerPreview}
               />
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+      {isCandidatePreview &&
+        <>
+
+          <div className="fixed z-[3000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[3000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
+            <div className="bg-white rounded-[12px]  p-4  break-all w-[65%] overflow-y-auto h-[80vh] relative ">
+              <div className="w-full flex justify-end sticky right-0 top-0 cursor-pointer" onClick={() => setIsCandidatePreview(false)}><ClosedIcon /></div>
+              <div className="text-[16px] font-semibold">
+                Subject: <span className="font-medium">{mailDetails?.candidate?.subject}</span>
+              </div>
+              <div className="text-[16px] font-semibold h-[1px] w-full bg-[#DEDEDE] mt-1">
+
+              </div>
+            <div
+              className="px-4  pt-2 text-[14px]"
+              dangerouslySetInnerHTML={{
+                __html: mailDetails?.candidate?.content,
+              }}
+            />
+            <div className="text-[14px] font-medium leading-6 ">
+              Once completed, kindly send it to the following email address:
+
+              {selectedValues?.taskReviewer?.map((person, index) => (
+                <div key={index} className=" leading-tight ">
+
+                  <p className=" font-semibold">
+
+                    {person.email}
+                  </p>
+
+                </div>
+              ))}
+
+              <p className="mt-2">Best regards,</p>
+              Skilotech
+
+            </div>
+            </div>
+
+
+
+
+          </div>
+        </>
+
+
+
+      }
+       {isInterviewerPreview &&
+        <>
+
+          <div className="fixed z-[3000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[3000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins ">
+            <div className="bg-white rounded-[12px]  p-4  break-words w-[65%] overflow-y-auto h-[80vh] relative ">
+              <div className="w-full flex justify-end sticky right-0 top-0 cursor-pointer" onClick={() => setIsInterviewerPreview(false)}><ClosedIcon /></div>
+              <div className="text-[16px] font-semibold">
+                Subject: <span className="font-medium">{mailDetails?.interviewer?.subject}</span>
+              </div>
+              <div className="text-[16px] font-semibold h-[1px] w-full bg-[#DEDEDE] mt-1">
+
+              </div>
+            <div
+              className="px-4  pt-2 text-[14px]"
+              dangerouslySetInnerHTML={{
+                __html: mailDetails?.interviewer?.content,
+              }}
+            />
+            <div className="text-[14px] font-medium leading-6 ">
+            The candidate will send you the completed task once they have finished. Kindly review it and provide feedback on their performance. Once completed, please send your review to the following email address:
+
+              <p className="font-semibold">{userDataGlobal?.email}</p>
+
+              <p className="mt-2">Best regards,</p>
+              Skilotech
+
+            </div>
+            </div>
+
+
+
+
+          </div>
+        </>
+
+
+
+      }
     </div>
   );
 }
