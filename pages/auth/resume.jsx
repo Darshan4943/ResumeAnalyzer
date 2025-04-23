@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import MiniLoader from "../../components/common/miniLoader";
+import { useRouter } from "next/router";
+import Resume1 from "../../components/featured/resumeTemplates/Resume1";
 
-function ResumePage({ onClose }) {
-  const [resumeData, setResumeData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+function ResumePage() {
   const [selectedSection, setSelectedSection] = useState("tailoring");
-  const [isPremium, setIsPremium] = useState(false);
   const [uploadPdf, setUploadPdf] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState("");
+  const hasFetched = useRef(false);
+  const [loading, setLoading] = useState(false);
+  const [resumeData, setResumeData] = useState(null);
+  const [improvedResume, setImprovedResume] = useState(null);
+  const [parsedData, setParsedData] = useState(null);
+  const [isPremium, setIsPremium] = useState(false);
+  const [data, setData] = useState({});
+  const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const openPopup = (content) => {
     setPopupContent(content);
@@ -21,39 +28,226 @@ function ResumePage({ onClose }) {
     setIsPopupOpen(false);
   };
 
-  useEffect(() => {
+  const fetchAndProcessResume = useCallback(async () => {
     const parsedResume = localStorage.getItem("parsedResume");
-    const storedResume = localStorage.getItem("uploadedResume");
-    if (storedResume) {
-      const parsed = JSON.parse(storedResume);
-      setUploadPdf(parsed);
-    }
+    if (!parsedResume || hasFetched.current) return;
+    hasFetched.current = true;
 
-    if (parsedResume) {
-      axios
-        .post("https://jamblix.com/api/resumeCheck", {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "https://jamblix.com/api/resumeEvaluateAndImprove",
+        {
           resumeText: parsedResume,
-        })
-        .then((response) => {
-          setResumeData(response.data);
-          setIsPremium(response.data.premium === true);
-          setLoading(false);
-        })
+        }
+      );
 
-        .catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
+      const { atsScore, feedback, improvedResume } = res.data;
+
+      setResumeData(feedback);
+      setImprovedResume(improvedResume);
+      setParsedData(improvedResume);
+      setIsPremium(true);
+      localStorage.setItem("parsedResume", JSON.stringify(improvedResume));
+
+      const {
+        first_name,
+        last_name,
+        email,
+        mobileNo,
+        designation,
+        summary,
+        address,
+        skills,
+        country,
+        languages,
+        hobbies,
+        education,
+        projects,
+        internship,
+        references,
+        achievements,
+        ["social links"]: socialLinks,
+        ["extra-curricular activities"]: extraCaricularActivity,
+        ["work experience"]: workExperience,
+        work_experience,
+        ["certification/courses"]: courses,
+      } = improvedResume;
+
+      const currentYear = new Date().getFullYear();
+      const experience = workExperience || work_experience || [];
+
+      setData({
+        showSkills: true,
+        showAchievements: true,
+        showCourses: true,
+        showExtraCariculam: true,
+        showHobbies: true,
+        showInternship: true,
+        showLanguage: true,
+        showLinks: true,
+        showCustomSection: true,
+        showProject: true,
+        showReference: true,
+        firstName: first_name,
+        lastName: last_name,
+        email: email,
+        dial_code: null,
+        mobileNumber: mobileNo,
+        designation: designation,
+        summery: summary,
+        location: address,
+        country: country,
+        skills:
+          skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) ||
+          [],
+        hobbies: hobbies?.map((item) => ({ title: item })) || [],
+        languages:
+          languages?.map((item) => ({
+            languages: item,
+            rating: [3, 3, 3],
+          })) || [],
+        education:
+          education?.map((item) => ({
+            qualification: item.courseName,
+            specialization: item["Specialization/Board"],
+            instituteName: item["University Name"],
+            type: "full-time",
+            location: "",
+            duration: {
+              start: {
+                year: item["Passing Year"]?.startDate?.year || "Year",
+                month: null,
+              },
+              end: {
+                year: item["Passing Year"]?.endDate?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        experience:
+          experience?.map((item) => ({
+            designation: item.title,
+            organization: item.company,
+            description: item.description,
+            currentlyWorking: false,
+            location: item.location,
+            duration: {
+              start: { year: item.start_date?.year || "Year", month: null },
+              end: {
+                year: item.is_current
+                  ? currentYear
+                  : item.end_date?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        project:
+          projects?.map((item) => ({
+            title: item.title,
+            organization: item.organization,
+            description: item.description,
+            currentlyWorking: false,
+            duration: {
+              start: { year: item.start_date?.year || "Year", month: null },
+              end: {
+                year: item.is_current
+                  ? currentYear
+                  : item.end_date?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        internship:
+          internship?.map((item) => ({
+            title: item.title,
+            organization: item.organization,
+            description: item.description,
+            currentlyWorking: false,
+            duration: {
+              start: { year: item.start_date?.year || "Year", month: null },
+              end: {
+                year: item.is_current
+                  ? currentYear
+                  : item.end_date?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        extraCaricularData:
+          extraCaricularActivity?.map((item) => ({
+            title: item.title,
+            organization: item.organization,
+            description: item.description,
+            currentlyWorking: false,
+            duration: {
+              start: { year: item.start_date?.year || "Year", month: null },
+              end: {
+                year: item.is_current
+                  ? currentYear
+                  : item.end_date?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        course:
+          courses?.map((item) => ({
+            title: item.title,
+            organization: item.organization,
+            description: item.description,
+            currentlyWorking: true,
+            duration: {
+              start: { year: item.start_date?.year || "Year", month: null },
+              end: {
+                year: item.is_current
+                  ? currentYear
+                  : item.end_date?.year || "Year",
+                month: null,
+              },
+            },
+          })) || [],
+        socialLinks:
+          socialLinks?.map((item) => ({
+            platform: item.platform,
+            link: item.link,
+          })) || [],
+        reference:
+          references?.map((item) => ({
+            referantName: item.referantName,
+            designation: item.designation,
+            "Organization Name": item["Organization Name"],
+            email: item.name,
+          })) || [],
+        achievements:
+          achievements?.map((item) => ({ title: item.title })) || [],
+      });
+
       setLoading(false);
-      setError("No resume data found in localStorage");
+    } catch (err) {
+      setError("Error: " + err.message);
+      setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    fetchAndProcessResume();
+  }, [fetchAndProcessResume]);
+
+  const tailoringScore = resumeData?.tailoring?.score ?? 0;
+  const contentScore = resumeData?.content?.score ?? 0;
+  const formatScore = resumeData?.format?.score ?? 0;
+  const sectionsScore = resumeData?.sections?.score ?? 0;
+  const styleScore = resumeData?.style?.score ?? 0;
+
+  const calculatedAtsScore = Math.round(
+    (tailoringScore + contentScore + formatScore + sectionsScore + styleScore) /
+      5
+  );
 
   const cardData = [
     {
       title: "Total Score",
-      value: `${resumeData?.atsScore ?? 0} / 100`,
+      value: `${calculatedAtsScore ?? 0} / 100`,
       bg: "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)",
       textColor: "#FFFFFF",
       custom: true,
@@ -98,7 +292,6 @@ function ResumePage({ onClose }) {
     console.log("Payment initiated");
   };
 
-
   return (
     <>
       {loading ? (
@@ -119,7 +312,7 @@ function ResumePage({ onClose }) {
             <div className="w-full md:w-1/2 flex flex-col gap-2 animate-pulse">
               <div className="h-6 w-1/2 bg-gray rounded"></div>
               <div className="w-full h-[600px] bg-white rounded">
-              <div className="h-full w-full p-6 bg-gray rounded"></div>
+                <div className="h-full w-full p-6 bg-gray rounded"></div>
               </div>
             </div>
 
@@ -201,30 +394,28 @@ function ResumePage({ onClose }) {
 
             <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center">
               <div className="w-full md:w-1/2 flex flex-col gap-1.5">
-              <div className="flex items-center justify-between">
-                <div className="text-lg font-medium">
-                 Your Resume
-                </div>
-                <div className="flex justify-end">
-                  <button className="text-sm font-semibold px-6 bg_Button rounded-full h-[38px]">
-                    Update Now
-                  </button>
-                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-lg font-medium">Your Resume</div>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={async () => {
+                        // await generatePerfectResume();
+                        router.push("/createResume?clientId=undefined");
+                      }}
+                      className="text-sm font-semibold px-6 bg_Button rounded-full h-[38px]"
+                    >
+                      Update Now
+                    </button>
+                  </div>
                 </div>
                 <div className="w-full h-auto">
-                  {uploadPdf && uploadPdf.type === "application/pdf" ? (
-                    <iframe
-                      src={`${uploadPdf.content}#toolbar=0&navpanes=0&scrollbar=1`}
-                      title="Uploaded Resume"
-                      className="w-full h-[600px] rounded"
+                  <div className=" w-[100%] h-[480px] rounded overflow-hidden">
+                    <Resume1
+                      data={data}
+                      isPremium={isPremium}
+                      openPopup={openPopup}
                     />
-                  ) : (
-                    <img
-                      src="/images/16.png"
-                      alt="Generated Resume"
-                      className="w-full object-contain blur-[2px]"
-                    />
-                  )}
+                  </div>
                 </div>
               </div>
 
@@ -328,7 +519,9 @@ function ResumePage({ onClose }) {
 
                                 <div
                                   className={`${
-                                    item.premium ? "" : "blur-[2px]"
+                                    item.premium
+                                      ? ""
+                                      : "blur-[2px] pointer-events-none select-none"
                                   }`}
                                 >
                                   <p className="text-[#101828] font-medium text-xs mb-1">
@@ -348,8 +541,6 @@ function ResumePage({ onClose }) {
                     })}
                   </div>
                 )}
-
-            
               </div>
             </div>
           </div>
