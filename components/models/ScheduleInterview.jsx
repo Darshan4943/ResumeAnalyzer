@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import MiniLoader from "../common/mini-loader";
 
-function ScheduleInterview({
+function  ScheduleInterview({
   setError,
   error,
   loading,

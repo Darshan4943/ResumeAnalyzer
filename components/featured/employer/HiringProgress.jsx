@@ -397,8 +397,8 @@ function HiringProgress({
               style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
             >
               <svg
-                width="66"
-                height="66"
+                width="50"
+                height="50"
                 viewBox="0 0 66 66"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -421,7 +421,7 @@ function HiringProgress({
               </svg>
 
               <div className="text-center">
-                <div className="text-[24px] font-[500] text-[#333]">
+                <div className="text-[20px] font-[500] text-[#333]">
                   {successfull === "Interview"
                     ? "Interview Scheduled"
                     : successfull === "Task"
