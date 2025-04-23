@@ -65,7 +65,64 @@ function JobPost({ toggleContentt, setToggle, data, selectedJob }) {
 
 
 
-  const [parameters, setParameters] = useState([]);
+   const [parameters, setParameters] = useState([
+      {
+        label: "Skills and Competencies",
+        description:
+          "Identify and highlight any skills and competencies in the resume that match the required and preferred skills and competencies in the job description.",
+        percentage: 15,
+        enabled: true,
+      },
+      {
+        label: "Relevant Experience in the Required Field",
+        description:
+          "Compare the candidate's experience in the relevant field with the job requirements, noting any areas where the candidate meets, exceeds, or falls short of the required experience.",
+        percentage: 15,
+        enabled: true,
+      },
+      {
+        label: "Roles and Responsibilities",
+        description:
+          "Evaluate the roles and responsibilities listed in the candidate's work experience and compare them with those required by the job description.",
+        percentage: 15,
+        enabled: true,
+      },
+      {
+        label: "Objective and Professional Summary from Resume",
+        description:
+          "Assess the candidate's objective and professional summary in the resume to determine alignment with the job role and company values.",
+        percentage: 10,
+        enabled: true,
+      },
+      {
+        label: "Total Experience",
+        description:
+          "Summarize the candidate's total professional experience, including all relevant fields, and compare it with the job requirements.",
+        percentage: 10,
+        enabled: true,
+      },
+      {
+        label: "Educational Qualification",
+        description:
+          "Compare the candidate's educational qualifications with the required and preferred educational background mentioned in the job description.",
+        percentage: 10,
+        enabled: true,
+      },
+      {
+        label: "Keywords",
+        description:
+          "Identify any keywords from the job description that are present in the candidate's resume.",
+        percentage: 10,
+        enabled: true,
+      },
+      {
+        label: "Achievements",
+        description:
+          "Review the candidate's achievements and assess their relevance and impact in relation to the job role.",
+        percentage: 15,
+        enabled: true,
+      },
+    ]);
   const [weightage, setWeightage] = useState(false)
   const [priority, setPriority] = useState(false)
 
