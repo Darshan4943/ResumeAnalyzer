@@ -147,7 +147,20 @@ function ApplicantDetails({ setTogglee }) {
         </div>
       );
     };
-  
+    const downloadResume = (url) => {
+      return () => {
+        if (!url) return alert("Resume URL not found!");
+    
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = ""; 
+        // link.target = "_blank"; 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    };
+    
 
   return (
     <div>
@@ -312,7 +325,7 @@ function ApplicantDetails({ setTogglee }) {
                   <ApplicantProfile jobDetails={jobDetails} />
                 )}
                 {toggle === "Resume" && (
-                  <div className=" flex items-center justify-center py-[16px] resumes2 ">
+                  <div onClick={downloadResume(jobDetails?.resumeUrl)} className=" flex items-center justify-center py-[16px] resumes2 cursor-pointer ">
                     
                     {isImage ? (
                     <img

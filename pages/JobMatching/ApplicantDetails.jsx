@@ -20,18 +20,21 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
   const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
   const isPDF = fileExtension === "pdf";
   const isDoc = ["doc", "docx"].includes(fileExtension);
-  const downloadResume = (resumeUrl) => {
-    if (resumeUrl) {
-      const link = document.createElement("a");
-      link.href = resumeUrl; // URL of the resume
-      link.download = "Resume.pdf"; // Default name of the downloaded file
-      document.body.appendChild(link); // Append the link to the document body
-      link.click(); // Trigger the click event
-      document.body.removeChild(link); // Clean up by removing the link
-    } else {
-      toast.error("Resume URL is not available.");
-    }
-  };
+
+     const downloadResume = (url) => {
+      return () => {
+        if (!url) return alert("Resume URL not found!");
+    
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = ""; 
+        // link.target = "_blank"; 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+    };
+    
 
 
   // useEffect(() => {
@@ -485,7 +488,7 @@ function ApplicantDetails({ byMyCollection, data, setTogglee, userDetails, setTa
               )}
               {toggle === "Resume" && (
 
-                <div className=" flex items-center justify-center py-[16px] px-2 resumes2 ">
+                <div onClick={downloadResume(userDetails?.file)} className="  flex items-center justify-center py-[16px] px-2 resumes2 cursor-pointer ">
 
 
                   {isImage ? (
