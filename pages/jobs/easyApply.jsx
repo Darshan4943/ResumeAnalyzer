@@ -402,6 +402,7 @@ function EasyApply() {
         formDataToSend.append("percentage", "");
         formDataToSend.append("extractedText", text);
         console.log(text)
+      
         formDataToSend.append("parseData", JSON.stringify(parseData));
         if (file) {
             formDataToSend.append("uploadedResume", file);
@@ -417,6 +418,28 @@ function EasyApply() {
                     dial_code: data?.dial_code,
                     mobileNo: data?.mobileNo,
                 },
+                professional: {
+                    summary: parseData?.summary,
+                    designation: parseData?.designation,
+                    degrees: parseData?.degrees || [],
+                    education: parseData?.education || [],
+                    work_experience: parseData?.work_experience || [],
+                    relevant_experience: parseData?.relevant_experience || [],
+                    job_tenure_stability: parseData?.["job_tenure/stability"] || [],
+                    programming_languages: parseData?.programming_languages || [],
+                    tools: parseData?.tools || [],
+                    skills: parseData?.skills || [],
+                    soft_skills: parseData?.soft_skills || [],
+                    certification_courses: parseData?.["certification/courses"] || [],
+                    achievements: parseData?.achievements || [],
+                    industrial_projects: parseData?.industrial_projects || [],
+                    academic_projects: parseData?.academic_projects || [],
+                    cultural_fit: parseData?.culturalFit,
+                    interests_additional_activities: parseData?.["interests/additional_activities"] || [],
+                    keywords: parseData?.keywords || [],
+                    willingness_to_relocate: parseData?.willingness_to_relocate,
+                    languages: parseData?.languages || [],
+                  },
 
             })
         );
