@@ -76,7 +76,7 @@ const CandidateAiPower = ({
     setAiHitMonthly(aiHitMonthly);
 
     const aiHitMonthlyLimit = JSON.parse(
-      localStorage.getItem("aiHitsMonthlyLimit")
+      localStorage.getItem("a")
     );
     setAiHitMonthlyLimit(aiHitMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("planActive"));
@@ -267,12 +267,17 @@ const CandidateAiPower = ({
                       "uploadCount",
                       result.data.used.resumeUploded
                     );
+                    dispatch(updateAiHit(userDataGlobal?._id));
+                    setTimeout(() => {
+                      dispatch(setRecallData(!recallData));
+                      getLimits();
+                    }, 1000);
                     setLoading(false);
                     setfile(file);
 
                     router.push(`/createResume?clientId=${clientId}`);
                   } else {
-                    localStorage.setItem("uploadCount", 0);
+                    // localStorage.setItem("uploadCount", 0);
                     setLoading(false);
                     setfile(file);
 
@@ -280,7 +285,7 @@ const CandidateAiPower = ({
                   }
                 })
                 .catch((err) => {
-                  localStorage.setItem("uploadCount", 0);
+                  // localStorage.setItem("uploadCount", 0);
                   setLoading(false);
                   setfile(file);
 
