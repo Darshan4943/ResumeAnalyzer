@@ -28,23 +28,51 @@ function ResumePage() {
     setIsPopupOpen(false);
   };
 
-  const fetchAndProcessResume = useCallback(async () => {
+  const evaluateResume = useCallback(async () => {
     const parsedResume = localStorage.getItem("parsedResume");
+
     if (!parsedResume || hasFetched.current) return;
+
     hasFetched.current = true;
 
     try {
       setLoading(true);
+      const resumeJson = JSON.parse(parsedResume);
+
       const res = await axios.post(
-        "https://jamblix.com/api/resumeEvaluateAndImprove",
+        "https://jamblix.com/api/resume-evaluate",
         {
-          resumeText: parsedResume,
+          resumeText: resumeJson,
         }
       );
 
-      const { atsScore, feedback, improvedResume } = res.data;
-
+      const { atsScore, feedback } = res.data;
       setResumeData(feedback);
+    } catch (err) {
+      setError("Evaluation Error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    evaluateResume();
+  }, [evaluateResume]);
+
+  const improveResume = async () => {
+    const parsedResume = localStorage.getItem("parsedResume");
+    if (!parsedResume || !resumeData) return;  
+
+    try {
+      setLoading(true);
+      const resumeJson = JSON.parse(parsedResume);
+      const res = await axios.post("https://jamblix.com/api/resume-improve", {
+        resumeText: resumeJson,
+        feedback: resumeData,  
+      });
+
+      const improvedResume = res.data.improvedResume;
+
       setImprovedResume(improvedResume);
       setParsedData(improvedResume);
       setIsPremium(true);
@@ -98,140 +126,106 @@ function ResumePage() {
         summery: summary,
         location: address,
         country: country,
-        skills:
-          skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) ||
-          [],
+        skills: skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) || [],
         hobbies: hobbies?.map((item) => ({ title: item })) || [],
-        languages:
-          languages?.map((item) => ({
-            languages: item,
-            rating: [3, 3, 3],
-          })) || [],
-        education:
-          education?.map((item) => ({
-            qualification: item.courseName,
-            specialization: item["Specialization/Board"],
-            instituteName: item["University Name"],
-            type: "full-time",
-            location: "",
-            duration: {
-              start: {
-                year: item["Passing Year"]?.startDate?.year || "Year",
-                month: null,
-              },
-              end: {
-                year: item["Passing Year"]?.endDate?.year || "Year",
-                month: null,
-              },
+        languages: languages?.map((item) => ({ languages: item, rating: [3, 3, 3] })) || [],
+        education: education?.map((item) => ({
+          qualification: item.courseName,
+          specialization: item["Specialization/Board"],
+          instituteName: item["University Name"],
+          type: "full-time",
+          location: "",
+          duration: {
+            start: { year: item["Passing Year"]?.startDate?.year || "Year", month: null },
+            end: { year: item["Passing Year"]?.endDate?.year || "Year", month: null },
+          },
+        })) || [],
+        experience: experience?.map((item) => ({
+          designation: item.title,
+          organization: item.company,
+          description: item.description,
+          currentlyWorking: false,
+          location: item.location,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        experience:
-          experience?.map((item) => ({
-            designation: item.title,
-            organization: item.company,
-            description: item.description,
-            currentlyWorking: false,
-            location: item.location,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        project: projects?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        project:
-          projects?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        internship: internship?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        internship:
-          internship?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        extraCaricularData: extraCaricularActivity?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        extraCaricularData:
-          extraCaricularActivity?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        course: courses?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: true,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        course:
-          courses?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: true,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
-            },
-          })) || [],
-        socialLinks:
-          socialLinks?.map((item) => ({
-            platform: item.platform,
-            link: item.link,
-          })) || [],
-        reference:
-          references?.map((item) => ({
-            referantName: item.referantName,
-            designation: item.designation,
-            "Organization Name": item["Organization Name"],
-            email: item.name,
-          })) || [],
-        achievements:
-          achievements?.map((item) => ({ title: item.title })) || [],
+          },
+        })) || [],
+        socialLinks: socialLinks?.map((item) => ({
+          platform: item.platform,
+          link: item.link,
+        })) || [],
+        reference: references?.map((item) => ({
+          referantName: item.referantName,
+          designation: item.designation,
+          "Organization Name": item["Organization Name"],
+          email: item.name,
+        })) || [],
+        achievements: achievements?.map((item) => ({ title: item.title })) || [],
       });
 
       setLoading(false);
     } catch (err) {
-      setError("Error: " + err.message);
+      setError("Improvement Error: " + err.message);
       setLoading(false);
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    fetchAndProcessResume();
-  }, [fetchAndProcessResume]);
 
   const tailoringScore = resumeData?.tailoring?.score ?? 0;
   const contentScore = resumeData?.content?.score ?? 0;
@@ -398,10 +392,11 @@ function ResumePage() {
                   <div className="text-lg font-medium">Your Resume</div>
                   <div className="flex justify-end">
                     <button
-                      onClick={async () => {
-                        // await generatePerfectResume();
-                        router.push("/createResume?clientId=undefined");
-                      }}
+                      // onClick={async () => {
+                      //   // await generatePerfectResume();
+                      //   router.push("/createResume?clientId=undefined");
+                      // }}
+                      onClick={improveResume}
                       className="text-sm font-semibold px-6 bg_Button rounded-full h-[38px]"
                     >
                       Update Now
