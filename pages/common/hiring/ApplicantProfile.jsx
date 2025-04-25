@@ -79,7 +79,7 @@ function ApplicantProfile({ jobDetails }) {
                 </p>
               </div>
             }
-            {jobDetails?.details?.professional?.skills && (
+            {jobDetails?.details?.professional?.skills.length > 0 && (
               <div className="flex flex-col gap-2">
                 <p className=" font-medium">Skills</p>
                 <div className="flex flex-wrap gap-2">

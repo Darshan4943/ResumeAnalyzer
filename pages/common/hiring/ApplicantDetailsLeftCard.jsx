@@ -137,7 +137,7 @@ function ApplicantDetailsLeftCard({
                   </div>
                 ) : (
                   <>
-                    {jobDetails?.hiringStage === "Selected" ? (
+                    {jobDetails?.hiringStage !== "Pending" ? (
                       <div
                         onClick={() => {
                           setToggle("HiringProgress");

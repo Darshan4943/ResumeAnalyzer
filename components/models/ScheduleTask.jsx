@@ -17,6 +17,10 @@ function ScheduleTask({
   submitDetails,
   mailDetails,
   setMailDetails,
+  isCandidatePreview, 
+  setIsCandidatePreview,
+  setIsInterviewerPreview,
+  isInterviewerPreview
 }) {
   const [levels, setLevels] = useState([
     {
@@ -25,6 +29,7 @@ function ScheduleTask({
       taskReviewer: [{ name: "", role: "", email: "" }],
     },
   ]);
+ 
   const [formError, setFormError] = useState({});
   const debounceUpdate = useCallback(
     debounce((value) => {
@@ -153,9 +158,9 @@ function ScheduleTask({
           value="bullet"
           aria-label="Unordered List"
         ></button>
-       <button
+        <button
           className="ql-align"
-        
+
           aria-label="Align Left"
         ></button>
         <button
@@ -287,12 +292,12 @@ function ScheduleTask({
 
         <div className="flex flex-col  gap-4    py-[16px] ">
           <div>
-          <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
-          <div className="flex flex-col gap-2">
+            <div className="flex gap-12 sm:text-[16px] text-[12px] font-semibold px-4 overflow-x-auto md:overflow-x-visible">
+              <div className="flex flex-col gap-2">
                 <p
                   className={` cursor-pointer ${activeOption === "Candidate"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
                     } `}
                   onClick={() => handleOptionClick("Candidate")}
                 >
@@ -314,8 +319,8 @@ function ScheduleTask({
               <div className="flex flex-col gap-2 ">
                 <p
                   className={` cursor-pointer ${activeOption === "Interviewer"
-                      ? "text-[#333333]"
-                      : "text-[#646464]"
+                    ? "text-[#333333]"
+                    : "text-[#646464]"
                     } `}
                   onClick={() => handleOptionClick("Interviewer")}
                 >
@@ -384,7 +389,7 @@ function ScheduleTask({
 
                     }}
                   />
-                
+
                 </div>
               </div>
             </>
@@ -402,14 +407,15 @@ function ScheduleTask({
                   placeholder="Skilotech-Online Interview"
                   class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#DEDEDE] outline-none rounded-[6px] text-[14px] font-[400]"
                   value={mailDetails?.interviewer?.subject}
-                  onChange={(e) =>{
+                  onChange={(e) => {
                     setMailDetails((prev) => ({
                       ...prev,
                       interviewer: {
                         ...prev.interviewer,
                         subject: e.target.value,
                       }
-                    }));setError("")}
+                    })); setError("")
+                  }
                   }
                 />
               </div>
@@ -418,20 +424,44 @@ function ScheduleTask({
                 <div>
                   <p className="text-[16px] font-medium text-[#646464]">Body</p>
                 </div>
-                <Editor
-                  value={mailDetails?.interviewer?.content}
-                  onTextChange={(e) => handleChange2(e.htmlValue)}
-                  headerTemplate={header}
-                  style={{
-                    border: formError.content
-                      ? "2px solid red"
-                      : "2px solid #dedede",
-                    fontSize: "16px",
-                    color: "#333",
-                    padding: "10px",
-                    minHeight: "196px",
-                  }}
-                />
+                <div className=" border border-[#DEDEDE] relative">
+                  <Editor
+                    value={mailDetails?.interviewer?.content}
+                    onTextChange={(e) => handleChange2(e.htmlValue)}
+                    headerTemplate={header}
+                    style={{
+                      border: formError.content
+                        ? "2px solid red"
+                        : "2px solid #dedede",
+                      fontSize: "15px",
+                      color: "#333",
+
+                      // paddingTop: `${(selectedValues?.taskReviewer.length || 0) * 76}px`,
+                      minHeight: "296px",
+                    }}
+                  />
+                  {/* <div className=" absolute top-[56px] pl-[16px] flex flex-col gap-2">
+                    {selectedValues?.taskReviewer?.map((person, index) => (
+                      <div key={index} className="border border-[#DEDEDE] p-2 rounded-[6px]">
+                        <p>
+                          {" "}
+                          <span className=" font-medium">
+                            {" "}
+                            Reviewer Name :
+                          </span>{" "}
+                          {person.name}{" "}
+                        </p>
+                        <p>
+                          {" "}
+                          <span className=" font-medium"> Reviewer Email : </span>
+                          {person.email}
+                        </p>
+                       
+                      </div>
+                    ))}
+
+                  </div> */}
+                </div>
               </div>
             </>
           )}
@@ -444,9 +474,16 @@ function ScheduleTask({
         <button
           onClick={() => setShowAssignTask(false)}
           className="h-[38px] red_border_Button rounded-[30px] px-6"
-          // id="button"
+        // id="button"
         >
           Cancel
+        </button>
+        <button
+          onClick={() =>{ activeOption==="Interviewer" ? setIsInterviewerPreview(true): setIsCandidatePreview(true)}}
+          className="h-[38px] blue_border_Button rounded-[30px] px-6"
+        // id="button"
+        >
+          Preview
         </button>
         {loading ? (
           <div className="ml:px-9 w-[230px] justify-center items-center flex px-2 py-2 bg-[#06A9EF] rounded-[30px] text-[16px] font-semibold text-white">
@@ -461,6 +498,7 @@ function ScheduleTask({
           </button>
         )}
       </div>
+      
     </div>
   );
 }

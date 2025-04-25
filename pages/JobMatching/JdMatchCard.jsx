@@ -643,7 +643,7 @@ const [saveLoading,setSaveLoading]= useState()
               </div>
               <div
                 onClick={() => downloadResume(user?.file)}
-                className=" h-[66px] rounded-[12px] w-full flex  "
+                className=" h-[66px] rounded-[12px] w-full flex  cursor-pointer "
               >
                 <div className="w-[51px] flex h-[66px] rounded-tl-[12px] rounded-bl-[12px] bg-[#C00000] items-center justify-center">
                   <span className="flex items-center justify-center text-[14px] font-[600] text-[#FFFFFF]">

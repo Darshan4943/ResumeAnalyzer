@@ -84,9 +84,9 @@ function AppliedJobCard({
                           src={item.logo}
                           alt=""
                           style={{
-                            height: "56px",
-                            width: "56px",
-                            objectFit: "cover",
+                            height: "40px",
+                            width: "76px",
+                            objectFit: "contain",
                           }}
                         />
                       </div>

@@ -59,6 +59,7 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
+
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
@@ -75,11 +76,11 @@ const CandidateAiPower = ({
     setAiHitMonthly(aiHitMonthly);
 
     const aiHitMonthlyLimit = JSON.parse(
-      localStorage.getItem("aiHitsMonthlyLimit")
+      localStorage.getItem("a")
     );
     setAiHitMonthlyLimit(aiHitMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("planActive"));
-
+    setUploadLimit(aiHitMonthly ? aiHitMonthlyLimit - aiHitMonthly : 0);
     setActivePlan(activePlan);
   };
   useEffect(() => {
@@ -98,7 +99,7 @@ const CandidateAiPower = ({
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     const resumeUploadCountLimit = localStorage.getItem("uploadCountLimit");
-    setUploadLimit(resumeUploadCount ? resumeUploadCountLimit - resumeUploadCount : 0);
+    // setUploadLimit(resumeUploadCount ? resumeUploadCountLimit - resumeUploadCount : 0);
   }, []);
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -229,7 +230,7 @@ const CandidateAiPower = ({
 
   const navigate = () => {
 
-    if (!planAvailable) {
+    if (!planAvailable && uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
     }
@@ -266,12 +267,17 @@ const CandidateAiPower = ({
                       "uploadCount",
                       result.data.used.resumeUploded
                     );
+                    dispatch(updateAiHit(userDataGlobal?._id));
+                    setTimeout(() => {
+                      dispatch(setRecallData(!recallData));
+                      getLimits();
+                    }, 1000);
                     setLoading(false);
                     setfile(file);
 
                     router.push(`/createResume?clientId=${clientId}`);
                   } else {
-                    localStorage.setItem("uploadCount", 0);
+                    // localStorage.setItem("uploadCount", 0);
                     setLoading(false);
                     setfile(file);
 
@@ -279,7 +285,7 @@ const CandidateAiPower = ({
                   }
                 })
                 .catch((err) => {
-                  localStorage.setItem("uploadCount", 0);
+                  // localStorage.setItem("uploadCount", 0);
                   setLoading(false);
                   setfile(file);
 

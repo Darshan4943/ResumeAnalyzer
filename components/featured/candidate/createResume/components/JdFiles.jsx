@@ -419,7 +419,7 @@ function JdFiles({
                         ? `${item.fileName.slice(0, 17)}...`
                         : item.fileName}
                     </span>
-                    <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                    <div className="absolute text-[10px]  opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break top-[60px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                       {item.fileName}
                     </div>
                   </div>
