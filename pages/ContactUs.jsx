@@ -91,7 +91,7 @@ function ContactUs() {
 
   return (
     <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
-      <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px]  h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
+      <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] sm:p-[16px] p-[8px] h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
         <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col ">
           <div className="flex items-center gap-2">
             <svg
@@ -137,7 +137,7 @@ function ContactUs() {
         <div className="ml:w-[50%] sm:w-[80%] w-[100%]">
           <form
             onSubmit={handleSubmit}
-            className="w-[100%] items-start flex flex-col p-[16px] gap-[16px] rounded-[16px] bg-opacity-75 bg-white shadow-md"
+            className="w-[100%] items-start flex flex-col p-[8px] sm:p-[16px] gap-[16px] rounded-[16px] bg-opacity-75 bg-white shadow-md"
           >
             <div className="flex flex-col">
               <p className="text-[20px] font-[500] leading-normal text-[#333]">
@@ -168,65 +168,64 @@ function ContactUs() {
               className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
               required
             />
-            <div id="first_name">
-              <div
-                className={`w-full flex gap-2 rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat`}
-              >
-                <ReactSelect
-                  options={filteredTelCode}
-                  className={`flex items-center rounded-[8px] outline-none border-none cursor-pointer w-[100%] min-w-[150px]`}
-                  name=""
-                  placeholder="Select"
-                  value={selectedItem}
-                  onChange={handleItemClick}
-                  getOptionLabel={(option) => (
-                    <div className="flex items-center cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat min-w-[90px] ">
-                      <img
-                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                        width="20px"
-                      />
-                      <span className="ml-2 text-[#333333] cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat ">
-                        {option.code} {option.dial_code}
-                      </span>
-                    </div>
-                  )}
-                  filterOption={customFilterOption}
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      border: "none",
-                      minWidth: "130px",
-                    }),
-                  }}
-                  theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    colors: {
-                      ...theme.colors,
-                      primary: "neutral0",
-                    },
-                  })}
-                />
+            {/* <div id="first_name"> */}
+            <div
+              className={`w-full flex gap-2 rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat bg-[#FFFFFF] py-1 border border-[#9d9d9d]`}
+            >
+              <ReactSelect
+                options={filteredTelCode}
+                className={`flex items-center rounded-[8px] outline-none border-none cursor-pointer w-[100%] min-w-[130px]`}
+                name=""
+                placeholder="Select"
+                value={selectedItem}
+                onChange={handleItemClick}
+                getOptionLabel={(option) => (
+                  <div className="flex items-center cursor-pointer text-[14px] font-[400] leading-[17.07px] font-Montserrat min-w-[90px] ">
+                    <img
+                      src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                      width="20px"
+                    />
+                    <span className="ml-2 text-[#333333] cursor-pointer text-[12px] sm:text-[14px]  font-[400] leading-[17.07px] font-Montserrat ">
+                      {option.code} {option.dial_code}
+                    </span>
+                  </div>
+                )}
+                filterOption={customFilterOption}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    border: "none",
+                    minWidth: "130px",
+                  }),
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary: "neutral0",
+                  },
+                })}
+              />
 
-                <input
-                  // id="first_name"
-                  type="text"
-                  name="mobileNo"
-                  className="w-full px-2 text-[14px] font-[400] leading-[17.07px] font-Montserrat"
-                  value={formData.mobileNo}
-                  onChange={handleChange}
-                  placeholder={`${
-                    isViewportBelow850
-                      ? "Enter Number "
-                      : "Enter Contact Number "
+              <input
+                // id="first_name"
+                type="text"
+                name="mobileNo"
+                className="w-full text-[12px] sm:text-[14px] font-[400] leading-[17.07px] font-Montserrat"
+                value={formData.mobileNo}
+                onChange={handleChange}
+                placeholder={`${isViewportBelow850
+                  ? "Enter Number "
+                  : "Enter Contact Number "
                   }`}
-                  required
-                  maxLength={10}
-                  minLength={10}
-                  onKeyPress={handleKeyPress}
-                />
-              </div>
+                required
+                maxLength={10}
+                minLength={10}
+                onKeyPress={handleKeyPress}
+              />
             </div>
+            {/* </div> */}
 
             <input
               required
@@ -243,7 +242,7 @@ function ContactUs() {
               name="query"
               value={formData.query}
               onChange={handleChange}
-              className="w-[100%] placeholder-xl px-[16px] py-[12px] rounded-[8px] text-[14px] font-[400] leading-[17.07px] font-Montserrat text-[#333] h-[94px]"
+              className="w-[100%] border border-[#9d9d9d] placeholder-xl px-[16px] py-[12px] rounded-[8px] text-[14px] outline-none font-[400] leading-[17.07px] font-Montserrat text-[#333] h-[94px]"
               placeholder="Write your query here"
               required
             ></textarea>
