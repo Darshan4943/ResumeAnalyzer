@@ -28,23 +28,72 @@ function ResumePage() {
     setIsPopupOpen(false);
   };
 
-  const fetchAndProcessResume = useCallback(async () => {
+  const evaluateResume = useCallback(async () => {
     const parsedResume = localStorage.getItem("parsedResume");
+
     if (!parsedResume || hasFetched.current) return;
+
     hasFetched.current = true;
 
     try {
       setLoading(true);
-      const res = await axios.post(
-        "https://jamblix.com/api/resumeEvaluateAndImprove",
-        {
-          resumeText: parsedResume,
-        }
-      );
+      const resumeJson = JSON.parse(parsedResume);
 
-      const { atsScore, feedback, improvedResume } = res.data;
+      const res = await axios.post("https://jamblix.com/api/resume-evaluate", {
+        resumeText: resumeJson,
+      });
 
+      const { atsScore, feedback } = res.data;
       setResumeData(feedback);
+      console.log(res.data)
+    } catch (err) {
+      setError("Evaluation Error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    evaluateResume();
+  }, [evaluateResume]);
+
+  const sectionRefs = {
+    tailoring: useRef(null),
+    content: useRef(null),
+    format: useRef(null),
+    sections: useRef(null),
+    style: useRef(null),
+  };
+
+  const handleScrollToSection = (sectionKey) => {
+    const sectionRef = sectionRefs[sectionKey];
+    if (sectionRef && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleCardClick = (sectionKey) => {
+    const element = document.getElementById(sectionKey);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const feedbackSections = ["tailoring", "content", "format", "sections", "style"];
+
+  const improveResume = async () => {
+    const parsedResume = localStorage.getItem("parsedResume");
+    if (!parsedResume || !resumeData) return;
+
+    try {
+      setLoading(true);
+      const resumeJson = JSON.parse(parsedResume);
+      const res = await axios.post("https://jamblix.com/api/resume-improve", {
+        resumeText: resumeJson,
+        feedback: resumeData,
+      });
+
+      const improvedResume = res.data.improvedResume;
+
       setImprovedResume(improvedResume);
       setParsedData(improvedResume);
       setIsPremium(true);
@@ -98,140 +147,106 @@ function ResumePage() {
         summery: summary,
         location: address,
         country: country,
-        skills:
-          skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) ||
-          [],
+        skills: skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) || [],
         hobbies: hobbies?.map((item) => ({ title: item })) || [],
-        languages:
-          languages?.map((item) => ({
-            languages: item,
-            rating: [3, 3, 3],
-          })) || [],
-        education:
-          education?.map((item) => ({
-            qualification: item.courseName,
-            specialization: item["Specialization/Board"],
-            instituteName: item["University Name"],
-            type: "full-time",
-            location: "",
-            duration: {
-              start: {
-                year: item["Passing Year"]?.startDate?.year || "Year",
-                month: null,
-              },
-              end: {
-                year: item["Passing Year"]?.endDate?.year || "Year",
-                month: null,
-              },
+        languages: languages?.map((item) => ({ languages: item, rating: [3, 3, 3] })) || [],
+        education: education?.map((item) => ({
+          qualification: item.courseName,
+          specialization: item["Specialization/Board"],
+          instituteName: item["University Name"],
+          type: "full-time",
+          location: "",
+          duration: {
+            start: { year: item["Passing Year"]?.startDate?.year || "Year", month: null },
+            end: { year: item["Passing Year"]?.endDate?.year || "Year", month: null },
+          },
+        })) || [],
+        experience: experience?.map((item) => ({
+          designation: item.title,
+          organization: item.company,
+          description: item.description,
+          currentlyWorking: false,
+          location: item.location,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        experience:
-          experience?.map((item) => ({
-            designation: item.title,
-            organization: item.company,
-            description: item.description,
-            currentlyWorking: false,
-            location: item.location,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        project: projects?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        project:
-          projects?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        internship: internship?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        internship:
-          internship?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        extraCaricularData: extraCaricularActivity?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: false,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        extraCaricularData:
-          extraCaricularActivity?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: false,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
+          },
+        })) || [],
+        course: courses?.map((item) => ({
+          title: item.title,
+          organization: item.organization,
+          description: item.description,
+          currentlyWorking: true,
+          duration: {
+            start: { year: item.start_date?.year || "Year", month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year || "Year",
+              month: null,
             },
-          })) || [],
-        course:
-          courses?.map((item) => ({
-            title: item.title,
-            organization: item.organization,
-            description: item.description,
-            currentlyWorking: true,
-            duration: {
-              start: { year: item.start_date?.year || "Year", month: null },
-              end: {
-                year: item.is_current
-                  ? currentYear
-                  : item.end_date?.year || "Year",
-                month: null,
-              },
-            },
-          })) || [],
-        socialLinks:
-          socialLinks?.map((item) => ({
-            platform: item.platform,
-            link: item.link,
-          })) || [],
-        reference:
-          references?.map((item) => ({
-            referantName: item.referantName,
-            designation: item.designation,
-            "Organization Name": item["Organization Name"],
-            email: item.name,
-          })) || [],
-        achievements:
-          achievements?.map((item) => ({ title: item.title })) || [],
+          },
+        })) || [],
+        socialLinks: socialLinks?.map((item) => ({
+          platform: item.platform,
+          link: item.link,
+        })) || [],
+        reference: references?.map((item) => ({
+          referantName: item.referantName,
+          designation: item.designation,
+          "Organization Name": item["Organization Name"],
+          email: item.name,
+        })) || [],
+        achievements: achievements?.map((item) => ({ title: item.title })) || [],
       });
 
       setLoading(false);
     } catch (err) {
-      setError("Error: " + err.message);
+      setError("Improvement Error: " + err.message);
       setLoading(false);
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    fetchAndProcessResume();
-  }, [fetchAndProcessResume]);
 
   const tailoringScore = resumeData?.tailoring?.score ?? 0;
   const contentScore = resumeData?.content?.score ?? 0;
@@ -241,7 +256,7 @@ function ResumePage() {
 
   const calculatedAtsScore = Math.round(
     (tailoringScore + contentScore + formatScore + sectionsScore + styleScore) /
-      5
+    5
   );
 
   const cardData = [
@@ -284,7 +299,6 @@ function ResumePage() {
     },
   ];
 
-  const section = selectedSection ? resumeData?.[selectedSection] : null;
 
   if (error) return <div className="text-red-600 text-center">{error}</div>;
 
@@ -342,12 +356,10 @@ function ResumePage() {
               {cardData.map((card, index) => (
                 <div
                   key={index}
-                  onClick={() =>
-                    card.sectionKey && setSelectedSection(card.sectionKey)
-                  }
-                  className={`rounded-[16px] p-[16px] h-[100px] w-[124px] scr570:w-[166px] flex flex-col cursor-pointer ${
-                    card.custom ? "items-center" : "gap-[12px]"
-                  }`}
+                  onClick={() => card.sectionKey && handleScrollToSection(card.sectionKey)}
+
+                  className={`rounded-[16px] p-[16px] h-[100px] w-[124px] scr570:w-[166px] flex flex-col cursor-pointer ${card.custom ? "items-center" : "gap-[12px]"
+                    }`}
                   style={{
                     background: card.custom ? card.bg : "#FFFFFF",
                   }}
@@ -398,10 +410,11 @@ function ResumePage() {
                   <div className="text-lg font-medium">Your Resume</div>
                   <div className="flex justify-end">
                     <button
-                      onClick={async () => {
-                        // await generatePerfectResume();
-                        router.push("/createResume?clientId=undefined");
-                      }}
+                      // onClick={async () => {
+                      //   // await generatePerfectResume();
+                      //   router.push("/createResume?clientId=undefined");
+                      // }}
+                      onClick={improveResume}
                       className="text-sm font-semibold px-6 bg_Button rounded-full h-[38px]"
                     >
                       Update Now
@@ -420,127 +433,79 @@ function ResumePage() {
               </div>
 
               <div className="w-full md:w-1/2 flex flex-col gap-4">
-                {section && (
-                  <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                    {Object.entries(section).map(([key, value]) => {
-                      if (typeof value === "string" && value.trim() !== "") {
-                        return (
-                          <div
-                            key={key}
-                            className="rounded-xl w-full md:w-[548px] shadow-md p-4 bg-white border border-[#F2F4F7]"
-                          >
-                            <div className="flex items-center gap-1 mb-2">
-                              <span className="text-[#06A9EF] text-sm font-medium">
-                                |
-                              </span>
-                              <h2 className="text-[#1D2939] text-base font-semibold">
-                                {key
-                                  .replace(/([A-Z])/g, " $1")
-                                  .replace(/^./, (str) => str.toUpperCase())}
-                              </h2>
-                            </div>
-                            <div className="mt-3 p-3 bg-[#F5FAFF] rounded-md">
-                              <p className="text-[#667085] text-sm">{value}</p>
-                            </div>
-                          </div>
-                        );
-                      }
 
-                      if (Array.isArray(value) && value.length > 0) {
-                        return value.map((item, idx) => {
-                          if (!item.title) return null;
+                <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                  {Object.entries(resumeData || {}).map(([sectionKey, sectionValue]) => {
+                    const feedbackTypes = [
+                      "strengths",
+                      "areasOfConcern",
+                      "improvementSuggestions",
+                      "formattingRecommendations",
+                      "grammarAndSpellingCorrections",
+                      "idealRoleFit",
+                      "missingOrWeakSections",
+                      "recommendedKeywords",
+                      "redundancyAndFillerContent",
+                      "toneAndLanguageFeedback",
+                    ];
+
+                    return (
+                      <React.Fragment key={sectionKey}>
+                        <div
+                          ref={sectionRefs[sectionKey]}
+                          id={sectionKey}
+                          className="rounded-xl w-full md:w-[548px] shadow-md p-4 bg-[#E9F6FF] border border-[#D4E3F3]"
+                        >
+                          <div className="flex items-center gap-1 mb-2">
+                            <span className="text-[#06A9EF] text-sm font-medium">|</span>
+                            <h2 className="text-[#1D2939] text-lg font-bold capitalize">
+                              {sectionKey}
+                            </h2>
+                          </div>
+                          {sectionValue.score && (
+                            <p className="text-[#667085] text-sm">
+                              <strong>Score:</strong> {sectionValue.score}
+                            </p>
+                          )}
+                          {sectionValue.scoreJustification && (
+                            <p className="text-[#667085] text-sm mt-1">
+                              <strong>Justification:</strong> {sectionValue.scoreJustification}
+                            </p>
+                          )}
+                        </div>
+
+                        {feedbackTypes.map((type) => {
+                          const list = sectionValue[type];
+                          if (!list || list.length === 0) return null;
 
                           return (
                             <div
-                              key={`${key}-${idx}`}
+                              key={`${sectionKey}-${type}`}
                               className="rounded-xl w-full md:w-[548px] shadow-md p-4 bg-white border border-[#F2F4F7]"
                             >
-                              <div className="flex justify-between items-start">
-                                <div className="flex items-center gap-1">
-                                  <span className="text-[#06A9EF] text-sm font-medium">
-                                    |
-                                  </span>
-                                  <h2 className="text-[#1D2939] text-base font-semibold">
-                                    {item.title}
-                                  </h2>
-                                </div>
-                                <div className="flex items-center gap-3 text-[#F4A825] text-sm font-medium">
-                                  <div className="flex gap-1 items-center">
-                                    <svg
-                                      width="18"
-                                      height="18"
-                                      viewBox="0 0 18 18"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <g mask="url(#mask0_10300_129472)">
-                                        <path
-                                          d="M4.5 15C4.2875 15 4.10938 14.9281 3.96563 14.7844C3.82188 14.6406 3.75 14.4625 3.75 14.25C3.75 14.0375 3.82188 13.8594 3.96563 13.7156C4.10938 13.5719 4.2875 13.5 4.5 13.5H13.5C13.7125 13.5 13.8906 13.5719 14.0344 13.7156C14.1781 13.8594 14.25 14.0375 14.25 14.25C14.25 14.4625 14.1781 14.6406 14.0344 14.7844C13.8906 14.9281 13.7125 15 13.5 15H4.5ZM5.025 12.375C4.6625 12.375 4.34063 12.2563 4.05938 12.0188C3.77813 11.7812 3.60625 11.4812 3.54375 11.1187L2.79375 6.35625C2.76875 6.35625 2.74063 6.35938 2.70938 6.36563C2.67813 6.37188 2.65 6.375 2.625 6.375C2.3125 6.375 2.04688 6.26562 1.82812 6.04688C1.60937 5.82812 1.5 5.5625 1.5 5.25C1.5 4.9375 1.60937 4.67188 1.82812 4.45312C2.04688 4.23438 2.3125 4.125 2.625 4.125C2.9375 4.125 3.20312 4.23438 3.42188 4.45312C3.64062 4.67188 3.75 4.9375 3.75 5.25C3.75 5.3375 3.74063 5.41875 3.72188 5.49375C3.70312 5.56875 3.68125 5.6375 3.65625 5.7L6 6.75L8.34375 3.54375C8.20625 3.44375 8.09375 3.3125 8.00625 3.15C7.91875 2.9875 7.875 2.8125 7.875 2.625C7.875 2.3125 7.98438 2.04688 8.20312 1.82812C8.42188 1.60937 8.6875 1.5 9 1.5C9.3125 1.5 9.57812 1.60937 9.79688 1.82812C10.0156 2.04688 10.125 2.3125 10.125 2.625C10.125 2.8125 10.0813 2.9875 9.99375 3.15C9.90625 3.3125 9.79375 3.44375 9.65625 3.54375L12 6.75L14.3438 5.7C14.3188 5.6375 14.2969 5.56875 14.2781 5.49375C14.2594 5.41875 14.25 5.3375 14.25 5.25C14.25 4.9375 14.3594 4.67188 14.5781 4.45312C14.7969 4.23438 15.0625 4.125 15.375 4.125C15.6875 4.125 15.9531 4.23438 16.1719 4.45312C16.3906 4.67188 16.5 4.9375 16.5 5.25C16.5 5.5625 16.3906 5.82812 16.1719 6.04688C15.9531 6.26562 15.6875 6.375 15.375 6.375C15.35 6.375 15.3219 6.37188 15.2906 6.36563C15.2594 6.35938 15.2312 6.35625 15.2062 6.35625L14.4562 11.1187C14.3937 11.4812 14.2219 11.7812 13.9406 12.0188C13.6594 12.2563 13.3375 12.375 12.975 12.375H5.025ZM5.025 10.875H12.975L13.4625 7.74375L12.6 8.11875C12.275 8.25625 11.9438 8.28125 11.6063 8.19375C11.2688 8.10625 10.9937 7.91875 10.7812 7.63125L9 5.175L7.21875 7.63125C7.00625 7.91875 6.73125 8.10625 6.39375 8.19375C6.05625 8.28125 5.725 8.25625 5.4 8.11875L4.5375 7.74375L5.025 10.875Z"
-                                          fill="#FF9500"
-                                        />
-                                      </g>
-                                    </svg>
-                                    <button
-                                      className="text-[#FF9500]"
-                                      onClick={() =>
-                                        openPopup("Upgrade to Premium")
-                                      }
-                                    >
-                                      Premium
-                                    </button>
-                                  </div>
-
-                                  <svg
-                                    width="12"
-                                    height="7"
-                                    viewBox="0 0 12 7"
-                                    fill="none"
-                                  >
-                                    <path d="..." fill="#646464" />
-                                  </svg>
-                                </div>
+                              <div className="flex items-center gap-1 mb-2">
+                                <span className="text-[#06A9EF] text-sm font-medium">|</span>
+                                <h2 className="text-[#1D2939] text-base font-semibold">
+                                  {type.replace(/([A-Z])/g, " $1")}
+                                </h2>
                               </div>
-
-                              <div className="mt-3 p-3 bg-[#F5FAFF] rounded-md relative">
-                                {item.premium && (
-                                  <div className="absolute inset-0 z-1000 bg-white/60 backdrop-blur-sm flex items-center justify-center rounded-md">
-                                    <span className="text-[#FF9500] text-sm font-semibold">
-                                      <button
-                                        className="text-[#FF9500]"
-                                        onClick={() =>
-                                          openPopup("Upgrade to Premium")
-                                        }
-                                      >
-                                        Upgrade to Premium
-                                      </button>
-                                    </span>
-                                  </div>
-                                )}
-
-                                <div
-                                  className={`${
-                                    item.premium
-                                      ? ""
-                                      : "blur-[2px] pointer-events-none select-none"
-                                  }`}
-                                >
-                                  <p className="text-[#101828] font-medium text-xs mb-1">
-                                    {item.description}
-                                  </p>
-                                  <ul className="list-disc pl-5 text-[#667085] text-xs font-normal leading-relaxed">
-                                    <li>{item.content}</li>
-                                  </ul>
-                                </div>
+                              <div className="mt-3 p-3 bg-[#F5FAFF] rounded-md">
+                                <ul className="text-[#667085] text-sm">{list.map((item, index) => (
+                                  <li key={index}>
+                                    <strong>{item.title ?? ""}</strong>{" "}
+                                    {item.description ?? item.content}
+                                  </li>
+                                ))}</ul>
                               </div>
                             </div>
                           );
-                        });
-                      }
+                        })}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
 
-                      return null;
-                    })}
-                  </div>
-                )}
+
               </div>
             </div>
           </div>
