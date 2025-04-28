@@ -72,6 +72,16 @@ function EmployerSidebar() {
     },
 
   ];
+  const bpoList = [
+    {
+      img: "/images/employer/sidebar/home.png",
+      img1: "/images/employer/sidebar/home2.png",
+      title: "Home",
+      route: "/",
+    },
+
+
+  ];
 
   const employerList = [
     {
@@ -134,7 +144,7 @@ function EmployerSidebar() {
   ];
 
   const menuList =
-    userDataGlobal?.role === "recruiter" ? recruiterList : employerList;
+    userDataGlobal?.role === "recruiter" ? recruiterList : userDataGlobal?.role === "employer" ? employerList : bpoList;
 
   return (
     <div className="flex flex-col bg-white w-[120px] pt-[64px] h-full">

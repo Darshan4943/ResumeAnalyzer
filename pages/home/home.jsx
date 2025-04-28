@@ -38,6 +38,7 @@ import CandidateHome from "../candidate";
 import { useSelector } from "react-redux";
 import Dashboard from "../dashboard";
 import AdminDashboard from "../dashboard/adminDashboard";
+import BpoDashboard from "../dashboard/BpoDashboard";
 
 function Home() {
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -48,6 +49,8 @@ function Home() {
         <CandidateHome />
       ) : userDataGlobal?.role === "admin" ? (
         <AdminDashboard />
+      ) : userDataGlobal?.role === "bpo" ? (
+        <BpoDashboard />
       ) : (
         <Dashboard />
       )}
