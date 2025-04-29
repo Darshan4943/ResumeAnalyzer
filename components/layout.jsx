@@ -113,7 +113,7 @@ function Layout({ children }) {
   );
   return (
     <>
-      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter") ? <Temp2 /> :  userDataGlobal?.role === "admin" ? <Temp3/> : <Temp />}
+      {(userDataGlobal?.role === "employer" || userDataGlobal?.role === "recruiter" || userDataGlobal?.role === "bpo") ? <Temp2 /> :  userDataGlobal?.role === "admin" ? <Temp3/> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

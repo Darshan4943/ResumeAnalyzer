@@ -27,7 +27,7 @@ const PaymentCanceled = ({
                 />
               </svg>
 
-              <span className="text-[20px] scr420:text-[24px] ml:text-[30px] text-[#333333] font-semibold text-center">
+              <span className="text-[20px] scr420:text-[24px] ml:text-[28px] text-[#333333] font-semibold text-center">
                 Payment Cancelled !
               </span>
             </div>
@@ -42,7 +42,7 @@ const PaymentCanceled = ({
                 localStorage.removeItem('paymentId');
                 // setIsRetry(false);
               }}
-              className="border-[#06A9EF] py-[12px] px-[24px] border text-[#fff] bg-[#06A9EF] text-[16px] font-semibold rounded-[12px] "
+              className="border-[#06A9EF] px-[24px] h-[40px] rounded-[30px] bg_Button "
             >
               Retry
             </button>
