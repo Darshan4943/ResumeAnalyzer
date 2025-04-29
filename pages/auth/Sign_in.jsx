@@ -106,7 +106,7 @@ function Sign_in({ setSignIn, setSignUp }) {
       role: role,
     };
     axios
-      .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
+      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;

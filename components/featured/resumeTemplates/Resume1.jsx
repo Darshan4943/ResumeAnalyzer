@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import Fonts from "../../../public/fonts/fonts";
+<Fonts />;
 function Resume1({ data, isPremium ,openPopup }) {
   const topContainer = useRef(null);
   const summaryContainer = useRef(null);
@@ -383,7 +384,7 @@ function Resume1({ data, isPremium ,openPopup }) {
         </div>
       </div>
       <div className="flex flex-col gap-[24px]">
-        <div className="  p-[24px] w-[100%] flex flex-col bg-[#fff] overflow-hidden">
+        <div className="  p-[24px] w-[100%] flex flex-col bg-[#fff] overflow-hidden h-[842px]">
           <div className="flex justify-between pb-[23px] border-b-[1px] border-[#414042] ">
             <div className="flex gap-2 flex-col">
               <p className="text-[#414042] font-inter scr460:text-[42px] text-[32px] font-normal leading-9">
@@ -405,7 +406,7 @@ function Resume1({ data, isPremium ,openPopup }) {
           </div>
 
           <div className="flex h-full relative  ">
-            <div className="blur-sm h-full flex w-full">
+            <div className=" h-full flex w-full">
               <div className="flex flex-col w-[297px]  ">
                 <div className="flex flex-col items-start justify-start pt-6 gap-2">
                   <p className="text-[#414042] font-inter font-[400px] text-[22px] ">
@@ -443,7 +444,7 @@ function Resume1({ data, isPremium ,openPopup }) {
                           />
                         </svg>
                       </div>
-                      <p className=" text-[9px] pt-[2px] flex text-[#414042] font-lato text-xs font-normal leading-normal ">
+                      <p className=" text-[12px] pt-[2px] flex text-[#414042] font-lato  font-normal leading-normal ">
                         {data?.mobileNumber}
                       </p>
                     </div>
@@ -462,7 +463,7 @@ function Resume1({ data, isPremium ,openPopup }) {
                           />
                         </svg>
                       </div>
-                      <p className=" text-[9px] pt-[2px] flex text-[#414042] font-lato text-xs font-normal leading-normal break-all ">
+                      <p className=" text-[12px] pt-[2px] flex text-[#414042] font-lato font-normal leading-normal break-all ">
                         {data?.email}
                       </p>
                     </div>

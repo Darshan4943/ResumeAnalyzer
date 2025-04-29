@@ -75,7 +75,8 @@ function SkilotechCollection() {
           email: app.email,
           evaluationSummary: app.evaluation,
           id: app._id,
-          isResume:true
+          isResume:true,
+          resumeUrl:app.resumeUrl
 
         })),
       });
@@ -102,7 +103,8 @@ function SkilotechCollection() {
           email: applicant.email,
           evaluationSummary: applicant.evaluation,
           id: applicant._id,
-          isResume:true
+          isResume:true,
+          resumeUrl:applicant.resumeUrl
         }]
       });
 

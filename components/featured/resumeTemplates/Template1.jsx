@@ -14,6 +14,7 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
+  console.log(data);
   const fetchImageAsBase64 = async (url) => {
     const response = await fetch(url);
     const blob = await response.blob();
@@ -25,6 +26,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
       reader.readAsDataURL(blob);
     });
   };
+  
 
   const [profileBase64, setProfileBase64] = useState(null);
 

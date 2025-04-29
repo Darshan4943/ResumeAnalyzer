@@ -172,7 +172,7 @@ function Resume2({ data }) {
     }, [data]);
     return (
         <>
-            <div className="h-[842px] pt-[10px] pr-[26px] pl-[21px] w-[800px]  flex bg-[#fff] absolute left-[1000px]">
+            <div className="h-[842px] pt-[10px] pr-[26px] pl-[21px] w-[800px]  flex bg-[#fff] absolute left-[-1000px]">
                 <div className=" pt-[16px] w-[490px] h-full  pl-[16px]">
                     <div className="flex items-start flex-col gap-[16px]">
                         <div ref={topContainer} className="relative ml-[10px]">
@@ -328,8 +328,8 @@ function Resume2({ data }) {
                 </div>
             </div>
             <div className="flex flex-col gap-[24px]">
-                <div className="flex bg-[#fff]  w-[810px]  break-all">
-                    <div className=" pt-[16px] w-[490px] h-full  pl-[16px]">
+                <div className="flex bg-[#fff]  w-[556px]  break-all">
+                    <div className=" pt-[16px] w-[346px] h-full  pl-[16px]">
                         <div className="flex items-start flex-col gap-[16px]">
                             <div className="relative ml-[10px]">
                                 {data.profilePhoto ? (
@@ -338,14 +338,14 @@ function Resume2({ data }) {
                                     <img src="/images/services/profile.png" alt="" className="w-[200px] relative z-20 h-[200px] rounded-3xl" />
                                 )}
                                 <div className="absolute top-[35%] left-[95%] z-10 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width={584} viewBox="0 0 401 33" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={284} viewBox="0 0 401 33" fill="none">
                                         <path d="M401 0H0V33H401V0Z" fill="#F7902B" />
                                         <text x="7%" y="55%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="22" fontWeight={600}>{data.firstName} {" "} {data.lastName} </text>
                                     </svg>
 
                                 </div >
                                 <div className="absolute top-[35%] left-[150%]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width={474} viewBox="0 0 311 48" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={274} viewBox="0 0 311 48" fill="none">
                                         <path d="M311 48H20.1135L0 0H311V48Z" fill="#B3691B" />
                                         <text x="10%" y="85%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="10" fontWeight={600}>{data.designation} </text>
                                     </svg>
@@ -443,7 +443,7 @@ function Resume2({ data }) {
                         </div>
                     </div>
 
-                    <div className=" bg-[#2C2A31] w-[310px] pl-[16px] pb-4 ">
+                    <div className=" bg-[#2C2A31] w-[210px] pl-[16px] pb-4 ">
                         <div className="flex flex-col gap-12 items-start mt-[200px] ">
 
                             <div className="flex flex-col gap-3">
@@ -583,7 +583,7 @@ function Resume2({ data }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex bg-[#fff]  w-[810px]  break-all">
+                {/* <div className="flex bg-[#fff]  w-[556px]  break-all">
                     <div className=" pt-[16px] w-[490px] h-full  pl-[16px]">
                         <div className="flex items-start flex-col gap-[16px]">
 
@@ -808,7 +808,7 @@ function Resume2({ data }) {
                             )}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )

@@ -35,7 +35,7 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setAllData(res.data.data);

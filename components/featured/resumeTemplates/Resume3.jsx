@@ -172,7 +172,7 @@ function Resume3({ data, selectedColor, selectedFont, preview }) {
   }, [data]);
   return (
     <>
-      <div className=" flex  h-[842px] break-all  w-[800px] bg-[#fff] absolute left-[1000px] ">
+      <div className=" flex  h-[842px] break-all  w-[800px] bg-[#fff] absolute left-[-1000px] ">
         <div className={`w-[247px] bg-${selectedColor} `}>
           <div ref={topContainer} className="pt-[21px] pr-[22px] pl-[28px]">
             <div class="w-134 h-134 flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden">
