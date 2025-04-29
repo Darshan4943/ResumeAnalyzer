@@ -2,10 +2,17 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Resume1 from "../../components/featured/resumeTemplates/Resume1";
+// import { CheckCircle, Loader2 } from "lucide-react";
+import {
+  FileText,
+  Brain,
+  BadgeCheck,
+  Sparkles,
+  CheckCircle,
+  Loader2,
+} from "lucide-react";
 
 function ResumePage() {
-  const [selectedSection, setSelectedSection] = useState("tailoring");
-  const [uploadPdf, setUploadPdf] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const hasFetched = useRef(false);
@@ -16,6 +23,7 @@ function ResumePage() {
   const [isPremium, setIsPremium] = useState(false);
   const [data, setData] = useState({});
   const [error, setError] = useState("");
+  const [selectedSection, setSelectedSection] = useState(null);
 
   const router = useRouter();
 
@@ -72,13 +80,6 @@ function ResumePage() {
     }
   };
 
-  const handleCardClick = (sectionKey) => {
-    const element = document.getElementById(sectionKey);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-  const feedbackSections = ["tailoring", "content", "format", "sections", "style"];
 
   const improveResume = async () => {
     const parsedResume = localStorage.getItem("parsedResume");
@@ -306,6 +307,29 @@ function ResumePage() {
     console.log("Payment initiated");
   };
 
+  const steps = [
+    { label: "Parsing your resume", icon: <FileText className="w-5 h-5" /> },
+    { label: "Analyzing your experience", icon: <Brain className="w-5 h-5" /> },
+    { label: "Extracting your skills", icon: <BadgeCheck className="w-5 h-5" /> },
+    { label: "Generating recommendations", icon: <Sparkles className="w-5 h-5" /> },
+  ];
+
+  const [activeStep, setActiveStep] = useState(0);
+  useEffect(() => {
+    if (!loading) return;
+
+    const interval = setInterval(() => {
+      setActiveStep((prev) => {
+        if (prev < steps.length - 1) return prev + 1;
+        return prev;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
+
+
+
   return (
     <>
       {loading ? (
@@ -330,25 +354,91 @@ function ResumePage() {
               </div>
             </div>
 
-            <div className="w-full md:w-1/2 flex flex-col gap-4 animate-pulse">
-              {Array.from({ length: 3 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-xl w-full md:w-[548px] shadow-md p-4 bg-white border border-[#F2F4F7]"
-                >
-                  <div className="flex items-center gap-1 bg-white mb-2">
-                    <div className="h-4 w-4 bg-gray rounded-full"></div>
-                    <div className="h-4 w-1/3 bg-gray rounded"></div>
-                  </div>
-                  <div className="mt-3 p-3 bg-[#F5FAFF] rounded-md">
-                    <div className="h-3 w-full bg-gray rounded mb-2"></div>
-                    <div className="h-3 w-3/4 bg-gray rounded"></div>
-                  </div>
-                </div>
-              ))}
+            <div className="w-full md:w-1/2 flex flex-col h-full justify-center items-center">
+  <div className="bg-[#dfe6f3] w-full max-w-xl px-8 py-10 rounded-2xl shadow-2xl space-y-6 h-full flex flex-col justify-center animate-pulse">
+    {steps.map((step, index) => {
+      const isActive = index === activeStep;
+      const isCompleted = index < activeStep;
+
+      return (
+        <div key={index} className="relative">
+          <div className="flex items-center space-x-4 text-lg z-10">
+            <div className="w-6 h-6 flex items-center justify-center">
+              {isCompleted ? (
+                <CheckCircle className="text-green-500 w-6 h-6" />
+              ) : isActive ? (
+                <Loader2 className="animate-spin text-blue-500 w-6 h-6" />
+              ) : (
+                step.icon
+              )}
             </div>
+            <span
+              className={`transition-colors duration-300 ${
+                isCompleted
+                  ? "text-green-600 font-medium"
+                  : isActive
+                  ? "text-blue-700 font-semibold"
+                  : "text-gray-600"
+              }`}
+            >
+              {step.label}
+            </span>
+          </div>
+
+          {isCompleted && (
+            <div className="absolute left-3.5 top-7 h-0.5 w-[calc(100%-2rem)] bg-blue-500"></div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
           </div>
         </div>
+        //   <div className="flex items-center justify-center min-h-screen bg-[#eef1f8]">
+        //   <div className="bg-[#dfe6f3] px-8 py-10 rounded-2xl shadow-xl w-full max-w-xl space-y-6">
+        //     {steps.map((step, index) => {
+        //       const isActive = index === activeStep;
+        //       const isCompleted = index < activeStep;
+
+        //       return (
+        //         <div key={index} className="relative">
+        //           <div className="flex items-center space-x-4 text-lg z-10">
+        //             {/* Left-side dynamic SVG icons */}
+        //             <div className="w-6 h-6">
+        //               {isCompleted ? (
+        //                 <CheckCircle className="text-green-500 w-6 h-6" />
+        //               ) : isActive ? (
+        //                 <Loader2 className="animate-spin text-blue-500 w-6 h-6" />
+        //               ) : (
+        //                 step.icon
+        //               )}
+        //             </div>
+
+        //             {/* Step Label */}
+        //             <span
+        //               className={`transition-colors duration-300 ${
+        //                 isCompleted
+        //                   ? "text-white"
+        //                   : isActive
+        //                   ? "text-blue-700 font-semibold"
+        //                   : "text-gray-500"
+        //               }`}
+        //             >
+        //               {step.label}
+        //             </span>
+        //           </div>
+
+        //           {/* Animated underline */}
+        //           {isCompleted && (
+        //             <div className="absolute left-7 top-6 h-0.5 w-[calc(100%-2rem)] bg-blue-500 mt-2"></div>
+        //           )}
+        //         </div>
+        //       );
+        //     })}
+        //   </div>
+        // </div>
       ) : (
         <div>
           <div className="flex flex-col gap-4 customMargins py-6 justify-between">
@@ -356,10 +446,16 @@ function ResumePage() {
               {cardData.map((card, index) => (
                 <div
                   key={index}
-                  onClick={() => card.sectionKey && handleScrollToSection(card.sectionKey)}
+                  onClick={() => {
+                    if (card.sectionKey) {
+                      handleScrollToSection(card.sectionKey);
+                      setSelectedSection(card.sectionKey);
+                    }
+                  }}
 
-                  className={`rounded-[16px] p-[16px] h-[100px] w-[124px] scr570:w-[166px] flex flex-col cursor-pointer ${card.custom ? "items-center" : "gap-[12px]"
-                    }`}
+                  className={`rounded-[16px] p-[16px] h-[100px] w-[124px] scr570:w-[166px] flex flex-col cursor-pointer ${card.custom ? "items-center" : "gap-[12px]"}
+                   ${selectedSection === card.sectionKey ? "ring-2 ring-[#06A9EF]" : ""}
+        `}
                   style={{
                     background: card.custom ? card.bg : "#FFFFFF",
                   }}
@@ -377,25 +473,8 @@ function ResumePage() {
                     <>
                       <div className="text-[#333333] text-[14px] font-[500] flex justify-between items-center w-full">
                         <div>{card.title}</div>
-                        {/* <div>
-                          <svg
-                            width="11"
-                            height="7"
-                            viewBox="0 0 11 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.60523 6.6775C5.48473 6.6775 5.37256 6.65825 5.26873 6.61975C5.16489 6.58125 5.06614 6.51525 4.97248 6.42175L0.478227 1.9275C0.339893 1.789 0.26906 1.61492 0.265727 1.40525C0.26256 1.19575 0.333393 1.0185 0.478227 0.8735C0.623227 0.728667 0.798893 0.65625 1.00523 0.65625C1.21156 0.65625 1.38723 0.728667 1.53223 0.8735L5.60523 4.94675L9.67823 0.8735C9.81673 0.735167 9.99081 0.664333 10.2005 0.661C10.41 0.657833 10.5872 0.728667 10.7322 0.8735C10.8771 1.0185 10.9495 1.19417 10.9495 1.4005C10.9495 1.60683 10.8771 1.7825 10.7322 1.9275L6.23798 6.42175C6.14431 6.51525 6.04556 6.58125 5.94173 6.61975C5.83789 6.65825 5.72573 6.6775 5.60523 6.6775Z"
-                              fill="#646464"
-                            />
-                          </svg>
-                        </div> */}
                       </div>
-                      <div
-                        className="text-[20px] scr570:text-[26px] font-[600] items-start"
-                        style={{ color: card.color }}
-                      >
+                      <div className="text-[20px] scr570:text-[26px] font-[600] items-start" style={{ color: card.color }}>
                         {card.value}
                       </div>
                     </>
@@ -405,15 +484,11 @@ function ResumePage() {
             </div>
 
             <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center">
-              <div className="w-full md:w-1/2 flex flex-col gap-1.5">
+              <div className="w-full md:w-1/2 flex flex-col gap-1.5 sticky top-0">
                 <div className="flex items-center justify-between">
                   <div className="text-lg font-medium">Your Resume</div>
                   <div className="flex justify-end">
                     <button
-                      // onClick={async () => {
-                      //   // await generatePerfectResume();
-                      //   router.push("/createResume?clientId=undefined");
-                      // }}
                       onClick={improveResume}
                       className="text-sm font-semibold px-6 bg_Button rounded-full h-[38px]"
                     >
@@ -422,7 +497,7 @@ function ResumePage() {
                   </div>
                 </div>
                 <div className="w-full h-auto">
-                  <div className=" w-[100%] h-[480px] rounded overflow-hidden">
+                  <div className="w-[100%] h-[842px] rounded overflow-hidden">
                     <Resume1
                       data={data}
                       isPremium={isPremium}
@@ -432,8 +507,7 @@ function ResumePage() {
                 </div>
               </div>
 
-              <div className="w-full md:w-1/2 flex flex-col gap-4">
-
+              <div className="w-full md:w-1/2 flex flex-col gap-4 overflow-y-auto h-screen">
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                   {Object.entries(resumeData || {}).map(([sectionKey, sectionValue]) => {
                     const feedbackTypes = [
@@ -490,12 +564,14 @@ function ResumePage() {
                                 </h2>
                               </div>
                               <div className="mt-3 p-3 bg-[#F5FAFF] rounded-md">
-                                <ul className="text-[#667085] text-sm">{list.map((item, index) => (
-                                  <li key={index}>
-                                    <strong>{item.title ?? ""}</strong>{" "}
-                                    {item.description ?? item.content}
-                                  </li>
-                                ))}</ul>
+                                <ul className="text-[#667085] text-sm">
+                                  {list.map((item, index) => (
+                                    <li key={index}>
+                                      <strong>{item.title ?? ""}</strong>{" "}
+                                      {item.description ?? item.content}
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
                             </div>
                           );
@@ -504,11 +580,11 @@ function ResumePage() {
                     );
                   })}
                 </div>
-
-
               </div>
             </div>
           </div>
+
+
           {isPopupOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
               <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
