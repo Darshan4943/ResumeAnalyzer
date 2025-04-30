@@ -75,7 +75,7 @@ function SkilotechCollection() {
           email: app.email,
           evaluationSummary: app.evaluation,
           id: app._id,
-          isResume:true,
+          skilotechCollection:true,
           resumeUrl:app.resumeUrl
 
         })),
@@ -103,7 +103,7 @@ function SkilotechCollection() {
           email: applicant.email,
           evaluationSummary: applicant.evaluation,
           id: applicant._id,
-          isResume:true,
+          skilotechCollection:true,
           resumeUrl:applicant.resumeUrl
         }]
       });
@@ -228,8 +228,8 @@ function SkilotechCollection() {
                         </button>
                         :
                         <button
-                        disabled={!applicant.isParsed || applicant.paymentStatus}
-                          className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${(!applicant.isParsed || applicant.paymentStatus) && "opacity-50"}`}
+                        disabled={!applicant.isEvaluate || applicant.paymentStatus}
+                          className={`text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px] ${(!applicant.isEvaluate || applicant.paymentStatus) && "opacity-50"}`}
                           onClick={() => handleSendIndividualMail(applicant)} // Send mail to individual
                         >
                           Send Mail

@@ -16,7 +16,7 @@ function JobApplicants() {
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [loading, setLoading] = useState("")
-  console.log(data);
+  
 
   // Column widths and text alignments
   const widths = ["25%", "10%", "15%", "25%", "15%", "10%"];
@@ -74,7 +74,7 @@ function JobApplicants() {
           email: app.email,
           evaluationSummary: app.evaluation,
           id: app._id,
-          isApplication:true
+          application:true
 
         })),
       });
@@ -101,7 +101,8 @@ function JobApplicants() {
           email: applicant?.details?.personal?.email,
           evaluationSummary: applicant?.evaluation,
           id:applicant?._id,
-          isApplication:true
+          application:true,
+          resumeUrl:applicant.resumeUrl
         }]
       });
 

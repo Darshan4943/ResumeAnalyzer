@@ -40,11 +40,11 @@ const Template48 = ({
     const prepareImage = async () => {
       if (
         data?.profilePhoto &&
-        typeof data.profilePhoto === "string" &&
-        data.profilePhoto.startsWith("http")
+        typeof data?.profilePhoto === "string" &&
+        data?.profilePhoto.startsWith("http")
       ) {
         try {
-          const base64Image = await fetchImageAsBase64(data.profilePhoto);
+          const base64Image = await fetchImageAsBase64(data?.profilePhoto);
           setProfileBase64(base64Image);
         } catch (error) {
           console.error("Error fetching image:", error);
@@ -103,7 +103,7 @@ const Template48 = ({
               color: selectedColor,
             }}
           >
-            {data.firstName} {data.lastName}
+            {data?.firstName} {data?.lastName}
           </Text>
           {/* <Text
             style={{
@@ -120,7 +120,7 @@ const Template48 = ({
               color: "#58595B",
             }}
           >
-            {data.designation}
+            {data?.designation}
           </Text>
         </View>
         {data?.showProfile === true && (
@@ -133,7 +133,7 @@ const Template48 = ({
               objectFit: "contain",
             }}
           >
-            {data.profilePhoto ? (
+            {data?.profilePhoto ? (
               <Image
                 src={
                   preview
@@ -200,7 +200,7 @@ const Template48 = ({
                     color: "#414042",
                   }}
                 >
-                  {data.dial_code} {data.mobileNumber}
+                  {data?.dial_code} {data?.mobileNumber}
                 </Text>
               </View>
               <View
@@ -232,8 +232,8 @@ const Template48 = ({
                     color: "#414042",
                   }}
                 >
-                  {/* {data.email} */}
-                  {formatEmail(data.email)}
+                  {/* {data?.email} */}
+                  {formatEmail(data?.email)}
                 </Text>
               </View>
               {/* {data?.location?.length > 0 && ( */}
@@ -267,7 +267,7 @@ const Template48 = ({
                       color: "#414042",
                     }}
                   >
-                    {formatLink(data.location)}
+                    {formatLink(data?.location)}
                   </Text>
                 </View>
               )}
@@ -973,7 +973,7 @@ const Template48 = ({
                       color: "#58595B",
                     }}
                   >
-                    {data.summery}
+                    {data?.summery}
                   </Text>
                 </View>
               </View>
