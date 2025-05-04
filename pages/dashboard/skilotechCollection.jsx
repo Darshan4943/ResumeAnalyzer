@@ -242,7 +242,7 @@ function SkilotechCollection() {
             </>
           ) : (
             <div className="p-10 w-full flex items-center justify-center">
-              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px]" />
+              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px] object-contain" />
             </div>
           )}
         </div>

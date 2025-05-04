@@ -24,9 +24,10 @@ const stripeInstance = stripe(
 function Payment() {
 
     const router = useRouter();
-    const dispatch = useDispatch();
-    dispatch(setPageOpened());
+
+
     const { profileData } = useSelector((state) => state.profile.profileData);
+    const isLogin = useSelector((state) => state.auth.isLogin);
     const { userDataGlobal } = useSelector((state) => state.user.userData);
     const [exchangeRate, setexchangeRate] = useState(1);
     const [icon, seticon] = useState("$");
@@ -43,6 +44,13 @@ function Payment() {
     const [isRetry, setIsRetry] = useState(true);
     const { success, cancelled, id, application, skilotechCollection, myCollection } = router.query;
 
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (isLogin && userDataGlobal?.role !== "user") {
+            dispatch(setPageOpened());
+        }
+    }, [userDataGlobal]);
     useEffect(() => {
         if (id) {
             localStorage.setItem("id", id);
@@ -71,14 +79,20 @@ function Payment() {
     const [error, setError] = useState();
     const [popUp, setPopUp] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState({
-        firstName: "Darshan",
-        lastName: "Shinde",
-        mobileNo: "9604543920",
-        email: "darshanshinde4943@gmail.com",
-        dial_code: "+91",
-        checked: false,
+    const [data, setData] = useState(() => {
+        const stored = localStorage.getItem("userPaymentDetails");
+        return stored
+            ? JSON.parse(stored)
+            : {
+                firstName: "",
+                lastName: "",
+                mobileNo: "",
+                email: "",
+                dial_code: "",
+                checked: false,
+            };
     });
+
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
 
     const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -224,32 +238,32 @@ function Payment() {
     //   }
     // }, [success, userDataGlobal, selectedPlan, exchangeRate, icon]);
 
-    useEffect(() => {
-        const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-        if (jsonData) {
-            setData({ ...jsonData });
-            const selectedItem = telCode.find((item) => item.dial_code === jsonData.dial_code);
+    // useEffect(() => {
+    //     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    //     if (jsonData) {
+    //         setData({ ...jsonData });
+    //         const selectedItem = telCode.find((item) => item.dial_code === jsonData.dial_code);
 
-            if (selectedItem) {
-                setSelectedItem(selectedItem);
-            }
-        } else {
+    //         if (selectedItem) {
+    //             setSelectedItem(selectedItem);
+    //         }
+    //     } else if(isLogin) {
 
-            setData({
-                email: userDataGlobal.email,
-                firstName: userDataGlobal.firstName ? userDataGlobal.firstName : "",
-                lastName: userDataGlobal.lastName ? userDataGlobal.lastName : "",
-                mobileNo: userDataGlobal.mobileNo ? userDataGlobal.mobileNo : "",
-                dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_code : "",
-            });
-            const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal.dial_code);
+    //         setData({
+    //             email: userDataGlobal?.email,
+    //             firstName: userDataGlobal?.firstName ? userDataGlobal?.firstName : "",
+    //             lastName: userDataGlobal?.lastName ? userDataGlobal?.lastName : "",
+    //             mobileNo: userDataGlobal?.mobileNo ? userDataGlobal?.mobileNo : "",
+    //             dial_code: userDataGlobal?.dial_code ? userDataGlobal?.dial_code : "",
+    //         });
+    //         const selectedItem = telCode.find((item) => item.dial_code === userDataGlobal?.dial_code);
 
-            if (selectedItem) {
-                setSelectedItem(selectedItem);
-            }
+    //         if (selectedItem) {
+    //             setSelectedItem(selectedItem);
+    //         }
 
-        }
-    }, []);
+    //     }
+    // }, []);
 
     function findEmptyKey(obj) {
         let empty = [];
@@ -334,8 +348,7 @@ function Payment() {
                 setPaymentStatus(session.payment_status);
 
                 if (
-                    session.payment_status === "paid" &&
-                    userDataGlobal &&
+                    session.payment_status === "unpaid" &&
 
                     exchangeRate &&
                     icon
@@ -399,14 +412,14 @@ function Payment() {
 
             setTimeout(() => {
                 setSuccessModel({ visible: true, loading: false });
-            }, 1000);
+            }, 500);
 
             localStorage.removeItem("paymentDetails");
         } catch (error) {
             console.error("Error adding subscription:", error);
             setTimeout(() => {
                 setSuccessModel({ visible: true, loading: false });
-            }, 1000);
+            }, 5);
         }
     };
     const handleFreeSession = async () => {
@@ -487,8 +500,10 @@ function Payment() {
     };
     const navigate = async () => {
         try {
-            await router.push("/payment");
-
+            await router.push(`/createResume?isEnhanced=${true}`);
+            localStorage.removeItem("paymentId");
+            localStorage.removeItem("attempts");
+            localStorage.removeItem("paymentDetails")
             localStorage.removeItem("purchaseCount");
         } catch (error) {
             console.error('Error navigating:', error);
@@ -497,20 +512,21 @@ function Payment() {
 
     return (
         <>
-            <div
-                className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
-                style={{ borderBottom: "1.5px solid #DEDEDE" }}
-            >
-                <div onClick={() => router.push("/")} className="customMargins py-3 flex justify-between items-center cursor-pointer">
-                    <img
-                        className="object-contain h-[40px]"
-                        src="/images/logo_skilotech.png"
-                        alt="Logo"
-                    />
+            {(isLogin && userDataGlobal?.role !== "user") &&
+                <div
+                    className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
+                    style={{ borderBottom: "1.5px solid #DEDEDE" }}
+                >
+                    <div className="customMargins py-3 flex justify-between items-center">
+                        <img
+                            className="object-contain h-[40px]"
+                            src="/images/logo_skilotech.png"
+                            alt="Logo"
+                        />
+                    </div>
                 </div>
-            </div>
-
-            <div className={" w-full plan-container  flex justify-center items-center pt-12 "}>
+            }
+            <div className={" w-full plan-container  flex justify-center items-center py-12 "}>
 
                 {successModel.visible && (
                     <div className="expiryModel">
@@ -560,7 +576,7 @@ function Payment() {
                                             <button
                                                 onClick={() => {
 
-                                                    setSuccessModel({ visible: false, loading: false });
+                                                    setSuccessModel({ visible: false, loading: false }); navigate()
 
 
                                                 }}
@@ -629,15 +645,18 @@ function Payment() {
                                     </text>
                                 </div>
                                 <button
-                                    onClick={() =>
-                                        router.push(
-                                            userDataGlobal?.role == "admin"
-                                                ? role == "user"
-                                                    ? "/dashboard/Candidates"
-                                                    : "/dashboard/Recruiters"
-                                                : "/purchase/MyPurchase"
-                                        )
-                                    }
+                                    onClick={() => {
+                                        localStorage.removeItem("paymentId");
+                                        localStorage.removeItem("attempts");
+
+                                        let redirectPath = "/purchase/MyPurchase";
+                                        if (userDataGlobal?.role === "admin") {
+                                            redirectPath = role === "user" ? "/dashboard/Candidates" : "/dashboard/Recruiters";
+                                        }
+
+                                        router.push(redirectPath);
+                                    }}
+
                                     className="px-9 py-3 bg-blue text-white rounded-[8px] w-[117px] text-[16px] font-medium"
                                 >
                                     Done

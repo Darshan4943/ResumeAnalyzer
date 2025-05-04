@@ -80,7 +80,7 @@ const ResumePreview = ({
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const dispatch = useDispatch();
   const { recallData } = useSelector((state) => state.recall);
- 
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [activePlan, setActivePlan] = useState();
   const [limitPopup, setLimitPopup] = useState(false);
   const [aiHitMonthly, setAiHitMonthly] = useState(0);
@@ -520,7 +520,7 @@ const ResumePreview = ({
         formData.append("userId", userDataGlobal?._id);
   
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
             localStorage.setItem("saveCount", Number(saveLimit) + 1);
@@ -757,7 +757,7 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
-                  {selectedResumeIndex !== undefined && (
+                  {(selectedResumeIndex !== undefined && isLogin) && (
                     // <BlobProvider document={<MyComponent />}>
                     //   {({ blob, url, loading, error }) => (
                     <SaveButton loading={loading} />

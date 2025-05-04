@@ -2,17 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { ClosedIcon, ClosedIcon1, LeftArow } from "../../utils/svg";
 import ResumeForm from "../../components/featured/candidate/createResume/resume_form";
 import ResumePreview from "../../components/featured/candidate/createResume/resume_preview";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { camelCase } from "../../utils/middleware";
 import axios from "axios";
+import { setPageOpened } from "../../Redux/slices/websiteSlice";
 
 function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
-
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [render, setRender] = useState(true);
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -21,24 +22,30 @@ function CreateResume() {
   const [editId, setEnditId] = useState();
   const userData = router.query;
   // const { clientId, continueEdit } = router.query;
-  const { clientId, continueEdit } = router.query;
+  const { clientId, continueEdit, isEnhanced } = router.query;
   const currentYear = new Date().getFullYear();
   const allData = JSON.parse(localStorage.getItem("userData"));
 
-
- 
+  const dispatch = useDispatch();
   useEffect(() => {
-   
+    if (isLogin && userDataGlobal?.role !== "user") {
+      dispatch(setPageOpened());
+    }
+  }, [userDataGlobal]);
+
+  useEffect(() => {
+
     const handleRouteChange = () => {
       localStorage.removeItem("parsedResume");
       localStorage.removeItem("preResumeData");
     };
-   
+
     router.events.on("routeChangeStart", handleRouteChange);
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
   }, [router]);
+
   const templates = [
     {
       title: "Template1",
@@ -319,6 +326,13 @@ function CreateResume() {
     }
   }, [selectedResumeIndex]);
 
+  useEffect(() => {
+    if (isEnhanced) {
+      const enhancedVersion = JSON.parse(localStorage.getItem("enhancedVersion"));
+      setData(enhancedVersion)
+    }
+  }, [isEnhanced]);
+
   const resumeData = {
     selectedColor: selectedColor,
     selectedFont: selectedFont,
@@ -361,8 +375,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
@@ -397,26 +411,26 @@ function CreateResume() {
         designation: designation,
         summery: summary,
         location: address,
-        country:country,
+        country: country,
         skills:
           skills?.length > 0
             ? skills?.map((item) => ({
-                skill: item,
-                rating: [5, 5, 5, 5, 5],
-              }))
+              skill: item,
+              rating: [5, 5, 5, 5, 5],
+            }))
             : [],
         hobbies:
           hobbies?.length > 0
             ? hobbies?.map((item) => ({
-                title: item,
-              }))
+              title: item,
+            }))
             : [],
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
-                languages: item,
-                rating: [3, 3, 3],
-              }))
+              languages: item,
+              rating: [3, 3, 3],
+            }))
             : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
@@ -454,8 +468,8 @@ function CreateResume() {
               year: item.is_current
                 ? currentYear
                 : item.end_date?.year
-                ? item.end_date?.year
-                : "Year",
+                  ? item.end_date?.year
+                  : "Year",
               month: null,
             },
           },
@@ -463,100 +477,100 @@ function CreateResume() {
         project:
           project?.length > 0
             ? project?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
 
-                duration: {
-                  start: {
-                    year: item.start_date?.year
-                      ? item.start_date?.year
-                      : "Year",
-                    month: null,
-                  },
-                  end: {
-                    year: item.is_current
-                      ? currentYear
-                      : item.end_date?.year
+              duration: {
+                start: {
+                  year: item.start_date?.year
+                    ? item.start_date?.year
+                    : "Year",
+                  month: null,
+                },
+                end: {
+                  year: item.is_current
+                    ? currentYear
+                    : item.end_date?.year
                       ? item.end_date?.year
                       : "Year",
-                    month: null,
-                  },
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         internship:
           internship?.length > 0
             ? internship?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
 
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         extraCaricularData:
           extraCaricularActivity?.length > 0
             ? extraCaricularActivity?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: false,
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: false,
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-                title: item.title,
-                organization: item.organization,
-                description: item.description,
-                currentlyWorking: true,
+              title: item.title,
+              organization: item.organization,
+              description: item.description,
+              currentlyWorking: true,
 
-                duration: {
-                  start: { year: item.start_date?.year, month: null },
-                  end: {
-                    year: item.is_current ? currentYear : item.end_date?.year,
-                    month: null,
-                  },
+              duration: {
+                start: { year: item.start_date?.year, month: null },
+                end: {
+                  year: item.is_current ? currentYear : item.end_date?.year,
+                  month: null,
                 },
-              }))
+              },
+            }))
             : [],
         socialLinks:
           socialLinks?.length > 0
             ? socialLinks?.map((item) => ({
-                platform: item.platform,
-                link: item.link,
-              }))
+              platform: item.platform,
+              link: item.link,
+            }))
             : [],
         reference:
           references?.length > 0
             ? references?.map((item) => ({
-                referantName: item.referantName,
-                designation: item.designation,
-                "Organization Name": item["Organization Name"],
-                email: item.name,
-              }))
+              referantName: item.referantName,
+              designation: item.designation,
+              "Organization Name": item["Organization Name"],
+              email: item.name,
+            }))
             : [],
         achievements:
           achievements?.length > 0
             ? achievements?.map((item) => ({
-                title: item.title,
-              }))
+              title: item.title,
+            }))
             : [],
       });
     } else if (preResumeData) {
@@ -570,13 +584,13 @@ function CreateResume() {
         dial_code: preResumeData?.dial_code,
         mobileNumber: preResumeData?.mobileNo,
         location: preResumeData?.currentLocation,
-        country:preResumeData?.country,
+        country: preResumeData?.country,
         skills:
           preResumeData?.keySkills?.length > 0
             ? preResumeData?.keySkills?.map((item) => ({
-                skill: item.value,
-                rating: [5, 5, 5, 5, 5],
-              }))
+              skill: item.value,
+              rating: [5, 5, 5, 5, 5],
+            }))
             : [],
 
         education: [
@@ -694,10 +708,23 @@ function CreateResume() {
 
   return (
     <div className="">
+      {(isLogin && userDataGlobal?.role !== "user") &&
+        <div
+          className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
+          style={{ borderBottom: "1.5px solid #DEDEDE" }}
+        >
+          <div className="customMargins py-3 flex justify-between items-center">
+            <img
+              className="object-contain h-[40px]"
+              src="/images/logo_skilotech.png"
+              alt="Logo"
+            />
+          </div>
+        </div>
+      }
       <div
-        className={`pt-2 ${
-          userDataGlobal?.role === "user" ? "customMargins" : ""
-        }`}
+        className={`pt-2 ${userDataGlobal?.role === "user" || isEnhanced ? "customMargins" : ""
+          }`}
       >
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">

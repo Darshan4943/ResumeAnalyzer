@@ -76,7 +76,7 @@ const Languages = ({
   const renderStarsLanguages = (languagesIndex) => {
     const languageItem = data?.languages[languagesIndex];
     if (languageItem && languageItem.rating) {
-      return languageItem.rating.map((rating, index) => (
+      return languageItem?.rating?.map((rating, index) => (
         <img
           key={`star_${index}`}
           src={

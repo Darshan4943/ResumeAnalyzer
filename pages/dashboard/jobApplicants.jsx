@@ -71,10 +71,11 @@ function JobApplicants() {
     try {
       const response = await axios.post('http://localhost:2000/api/sendEvaluationMail', {
         userData: applicants.map((app) => ({
-          email: app.email,
-          evaluationSummary: app.evaluation,
-          id: app._id,
-          application:true
+          email: app?.details?.personal?.email,
+          evaluationSummary: app?.evaluation,
+          id:app?._id,
+          application:true,
+          resumeUrl:app.resumeUrl
 
         })),
       });
@@ -239,7 +240,7 @@ function JobApplicants() {
             </>
           ) : (
             <div className="p-10 w-full flex items-center justify-center">
-              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px]" />
+              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px] object-contain" />
             </div>
           )}
         </div>

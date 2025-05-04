@@ -64,8 +64,8 @@ function EmployerSidebar() {
       route: "/template",
     },
     {
-      img: "/images/employer/sidebar/candidate.png",
-      img1: "/images/employer/sidebar/candidate2.png",
+      img: "/images/employer/sidebar/template1.png",
+      img1: "/images/employer/sidebar/template.png",
       title: "Resumes",
       route: "/recruiter/resumeCreation",
       route1: "/createResume"
@@ -74,10 +74,16 @@ function EmployerSidebar() {
   ];
   const bpoList = [
     {
-      img: "/images/employer/sidebar/home.png",
-      img1: "/images/employer/sidebar/home2.png",
-      title: "Home",
+      img: "/images/employer/sidebar/template1.png",
+      img1: "/images/employer/sidebar/template.png",
+      title: "Resumes",
       route: "/",
+    },
+    {
+      img: "/images/employer/sidebar/myCollection.png",
+      img1: "/images/employer/sidebar/myCollection2.png",
+      title: "My Collection",
+      route: "/myCollection?folders=true",
     },
 
 

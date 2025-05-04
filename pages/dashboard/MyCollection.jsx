@@ -1,12 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { DownSvg, UpSvg } from '../../utils/svg';
 import MiniLoader from '../../components/common/mini-loader';
 import { setPageOpened } from '../../Redux/slices/websiteSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { setRecallData } from '../../Redux/slices/recallSlice';
+
+import MyCollectionFolder from './myCollectionFolder';
 
 function MyCollection() {
-
+  const router = useRouter();
   const dispatch = useDispatch();
   // dispatch(setPageOpened());
   const [option, setOption] = useState("skilotechCollection");
@@ -15,35 +19,132 @@ function MyCollection() {
   const [selectAll, setSelectAll] = useState(false);
   const [filterType, setFilterType] = useState();
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [loading, setLoading] = useState("")
-  console.log(data);
 
-  // Column widths and text alignments
+  const { skilotechCollection, folders, clientId, parentId, trash } = router.query;
+  const { recallData } = useSelector((state) => state.recall);
+
+  const { profileData } = useSelector((state) => state.profile.profileData);
+  const { userDataGlobal } = useSelector((state) => state.user.userData);
+  const [rename, setRename] = useState(null);
+  const [isCreate, setIsCreate] = useState(false);
+  const [folderData, setFolderData] = useState([]);
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const [folderList, setFolderList] = useState(null);
+  const [isCreateFolder, setIsCreateFolder] = useState(false);
+  const [folderName, setFolderName] = useState("");
+  const inputRef = useRef(null);
+  const [tab, setTab] = useState(null);
+
+  const [ParentId, setParentId] = useState(null);
+  const [isFile, setIsFile] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [fileLoader, setFileLoader] = useState(false);
+  const [textData, setTextData] = useState([]);
+  const [files, setFiles] = useState([]);
+  const fileRef = useRef(null);
+  const [recall, setRecall] = useReducer((x) => x + 1, 0);
+  const [uploadCount, setUploadCount] = useState(0);
+  const [duplicateFiles, setDuplicateFiles] = useState([]);
+  const [failedFiles, setFailedFiles] = useState([]);
+  const [unSyncFiles, setUnSyncFiles] = useState(null);
+  const [count, setCount] = useState("");
+  const [refresh, setRefresh] = useState(true);
+  const [collectionCount, setCollectionCount] = useState(0);
+  const [error, setError] = useState("");
   const widths = ["25%", "10%", "15%", "25%", "15%", "10%"];
   const texts = ["start", "start", "start", "start", "start", "center"];
 
-  const getJobApplicants = async () => {
-    try {
-      const response = await axios.get('http://localhost:2000/api/job/getAllJobApplicant');
-      if (response.data.success) {
-        setData(response.data.data);
-      } else {
-        console.error("Failed to fetch resumes:", response.data);
-        return [];
-      }
-    } catch (error) {
-      console.error("Error fetching resumes:", error);
-      return [];
+  const getData = () => {
+
+    setTab(0);
+    setTabIndex(0);
+    if (parentId) {
+      setParentId(parentId);
+      getParentData(parentId);
+    } else {
+      getFolderData();
     }
+
+
   };
- 
+
+  const getParentData = (parentId) => {
+    axios
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
+      .then((res) => {
+        setFolderList(res.data.data);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const getFolderData = () => {
+
+    setLoading(true);
+    axios
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal?._id}`)
+      .then((res) => {
+        setFolderList(res.data.data);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
+
+
+  const getUnSyncFiles = () => {
+    axios
+      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal?._id}`)
+      .then((res) => {
+        const files = res.data.data.filter((item) => item.type === "file");
+        setUnSyncFiles(files.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-   
-    getJobApplicants();
- 
-  }, []);
+    getUnSyncFiles();
+    dispatch(setRecallData(!recallData));
+    if (unSyncFiles > 0) {
+      const interval = setInterval(() => {
+        getUnSyncFiles();
+        getData();
+        dispatch(setRecallData(!recallData));
+      }, 30000);
 
+      return () => clearInterval(interval);
+    }
+  }, [unSyncFiles]);
+  useEffect(() => {
+    const fetchAndSetData = () => {
+      getData();
+    };
+  
+    // Initial fetch
+    fetchAndSetData();
+  
+    // Set interval for every 10 seconds
+    const interval = setInterval(fetchAndSetData, 10000);
+  
+    // Clear interval on unmount or dependencies change
+    return () => clearInterval(interval);
+  }, [skilotechCollection, folders, clientId, parentId, userDataGlobal, recall]);
+  
   // Handle checkbox change for individual applicants
   const handleCheckboxChange = (applicant) => {
     setSelectedApplicants((prevSelected) => {
@@ -99,7 +200,7 @@ function MyCollection() {
         userData: [{
           email: applicant?.details?.personal?.email,
           evaluationSummary: applicant?.details?.personal?.evaluation,
-          id:applicant?.details?.personal?._id
+          id: applicant?.details?.personal?._id
         }]
       });
 
@@ -147,99 +248,30 @@ function MyCollection() {
 
   return (
     <div>
-      <div className="web">
-        {/* Bulk Mail Button */}
-        <div className="flex justify-end mb-4">
-        
-          <button
-            className="text-[14px] font-[500] rounded-[30px] bg-blue-500 text-white px-6 h-[40px] bg_Button"
-            onClick={() => handleSendMail(selectedApplicants)} // Send to selected applicants
-            disabled={selectedApplicants.length === 0}
-          >
-            Send Bulk Mail
-          </button>
-        </div>
 
-        {/* Table Header */}
-        <div className="flex p-[16px] items-center gap-[20px] bg-[#EFFAFF] border border-[#D6DDEB]">
-          <input
-            className="w-[16px] h-[16px]"
-            type="checkbox"
-            checked={selectAll}
-            onChange={handleSelectAll}
-          />
+      <MyCollectionFolder
+        folderData={folderData}
+        unSyncFiles={unSyncFiles}
+        setFolderData={setFolderData}
+        tabIndex={tabIndex}
+        setTabIndex={setTabIndex}
+        data={folderList}
+        setData={setData}
+        clientData={folderList}
+        tab={tab}
+        setFolderList={setFolderList}
+        loading={loading}
+        query={router.query}
+        setRecall={setRecall}
+        setRename={setRename}
+        isCreate={isCreate}
+        setIsCreate={setIsCreate}
+        setIsFile={setIsFile}
+        setIsCreateFolder={setIsCreateFolder}
 
-          {applicant_head.map((applicant_head, index) => (
-            <div key={index} className="flex items-center w-full text-[#333333] gap-[8px] relative" style={{ width: widths[index] }}>
-              <p style={{ textAlign: texts[index] }} className="text-[14px] w-full font-[600] ">
-                {applicant_head.name}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Table Body */}
-        <div className="flex flex-col items-start bg-[#fff] overflow-y-auto">
-          {data.length !== 0 ? (
-            <>
-              {data.map((applicant, index) => (
-                <div
-                  className={`flex w-[100%] border-b border-[#D4D4D480] p-[16px] justify-between items-center ${selectedApplicants.some((item) => item._id === applicant._id) ? "bg-[#D3F1FF]" : "bg-[#FFFFFF]"
-                    }`}
-                  key={applicant?._id}
-                >
-                  <div className="gap-[20px] w-full justify-between flex items-center">
-                    <input
-                      key={applicant.id}
-                      className="w-[16px] h-[16px]"
-                      type="checkbox"
-                      checked={selectedApplicants.some((item) => item._id === applicant._id)}
-                      onChange={() => handleCheckboxChange(applicant)}
-                    />
-                    <div className="flex w-[25%] justify-start text-[14px] font-[600] items-center gap-[16px]">
-                      <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
-                      <p className="text-[14px] font-[600]">{applicant?.details?.personal?.firstName} {applicant?.lastName}</p>
-                    </div>
-                    <div className="flex w-[10%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.details?.personal?.dial_code}</p>
-                    </div>
-                    <div className="flex w-[15%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.details?.personal?.mobileNo}</p>
-                    </div>
-                    <div className="flex w-[25%] items-center justify-start gap-[8px]">
-                      <p className="text-[14px] font-[600]">{applicant?.details?.personal?.email}</p>
-                    </div>
-                    <div className="flex w-[15%] items-center justify-start gap-[8px]">
-                      <p className={`text-[14px] font-[600] ${applicant?.paymentStatus ? "text-green" : "text-red"}`}>{applicant?.paymentStatus ? "Paid" : "Unpaid"}</p>
-                    </div>
-                    <div className="flex w-[10%] items-center justify-center gap-[8px]">
-                      {loading === applicant._id ?
-                        <button
-                          className="text-[14px] font-[500] flex items-center justify-center w-[92.49px] rounded-[30px] bg_Button px-4 h-[40px]"
-
-                        >
-                          <MiniLoader />
-                        </button>
-                        :
-                        <button
-                          className="text-[14px] font-[500] rounded-[30px] bg_Button px-4 h-[40px]"
-                          onClick={() => handleSendIndividualMail(applicant)} // Send mail to individual
-                        >
-                          Send Mail
-                        </button>
-                      }
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </>
-          ) : (
-            <div className="p-10 w-full flex items-center justify-center">
-              <img src="/images/employer/OBJECTS.png" alt="No data available" className="h-[200px] w-[300px]" />
-            </div>
-          )}
-        </div>
-      </div>
+        parentId={parentId}
+      />
+      
     </div>
   );
 }

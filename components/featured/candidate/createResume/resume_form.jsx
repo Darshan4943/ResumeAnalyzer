@@ -539,7 +539,7 @@ const ResumeForm = ({
           </div>
         )}
         {/* {customOptions["Custom Section"] && ( */}
-        {data?.section.length > 0 && (
+        {data?.section?.length > 0 && (
           <div
             ref={customRef}
             style={{

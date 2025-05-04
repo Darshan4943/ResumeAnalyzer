@@ -1,14 +1,21 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import SkilotechCollection from './skilotechCollection';
 import MyCollection from './MyCollection';
 import JobApplicants from './jobApplicants';
+import { useRouter } from 'next/router';
 
 function BpoDashboard() {
-
+ const router = useRouter();
   const [option, setOption] = useState("skilotechCollection");
-
+  const { name } = router.query;
+   useEffect(() => {
+    if(name){
+      setOption("myCollection");
+    }
+    
+    }, [name]);
 
   return (
     <div className='flex flex-col gap-4'>

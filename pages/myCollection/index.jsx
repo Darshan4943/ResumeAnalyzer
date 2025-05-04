@@ -328,7 +328,10 @@ function Collection() {
     const selectedFiles = e.target.files;
     const textData = [];
 
-    const allowedFiles = Array.from(selectedFiles).slice(0, collectionCount);
+    const allowedFiles = userDataGlobal?.role === "bpo"
+      ? Array.from(selectedFiles)
+      : Array.from(selectedFiles).slice(0, collectionCount);
+
     if (allowedFiles.length) {
       const promises = allowedFiles.map((file, index) => {
         return new Promise((resolve) => {
@@ -427,10 +430,11 @@ function Collection() {
           formData.append("text", text);
           formData.append("file", file);
           formData.append("parentId", ParentId ? ParentId : undefined);
+          formData.append("bpoSync", userDataGlobal?.role === "bpo" ? true : false)
 
           try {
             const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
+              "http://localhost:2000/api/folder/create",
               formData
             );
             setCount((prevCount) => prevCount + 1);
@@ -838,24 +842,22 @@ function Collection() {
                       {Object.keys(files).length > 0 ? "Files" : "File"}
                     </span>
                     <span className="text-sm font-medium text-blue-700">
-                      {`${
-                        Math.round(
+                      {`${Math.round(
+                        (uploadCount / Object.keys(files).length) * 100
+                      ).toString() != "Infinity"
+                        ? Math.round(
                           (uploadCount / Object.keys(files).length) * 100
-                        ).toString() != "Infinity"
-                          ? Math.round(
-                              (uploadCount / Object.keys(files).length) * 100
-                            )
-                          : 100
-                      }%`}
+                        )
+                        : 100
+                        }%`}
                     </span>
                   </div>
                   <div className="w-full bg-[#e8f0ff] rounded-full h-2.5">
                     <div
                       class="bg-[#06a9ef] h-2.5 rounded-full"
                       style={{
-                        width: `${
-                          (uploadCount / Object.keys(files).length) * 100
-                        }%`,
+                        width: `${(uploadCount / Object.keys(files).length) * 100
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -866,19 +868,21 @@ function Collection() {
               )}
 
               <div className="flex justify-between gap-6">
-                <div
-                  className={`text-[16px] font-medium ${
-                    collectionCount > 0 ? "text-[#000000]" : "text-red"
-                  }`}
-                >
-                  {isFile && (
-                    <>
-                      Daily upload limit :{" "}
-                      {collectionCount ? collectionCount : 0}
-                    </>
-                  )}
-                </div>
-
+                {userDataGlobal?.role == "bpo" ?
+                  <div></div>
+                  :
+                  <div
+                    className={`text-[16px] font-medium ${collectionCount > 0 ? "text-[#000000]" : "text-red"
+                      }`}
+                  >
+                    {isFile && (
+                      <>
+                        Daily upload limit :{" "}
+                        {collectionCount ? collectionCount : 0}
+                      </>
+                    )}
+                  </div>
+                }
                 <div className="flex justify-end gap-6 text-blue font-medium">
                   <button
                     disabled={fileLoader}
@@ -915,10 +919,10 @@ function Collection() {
                         minWidth: "80px",
                         opacity:
                           fileLoader ||
-                          error ||
-                          (isFile
-                            ? Object.values(files).length === 0
-                            : !folderName)
+                            error ||
+                            (isFile
+                              ? Object.values(files).length === 0
+                              : !folderName)
                             ? 0.5
                             : 1,
                       }}
@@ -968,9 +972,8 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/myCollection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${
-                    tab === 0 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] scr420:min-w-[110px] min-w-[90px]  ${tab === 0 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     className="scr420:block hidden"
@@ -989,38 +992,38 @@ function Collection() {
                   </svg>
                   My Folders
                 </button>
-                <button
-                  onClick={() => {
-                    router.push("/myCollection?skilotechCollection=true");
-                  }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center   min-w-[280px] ${
-                    tab === 1 && "bg-[#C2E7FF]"
-                  }   `}
-                >
-                  <svg
-                    className="min-w-[20px] scr420:block hidden"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                {userDataGlobal?.role !== "bpo" &&
+                  <button
+                    onClick={() => {
+                      router.push("/myCollection?skilotechCollection=true");
+                    }}
+                    className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1  py-2 flex gap-2 ml:justify-start justify-center items-center   min-w-[280px] ${tab === 1 && "bg-[#C2E7FF]"
+                      }   `}
                   >
-                    <g mask="url(#mask0_1148_17425)">
-                      <path
-                        d="M2.49967 17.5003C2.04134 17.5003 1.64898 17.3371 1.32259 17.0107C0.996202 16.6844 0.833008 16.292 0.833008 15.8337V5.00033H2.49967V15.8337H16.6663V17.5003H2.49967ZM5.83301 14.167C5.37467 14.167 4.98231 14.0038 4.65592 13.6774C4.32954 13.351 4.16634 12.9587 4.16634 12.5003V3.33366C4.16634 2.87533 4.32954 2.48296 4.65592 2.15658C4.98231 1.83019 5.37467 1.66699 5.83301 1.66699H9.99967L11.6663 3.33366H17.4997C17.958 3.33366 18.3504 3.49685 18.6768 3.82324C19.0031 4.14963 19.1663 4.54199 19.1663 5.00033V12.5003C19.1663 12.9587 19.0031 13.351 18.6768 13.6774C18.3504 14.0038 17.958 14.167 17.4997 14.167H5.83301ZM5.83301 12.5003H17.4997V5.00033H10.9788L9.31217 3.33366H5.83301V12.5003Z"
-                        fill="#1C1B1F"
-                      />
-                    </g>
-                  </svg>
-                  Request CVs From Skilotech
-                </button>
+                    <svg
+                      className="min-w-[20px] scr420:block hidden"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_1148_17425)">
+                        <path
+                          d="M2.49967 17.5003C2.04134 17.5003 1.64898 17.3371 1.32259 17.0107C0.996202 16.6844 0.833008 16.292 0.833008 15.8337V5.00033H2.49967V15.8337H16.6663V17.5003H2.49967ZM5.83301 14.167C5.37467 14.167 4.98231 14.0038 4.65592 13.6774C4.32954 13.351 4.16634 12.9587 4.16634 12.5003V3.33366C4.16634 2.87533 4.32954 2.48296 4.65592 2.15658C4.98231 1.83019 5.37467 1.66699 5.83301 1.66699H9.99967L11.6663 3.33366H17.4997C17.958 3.33366 18.3504 3.49685 18.6768 3.82324C19.0031 4.14963 19.1663 4.54199 19.1663 5.00033V12.5003C19.1663 12.9587 19.0031 13.351 18.6768 13.6774C18.3504 14.0038 17.958 14.167 17.4997 14.167H5.83301ZM5.83301 12.5003H17.4997V5.00033H10.9788L9.31217 3.33366H5.83301V12.5003Z"
+                          fill="#1C1B1F"
+                        />
+                      </g>
+                    </svg>
+                    Request CVs From Skilotech
+                  </button>
+                }
                 <button
                   onClick={() => {
                     router.push("/myCollection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
-                    tab === 2 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 scr360:px-2 px-1 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     className="scr420:block hidden"
