@@ -14,9 +14,10 @@ import MiniLoader from "../../components/common/mini-loader";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 
-function Sign_up({}) {
+function Sign_up({ }) {
   const router = useRouter();
-  const { byAdmin, isUpdate, role } = router.query;
+  const { byAdmin, isUpdate, role, isParsed } = router.query;
+  console.log(isParsed);
 
   const { profileData } = useSelector((state) => state.profile.profileData);
   const { userDataGlobal } = useSelector((state) => state.user.userData);
@@ -81,7 +82,7 @@ function Sign_up({}) {
   }, [parseData]);
   const openInNewTab = (url) => {
     window.open(url, "_blank");
-};
+  };
 
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
@@ -110,10 +111,12 @@ function Sign_up({}) {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           if (sendToPurchaseResult?.status) {
             localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${
-              sendToPurchaseResult.index + 1
-            }`;
-          } else {
+            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
+              }`;
+          } else if (isParsed) {
+            window.location.href = "/resume";
+          }
+          else {
             setGoogleLoading(false);
             window.location.href = "/?signIn=false";
           }
@@ -395,9 +398,15 @@ function Sign_up({}) {
             //     }`;
             //   setLoading(false);
             // } else {
-            window.location.href = `/?signIn=false`;
-            toast.success("Sign up Successfully");
-            setLoading(false);
+            if (isParsed) {
+              window.location.href = "/auth/resume";
+              setLoading(false);
+            } else {
+              window.location.href = `/?signIn=false`;
+              toast.success("Sign up Successfully");
+              setLoading(false);
+            }
+
             // }
           } else {
             setLoading(false);
@@ -568,15 +577,14 @@ function Sign_up({}) {
           {role === "user"
             ? "Candidate Sign Up "
             : role === "recruiter"
-            ? "Recruiter Sign Up"
-            : "Employer Sign Up"}
+              ? "Recruiter Sign Up"
+              : "Employer Sign Up"}
         </div>
         <div className="flex scr390:flex-row flex-col gap-4 w-full ">
           <div className="scr390:w-[50%] w-full flex flex-col gap-1">
             <div
-              className={`flex flex-col px-[16px] py-[10px] border-[1px]   rounded-[8px] border-solid ${
-                formError.firstName ? "border-red" : "border-[#DEDEDE]"
-              }`}
+              className={`flex flex-col px-[16px] py-[10px] border-[1px]   rounded-[8px] border-solid ${formError.firstName ? "border-red" : "border-[#DEDEDE]"
+                }`}
             >
               <input
                 type="text"
@@ -590,9 +598,8 @@ function Sign_up({}) {
           </div>
           <div className="scr390:w-[50%] w-full flex flex-col gap-1">
             <div
-              className={`flex flex-col px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid ${
-                formError.lastName ? "border-red" : "border-[#DEDEDE]"
-              }`}
+              className={`flex flex-col px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid ${formError.lastName ? "border-red" : "border-[#DEDEDE]"
+                }`}
             >
               <input
                 type="text"
@@ -606,11 +613,10 @@ function Sign_up({}) {
           </div>
         </div>
         <div
-          className={`flex w-full  rounded-[8px] gap-4 border-[1px] border-solid  h-[40px]  ${
-            formError.mobileNo || formError.dial_code
-              ? "border-red"
-              : "border-[#DEDEDE]"
-          }`}
+          className={`flex w-full  rounded-[8px] gap-4 border-[1px] border-solid  h-[40px]  ${formError.mobileNo || formError.dial_code
+            ? "border-red"
+            : "border-[#DEDEDE]"
+            }`}
         >
           <div
             onWheel={(e) => e.stopPropagation()}
@@ -666,9 +672,8 @@ function Sign_up({}) {
             type="text"
             name=""
             // id="single_input"
-            placeholder={`${
-              isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
-            }`}
+            placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "
+              }`}
             value={data.mobileNo}
             onChange={(e) => handleInputChange("mobileNo", e.target.value)}
           />
@@ -677,9 +682,8 @@ function Sign_up({}) {
         <div className="w-full flex flex-col gap-2">
           <div className="flex gap-2  items-center justify-between w-full">
             <input
-              className={`text-[12px] w-full font-[400] px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid  h-[40px] ${
-                formError.email ? "border-red" : "border-[#DEDEDE]"
-              }`}
+              className={`text-[12px] w-full font-[400] px-[16px] py-[10px] border-[1px]  rounded-[8px] border-solid  h-[40px] ${formError.email ? "border-red" : "border-[#DEDEDE]"
+                }`}
               type="email"
               name=""
               placeholder="Enter Email"
@@ -796,9 +800,8 @@ function Sign_up({}) {
 
         <div className={`flex gap-2 w-[100%]  flex-col `}>
           <div
-            className={`flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${
-              formError?.password ? "border-red" : "border-[#DEDEDE]"
-            }`}
+            className={`flex flex-row px-[16px] py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.password ? "border-red" : "border-[#DEDEDE]"
+              }`}
           >
             <input
               type={showPassword ? "Text" : "Password"}
@@ -850,9 +853,8 @@ function Sign_up({}) {
           )}
 
           <div
-            className={`flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${
-              formError?.confirmPassword ? "border-red" : "border-[#DEDEDE]"
-            }`}
+            className={`flex flex-row px-[16px] w-full py-[10px] border-[1px] rounded-[8px] items-center border-solid  justify-between h-[40px] ${formError?.confirmPassword ? "border-red" : "border-[#DEDEDE]"
+              }`}
           >
             <input
               type={showConfirmPassword ? "Text" : "Password"}
@@ -909,9 +911,8 @@ function Sign_up({}) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] flex justify-center  h-[38px] items-center rounded-[30px]  leading-[20.67px] text-[14px] font-[600] bg_Button ${
-              loading && "bg-[#06a9ef]"
-            } `}
+            className={`w-full px-[36px] flex justify-center  h-[38px] items-center rounded-[30px]  leading-[20.67px] text-[14px] font-[600] bg_Button ${loading && "bg-[#06a9ef]"
+              } `}
           >
             {loading ? <MiniLoader /> : "Sign Up"}
           </button>

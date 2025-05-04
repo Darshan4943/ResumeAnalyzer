@@ -52,46 +52,50 @@ function ResumePage() {
   }, [userDataGlobal]);
 
   useEffect(() => {
-    setLoading(true);
-    let url = "";
+    if (id) {
 
-    if (skilotechCollection) {
-      url = "http://localhost:2000/api/resumeEvaluation/" + id;
-    } else if (myCollection) {
-      url = "http://localhost:2000/api/folderEvaluation/" + id;
-    } else if (application) {
-      url = "http://localhost:2000/api/applicationEvaluation/" + id;
-    }
-    axios
-      .get(url)
-      .then((res) => {
 
-        setResumeData(res?.data?.data?.evaluation[0].feedback);
-        setData(res?.data?.data?.enhancedVersion)
-        setIsPayment(res?.data?.data?.paymentStatus)
-        localStorage.setItem("enhancedVersion", JSON.stringify(res?.data?.data?.enhancedVersion));
-        const data = res?.data?.data?.enhancedVersion;
+      setLoading(true);
+      let url = "";
 
-        if (data) {
-          const userPaymentDetails = {
-            firstName: data?.firstName,
-            lastName: data?.lastName,
-            dialCode: data?.dialCode,
-            mobileNo: data?.mobileNumber,
-            email: data?.email,
-          };
+      if (skilotechCollection) {
+        url = "http://localhost:2000/api/resumeEvaluation/" + id;
+      } else if (myCollection) {
+        url = "http://localhost:2000/api/folderEvaluation/" + id;
+      } else if (application) {
+        url = "http://localhost:2000/api/applicationEvaluation/" + id;
+      }
+      axios
+        .get(url)
+        .then((res) => {
 
-          localStorage.setItem("userPaymentDetails", JSON.stringify(userPaymentDetails));
-        }
+          setResumeData(res?.data?.data?.evaluation[0].feedback);
+          setData(res?.data?.data?.enhancedVersion)
+          setIsPayment(res?.data?.data?.paymentStatus)
+          localStorage.setItem("enhancedVersion", JSON.stringify(res?.data?.data?.enhancedVersion));
+          const data = res?.data?.data?.enhancedVersion;
 
-        setTimeout(() => {
+          if (data) {
+            const userPaymentDetails = {
+              firstName: data?.firstName,
+              lastName: data?.lastName,
+              dialCode: data?.dialCode,
+              mobileNo: data?.mobileNumber,
+              email: data?.email,
+            };
+
+            localStorage.setItem("userPaymentDetails", JSON.stringify(userPaymentDetails));
+          }
+
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((err) => {
+          console.log(err);
           setLoading(false);
-        }, 1000);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+        });
+    }
   }, [id]);
 
   useEffect(() => {
@@ -120,34 +124,73 @@ function ResumePage() {
     setIsPopupOpen(false);
   };
 
-  const evaluateResume = useCallback(async () => {
+  // const evaluateResume = useCallback(async () => {
+  //   const parsedResume = localStorage.getItem("parsedResume");
+
+  //   if (!parsedResume || hasFetched.current) return;
+
+  //   hasFetched.current = true;
+
+  //   try {
+  //     setLoading(true);
+  //     const resumeJson = JSON.parse(parsedResume);
+
+  //     const res = await axios.post("http://localhost:2000/api/resume-evaluate", {
+  //       resumeText: resumeJson,
+  //     });
+
+  //     const { atsScore, feedback } = res.data;
+  //     setResumeData(feedback);
+  //     console.log(res.data)
+  //   } catch (err) {
+  //     setError("Evaluation Error: " + err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
+  const evaluateResume = async () => {
     const parsedResume = localStorage.getItem("parsedResume");
-
-    if (!parsedResume || hasFetched.current) return;
-
-    hasFetched.current = true;
-
+    const resumeJson = JSON.parse(parsedResume);
     try {
       setLoading(true);
-      const resumeJson = JSON.parse(parsedResume);
+
 
       const res = await axios.post("http://localhost:2000/api/resume-evaluate", {
-        resumeText: resumeJson,
+        text: resumeJson,
       });
 
-      const { atsScore, feedback } = res.data;
-      setResumeData(feedback);
-      console.log(res.data)
+      setResumeData(res?.data?.data?.evaluation[0]);
+      setData(res?.data?.data?.enhancedVersion)
+
+      localStorage.setItem("enhancedVersion", JSON.stringify(res?.data?.data?.enhancedVersion));
+      const data = res?.data?.data?.enhancedVersion;
+
+      if (data) {
+        const userPaymentDetails = {
+          firstName: data?.firstName,
+          lastName: data?.lastName,
+          dialCode: data?.dialCode,
+          mobileNo: data?.mobileNumber,
+          email: data?.email,
+        };
+
+        localStorage.setItem("userPaymentDetails", JSON.stringify(userPaymentDetails));
+      }
     } catch (err) {
       setError("Evaluation Error: " + err.message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }
+  console.log(data);
 
   useEffect(() => {
-    evaluateResume();
-  }, [evaluateResume]);
+    if (!id) {
+      evaluateResume();
+    }
+
+  }, []);
 
   const sectionRefs = {
     tailoring: useRef(null),
@@ -175,172 +218,172 @@ function ResumePage() {
 
 
 
-  const improveResume = async () => {
-    const parsedResume = localStorage.getItem("parsedResume");
-    if (!parsedResume || !resumeData) return;
+  // const improveResume = async () => {
+  //   const parsedResume = localStorage.getItem("parsedResume");
+  //   if (!parsedResume || !resumeData) return;
 
-    try {
-      setLoading(true);
-      const resumeJson = JSON.parse(parsedResume);
-      const res = await axios.post("http://localhost:2000/api/resume-improve", {
-        resumeText: resumeJson,
-        feedback: resumeData,
-      });
+  //   try {
+  //     setLoading(true);
+  //     const resumeJson = JSON.parse(parsedResume);
+  //     const res = await axios.post("http://localhost:2000/api/resume-improve", {
+  //       resumeText: resumeJson,
+  //       feedback: resumeData,
+  //     });
 
-      const improvedResume = res.data.improvedResume;
+  //     const improvedResume = res.data.improvedResume;
 
-      setImprovedResume(improvedResume);
-      setParsedData(improvedResume);
-      setIsPremium(true);
-      localStorage.setItem("parsedResume", JSON.stringify(improvedResume));
+  //     setImprovedResume(improvedResume);
+  //     setParsedData(improvedResume);
+  //     setIsPremium(true);
+  //     localStorage.setItem("parsedResume", JSON.stringify(improvedResume));
 
-      const {
-        first_name,
-        last_name,
-        email,
-        mobileNo,
-        designation,
-        summary,
-        address,
-        skills,
-        country,
-        languages,
-        hobbies,
-        education,
-        projects,
-        internship,
-        references,
-        achievements,
-        ["social links"]: socialLinks,
-        ["extra-curricular activities"]: extraCaricularActivity,
-        ["work experience"]: workExperience,
-        work_experience,
-        ["certification/courses"]: courses,
-      } = improvedResume;
+  //     const {
+  //       first_name,
+  //       last_name,
+  //       email,
+  //       mobileNo,
+  //       designation,
+  //       summary,
+  //       address,
+  //       skills,
+  //       country,
+  //       languages,
+  //       hobbies,
+  //       education,
+  //       projects,
+  //       internship,
+  //       references,
+  //       achievements,
+  //       ["social links"]: socialLinks,
+  //       ["extra-curricular activities"]: extraCaricularActivity,
+  //       ["work experience"]: workExperience,
+  //       work_experience,
+  //       ["certification/courses"]: courses,
+  //     } = improvedResume;
 
-      const currentYear = new Date().getFullYear();
-      const experience = workExperience || work_experience || [];
+  //     const currentYear = new Date().getFullYear();
+  //     const experience = workExperience || work_experience || [];
 
-      setData({
-        showSkills: true,
-        showAchievements: true,
-        showCourses: true,
-        showExtraCariculam: true,
-        showHobbies: true,
-        showInternship: true,
-        showLanguage: true,
-        showLinks: true,
-        showCustomSection: true,
-        showProject: true,
-        showReference: true,
-        firstName: first_name,
-        lastName: last_name,
-        email: email,
-        dial_code: null,
-        mobileNumber: mobileNo,
-        designation: designation,
-        summery: summary,
-        location: address,
-        country: country,
-        skills: skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) || [],
-        hobbies: hobbies?.map((item) => ({ title: item })) || [],
-        languages: languages?.map((item) => ({ languages: item, rating: [3, 3, 3] })) || [],
-        education: education?.map((item) => ({
-          qualification: item.courseName,
-          specialization: item["Specialization/Board"],
-          instituteName: item["University Name"],
-          type: "full-time",
-          location: "",
-          duration: {
-            start: { year: item["Passing Year"]?.startDate?.year || "Year", month: null },
-            end: { year: item["Passing Year"]?.endDate?.year || "Year", month: null },
-          },
-        })) || [],
-        experience: experience?.map((item) => ({
-          designation: item.title,
-          organization: item.company,
-          description: item.description,
-          currentlyWorking: false,
-          location: item.location,
-          duration: {
-            start: { year: item.start_date?.year || "Year", month: null },
-            end: {
-              year: item.is_current ? currentYear : item.end_date?.year || "Year",
-              month: null,
-            },
-          },
-        })) || [],
-        project: projects?.map((item) => ({
-          title: item.title,
-          organization: item.organization,
-          description: item.description,
-          currentlyWorking: false,
-          duration: {
-            start: { year: item.start_date?.year || "Year", month: null },
-            end: {
-              year: item.is_current ? currentYear : item.end_date?.year || "Year",
-              month: null,
-            },
-          },
-        })) || [],
-        internship: internship?.map((item) => ({
-          title: item.title,
-          organization: item.organization,
-          description: item.description,
-          currentlyWorking: false,
-          duration: {
-            start: { year: item.start_date?.year || "Year", month: null },
-            end: {
-              year: item.is_current ? currentYear : item.end_date?.year || "Year",
-              month: null,
-            },
-          },
-        })) || [],
-        extraCaricularData: extraCaricularActivity?.map((item) => ({
-          title: item.title,
-          organization: item.organization,
-          description: item.description,
-          currentlyWorking: false,
-          duration: {
-            start: { year: item.start_date?.year || "Year", month: null },
-            end: {
-              year: item.is_current ? currentYear : item.end_date?.year || "Year",
-              month: null,
-            },
-          },
-        })) || [],
-        course: courses?.map((item) => ({
-          title: item.title,
-          organization: item.organization,
-          description: item.description,
-          currentlyWorking: true,
-          duration: {
-            start: { year: item.start_date?.year || "Year", month: null },
-            end: {
-              year: item.is_current ? currentYear : item.end_date?.year || "Year",
-              month: null,
-            },
-          },
-        })) || [],
-        socialLinks: socialLinks?.map((item) => ({
-          platform: item.platform,
-          link: item.link,
-        })) || [],
-        reference: references?.map((item) => ({
-          referantName: item.referantName,
-          designation: item.designation,
-          "Organization Name": item["Organization Name"],
-          email: item.name,
-        })) || [],
-        achievements: achievements?.map((item) => ({ title: item.title })) || [],
-      });
+  //     setData({
+  //       showSkills: true,
+  //       showAchievements: true,
+  //       showCourses: true,
+  //       showExtraCariculam: true,
+  //       showHobbies: true,
+  //       showInternship: true,
+  //       showLanguage: true,
+  //       showLinks: true,
+  //       showCustomSection: true,
+  //       showProject: true,
+  //       showReference: true,
+  //       firstName: first_name,
+  //       lastName: last_name,
+  //       email: email,
+  //       dial_code: null,
+  //       mobileNumber: mobileNo,
+  //       designation: designation,
+  //       summery: summary,
+  //       location: address,
+  //       country: country,
+  //       skills: skills?.map((item) => ({ skill: item, rating: [5, 5, 5, 5, 5] })) || [],
+  //       hobbies: hobbies?.map((item) => ({ title: item })) || [],
+  //       languages: languages?.map((item) => ({ languages: item, rating: [3, 3, 3] })) || [],
+  //       education: education?.map((item) => ({
+  //         qualification: item.courseName,
+  //         specialization: item["Specialization/Board"],
+  //         instituteName: item["University Name"],
+  //         type: "full-time",
+  //         location: "",
+  //         duration: {
+  //           start: { year: item["Passing Year"]?.startDate?.year || "Year", month: null },
+  //           end: { year: item["Passing Year"]?.endDate?.year || "Year", month: null },
+  //         },
+  //       })) || [],
+  //       experience: experience?.map((item) => ({
+  //         designation: item.title,
+  //         organization: item.company,
+  //         description: item.description,
+  //         currentlyWorking: false,
+  //         location: item.location,
+  //         duration: {
+  //           start: { year: item.start_date?.year || "Year", month: null },
+  //           end: {
+  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
+  //             month: null,
+  //           },
+  //         },
+  //       })) || [],
+  //       project: projects?.map((item) => ({
+  //         title: item.title,
+  //         organization: item.organization,
+  //         description: item.description,
+  //         currentlyWorking: false,
+  //         duration: {
+  //           start: { year: item.start_date?.year || "Year", month: null },
+  //           end: {
+  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
+  //             month: null,
+  //           },
+  //         },
+  //       })) || [],
+  //       internship: internship?.map((item) => ({
+  //         title: item.title,
+  //         organization: item.organization,
+  //         description: item.description,
+  //         currentlyWorking: false,
+  //         duration: {
+  //           start: { year: item.start_date?.year || "Year", month: null },
+  //           end: {
+  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
+  //             month: null,
+  //           },
+  //         },
+  //       })) || [],
+  //       extraCaricularData: extraCaricularActivity?.map((item) => ({
+  //         title: item.title,
+  //         organization: item.organization,
+  //         description: item.description,
+  //         currentlyWorking: false,
+  //         duration: {
+  //           start: { year: item.start_date?.year || "Year", month: null },
+  //           end: {
+  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
+  //             month: null,
+  //           },
+  //         },
+  //       })) || [],
+  //       course: courses?.map((item) => ({
+  //         title: item.title,
+  //         organization: item.organization,
+  //         description: item.description,
+  //         currentlyWorking: true,
+  //         duration: {
+  //           start: { year: item.start_date?.year || "Year", month: null },
+  //           end: {
+  //             year: item.is_current ? currentYear : item.end_date?.year || "Year",
+  //             month: null,
+  //           },
+  //         },
+  //       })) || [],
+  //       socialLinks: socialLinks?.map((item) => ({
+  //         platform: item.platform,
+  //         link: item.link,
+  //       })) || [],
+  //       reference: references?.map((item) => ({
+  //         referantName: item.referantName,
+  //         designation: item.designation,
+  //         "Organization Name": item["Organization Name"],
+  //         email: item.name,
+  //       })) || [],
+  //       achievements: achievements?.map((item) => ({ title: item.title })) || [],
+  //     });
 
-      setLoading(false);
-    } catch (err) {
-      setError("Improvement Error: " + err.message);
-      setLoading(false);
-    }
-  };
+  //     setLoading(false);
+  //   } catch (err) {
+  //     setError("Improvement Error: " + err.message);
+  //     setLoading(false);
+  //   }
+  // };
 
 
   const tailoringScore = resumeData?.tailoring?.score ?? 0;

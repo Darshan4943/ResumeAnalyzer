@@ -194,7 +194,7 @@ function AiProfileCreation() {
                 JSON.stringify(res.data.data[0])
               );
               setLoading(false);
-              router.push("/auth/Sign_up?role=user");
+              router.push("/auth/Sign_up?role=user&isParsed=true");
             } else {
               setCount(count + 1);
             }
