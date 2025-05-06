@@ -70,7 +70,7 @@ function ContinueWorkingOn({
           data={data}
           dataSeter={dataSeter}
           fromCreate={fromCreate}
-          isRow={true}
+          
         />
       </div>
     </div>

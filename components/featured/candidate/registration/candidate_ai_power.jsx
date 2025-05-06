@@ -76,7 +76,7 @@ const CandidateAiPower = ({
     setAiHitMonthly(aiHitMonthly);
 
     const aiHitMonthlyLimit = JSON.parse(
-      localStorage.getItem("a")
+      localStorage.getItem("aiHitsMonthlyLimit")
     );
     setAiHitMonthlyLimit(aiHitMonthlyLimit);
     const activePlan = JSON.parse(localStorage.getItem("planActive"));
@@ -230,7 +230,7 @@ const CandidateAiPower = ({
 
   const navigate = () => {
 
-    if (!planAvailable && uploadLimit <= 0) {
+    if (!planAvailable || uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
     }
@@ -240,7 +240,7 @@ const CandidateAiPower = ({
 
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://jamblix.com/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -267,11 +267,11 @@ const CandidateAiPower = ({
                       "uploadCount",
                       result.data.used.resumeUploded
                     );
-                    dispatch(updateAiHit(userDataGlobal?._id));
-                    setTimeout(() => {
-                      dispatch(setRecallData(!recallData));
-                      getLimits();
-                    }, 1000);
+                    // dispatch(updateAiHit(userDataGlobal?._id));
+                    // setTimeout(() => {
+                    //   dispatch(setRecallData(!recallData));
+                    //   getLimits();
+                    // }, 1000);
                     setLoading(false);
                     setfile(file);
 

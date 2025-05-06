@@ -18,6 +18,7 @@ const DateSelector = ({
   // const handleSwitchChange = () => {
   //   setIsChecked(!isChecked);
   // };
+  console.log(data);
 
   const handleStartMonthChange = (e) => {
     dataSeter({

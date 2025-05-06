@@ -285,6 +285,7 @@ const Project = ({
                 data={projectData}
                 dataSeter={setProjectData}
                 fromCreate={true}
+                isRow={true}
               />
             </div>
 

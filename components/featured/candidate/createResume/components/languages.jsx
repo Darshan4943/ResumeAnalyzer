@@ -149,7 +149,7 @@ const Languages = ({
                   </g>
                 </svg>
               </div>
-              <div className="flex border md:w-[48%] flex-wrap border-[#DEDEDE] px-2 py-2 rounded-[8px] items-center justify-between">
+              {/* <div className="flex border md:w-[48%] flex-wrap border-[#DEDEDE] px-2 py-2 rounded-[8px] items-center justify-between">
                 {renderStarsLanguages(index)}
                 <p>
                   {languages.rating[2] !== 0
@@ -158,7 +158,7 @@ const Languages = ({
                     ? "Proficient"
                     : "Beginner"}
                 </p>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

@@ -26,7 +26,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
       reader.readAsDataURL(blob);
     });
   };
-  
+
 
   const [profileBase64, setProfileBase64] = useState(null);
 
@@ -83,8 +83,8 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
             width: "100%"
           }}
         >
-          <View style={{ flexDirection: "col", gap: 24, width: "75%" }}>
-            <View style={{ display: "flex", flexDirection: "col", gap: 12, width: "100%", }}>
+          <View style={{ flexDirection: "col", gap: 4, width: "75%" }}>
+            <View style={{ display: "flex", flexDirection: "col", gap: 1, width: "100%", }}>
 
               <Text
                 style={{
@@ -183,7 +183,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
               <View
                 style={{
                   flexDirection: "column",
-                  gap: "16px",
+                  gap: "8px",
                   alignItems: "flex-start",
                 }}
               >
@@ -452,7 +452,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                           <Text
                             style={{
                               color: "#414042",
-                              fontSize: "12px",
+                              fontSize: "11px",
                               marginRight: "6px",
                               fontFamily: `${selectedFont} 400`,
                             }}
@@ -1090,6 +1090,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                           {detail.title}
                         </Text>
                       </View>
+
                       <View
                         style={{
                           flexDirection: "row",
@@ -1097,36 +1098,41 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                           width: "100%",
                         }}
                       >
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: 10,
-                            fontFamily: `${selectedFont} 400`,
-                            lineHeight: 1.5,
-                            width: "100%",
-                          }}
-                        >
-                          {detail.organization}
-                        </Text>
-                        <View style={{}}>
+                        {detail.organization &&
                           <Text
                             style={{
-                              color: "#414142",
+                              color: "#414042",
                               fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               lineHeight: 1.5,
-                              height: 18
+                              width: "100%",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
-                         `}
+                            {detail.organization}
                           </Text>
-                        </View>
+                        }
+                        {detail.duration?.start?.year &&
+                          <View style={{}}>
+                            <Text
+                              style={{
+                                color: "#414142",
+                                fontSize: 10,
+                                fontFamily: `${selectedFont} 400`,
+                                lineHeight: 1.5,
+                                height: 18
+                              }}
+                            >
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
+                         `}
+                            </Text>
+                          </View>
+                        }
                       </View>
+
                       <View >
                         <Text
                           style={{
@@ -1209,6 +1215,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                           >
                             {detail.organization}
                           </Text>
+                          {detail.duration?.start?.year &&
                           <View style={{}}>
                             <Text
                               style={{
@@ -1227,6 +1234,7 @@ function Template1({ data, selectedColor, selectedFont, preview, pageLayout }) {
                          `}
                             </Text>
                           </View>
+}
                         </View>
                         <View style={{ width: "100%" }}>
                           <Text
