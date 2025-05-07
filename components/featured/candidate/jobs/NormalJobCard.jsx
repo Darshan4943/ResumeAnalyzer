@@ -199,25 +199,29 @@ function NormalJobCard({ item }) {
                 {item?.country
                   ?.filter((country) => country.trim() !== "")
                   ?.map((country) => {
-                    const firstWord = country.split(" ")[0]; 
+                    const firstWord = country.split(" ")[0];
                     return (
                       firstWord.charAt(0).toUpperCase() +
                       firstWord.slice(1).toLowerCase()
                     );
                   })
-                  .join(" ,")}
-                  {" "}
-                || {" "}
-                {item?.location
-                  ?.filter((loc) => loc.trim() !== "")
-                  ?.map((loc) => {
-                    const firstWord = loc.split(" ")[0];
-                    return (
-                      firstWord.charAt(0).toUpperCase() +
-                      firstWord.slice(1).toLowerCase()
-                    );
-                  })
-                  .join(" ,")}
+                  .join(" ,")}{" "}
+                ||{" "}
+                {(() => {
+                  const formattedLocations = item?.location
+                    ?.filter((loc) => loc.trim() !== "")
+                    ?.map((loc) => {
+                      const firstWord = loc.split(",")[0].trim(); // Split by comma and trim spaces
+                      return (
+                        firstWord.charAt(0).toUpperCase() +
+                        firstWord.slice(1).toLowerCase()
+                      );
+                    });
+
+                  return formattedLocations?.length > 1
+                    ? formattedLocations.join(", ")
+                    : formattedLocations?.[0] || "";
+                })()}
               </div>
             </div>
           )}

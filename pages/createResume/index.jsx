@@ -332,6 +332,7 @@ function CreateResume() {
       setData(enhancedVersion)
     }
   }, [isEnhanced]);
+  console.log(data)
 
   const resumeData = {
     selectedColor: selectedColor,
@@ -355,7 +356,7 @@ function CreateResume() {
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
     const preResumeData = JSON.parse(localStorage.getItem("preResumeData"));
-    if (parsedData) {
+    if (parsedData && !isEnhanced) {
       const {
         first_name,
         last_name,

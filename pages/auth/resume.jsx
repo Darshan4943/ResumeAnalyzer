@@ -42,7 +42,7 @@ function ResumePage() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const { id, application, skilotechCollection, myCollection } = router.query;
-  const [isPayment, setIsPayment] = useState(false)
+  const [isPayment, setIsPayment] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,8 +53,6 @@ function ResumePage() {
 
   useEffect(() => {
     if (id) {
-
-
       setLoading(true);
       let url = "";
 
@@ -68,11 +66,13 @@ function ResumePage() {
       axios
         .get(url)
         .then((res) => {
-
           setResumeData(res?.data?.data?.evaluation[0].feedback);
-          setData(res?.data?.data?.enhancedVersion)
-          setIsPayment(res?.data?.data?.paymentStatus)
-          localStorage.setItem("enhancedVersion", JSON.stringify(res?.data?.data?.enhancedVersion));
+          setData(res?.data?.data?.enhancedVersion);
+          setIsPayment(res?.data?.data?.paymentStatus);
+          localStorage.setItem(
+            "enhancedVersion",
+            JSON.stringify(res?.data?.data?.enhancedVersion)
+          );
           const data = res?.data?.data?.enhancedVersion;
 
           if (data) {
@@ -84,7 +84,10 @@ function ResumePage() {
               email: data?.email,
             };
 
-            localStorage.setItem("userPaymentDetails", JSON.stringify(userPaymentDetails));
+            localStorage.setItem(
+              "userPaymentDetails",
+              JSON.stringify(userPaymentDetails)
+            );
           }
 
           setTimeout(() => {
@@ -110,10 +113,6 @@ function ResumePage() {
 
     return () => clearInterval(interval);
   }, [loading]);
-
-
-
-
 
   const openPopup = (content) => {
     setPopupContent(content);
@@ -155,15 +154,20 @@ function ResumePage() {
     try {
       setLoading(true);
 
-
-      const res = await axios.post("http://localhost:2000/api/resume-evaluate", {
-        text: resumeJson,
-      });
+      const res = await axios.post(
+        "http://localhost:2000/api/resume-evaluate",
+        {
+          text: resumeJson,
+        }
+      );
 
       setResumeData(res?.data?.data?.evaluation[0]);
-      setData(res?.data?.data?.enhancedVersion)
+      setData(res?.data?.data?.enhancedVersion);
 
-      localStorage.setItem("enhancedVersion", JSON.stringify(res?.data?.data?.enhancedVersion));
+      localStorage.setItem(
+        "enhancedVersion",
+        JSON.stringify(res?.data?.data?.enhancedVersion)
+      );
       const data = res?.data?.data?.enhancedVersion;
 
       if (data) {
@@ -175,21 +179,23 @@ function ResumePage() {
           email: data?.email,
         };
 
-        localStorage.setItem("userPaymentDetails", JSON.stringify(userPaymentDetails));
+        localStorage.setItem(
+          "userPaymentDetails",
+          JSON.stringify(userPaymentDetails)
+        );
       }
     } catch (err) {
       setError("Evaluation Error: " + err.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
   console.log(data);
 
   useEffect(() => {
     if (!id) {
       evaluateResume();
     }
-
   }, []);
 
   const sectionRefs = {
@@ -206,7 +212,8 @@ function ResumePage() {
     const sectionRef = sectionRefs[sectionKey];
     if (sectionRef && sectionRef.current) {
       const offset = 74;
-      const elementTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+      const elementTop =
+        sectionRef.current.getBoundingClientRect().top + window.scrollY;
       const scrollToPosition = elementTop - offset;
 
       window.scrollTo({
@@ -215,8 +222,6 @@ function ResumePage() {
       });
     }
   };
-
-
 
   // const improveResume = async () => {
   //   const parsedResume = localStorage.getItem("parsedResume");
@@ -385,7 +390,6 @@ function ResumePage() {
   //   }
   // };
 
-
   const tailoringScore = resumeData?.tailoring?.score ?? 0;
   const contentScore = resumeData?.content?.score ?? 0;
   const formatScore = resumeData?.format?.score ?? 0;
@@ -394,11 +398,10 @@ function ResumePage() {
 
   const calculatedAtsScore = Math.round(
     (tailoringScore + contentScore + formatScore + sectionsScore + styleScore) /
-    5
+      5
   );
 
   const cardData = [
-
     {
       title: "Tailoring",
       value: `${resumeData?.sections?.tailoring?.score ?? 0}%`,
@@ -447,9 +450,7 @@ function ResumePage() {
       color: "#FF9500",
       sectionKey: "toneAndLanguageFeedback",
     },
-
   ];
-
 
   if (error) return <div className="text-red-600 text-center">{error}</div>;
 
@@ -460,12 +461,18 @@ function ResumePage() {
   const steps = [
     { label: "Parsing your resume", icon: <FileText className="w-5 h-5" /> },
     { label: "Analyzing your experience", icon: <Brain className="w-5 h-5" /> },
-    { label: "Extracting your skills", icon: <BadgeCheck className="w-5 h-5" /> },
-    { label: "Generating recommendations", icon: <Sparkles className="w-5 h-5" /> },
+    {
+      label: "Extracting your skills",
+      icon: <BadgeCheck className="w-5 h-5" />,
+    },
+    {
+      label: "Generating recommendations",
+      icon: <Sparkles className="w-5 h-5" />,
+    },
   ];
   const MyComponent = ({ pageLayout }) => {
     return (
-      <Document dpi={72} >
+      <Document dpi={72}>
         <Template48
           data={data}
           selectedColor={"#F7941D"}
@@ -478,8 +485,8 @@ function ResumePage() {
 
   function formatSectionName(camelCase) {
     return camelCase
-      .replace(/([A-Z])/g, ' $1')      // Add space before capital letters
-      .replace(/^./, str => str.toUpperCase());  // Capitalize the first letter
+      .replace(/([A-Z])/g, " $1") // Add space before capital letters
+      .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
   }
   const feedbackTypes = [
     "tailoring",
@@ -492,10 +499,9 @@ function ResumePage() {
     "toneAndLanguageFeedback",
   ];
 
-
   return (
     <>
-      {(isLogin && userDataGlobal?.role !== "user") &&
+      {isLogin && userDataGlobal?.role !== "user" && (
         <div
           className="bg-white z-[2000] fixed w-full top-0 ml-[-24px]"
           style={{ borderBottom: "1.5px solid #DEDEDE" }}
@@ -508,7 +514,7 @@ function ResumePage() {
             />
           </div>
         </div>
-      }
+      )}
       {loading ? (
         <div className="flex flex-col gap-4 customMargins py-6 justify-between">
           <div className="flex flex-wrap justify-evenly 420px:justify-between scr800:justify-start gap-[24px]">
@@ -550,12 +556,13 @@ function ResumePage() {
                           )}
                         </div>
                         <span
-                          className={`transition-colors duration-300 ${isCompleted
-                            ? "text-green-600 font-medium"
-                            : isActive
+                          className={`transition-colors duration-300 ${
+                            isCompleted
+                              ? "text-green-600 font-medium"
+                              : isActive
                               ? "text-blue-700 font-semibold"
                               : "text-gray-600"
-                            }`}
+                          }`}
                         >
                           {step.label}
                         </span>
@@ -569,10 +576,8 @@ function ResumePage() {
                 })}
               </div>
             </div>
-
           </div>
         </div>
-
       ) : (
         <div>
           <div className="flex flex-col gap-8 customMargins py-6 justify-between">
@@ -581,19 +586,16 @@ function ResumePage() {
                 className={`rounded-[16px] p-[28px] h-[182px] min-w-[262px]  cursor-pointer  flex flex-col gap-3 items-center
                     `}
                 style={{
-                  backgroundImage: "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)"
+                  backgroundImage:
+                    "linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%)",
                 }}
-
-
               >
-
                 <div className="text-[#FFFFFF] text-[30px] font-[500] flex justify-between items-center ">
                   ATS Score
                 </div>
-                <div className="text-[#FFFFFF] text-[36px] font-[600] " >
+                <div className="text-[#FFFFFF] text-[36px] font-[600] ">
                   {resumeData?.atsScore} %
                 </div>
-
               </div>
               <div className="flex gap-x-6 gap-y-[10px] flex-wrap">
                 {cardData.map((card, index) => (
@@ -605,72 +607,98 @@ function ResumePage() {
                         setSelectedSection(card.sectionKey);
                       }
                     }}
-
                     className={`rounded-[16px] p-[10px] h-[86px] w-[190px] flex flex-col bg-white cursor-pointer justify-between
-                   ${selectedSection === card.sectionKey ? "ring-2 ring-[#06A9EF]" : ""}
+                   ${
+                     selectedSection === card.sectionKey
+                       ? "ring-2 ring-[#06A9EF]"
+                       : ""
+                   }
         `}
-
                   >
-
-
                     <div className="text-[#333333] text-[14px] font-[500] flex justify-between items-center w-full leading-tight">
                       <div>{card.title}</div>
                     </div>
-                    <div className="text-[20px]  font-[600] items-start" style={{ color: card.value > "75" ? "#34C759" : card.value > "50" ? "#FF9500" : "#B3261E" }}>
+                    <div
+                      className="text-[20px]  font-[600] items-start"
+                      style={{
+                        color:
+                          card.value > "75"
+                            ? "#34C759"
+                            : card.value > "50"
+                            ? "#FF9500"
+                            : "#B3261E",
+                      }}
+                    >
                       {card.value}
                     </div>
-
-
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center relative">
-              <div className="w-full md:w-1/2 flex flex-col gap-4 sticky top-[84px]  ">
-                {isPayment &&
+            <div className="flex gap-6 w-full md:flex-row flex-col md:justify-start justify-center md:items-start items-center relative ">
+              <div className="w-full md:w-1/2 flex flex-col gap-4 sticky top-[84px]   ">
+                {isPayment && (
                   <div className="flex w-full justify-end">
-                    <button onClick={() => router.push(`/createResume?isEnhanced=${true}`)} className="h-[36px] px-3 rounded-[30px] bg_Button w-[80px]">
+                    <button
+                      onClick={() =>
+                        router.push(`/createResume?isEnhanced=${true}`)
+                      }
+                      className="h-[36px] px-3 rounded-[30px] bg_Button w-[80px]"
+                    >
                       Edit
                     </button>
                   </div>
-                }
+                )}
                 <div className={` ${!isPayment && "blur-sm"} sticky `}>
-
-                  <div className="w-[100%]  rounded overflow-hidden  " style={{ boxShadow: "0px 4px 10px 3px #00000040", }}>
-                    <PDFViewer
-                      width="575px"
-                      height="788px"
-                      showToolbar={false}
-
-                    >
+                  <div
+                    className="w-[100%]  rounded overflow-hidden  "
+                    style={{ boxShadow: "0px 4px 10px 3px #00000040" }}
+                  >
+                    <PDFViewer width="575px" height="788px" showToolbar={false}>
                       <MyComponent pageLayout={true} />
                     </PDFViewer>
                   </div>
-                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[776px] mt-1 w-[552px] top-0"></div>
+                  <div className="outline outline-[8px] ml-1 outline-[#fff] absolute h-[776px] mt-1 w-[552px] top-0 "></div>
                 </div>
-                {!isPayment &&
-                  <div onClick={() => {
-                    const query = new URLSearchParams({ id });
+                {!isPayment && (
+                  <div
+                    onClick={() => {
+                      const query = new URLSearchParams({ id });
 
-                    if (skilotechCollection) query.append('skilotechCollection', skilotechCollection);
-                    if (application) query.append('application', application);
-                    if (myCollection) query.append('myCollection', myCollection);
+                      if (skilotechCollection)
+                        query.append(
+                          "skilotechCollection",
+                          skilotechCollection
+                        );
+                      if (application) query.append("application", application);
+                      if (myCollection)
+                        query.append("myCollection", myCollection);
 
-                    router.push(`/payment?${query.toString()}`);
-                  }}
-
-                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center">
-                    <svg width="31" height="40" viewBox="0 0 31 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4.65341 39.2358C3.62939 39.2358 2.75276 38.8712 2.02353 38.142C1.2943 37.4127 0.929688 36.5361 0.929688 35.5121V16.8935C0.929688 15.8695 1.2943 14.9928 2.02353 14.2636C2.75276 13.5344 3.62939 13.1698 4.65341 13.1698H6.51527V9.44603C6.51527 6.87045 7.42293 4.67501 9.23825 2.85969C11.0536 1.04438 13.249 0.136719 15.8246 0.136719C18.4002 0.136719 20.5956 1.04438 22.4109 2.85969C24.2262 4.67501 25.1339 6.87045 25.1339 9.44603V13.1698H26.9958C28.0198 13.1698 28.8964 13.5344 29.6256 14.2636C30.3549 14.9928 30.7195 15.8695 30.7195 16.8935V35.5121C30.7195 36.5361 30.3549 37.4127 29.6256 38.142C28.8964 38.8712 28.0198 39.2358 26.9958 39.2358H4.65341ZM15.8246 29.9265C16.8486 29.9265 17.7252 29.5619 18.4545 28.8327C19.1837 28.1034 19.5483 27.2268 19.5483 26.2028C19.5483 25.1788 19.1837 24.3021 18.4545 23.5729C17.7252 22.8437 16.8486 22.4791 15.8246 22.4791C14.8006 22.4791 13.9239 22.8437 13.1947 23.5729C12.4655 24.3021 12.1009 25.1788 12.1009 26.2028C12.1009 27.2268 12.4655 28.1034 13.1947 28.8327C13.9239 29.5619 14.8006 29.9265 15.8246 29.9265ZM10.239 13.1698H21.4102V9.44603C21.4102 7.89448 20.8671 6.57566 19.781 5.48957C18.695 4.40349 17.3761 3.86044 15.8246 3.86044C14.273 3.86044 12.9542 4.40349 11.8681 5.48957C10.782 6.57566 10.239 7.89448 10.239 9.44603V13.1698Z" fill="#07709E" />
+                      router.push(`/payment?${query.toString()}`);
+                    }}
+                    className=" cursor-pointer absolute inset-0 flex flex-col gap-4 items-center justify-center"
+                  >
+                    <svg
+                      width="31"
+                      height="40"
+                      viewBox="0 0 31 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.65341 39.2358C3.62939 39.2358 2.75276 38.8712 2.02353 38.142C1.2943 37.4127 0.929688 36.5361 0.929688 35.5121V16.8935C0.929688 15.8695 1.2943 14.9928 2.02353 14.2636C2.75276 13.5344 3.62939 13.1698 4.65341 13.1698H6.51527V9.44603C6.51527 6.87045 7.42293 4.67501 9.23825 2.85969C11.0536 1.04438 13.249 0.136719 15.8246 0.136719C18.4002 0.136719 20.5956 1.04438 22.4109 2.85969C24.2262 4.67501 25.1339 6.87045 25.1339 9.44603V13.1698H26.9958C28.0198 13.1698 28.8964 13.5344 29.6256 14.2636C30.3549 14.9928 30.7195 15.8695 30.7195 16.8935V35.5121C30.7195 36.5361 30.3549 37.4127 29.6256 38.142C28.8964 38.8712 28.0198 39.2358 26.9958 39.2358H4.65341ZM15.8246 29.9265C16.8486 29.9265 17.7252 29.5619 18.4545 28.8327C19.1837 28.1034 19.5483 27.2268 19.5483 26.2028C19.5483 25.1788 19.1837 24.3021 18.4545 23.5729C17.7252 22.8437 16.8486 22.4791 15.8246 22.4791C14.8006 22.4791 13.9239 22.8437 13.1947 23.5729C12.4655 24.3021 12.1009 25.1788 12.1009 26.2028C12.1009 27.2268 12.4655 28.1034 13.1947 28.8327C13.9239 29.5619 14.8006 29.9265 15.8246 29.9265ZM10.239 13.1698H21.4102V9.44603C21.4102 7.89448 20.8671 6.57566 19.781 5.48957C18.695 4.40349 17.3761 3.86044 15.8246 3.86044C14.273 3.86044 12.9542 4.40349 11.8681 5.48957C10.782 6.57566 10.239 7.89448 10.239 9.44603V13.1698Z"
+                        fill="#07709E"
+                      />
                     </svg>
-                    <p className="text-[14px] font-semibold">Enhance CV with Skilotech</p>
+                    <p className="text-[14px] font-semibold">
+                      Enhance CV with Skilotech
+                    </p>
                   </div>
-                }
-
+                )}
               </div>
 
-              <div className="w-full md:w-1/2 flex flex-col gap-4">
+              <div className="w-full md:w-1/2 flex flex-col gap-4 ">
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                   {feedbackTypes.map((feedbackKey) => {
                     const sectionValue = resumeData?.sections?.[feedbackKey];
@@ -685,7 +713,9 @@ function ResumePage() {
                         >
                           <div className="flex items-center justify-between gap-4">
                             <div className="flex items-center gap-1">
-                              <span className="text-[#06A9EF] text-sm font-medium">|</span>
+                              <span className="text-[#06A9EF] text-sm font-medium">
+                                |
+                              </span>
                               <h2 className="text-[#1D2939] text-lg font-bold capitalize">
                                 {formatSectionName(feedbackKey)}
                               </h2>
@@ -702,7 +732,9 @@ function ResumePage() {
                           {/* Issues */}
                           {sectionValue.issues?.length > 0 && (
                             <div className="mb-2 bg-[#E9F6FF] rounded-[6px] py-2 px-3">
-                              <p className="text-[#1D2939] font-semibold text-[15px] mb-1">Issues:</p>
+                              <p className="text-[#1D2939] font-semibold text-[15px] mb-1">
+                                Issues:
+                              </p>
                               <ul className="list-disc list-inside text-sm text-[#475467] pl-4">
                                 {sectionValue.issues.map((issue, index) => (
                                   <li key={index}>{issue}</li>
@@ -714,11 +746,15 @@ function ResumePage() {
                           {/* Suggestions */}
                           {sectionValue.suggestions?.length > 0 && (
                             <div className="bg-[#E9F6FF] py-2 px-3 rounded-[6px]">
-                              <p className="text-[#1D2939] font-semibold text-[15px] mb-1">Suggestions:</p>
+                              <p className="text-[#1D2939] font-semibold text-[15px] mb-1">
+                                Suggestions:
+                              </p>
                               <ul className="list-disc list-inside text-sm text-[#475467] pl-4">
-                                {sectionValue.suggestions.map((suggestion, index) => (
-                                  <li key={index}>{suggestion}</li>
-                                ))}
+                                {sectionValue.suggestions.map(
+                                  (suggestion, index) => (
+                                    <li key={index}>{suggestion}</li>
+                                  )
+                                )}
                               </ul>
                             </div>
                           )}
@@ -728,12 +764,8 @@ function ResumePage() {
                   })}
                 </div>
               </div>
-
-
-
             </div>
           </div>
-
 
           {isPopupOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
